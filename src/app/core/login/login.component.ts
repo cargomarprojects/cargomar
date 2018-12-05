@@ -21,6 +21,7 @@ export class LoginComponent {
         
   software_version_string: string = '1.241';
   
+  
   server_software_version_string: string = '';
 
   showloginbutton: boolean = true;
