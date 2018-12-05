@@ -1,0 +1,425 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="gs.globalData.cost_drcr_fromdate" (ValueChanged)="gs.globalData.cost_drcr_fromdate=$event"></app-date>
+      </div>
+      <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="gs.globalData.cost_air_todate" (ValueChanged)="gs.globalData.cost_air_todate=$event"></app-date>
+      </div>
+      <label class="col-1">Search</label>
+      <div class="col-4">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col-1">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>REF#</th>
+          <th>DATE</th>
+          <th>TYPE</th>
+          <th>AGENT</th>
+          <th>CATEGORY</th>
+          <th>FOLDER</th>
+          <th>DRCR</th>
+          <th>CURR</th>
+          <th align='right'>EX-RATE</th>
+          <th align='right'>AMT</th>
+          <th>HO-NAME</th>
+          <th>HO-VRNO</th>
+          <th>BR-VRNO</th>
+          <th>POSTED</th>
+          <th>SENT-ON</th>
+          <th>CHECKED-ON</th>
+          <th>SENT</th>
+          <th *ngIf="bAdmin">CHKD</th>
+          <th *ngIf="bAdmin">RLSD</th>
+          <th *ngIf="bAdmin">DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex">
+          <td class="pointer" style="color:red" (click)="ActionHandler('EDIT',rec.cost_pkid, i)">{{rec.cost_refno}}</td>
+          <td>{{rec.cost_date}}</td>
+          <td>{{rec.cost_type}}</td>
+          <td>{{rec.cost_agent_name}}</td>
+          <td>{{rec.cost_category}}</td>
+          <td>{{rec.cost_folderno}}</td>
+          <td>{{rec.cost_drcr}}</td>
+          <td>{{rec.cost_currency_code}}</td>
+          <td align='right'>{{rec.cost_exrate | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_drcr_amount | number : '1.2-2'}}</td>
+          <td>{{rec.cost_jv_agent_name}}</td>
+          <td>{{rec.cost_jv_ho_vrno}}</td>
+          <td>{{rec.cost_jv_br_vrno}}</td>
+          <td>{{rec.cost_jv_posted ? 'Y' : 'N'}}</td>
+          <td>{{rec.cost_sent_on}}</td>
+          <td>{{rec.cost_checked_on}}</td>
+          <td><i class="fa fa-paper-plane  fa-lg pointer" aria-hidden="true" (click)="ShowCostSent(costsent,rec.cost_pkid,rec.cost_refno)"></i></td>
+          <td *ngIf="bAdmin"><i class="fa fa-check  fa-lg pointer" aria-hidden="true" (click)="ShowCostSent(costchecked,rec.cost_pkid,rec.cost_refno)"></i></td>
+          <td *ngIf="bAdmin"><i class="fa fa-unlock-alt  fa-lg pointer" aria-hidden="true" (click)="ReleaseCosting(rec.cost_pkid,rec.cost_refno)"></i></td>
+          <td *ngIf="bAdmin">
+            <App-Dialog [id]="{msg:'DELETE COSTING Y/N', buttons:'yn', selected :false,id:rec.cost_pkid,name:rec.cost_refno}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <ngb-tabset>
+    <ngb-tab title="Basic Details">
+      <ng-template ngbTabContent>
+
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Ref#</label>
+                <div class="col-10">
+                  <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.cost_refno" [disabled]="true" required maxlength="50" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Type</label>
+                <div class="col-4">
+                  <select [disabled]="mode=='EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.cost_type">
+                    <option [value]="'SEA'">SEA</option>
+                    <option [value]="'AIR'">AIR</option>
+                  </select>
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                <div class="col-sm-4">
+                  <app-date [disabled]="lock_date" [inputdate]="Record.cost_date" (ValueChanged)="Record.cost_date=$event"></app-date>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Category</label>
+                <div class="col-10">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cost_category">
+                    <option [value]="'AIR EXPORT MAWBNO'">AIR EXPORT MAWBNO</option>
+                    <option [value]="'AIR IMPORT MAWBNO'">AIR IMPORT MAWBNO</option>
+                    <option [value]="'SEA EXPORT FOLDER NO'">SEA EXPORT FOLDER NO</option>
+                    <option [value]="'SEA IMPORT FOLDER NO'">SEA IMPORT FOLDER NO</option>
+                    <option [value]="'VESSEL BROKING'">VESSEL BROKING</option>
+                    <option [value]="'OTHERS'">OTHERS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">NO</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cost_folderno" (blur)="OnBlur('cost_folderno')" required maxlength="60" />
+                </div>
+                <div class="col-2">
+                  <button (click)="SearchRecord('cost_folderno')" class="btn btn-primary btn-sm">Find</button>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                <div class="col-sm-10">
+                  <app-autocomplete #LinerLov [disabled]="Record.cost_category !='OTHERS'" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                <div class="col-10">
+                  <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_agent_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.cost_agent_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                </div>
+              </div>
+        
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">CNTR/MAWB</label>
+                <div class="col-10">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_book_cntr" (blur)="OnBlur('cost_book_cntr')" required maxlength="250" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Currency</label>
+                <div class="col-4">
+                  <app-autocomplete #CsdCurr [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <label class="col-2 col-form-label  col-form-label-sm">Ex.Rate</label>
+                <div class="col-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cost_exrate" (blur)="OnBlur('cost_exrate')" required maxlength="10" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">DN/CN</label>
+                <div class="col-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cost_drcr">
+                    <option [value]="'DR'">DR NOTE</option>
+                    <option [value]="'CR'">CR NOTE</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                <div class="col-sm-10">
+                  <app-autocomplete #LinerLov [inputdata]="JVAGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                <div class="col-10">
+                  <app-autocomplete #AgentAddLov [inputdata]="JVAGENTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_jv_agent_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.cost_jv_agent_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+                <div class="col-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cost_remarks" (blur)="OnBlur('cost_remarks')" required maxlength="300" />
+                </div>
+              </div>
+              <!--<div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail1</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[0].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[0].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[0].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[0].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail2</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[1].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[1].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[1].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[1].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail3</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[2].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[2].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[2].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[2].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail4</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[3].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[3].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[3].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[3].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail5</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[4].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[4].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[4].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[4].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail6</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[5].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[5].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[5].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[5].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Detail7</label>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="RecordDetList[6].costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',RecordDetList[6].costd_pkid)" required maxlength="60" />
+                </div>
+                <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="RecordDetList[6].costd_acc_amt" (blur)="OnBlurTableCell('costd_acc_amt',RecordDetList[6].costd_pkid)" required maxlength="14" />
+                </div>
+              </div>-->
+              <!--<div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-4">
+                </div>
+                <label class="col-4 col-form-label  col-form-label-sm">Total Amount</label>
+                <div class="col-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_drcr_amount" required maxlength="14" />
+                </div>
+              </div>-->
+            </div>
+            <div class="col-sm-2">
+            
+            </div>
+          </div>
+        </div>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <app-costinvoice [type]="'DRCR ISSUE'" [mRecord]="Record"></app-costinvoice>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <div class="offset-2 col-10">
+                  <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print Dr/Cr</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="GenerateXml()" class="btn btn-success btn-sm">Generate Xml</button>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </ng-template>
+    </ngb-tab>
+    <!--<ngb-tab title="Others">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+
+        </div>
+      </ng-template>
+    </ngb-tab>-->
+
+    <ngb-tab title="Posting">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <app-posting [pkid]="pkid" *ngIf="mode=='EDIT'"></app-posting>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+
+  </ngb-tabset>
+
+  <div>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+  </div>
+
+</div>
+<br />
+
+<App-Wait [visible]="loading"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+<ng-template #costsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Costing Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-costupdate [pkid]="pkid" [refno]="refno" [type]="'SENT-ON'" (ModifiedRecords)="ModifiedRecords($event)"></app-costupdate>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+<ng-template #costchecked let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Costing Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-costupdate [pkid]="pkid" [refno]="refno" [type]="'CHECKED-ON'" (ModifiedRecords)="ModifiedRecords($event)"></app-costupdate>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+ 

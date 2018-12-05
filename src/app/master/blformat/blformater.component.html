@@ -1,0 +1,169 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>TYPE</th>
+          <th>NAME</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.blf_pkid)">
+          <td>{{rec.blf_type}}</td>
+          <td>{{rec.blf_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="page-box">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm" (click)="focus()">Type</label>
+          <div class="col-4">
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_type" (blur)="OnBlur('blf_type')" required maxlength="8" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Name</label>
+          <div class="col-9">
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_name" (blur)="OnBlur('blf_name')" required maxlength="250" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-6">
+
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>HAEDING</th>
+                <th>X(LEFT-MARGIN)</th>
+                <th>Y(TOP-MARGIN)</th>
+                <th>LEFT</th>
+                <th>RIGHT</th>
+                <th>UP</th>
+                <th>DOWN</th>
+                <th>VISIBLE</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordListDet">
+              <tr>
+                <td>
+                  {{rec.blf_col_name}}
+
+                </td>
+                <td>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_x" (blur)="OnBlur('blf_col_x', rec)" />
+                </td>
+
+                <td>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_y" (blur)="OnBlur('blf_col_y', rec)" />
+                </td>
+
+                <td>
+                  <button class="btn btn-default btn-sm" (click)="changepos('left',rec)">LEFT</button>
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" (click)="changepos('right',rec)">RIGHT</button>
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" (click)="changepos('up',rec)">UP</button>
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" (click)="changepos('down',rec)">DOWN</button>
+                </td>
+                <td>
+                  {{rec.blf_col_enabled}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      </div>
+
+
+    </div>
+  <div class="page-box">
+    <div class="col-sm-6">
+
+      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+</div>
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

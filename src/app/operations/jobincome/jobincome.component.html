@@ -1,0 +1,233 @@
+
+
+
+<div class="page-list">
+
+  <div class="page-search">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+
+        <div class="form-group row">
+
+          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="income_type">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'CLEARING INCOME'">CLEARING INCOME</option>
+              <option [value]="'FREIGHT MEMO'">FREIGHT MEMO</option>
+              <option [value]="'LOCAL CHARGES'">LOCAL CHARGES</option>
+              <option [value]="'EX-WORK'">EX-WORK</option>
+            </select>
+          </div>
+          <div class="col-sm-1">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Find</button>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">CBM:{{ncbm}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">GRWT:{{ngrwt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">NTWT-{{nntwt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">CHWT-{{nchwt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">COLLECT-{{cc_amt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">PREPAID-{{pp_amt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">TOTAL-{{total_amt}}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="col-sm-12 col-form-label  col-form-label-sm">REBATE-{{rebate_amt}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>CATEGORY</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>CNTR</th>
+          <th>TYPE</th>
+          <th>CURR</th>
+          <th>QTY</th>
+          <th>RATE</th>
+          <th>TOTAL</th>
+          <th>EXRATE</th>
+          <th>TOTAL</th>
+          <th>POSTED</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr (click)="ActionHandler('EDIT',rec.inv_pkid)">
+          <td>{{i+1}}</td>
+          <td>{{rec.inv_source}}</td>
+          <td>{{rec.inv_acc_code}}</td>
+          <td>{{rec.inv_acc_name}}</td>
+          <td>{{rec.inv_cntr_type}}</td>
+          <td>{{rec.inv_type}}</td>
+          <td>{{rec.inv_curr_code}}</td>
+          <td>{{rec.inv_qty}}</td>
+          <td>{{rec.inv_rate}}</td>
+          <td>{{rec.inv_ftotal}}</td>
+          <td>{{rec.inv_exrate}}</td>
+          <td>{{rec.inv_total}}</td>
+          <td>{{(rec.inv_posted) ? 'Y' : 'N'}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.inv_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="page-details">
+
+  <div class="page-box">
+
+    <div class="row">
+
+      <div class="col-sm-10">
+
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm" style="padding-right:0">Category</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.inv_source" [disabled]="mode == 'EDIT'" (change)="OnChange('inv_source')">
+              <option [value]="'CLEARING INCOME'">CLEARING INCOME</option>
+              <option [value]="'FREIGHT MEMO'">FREIGHT MEMO</option>
+              <option [value]="'LOCAL CHARGES'">LOCAL CHARGES</option>
+              <option [value]="'EX-WORK'">EX-WORK</option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Code</label>
+          <div class="col-2">
+            <app-autocomplete #AcLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <label class="col-1 col-form-label col-form-label-sm">Name</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.inv_acc_name" (blur)="OnBlur('inv_acc_name')" required maxlength="60" />
+          </div>
+        </div>
+
+
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-2">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.inv_type">
+              <option *ngIf="subtype=='INCOME'" value="PREPAID">PREPAID</option>
+              <option value="COLLECT">COLLECT</option>
+            </select>
+          </div>
+
+          <label class="col-1 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-2">
+            <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+
+          <label class="col-1 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_exrate" (focus)="OnFocus('inv_exrate')" (change)="OnChange('inv_exrate')" (blur)="OnBlur('inv_exrate')" required maxlength="10" />
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label  col-form-label-sm">Qty</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_qty" (focus)="OnFocus('inv_qty')" (change)="OnChange('inv_qty')" (blur)="OnBlur('inv_qty')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Rate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_rate" (focus)="OnFocus('inv_rate')" (change)="OnChange('inv_rate')" (blur)="OnBlur('inv_rate')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Amount</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_ftotal" (focus)="OnFocus('inv_ftotal')" (change)="OnChange('inv_ftotal')" (blur)="OnBlur('inv_ftotal')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Total</label>
+          <div class="col-2">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.inv_total" (focus)="OnFocus('inv_total')" (change)="OnChange('inv_total')" (blur)="OnBlur('inv_total')" required maxlength="20" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Cntr.Type</label>
+          <div class="col-2">
+            <app-autocomplete #CsdLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Rebate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_rebate_amt" (focus)="OnFocus('inv_rebate_amt')" (blur)="OnBlur('inv_rebate_amt')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-2">
+            <app-autocomplete #CsdLov [inputdata]="REBTCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+
+          <label class="col-1 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.inv_rebate_exrate" (blur)="OnBlur('inv_rebate_exrate')" required maxlength="10" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label  col-form-label-sm">Remarks</label>
+          <div class="col-11">
+            <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.inv_remarks" (blur)="OnBlur('inv_remarks')" maxlength="300"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="col">
+      <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+      <button [disabled]="loading" (click)="PrintFrightMemo(Record.inv_pkid,'EXCEL')" class="btn btn-default btn-sm">PRINT</button>
+      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm">Load Quotation</button>
+    </div>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<App-LoadQtn [visible]="bShowQtnList" [hblid]="parentid" [type]="Record.inv_source" (CloseClicked)="QtnClosed($event)"></App-LoadQtn>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,55 @@
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th>SALESMAN</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.det_pkid,i)">
+          <td>{{rec.det_branch_name}}</td>
+          <td>{{rec.det_sman_name}}</td>
+          <!--<td (click)="ActionHandler('REMOVE', rec.pack_pkid)" class="fa fa-trash" aria-hidden="true"></td>-->
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.det_pkid}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label style="padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-sm-4">
+          <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-sm-2 col-form-label  col-form-label-sm">Salesman</label>
+        <div class="col-sm-4">
+          <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

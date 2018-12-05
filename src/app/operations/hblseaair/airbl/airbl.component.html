@@ -1,0 +1,1194 @@
+
+<div class="page-header">
+  <div class="col-sm-12">
+    <label>{{title}}</label>
+    <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')" class="btn btn-success btn-sm">Unlock</button>
+    <button *ngIf="user_admin && invokefrom=='HAWB'" [disabled]="loading" (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
+    <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
+        <div class="col-8">
+          <app-autocomplete #ShipperLov [inputdata]="SHPRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_name" (blur)="OnBlur('bl_shipper_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-8">
+          <app-autocomplete #ShipperAddLov [inputdata]="SHPRADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Address</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_add1" (blur)="OnBlur('bl_shipper_add1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_add2" (blur)="OnBlur('bl_shipper_add2')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_add3" (blur)="OnBlur('bl_shipper_add3')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_add4" (blur)="OnBlur('bl_shipper_add4')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
+        <div class="col-8">
+          <app-autocomplete #CngeLov [inputdata]="CNGERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_name" (blur)="OnBlur('bl_consignee_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-8">
+          <app-autocomplete #CngeAddLov [inputdata]="CNGEADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Address</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_add1" (blur)="OnBlur('bl_consignee_add1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_add2" (blur)="OnBlur('bl_consignee_add2')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_add3" (blur)="OnBlur('bl_consignee_add3')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_add4" (blur)="OnBlur('bl_consignee_add4')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Issuing Agent</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issu_agnt_name" (blur)="OnBlur('bl_issu_agnt_name')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issu_agnt_city" (blur)="OnBlur('bl_issu_agnt_city')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">IATA Code</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_iata_code" (blur)="OnBlur('bl_iata_code')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">IATA Carrier</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_iata_carrier" (blur)="OnBlur('bl_iata_carrier')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Account No</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_acc_no" (blur)="OnBlur('bl_acc_no')" required maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Departure Port</label>
+        <div style="padding-right:0" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pol_code" disabled required maxlength="10" />
+        </div>
+        <div style="padding-left:1px" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pol" (blur)="OnBlur('bl_pol')" required maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">To</label>
+        <div style="padding-right:0" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_to1" (blur)="OnBlur('bl_to1')" required maxlength="3" />
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">By</label>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by1" (blur)="OnBlur('bl_by1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">To</label>
+        <div style="padding-right:0" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_to2" (blur)="OnBlur('bl_to2')" required maxlength="3" />
+        </div>
+        <div class="col-6">
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">By</label>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by2" (blur)="OnBlur('bl_by2')" required maxlength="3" />
+            </div>
+            <label style="padding-right:0;padding-left:0" class="col-1 col-form-label col-form-label-sm">To</label>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_to3" (blur)="OnBlur('bl_to3')" required maxlength="3" />
+            </div>
+            <label style="padding-right:0;padding-left:0" class="col-1 col-form-label col-form-label-sm">By</label>
+            <div style="padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by3" (blur)="OnBlur('bl_by3')" required maxlength="3" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Destination Port</label>
+        <div style="padding-right:0" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pod_code" disabled required maxlength="10" />
+        </div>
+        <div style="padding-left:1px" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pod" (blur)="OnBlur('bl_pod')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Flight</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_flight1" (blur)="OnBlur('bl_flight1')" required maxlength="15" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Flight2</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_flight2" (blur)="OnBlur('bl_flight2')" required maxlength="15" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div *ngIf="invokefrom=='HAWB'" class="page-box">
+        <div class="form-group row">
+
+          <label class="col-4 col-form-label col-form-label-sm">HAWB No.</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no" (blur)="OnBlur('hbl_bl_no')" [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y' "  required maxlength="30" />
+          </div>
+          <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
+          <div class="col-3">
+            <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">HAWB Sequence Format</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id" [disabled]="Record.hbl_blno_generated == 'G' ||  Record.bl_original_print == 'Y'">
+              <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button [disabled]="loading || (Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || mode=='ADD') || Record.bl_original_print == 'Y' " (click)="GenerateBLNo('AIRBL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No And Save</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Print Format</label>
+        <div class="col-sm-8">
+          <select class="form-control form-control-sm"  [(ngModel)]="Record.bl_print_format_id" (change)="OnChange('bl_print_format_id')">
+            <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Issued By</label>
+        <div class="col-8">
+          <input type="text" [disabled]="Record.bl_print_format_name == 'BANSARD'" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by1" (blur)="OnBlur('bl_issued_by1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" [disabled]="Record.bl_print_format_name == 'BANSARD'" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by2" (blur)="OnBlur('bl_issued_by2')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" [disabled]="Record.bl_print_format_name == 'BANSARD'" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by3" (blur)="OnBlur('bl_issued_by3')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by4" (blur)="OnBlur('bl_issued_by4')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by5" (blur)="OnBlur('bl_issued_by5')" required maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Notify</label>
+        <div class="col-8">
+          <app-autocomplete #NfyLov [inputdata]="NFYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_name" (blur)="OnBlur('bl_notify_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-8">
+          <app-autocomplete #NfyAddLov [inputdata]="NFYADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Address</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_add1" (blur)="OnBlur('bl_notify_add1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_add2" (blur)="OnBlur('bl_notify_add2')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_add3" (blur)="OnBlur('bl_notify_add3')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_add4" (blur)="OnBlur('bl_notify_add4')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm"> Notify City Code</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_city_code" (blur)="OnBlur('bl_notify_city_code')" required maxlength="10" />
+        </div>
+        <label style="padding-left:0" class="col-2 col-form-label col-form-label-sm">Country</label>
+        <div style="padding-left:1px" class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_country_code" (blur)="OnBlur('bl_notify_country_code')" required maxlength="60" />
+        </div>
+      </div>
+
+   
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Accounting Information</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_account_info1" (blur)="OnBlur('bl_account_info1')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_account_info2" (blur)="OnBlur('bl_account_info2')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_account_info3" (blur)="OnBlur('bl_account_info3')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_account_info4" (blur)="OnBlur('bl_account_info4')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Currency</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_currency" (blur)="OnBlur('bl_currency')" required maxlength="3" />
+        </div>
+        <label style="padding-left:0" class="col-3 col-form-label col-form-label-sm">Value For Carriage</label>
+        <div style="padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_carriage_value" (blur)="OnBlur('bl_carriage_value')" required maxlength="3" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Freight/PC</label>
+        <div style="padding-right:0" class="col-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_status" (blur)="OnBlur('bl_frt_status')" required maxlength="1" />
+        </div>
+        <label class="col-2 col-form-label col-form-label-sm">Ex-Work</label>
+        <label style="padding-left:0" class="col-3 col-form-label col-form-label-sm">Value For Customs</label>
+        <div style="padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_customs_value" (blur)="OnBlur('bl_customs_value')" required maxlength="3" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Others/PC</label>
+        <div style="padding-right:0" class="col-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_oc_status" (blur)="OnBlur('bl_oc_status')" required maxlength="1" />
+        </div>
+        <div class="col-2">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_ex_works" (blur)="OnBlur('bl_ex_works')">
+            <option [value]="''">NA</option>
+            <option [value]="'Y'">YES</option>
+            <option [value]="'N'">NO</option>
+          </select>
+        </div>
+
+        <label style="padding-left:0" class="col-3 col-form-label col-form-label-sm">Insurance Amount</label>
+        <div style="padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_ins_amt" (blur)="OnBlur('bl_ins_amt')" required maxlength="30" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Commodity</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_commodity" (blur)="OnBlur('bl_commodity')" required maxlength="50" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Handling Information</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_hand_info1" (blur)="OnBlur('bl_hand_info1')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-2 col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_hand_info2" (blur)="OnBlur('bl_hand_info2')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-2 col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_hand_info3" (blur)="OnBlur('bl_hand_info3')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-2 col-5">
+          <div class="form-group row">
+            <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">PCS</label>
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">GR.WT</label>
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">KG</label>
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">CLASS</label>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="form-group row">
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">COMM</label>
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">CH.WT</label>
+            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">RATE</label>
+            <label style="padding-left:1px" class="col-3 col-form-label col-form-label-sm">TOTAL </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-2 col-5">
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs" (blur)="OnBlur('bl_pcs')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt" (blur)="OnBlur('bl_grwt')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_wt_unit" (blur)="OnBlur('bl_wt_unit')" required maxlength="2" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_class" (blur)="OnBlur('bl_class')" required maxlength="1" />
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="form-group row">
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_comm" (blur)="OnBlur('bl_comm')" required maxlength="4" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_chwt" (blur)="OnBlur('bl_chwt')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_rate" (blur)="OnBlur('bl_rate')" required maxlength="15" />
+            </div>
+            <div style="padding-left:1px" class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_total" (blur)="OnBlur('bl_total')" required maxlength="15" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label style="padding-right:0" class="offset-2 col-5 col-form-label col-form-label-sm"></label>
+        <label style="padding-left:1px" class="col-5 col-form-label col-form-label-sm">Nature And Quantity of Goods (Incl. Dimensions or Volume)</label>
+      </div>
+
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark1" (blur)="OnBlur('bl_mark1')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc1" (blur)="OnBlur('bl_desc1')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark2" (blur)="OnBlur('bl_mark2')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc2" (blur)="OnBlur('bl_desc2')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark3" (blur)="OnBlur('bl_mark3')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc3" (blur)="OnBlur('bl_desc3')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark4" (blur)="OnBlur('bl_mark4')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc4" (blur)="OnBlur('bl_desc4')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark5" (blur)="OnBlur('bl_mark5')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc5" (blur)="OnBlur('bl_desc5')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark6" (blur)="OnBlur('bl_mark6')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc6" (blur)="OnBlur('bl_desc6')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark7" (blur)="OnBlur('bl_mark7')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc7" (blur)="OnBlur('bl_desc7')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark8" (blur)="OnBlur('bl_mark8')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc8" (blur)="OnBlur('bl_desc8')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark9" (blur)="OnBlur('bl_mark9')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc9" (blur)="OnBlur('bl_desc9')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark10" (blur)="OnBlur('bl_mark10')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc10" (blur)="OnBlur('bl_desc10')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark11" (blur)="OnBlur('bl_mark11')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc11" (blur)="OnBlur('bl_desc11')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark12" (blur)="OnBlur('bl_mark12')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc12" (blur)="OnBlur('bl_desc12')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark13" (blur)="OnBlur('bl_mark13')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc13" (blur)="OnBlur('bl_desc13')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark14" (blur)="OnBlur('bl_mark14')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc14" (blur)="OnBlur('bl_desc14')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark15" (blur)="OnBlur('bl_mark15')" required maxlength="100" />
+        </div>
+        <div style="padding-left:1px" class="col-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc15" (blur)="OnBlur('bl_desc15')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label col-form-label-sm"></label>
+      </div>
+      <div class="form-group row">
+        <label class="col-12 col-form-label col-form-label-sm"></label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">As Agreed</label>
+        <div style="padding-right:0" class="col-5">
+          <div class="form-group row">
+            <div class="col-12">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.bl_asarranged" (blur)="OnBlur('bl_asarranged')">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'SHIPPER'">SHIPPER</option>
+                <option [value]="'CONSIGNEE'">CONSIGNEE</option>
+                <option [value]="'SHIPPER AND CONSIGNEE'">SHIPPER AND CONSIGNEE</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+        <div style="padding-right:0" class="col-5">
+          <div class="form-group row">
+            <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">Charges</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Weight</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Rate</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Total</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Print/S</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Print/C</label>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges" (blur)="OnBlur('charges0')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight" (blur)="OnBlur('weight0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].rate" (blur)="OnBlur('rate0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].total" (blur)="OnBlur('total0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].charges" (blur)="OnBlur('charges1')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].weight" (blur)="OnBlur('weight1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].rate" (blur)="OnBlur('rate1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].total" (blur)="OnBlur('total1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[1].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].charges" (blur)="OnBlur('charges2')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].weight" (blur)="OnBlur('weight2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].rate" (blur)="OnBlur('rate2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].total" (blur)="OnBlur('total2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[2].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].charges" (blur)="OnBlur('charges3')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].weight" (blur)="OnBlur('weight3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].rate" (blur)="OnBlur('rate3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].total" (blur)="OnBlur('total3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[3].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].charges" (blur)="OnBlur('charges4')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].weight" (blur)="OnBlur('weight4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].rate" (blur)="OnBlur('rate4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].total" (blur)="OnBlur('total4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesAgent[4].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+
+
+
+        </div>
+        <div style="padding-left:1px" class="col-5">
+
+          <div class="form-group row">
+            <label class="col-12 col-form-label col-form-label-sm"></label>
+          </div>
+          <div class="form-group row">
+            <label class="col-12 col-form-label col-form-label-sm"></label>
+          </div>
+
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">Agent For Shipper</label>
+            <div class="col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by1_agent" (blur)="OnBlur('bl_by1_agent')" required maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="offset-5 col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by2_agent" (blur)="OnBlur('bl_by2_agent')" required maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-12 col-form-label col-form-label-sm"></label>
+          </div>
+          <div class="form-group row">
+            <label class="col-12 col-form-label col-form-label-sm"></label>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">Agent For Carrier</label>
+            <div class="col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by1_carrier" (blur)="OnBlur('bl_by1_carrier')" required maxlength="100" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="offset-5 col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_by2_carrier" (blur)="OnBlur('bl_by2_carrier')" required maxlength="100" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Carrier</label>
+        <div style="padding-right:0" class="col-5">
+          <div class="form-group row">
+            <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">Charges</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Weight</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Rate</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Total</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Print/S</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Print/C</label>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].charges" (blur)="OnBlur('Ccharges0')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].weight" (blur)="OnBlur('Cweight0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].rate" (blur)="OnBlur('Crate0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].total" (blur)="OnBlur('Ctotal0')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[0].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].charges" (blur)="OnBlur('Ccharges1')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].weight" (blur)="OnBlur('Cweight1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].rate" (blur)="OnBlur('Crate1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].total" (blur)="OnBlur('Ctotal1')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[1].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].charges" (blur)="OnBlur('Ccharges2')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].weight" (blur)="OnBlur('Cweight2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].rate" (blur)="OnBlur('Crate2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].total" (blur)="OnBlur('Ctotal2')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[2].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].charges" (blur)="OnBlur('Ccharges3')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].weight" (blur)="OnBlur('Cweight3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].rate" (blur)="OnBlur('Crate3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].total" (blur)="OnBlur('Ctotal3')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[3].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].charges" (blur)="OnBlur('Ccharges4')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].weight" (blur)="OnBlur('Cweight4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].rate" (blur)="OnBlur('Crate4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].total" (blur)="OnBlur('Ctotal4')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[4].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].charges" (blur)="OnBlur('Ccharges5')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].weight" (blur)="OnBlur('Cweight5')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].rate" (blur)="OnBlur('Crate5')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].total" (blur)="OnBlur('Ctotal5')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[5].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].charges" (blur)="OnBlur('Ccharges6')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].weight" (blur)="OnBlur('Cweight6')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].rate" (blur)="OnBlur('Crate6')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].total" (blur)="OnBlur('Ctotal6')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[6].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div style="padding-right:0" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].charges" (blur)="OnBlur('Ccharges7')" required maxlength="55" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].weight" (blur)="OnBlur('Cweight7')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].rate" (blur)="OnBlur('Crate7')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].total" (blur)="OnBlur('Ctotal7')" required maxlength="15" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].prints">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+            <div style="padding-left:1px" class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="ChargesCarrier[7].printc">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'Y'">YES</option>
+                <option [value]="'N'">NO</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div style="padding-left:1px" class="col-5">
+
+
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">Issued Date</label>
+            <div class="col-3">
+              <app-date [inputdate]="Record.bl_issued_date" (ValueChanged)="Record.bl_issued_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">Issued Place</label>
+            <div class="col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place" (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">Issued By</label>
+            <div class="col-7">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by" (blur)="OnBlur('bl_issued_by')" required maxlength="30" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="offset-1 col-4 col-form-label col-form-label-sm">No of Copies</label>
+            <div class="col-3">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_no_copies" (blur)="OnBlur('bl_no_copies')" required maxlength="10" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="page-box">
+    <div class="form-group row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Original</label>
+          <div class="col-8">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original" [disabled]="Record.bl_original_print == 'Y'">
+                Shipper
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original_cnee">
+                Consignee
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original_carr">
+                Carrier
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Footer Note</label>
+          <div class="col-8">
+            <div class="page-box">
+              <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th (click)="SelectFootNotes()"><input type="checkbox" >Select/Deselect</th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of FooterNotesList">
+                    <tr>
+                      <td><input type="checkbox" [(ngModel)]="rec.chk">{{rec.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="backside_print">
+              Back Side
+            </label>
+          </div>
+        </div>
+        <!--<div class="form-group row">
+        <div class="offset-4 col-8">
+          <button [disabled]="loading" class="btn btn-success btn-sm">BL Print</button>
+          <button [disabled]="loading" class="btn btn-success btn-sm">Blank Print</button>
+        </div>
+      </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="form-group row">
+      <div class="col-sm-6">
+        <div class="offset-4 col-8">
+          <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+          <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','AIRBL')" class="btn btn-success btn-sm"><span *ngIf="invokefrom=='HAWB'">HAWB Print</span><span *ngIf="invokefrom=='MAWB'">MAWB Print</span></button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary Print</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <label style="color:red"  class="col-12 col-form-label col-form-label-sm">No changes will be allowed after printing Original 3 - (For Shipper).</label>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+</div>
+
+

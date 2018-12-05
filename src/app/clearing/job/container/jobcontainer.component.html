@@ -1,0 +1,136 @@
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CONTAINER</th>
+          <th>SEAL.NO</th>
+          <th>SEAL.DATE</th>
+          <th>SEAL.TYPE</th>
+          <th>DEVICE.ID</th>
+          <th>DOC.TYPE</th>
+          <th>DOC.NO</th>
+          <th>SIZE</th>
+          <th>TYPE</th>
+          <th>PKTS</th>
+          <th>TRANSPORTER</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.cntr_pkid,i)">
+          <td>{{rec.cntr_no}}</td>
+          <td>{{rec.cntr_sealno}}</td>
+          <td>{{rec.cntr_sealdate}}</td>
+          <td>{{rec.cntr_sealtype}}</td>
+          <td>{{rec.cntr_sealdevice_id}}</td>
+          <td>{{rec.cntr_movdoc_type}}</td>
+          <td>{{rec.cntr_movdoc_number}}</td>
+          <td>{{rec.cntr_size}}</td>
+          <td>{{rec.cntr_type}}</td>
+          <td>{{rec.cntr_pkts}}</td>
+          <td>{{rec.cntr_transporter}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.cntr_pkid,name:rec.cntr_no}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+          <!--<td (click)="ActionHandler('REMOVE', rec.cntr_pkid)" class="fa fa-trash" aria-hidden="true"></td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-8">
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Container No</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Seal No</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Seal Date</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Seal Type</label>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Seal Device ID</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no" (blur)="OnBlur('cntr_no')" required maxlength="15" #cntr_no />
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_sealno" (blur)="OnBlur('cntr_sealno')" required maxlength="15" />
+        </div>
+        <div class="col-sm-2">
+          <app-date [inputdate]="Record.cntr_sealdate" (ValueChanged)="Record.cntr_sealdate=$event"></app-date>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_sealtype">
+            <option [value]="'BTSL'">BTSL</option>
+            <option [value]="'ESEAL'">ESEAL</option>
+            <option [value]="'RFID'">RFID</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_sealdevice_id" (blur)="OnBlur('cntr_sealdevice_id')" required maxlength="35" />
+        </div>
+
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Mov.Doc.Type</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Mov.Doc.No</label>
+        <label class="col-sm-1 col-form-label col-form-label-sm">Size</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Pkts</label>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Transporter</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_movdoc_type" (blur)="OnBlur('cntr_movdoc_type')" required maxlength="5" />
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_movdoc_number" (blur)="OnBlur('cntr_movdoc_number')" required maxlength="35" />
+        </div>
+        <div class="col-sm-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_size" (blur)="OnBlur('cntr_size')" required maxlength="3" />
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_type">
+            <option [value]="'FR'">FR</option>
+            <option [value]="'GP'">GP</option>
+            <option [value]="'HC'">HC</option>
+            <option [value]="'HG'">HG</option>
+            <option [value]="'HR'">HR</option>
+            <option [value]="'OT'">OT</option>
+            <option [value]="'RF'">RF</option>
+            <option [value]="'TK'">TK</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_pkts" (blur)="OnBlur('cntr_pkts')" required maxlength="10" />
+        </div>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_transporter" (blur)="OnBlur('cntr_transporter')" required maxlength="60" />
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.ord_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

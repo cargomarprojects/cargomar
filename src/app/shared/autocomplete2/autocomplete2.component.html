@@ -1,0 +1,23 @@
+<div class="input-group input-group-sm">
+  <input [disabled]="disabled"  type="text" class="form-control" (focus)="onfocus()" (blur)="onBlur()" [(ngModel)]="displaydata" aria-describedby="basic-addon1" #inputbox/>
+  <span class="input-group-btn" id="basic-addon1">
+    <button [disabled]="showDiv || disabled" class="btn btn-default btn-sm" (click)="List()" type="button">...</button>
+  </span>
+</div>
+
+<div [ngClass]="{'my-class': showDiv}">
+
+  <div *ngIf="showDiv">
+    <button type="button" class="close" aria-label="Close" (click)="Cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <ul *ngFor="let item of RecList">
+      <li><a (click)="SelectedItem('LIST',item)">{{item.name}}</a></li>
+    </ul>
+    <ul *ngIf="bShowMore">
+      <li><a (click)="More()">More...</a></li>
+    </ul>
+
+  </div>
+
+</div>

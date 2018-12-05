@@ -1,0 +1,151 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-4">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+          <div class="col-sm-3">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>REQ#</th>
+          <th>REQ.DATE</th>
+          <th>REQ.BY</th>
+          <th>PAY.INV#</th>
+          <th>PARTY</th>
+          <th>PAY.DATE</th>
+          <th>CHQ.NAME</th>
+          <th>AMOUNT</th>
+          <th>DOCS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.pay_no}}</td>
+          <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.rec_created_date}}</td>
+          <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.rec_created_by}}</td>
+          <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.pay_docno}}</td>
+          <td>{{rec.pay_acc_name}}</td>
+          <td>{{rec.pay_date}}</td>
+          <td>{{rec.pay_chq_name}}</td>
+          <td>{{rec.pay_amt}}</td>
+          <td><i class="fa fa-file-o fa-lg pointer" aria-hidden="true" (click)="showhiderow(rec)"></i></td>
+        </tr>
+        <tr *ngIf="rec.rowdisplayed">
+          <td colspan="9">
+            <div>
+              <app-upload [pkid]="rec.pay_jvh_id" [type]="'ACC-LEDGER'" [groupid]="rec.pay_parent_id" [canupload]="bDocsUpload"></app-upload>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="page-box">
+
+    <div class="row">
+      <div class="col-sm-4">
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">PayReq#</label>
+          <div class="col-4">
+            <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.pay_no" [disabled]="true" required maxlength="15" />
+          </div>
+          <label style="padding-left:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-5">
+            <app-date disabled #pay_date [inputdate]="Record.pay_date" (ValueChanged)="Record.pay_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Party</label>
+          <div class="col-4">
+            <app-autocomplete disabled #PartytLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.pay_acc_name" />
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+
+      </div>
+
+      <div class="col-sm-4">
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-box">
+    <div class="col">
+      <!--<button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>-->
+      <button [hidden]="disableSave" disabled (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+

@@ -1,0 +1,248 @@
+
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-10">
+              <select class="form-control form-control-sm" [(ngModel)]="type_date" (change)="OnChange('all')">
+                <option [value]="'INVOICE'">INVOICE</option>
+                <option [value]="'PURCHASE'">PURCHASE</option>
+                <option [value]="'SEAEXPORT-TAXREPORT'">SEA-EXPORT TAX REPORT</option>
+                <option [value]="'AIREXPORT-TAXREPORT'">AIR-EXPORT TAX REPORT</option>
+              </select>
+
+            </div>
+          </div>
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Branch</label>
+
+            <div class="col-10">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+
+          <div class="form-group row">
+            <label class="col-4  col-form-label col-form-label-sm">A/c Code</label>
+            <div class="col-7">
+              <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-12  col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
+          </div>
+
+        </div>
+        <div class="col-3">
+          <div class="form-group row">
+            <div *ngIf="bCompany" class="col-sm-3">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+           
+            <div class="col-sm-9">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="type_date =='INVOICE' || type_date =='PURCHASE' " class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>DATE</th>
+          <th>VRNO</th>
+          <th>TYPE</th>
+          <th>SEZ</th>
+          <th>ACC-NAME</th>
+          <th>GSTIN</th>
+          <th>RC</th>
+          <th>GST-TYPE</th>
+          <th>CATEGORY</th>
+          <th>SI#</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">CGST</th>
+          <th class="text-right">SGST</th>
+          <th class="text-right">IGST</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">NET</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_vrno}}</td>
+          <td>{{rec.jvh_type}}</td>
+          <td>{{rec.jvh_sez}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td>{{rec.jvh_gstin}}</td>
+          <td>{{rec.jvh_rc}}</td>
+          <td>{{rec.jvh_gst_type}}</td>
+          <td>{{rec.jvh_cc_category}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td align='right'>{{rec.jvh_tot_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jvh_cgst_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jvh_sgst_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jvh_igst_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jvh_gst_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jvh_net_amt | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="type_date == 'SEAEXPORT-TAXREPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>SI-NO</th>
+          <th>JOBNOS</th>
+          <th>COMM.INVNOS</th>
+          <th>CUSTM.INVNOS</th>
+          <th>INVNO</th>
+          <th>DATE</th>
+          <th>CONSIGNEE</th>
+          <th>POD</th>
+          <th>VOLUME</th>
+          <th class="text-right">NTWT</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">FRT</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">THC</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">DETN</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">OTHERS</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">TOTAL-GST</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.jexp_invoice_no}}</td>
+          <td>{{rec.jexp_comm_invoice_no}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.volume}}</td>
+          <td align='right'>{{rec.hbl_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.jv_frt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_frt_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_thc | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_thc_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_detn | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_detn_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_others | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_others_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total_gst | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <div *ngIf="type_date == 'AIREXPORT-TAXREPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>SI-NO</th>
+          <th>JOBNOS</th>
+          <th>COMM.INVNOS</th>
+          <th>CUSTM.INVNOS</th>
+          <th>INVNO</th>
+          <th>DATE</th>
+          <th>CONSIGNEE</th>
+          <th>POD</th>
+          <th class="text-right">CHWT</th>
+          <th class="text-right">NTWT</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">FRT</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">OTHERS</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">TOTAL-GST</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.jexp_invoice_no}}</td>
+          <td>{{rec.jexp_comm_invoice_no}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.pod}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.jv_frt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_frt_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_others | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_others_gst | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total_gst | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+

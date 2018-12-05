@@ -1,0 +1,57 @@
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <font color="black">
+        <strong>
+          Vr.No.&nbsp;&nbsp;&nbsp;
+        </strong>
+      </font>
+      <font color="red">
+        {{vrno}}
+      </font>
+    </div>
+  </div>
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Payment Date</label>
+            <div class="col-sm-3">
+              <app-date [inputdate]="pay_date" (ValueChanged)="pay_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Name on Cheque</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="pay_chq_name" maxlength="60" />
+            </div>
+          </div>
+
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+
+        <div class="col-sm-4">
+
+        </div>
+      </div>
+
+    </div>
+    <div class="page-box">
+      <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+
+  </div>
+<br />
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

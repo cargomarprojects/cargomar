@@ -1,0 +1,142 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+      </div>
+
+      <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+      </div>
+      <div class="col-2">
+        <input type="checkbox" [(ngModel)]="ismaincode" />
+        <span>Main Code Wise</span>
+      </div>
+      <div class="col-2">
+        <input type="checkbox" [(ngModel)]="ismonthwise" />
+        <span>Month Wise</span>
+      </div>
+
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div *ngIf="ismonthwiseformat" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>GROUP</th>
+          <th>A/C CODE</th>
+          <th>A/C NAME</th>
+
+
+          <th class="text-right">APR</th>
+          <th class="text-right">MAY</th>
+          <th class="text-right">JUN</th>
+          <th class="text-right">JUL</th>
+          <th class="text-right">AUG</th>
+          <th class="text-right">SEP</th>
+          <th class="text-right">OCT</th>
+          <th class="text-right">NOV</th>
+          <th class="text-right">DEC</th>
+          <th class="text-right">JAN</th>
+          <th class="text-right">FEB</th>
+          <th class="text-right">MAR</th>
+          <th class="text-right">BAL</th>
+
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.acc_pkid)">
+          <td>{{rec.grp_name}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+
+          <td align='right'>{{ rec.apr | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.may | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.jun | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.jul | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.aug | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.sep | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.oct | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.nov | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.dec | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.jan | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.feb | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.mar | number : '1.2-2'  }}</td>
+
+          <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="!ismonthwiseformat" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>GROUP</th>
+          <th>A/C CODE</th>
+          <th>A/C NAME</th>
+
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th class="text-right">DR-BAL</th>
+          <th class="text-right">CR-BAL</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.acc_pkid)">
+          <td>{{rec.grp_name}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+
+
+          <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.drbal | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.crbal | number : '1.2-2' }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

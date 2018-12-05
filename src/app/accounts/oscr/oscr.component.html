@@ -1,0 +1,146 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">A/c Code</label>
+            <div class="col-8">
+              <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <div *ngIf="bCompany" class="col-sm-4">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+
+            <div class="col-sm-8">
+              <input type="checkbox" [(ngModel)]="do_not_use_credit_date">
+              <span>Do Not Use Credit Date</span>
+            </div>
+
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <input type="checkbox" [(ngModel)]="isoverdue">
+                <span>Over Due</span>
+              </div>
+              <div class="col-sm-8">
+                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>A/C CODE</th>
+          <th>A/C NAME</th>
+
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th class="text-right">BALANCE</th>
+          <th class="text-right">ADVANCE</th>
+          <th class="text-right">CR-LIMIT</th>
+          <th class="text-right">CR-DAYS</th>
+          <th class="text-right">OS-DAYS</th>
+          <th class="text-right">OVERDUE</th>
+          <th>DUE-DATE</th>
+          <th class="text-right">0-15</th>
+          <th class="text-right">16-30</th>
+          <th class="text-right">31-60</th>
+          <th class="text-right">61-90</th>
+          <th class="text-right">91-180</th>
+          <th class="text-right">180+</th>
+
+        
+          <th>STATUS</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.jv_docno}}</td>
+          <td>{{rec.jv_date}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+
+          <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.crlimit }}</td>
+          <td align='right'>{{ rec.crdays }}</td>
+          <td align='right'>{{ rec.osdays }}</td>
+          <td align='right'>{{ rec.overduedays }}</td>
+          <td>{{rec.due_date}}</td>
+          <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+
+         
+          <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_type}}</td>
+          <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks}}</td>
+        </tr>
+        <tr *ngIf="rec.displayed">
+          <td colspan="20">
+            <app-osrem [isadmin]="bAdmin" [record]="rec"></app-osrem>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

@@ -1,0 +1,425 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>JOB#</th>
+          <th>TYPE</th>
+          <th>DATE</th>
+          <th>SHIPPER</th>
+          <th>STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>AR-INV</th>
+          <th class="text-right">AMOUNT</th>
+          <th>VEHICLE-NO</th>
+          <th>AP-INV</th>
+          <th>REMARK</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.gj_pkid)">
+          <td>{{rec.gj_job_prefix}}</td>
+          <td>{{rec.gj_type_name}}</td>
+          <td>{{rec.gj_job_date}}</td>
+          <td>{{rec.gj_shipper_name}}</td>
+          <td>{{rec.gj_status}}</td>
+          <td>{{rec.gj_pol_name}}</td>
+          <td>{{rec.gj_pod_name}}</td>
+          <td>{{rec.gj_ar_invnos}}</td>
+          <td align='right'>{{rec.hbl_ar_invamt| number : '1.2-2'}}</td>
+          <td>{{rec.gj_vehicle_no}}</td>
+          <td>{{rec.gj_ap_invnos}}</td>
+          <td>{{rec.gj_remarks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <ngb-tabset>
+    <ngb-tab title="Basic Details">
+      <ng-template ngbTabContent>
+
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Job#</label>
+                <div class="col-sm-4">
+                  <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.gj_job_prefix" [disabled]="true" required maxlength="15" />
+                </div>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.gj_job_date" (ValueChanged)="Record.gj_job_date=$event" ></app-date>
+                </div>
+              </div>
+             
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
+                <div class="col-sm-9">
+                  <app-autocomplete #LinerLov [inputdata]="TYPERECORD" (ValueChanged)="LovSelected($event)" [disabled]="mode=='EDIT'" ></app-autocomplete>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
+                <div class="col-sm-9">
+                  <app-autocomplete #LinerLov [inputdata]="SHIPPERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Branch#</label>
+                <div class="col-sm-9">
+                  <app-autocomplete #ExporterAddLov [inputdata]="SHIPPERADDRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                <div class="col-sm-9">
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.gj_shipper_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">ShipperInv#-Date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_shipper_inv_no" (blur)="OnBlur('gj_shipper_inv_no')" required maxlength="60" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">License#</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_licence_no" (blur)="OnBlur('gj_licence_no')" required maxlength="50" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <!--<label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
+    <div class="col-sm-5">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.rec_category" (blur)="OnBlur('rec_category')" [disabled]="disablecategory">
+        <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+        <option [value]="'AIR IMPORT'">AIR IMPORT</option>
+        <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+        <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+        <option [value]="'TWL'">TWL</option>
+      </select>
+    </div>-->
+                <label class="col-sm-3 col-form-label  col-form-label-sm">Status</label>
+                <div class="col-sm-9">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.gj_status">
+                    <option [value]="'CANCELLED'">CANCELLED</option>
+                    <option [value]="'CONFIRMED'">CONFIRMED</option>
+                    <option [value]="'PENDING'">PENDING</option>
+                    <option [value]="'STUFFD'">STUFFD</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-5" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.gj_pol_name" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-5" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.gj_pod_name" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Container#</label>
+                <div class="col-sm-10">
+                  <!--<input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_container_no" (blur)="OnBlur('gj_container_no')" required maxlength="500" />-->
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.gj_container_no" (blur)="OnBlur('gj_container_no')" required maxlength="500"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">SealNo.</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_seal_no" (blur)="OnBlur('gj_seal_no')" required maxlength="50" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Loaded.On</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.gj_loaded_on" (ValueChanged)="Record.gj_loaded_on=$event"></app-date>
+                </div>
+                <label style="padding-left:0" class="col-sm-2 col-form-label  col-form-label-sm">Unloaded.On</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.gj_unloaded_on" (ValueChanged)="Record.gj_unloaded_on=$event"></app-date>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">IGM/Item#.</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_igmitem_no" (blur)="OnBlur('gj_igmitem_no')" required maxlength="100" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">CFS</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_cfs" (blur)="OnBlur('gj_cfs')" required maxlength="60" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">From</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_from" (blur)="OnBlur('gj_from')" required maxlength="60" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">To</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_to1" (blur)="OnBlur('gj_to1')" required maxlength="60" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">To</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_to2" (blur)="OnBlur('gj_to2')" required maxlength="60" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Remarks</label>
+                <div class="col-sm-10">
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.gj_remarks" (blur)="OnBlur('gj_remarks')" required maxlength="500"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div *ngIf="Record.gj_type_code == 'TRANSPORT' && mode=='EDIT'" class="page-box">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label  col-form-label-sm">LR No</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_lr_no" [disabled]="true" required maxlength="20" />
+                      </div>
+                      <label class="col-sm-2 col-form-label  col-form-label-sm">OurRef#.</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_our_refno" [disabled]="true" required maxlength="20" />
+                      </div>
+                    </div>
+                    <div class="offset-sm-2 ">
+                      <button [disabled]="loading || Record.gj_lr_no != '' || Record.gj_our_refno != ''" (click)="GenerateLRNo(Record.gj_pkid)" class="btn btn-success btn-sm">Generate LRNo & Save</button>
+                      <button [disabled]="loading" (click)="PrintLrReceipt('PDF')" class="btn btn-success btn-sm">LR Receipt</button>
+                    </div>
+                  </div>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Consignee</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_consignee_name" (blur)="OnBlur('gj_consignee_name')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Address</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_consignee_add1" (blur)="OnBlur('gj_consignee_add1')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_consignee_add2" (blur)="OnBlur('gj_consignee_add2')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_consignee_add3" (blur)="OnBlur('gj_consignee_add3')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">VehicleNo.</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_vehicle_no" (blur)="OnBlur('gj_vehicle_no')" required maxlength="20" />
+                </div>
+                <label class="col-sm-2 col-form-label  col-form-label-sm">BookingNo.</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_booking_no" (blur)="OnBlur('gj_booking_no')" required maxlength="50" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Cargo</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_cargo" (blur)="OnBlur('gj_cargo')" required maxlength="50" />
+                </div>
+              </div>
+
+              <!--<div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">BookingNo.</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_booking_no" (blur)="OnBlur('gj_booking_no')" required maxlength="50" />
+                </div>
+              </div>-->
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Liner</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_liner_name" (blur)="OnBlur('gj_liner_name')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Vessel</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_vessel" (blur)="OnBlur('gj_vessel')" required maxlength="50" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Cartons</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_cartons" (blur)="OnBlur('gj_cartons')" required maxlength="50" />
+                </div>
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Gr.Wt.</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_gr_wt"  (blur)="OnBlur('gj_gr_wt')" required maxlength="14" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Others">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
+          
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">MBL#</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_mbl_no" (blur)="OnBlur('gj_mbl_no')" required maxlength="50" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">HBL#</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_hbl_no" (blur)="OnBlur('gj_hbl_no')" required maxlength="50" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">CHA</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_cha_name" (blur)="OnBlur('gj_cha_name')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">Freight Status</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_frt_status" (blur)="OnBlur('gj_frt_status')" required maxlength="50" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label  col-form-label-sm">SB#</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_sb_no" (blur)="OnBlur('gj_sb_no')" required maxlength="100" />
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="col-sm-4">
+            
+
+          
+            </div>
+           
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+
+
+  <div class="page-box">
+    <div class="col">
+      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

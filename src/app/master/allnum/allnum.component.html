@@ -1,0 +1,138 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <!--<div class="col-2">
+        <input type="checkbox" [(ngModel)]="sortby" />
+        <span>Sort By Code</span>
+      </div>-->
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>GROUP</th>
+          <th>NAME</th>
+          <th>PREFIX</th>
+          <th>SEQ.NUMBER</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.table_pkid, i)" [class.active]="i == selectedRowIndex">
+          <td>{{rec.table_group}}</td>
+          <td>{{rec.table_name}}</td>
+          <td>{{rec.table_prefix}}</td>
+          <td>{{rec.table_value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Group</label>
+        <div class="col-6">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.table_group">
+            <option [value]="'NA'">NA</option>
+            <option [value]="'AIRBL'">AIRBL</option>
+            <option [value]="'SEABL'">SEABL</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">TableName</label>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.table_name" required maxlength="50" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">PreFix</label>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.table_prefix" required [maxlength]="25" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Seq.Number</label>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.table_value" required maxlength="10" />
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-2 col-10">
+          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+<App-Wait [visible]="loading"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,28 @@
+
+  <div class="page-box">
+    <div class="col-sm-8">
+      <div class="form-group row">
+        <label class="col-1 col-form-label col-form-label-sm">Cheque</label>
+        <div class="col-4">
+          <select class="form-control form-control-sm" [(ngModel)]="cheque_format_id">
+            <option *ngFor="let rec of ChequeFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
+          </select>
+        </div>
+        <input type="checkbox" [(ngModel)]="isacpayee"> A/c Payee&nbsp;&nbsp;&nbsp;
+        <button (click)="PrintCheque('PDF')" class="btn btn-success btn-sm">Print</button>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+    </div>
+  </div>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

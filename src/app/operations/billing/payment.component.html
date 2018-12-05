@@ -1,0 +1,54 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+
+  <div class="page-body table-responsive">
+    <table class="table table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>PARTY</th>
+          <th>GSTIN</th>
+          <th>TYPE</th>
+          <th>AMT</th>
+          <th>GST</th>
+          <th>RC</th>
+          <th>NET</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList" (click)="EditInvoice(rec.jvh_pkid, rec.jvh_type, rec.jvh_subtype,rec.jvh_rec_source)">
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_acc_name}}</td>
+          <td>{{rec.jvh_gstin}}</td>
+          <td>{{rec.jvh_gst_type}}</td>
+          <td>{{rec.jvh_tot_amt}}</td>
+          <td>{{rec.jvh_gst_amt}}</td>
+          <td>{{rec.jvh_rc}}</td>
+          <td>{{rec.jvh_net_amt}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

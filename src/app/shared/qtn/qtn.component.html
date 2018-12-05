@@ -1,0 +1,171 @@
+
+<div class="page-list">
+
+  <div class="page-search">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+
+        <div class="form-group row">
+
+          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="type" (change)="OnChange('type')">
+              <option [value]="'SE-CLR'">SEA EXPORT CLEARING</option>
+              <option [value]="'AE-CLR'">AIR EXPORT CLEARING</option>
+              <option [value]="'SI-CLR'">SEA IMPORT CLEARING</option>
+              <option [value]="'AI-CLR'">AIR IMPORT CLEARING</option>
+
+            </select>
+          </div>
+
+          <div class="col-sm-3">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Find</button>
+          </div>
+
+          <div class="col-sm-3">
+            <label class="col-12 col-form-label col-form-label-sm">TOTAL : {{total_amt}}</label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>QTY</th>
+          <th>RATE</th>
+          <th>CURR</th>
+          <th>EXRATE</th>
+          <th>TOTAL</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr (click)="ActionHandler('EDIT',rec.qtnd_pkid)">
+          <td>{{i+1}}</td>
+          <td>{{rec.qtnd_acc_code}}</td>
+          <td>{{rec.qtnd_acc_name}}</td>
+          <td>{{rec.qtnd_qty}}</td>
+          <td>{{rec.qtnd_rate}}</td>
+          <td>{{rec.qtnd_curr_code}}</td>
+          <td>{{rec.qtnd_exrate}}</td>
+          <td>{{rec.qtnd_total}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.qtnd_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="page-details">
+
+  <div class="page-box">
+
+    <div class="row">
+
+      <div class="col-sm-10">
+
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Code</label>
+          <div class="col-2">
+            <app-autocomplete #AcLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <label class="col-1 col-form-label col-form-label-sm">Name</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_acc_name" (blur)="OnBlur('qtnd_acc_name')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-2">
+            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type">
+              <option value="INVOICE">INVOICE</option>
+              <option value="CBM">CBM</option>
+              <option value="QTY">QTY</option>
+              <option value="GRWT">GRWT</option>
+              <option value="NTWT">NTWT</option>
+              <option value="CNTR">CNTR</option>
+            </select>
+          </div>
+
+
+
+          <label class="col-1 col-form-label col-form-label-sm">Cntr.Type</label>
+          <div class="col-2">
+            <app-autocomplete #CsdLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+
+
+          <label class="col-1 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-2">
+            <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+
+          <label class="col-1 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_exrate" (focus)="OnFocus('qtnd_exrate')" (change)="OnChange('inv_exrate')" (blur)="OnBlur('qtnd_exrate')" required maxlength="10" />
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label  col-form-label-sm">Qty</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_qty" (focus)="OnFocus('qtnd_qty')" (change)="OnChange('inv_qty')" (blur)="OnBlur('qtnd_qty')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Rate</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_rate" (focus)="OnFocus('qtnd_rate')" (change)="OnChange('inv_rate')" (blur)="OnBlur('qtnd_rate')" required maxlength="20" />
+          </div>
+
+          <label class="col-1 col-form-label  col-form-label-sm">Total</label>
+          <div class="col-2">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total" (focus)="OnFocus('inv_total')" (change)="OnChange('qtnd_total')" (blur)="OnBlur('qtnd_total')" required maxlength="20" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label  col-form-label-sm">Remarks</label>
+          <div class="col-11">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_remarks" (blur)="OnBlur('qtnd_remarks')" required maxlength="100" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="col">
+      <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

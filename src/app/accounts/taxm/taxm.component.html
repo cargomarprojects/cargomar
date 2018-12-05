@@ -1,0 +1,169 @@
+﻿
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DESC</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>SAC</th>
+          <th>FROM-DATE</th>
+          <th>TO-DATE</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>IGST</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.tax_pkid)">
+          <td>{{rec.tax_desc}}</td>
+          <td>{{rec.tax_acc_code}}</td>
+          <td>{{rec.tax_acc_name}}</td>
+          <td>{{rec.tax_sac_code}}</td>
+          <td>{{rec.tax_from_dt}}</td>
+          <td>{{rec.tax_to_dt}}</td>
+          <td>{{rec.tax_cgst_rate}}</td>
+          <td>{{rec.tax_sgst_rate}}</td>
+          <td>{{rec.tax_igst_rate}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-4">
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Description</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.tax_desc" (blur)="onLostFocus('tax_desc')"  maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Code</label>
+        <div class="col-9">
+          <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">NAME</label>
+        <div class="col-9">
+          <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.tax_acc_name" maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">From-Date</label>
+        <div class="col-9">
+          <app-date [inputdate]="Record.tax_from_dt" (ValueChanged)="Record.tax_from_dt=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">To-Date</label>
+        <div class="col-9">
+          <app-date [inputdate]="Record.tax_to_dt" (ValueChanged)="Record.tax_to_dt=$event"></app-date>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Cgst%</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.tax_cgst_rate" required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Sgst%</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.tax_sgst_rate" required maxlength="15" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Igst%</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.tax_igst_rate" required maxlength="15" />
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

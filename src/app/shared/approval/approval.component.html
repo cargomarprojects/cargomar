@@ -1,0 +1,133 @@
+<div class="page-list">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th>STATUS</th>
+              <th>REMARKS</th>
+              <th>APRVD.BY</th>
+              <th>DATE</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody">
+            <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+              <td>{{rec.status}}</td>
+              <td>{{rec.remarks}}</td>
+              <td>{{rec.rec_created_by}}</td>
+              <td>{{rec.rec_created_date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="bAdd" class="page-details">
+  <div class="row">
+    <div class="col-sm-12">
+      <ngb-accordion [closeOthers]="true" [activeIds]="activePanelId">
+        <ngb-panel *ngIf="gs.globalVariables.user_code == 'ADMIN'||rule_index==1||rule_index==3" id="panel1" title="Branch Preparer">
+          <ng-template ngbPanelContent>
+            <div class="form-group row">
+              <label class="col-sm-12">a) Rate must be as per contract/agreed buy with supplier for that particular instance/job- For all such Invoice</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">b) Buy Rate should be approved by sales person/CSD/Operation Head should or Br. Head</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">c) We must hv sell/recovery of these chgs from our customer – at actual or with Margin- If actual reason for the same.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">d) Supplier Invoice must comply with GST ( if supplier is Registered dealer). Must show our local GST # in their bill with our Company Name.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">e) TDS should be deducted if supplier falls with payment under 194C/194H/194I/194J/194A.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">f) Ensue that duplication of payment agt same supplier Invoice not Happened.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">g) Chk whether any overdue from the customer agt which we had incurred above supplier expenses</label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel *ngIf="gs.globalVariables.user_code == 'ADMIN'||rule_index==2||rule_index==3" title="Branch Verifier" id="panel2">
+          <ng-template ngbPanelContent>
+            <div class="form-group row">
+              <label class="col-sm-12">a) Supplier name and Payment Party Name ( in Chq or NEFT/RTGS form) should be matched or should be as per the instruction shown in the supplier Invoice.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">b) Payment Amount (Amt in Chq or NEFT/RTGS form) should be as per supplier Invoice after deducting TDS if any.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">c) Ensure that Payment made must be agt the shpmt of our own branch or on behalf of other branch.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">d) Should clarify/approve if sell rate < or = to buy or any other point to be highlighted.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">e) A Firm Commitments to be given if the customer, agt which we had incurred above supplier expenses, had any overdue </label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel *ngIf="gs.globalVariables.user_code == 'ADMIN'||rule_index==3" title="HO Approver" id="panel3">
+          <ng-template ngbPanelContent>
+            <div class="form-group row">
+              <label class="col-sm-12">a) Invoice Amount/GST amt should be updated in our books properly as per supplier Invoice.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">b) Rate of TDS deducted if any must be as per the IT ACT and valid PAN # of deductee should be updated.</label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-12">c) Verify NEFT form- Bank details etc...</label>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-box">
+        <div class="col-sm-8">
+          <div class="form-group row">
+            <label class="col-1"></label>
+            <div class="col-5">
+              <input type="checkbox" [(ngModel)]="chk_verified">&nbsp;VERIFIED&nbsp;&nbsp;
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-1"></label>
+            <div class="col-5">
+              <input type="checkbox" [(ngModel)]="chk_approval">&nbsp;{{chk_caption}}&nbsp;&nbsp;
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-1">Remarks</label>
+            <div class="col-7">
+              <textarea rows="2" class="form-control form-control-sm" name="Remarks" [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="250"></textarea>
+            </div>
+            <div class="col-4">
+              <br />
+              <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

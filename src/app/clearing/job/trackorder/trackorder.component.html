@@ -1,0 +1,105 @@
+
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm"><strong>PO#</strong></label>
+          <div class="col-sm-11">
+            <textarea disabled rows="2" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="refno"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-details">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Booking Request Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_booking_date" (ValueChanged)="Record.ord_booking_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Random Inspection Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_rnd_insp_date" (ValueChanged)="Record.ord_rnd_insp_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">PO Release Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_po_rel_date" (ValueChanged)="Record.ord_po_rel_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Cargo Ready Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_cargo_ready_date" (ValueChanged)="Record.ord_cargo_ready_date=$event"></app-date>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">FCR Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_fcr_date" (ValueChanged)="Record.ord_fcr_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">Inspection Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_insp_date" (ValueChanged)="Record.ord_insp_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">Stuffing Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_stuf_date" (ValueChanged)="Record.ord_stuf_date=$event"></app-date>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">Warehouse Depature Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.ord_whd_date" (ValueChanged)="Record.ord_whd_date=$event"></app-date>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <div class="offset-sm-2 col-sm-10">
+            <button [disabled]="loading" (click)="Update()" class="btn btn-primary btn-sm">Save</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<!--<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>-->
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,238 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Party</label>
+            <div class="col-5">
+              <app-autocomplete #CsdLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div class="col-5">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jv_acc_name" required maxlength="60" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button [disabled]="loading" (click)="LoadPendingList()" class="btn btn-primary btn-sm">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="page-body">
+      <div style="height: 200px; overflow: auto;">
+        <table class="table table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th>FIN-YEAR</th>
+              <th>VRNO</th>
+              <th>TYPE</th>
+              <th>DATE</th>
+              <th>REFNO</th>
+              <th>DR/CR</th>
+              <th>AMOUNT</th>
+              <th>BALANCE</th>
+              <th>ALLOCATION</th>
+              <th>SELECT</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+            <tr>
+              <td style="padding:0">{{rec.jv_year}}</td>
+              <td style="padding:0">{{rec.jv_docno}}</td>
+              <td style="padding:0">{{rec.jv_type}}</td>
+              <td style="padding:0">{{rec.jv_display_date}}</td>
+              <td style="padding:0">{{rec.jv_reference}}</td>
+              <td style="padding:0">{{rec.jv_drcr}}</td>
+              <td style="padding:0">{{rec.jv_total}}</td>
+              <td style="padding:0">{{rec.jv_balance}}</td>
+              <td width="150px;" style="padding:0">
+                <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.jv_allocation" (blur)="OnBlur_Allocation('jv_allocation', rec)" required maxlength="20" />
+              </td>
+              <td><input type="checkbox" [(ngModel)]="rec.jv_selected" (change)="OnChange_Allocation('jv_selected', rec)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:5px;margin-bottom:5px;">
+      <div class="col-sm-12">
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label  col-form-label-sm">Total-Dr</label>
+          <div class="col-1">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="jv_dr_total" required maxlength="20" />
+          </div>
+
+          <label class="col-1 col-form-label  col-form-label-sm">Total-Cr</label>
+          <div class="col-1">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="jv_cr_total" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Due-Amt</label>
+          <div class="col-1">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Total_Diff" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Tds-Amt</label>
+          <div class="col-1">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="tds_amt" (change)="OnChange('tds_amt')" required maxlength="20" />
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Pay-Amt</label>
+          <div class="col-1">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="bank_amt" required maxlength="20" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="page-box" style="margin-top:5px">
+
+    <div class="row">
+      <div class="col-sm-4">
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Tds%</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="TdsRecord.jv_tds_rate" maxlength="15" />
+          </div>
+          <label class="col-2 col-form-label  col-form-label-sm">Gross.Amt</label>
+          <div class="col-4">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="TdsRecord.jv_tds_gross_amt" maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Pan#</label>
+          <div class="col-4">
+            <app-autocomplete #LinerLov [inputdata]="PANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-6">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="TdsRecord.jv_pan_name" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Tds A/c</label>
+          <div class="col-4">
+            <app-autocomplete #TdsAcLov [inputdata]="TDSACRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-6">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="TdsRecord.jv_acc_name" required maxlength="60" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Bank.A/c</label>
+          <div class="col-4">
+            <app-autocomplete #BankAcLov [inputdata]="BANKACRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+
+          <div class="col-5">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_acc_name" required maxlength="60" />
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Chq#</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_chqno" (blur)="OnBlur('jv_chqno')" required maxlength="60" />
+          </div>
+          <label class="col-1 col-form-label col-form-label-sm">Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="BankRecord.jv_due_date" (ValueChanged)="BankRecord.jv_due_date=$event"></app-date>
+          </div>
+        </div>
+
+        <!--<div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Date</label>
+          <div class="col-9">
+            <app-date [inputdate]="BankRecord.jv_due_date" (ValueChanged)="BankRecord.jv_due_date=$event"></app-date>
+          </div>
+        </div>-->
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_bank" (blur)="OnBlur('jv_bank')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_branch" (blur)="OnBlur('jv_branch')" required maxlength="60" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Pay.Reason</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_pay_reason" (blur)="OnBlur('jv_pay_reason')" required maxlength="60" />
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Supp.Docs</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_supp_docs" (blur)="OnBlur('jv_supp_docs')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Paid.To</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_paid_to" (blur)="OnBlur('jv_paid_to')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Remarks</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BankRecord.jv_remarks" (blur)="OnBlur('jv_remarks')" required maxlength="60" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br />
+
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+
+
+
+

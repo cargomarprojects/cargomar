@@ -1,0 +1,309 @@
+
+<div *ngIf="currentTab=='LIST'">
+
+  <div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+
+      <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">BRANCH WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">SALESMAN WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">LEGAL</button>
+      <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
+      <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
+      <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
+      <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+
+  <div class="page-list">
+
+    <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="category == 'OSLIST'">BRANCH</th>
+            <th *ngIf="category == 'SMANLIST'">SALESMAN</th>
+            <th class="text-right">0-15</th>
+            <th class="text-right">16-30</th>
+            <th class="text-right">31-60</th>
+            <th class="text-right">61-90</th>
+            <th class="text-right">91-180</th>
+            <th class="text-right">180+</th>
+            <th class="text-right">BALANCE</th>
+            <th class="text-right">ADVANCE</th>
+            <th class="text-right">OVERDUE</th>
+            <th class="text-right">1YEAR+</th>
+            <th class="text-right">LEGAL</th>
+
+          </tr>
+        </thead>
+
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour" (click)="openchild(rec)">
+            <td *ngIf="category == 'OSLIST'">{{rec.branch}}</td>
+            <td *ngIf="category == 'SMANLIST'">{{rec.sman}}</td>
+            <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.legal | number : '1.2-2'  }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="category == 'LEGAL'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+
+            <th>PARTY</th>
+            <th>SALESMAN</th>
+            <th>BRANCH</th>
+            <th class="text-right">0-15</th>
+            <th class="text-right">16-30</th>
+            <th class="text-right">31-60</th>
+            <th class="text-right">61-90</th>
+            <th class="text-right">91-180</th>
+            <th class="text-right">180+</th>
+            <th class="text-right">BALANCE</th>
+            <th class="text-right">ADVANCE</th>
+            <th class="text-right">OVERDUE</th>
+            <th class="text-right">1YEAR+</th>
+
+          </tr>
+        </thead>
+
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour" (click)="openchild(rec)">
+
+            <td>{{rec.party}}</td>
+            <td>{{rec.sman}}</td>
+            <td>{{rec.branch}}</td>
+            <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="page-header">
+    <div class="col">
+      <label>Air Line Payment</label>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH')">BRANCH WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'CARRIER')">CARRIER WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'SALESMAN')">SALESMAN WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-SALESMAN')">BRANCH/SALESMAN</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-CARRIER')">BRANCH/CARRIER</button>
+
+      <label>{{period}}</label>
+      <i *ngIf="loading2" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-6">
+
+      <div *ngIf="PayTab=='BRANCH' || PayTab=='CARRIER' || PayTab=='SALESMAN'" class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>{{PayTab}}</th>
+                <th class="text-right">AMOUNT</th>
+              </tr>
+            </thead>
+
+            <tbody class="page-body-tbody" *ngFor="let rec of AirList">
+              <tr [style.color]="rec.row_colour">
+                <td>{{rec.branch}}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+
+      <div *ngIf="PayTab=='BRANCH-SALESMAN'" class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>BRANCH</th>
+                <th>SALESMAN</th>
+                <th class="text-right">AMOUNT</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of AirList">
+              <tr [style.color]="rec.row_colour">
+                <td>{{rec.branch}}</td>
+                <td>{{rec.sman}}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div *ngIf="PayTab=='BRANCH-CARRIER'" class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>BRANCH</th>
+                <th>CARRIER</th>
+                <th class="text-right">AMOUNT</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of AirList">
+              <tr [style.color]="rec.row_colour">
+                <td>{{rec.branch}}</td>
+                <td>{{rec.sman}}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="page-header">
+    <div class="col">
+      <label>O/S Against AirLine Payment</label>
+      <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">RETURN</button>
+      <i *ngIf="loading3" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-6">
+
+      <div *ngIf="InvTab=='BRANCH'" class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr style="cursor:pointer">
+                <th>BRANCH</th>
+                <th class="text-right">DEBIT</th>
+                <th class="text-right">CREDIT</th>
+                <th class="text-right">BALANCE</th>
+              </tr>
+            </thead>
+
+            <tbody class="page-body-tbody" *ngFor="let rec of InvList">
+              <tr [style.color]="rec.row_colour">
+                <td (click)="InvReport('SCREEN', rec.branch_code)">{{rec.branch}}</td>
+                <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+
+      <div *ngIf="InvTab!='BRANCH'" class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>BRANCH</th>
+                <th>PARTY</th>
+                <th>INVNO</th>
+                <th>DATE</th>
+                <th class="text-right">DEBIT</th>
+                <th class="text-right">CREDIT</th>
+                <th class="text-right">BALANCE</th>
+              </tr>
+            </thead>
+
+            <tbody class="page-body-tbody" *ngFor="let rec of InvList">
+              <tr [style.color]="rec.row_colour">
+                <td>{{rec.branch}}</td>
+                <td>{{ rec.party}}</td>
+                <td>{{ rec.invno}}</td>
+                <td>{{ rec.invdate}}</td>
+                <td align='right'>{{ rec.age1 | number : '1.2-2' }}</td>
+                <td align='right'>{{ rec.age2 | number : '1.2-2' }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+</div>
+
+<div *ngIf="currentTab=='CHILD'">
+  <app-osbranchwise [ParentData]="ChildData" (Return2Parent)="currentTab=$event"></app-osbranchwise>
+</div>
+<div *ngIf="currentTab=='CHILD2'">
+  <app-ossmanbranch [ParentData]="ChildData" (Return2Parent)="currentTab=$event"></app-ossmanbranch>
+</div>
+<div *ngIf="currentTab=='CHILD3'">
+  <app-osinvwise [ParentData]="ChildData" (Return2Parent)="currentTab=$event"></app-osinvwise>
+</div>
+
+<App-Wait [visible]="loading || loading2 || loading3"></App-Wait>
+
+
+
+
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="mailtype" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>

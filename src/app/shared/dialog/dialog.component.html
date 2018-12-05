@@ -1,0 +1,18 @@
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <div class="modal-body">
+    <p>{{id.msg}}</p>
+    <p>{{id.name}}</p>
+  </div>
+  
+  <div class="modal-footer">
+    <button *ngIf="id.buttons=='yn'" type="button" class="btn btn-outline-dark" (click)="c('Y')">Yes</button>
+    <button *ngIf="id.buttons=='yn'" type="button" class="btn btn-outline-dark" (click)="d('N')">No</button>
+    <button *ngIf="id.buttons=='ok'" type="button" class="btn btn-outline-dark" (click)="d('N')">Ok</button>
+  </div>
+
+
+
+</ng-template>
+
+<i  class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="open(content)"></i>

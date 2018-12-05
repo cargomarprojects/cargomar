@@ -1,0 +1,48 @@
+
+
+<div class="page-details">
+  <div class="col-sm-12">
+    <div class="page-details">
+      <div class="col-sm-12">
+
+        <div *ngIf="isadmin" class="form-group row" style="color:black">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-3">
+            <select class="form-control form-control-sm" [(ngModel)]="type">
+              <option [value]="''">NA</option>
+              <option [value]="'LEGAL'">LEGAL</option>
+              <option [value]="'STAFF-DEBIT'">STAFF-DEBIT</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row" style="color:black">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="remarks" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-sm-2 col-sm-10">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Update</button>
+            <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+
+
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

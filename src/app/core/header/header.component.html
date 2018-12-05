@@ -1,0 +1,26 @@
+<div *ngIf="gs.IsAuthenticated">
+
+    <nav class="navbar  navbar-dark bg-primary">
+      <div>
+        <h4 style="color:white">{{gs.Company_Name}}</h4>
+      </div>
+
+      <div class="btn-group" [ngStyle]="{'margin':'1px'}" ngbDropdown *ngFor="let rech of gs.Modules">
+        <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{rech.module_name}}</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <div *ngFor="let rec of gs.MenuList" class="menulist">
+            <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed" class="dropdown-item" (click)="LoadPage(rec)">{{rec.menu_name}}</a>
+          </div>
+        </div>
+      </div>
+
+      <span style="color:white">
+        <label>{{gs.globalVariables.user_name}}</label>
+        <label>|</label>
+        <label>{{gs.globalVariables.branch_name}}</label>
+        <label>|</label>
+        <a (click)="Logout()">Logout</a>
+      </span>
+    </nav>
+  
+</div>

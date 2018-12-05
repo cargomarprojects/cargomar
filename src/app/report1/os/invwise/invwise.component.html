@@ -1,0 +1,72 @@
+
+<div *ngIf="currentTab=='LIST'">
+
+  <div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button class="btn btn-primary btn-sm" (click)="List('EXCEL')">Excel</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Return</button>
+
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+  <div class="page-list">
+
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>INVNO</th>
+            <th>DATE</th>
+            <th class="text-right">0-15</th>
+            <th class="text-right">16-30</th>
+            <th class="text-right">31-60</th>
+            <th class="text-right">61-90</th>
+            <th class="text-right">91-180</th>
+            <th class="text-right">180+</th>
+
+
+            <th class="text-right">BALANCE</th>
+            <th class="text-right">ADVANCE</th>
+            <th class="text-right">OVERDUE</th>
+            <th class="text-right">1YEAR+</th>
+            <th *ngIf="category != 'LEGAL'" class="text-right">LEGAL</th>
+          </tr>
+        </thead>
+
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+
+            <td>{{rec.invno}}</td>
+            <td>{{rec.invdate}}</td>
+
+            <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+
+
+            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
+            <td *ngIf="category != 'LEGAL'" align='right'>{{ rec.legal   | number : '1.2-2'  }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+﻿<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()" >Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>MODULE</th>
+          <th>MENU ID</th>
+          <th>MENU CAPTION</th>
+          <th>ROUTE</th>
+          <th>PARAMETER</th>
+          <th>ORDER</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.menu_pkid)">
+          <td>{{rec.menu_module_name}}</td>
+          <td>{{rec.menu_code}}</td>
+          <td>{{rec.menu_name}}</td>
+          <td>{{rec.menu_route1}}</td>
+          <td>{{rec.menu_route2}}</td>
+          <td>{{rec.menu_order}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Menu ID</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_code" required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Menu</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_name" required maxlength="30" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Route 1</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_route1" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Route 2 </label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_route2" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Type</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_type" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Module</label>
+        <div class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.menu_module_id">
+            <option *ngFor="let rec of ModuleList" [value]="rec.module_pkid">{{rec.module_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Order</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.menu_order" required maxlength="10" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm"></label>
+        <div class="col-10">
+          <input type="checkbox" [(ngModel)]="Record.menu_displayed" />
+          <span>Show This Menu</span>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-2 col-10">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>

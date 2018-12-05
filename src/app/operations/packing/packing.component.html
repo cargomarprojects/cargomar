@@ -1,0 +1,179 @@
+<div class="page-header">
+  <div style="padding-left:0"  class="col">
+    <font color="black">
+      <strong>
+        CONTAINER#&nbsp;&nbsp;&nbsp;
+      </strong>
+    </font>
+    <font color="red">
+      <strong>
+       {{title}}
+      </strong>
+    </font>
+  </div>
+</div>
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>JOB#</th>
+          <th>PKGS</th>
+          <th>PCS</th>
+          <th>NT.WT</th>
+          <th>GR.WT</th>
+          <th>CBM</th>
+
+          <th>SHIPPER</th>
+          <th>SI#</th>
+          <th>HBL#</th>
+
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.pack_pkid)">
+          <td>{{rec.pack_job_no}}</td>
+          <td>{{rec.pack_pkg}}</td>
+          <td>{{rec.pack_pcs}}</td>
+          <td>{{rec.pack_ntwt}}</td>
+          <td>{{rec.pack_grwt}}</td>
+          <td>{{rec.pack_cbm}}</td>
+          <td>{{rec.shipper_name}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.pack_pkid,name:rec.pack_job_no}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--<div class="row">
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-3 col-form-label  col-form-label-sm">Total</label>
+        <div class="col-9">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Total_Amount" required maxlength="20" />
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+</div>
+
+<div class="page-details">
+
+  <div class="row">
+
+    <div class="col-sm-6">
+
+      <div class="form-group row">
+        <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">JOB#</label>
+        <div class="col-4">
+          <input type="text" [disabled]="mode=='EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.pack_job_no" (blur)="OnBlur('pack_job_no')" #pack_job_no required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+
+        <label class="col-3 col-form-label col-form-label-sm">Total Pkgs</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pkg" (blur)="OnBlur('pack_pkg')" required maxlength="10" />
+        </div>
+        <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
+        <div class="col-3">
+          <app-autocomplete #pkgUnitLov [inputdata]="PKGUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Pcs</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pcs" (blur)="OnBlur('pack_pcs')" required maxlength="15" />
+        </div>
+        
+      </div>
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Net. Weight</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_ntwt" (blur)="OnBlur('pack_ntwt')" required maxlength="15" />
+        </div>
+        <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
+        <div class="col-3">
+          <app-autocomplete #pkgUnitLov [inputdata]="GRUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Gr. Weight</label>
+        <div class="col-4">
+          
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_grwt" (blur)="OnBlur('pack_grwt')" required maxlength="15" />
+        </div>
+        <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
+        <div class="col-3">
+          <app-autocomplete #pkgUnitLov [inputdata]="NETUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Cbm</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_cbm" (blur)="OnBlur('pack_cbm')" required maxlength="15" />
+        </div>
+        <!--<label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Ch. Weight</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_chwt" (blur)="OnBlur('pack_chwt')" required maxlength="15" />
+        </div>-->
+      </div>
+      <div class="form-group row">
+      </div>
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+          <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.pack_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+    <!--<div class="row">
+
+      <div class="col-sm-6">
+        <div class="form-group row">
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">{{mode}}</button>
+          </div>
+          <div class="col-3">
+            <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+          </div>
+          <div class="col-3">
+            <button [disabled]="loading" (click)="ActionHandler('REMOVE','')" class="btn btn-default btn-sm">REMOVE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>-->
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

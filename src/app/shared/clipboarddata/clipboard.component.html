@@ -1,0 +1,93 @@
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <div class="modal-body">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+
+        <div class="form-group row">
+          <div class="col-12">
+            <label>Paste Data in below Text Box</label>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-12">
+            <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="cbdata" required></textarea>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <div class="col-5">
+            <select class="form-control form-control-sm" [(ngModel)]="maintype">
+              <option value="JOB SEA EXPORT">JOB SEA EXPORT</option>
+              <option value="JOB AIR EXPORT">JOB AIR EXPORT</option>
+              <option value="CNTR SEA EXPORT">CNTR SEA EXPORT</option>
+
+              <option value="SI SEA EXPORT">SI SEA EXPORT</option>
+              <option value="SI AIR EXPORT">SI AIR EXPORT</option>
+
+              <option value="SI SEA IMPORT">SI SEA IMPORT</option>
+              <option value="SI AIR IMPORT">SI AIR IMPORT</option>
+
+              <option value="EMPLOYEE">EMPLOYEE</option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <button class="btn btn-primary btn-sm" (click)="SearchRecord()">Search</button>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-primary btn-sm" (click)="close()">Cancel</button>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-sm-6">
+        <div style="height: 150px; overflow: auto;">
+          <table>
+            <tr>
+              <td>TYPE</td>
+              <td>CODE</td>
+              <td>AMOUNT</td>
+            </tr>
+            <tr *ngFor="let rec of RecList">
+              <td>
+                {{rec.type}}
+              </td>
+              <td>
+                {{rec.code}}
+              </td>
+              <td>
+                {{rec.rate}}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          TOTAL : {{nTotal}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+</ng-template>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

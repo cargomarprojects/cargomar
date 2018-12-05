@@ -1,0 +1,147 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-list">
+
+  <div class="page-search">
+
+    <div class="row">
+      <label class="col-1 col-form-label col-form-label-sm">A/c Name</label>
+      <div class="col-2">
+        <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="FindPendingList()" class="btn btn-primary btn-sm">Find</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="page-list">
+  <div class="page-body">
+    <div style="height: 200px; overflow: auto;">
+      <table class="table table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>FIN-YEAR</th>
+            <th>VRNO</th>
+            <th>TYPE</th>
+            <th>DATE</th>
+            <th>REFNO</th>
+            <th>DR/CR</th>
+            <th>AMOUNT</th>
+            <th>BALANCE</th>
+            <th>SELECT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of SourceList">
+          <tr>
+            <td>{{rec.jv_year}}</td>
+            <td>{{rec.jv_docno}}</td>
+            <td>{{rec.jv_type}}</td>
+            <td>{{rec.jv_display_date}}</td>
+            <td>{{rec.jv_reference}}</td>
+            <td>{{rec.jv_drcr}}</td>
+            <td>{{rec.jv_total}}</td>
+            <td>{{rec.jv_balance}}</td>
+            <td><input type="checkbox" [(ngModel)]="rec.jv_selected" (change)="OnChangeSourceList('jv_selected', rec)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="page-list">
+  <div class="page-body">
+    <div style="height: 200px; overflow: auto;">
+      <table class="table table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>FIN-YEAR</th>
+            <th>VRNO</th>
+            <th>TYPE</th>
+            <th>DATE</th>
+            <th>REFNO</th>
+            <th>DR/CR</th>
+            <th>AMOUNT</th>
+            <th>BALANCE</th>
+            <th>ALLOCATION</th>
+            <th>SELECT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of PendingList">
+          <tr>
+            <td>{{rec.jv_year}}</td>
+            <td>{{rec.jv_docno}}</td>
+            <td>{{rec.jv_type}}</td>
+            <td>{{rec.jv_display_date}}</td>
+            <td>{{rec.jv_reference}}</td>
+            <td>{{rec.jv_drcr}}</td>
+            <td>{{rec.jv_total}}</td>
+            <td>{{rec.jv_balance}}</td>
+            <td width="150px;">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.jv_allocation" (blur)="OnBlur('jv_allocation', rec)" required maxlength="20" />
+            </td>
+            <td><input type="checkbox" [(ngModel)]="rec.jv_selected" (change)="OnChangePendingList('jv_selected', rec)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="form-group row">
+      <label class="col-1 col-form-label  col-form-label-sm">Amt</label>
+      <div class="col-2">
+        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="jv_total" required maxlength="20" />
+      </div>
+
+      <label class="col-1 col-form-label  col-form-label-sm">Allocated</label>
+      <div class="col-2">
+        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Total_Amount" required maxlength="20" />
+      </div>
+      <label class="col-1 col-form-label  col-form-label-sm">Bal</label>
+      <div class="col-2">
+        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Total_Diff" required maxlength="20" />
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page-box">
+  <div class="col">
+    <button (click)="Save()" class="btn btn-success btn-sm">Save</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+
+
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

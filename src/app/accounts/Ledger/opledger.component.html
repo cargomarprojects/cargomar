@@ -1,0 +1,269 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col">Search</label>
+      <div class="col-2">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+
+      <div class="col">
+        <input type="checkbox" [(ngModel)]="showCurrency">
+        <span>Currency</span>
+      </div>
+
+      <div class="col">
+        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+      </div>
+
+      <div class="col">
+        <button [disabled]="loading" (click)="List('EXCEL2')" class="btn btn-primary btn-sm">OP DIFFERENCE</button>
+      </div>
+
+
+      <div class="col">
+        <label class="col-2">DR: {{DR_BAL}}</label>
+      </div>
+
+      <div class="col">
+        <label class="col-2">CR: {{CR_BAL}}</label>
+      </div>
+      <div class="col">
+        <label class="col-2">BAL: {{BAL}}</label>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>REFERENCE</th>
+          <th>NARRATION</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>GROUP</th>
+          <th>TYPE</th>
+
+          <th *ngIf="showCurrency">CURR</th>
+          <th *ngIf="showCurrency">AMT</th>
+          <th *ngIf="showCurrency">EXRATE</th>
+
+          <th>DEBIT</th>
+          <th>CREDIT</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList">
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_vrno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_reference}}</td>
+          <td>{{rec.jvh_narration}}</td>
+          <td>{{rec.jvh_acc_code}}</td>
+          <td>{{rec.jvh_acc_name}}</td>
+
+          <td>{{rec.jvh_group_name}}</td>
+          <td>{{rec.jvh_type_name}}</td>
+
+          <td *ngIf="showCurrency">{{rec.jvh_curr_code}}</td>
+          <td *ngIf="showCurrency">{{rec.jvh_ftotal}}</td>
+          <td *ngIf="showCurrency">{{rec.jvh_exrate}}</td>
+
+          <td>{{rec.jvh_debit}}</td>
+          <td>{{rec.jvh_credit}}</td>
+
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div class="page-box">
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Vr.No</label>
+        <div class="col-4">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_vrno" required maxlength="15" />
+        </div>
+        <!--<label class="col-2 col-form-label col-form-label-sm">Date</label>
+        <div class="col-4">
+          <app-date  [inputdate]="Record.jvh_date" (ValueChanged)="Record.jvh_date=$event"></app-date>
+        </div>-->
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Ref.No</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" (blur)="OnBlur('jvh_reference')" required maxlength="50" />
+        </div>
+        <label class="col-2 col-form-label col-form-label-sm">Date</label>
+        <div class="col-4">
+          <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Category</label>
+        <div class="col-4">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.rec_category">
+            <option value="SEA EXPORT">SEA EXPORT</option>
+            <option value="AIR EXPORT">AIR EXPORT</option>
+            <option value="SEA IMPORT">SEA IMPORT</option>
+            <option value="AIR IMPORT">AIR IMPORT</option>
+            <option value="GENERAL">GENERAL</option>
+            <option value="OTHERS">OTHERS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Code</label>
+        <div class="col-10">
+          <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Name</label>
+        <div class="col-10">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_name" (blur)="OnBlur('jvh_acc_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Currency</label>
+        <div class="col-4">
+          <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-2 col-form-label  col-form-label-sm">Ex.Rate</label>
+        <div class="col-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" (focus)="OnFocus('jvh_exrate')" (change)="OnChange('jvh_exrate')" (blur)="OnBlur('jvh_exrate')" required maxlength="10" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Amount</label>
+        <div class="col-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_ftotal" (focus)="OnFocus('jvh_ftotal')" (change)="OnChange('jvh_ftotal')" (blur)="OnBlur('jvh_ftotal')" required maxlength="20" />
+        </div>
+        <label class="col-2 col-form-label  col-form-label-sm">Total</label>
+        <div class="col-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_total" (focus)="OnFocus('jvh_total')" (change)="OnChange('jvh_total')" (blur)="OnBlur('jvh_total')" required maxlength="20" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Dr/Cr</label>
+        <div class="col-4">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.jvh_drcr">
+            <option value="DR">DR</option>
+            <option value="CR">CR</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="type=='OB'" class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_bank" (blur)="OnBlur('jvh_bank')" required maxlength="60" />
+        </div>
+        <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_branch" (blur)="OnBlur('jvh_branch')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div *ngIf="type=='OB'" class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Chq.No</label>
+        <div class="col-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_chqno" (blur)="OnBlur('jvh_chqno')" required maxlength="60" />
+        </div>
+
+        <label class="col-2 col-form-label col-form-label-sm">Chq.Date</label>
+        <div class="col-4">
+          <app-date [inputdate]="Record.jvh_due_date" (ValueChanged)="Record.jvh_due_date=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Remarks</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_remarks" (blur)="OnBlur('jvh_remarks')" required maxlength="60" />
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col-sm-4">
+      <div class="col-10">
+        <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

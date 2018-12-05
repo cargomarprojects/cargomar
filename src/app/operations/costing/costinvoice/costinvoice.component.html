@@ -1,0 +1,86 @@
+<div class="page-list">
+  <div style="max-height: 200px; overflow-y: scroll;">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th width="15%">HOUSE BL</th>
+            <th width="30%">DESCRIPTION</th>
+            <th width="20%">REMARKS</th>
+            <th width="10%">QTY</th>
+            <th width="10%">RATE</th>
+            <th width="10%">AMT</th>
+            <th width="5%">REMOVE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of mRecord.DetailList">
+          <tr>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="text" name="blno" class="form-control form-control-sm" [(ngModel)]="rec.costd_blno" (blur)="OnBlurTableCell('costd_blno',rec.costd_pkid)" required maxlength="25" />
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <input type="text" name="desc" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',rec.costd_pkid)" required maxlength="60" />
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <input type="text" name="rem" class="form-control form-control-sm" [(ngModel)]="rec.costd_remarks" (blur)="OnBlurTableCell('costd_remarks',rec.costd_pkid)" required maxlength="100" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="qty" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_qty" (focus)="OnFocusTableCell('costd_acc_qty',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_qty',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_qty',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="rate" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_rate" (focus)="OnFocusTableCell('costd_acc_rate',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_rate',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_rate',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="amt" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_amt" (focus)="OnFocusTableCell('costd_acc_amt',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_amt',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_amt',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td align="center" style="padding:0px 0px 0px 0px" >
+              <i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="RemoveRecord(rec.costd_pkid)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="row">
+      <div class="col-8">
+        <div class="form-group row">
+          <div class="offset-1 col-10">
+            <button [disabled]="loading" (click)="NewRecord()" class="btn btn-default btn-sm">Add Row</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm">Total Amount</label>
+          <div *ngIf="type=='DRCR ISSUE'"  class="offset-2 col-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_drcr_amount" required maxlength="20" />
+          </div>
+          <div *ngIf="type!='DRCR ISSUE'" class="offset-2 col-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_tot_acc_amt" required maxlength="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<br />
+  <hr />
+  <div class="row">
+    <div class="col-8">
+      <div class="form-group row">
+        <div class="offset-1 col-10">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

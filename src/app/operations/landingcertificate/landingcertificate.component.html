@@ -1,0 +1,74 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+      </div>
+
+      <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+      </div>
+
+      <label class="col-1 col-form-label col-form-label-sm">Shipper</label>
+      <div class="col-2">
+        <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th><input type="checkbox" (click)="SelectSINos()" >&nbsp;&nbsp;SI#</th>
+          <th>CONSIGNEE</th>
+          <th>HBL#</th>
+          <th>HBL DATE</th>
+          <th>FCR#</th>
+          <th>CONTAINER</th>
+          <th>ETD</th>
+          <th>POD</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td><input type="checkbox" [(ngModel)]="rec.hbl_no_checked">&nbsp;&nbsp;{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_imp_name}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.hbl_fcr_no}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pol_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

@@ -1,0 +1,125 @@
+
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-8">
+              <input type="checkbox" [(ngModel)]="final">
+              <span> Final</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+
+            <div class="col-sm-4">
+
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-10">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>ACC-CODE</th>
+          <th>PAID/CREDITED DATE DEDUCTION DATE</th>
+          <th>TYPE</th>
+          <th>VRNO</th>
+          <th>PAN</th>
+          <th>NAME</th>
+          <th>LOCATION</th>
+          <th class="text-right">AMOUNT PAID/CREDITED</th>
+          <th class="text-right">DEDUCTION RATE</th>
+          <th class="text-right">DEDUCTED AND DEPOSTIED TAX</th>
+          <th class="text-right">INTREST-194A</th>
+          <th class="text-right">COMM.BR-194H</th>
+          <th class="text-right">CONTRACT-194C</th>
+          <th class="text-right">BUILDING-194IA</th>
+          <th class="text-right">RENT-194I</th>
+          <th class="text-right">SALARY-192B</th>
+          <th class="text-right">PROF.TAX-194J</th>
+          <th class="text-right">FORN.PAY-195</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_type}}</td>
+          <td>{{rec.jvh_vrno}}</td>
+          <td>{{rec.panno}}</td>
+          <td>{{rec.party_name}}</td>
+          <td>{{rec.location}}</td>
+          <td align='right'>{{rec.jv_tds_gross_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_tds_rate | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_credit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.interest | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.commision | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.contract | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.building | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.rent | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.salary | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ptax | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.forgnpay | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+

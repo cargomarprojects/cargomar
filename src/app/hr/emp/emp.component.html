@@ -1,0 +1,719 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>BRANCH NAME</th>
+          <th>BLOOD GR.</th>
+          <th>MOBILE NO</th>
+          <th>EMAIL</th>
+          <th>BANK ACCOUNT NO.</th>
+          <th>PF NO.</th>
+          <th>JOIN DATE</th>
+          <th>CONFIRM DATE</th>
+          <th>RELIEVE DATE</th>
+          <th>TRANSFER DATE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.emp_pkid)">
+          <td>{{rec.emp_no}}</td>
+          <td>{{rec.emp_name}}</td>
+          <td>{{rec.emp_branch_name}}</td>
+          <td>{{rec.emp_blood_group}}</td>
+          <td>{{rec.emp_mobile}}</td>
+          <td>{{rec.emp_email_personal}}</td>
+          <td>{{rec.emp_bank_acno}}</td>
+          <td>{{rec.emp_pfno}}</td>
+          <td>{{rec.emp_do_joining}}</td>
+          <td>{{rec.emp_do_confirmation}}</td>
+          <td>{{rec.emp_do_relieve}}</td>
+          <td>{{rec.emp_trans_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-5">
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no" required maxlength="30" />
+        </div>
+        <label class="col-sm-2 col-form-label  col-form-label-sm">In payroll</label>
+        <div class="col-sm-1">
+          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_name"  (blur)="OnBlur('emp_name')" required maxlength="100" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">NickName</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_alias" (blur)="OnBlur('emp_alias')" required maxlength="50" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Father</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_father_name" (blur)="OnBlur('emp_father_name')" required maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Spouse</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_spouse_name" (blur)="OnBlur('emp_spouse_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Blood Group</label>
+        <div class="col-sm-9">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.emp_blood_group">
+            <option *ngFor="let rec of BloodGrList" [value]="rec.name">{{rec.name}}</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="col-sm-5">
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Gender</label>
+        <div class="col-sm-3">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.emp_gender">
+            <option *ngFor="let rec of GenderList" [value]="rec.id">{{rec.name}}</option>
+          </select>
+        </div>
+        <label class="col-sm-3 col-form-label col-form-label-sm">DOB
+        <font style="color:orangered">{{ageinyears}}</font></label>
+        <div class="col-sm-3">
+        <app-date [inputdate]="Record.emp_do_birth" (ValueChanged)="Record.emp_do_birth=$event"  ></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Marital</label>
+        <div class="col-sm-3">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.emp_marital_status">
+            <option *ngFor="let rec of MaritalStatusList" [value]="rec.id">{{rec.name}}</option>
+          </select>
+        </div>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Marriage Dt.</label>
+        <div class="col-sm-3">
+          <app-date [inputdate]="Record.emp_marrige_date" (ValueChanged)="Record.emp_marrige_date=$event"></app-date>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Join Date</label>
+        <div class="col-sm-3">
+          <app-date [inputdate]="Record.emp_do_joining" (ValueChanged)="Record.emp_do_joining=$event"></app-date>
+        </div>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Confirm Date</label>
+        <div class="col-sm-3">
+          <app-date [inputdate]="Record.emp_do_confirmation" (ValueChanged)="Record.emp_do_confirmation=$event"></app-date>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Relieved</label>
+        <div class="col-sm-3">
+          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved">
+        </div>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Relieve Date</label>
+        <div class="col-sm-3">
+          <app-date [inputdate]="Record.emp_do_relieve" (ValueChanged)="Record.emp_do_relieve=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-sm-9">
+          <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.rec_branch_code">
+            <option *ngFor="let rec of BranchList" [value]="rec.comp_code">{{rec.comp_name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+  <hr/>
+
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <ngb-tabset>
+        <ngb-tab title="Address">
+          <ng-template ngbTabContent>
+
+
+            <div class="page-box">
+              <div class="row">
+                <div class="col-sm-5">
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Local Addr.</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_address1" (blur)="OnBlur('emp_local_address1')" required maxlength="60" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm"></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_address2" (blur)="OnBlur('emp_local_address2')" required maxlength="60" />
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm"></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_address3" (blur)="OnBlur('emp_local_address3')" required maxlength="60" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">City</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_city" (blur)="OnBlur('emp_local_city')" required maxlength="60" />
+                    </div>
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Pin</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_pin" required maxlength="15" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">State</label>
+                    <div class="col-sm-3">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_local_state_id">
+                        <option *ngFor="let rec of StateList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Po Box</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_local_pobox" (blur)="OnBlur('emp_local_pobox')" required maxlength="15" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Country</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_local_country_id">
+                        <option *ngFor="let rec of CountryList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="col-sm-5">
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Permanent</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_address1" (blur)="OnBlur('emp_home_address1')" required maxlength="60" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label  col-form-label-sm"></label>-->
+                    <div class="col-sm-3">
+                      <button [disabled]="loading" (click)="CopyAddress('COPYTOLOCAL')" class="btn btn-primary btn-sm"> << </button>
+                      <button [disabled]="loading" (click)="CopyAddress('COPYTOPERMANENT')" class="btn btn-primary btn-sm"> >> </button>
+                    </div>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_address2" (blur)="OnBlur('emp_home_address2')" required maxlength="60" />
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm"></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_address3" (blur)="OnBlur('emp_home_address3')" required maxlength="60" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">City</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_city" (blur)="OnBlur('emp_home_city')" required maxlength="60" />
+                    </div>
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Pin</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_pin" required maxlength="15" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">State</label>
+                    <div class="col-sm-3">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_home_state_id">
+                        <option *ngFor="let rec of StateList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Po Box</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_pobox" (blur)="OnBlur('emp_home_pobox')" required maxlength="15" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Country</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_home_country_id">
+                        <option *ngFor="let rec of CountryList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Company Details">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="col-sm-5">
+
+                <!--<div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.rec_branch_code">
+                      <option *ngFor="let rec of BranchList" [value]="rec.comp_code">{{rec.comp_name}}</option>
+                    </select>
+                  </div>
+                </div>-->
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Grade</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_grade_id">
+                      <option *ngFor="let rec of GradeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Department</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_department_id">
+                      <option *ngFor="let rec of DepartmentList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Designation</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_designation_id">
+                      <option *ngFor="let rec of DesignationList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Status</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_status_id">
+                      <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Contact">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="col-sm-5">
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Tel/Residence</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_tel_resi" required maxlength="30" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Tel/Office</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_tel_office" required maxlength="30" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Mob/Personal</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_mobile" (blur)="OnBlur('emp_mobile')" required maxlength="30" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Mob/Office</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_mobile_office" required maxlength="30" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Email/Personal</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_email_personal" (blur)="OnBlur('emp_email_personal')" required maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Email/Office</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_email_office" (blur)="OnBlur('emp_email_office')" required maxlength="60" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </ng-template>
+        </ngb-tab>
+
+
+        <ngb-tab title="Bank Details">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="col-sm-5">
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">A/C No</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_bank_acno" required maxlength="50" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Bank Name</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_bank_name" (blur)="OnBlur('emp_bank_name')" required maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Bank Branch</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_bank_branch" (blur)="OnBlur('emp_bank_branch')" required maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">IFSC Code</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_ifsc_code" (blur)="OnBlur('emp_ifsc_code')" required maxlength="20" />
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+          </ng-template>
+        </ngb-tab>
+
+
+        <ngb-tab title="Others">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="row">
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">PF No</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_pfno" (blur)="OnBlur('emp_pfno')" required maxlength="50" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">ESI No</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_esino" (blur)="OnBlur('emp_esino')" required maxlength="50" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">PAN No</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_pan" (blur)="OnBlur('emp_pan')" required maxlength="50" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Aadhar No</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_adhar_no" (blur)="OnBlur('emp_adhar_no')" required maxlength="20" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">UAN No</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_uan_no" (blur)="OnBlur('emp_uan_no')" required maxlength="20" />
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Fuel Type</label>
+                    <div class="col-sm-6">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_fuel_type">
+                        <option *ngFor="let rec of FuelList" [value]="rec.name">{{rec.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Fuel Limit PM</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_fuel_limit" required maxlength="14" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Bus Pass PM</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_bus_limit" required maxlength="14" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Train Pass PM</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_train_limit" required maxlength="14" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Vehi.Maint.Limit.PA</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_vehi_maint_limit" required maxlength="14" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">Mobile Limit PM</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_mobile_limit" required maxlength="14" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">DataCardLimitPM</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_datacard_limit" required maxlength="20" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label  col-form-label-sm">License</label>
+                    <div class="col-sm-6">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_drive_vehi_type">
+                        <option *ngFor="let rec of VehicleTypeList" [value]="rec.id">{{rec.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Insurance">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="col-sm-6">
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm"></label>
+                  <div class="col-sm-5">
+                    <input type="checkbox" [(ngModel)]="Record.emp_comp_mediclaim">
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Co.Mediclaim/PA</label>
+                  </div>
+                  
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Co.Premium</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_premium_amt" required maxlength="14" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Provider</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_mediclaim_provider" (blur)="OnBlur('emp_mediclaim_provider')" required maxlength="60" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Remarks">
+          <ng-template ngbTabContent>
+
+            <div class="page-box">
+              <div class="col-sm-6">
+
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Transfer Date</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.emp_trans_date" (ValueChanged)="Record.emp_trans_date=$event"></app-date>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Remarks</label>
+                  <div class="col-sm-8">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.emp_remarks" (blur)="OnBlur('emp_remarks')" required maxlength="60"></textarea>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
+
+
+    </div>
+  </div>
+
+
+  <div class="page-box">
+    <div class="col">
+      <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+</div>
+
+<br />
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+

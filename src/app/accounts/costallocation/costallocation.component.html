@@ -1,0 +1,323 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>STMT#</th>
+          <th>DATE</th>
+          <th>CODE</th>
+          <th>AGENT</th>
+          <th>CURR</th>
+
+          <th>DR</th>
+          <th>CR</th>
+          <th>BAL</th>
+
+          <th>DR-INR</th>
+          <th>CR-INR</th>
+          <th>BAL-INR</th>
+
+          <th>BY</th>
+          <th>DT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.stm_pkid, i)" [class.active]="i == selectedRowIndex">
+          <td>{{rec.stm_no}}</td>
+          <td>{{rec.stm_date}}</td>
+          <td>{{rec.stm_acc_code}}</td>
+          <td>{{rec.stm_acc_name}}</td>
+          <td>{{rec.stm_curr_code}}</td>
+
+          <td>{{rec.stm_dr}}</td>
+          <td>{{rec.stm_cr}}</td>
+          <td>{{rec.stm_bal}}</td>
+
+          <td>{{rec.stm_dr_inr}}</td>
+          <td>{{rec.stm_cr_inr}}</td>
+          <td>{{rec.stm_bal_inr}}</td>
+
+
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <ngb-tabset>
+    <ngb-tab title="Basic Details">
+      <ng-template ngbTabContent>
+
+        <div class="page-box">
+
+          <div class="row">
+
+            <div class="col-sm-4">
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Stmt#</label>
+                <div class="col-10">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="Record.stm_no" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                <div class="col-sm-10">
+                  <app-date [disabled]="lock_date" [inputdate]="Record.stm_date" (ValueChanged)="Record.stm_date=$event"></app-date>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Curr</label>
+                <div class="col-10">
+                  <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-sm-4">
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+                <div class="col-10">
+                  <app-autocomplete #CsdLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                <div class="col-10">
+                  <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.stm_acc_name" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.stm_acc_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                  <button [disabled]="loading" (click)="ShowPending()" class="btn btn-primary btn-sm">Search Pending</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="page-box">
+
+
+          <table class="table table-sm" style="display:block;width:100%;">
+            <thead class="page-body-thead">
+              <tr>
+                <th width="100px;" class="text-left">DATE</th>
+                <th width="150px;" class="text-left">REF#</th>
+                <th width="150px;" class="text-left">REMARKS</th>
+                <th width="100px;" class="text-left">VRNO</th>
+                <th width="100px;" class="text-left">TYPE</th>
+                <th width="100px;" class="text-left">CATEGORY</th>
+                <th width="100px;" class="text-right">DR</th>
+                <th width="100px;" class="text-right">CR</th>
+                <th width="100px;" class="text-right">BAL</th>
+                <th width="100px;" class="text-right">ALLOC.</th>
+                <th width="50px;" class="text-left">Y/N</th>
+                <th width="100px;" class="text-right">EXRATE</th>
+                <th width="100px;" class="text-right">DR</th>
+                <th width="100px;" class="text-right">CR</th>
+                <th width="100px;" class="text-right">BAL-INR</th>
+                <th width="100px;" class="text-right">ALLOC-INR</th>
+
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:block;width:100%;">
+              <tr *ngFor="let rec of PendingList">
+                <td width="100px;" align='left'>{{rec.jv_display_date}}</td>
+                <td width="150px;" align='left'>{{rec.jv_reference}}</td>
+                <td width="150px;" align='left'>{{rec.jv_remarks}}</td>
+                <td width="100px;" align='left'>{{rec.jv_vrno}}</td>
+                <td width="100px;" align='left'>{{rec.jv_type}}</td>
+                <td width="100px;" align='left'>{{rec.rec_category}}</td>
+                <td width="100px;" align='right'>{{ rec.dr | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.cr | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.balance | number : '1.2-2' }}</td>
+                <td width="200px;" align='right'>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.allocation" (blur)="OnBlur('allocation', rec)" />
+                </td>
+                <td width="50px;" align='left'>
+                  <input type="checkbox" [(ngModel)]="rec.jv_selected" (change)="OnChange('jv_selected', rec)">
+                </td>
+                <td width="100px;" align='right'>{{ rec.jv_exchange_rate | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.jv_debit | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.inrbalance | number : '1.2-2' }}</td>
+                <td width="100px;" align='right'>{{ rec.inrallocation | number : '1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
+
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <div class="offset-2 col-10">
+                  <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+                  <button (click)="PrintList('EXCEL')" class="btn btn-success btn-sm">Print</button>
+                  <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-box">
+
+          <div class="row">
+
+            <div class="col-sm-6">
+
+              <div class="form-group row">
+                <label class="col-3 col-form-label  col-form-label-sm">PARTICUALRS</label>
+                <label class="col-3 col-form-label  col-form-label-sm">DEBIT</label>
+                <label class="col-3 col-form-label  col-form-label-sm">CREDIT</label>
+                <label class="col-3 col-form-label  col-form-label-sm">BALANCE</label>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-3 col-form-label  col-form-label-sm">F.CURRENCY</label>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="fdr" />
+                </div>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="fcr" />
+                </div>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="fbal" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-3 col-form-label  col-form-label-sm">INR</label>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="ldr" />
+                </div>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="lcr" />
+                </div>
+                <div class="col-3">
+                  <input type="number" [disabled]="true" class="form-control form-control-sm" [(ngModel)]="lbal" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+
+              <div class="form-group row">
+                <label class="col-4 col-form-label  col-form-label-sm">SEA - {{SeaAmt}}</label>
+                <label class="col-4 col-form-label  col-form-label-sm">AIR - {{AirAmt}}</label>
+                <label class="col-4 col-form-label  col-form-label-sm">OTH - {{OtherAmt}}</label>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+
+      </ng-template>
+
+    </ngb-tab>
+
+  </ngb-tabset>
+
+
+
+</div>
+<br />
+
+<App-Wait [visible]="loading"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

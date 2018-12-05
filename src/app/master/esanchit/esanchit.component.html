@@ -1,0 +1,382 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-1">DRN</label>
+      <div class="col-2">
+        <input type="text" class="col form-control form-control-sm" name="drn" [(ngModel)]="drn" />
+      </div>
+      <label class="col-1">IRN</label>
+      <div class="col-2">
+        <input type="text" class="col form-control form-control-sm" name="irn" [(ngModel)]="irn" />
+      </div>
+      <label class="col-1">DATE</label>
+      <div class="col-2">
+        <app-date [inputdate]="upload_date" (ValueChanged)="upload_date=$event"></app-date>
+
+      </div>
+      <div class="col-3">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="DownloadEsanchit(desanchit)" class="btn btn-primary btn-sm">Download</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>UPLOAD DATE</th>
+          <th>DRN</th>
+          <th>IRN</th>
+          <th>CATEGORY</th>
+          <th>JOB#</th>
+          <th>REFERENCE-NO</th>
+
+          <th>TYPE</th>
+          <th>NAME</th>
+
+          <th>ICEGATE-FILE-NAME</th>
+          <th>ISSUING-PARTY</th>
+          <th>BENEFICIARY-PARTY</th>
+          <th>LINK.TO</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.doc_pkid)">
+          <td>{{rec.doc_upload_date}}</td>
+          <td>{{rec.doc_drn}}</td>
+          <td>{{rec.doc_irn}}</td>
+          <td>{{rec.rec_category}}</td>
+          <td>{{rec.doc_job_no}}</td>
+          <td>{{rec.doc_ref_no}}</td>
+          <td>{{rec.doc_type_code}}</td>
+
+          <td>{{rec.doc_type_name}}</td>
+          <td>{{rec.doc_file_name}}</td>
+
+          <td>{{rec.doc_issuer_name}}</td>
+          <td>{{rec.doc_ben_name}}</td>
+          <td>{{rec.doc_link_type}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="page-box">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm" (click)="focus()">DRN</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_drn" (blur)="OnBlur('doc_drn')" required maxlength="16" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Image Ref.no.(IRN)</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_irn" (blur)="OnBlur('doc_irn')" required maxlength="16" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Document Type</label>
+          <div class="col-4">
+            <app-autocomplete #DocumentTypeAddLov [inputdata]="DOCUMENTTYPERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-5" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.doc_type_name" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Icegate File Name</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_file_name" (blur)="OnBlur('doc_file_name')" required maxlength="200" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Document Name</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_name" (blur)="OnBlur('doc_name')" required maxlength="200" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Reference No</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ref_no" (blur)="OnBlur('doc_ref_no')" required maxlength="17" />
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-sm-6">
+
+        <div disabled class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Upload Date</label>
+          <div class="col-9">
+            <app-date disabled [inputdate]="Record.doc_upload_date" (ValueChanged)="Record.doc_upload_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">File Type</label>
+          <div class="col-9">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.doc_file_type">
+              <option [value]="'PDF'">PDF</option>
+
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Issued At</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issued_at" (blur)="OnBlur('doc_issued_at')" required maxlength="35" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Issued On</label>
+          <div class="col-9">
+            <app-date [inputdate]="Record.doc_issued_date" (ValueChanged)="Record.doc_issued_date=$event"></app-date>
+
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Expiry Date</label>
+          <div class="col-9">
+            <app-date [inputdate]="Record.doc_expiry_date" (ValueChanged)="Record.doc_expiry_date=$event"></app-date>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <label><b>Issuing Party Details</b></label>
+        <hr />
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Name</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_name" (blur)="OnBlur('doc_issuer_name')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Code</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_code" (blur)="OnBlur('doc_issuer_code')" required maxlength="35" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Address Line-1</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_add1" (blur)="OnBlur('doc_issuer_add1')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Address Line-2</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_add2" (blur)="OnBlur('doc_issuer_add2')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">City</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_city" (blur)="OnBlur('doc_issuer_city')" required maxlength="35" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Pincode</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_pin" (blur)="OnBlur('doc_issuer_pin')" required maxlength="10" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6">
+        <label> <b>Beneficiary Party Details</b></label>
+        <hr />
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Name</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_name" (blur)="OnBlur('doc_ben_name')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Code</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_code" (blur)="OnBlur('doc_ben_code')" required maxlength="35" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Address Line-1</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_add1" (blur)="OnBlur('doc_ben_add1')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Address Line-2</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_add2" (blur)="OnBlur('doc_ben_add2')" required maxlength="70" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">City</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_city" (blur)="OnBlur('doc_ben_city')" required maxlength="35" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Pincode</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_pin" (blur)="OnBlur('doc_ben_pin')" required maxlength="10" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="page-box">
+    <div class="col-sm-6">
+
+      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="mode=='EDIT'" class="page-details">
+
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="form-group row">
+            <label class="col-3 col-form-label  col-form-label-sm">Category</label>
+            <div class="col-4">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.rec_category">
+                <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+                <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+              </select>
+            </div>
+            <div class="col-sm-5">
+              <input type="checkbox" [(ngModel)]="Record.doc_all_drn_selected">&nbsp;All DRN
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-3 col-form-label  col-form-label-sm">Job#</label>
+            <div class="col-4">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_job_no" (blur)="OnBlur('doc_job_no')" required maxlength="10" />
+            </div>
+            <div class="col-sm-5">
+              <button [disabled]="loading" (click)="Update()" class="btn btn-success btn-sm">Update</button>
+              <button [disabled]="loading" (click)="ClearLink()" class="btn btn-success btn-sm">Clear</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+<br />
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+<ng-template #desanchit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Download Esanchit Status</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-esanchitdownload [type]="type" [menuid]="menuid"></app-esanchitdownload>
+  </div>
+</ng-template>

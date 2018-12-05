@@ -1,0 +1,104 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <label class="col-1 col-form-label col-form-label-sm">TYPE</label>
+      <div class="col-2">
+        <select class="form-control form-control-sm" [(ngModel)]="types"  (change)="OnChange('types')">
+          <option [value]="'PRE-ALERT'">PRE-ALERT</option>
+          <option [value]="'MANIFEST'">MANIFEST</option>
+
+        </select>
+
+      </div>
+
+
+      <label class="col-1 col-form-label col-form-label-sm">MAWB-NO</label>
+      <div class="col-2">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchmawb_no" (blur)="OnBlur('searchmawb_no')" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive" *ngIf="types=='PRE-ALERT'">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>HAWB</th>
+          <th>AGENT</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>CARRIER</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hawb_no}}</td>
+          <td>{{rec.hbl_agent_name}}</td>
+          <td>{{rec.hbl_shipper_name}}</td>
+          <td>{{rec.hbl_consignee_name}}</td>
+          <td>{{rec.hbl_carrier_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-body table-responsive" *ngIf="types=='MANIFEST'">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>HAWB</th>
+          <th>PKGS</th>
+          <th>CH WT</th>
+          <th>GR WT</th>
+          <th>DESTINATION</th>
+          <th>COMMODITY</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>NOTIFY</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hawb_no}}</td>
+          <td>{{rec.hbl_pkg}}</td>
+          <td>{{rec.hbl_chwt}}</td>
+          <td>{{rec.hbl_grwt}}</td>
+          <td>{{rec.hbl_pod}}</td>
+          <td>{{rec.hbl_commodity}}</td>
+          <td>{{rec.hbl_shipper_name}}</td>
+          <td>{{rec.hbl_consignee_name}}</td>
+          <td>{{rec.hbl_notify_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

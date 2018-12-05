@@ -1,0 +1,413 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+
+  <div class="page-search">
+    <div class="row">
+
+      <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+      <div class="col-sm-4">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+
+      <div class="col-sm-2">
+        <input type="checkbox" [(ngModel)]="min_rate" (change)="OnChange2('min_rate')">
+        <span>Min Rate</span>
+      </div>
+
+      <div class="col-3">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr *ngIf="!min_rate">
+          <th>BRANCH</th>
+          <th>AGENT</th>
+
+          <th>CNTR</th>
+          <th class="text-right">EX GBP.RATE</th>
+          <th class="text-right">THC.PER.CBM</th>
+          <th class="text-right">ORG.PER.BL</th>
+          <th class="text-right">ORG.THC.EXP</th>
+          <th class="text-right">EMPTY.PLACE</th>
+          <th class="text-right">MISC</th>
+          <th class="text-right">STUFFING</th>
+          <th class="text-right">TRANSPORT</th>
+          <th class="text-right">SURRENDER</th>
+          <th class="text-right">CFS</th>
+          <th class="text-right">SURVEY</th>
+
+        </tr>
+
+        <tr *ngIf="min_rate">
+          <th width="10%">CODE</th>
+          <th width="10%" class="text-right">PER RATE</th>
+          <th width="80%"></th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr *ngIf="!min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)">
+          <td>{{rec.cr_branch_name}}</td>
+          <td>{{rec.cr_agent_name}}</td>
+
+          <td>{{rec.cr_cntr_type}}</td>
+          <td align='right'>{{rec.cr_ex_rate_gbp | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_inc_thc | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_inc_bl | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_thc | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_emtyplce | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_misc | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_stuff | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_trans | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_surrend | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_cfs | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.cr_org_exp_survey | number : '1.3-3'}}</td>
+
+        </tr>
+
+        <tr *ngIf="min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)">
+          <td>{{rec.cr_rate_code}}</td>
+          <td align='right'>{{rec.cr_rate_value | number : '1.3-3'}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS' " class="page-details">
+  <div *ngIf="!min_rate">
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [disabled]="mode == 'EDIT'" [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm" [disabled]="mode == 'EDIT'" [(ngModel)]="Record.cr_agent_name" (change)="OnChange(Record.cr_agent_name)">
+                <option [value]="'ACTION'">ACTION</option>
+                <option [value]="'WELLTON'">WELLTON</option>
+                <option [value]="'SEABRIDGE'">SEABRIDGE</option>
+                <option [value]="'RITRA'">RITRA</option>
+                <option [value]="'MOTHERLINES'">MOTHERLINES</option>
+                <option [value]="'GATE4EU'">GATE4EU</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label  col-form-label-sm">Container Type</label>
+            <div class="col-4">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.cr_cntr_type">
+                <option [value]="'20'">20</option>
+                <option [value]="'40'">40</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label  col-form-label-sm">{{lbl_ex_rate}}</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_ex_rate_gbp" (blur)="OnBlur('cr_ex_rate_gbp')" required maxlength="14" />
+            </div>
+            <label class="col col-form-label  col-form-label-sm">$</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>ORIGIN INCOME (INR)</b></label>
+          <hr />
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">THC PER CBM</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_inc_thc" (blur)="OnBlur('cr_org_inc_thc')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">B/L FEE PER HOUSE</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_inc_bl" (blur)="OnBlur('cr_org_inc_bl')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label> <b>ORIGIN EXPENSE (INR)</b></label>
+          <hr />
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">THC</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_thc" (blur)="OnBlur('cr_org_exp_thc')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">EMPTY PLACEMENT</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_emtyplce" (blur)="OnBlur('cr_org_exp_emtyplce')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">MISCELLANEOUS</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_misc" (blur)="OnBlur('cr_org_exp_misc')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">STUFFING CHARGES</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_stuff" (blur)="OnBlur('cr_org_exp_stuff')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">LOCAL TRANSPORTATION</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_trans" (blur)="OnBlur('cr_org_exp_trans')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">CFS CHARGES</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_cfs" (blur)="OnBlur('cr_org_exp_cfs')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label> <b></b></label>
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">SURVEY</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_survey" (blur)="OnBlur('cr_org_exp_survey')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">CUSTOMS SEAL</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_cseal" (blur)="OnBlur('cr_org_exp_cseal')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">OBL SURRENDER/EXPRESS RELEASE FEES</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_org_exp_surrend" (blur)="OnBlur('cr_org_exp_surrend')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>{{grp_dest_exp}}</b></label>
+          <hr />
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">DTHC/LCL PER CBM</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_inc_thc" (blur)="OnBlur('cr_des_inc_thc')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">HANDLING PER CBM</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_inc_hndg_cbm" (blur)="OnBlur('cr_des_inc_hndg_cbm')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">HANDLING PER TON</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_inc_hndg_ton" (blur)="OnBlur('cr_des_inc_hndg_ton')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">B/L FEE PER HOUSE</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_inc_bl" (blur)="OnBlur('cr_des_inc_bl')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label><b>{{grp_dest_inc}}</b></label>
+          <hr />
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">TERMINAL/THC</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_terml" (blur)="OnBlur('cr_des_exp_terml')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">BL FEES/D.O</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_bl" (blur)="OnBlur('cr_des_exp_bl')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">SHUNT TO WAREHOUSE</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_shunt" (blur)="OnBlur('cr_des_exp_shunt')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">UNPACK/CFS DESTUFF</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_unpack" (blur)="OnBlur('cr_des_exp_unpack')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">LOLO</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_lolo" (blur)="OnBlur('cr_des_exp_lolo')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">PORT SECURITY</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_securty" (blur)="OnBlur('cr_des_exp_securty')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label> <b></b></label>
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">ISPS</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_isps" (blur)="OnBlur('cr_des_exp_isps')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">TRUCKING PORT WAREHOUSE</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_tpw" (blur)="OnBlur('cr_des_exp_tpw')" required maxlength="14" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-6 col-form-label  col-form-label-sm">TRANSIT DOCUMENT FOR MOVING PORT-WHS</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_des_exp_tdoc" (blur)="OnBlur('cr_des_exp_tdoc')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="min_rate">
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+
+          <div class="form-group row">
+            <label class="col-4 col-form-label  col-form-label-sm">CODE</label>
+            <div class="col-8">
+              <input type="text" [disabled]="mode == 'EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.cr_rate_code" (blur)="OnBlur('cr_rate_code')" required maxlength="15" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-4 col-form-label  col-form-label-sm">PER RATE</label>
+            <div class="col-8">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cr_rate_value" (blur)="OnBlur('cr_rate_value')" required maxlength="14" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="col-sm-6">
+      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

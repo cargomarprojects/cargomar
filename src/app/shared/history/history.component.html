@@ -1,0 +1,33 @@
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>ACTION</th>
+          <th>USER</th>
+          <!--<th>TYPE</th>-->
+          <th>REFNO</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+          <td>{{rec.audit_date}}</td>
+          <td>{{rec.audit_action}}</td>
+          <td>{{rec.audit_user_code}}</td>
+          <!--<td>{{rec.audit_type}}</td>-->
+          <td>{{rec.audit_refno}}</td>
+          <td>{{rec.audit_remarks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

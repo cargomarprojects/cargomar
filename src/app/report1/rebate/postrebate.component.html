@@ -1,0 +1,96 @@
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <div class="modal-body">
+
+    <div class="row">
+
+
+      
+        <div class="col-sm-12">
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">JV-Date</label>
+            <div class="col-4">
+              <app-date [inputdate]="Record.jvh_date" (ValueChanged)="Record.jvh_date=$event"></app-date>
+            </div>
+            <label class="col-2 col-form-label col-form-label-sm">{{status}}</label>
+          </div>
+        </div>
+
+
+        <div class="col-sm-12">
+
+          <div style="height: 400px; overflow: auto;">
+
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th>INV#</th>
+                    <th>SI</th>
+                    <th>CATEGORY</th>
+                    <th>MBL</th>
+                    <th>HBL</th>
+                    <th>SHIPPER</th>
+                    <th>PP/CC</th>
+                    <th>CODE</th>
+                    <th>NAME</th>
+
+                    <th class="text-right">REBATE</th>
+                    <th>CURR</th>
+                    <th class="text-right">EXRATE</th>
+                    <th class="text-right">INR</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+                  <tr>
+                    <td>{{rec.inv_no}}</td>
+                    <td>{{rec.hbl_no}}</td>
+                    <td>{{rec.inv_source}}</td>
+                    <td>{{rec.mbl}}</td>
+                    <td>{{rec.hbl}}</td>
+                    <td>{{rec.shipper_name}}</td>
+                    <td>{{rec.inv_type}}</td>
+                    <td>{{rec.acc_code}}</td>
+                    <td>{{rec.acc_name}}</td>
+                    <td align='right'>{{rec.inv_rebate_amt | number : '1.2-2'}}</td>
+                    <td>{{rec.inv_rebate_curr_code}}</td>
+                    <td align='right'>{{rec.inv_rebate_exrate | number : '1.2-2'}}</td>
+                    <td align='right'>{{rec.inv_rebate_amt_inr | number : '1.2-2'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <div>
+            No Editing Is Allowed Once Posted. Pls make sure correct date is entered
+          </div>
+
+          <div>
+            TOTAL : {{total_amt}}
+          </div>
+        </div>
+
+
+        </div>
+
+        <div class="row">
+
+          <div class="col">
+            <button class="btn btn-primary btn-sm" (click)="ok()">Save</button>
+            <button class="btn btn-primary btn-sm" (click)="close()">Cancel</button>
+          </div>
+
+        </div>
+      </div>
+
+
+</ng-template>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

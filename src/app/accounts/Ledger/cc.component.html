@@ -1,0 +1,70 @@
+
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>COST CENTER</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>AMOUNT</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr *ngIf="rec.ct_jv_id == parentid" (click)="ActionHandler('EDIT',rec)">
+          <td>
+            <select class="form-control form-control-sm" [(ngModel)]="rec.ct_category" (change)="OnChange('ct_category',rec)">
+              <option *ngFor="let recgrp of CCGrpList" [value]="recgrp.name">{{recgrp.name}}</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ct_cost_code" (blur)="OnBlur('ct_cost_code', rec)" required maxlength="25" />
+          </td>
+          <td>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ct_cost_name" disabled />
+          </td>
+          <td>
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.ct_amount" (blur)="OnBlur('ct_amount', rec)" required maxlength="25" />
+          </td>
+          <td>
+            <button [disabled]="loading" (click)="RemoveRow(rec)" class="btn btn-default btn-sm">REMOVE</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Total</label>
+        <div class="col-4">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Total_Amount" required maxlength="20" />
+        </div>
+
+        <div class="col-3">
+          <button [disabled]="loading" (click)="NewRecord()" class="btn btn-default btn-sm">ADD CC</button>
+        </div>
+
+        <div class="col-3">
+          <button [disabled]="loading" (click)="PasteData()" class="btn btn-default btn-sm">Paste Data</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<br />
+
+
+<App-ClipBoard [visible]="bShowClipBoard" [msg]="'Please Wait'" (CloseClicked)="ClipBoardClosed($event)"></App-ClipBoard>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,436 @@
+<div class="page-box">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label col-form-label-sm">SID</label>
+        <div class="col-sm-11">
+          <label class="col-form-label  col-form-label-sm">
+            <font color="red">{{Record.costd_sino}} </font>
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label col-form-label-sm">BLNO</label>
+        <div class="col-sm-11">
+          <label class="col-form-label  col-form-label-sm">
+            <font color="blue">{{Record.costd_blno}} </font>
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label col-form-label-sm">SHIPPER</label>
+        <div class="col-sm-11">
+          <label class="col-form-label  col-form-label-sm">
+            <font color="green">{{Record.costd_shipper_name}} </font>
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label col-form-label-sm">CONSIGNEE</label>
+        <div class="col-sm-11">
+          <label class="col-form-label  col-form-label-sm">
+            <font color="orange">{{Record.costd_consignee_name}}</font>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <ngb-tabset>
+    <ngb-tab title="GENERAL">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">NOMINATION</label>
+                <div class="col-sm-6">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.costd_hbl_nomination">
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'NOMINATION'">NOMINATION</option>
+                    <option [value]="'MUTUAL'">MUTUAL</option>
+                    <option [value]="'FREEHAND'">FREEHAND</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">FREIGHT STATUS</label>
+                <div class="col-sm-6">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.costd_hbl_terms">
+                    <option [value]="'EX-WORK'">EX-WORK</option>
+                    <option [value]="'FREIGHT COLLECT'">FREIGHT COLLECT</option>
+                    <option [value]="'FREIGHT PREPAID'">FREIGHT PREPAID</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">POFD</label>
+                <div class="col-sm-6">
+                  <input type="text" disabled name="pofd" class="form-control form-control-sm" [(ngModel)]="Record.costd_pofd_name" (blur)="OnBlur('costd_pofd_name')" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">CBM</label>
+                <div class="col-sm-6">
+                 <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_cbm" (blur)="OnBlur('costd_cbm')" required maxlength="14" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">GR.WT</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_grwt" (blur)="OnBlur('costd_grwt')" required maxlength="14" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">REBATE</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_rebate" (blur)="OnBlur('costd_rebate')" required maxlength="14" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">AMENDMENT CHARGES</label>
+                <div class="col-sm-6">
+                  <input type="number"  class="form-control form-control-sm" [(ngModel)]="Record.costd_amenment_chrgs" (blur)="OnBlur('costd_amenment_chrgs')" required maxlength="14" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">FRT.RATE.CC</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_frt_rate_cc" (blur)="OnBlur('costd_frt_rate_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-3 col-form-label col-form-label-sm">FRT.RATE.PP</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_frt_rate_pp" (blur)="OnBlur('costd_frt_rate_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">ADC.RATE.CC</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_acd_rate_cc" (blur)="OnBlur('costd_acd_rate_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-3 col-form-label col-form-label-sm">ADC.RATE.PP</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_acd_rate_pp" (blur)="OnBlur('costd_acd_rate_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">BAF.RATE.CC</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_baf_rate_cc" (blur)="OnBlur('costd_baf_rate_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-3 col-form-label col-form-label-sm">BAF.RATE.PP</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_baf_rate_pp" (blur)="OnBlur('costd_baf_rate_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">CAF.RATE.CC</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_caf_rate_cc" (blur)="OnBlur('costd_caf_rate_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-3 col-form-label col-form-label-sm">CAF.RATE.PP</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_caf_rate_pp" (blur)="OnBlur('costd_caf_rate_pp')" required maxlength="14" />
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">DDC.RATE.CC</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ddc_rate_cc" (blur)="OnBlur('costd_ddc_rate_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-3 col-form-label col-form-label-sm">DDC.RATE.PP</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ddc_rate_pp" (blur)="OnBlur('costd_ddc_rate_pp')" required maxlength="14" />
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">FRT.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_frt_cc" (blur)="OnBlur('costd_frt_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">FRT.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_frt_pp" (blur)="OnBlur('costd_frt_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">ADC.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_acd_cc" (blur)="OnBlur('costd_acd_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">ADC.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_acd_pp" (blur)="OnBlur('costd_acd_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">BAF.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_baf_cc" (blur)="OnBlur('costd_baf_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">BAF.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_baf_pp" (blur)="OnBlur('costd_baf_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">CAF.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_caf_cc" (blur)="OnBlur('costd_caf_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">CAF.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_caf_pp" (blur)="OnBlur('costd_caf_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">DDC.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ddc_cc" (blur)="OnBlur('costd_ddc_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">DDC.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ddc_pp" (blur)="OnBlur('costd_ddc_pp')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">OTH.CC</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_oth_cc" (blur)="OnBlur('costd_oth_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">OTH.PP</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_oth_pp" (blur)="OnBlur('costd_oth_pp')" required maxlength="14" />
+                </div>
+              </div>
+            
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">COLLECT</label>
+                <div class="col-sm-4">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_cc" (blur)="OnBlur('costd_cc')" required maxlength="14" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">PREPAID</label>
+                <div class="col-sm-4">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_pp" (blur)="OnBlur('costd_pp')" required maxlength="14" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="RITRA" *ngIf="Record.costd_agent_format=='RITRA'">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group row">
+                <label style="color:red"  class="offset-3 col-6 col-form-label col-form-label-sm">HANDLING RATES FOR RITRA</label>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">INCENTIVE RATE PER CBM</label>
+                <div class="col-sm-4">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_incentive_rate" (blur)="OnBlur('costd_incentive_rate')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm"></label>
+                <div class="col-sm-2">
+                  <label style="color:red" class="col-form-label col-form-label-sm">CBM</label>
+                </div>
+                <div style="padding-left:5px" class="col-sm-2">
+                  <label style="color:red" class="col-form-label col-form-label-sm">RATE</label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HANDLING RATE FOR CBM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><font color="red" > <strong> < </strong> </font></span></label>
+                <div style="padding-right:0" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_limit1" (blur)="OnBlur('costd_fh_limit1')" required maxlength="14" />
+                </div>
+                <div style="padding-left:2px" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_rate1" (blur)="OnBlur('costd_fh_rate1')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HANDLING RATE FOR CBM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><font color="red"> <strong> < </strong> </font></span></label>
+                <div style="padding-right:0" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_limit2" (blur)="OnBlur('costd_fh_limit2')" required maxlength="14" />
+                </div>
+                <div style="padding-left:2px" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_rate2" (blur)="OnBlur('costd_fh_rate2')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HANDLING RATE FOR CBM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><font color="red"> <strong> >= </strong> </font></span></label>
+                <div style="padding-right:0" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_limit3" (blur)="OnBlur('costd_fh_limit3')" required maxlength="14" />
+                </div>
+                <div style="padding-left:2px" class="col-sm-2">
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_rate3" (blur)="OnBlur('costd_fh_rate3')" required maxlength="14" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HANDLING CHARGES PER HOUSE</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_fh_chrg_perhouse" (blur)="OnBlur('costd_fh_chrg_perhouse')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">OTHER CHARGES PAID BY CARGOMAR</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_oth_chrgs_ritra" (blur)="OnBlur('costd_oth_chrgs_ritra')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">EX-WORK CHARGES AGAINST HBL#</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ex_chrg_ritrahouse" (blur)="OnBlur('costd_ex_chrg_ritrahouse')" required maxlength="14" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <br />
+              <br />
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">CONSIGNEE GROUP</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.costd_consignee_group" (blur)="OnBlur('costd_consignee_group')" required maxlength="5" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">SPECIAL INCENTIVE RATE</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_spl_incentive_rate" (blur)="OnBlur('costd_spl_incentive_rate')" required maxlength="14" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">INCENTIVE NOT RECEIVED</label>
+                <div style="padding-right:0" class="col-sm-4">
+                  <input type="checkbox" [(ngModel)]="Record.costd_incentive_notreceived">  
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HOUSE NOT INCLUDED</label>
+                <div style="padding-right:0" class="col-sm-4">
+                  <input type="checkbox" [(ngModel)]="Record.costd_house_notinclude">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+          </div>
+
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="TRAFFIC TECH" *ngIf="Record.costd_agent_format=='TRAFFIC-TECH'">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HAULAGE RATE PER CBM</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_haulage_per_cbm" (blur)="OnBlur('costd_haulage_per_cbm')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HAULAGE MINIMUM RATE</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_haulage_min_rate" (blur)="OnBlur('costd_haulage_min_rate')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HAULAGE WEIGHT DIVIDER</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_haulage_wt_divider" (blur)="OnBlur('costd_haulage_wt_divider')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">DESTUFFING, P && D etc.</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_destuff_pd" (blur)="OnBlur('costd_destuff_pd')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">HANDLING FEE PAYABLE</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_handling_fee" (blur)="OnBlur('costd_handling_fee')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">TRUCKING COST FOR HBL NOS.</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_truck_cost" (blur)="OnBlur('costd_truck_cost')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">ORIGIN CONTAINER SHIFTING CHARGES.</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_cntr_shifit" (blur)="OnBlur('costd_cntr_shifit')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">VESSEL CHANGE CHARGES</label>
+                <div class="col-sm-4">
+                  <input type="number" [disabled]="Record.costd_type=='SELL'" class="form-control form-control-sm" [(ngModel)]="Record.costd_vessel_chrgs" (blur)="OnBlur('costd_vessel_chrgs')" required maxlength="14" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label col-form-label-sm">EX-WORK CHARGES HBL#</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.costd_ex_works" (blur)="OnBlur('costd_ex_works')" required maxlength="14" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+            </div>
+          </div>
+
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+  <br />
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+          <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

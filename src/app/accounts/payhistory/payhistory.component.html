@@ -1,0 +1,186 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-4  col-form-label col-form-label-sm">A/c Code</label>
+            <div class="col-7">
+              <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-12  col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div class="form-group row">
+            <label class="col-7  col-form-label col-form-label-sm">Intrest%</label>
+            <div class="col-5">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="intrest" required maxlength="10" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-7  col-form-label col-form-label-sm">Free Credit Days</label>
+            <div class="col-5">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="credit_days" required maxlength="10" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-4">
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-4">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div *ngIf="bCompany" class="col-sm-3">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+
+            <div class="col-sm-3">
+              <input type="checkbox" [(ngModel)]="detail" (change)="OnChange('detial')">
+              <span> Detail</span>
+            </div>
+
+            <div class="col-sm-6">
+              <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="detail" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>INV.NO</th>
+          <th>TYPE</th>
+          <th>SL.NO</th>
+          <th>DATE</th>
+          <th class="text-right">INTEREST%</th>
+          <th>NAME</th>
+          <th class="text-right">DEBIT</th>
+
+          <th>CR-DATE</th>
+          <th class="text-right">CR-AMT</th>
+          <th>DAYS</th>
+          <th class="text-right">BALANCE</th>
+          <th>BAL-DAYS</th>
+          <th class="text-right">INT-1</th>
+          <th class="text-right">INT-2</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.jvh_vrno}}</td>
+          <td>{{rec.jvh_type}}</td>
+          <td>{{rec.sl_no}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td align='right'>{{ rec.intrest | number : '1.2-2' }}</td>
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
+
+          <td>{{rec.cr_date}}</td>
+          <td align='right'>{{rec.cr_total | number : '1.2-2'}}</td>
+          <td>{{rec.days}}</td>
+          <td align='right'>{{rec.balance | number : '1.2-2'}}</td>
+          <td>{{rec.bal_days}}</td>
+          <td align='right'>{{rec.int1 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.int2 | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="!detail" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>INV.NO</th>
+          <th>DATE</th>
+          <th>NAME</th>
+          <th class="text-right">AMOUNT</th>
+          <th>CR-DATE</th>
+          <th class="text-right">CR-AMT</th>
+          <th>STATUS</th>
+          <th>PENDING</th>
+          <th>CR-DAYS</th>
+          <th>OVER-DUE</th>
+          <th class="text-right">CR-LIMIT</th>
+          <th>SALESMAN</th>
+         
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.jvh_vrno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
+          <td>{{rec.xref_crdate}}</td>
+          <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
+          <td>{{rec.status}}</td>
+          <td align='center'>{{rec.pending}}</td>
+          <td align='center'>{{rec.cust_crdays}}</td>
+          <td align='center'>{{rec.overdue}}</td>
+          <td align='right'>{{rec.cust_crlimit | number : '1.2-2'}}</td>
+          <td>{{rec.sman_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

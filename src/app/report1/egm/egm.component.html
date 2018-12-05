@@ -1,0 +1,106 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-8">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Container</label>
+            <div class="col-8">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-8">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-8">
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>JOB#</th>
+          <th>POL</th>
+          <!--<th>POL</th>-->
+          <th>EGM_NO</th>
+          <th>EGM-DATE</th>
+          <th>SB.NO</th>
+          <th>SB.DATE</th>
+          <th>CARGO NATURE</th>
+          <th class="text-right">QUANTITY</th>
+          <th>UNIT</th>
+          <th class="text-right">NO.OF PKG</th>
+          <th>POD</th>
+          <th>CONTAINER</th>
+          <th>EXPORTER NAME</th>
+          <th>EXPORTER ADDRESS-LINE 1</th>
+          <th>EXPORTER ADDRESS-LINE 2</th>
+          <th>EXPORTER ADDRESS-LINE 3</th>
+          <th>CONSIGNEE NAME</th>
+          <th>CONSIGNEE ADDRESS-LINE 1</th>
+          <th>CONSIGNEE ADDRESS-LINE 2</th>
+          <th>CONSIGNEE ADDRESS-LINE 3</th>
+          <th>DESC</th>
+          <th class="text-right">GR-WT</th>
+          <th class="text-right">SHUTOUT-QTY</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.pol_code}}</td>
+            <!--<td>{{rec.pol}}</td>-->
+          <td>{{rec.egno}}</td>
+          <td>{{rec.egdate}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.job_cargo_nature}}</td>
+          <td align='right'>{{rec.job_qty | number : '1.3-3'}}</td>
+          <td>{{rec.pkg_unit}}</td>
+          <td align='right'>{{rec.job_pkg | number : '1.3-3'}}</td>
+          <td>{{rec.pofd_code}}</td>
+          <td>{{rec.cntr_no}}</td>
+          <td>{{rec.exporter}}</td>
+          <td>{{rec.exp_add1}}</td>
+          <td>{{rec.exp_add2}}</td>
+          <td>{{rec.exp_add3}}</td>
+          <td>{{rec.importer}}</td>
+          <td>{{rec.imp_add1}}</td>
+          <td>{{rec.imp_add2}}</td>
+          <td>{{rec.imp_add3}}</td>
+          <td>{{rec.commodity}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.shut_out_qty | number : '1.3-3'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

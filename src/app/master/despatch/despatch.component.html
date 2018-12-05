@@ -1,0 +1,411 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>REF.DATE</th>
+          <th>REF#</th>
+          <th>TYPE</th>
+          <th>SI.NOS</th>
+          <th>MAIL.SENT</th>
+          <th>DOCS</th>
+          <th>COURIER</th>
+          <th>WAYBILL</th>
+          <th>DATE</th>
+          <th>CUSTOMER</th>
+          <th>ADDRESS</th>
+          <th>TEL</th>
+          <th>EMAIL</th>
+          <th>PARTY</th>
+          <th>REMARKS</th>
+          <th>USER</th>
+          <th>ENTRY-DATE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="ActionHandler('EDIT',rec.dm_pkid)">
+          <td>{{rec.dm_refdate}}</td>
+          <td>{{rec.dm_refno}}</td>
+          <td>{{rec.rec_category}}</td>
+          <td>{{rec.dm_si_nos}}</td>
+          <td>{{rec.dm_mail_sent}}</td>
+          <td>{{rec.dm_doc_attach}}</td>
+          <td>{{rec.dm_courier_name}}</td>
+          <td>{{rec.dm_waybill_no}}</td>
+          <td>{{rec.dm_waybill_date}}</td>
+          <td>{{rec.dm_cust_name}}</td>
+          <td>{{rec.dm_cust_add1}}</td>
+          <td>{{rec.dm_cust_tel}}</td>
+          <td>{{rec.dm_cust_email}}</td>
+          <td>{{rec.dm_party_name}}</td>
+          <td>{{rec.dm_remarks}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">SlNo</label>
+          <div class="col-sm-5">
+            <input type="text" style="font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.dm_slno" [disabled]="true" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Ref.No</label>
+          <div class="col-sm-5">
+            <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.dm_refno" [disabled]="true" required maxlength="50" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-4">
+            <app-date [inputdate]="Record.dm_refdate" (ValueChanged)="Record.dm_refdate=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.rec_category" (blur)="OnBlur('rec_category')">
+              <option [value]="'AIREXP-SI'">AIREXP-SI</option>
+              <option [value]="'AIRIMP-SI'">AIRIMP-SI</option>
+              <option [value]="'SEAEXP-SI'">SEAEXP-SI</option>
+              <option [value]="'SEAIMP-SI'">SEAIMP-SI</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">SI#</label>
+          <div style="padding-right:0" class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_si_nos" (blur)="OnBlur('dm_si_nos')" required maxlength="60" />
+          </div>
+          <div class="col-2">
+            <button [disabled]="loading" (click)="SearchRecord('DESPATCHDEFAULT')" class="btn btn-primary btn-sm">Fill</button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Customer</label>
+          <div class="col-10">
+            <app-autocomplete #ShipperLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_name" (blur)="OnBlur('dm_cust_name')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+          <div class="col-10">
+            <app-autocomplete #CustAddLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Address</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_add1" (blur)="OnBlur('dm_cust_add1')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-2 col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_add2" (blur)="OnBlur('dm_cust_add2')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-2 col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_add3" (blur)="OnBlur('dm_cust_add3')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-2 col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_add4" (blur)="OnBlur('dm_cust_add4')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Telephone</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_tel" (blur)="OnBlur('dm_cust_tel')" required maxlength="50" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Email</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cust_email" (blur)="OnBlur('dm_cust_email')" required maxlength="250" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Party</label>
+          <div class="col-10">
+            <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_party_name" (blur)="OnBlur('dm_party_name')" required maxlength="60" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Containers</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_containers" (blur)="OnBlur('dm_containers')" required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Invoice#</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_inv_no" (blur)="OnBlur('dm_inv_no')" required maxlength="50" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Pkgs</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.dm_tot_ctns" (blur)="OnBlur('dm_tot_ctns')" required maxlength="10" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Gr.Wt</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_grwt" (blur)="OnBlur('dm_grwt')" required maxlength="50" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Volume</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_volume" (blur)="OnBlur('dm_volume')" required maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Courier</label>
+          <div class="col-4">
+            <app-autocomplete #CourierLov [inputdata]="COURIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.dm_courier_name" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Waybill#</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_waybill_no" (blur)="OnBlur('dm_waybill_no')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-4">
+            <app-date #dm_waybill_date [inputdate]="Record.dm_waybill_date" (ValueChanged)="Record.dm_waybill_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-10">
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.dm_remarks" (blur)="OnBlur('dm_remarks')" required maxlength="250"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="page-box">
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label col-form-label-sm">DOCUMENTS ATTACHED</label>
+              </div>
+              <hr />
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_sbill_1">&nbsp;Shipping Bill#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_cfsinv_12">&nbsp;CFS Tax Invoice
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_exportercopy_11">&nbsp;Exporter Copy
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_fumicert_13">&nbsp;Fumigation Certificate
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_epcopy_5">&nbsp;E.P. Copy
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_degascert_14">&nbsp;Degassing Certificate
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_are1_6">&nbsp;ARE-1
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_pqcert_15">&nbsp;PQ Certificate
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_invoice_2">&nbsp;Invoice#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_gspcert_16">&nbsp;GSP Certificate
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_pkglst_3">&nbsp;Packing List
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_mccicert_17">&nbsp;MCCI/COO
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_servicebill_7">&nbsp;Service Bill#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_transcert_18">&nbsp;Transport Bill#
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_awb_4">&nbsp;AWB#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_linertaxcert_19">&nbsp;Liner Tax Invoice & Receipt
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_bl_8">&nbsp;BL#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_fumitaxcert_20">&nbsp;Fumigation Tax Invoice
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_be_10">&nbsp;Bills of Entry#
+                </div>
+                <div class="col-sm-7">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_othcert_21">&nbsp;Others
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <input type="checkbox" [(ngModel)]="Record.dm_is_deec_9">&nbsp;DEEC/EPCG License#
+                </div>
+                <!--<div class="col-sm-6">
+
+                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="offset-2 col-10">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+          <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintDespatch('PDF','')" class="btn btn-success btn-sm">Print</button>
+          <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintDespatch('MAIL', mailsent)" class="btn btn-success btn-sm">Mail</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="pkid" [type]="'DESPATCH-DETAILS'" [sHtml]="sHtml" [defaultto_ids]="Record.dm_cust_email" [defaultmessage]="sMsg" [defaultsubject]="sSub" [updateto_ids]=false [AttachList]="AttachList" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+  </div>
+</ng-template>
+

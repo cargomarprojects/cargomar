@@ -1,0 +1,822 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm" [(ngModel)]="type_date" (change)="OnChange('change')">
+                <option [value]="'AIR-EXPORT-FORWARDING'">AIR EXPORT FORWARDING</option>
+                <option [value]="'AIR-IMPORT'">AIR IMPORT</option>
+                <option [value]="'SEA-EXPORT-FORWARDING'">SEA EXPORT FORWARDING</option>
+                <option [value]="'SEA-IMPORT'">SEA IMPORT</option>
+                <option [value]="'SEA-EXPORT-CLEARING'">SEA EXPORT CLEARING</option>
+                <option [value]="'AIR-EXPORT-CLEARING'">AIR EXPORT CLEARING</option>
+              </select>
+
+            </div>
+          </div>
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Branch</label>
+
+            <div class="col-8">
+              <!--<input type="checkbox" [(ngModel)]="main_code">-->
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+
+          <div class="form-group row">
+
+            <div *ngIf="bCompany" class="col-sm-2">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+            <div *ngIf="bCompany" class="col-sm-2">
+              <input type="checkbox" [(ngModel)]="isnewformat" >
+              <span>New</span>
+            </div>
+
+            <div class="col-sm-8">
+              <button [disabled]="loading" (click)="ProcessProfit()" class="btn btn-primary btn-sm">Update Profit</button>
+            </div>
+
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-10">
+              <button *ngIf="!all" [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="type_date == 'AIR-EXPORT-FORWARDING'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>MBLSL#</th>
+          <th>MAWB#</th>
+          <th>SI#</th>
+          <th>HAWB#</th>
+          <th>BUY-DATE</th>
+          <th>SELL-DATE</th>
+          <th>SHIPPER</th>
+
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+
+          <th>CONSIGNEE</th>
+          <th>AGENT</th>
+
+          <th>FIN-YEAR</th>
+          <th>FOLDER-NO</th>
+          <th>INVOICE-NOS</th>
+          <th>BUYER</th>
+          <th>NOTIFY</th>
+          <th>AIRLINE</th>
+          <th>COMMODITY</th>
+
+          <th>SMAN</th>
+          <th>NOMINATION</th>
+          <th>M-STATUS</th>
+          <th>H-STATUS</th>
+          <th>POL</th>
+          <!--<th>POL-COUNTRY</th>-->
+          <th>POD</th>
+          <th>POD-COUNTRY</th>
+          <th>POFD</th>
+          <!--<th>POFD-COUNTRY</th>-->
+          <th class="text-right">M-CHWT</th>
+          <th class="text-right">H-CHWT</th>
+          <th class="text-right">M-GRWT</th>
+          <th class="text-right">H-GRWT</th>
+          <th class="text-right">FRT-</th>
+          <th class="text-right">FSC-</th>
+          <th class="text-right">WRS-</th>
+          <th class="text-right">MCC-</th>
+          <th class="text-right">OTH-</th>
+          <th class="text-right">FRT+</th>
+          <th class="text-right">FSC+</th>
+          <th class="text-right">WRS+</th>
+          <th class="text-right">MCC+</th>
+          <th class="text-right">OTH+</th>
+          <th class="text-right">MARGIN+</th>
+          <th class="text-right">COSTING-</th>
+          <th class="text-right">COSTING+</th>
+          <th class="text-right">REBATE-</th>
+          <th class="text-right">SELL</th>
+          <th class="text-right">BUY</th>
+
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI%</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.exporter}}</td>
+
+          <td>{{rec.exp_city}}</td>
+          <td>{{rec.exp_state}}</td>
+          <td>{{rec.exp_created}}</td>
+
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.agent}}</td>
+
+          <td>{{rec.jvh_year}}</td>
+          <td>{{rec.mbl_folder_no}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td>{{rec.buyer_name}}</td>
+          <td>{{rec.bl_notify_name}}</td>
+          <td>{{rec.mbl_liner}}</td>
+          <td>{{rec.mbl_commodity}}</td>
+
+          <td>{{rec.sman}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.mbl_terms}}</td>
+          <td>{{rec.hbl_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <!--<td>{{rec.org_country}}</td>-->
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pod_country}}</td>
+          <td>{{rec.pofd}}</td>
+          <!--<td>{{rec.pofd_country}}</td>-->
+          <td align='right'>{{rec.mbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.frt_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.fsc_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.wrs_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.mcc_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.oth_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.frt_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.fsc_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.wrs_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.mcc_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.oth_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.margin_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.frt_ho_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.frt_ho_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.sell | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.buy | number : '1.2-2'}}</td>
+
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="type_date == 'AIR-IMPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+
+          <th>MAWB#</th>
+          <th>DATE</th>
+          <th>BUY-DATE</th>
+          <th>SI#</th>
+          <th>DATE</th>
+          <th>SELL-DATE</th>
+          <th>HAWB#</th>
+          <th>DATE</th>
+          <th>DESCRIPTION</th>
+          <th>EXPORTER</th>
+          <th>IMPORTER</th>
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+          <th>AGENT</th>
+
+
+          <th>FOLDER-NO</th>
+          <th>FIN-YEAR</th>
+
+          <th>NOTIFY</th>
+          <th>INVOICE-NOS</th>
+          <th>COUNTRY</th>
+          <th>TYPE</th>
+
+          <th>LINER</th>
+          <th>NOMINATION</th>
+          <th>SMAN</th>
+          <th>M-STATUS</th>
+          <th>H-STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>POFD</th>
+          <th class="text-right">M-CHWT</th>
+          <th class="text-right">M-GRWT</th>
+          <th class="text-right">H-CHWT</th>
+          <th class="text-right">H-GRWT</th>
+
+          <th class="text-right">IN-1401</th>
+          <th class="text-right">IN-1402</th>
+          <th class="text-right">IN-1403</th>
+          <th class="text-right">IN-1404</th>
+          <th class="text-right">IN-1405</th>
+          <th class="text-right">EX-1401</th>
+          <th class="text-right">EX-1402</th>
+          <th class="text-right">EX-1403</th>
+          <th class="text-right">EX-1404</th>
+          <th class="text-right">EX-1405</th>
+          <th class="text-right">COST-DR</th>
+          <th class="text-right">COST-CR</th>
+
+          <th class="text-right">REBATE-DR</th>
+
+          <th class="text-right">INCOME</th>
+          <th class="text-right">EXPENSE</th>
+
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI%</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+
+
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_rec_creared_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.discription}}</td>
+          <td>{{rec.exporter}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.consignee_city}}</td>
+          <td>{{rec.consignee_state}}</td>
+          <td>{{rec.exp_created}}</td>
+          <td>{{rec.agent}}</td>
+
+          <td>{{rec.mbl_folder_no}}</td>
+          <td>{{rec.jvh_year}}</td>
+
+          <td>{{rec.bl_notify_name}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td>{{rec.hbl_orgin_country}}</td>
+          <td>{{rec.mbl_jobtype}}</td>
+
+          <td>{{rec.liner}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.sman}}</td>
+          <td>{{rec.mbl_terms}}</td>
+          <td>{{rec.hbl_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pofd}}</td>
+          <td align='right'>{{rec.mbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.in_1401 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1402 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1403 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1404 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1405 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1401 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1402 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1403 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1404 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1405 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_cr | number : '1.2-2'}}</td>
+
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+
+          <td align='right'>{{rec.income | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.expense | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="type_date == 'SEA-EXPORT-FORWARDING'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>MBLSL#</th>
+          <th>MBL#</th>
+          <th>SI#</th>
+          <th>HBL#</th>
+          <th>BUY-DATE</th>
+          <th>SELL-DATE</th>
+          <th>SHIPPER</th>
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+          <th>CONSIGNEE</th>
+          <th>AGENT</th>
+
+          <th>FIN-YEAR</th>
+          <th>FOLDER-NO</th>
+          <th>ETD</th>
+          <th>CNTR-NO</th>
+          <th>TYPE</th>
+          <th>STATUS</th>
+          <th class="text-right">TEU</th>
+          <th>HBL-DATE</th>
+          <th>INVOICE-NOS</th>
+
+          <th>BUYER</th>
+          <th>NOTIFY</th>
+          <th>CARRIER</th>
+          <th>COMMODITY</th>
+          <th>DDP/DDU/EX-WORK</th>
+
+
+          <th>SMAN</th>
+          <th>NOMINATION</th>
+          <th>M-STATUS</th>
+          <th>H-STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>POD-COUNTRY</th>
+          <th>POFD</th>
+          <th class="text-right">H-CBM</th>
+          <th class="text-right">H-GRWT</th>
+          <th class="text-right">EX-1105</th>
+          <th class="text-right">EX-1106</th>
+          <th class="text-right">EX-1107</th>
+          <th class="text-right">IN-1105</th>
+          <th class="text-right">IN-1106</th>
+          <th class="text-right">IN-1107</th>
+          <th class="text-right">COST-DR</th>
+          <th class="text-right">COST-CR</th>
+          <th class="text-right">REBATE-DR</th>
+          <th class="text-right">BUY</th>
+          <th class="text-right">SELL</th>
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.exporter}}</td>
+
+          <td>{{rec.exp_city}}</td>
+          <td>{{rec.exp_state}}</td>
+          <td>{{rec.exp_created}}</td>
+
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.agent}}</td>
+
+          <td>{{rec.jvh_year}}</td>
+          <td>{{rec.mbl_folder_no}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.mbl_shipment_type}}</td>
+          <td>{{rec.mbl_status}}</td>
+          <td align='right'>{{rec.hbl_book_cntr_teu | number : '1.2-2'}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+
+          <td>{{rec.buyer_name}}</td>
+          <td>{{rec.bl_notify_name}}</td>
+          <td>{{rec.mbl_liner}}</td>
+          <td>{{rec.mbl_commodity}}</td>
+          <td>{{rec.hbl_ddp_ddu_exwork}}</td>
+
+          <td>{{rec.sman}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.mbl_terms}}</td>
+          <td>{{rec.hbl_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pod_country}}</td>
+          <td>{{rec.pofd}}</td>
+          <td align='right'>{{rec.hbl_cbm | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.ex_1105 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1106 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1107 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1105 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1106 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1107 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.buy | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.sell | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi | number : '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <div *ngIf="type_date == 'SEA-IMPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>MBL#</th>
+          <th>DATE</th>
+          <th>BUY-DATE</th>
+          <th>SI#</th>
+          <th>DATE</th>
+          <th>SELL-DATE</th>
+          <th>HBL#</th>
+          <th>DATE</th>
+          <th>DESCRIPTION</th>
+          <th>EXPORTER</th>
+          <th>IMPORTER</th>
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+          <th>AGENT</th>
+
+          <th>FOLDER-NO</th>
+          <th>FIN-YEAR</th>
+          <!--<th>HBL-NO</th>-->
+
+          <th>NOTIFY</th>
+          <th>MBL-STATUS</th>
+          <th>INVOICE-NOS</th>
+          <th>COUNTRY</th>
+          <th>CNTR</th>
+          <th class="text-right">TEU</th>
+          <th>NATURE</th>
+          <th>TYPE</th>
+
+          <th>LINER</th>
+          <th>NOMINATION</th>
+          <th>SMAN</th>
+          <th>M-STATUS</th>
+          <th>H-STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>POFD</th>
+          <th class="text-right">H-CBM</th>
+          <th class="text-right">H-NTWT</th>
+          <th class="text-right">H-GRWT</th>
+          <th class="text-right">EX-1301</th>
+          <th class="text-right">EX-1302</th>
+          <th class="text-right">EX-1303</th>
+          <th class="text-right">EX-1304</th>
+          <th class="text-right">EX-1305</th>
+          <th class="text-right">EX-1306</th>
+          <th class="text-right">EX-1307</th>
+          <th class="text-right">IN-1301</th>
+          <th class="text-right">IN-1302</th>
+          <th class="text-right">IN-1303</th>
+          <th class="text-right">IN-1304</th>
+          <th class="text-right">IN-1305</th>
+          <th class="text-right">IN-1306</th>
+          <th class="text-right">IN-1307</th>
+          <th class="text-right">COST-DR</th>
+          <th class="text-right">COST-CR</th>
+          <th class="text-right">REBATE-DR</th>
+          <th class="text-right">EXPENSE</th>
+          <th class="text-right">INCOME</th>
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_rec_creared_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.discription}}</td>
+          <td>{{rec.exporter}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.consignee_city}}</td>
+          <td>{{rec.consignee_state}}</td>
+          <td>{{rec.exp_created}}</td>
+          <td>{{rec.agent}}</td>
+
+          <td>{{rec.mbl_folder_no}}</td>
+          <td>{{rec.jvh_year}}</td>
+          <!--<td>{{rec.hbl_bl_no}}</td>-->
+
+          <td>{{rec.bl_notify_name}}</td>
+          <td>{{rec.mbl_status}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td>{{rec.hbl_orgin_country}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td align='right'>{{rec.hbl_book_cntr_teu | number : '1.2-2'}}</td>
+          <td>{{rec.hbl_nature}}</td>
+          <td>{{rec.mbl_jobtype}}</td>
+
+          <td>{{rec.liner}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.sman}}</td>
+          <td>{{rec.mbl_terms}}</td>
+          <td>{{rec.hbl_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pofd}}</td>
+          <td align='right'>{{rec.hbl_cbm | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.ex_1301 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1302 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1303 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1304 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1305 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1306 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1307 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1301 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1302 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1303 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1304 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1305 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1306 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1307 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.cost_cr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.expense | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.income | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <div *ngIf="type_date == 'SEA-EXPORT-CLEARING'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>JOB#</th>
+          <th>DATE</th>
+          <th>BUY-DATE</th>
+          <th>SELL-DATE</th>
+          <th>EXPORTER</th>
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+          <th>TYPE</th>
+          <th>IMPORTER</th>
+          <th>AGENT</th>
+          <th>BUYER</th>
+          <th>NOTIFY</th>
+
+          <th>COMMODITY</th>
+          <th>INVOICE-NOS</th>
+          <th>CNTR-TYPE</th>
+          <th>SMAN</th>
+          <th>NOMINATION</th>
+          <th>JOB-STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>POD-COUNTRY</th>
+          <th>POFD</th>
+          <th class="text-right">NTWT</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">CBM</th>
+          <th class="text-right">EX-1101</th>
+          <th class="text-right">EX-1102</th>
+          <th class="text-right">EX-1103</th>
+          <th class="text-right">IN-1101</th>
+          <th class="text-right">IN-1102</th>
+          <th class="text-right">IN-1103</th>
+          <th class="text-right">REBATE-DR</th>
+          <th class="text-right">EXPENSE</th>
+          <th class="text-right">INCOME</th>
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.job_no}}</td>
+          <td>{{rec.job_date}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.exporter}}</td>
+          <td>{{rec.exp_city}}</td>
+          <td>{{rec.exp_state}}</td>
+          <td>{{rec.exp_created}}</td>
+          <td>{{rec.job_type}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.agent}}</td>
+          <td>{{rec.buyer_name}}</td>
+          <td>{{rec.bl_notify_name}}</td>
+
+          <td>{{rec.job_commodity}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td>{{rec.job_cntr_type}}</td>
+
+          <td>{{rec.sman}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.job_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pod_country}}</td>
+          <td>{{rec.pofd}}</td>
+          <td align='right'>{{rec.job_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_cbm | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1101 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1102 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1103 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1101 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1102 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1103 | number : '1.2-2'}}</td>
+
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+
+          <td align='right'>{{rec.expense | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.income | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi| number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="type_date == 'AIR-EXPORT-CLEARING'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>JOB#</th>
+          <th>DATE</th>
+          <th>BUY-DATE</th>
+          <th>SELL-DATE</th>
+          <th>EXPORTER</th>
+          <th>LOCATION</th>
+          <th>STATE</th>
+          <th>CREATED</th>
+
+          <th>IMPORTER</th>
+          <th>AGENT</th>
+          <th>TYPE</th>
+          <th>BUYER</th>
+          <th>NOTIFY</th>
+
+
+          <th>COMMODITY</th>
+          <th>INVOICE-NOS</th>
+          <th>SMAN</th>
+          <th>NOMINATION</th>
+          <th>JOB-STATUS</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>POD-COUNTRY</th>
+          <th>POFD</th>
+          <th class="text-right">NTWT</th>
+          <th class="text-right">CHWT</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">EX-1201</th>
+          <th class="text-right">EX-1202</th>
+          <th class="text-right">EX-1203</th>
+          <th class="text-right">IN-1201</th>
+          <th class="text-right">IN-1202</th>
+          <th class="text-right">IN-1203</th>
+          <th class="text-right">REBATE-DR</th>
+          <th class="text-right">EXPENSE</th>
+          <th class="text-right">INCOME</th>
+          <th class="text-right">PROFIT</th>
+          <th class="text-right">TOTAL</th>
+          <th class="text-right">ROI</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.job_no}}</td>
+          <td>{{rec.job_date}}</td>
+          <td>{{rec.buy_date}}</td>
+          <td>{{rec.sell_date}}</td>
+          <td>{{rec.exporter}}</td>
+          <td>{{rec.exp_city}}</td>
+          <td>{{rec.exp_state}}</td>
+          <td>{{rec.exp_created}}</td>
+          <td>{{rec.consignee}}</td>
+          <td>{{rec.agent}}</td>
+          <td>{{rec.job_type}}</td>
+          <td>{{rec.buyer_name}}</td>
+          <td>{{rec.bl_notify_name}}</td>
+
+
+          <td>{{rec.job_commodity}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td>{{rec.sman}}</td>
+          <td>{{rec.nomination}}</td>
+          <td>{{rec.job_terms}}</td>
+          <td>{{rec.pol}}</td>
+          <td>{{rec.pod}}</td>
+          <td>{{rec.pod_country}}</td>
+          <td>{{rec.pofd}}</td>
+          <td align='right'>{{rec.job_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.ex_1201 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1202 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.ex_1203 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1201 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1202 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.in_1203 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.rebate_dr | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.expense | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.income | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.profit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.total | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.roi | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+
+
+
+

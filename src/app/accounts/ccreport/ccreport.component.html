@@ -1,0 +1,130 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <div class="col-3">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+          <div class="col-8">
+            <app-date disabled [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+          <div class="col-8">
+            <app-date disabled [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-4">
+            <select class="form-control form-control-sm" [(ngModel)]="cc_type" (change)="OnChange('cc_type')">
+              <option value="JOB SEA EXPORT">JOB SEA EXPORT</option>
+              <option value="JOB AIR EXPORT">JOB AIR EXPORT</option>
+              <option value="SI SEA EXPORT">SI SEA EXPORT</option>
+              <option value="SI SEA IMPORT">SI SEA IMPORT</option>
+              <option value="SI AIR EXPORT">SI AIR EXPORT</option>
+              <option value="SI AIR IMPORT">SI AIR IMPORT</option>
+              <option value="MBL SEA EXPORT">MBL SEA EXPORT</option>
+              <option value="MBL SEA IMPORT">MBL SEA IMPORT</option>
+              <option value="MAWB AIR EXPORT">MAWB AIR EXPORT</option>
+              <option value="MAWB AIR IMPORT">MAWB AIR IMPORT</option>
+              <option value="CNTR SEA EXPORT">CNTR SEA EXPORT</option>
+              <option value="GENERAL JOB">GENERAL JOB</option>
+              <option value="EMPLOYEE">EMPLOYEE</option>
+            </select>
+          </div>
+
+
+          <div class="col">
+            <input type="checkbox" [(ngModel)]="showIncExpOnly">
+            <span>Income/Expense Only</span>
+          </div>
+
+
+          <div class="col-2">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+          </div>
+          <div class="col-2">
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">Code</label>
+          <div class="col-4">
+            <app-autocomplete #CcLov [inputdata]="CCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-7">
+            <span>{{CCRECORD.name}}</span>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>CATEGORY</th>
+          <th>CC CODE</th>
+          <th>CC NAME</th>
+          <th>A/C CODE</th>
+          <th>A/C NAME</th>
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th>REMARKS</th>
+          <th>JV-REMARKS</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.jv_docno}}</td>
+          <td>{{rec.jv_date}}</td>
+          <td>{{rec.cc_category}}</td>
+          <td>{{rec.cc_code}}</td>
+          <td>{{rec.cc_name}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
+          <td>{{rec.cc_remarks}}</td>
+          <td>{{rec.jv_remarks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

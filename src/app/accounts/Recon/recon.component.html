@@ -1,0 +1,187 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+
+
+
+
+
+    <div class="row">
+
+      <div class="col-3">
+
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+          <div class="col-8">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+          <div class="col-8">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Bank</label>
+          <div class="col-9">
+            <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm"></label>
+          <div class="col-9">
+            <span>{{ACCRECORD.name}}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-2">
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm"></label>
+          <div class="col-9">
+            <input type="checkbox" [(ngModel)]="reconciled" />
+            <span>Reconciled</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm"></label>
+          <div class="col-9">
+            <input type="checkbox" [(ngModel)]="unreconciled" />
+            <span>Un-Reconciled</span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm"></label>
+          <div class="col-8">
+            <input type="checkbox" [(ngModel)]="basedonreconcileddate" />
+            <span>Reconciled-Date</span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-3">
+
+        <div class="form-group row">
+          <div class="col-8">
+            <div class="col">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+          </div>
+          <div class="col-4">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-1">
+        <div class="form-group row">
+          <div class="col-4">
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Report</button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th class="text-left">VRNO</th>
+          <th class="text-left">TYPE</th>
+          <th class="text-left">DATE</th>
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th class="text-left">CHQ#</th>
+          <th class="text-left">RECNS-DATE</th>
+          <th class="text-left">NOT-OVER-CHQ</th>
+          <th class="text-left">PAID-TO</th>
+          <th class="text-left">NARRATION</th>
+
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="showhiderow(rec)">
+          <td align='left'>{{ rec.recon_jv_vrno }}</td>
+          <td align='left'>{{ rec.recon_jv_type }}</td>
+          <td align='left'>{{ rec.recon_jv_date }}</td>
+          <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.credit | number : '1.2-2'  }}</td>
+          <td align='left'>{{ rec.recon_chqno }}</td>
+          <td align='left'>{{ rec.recon_display_date}}</td>
+          <td align='left'>{{ rec.jvh_not_over_chq }}</td>
+          <td align='left'>{{ rec.recon_paid_to}}</td>
+          <td align='left'>{{ rec.recon_jv_narration}}</td>
+        </tr>
+        <tr *ngIf="rec.rowdisplayed">
+          <td colspan="10">
+            <div>
+              <app-recondate [pkid]="rec.jv_pkid" [inputdate]="rec.recon_date" (RetData)="RetData($event,rec)"></app-recondate>
+            </div>
+          </td>
+        </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

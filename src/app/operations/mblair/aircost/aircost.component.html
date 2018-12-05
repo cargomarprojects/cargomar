@@ -1,0 +1,199 @@
+
+
+<div class="page-details">
+
+  <div class="row">
+    <div class="col-sm-3">
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Published Rate</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_publish_rate" (blur)="OnBlur('air_publish_rate')" required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Rebate Amt(HAWB)</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_rebate" (blur)="OnBlur('air_rebate')" required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Rebate Amt(MAWB)</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_mawb_chg_wt" (blur)="OnBlur('air_mawb_chg_wt')" required maxlength="15" />
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-5">
+
+      <div class="form-group row">
+        <label class="col-sm-8 col-form-label col-form-label-sm">Rate Informed to Counter Part/Costing</label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_counter_informed" (blur)="OnBlur('air_counter_informed')" required maxlength="15" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-8 col-form-label col-form-label-sm">Ex-Works Charge Receivable</label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_exworks" (blur)="OnBlur('air_exworks')" required maxlength="15" />
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Rebate Remarks</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.air_rebate_payable" (blur)="OnBlur('air_rebate_payable')" required maxlength="100" />
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <hr />
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-8 col-form-label col-form-label-sm">Sell Rate Informed to Agent/Shipper</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_sell_informed" (blur)="OnBlur('air_sell_informed')" required maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-8 col-form-label col-form-label-sm">Sell Rate Received from Agent</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_sell_recd" (blur)="OnBlur('air_sell_recd')" required maxlength="15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">IATA.Commission</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_commission" (blur)="OnBlur('air_iata_commission')" required maxlength="50" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">%</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_comm_per" (blur)="OnBlur('air_iata_comm_per')" required maxlength="15" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">INR.Value</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_comm_amt" (blur)="OnBlur('air_iata_comm_amt')" required maxlength="15" />
+          </div>
+        </div>
+
+        <!--<div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">%</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_comm_per" (blur)="OnBlur('air_iata_comm_per')" required maxlength="15" />
+          </div>
+        </div>-->
+        <!--<div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">INR Value</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_comm_amt" (blur)="OnBlur('air_iata_comm_amt')" required maxlength="15" />
+          </div>
+        </div>-->
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">IATA.Incentive</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_incentive" (blur)="OnBlur('air_iata_incentive')" required maxlength="50" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Per.KG</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_inc_per" (blur)="OnBlur('air_iata_inc_per')" required maxlength="15" />
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">INR.Value</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_inc_amt" (blur)="OnBlur('air_iata_inc_amt')" required maxlength="15" />
+          </div>
+
+        </div>
+
+        <!--<div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">Per KG</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_inc_per" (blur)="OnBlur('air_iata_inc_per')" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">INR Value</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_iata_inc_amt" (blur)="OnBlur('air_iata_inc_amt')" required maxlength="15" />
+          </div>
+        </div>-->
+      </div>
+      <div class="col-sm-3">
+
+        <div class="form-group row">
+          <label class="col-sm-8 col-form-label col-form-label-sm">Air Air Rates</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_amount" (blur)="OnBlur('air_amount')" required maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-8 col-form-label col-form-label-sm">Other Chgs Inc</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_other_chg_inc" (blur)="OnBlur('air_other_chg_inc')" required maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-8 col-form-label col-form-label-sm">Destination Charges Payable</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.air_other_chg_exp" (blur)="OnBlur('air_other_chg_exp')" required maxlength="15" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  <hr />
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Net Net Buy</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.air_netnet" (blur)="OnBlur('air_netnet')" required maxlength="100" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.air_remarks" (blur)="OnBlur('air_remarks')" required maxlength="200" />
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+  </div>
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,77 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2 col-form-label  col-form-label-sm">Link Type</label>
+      <div class="col-3">
+        <!--<select class="form-control form-control-sm" [(ngModel)]="linktype">
+          <option [value]="'DT_SHIPPER_OP'">Shipper Opening</option>
+        </select>-->
+        <select class="form-control form-control-sm" [(ngModel)]="linksource">
+          <option *ngFor="let rec of LinkList" [value]="rec.sourcetable">{{rec.displayname}}</option>
+        </select>
+      </div>
+      <label class="col-2">Search</label>
+      <div class="col-3">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col-2">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>LINK TO CODE</th>
+          <th>LINK TO NAME</th>
+          <th>REMOVE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr (click)="showhiderow(rec)">
+          <td>{{rec.linkcode}}</td>
+          <td>{{rec.linkname}}</td>
+          <td>{{rec.linkto_code}}</td>
+          <td>{{rec.linkto_name}}</td>
+          <td>
+            <span *ngIf="rec.linkto_name != ''">
+              <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.linkto_name}" (result)="RemoveList($event)"></App-Dialog>
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="rec.rowdisplayed">
+          <td colspan="3">
+            <div>
+              <app-linkupdate [parentData]="LinkRecord" (ModifiedRecords)="ModifiedRecords($event,rec)"></app-linkupdate>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

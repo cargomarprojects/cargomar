@@ -1,0 +1,73 @@
+<div class="page-header">
+  <div class="row">
+    <div class="col-sm-6">
+      <label><strong>LINK TO {{linktype}}</strong>&nbsp;:&nbsp;{{linkno}} </label>
+    </div>
+    <div class="col-sm-6">
+      <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+</div>
+<div class="page-list">
+  <!--<div class="page-search">
+    <div class="row">
+      <label class="col-1">Search</label>
+      <div class="col-5">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="offset-sm-5 col-6">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+  </div>-->
+  <div style="height: 400px; overflow-y: scroll;">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>JOB#</th>
+            <th>LINK.TO</th>
+            <th>UPLOAD DATE</th>
+            <th>DRN</th>
+            <th>IRN</th>
+            <th>TYPE</th>
+            <th>NAME</th>
+            <th>ICEGATE-FILE-NAME</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+            <td><input type="checkbox" [(ngModel)]="rec.doc_selected">&nbsp;&nbsp;{{rec.doc_job_no}}</td>
+            <td>{{rec.doc_link_type}}</td>
+            <td>{{rec.doc_upload_date}}</td>
+            <td>{{rec.doc_drn}}</td>
+            <td>{{rec.doc_irn}}</td>
+            <td>{{rec.doc_type_code}}</td>
+            <td>{{rec.doc_name}}</td>
+            <td>{{rec.doc_file_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="page-box">
+  <div class="col-sm-12">
+    <div class="offset-sm-1 col-sm-11">
+      <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="Save('CLEAR')" class="btn btn-success btn-sm">Clear</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

@@ -1,0 +1,654 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+
+        
+          <div class="form-group row">
+            <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-4 col-form-label col-form-label-sm">Shipper</label>
+            <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-4 col-form-label col-form-label-sm">Exporter</label>
+            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-8">
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-8">
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+        
+          <div class="form-group row">
+            <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-4 col-form-label col-form-label-sm">Consignee</label>
+            <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-4 col-form-label col-form-label-sm">Importer</label>
+            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-8">
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-8">
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+
+
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+            <div class="col-8">
+              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+            <div class="col-8">
+              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
+            <div class="col-8">
+              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
+            <div class="col-8">
+              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-4">
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+            <div class="col-10">
+              <select class="form-control form-control-sm" [(ngModel)]="job_type">
+
+                <option [value]="'ALL'">ALL</option>
+                <option [value]="'BOTH'">BOTH</option>
+                <option [value]="'CLEARING'">CLEARING</option>
+                <option [value]="'FORWARDING'">FORWARDING</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+
+            <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
+            <div class="col-10">
+
+              <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT' ">
+                <select class="form-control form-control-sm" [(ngModel)]="type_date">
+                  <option [value]="'DATE'">JOB-DATE</option>
+                  <option [value]="'JOB-NO'">JOB-NO</option>
+                  <option [value]="'JOB-TYPE'">JOB-TYPE</option>
+                </select>
+              </div>
+
+              <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT' ">
+                <select class="form-control form-control-sm" [(ngModel)]="type_date">
+                  <option [value]="'DATE'">MBL-DATE</option>
+                  <option [value]="'MBL-NO'">MBL-NO</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <div  class="form-group row">
+            <label *ngIf="bCompany" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div *ngIf="bCompany" class="col-4">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
+            <div class="col-sm-4">
+              <select class="form-control form-control-sm" [(ngModel)]="format_type" (change)="OnChange('format')">
+                <option [value]="'GENERAL'">GENERAL</option>
+                <option [value]="'STATUS'">STATUS</option>
+                <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div *ngIf="bCompany" class="col-sm-2">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+            <div class="col-sm-10">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="rec_category=='SEA EXPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr *ngIf="format_type=='GENERAL'">
+          <th *ngIf="all">BRANCH</th>
+          <th>JOB#</th>
+          <th>DATE</th>
+          <th>REF#</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>INV-NO</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>JOB/AGENT/CARRIER</th>
+          <th>JOB/CNTR</th>
+          <th>COMMODITY</th>
+          <th>SMAN</th>
+          <th>TYPE</th>
+          <th>NOMINATION</th>
+          <th>TERMS</th>
+          <th>STATUS</th>
+          <th>SBILL-NO</th>
+          <th>DATE</th>
+          <th>CHA</th>
+          <th>E/P-RECEIVED-ON</th>
+          <th>SI#</th>
+          <th>HBL-NO</th>
+          <th>AGENT</th>
+          <th>MSL#</th>
+          <th>MBL-NO</th>
+          <th class="text-right">CBM</th>
+          <th class="text-right">PKG</th>
+          <th class="text-right">PCS</th>
+          <th class="text-right">NTWT</th>
+          <th class="text-right">GRWT</th>
+          <th>CARRIER</th>
+          <th>CARGO-RECEIVED-ON</th>
+          <!--<th>FORWARDER</th>-->
+          <th>VESSEL</th>
+          <th>VESSEL-NO</th>
+          <th>STUFFED-AT</th>
+          <th>STUFFED-ON</th>
+          <th>CNTR</th>
+          <th>SOB</th>
+          <th>DESTINATION-ETA</th>
+          <th>REMARKS</th>
+          <th>OUR INVOICE#</th>
+          <th class="text-right">AMOUNT</th>
+          <th class="text-right">GST-AMOUNT</th>
+        </tr>
+        <tr *ngIf="format_type=='STATUS'">
+          <th *ngIf="all">BRANCH</th>
+          <th>JOB#</th>
+          <th>DATE</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>AGENT</th>
+          <th>INV-NO</th>
+          <th>SBILL-NO</th>
+          <th>DATE</th>
+          <th>CARGO-RECEIVED-ON</th>
+          <th>CNTR</th>
+          <th>VESSEL</th>
+          <th>VESSEL-NO</th>
+          <th>SI#</th>
+          <th>HBL-NO</th>
+          <th>MSL#</th>
+          <th>MBL-NO</th>
+          <th>SOB</th>
+          <th>DESTINATION-ETA</th>
+        </tr>
+
+        <tr *ngIf="format_type=='SHIPPER'">
+          <th *ngIf="all">BRANCH</th>
+          <th>JOB#</th>
+          <th>SI#</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>INV-NO</th>
+          <th class="text-right">PKG</th>
+          <th class="text-right">GRWT</th>
+          <th>TYPE</th>
+          <th class="text-right">CBM</th>
+          <th>CONTAINER#</th>
+          <th>MBL#</th>
+          <th>HBL#</th>
+          <th>SB#</th>
+          <th>DATE</th>
+          <th>VESSEL</th>
+          <th>ETD</th>
+          <th>ETA</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>REMARKS</th>
+          <th>VESSEL.2</th>
+        </tr>
+
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr *ngIf="format_type=='GENERAL'" [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.job_date}}</td>
+          <td>{{rec.job_prefix}}</td>
+          <td>{{rec.job_shipper}}</td>
+          <td>{{rec.job_consignee}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td>{{rec.job_pol}}</td>
+          <td>{{rec.job_pod}}</td>
+          <td>{{rec.job_liner_agent}}</td>
+          <td>{{rec.job_cntr}}</td>
+          <td>{{rec.job_commodity}}</td>
+          <td>{{rec.salesman}}</td>
+          <td>{{rec.job_type}}</td>
+          <td>{{rec.job_nomination}}</td>
+          <td>{{rec.job_terms}}</td>
+          <td>{{rec.job_status}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.job_cha_name}}</td>
+          <td>{{rec.opr_ep_rec_date}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.job_agent_name}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td align='right'>{{rec.job_cbm | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_pkg | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_pcs | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_ntwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td>{{rec.liner_name}}</td>
+          <td>{{rec.opr_cargo_received_on}}</td>
+          <!--<td>{{rec.forwarder_name}}</td>-->
+          <td>{{rec.mbl_vessel_name}}</td>
+          <td>{{rec.mbl_vessel_no}}</td>
+          <td>{{rec.opr_stuffed_at}}</td>
+          <td>{{rec.opr_stuffed_on}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pofd_eta}}</td>
+          <td>{{rec.job_remarks}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+        </tr>
+        <tr *ngIf="format_type=='STATUS'" [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.job_date}}</td>
+          <td>{{rec.job_shipper}}</td>
+          <td>{{rec.job_consignee}}</td>
+          <td>{{rec.job_agent_name}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.opr_cargo_received_on}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.mbl_vessel_name}}</td>
+          <td>{{rec.mbl_vessel_no}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pofd_eta}}</td>
+        </tr>
+
+        <tr *ngIf="format_type=='SHIPPER'" [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.job_shipper}}</td>
+          <td>{{rec.job_consignee}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td align='right'>{{rec.job_pkg | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td>{{rec.job_nature}}</td>
+          <td align='right'>{{rec.job_cbm | number : '1.3-3'}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.mbl_vessel_name}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pofd_eta}}</td>
+          <td>{{rec.job_pol}}</td>
+          <td>{{rec.job_pod}}</td>
+          <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.job_remarks}}</td>
+          <td>{{rec.mbl_vessel2_name}}</td>
+        </tr>
+        <tr *ngIf="rec.displayed">
+          <td colspan="20">
+            <app-dsrrem  [record]="rec"></app-dsrrem>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="rec_category=='AIR EXPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>JOB#</th>
+          <th>DATE</th>
+          <th>REF#</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>INV-NO</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>JOB/AGENT/CARRIER</th>
+          <th>COMMODITY</th>
+          <th>TYPE</th>
+          <th>NOMINATION</th>
+          <th>TERMS</th>
+          <th>STATUS</th>
+          <th>SBILL-NO</th>
+          <th>DATE</th>
+          <th>CHA</th>
+          <th>POFD</th>
+          <th>SALESMAN</th>
+          <th>CARGO-RECEIVED-ON</th>
+          <th>CLEARED</th>
+          <th class="text-right">CHWT</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">NTWT</th>
+          <th>SI#</th>
+          <th>HOUSE</th>
+          <th>DATE</th>
+          <th>AGENT</th>
+          <th>MSL#</th>
+          <th>MASTER</th>
+          <th>DATE</th>
+          <th>CARRIER</th>
+          <th class="text-right">MBL-CHWT</th>
+          <th class="text-right">MBL-GRWT</th>
+          <th>FOLDER-NO</th>
+          <th>SENT</th>
+          <th class="text-right">TOTAL CARTONS</th>
+          <th>REMARKS</th>
+          <th>OUR INVOICE#</th>
+          <th class="text-right">AMOUNT</th>
+          <th class="text-right">GST-AMOUNT</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.job_date}}</td>
+          <td>{{rec.job_prefix}}</td>
+          <td>{{rec.job_shipper}}</td>
+          <td>{{rec.job_consignee}}</td>
+          <td>{{rec.job_invoice_nos}}</td>
+          <td>{{rec.job_pol}}</td>
+          <td>{{rec.job_pod}}</td>
+          <td>{{rec.job_liner_agent}}</td>
+          <td>{{rec.job_commodity}}</td>
+          <td>{{rec.job_type}}</td>
+          <td>{{rec.job_nomination}}</td>
+          <td>{{rec.job_terms}}</td>
+          <td>{{rec.job_status}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.job_cha_name}}</td>
+          <td>{{rec.job_pofd_name}}</td>
+          <td>{{rec.salesman}}</td>
+          <td>{{rec.opr_cargo_received_on}}</td>
+          <td>{{rec.opr_cleared_date}}</td>
+          <td align='right'>{{rec.job_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.job_ntwt | number : '1.3-3'}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.job_agent_name}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.liner_name}}</td>
+          <td align='right'>{{rec.mbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
+          <td>{{rec.mbl_folder_no}}</td>
+          <td>{{rec.mbl_folder_sent_date}}</td>
+          <td align='right'>{{rec.job_pkg | number : '1.3-3'}}</td>
+          <td>{{rec.job_remarks}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="rec_category=='SEA IMPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>DATE</th>
+          <th>MSL#</th>
+          <th>MASTER</th>
+          <th>SI#</th>
+          <th>DATE</th>
+          <th>HOUSE</th>
+          <th>EXPORTER</th>
+          <th>IMPORTER</th>
+          <th>AGENT</th>
+          <th>SMAN</th>
+          <!--<th>EDI-JOB#</th>-->
+          <th>INV-NO</th>
+          <th class="text-right">PKG</th>
+          <th class="text-right">CBM</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">CHWT</th>
+          <!--<th>SBILL-NO</th>
+          <th>DATE</th>-->
+          <th>POL</th>
+          <th>POD</th>
+          <th>POD-ETA</th>
+          <th>TYPE</th>
+          <th>DOCS-REQUIRED</th>
+          <th>EDI-CHECKLIST-SENT</th>
+          <th>BE.NO</th>
+          <th>BE.DATE</th>
+          <th>STATUS</th>
+          <th>DATE</th>
+          <th>CLEARED</th>
+          <th>REMARKS</th>
+          <th>CARRIER</th>
+          <th>DOC-RECEIVED</th>
+          <th>DOC-SENT</th>
+
+          <th>OUR INVOICE#</th>
+          <th class="text-right">AMOUNT</th>
+          <th class="text-right">GST-AMOUNT</th>
+          <th>CHA</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_exporter_name}}</td>
+          <td>{{rec.hbl_importer_name}}</td>
+          <td>{{rec.hbl_agent_name}}</td>
+          <td>{{rec.salesman}}</td>
+          <!--<td>{{rec.impj_edi_no}}</td>-->
+          <td>{{rec.hbl_invoice_nos}}</td>
+          <td align='right'>{{rec.hbl_pkg | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_cbm | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <!--<td>{{rec.impj_sbno}}</td>
+          <td>{{rec.impj_sbdate}}</td>-->
+          <td>{{rec.mbl_pol}}</td>
+          <td>{{rec.mbl_pod}}</td>
+          <td>{{rec.hbl_pod_eta}}</td>
+          <td>{{rec.impj_be_type}}</td>
+          <td>{{rec.impj_docs_required}}</td>
+          <td>{{rec.impj_edichklst_sent_on}}</td>
+          <td>{{rec.hbl_beno}}</td>
+          <td>{{rec.hbl_bedate}}</td>
+          <td>{{rec.impj_status}}</td>
+          <td>{{rec.impj_status_date}}</td>
+          <td>{{rec.impj_cleared_on}}</td>
+          <td>{{rec.hbl_remarks}}</td>
+          <td>{{rec.liner_name}}</td>
+          <td>{{rec.impj_doc_recvd_date}}</td>
+          <td>{{rec.impj_doc_send_date}}</td>
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td>{{rec.cha_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="rec_category=='AIR IMPORT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>DATE</th>
+          <th>MSL#</th>
+          <th>MASTER</th>
+          <th>SI#</th>
+          <th>DATE</th>
+          <th>HOUSE</th>
+          <th>EXPORTER</th>
+          <th>IMPORTER</th>
+          <th>AGENT</th>
+          <th>SMAN</th>
+          <!--<th>EDI-JOB#</th>-->
+          <th>INV-NO</th>
+          <th class="text-right">PKG</th>
+          <th class="text-right">CBM</th>
+          <th class="text-right">GRWT</th>
+          <th class="text-right">CHWT</th>
+          <!--<th>SBILL-NO</th>
+  <th>DATE</th>-->
+          <th>POL</th>
+          <th>POD</th>
+          <th>POD-ETA</th>
+          <th>TYPE</th>
+          <th>DOCS-REQUIRED</th>
+          <th>EDI-CHECKLIST-SENT</th>
+          <th>BE.NO</th>
+          <th>BE.DATE</th>
+          <th>STATUS</th>
+          <th>DATE</th>
+          <th>CLEARED</th>
+          <th>REMARKS</th>
+          <th>CARRIER</th>
+          <th>DOC-RECEIVED</th>
+          <th>DOC-SENT</th>
+          <th>WAYBILL.NO</th>
+          <th>WAYBILL.DATE</th>
+
+          <th>OUR INVOICE#</th>
+          <th class="text-right">AMOUNT</th>
+          <th class="text-right">GST-AMOUNT</th>
+          <th>CHA</th>
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.mbl_bl_no}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_date}}</td>
+          <td>{{rec.hbl_bl_no}}</td>
+          <td>{{rec.hbl_exporter_name}}</td>
+          <td>{{rec.hbl_importer_name}}</td>
+          <td>{{rec.hbl_agent_name}}</td>
+          <td>{{rec.salesman}}</td>
+          <!--<td>{{rec.impj_edi_no}}</td>-->
+          <td>{{rec.hbl_invoice_nos}}</td>
+          <td align='right'>{{rec.hbl_pkg | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_cbm | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <!--<td>{{rec.impj_sbno}}</td>
+  <td>{{rec.impj_sbdate}}</td>-->
+          <td>{{rec.mbl_pol}}</td>
+          <td>{{rec.mbl_pod}}</td>
+          <td>{{rec.hbl_pod_eta}}</td>
+          <td>{{rec.impj_be_type}}</td>
+          <td>{{rec.impj_docs_required}}</td>
+          <td>{{rec.impj_edichklst_sent_on}}</td>
+          <td>{{rec.hbl_beno}}</td>
+          <td>{{rec.hbl_bedate}}</td>
+          <td>{{rec.impj_status}}</td>
+          <td>{{rec.impj_status_date}}</td>
+          <td>{{rec.impj_cleared_on}}</td>
+          <td>{{rec.hbl_remarks}}</td>
+          <td>{{rec.liner_name}}</td>
+          <td>{{rec.impj_doc_recvd_date}}</td>
+          <td>{{rec.impj_doc_send_date}}</td>
+          <td>{{rec.impj_waybill_no}}</td>
+          <td>{{rec.impj_waybill_date}}</td>
+
+          <td>{{rec.hbl_ar_invnos}}</td>
+          <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td>{{rec.cha_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

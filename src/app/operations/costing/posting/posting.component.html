@@ -1,0 +1,121 @@
+
+
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <hr />
+      <label>Date</label>
+      <hr />
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">HO</label>
+        <div class="col-4">
+          <app-autocomplete #CsdLov [inputdata]="HORECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-6 col-form-label col-form-label-sm">{{Record.jv_ho_name}}</label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Frt</label>
+        <div class="col-4">
+          <app-autocomplete #CsdLov [inputdata]="FRTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-6 col-form-label col-form-label-sm">{{Record.jv_frt_name}}</label>
+      </div>
+
+      <hr />
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-4">
+          <app-autocomplete #CsdLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-6 col-form-label col-form-label-sm">{{Record.jv_br_name}}</label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+        <div class="col-4">
+          <app-autocomplete [disabled]="true" #CsdLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-6 col-form-label col-form-label-sm">{{Record.jv_agent_name}}</label>
+      </div>
+
+      <hr />
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Amount-{{Record.jv_drcr}}</label>
+        <div class="col-10">
+          <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jv_ftotal" maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Curr </label>
+        <label class="col-10 col-form-label col-form-label-sm">{{Record.jv_curr_code}}</label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">ExRate</label>
+        <label class="col-10 col-form-label col-form-label-sm">{{Record.jv_exrate}}</label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Amount-{{Record.jv_drcr}}</label>
+        <div class="col-10">
+          <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jv_total" maxlength="60" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Reference</label>
+        <div class="col-10">
+          <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jv_reference" maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jv_remarks" maxlength="300" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Narration</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jv_narration" maxlength="300" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Posted : {{Record.jv_posted}}</label>
+        <label class="col-10 col-form-label col-form-label-sm">Details : {{Record.jv_posted_details}}</label>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

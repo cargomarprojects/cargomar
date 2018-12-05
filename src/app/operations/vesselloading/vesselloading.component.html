@@ -1,0 +1,84 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <label class="col-1 col-form-label col-form-label-sm">Carrier</label>
+      <div class="col-2">
+        <app-autocomplete #CarrLov [inputdata]="SEACARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+      </div>
+
+      <label class="col-1 col-form-label col-form-label-sm">Vessel</label>
+      <div class="col-2">
+        <app-autocomplete #VslLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+      </div>
+      <label class="col-sm-1 col-form-label col-form-label-sm">Voyage</label>
+      <div class="col-sm-2">
+        <input type="text" class="col form-control form-control-sm" name="Searchvoy" [(ngModel)]="searchvoyage" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>AGENT</th>
+          <th>VESSEL</th>
+          <th>VOYAGE</th>
+          <th>BOOKING NO</th>
+          <th>CONTAINER NO</th>
+          <th class="text-right">WEIGHT</th>
+          <th>UNIT</th>
+          <th>TYPE</th>
+          <th>COMMODITY</th>
+          <th>POFD</th>
+          <th>STUFFED AT</th>
+          <th>STUFFED ON</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.mbl_agent_name}}</td>
+          <td>{{rec.mbl_vessel_name}}</td>
+          <td>{{rec.mbl_vessel_voyage}}</td>
+          <td>{{rec.mbl_book_no}}</td>
+          <td>{{rec.book_cntr_no}}</td>
+          <td>{{rec.book_cntr_grwt | number : '1.3-3'}}</td>
+          <td>{{rec.book_cntr_grwt_unit}}</td>
+          <td>{{rec.book_cntr_type}}</td>
+          <td>{{rec.mbl_commodity}}</td>
+          <td>{{rec.mbl_pofd_name}}</td>
+          <td>{{rec.book_cntr_stuffed_at}}</td>
+          <td>{{rec.book_cntr_stuffed_on}}</td>
+        </tr>
+      </tbody>
+      <tbody class="page-body-tbody">
+        <tr *ngIf="bShowMore">
+          <td style="color:blue" (click)="More()">More...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

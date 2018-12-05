@@ -1,0 +1,88 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="List('LIST')" class="btn btn-primary btn-sm">Refresh</button>
+    <button [disabled]="loading" (click)="List('LIST','DELETED')" class="btn btn-primary btn-sm">Show Deleted</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-list">
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>UPLOAD-BY</th>
+          <th>UPLOAD-DATE</th>
+          <th>TYPE</th>
+          <th>NAME</th>
+          <th>DELETED</th>
+          <th *ngIf="canupload">DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList">
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_by}}</td>
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_date}}</td>
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_catg_name}}</td>
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_name}}</td>
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_deleted_by}}</td>
+          <td *ngIf="canupload">
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="page-details" *ngIf="canupload">
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Type</label>
+        <div class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="catg_id">
+            <option *ngFor="let rec of DocTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+          </select>
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">File</label>
+        <div class="col-10">
+          <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+        </div>
+      </div>
+
+      <br />
+
+      <div class="form-group row" >
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-10">
+          <button (click)="uploadFiles()">Upload</button>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<!--<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>-->
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

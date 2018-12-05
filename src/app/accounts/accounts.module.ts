@@ -1,0 +1,130 @@
+import { NgModule } from '@angular/core';
+import { SharedModule } from '../shared/shared.module';
+
+import { AccountsRoutingModule } from './accounts.routing.module';
+
+import { AccountsComponent } from './accounts.component';
+import { AcctmComponent } from './acctm/acctm.component';
+
+
+import { AcgroupmComponent } from './acgroupm/acgroupm.component';
+
+
+import { TaxmComponent } from './taxm/taxm.component';
+
+import { LedgerComponent } from './ledger/ledger.component';
+import { ArApComponent } from './ledger/arap.component';
+
+import { costCenterComponent } from './ledger/cc.component';
+
+import { PendingListComponent } from './ledger/Pendinglist.component';
+
+
+import { TrialComponent } from './trial/trial.component';
+
+import { PandLComponent } from './pandl/pandl.component';
+
+import { LedgerBalComponent } from './ledgerbal/ledgerbal.component';
+
+
+import { FcComponent } from './fc/fc.component';
+
+import { OpLedgerComponent } from './ledger/opledger.component';
+
+import { OsComponent } from './os/os.component';
+import { OsRemComponent } from './os/osrem.component';
+
+import { ChequeComponent } from './ledger/cheque.component';
+
+
+import { CcReportComponent } from './ccreport/ccreport.component';
+import { ReconComponent } from './Recon/recon.component';
+
+import { RecondateComponent } from './Recon/recondate.component';
+
+import { CostCenterComponent } from './costcenter/costcenter.component';
+
+import { CostAllocationComponent } from './costallocation/costallocation.component';
+
+
+import { FreeAllocationComponent } from './ledger/freeallocation.component';
+
+import { FreeCrAllocationComponent } from './ledger/freecrallocation.component';
+
+import { CostrecoComponent } from './costingrecons/costreco.component';
+
+import { TdsPaidComponent } from './tdspaid/tdspaid.component';
+
+import { BillWiseComponent } from './billwise/billwise.component';
+
+import { ProfitComponent } from './profit/profit.component';
+
+import { TdsPayComponent } from './tdspay/tdspay.component';
+
+import { OsAgingComponent } from './osaging/osaging.component';
+
+import { OsAgentComponent } from './osagent/osagent.component';
+
+import { PayHistoryComponent } from './payhistory/payhistory.component';
+
+import { AcTransComponent } from './actransreport/actrans.report';
+
+import { OscrComponent } from './oscr/oscr.component';
+
+import { OscrAgingComponent } from './oscraging/oscraging.component';
+import { PayRequestComponent } from './payrequest/payrequest.component';
+import { SetlmntComponent } from './setlmnt/setlmnt.component';
+
+
+
+@NgModule({
+  imports: [
+    SharedModule,
+    AccountsRoutingModule
+  ],
+  declarations: [
+    AccountsComponent,
+    AcctmComponent,
+    TaxmComponent,
+    AcgroupmComponent,
+    LedgerComponent,
+    ArApComponent,
+    costCenterComponent,
+    PendingListComponent,
+    TrialComponent,
+    LedgerBalComponent,
+    OpLedgerComponent,
+    OsComponent,
+    ChequeComponent,
+    CcReportComponent,
+    ReconComponent,
+    RecondateComponent,
+    CostCenterComponent,
+    FcComponent,
+    CostAllocationComponent,
+    FreeAllocationComponent,
+    FreeCrAllocationComponent,
+    PandLComponent,
+    CostrecoComponent,
+    TdsPaidComponent,
+    BillWiseComponent,
+    ProfitComponent,
+    TdsPayComponent,
+    OsAgingComponent,
+    OsAgentComponent,
+    OsRemComponent,
+    PayHistoryComponent,
+    AcTransComponent,
+    OscrComponent,
+    OscrAgingComponent,
+    PayRequestComponent,
+    SetlmntComponent
+  ],
+  providers: [
+  ],
+  entryComponents: [
+    PendingListComponent
+  ]
+
+})
+export class AccountsModule { }

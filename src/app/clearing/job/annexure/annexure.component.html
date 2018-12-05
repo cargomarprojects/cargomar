@@ -1,0 +1,144 @@
+
+
+<div class="page-details">
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">IE Code Of EOU</label>
+        <div class="col-sm-2">
+          <app-autocomplete #LinerLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.eou_exp_name}}</label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Branch Sl.No</label>
+        <div class="col-sm-2">
+          <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Examination Date</label>
+        <div class="col-sm-2">
+          <app-date [inputdate]="Record.eou_date" (ValueChanged)="Record.eou_date=$event"></app-date>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Examining Officer</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_exam_officer_name" (blur)="OnBlur('eou_exam_officer_name')" required maxlength="30" />
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">Designation</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_exam_officer_desg" (blur)="OnBlur('eou_exam_officer_desg')" required maxlength="30" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Supervising Officer</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. eou_super_name" (blur)="OnBlur('eou_super_name')" required maxlength="30" />
+        </div>
+
+        <label class="col-1 col-form-label col-form-label-sm">Designation</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_super_desg" (blur)="OnBlur('eou_super_desg')" required maxlength="30" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Commissionerate</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_commissionerate" (blur)="OnBlur('eou_commissionerate')" required maxlength="20" />
+        </div>
+
+        <label class="col-1 col-form-label col-form-label-sm">Division</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_division" (blur)="OnBlur('eou_division')" required maxlength="20" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Range</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_range" (blur)="OnBlur('eou_range')" required maxlength="20" />
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">Seal/No</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.eou_sealno" (blur)="OnBlur('eou_sealno')" required maxlength="100" />
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+        <div class="col-sm-4">
+          <input type="checkbox" [(ngModel)]="Record.eou_items_verified">
+          <span>Verified By Examining Officer</span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+        <div class="col-sm-4">
+          <input type="checkbox" [(ngModel)]="Record.eou_sample_forwarded">
+          <span>Sample Forwarded</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+  </div>
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

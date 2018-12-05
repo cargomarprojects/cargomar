@@ -1,0 +1,183 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
+            <div *ngIf="rec_category=='TON'" class="col-8">
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div *ngIf="rec_category=='AIR IMPORT'" class="col-8">
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
+            <div *ngIf="rec_category=='TON'" class="col-8">
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div *ngIf="rec_category=='AIR IMPORT'" class="col-8">
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            </div>
+
+
+          </div>
+        <div class="col-4">
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+            <div class="col-8">
+              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Airline</label>
+            <div class="col-8">
+              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
+            <div class="col-8">
+              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Destination</label>
+            <div class="col-8">
+              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-4">
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm" [(ngModel)]="type_date">
+                <option [value]="'MAWB DATE'">MAWB DATE</option>
+                <option [value]="'CREATED'">CREATED DATE</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div *ngIf="bCompany" class="col-8">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+          </div>
+
+         
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-10">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>DATE</th>
+          <th>MAWB.NO</th>
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>AGENT</th>
+          <th>SALESMAN</th>
+          <th>NOMINATION</th>
+          <th>AIRLINE</th>
+          <th>STATUS</th>
+          <th>POL</th>
+          <th>DESTINATION</th>
+          <th>POFD</th>
+          <th class="text-right">HAWB.GRWT</th>
+          <th class="text-right">HAWB.CHWT</th>
+          <th class="text-right">MAWB.GRWT</th>
+          <th class="text-right">MAWB.CHWT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.mbl_date}}</td>
+          <td>{{rec.mbl_no}}</td>
+          <td>{{rec.hbl_shipper_name}}</td>
+          <td>{{rec.hbl_consignee_name}}</td>
+          <td>{{rec.mbl_agent_name}}</td>
+          <td>{{rec.sman_name}}</td>
+          <td>{{rec.hbl_nomination}}</td>
+          <td>{{rec.mbl_airline_name}}</td>
+          <td>{{rec.mbl_status_name}}</td>
+          <td>{{rec.hbl_pol_name}}</td>
+          <td>{{rec.hbl_pod_name}}</td>
+          <td>{{rec.hbl_pofd_name}}</td>
+          <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
+          <td align='right'>{{rec.mbl_chwt | number : '1.3-3'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

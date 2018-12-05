@@ -1,0 +1,132 @@
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th><span *ngIf="type=='SEA EXPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'">AIRLINE</span></th>
+          <th><span *ngIf="type=='SEA EXPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'">FLIGHT#</span></th>
+          <th>POL</th>
+          <th>ETD</th>
+          <th>CONFIRM</th>
+          <th>POD</th>
+          <th>ETA</th>
+          <th>CONFIRM</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.trk_pkid,i)">
+          <td>{{i+1}}</td>
+          <td>{{rec.trk_vsl_name}}</td>
+          <td>{{rec.trk_voyage}}</td>
+          <td>{{rec.trk_pol_name}}</td>
+          <td>{{rec.trk_pol_etd}}</td>
+          <td>{{rec.trk_pol_etd_confirm ? 'YES' : 'NO'}}</td>
+          <td>{{rec.trk_pod_name}}</td>
+          <td>{{rec.trk_pod_eta}}</td>
+          <td>{{rec.trk_pod_eta_confirm ? 'YES' : 'NO'}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.trk_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">Vessel</span><span *ngIf="type=='AIR EXPORT'">Airline</span></label>
+        <div class="col-sm-10">
+          <app-autocomplete #VesselLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-10">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.trk_vsl_name" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">Voyage</span><span *ngIf="type=='AIR EXPORT'">Flight#</span></label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.trk_voyage" (blur)="OnBlur('trk_voyage')" required maxlength="15" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
+        <div class="col-sm-9">
+          <app-autocomplete #LinerLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+      <div class="form-group row">
+        <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
+        <div class="offset-3 col-sm-9">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.trk_pol_name" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">POL ETD</label>
+        <div class="col-sm-4">
+          <app-date #trk_pol_etd [inputdate]="Record.trk_pol_etd" (ValueChanged)="Record.trk_pol_etd=$event"></app-date>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.trk_pol_etd_confirm">Confirm
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
+        <div class="col-sm-9">
+          <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-9">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.trk_pod_name" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">POD ETA</label>
+        <div class="col-sm-4">
+          <app-date #trk_pod_eta [inputdate]="Record.trk_pod_eta" (ValueChanged)="Record.trk_pod_eta=$event"></app-date>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.trk_pod_eta_confirm">Confirm
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

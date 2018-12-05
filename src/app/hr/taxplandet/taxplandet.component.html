@@ -1,0 +1,182 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-1">Search</label>
+      <div class="col-4">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col-1">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+        <div class="col-1">
+          <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+        </div>
+      </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th width="30%">BRANCH</th>
+          <th width="40%">EMPLOYEE</th>
+          <th width="10%">YEAR</th>
+          <th width="10%">CREATED.BY</th>
+          <th width="10%">CREATED.DT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr class="pointer" *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT',rec.tpm_pkid, rec.tpm_user_id,rec.tpm_user_name)">
+          <td>{{rec.tpm_branch}}</td>
+          <td>{{rec.tpm_user_name}}</td>
+          <td>{{rec.tpm_year}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div class="page-box">
+    <div class="row">
+      <div *ngIf="mode=='ADD'" class="col-sm-12">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Year</label>
+            <div class="col-4">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="gs.globalVariables.year_name" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Employee</label>
+            <div class="col-4">
+              <app-autocomplete #UserLov [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div class="col-6" style="padding-left:0">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="new_username" />
+            </div>
+          </div>
+        </div>
+        </div>
+        <div *ngIf="mode=='EDIT'" class="col-sm-12">
+          <label>
+            <font color="blue">
+              <strong>
+                INVESTMENTS&nbsp;&nbsp;&nbsp;
+              </strong>
+            </font>
+            <font color="green">
+              <strong>
+                {{title2}}
+              </strong>
+            </font>
+          </label>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-list">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th width="52%">PARTICULARS</th>
+                  <th width="12%">INVESTMENT TILL-15-SEP</th>
+                  <th width="12%">BEFORE-31-DEC</th>
+                  <th width="12%">TOTAL</th>
+                  <th width="12%">AFTER-31-DEC</th>
+
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody" *ngFor="let rec of Record.DetailList">
+                <tr *ngIf="rec.tpd_plan_editable">
+                  <td style="padding:0px 0px 0px 0px"><span *ngIf="rec.tpd_plan_bold"><strong>{{rec.tpd_plan_desc}}</strong></span><span *ngIf="!rec.tpd_plan_bold">{{rec.tpd_plan_desc}}</span></td>
+                  <!--<td><input type="text" name="stype" disabled class="form-control form-control-sm" [(ngModel)]="rec.tpd_plan_desc" (blur)="OnBlurTableCell('tpd_plan_desc',rec.tpd_pkid)" required maxlength="10" /></td>-->
+                  <td style="padding:0px 0px 0px 0px"> <input type="number" name="grwt" class="form-control form-control-sm" [(ngModel)]="rec.tpd_amt_invested" (blur)="OnBlurTableCell('tpd_amt_invested',rec.tpd_plan_id)" required maxlength="14" /> </td>
+                  <td style="padding:0px 0px 0px 0px"><input type="number" name="chwt" class="form-control form-control-sm" [(ngModel)]="rec.tpd_amt_before_dec31" (blur)="OnBlurTableCell('tpd_amt_before_dec31',rec.tpd_plan_id)" required maxlength="14" /></td>
+                  <td style="padding:0px 0px 0px 0px"><input type="number" name="tot" disabled class="form-control form-control-sm" [(ngModel)]="rec.tpd_amt_tot" required maxlength="14" /></td>
+                  <td style="padding:0px 0px 0px 0px"><input type="number" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.tpd_amt_after_dec31" (blur)="OnBlurTableCell('tpd_amt_after_dec31',rec.tpd_plan_id)" required maxlength="14" /></td>
+
+                </tr>
+                <tr *ngIf="!rec.tpd_plan_editable">
+                  <td colspan="5"> <span *ngIf="rec.tpd_plan_bold"><strong>{{rec.tpd_plan_desc}}</strong></span><span *ngIf="!rec.tpd_plan_bold">{{rec.tpd_plan_desc}}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="page-box">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group row">
+              <div class="offset-2 col-10">
+                <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+                <button [disabled]="loading" (click)="GetRecord(Record.tpm_pkid,Record.tpm_user_id,'EXCEL')" class="btn btn-success btn-sm">Excel</button>
+                <i *ngIf="loading" class="fa fa-spinner"></i>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      </div>-->
+
+    </div>
+
+
+    <br />
+    <div *ngIf="InfoMessage" class="alert alert-success">
+      {{InfoMessage}}
+    </div>
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+      {{ErrorMessage}}
+    </div>
+
+

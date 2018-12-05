@@ -1,0 +1,133 @@
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>REGNO</th>
+          <th>DATE</th>
+          <th>PART-E</th>
+          <th>EXP-QTY</th>
+          <th>PART-C</th>
+          <th>QTY</th>
+          <th>UNIT</th>
+          <th>DESCRIPTION</th>
+          
+          <th>ITEM-TYPE</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.lic_pkid,i)">
+          <td>{{rec.lic_reg_no}}</td>
+          <td>{{rec.lic_reg_date}}</td>
+          <td>{{rec.lic_slno_parte}}</td>
+          <td>{{rec.lic_exp_qty}}</td>
+          <td>{{rec.lic_slno_partc}}</td>
+          <td>{{rec.lic_qty}}</td>
+          <td>{{rec.lic_unit_code}}</td>
+          <td>{{rec.lic_desc}}</td>
+          <td>{{rec.lic_ind_imported}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.lic_pkid,name:rec.lic_reg_no}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
+          <!--<td (click)="ActionHandler('REMOVE', rec.lic_pkid)" class="fa fa-trash" aria-hidden="true"></td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Registration No</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Slno Part-E</label>
+        <label class="col-sm-1 col-form-label col-form-label-sm">Export Qty</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_reg_no" (blur)="OnBlur('lic_reg_no')" required maxlength="25" #lic_reg_no />
+        </div>
+        <div class="col-sm-2">
+          <app-date [inputdate]="Record.lic_reg_date" (ValueChanged)="Record.lic_reg_date=$event"></app-date>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_slno_parte" (blur)="OnBlur('lic_slno_parte')" required maxlength="10" />
+        </div>
+        <div class="col-sm-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_exp_qty" (blur)="OnBlur('lic_exp_qty')" required maxlength="14" />
+        </div>
+        <div class="col-sm-2">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.lic_deec">DEEC Item
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Slno Part-C</label>
+        <label class="col-sm-4 col-form-label col-form-label-sm">Description</label>
+        <label class="col-sm-1 col-form-label col-form-label-sm">Qty</label>
+        <label class="col-sm 1 col-form-label col-form-label-sm">Unit</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+        <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_slno_partc" (blur)="OnBlur('lic_slno_partc')" required maxlength="10" #lic_slno_partc />
+        </div>
+
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_desc" (blur)="OnBlur('lic_desc')" required maxlength="100" />
+        </div>
+        <div class="col-sm-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lic_qty" (blur)="OnBlur('lic_qty')" required maxlength="14" />
+        </div>
+        <div class="col-sm-1">
+          <app-autocomplete #pkgUnitLov [inputdata]="LICUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.lic_ind_imported">
+            <option [value]="'N'">INDEGENOUSE</option>
+            <option [value]="'M'">IMPORTED</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-sm-2">
+
+      <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+      </div>
+
+    </div>-->
+  </div>
+</div>
+
+<!--<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+
+  </div>
+</div>-->
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

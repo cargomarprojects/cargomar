@@ -1,0 +1,575 @@
+<div *ngIf="currentPage=='ROOTPAGE'">
+  <div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+
+    <div class="page-search">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group row">
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+              <app-date [inputdate]="gs.globalData.hbl_fromdate" (ValueChanged)="gs.globalData.hbl_fromdate=$event"></app-date>
+            </div>
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+              <app-date [inputdate]="gs.globalData.hbl_todate" (ValueChanged)="gs.globalData.hbl_todate=$event"></app-date>
+            </div>
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+            <div class="col-sm-4">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col-sm-3">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>SI#</th>
+            <th>DATE</th>
+            <th><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></th>
+            <th><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></th>
+            <th>DATE</th>
+            <th>EXPORTER</th>
+            <th>IMPORTER</th>
+            <th>BE-NO</th>
+            <th>BE-DATE</th>
+            <th>NATURE</th>
+            <th>TERMS</th>
+            <th>NOMINATION</th>
+            <th align='right'>GR.WT</th>
+            <th align='right'>NT.WT</th>
+            <th align='right'><span *ngIf="type=='SEA IMPORT'">CBM</span><span *ngIf="type=='AIR IMPORT'">CH.WT</span></th>
+            <th>INVNOS</th>
+            <th align='right'>AMOUNT</th>
+            <th align='right'>GST</th>
+            <th align='right'>REBATE-INR</th>
+            <th *ngIf="type == 'SEA IMPORT'">CONTAINER</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr (click)="ActionHandler('EDIT',rec.hbl_pkid)">
+            <td>{{rec.hbl_no}}</td>
+            <td>{{rec.hbl_sidate}}</td>
+            <td>{{rec.hbl_mbl_no}}</td>
+            <td>{{rec.hbl_bl_no}}</td>
+            <td>{{rec.hbl_date}}</td>
+            <td>{{rec.hbl_exp_name}}</td>
+            <td>{{rec.hbl_imp_name}}</td>
+            <td>{{rec.hbl_beno}}</td>
+            <td>{{rec.hbl_bedate}}</td>
+            <td>{{rec.hbl_nature}}</td>
+            <td>{{rec.hbl_terms}}</td>
+            <td>{{rec.hbl_nomination}}</td>
+            <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
+            <td align='right'>{{rec.hbl_ntwt | number : '1.3-3'}}</td>
+            <td align='right'><span *ngIf="type=='SEA IMPORT'">{{rec.hbl_cbm | number : '1.3-3'}}</span><span *ngIf="type=='AIR IMPORT'">{{rec.hbl_chwt | number : '1.3-3'}}</span></td>
+            <td>{{rec.hbl_ar_invnos}}</td>
+            <td align='right'>{{rec.hbl_ar_amt | number : '1.2-2'}}</td>
+            <td align='right'>{{rec.hbl_ar_gst | number : '1.2-2'}}</td>
+            <td align='right'>{{rec.hbl_rebate_amt_inr | number : '1.2-2'}}</td>
+            <td *ngIf="type == 'SEA IMPORT'">{{rec.hbl_book_cntr}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+    <ngb-tabset>
+      <ngb-tab title="Basic Details">
+        <ng-template ngbTabContent>
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">SI#</label>
+                  <div class="col-4">
+                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">{{lblhblname}}</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no" (blur)="OnBlur('hbl_bl_no')" required maxlength="25" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Date</label>
+                  <div class="col-4">
+                    <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Exporter</label>
+                  <div class="col-10">
+                    <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+                  <div class="col-10">
+                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-10">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_exp_name" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-10">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_exp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_name" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+
+                <div class=" form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Origin.Country</label>
+                  <div class="col-4">
+                    <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYORGRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                  <div class="col-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_origin_country_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Origin.Port</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #PolLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_pol_name" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Importer</label>
+                  <div class="col-9">
+                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Branch</label>
+                  <div class="col-9">
+                    <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-9">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_imp_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm"></label>
+                  <div class="col-9">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_imp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Carrier</label>
+                  <div class="col-4">
+                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_carrier_name" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">BE No</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_beno" (blur)="OnBlur('hbl_beno')" required maxlength="60" />
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">BE.Date</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_bedate" (ValueChanged)="Record.hbl_bedate=$event"></app-date>
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <label *ngIf="type=='SEA IMPORT'" class="col-2 col-form-label  col-form-label-sm">Nature</label>
+                  <div *ngIf="type=='SEA IMPORT'" class="col-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_nature">
+                      <option [value]="'FCL/FCL'">FCL/FCL</option>
+                      <option [value]="'FCL/LCL'">FCL/LCL</option>
+                      <option [value]="'LCL'">LCL</option>
+                      <option [value]="'LCL/FCL'">LCL/FCL</option>
+                      <option [value]="'LCL/LCL'">LCL/LCL</option>
+                    </select>
+                  </div>
+                  <label class="col-2 col-form-label  col-form-label-sm">Terms</label>
+                  <div class="col-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_terms">
+                      <option [value]="'EX-WORK'">EX-WORK</option>
+                      <option [value]="'FREIGHT COLLECT'">COLLECT</option>
+                      <option [value]="'FREIGHT PREPAID'">PREPAID</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+
+                  <!--<label class="col-sm-2 col-form-label col-form-label-sm">Nomination</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_nomination">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NOMINATION'">NOMINATION</option>
+                      <option [value]="'MUTUAL'">MUTUAL</option>
+                      <option [value]="'FREEHAND'">FREEHAND</option>
+                    </select>
+                  </div>-->
+
+                  <label class="col-sm-2 col-form-label col-form-label-sm">InwardDate</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_inwarddate" (ValueChanged)="Record.hbl_inwarddate=$event"></app-date>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Deliv.Place</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_deliv_place" (blur)="OnBlur('hbl_deliv_place')" required maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Deliv.Order.Issued</label>
+                  <div class="col-sm-3">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_deliv_orderissued">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'YES'">YES</option>
+                      <option [value]="'NO'">NO</option>
+                    </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Deliv.Date</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_deliv_date" (ValueChanged)="Record.hbl_deliv_date=$event"></app-date>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Location</label>
+                  <div class="col-10">
+                    <app-autocomplete #LocLov [inputdata]="LOCATIONRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-12 col-form-label col-form-label-sm"></label>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">CartonNos</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_carton_nos" (blur)="OnBlur('hbl_carton_nos')" required maxlength="50" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Pcs</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_pcs" (blur)="OnBlur('hbl_pcs')" required maxlength="15" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Cartons</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_pkg" (blur)="OnBlur('hbl_pkg')" required maxlength="10" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Unit</label>
+                  <div class="col-4">
+                    <app-autocomplete #pkgUnitLov [inputdata]="PKGUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <!--<div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Total Pcs</label>
+              <div class="col-4">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_pcs" (blur)="OnBlur('hbl_pcs')" required maxlength="15" />
+              </div>
+            </div>-->
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Nt.Wt</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_ntwt" (blur)="OnBlur('hbl_ntwt')" required maxlength="15" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Unit</label>
+                  <div class="col-4">
+                    <app-autocomplete #pkgUnitLov [inputdata]="GRUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Gr.Wt</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_grwt" (blur)="OnBlur('hbl_grwt')" required maxlength="15" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Unit</label>
+                  <div class="col-4">
+                    <app-autocomplete #pkgUnitLov [inputdata]="NETUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Cbm</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_cbm" (blur)="OnBlur('hbl_cbm')" required maxlength="15" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Ch.Wt</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_chwt" (blur)="OnBlur('hbl_chwt')" required maxlength="15" />
+                  </div>
+                </div>
+                <!--<div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Ch.Wt</label>
+              <div class="col-4">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_chwt" (blur)="OnBlur('hbl_chwt')" required maxlength="15" />
+              </div>
+            </div>-->
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-12 col-form-label col-form-label-sm"></label>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Freight Amt</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_frt_amt" (blur)="OnBlur('hbl_frt_amt')" required maxlength="14" />
+                  </div>
+                  <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Currency</label>
+                  <div class="col-3">
+                    <app-autocomplete #FcurrLov [inputdata]="FCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Frt. Ex Rate</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_frt_ex_rate" (blur)="OnBlur('hbl_frt_ex_rate')" required maxlength="15" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Insurance.Amt</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_insu_amt" (blur)="OnBlur('hbl_insu_amt')" required maxlength="15" />
+                  </div>
+                  <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Currency</label>
+                  <div class="col-3">
+                    <app-autocomplete #IcurrLov [inputdata]="ICURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Ins. Ex Rate</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_insu_ex_rate" (blur)="OnBlur('hbl_insu_ex_rate')" required maxlength="15" />
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-12 col-form-label col-form-label-sm"></label>
+                </div>
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Invoice Nos</label>
+                  <div class="col-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_invoice_nos" (blur)="OnBlur('hbl_invoice_nos')" required maxlength="100" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Description</label>
+                  <div class="col-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_remarks" (blur)="OnBlur('hbl_remarks')" required maxlength="250" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!--<div class="page-box">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA IMPORT'">MBLBK#</span><span *ngIf="type=='AIR IMPORT'">MAWBK#</span></label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required maxlength="15" />
+                  </div>
+                  <label *ngIf="Record.hbl_mbl_bookno" class="form-check-label">
+                    BOOKING NO&nbsp;&nbsp;&nbsp;<font color="red">{{Record.hbl_mbl_bookno}} </font>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <div class="col-12">
+                    <label *ngIf="Record.hbl_mbl_no && type=='SEA IMPORT'" class="form-check-label">
+                      MBL#&nbsp;&nbsp;&nbsp;<font color="red">{{Record.hbl_mbl_no}} </font>
+                    </label>
+                    <label *ngIf="Record.hbl_mbl_no && type=='AIR IMPORT'" class="form-check-label">
+                      MAWB#&nbsp;&nbsp;&nbsp;<font color="red">{{Record.hbl_mbl_no}} </font>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></label>
+                  <div class="col-10">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required maxlength="100" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label *ngIf="Record.hbl_mbl_bookno" class="col-3 col-form-label  col-form-label-sm">Booking.No</label>
+                  <div class="col-9">
+                    <label class="col-form-label  col-form-label-sm">
+                      <font color="red">{{Record.hbl_mbl_bookno}} </font>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label *ngIf="Record.hbl_mbl_no" class="col-3 col-form-label  col-form-label-sm"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></label>
+                  <div class="col-9">
+                    <label class="col-form-label  col-form-label-sm">
+                      <font color="red">{{Record.hbl_mbl_no}} </font>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-box"> 
+            <div class="col">
+              <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+              <button *ngIf="mode == 'EDIT' && masterexist" [disabled]="loading" (click)="GenerateArrivalNotice(Record.hbl_pkid,'EXCEL','ARRIVAL')" class="btn btn-success btn-sm">Cargo Arrival Notice</button>
+              <button *ngIf="type=='SEA IMPORT' && mode == 'EDIT' && masterexist" [disabled]="loading" (click)="GenerateArrivalNotice(Record.hbl_pkid,'EXCEL','DOFORMAT')" class="btn btn-success btn-sm">DO Format</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Container" *ngIf="mode=='EDIT' && type=='SEA IMPORT'">
+        <ng-template ngbTabContent>
+          <app-impcontainer [parentid]="pkid" [type]="type" [cntrparenttype]="'HBL'"></app-impcontainer>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Other" *ngIf="mode=='EDIT'">
+        <ng-template ngbTabContent>
+          <app-impjob [parentid]="pkid" [type]="type"></app-impjob>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Income/Booking" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'INCOME'"></app-jobincome>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Billing" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-billing [parentid]="pkid" [type]="type" [subtype]="'INCOME'"></app-billing>
+        </ng-template>
+      </ngb-tab>
+
+
+
+    </ngb-tabset>
+
+  </div>
+
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+</div>
+<!--<div *ngIf="currentPage=='BLPAGE'">
+  <div class="page-box">
+    <div *ngIf="type=='SEA EXPORT'" class="col">
+      <app-seabl [parentid]="pkid" [type]="type" (PageChanged)="pageChanged($event)"></app-seabl>
+    </div>
+    <div *ngIf="type=='AIR EXPORT'" class="col">
+      <app-airbl [parentid]="pkid" [type]="type" [invokefrom]="'HAWB'" (PageChanged)="pageChanged($event)"></app-airbl>
+    </div>
+  </div>
+</div>-->

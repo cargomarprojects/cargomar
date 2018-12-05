@@ -1,0 +1,86 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+        <div class="col-5">
+          <app-autocomplete #AgentLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+          <label *ngIf="bCompany" class="col-1 col-form-label col-form-label-sm">Branch</label>
+          <div *ngIf="bCompany" class="col-4">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">House Nos</label>
+        <div class="col-10">
+          <input type="text" class="col form-control form-control-sm" name="blno" [(ngModel)]="hbl_nos" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-10">
+          <button [disabled]="loading" (click)="GenerateXml('SEA')" class="btn btn-primary btn-sm">Generate Sea Xml</button>
+          <button [disabled]="loading" (click)="GenerateXml('AIR')" class="btn btn-primary btn-sm">Generate Air Xml</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-sm-6">
+      <div *ngIf="bCompany" class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-6">
+          <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+    </div>-->
+  </div>
+</div>
+<!--<div class="page-box">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="offset-2 col-sm-4">
+        <button [disabled]="loading" (click)="GenerateXml()" class="btn btn-primary btn-sm">Generate Xml</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<br />-->
+<br />
+
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Sent On</label>
+        <div class="col-4">
+          <app-date [inputdate]="senton_date" (ValueChanged)="senton_date=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-4">
+          <button [disabled]="loading" (click)="GenerateCostingXml()" class="btn btn-primary btn-sm">Generate Costing Invoice</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

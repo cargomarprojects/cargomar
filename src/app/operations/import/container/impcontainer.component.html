@@ -1,0 +1,96 @@
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CONTAINER#</th>
+          <th>TYPE</th>
+          <th>SEALNO</th>
+          <th>PCS</th>
+          <th>GRWT</th>
+          <th>NTWT</th>
+          <th>CBM</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.cntr_pkid,i)">
+          <td>{{rec.cntr_no}}</td>
+          <td>{{rec.cntr_type_code}}</td>
+          <td>{{rec.cntr_asealno}}</td>
+          <td>{{rec.cntr_pcs}}</td>
+          <td>{{rec.cntr_grwt}}</td>
+          <td>{{rec.cntr_ntwt}}</td>
+          <td>{{rec.cntr_cbm}}</td>
+          <td (click)="ActionHandler('REMOVE', rec.cntr_pkid)" class="fa fa-trash" aria-hidden="true"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label style="padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Container#</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no" (blur)="OnBlur('cntr_no')" required maxlength="20" #cntr_no />
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">Type</label>
+        <div class="col-4">
+          <app-autocomplete #CntrTypeLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label  col-form-label-sm">Seal.No</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno" (blur)="OnBlur('cntr_asealno')" required maxlength="30" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Pcs</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_pcs" (blur)="OnBlur('cntr_pcs')" required maxlength="14" />
+        </div>
+
+        <label class="col-2 col-form-label col-form-label-sm">Gr.Wt</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_grwt" (blur)="OnBlur('cntr_grwt')" required maxlength="14" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Nt.Wt</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_ntwt" (blur)="OnBlur('cntr_ntwt')" required maxlength="14" />
+        </div>
+        <label class="col-2 col-form-label col-form-label-sm">Cbm</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_cbm" (blur)="OnBlur('cntr_cbm')" required maxlength="14" />
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+  </div>
+</div>
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    <button [disabled]="loading" (click)="FillContainer()" class="btn btn-default btn-sm">FILL CONTAINER</button>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

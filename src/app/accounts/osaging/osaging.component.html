@@ -1,0 +1,107 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+
+
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+
+
+            <div *ngIf="bCompany" class="col-sm-4">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+          </div>
+          <div class="form-group row">
+
+            <div class="col-sm-8">
+              <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>CUSTOMER</th>
+          <th>SALESMAN</th>
+          <th class="text-right">0-15</th>
+          <th class="text-right">16-30</th>
+          <th class="text-right">31-60</th>
+          <th class="text-right">61-90</th>
+          <th class="text-right">91-180</th>
+          <th class="text-right">180+</th>
+          <th class="text-right">TOTAL OS</th>
+          <th class="text-right">ADVANCE</th>
+          <th class="text-right">OVERDUE</th>
+          <th class="text-right">1YEAR+</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.cust_code}}</td>
+          <td>{{rec.cust_name}}</td>
+          <td>{{rec.sman_name}}</td>
+          <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

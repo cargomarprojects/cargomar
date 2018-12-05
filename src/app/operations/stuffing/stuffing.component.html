@@ -1,0 +1,127 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Container</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
+          <div class="col-10">
+            <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-10">
+            <select class="form-control form-control-sm" [(ngModel)]="searchtype">
+              <option [value]="'STUFFING CONFIRMATION'">Stuffing Confirmation</option>
+              <option [value]="'LOADING CONFIRMATION'">Loading Confirmation</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Format</label>
+          <div class="col-10">
+            <select class="form-control form-control-sm" [(ngModel)]="mailformat">
+              <option [value]="'DEFAULT'">Default Format</option>
+              <option [value]="'TRACKING'">Tracking Format</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="offset-2 col-10">
+          <button [disabled]="loading" (click)="List('NEW','')" class="btn btn-primary btn-sm">Search</button>
+          <button [disabled]="loading" (click)="List('EXCEL','')" class="btn btn-primary btn-sm">Excel</button>
+          <button [disabled]="loading" (click)="List('MAIL',mailsent)" class="btn btn-primary btn-sm">Mail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+
+          <th>SHIPPER</th>
+          <th>CONSIGNEE</th>
+          <th>POFD</th>
+          <th>SB.NO</th>
+          <th>DATE</th>
+          <th>ORDER.NO</th>
+          <th class="text-right">PKGS</th>
+          <th class="text-right">VOLUME</th>
+          <th class="text-right">GR.WT	</th>
+          <th>CONTAINER</th>
+          <th>A.SEAL.NO</th>
+          <th>C.SEAL.NO</th>
+          <th>VESSEL</th>
+          <th>VOYAGE</th>
+          <th>ETD</th>
+          <th>ETA</th>
+          <th>ON.BOARD</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.job_exp_name}}</td>
+          <td>{{rec.job_imp_name}}</td>
+          <td>{{rec.job_pofd_name}}</td>
+          <td>{{rec.opr_sbill_no}}</td>
+          <td>{{rec.opr_sbill_date}}</td>
+          <td>{{rec.itm_order_no}}</td>
+          <td>{{rec.pack_pkg}}</td>
+          <td>{{rec.pack_cbm | number : '1.3-3'}}</td>
+          <td>{{rec.pack_grwt | number : '1.3-3'}}</td>
+          <td>{{rec.pack_cntr_no}}</td>
+          <td>{{rec.pack_cntr_asealno}}</td>
+          <td>{{rec.pack_cntr_csealno}}</td>
+          <td>{{rec.mbl_vessel_name}}</td>
+          <td>{{rec.mbl_vessel_voyage}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pod_eta}}</td>
+          <td>{{rec.mbl_pol_etd_confirm}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="cntrpkid" [type]="'STUFFING-LOADING-DETAILS'" [sHtml]="sHtml" [defaultto_ids]="sTo_ids" [updateto_ids]=false [defaultsubject]="sSubject"></app-mail>
+  </div>
+  <!--<div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>-->
+</ng-template>

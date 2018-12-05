@@ -1,0 +1,136 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div class="page-list">
+
+  <div class="page-search">
+
+    <div class="row">
+
+      <div class="col-sm-4">
+
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-10">
+            <app-date [disabled]="lock_date" [inputdate]="Record.stm_date" (ValueChanged)="Record.stm_date=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Curr</label>
+          <div class="col-10">
+            <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-sm-4">
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+          <div class="col-10">
+            <app-autocomplete #CsdLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+          <div class="col-10">
+            <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.stm_acc_name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.stm_acc_br_addr" [disabled]="true" maxlength="1000"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <button [disabled]="loading" (click)="ShowPending('SCREEN')" class="btn btn-primary btn-sm">Show</button>
+          </div>
+          <div class="col-5">
+            <button [disabled]="loading" (click)="ShowPending('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+          </div>
+
+          
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="page-list">
+  <div class="page-box">
+
+
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+
+          <tr>
+            <th width="100px;" class="text-left">DATE</th>
+            <th width="150px;" class="text-left">REF#</th>
+            <th width="150px;" class="text-left">REMARKS</th>
+            <th width="100px;" class="text-left">CATEGORY</th>
+            <th width="100px;" class="text-right">DR</th>
+            <th width="100px;" class="text-right">CR</th>
+            <th width="100px;" class="text-right">EXRATE</th>
+            <th width="100px;" class="text-right">DR-INR</th>
+            <th width="100px;" class="text-right">CR-INR</th>
+            <th width="100px;" class="text-right">FOLDER#</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of PendingList">
+            <td width="100px;" align='left'>{{rec.jv_display_date}}</td>
+            <td width="150px;" align='left'>{{rec.jv_reference}}</td>
+            <td width="150px;" align='left'>{{rec.jv_remarks}}</td>
+            <td width="100px;" align='left'>{{rec.rec_category}}</td>
+            <td width="100px;" align='right'>{{ rec.dr | number : '1.2-2' }}</td>
+            <td width="100px;" align='right'>{{ rec.cr | number : '1.2-2' }}</td>
+            <td width="100px;" align='right'>{{ rec.jv_exchange_rate | number : '1.2-2' }}</td>
+            <td width="100px;" align='right'>{{ rec.jv_debit | number : '1.2-2' }}</td>
+            <td width="100px;" align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
+            <td width="100px;" align='left'>{{rec.folderno}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<App-Wait [visible]="loading"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

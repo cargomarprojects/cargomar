@@ -1,0 +1,155 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-8">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+            <div class="col-8">
+              <select class="form-control form-control-sm" [(ngModel)]="hbl_type">
+                <option [value]="'ALL'">ALL</option>
+                <option [value]="'HBL-SE'">SEA EXPORT</option>
+                <option [value]="'HBL-AE'">AIR EXPORT</option>
+                <option [value]="'HBL-SI'">SEA IMPORT</option>
+                <option [value]="'HBL-AI'">AIR IMPORT</option>
+                <option [value]="'JOB-GN'">GENREAL JOB</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <!--<label class="col-sm-2 col-form-label col-form-label-sm"></label>-->
+            <div *ngIf="bCompany" class="col-sm-7">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+            <div class="col-5">
+              <input type="checkbox" [(ngModel)]="showpaid" (change)="OnChange2('paid_details')" >
+              <span> Paid Details</span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-7">
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg()" class="btn btn-primary btn-sm">POST-JV</button>
+            </div>
+            <div class="col-5">
+              <input type="checkbox" [(ngModel)]="paymentwise">
+              <span> Payment Wise</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SELECTED</th>
+          <th *ngIf="all">BRANCH</th>
+          <th>INV#</th>
+          <th>INV-DATE</th>
+          <th>SI</th>
+          <th>SI-DATE</th>
+          <th>CATEGORY</th>
+          <th>MBL</th>
+          <th>HBL</th>
+          <th>SHIPPER</th>
+          <th>CARRIER</th>
+          <th>PP/CC</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th class="text-right">REBATE</th>
+          <th>CURR</th>
+          <th class="text-right">EXRATE</th>
+          <th class="text-right">INR</th>
+          <th>JV-NO</th>
+          <th>JV-DATE</th>
+          <th>CONSIGNEE</th>
+          <th>SALESMAN</th>
+
+          <th *ngIf="showpaid">PAID-VRNO</th>
+          <th *ngIf="showpaid">DATE</th>
+          <th *ngIf="showpaid">AMT</th>
+
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td><input type="checkbox" [(ngModel)]="rec.selected" /></td>
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.inv_no}}</td>
+          <td>{{rec.inv_date}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.created}}</td>
+          <td>{{rec.inv_source}}</td>
+          <td>{{rec.mbl}}</td>
+          <td>{{rec.hbl}}</td>
+          <td>{{rec.shipper_name}}</td>
+          <td>{{rec.carrier_name}}</td>
+          <td>{{rec.inv_type}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{rec.inv_rebate_amt | number : '1.2-2'}}</td>
+          <td>{{rec.inv_rebate_curr_code}}</td>
+          <td align='right'>{{rec.inv_rebate_exrate | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.inv_rebate_amt_inr | number : '1.2-2'}}</td>
+          <td (click)="EditDlg(rec)" style="cursor: pointer">{{rec.inv_rebate_jvno}}</td>
+          <td>{{rec.inv_rebate_jvdate}}</td>
+          <td>{{rec.consignee_name}}</td>
+          <td>{{rec.salesman}}</td>
+          <td *ngIf="showpaid">{{rec.paid_vrno}}</td>
+          <td *ngIf="showpaid">{{rec.paid_date}}</td>
+          <td *ngIf="showpaid">{{rec.paid_amt | number : '1.2-2'}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg()" class="btn btn-primary btn-sm">POST-JV</button>
+</div>
+
+<br />
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<App-PostRebate [jvid]="jvid" [jvdate]="jvdate" [jvno]="jvno" [visible]="bShowDlg" [RecordList]="SelectedList" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
+
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

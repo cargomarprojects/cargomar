@@ -1,0 +1,87 @@
+<div *ngIf="Invokefrom!='PARENT'" class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+
+</div>
+
+<div class="page-details">
+ 
+  <div class="row">
+    <div class="col-sm-12">
+     <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Type</label>
+        <div class="col-4">
+          <select class="form-control form-control-sm" [(ngModel)]="tabletype" (change)="OnChange('tabletype')">
+
+            <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+            <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+            <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+            <option [value]="'AIR IMPORT'">AIR IMPORT</option>
+            <option [value]="'BROKERAGE'">BROKERAGE</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Beneficiary Name</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_company" (blur)="OnBlur('bank_company')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Bank A/c #</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ac" (blur)="OnBlur('bank_ac')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Bank Name</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_name" (blur)="OnBlur('bank_name')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">IFSC Code</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ifsc_code" (blur)="OnBlur('bank_ifsc_code')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Address</label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin1" (blur)="OnBlur('bank_addresslin1')" required maxlength="100" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin2" (blur)="OnBlur('bank_addresslin2')" required maxlength="100" />
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="page-box">
+  <div class="col">
+    <button [disabled]="loading" (click)="SaveBranch()" class="btn btn-success btn-sm">SAVE</button>
+  </div>
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
+

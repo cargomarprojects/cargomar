@@ -1,0 +1,119 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+<div class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">A/c Code</label>
+          <div class="col-9">
+            <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-9">
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group row">
+          <div class="col">
+            <span>{{ACCRECORD.name}}</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-9">
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group row">
+          <div class="col-9">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div *ngIf="bCompany" class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-9">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+
+      </div>
+      <div class="col-4">
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+  </div>
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>VRNO</th>
+          <th>TYPE</th>
+          <th class="text-right">GROSS</th>
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th>PARTY</th>
+          <th>NAME</th>
+          <th>TAN</th>
+          <th>NAME</th>
+          <th>SMAN</th>
+          <th>NARRATION</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.jvh_date }}</td>
+          <td>{{rec.jvh_vrno }}</td>
+          <td>{{rec.jvh_type }}</td>
+          <td align='right'>{{ rec.jv_gross_bill_amt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_debit | number : '1.2-2' }}</td>
+          <td align='right'>{{rec.jv_credit | number : '1.2-2'  }}</td>
+          <td>{{ rec.party_code}}</td>
+          <td>{{ rec.party_name}}</td>
+          <td>{{ rec.tan}}</td>
+          <td>{{ rec.tan_name}}</td>
+          <td>{{ rec.sman_name}}</td>
+          <td>{{ rec.jvh_narration}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+

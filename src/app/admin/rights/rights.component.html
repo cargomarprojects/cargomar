@@ -1,0 +1,137 @@
+<div class="page-header">
+  <div class="col">
+    <label class="col-form-label">{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>Login ID</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Branch Name</th>
+          <th>Rights</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordMast">
+        <tr (click)="RightsList('NEW',rec)">
+          <td>{{rec.user_code}}</td>
+          <td>{{rec.user_name}}</td>
+          <td>{{rec.user_email}}</td>
+          <td>{{rec.user_branch_name}}</td>
+          <td>{{rec.user_rights_total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div>
+    User : {{user_name}}  - Branch : {{branch_name}}
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label col-form-label-sm">Module</label>
+    <div  *ngFor="let rec of ModuleList">
+      <button [disabled]="loading" class="btn btn-default btn-sm" (click)="module_name=rec.module_name">{{rec.module_name}}</button>
+      <span>&nbsp;</span>
+    </div>
+  </div>
+
+  <div class="table-responsive" style="border:1px solid grey; margin-bottom:1px;">
+    <table class="table table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>Module</th>
+          <th>Menu</th>
+          <th>Company</th>
+          <th>Admin</th>
+          <th>Add</th>
+          <th>Edit</th>
+          <th>View</th>
+          <th>Delete</th>
+          <th>Print</th>
+          <th>Email</th>
+          <th>Docs</th>
+          <th>Upload</th>
+          <th>Approval</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr *ngIf="rec.module_name == module_name">
+          <td>{{rec.module_name}}</td>
+          <td>{{rec.menu_name}}</td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_company"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_admin"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_add"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_edit"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_view"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_delete"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_print"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_email"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_docs"></td>
+          <td> <input type="checkbox" [(ngModel)]="rec.rights_docs_upload"></td>
+          <td> <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.rights_approval" required maxlength="30"/></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+
+  <div>
+    <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+    <button [disabled]="loading" (click)="Return2Parent()" class="btn btn-primary btn-sm">Return</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+
+
+</div>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
