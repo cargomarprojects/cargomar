@@ -129,6 +129,7 @@ export class Jobm {
   job_opr_sbill_no: string;
   job_opr_sbill_date: string;
   job_si_no: string;
+  job_hblnos: string;
   job_cntr: string;
   jobs_hbl_id: string;
   lock_record: boolean;
@@ -137,6 +138,7 @@ export class Jobm {
   job_billtype_name: string;
   job_docs: number;
   job_order: boolean;
+  
 
   rec_mode: string;
   rec_category: string;
