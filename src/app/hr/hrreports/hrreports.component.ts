@@ -40,7 +40,8 @@ export class HrReportsComponent {
 
   salyear = 0;
   salmonth = 0;
-
+  
+  reporttype="EPF";
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
@@ -84,6 +85,7 @@ export class HrReportsComponent {
   }
 
   InitComponent() {
+    this.reporttype = 'EPF';
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -167,6 +169,7 @@ export class HrReportsComponent {
       searchstring: this.searchstring.toUpperCase(),
       salmonth: this.salmonth,
       salyear: this.salyear,
+      reporttype:this.reporttype,
       empstatus:this.empstatus,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
