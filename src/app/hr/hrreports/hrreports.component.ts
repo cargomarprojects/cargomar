@@ -132,6 +132,9 @@ export class HrReportsComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      branch_region:this.gs.defaultValues.pf_br_region,
+      folderid:this.gs.getGuid(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -143,7 +146,11 @@ export class HrReportsComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        if (_type == 'EXCEL')
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else 
         this.RecordList = response.list;
+
       },
       error => {
         this.loading = false;
@@ -200,5 +207,8 @@ export class HrReportsComponent {
   }
   Close() {
     this.gs.ClosePage('home');
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 }
