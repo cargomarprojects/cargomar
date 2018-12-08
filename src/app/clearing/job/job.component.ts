@@ -44,8 +44,12 @@ export class JobComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+
+  old_shipper_id = '';
+  old_billto_id = '';
+
   bCreditLimit: boolean = false;
-  
+
 
   sub: any;
   urlid: string;
@@ -56,7 +60,7 @@ export class JobComponent {
   mode = '';
   pkid = '';
 
-  Mail_type: string  = '';
+  Mail_type: string = '';
   sTo_ids: string = '';
   sSubject: string = '';
   sHtml: string = '';
@@ -66,8 +70,8 @@ export class JobComponent {
   // Single Record for add/edit/view details
   Record: Jobm = new Jobm;
 
- // JobTypeList: any[] = [];
-  
+  // JobTypeList: any[] = [];
+
   BILLTORECORD: SearchTable = new SearchTable();
   EXPRECORD: SearchTable = new SearchTable();
   EXPADDRECORD: SearchTable = new SearchTable();
@@ -135,7 +139,7 @@ export class JobComponent {
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
-      
+
     }
     else {
       this.porttype = "AIR PORT";
@@ -155,7 +159,7 @@ export class JobComponent {
 
   LoadCombo() {
 
-   // this.JobTypeList = [{ "name": "ALL" }, { "name": "BOTH" }, { "name": "CLEARING" }, { "name": "FORWARDING" }];
+    // this.JobTypeList = [{ "name": "ALL" }, { "name": "BOTH" }, { "name": "CLEARING" }, { "name": "FORWARDING" }];
     //this.loading = true;
     //let SearchData = {
     //    type: 'type'
@@ -694,15 +698,20 @@ export class JobComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
+
     this.job_no = "";
+
+    this.old_shipper_id = '';
+    this.old_billto_id = '';
+
     this.pkid = this.gs.getGuid();
     this.Record = new Jobm();
     this.Record.job_pkid = this.pkid;
@@ -776,7 +785,7 @@ export class JobComponent {
 
     this.Record.job_nomination = '';
     this.Record.job_type = '';
-    
+
     this.Record.job_salesman_id = '';
     this.Record.job_salesman_code = '';
     this.Record.job_salesman_name = '';
@@ -784,7 +793,7 @@ export class JobComponent {
     //this.Record.job_edi_code = '';
     //this.Record.job_edi_name = '';
     this.Record.job_remarks = '';
-    
+
     if (this.type == "AIR EXPORT")
       this.Record.job_cargo_nature = 'P';
     else
@@ -908,12 +917,12 @@ export class JobComponent {
       this.Record.job_status = this.gs.defaultValues.air_job_status;
       this.Record.job_terms = this.gs.defaultValues.air_job_terms;
       this.Record.job_marks = this.gs.defaultValues.air_job_marks;
-     // this.Record.job_cargo_nature = this.gs.defaultValues.air_job_cargo_nature; //default p and its disabled
+      // this.Record.job_cargo_nature = this.gs.defaultValues.air_job_cargo_nature; //default p and its disabled
     }
 
     this.InitLov();
-    
-    
+
+
 
     this.PKGUNITRECORD.id = this.Record.job_pkg_unit_id;
     this.PKGUNITRECORD.code = this.Record.job_pkg_unit_code;
@@ -923,11 +932,11 @@ export class JobComponent {
 
     this.GRUNITRECORD.id = this.Record.job_grwt_unit_id;
     this.GRUNITRECORD.code = this.Record.job_grwt_unit_code;
-    
+
     this.PLACERECEIPTRECORD.id = this.Record.job_place_receipt_id;
     this.PLACERECEIPTRECORD.code = this.Record.job_place_receipt_code;
     this.PLACERECEIPTRECORD.name = this.Record.job_place_receipt_name;
-   
+
     this.PRECARRIAGERECORD.id = this.Record.job_pre_carriage_id;
     this.PRECARRIAGERECORD.code = this.Record.job_pre_carriage_code;
     this.PRECARRIAGERECORD.name = this.Record.job_pre_carriage_name;
@@ -939,11 +948,11 @@ export class JobComponent {
     this.STATEORGRECORD.id = this.Record.job_origin_state_id;
     this.STATEORGRECORD.code = this.Record.job_origin_state_code;
     this.STATEORGRECORD.name = this.Record.job_origin_state_name;
-    
+
     this.POLRECORD.id = this.Record.job_pol_id;
     this.POLRECORD.code = this.Record.job_pol_code;
     this.POLRECORD.name = this.Record.job_pol_name;
-   
+
     this.CHARECORD.id = this.Record.job_cha_id;
     this.CHARECORD.code = this.Record.job_cha_code;
     this.CHARECORD.name = this.Record.job_cha_name;
@@ -951,15 +960,15 @@ export class JobComponent {
     this.AGENTRECORD.id = this.Record.job_agent_id;
     this.AGENTRECORD.code = this.Record.job_agent_code;
     this.AGENTRECORD.name = this.Record.job_agent_name;
-    
+
     this.COMMODITYRECORD.id = this.Record.job_commodity_id;
     this.COMMODITYRECORD.code = this.Record.job_commodity_code;
     this.COMMODITYRECORD.name = this.Record.job_commodity_name;
-    
+
     this.EDIRECORD.id = this.Record.job_edi_id;
     this.EDIRECORD.code = this.Record.job_edi_code;
     this.EDIRECORD.name = this.Record.job_edi_name;
-    
+
     this.Record.rec_mode = this.mode;
   }
 
@@ -977,15 +986,17 @@ export class JobComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Jobm) {
     this.Record = _Record;
     this.job_edi_no = '';
+
+
 
     this.InitLov();
 
@@ -1087,7 +1098,7 @@ export class JobComponent {
     this.NETUNITRECORD.id = this.Record.job_ntwt_unit_id;
     this.NETUNITRECORD.code = this.Record.job_ntwt_unit_code;
     this.NETUNITRECORD.name = this.Record.job_ntwt_unit_name;
-    
+
     this.GRUNITRECORD.id = this.Record.job_grwt_unit_id;
     this.GRUNITRECORD.code = this.Record.job_grwt_unit_code;
     this.GRUNITRECORD.name = this.Record.job_grwt_unit_name;
@@ -1095,6 +1106,10 @@ export class JobComponent {
     this.SCHEMERECORD.id = this.Record.job_billtype_id;
     this.SCHEMERECORD.code = this.Record.job_billtype_code;
     this.SCHEMERECORD.name = this.Record.job_billtype_name;
+
+    // old shipper id and bill to id
+    this.old_shipper_id = this.Record.job_exp_id;
+    this.old_billto_id = this.Record.job_billto_id;
 
     this.Record.rec_mode = this.mode;
     //Fill Duplicate Job
@@ -1117,13 +1132,15 @@ export class JobComponent {
   // Save Data
 
   Save() {
-    if (this.gs.globalVariables.comp_code == "KOLAF")
-      this.SaveFinal();
-    else
-      if (this.mode == 'ADD')
+    try {
+      if (this.old_shipper_id != this.Record.job_exp_id || this.old_billto_id != this.Record.job_billto_id)
         this.CheckCrLimit(true);
       else
         this.SaveFinal();
+    }
+    catch (error) {
+      alert(error.message);
+    }
   }
 
   SaveFinal() {
@@ -1151,11 +1168,11 @@ export class JobComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -1424,10 +1441,10 @@ export class JobComponent {
         this.loading = false;
         this.job_edi_no = response.job_edi_no
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 
@@ -1461,7 +1478,7 @@ export class JobComponent {
         this.loading = false;
         if (_type == 'SIGN')
           this.SignDoc(response.signedtext);
-        else 
+        else
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
 
         if (response.invamtmismatch) {
@@ -1469,10 +1486,10 @@ export class JobComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -1518,10 +1535,10 @@ export class JobComponent {
         this.loading = false;
         this.FillInfo(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   FillInfo(_Record: Jobm) {
     this.Record.job_bank = _Record.job_bank;
@@ -1529,12 +1546,12 @@ export class JobComponent {
     this.Record.job_forexacno = _Record.job_forexacno;
     this.Record.job_dealar_code = _Record.job_dealar_code;
   }
-  
+
   openSite() {
     window.open("http://icegatesign.ncode.in:8080/ICEGATE/signTextFiles.jsp", "_blank");
   }
 
-  
+
   CheckCrLimit(bCallSave: boolean = false) {
 
     if (this.Record.job_exp_id == "") {
@@ -1564,10 +1581,10 @@ export class JobComponent {
           this.SaveFinal();
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   CheckSB(checksb: any) {
@@ -1586,7 +1603,7 @@ export class JobComponent {
     this.folder_id = this.gs.getGuid();
 
     let SearchData = {
-      signtext : '',
+      signtext: '',
       report_folder: '',
       folderid: '',
       company_code: '',
@@ -1604,19 +1621,19 @@ export class JobComponent {
         this.loading = false;
         if (response.error != "")
           alert(response.error);
-        else 
-        alert(response.data);
+        else
+          alert(response.data);
         //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
 
 
   }
-  
+
 
   GenerateMail(mailsent: any) {
     this.loading = true;
@@ -1636,10 +1653,10 @@ export class JobComponent {
         this.sHtml = response.mailmessage;
         this.open(mailsent);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   ShowBL() {
@@ -1672,7 +1689,7 @@ export class JobComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.job_docno = this.job_no;
-     
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1685,10 +1702,10 @@ export class JobComponent {
           this.ErrorMessage = 'Invalid Job#';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LinkDocs(esanchitlink: any) {
