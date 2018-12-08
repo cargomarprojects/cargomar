@@ -17,6 +17,11 @@ export class HrReport {
   total_chrg:number;
   eps_amt:number;
   branch:string;
-  
+  emp_esino:string;
+  sal_gross_earn:number;
+  emply_esi:number;
+  emplr_esi:number;
+  total:number;
+   
   _globalvariables: GlobalVariables;
 }

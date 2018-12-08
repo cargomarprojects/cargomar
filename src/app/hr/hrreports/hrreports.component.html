@@ -6,7 +6,6 @@
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
-
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
@@ -26,9 +25,13 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-5">
-            <select class="form-control form-control-sm" name="estatus" [(ngModel)]="reporttype">
+            <select class="form-control form-control-sm" name="rtype" [(ngModel)]="reporttype" (change)="OnChange('reporttype')">
               <option [value]="'EPF'">EPF</option>
+              <option *ngIf="bAdmin" [value]="'EPF-SOUTH'">EPF-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin" [value]="'EPF-NORTH'">EPF-NORTH-BRANCHES</option>
               <option [value]="'ESI'">ESI</option>
+              <option *ngIf="bAdmin" [value]="'ESI-SOUTH'">ESI-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES</option>
             </select>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>
@@ -51,7 +54,7 @@
       </div>
     </div>
   </div>
-  <div class="page-body table-responsive">
+  <div *ngIf="reporttype=='EPF' || reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'" class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
@@ -81,6 +84,30 @@
           <td>{{rec.edli_chrg}}</td>
           <td>{{rec.total_chrg}}</td>
           <td>{{rec.eps_amt}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="reporttype=='ESI' || reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>SALARY</th>
+          <th>EMPLOYEE</th>
+          <th>EMPLOYER</th>
+          <th>TOTAL</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.emp_no}}</td>
+          <td>{{rec.emp_name}}</td>
+          <td>{{rec.sal_gross_earn}}</td>
+          <td>{{rec.emply_esi}}</td>
+          <td>{{rec.emplr_esi}}</td>
+          <td>{{rec.total}}</td>
         </tr>
       </tbody>
     </table>

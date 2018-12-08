@@ -20,6 +20,7 @@ export class HrReportsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bAdmin: boolean = true;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -60,7 +61,7 @@ export class HrReportsComponent {
     private gs: GlobalService
   ) {
     this.page_count = 0;
-    this.page_rows = 10;
+    this.page_rows = 30;
     this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -205,6 +206,10 @@ export class HrReportsComponent {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
     //}
   }
+  OnChange(field: string) {
+    this.RecordList = null;
+  }
+
   Close() {
     this.gs.ClosePage('home');
   }
