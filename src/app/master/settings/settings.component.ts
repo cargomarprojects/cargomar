@@ -154,6 +154,9 @@ export class SettingsComponent {
   BR_DEFAULT_JOB_AIR: string = '';
   BR_CHQ_PRINT_HO_APRVD: boolean = false;
 
+  BR_CRLIMIT_ENABLED: boolean = false;
+
+
   GSTSTATERECORD: any;
   GSTSTATEREC: any = { id: '', code: '', name: '' };
 
@@ -811,6 +814,10 @@ export class SettingsComponent {
       if (rec.caption == "CHQ_PRINT_HO_APRVD")
         this.BR_CHQ_PRINT_HO_APRVD = rec.name == "Y" ? true : false;
 
+      if (rec.caption == "CREDIT-LIMIT-ENABLED")
+        this.BR_CRLIMIT_ENABLED = rec.name == "Y" ? true : false;
+
+
     })
   }
 
@@ -958,6 +965,8 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'AIR-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_AIR.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
+
   }
   allvalidBranch() {
     let sError: string = "";
