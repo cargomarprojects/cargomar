@@ -58,6 +58,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
           <th>BASE.SALARY</th>
@@ -73,6 +74,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
+            <td *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">{{rec.branch}}</td>
           <td>{{rec.emp_no}}</td>
           <td>{{rec.emp_name}}</td>
           <td>{{rec.pf_base_salary}}</td>
