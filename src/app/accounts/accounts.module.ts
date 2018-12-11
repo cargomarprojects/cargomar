@@ -75,18 +75,15 @@ import { OscrAgingComponent } from './oscraging/oscraging.component';
 import { PayRequestComponent } from './payrequest/payrequest.component';
 import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
-
 import { StoreModule } from '@ngrx/store';
 import { Trialreducer } from './trial/trial.reducer';
-
-
 
 
 @NgModule({
   imports: [
     SharedModule,
     AccountsRoutingModule,
-    StoreModule.forFeature('accounts',Trialreducer)    
+    StoreModule.forFeature('trial',Trialreducer)
   ],
   declarations: [
     AccountsComponent,

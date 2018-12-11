@@ -1,16 +1,14 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../core/services/global.service';
-
 import { LedgerReport } from '../models/ledgerreport';
-
 import { AccReportService } from '../services/accreport.service';
 
 
 import { Store } from '@ngrx/store';
-import * as fromtrial from './trial.reducer';
+import { AppState } from '../state';
+import { ListReport  } from './trial.reducer';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -84,12 +82,12 @@ export class TrialComponent {
     private mainService: AccReportService,
     private route: ActivatedRoute,
     private gs: GlobalService,
-    private store: Store<fromtrial.AppState>    
+    private store: Store<AppState>
   ) {
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       this.page_count = 0;
-      this.page_rows = 10;
+      this.page_rows = 20;
       this.page_current = 0;
       this.urlid = params["id"];
       this.urlid = 'abcdef';
@@ -98,11 +96,9 @@ export class TrialComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        //alert('inside constructire2 ' + this._urlid);
         this.InitComponent();
       }
     });
-
   }
 
   // Init Will be called After executing Constructor
@@ -125,12 +121,14 @@ export class TrialComponent {
 
     this.store.subscribe(
       state => {
-        this.urlid = state.accounts.urlid;
-        this.pkid = state.accounts.pkid;
-        this.RecordList = state.accounts.records;
-        this.page_count = state.accounts.page_count;
-        this.page_current = state.accounts.page_current;
-        this.page_rowcount = state.accounts.page_rowcount;
+        
+        this.urlid = state.trial.urlid;
+        this.pkid = state.trial.pkid;
+        this.ismaincode = state.trial.ismaincode;
+        this.RecordList = state.trial.records;
+        this.page_count = state.trial.page_count;
+        this.page_current = state.trial.page_current;
+        this.page_rowcount = state.trial.page_rowcount;
       },
       error => {
         alert(error);
@@ -183,23 +181,21 @@ export class TrialComponent {
       return;
     }
 
-
-
-
     this.loading = true;
 
     if (_type == "NEW") {
       this.pkid = this.gs.getGuid();
-      this.SearchData.pkid = this.pkid;
-      this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-      this.SearchData.company_code = this.gs.globalVariables.comp_code;
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.year_code = this.gs.globalVariables.year_code;
-      this.SearchData.searchstring = this.searchstring.toUpperCase();
-      this.SearchData.from_date = this.from_date;
-      this.SearchData.to_date = this.to_date;
-      this.SearchData.ismaincode = this.ismaincode;
     }
+
+    this.SearchData.pkid = this.pkid;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    this.SearchData.ismaincode = this.ismaincode;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.SearchData.type = _type;
     this.SearchData.subtype = '';
@@ -222,17 +218,17 @@ export class TrialComponent {
           this.page_rowcount = response.page_rowcount;
 
 
-          this.store.dispatch(new fromtrial.List(
+          this.store.dispatch(new ListReport (
             {
               urlid: this.urlid,
               pkid: this.pkid,
+              ismaincode : this.ismaincode,
               page_count: this.page_count,
               page_current: this.page_current,
               page_rowcount: this.page_rowcount,
               records: response.list
             }
           ));
-                    
 
 
         }

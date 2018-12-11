@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { StoreModule  } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './reducers';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { environment } from '../environments/environment.prod';
       AppRoutingModule,
       CoreModule,
       StoreModule.forRoot(reducers, { metaReducers }),
-      !environment.production ? StoreDevtoolsModule.instrument() : [],            
+      environment.production ? [] : StoreDevtoolsModule.instrument(),            
     ],
     declarations: [
         AppComponent
