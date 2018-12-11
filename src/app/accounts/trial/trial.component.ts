@@ -1,4 +1,3 @@
-
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +7,12 @@ import { GlobalService } from '../../core/services/global.service';
 import { LedgerReport } from '../models/ledgerreport';
 
 import { AccReportService } from '../services/accreport.service';
+
+
+import { Store } from '@ngrx/store';
+import * as fromtrial from './trial.reducer';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -23,8 +28,7 @@ export class TrialComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
 
-  _urlid = "";
-
+    
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -79,14 +83,16 @@ export class TrialComponent {
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private store: Store<fromtrial.AppState>    
   ) {
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       this.page_count = 0;
       this.page_rows = 10;
       this.page_current = 0;
-      //this._urlid = params["id"];
+      this.urlid = params["id"];
+      this.urlid = 'abcdef';
       if (params["parameter"] != "") {
         this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
@@ -116,6 +122,20 @@ export class TrialComponent {
 
     this.from_date = this.gs.globalVariables.year_start_date;
     this.to_date = this.gs.globalVariables.year_end_date;
+
+    this.store.subscribe(
+      state => {
+        this.urlid = state.accounts.urlid;
+        this.pkid = state.accounts.pkid;
+        this.RecordList = state.accounts.records;
+        this.page_count = state.accounts.page_count;
+        this.page_current = state.accounts.page_current;
+        this.page_rowcount = state.accounts.page_rowcount;
+      },
+      error => {
+        alert(error);
+      });
+
 
   }
 
@@ -200,6 +220,21 @@ export class TrialComponent {
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
+
+
+          this.store.dispatch(new fromtrial.List(
+            {
+              urlid: this.urlid,
+              pkid: this.pkid,
+              page_count: this.page_count,
+              page_current: this.page_current,
+              page_rowcount: this.page_rowcount,
+              records: response.list
+            }
+          ));
+                    
+
+
         }
       },
       error => {
