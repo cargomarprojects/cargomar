@@ -76,11 +76,17 @@ import { PayRequestComponent } from './payrequest/payrequest.component';
 import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
 
+import { StoreModule } from '@ngrx/store';
+import { Trialreducer } from './trial/trial.reducer';
+
+
+
 
 @NgModule({
   imports: [
     SharedModule,
-    AccountsRoutingModule
+    AccountsRoutingModule,
+    StoreModule.forFeature('accounts',Trialreducer)    
   ],
   declarations: [
     AccountsComponent,
