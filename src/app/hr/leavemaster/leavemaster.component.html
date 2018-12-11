@@ -59,13 +59,19 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th width="10%">CODE</th>
-          <th width="30%">NAME</th>
+          <th width="5%">CODE</th>
+          <th width="25%">NAME</th>
           <th width="5%">YEAR</th>
           <th width="5%">PL</th>
           <th width="5%">CL</th>
           <th width="5%">SL</th>
-          <th width="40%">CARRY FORWARD PL</th>
+          <th width="20%">CARRY FORWARD PL</th>
+          <th width="5%">PL.TKN</th>
+          <th width="5%">PL.BAL</th>
+          <th width="5%">CL.TKN</th>
+          <th width="5%">CL.BAL</th>
+          <th width="5%">SL.TKN</th>
+          <th width="5%">SL.BAL</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -77,6 +83,12 @@
           <td>{{rec.lev_cl}}</td>
           <td>{{rec.lev_sl}}</td>
           <td>{{rec.lev_pl_carry}}</td>
+          <td>{{rec.lev_pl_tkn}}</td>
+          <td>{{rec.lev_pl_bal}}</td>
+          <td>{{rec.lev_cl_tkn}}</td>
+          <td>{{rec.lev_cl_bal}}</td>
+          <td>{{rec.lev_sl_tkn}}</td>
+          <td>{{rec.lev_sl_bal}}</td>
         </tr>
       </tbody>
     </table>

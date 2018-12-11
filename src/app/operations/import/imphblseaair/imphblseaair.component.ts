@@ -833,7 +833,7 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_mbl_id = '';
     this.Record.hbl_mbl_no = '';
     this.Record.hbl_mbl_bookno = '';
-    if (this.Record.hbl_mbl_bookslno.trim().length <= 0)
+    if (controlname == 'hbl_mbl_bookslno' && this.Record.hbl_mbl_bookslno.trim().length <= 0)
       return;
 
     this.loading = true;
@@ -843,7 +843,10 @@ export class ImpHblSeaAirComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      book_slno: ''
+      book_slno: '',
+      pkid:'',
+      hbl_beno:'',
+      hbl_bedate:''
     };
     if (controlname == 'hbl_mbl_bookslno') {
       SearchData.rowtype = this.type;
@@ -853,10 +856,19 @@ export class ImpHblSeaAirComponent {
       SearchData.year_code = this.gs.globalVariables.year_code;
       SearchData.book_slno = this.Record.hbl_mbl_bookslno;
     }
+    if (controlname == 'updatehouse') {
+      SearchData.table = 'updatehouse';
+      SearchData.pkid = this.Record.hbl_pkid;
+      SearchData.hbl_beno = this.Record.hbl_beno;
+      SearchData.hbl_bedate = this.Record.hbl_bedate;
+    }
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
+        if (controlname == 'updatehouse') {
+            this.InfoMessage = 'Save Complete';
+        }else{
         this.Record.hbl_mbl_id = '';
         this.ErrorMessage = '';
         if (response.linerbkm.length > 0) {
@@ -867,12 +879,13 @@ export class ImpHblSeaAirComponent {
         else {
           this.ErrorMessage = 'Invalid Booking';
         }
+      }
       },
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
       });
-  }
+    }
   Close() {
     this.gs.ClosePage('home');
   }

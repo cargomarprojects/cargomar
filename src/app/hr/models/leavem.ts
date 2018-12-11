@@ -22,6 +22,13 @@ export class Leavem {
   lev_tot_pl: number;
   lev_tot_others: number;
   
+  lev_sl_tkn: number;
+  lev_cl_tkn: number;
+  lev_pl_tkn: number;
+  lev_sl_bal: number;
+  lev_cl_bal: number;
+  lev_pl_bal: number;
+
   rec_mode: string;
 _globalvariables: GlobalVariables;
 }

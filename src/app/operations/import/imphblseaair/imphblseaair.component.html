@@ -505,11 +505,14 @@
               <div class="col-sm-4">
                 <div class="form-group row">
                   <label *ngIf="Record.hbl_mbl_no" class="col-3 col-form-label  col-form-label-sm"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></label>
-                  <div class="col-9">
+                  <div class="col-5">
                     <label class="col-form-label  col-form-label-sm">
                       <font color="red">{{Record.hbl_mbl_no}} </font>
                     </label>
                   </div>
+                  <div class="col-4">
+                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading" (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">Update</button>
+                    </div>
                 </div>
               </div>
             </div>
