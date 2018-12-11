@@ -93,7 +93,7 @@
             <th align='right'>NT.WT</th>
             <th align='right'><span *ngIf="type=='SEA EXPORT'">CBM</span><span *ngIf="type=='AIR EXPORT'">CH.WT</span></th>
             <th>SI#</th>
-            <th>BL NO</th>
+            <th><span *ngIf="type=='SEA EXPORT'">HBL</span><span *ngIf="type=='AIR EXPORT'">HAWB</span></th>
             <th>SB NO</th>
             <th>SB DATE</th>
             <th>JOB.BILL.TYPE</th>
