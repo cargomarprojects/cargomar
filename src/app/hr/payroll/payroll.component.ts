@@ -21,6 +21,8 @@ export class PayRollComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  chkallselected:boolean = false;
+  selectdeselect:boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -187,6 +189,8 @@ export class PayRollComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
         this.Recorddet = response.record;
+        this.chkallselected=false;
+        this.selectdeselect=false;
       },
       error => {
         this.loading = false;
@@ -656,6 +660,20 @@ export class PayRollComponent {
   folder_id: string;
   PrintSalarySheet(_type: string = '') {
     this.ErrorMessage = ''
+    let SalPkids: string = "";
+    if(_type=="PAYSLIP")
+    {
+    for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
+      if (SalPkids != "")
+      SalPkids += ",";
+      SalPkids += rec.sal_pkid;
+    }
+    if (SalPkids == "") {
+      this.ErrorMessage = "Please select and Continue.....";
+      return;
+    }
+  }
+
     this.loading = true;
     this.folder_id = this.gs.getGuid();
     let SearchData = {
@@ -672,7 +690,7 @@ export class PayRollComponent {
     }
 
     SearchData.type = _type;
-    SearchData.pkid = this.pkid;
+    SearchData.pkid = SalPkids;
     SearchData.salmonth = this.salmonth;
     SearchData.salyear = this.salyear;
     SearchData.empstatus = this.empstatus;
@@ -696,4 +714,11 @@ export class PayRollComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+  SelectDeselect() {
+    this.selectdeselect = !this.selectdeselect;
+    for (let rec of this.RecordList) {
+      rec.sal_selected = this.selectdeselect;
+    }
+  }
+
 }
