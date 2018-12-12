@@ -20,7 +20,7 @@ export class HrReportsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  bAdmin: boolean = true;
+  bAdmin: boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -86,9 +86,14 @@ export class HrReportsComponent {
     this.reporttype = 'EPF';
     this.empstatus = 'BOTH';
     this.bRemove = true;
+    this.bAdmin=false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
