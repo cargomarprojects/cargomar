@@ -160,7 +160,10 @@ export class PayRollComponent {
       this.ErrorMessage += " | Invalid Month";
     }
     if (this.ErrorMessage.length > 0)
+    {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     let SearchData = {
@@ -195,6 +198,7 @@ export class PayRollComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -217,6 +221,7 @@ export class PayRollComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -246,6 +251,7 @@ export class PayRollComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -572,7 +578,8 @@ export class PayRollComponent {
     }
 
     if (ListMonth != 0 && ListMonth != this.salmonth) {
-      this.ErrorMessage += " | Invalid List, Please Find And Continue.....";
+      this.ErrorMessage += " | Invalid List, Please Search And Continue.....";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.ErrorMessage.length > 0)
@@ -608,6 +615,7 @@ export class PayRollComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -670,6 +678,7 @@ export class PayRollComponent {
     }
     if (SalPkids == "") {
       this.ErrorMessage = "Please select and Continue.....";
+      alert(this.ErrorMessage);
       return;
     }
   }
@@ -709,6 +718,7 @@ export class PayRollComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
