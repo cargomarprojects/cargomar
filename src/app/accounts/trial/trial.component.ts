@@ -4,13 +4,14 @@ import { GlobalService } from '../../core/services/global.service';
 import { LedgerReport } from '../models/ledgerreport';
 import { AccReportService } from '../services/accreport.service';
 
-
 import { Store } from '@ngrx/store';
-import { AppState } from '../state';
-import { ListReport  } from './trial.reducer';
+import *  as trialactions from './trial.actions';
+import *  as trialreducer from './trial.reducer';
 
+import { TrialReportState } from './trial.model'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -19,14 +20,14 @@ import { map } from 'rxjs/operators';
   providers: [AccReportService]
 })
 
-export class TrialComponent {
+export class TrialComponent  {
   // Local Variables 
   title = 'Trial Balance';
 
   @Input() menuid: string = '';
   @Input() type: string = '';
 
-    
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -35,23 +36,9 @@ export class TrialComponent {
   currentTab = 'LIST';
 
   searchstring = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
-
   sub: any;
-  urlid: string;
-
-  from_date: string;
-  to_date: string;
-  ismaincode: boolean = false;
-
   ErrorMessage = "";
-
   mode = '';
-  pkid = '';
-
 
   SearchData = {
     type: '',
@@ -72,9 +59,25 @@ export class TrialComponent {
     hide_ho_entries: '',
   };
 
+  from_date: string = '';
+  to_date: string = '';
+  pkid: string = '';
+  private urlid: string = '';
+  page_count: number = 0;
+  page_current: number = 0;
+  page_rowcount: number = 0;
+  ismaincode: boolean = false;
+
+  page_rows: number = 0;
+
+  trialstate : Observable<TrialReportState>;
+
+  storesub: any;
 
   // Array For Displaying List
-  RecordList: LedgerReport[] = [];
+  RecordList: LedgerReport[]=[];
+
+
   // Single Record for add/edit/view details
   Record: LedgerReport = new LedgerReport;
 
@@ -82,15 +85,14 @@ export class TrialComponent {
     private mainService: AccReportService,
     private route: ActivatedRoute,
     private gs: GlobalService,
-    private store: Store<AppState>
+    private store: Store<trialreducer.AppState>
   ) {
     // URL Query Parameter
+
     this.sub = this.route.queryParams.subscribe(params => {
-      this.page_count = 0;
+      
       this.page_rows = 20;
-      this.page_current = 0;
       this.urlid = params["id"];
-      this.urlid = 'abcdef';
       if (params["parameter"] != "") {
         this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
@@ -119,27 +121,48 @@ export class TrialComponent {
     this.from_date = this.gs.globalVariables.year_start_date;
     this.to_date = this.gs.globalVariables.year_end_date;
 
-    this.store.subscribe(
-      state => {
-        
-        this.urlid = state.trial.urlid;
-        this.pkid = state.trial.pkid;
-        this.ismaincode = state.trial.ismaincode;
-        this.RecordList = state.trial.records;
-        this.page_count = state.trial.page_count;
-        this.page_current = state.trial.page_current;
-        this.page_rowcount = state.trial.page_rowcount;
-      },
-      error => {
-        alert(error);
-      });
+    //this.RecordList = state.entities
 
+    this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec =>{
+      if (rec) {
+      this.RecordList = rec.records;
+      this.pkid = rec.pkid;
+      this.urlid = rec.urlid;
+      this.ismaincode = rec.ismaincode;
+      this.page_count = rec.page_count;
+      this.page_current= rec.page_current;
+      this.page_rowcount = rec.page_rowcount;
+      }
+      else 
+      {
+        this.RecordList = undefined;
+        this.page_count = 0;
+        this.page_current= 0;
+        this.page_rowcount = 0;
+      }
+    }); 
+    
+    
+    
 
+    /*
+    this.storesub = this.store.select('trial')
+    .subscribe(state =>  {
+      this.urlid = state.urlid;
+      this.pkid = state.pkid;
+      this.ismaincode = state.ismaincode;
+      this.page_count = state.page_count;
+      this.page_current = state.page_current; 
+      this.page_rowcount = state.page_rowcount;
+
+    });
+    */ 
   }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.storesub.unsubscribe();
   }
 
 
@@ -149,7 +172,6 @@ export class TrialComponent {
     this.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
-      this.pkid = '';
       this.currentTab = 'LIST';
     }
   }
@@ -201,9 +223,8 @@ export class TrialComponent {
     this.SearchData.subtype = '';
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
-    this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
-
+    this.SearchData.page_rows = this.page_rows;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
@@ -212,38 +233,35 @@ export class TrialComponent {
         if (_type == 'EXCEL')
           this.Downloadfile(_type);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
 
+          const state : TrialReportState = {
+            urlid : this.urlid,
+            pkid : this.pkid,
+            ismaincode : this.ismaincode,
+            page_count : response.page_count,
+            page_current : response.page_current,
+            page_rowcount : response.page_rowcount,
+            records : response.list ,
+            selectedid : this.urlid
+          };
 
-          this.store.dispatch(new ListReport (
-            {
-              urlid: this.urlid,
-              pkid: this.pkid,
-              ismaincode : this.ismaincode,
-              page_count: this.page_count,
-              page_current: this.page_current,
-              page_rowcount: this.page_rowcount,
-              records: response.list
-            }
-          ));
-
+          if (_type == "NEW") 
+            this.store.dispatch(new trialactions.Add(state));
+          else
+            this.store.dispatch( new trialactions.Update({id: this.urlid, changes : state})  );
 
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
-  }
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
+  }
 
   Downloadfile(_type: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
   }
-
 
   Close() {
     this.gs.ClosePage('home');
