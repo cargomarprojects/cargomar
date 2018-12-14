@@ -25,6 +25,7 @@ export class DrawbackComponent  {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  ispercent=false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -346,8 +347,70 @@ export class DrawbackComponent  {
     this.gs.ClosePage('home');
   }
 
-  ProcessDbkRates(){
 
+
+  SearchRecord(controlname: string) {
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: '',
+      parentid:'',
+      table: 'DBK-UPDATE-FILE'
+    };
+
+    if (controlname == 'DBK-UPDATE-FILE') {
+      SearchData.pkid = '';
+      SearchData.parentid = '';
+      SearchData.table = 'dbk-update-file';
+    }
+
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if(response.serror.length>0)
+        this.ErrorMessage = response.serror;
+        else 
+        {
+          let strmsg: string = "";
+          strmsg = "PROCESS DBK RATES  \n\n FILE NAME : " + response.filename +" \n\n UPLOADED ON : " + response.uploaddate;
+          if (confirm(strmsg)) {
+            this.ProcessDbkRates();
+          }
+        }
+      },
+      error => {
+        this.loading = false;
+        this.InfoMessage = this.gs.getError(error);
+      });
+    }
+
+  ProcessDbkRates(){
+    this.loading = true;
+    let SearchData = {
+      pkid: '',
+      dbkmode:'',
+      comp_code:'',
+      user_code:'',
+      ispercent:'N'
+    };
+
+    SearchData.dbkmode=this.dbkmode;
+    SearchData.comp_code=this.gs.globalVariables.comp_code;
+    SearchData.user_code=this.gs.globalVariables.user_code;
+    SearchData.ispercent= this.ispercent == true?'Y':'N';
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ProcessDrawbackRates(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Process Complete";
+        alert(this.InfoMessage);
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
 
   }
   ShowDocuments(doc: any) {
