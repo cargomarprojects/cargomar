@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Drawback } from '../models/drawback';
@@ -28,6 +29,7 @@ export class DrawbackComponent  {
   loading = false;
   currentTab = 'LIST';
 
+  dbkmode = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -36,7 +38,7 @@ export class DrawbackComponent  {
 
   sub: any;
   urlid: string;
-
+  modal: any;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -50,6 +52,7 @@ export class DrawbackComponent  {
   Record: Drawback = new Drawback;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: DrawbackService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -81,11 +84,10 @@ export class DrawbackComponent  {
   }
 
   InitComponent() {
-
+    this.dbkmode='A';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    
     this.LoadCombo();
 
   }
@@ -344,5 +346,17 @@ export class DrawbackComponent  {
     this.gs.ClosePage('home');
   }
 
+  ProcessDbkRates(){
+
+
+  }
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 
 }

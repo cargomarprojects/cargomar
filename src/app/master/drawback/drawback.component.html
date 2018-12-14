@@ -149,11 +149,45 @@
   </div>
   <div class="page-box">
     <div class="col-sm-6">
-
       <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-
       <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+<br>
+  <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-box">
+    <label>
+      <font color="RED">
+        <strong>
+          DBK BULCK UPDATE
+        </strong>
+      </font>
+    </label>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">DBK CODE</label>
+          <div class="col-6">
+            <select class="form-control form-control-sm" [(ngModel)]="dbkmode">
+              <option [value]="'A'">UPDATE A ONLY</option>
+              <option [value]="'B'">UPDATE B ONLY</option>
+              <option [value]="'C'">UPDATE C ONLY</option>
+              <option [value]="'D'">UPDATE D ONLY</option>
+              <option [value]="'AB'">UPDATE A & B</option>
+              <option [value]="'CD'">UPDATE C & D</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm"></label>
+          <div class="col-6">
+            <button [disabled]="loading" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
+            <button [disabled]="loading" (click)="ProcessDbkRates()" class="btn btn-success btn-sm">Process DBK Rates</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -168,4 +202,18 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
+<ng-template #doc let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Documents</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-upload [pkid]="'D43510E3-FC50-404C-AC28-8BC2FC0B8C51'" [type]="'DBK-UPDATE'"></app-upload>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
