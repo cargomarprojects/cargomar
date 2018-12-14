@@ -70,7 +70,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th></th>
+          <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected" ></th>
           <th>CODE</th>
           <th>NAME</th>
           <th>DOJ</th>
@@ -129,6 +129,7 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th>PAYSLIP</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -192,6 +193,7 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
+          <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
         </tr>
       </tbody>
     </table>
