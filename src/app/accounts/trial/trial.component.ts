@@ -10,9 +10,6 @@ import *  as trialreducer from './trial.reducer';
 
 import { TrialReportState } from './trial.model'
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
-
 
 @Component({
   selector: 'app-trial',
@@ -20,7 +17,7 @@ import { ThrowStmt } from '@angular/compiler';
   providers: [AccReportService]
 })
 
-export class TrialComponent  {
+export class TrialComponent {
   // Local Variables 
   title = 'Trial Balance';
 
@@ -70,12 +67,12 @@ export class TrialComponent  {
 
   page_rows: number = 0;
 
-  trialstate : Observable<TrialReportState>;
+  trialstate: Observable<TrialReportState>;
 
   storesub: any;
 
   // Array For Displaying List
-  RecordList: LedgerReport[]=[];
+  RecordList: LedgerReport[] = [];
 
 
   // Single Record for add/edit/view details
@@ -90,7 +87,7 @@ export class TrialComponent  {
     // URL Query Parameter
 
     this.sub = this.route.queryParams.subscribe(params => {
-      
+
       this.page_rows = 20;
       this.urlid = params["id"];
       if (params["parameter"] != "") {
@@ -123,40 +120,24 @@ export class TrialComponent  {
 
     //this.RecordList = state.entities
 
-    this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec =>{
+    this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec => {
       if (rec) {
-      this.RecordList = rec.records;
-      this.pkid = rec.pkid;
-      this.urlid = rec.urlid;
-      this.ismaincode = rec.ismaincode;
-      this.page_count = rec.page_count;
-      this.page_current= rec.page_current;
-      this.page_rowcount = rec.page_rowcount;
+        this.RecordList = rec.records;
+        this.pkid = rec.pkid;
+        this.urlid = rec.urlid;
+        this.ismaincode = rec.ismaincode;
+        this.page_count = rec.page_count;
+        this.page_current = rec.page_current;
+        this.page_rowcount = rec.page_rowcount;
       }
-      else 
-      {
+      else {
         this.RecordList = undefined;
         this.page_count = 0;
-        this.page_current= 0;
+        this.page_current = 0;
         this.page_rowcount = 0;
       }
-    }); 
-    
-    
-    
-
-    /*
-    this.storesub = this.store.select('trial')
-    .subscribe(state =>  {
-      this.urlid = state.urlid;
-      this.pkid = state.pkid;
-      this.ismaincode = state.ismaincode;
-      this.page_count = state.page_count;
-      this.page_current = state.page_current; 
-      this.page_rowcount = state.page_rowcount;
-
     });
-    */ 
+
   }
 
   // Destroy Will be called when this component is closed
@@ -164,8 +145,6 @@ export class TrialComponent  {
     this.sub.unsubscribe();
     this.storesub.unsubscribe();
   }
-
-
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -234,21 +213,21 @@ export class TrialComponent  {
           this.Downloadfile(_type);
         else {
 
-          const state : TrialReportState = {
-            urlid : this.urlid,
-            pkid : this.pkid,
-            ismaincode : this.ismaincode,
-            page_count : response.page_count,
-            page_current : response.page_current,
-            page_rowcount : response.page_rowcount,
-            records : response.list ,
-            selectedid : this.urlid
+          const state: TrialReportState = {
+            urlid: this.urlid,
+            pkid: this.pkid,
+            ismaincode: this.ismaincode,
+            page_count: response.page_count,
+            page_current: response.page_current,
+            page_rowcount: response.page_rowcount,
+            records: response.list,
+            selectedid: this.urlid
           };
 
-          if (_type == "NEW") 
+          if (_type == "NEW")
             this.store.dispatch(new trialactions.Add(state));
           else
-            this.store.dispatch( new trialactions.Update({id: this.urlid, changes : state})  );
+            this.store.dispatch(new trialactions.Update({ id: this.urlid, changes: state }));
 
         }
       },
