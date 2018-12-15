@@ -66,8 +66,7 @@
           <td>{{rec.level2}}</td>
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
-          <td>{{rec.acc_name}}</td>
-          
+          <td> <a  (click)="drilldown(rec)" > {{rec.acc_name}}</a> </td>
           <td align='right'>{{ rec.opbal | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>

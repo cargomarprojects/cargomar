@@ -226,6 +226,22 @@ export class TrialComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
   }
 
+  
+
+  drilldown(rec : LedgerReport){
+    let param = {
+      menuid : 'LEDGER',
+      isdrildown : true,
+      acc_pkid : rec.acc_pkid,
+      acc_code : rec.acc_code,
+      acc_name : rec.acc_name,
+      from_date : this.SearchData.from_date,
+      to_date : this.SearchData.to_date,
+      ismaincode : this.SearchData.ismaincode
+    }
+    this.gs.Naviagete("accounts/ledger",JSON.stringify(param));
+  }
+
   Close() {
     this.store.dispatch(new trialactions.Delete({ id: this.urlid}));
     this.gs.ClosePage('home');

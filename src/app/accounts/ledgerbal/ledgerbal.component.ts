@@ -73,9 +73,6 @@ export class LedgerBalComponent {
     };
 
 
-
-
-
     // Array For Displaying List
     RecordList: LedgerReport[] = [];
     // Single Record for add/edit/view details
@@ -98,18 +95,31 @@ export class LedgerBalComponent {
                 this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
+                this.InitLov();
+                if ( options.isdrildown){
+                    this.from_date = options.from_date;
+                    this.to_date = options.to_date;
+                    this.ACCRECORD.id = options.acc_pkid;
+                    this.ACCRECORD.code = options.acc_code;
+                    this.ACCRECORD.name = options.acc_name;
+                }
                 this.type = options.type;
                 this.InitComponent();
             }
+            else 
+            {
+                this.InitComponent();
+            }
         });
-
     }
 
     // Init Will be called After executing Constructor
     ngOnInit() {
+        /*
         if (!this.InitCompleted) {
             this.InitComponent();
         }
+        */
     }
 
     InitComponent() {
@@ -121,10 +131,6 @@ export class LedgerBalComponent {
         this.from_date = this.gs.globalVariables.year_start_date;
         this.to_date = this.gs.globalVariables.year_end_date;
 
-        this.InitLov();
-
-        this.LoadCombo();
-
     }
 
     // Destroy Will be called when this component is closed
@@ -132,8 +138,7 @@ export class LedgerBalComponent {
         this.sub.unsubscribe();
     }
 
-    LoadCombo() {
-    }
+
 
 
     //function for handling LIST/NEW/EDIT Buttons

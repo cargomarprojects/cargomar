@@ -277,4 +277,12 @@ export class GlobalService {
     return bRet;
   }
 
+
+  Naviagete(menu_route : string, jsonstring : string) {
+    let id = this.getGuid();
+    this.router.navigate([menu_route], { queryParams: { id: id, parameter: jsonstring }, replaceUrl: false });
+  }
+
+
+
 }
