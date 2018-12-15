@@ -13,11 +13,13 @@ export interface AppState extends AppState {
 export const initialState: TrialReportState = {
     urlid : '',
     pkid  : '',
+    searchstring : '',
+    from_date : '',
+    to_date : '',
     ismaincode : false,
     page_count :0,
     page_current : 0,
     page_rowcount :0,
-    selectedid : '',
     records : []
 };
 
@@ -27,6 +29,8 @@ export function Trialreducer(state: TrialReportState[] = [initialState], action:
         return [...state,action.payload];
     case TrialActions.TrialActionTypes.UPDATE:
         return [...state.filter(rec => rec.urlid != action.payload.id), action.payload.changes];
+    case TrialActions.TrialActionTypes.DELETE:
+        return [...state.filter(rec => rec.urlid != action.payload.id)];
     default:
       return state;
   }

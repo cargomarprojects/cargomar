@@ -139,10 +139,12 @@ export class GlobalService {
   }
 
 
-
   public ClosePage(sPage: string) {
     this.router.navigate([sPage], { replaceUrl: true });
   }
+
+
+
 
 
   public SendEmail(SearchData: any) {

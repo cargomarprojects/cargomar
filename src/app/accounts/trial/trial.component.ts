@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LedgerReport } from '../models/ledgerreport';
@@ -10,6 +11,8 @@ import *  as trialreducer from './trial.reducer';
 
 import { TrialReportState } from './trial.model'
 import { Observable } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-trial',
@@ -24,27 +27,37 @@ export class TrialComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
 
-
-  InitCompleted: boolean = false;
+  
   menu_record: any;
-
-  disableSave = true;
   loading = false;
-  currentTab = 'LIST';
-
-  searchstring = '';
+  
   sub: any;
-  ErrorMessage = "";
-  mode = '';
+  storesub: any;
 
+  currentTab='LIST';
+
+  ErrorMessage = "";
+
+  pkid: string = '';
+  urlid: string = '';
+  searchstring = '';
+  from_date: string = '';
+  to_date: string = '';
+  page_count: number = 0;
+  page_current: number = 0;
+  page_rowcount: number = 0;
+  ismaincode: boolean = false;
+  page_rows: number = 0;
+
+  trialstate: Observable<TrialReportState>;
+  RecordList: LedgerReport[] = [];
+  
   SearchData = {
+    pkid: '',
+    urlid : '',
     type: '',
     subtype: '',
-    pkid: '',
     report_folder: '',
-    company_code: '',
-    branch_code: '',
-    year_code: '',
     searchstring: '',
     from_date: '',
     to_date: '',
@@ -54,44 +67,25 @@ export class TrialComponent {
     page_rows: 0,
     page_rowcount: 0,
     hide_ho_entries: '',
+    company_code: '',
+    branch_code: '',
+    year_code: '',    
   };
-
-  from_date: string = '';
-  to_date: string = '';
-  pkid: string = '';
-  private urlid: string = '';
-  page_count: number = 0;
-  page_current: number = 0;
-  page_rowcount: number = 0;
-  ismaincode: boolean = false;
-
-  page_rows: number = 0;
-
-  trialstate: Observable<TrialReportState>;
-
-  storesub: any;
-
-  // Array For Displaying List
-  RecordList: LedgerReport[] = [];
-
-
-  // Single Record for add/edit/view details
-  Record: LedgerReport = new LedgerReport;
+  
 
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
+    private location : Location,
     private gs: GlobalService,
     private store: Store<trialreducer.AppState>
   ) {
     // URL Query Parameter
 
     this.sub = this.route.queryParams.subscribe(params => {
-
       this.page_rows = 20;
       this.urlid = params["id"];
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
@@ -102,11 +96,6 @@ export class TrialComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    /*
-      if (!this.InitCompleted) {
-          this.InitComponent();
-      }
-    */
   }
 
   InitComponent() {
@@ -115,26 +104,29 @@ export class TrialComponent {
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
 
-    this.from_date = this.gs.globalVariables.year_start_date;
-    this.to_date = this.gs.globalVariables.year_end_date;
-
-    //this.RecordList = state.entities
-
     this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec => {
       if (rec) {
         this.RecordList = rec.records;
         this.pkid = rec.pkid;
-        this.urlid = rec.urlid;
+        this.searchstring = rec.searchstring;
+        this.from_date = rec.from_date;
+        this.to_date = rec.to_date;
         this.ismaincode = rec.ismaincode;
         this.page_count = rec.page_count;
         this.page_current = rec.page_current;
         this.page_rowcount = rec.page_rowcount;
+        this.InitSearchData();
       }
       else {
         this.RecordList = undefined;
+        this.ismaincode = false;
         this.page_count = 0;
         this.page_current = 0;
         this.page_rowcount = 0;
+
+        this.from_date = this.gs.globalVariables.year_start_date;
+        this.to_date = this.gs.globalVariables.year_end_date;        
+
       }
     });
 
@@ -145,30 +137,33 @@ export class TrialComponent {
     this.sub.unsubscribe();
     this.storesub.unsubscribe();
   }
+  
 
-  //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    if (action == 'LIST') {
-      this.mode = '';
-      this.currentTab = 'LIST';
-    }
+  ResetControls() {
+    if (!this.menu_record)
+      return;
   }
 
 
-  ResetControls() {
-    this.disableSave = true;
-    if (!this.menu_record)
-      return;
+  InitSearchData(){
 
-    if (this.menu_record.rights_admin)
-      this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
-      this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
-      this.disableSave = false;
+    this.SearchData.pkid = this.pkid;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
 
-    return this.disableSave;
+    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    this.SearchData.ismaincode = this.ismaincode;
+
+    this.SearchData.page_count = this.page_count;
+    this.SearchData.page_current = this.page_current;
+    this.SearchData.page_rowcount = this.page_rowcount;
+    this.SearchData.page_rows = this.page_rows;
+
   }
 
   // Query List Data
@@ -186,24 +181,11 @@ export class TrialComponent {
 
     if (_type == "NEW") {
       this.pkid = this.gs.getGuid();
+      this.InitSearchData();
     }
 
-    this.SearchData.pkid = this.pkid;
-    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-    this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.ismaincode = this.ismaincode;
-    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.SearchData.type = _type;
     this.SearchData.subtype = '';
-    this.SearchData.page_count = this.page_count;
-    this.SearchData.page_current = this.page_current;
-    this.SearchData.page_rowcount = this.page_rowcount;
-    this.SearchData.page_rows = this.page_rows;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
@@ -216,12 +198,14 @@ export class TrialComponent {
           const state: TrialReportState = {
             urlid: this.urlid,
             pkid: this.pkid,
-            ismaincode: this.ismaincode,
+            searchstring : this.SearchData.searchstring,
+            from_date : this.SearchData.from_date,
+            to_date : this.SearchData.to_date ,
+            ismaincode: this.SearchData.ismaincode,
             page_count: response.page_count,
             page_current: response.page_current,
             page_rowcount: response.page_rowcount,
-            records: response.list,
-            selectedid: this.urlid
+            records: response.list
           };
 
           if (_type == "NEW")
@@ -243,6 +227,7 @@ export class TrialComponent {
   }
 
   Close() {
+    this.store.dispatch(new trialactions.Delete({ id: this.urlid}));
     this.gs.ClosePage('home');
   }
 }
