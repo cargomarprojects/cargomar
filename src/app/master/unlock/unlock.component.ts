@@ -43,7 +43,7 @@ export class UnLockComponent {
   chkcc: boolean = false;
   remarks: string = "";
   chkresetfldr: boolean = false;
-
+  chkbpreaprvd: boolean = false;
 
  // Array For Displaying List
   ModuleList: any[] = [];
@@ -75,6 +75,7 @@ export class UnLockComponent {
     this.refnotitle = "Vr.No";
     this.moduletype = "JV";
     this.chkresetfldr = false;
+    this.chkbpreaprvd=false; 
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -171,6 +172,7 @@ export class UnLockComponent {
       this.refno = '';
       this.refnodesc = '';
       this.chkresetfldr = false;
+      this.chkbpreaprvd = false;
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || 
@@ -224,7 +226,8 @@ export class UnLockComponent {
       branch_code: '',
       year_code: '',
       user_code: '',
-      cntrltype: ''
+      cntrltype: '',
+      chkbpreaprvd:''
     };
 
     if (controlname == "save" || controlname == "lock" )
@@ -245,6 +248,7 @@ export class UnLockComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.cntrltype = controlname;
+    SearchData.chkbpreaprvd = this.chkbpreaprvd == true ? "Y" : "N";
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {

@@ -497,7 +497,7 @@
           <th class="text-right">AMOUNT</th>
           <th class="text-right">GST-AMOUNT</th>
           <th>CHA</th>
-
+          <th>JOB-STATUS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -540,6 +540,7 @@
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
           <td>{{rec.cha_name}}</td>
+          <td>{{rec.job_status}}</td>
         </tr>
       </tbody>
     </table>
@@ -590,7 +591,7 @@
           <th class="text-right">AMOUNT</th>
           <th class="text-right">GST-AMOUNT</th>
           <th>CHA</th>
-
+          <th>JOB-STATUS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -636,6 +637,7 @@
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
           <td>{{rec.cha_name}}</td>
+          <td>{{rec.job_status}}</td>
         </tr>
       </tbody>
     </table>
