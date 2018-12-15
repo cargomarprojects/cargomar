@@ -11,7 +11,6 @@ import *  as trialreducer from './trial.reducer';
 
 import { TrialReportState } from './trial.model'
 import { Observable } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({

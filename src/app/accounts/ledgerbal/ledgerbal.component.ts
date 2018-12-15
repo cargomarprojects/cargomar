@@ -1,15 +1,12 @@
 
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../core/services/global.service';
-
 import { LedgerReport } from '../models/ledgerreport';
-
 import { LedgerBalService } from '../services/ledgerbal.service';
-
 import { SearchTable } from '../../shared/models/searchtable';
+
+
 
 @Component({
     selector: 'app-ledgerbal',
@@ -87,10 +84,9 @@ export class LedgerBalComponent {
         this.page_rows = 20;
         this.page_current = 0;
 
-
-
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
+            this.urlid = params['id'];
             if (params["parameter"] != "") {
                 this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
@@ -137,8 +133,6 @@ export class LedgerBalComponent {
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
-
-
 
 
     //function for handling LIST/NEW/EDIT Buttons
