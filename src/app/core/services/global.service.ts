@@ -1,6 +1,7 @@
 
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { Router } from '@angular/router';
@@ -38,6 +39,7 @@ export class GlobalService {
 
   constructor(
     private http2: HttpClient,
+    private location : Location,
     private router: Router) {
     this.Company_Name = "CARGOMAR (P) LTD";
     this.globalVariables = new GlobalVariables;
@@ -139,12 +141,13 @@ export class GlobalService {
   }
 
 
-  public ClosePage(sPage: string) {
-    this.router.navigate([sPage], { replaceUrl: true });
+  public ClosePage(sPage: string,  IsCloseButton = true) {
+    if ( IsCloseButton)
+      this.router.navigate([sPage], { replaceUrl: true });
+  else 
+    this.location.back();
+
   }
-
-
-
 
 
   public SendEmail(SearchData: any) {
@@ -281,6 +284,7 @@ export class GlobalService {
   Naviagete(menu_route : string, jsonstring : string) {
     let id = this.getGuid();
     this.router.navigate([menu_route], { queryParams: { id: id, parameter: jsonstring }, replaceUrl: false });
+
   }
 
 

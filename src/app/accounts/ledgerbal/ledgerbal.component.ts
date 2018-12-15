@@ -6,8 +6,6 @@ import { LedgerReport } from '../models/ledgerreport';
 import { LedgerBalService } from '../services/ledgerbal.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
-
-
 @Component({
     selector: 'app-ledgerbal',
     templateUrl: './ledgerbal.component.html',
@@ -21,9 +19,9 @@ export class LedgerBalComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
-    menu_record: any;
 
-    disableSave = true;
+    menu_record: any;
+    CloseCaption = 'Close';
     loading = false;
     currentTab = 'LIST';
 
@@ -34,16 +32,15 @@ export class LedgerBalComponent {
     page_rowcount = 0;
 
     sub: any;
-    urlid: string;
 
-    
+    urlid: string;
+   
     from_date: string;
     to_date: string;
     ismaincode: boolean =false;
 
     ErrorMessage = "";
-
-    mode = '';
+    
     pkid = '';
 
     ACCRECORD: SearchTable = new SearchTable();
@@ -80,12 +77,8 @@ export class LedgerBalComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
-        this.page_count = 0;
-        this.page_rows = 20;
-        this.page_current = 0;
-
-        // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
+            this.page_rows = 20;
             this.urlid = params['id'];
             if (params["parameter"] != "") {
                 this.InitCompleted = true;
@@ -93,13 +86,13 @@ export class LedgerBalComponent {
                 this.menuid = options.menuid;
                 this.InitLov();
                 if ( options.isdrildown){
+                    this.CloseCaption = 'Return';
                     this.from_date = options.from_date;
                     this.to_date = options.to_date;
                     this.ACCRECORD.id = options.acc_pkid;
                     this.ACCRECORD.code = options.acc_code;
                     this.ACCRECORD.name = options.acc_name;
                 }
-                this.type = options.type;
                 this.InitComponent();
             }
             else 
@@ -132,33 +125,6 @@ export class LedgerBalComponent {
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
         this.sub.unsubscribe();
-    }
-
-
-    //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
-        if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
-        }
-    }
-
-
-    ResetControls() {
-        this.disableSave = true;
-        if (!this.menu_record)
-            return;
-
-        if (this.menu_record.rights_admin)
-            this.disableSave = false;
-        if (this.mode == "ADD" && this.menu_record.rights_add)
-            this.disableSave = false;
-        if (this.mode == "EDIT" && this.menu_record.rights_edit)
-            this.disableSave = false;
-
-        return this.disableSave;
     }
 
 
@@ -241,15 +207,12 @@ export class LedgerBalComponent {
             });
     }
 
-
-
-
     Downloadfile(_type : string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
     }
 
-
     Close() {
-        this.gs.ClosePage('home');
+        let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
+        this.gs.ClosePage('home', IsCloseButton );
     }
 }
