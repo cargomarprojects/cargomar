@@ -56,6 +56,7 @@ export class LedgerBalComponent {
     isdrilldown: boolean = false;
 
     ACCRECORD: SearchTable = new SearchTable();
+    ACCMAINRECORD: SearchTable = new SearchTable();
 
     SearchData = {
         type: '',
@@ -63,6 +64,7 @@ export class LedgerBalComponent {
         pkid: '',
         urlid: '',
         acc_id: '',
+        acc_code: '',
         acc_name: '',
         report_folder: '',
         company_code: '',
@@ -105,10 +107,17 @@ export class LedgerBalComponent {
                     this.CloseCaption = 'Return';
                     this.from_date = options.from_date;
                     this.to_date = options.to_date;
-                    this.ismaincode = options.maincode;
-                    this.ACCRECORD.id = options.acc_pkid;
-                    this.ACCRECORD.code = options.acc_code;
-                    this.ACCRECORD.name = options.acc_name;
+                    this.ismaincode = options.ismaincode;
+                    if (this.ismaincode) {
+                        this.ACCMAINRECORD.id = options.acc_pkid;
+                        this.ACCMAINRECORD.code = options.acc_code;
+                        this.ACCMAINRECORD.name = options.acc_name;
+                    }
+                    else {
+                        this.ACCRECORD.id = options.acc_pkid;
+                        this.ACCRECORD.code = options.acc_code;
+                        this.ACCRECORD.name = options.acc_name;
+                    }
                 }
                 this.InitComponent();
             }
@@ -135,17 +144,24 @@ export class LedgerBalComponent {
 
         this.storesub = this.store.select(ledgerrepreducer.getLedgerStateRec(this.urlid)).subscribe(rec => {
             if (rec) {
-                this.InitLov();     
+                this.InitLov();
                 this.RecordList = rec.records;
                 this.pkid = rec.pkid;
                 this.searchstring = rec.searchstring;
                 this.from_date = rec.from_date;
                 this.isloaded = rec.isloaded;
                 this.to_date = rec.to_date;
-                this.ACCRECORD.id = rec.acc_pkid,
-                this.ACCRECORD.code = rec.acc_code,
-                this.ACCRECORD.name = rec.acc_name,
                 this.ismaincode = rec.ismaincode;
+                if (this.ismaincode) {
+                    this.ACCMAINRECORD.id = rec.acc_pkid;
+                    this.ACCMAINRECORD.code = rec.acc_code;
+                    this.ACCMAINRECORD.name = rec.acc_name;
+                }
+                else {
+                    this.ACCRECORD.id = rec.acc_pkid;
+                    this.ACCRECORD.code = rec.acc_code;
+                    this.ACCRECORD.name = rec.acc_name;
+                }
                 this.page_count = rec.page_count;
                 this.page_current = rec.page_current;
                 this.page_rowcount = rec.page_rowcount;
@@ -153,7 +169,6 @@ export class LedgerBalComponent {
             }
             else {
                 this.RecordList = undefined;
-                this.ismaincode = false;
                 this.page_count = 0;
                 this.page_current = 0;
                 this.page_rowcount = 0;
@@ -164,7 +179,6 @@ export class LedgerBalComponent {
                     this.from_date = this.gs.globalVariables.year_start_date;
                     this.to_date = this.gs.globalVariables.year_end_date;
                 }
-
             }
         });
     }
@@ -178,9 +192,20 @@ export class LedgerBalComponent {
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.from_date = this.from_date;
         this.SearchData.to_date = this.to_date;
+
         this.SearchData.ismaincode = this.ismaincode;
-        this.SearchData.acc_id = this.ACCRECORD.id;
-        this.SearchData.acc_name = this.ACCRECORD.name;
+        if (this.ismaincode) {
+            this.SearchData.acc_id = this.ACCMAINRECORD.id;
+            this.SearchData.acc_code = this.ACCMAINRECORD.code;
+            this.SearchData.acc_name = this.ACCMAINRECORD.name;            
+
+        }
+        else {
+            this.SearchData.acc_id = this.ACCRECORD.id;
+            this.SearchData.acc_code = this.ACCRECORD.code;
+            this.SearchData.acc_name = this.ACCRECORD.name;
+        }
+
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
         this.SearchData.page_count = this.page_count;
         this.SearchData.page_current = this.page_current;
@@ -202,10 +227,38 @@ export class LedgerBalComponent {
         this.ACCRECORD.id = "";
         this.ACCRECORD.code = "";
         this.ACCRECORD.name = "";
+
+        this.ACCMAINRECORD = new SearchTable();
+        this.ACCMAINRECORD.controlname = "ACCOUNTS MAIN CODE";
+        this.ACCMAINRECORD.displaycolumn = "CODE";
+        this.ACCMAINRECORD.type = "ACCOUNTS MAIN CODE";
+        this.ACCMAINRECORD.id = "";
+        this.ACCMAINRECORD.code = "";
+        this.ACCMAINRECORD.name = "";
     }
 
     LovSelected(_Record: SearchTable) {
         if (_Record.controlname == "ACCTM") {
+            this.ismaincode = false;
+
+            this.ACCMAINRECORD = new SearchTable();
+            this.ACCMAINRECORD.controlname = "ACCOUNTS MAIN CODE";
+            this.ACCMAINRECORD.displaycolumn = "CODE";
+            this.ACCMAINRECORD.type = "ACCOUNTS MAIN CODE";
+            this.ACCMAINRECORD.id = "";
+            this.ACCMAINRECORD.code = "";
+            this.ACCMAINRECORD.name = "";
+
+        }
+        if (_Record.controlname == "ACCOUNTS MAIN CODE") {
+            this.ismaincode = true;
+            this.ACCRECORD = new SearchTable();
+            this.ACCRECORD.controlname = "ACCTM";
+            this.ACCRECORD.displaycolumn = "CODE";
+            this.ACCRECORD.type = "ACCTM";
+            this.ACCRECORD.id = "";
+            this.ACCRECORD.code = "";
+            this.ACCRECORD.name = "";
         }
     }
 
@@ -243,15 +296,16 @@ export class LedgerBalComponent {
                         searchstring: this.SearchData.searchstring,
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
-                        acc_pkid: this.ACCRECORD.id,
-                        acc_code: this.ACCRECORD.code,
-                        acc_name: this.ACCRECORD.name,
-                        ismaincode: this.SearchData.ismaincode,
+                        ismaincode: this.SearchData.ismaincode,                        
+                        acc_pkid: this.SearchData.acc_id,
+                        acc_code:  this.SearchData.acc_code,
+                        acc_name:  this.SearchData.acc_name,
                         page_count: response.page_count,
                         page_current: response.page_current,
                         page_rowcount: response.page_rowcount,
                         records: response.list
                     };
+
                     this.store.dispatch(new ledgerrepactions.Update({ id: this.urlid, changes: state }));
                 }
             },
