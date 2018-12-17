@@ -122,10 +122,8 @@ export class TrialComponent {
         this.page_count = 0;
         this.page_current = 0;
         this.page_rowcount = 0;
-
         this.from_date = this.gs.globalVariables.year_start_date;
         this.to_date = this.gs.globalVariables.year_end_date;        
-
       }
     });
 
@@ -207,10 +205,14 @@ export class TrialComponent {
             records: response.list
           };
 
+/*
           if (_type == "NEW")
             this.store.dispatch(new trialactions.Add(state));
           else
             this.store.dispatch(new trialactions.Update({ id: this.urlid, changes: state }));
+*/
+
+          this.store.dispatch(new trialactions.Update({ id: this.urlid, changes: state }));
 
         }
       },

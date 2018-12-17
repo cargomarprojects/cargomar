@@ -252,11 +252,7 @@ export class LedgerBalComponent {
                         page_rowcount: response.page_rowcount,
                         records: response.list
                     };
-
-                    if (_type == "NEW")
-                        this.store.dispatch(new ledgerrepactions.Add(state));
-                    else
-                        this.store.dispatch(new ledgerrepactions.Update({ id: this.urlid, changes: state }));
+                    this.store.dispatch(new ledgerrepactions.Update({ id: this.urlid, changes: state }));
                 }
             },
                 error => {
