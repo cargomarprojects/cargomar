@@ -62,11 +62,11 @@
       </thead>
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.acc_pkid)">
+        <tr (click)="drilldown(rec)" style="cursor:pointer" >
           <td>{{rec.level2}}</td>
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
-          <td> <a  (click)="drilldown(rec)" > {{rec.acc_name}}</a> </td>
+          <td>{{rec.acc_name}}</td>
           <td align='right'>{{ rec.opbal | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
