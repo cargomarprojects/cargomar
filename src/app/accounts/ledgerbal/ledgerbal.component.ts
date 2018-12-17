@@ -133,9 +133,6 @@ export class LedgerBalComponent {
         if (this.menu_record)
             this.title = this.menu_record.menu_name;
 
-        this.from_date = this.gs.globalVariables.year_start_date;
-        this.to_date = this.gs.globalVariables.year_end_date;
-
         this.storesub = this.store.select(ledgerrepreducer.getLedgerStateRec(this.urlid)).subscribe(rec => {
             if (rec) {
                 this.InitLov();     
@@ -161,10 +158,13 @@ export class LedgerBalComponent {
                 this.page_current = 0;
                 this.page_rowcount = 0;
                 this.isloaded = false;
-                this.from_date = this.gs.globalVariables.year_start_date;
-                this.to_date = this.gs.globalVariables.year_end_date;
                 if (this.isdrilldown)
                     this.List('NEW');
+                else {
+                    this.from_date = this.gs.globalVariables.year_start_date;
+                    this.to_date = this.gs.globalVariables.year_end_date;
+                }
+
             }
         });
     }
