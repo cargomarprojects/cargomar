@@ -22,10 +22,15 @@ export class HeaderComponent {
     }
 
     LoadPage(rec: Menum) {
+        let bFlag : boolean = false;
         this.getUrlID();
         /* this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true }); */
-
         if (rec.menu_route1 == 'accounts/trial')
+            bFlag = true;
+        if (rec.menu_route1 == 'accounts/ledger')
+            bFlag = true;
+
+        if (bFlag)
             this.router.navigate([rec.menu_route1], { queryParams: { id: this.id, parameter: rec.menu_route2 }, replaceUrl: false });
         else
             this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: false });

@@ -5,7 +5,6 @@ import { AppState } from '../../reducers';
 import * as TrialActions from './trial.actions';
 import { TrialReportState } from './trial.model'
 
-
 export interface AppState extends AppState {
     'trial': TrialReportState
 }
@@ -38,7 +37,6 @@ export function Trialreducer(state: TrialReportState[] = [initialState], action:
 
 export const getTrialReportState = createFeatureSelector<TrialReportState[]>('trial');
 
-
 export const getTrialState = (urlid : string ) => createSelector(
     getTrialReportState,
     (state : TrialReportState[]) =>  state.find( rec => rec.urlid == urlid)
@@ -48,6 +46,5 @@ export const getTrialStateRec = (urlid : string ) => createSelector(
     getTrialState(urlid),
     (state : TrialReportState) => state 
 );
-
 
  

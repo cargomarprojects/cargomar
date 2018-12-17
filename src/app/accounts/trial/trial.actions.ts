@@ -1,4 +1,3 @@
-
 import { Action } from '@ngrx/store';
 import { LedgerReport } from '../models/ledgerreport'
 import { TrialReportState } from './trial.model'

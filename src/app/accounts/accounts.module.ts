@@ -77,13 +77,16 @@ import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
 import { StoreModule } from '@ngrx/store';
 import { Trialreducer } from './trial/trial.reducer';
+import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
 
 
 @NgModule({
   imports: [
     SharedModule,
     AccountsRoutingModule,
-    StoreModule.forFeature('trial',Trialreducer)
+    StoreModule.forFeature('trial',Trialreducer),
+    StoreModule.forFeature('ledgerreport',LedgerReportreducer),
+
   ],
   declarations: [
     AccountsComponent,
