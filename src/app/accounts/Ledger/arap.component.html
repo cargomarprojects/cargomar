@@ -608,6 +608,7 @@
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'PN' || type == 'DI' || type == 'CI')" (click)="PrintInvoice('FC','PDF','')" class="btn btn-success btn-sm">Print Foreign Currency</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'DI' || type == 'CI')" (click)="PrintInvoice('DETAIL','MAIL',mailsent)" class="btn btn-success btn-sm">Mail</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Ledger</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT' && bDocs" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -650,3 +651,17 @@
   </div>
 </ng-template>
 
+<ng-template #doc let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload [pkid]="pkid" [type]="'ACC-LEDGER'"></app-upload>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
