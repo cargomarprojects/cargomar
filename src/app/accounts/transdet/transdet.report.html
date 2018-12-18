@@ -7,7 +7,6 @@
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
 
-
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
@@ -19,8 +18,7 @@
           <th>NAME</th>
           <th class="text-right">DEBIT</th>
           <th class="text-right">CREDIT</th>
-          <th>CREATED-BY</th>
-
+          <th>CREATED/EDITED</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -37,6 +35,7 @@
       </tbody>
     </table>
   </div>
+  
 </div>
 <br />
 <div>
