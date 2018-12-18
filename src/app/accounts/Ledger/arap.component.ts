@@ -45,6 +45,7 @@ export class ArApComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bDocs: boolean = false;
   lock_record: boolean = false;
   lock_date: boolean = false;
   lock_cc: boolean = false;
@@ -157,10 +158,14 @@ export class ArApComponent {
   }
 
   InitComponent() {
-
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_docs)
+      this.bDocs = true;
+    }
     this.InitLov();
     this.LoadCombo();
   }
@@ -2054,6 +2059,10 @@ export class ArApComponent {
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
+  }
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
   }
 }
 
