@@ -96,6 +96,8 @@
 
 <br />
 
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>

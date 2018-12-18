@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -47,14 +46,14 @@
 
       <div class="col-4">
 
-          <div class="form-group row">
-              <label class="col-3 col-form-label col-form-label-sm"></label>
-              <div class="col-12">
-                <span>{{ACCMAINRECORD.name}}</span>
-              </div>
-            </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm"></label>
+          <div class="col-12">
+            <span>{{ACCMAINRECORD.name}}</span>
+          </div>
+        </div>
 
-        
+
         <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm"></label>
           <div class="col-12">
@@ -66,7 +65,7 @@
 
 
       <div class="col-3">
-        
+
         <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm"></label>
           <div class="col-9">
@@ -116,13 +115,12 @@
         </thead>
 
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr (click)="ActionHandler('EDIT',rec.acc_pkid)">
-
+          <tr (click)="drilldown(rec)" style="cursor:pointer">
             <td align='left'>{{ rec.jv_date }}</td>
             <td align='left'>{{ rec.jv_type }}</td>
             <td align='left'>{{ rec.jv_vrno }}</td>
             <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.credit | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
             <td align='left'>{{ rec.jv_drcr}}</td>
             <td align='left'>{{ rec.jv_narration}}</td>
@@ -149,10 +147,11 @@
 </div>
 
 
-  <br />
+<br />
 
-  <div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
-  </div>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
 
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>

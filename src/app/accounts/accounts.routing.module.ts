@@ -55,6 +55,8 @@ import { OscrAgingComponent } from './oscraging/oscraging.component';
 import { PayRequestComponent } from './payrequest/payrequest.component';
 import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
+import { TransDetComponent} from './transdet/transdet.report';
+
 
 const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
@@ -84,6 +86,7 @@ const routes: Routes = [
   { path: 'osagent', component: OsAgentComponent },
   { path: 'payhistory', component: PayHistoryComponent },
   { path: 'actransreport', component: AcTransComponent },
+  { path: 'transdetreport', component: TransDetComponent },
   { path: 'oscr', component: OscrComponent },
   { path: 'oscraging', component: OscrAgingComponent },
   { path: 'payrequest', component: PayRequestComponent },

@@ -8,6 +8,7 @@ export class AcTransReport {
     jvh_date: string;
     acc_code: string;
     acc_name: string;
+    narration : string ;
     rec_createdby: string;
     rec_createddate: string;
     rec_editedby: string;

@@ -319,6 +319,24 @@ export class LedgerBalComponent {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
     }
 
+
+    drilldown(rec : LedgerReport){
+        let param = {
+          menuid : 'TRANSDETREPORT',
+          acc_code : this.SearchData.acc_code,
+          jvh_vrno : rec.jv_vrno,
+          jvh_type : rec.jv_type,
+          jvh_year : rec.jv_year,          
+          company_code : rec.rec_company_code,
+          branch_code : rec.rec_branch_code,
+          isdrildown : true,
+        }
+        this.gs.Naviagete("accounts/transdetreport",JSON.stringify(param));
+      }
+
+      
+
+
     Close() {
         let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
         this.gs.ClosePage('home', IsCloseButton);

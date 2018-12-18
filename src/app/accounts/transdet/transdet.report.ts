@@ -1,0 +1,129 @@
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalService } from '../../core/services/global.service';
+import { SearchTable } from '../../shared/models/searchtable';
+import { AcTransReport } from '../models/actransreport';
+import { AcTransReportService } from '../services/actransreport.service';
+
+@Component({
+    selector: 'app-transdetreport',
+    templateUrl: './transdet.report.html',
+    providers: [AcTransReportService]
+})
+
+export class TransDetComponent {
+    title = 'Transaction Details'
+
+    @Input() menuid: string = '';
+    @Input() type: string = '';
+
+    
+
+    CloseCaption = 'Return';
+
+    menu_record: any;
+    sub: any;
+    urlid: string;
+
+    ErrorMessage = "";
+    pkid = '';
+    
+    bCompany = false;
+    loading = false;
+
+    currentTab = 'LIST';
+    searchstring = '';
+
+    narration : '';
+
+    SearchData = {
+        pkid: '',
+        company_code: '',
+        branch_code: '',
+        branch_name: '',
+        acc_code : '',
+        searchstring: '',
+        jvh_year : '',
+        jvh_type : '',
+        jvh_vrno : ''
+    };
+
+    // Array For Displaying List
+    RecordList: AcTransReport[] = [];
+    // Single Record for add/edit/view details
+    Record: AcTransReport = new AcTransReport;
+
+    BRRECORD: SearchTable = new SearchTable();
+
+    constructor(
+        private mainService: AcTransReportService,
+        private route: ActivatedRoute,
+        private gs: GlobalService
+    ) {
+        // URL Query Parameter 
+        this.sub = this.route.queryParams.subscribe(params => {
+            if (params["parameter"] != "") {
+                var options = JSON.parse(params["parameter"]);
+                this.menuid = options.menuid;
+                this.SearchData.company_code =  options.company_code;
+                this.SearchData.branch_code =  options.branch_code;
+                this.SearchData.acc_code =  options.acc_code;
+                this.SearchData.jvh_year =  options.jvh_year;
+                this.SearchData.jvh_type =  options.jvh_type;
+                this.SearchData.jvh_vrno =  options.jvh_vrno;
+                this.List('NEW');
+            }
+        });
+    }
+
+    // Init Will be called After executing Constructor
+    ngOnInit() {
+    }
+
+    InitComponent() {
+        this.bCompany = false;
+        this.menu_record = this.gs.getMenu(this.menuid);
+        if (this.menu_record) {
+            this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_company)
+                this.bCompany = true;
+        }
+    }
+
+    // Destroy Will be called when this component is closed
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
+    // Query List Data
+    List(_type: string) {
+
+        this.ErrorMessage = '';
+
+        this.loading = true;
+        this.pkid = this.gs.getGuid();
+        this.SearchData.pkid = this.pkid;
+
+        this.ErrorMessage = '';
+        this.mainService.TransDetList(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList = response.list;
+                this.narration = response.narration;
+            },
+            error => {
+                this.loading = false;
+                this.RecordList = null;
+                this.narration = '';
+                this.ErrorMessage = this.gs.getError(error);
+
+            });
+    }
+
+    Close() {
+        let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
+        this.gs.ClosePage('home', IsCloseButton);        
+    }
+
+}

@@ -79,6 +79,8 @@ import { StoreModule } from '@ngrx/store';
 import { Trialreducer } from './trial/trial.reducer';
 import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
 
+import { TransDetComponent} from './transdet/transdet.report';
+
 
 @NgModule({
   imports: [
@@ -124,7 +126,8 @@ import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
     OscrComponent,
     OscrAgingComponent,
     PayRequestComponent,
-    SetlmntComponent
+    SetlmntComponent,
+    TransDetComponent
   ],
   providers: [
   ],
