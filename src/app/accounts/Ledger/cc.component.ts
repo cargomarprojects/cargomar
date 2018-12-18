@@ -201,7 +201,9 @@ export class costCenterComponent {
       this.SearchRecord('ct_cost_code', _rec);
       return;
     }
-    if (field == 'ct_amount') {
+    if (field == 'ct_amount') 
+    {
+      _rec.ct_amount = this.gs.roundNumber( _rec.ct_amount, 2);
       this.findtotal();
       return;
     }
@@ -254,6 +256,7 @@ export class costCenterComponent {
     this.RecordList.forEach(rec => {
       this.Total_Amount += rec.ct_amount;
     });
+    this.Total_Amount = this.gs.roundNumber(this.Total_Amount, 2);
   }
 
   RemoveRow(_rec: CostCentert) {
