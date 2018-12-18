@@ -145,11 +145,15 @@ export class ParamComponent {
       this.id1 = "Size(20/40/45)";
     }
 
-
     if (this.type == 'CURRENCY') {
       this.id1 = 'Ex.Rate - CLR';
       this.param_rate_caption = 'Ex.Rate - FWD';
     }
+
+    if (this.type == 'COUNTRY') {
+      this.id1 = "Region";
+    }
+
   }
 
   // Destroy Will be called when this component is closed

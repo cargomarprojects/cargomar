@@ -47,6 +47,7 @@
           <th>NAME</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
+          <th *ngIf="type == 'COUNTRY'">REGION</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
@@ -55,6 +56,7 @@
           <td>{{rec.param_name}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
+          <td *ngIf="type == 'COUNTRY'">{{rec.param_id1}}</td>
         </tr>
       </tbody>
     </table>
