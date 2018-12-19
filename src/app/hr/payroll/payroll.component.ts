@@ -731,4 +731,46 @@ export class PayRollComponent {
     }
   }
 
+  Mail(_type: string) {
+
+    if (_type == "PAYSLIP-ALL") {
+      if (!confirm("Do you want to send Payslip to ALL ?" )) {
+        return;
+      }
+    }
+
+    this.loading = true;
+
+    let eSearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      email_type: _type,
+      report_folder: this.gs.globalVariables.report_folder,
+      salmonth: this.salmonth,
+      salyear: this.salyear,
+      empstatus:this.empstatus
+    };
+
+
+    this.ErrorMessage = '';
+    this.gs.SendEmail(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        if (_type == "PAYSLIP-ALL") {
+          if (response.retvalue)
+            alert('Mail Sending Completed Successfully');
+          else
+            alert(response.error);
+        }
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
+
 }
