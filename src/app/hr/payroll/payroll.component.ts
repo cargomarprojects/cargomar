@@ -732,18 +732,30 @@ export class PayRollComponent {
   }
 
   Mail(_type: string) {
+    let Msg: string = "";
+    let SalPkids: string = "";
+    for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
+      if (SalPkids != "")
+      SalPkids += ",";
+      SalPkids += rec.sal_pkid;
+    }
 
     if (_type == "PAYSLIP-ALL") {
-      if (!confirm("Do you want to send Payslip to ALL ?" )) {
+      Msg="Send Payslip to ALL Employees of "+this.gs.globalVariables.branch_name;
+      if(SalPkids!="")
+      Msg="Send Payslip to Selected Employees of "+this.gs.globalVariables.branch_name;
+      if (!confirm(Msg )) {
         return;
       }
     }
-
+    
+  
     this.loading = true;
 
     let eSearchData = {
       user_pkid: this.gs.globalVariables.user_pkid,
       user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -751,7 +763,8 @@ export class PayRollComponent {
       report_folder: this.gs.globalVariables.report_folder,
       salmonth: this.salmonth,
       salyear: this.salyear,
-      empstatus:this.empstatus
+      empstatus:this.empstatus,
+      salpkid: SalPkids
     };
 
 
