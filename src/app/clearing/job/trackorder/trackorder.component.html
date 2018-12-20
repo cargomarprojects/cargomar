@@ -75,6 +75,15 @@
         </div>
 
       </div>
+      <div class="col-sm-4">
+      <div class="form-group row">
+        <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">Delivery Date</label>
+        <div class="col-4">
+          <app-date [inputdate]="Record.ord_delvi_date" (ValueChanged)="Record.ord_delvi_date=$event"></app-date>
+        </div>
+      </div>
+    </div>
+
     </div>
 
   </div>

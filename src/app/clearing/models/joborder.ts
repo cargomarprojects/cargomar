@@ -45,6 +45,7 @@ export class Joborderm {
   ord_track_status: string;
   ord_ourbooking_no: string;
   ord_week_no: number;
+  ord_delvi_date: string;
 
   job_docno: string;
   rec_mode: string;

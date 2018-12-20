@@ -54,64 +54,135 @@
       </div>
     </div>
   </div>
-  <div *ngIf="reporttype=='EPF' || reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'" class="page-body table-responsive">
+
+  <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
-          <th>BASE.SALARY</th>
-          <th>EPF.DEDUCTION</th>
-          <th>EMPLOYER.SHARE</th>
-          <th>PENSION.FUND</th>
-          <th>VPF</th>
-          <th>ADMIN.CHRGS</th>
-          <th>EDLI.INSP.CHRGS</th>
-          <th>TOTAL</th>
-          <th>EPS</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-            <td *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">{{rec.branch}}</td>
-          <td>{{rec.emp_no}}</td>
-          <td>{{rec.emp_name}}</td>
-          <td>{{rec.pf_base_salary}}</td>
-          <td>{{rec.pf_deduction}}</td>
-          <td>{{rec.emplyr_share}}</td>
-          <td>{{rec.pension}}</td>
-          <td>{{rec.vpf}}</td>
-          <td>{{rec.admin_chrg}}</td>
-          <td>{{rec.edli_chrg}}</td>
-          <td>{{rec.total_chrg}}</td>
-          <td>{{rec.eps_amt}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="reporttype=='ESI' || reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'">BRANCH</th>
-          <th>CODE</th>
-          <th>NAME</th>
+          <th>DOJ</th>
+          <th>GRADE</th>
+          <th>A/C.NO</th>
+          <th>SALARY.MONTH</th>
+          <th>DESIGNATION</th>
+          <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
+          <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
+          <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
+          <th *ngIf="Recorddet.a04_visible">{{Recorddet.a04_desc}}</th>
+          <th *ngIf="Recorddet.a05_visible">{{Recorddet.a05_desc}}</th>
+          <th *ngIf="Recorddet.a06_visible">{{Recorddet.a06_desc}}</th>
+          <th *ngIf="Recorddet.a07_visible">{{Recorddet.a07_desc}}</th>
+          <th *ngIf="Recorddet.a08_visible">{{Recorddet.a08_desc}}</th>
+          <th *ngIf="Recorddet.a09_visible">{{Recorddet.a09_desc}}</th>
+          <th *ngIf="Recorddet.a10_visible">{{Recorddet.a10_desc}}</th>
+          <th *ngIf="Recorddet.a11_visible">{{Recorddet.a11_desc}}</th>
+          <th *ngIf="Recorddet.a12_visible">{{Recorddet.a12_desc}}</th>
+          <th *ngIf="Recorddet.a13_visible">{{Recorddet.a13_desc}}</th>
+          <th *ngIf="Recorddet.a14_visible">{{Recorddet.a14_desc}}</th>
+          <th *ngIf="Recorddet.a15_visible">{{Recorddet.a15_desc}}</th>
+          <th *ngIf="Recorddet.a16_visible">{{Recorddet.a16_desc}}</th>
+          <th *ngIf="Recorddet.a17_visible">{{Recorddet.a17_desc}}</th>
+          <th *ngIf="Recorddet.a18_visible">{{Recorddet.a18_desc}}</th>
+          <th *ngIf="Recorddet.a19_visible">{{Recorddet.a19_desc}}</th>
+          <th *ngIf="Recorddet.a20_visible">{{Recorddet.a20_desc}}</th>
+          <th *ngIf="Recorddet.a21_visible">{{Recorddet.a21_desc}}</th>
+          <th *ngIf="Recorddet.a22_visible">{{Recorddet.a22_desc}}</th>
+          <th *ngIf="Recorddet.a23_visible">{{Recorddet.a23_desc}}</th>
+          <th *ngIf="Recorddet.a24_visible">{{Recorddet.a24_desc}}</th>
+          <th *ngIf="Recorddet.a25_visible">{{Recorddet.a25_desc}}</th>
+          <th *ngIf="Recorddet.d01_visible">{{Recorddet.d01_desc}}</th>
+          <th *ngIf="Recorddet.d02_visible">{{Recorddet.d02_desc}}</th>
+          <th *ngIf="Recorddet.d03_visible">{{Recorddet.d03_desc}}</th>
+          <th *ngIf="Recorddet.d04_visible">{{Recorddet.d04_desc}}</th>
+          <th *ngIf="Recorddet.d05_visible">{{Recorddet.d05_desc}}</th>
+          <th *ngIf="Recorddet.d06_visible">{{Recorddet.d06_desc}}</th>
+          <th *ngIf="Recorddet.d07_visible">{{Recorddet.d07_desc}}</th>
+          <th *ngIf="Recorddet.d08_visible">{{Recorddet.d08_desc}}</th>
+          <th *ngIf="Recorddet.d09_visible">{{Recorddet.d09_desc}}</th>
+          <th *ngIf="Recorddet.d10_visible">{{Recorddet.d10_desc}}</th>
+          <th *ngIf="Recorddet.d11_visible">{{Recorddet.d11_desc}}</th>
+          <th *ngIf="Recorddet.d12_visible">{{Recorddet.d12_desc}}</th>
+          <th *ngIf="Recorddet.d13_visible">{{Recorddet.d13_desc}}</th>
+          <th *ngIf="Recorddet.d14_visible">{{Recorddet.d14_desc}}</th>
+          <th *ngIf="Recorddet.d15_visible">{{Recorddet.d15_desc}}</th>
+          <th *ngIf="Recorddet.d16_visible">{{Recorddet.d16_desc}}</th>
+          <th *ngIf="Recorddet.d17_visible">{{Recorddet.d17_desc}}</th>
+          <th *ngIf="Recorddet.d18_visible">{{Recorddet.d18_desc}}</th>
+          <th *ngIf="Recorddet.d19_visible">{{Recorddet.d19_desc}}</th>
+          <th *ngIf="Recorddet.d20_visible">{{Recorddet.d20_desc}}</th>
+          <th *ngIf="Recorddet.d21_visible">{{Recorddet.d21_desc}}</th>
+          <th *ngIf="Recorddet.d22_visible">{{Recorddet.d22_desc}}</th>
+          <th *ngIf="Recorddet.d23_visible">{{Recorddet.d23_desc}}</th>
+          <th *ngIf="Recorddet.d24_visible">{{Recorddet.d24_desc}}</th>
+          <th *ngIf="Recorddet.d25_visible">{{Recorddet.d25_desc}}</th>
           <th>SALARY</th>
-          <th>EMPLOYEE</th>
-          <th>EMPLOYER</th>
-          <th>TOTAL</th>
+          <th>DEDUCTIONS</th>
+          <th>NET</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'">{{rec.branch}}</td>
-          <td>{{rec.emp_no}}</td>
-          <td>{{rec.emp_name}}</td>
+        <tr>
+          <td>{{rec.sal_emp_code}}</td>
+          <td>{{rec.sal_emp_name}}</td>
+          <td>{{rec.sal_emp_do_joining}}</td>
+          <td>{{rec.sal_emp_grade}}</td>
+          <td>{{rec.sal_date}}</td>
+          <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
+          <td>{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
+          <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
+          <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
+          <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>
+          <td *ngIf="Recorddet.a04_visible">{{rec.a04}}</td>
+          <td *ngIf="Recorddet.a05_visible">{{rec.a05}}</td>
+          <td *ngIf="Recorddet.a06_visible">{{rec.a06}}</td>
+          <td *ngIf="Recorddet.a07_visible">{{rec.a07}}</td>
+          <td *ngIf="Recorddet.a08_visible">{{rec.a08}}</td>
+          <td *ngIf="Recorddet.a09_visible">{{rec.a09}}</td>
+          <td *ngIf="Recorddet.a10_visible">{{rec.a10}}</td>
+          <td *ngIf="Recorddet.a11_visible">{{rec.a11}}</td>
+          <td *ngIf="Recorddet.a12_visible">{{rec.a12}}</td>
+          <td *ngIf="Recorddet.a13_visible">{{rec.a13}}</td>
+          <td *ngIf="Recorddet.a14_visible">{{rec.a14}}</td>
+          <td *ngIf="Recorddet.a15_visible">{{rec.a15}}</td>
+          <td *ngIf="Recorddet.a16_visible">{{rec.a16}}</td>
+          <td *ngIf="Recorddet.a17_visible">{{rec.a17}}</td>
+          <td *ngIf="Recorddet.a18_visible">{{rec.a18}}</td>
+          <td *ngIf="Recorddet.a19_visible">{{rec.a19}}</td>
+          <td *ngIf="Recorddet.a20_visible">{{rec.a20}}</td>
+          <td *ngIf="Recorddet.a21_visible">{{rec.a21}}</td>
+          <td *ngIf="Recorddet.a22_visible">{{rec.a22}}</td>
+          <td *ngIf="Recorddet.a23_visible">{{rec.a23}}</td>
+          <td *ngIf="Recorddet.a24_visible">{{rec.a24}}</td>
+          <td *ngIf="Recorddet.a25_visible">{{rec.a25}}</td>
+          <td *ngIf="Recorddet.d01_visible">{{rec.d01}}</td>
+          <td *ngIf="Recorddet.d02_visible">{{rec.d02}}</td>
+          <td *ngIf="Recorddet.d03_visible">{{rec.d03}}</td>
+          <td *ngIf="Recorddet.d04_visible">{{rec.d04}}</td>
+          <td *ngIf="Recorddet.d05_visible">{{rec.d05}}</td>
+          <td *ngIf="Recorddet.d06_visible">{{rec.d06}}</td>
+          <td *ngIf="Recorddet.d07_visible">{{rec.d07}}</td>
+          <td *ngIf="Recorddet.d08_visible">{{rec.d08}}</td>
+          <td *ngIf="Recorddet.d09_visible">{{rec.d09}}</td>
+          <td *ngIf="Recorddet.d10_visible">{{rec.d10}}</td>
+          <td *ngIf="Recorddet.d11_visible">{{rec.d11}}</td>
+          <td *ngIf="Recorddet.d12_visible">{{rec.d12}}</td>
+          <td *ngIf="Recorddet.d13_visible">{{rec.d13}}</td>
+          <td *ngIf="Recorddet.d14_visible">{{rec.d14}}</td>
+          <td *ngIf="Recorddet.d15_visible">{{rec.d15}}</td>
+          <td *ngIf="Recorddet.d16_visible">{{rec.d16}}</td>
+          <td *ngIf="Recorddet.d17_visible">{{rec.d17}}</td>
+          <td *ngIf="Recorddet.d18_visible">{{rec.d18}}</td>
+          <td *ngIf="Recorddet.d19_visible">{{rec.d19}}</td>
+          <td *ngIf="Recorddet.d20_visible">{{rec.d20}}</td>
+          <td *ngIf="Recorddet.d21_visible">{{rec.d21}}</td>
+          <td *ngIf="Recorddet.d22_visible">{{rec.d22}}</td>
+          <td *ngIf="Recorddet.d23_visible">{{rec.d23}}</td>
+          <td *ngIf="Recorddet.d24_visible">{{rec.d24}}</td>
+          <td *ngIf="Recorddet.d25_visible">{{rec.d25}}</td>
           <td>{{rec.sal_gross_earn}}</td>
-          <td>{{rec.emply_esi}}</td>
-          <td>{{rec.emplr_esi}}</td>
-          <td>{{rec.total}}</td>
+          <td>{{rec.sal_gross_deduct}}</td>
+          <td>{{rec.sal_net}}</td>
         </tr>
       </tbody>
     </table>

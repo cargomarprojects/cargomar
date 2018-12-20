@@ -2,14 +2,15 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { HrReport } from '../models/hrreport';
-import { HrReportService } from '../services/hrreport.service';
+import { Salarym} from '../models/salarym';
+import { SalDet } from '../models/salarym';
+import { WageRegisterService } from '../services/wageregister.service';
   
 
 @Component({
   selector: 'app-wageregister',
   templateUrl: './wageregister.component.html',
-  providers: [HrReportService]
+  providers: [WageRegisterService]
 })
 export class WageRegisterComponent {
   // Local Variables 
@@ -49,14 +50,15 @@ export class WageRegisterComponent {
   mode = '';
   pkid = '';
   // Array For Displaying List
-  RecordList: HrReport[] = [];
+  RecordList: Salarym[] = [];
 
   // Single Record for add/edit/view details
-  Record: HrReport = new HrReport;
-  
+  Record: Salarym = new Salarym;
+  Recorddet: SalDet = new SalDet;
+
   constructor(
     private modalService: NgbModal,
-    private mainService: HrReportService,
+    private mainService: WageRegisterService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -155,7 +157,10 @@ export class WageRegisterComponent {
         if (_type == 'EXCEL')
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else 
-        this.RecordList = response.list;
+        {
+          this.Recorddet = response.record;
+          this.RecordList = response.list;
+        }
 
       },
       error => {
