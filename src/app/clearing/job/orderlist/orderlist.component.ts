@@ -694,6 +694,17 @@ export class OrderListComponent {
     let col_cbm = -1;
     let col_hscode = -1;
 
+    let col_bkd = -1;
+let col_rnd = -1;
+ let col_por = -1;
+ let col_cr = -1;
+ let col_fcr = -1;
+let col_insp = -1;
+let col_stf = -1;
+let col_whd = -1;
+let col_dlv = -1;
+
+
 
     if (cbdata != null) {
 
@@ -740,6 +751,34 @@ export class OrderListComponent {
           if (ar2[i].toUpperCase().indexOf("HS") >= 0) {
             col_hscode = i;
           }
+
+          if (ar2[i].toUpperCase().indexOf("BKD") >= 0) {
+            col_bkd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("RND") >= 0) {
+            col_rnd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("POR") >= 0) {
+            col_por = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("CR") >= 0) {
+            col_cr = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("FCR") >= 0) {
+            col_fcr = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("INSP") >= 0) {
+            col_insp = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("STF") >= 0) {
+            col_stf= i;
+          }
+          if (ar2[i].toUpperCase().indexOf("WHD") >= 0) {
+            col_whd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("DLV") >= 0) {
+            col_dlv = i;
+          }
         };
       }
 
@@ -769,6 +808,15 @@ export class OrderListComponent {
           mRec.rec_category = '';
           mRec.remove = '';
          
+mRec.ord_booking_date = '';
+mRec.ord_rnd_insp_date = '';
+ mRec.ord_po_rel_date = '';
+ mRec.ord_cargo_ready_date = '';
+ mRec.ord_fcr_date = '';
+mRec.ord_insp_date = '';
+mRec.ord_stuf_date = '';
+mRec.ord_whd_date = '';
+mRec.ord_delvi_date = '';
 
 
           mRec.ord_pkid = this.gs.getGuid();
@@ -838,6 +886,25 @@ export class OrderListComponent {
           if (col_hscode > -1) 
              mRec.ord_hs_code = ar2[col_hscode].toUpperCase();
           
+             if (col_bkd > -1) 
+             mRec.ord_booking_date = ar2[col_bkd].toUpperCase();
+             if (col_rnd > -1) 
+             mRec.ord_rnd_insp_date = ar2[col_rnd].toUpperCase();
+             if (col_por > -1) 
+             mRec.ord_po_rel_date = ar2[col_por].toUpperCase();
+             if (col_cr > -1) 
+             mRec.ord_cargo_ready_date = ar2[col_cr].toUpperCase();
+             if (col_fcr > -1) 
+             mRec.ord_fcr_date = ar2[col_fcr].toUpperCase();
+             if (col_insp > -1) 
+             mRec.ord_insp_date = ar2[col_insp].toUpperCase();
+             if (col_stf > -1) 
+             mRec.ord_stuf_date = ar2[col_stf].toUpperCase();
+             if (col_whd > -1) 
+             mRec.ord_whd_date = ar2[col_whd].toUpperCase();
+             if (col_dlv > -1) 
+             mRec.ord_delvi_date = ar2[col_dlv].toUpperCase();
+
 
           if (mRec.ord_po != '') {
             let sContract: string = "";
