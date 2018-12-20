@@ -13,7 +13,7 @@ import { PayRollComponent } from './payroll/payroll.component';
 import { LeaveDetComponent } from './leavedet/leavedet.component';
 import { LeaveMasterComponent } from './leavemaster/leavemaster.component';
 import { HrReportsComponent } from './hrreports/hrreports.component';
-
+import { WageRegisterComponent } from './wageregister/wageregister.component';
 
 @NgModule({
   imports: [
@@ -30,7 +30,8 @@ import { HrReportsComponent } from './hrreports/hrreports.component';
     PayRollComponent,
     LeaveDetComponent,
     LeaveMasterComponent,
-    HrReportsComponent
+    HrReportsComponent,
+    WageRegisterComponent
   ],
   providers: [
   ],

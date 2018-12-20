@@ -10,7 +10,7 @@ import { PayRollComponent } from './payroll/payroll.component';
 import { LeaveDetComponent } from './leavedet/leavedet.component';
 import { LeaveMasterComponent } from './leavemaster/leavemaster.component';
 import { HrReportsComponent } from './hrreports/hrreports.component';
-
+import { WageRegisterComponent } from './wageregister/wageregister.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'payroll', component: PayRollComponent },
   { path: 'leavedet', component: LeaveDetComponent },
   { path: 'leavemaster', component: LeaveMasterComponent },
-  { path: 'hrreports', component: HrReportsComponent }
+  { path: 'hrreports', component: HrReportsComponent },
+  { path: 'wageregister', component: WageRegisterComponent }
 ];
 
 @NgModule({

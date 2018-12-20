@@ -1,0 +1,127 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
+            <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')" [(ngModel)]="salyear" />
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
+          <div style="padding-right:0px;padding-left:5px" class="col-sm-3">
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')" [(ngModel)]="salmonth" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-5">
+            <select class="form-control form-control-sm" name="rtype" [(ngModel)]="reporttype" (change)="OnChange('reporttype')">
+              <option [value]="'EPF'">EPF</option>
+              <option *ngIf="bAdmin" [value]="'EPF-SOUTH'">EPF-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin" [value]="'EPF-NORTH'">EPF-NORTH-BRANCHES</option>
+              <option [value]="'ESI'">ESI</option>
+              <option *ngIf="bAdmin" [value]="'ESI-SOUTH'">ESI-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
+              <option [value]="'BOTH'">Both</option>
+              <option [value]="'CONFIRMED'">Confirmed</option>
+              <option [value]="'UNCONFIRM'">Unconfirmed</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="reporttype=='EPF' || reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">BRANCH</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>BASE.SALARY</th>
+          <th>EPF.DEDUCTION</th>
+          <th>EMPLOYER.SHARE</th>
+          <th>PENSION.FUND</th>
+          <th>VPF</th>
+          <th>ADMIN.CHRGS</th>
+          <th>EDLI.INSP.CHRGS</th>
+          <th>TOTAL</th>
+          <th>EPS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+            <td *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">{{rec.branch}}</td>
+          <td>{{rec.emp_no}}</td>
+          <td>{{rec.emp_name}}</td>
+          <td>{{rec.pf_base_salary}}</td>
+          <td>{{rec.pf_deduction}}</td>
+          <td>{{rec.emplyr_share}}</td>
+          <td>{{rec.pension}}</td>
+          <td>{{rec.vpf}}</td>
+          <td>{{rec.admin_chrg}}</td>
+          <td>{{rec.edli_chrg}}</td>
+          <td>{{rec.total_chrg}}</td>
+          <td>{{rec.eps_amt}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="reporttype=='ESI' || reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'">BRANCH</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>SALARY</th>
+          <th>EMPLOYEE</th>
+          <th>EMPLOYER</th>
+          <th>TOTAL</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'">{{rec.branch}}</td>
+          <td>{{rec.emp_no}}</td>
+          <td>{{rec.emp_name}}</td>
+          <td>{{rec.sal_gross_earn}}</td>
+          <td>{{rec.emply_esi}}</td>
+          <td>{{rec.emplr_esi}}</td>
+          <td>{{rec.total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
