@@ -33,7 +33,7 @@ export class PasteDataComponent implements OnInit {
   ErrorMessage: string = '';
 
   cbdata: string = '';
-
+  dateformat: string='DMY';
   maintype: string = 'ORDER LIST';
 
  // RecList: SearchTable[] = [];

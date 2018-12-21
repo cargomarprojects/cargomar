@@ -175,5 +175,55 @@ export class TrackOrderComponent  {
     //if (this.ModifiedRecords != null)
     //  this.ModifiedRecords.emit({ saction: 'CLOSE', sRec: this.Record });
   }
+  OnBlur(field: string) {
+    switch (field) {
+      case 'ord_cargo_status':
+        {
+          this.Record.ord_cargo_status = this.Record.ord_cargo_status.toUpperCase();
+          break;
+        }
+      }
+    }
+  SearchRecord(controlname: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    if (controlname == 'cost_folderno') {
+      if (this.Record.ord_pkid.trim().length <= 0) {
+        this.ErrorMessage = " Cannot Update Invalid ID";
+        return;
+      }
+    }
 
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      table: 'updatejoborderm',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      pkid: this.Record.ord_pkid,
+      cargostatus:''
+    };
+    if (controlname == 'updatejoborderm') {
+      SearchData.rowtype = this.type;
+      SearchData.table = 'updatejoborderm';
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.year_code = this.gs.globalVariables.year_code;
+      SearchData.pkid= this.Record.ord_pkid;
+      SearchData.cargostatus=this.Record.ord_cargo_status;
+    }
+    
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = '';
+        this.InfoMessage = "Successfully Updated";
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  
+    }
 }

@@ -36,8 +36,8 @@ export class OrderListComponent {
   sub: any;
   urlid: string;
 
-  ord_trkids:string = "";
-  ord_trkpos:string = "";
+  ord_trkids: string = "";
+  ord_trkpos: string = "";
   job_docno: string = "";
   ord_po: string = "";
   ord_invoice: string = "";
@@ -62,7 +62,7 @@ export class OrderListComponent {
   mode = '';
   pkid = '';
 
-  
+
   bShowPasteData: boolean = false;
   bDisabledControl: boolean = false;
   selectcheckbox: boolean = false;
@@ -81,7 +81,7 @@ export class OrderListComponent {
   // Single Record for add/edit/view details
   Record: Joborderm = new Joborderm;
 
- 
+
   bShowList = false;
   mList: Joborderm[] = [];
 
@@ -169,7 +169,7 @@ export class OrderListComponent {
     this.AGENTRECORD.code = "";
     this.AGENTRECORD.name = "";
 
-    
+
   }
 
   initLov2(caption: string = '') {
@@ -218,19 +218,19 @@ export class OrderListComponent {
       this.Record.ord_exp_id = _Record.id;
       this.Record.ord_exp_name = _Record.name;
       this.Record.ord_exp_code = _Record.code;
-     
+
     }
     if (_Record.controlname == "CONSIGNEE") {
       this.Record.ord_imp_id = _Record.id;
       this.Record.ord_imp_name = _Record.name;
       this.Record.ord_imp_code = _Record.code;
-      
+
     }
     if (_Record.controlname == "AGENT") {
       this.Record.ord_agent_id = _Record.id;
       this.Record.ord_agent_code = _Record.code;
       this.Record.ord_agent_name = _Record.name;
-     
+
     }
 
 
@@ -238,19 +238,19 @@ export class OrderListComponent {
       this.list_exp_id = _Record.id;
       this.list_exp_name = _Record.name;
       this.list_exp_code = _Record.code;
-      
+
     }
     if (_Record.controlname == "LIST_CONSIGNEE") {
       this.list_imp_id = _Record.id;
       this.list_imp_name = _Record.name;
       this.list_imp_code = _Record.code;
-     
+
     }
     if (_Record.controlname == "LIST_AGENT") {
       this.list_agent_id = _Record.id;
       this.list_agent_code = _Record.code;
       this.list_agent_name = _Record.name;
-      
+
     }
 
   }
@@ -265,7 +265,7 @@ export class OrderListComponent {
     this.job_docno = "";
     this.ord_po = "";
     this.ord_invoice = "";
-   
+
   }
 
 
@@ -277,7 +277,7 @@ export class OrderListComponent {
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
-     
+
       this.currentTab = 'LIST';
     }
     else if (action === 'ADD') {
@@ -339,7 +339,9 @@ export class OrderListComponent {
       list_exp_id: this.list_exp_id,
       list_imp_id: this.list_imp_id,
       list_agent_id: this.list_agent_id,
-      ord_showpending: this.ord_showpending == true ? "Y" : "N"
+      ord_showpending: this.ord_showpending == true ? "Y" : "N",
+      report_folder: this.gs.globalVariables.report_folder,
+      file_pkid: this.gs.getGuid()
     };
 
     this.ErrorMessage = '';
@@ -347,22 +349,28 @@ export class OrderListComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
 
   }
 
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   NewRecord() {
-    
+
     this.mList = [];
     this.bShowList = false;
     this.bDisabledControl = false;
@@ -427,10 +435,10 @@ export class OrderListComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Joborderm) {
@@ -465,7 +473,7 @@ export class OrderListComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.mainService.Save(this.Record)
@@ -476,10 +484,10 @@ export class OrderListComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -487,7 +495,7 @@ export class OrderListComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     if (this.AGENTRECORD.id.trim().length <= 0) {
       bret = false;
       sError += " Agent Cannot Be Blank";
@@ -500,13 +508,13 @@ export class OrderListComponent {
       bret = false;
       sError += "\n\r | Consignee Cannot Be Blank";
     }
-   
+
 
     if (this.Record.ord_po.trim().length <= 0) {
       bret = false;
       sError += "\n\r | PO Cannot Be Blank";
     }
-    
+
 
 
     if (bret === false)
@@ -542,7 +550,7 @@ export class OrderListComponent {
       REC.ord_hs_code = this.Record.ord_hs_code;
       REC.ord_cargo_status = this.Record.ord_cargo_status;
       REC.rec_created_dte = this.Record.rec_created_dte;
-     
+
 
     }
   }
@@ -695,15 +703,15 @@ export class OrderListComponent {
     let col_hscode = -1;
 
     let col_bkd = -1;
-let col_rnd = -1;
- let col_por = -1;
- let col_cr = -1;
- let col_fcr = -1;
-let col_insp = -1;
-let col_stf = -1;
-let col_whd = -1;
-let col_dlv = -1;
-
+    let col_rnd = -1;
+    let col_por = -1;
+    let col_cr = -1;
+    let col_fcr = -1;
+    let col_insp = -1;
+    let col_stf = -1;
+    let col_whd = -1;
+    let col_dlv_pol = -1;
+    let col_dlv_pod = -1;
 
 
     if (cbdata != null) {
@@ -771,13 +779,16 @@ let col_dlv = -1;
             col_insp = i;
           }
           if (ar2[i].toUpperCase().indexOf("STF") >= 0) {
-            col_stf= i;
+            col_stf = i;
           }
           if (ar2[i].toUpperCase().indexOf("WHD") >= 0) {
             col_whd = i;
           }
-          if (ar2[i].toUpperCase().indexOf("DLV") >= 0) {
-            col_dlv = i;
+          if (ar2[i].toUpperCase().indexOf("DLVLP") >= 0) {
+            col_dlv_pol = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("DLVDP") >= 0) {
+            col_dlv_pod = i;
           }
         };
       }
@@ -807,17 +818,18 @@ let col_dlv = -1;
           mRec.ord_agent_name = '';
           mRec.rec_category = '';
           mRec.remove = '';
-         
-mRec.ord_booking_date = '';
-mRec.ord_rnd_insp_date = '';
- mRec.ord_po_rel_date = '';
- mRec.ord_cargo_ready_date = '';
- mRec.ord_fcr_date = '';
-mRec.ord_insp_date = '';
-mRec.ord_stuf_date = '';
-mRec.ord_whd_date = '';
-mRec.ord_delvi_date = '';
 
+          mRec.ord_booking_date = '';
+          mRec.ord_rnd_insp_date = '';
+          mRec.ord_po_rel_date = '';
+          mRec.ord_cargo_ready_date = '';
+          mRec.ord_fcr_date = '';
+          mRec.ord_insp_date = '';
+          mRec.ord_stuf_date = '';
+          mRec.ord_whd_date = '';
+          mRec.ord_delvi_date = '';
+          mRec.ord_dlv_pol_date = '';
+          mRec.ord_dlv_pod_date = '';
 
           mRec.ord_pkid = this.gs.getGuid();
           mRec.rec_category = this.type;
@@ -840,9 +852,9 @@ mRec.ord_delvi_date = '';
             else {
               mRec.ord_pkg = 0;
             }
-             
+
           }
-            
+
           if (col_pcs > -1) {
 
             if (ar2[col_pcs] != "") {
@@ -851,9 +863,9 @@ mRec.ord_delvi_date = '';
             else {
               mRec.ord_pcs = 0;
             }
-            
+
           }
-           
+
           if (col_ntwt > -1) {
 
             if (ar2[col_ntwt] != "") {
@@ -863,7 +875,7 @@ mRec.ord_delvi_date = '';
               mRec.ord_ntwt = 0;
             }
           }
-           
+
           if (col_grwt > -1) {
 
             if (ar2[col_grwt] != "") {
@@ -873,7 +885,7 @@ mRec.ord_delvi_date = '';
               mRec.ord_grwt = 0;
             }
           }
-           
+
           if (col_cbm > -1) {
             if (ar2[col_cbm] != "") {
               mRec.ord_cbm = parseFloat(ar2[col_cbm]);
@@ -882,28 +894,30 @@ mRec.ord_delvi_date = '';
               mRec.ord_cbm = 0;
             }
           }
-            
-          if (col_hscode > -1) 
-             mRec.ord_hs_code = ar2[col_hscode].toUpperCase();
-          
-             if (col_bkd > -1) 
-             mRec.ord_booking_date = ar2[col_bkd].toUpperCase();
-             if (col_rnd > -1) 
-             mRec.ord_rnd_insp_date = ar2[col_rnd].toUpperCase();
-             if (col_por > -1) 
-             mRec.ord_po_rel_date = ar2[col_por].toUpperCase();
-             if (col_cr > -1) 
-             mRec.ord_cargo_ready_date = ar2[col_cr].toUpperCase();
-             if (col_fcr > -1) 
-             mRec.ord_fcr_date = ar2[col_fcr].toUpperCase();
-             if (col_insp > -1) 
-             mRec.ord_insp_date = ar2[col_insp].toUpperCase();
-             if (col_stf > -1) 
-             mRec.ord_stuf_date = ar2[col_stf].toUpperCase();
-             if (col_whd > -1) 
-             mRec.ord_whd_date = ar2[col_whd].toUpperCase();
-             if (col_dlv > -1) 
-             mRec.ord_delvi_date = ar2[col_dlv].toUpperCase();
+
+          if (col_hscode > -1)
+            mRec.ord_hs_code = ar2[col_hscode].toUpperCase();
+
+          if (col_bkd > -1)
+            mRec.ord_booking_date = ar2[col_bkd].toUpperCase();
+          if (col_rnd > -1)
+            mRec.ord_rnd_insp_date = ar2[col_rnd].toUpperCase();
+          if (col_por > -1)
+            mRec.ord_po_rel_date = ar2[col_por].toUpperCase();
+          if (col_cr > -1)
+            mRec.ord_cargo_ready_date = ar2[col_cr].toUpperCase();
+          if (col_fcr > -1)
+            mRec.ord_fcr_date = ar2[col_fcr].toUpperCase();
+          if (col_insp > -1)
+            mRec.ord_insp_date = ar2[col_insp].toUpperCase();
+          if (col_stf > -1)
+            mRec.ord_stuf_date = ar2[col_stf].toUpperCase();
+          if (col_whd > -1)
+            mRec.ord_whd_date = ar2[col_whd].toUpperCase();
+          if (col_dlv_pol > -1)
+            mRec.ord_dlv_pol_date = ar2[col_dlv_pol].toUpperCase();
+          if (col_dlv_pod > -1)
+            mRec.ord_dlv_pod_date = ar2[col_dlv_pod].toUpperCase();
 
 
           if (mRec.ord_po != '') {
@@ -922,7 +936,7 @@ mRec.ord_delvi_date = '';
             }
             mRec.ord_contractno = sContract.trim().toUpperCase();
             mRec.remove = "";
-            
+
             this.mList.push(mRec);
           }
         }
@@ -930,7 +944,7 @@ mRec.ord_delvi_date = '';
       if (this.mList.length > 0) {
         this.bShowList = true;
       }
-      
+
     }
     this.bShowPasteData = false;
   }
@@ -961,7 +975,7 @@ mRec.ord_delvi_date = '';
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
-   
+
     let VM = new JobOrder_VM;
     VM.JobOrder = this.mList;
     VM.globalvariables = this.gs.globalVariables;
@@ -979,7 +993,7 @@ mRec.ord_delvi_date = '';
         else {
           this.ErrorMessage = "Cannot Insert, All These PO's Already Exist!";
         }
-        
+
 
         for (var i = 0; i < this.mList.length; i++) {
           this.mList[i].remove = "Y";
@@ -1001,10 +1015,10 @@ mRec.ord_delvi_date = '';
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   SelectCheckbox() {
