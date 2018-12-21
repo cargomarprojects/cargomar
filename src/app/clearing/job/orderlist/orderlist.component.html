@@ -225,6 +225,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+          <div class="col-sm-10">
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ord_desc" (blur)="OnBlur('ord_desc')" required maxlength="100"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label  col-form-label-sm">PO</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_po" (blur)="OnBlur('ord_po')" required maxlength="60" />
@@ -291,15 +297,10 @@
         <div class="form-group row">
           <label style="padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Cargo.Status</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_cargo_status" (blur)="OnBlur('ord_cargo_status')" required maxlength="60" />
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ord_cargo_status" (blur)="OnBlur('ord_cargo_status')" required maxlength="250"></textarea>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Description</label>
-          <div class="col-sm-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ord_desc" (blur)="OnBlur('ord_desc')" required maxlength="100"></textarea>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -308,9 +309,7 @@
 
   <div class="page-box">
     <div class="col-sm-6">
-
       <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-
       <button [disabled]="loading" (click)="PasteData()" class="btn btn-success btn-sm">Paste Data</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
