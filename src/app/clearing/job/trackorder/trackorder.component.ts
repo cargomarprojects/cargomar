@@ -76,7 +76,8 @@ export class TrackOrderComponent  {
     this.Record.ord_stuf_date = '';
     this.Record.ord_whd_date = '';
     this.Record.ord_track_status = '';
-    this.Record.ord_delvi_date='';
+    this.Record.ord_dlv_pol_date = '';
+    this.Record.ord_dlv_pod_date = '';
   }
 
   InitComponent() {
