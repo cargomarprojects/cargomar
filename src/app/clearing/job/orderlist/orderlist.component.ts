@@ -760,34 +760,34 @@ export class OrderListComponent {
             col_hscode = i;
           }
 
-          if (ar2[i].toUpperCase().indexOf("BKD") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("BOOKING DATE") >= 0) {//BKD
             col_bkd = i;
           }
-          if (ar2[i].toUpperCase().indexOf("RND") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("RANDOM DATE") >= 0) { //RND
             col_rnd = i;
           }
-          if (ar2[i].toUpperCase().indexOf("POR") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("RELEASE DATE") >= 0) {//POR
             col_por = i;
           }
-          if (ar2[i].toUpperCase().indexOf("CR") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("READY DATE") >= 0) { //CR
             col_cr = i;
           }
-          if (ar2[i].toUpperCase().indexOf("FCR") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("FCR DATE") >= 0) {//FCR
             col_fcr = i;
           }
-          if (ar2[i].toUpperCase().indexOf("INSP") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("INSPECTION DATE") >= 0) { //INSP
             col_insp = i;
           }
-          if (ar2[i].toUpperCase().indexOf("STF") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("STUFFING DATE") >= 0) {
             col_stf = i;
           }
-          if (ar2[i].toUpperCase().indexOf("WHD") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("WARE HOUSE DATE") >= 0) {
             col_whd = i;
           }
-          if (ar2[i].toUpperCase().indexOf("DLVLP") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("DELIVERY POL DATE") >= 0) {
             col_dlv_pol = i;
           }
-          if (ar2[i].toUpperCase().indexOf("DLVDP") >= 0) {
+          if (ar2[i].toUpperCase().indexOf("DELIVERY POD DATE") >= 0) {
             col_dlv_pod = i;
           }
         };
