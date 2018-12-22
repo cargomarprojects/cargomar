@@ -494,6 +494,7 @@
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
+              <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)" class="btn btn-success btn-sm">Buy/Sell Rate</button>
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
@@ -539,3 +540,14 @@
     </div>
   </div>
 </div>
+<ng-template #buysellrate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Rate Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-rateupdate [buysell_record]="buysell_record" [badd]="bbuysellrate" [pkid]="pkid" [hblno]="Record.hbl_no" [type]="'HBL'" ></app-rateupdate>
+  </div>
+</ng-template>

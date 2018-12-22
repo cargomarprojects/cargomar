@@ -45,7 +45,7 @@ import { ApprovalComponent } from './approval/approval.component';
 
 import { PasteDataComponent } from './pastedata/pastedata.component';
 import { PaymentReqComponent } from './paymentreq/paymentreq.component';
-
+import { RateUpdateComponent } from './rateupdate/rateupdate.component';
 
 
 @NgModule({
@@ -74,7 +74,8 @@ import { PaymentReqComponent } from './paymentreq/paymentreq.component';
     OsRemSharedComponent,
     ApprovalComponent,
     PasteDataComponent,
-    PaymentReqComponent
+    PaymentReqComponent,
+    RateUpdateComponent
   ],
   exports: [
     CommonModule,
@@ -99,7 +100,8 @@ import { PaymentReqComponent } from './paymentreq/paymentreq.component';
     OsRemSharedComponent,
     ApprovalComponent,
     PasteDataComponent,
-    PaymentReqComponent
+    PaymentReqComponent,
+    RateUpdateComponent
   ],
   providers: [
     AlertService,
