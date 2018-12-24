@@ -11,11 +11,12 @@ export class RateUpdateComponent {
   // Local Variables 
   title = 'Rate Details';
 
-  @Input() public menu_record: any;
+  @Input() public badd: boolean = false;
   @Input() public pkid: string;
   @Input() public type: string = '';
   @Input() public hblno: string = '';
-
+  @Input() public category: string = '';
+  
   InitCompleted: boolean = false;
 
   disableSave = true;
@@ -25,7 +26,7 @@ export class RateUpdateComponent {
   urlid: string;
   sell_remarks: string = '';
   buy_remarks: string = '';
-  badd: boolean = false;
+
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -46,8 +47,6 @@ export class RateUpdateComponent {
       }
     });
 */
-    this.InitCompleted = true;
-    this.InitComponent();
   }
 
   // Init Will be called After executing Constructor
@@ -59,11 +58,6 @@ export class RateUpdateComponent {
   }
 
   InitComponent() {
-
-    if (this.menu_record) {
-      if (this.menu_record.rights_add)
-        this.badd = true;
-    }
 
   }
 
@@ -79,10 +73,8 @@ export class RateUpdateComponent {
 
   // Save Data
   Save() {
-
     if (!this.allvalid())
       return;
-
     this.SearchRecord('rateupdate', 'SAVE');
   }
 
@@ -117,12 +109,20 @@ export class RateUpdateComponent {
       buy_remarks: this.buy_remarks,
       table: 'rateupdate',
       type: _type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      category:this.category
     };
 
     SearchData.pkid = this.pkid;
     SearchData.sell_remarks = this.sell_remarks;
     SearchData.buy_remarks = this.buy_remarks;
     SearchData.table = 'rateupdate';
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.category=this.category;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {

@@ -143,6 +143,8 @@ export class Hblm {
   hbl_imp_br_email: string;
   hbl_rebate_amt_inr: number;
 
+  hbl_buy_remarks:string;
+  hbl_sell_remarks:string;
 
   _globalvariables: GlobalVariables;
 

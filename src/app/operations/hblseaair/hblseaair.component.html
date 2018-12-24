@@ -71,6 +71,8 @@
             <th align='right'>GST</th>
             <th align='right'>REBATE-INR</th>
             <th *ngIf="type == 'SEA EXPORT'">CONTAINER</th>
+            <th *ngIf="bbuysellrate">BUY.RATE</th>
+            <th *ngIf="bbuysellrate">SELL.RATE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -88,7 +90,8 @@
             <td *ngIf="type == 'SEA EXPORT'">{{rec.hbl_nature}}</td>
             <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
             <td align='right'>{{rec.hbl_ntwt | number : '1.3-3'}}</td>
-            <td align='right'><span *ngIf="type=='SEA EXPORT'">{{rec.hbl_cbm | number : '1.3-3'}}</span><span *ngIf="type=='AIR EXPORT'">{{rec.hbl_chwt | number : '1.3-3'}}</span></td>
+            <td align='right'><span *ngIf="type=='SEA EXPORT'">{{rec.hbl_cbm | number : '1.3-3'}}</span><span *ngIf="type=='AIR EXPORT'">{{rec.hbl_chwt
+                | number : '1.3-3'}}</span></td>
             <td *ngIf="type == 'SEA EXPORT'">{{rec.hbl_fcr_no}}</td>
             <td>{{rec.hbl_job_nos}}</td>
             <td>{{rec.hbl_ar_invnos}}</td>
@@ -96,6 +99,8 @@
             <td align='right'>{{rec.hbl_ar_gst | number : '1.2-2'}}</td>
             <td align='right'>{{rec.hbl_rebate_amt_inr | number : '1.2-2'}}</td>
             <td *ngIf="type == 'SEA EXPORT'">{{rec.hbl_book_cntr}}</td>
+            <td *ngIf="bbuysellrate">{{rec.hbl_buy_remarks}}</td>
+            <td *ngIf="bbuysellrate">{{rec.hbl_sell_remarks}}</td>
           </tr>
         </tbody>
       </table>
@@ -128,7 +133,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">SI#</label>
                   <div class="col-4">
-                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
+                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
                   </div>
                   <div *ngIf="mode=='ADD'" style="padding-right:0" class="col-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_no" required maxlength="15" />
@@ -162,14 +168,16 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm"></label>
                   <div class="col-10">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_exp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_exp_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Agent</label>
                   <div class="col-10">
-                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
+                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
 
@@ -190,7 +198,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm"></label>
                   <div class="col-10">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
 
@@ -200,13 +209,15 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Carrier</label>
                   <div class="col-10">
-                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="SEACARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="SEACARRIERRECORD"
+                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
                   <div class="col-10">
-                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD"
+                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
 
@@ -225,7 +236,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm"></label>
                   <div class="col-10">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_imp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_imp_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
 
@@ -265,13 +277,15 @@
                     <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <div class="col-sm-5" style="padding-left:0">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_coloader_name" (blur)="OnBlur('hbl_coloader_name')" required maxlength="60" />
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_coloader_name"
+                      (blur)="OnBlur('hbl_coloader_name')" required maxlength="60" />
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
                   <div class="col-10">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_remarks" (blur)="OnBlur('hbl_remarks')" required maxlength="250" />
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_remarks" (blur)="OnBlur('hbl_remarks')"
+                      required maxlength="250" />
                   </div>
                 </div>
 
@@ -379,12 +393,14 @@
                 <div class="form-group row">
                   <label class="col-5 col-form-label col-form-label-sm">Item Description</label>
                   <div class="col-7">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_commodity" (blur)="OnBlur('hbl_commodity')" required maxlength="100" />
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_commodity" (blur)="OnBlur('hbl_commodity')"
+                      required maxlength="100" />
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-5 col-form-label col-form-label-sm">
-                    <span *ngIf="type=='SEA EXPORT'">HBL Released On</span><span *ngIf="type=='AIR EXPORT'">HAWB Released On</span>
+                    <span *ngIf="type=='SEA EXPORT'">HBL Released On</span><span *ngIf="type=='AIR EXPORT'">HAWB
+                      Released On</span>
                   </label>
                   <div class="col-7">
                     <app-date [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event"></app-date>
@@ -420,9 +436,11 @@
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
+                    <label class="col-2 col-form-label col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span
+                        *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
                     <div class="col-10">
-                      <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required maxlength="100" />
+                      <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.hbl_mbl_bookslno"
+                        (blur)="OnBlur('hbl_mbl_bookslno')" required maxlength="100" />
                     </div>
                   </div>
                 </div>
@@ -438,7 +456,8 @@
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group row">
-                    <label *ngIf="Record.hbl_mbl_no" class="col-4 col-form-label  col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
+                    <label *ngIf="Record.hbl_mbl_no" class="col-4 col-form-label  col-form-label-sm"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span
+                        *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
                     <div class="col-8">
                       <label class="col-form-label  col-form-label-sm">
                         <font color="red">{{Record.hbl_mbl_no}} </font>
@@ -494,7 +513,8 @@
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
-              <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)" class="btn btn-success btn-sm">Buy/Sell Rate</button>
+              <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
+                class="btn btn-success btn-sm">Buy/Sell Rate</button>
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
@@ -548,6 +568,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-rateupdate [menu_record]="buysell_record"  [pkid]="pkid" [hblno]="Record.hbl_no" [type]="'HBL'" ></app-rateupdate>
+    <app-rateupdate [badd]="buysell_record.rights_add" [pkid]="pkid" [hblno]="Record.hbl_no" [category]="type" [type]="'HBL'"></app-rateupdate>
   </div>
 </ng-template>

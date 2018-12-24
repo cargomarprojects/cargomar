@@ -37,11 +37,11 @@ export class ArApComponent {
   @Input() type: string = '';
   @Input() subtype: string = '';
   @Input() editdrcr: string = '';
-  
+
 
   headerdrcr: string = '';
   detaildrcr: string = '';
-  
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -59,7 +59,7 @@ export class ArApComponent {
   DetailTab = 'LIST';
 
   bChanged: boolean;
-
+  bapprovalstatus = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -158,13 +158,15 @@ export class ArApComponent {
   }
 
   InitComponent() {
+    this.bapprovalstatus = "";
     this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_docs)
-      this.bDocs = true;
+        this.bDocs = true;
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
     this.InitLov();
     this.LoadCombo();
@@ -182,7 +184,7 @@ export class ArApComponent {
 
 
   InitLov(saction: string = '') {
-    
+
 
     if (saction == 'PARTY' || saction == '') {
       this.PARTYRECORD = new SearchTable();
@@ -197,7 +199,7 @@ export class ArApComponent {
 
       if (this.type == 'IN')
         this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001') )";
-      if ( this.type == 'PN')
+      if (this.type == 'PN')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
 
     }
@@ -328,8 +330,8 @@ export class ArApComponent {
       this.STATERECORD.name = this.Record.jvh_state_name;
 
       this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
-      
-      
+
+
     }
 
     if (_Record.controlname == "INVCURRENCY") {
@@ -472,10 +474,10 @@ export class ArApComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -524,9 +526,9 @@ export class ArApComponent {
     this.Record.jvh_curr_code = this.gs.defaultValues.param_curr_local_code;
     this.Record.jvh_curr_name = this.gs.defaultValues.param_curr_local_code;
     this.Record.jvh_exrate = 1;
-        
 
-    if ( this.subtype == "AR")
+
+    if (this.subtype == "AR")
       this.Record.jvh_cc_category = "SI SEA EXPORT";
     if (this.subtype == "AP")
       this.Record.jvh_cc_category = "MBL SEA EXPORT";
@@ -560,7 +562,7 @@ export class ArApComponent {
 
     this.Record.rec_mode = this.mode;
 
-    
+
 
   }
 
@@ -581,10 +583,10 @@ export class ArApComponent {
         this.LockErrorMessage = response.lockedmsg;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Ledgerh) {
@@ -619,11 +621,11 @@ export class ArApComponent {
     this.lock_date = true;
     this.lock_cc = true;
 
-    if (this.Record.jvh_edit_code.indexOf("{S}") >= 0) 
+    if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
-    if (this.Record.jvh_edit_code.indexOf("{D}") >= 0) 
+    if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
       this.lock_date = false;
-    if (this.Record.jvh_edit_code.indexOf("{C}") >= 0) 
+    if (this.Record.jvh_edit_code.indexOf("{C}") >= 0)
       this.lock_cc = false;
 
     if (this.LockErrorMessage.length > 0) {
@@ -657,7 +659,7 @@ export class ArApComponent {
 
     this.Record._globalvariables = this.gs.globalVariables;
     this.Record.jvh_drcr = this.headerdrcr;
-      this.mainService.Save(this.Record)
+    this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
 
@@ -672,11 +674,11 @@ export class ArApComponent {
 
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -704,7 +706,7 @@ export class ArApComponent {
     let gst_cr = 0;
 
     let _gst_amt = 0;
-        
+
 
     if (this.Record.jvh_rec_source.trim() != "JV") {
       bret = false;
@@ -718,7 +720,7 @@ export class ArApComponent {
         sError += " | Invalid Document Type";
       }
     }
-    
+
 
 
     if (this.Record.jvh_cc_code.trim().length <= 0 || this.Record.jvh_cc_id.trim().length <= 0) {
@@ -742,7 +744,7 @@ export class ArApComponent {
       bret = false;
       sError += " | State Cannot Be Blank";
     }
-    
+
     if (this.Record.jvh_gstin != "") {
       if (this.Record.jvh_gstin.length != 15) {
         bret = false;
@@ -805,14 +807,14 @@ export class ArApComponent {
       bret = false;
       sError += " | Narration Cannot Be Blank";
     }
-    
+
     if (this.subtype == 'AP') {
       if (this.Record.jvh_no_brok) {
         if (this.Record.jvh_brok_remarks.length <= 0) {
           bret = false;
           sError += " | Pls input Remarks for no Brokerage";
         }
-        if (this.Record.jvh_basic_frt >0  || this.Record.jvh_brok_per > 0 || this.Record.jvh_brok_amt > 0) {
+        if (this.Record.jvh_basic_frt > 0 || this.Record.jvh_brok_per > 0 || this.Record.jvh_brok_amt > 0) {
           bret = false;
           sError += " | Basic Frt,Brok. Per,Brok. Amt Need to be zero";
         }
@@ -832,7 +834,7 @@ export class ArApComponent {
       if (rec.jv_debit > 0) {
         gst_dr += rec.jv_gst_amt;
         if (this.Record.jvh_gst && rec.jv_is_taxable && rec.jv_gst_amt <= 0) {
-            isGstBlank = true;
+          isGstBlank = true;
         }
       }
       if (rec.jv_credit > 0) {
@@ -1038,7 +1040,7 @@ export class ArApComponent {
         this.Recorddet.jv_rate = this.Recorddet.jv_ftotal / this.Recorddet.jv_qty;
         this.Recorddet.jv_rate = this.gs.roundNumber(this.Recorddet.jv_rate, 3);
       }
-      
+
       this.Recorddet.jv_total = this.Recorddet.jv_ftotal * this.Recorddet.jv_exrate;
       this.Recorddet.jv_total = this.gs.roundNumber(this.Recorddet.jv_total, 2);
       this.Recorddet.jv_taxable_amt = this.Recorddet.jv_total;
@@ -1183,7 +1185,7 @@ export class ArApComponent {
     this.Recorddet.jv_curr_code = this.Record.jvh_curr_code;
     this.Recorddet.jv_curr_name = this.Record.jvh_curr_name;
     this.Recorddet.jv_exrate = this.Record.jvh_exrate;
-    
+
     this.Recorddet.jv_qty = 0;
     this.Recorddet.jv_rate = 0;
 
@@ -1195,7 +1197,7 @@ export class ArApComponent {
 
     this.Recorddet.jv_taxable_amt = 0;
 
-    
+
 
     this.Recorddet.jv_is_taxable = false;
     this.Recorddet.jv_is_gst_item = false;
@@ -1212,8 +1214,8 @@ export class ArApComponent {
     this.Recorddet.jv_net_total = 0;
 
 
-    this.Recorddet.jv_drcr =  this.detaildrcr ;
-    
+    this.Recorddet.jv_drcr = this.detaildrcr;
+
 
     this.Recorddet.jv_doc_type = 'NA';
     this.Recorddet.jv_bank = '';
@@ -1372,13 +1374,13 @@ export class ArApComponent {
         this.PendingListRecords = response.list;
         this.open(content);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  Ok(){
+  Ok() {
     let bok = true;
 
 
@@ -1398,7 +1400,7 @@ export class ArApComponent {
     }
 
 
-    if (this.Recorddet.jv_qty <=0) {
+    if (this.Recorddet.jv_qty <= 0) {
       this.ErrorMessage = 'Invalid Qty';
       return;
     }
@@ -1406,7 +1408,7 @@ export class ArApComponent {
       this.ErrorMessage = 'Invalid Rate';
       return;
     }
-    if (this.Recorddet.jv_ftotal <= 0 || this.Recorddet.jv_total <= 0 ) {
+    if (this.Recorddet.jv_ftotal <= 0 || this.Recorddet.jv_total <= 0) {
       this.ErrorMessage = 'Invalid Total';
       return;
     }
@@ -1423,7 +1425,7 @@ export class ArApComponent {
     }
 
     let ccamt: number = 0;
-    let iscc : Boolean = false;
+    let iscc: Boolean = false;
 
     if (this.Record.jvh_cc_category == 'GENERAL JOB') {
       if (this.Recorddet.jv_acc_cost_centre == "Y") {
@@ -1763,14 +1765,14 @@ export class ArApComponent {
     this.Record.jvh_debit = total_debit;
     this.Record.jvh_credit = total_credit;
 
-    if ( this.headerdrcr == "DR")
-      this.diff = (total_credit - total_debit) ;
+    if (this.headerdrcr == "DR")
+      this.diff = (total_credit - total_debit);
     if (this.headerdrcr == "CR")
-      this.diff = (total_debit - total_credit) ;
+      this.diff = (total_debit - total_credit);
 
     //If Not Reverse Charge
     if (!this.Record.jvh_rc) {
-      this.diff = this.diff + gstamt ;
+      this.diff = this.diff + gstamt;
     }
     this.Record.jvh_diff = this.diff;
   }
@@ -1897,10 +1899,10 @@ export class ArApComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Onchange() {
     this.remarks = !this.remarks;
@@ -1975,12 +1977,12 @@ export class ArApComponent {
         } else
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-   
+
   PrintVoucher(Id: string, _type: string) {
     this.folder_id = this.gs.getGuid();
     this.loading = true;
@@ -2006,10 +2008,10 @@ export class ArApComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -2022,7 +2024,7 @@ export class ArApComponent {
     this.ACCRECORD.where = "1=2";
     if (this.Record.jvh_cc_category == "SI SEA EXPORT" || this.Record.jvh_cc_category == "MBL SEA EXPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1104','1105','1106','1107')";
-      if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI") 
+      if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1101','1102','1103','1104', '1105','1106','1107')";
     }
     if (this.Record.jvh_cc_category == "SI AIR EXPORT" || this.Record.jvh_cc_category == "MAWB AIR EXPORT") {
@@ -2063,6 +2065,24 @@ export class ArApComponent {
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
     this.open(doc);
+  }
+  ShowApproval(approval: any, _sid: string) {
+    this.ErrorMessage = '';
+    this.pkid = _sid;
+    this.open(approval);
+  }
+  ModifiedRecords(params: any) {
+    var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
+    if (REC != null) {
+      if (params.stype == "PN") {
+        if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
+          REC.rec_aprvd_status = params.mstatus;
+          REC.rec_aprvd_remark = params.mremarks;
+          REC.rec_aprvd_by = this.gs.globalVariables.user_code;
+        }
+      }
+    }
+    this.modal.close();
   }
 }
 

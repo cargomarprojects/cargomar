@@ -453,7 +453,8 @@ export class HblSeaAirComponent {
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
             from_date: this.gs.globalData.hbl_fromdate,
-            to_date: this.gs.globalData.hbl_todate
+            to_date: this.gs.globalData.hbl_todate,
+            showbuysell: this.bbuysellrate ? "Y" : "N"
         };
 
         this.ErrorMessage = '';

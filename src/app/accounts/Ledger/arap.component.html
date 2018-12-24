@@ -281,7 +281,6 @@
         <table class="table  table-hover table-sm">
           <thead class="page-body-thead">
             <tr>
-
               <th>CODE</th>
               <th>NAME</th>
               <th>SAC</th>
@@ -610,6 +609,7 @@
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Ledger</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT' && bDocs" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT' && bapprovalstatus !='' && type=='PN'" (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -663,5 +663,16 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+<ng-template #approval let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Approval Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)"></app-approval>
   </div>
 </ng-template>
