@@ -127,10 +127,10 @@ export class HblSeaAirComponent {
             if (incomerecord)
                 this.bJobIncome = true;
 
-                this.buysell_record = this.gs.getMenu('SE-BUYSELL-RATE');
-            if (this.buysell_record)
-            {  if (this.buysell_record.rights_add)
-                this.bbuysellrate = true;
+            this.buysell_record = this.gs.getMenu('SE-BUYSELL-RATE');
+            if (this.buysell_record) {
+                if (this.buysell_record.rights_add || this.buysell_record.rights_view)
+                    this.bbuysellrate = true;
             }
         }
 
@@ -139,10 +139,11 @@ export class HblSeaAirComponent {
             if (incomerecord)
                 this.bJobIncome = true;
 
-                this.buysell_record = this.gs.getMenu('AE-BUYSELL-RATE');
-                if (this.buysell_record)
-
+            this.buysell_record = this.gs.getMenu('AE-BUYSELL-RATE');
+            if (this.buysell_record) {
+                if (this.buysell_record.rights_add || this.buysell_record.rights_view)
                     this.bbuysellrate = true;
+            }
         }
 
         this.menu_record = this.gs.getMenu(this.menuid);

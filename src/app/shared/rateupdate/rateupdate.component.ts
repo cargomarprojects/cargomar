@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
+import { bloomAdd } from '@angular/core/src/render3/di';
 
 @Component({
   selector: 'app-rateupdate',
@@ -10,14 +11,13 @@ export class RateUpdateComponent {
   // Local Variables 
   title = 'Rate Details';
 
-  @Input() public badd: boolean = false;
+  @Input() public menu_record: any;
   @Input() public pkid: string;
   @Input() public type: string = '';
   @Input() public hblno: string = '';
-  @Input() public buysell_record: any;
+
   InitCompleted: boolean = false;
 
- 
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -25,6 +25,7 @@ export class RateUpdateComponent {
   urlid: string;
   sell_remarks: string = '';
   buy_remarks: string = '';
+  badd: boolean = false;
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -33,7 +34,6 @@ export class RateUpdateComponent {
     private gs: GlobalService
 
   ) {
-
     // URL Query Parameter 
     /*
     this.sub = this.route.queryParams.subscribe(params => {
@@ -46,6 +46,8 @@ export class RateUpdateComponent {
       }
     });
 */
+    this.InitCompleted = true;
+    this.InitComponent();
   }
 
   // Init Will be called After executing Constructor
@@ -57,11 +59,12 @@ export class RateUpdateComponent {
   }
 
   InitComponent() {
-    /*
-      this.menu_record = this.gs.getMenu(this.menuid);
-      if (this.menu_record)
-        this.title = this.menu_record.menu_name;
-      */
+
+    if (this.menu_record) {
+      if (this.menu_record.rights_add)
+        this.badd = true;
+    }
+
   }
 
   // Destroy Will be called when this component is closed
