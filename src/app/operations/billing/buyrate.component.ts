@@ -59,7 +59,7 @@ export class BuyRateComponent {
   DetailTab = 'LIST';
 
   bChanged: boolean;
-
+  bapprovalstatus = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -133,7 +133,7 @@ export class BuyRateComponent {
     this.menuid = 'APINVOICE'
     this.headerdrcr = 'CR';
     this.detaildrcr = 'DR';
-
+    this.bapprovalstatus = "";
     if (this.type == 'SEA EXPORT')
       this.cc_category = 'MBL SEA EXPORT';
     if (this.type == 'SEA IMPORT')
@@ -149,6 +149,8 @@ export class BuyRateComponent {
       this.title = 'BUY RATE';
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
 
     this.InitLov();
@@ -197,10 +199,10 @@ export class BuyRateComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -572,10 +574,10 @@ export class BuyRateComponent {
         this.Record.jvh_narration = 'PAYABLE TO ' + this.Record.jvh_acc_name + ' AGAINST ' + response.narration;
         this.Narration = response.narration;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -599,10 +601,10 @@ export class BuyRateComponent {
         this.LockErrorMessage = response.lockedmsg;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Ledgerh) {
@@ -702,11 +704,11 @@ export class BuyRateComponent {
 
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -1402,10 +1404,10 @@ export class BuyRateComponent {
         this.PendingListRecords = response.list;
         this.open(content);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Ok() {
@@ -1935,10 +1937,10 @@ export class BuyRateComponent {
           this.ErrorMessage = 'Save Complete';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Onchange() {
     this.remarks = !this.remarks;
@@ -1993,10 +1995,10 @@ export class BuyRateComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   PrintVoucher(Id: string, _type: string) {
@@ -2024,10 +2026,10 @@ export class BuyRateComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -2072,13 +2074,32 @@ export class BuyRateComponent {
     }
 
   }
-   
+
   PaymentRequest(payrequest: any) {
     this.open(payrequest);
   }
 
   ShowDocuments(doc: any) {
     this.open(doc);
+  }
+
+  ShowApproval(approval: any, _sid: string) {
+    this.ErrorMessage = '';
+    this.pkid = _sid;
+    this.open(approval);
+  }
+  ModifiedRecords(params: any) {
+    /* var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
+     if (REC != null) {
+       if (params.stype == "PN") {
+         if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
+           REC.rec_aprvd_status = params.mstatus;
+           REC.rec_aprvd_remark = params.mremarks;
+           REC.rec_aprvd_by = this.gs.globalVariables.user_code;
+         }
+       }
+     }
+     this.modal.close();*/
   }
 }
 

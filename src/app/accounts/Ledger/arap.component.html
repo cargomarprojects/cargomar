@@ -53,25 +53,25 @@
           <th>RC</th>
           <th>NET</th>
           <th>NARRATION</th>
+          <th *ngIf="type=='PN'">APPROVED.BY</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList" (click)="ActionHandler('EDIT',rec.jvh_pkid)">
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_cc_code}}</td>
-          <td>{{rec.jvh_cc_name}}</td>
-
-          <td>{{rec.jvh_acc_name}}</td>
-          <td>{{rec.jvh_gstin}}</td>
+        <tr *ngFor="let rec of RecordList">
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_docno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_category}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_code}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_acc_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_gstin}}</td>
           <td>{{rec.jvh_gst_type}}</td>
           <td>{{rec.jvh_tot_amt}}</td>
           <td>{{rec.jvh_gst_amt}}</td>
           <td>{{(rec.jvh_rc) ? 'Y' : 'N'}}</td>
           <td>{{rec.jvh_net_amt}}</td>
           <td>{{rec.jvh_narration}}</td>
+          <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='PN'">{{rec.rec_aprvd_by}}</td>
         </tr>
       </tbody>
     </table>
@@ -257,6 +257,7 @@
               <option [value]="'SE'">SEA EXPORT</option>
               <option [value]="'SI'">SEA IMPORT</option>
               <option [value]="'BR'">BROKERAGE</option>
+              <option [value]="'FC'">FOREIGN CURRENCY</option>
             </select>
           </div>
           <div class="col-5">

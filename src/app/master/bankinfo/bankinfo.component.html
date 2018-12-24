@@ -15,12 +15,12 @@
         <label class="col-2 col-form-label col-form-label-sm">Type</label>
         <div class="col-4">
           <select class="form-control form-control-sm" [(ngModel)]="tabletype" (change)="OnChange('tabletype')">
-
             <option [value]="'SEA EXPORT'">SEA EXPORT</option>
             <option [value]="'SEA IMPORT'">SEA IMPORT</option>
             <option [value]="'AIR EXPORT'">AIR EXPORT</option>
             <option [value]="'AIR IMPORT'">AIR IMPORT</option>
             <option [value]="'BROKERAGE'">BROKERAGE</option>
+            <option [value]="'FC'">FOREIGN CURRENCY</option>
           </select>
         </div>
       </div>

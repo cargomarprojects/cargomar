@@ -180,7 +180,7 @@ export class ApprovalComponent {
       bret = false;
     }
 
-    if (this.chk_approval == true && this.chk_verified == false) {
+    if ( this.type=='BP' && this.chk_approval == true && this.chk_verified == false) {
       sError = "Please Verify above Responsibility.";
       // sError = "Please select " + this.chk_caption + " and continue...";
       bret = false;

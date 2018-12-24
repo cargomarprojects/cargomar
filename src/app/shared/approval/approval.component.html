@@ -26,7 +26,7 @@
 </div>
 
 <div *ngIf="bAdd" class="page-details">
-  <div class="row">
+  <div *ngIf="type=='BP'" class="row">
     <div class="col-sm-12">
       <ngb-accordion [closeOthers]="true" [activeIds]="activePanelId">
         <ngb-panel *ngIf="gs.globalVariables.user_code == 'ADMIN'||rule_index==1||rule_index==3" id="panel1" title="Branch Preparer">
@@ -95,7 +95,7 @@
     <div class="col-sm-12">
       <div class="page-box">
         <div class="col-sm-8">
-          <div class="form-group row">
+          <div *ngIf="type=='BP'" class="form-group row">
             <label class="col-1"></label>
             <div class="col-5">
               <input type="checkbox" [(ngModel)]="chk_verified">&nbsp;VERIFIED&nbsp;&nbsp;
