@@ -23,17 +23,6 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
-          <div class="col-sm-5">
-            <select class="form-control form-control-sm" name="rtype" [(ngModel)]="reporttype" (change)="OnChange('reporttype')">
-              <option [value]="'EPF'">EPF</option>
-              <option *ngIf="bAdmin" [value]="'EPF-SOUTH'">EPF-SOUTH-BRANCHES</option>
-              <option *ngIf="bAdmin" [value]="'EPF-NORTH'">EPF-NORTH-BRANCHES</option>
-              <option [value]="'ESI'">ESI</option>
-              <option *ngIf="bAdmin" [value]="'ESI-SOUTH'">ESI-SOUTH-BRANCHES</option>
-              <option *ngIf="bAdmin" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES</option>
-            </select>
-          </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
@@ -128,8 +117,8 @@
           <td>{{rec.sal_emp_do_joining}}</td>
           <td>{{rec.sal_emp_grade}}</td>
           <td>{{rec.sal_date}}</td>
-          <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
-          <td>{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
+          <td>{{rec.sal_pf_mon_year}}</td>
+          <td>{{rec.sal_emp_designation}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
           <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
           <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>

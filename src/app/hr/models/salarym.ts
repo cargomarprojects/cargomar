@@ -94,6 +94,7 @@ export class Salarym {
   sal_work_days: number;
   sal_mail_sent: boolean;
   sal_emp_grade: string;
+  sal_emp_designation:string;
   sal_emp_do_joining: string;
   sal_selected: boolean;
   sal_esi_emply_per: number;

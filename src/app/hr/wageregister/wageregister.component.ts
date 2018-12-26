@@ -42,7 +42,7 @@ export class WageRegisterComponent {
   salyear = 0;
   salmonth = 0;
   
-  reporttype="EPF";
+  reporttype="FORMAT1";
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
@@ -85,7 +85,7 @@ export class WageRegisterComponent {
   }
 
   InitComponent() {
-    this.reporttype = 'EPF';
+    this.reporttype = 'FORMAT1';
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.bAdmin=false;
