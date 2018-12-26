@@ -44,7 +44,7 @@ export class BankInfoComponent {
   bank_ifsc_code: string;
   bank_addresslin1: string;
   bank_addresslin2: string;
-
+  bank_addresslin3: string;
 
   // Array For Displaying List
   RecordList: Settings[] = [];
@@ -91,6 +91,7 @@ export class BankInfoComponent {
     this.bank_ifsc_code = '';
     this.bank_addresslin1 = '';
     this.bank_addresslin2 = '';
+    this.bank_addresslin3 = '';
   }
 
   // Init Will be called After executing Constructor
@@ -148,7 +149,7 @@ export class BankInfoComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_IFSC_CODE', '', '', this.bank_ifsc_code.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD1', '', '', this.bank_addresslin1.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD2', '', '', this.bank_addresslin2.toString().toUpperCase(), this.tabletype.toString()));
-    
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD3', '', '', this.bank_addresslin3.toString().toUpperCase(), this.tabletype.toString()));
   }
 
   List(_type: string) {
@@ -198,7 +199,8 @@ export class BankInfoComponent {
         this.bank_addresslin1 = rec.name;
       if (rec.caption == "BANK_ADD2")
         this.bank_addresslin2 = rec.name;
-
+        if (rec.caption == "BANK_ADD3")
+        this.bank_addresslin3 = rec.name;
     })
   }
 
@@ -234,7 +236,11 @@ export class BankInfoComponent {
           this.bank_addresslin2 = this.bank_addresslin2.toUpperCase();
           break;
         }
-
+        case 'bank_addresslin3':
+        {
+          this.bank_addresslin3 = this.bank_addresslin3.toUpperCase();
+          break;
+        }
     }
   }
 
