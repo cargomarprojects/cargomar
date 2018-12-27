@@ -346,6 +346,18 @@
                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_gr_wt"  (blur)="OnBlur('gj_gr_wt')" required maxlength="14" />
                 </div>
               </div>
+              <div *ngIf="Record.gj_type_code != 'TRANSPORT'" class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Lr.No</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_lr_no" (blur)="OnBlur('gj_lr_no')" required maxlength="100" />
+                </div>
+              </div>
+              <div *ngIf="Record.gj_type_code != 'TRANSPORT'" class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Packing List</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_pack_list_no" (blur)="OnBlur('gj_pack_list_no')" required maxlength="100" />
+                </div>
+              </div>
             </div>
 
           </div>
