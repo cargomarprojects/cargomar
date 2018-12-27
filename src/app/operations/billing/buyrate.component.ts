@@ -50,7 +50,7 @@ export class BuyRateComponent {
   bDocs: boolean = false;
 
   CanEditGstNumber = true;
-
+  CanShowDoc = true;
   modal: any;
 
   disableSave = true;
@@ -2080,15 +2080,18 @@ export class BuyRateComponent {
   }
 
   ShowDocuments(doc: any) {
+    this.CanShowDoc = true;
     this.open(doc);
   }
 
   ShowApproval(approval: any, _sid: string) {
+    this.CanShowDoc = false;
     this.ErrorMessage = '';
     this.pkid = _sid;
     this.open(approval);
   }
   ModifiedRecords(params: any) {
+    this.CanShowDoc = true;
     /* var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
      if (REC != null) {
        if (params.stype == "PN") {
@@ -2098,8 +2101,12 @@ export class BuyRateComponent {
            REC.rec_aprvd_by = this.gs.globalVariables.user_code;
          }
        }
-     }
-     this.modal.close();*/
+     }*/
+    this.modal.close();
+  }
+  closeAprovalModal() {
+    this.modal.close();
+    this.CanShowDoc = true;
   }
 }
 

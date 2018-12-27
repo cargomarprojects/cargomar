@@ -53,6 +53,7 @@ export class ArApComponent {
 
   modal: any;
 
+  CanShowDoc = true;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -2063,15 +2064,18 @@ export class ArApComponent {
     this.open(history);
   }
   ShowDocuments(doc: any) {
+    this.CanShowDoc = true;
     this.ErrorMessage = '';
     this.open(doc);
   }
   ShowApproval(approval: any, _sid: string) {
+    this.CanShowDoc = false;
     this.ErrorMessage = '';
     this.pkid = _sid;
     this.open(approval);
   }
   ModifiedRecords(params: any) {
+    this.CanShowDoc = true;
     var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
     if (REC != null) {
       if (params.stype == "PN") {
@@ -2083,6 +2087,10 @@ export class ArApComponent {
       }
     }
     this.modal.close();
+  }
+  closeAprovalModal() {
+    this.modal.close();
+    this.CanShowDoc = true;
   }
 }
 
