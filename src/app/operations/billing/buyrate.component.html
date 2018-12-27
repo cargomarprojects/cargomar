@@ -577,7 +577,8 @@
     <app-upload [pkid]="pkid" [type]="'ACC-LEDGER'" [groupid]="parentid"></app-upload>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+    <!-- <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button> -->
+    <button [disabled]="loading" *ngIf="mode=='EDIT' && bapprovalstatus !='' && type=='PN'" (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
   </div>
 </ng-template>
 <ng-template #approval let-c="close" let-d="dismiss">
