@@ -10,6 +10,14 @@ import { LedgerReport } from '../models/ledgerreport';
 import { AccReportService } from '../services/accreport.service';
 
 
+import { Store } from '@ngrx/store';
+import *  as pandlactions from './pandl.actions';
+import *  as pandlreducer from './pandl.reducer';
+
+import { PandlReportState } from './pandl.model'
+import { Observable } from 'rxjs';
+
+
 @Component({
   selector: 'app-pandl',
   templateUrl: './pandl.component.html',
@@ -24,35 +32,32 @@ export class PandLComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
-  disableSave = true;
+  
   loading = false;
   currentTab = 'LIST';
 
   searchstring = '';
+
+  sub: any;
+  storesub: any;
+  
+  pkid = '';
+  urlid: string;
+  from_date: string;
+  to_date: string;
+  ismaincode: boolean = false;
+  ismonthwise: boolean = false;
+  ismonthwiseformat = true;
   page_count = 0;
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
 
-  sub: any;
-  urlid: string;
-
-  from_date: string;
-  to_date: string;
-  ismaincode: boolean = false;
-  ismonthwise: boolean = false;
-
-  ismonthwiseformat = true;
-
   ErrorMessage = "";
-
-  mode = '';
-  pkid = '';
-
-
+  
   SearchData = {
     type: '',
+    urlid : '',
     subtype: '',
     pkid: '',
     report_folder: '',
@@ -71,11 +76,8 @@ export class PandLComponent {
     hide_ho_entries : '',
   };
 
-
-
-
-
   // Array For Displaying List
+  pandlstate: Observable<PandlReportState>;  
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
   Record: LedgerReport = new LedgerReport;
@@ -83,15 +85,13 @@ export class PandLComponent {
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private store: Store<pandlreducer.AppState>    
   ) {
-    this.page_count = 0;
-    this.page_rows = 10;
-    this.page_current = 0;
-
-
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
+      this.page_rows = 20;
+      this.urlid = params["id"];      
       if (params["parameter"] != "") {
         this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
@@ -105,9 +105,6 @@ export class PandLComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
-      this.InitComponent();
-    }
   }
 
   InitComponent() {
@@ -116,47 +113,65 @@ export class PandLComponent {
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
 
-    this.from_date = this.gs.globalVariables.year_start_date;
-    this.to_date = this.gs.globalVariables.year_end_date;
+    this.storesub = this.store.select(pandlreducer.getPandlStateRec(this.urlid)).subscribe(rec => {
+      if (rec) {
+        this.RecordList = rec.records;
+        this.pkid = rec.pkid;
+        this.searchstring = rec.searchstring;
+        this.from_date = rec.from_date;
+        this.to_date = rec.to_date;
+        this.ismaincode = rec.ismaincode;
+        this.ismonthwise = rec.ismonthwise;
+        this.ismonthwiseformat = rec.ismonthwise;
+        this.page_count = rec.page_count;
+        this.page_current = rec.page_current;
+        this.page_rowcount = rec.page_rowcount;
+        this.InitSearchData();
+      }
+      else {
+        this.RecordList = undefined;
+        this.ismaincode = false;
+        this.ismonthwiseformat =false;
+        this.page_count = 0;
+        this.page_current = 0;
+        this.page_rowcount = 0;
+        this.from_date = this.gs.globalVariables.year_start_date;
+        this.to_date = this.gs.globalVariables.year_end_date;        
+      }
+    });
 
-    this.LoadCombo();
 
 
+
+
+  }
+
+  InitSearchData(){
+    this.SearchData.pkid = this.pkid;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    this.SearchData.ismaincode = this.ismaincode;
+    this.SearchData.ismonthwise = this.ismonthwise;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    
   }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.storesub.unsubscribe();
   }
-
-  LoadCombo() {
-  }
-
-
-  //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
-    }
-  }
+ 
 
 
   ResetControls() {
-    this.disableSave = true;
     if (!this.menu_record)
       return;
-
-    if (this.menu_record.rights_admin)
-      this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
-      this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
-      this.disableSave = false;
-
-    return this.disableSave;
   }
 
   // Query List Data
@@ -172,19 +187,10 @@ export class PandLComponent {
 
     this.loading = true;
 
-
-    this.pkid = this.gs.getGuid();
-    this.SearchData.pkid = this.pkid;
-    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-    this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.ismaincode = this.ismaincode;
-    this.SearchData.ismonthwise = this.ismonthwise;
-    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    if (_type == "NEW") {
+      this.pkid = this.gs.getGuid();
+      this.InitSearchData();
+    }
 
     this.SearchData.type = _type;
     this.SearchData.subtype = '';
@@ -196,8 +202,22 @@ export class PandLComponent {
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.ismonthwiseformat = this.ismonthwise;
+
+          const state: PandlReportState = {
+            urlid: this.urlid,
+            pkid: this.pkid,
+            searchstring : this.SearchData.searchstring,
+            from_date : this.SearchData.from_date,
+            to_date : this.SearchData.to_date ,
+            ismaincode: this.SearchData.ismaincode,
+            ismonthwise : this.SearchData.ismonthwise,
+            page_count: response.page_count,
+            page_current: response.page_current,
+            page_rowcount: response.page_rowcount,
+            records: response.list
+          };
+
+          this.store.dispatch(new pandlactions.Update({ id: this.urlid, changes: state }));          
         }
       },
       error => {
@@ -212,7 +232,25 @@ export class PandLComponent {
   }
 
 
+  drilldown(rec : LedgerReport){
+    let param = {
+      menuid : 'LEDGER',
+      isdrildown : true,
+      acc_pkid : rec.acc_pkid,
+      acc_code : rec.acc_code,
+      acc_name : rec.acc_name,
+      from_date : this.SearchData.from_date,
+      to_date : this.SearchData.to_date,
+      ismaincode : this.SearchData.ismaincode
+    }
+    this.gs.Naviagete("accounts/ledger",JSON.stringify(param));
+  }
+
+  
+
   Close() {
+    this.store.dispatch(new pandlactions.Delete({ id: this.urlid}));
     this.gs.ClosePage('home');
+
   }
 }

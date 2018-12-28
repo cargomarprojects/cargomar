@@ -205,13 +205,6 @@ export class TrialComponent {
             records: response.list
           };
 
-/*
-          if (_type == "NEW")
-            this.store.dispatch(new trialactions.Add(state));
-          else
-            this.store.dispatch(new trialactions.Update({ id: this.urlid, changes: state }));
-*/
-
           this.store.dispatch(new trialactions.Update({ id: this.urlid, changes: state }));
 
         }

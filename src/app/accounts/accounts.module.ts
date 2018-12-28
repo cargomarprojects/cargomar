@@ -77,6 +77,7 @@ import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
 import { StoreModule } from '@ngrx/store';
 import { Trialreducer } from './trial/trial.reducer';
+import { Pandlreducer } from './pandl/pandl.reducer';
 import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
 
 import { TransDetComponent} from './transdet/transdet.report';
@@ -87,8 +88,8 @@ import { TransDetComponent} from './transdet/transdet.report';
     SharedModule,
     AccountsRoutingModule,
     StoreModule.forFeature('trial',Trialreducer),
+    StoreModule.forFeature('pandl',Pandlreducer),
     StoreModule.forFeature('ledgerreport',LedgerReportreducer),
-
   ],
   declarations: [
     AccountsComponent,

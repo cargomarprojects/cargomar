@@ -27,6 +27,8 @@ export class HeaderComponent {
         /* this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true }); */
         if (rec.menu_route1 == 'accounts/trial')
             bFlag = true;
+        if (rec.menu_route1 == 'accounts/pandl')
+            bFlag = true;            
         if (rec.menu_route1 == 'accounts/ledger')
             bFlag = true;
 
