@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Salarym } from '../models/salarym';
-import { SalDet } from '../models/salarym';
+import { Bonusm } from '../models/Bonusm';
 import { BonusService } from '../services/bonus.service';
-  
+
 @Component({
   selector: 'app-bonus',
   templateUrl: './bonus.component.html',
@@ -12,7 +12,7 @@ import { BonusService } from '../services/bonus.service';
 })
 export class BonusComponent {
   // Local Variables 
-  title = 'SALARY MASTER';
+  title = 'Bonus';
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -23,7 +23,7 @@ export class BonusComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  modal: any;
   searchstring = '';
 
   page_count = 0;
@@ -35,7 +35,6 @@ export class BonusComponent {
   urlid: string;
 
   porttype = 'PORT';
-
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -43,12 +42,12 @@ export class BonusComponent {
   mode = '';
   pkid = '';
   // Array For Displaying List
-  RecordList: Salarym[] = [];
+  RecordList: Bonusm[] = [];
   // Single Record for add/edit/view details
-  Record: Salarym = new Salarym;
-  Recorddet: SalDet = new SalDet;
+  Record: Bonusm = new Bonusm;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: BonusService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -94,7 +93,7 @@ export class BonusComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, empid: string) {
+  ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -113,7 +112,7 @@ export class BonusComponent {
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
-      this.GetRecord(empid);
+      this.GetRecord(id);
     }
   }
 
@@ -158,22 +157,21 @@ export class BonusComponent {
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
-        this.Recorddet = response.record;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
+
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
-      empid: Id,
+      pkid: Id
     };
-     
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
@@ -182,13 +180,13 @@ export class BonusComponent {
         this.mode = response.mode;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  LoadData(_Record: Salarym) {
+  LoadData(_Record: Bonusm) {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -211,11 +209,11 @@ export class BonusComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -247,32 +245,6 @@ export class BonusComponent {
     //if (bret === false)
     //  this.ErrorMessage = sError;
     if (bret) {
-      this.Record.a01 = this.Record.DetList[0].e_amt1; this.Record.a13 = this.Record.DetList[0].e_amt2;
-      this.Record.a02 = this.Record.DetList[1].e_amt1; this.Record.a14 = this.Record.DetList[1].e_amt2;
-      this.Record.a03 = this.Record.DetList[2].e_amt1; this.Record.a15 = this.Record.DetList[2].e_amt2;
-      this.Record.a04 = this.Record.DetList[3].e_amt1; this.Record.a16 = this.Record.DetList[3].e_amt2;
-      this.Record.a05 = this.Record.DetList[4].e_amt1; this.Record.a17 = this.Record.DetList[4].e_amt2;
-      this.Record.a06 = this.Record.DetList[5].e_amt1; this.Record.a18 = this.Record.DetList[5].e_amt2;
-      this.Record.a07 = this.Record.DetList[6].e_amt1; this.Record.a19 = this.Record.DetList[6].e_amt2;
-      this.Record.a08 = this.Record.DetList[7].e_amt1; this.Record.a20 = this.Record.DetList[7].e_amt2;
-      this.Record.a09 = this.Record.DetList[8].e_amt1; this.Record.a21 = this.Record.DetList[8].e_amt2;
-      this.Record.a10 = this.Record.DetList[9].e_amt1; this.Record.a22 = this.Record.DetList[9].e_amt2;
-      this.Record.a11 = this.Record.DetList[10].e_amt1; this.Record.a23 = this.Record.DetList[10].e_amt2;
-      this.Record.a12 = this.Record.DetList[11].e_amt1; this.Record.a24 = this.Record.DetList[11].e_amt2;
-      this.Record.a25 = 0;
-      this.Record.d01 = this.Record.DetList[0].d_amt1; this.Record.d13 = this.Record.DetList[0].d_amt2;
-      this.Record.d02 = this.Record.DetList[1].d_amt1; this.Record.d14 = this.Record.DetList[1].d_amt2;
-      this.Record.d03 = this.Record.DetList[2].d_amt1; this.Record.d15 = this.Record.DetList[2].d_amt2;
-      this.Record.d04 = this.Record.DetList[3].d_amt1; this.Record.d16 = this.Record.DetList[3].d_amt2;
-      this.Record.d05 = this.Record.DetList[4].d_amt1; this.Record.d17 = this.Record.DetList[4].d_amt2;
-      this.Record.d06 = this.Record.DetList[5].d_amt1; this.Record.d18 = this.Record.DetList[5].d_amt2;
-      this.Record.d07 = this.Record.DetList[6].d_amt1; this.Record.d19 = this.Record.DetList[6].d_amt2;
-      this.Record.d08 = this.Record.DetList[7].d_amt1; this.Record.d20 = this.Record.DetList[7].d_amt2;
-      this.Record.d09 = this.Record.DetList[8].d_amt1; this.Record.d21 = this.Record.DetList[8].d_amt2;
-      this.Record.d10 = this.Record.DetList[9].d_amt1; this.Record.d22 = this.Record.DetList[9].d_amt2;
-      this.Record.d11 = this.Record.DetList[10].d_amt1; this.Record.d23 = this.Record.DetList[10].d_amt2;
-      this.Record.d12 = this.Record.DetList[11].d_amt1; this.Record.d24 = this.Record.DetList[11].d_amt2;
-      this.Record.d25 = 0;
     }
     return bret;
   }
@@ -280,171 +252,79 @@ export class BonusComponent {
   RefreshList() {
     if (this.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.sal_emp_id == this.Record.sal_emp_id);
+    var REC = this.RecordList.find(rec => rec.bon_pkid == this.Record.bon_pkid);
     if (REC == null) {
       this.RecordList.push(this.Record);
     }
     else {
-      REC.sal_emp_code = this.Record.sal_emp_code;
-      REC.sal_emp_name = this.Record.sal_emp_name;
-      REC.a01 = this.Record.a01;
-      REC.a02 = this.Record.a02;
-      REC.a03 = this.Record.a03;
-      REC.a04 = this.Record.a04;
-      REC.a05 = this.Record.a05;
-      REC.a06 = this.Record.a06;
-      REC.a07 = this.Record.a07;
-      REC.a08 = this.Record.a08;
-      REC.a09 = this.Record.a09;
-      REC.a10 = this.Record.a10;
-      REC.a11 = this.Record.a11;
-      REC.a12 = this.Record.a12;
-      REC.a13 = this.Record.a13;
-      REC.a14 = this.Record.a14;
-      REC.a15 = this.Record.a15;
-      REC.a16 = this.Record.a16;
-      REC.a17 = this.Record.a17;
-      REC.a18 = this.Record.a18;
-      REC.a19 = this.Record.a19;
-      REC.a20 = this.Record.a20;
-      REC.a21 = this.Record.a21;
-      REC.a22 = this.Record.a22;
-      REC.a23 = this.Record.a23;
-      REC.a24 = this.Record.a24;
-      REC.a25 = this.Record.a25;
-      REC.d01 = this.Record.d01;
-      REC.d02 = this.Record.d02;
-      REC.d03 = this.Record.d03;
-      REC.d04 = this.Record.d04;
-      REC.d05 = this.Record.d05;
-      REC.d06 = this.Record.d06;
-      REC.d07 = this.Record.d07;
-      REC.d08 = this.Record.d08;
-      REC.d09 = this.Record.d09;
-      REC.d10 = this.Record.d10;
-      REC.d11 = this.Record.d11;
-      REC.d12 = this.Record.d12;
-      REC.d13 = this.Record.d13;
-      REC.d14 = this.Record.d14;
-      REC.d15 = this.Record.d15;
-      REC.d16 = this.Record.d16;
-      REC.d17 = this.Record.d17;
-      REC.d18 = this.Record.d18;
-      REC.d19 = this.Record.d19;
-      REC.d20 = this.Record.d20;
-      REC.d21 = this.Record.d21;
-      REC.d22 = this.Record.d22;
-      REC.d23 = this.Record.d23;
-      REC.d24 = this.Record.d24;
-      REC.d25 = this.Record.d25;
-      REC.sal_gross_earn = this.Record.sal_gross_earn;
-      REC.sal_gross_deduct = this.Record.sal_gross_deduct;
-      REC.sal_net = this.Record.sal_net;
+      REC.bon_emp_code = this.Record.bon_emp_code;
+      REC.bon_emp_name = this.Record.bon_emp_name;
+      REC.bon_days_worked = this.Record.bon_days_worked;
+      REC.bon_gross_wages = this.Record.bon_gross_wages;
+      REC.bon_gross_bonus = this.Record.bon_gross_bonus;
+      REC.bon_puja_deduct = this.Record.bon_puja_deduct;
+      REC.bon_interim_deduct = this.Record.bon_interim_deduct;
+      REC.bon_tax_deduct = this.Record.bon_tax_deduct;
+      REC.bon_other_deduct = this.Record.bon_other_deduct;
+      REC.bon_tot_deduct = this.Record.bon_tot_deduct;
+      REC.bon_net_amount = this.Record.bon_net_amount;
+      REC.bon_actual_paid = this.Record.bon_actual_paid;
+      REC.bon_paid_date = this.Record.bon_paid_date;
+      REC.bon_remarks = this.Record.bon_remarks;
     }
   }
 
 
   OnBlur(field: string) {
-    if (field == 'sal_pf_limit') {
-      this.Record.sal_pf_limit = this.gs.roundNumber(this.Record.sal_pf_limit, 2);
+    if (field == 'bon_gross_wages') {
+      this.Record.bon_gross_wages = this.gs.roundNumber(this.Record.bon_gross_wages, 2);
       this.FindNetAmt();
     }
-    if (field == 'sal_is_esi') {
+    if (field == 'bon_gross_bonus') {
+      this.Record.bon_gross_bonus = this.gs.roundNumber(this.Record.bon_gross_bonus, 2);
       this.FindNetAmt();
     }
-    //if (field == 'sal_head') {
-    //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
-    //}
-  }
 
-  OnFocusTableCell(field: string, fieldid: string, colindex: number) {
-    if (field == "EARN" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.e_code1 == fieldid);
-      if (REC != null) {
-        this.bChanged = false;
-      }
+    if (field == 'bon_puja_deduct') {
+      this.Record.bon_puja_deduct = this.gs.roundNumber(this.Record.bon_puja_deduct, 2);
+      this.FindNetAmt();
     }
-    if (field == "EARN" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.e_code2 == fieldid);
-      if (REC != null) {
-        this.bChanged = false;
-      }
-    }
-    if (field == "DEDUCT" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.d_code1 == fieldid);
-      if (REC != null) {
-        this.bChanged = false;
-      }
-    }
-    if (field == "DEDUCT" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.d_code2 == fieldid);
-      if (REC != null) {
-        this.bChanged = false;
-      }
-    }
-  }
 
-  OnChangeTableCell(field: string, fieldid: string, colindex: number) {
-    if (field == "EARN" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.e_code1 == fieldid);
-      if (REC != null) {
-        this.bChanged = true;
-      }
+    if (field == 'bon_interim_deduct') {
+      this.Record.bon_interim_deduct = this.gs.roundNumber(this.Record.bon_interim_deduct, 2);
+      this.FindNetAmt();
     }
-    if (field == "EARN" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.e_code2 == fieldid);
-      if (REC != null) {
-        this.bChanged = true;
-      }
+
+    if (field == 'bon_tax_deduct') {
+      this.Record.bon_tax_deduct = this.gs.roundNumber(this.Record.bon_tax_deduct, 2);
+      this.FindNetAmt();
     }
-    if (field == "DEDUCT" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.d_code1 == fieldid);
-      if (REC != null) {
-        this.bChanged = true;
-      }
+
+    if (field == 'bon_other_deduct') {
+      this.Record.bon_other_deduct = this.gs.roundNumber(this.Record.bon_other_deduct, 2);
+      this.FindNetAmt();
     }
-    if (field == "DEDUCT" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.d_code2 == fieldid);
-      if (REC != null) {
-        this.bChanged = true;
-      }
+
+    if (field == 'bon_tot_deduct') {
+      this.Record.bon_tot_deduct = this.gs.roundNumber(this.Record.bon_tot_deduct, 2);
+      this.FindNetAmt();
+    }
+
+    if (field == 'bon_net_amount') {
+      this.Record.bon_net_amount = this.gs.roundNumber(this.Record.bon_net_amount, 2);
+      this.FindNetAmt();
+    }
+
+    if (field == 'bon_actual_paid') {
+      this.Record.bon_actual_paid = this.gs.roundNumber(this.Record.bon_actual_paid, 2);
+      this.FindNetAmt();
+    }
+
+    if (field == 'bon_remarks') {
+      this.Record.bon_remarks = this.Record.bon_remarks.toUpperCase();
     }
   }
 
-  OnBlurTableCell(field: string, fieldid: string, colindex: number) {
-    let TotAmt: number = 0;
-    if (this.bChanged == false)
-      return;
-
-    if (field == "EARN" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.e_code1 == fieldid);
-      if (REC != null) {
-        REC.e_amt1 = this.gs.roundNumber(REC.e_amt1, 2);
-        this.FindNetAmt();
-      }
-    }
-    if (field == "EARN" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.e_code2 == fieldid);
-      if (REC != null) {
-        REC.e_amt2 = this.gs.roundNumber(REC.e_amt2, 2);
-        this.FindNetAmt();
-      }
-    }
-    if (field == "DEDUCT" && colindex == 1) {
-      var REC = this.Record.DetList.find(rec => rec.d_code1 == fieldid);
-      if (REC != null) {
-        REC.d_amt1 = this.gs.roundNumber(REC.d_amt1, 2);
-        this.FindNetAmt();
-      }
-    }
-    if (field == "DEDUCT" && colindex == 2) {
-      var REC = this.Record.DetList.find(rec => rec.d_code2 == fieldid);
-      if (REC != null) {
-        REC.d_amt2 = this.gs.roundNumber(REC.d_amt2, 2);
-        this.FindNetAmt();
-      }
-    }
-  }
   Close() {
     this.gs.ClosePage('home');
   }
@@ -470,47 +350,60 @@ export class BonusComponent {
     let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
     let ESI_Amt: number = 0;
 
-    this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
-    this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
-    for (let rec of this.Record.DetList) {
-      TotEarning += rec.e_amt1;
-      TotEarning += rec.e_amt2;
+    // this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
+    // this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
+    // for (let rec of this.Record.DetList) {
+    //   TotEarning += rec.e_amt1;
+    //   TotEarning += rec.e_amt2;
 
-      if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
-        PF_ExcludedAmt += rec.e_amt1;
-      if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
-        PF_ExcludedAmt += rec.e_amt2;
-    }
+    //   if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
+    //     PF_ExcludedAmt += rec.e_amt1;
+    //   if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
+    //     PF_ExcludedAmt += rec.e_amt2;
+    // }
 
 
-    PF_BaseAmt = this.Record.sal_pf_limit;//Special pf Entered against employee
-    if (PF_BaseAmt <= 0)
-      PF_BaseAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
+    // PF_BaseAmt = this.Record.sal_pf_limit;//Special pf Entered against employee
+    // if (PF_BaseAmt <= 0)
+    //   PF_BaseAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
 
-    PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
-    PF_Amt = this.gs.roundNumber(PF_Amt, 0);
+    // PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
+    // PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
-    ESI_Amt = 0
-    if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
-      ESI_Amt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
+    // ESI_Amt = 0
+    // if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
+    //   ESI_Amt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
 
-    for (let rec of this.Record.DetList) {
-      if (rec.d_code1 == "D01") //Employee PF Deduction
-        rec.d_amt1 = PF_Amt;
-      if (rec.d_code1 == "D02")
-        rec.d_amt1 = ESI_Amt;
+    // for (let rec of this.Record.DetList) {
+    //   if (rec.d_code1 == "D01") //Employee PF Deduction
+    //     rec.d_amt1 = PF_Amt;
+    //   if (rec.d_code1 == "D02")
+    //     rec.d_amt1 = ESI_Amt;
 
-      TotDeductn += rec.d_amt1;
-      TotDeductn += rec.d_amt2;
-    }
+    //   TotDeductn += rec.d_amt1;
+    //   TotDeductn += rec.d_amt2;
+    // }
 
-    TotEarning = this.gs.roundNumber(TotEarning, 0);
-    TotDeductn = this.gs.roundNumber(TotDeductn, 0);
+    // TotEarning = this.gs.roundNumber(TotEarning, 0);
+    // TotDeductn = this.gs.roundNumber(TotDeductn, 0);
 
-    this.Record.d01 = PF_Amt;
-    this.Record.d02 = ESI_Amt;
-    this.Record.sal_gross_earn = TotEarning;
-    this.Record.sal_gross_deduct = TotDeductn;
-    this.Record.sal_net = (TotEarning - TotDeductn);
+    // this.Record.d01 = PF_Amt;
+    // this.Record.d02 = ESI_Amt;
+    // this.Record.sal_gross_earn = TotEarning;
+    // this.Record.sal_gross_deduct = TotDeductn;
+    // this.Record.sal_net = (TotEarning - TotDeductn);
+  }
+  Generate(_type: string, generatemodal: any) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    //this.bRemove = true;
+    this.open(generatemodal);
+  }
+  
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+  Close2() {
+    this.modal.close();
   }
 }

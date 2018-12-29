@@ -2,7 +2,7 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -11,13 +11,29 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
+
+        <div class="col-sm-4">
+            <div class="form-group row">
+              <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+              <div class="col-sm-7">
+                <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
+              </div>
+              <div class="col-sm-2">
+                  <button [disabled]="loading" (click)="Generate('LIST',bongenerate)" class="btn btn-primary btn-sm">Generate</button>
+              </div>
+              <div class="col-sm-2">
+               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+              </div>
+            </div>
+          </div>
+
+      <!-- <label class="col-2">Search</label>
       <div class="col">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -39,56 +55,6 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
-          <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
-          <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
-          <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
-          <th *ngIf="Recorddet.a04_visible">{{Recorddet.a04_desc}}</th>
-          <th *ngIf="Recorddet.a05_visible">{{Recorddet.a05_desc}}</th>
-          <th *ngIf="Recorddet.a06_visible">{{Recorddet.a06_desc}}</th>
-          <th *ngIf="Recorddet.a07_visible">{{Recorddet.a07_desc}}</th>
-          <th *ngIf="Recorddet.a08_visible">{{Recorddet.a08_desc}}</th>
-          <th *ngIf="Recorddet.a09_visible">{{Recorddet.a09_desc}}</th>
-          <th *ngIf="Recorddet.a10_visible">{{Recorddet.a10_desc}}</th>
-          <th *ngIf="Recorddet.a11_visible">{{Recorddet.a11_desc}}</th>
-          <th *ngIf="Recorddet.a12_visible">{{Recorddet.a12_desc}}</th>
-          <th *ngIf="Recorddet.a13_visible">{{Recorddet.a13_desc}}</th>
-          <th *ngIf="Recorddet.a14_visible">{{Recorddet.a14_desc}}</th>
-          <th *ngIf="Recorddet.a15_visible">{{Recorddet.a15_desc}}</th>
-          <th *ngIf="Recorddet.a16_visible">{{Recorddet.a16_desc}}</th>
-          <th *ngIf="Recorddet.a17_visible">{{Recorddet.a17_desc}}</th>
-          <th *ngIf="Recorddet.a18_visible">{{Recorddet.a18_desc}}</th>
-          <th *ngIf="Recorddet.a19_visible">{{Recorddet.a19_desc}}</th>
-          <th *ngIf="Recorddet.a20_visible">{{Recorddet.a20_desc}}</th>
-          <th *ngIf="Recorddet.a21_visible">{{Recorddet.a21_desc}}</th>
-          <th *ngIf="Recorddet.a22_visible">{{Recorddet.a22_desc}}</th>
-          <th *ngIf="Recorddet.a23_visible">{{Recorddet.a23_desc}}</th>
-          <th *ngIf="Recorddet.a24_visible">{{Recorddet.a24_desc}}</th>
-          <th *ngIf="Recorddet.a25_visible">{{Recorddet.a25_desc}}</th>
-          <th *ngIf="Recorddet.d01_visible">{{Recorddet.d01_desc}}</th>
-          <th *ngIf="Recorddet.d02_visible">{{Recorddet.d02_desc}}</th>
-          <th *ngIf="Recorddet.d03_visible">{{Recorddet.d03_desc}}</th>
-          <th *ngIf="Recorddet.d04_visible">{{Recorddet.d04_desc}}</th>
-          <th *ngIf="Recorddet.d05_visible">{{Recorddet.d05_desc}}</th>
-          <th *ngIf="Recorddet.d06_visible">{{Recorddet.d06_desc}}</th>
-          <th *ngIf="Recorddet.d07_visible">{{Recorddet.d07_desc}}</th>
-          <th *ngIf="Recorddet.d08_visible">{{Recorddet.d08_desc}}</th>
-          <th *ngIf="Recorddet.d09_visible">{{Recorddet.d09_desc}}</th>
-          <th *ngIf="Recorddet.d10_visible">{{Recorddet.d10_desc}}</th>
-          <th *ngIf="Recorddet.d11_visible">{{Recorddet.d11_desc}}</th>
-          <th *ngIf="Recorddet.d12_visible">{{Recorddet.d12_desc}}</th>
-          <th *ngIf="Recorddet.d13_visible">{{Recorddet.d13_desc}}</th>
-          <th *ngIf="Recorddet.d14_visible">{{Recorddet.d14_desc}}</th>
-          <th *ngIf="Recorddet.d15_visible">{{Recorddet.d15_desc}}</th>
-          <th *ngIf="Recorddet.d16_visible">{{Recorddet.d16_desc}}</th>
-          <th *ngIf="Recorddet.d17_visible">{{Recorddet.d17_desc}}</th>
-          <th *ngIf="Recorddet.d18_visible">{{Recorddet.d18_desc}}</th>
-          <th *ngIf="Recorddet.d19_visible">{{Recorddet.d19_desc}}</th>
-          <th *ngIf="Recorddet.d20_visible">{{Recorddet.d20_desc}}</th>
-          <th *ngIf="Recorddet.d21_visible">{{Recorddet.d21_desc}}</th>
-          <th *ngIf="Recorddet.d22_visible">{{Recorddet.d22_desc}}</th>
-          <th *ngIf="Recorddet.d23_visible">{{Recorddet.d23_desc}}</th>
-          <th *ngIf="Recorddet.d24_visible">{{Recorddet.d24_desc}}</th>
-          <th *ngIf="Recorddet.d25_visible">{{Recorddet.d25_desc}}</th>
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
@@ -96,58 +62,8 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_name}}</td>
-          <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
-          <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
-          <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>
-          <td *ngIf="Recorddet.a04_visible">{{rec.a04}}</td>
-          <td *ngIf="Recorddet.a05_visible">{{rec.a05}}</td>
-          <td *ngIf="Recorddet.a06_visible">{{rec.a06}}</td>
-          <td *ngIf="Recorddet.a07_visible">{{rec.a07}}</td>
-          <td *ngIf="Recorddet.a08_visible">{{rec.a08}}</td>
-          <td *ngIf="Recorddet.a09_visible">{{rec.a09}}</td>
-          <td *ngIf="Recorddet.a10_visible">{{rec.a10}}</td>
-          <td *ngIf="Recorddet.a11_visible">{{rec.a11}}</td>
-          <td *ngIf="Recorddet.a12_visible">{{rec.a12}}</td>
-          <td *ngIf="Recorddet.a13_visible">{{rec.a13}}</td>
-          <td *ngIf="Recorddet.a14_visible">{{rec.a14}}</td>
-          <td *ngIf="Recorddet.a15_visible">{{rec.a15}}</td>
-          <td *ngIf="Recorddet.a16_visible">{{rec.a16}}</td>
-          <td *ngIf="Recorddet.a17_visible">{{rec.a17}}</td>
-          <td *ngIf="Recorddet.a18_visible">{{rec.a18}}</td>
-          <td *ngIf="Recorddet.a19_visible">{{rec.a19}}</td>
-          <td *ngIf="Recorddet.a20_visible">{{rec.a20}}</td>
-          <td *ngIf="Recorddet.a21_visible">{{rec.a21}}</td>
-          <td *ngIf="Recorddet.a22_visible">{{rec.a22}}</td>
-          <td *ngIf="Recorddet.a23_visible">{{rec.a23}}</td>
-          <td *ngIf="Recorddet.a24_visible">{{rec.a24}}</td>
-          <td *ngIf="Recorddet.a25_visible">{{rec.a25}}</td>
-          <td *ngIf="Recorddet.d01_visible">{{rec.d01}}</td>
-          <td *ngIf="Recorddet.d02_visible">{{rec.d02}}</td>
-          <td *ngIf="Recorddet.d03_visible">{{rec.d03}}</td>
-          <td *ngIf="Recorddet.d04_visible">{{rec.d04}}</td>
-          <td *ngIf="Recorddet.d05_visible">{{rec.d05}}</td>
-          <td *ngIf="Recorddet.d06_visible">{{rec.d06}}</td>
-          <td *ngIf="Recorddet.d07_visible">{{rec.d07}}</td>
-          <td *ngIf="Recorddet.d08_visible">{{rec.d08}}</td>
-          <td *ngIf="Recorddet.d09_visible">{{rec.d09}}</td>
-          <td *ngIf="Recorddet.d10_visible">{{rec.d10}}</td>
-          <td *ngIf="Recorddet.d11_visible">{{rec.d11}}</td>
-          <td *ngIf="Recorddet.d12_visible">{{rec.d12}}</td>
-          <td *ngIf="Recorddet.d13_visible">{{rec.d13}}</td>
-          <td *ngIf="Recorddet.d14_visible">{{rec.d14}}</td>
-          <td *ngIf="Recorddet.d15_visible">{{rec.d15}}</td>
-          <td *ngIf="Recorddet.d16_visible">{{rec.d16}}</td>
-          <td *ngIf="Recorddet.d17_visible">{{rec.d17}}</td>
-          <td *ngIf="Recorddet.d18_visible">{{rec.d18}}</td>
-          <td *ngIf="Recorddet.d19_visible">{{rec.d19}}</td>
-          <td *ngIf="Recorddet.d20_visible">{{rec.d20}}</td>
-          <td *ngIf="Recorddet.d21_visible">{{rec.d21}}</td>
-          <td *ngIf="Recorddet.d22_visible">{{rec.d22}}</td>
-          <td *ngIf="Recorddet.d23_visible">{{rec.d23}}</td>
-          <td *ngIf="Recorddet.d24_visible">{{rec.d24}}</td>
-          <td *ngIf="Recorddet.d25_visible">{{rec.d25}}</td>
+          <td (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_code}}</td>
+          <td (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_name}}</td>
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
@@ -177,13 +93,13 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">EMP.CODE</label>
           <div class="col-sm-1">
             <label class="col-form-label  col-form-label-sm">
-              <font color="red">{{Record.sal_emp_code}} </font>
+              <font color="red">{{Record.bon_emp_code}} </font>
             </label>
           </div>
           <label class="col-sm-1 col-form-label col-form-label-sm">GRADE</label>
           <div class="col-sm-8">
             <label class="col-form-label  col-form-label-sm">
-              <font color="blue">{{Record.sal_emp_grade}} </font>
+              <font color="blue">{{Record.bon_emp_grade}} </font>
             </label>
           </div>
 
@@ -192,109 +108,89 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">EMP.NAME</label>
           <div class="col-sm-10">
             <label class="col-form-label  col-form-label-sm">
-              <font color="blue">{{Record.sal_emp_name}} </font>
+              <font color="blue">{{Record.bon_emp_name}} </font>
             </label>
           </div>
         </div>
       </div>
-      <div class="col-sm-2">
-        <div class="form-group row">
-          <label class="col-sm-6 col-form-label col-form-label-sm">EARNINGS</label>
-          <div class="col-sm-6">
-            <label class="col-form-label  col-form-label-sm">
-              <font color="green">{{Record.sal_gross_earn}} </font>
-            </label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-6 col-form-label col-form-label-sm">DEDUCTIONS</label>
-          <div class="col-sm-6">
-            <label class="col-form-label  col-form-label-sm">
-              <font color="red">{{Record.sal_gross_deduct}} </font>
-            </label>
-          </div>
-        </div>
-
+      <div class="col-sm-2">        
       </div>
       <div class="col-sm-2">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">NET</label>
-          <div class="col-sm-10">
-            <label class="col-form-label  col-form-label-sm">
-              <font color="blue">{{Record.sal_net}} </font>
-            </label>
-          </div>
-        </div>
-        <!--<div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">LOP</label>
-          <div class="col-sm-10">
-            <label class="col-form-label  col-form-label-sm">
-              <font color="red">{{Record.sal_lop_amt}} </font>
-            </label>
-          </div>
-        </div>-->
       </div>
       <div class="col-sm-2">
-        <div class="form-group row">
-          <label class="col-sm-6 col-form-label col-form-label-sm">PF LIMIT</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit" (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-6 col-form-label col-form-label-sm">INCLUDE</label>
-          <div class="col-sm-6">
-            <input type="checkbox" [(ngModel)]="Record.sal_is_esi">&nbsp;ESI
-          </div>
-        </div>
       </div>
     </div>
     <div class="row">
-      <div style="padding-right:0" class="col-sm-6">
-        <div class="page-box">
-          <div class="page-body table-responsive">
-            <table class="table  table-hover table-sm">
-              <thead class="page-body-thead">
-                <tr>
-                  <th width="36%">PARTICULARS</th>
-                  <th width="14%">EARNINGS</th>
-                  <th width="36%">PARTICULARS</th>
-                  <th width="14%">EARNINGS</th>
-                </tr>
-              </thead>
-              <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
-                <tr>
-                  <td style="padding:0">{{rec.e_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible1" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt1" (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)" (change)="OnChangeTableCell('EARN', rec.e_code1, 1)" (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
-                  <td style="padding:5px,0,0,0">{{rec.e_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt2" (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)" (change)="OnChangeTableCell('EARN', rec.e_code2, 2)" (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Total Month Bonus Payable</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_days_worked" (blur)="OnBlur('bon_days_worked')" required [maxlength]="14" />
           </div>
         </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Bonus Payable</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_gross_bonus" (blur)="OnBlur('bon_gross_bonus')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Puja Bonus</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_puja_deduct" (blur)="OnBlur('bon_puja_deduct')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Interim Bonus</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_interim_deduct" (blur)="OnBlur('bon_interim_deduct')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Tax Deduction If any</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tax_deduct" (blur)="OnBlur('bon_tax_deduct')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Other Deductions</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_other_deduct" (blur)="OnBlur('bon_other_deduct')" required [maxlength]="14" />
+          </div>
+        </div>
+  
       </div>
-      <div style="padding-left:10px" class="col-sm-6">
-        <div class="page-box">
-          <div class="page-body table-responsive">
-            <table class="table  table-hover table-sm">
-              <thead class="page-body-thead">
-                <tr>
-                  <th width="36%">PARTICULARS</th>
-                  <th width="14%">DEDUCTIONS</th>
-                  <th width="36%">PARTICULARS</th>
-                  <th width="14%">DEDUCTIONS</th>
-                </tr>
-              </thead>
-              <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
-                <tr>
-                  <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible1" [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt1" (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)" (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
-                  <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2" (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)" (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Total Deductions</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tot_deduct" (blur)="OnBlur('bon_tot_deduct')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Net Amount</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_net_amount" (blur)="OnBlur('bon_net_amount')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Bonus Paid</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_actual_paid" (blur)="OnBlur('bon_actual_paid')" required [maxlength]="14" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Bonus Paid Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="Record.bon_paid_date" (ValueChanged)="Record.bon_paid_date=$event"></app-date>
           </div>
         </div>
       </div>
@@ -306,7 +202,7 @@
         <div class="form-group row">
           <div class="offset-3 col-sm-4">
             <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
@@ -324,3 +220,64 @@
   {{ErrorMessage}}
 </div>
 
+<ng-template #bongenerate let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Bonus List</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <div class="row">
+        <div class="col-sm-12">
+          <div class="page-box">
+            <div style="max-height: 400px; overflow-y: scroll;">
+              <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th>CODE</th>
+                      <th>NAME</th>
+                      <th>DOJ</th>
+                      <th>GRADE</th>
+                      <th>SALARY</th>
+                      <th>DEDUCTIONS</th>
+                      <th>NET</th>
+                      <th *ngIf="bRemove">REMOVE</th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+                    <tr>
+                      <td>{{rec.sal_emp_code}}</td>
+                      <td>{{rec.sal_emp_name}}</td>
+                      <td>{{rec.sal_emp_do_joining}}</td>
+                      <td>{{rec.sal_emp_grade}}</td>
+                      <td>{{rec.sal_gross_earn}}</td>
+                      <td>{{rec.sal_gross_deduct}}</td>
+                      <td>{{rec.sal_net}}</td>
+                      <td *ngIf="bRemove">
+                        <App-Dialog [id]="{msg:'REMOVE FROM SALARY MASTER Y/N', buttons:'yn', selected :false,id:rec.sal_emp_id,name:rec.sal_emp_name}" (result)="RemoveList($event)"></App-Dialog>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-box">
+            <div class="form-group row">
+              <div class="offset-sm-2 col-sm-10">
+                <button [disabled]="loading" (click)="Generate('SAVE',bongenerate)" class="btn btn-success btn-sm">Save</button>
+                <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
+                <i *ngIf="loading" class="fa fa-spinner"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>

@@ -50,19 +50,19 @@ export class CostInvoiceComponent {
 
   InitLov() {
 
-   
+
   }
   LovSelected(_Record: SearchTable) {
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-   // this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   LoadCombo() {
   }
-  
+
   // Save Data
   OnBlur(field: string) {
 
@@ -83,7 +83,7 @@ export class CostInvoiceComponent {
         this.bChanged = true;
     }
   }
-   
+
   OnBlurTableCell(field: string, fieldid: string) {
     var REC = this.mRecord.DetailList.find(rec => rec.costd_pkid == fieldid);
     if (REC != null) {
@@ -100,7 +100,7 @@ export class CostInvoiceComponent {
           REC.costd_acc_amt = this.gs.roundNumber(REC.costd_acc_amt, 2);
           this.FindTotal();
         }
-      } 
+      }
       if (field == "costd_acc_rate") {
         if (this.bChanged) {
           REC.costd_acc_rate = this.gs.roundNumber(REC.costd_acc_rate, 2);
@@ -123,7 +123,7 @@ export class CostInvoiceComponent {
   }
 
   Close() {
-    
+
   }
 
   NewRecord() {
@@ -133,14 +133,17 @@ export class CostInvoiceComponent {
     this.Record.costd_parent_id = this.mRecord.cost_pkid;
     this.Record.costd_category = "INVOICE";
     this.Record.costd_blno = "";
-    this.Record.costd_acc_name = "";
+    if (this.type == "SEA EXPORT COSTING"||this.type == "SE CONSOLE COSTING")
+      this.Record.costd_acc_name = "OUR HANDLING CHARGES";
+    else
+      this.Record.costd_acc_name = "";
     this.Record.costd_remarks = "";
     this.Record.costd_acc_qty = 1;
     this.Record.costd_acc_rate = 1;
     this.Record.costd_acc_amt = 0;
     this.mRecord.DetailList.push(this.Record);
   }
-  
+
   FindTotal() {
     let nAmt: number = 0;
     for (let rec of this.mRecord.DetailList) {
@@ -152,7 +155,7 @@ export class CostInvoiceComponent {
     else
       this.mRecord.cost_tot_acc_amt = nAmt;
   }
-    
+
 
   RemoveRecord(Id: string) {
     this.mRecord.DetailList.splice(this.mRecord.DetailList.findIndex(rec => rec.costd_pkid == Id), 1);
