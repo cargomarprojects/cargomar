@@ -19,7 +19,8 @@ export class Bonusm {
   bon_actual_paid: number;
   bon_paid_date: string;
   bon_remarks: string;
-
+  bon_selected:boolean;
+  
   rec_mode: string;
   _globalvariables: GlobalVariables;
 }

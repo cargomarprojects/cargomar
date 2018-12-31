@@ -19,6 +19,8 @@ export class BonusComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  chkallselected: boolean = false;
+  selectdeselect: boolean = false;
   bChanged: boolean;
   disableSave = true;
   loading = false;
@@ -158,6 +160,8 @@ export class BonusComponent {
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
+        this.chkallselected = false;
+        this.selectdeselect = false;
       },
         error => {
           this.loading = false;
@@ -178,7 +182,6 @@ export class BonusComponent {
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.mode = response.mode;
         this.LoadData(response.record);
       },
         error => {
@@ -404,11 +407,13 @@ export class BonusComponent {
       }
     }
 
-    let BonPkids: string = "";//Main List
-    for (let rec of this.RecordList) {
-      if (BonPkids != "")
-        BonPkids += ",";
-      BonPkids += rec.bon_pkid;
+    let BonEmpids: string = "";//Main List
+    for (let rec of this.RecordList2) {
+      if (rec.bon_selected) {
+        if (BonEmpids != "")
+          BonEmpids += ",";
+        BonEmpids += rec.bon_emp_id;
+      }
     }
 
     this.loading = true;
@@ -419,7 +424,7 @@ export class BonusComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
-      bonpkids: BonPkids
+      bonempids: BonEmpids
     };
 
     this.ErrorMessage = '';
@@ -435,11 +440,11 @@ export class BonusComponent {
           this.List('NEW');
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   open(content: any) {
@@ -447,5 +452,11 @@ export class BonusComponent {
   }
   Close2() {
     this.modal.close();
+  }
+  SelectDeselect() {
+    this.selectdeselect = !this.selectdeselect;
+    for (let rec of this.RecordList2) {
+      rec.bon_selected = this.selectdeselect;
+    }
   }
 }

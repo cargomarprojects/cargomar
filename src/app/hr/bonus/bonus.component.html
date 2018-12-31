@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -12,20 +11,21 @@
   <div class="page-search">
     <div class="row">
 
-        <div class="col-sm-4">
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-              <div class="col-sm-7">
-                <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
-              </div>
-              <div class="col-sm-2">
-                  <button [disabled]="loading" (click)="Generate('LIST',bongenerate)" class="btn btn-primary btn-sm">Generate</button>
-              </div>
-              <div class="col-sm-2">
-               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-              </div>
-            </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-7">
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+              [(ngModel)]="searchstring" />
           </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="Generate('LIST',bongenerate)" class="btn btn-primary btn-sm">Generate</button>
+          </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </div>
+      </div>
 
       <!-- <label class="col-2">Search</label>
       <div class="col">
@@ -55,18 +55,26 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
-          <th>SALARY</th>
+          <th>DAYS WORKED</th>
+          <th>WAGES</th>
+          <th>BONUS</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th>PAID</th>
+          <th>DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
-          <td (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_name}}</td>
-          <td>{{rec.sal_gross_earn}}</td>
-          <td>{{rec.sal_gross_deduct}}</td>
-          <td>{{rec.sal_net}}</td>
+        <tr (click)="ActionHandler('EDIT',rec.bon_pkid)">
+          <td>{{rec.bon_emp_code}}</td>
+          <td>{{rec.bon_emp_name}}</td>
+          <td>{{rec.bon_days_worked}}</td>
+          <td>{{rec.bon_gross_wages}}</td>
+          <td>{{rec.bon_gross_bonus}}</td>
+          <td>{{rec.bon_tot_deduct}}</td>
+          <td>{{rec.bon_net_amount}}</td>
+          <td>{{rec.bon_actual_paid}}</td>
+          <td>{{rec.bon_paid_date}}</td>
         </tr>
       </tbody>
     </table>
@@ -113,80 +121,91 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2">        
+      <div class="col-sm-2">
       </div>
       <div class="col-sm-2">
       </div>
       <div class="col-sm-2">
       </div>
     </div>
+    <hr>
+    <br>
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Total Month Bonus Payable</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_days_worked" (blur)="OnBlur('bon_days_worked')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_days_worked" (blur)="OnBlur('bon_days_worked')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Bonus Payable</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_gross_bonus" (blur)="OnBlur('bon_gross_bonus')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_gross_bonus" (blur)="OnBlur('bon_gross_bonus')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Puja Bonus</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_puja_deduct" (blur)="OnBlur('bon_puja_deduct')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_puja_deduct" (blur)="OnBlur('bon_puja_deduct')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Interim Bonus</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_interim_deduct" (blur)="OnBlur('bon_interim_deduct')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_interim_deduct" (blur)="OnBlur('bon_interim_deduct')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Tax Deduction If any</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tax_deduct" (blur)="OnBlur('bon_tax_deduct')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tax_deduct" (blur)="OnBlur('bon_tax_deduct')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Other Deductions</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_other_deduct" (blur)="OnBlur('bon_other_deduct')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_other_deduct" (blur)="OnBlur('bon_other_deduct')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Total Deductions</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tot_deduct" (blur)="OnBlur('bon_tot_deduct')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tot_deduct" (blur)="OnBlur('bon_tot_deduct')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Net Amount</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_net_amount" (blur)="OnBlur('bon_net_amount')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_net_amount" (blur)="OnBlur('bon_net_amount')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Bonus Paid</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_actual_paid" (blur)="OnBlur('bon_actual_paid')" required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_actual_paid" (blur)="OnBlur('bon_actual_paid')"
+              required [maxlength]="14" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Bonus Paid Date</label>
           <div class="col-4">
@@ -195,6 +214,7 @@
         </div>
       </div>
     </div>
+    <br>
   </div>
   <div class="page-box">
     <div class="row">
@@ -221,55 +241,57 @@
 </div>
 
 <ng-template #bongenerate let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Bonus List</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="page-box">
-            <div style="max-height: 400px; overflow-y: scroll;">
-              <div class="page-body table-responsive">
-                <table class="table  table-hover table-sm">
-                  <thead class="page-body-thead">
-                    <tr>
-                      <th>CODE</th>
-                      <th>NAME</th>
-                      <th>DAYS WORKED</th>
-                      <th>GROSS.WAGE</th>
-                      <th>BONUS</th>
-                    </tr>
-                  </thead>
-                  <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
-                    <tr>
-                      <td>{{rec.bon_emp_code}}</td>
-                      <td>{{rec.bon_emp_name}}</td>
-                      <td>{{rec.bon_days_worked}}</td>
-                      <td>{{rec.bon_gross_wages}}</td>
-                      <td>{{rec.bon_gross_bonus}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="page-box">
-            <div class="form-group row">
-              <div class="offset-sm-2 col-sm-10">
-                <button [disabled]="loading" (click)="Generate('SAVE',bongenerate)" class="btn btn-success btn-sm">Save</button>
-                <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
-                <i *ngIf="loading" class="fa fa-spinner"></i>
-              </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Bonus List</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-box">
+          <div style="max-height: 400px; overflow-y: scroll;">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
+                    <th>CODE</th>
+                    <th>NAME</th>
+                    <th>DAYS WORKED</th>
+                    <th>GROSS.WAGE</th>
+                    <th>BONUS</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+                  <tr>
+                    <td><input type="checkbox" [(ngModel)]="rec.bon_selected"></td>
+                    <td>{{rec.bon_emp_code}}</td>
+                    <td>{{rec.bon_emp_name}}</td>
+                    <td>{{rec.bon_days_worked}}</td>
+                    <td>{{rec.bon_gross_wages}}</td>
+                    <td>{{rec.bon_gross_bonus}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </ng-template>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-box">
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button [disabled]="loading" (click)="Generate('SAVE',bongenerate)" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
