@@ -558,6 +558,7 @@ export class PayRollComponent {
     if (this.salmonth <= 0 || this.salmonth > 12) {
       this.ErrorMessage += " | Invalid Month";
     }
+    
     if (_type == 'SAVE') {
       if (this.RecordList2.length <= 0) {
         alert("No Records Found");

@@ -228,7 +228,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-sm-12">
           <div class="page-box">
             <div style="max-height: 400px; overflow-y: scroll;">
@@ -238,26 +238,18 @@
                     <tr>
                       <th>CODE</th>
                       <th>NAME</th>
-                      <th>DOJ</th>
-                      <th>GRADE</th>
-                      <th>SALARY</th>
-                      <th>DEDUCTIONS</th>
-                      <th>NET</th>
-                      <th *ngIf="bRemove">REMOVE</th>
+                      <th>DAYS WORKED</th>
+                      <th>GROSS.WAGE</th>
+                      <th>BONUS</th>
                     </tr>
                   </thead>
                   <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
                     <tr>
-                      <td>{{rec.sal_emp_code}}</td>
-                      <td>{{rec.sal_emp_name}}</td>
-                      <td>{{rec.sal_emp_do_joining}}</td>
-                      <td>{{rec.sal_emp_grade}}</td>
-                      <td>{{rec.sal_gross_earn}}</td>
-                      <td>{{rec.sal_gross_deduct}}</td>
-                      <td>{{rec.sal_net}}</td>
-                      <td *ngIf="bRemove">
-                        <App-Dialog [id]="{msg:'REMOVE FROM SALARY MASTER Y/N', buttons:'yn', selected :false,id:rec.sal_emp_id,name:rec.sal_emp_name}" (result)="RemoveList($event)"></App-Dialog>
-                      </td>
+                      <td>{{rec.bon_emp_code}}</td>
+                      <td>{{rec.bon_emp_name}}</td>
+                      <td>{{rec.bon_days_worked}}</td>
+                      <td>{{rec.bon_gross_wages}}</td>
+                      <td>{{rec.bon_gross_bonus}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -265,7 +257,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <div class="page-box">

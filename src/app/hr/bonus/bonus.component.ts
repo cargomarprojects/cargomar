@@ -43,6 +43,7 @@ export class BonusComponent {
   pkid = '';
   // Array For Displaying List
   RecordList: Bonusm[] = [];
+  RecordList2: Bonusm[] = [];
   // Single Record for add/edit/view details
   Record: Bonusm = new Bonusm;
 
@@ -396,10 +397,51 @@ export class BonusComponent {
   Generate(_type: string, generatemodal: any) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    //this.bRemove = true;
-    this.open(generatemodal);
+    if (_type == 'SAVE') {
+      if (this.RecordList2.length <= 0) {
+        alert("No Records Found");
+        return;
+      }
+    }
+
+    let BonPkids: string = "";//Main List
+    for (let rec of this.RecordList) {
+      if (BonPkids != "")
+        BonPkids += ",";
+      BonPkids += rec.bon_pkid;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      type: _type,
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      bonpkids: BonPkids
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.Generate(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == "LIST") {
+          this.RecordList2 = response.list;//Modal List
+          this.open(generatemodal);
+        } else {
+          this.modal.close();
+          this.List('NEW');
+        }
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
+      });
   }
-  
+
   open(content: any) {
     this.modal = this.modalService.open(content);
   }

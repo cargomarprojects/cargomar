@@ -22,6 +22,10 @@ export class BonusService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/Save', Record, this.gs.headerparam2('authorized'));
   }
 
+  Generate(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/Generate', SearchData, this.gs.headerparam2('authorized'));
+  }
+  
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
