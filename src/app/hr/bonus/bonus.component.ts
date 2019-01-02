@@ -416,6 +416,13 @@ export class BonusComponent {
       }
     }
 
+    if (_type == 'SAVE') {
+      if (BonEmpids.length <= 0) {
+        alert("No Records Selected");
+        return;
+      }
+    }
+
     this.loading = true;
     let SearchData = {
       type: _type,
