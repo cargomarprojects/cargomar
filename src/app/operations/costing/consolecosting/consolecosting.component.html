@@ -198,8 +198,9 @@
 
             <div class="col-sm-4">
               <div class="form-group row">
-                <div class="col-3">
+                <div class="col-6">
                   <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Process</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintNote('FILL-INVOICE')" class="btn btn-primary btn-sm">Process Invoice</button>
                 </div>
               </div>
             </div>

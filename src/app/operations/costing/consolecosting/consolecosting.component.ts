@@ -259,10 +259,10 @@ export class ConsoleCostingComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -295,7 +295,7 @@ export class ConsoleCostingComponent {
         this.Record.cost_hand_charges = response.handlingcharge;
         this.Record.cost_expense = response.expense;
         this.Record.cost_income = response.income;
-        
+
         if (response.format == "RITRA") {
           this.Record.cost_profit = response.drcramt;
           this.Record.cost_our_profit = 0;
@@ -313,11 +313,11 @@ export class ConsoleCostingComponent {
         this.Record.cost_drcr_amount = response.drcramt;
         this.Record.cost_drcr_amount = this.gs.roundNumber(this.Record.cost_drcr_amount, 2);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -423,10 +423,10 @@ export class ConsoleCostingComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Costingm) {
@@ -468,7 +468,7 @@ export class ConsoleCostingComponent {
   Save() {
     if (!this.allvalid())
       return;
-    
+
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -488,11 +488,11 @@ export class ConsoleCostingComponent {
         this.RefreshList();
         //  alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -630,7 +630,7 @@ export class ConsoleCostingComponent {
 
 
   OnBlurTableCell(field: string, fieldid: string) {
-   
+
   }
   OnBlurTableCell2(field: string, fieldid: string) {
     //var REC = this.RecordDetList2.find(rec => rec.costd_pkid == fieldid);
@@ -729,20 +729,25 @@ export class ConsoleCostingComponent {
           this.InfoMessage = "Successfully Released";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
     this.gs.ClosePage('home');
   }
-  
+
 
   folder_id: string;
 
   PrintNote(_type: string) {
+    if (_type == "FILL-INVOICE") {
+      if (!confirm("Do you want to Fill Invoice Details")) {
+        return;
+      }
+    }
     this.folder_id = this.gs.getGuid();
     this.loading = true;
     let SearchData = {
@@ -768,12 +773,22 @@ export class ConsoleCostingComponent {
     this.mainService.PrintNote(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        if (_type == "FILL-INVOICE") {
+          this.Record.DetailList = response.list;
+          let nAmt: number = 0;
+          for (let rec of this.Record.DetailList) {
+            nAmt += rec.costd_acc_amt;
+          }
+          nAmt = this.gs.roundNumber(nAmt, 2);
+          this.Record.cost_tot_acc_amt = nAmt;
+        }
+        else
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -847,11 +862,11 @@ export class ConsoleCostingComponent {
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ReleaseCosting(id: string, _refno: string) {
@@ -897,10 +912,10 @@ export class ConsoleCostingComponent {
         this.loading = false;
         this.InfoMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   showeditor(costeditor: any, srec: Costingd) {
@@ -949,12 +964,12 @@ export class ConsoleCostingComponent {
           this.Record.cost_drcr_amount = response.drcramt;
           this.Record.cost_drcr_amount = this.gs.roundNumber(this.Record.cost_drcr_amount, 2);
         },
-        error => {
-          this.ErrorMessage = this.gs.getError(error);
-          this.loading = false;
-        });
+          error => {
+            this.ErrorMessage = this.gs.getError(error);
+            this.loading = false;
+          });
     }
   }
-  
+
 }
 
