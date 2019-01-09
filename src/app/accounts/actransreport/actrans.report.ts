@@ -35,6 +35,7 @@ export class AcTransComponent {
     from_date: string = '';
     to_date: string = '';
     category: string = '';
+    vrnos: string = '';
 
     page_count = 0;
     page_current = 0;
@@ -44,7 +45,6 @@ export class AcTransComponent {
     disableSave = true;
     bCompany = false;
     loading = false;
-
 
     all: boolean = false;
 
@@ -70,8 +70,8 @@ export class AcTransComponent {
         page_rows: 0,
         page_rowcount: 0,
         all: false,
-        hide_ho_entries : '',
-
+        hide_ho_entries: '',
+        vrnos: ''
     };
 
     // Array For Displaying List
@@ -123,7 +123,7 @@ export class AcTransComponent {
     }
 
     Init() {
-
+        this.vrnos = '';
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
         this.category = "ALL";
@@ -134,7 +134,6 @@ export class AcTransComponent {
         this.page_count = 0;
         this.page_rows = 15;
         this.page_current = 0;
-
     }
 
     // Destroy Will be called when this component is closed
@@ -190,9 +189,17 @@ export class AcTransComponent {
 
     // Query List Data
     List(_type: string) {
-
         this.ErrorMessage = '';
-
+        if (this.vrnos.toUpperCase().indexOf(",") >= 0 && this.vrnos.toUpperCase().indexOf("-") >= 0) {
+            this.ErrorMessage += " | Invalid Nos Format, Both Comma And Hyphen together cannot be used.";
+        }
+        if (this.branch_code.length <= 0 ) {
+            this.ErrorMessage += " | Branch cannot be blank";
+        }
+        if (this.ErrorMessage.length > 0) {
+            alert(this.ErrorMessage);
+            return;
+        }
 
         this.loading = true;
         this.pkid = this.gs.getGuid();
@@ -216,6 +223,7 @@ export class AcTransComponent {
         this.SearchData.page_rows = this.page_rows;
         this.SearchData.page_rowcount = this.page_rowcount;
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+        this.SearchData.vrnos = this.vrnos;
 
         this.ErrorMessage = '';
         this.mainService.List(this.SearchData)
@@ -230,11 +238,11 @@ export class AcTransComponent {
                     this.page_rowcount = response.page_rowcount;
                 }
             },
-            error => {
-                this.loading = false;
-                this.RecordList = null;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.RecordList = null;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
