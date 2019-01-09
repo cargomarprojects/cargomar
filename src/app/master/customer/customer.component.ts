@@ -176,10 +176,10 @@ export class CustomerComponent {
         this.AcTypeList = response.actypem;
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -290,10 +290,8 @@ export class CustomerComponent {
       Is_Creditor: this.Is_Creditor,
       Is_Others: this.Is_Others,
       Last_Bill_date: this.Last_Bill_date,
-
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
-
     };
 
     this.ErrorMessage = '';
@@ -311,10 +309,10 @@ export class CustomerComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -411,10 +409,10 @@ export class CustomerComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Customerm) {
@@ -462,11 +460,11 @@ export class CustomerComponent {
         }
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -529,7 +527,7 @@ export class CustomerComponent {
 
         for (var i = 0; i <= 9; i++) {
 
-          if ( i <= 4) {
+          if (i <= 4) {
             if (this.Isnumeric(this.Record.cust_panno[i]) == true) {
               bret = false;
               sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
