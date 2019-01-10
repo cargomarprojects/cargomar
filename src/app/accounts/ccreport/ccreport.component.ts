@@ -186,7 +186,7 @@ export class CcReportComponent {
     }
 
     if (_CanUpdate == "Y" && !(this.cc_type == "MBL SEA EXPORT" || this.cc_type == "MBL SEA IMPORT" || this.cc_type == "MAWB AIR EXPORT" || this.cc_type == "MAWB AIR IMPORT")) {
-      this.ErrorMessage = " Please select master type and continue....";
+      this.ErrorMessage = " Please select Master CC type and continue....";
       return;
     }
 
