@@ -52,10 +52,10 @@ export class AgentInvoiceComponent {
   CURRECORD: SearchTable = new SearchTable();
   // Array For Displaying List
   RecordList: Costingm[] = [];
-   
+
   // Single Record for add/edit/view details
   Record: Costingm = new Costingm;
-  
+
 
   constructor(
     private mainService: AgentInvoiceService,
@@ -297,12 +297,12 @@ export class AgentInvoiceComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
   NewRecord() {
 
     this.lock_record = false;
@@ -339,18 +339,18 @@ export class AgentInvoiceComponent {
     this.Record.cost_jv_agent_br_id = "";
     this.Record.cost_jv_agent_br_no = "";
     this.Record.cost_jv_agent_br_addr = "";
-
+    this.Record.cost_ddp = false;
     this.Record.rec_mode = this.mode;
-   
+
     this.InitDetList();
     this.InitLov();
   }
 
   InitDetList() {
-    
+
   }
   NewDetRecord(iCtr: number) {
-    
+
   }
 
   // Load a single Record for VIEW/EDIT
@@ -368,10 +368,10 @@ export class AgentInvoiceComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Costingm) {
@@ -427,13 +427,13 @@ export class AgentInvoiceComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-       // alert(this.InfoMessage);
+        // alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -528,7 +528,7 @@ export class AgentInvoiceComponent {
 
     }
   }
-  
+
   SearchRecord(controlname: string, controlid: string = "") {
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -624,10 +624,10 @@ export class AgentInvoiceComponent {
           this.InfoMessage = "Successfully Released";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
@@ -677,10 +677,10 @@ export class AgentInvoiceComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -717,11 +717,11 @@ export class AgentInvoiceComponent {
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ReleaseCosting(id: string, _refno: string) {

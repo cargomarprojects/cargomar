@@ -100,7 +100,7 @@ export class Costingm {
   cost_des_exp_tpw: number;
   cost_des_exp_tdoc: number;
   cost_des_inc_hndg_cbm: number;
-
+  cost_ddp: boolean;
 
   rec_mode: string;
   rec_category: string;
