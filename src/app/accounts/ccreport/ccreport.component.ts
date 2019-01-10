@@ -31,6 +31,8 @@ export class CcReportComponent {
   currentTab = 'LIST';
 
   showIncExpOnly: boolean = false;
+  bAdmin: boolean = false;
+
 
   searchstring = '';
 
@@ -56,16 +58,17 @@ export class CcReportComponent {
     branch_code: '',
     year_code: '',
     searchstring: '',
-    from_date:'',
+    from_date: '',
     to_date: '',
-    showIncExpOnly : '',
+    showIncExpOnly: '',
     cc_id: '',
     cc_code: '',
     cc_name: '',
     cc_type: '',
-    hide_ho_entries : ''
+    hide_ho_entries: '',
+    cc_update: ''
   };
-  
+
 
   // Array For Displaying List
   RecordList: LedgerReport[] = [];
@@ -100,10 +103,13 @@ export class CcReportComponent {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
 
     this.from_date = "";
     this.to_date = "";
@@ -168,7 +174,7 @@ export class CcReportComponent {
   }
 
   // Query List Data
-  List(_type: string) {
+  List(_type: string, _CanUpdate: string) {
 
     if (this.cc_type.trim().length <= 0) {
       this.ErrorMessage = 'Type Cannot Be Blank';
@@ -176,6 +182,11 @@ export class CcReportComponent {
     }
     if (this.CCRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Code Cannot Be Blank';
+      return;
+    }
+
+    if (_CanUpdate == "Y" && !(this.cc_type == "MBL SEA EXPORT" || this.cc_type == "MBL SEA IMPORT" || this.cc_type == "MAWB AIR EXPORT" || this.cc_type == "MAWB AIR IMPORT")) {
+      this.ErrorMessage = " Please select master type and continue....";
       return;
     }
 
@@ -197,7 +208,7 @@ export class CcReportComponent {
     this.SearchData.cc_name = this.CCRECORD.name;
     this.SearchData.cc_type = this.cc_type;
     this.SearchData.showIncExpOnly = (this.showIncExpOnly) ? 'Y' : 'N';
-    
+    this.SearchData.cc_update = _CanUpdate;
 
 
     this.ErrorMessage = '';
@@ -210,10 +221,10 @@ export class CcReportComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -232,12 +243,14 @@ export class CcReportComponent {
 
     sWhere = " cc_type ='" + this.cc_type + "'"
     if (this.cc_type != "EMPLOYEE")
-        sWhere += " and cc_year =" + this.gs.globalVariables.year_code;
-   
+      sWhere += " and cc_year =" + this.gs.globalVariables.year_code;
+
     this.CCRECORD.where = sWhere;
   }
 
   Close() {
     this.gs.ClosePage('home');
   }
+
+
 }
