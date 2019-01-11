@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -56,7 +55,7 @@
 
           <div class="col-3">
             <button [disabled]="loading" (click)="List('NEW','N')" class="btn btn-primary btn-sm">Process Report</button>
-            <button [disabled]="loading" *ngIf="bAdmin"  (click)="List('NEW','Y')" class="btn btn-primary btn-sm">Update</button>
+            <button [disabled]="loading" *ngIf="bAdmin" (click)="List('NEW','Y')" class="btn btn-primary btn-sm">Update</button>
           </div>
           <div class="col-1">
             <button [disabled]="loading" (click)="List('EXCEL','N')" class="btn btn-primary btn-sm">Excel</button>
@@ -127,5 +126,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-
-
