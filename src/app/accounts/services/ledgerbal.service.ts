@@ -30,6 +30,9 @@ export class LedgerBalService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    GenerateLedger(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/GenerateLedger', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 

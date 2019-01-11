@@ -197,7 +197,7 @@ export class LedgerBalComponent {
         if (this.ismaincode) {
             this.SearchData.acc_id = this.ACCMAINRECORD.id;
             this.SearchData.acc_code = this.ACCMAINRECORD.code;
-            this.SearchData.acc_name = this.ACCMAINRECORD.name;            
+            this.SearchData.acc_name = this.ACCMAINRECORD.name;
 
         }
         else {
@@ -296,10 +296,10 @@ export class LedgerBalComponent {
                         searchstring: this.SearchData.searchstring,
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
-                        ismaincode: this.SearchData.ismaincode,                        
+                        ismaincode: this.SearchData.ismaincode,
                         acc_pkid: this.SearchData.acc_id,
-                        acc_code:  this.SearchData.acc_code,
-                        acc_name:  this.SearchData.acc_name,
+                        acc_code: this.SearchData.acc_code,
+                        acc_name: this.SearchData.acc_name,
                         page_count: response.page_count,
                         page_current: response.page_current,
                         page_rowcount: response.page_rowcount,
@@ -320,25 +320,40 @@ export class LedgerBalComponent {
     }
 
 
-    drilldown(rec : LedgerReport){
+    drilldown(rec: LedgerReport) {
         let param = {
-          menuid : 'TRANSDETREPORT',
-          acc_code : this.SearchData.acc_code,
-          jvh_vrno : rec.jv_vrno,
-          jvh_type : rec.jv_type,
-          jvh_year : rec.jv_year,          
-          company_code : rec.rec_company_code,
-          branch_code : rec.rec_branch_code,
-          isdrildown : true,
+            menuid: 'TRANSDETREPORT',
+            acc_code: this.SearchData.acc_code,
+            jvh_vrno: rec.jv_vrno,
+            jvh_type: rec.jv_type,
+            jvh_year: rec.jv_year,
+            company_code: rec.rec_company_code,
+            branch_code: rec.rec_branch_code,
+            isdrildown: true,
         }
-        this.gs.Naviagete("accounts/transdetreport",JSON.stringify(param));
-      }
+        this.gs.Naviagete("accounts/transdetreport", JSON.stringify(param));
+    }
 
-      
+
 
 
     Close() {
         let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
         this.gs.ClosePage('home', IsCloseButton);
+    }
+
+    GenerateAll() {
+        this.ErrorMessage = '';
+        this.loading = true;
+        this.InitSearchData();
+        this.mainService.GenerateLedger(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = "Generate Complete";
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 }
