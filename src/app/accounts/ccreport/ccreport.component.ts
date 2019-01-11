@@ -178,15 +178,18 @@ export class CcReportComponent {
 
     if (this.cc_type.trim().length <= 0) {
       this.ErrorMessage = 'Type Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.CCRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Code Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (_CanUpdate == "Y" && !(this.cc_type == "MBL SEA EXPORT" || this.cc_type == "MBL SEA IMPORT" || this.cc_type == "MAWB AIR EXPORT" || this.cc_type == "MAWB AIR IMPORT")) {
       this.ErrorMessage = " Please select Master CC type and continue....";
+      alert(this.ErrorMessage);
       return;
     }
 
