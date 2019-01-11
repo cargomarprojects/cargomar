@@ -54,11 +54,11 @@
           </div>
 
 
-          <div class="col-2">
+          <div class="col-3">
             <button [disabled]="loading" (click)="List('NEW','N')" class="btn btn-primary btn-sm">Process Report</button>
             <button [disabled]="loading" *ngIf="bAdmin"  (click)="List('NEW','Y')" class="btn btn-primary btn-sm">Update</button>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <button [disabled]="loading" (click)="List('EXCEL','N')" class="btn btn-primary btn-sm">Excel</button>
           </div>
         </div>
