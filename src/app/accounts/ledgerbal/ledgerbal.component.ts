@@ -347,6 +347,9 @@ export class LedgerBalComponent {
 
     GenerateAll() {
         this.ErrorMessage = '';
+        if (!confirm("Generate ALL Ledger of " + this.gs.globalVariables.branch_name+", "+this.gs.globalVariables.year_name)) {
+            return;
+        }
         this.loading = true;
         this.InitSearchData();
         this.mainService.GenerateLedger(this.SearchData)
