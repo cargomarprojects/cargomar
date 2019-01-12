@@ -346,12 +346,10 @@ export class LedgerBalComponent {
         this.ErrorMessage = '';
         this.loading = true;
         this.InitSearchData();
-        this.SearchData.from_date=this.gs.globalVariables.year_start_date;
-        this.SearchData.to_date=this.gs.globalVariables.year_end_date;
         this.mainService.GenerateLedger(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = "Generate Complete";
+                this.ErrorMessage = "Generate All Ledger Complete";
             },
                 error => {
                     this.loading = false;
