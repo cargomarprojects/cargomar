@@ -78,7 +78,7 @@
           <label class="col-3 col-form-label col-form-label-sm"></label>
           <div class="col-9">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
-            <button [disabled]="loading" (click)="GenerateAll()" class="btn btn-primary btn-sm">Generate All</button>
+            <button [disabled]="loading" *ngIf="bAdmin" (click)="GenerateAll()" class="btn btn-primary btn-sm">Generate All</button>
           </div>
         </div>
 

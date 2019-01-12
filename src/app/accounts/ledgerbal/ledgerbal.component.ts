@@ -48,6 +48,7 @@ export class LedgerBalComponent {
     from_date: string;
     to_date: string;
     ismaincode: boolean = false;
+    bAdmin: boolean = false;
 
     ErrorMessage = "";
 
@@ -137,11 +138,13 @@ export class LedgerBalComponent {
     }
 
     InitComponent() {
-
+        this.bAdmin = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
-
+            if (this.menu_record.rights_admin)
+                this.bAdmin = true;
+        }
         this.storesub = this.store.select(ledgerrepreducer.getLedgerStateRec(this.urlid)).subscribe(rec => {
             if (rec) {
                 this.InitLov();
