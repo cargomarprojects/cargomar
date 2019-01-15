@@ -5,7 +5,7 @@ import { LinerBkm } from '../models/linerbkm';
 import { LinerBkmService } from '../services/linerbkm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
-
+import { BkmCntrtype } from '../models/bkmcntrtype';
 
 @Component({
   selector: 'app-mblsea',
@@ -61,6 +61,7 @@ export class MblSeaComponent {
   Record: LinerBkm = new LinerBkm;
 
 
+
   LINERRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
@@ -76,6 +77,8 @@ export class MblSeaComponent {
   SALESMANRECORD: SearchTable = new SearchTable();
   COLOADERRECORD: SearchTable = new SearchTable();
   AGENT2RECORD: SearchTable = new SearchTable();
+  PORRECORD: SearchTable = new SearchTable();
+  POFDCRECORD: SearchTable = new SearchTable();
 
   constructor(
     private mainService: LinerBkmService,
@@ -148,10 +151,10 @@ export class MblSeaComponent {
 
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
     //this.List("NEW");
   }
@@ -286,6 +289,21 @@ export class MblSeaComponent {
     this.AGENT2RECORD.code = "";
     this.AGENT2RECORD.name = "";
 
+    this.PORRECORD = new SearchTable();
+    this.PORRECORD.controlname = "POR";
+    this.PORRECORD.displaycolumn = "CODE";
+    this.PORRECORD.type = "SEA PORT";
+    this.PORRECORD.id = "";
+    this.PORRECORD.code = "";
+    this.PORRECORD.name = "";
+
+    this.POFDCRECORD = new SearchTable();
+    this.POFDCRECORD.controlname = "POFDC";
+    this.POFDCRECORD.displaycolumn = "CODE";
+    this.POFDCRECORD.type = "SEA PORT";
+    this.POFDCRECORD.id = "";
+    this.POFDCRECORD.code = "";
+    this.POFDCRECORD.name = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -396,6 +414,17 @@ export class MblSeaComponent {
       this.Record.book_agent2_code = _Record.code;
       this.Record.book_agent2_name = _Record.name;
     }
+
+    if (_Record.controlname == "POR") {
+      this.Record.book_por_id = _Record.id;
+      this.Record.book_por_code = _Record.code;
+      this.Record.book_por_name = _Record.name;
+    }
+    if (_Record.controlname == "POFDC") {
+      this.Record.book_pofdc_id = _Record.id;
+      this.Record.book_pofdc_code = _Record.code;
+      this.Record.book_pofdc_name = _Record.name;
+    }
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -428,16 +457,12 @@ export class MblSeaComponent {
     if (!this.menu_record)
       return;
 
-
-
     if (this.menu_record.rights_admin)
       this.disableSave = false;
     if (this.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
-
-
 
     return this.disableSave;
   }
@@ -471,10 +496,10 @@ export class MblSeaComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -571,6 +596,18 @@ export class MblSeaComponent {
     this.Record.book_agent2_name = '';
     this.Record.book_agent2_code = '';
 
+    this.Record.book_por_id = '';
+    this.Record.book_por_code = '';
+    this.Record.book_por_name = '';
+    this.Record.book_por_etd = '';
+
+    this.Record.book_pofdc_id = '';
+    this.Record.book_pofdc_code = '';
+    this.Record.book_pofdc_name = '';
+    this.Record.book_pofdc_eta = '';
+
+    this.Record.book_move = '';
+    this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.InitDefault();
 
     this.InitLov();
@@ -604,10 +641,10 @@ export class MblSeaComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: LinerBkm) {
@@ -686,6 +723,14 @@ export class MblSeaComponent {
     this.AGENT2RECORD.code = this.Record.book_agent2_code;
     this.AGENT2RECORD.name = this.Record.book_agent2_name;
 
+    this.PORRECORD.id = this.Record.book_por_id;
+    this.PORRECORD.code = this.Record.book_por_code;
+    this.PORRECORD.name = this.Record.book_por_name;
+
+    this.POFDCRECORD.id = this.Record.book_pofdc_id;
+    this.POFDCRECORD.code = this.Record.book_pofdc_code;
+    this.POFDCRECORD.name = this.Record.book_pofdc_name;
+
     this.Record.rec_mode = this.mode;
   }
 
@@ -712,11 +757,11 @@ export class MblSeaComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -973,10 +1018,10 @@ export class MblSeaComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -1021,12 +1066,12 @@ export class MblSeaComponent {
         this.loading = false;
         _Record.HblList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
   SearchRecord(controlname: string) {
     this.InfoMessage = "";
     this.ErrorMessage = "";
@@ -1046,7 +1091,7 @@ export class MblSeaComponent {
       SearchData.hbl_folder_sent_date = this.Record.book_folder_sent_date;
       SearchData.hbl_prealert_date = this.Record.book_prealert_date;
     }
-    
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1059,10 +1104,10 @@ export class MblSeaComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   FolderSent() {
@@ -1072,4 +1117,16 @@ export class MblSeaComponent {
     else
       this.Record.book_folder_sent_date = "";
   }
+
+  NewCntrRecord() {
+    let Rec: BkmCntrtype = new BkmCntrtype;
+    Rec.bcntr_pkid = this.gs.getGuid();
+    Rec.bcntr_parent_id = this.Record.book_pkid;
+    Rec.bcntr_qty = 0;
+    Rec.bcntr_remarks = '';
+    Rec.bcntr_type = 'A';
+    Rec.bcntr_shpr_own = false;
+    this.Record.BkmCntrList.push(Rec);
+  }
+
 }

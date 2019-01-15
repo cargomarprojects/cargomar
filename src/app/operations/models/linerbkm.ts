@@ -1,5 +1,6 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 import { Hblm } from '../../operations/models/hbl';
+import { BkmCntrtype } from './bkmcntrtype';
 
 export class LinerBkm {
   book_pkid: string;
@@ -12,7 +13,7 @@ export class LinerBkm {
 
   book_no: string;
   book_mblno: string;
- 
+
   book_agent_id: string;
   book_agent_code: string;
   book_agent_name: string;
@@ -118,11 +119,22 @@ export class LinerBkm {
   book_agent2_code: string;
   book_agent2_name: string;
 
+  book_por_id: string;
+  book_por_code: string;
+  book_por_name: string;
+  book_por_etd: string;
+
+  book_pofdc_id: string;
+  book_pofdc_code: string;
+  book_pofdc_name: string;
+  book_pofdc_eta: string;
+  book_move: string;
+
   rec_category: string;
   rec_mode: string;
   _globalvariables: GlobalVariables;
 
   HblList: Hblm[] = [];
-
+  BkmCntrList: BkmCntrtype[] = [];
 }
 
