@@ -143,6 +143,7 @@ export class ParamComponent {
 
     if (this.type == 'CONTAINER TYPE') {
       this.id1 = "Size(20/40/45)";
+      this.id3 = "Description";
     }
 
     if (this.type == 'CURRENCY') {
@@ -445,6 +446,8 @@ export class ParamComponent {
       REC.param_name = this.Record.param_name;
       REC.param_id1 = this.Record.param_id1;
       REC.param_id2 = this.Record.param_id2;
+      REC.param_id3 = this.Record.param_id3;
+      REC.param_id4 = this.Record.param_id4;
       REC.param_email = this.Record.param_email;
       REC.param_rate = this.Record.param_rate;
 

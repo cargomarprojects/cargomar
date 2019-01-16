@@ -533,30 +533,16 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group row">
-                <label class="col-sm-1 col-form-label  col-form-label-sm">Total</label>
-                <label style="padding-right:0;padding-left:10px" class="col-sm-1 col-form-label  col-form-label-sm">20
-                  :{{Record.book_m20}}</label>
-                <!-- <div class="col-sm-1">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_m20" (change)="OnChange('book_m20')"
-                    required maxlength="5" />
-                </div> -->
-                <label style="padding-right:0;padding-left:10px" class="col-sm-1 col-form-label  col-form-label-sm">40
-                  :{{Record.book_m40}}</label>
-                <!-- <div class="col-sm-1">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_m40" (change)="OnChange('book_m40')"
-                    required maxlength="5" />
-                </div> -->
-                <label style="padding-right:0;padding-left:5px" class="col-sm-2 col-form-label  col-form-label-sm">Teu:{{Record.book_mteu}}</label>
-                <!-- <div style="padding-left:0" class="col-sm-2">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_mteu"
-                    required maxlength="5" />
-                </div> -->
-                <label class="col-sm-1 col-form-label  col-form-label-sm">Cbm</label>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Total</label>
+                <label class="col-sm-1 col-form-label col-form-label-sm">20 :&nbsp;&nbsp;{{Record.book_m20}}</label>
+                <label class="col-sm-1 col-form-label col-form-label-sm">40 :&nbsp;&nbsp;{{Record.book_m40}}</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Teu :&nbsp;&nbsp;{{Record.book_mteu}}</label>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Cbm</label>
                 <div class="col-sm-3">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_mcbm" (blur)="OnBlur('book_mcbm')"
                     required maxlength="15" />
                 </div>
-                <div class="offset-1 col-1">
+                <div class="col-sm-1">
                   <button [disabled]="loading" (click)="NewCntrRecord()" class="btn btn-default btn-sm">ADD</button>
                 </div>
               </div>
@@ -570,36 +556,26 @@
                         <table class="table  table-hover table-sm">
                           <thead class="page-body-thead">
                             <tr>
-                              <th width="20%">QTY</th>
+                              <th width="15%">QTY</th>
                               <th width="60%">TYPE</th>
                               <th width="20%">SHIPPER.OWN</th>
+                              <th width="5%">REMOVE</th>
                             </tr>
                           </thead>
                           <tbody class="page-body-tbody" *ngFor="let rec of Record.BkmCntrList">
-                            <tr>
-                              <!-- <td style="padding:0px 0px 0px 0px"><input type="text" name="marks" class="form-control form-control-sm"
-                                [(ngModel)]="rec.bl_marks" (blur)="OnBlurTableCell('bl_marks',rec.bl_pkid)" required
-                                maxlength="125" /></td>
-                            <td style="padding:0px 0px 0px 0px"><input type="text" name="desc" class="form-control form-control-sm"
-                                [(ngModel)]="rec.bl_desc" (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required
-                                maxlength="125" /></td>
-                            <td style="padding:0px 0px 0px 0px"><input type="text" name="desc" class="form-control form-control-sm"
-                                [(ngModel)]="rec.bl_desc" (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required
-                                maxlength="125" /></td> -->
-                              <!-- <td style="padding:0px 0px 0px 0px"><input class="form-check-input" type="checkbox"
-                                [(ngModel)]="Record.book_etd_confirm"></td> -->
-                              <td> <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.bcntr_qty"
-                                  (blur)="OnBlur('book_mcbm')" required maxlength="15" /> </td>
-                              <td><select class="form-control form-control-sm" [(ngModel)]="rec.bcntr_type">
-                                  <option [value]="'20 Dry Bulk (22B0)'">20 Dry Bulk (22B0)</option>
-                                  <option [value]="'20 Flat Rack (22P1)'">20 Flat Rack (22P1)</option>
-                                  <option [value]="'20 Hard Top (22U6)'">20 Hard Top (22U6)</option>
+                            <tr >
+                              <td style="padding:0"> <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.bcntr_qty"
+                                (focus)="OnFocusTableCell('bcntr_qty',rec)" (change)="OnChangeTableCell('bcntr_qty',rec)" (blur)="OnBlurTableCell('bcntr_qty',rec)" required maxlength="15" /> </td>
+                              <td style="padding:0"><select class="form-control form-control-sm" [(ngModel)]="rec.bcntr_type_id" (focus)="OnFocusTableCell('bcntr_type',rec)" (change)="OnChangeTableCell('bcntr_type',rec)" (blur)="OnBlurTableCell('bcntr_type',rec)">
+                                  <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">{{rec.param_id3}}</option>
                                 </select></td>
-                              <td><input type="checkbox" [(ngModel)]="rec.bcntr_shpr_own">Shipper Owned</td>
+                              <td style="padding:0;vertical-align:middle"><input type="checkbox" [(ngModel)]="rec.bcntr_shpr_own">Shipper Owned</td>
+                              <td ><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveCntrRecord(rec)"></i></td>
                             </tr>
                             <tr>
-                              <td colspan="3">COMMENTS<input type="text" class="form-control form-control-sm"
-                                  [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlur('book_mcbm')" required maxlength="15" />
+                              <td style="padding:0;vertical-align:middle">COMMENTS</td>
+                              <td style="padding:0" colspan="3"><input type="text" class="form-control form-control-sm"
+                                  [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlurTableCell('bcntr_remarks',rec)" required maxlength="15" />
                               </td>
                             </tr>
                           </tbody>

@@ -25,6 +25,8 @@ export class MblSeaComponent {
   loading = false;
   currentTab = 'LIST';
 
+  bChanged: boolean;
+
   bAdmin = false;
   bDocs = false;
 
@@ -46,6 +48,7 @@ export class MblSeaComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  sDefaultCntrType_ID = "";
   sAgent_ID = "";
   sAgent_ID2 = "";
   sCarrier_ID = "";
@@ -54,7 +57,7 @@ export class MblSeaComponent {
   pkid = '';
 
   StatusList: Param[] = [];
-
+  ContainerList: Param[] = [];
   // Array For Displaying List
   RecordList: LinerBkm[] = [];
   // Single Record for add/edit/view details
@@ -148,7 +151,13 @@ export class MblSeaComponent {
       .subscribe(response => {
         this.loading = false;
         this.StatusList = response.statuslist;
-
+        this.ContainerList = response.containerlist;
+        if (this.ContainerList != null) {
+          var REC = this.ContainerList.find(rec => rec.param_id3 == '20 Dry Bulk (22B0)');
+          if (REC != null) {
+            this.sDefaultCntrType_ID = REC.param_pkid;
+          }
+        }
         this.List("NEW");
       },
         error => {
@@ -616,18 +625,15 @@ export class MblSeaComponent {
   }
 
   InitDefault() {
-    if (this.StatusList == null)
-
-      return;
-
-    var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
-    if (REC != null) {
-      this.Record.book_status_id = REC.param_pkid;
-
+    if (this.StatusList != null) {
+      var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
+      if (REC != null) {
+        this.Record.book_status_id = REC.param_pkid;
+      }
     }
     //  
   }
-  // Load a single Record for VIEW/EDIT
+  // Load a single Record for VIEW/EDIT 
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
@@ -889,6 +895,19 @@ export class MblSeaComponent {
       sError += "\n\r | House List not proper, please Click the find button";
     }
 
+    if (this.Record.book_shipment_type.trim() == "LCL") {
+
+      if (this.Record.book_mcbm <= 0) {
+        bret = false;
+        sError += "\n\r | Cbm Cannot Be Blank or Zero";
+      }
+    } else {
+      if (this.Record.book_mteu <= 0) {
+        bret = false;
+        sError += "\n\r | TEU Cannot Be Blank  or Zero";
+      }
+    }
+
     if (bret === false)
       this.ErrorMessage = sError;
     return bret;
@@ -1124,9 +1143,65 @@ export class MblSeaComponent {
     Rec.bcntr_parent_id = this.Record.book_pkid;
     Rec.bcntr_qty = 0;
     Rec.bcntr_remarks = '';
-    Rec.bcntr_type = 'A';
+    Rec.bcntr_type_id = this.sDefaultCntrType_ID;
     Rec.bcntr_shpr_own = false;
     this.Record.BkmCntrList.push(Rec);
+  }
+  RemoveCntrRecord(_rec: BkmCntrtype) {
+    this.Record.BkmCntrList.splice(this.Record.BkmCntrList.findIndex(rec => rec.bcntr_pkid == _rec.bcntr_pkid), 1);
+  }
+
+  OnFocusTableCell(field: string, _rec: BkmCntrtype) {
+    if (field == "bcntr_qty" || field == "bcntr_type")
+      this.bChanged = false;
+  }
+
+  OnChangeTableCell(field: string, _rec: BkmCntrtype) {
+    if (field == "bcntr_qty" || field == "bcntr_type")
+      this.bChanged = true;
+  }
+
+  OnBlurTableCell(field: string, _rec: BkmCntrtype) {
+
+    if (field == "bcntr_type") {
+      if (this.bChanged) {
+        this.FindCntrTotal();
+      }
+    }
+    if (field == "bcntr_remarks")
+      _rec.bcntr_remarks = _rec.bcntr_remarks.toUpperCase();
+
+    if (field == "bcntr_qty") {
+      if (this.bChanged) {
+        this.FindCntrTotal();
+      }
+    }
+
+  }
+  FindCntrTotal() {
+    let TotTeu: number = 0;
+    let n20: number = 0;
+    let n40: number = 0;
+    var temparr = null;
+    for (let rec of this.Record.BkmCntrList) {
+      if (rec.bcntr_type_id != "") {
+        if (this.ContainerList != null) {
+          var REC = this.ContainerList.find(_rec => _rec.param_pkid == rec.bcntr_type_id);
+          if (REC != null) {
+            if (+REC.param_id1 == 20)
+              n20 += rec.bcntr_qty;
+            if (+REC.param_id1 == 40)
+              n40 += rec.bcntr_qty;
+          }
+        }
+      }
+    }
+
+    this.Record.book_m20 = n20;
+    this.Record.book_m40 = n40;
+    TotTeu = this.Record.book_m20 + (this.Record.book_m40 * 2);
+    this.Record.book_mteu = TotTeu;
+
   }
 
 }
