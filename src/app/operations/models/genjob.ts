@@ -71,7 +71,8 @@ export class GenJobm {
   gj_ap_amt: number;
   gj_ap_gst: number;
   gj_pack_list_no:string;
-  
+  gj_refno:string;
+
   rec_mode: string;
   rec_category: string;
 

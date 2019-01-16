@@ -6,6 +6,7 @@ import { LinerBkmService } from '../services/linerbkm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { BkmCntrtype } from '../models/bkmcntrtype';
+import { BkmPayment } from '../models/bkmpayment';
 
 @Component({
   selector: 'app-mblsea',
@@ -62,7 +63,7 @@ export class MblSeaComponent {
   RecordList: LinerBkm[] = [];
   // Single Record for add/edit/view details
   Record: LinerBkm = new LinerBkm;
-
+  RecPayment: BkmPayment = new BkmPayment;
 
 
   LINERRECORD: SearchTable = new SearchTable();
@@ -617,6 +618,7 @@ export class MblSeaComponent {
 
     this.Record.book_move = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
+    this.Record.BkmPayList = new Array<BkmPayment>();
     this.InitDefault();
 
     this.InitLov();
@@ -1201,7 +1203,17 @@ export class MblSeaComponent {
     this.Record.book_m40 = n40;
     TotTeu = this.Record.book_m20 + (this.Record.book_m40 * 2);
     this.Record.book_mteu = TotTeu;
-
+  }
+  
+  NewPayRecord() {
+    let Rec: BkmPayment = new BkmPayment;
+    Rec.bpay_pkid = this.gs.getGuid();
+    Rec.bpay_parent_id = this.Record.book_pkid;
+    Rec.bpay_type = '';
+    Rec.bpay_term = '';
+    Rec.bpay_payer = '' ;
+    Rec.bpay_loc_id = '' ;
+    this.Record.BkmPayList.push(Rec);
   }
 
 }

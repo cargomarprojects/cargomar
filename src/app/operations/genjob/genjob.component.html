@@ -41,6 +41,7 @@
           <th>JOB#</th>
           <th>TYPE</th>
           <th>DATE</th>
+          <th>REFNO</th>
           <th>SHIPPER</th>
           <th>STATUS</th>
           <th>POL</th>
@@ -57,6 +58,7 @@
           <td>{{rec.gj_job_prefix}}</td>
           <td>{{rec.gj_type_name}}</td>
           <td>{{rec.gj_job_date}}</td>
+          <td>{{rec.gj_refno}}</td>
           <td>{{rec.gj_shipper_name}}</td>
           <td>{{rec.gj_status}}</td>
           <td>{{rec.gj_pol_name}}</td>
@@ -110,7 +112,12 @@
                   <app-autocomplete #LinerLov [inputdata]="TYPERECORD" (ValueChanged)="LovSelected($event)" [disabled]="mode=='EDIT'" ></app-autocomplete>
                 </div>
               </div>
-
+              <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">AWB/Folder#</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gj_refno" (blur)="OnBlur('gj_refno')" required maxlength="50" />
+                  </div>
+                </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
                 <div class="col-sm-9">

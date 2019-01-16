@@ -350,6 +350,7 @@ export class GenJobComponent {
     this.Record.gj_sb_no = '';
     this.Record.gj_commodity = '';
     this.Record.gj_pack_list_no = '';
+    this.Record.gj_refno=''
 
     this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -477,6 +478,7 @@ export class GenJobComponent {
       REC.gj_status = this.Record.gj_status;
       REC.gj_pol_name = this.Record.gj_pol_name;
       REC.gj_pod_name = this.Record.gj_pod_name;
+      REC.gj_refno = this.Record.gj_refno;
     }
   }
 
@@ -575,6 +577,9 @@ export class GenJobComponent {
     }
     if (field == 'gj_lr_no') {
       this.Record.gj_lr_no = this.Record.gj_lr_no.toUpperCase();
+    }
+    if (field == 'gj_refno') {
+      this.Record.gj_refno = this.Record.gj_refno.toUpperCase();
     }
   }
 

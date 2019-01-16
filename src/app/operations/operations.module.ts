@@ -41,7 +41,7 @@ import { CostInvoiceComponent } from './costing/costinvoice/costinvoice.componen
 import { ConsolerateComponent } from './costing/consolerate/consolerate.component';
 import { ConsoleCostingComponent } from './costing/consolecosting/consolecosting.component';
 import { ConsoleEditorComponent } from './costing/consoleeditor/consoleeditor.component';
-
+import { BkmPaymentComponent } from './mblsea/bkmpayment.component';
 
 @NgModule({
   imports: [
@@ -82,7 +82,8 @@ import { ConsoleEditorComponent } from './costing/consoleeditor/consoleeditor.co
     CostInvoiceComponent,
     ConsolerateComponent,
     ConsoleCostingComponent,
-    ConsoleEditorComponent
+    ConsoleEditorComponent,
+    BkmPaymentComponent
   ],
   providers: [
   ],
