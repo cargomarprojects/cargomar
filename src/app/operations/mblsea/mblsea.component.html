@@ -370,7 +370,6 @@
             </div>
           </div>
           <hr>
-          <br>
           <div class="row">
             <div class="col-sm-4">
               <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
@@ -386,7 +385,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Carrier.Receipt.Place</label>
+                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
                 <div class="col-sm-4">
                   <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
@@ -396,7 +395,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Carrier.Delivery.Place</label>
+                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
                 <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
@@ -405,22 +404,52 @@
                   <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event"></app-date>
                 </div>
               </div>
+
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">Vessel</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-sm-5">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Voyage</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no" (blur)="OnBlur('book_vessel_no')"
+                    required maxlength="15" />
+                </div>
+                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event"></app-date>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Port Cut.Off</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event"></app-date>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
                 <div class="col-sm-4">
                   <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
+                <div class="col-sm-6" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pol_name" />
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POL ETD</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">POL ETD</label>
                 <div class="col-sm-4">
                   <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
+                <div class="col-sm-6" style="padding-left:0">
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
                       <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">ETD Confirm
@@ -430,21 +459,21 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
                 <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
+                <div class="col-sm-6" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pod_name" />
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POD ETA</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">POD ETA</label>
                 <div class="col-sm-4">
                   <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
+                <div class="col-sm-6" style="padding-left:0">
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
                       <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">ETA Confirm
@@ -452,9 +481,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
                 <div class="col-sm-4">
@@ -478,113 +504,10 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Vessel</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Voyage</label>
-                <div style="padding-right:0" class="col-sm-2">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no" (blur)="OnBlur('book_vessel_no')"
-                    required maxlength="15" />
-                </div>
-                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                <div class="col-sm-3">
-                  <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event"></app-date>
-                </div>
-                <label style="padding-left:0" class="col-sm-1 col-form-label col-form-label-sm">Cut.Off</label>
-                <div style="padding-left:0" class="col-sm-3">
-                  <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event"></app-date>
-                </div>
-              </div>
-              <!-- <div class="form-group row">
-               
-              </div> -->
+
             </div>
             <div class="col-sm-4">
-              <div class="form-group row">
-                <label class="col-sm-1 col-form-label col-form-label-sm">Total</label>
-                <label class="col-sm-1 col-form-label col-form-label-sm">20 :&nbsp;&nbsp;{{Record.book_m20}}</label>
-                <label class="col-sm-1 col-form-label col-form-label-sm">40 :&nbsp;&nbsp;{{Record.book_m40}}</label>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Teu :&nbsp;&nbsp;{{Record.book_mteu}}</label>
-                <label class="col-sm-1 col-form-label col-form-label-sm">Cbm</label>
-                <div class="col-sm-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_mcbm" (blur)="OnBlur('book_mcbm')"
-                    required maxlength="15" />
-                </div>
-                <div class="col-sm-1">
-                  <button [disabled]="loading" (click)="NewCntrRecord()" class="btn btn-default btn-sm">ADD</button>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <!-- <label class="col-2 col-form-label col-form-label-sm">Containers</label> -->
-                <div class="col-12">
-                  <div style="height: 200px; overflow-y: scroll;">
-                    <div class="page-list">
-                      <div class="page-body table-responsive">
-                        <table class="table  table-hover table-sm">
-                          <thead class="page-body-thead">
-                            <tr>
-                              <th width="15%">QTY</th>
-                              <th width="60%">TYPE</th>
-                              <th width="20%">SHIPPER.OWN</th>
-                              <th width="5%">REMOVE</th>
-                            </tr>
-                          </thead>
-                          <tbody class="page-body-tbody" *ngFor="let rec of Record.BkmCntrList">
-                            <tr>
-                              <td style="padding:0"> <input type="number" class="form-control form-control-sm"
-                                  [(ngModel)]="rec.bcntr_qty" (focus)="OnFocusTableCell('bcntr_qty',rec)" (change)="OnChangeTableCell('bcntr_qty',rec)"
-                                  (blur)="OnBlurTableCell('bcntr_qty',rec)" required maxlength="15" /> </td>
-                              <td style="padding:0"><select class="form-control form-control-sm" [(ngModel)]="rec.bcntr_type_id"
-                                  (focus)="OnFocusTableCell('bcntr_type',rec)" (change)="OnChangeTableCell('bcntr_type',rec)"
-                                  (blur)="OnBlurTableCell('bcntr_type',rec)">
-                                  <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">{{rec.param_id3}}</option>
-                                </select></td>
-                              <td style="padding:0;vertical-align:middle"><input type="checkbox" [(ngModel)]="rec.bcntr_shpr_own">Shipper
-                                Owned</td>
-                              <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveCntrRecord(rec)"></i></td>
-                            </tr>
-                            <tr>
-                              <td style="padding:0;vertical-align:middle">COMMENTS</td>
-                              <td style="padding:0" colspan="3"><input type="text" class="form-control form-control-sm"
-                                  [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlurTableCell('bcntr_remarks',rec)"
-                                  required maxlength="15" />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div class="form-group row">
-
-              </div>
-              <!-- <div class="page-details">
-
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row">
-                        <div class="offset-1 col-10">
-                          <button [disabled]="loading" (click)="ActionHandler('ADD1','')" class="btn btn-default btn-sm">ADD</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div> -->
-
             </div>
-
 
           </div>
           <!-- <div class="row">
@@ -601,24 +524,91 @@
             </div>
           </div> -->
         </div>
-        <ngb-tabset>
-          <ngb-tab title="Payment Details">
-            <ng-template ngbTabContent>
-              <div class="page-box">
-                <div class="form-group row">
-                  <div class="offset-10 col-sm-2">
-                    <button [disabled]="loading" (click)="NewPayRecord()" class="btn btn-default btn-sm">ADD</button>
+        <div class="page-box">
+          <ngb-tabset>
+            <ngb-tab title="Container Details">
+              <ng-template ngbTabContent>
+                <div class="page-box">
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group row">
+                        <label class="col-sm-1 col-form-label col-form-label-sm">Teu :&nbsp;{{Record.book_mteu}}</label>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">20 :&nbsp;{{Record.book_m20}}</label>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">40 :&nbsp;{{Record.book_m40}}</label>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">Cbm</label>
+                        <div class="col-sm-1">
+                          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_mcbm"
+                            (blur)="OnBlur('book_mcbm')" required maxlength="15" />
+                        </div>
+                        <div class="col-sm-1">
+                          <button [disabled]="loading" (click)="NewCntrRecord()" class="btn btn-default btn-sm">ADD</button>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-12">
+                          <div style="height: 150px; overflow-y: scroll;">
+                            <div class="page-list">
+                              <div class="page-body table-responsive">
+                                <table class="table  table-hover table-sm">
+                                  <thead class="page-body-thead">
+                                    <tr>
+                                      <th width="15%">QTY</th>
+                                      <th width="30%">TYPE</th>
+                                      <th width="40%">COMMENTS</th>
+                                      <th width="10%">SHIPPER</th>
+                                      <th width="5%">REMOVE</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="page-body-tbody" *ngFor="let rec of Record.BkmCntrList">
+                                    <tr>
+                                      <td style="padding:0"> <input type="number" class="form-control form-control-sm"
+                                          [(ngModel)]="rec.bcntr_qty" (focus)="OnFocusTableCell('bcntr_qty',rec)"
+                                          (change)="OnChangeTableCell('bcntr_qty',rec)" (blur)="OnBlurTableCell('bcntr_qty',rec)"
+                                          required maxlength="15" /> </td>
+                                      <td style="padding:0"><select class="form-control form-control-sm" [(ngModel)]="rec.bcntr_type_id"
+                                          (focus)="OnFocusTableCell('bcntr_type',rec)" (change)="OnChangeTableCell('bcntr_type',rec)"
+                                          (blur)="OnBlurTableCell('bcntr_type',rec)">
+                                          <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">{{rec.param_id3}}</option>
+                                        </select></td>
+                                      <td style="padding:0"><input type="text" class="form-control form-control-sm"
+                                          [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlurTableCell('bcntr_remarks',rec)"
+                                          required maxlength="15" />
+                                      </td>
+                                      <td style="padding:0;vertical-align:middle"><input type="checkbox" [(ngModel)]="rec.bcntr_shpr_own">Owned</td>
+                                      <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveCntrRecord(rec)"></i></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-12" *ngFor="let rec of Record.BkmPayList">
-                    <app-bkmpayment [mRecord]="rec" [type]="type"></app-bkmpayment>
-                  </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Cargo Details">
+              <ng-template ngbTabContent>
+                <div class="col-sm-12" *ngFor="let rec of Record.BkmCargoList">
+                  <app-bkmcargo [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)"></app-bkmcargo>
                 </div>
-              </div>
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Payment Details">
+              <ng-template ngbTabContent>
+                <div class="col-sm-12" *ngFor="let rec of Record.BkmPayList">
+                  <app-bkmpayment [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)"></app-bkmpayment>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
         <div class="page-box">
           <div>
             <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
@@ -657,7 +647,8 @@
             <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading" (click)="PrintCheckList('','SEA EXPORT','EXCEL')"
-              class="btn btn-success btn-sm">Check List</button>
+              class="btn btn-success btn-sm">Check
+              List</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
                 <strong>

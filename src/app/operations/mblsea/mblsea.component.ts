@@ -7,6 +7,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { BkmCntrtype } from '../models/bkmcntrtype';
 import { BkmPayment } from '../models/bkmpayment';
+import { BkmCargo } from '../models/bkmcargo';
 
 @Component({
   selector: 'app-mblsea',
@@ -63,8 +64,6 @@ export class MblSeaComponent {
   RecordList: LinerBkm[] = [];
   // Single Record for add/edit/view details
   Record: LinerBkm = new LinerBkm;
-  RecPayment: BkmPayment = new BkmPayment;
-
 
   LINERRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
@@ -619,6 +618,9 @@ export class MblSeaComponent {
     this.Record.book_move = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
+    this.Record.BkmCargoList = new Array<BkmCargo>();
+    this.NewPayRecord();
+    this.NewCargoRecord();
     this.InitDefault();
 
     this.InitLov();
@@ -740,12 +742,18 @@ export class MblSeaComponent {
     this.POFDCRECORD.name = this.Record.book_pofdc_name;
 
     this.Record.rec_mode = this.mode;
+    if (this.Record.BkmCargoList.length == 0)
+      this.NewCargoRecord();
+    if (this.Record.BkmPayList.length == 0)
+      this.NewPayRecord();
   }
 
   // Save Data
   Save() {
     if (!this.allvalid())
       return;
+
+    this.FindCntrTotal();
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -897,21 +905,24 @@ export class MblSeaComponent {
       sError += "\n\r | House List not proper, please Click the find button";
     }
 
-    if (this.Record.book_shipment_type.trim() == "LCL") {
+    // if (this.Record.book_shipment_type.trim() == "LCL") {
 
-      if (this.Record.book_mcbm <= 0) {
-        bret = false;
-        sError += "\n\r | Cbm Cannot Be Blank or Zero";
-      }
-    } else {
-      if (this.Record.book_mteu <= 0) {
-        bret = false;
-        sError += "\n\r | TEU Cannot Be Blank  or Zero";
-      }
-    }
+    //   if (this.Record.book_mcbm <= 0) {
+    //     bret = false;
+    //     sError += "\n\r | Cbm Cannot Be Blank or Zero";
+    //   }
+    // } else {
+    //   if (this.Record.book_mteu <= 0) {
+    //     bret = false;
+    //     sError += "\n\r | TEU Cannot Be Blank  or Zero";
+    //   }
+    // }
 
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -1199,21 +1210,62 @@ export class MblSeaComponent {
       }
     }
 
-    this.Record.book_m20 = n20;
-    this.Record.book_m40 = n40;
-    TotTeu = this.Record.book_m20 + (this.Record.book_m40 * 2);
-    this.Record.book_mteu = TotTeu;
+    if (this.Record.BkmCntrList.length >= 1) {
+      this.Record.book_m20 = n20;
+      this.Record.book_m40 = n40;
+      TotTeu = this.Record.book_m20 + (this.Record.book_m40 * 2);
+      this.Record.book_mteu = TotTeu;
+    }
   }
-  
+
   NewPayRecord() {
     let Rec: BkmPayment = new BkmPayment;
     Rec.bpay_pkid = this.gs.getGuid();
     Rec.bpay_parent_id = this.Record.book_pkid;
-    Rec.bpay_type = '';
-    Rec.bpay_term = '';
-    Rec.bpay_payer = '' ;
-    Rec.bpay_loc_id = '' ;
+    Rec.bpay_type = '0';
+    Rec.bpay_term = '0';
+    Rec.bpay_payer = '0';
+    Rec.bpay_loc_id = '';
     this.Record.BkmPayList.push(Rec);
+  }
+  NewCargoRecord() {
+    let Rec: BkmCargo = new BkmCargo;
+    Rec.bc_pkid = this.gs.getGuid();
+    Rec.bc_parent_id = this.Record.book_pkid;
+    Rec.bc_desc = '';
+    Rec.bc_ritc_id = '';
+    Rec.bc_ritc_code = '';
+    Rec.bc_ritc_name = '';
+    Rec.bc_wt = 0;
+    Rec.bc_wt_unit = 'KG';
+    Rec.bc_cbm = 0;
+    Rec.bc_cbm_unit = 'CBM';
+    Rec.bc_pkg = 0;
+    Rec.bc_pkg_id = '';
+    Rec.bc_pkg_code = '';
+    Rec.bc_pkg_name = '';
+    this.Record.BkmCargoList.push(Rec);
+  }
+  ModifiedRecords(params: any) {
+    if (params.type == "PAYMENT") {
+      if (params.saction == "ADD")
+        this.NewPayRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.BkmPayList.splice(this.Record.BkmPayList.findIndex(rec => rec.bpay_pkid == params.sid), 1);
+        if (this.Record.BkmPayList.length == 0)
+          this.NewPayRecord();
+      }
+    }
+    if (params.type == "CARGO-DESC") {
+      if (params.saction == "ADD")
+        this.NewCargoRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.BkmCargoList.splice(this.Record.BkmCargoList.findIndex(rec => rec.bc_pkid == params.sid), 1);
+        if (this.Record.BkmCargoList.length == 0)
+          this.NewCargoRecord();
+      }
+    }
+
   }
 
 }

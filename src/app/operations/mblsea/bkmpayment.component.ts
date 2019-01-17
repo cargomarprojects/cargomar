@@ -8,10 +8,10 @@ import { SearchTable } from '../../shared/models/searchtable';
   selector: 'app-bkmpayment',
   templateUrl: './bkmpayment.component.html',
 })
-export class BkmPaymentComponent  {
+export class BkmPaymentComponent {
   // Local Variables 
   title = 'Paymeny Details';
-  @Input() public refno: string = '';
+  @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() public pkid: string;
   @Input() public type: string = '';
@@ -19,7 +19,7 @@ export class BkmPaymentComponent  {
 
   InitCompleted: boolean = false;
   menu_record: any;
-   
+
   loading = false;
   currentTab = 'LIST';
   sub: any;
@@ -32,7 +32,7 @@ export class BkmPaymentComponent  {
     private gs: GlobalService
 
   ) {
-     
+
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -60,7 +60,7 @@ export class BkmPaymentComponent  {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    
+
   }
 
   // Destroy Will be called when this component is closed
@@ -68,15 +68,10 @@ export class BkmPaymentComponent  {
     this.sub.unsubscribe();
   }
 
-  LoadCombo()
-  {
-  
-  }
+  LoadCombo() {
 
-  Close() {
-    //if (this.ModifiedRecords != null)
-    //  this.ModifiedRecords.emit({ saction: 'CLOSE', sRec: this.Record });
   }
+ 
 
   InitLov() {
     this.LOCRECORD = new SearchTable();
@@ -89,14 +84,22 @@ export class BkmPaymentComponent  {
   }
 
   LovSelected(_Record: SearchTable) {
-    
+
     if (_Record.controlname == "LOCATION") {
       this.mRecord.bpay_loc_id = _Record.id;
       this.mRecord.bpay_loc_code = _Record.code;
       this.mRecord.bpay_loc_name = _Record.name;
     }
+  }
 
-    
+  AddRow() {
+    if (this.ModifiedRecords != null)
+      this.ModifiedRecords.emit({ saction: 'ADD',type: 'PAYMENT', sid: this.mRecord.bpay_pkid });
+  }
+
+  RemoveRow() {
+    if (this.ModifiedRecords != null)
+      this.ModifiedRecords.emit({ saction: 'REMOVE',type: 'PAYMENT', sid: this.mRecord.bpay_pkid });
   }
 
 }

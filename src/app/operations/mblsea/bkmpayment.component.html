@@ -1,66 +1,71 @@
-<div class="page-details">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="form-group row">
-          <label class="col-3 col-form-label  col-form-label-sm">Charge.Type</label>
-          <div class="col-9">
-            <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_type">
-              <option [value]="'0'">NA</option>
-              <option [value]="'1'">Additional Charges</option>
-              <option [value]="'2'">Basic Freight</option>
-              <option [value]="'3'">Destination Haulage Charges</option>
-              <option [value]="'4'">Destination Port Charges</option>
-              <option [value]="'5'">Origin Haulage Charges</option>
-              <option [value]="'6'">Origin Port Charges</option>
-            </select>
-          </div>
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-3 col-form-label  col-form-label-sm">Charge.Type</label>
+        <div class="col-9">
+          <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_type">
+            <option [value]="'0'">NA</option>
+            <option [value]="'1'">Additional Charges</option>
+            <option [value]="'2'">Basic Freight</option>
+            <option [value]="'3'">Destination Haulage Charges</option>
+            <option [value]="'4'">Destination Port Charges</option>
+            <option [value]="'5'">Origin Haulage Charges</option>
+            <option [value]="'6'">Origin Port Charges</option>
+          </select>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm">Freight</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_term">
-              <option [value]="'0'">NA</option>
-              <option [value]="'1'">Collect</option>
-              <option [value]="'2'">Pre-paid</option>
-              <option [value]="'3'">Payable Elsewhere</option>
-            </select>
-          </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Freight</label>
+        <div class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_term">
+            <option [value]="'0'">NA</option>
+            <option [value]="'1'">Collect</option>
+            <option [value]="'2'">Pre-paid</option>
+            <option [value]="'3'">Payable Elsewhere</option>
+          </select>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm">Payer</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_payer">
-              <option [value]="'0'">NA</option>
-              <!-- <option [value]="'1'"></option> -->
-              <option [value]="'2'">Booker</option>
-              <option [value]="'3'">Shipper</option>
-              <option [value]="'4'">Forwarder</option>
-              <option [value]="'5'">Consignee</option>
-              <option [value]="'6'">Contract Party</option>
-              <option [value]="'7'">Main Notify Party</option>
-              <option [value]="'8'">First Additional Notify Party</option>
-              <option [value]="'9'">Second Additional Notify Party</option>
-            </select>
-          </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Payer</label>
+        <div class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="mRecord.bpay_payer">
+            <option [value]="'0'">NA</option>
+            <!-- <option [value]="'1'"></option> -->
+            <option [value]="'2'">Booker</option>
+            <option [value]="'3'">Shipper</option>
+            <option [value]="'4'">Forwarder</option>
+            <option [value]="'5'">Consignee</option>
+            <option [value]="'6'">Contract Party</option>
+            <option [value]="'7'">Main Notify Party</option>
+            <option [value]="'8'">First Additional Notify Party</option>
+            <option [value]="'9'">Second Additional Notify Party</option>
+          </select>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
-          <div class="col-sm-10">
-            <app-autocomplete #LocLov [inputdata]="LOCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
+        <div class="col-sm-10">
+          <app-autocomplete #LocLov [inputdata]="LOCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1">
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
+          <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow()"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
-<br />
 
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
