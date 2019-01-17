@@ -301,12 +301,12 @@ export class DrCrComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
   NewRecord() {
 
     this.lock_record = false;
@@ -350,7 +350,7 @@ export class DrCrComponent {
     this.InitLov('');
   }
 
-   
+
   InitDetList() {
     this.RecordDetList = new Array<Costingd>();
     this.NewDetRecord(1);
@@ -397,15 +397,15 @@ export class DrCrComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Costingm) {
     this.Record = _Record;
-   // this.InitDetList();
+    // this.InitDetList();
     //for (let rec of _Record.DetailList) {
     //  this.RecordDetList[rec.costd_ctr - 1].costd_pkid = rec.costd_pkid;
     //  this.RecordDetList[rec.costd_ctr - 1].costd_parent_id = rec.costd_parent_id;
@@ -443,7 +443,7 @@ export class DrCrComponent {
       this.lock_date = false;
 
     this.Record.rec_mode = this.mode;
-    
+
   }
 
 
@@ -476,13 +476,13 @@ export class DrCrComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-           //  alert(this.InfoMessage);
+        //  alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -520,8 +520,10 @@ export class DrCrComponent {
 
 
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -586,10 +588,12 @@ export class DrCrComponent {
     this.InfoMessage = '';
     this.Record.cost_mblid = '';
     this.Record.cost_mblno = '';
-    this.Record.cost_agent_id = '';
-    this.Record.cost_agent_name = '';
-    this.Record.cost_sob_date = '';
-    this.Record.cost_folder_recdon = '';
+    if (this.Record.cost_category != 'GENERAL JOB' && this.Record.cost_category != 'OTHERS') {
+      this.Record.cost_agent_id = '';
+      this.Record.cost_agent_name = '';
+      this.Record.cost_sob_date = '';
+      this.Record.cost_folder_recdon = '';
+    }
     if (controlname == 'cost_folderno') {
       if (this.Record.cost_folderno.trim().length <= 0)
         return;
@@ -631,37 +635,40 @@ export class DrCrComponent {
               this.Record.cost_book_cntr = response.drcrissue[0].cost_mblno;
             else
               this.Record.cost_book_cntr = response.drcrissue[0].cost_book_cntr;
-            this.Record.cost_agent_id = response.drcrissue[0].cost_agent_id;
-            this.Record.cost_agent_name = response.drcrissue[0].cost_agent_name;
-            this.Record.cost_agent_code = response.drcrissue[0].cost_agent_code;
-            this.Record.cost_agent_br_id = response.drcrissue[0].cost_agent_br_id;
-            this.Record.cost_agent_br_no = response.drcrissue[0].cost_agent_br_no;
-            this.Record.cost_agent_br_addr = response.drcrissue[0].cost_agent_br_addr;
 
-            this.Record.cost_jv_agent_id = this.Record.cost_agent_id;
-            this.Record.cost_jv_agent_name = this.Record.cost_agent_name;
-            this.Record.cost_jv_agent_code = this.Record.cost_agent_code;
-            this.Record.cost_jv_agent_br_id = this.Record.cost_agent_br_id;
-            this.Record.cost_jv_agent_br_no = this.Record.cost_agent_br_no;
-            this.Record.cost_jv_agent_br_addr = this.Record.cost_agent_br_addr;
+            if (this.Record.cost_category != 'GENERAL JOB' && this.Record.cost_category != 'OTHERS') {
+              this.Record.cost_agent_id = response.drcrissue[0].cost_agent_id;
+              this.Record.cost_agent_name = response.drcrissue[0].cost_agent_name;
+              this.Record.cost_agent_code = response.drcrissue[0].cost_agent_code;
+              this.Record.cost_agent_br_id = response.drcrissue[0].cost_agent_br_id;
+              this.Record.cost_agent_br_no = response.drcrissue[0].cost_agent_br_no;
+              this.Record.cost_agent_br_addr = response.drcrissue[0].cost_agent_br_addr;
 
-            this.InitLov('AGENT');
-            this.AGENTRECORD.id = this.Record.cost_agent_id;
-            this.AGENTRECORD.code = this.Record.cost_agent_code;
-            this.AGENTRECORD.name = this.Record.cost_agent_name;
-            this.InitLov('AGENTADDRESS');
-            this.AGENTADDRECORD.id = this.Record.cost_agent_br_id;
-            this.AGENTADDRECORD.code = this.Record.cost_agent_br_no;
-            this.AGENTADDRECORD.parentid = this.Record.cost_agent_id;
+              this.Record.cost_jv_agent_id = this.Record.cost_agent_id;
+              this.Record.cost_jv_agent_name = this.Record.cost_agent_name;
+              this.Record.cost_jv_agent_code = this.Record.cost_agent_code;
+              this.Record.cost_jv_agent_br_id = this.Record.cost_agent_br_id;
+              this.Record.cost_jv_agent_br_no = this.Record.cost_agent_br_no;
+              this.Record.cost_jv_agent_br_addr = this.Record.cost_agent_br_addr;
 
-            this.InitLov('JVAGENT');
-            this.JVAGENTRECORD.id = this.Record.cost_jv_agent_id;
-            this.JVAGENTRECORD.code = this.Record.cost_jv_agent_code;
-            this.JVAGENTRECORD.name = this.Record.cost_jv_agent_name;
-            this.InitLov('JVAGENTADDRESS');
-            this.JVAGENTADDRECORD.id = this.Record.cost_jv_agent_br_id;
-            this.JVAGENTADDRECORD.code = this.Record.cost_jv_agent_br_no;
-            this.JVAGENTADDRECORD.parentid = this.Record.cost_jv_agent_id;
+              this.InitLov('AGENT');
+              this.AGENTRECORD.id = this.Record.cost_agent_id;
+              this.AGENTRECORD.code = this.Record.cost_agent_code;
+              this.AGENTRECORD.name = this.Record.cost_agent_name;
+              this.InitLov('AGENTADDRESS');
+              this.AGENTADDRECORD.id = this.Record.cost_agent_br_id;
+              this.AGENTADDRECORD.code = this.Record.cost_agent_br_no;
+              this.AGENTADDRECORD.parentid = this.Record.cost_agent_id;
+
+              this.InitLov('JVAGENT');
+              this.JVAGENTRECORD.id = this.Record.cost_jv_agent_id;
+              this.JVAGENTRECORD.code = this.Record.cost_jv_agent_code;
+              this.JVAGENTRECORD.name = this.Record.cost_jv_agent_name;
+              this.InitLov('JVAGENTADDRESS');
+              this.JVAGENTADDRECORD.id = this.Record.cost_jv_agent_br_id;
+              this.JVAGENTADDRECORD.code = this.Record.cost_jv_agent_br_no;
+              this.JVAGENTADDRECORD.parentid = this.Record.cost_jv_agent_id;
+            }
 
           }
           else {
@@ -677,10 +684,10 @@ export class DrCrComponent {
           this.InfoMessage = "Successfully Released";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
@@ -742,10 +749,10 @@ export class DrCrComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -811,11 +818,11 @@ export class DrCrComponent {
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ReleaseCosting(id: string, _refno: string) {
@@ -859,9 +866,9 @@ export class DrCrComponent {
         this.loading = false;
         this.InfoMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

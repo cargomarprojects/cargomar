@@ -60,7 +60,7 @@ export class AirCostingComponent {
   // Array For Displaying List
   RecordList: Costingm[] = [];
   RecordDetList: Costingd[] = [];
- // RecordDetList2: Costingd[] = [];
+  // RecordDetList2: Costingd[] = [];
 
   // Single Record for add/edit/view details
   Record: Costingm = new Costingm;
@@ -259,10 +259,10 @@ export class AirCostingComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -272,7 +272,7 @@ export class AirCostingComponent {
 
     let SearchData = {
       pkid: this.pkid,
-      informrate:this.Record.cost_inform_rate,
+      informrate: this.Record.cost_inform_rate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
     };
@@ -287,11 +287,11 @@ export class AirCostingComponent {
         this.Record.cost_ex_works = response.exwork;
         this.FindTotal();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -353,7 +353,7 @@ export class AirCostingComponent {
     this.Record.cost_book_cntr = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
-   // this.InitDetList();
+    // this.InitDetList();
     this.RecordDetList = new Array<Costingd>();
   }
   //InitDetList() {
@@ -397,10 +397,10 @@ export class AirCostingComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Costingm) {
@@ -451,7 +451,7 @@ export class AirCostingComponent {
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
     this.Record.DetailList2 = this.RecordDetList;
-    
+
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
@@ -462,13 +462,13 @@ export class AirCostingComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-       // alert(this.InfoMessage);
+        // alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -517,8 +517,10 @@ export class AirCostingComponent {
 
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -552,25 +554,25 @@ export class AirCostingComponent {
       case 'cost_buy_pp':
         {
           this.Record.cost_buy_pp = this.gs.roundNumber(this.Record.cost_buy_pp, 2);
-         // this.FindTotal();
+          // this.FindTotal();
           break;
         }
       case 'cost_buy_cc':
         {
           this.Record.cost_buy_cc = this.gs.roundNumber(this.Record.cost_buy_cc, 2);
-         // this.FindTotal();
+          // this.FindTotal();
           break;
         }
       case 'cost_sell_pp':
         {
           this.Record.cost_sell_pp = this.gs.roundNumber(this.Record.cost_sell_pp, 2);
-       //   this.FindTotal();
+          //   this.FindTotal();
           break;
         }
       case 'cost_sell_cc':
         {
           this.Record.cost_sell_cc = this.gs.roundNumber(this.Record.cost_sell_cc, 2);
-        //  this.FindTotal();
+          //  this.FindTotal();
           break;
         }
       case 'cost_rebate':
@@ -602,7 +604,7 @@ export class AirCostingComponent {
           this.Record.cost_other_charges = this.gs.roundNumber(this.Record.cost_other_charges, 2);
           this.FindTotal();
           break;
-        }      
+        }
     }
   }
   OnChange(field: string) {
@@ -632,7 +634,7 @@ export class AirCostingComponent {
       if (field == "costd_wrs_cc") {
         REC.costd_wrs_cc = this.gs.roundNumber(REC.costd_wrs_cc, 2);
         this.FindTotal();
-      }   
+      }
       if (field == "costd_myc_pp") {
         REC.costd_myc_pp = this.gs.roundNumber(REC.costd_myc_pp, 2);
         this.FindTotal();
@@ -760,10 +762,10 @@ export class AirCostingComponent {
           this.InfoMessage = "Successfully Released";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
@@ -808,7 +810,7 @@ export class AirCostingComponent {
         rec.costd_cc += rec.costd_src_cc;
         rec.costd_cc += rec.costd_oth_cc;
         this.Record.cost_buy_cc += rec.costd_cc;
-        
+
         rec.costd_tot = rec.costd_pp + rec.costd_cc;
       }
       if (rec.costd_type == "SELL") {
@@ -892,10 +894,9 @@ export class AirCostingComponent {
       this.Record.cost_drcr_amount = profit * -1;
       this.Record.cost_drcr_amount = this.gs.roundNumber(this.Record.cost_drcr_amount, 2);
     }
-  else
-    {
+    else {
       this.Record.cost_format = "PC";
-  
+
       expense = this.Record.cost_buy_tot;
       expense += this.Record.cost_rebate;
       expense += this.Record.cost_other_charges;
@@ -922,14 +923,14 @@ export class AirCostingComponent {
       //drcramt -= this.Record.cost_sell_pp;
 
       drcramt = profit;
-      drcramt += this.Record.cost_buy_pp ;
+      drcramt += this.Record.cost_buy_pp;
       drcramt -= this.Record.cost_sell_pp;
 
       drcramt += this.Record.cost_rebate;
       drcramt += this.Record.cost_ex_works;
       drcramt += this.Record.cost_other_charges;
       this.Record.cost_drcr_amount = this.gs.roundNumber(drcramt, 2);
-      
+
     }
   }
 
@@ -963,10 +964,10 @@ export class AirCostingComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -1015,7 +1016,7 @@ export class AirCostingComponent {
     this.modal.close();
   }
 
-     
+
   RemoveList(event: any) {
     if (event.selected) {
       this.RemoveRecord(event.id);
@@ -1040,11 +1041,11 @@ export class AirCostingComponent {
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ReleaseCosting(id: string, _refno: string) {
@@ -1090,9 +1091,9 @@ export class AirCostingComponent {
         this.loading = false;
         this.InfoMessage = response.savemsg;
       },
-      error => {
-        this.ErrorMessage = this.gs.getError(error);
-        this.loading = false;
-      });
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          this.loading = false;
+        });
   }
 }

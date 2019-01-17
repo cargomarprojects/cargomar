@@ -147,6 +147,7 @@
                     <option [value]="'AIR IMPORT MAWBNO'">AIR IMPORT MAWBNO</option>
                     <option [value]="'SEA EXPORT FOLDER NO'">SEA EXPORT FOLDER NO</option>
                     <option [value]="'SEA IMPORT FOLDER NO'">SEA IMPORT FOLDER NO</option>
+                    <option [value]="'GENERAL JOB'">GENERAL JOB</option>
                     <option [value]="'VESSEL BROKING'">VESSEL BROKING</option>
                     <option [value]="'OTHERS'">OTHERS</option>
                   </select>
@@ -165,7 +166,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                 <div class="col-sm-10">
-                  <app-autocomplete #LinerLov [disabled]="Record.cost_category !='OTHERS'" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [disabled]="Record.cost_category !='OTHERS'  && Record.cost_category !='GENERAL JOB'" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
               </div>
 

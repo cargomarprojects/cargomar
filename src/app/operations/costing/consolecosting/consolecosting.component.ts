@@ -542,7 +542,10 @@ export class ConsoleCostingComponent {
     }
 
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

@@ -468,8 +468,10 @@ export class AgentInvoiceComponent {
       sError += "| Invalid Amount";
     }
 
-    if (bret === false)
+    if (bret === false){
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
 
   }
@@ -534,10 +536,12 @@ export class AgentInvoiceComponent {
     this.InfoMessage = '';
     this.Record.cost_mblid = '';
     this.Record.cost_mblno = '';
-    this.Record.cost_agent_id = '';
-    this.Record.cost_agent_name = '';
-    this.Record.cost_sob_date = '';
-    this.Record.cost_folder_recdon = '';
+    if (this.Record.cost_category != 'GENERAL JOB' && this.Record.cost_category != 'OTHERS') {
+      this.Record.cost_agent_id = '';
+      this.Record.cost_agent_name = '';
+      this.Record.cost_sob_date = '';
+      this.Record.cost_folder_recdon = '';
+    }
     if (controlname == 'cost_folderno') {
       if (this.Record.cost_folderno.trim().length <= 0)
         return;
@@ -578,37 +582,40 @@ export class AgentInvoiceComponent {
               this.Record.cost_book_cntr = response.drcrissue[0].cost_mblno;
             else
               this.Record.cost_book_cntr = response.drcrissue[0].cost_book_cntr;
-            this.Record.cost_agent_id = response.drcrissue[0].cost_agent_id;
-            this.Record.cost_agent_name = response.drcrissue[0].cost_agent_name;
-            this.Record.cost_agent_code = response.drcrissue[0].cost_agent_code;
-            this.Record.cost_agent_br_id = response.drcrissue[0].cost_agent_br_id;
-            this.Record.cost_agent_br_no = response.drcrissue[0].cost_agent_br_no;
-            this.Record.cost_agent_br_addr = response.drcrissue[0].cost_agent_br_addr;
 
-            this.Record.cost_jv_agent_id = this.Record.cost_agent_id;
-            this.Record.cost_jv_agent_name = this.Record.cost_agent_name;
-            this.Record.cost_jv_agent_code = this.Record.cost_agent_code;
-            this.Record.cost_jv_agent_br_id = this.Record.cost_agent_br_id;
-            this.Record.cost_jv_agent_br_no = this.Record.cost_agent_br_no;
-            this.Record.cost_jv_agent_br_addr = this.Record.cost_agent_br_addr;
+            if (this.Record.cost_category != 'GENERAL JOB' && this.Record.cost_category != 'OTHERS') {
+              this.Record.cost_agent_id = response.drcrissue[0].cost_agent_id;
+              this.Record.cost_agent_name = response.drcrissue[0].cost_agent_name;
+              this.Record.cost_agent_code = response.drcrissue[0].cost_agent_code;
+              this.Record.cost_agent_br_id = response.drcrissue[0].cost_agent_br_id;
+              this.Record.cost_agent_br_no = response.drcrissue[0].cost_agent_br_no;
+              this.Record.cost_agent_br_addr = response.drcrissue[0].cost_agent_br_addr;
 
-            this.InitLov('AGENT');
-            this.AGENTRECORD.id = this.Record.cost_agent_id;
-            this.AGENTRECORD.code = this.Record.cost_agent_code;
-            this.AGENTRECORD.name = this.Record.cost_agent_name;
-            this.InitLov('AGENTADDRESS');
-            this.AGENTADDRECORD.id = this.Record.cost_agent_br_id;
-            this.AGENTADDRECORD.code = this.Record.cost_agent_br_no;
-            this.AGENTADDRECORD.parentid = this.Record.cost_agent_id;
+              this.Record.cost_jv_agent_id = this.Record.cost_agent_id;
+              this.Record.cost_jv_agent_name = this.Record.cost_agent_name;
+              this.Record.cost_jv_agent_code = this.Record.cost_agent_code;
+              this.Record.cost_jv_agent_br_id = this.Record.cost_agent_br_id;
+              this.Record.cost_jv_agent_br_no = this.Record.cost_agent_br_no;
+              this.Record.cost_jv_agent_br_addr = this.Record.cost_agent_br_addr;
 
-            this.InitLov('JVAGENT');
-            this.JVAGENTRECORD.id = this.Record.cost_jv_agent_id;
-            this.JVAGENTRECORD.code = this.Record.cost_jv_agent_code;
-            this.JVAGENTRECORD.name = this.Record.cost_jv_agent_name;
-            this.InitLov('JVAGENTADDRESS');
-            this.JVAGENTADDRECORD.id = this.Record.cost_jv_agent_br_id;
-            this.JVAGENTADDRECORD.code = this.Record.cost_jv_agent_br_no;
-            this.JVAGENTADDRECORD.parentid = this.Record.cost_jv_agent_id;
+              this.InitLov('AGENT');
+              this.AGENTRECORD.id = this.Record.cost_agent_id;
+              this.AGENTRECORD.code = this.Record.cost_agent_code;
+              this.AGENTRECORD.name = this.Record.cost_agent_name;
+              this.InitLov('AGENTADDRESS');
+              this.AGENTADDRECORD.id = this.Record.cost_agent_br_id;
+              this.AGENTADDRECORD.code = this.Record.cost_agent_br_no;
+              this.AGENTADDRECORD.parentid = this.Record.cost_agent_id;
+
+              this.InitLov('JVAGENT');
+              this.JVAGENTRECORD.id = this.Record.cost_jv_agent_id;
+              this.JVAGENTRECORD.code = this.Record.cost_jv_agent_code;
+              this.JVAGENTRECORD.name = this.Record.cost_jv_agent_name;
+              this.InitLov('JVAGENTADDRESS');
+              this.JVAGENTADDRECORD.id = this.Record.cost_jv_agent_br_id;
+              this.JVAGENTADDRECORD.code = this.Record.cost_jv_agent_br_no;
+              this.JVAGENTADDRECORD.parentid = this.Record.cost_jv_agent_id;
+            }
 
           }
           else {

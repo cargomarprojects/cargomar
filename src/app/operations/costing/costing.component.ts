@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivatedRoute } from '@angular/router';
- 
+
 import { GlobalService } from '../../core/services/global.service';
 
 import { Costingm } from '../models/costing';
@@ -19,7 +19,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class CostingComponent {
   // Local Variables 
   title = 'BL Format';
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -28,7 +28,7 @@ export class CostingComponent {
   modal: any;
   selectedRowIndex: number = -1;
 
-   
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -43,7 +43,7 @@ export class CostingComponent {
   lock_record: boolean = false;
   lock_date: boolean = false;
   bAdmin = false;
-  
+
 
   sub: any;
   urlid: string;
@@ -258,10 +258,10 @@ export class CostingComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -291,11 +291,11 @@ export class CostingComponent {
         this.FindTotal();
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -403,10 +403,10 @@ export class CostingComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Costingm) {
@@ -470,13 +470,13 @@ export class CostingComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-           //  alert(this.InfoMessage);
+        //  alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -526,8 +526,10 @@ export class CostingComponent {
 
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -728,10 +730,10 @@ export class CostingComponent {
           this.InfoMessage = "Successfully Released";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
@@ -802,7 +804,7 @@ export class CostingComponent {
 
       drcramt = profit;
 
-      if (this.Record.cost_buy_pp > 0 ) {
+      if (this.Record.cost_buy_pp > 0) {
         drcramt += this.Record.cost_buy_pp;
       }
       if ((this.Record.cost_sell_pp - this.Record.cost_kamai) > 0) {
@@ -821,7 +823,7 @@ export class CostingComponent {
   }
 
   folder_id: string;
-  
+
   PrintNote(_type: string) {
     this.folder_id = this.gs.getGuid();
     this.loading = true;
@@ -850,10 +852,10 @@ export class CostingComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -877,7 +879,7 @@ export class CostingComponent {
     this.modal = this.modalService.open(content);
   }
 
-  ShowCostSent(costsent: any, id: string,_refno:string) {
+  ShowCostSent(costsent: any, id: string, _refno: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     this.pkid = id;
@@ -928,11 +930,11 @@ export class CostingComponent {
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ReleaseCosting(id: string, _refno: string) {
@@ -950,7 +952,7 @@ export class CostingComponent {
       this.ErrorMessage = "\n\r | Invalid ID";
       return;
     }
-     
+
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
@@ -970,10 +972,10 @@ export class CostingComponent {
         this.loading = false;
         this.InfoMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   FindInvoiceTotal() {
