@@ -346,8 +346,8 @@ export class CustomerComponent {
     this.Record.cust_is_others = false;
     this.Record.rec_locked = false;
 
-    this.Record.cust_crdays = null;
-    this.Record.cust_crlimit = null;
+    this.Record.cust_crdays = 1;
+    this.Record.cust_crlimit = 1;
 
     this.Record.cust_crdate = '';
 
