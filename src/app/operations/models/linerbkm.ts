@@ -131,6 +131,8 @@ export class LinerBkm {
   book_pofdc_name: string;
   book_pofdc_eta: string;
   book_move: string;
+  book_cust_comments: string;
+  book_partner_email: string;
 
   rec_category: string;
   rec_mode: string;

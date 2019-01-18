@@ -616,6 +616,8 @@ export class MblSeaComponent {
     this.Record.book_pofdc_eta = '';
 
     this.Record.book_move = '';
+    this.Record.book_partner_email = '';
+    this.Record.book_cust_comments = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -1061,7 +1063,6 @@ export class MblSeaComponent {
   }
 
   HblList(_Record: LinerBkm) {
-
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.Record.book_agent_id.trim().length <= 0) {
@@ -1162,6 +1163,7 @@ export class MblSeaComponent {
   }
   RemoveCntrRecord(_rec: BkmCntrtype) {
     this.Record.BkmCntrList.splice(this.Record.BkmCntrList.findIndex(rec => rec.bcntr_pkid == _rec.bcntr_pkid), 1);
+    this.FindCntrTotal();
   }
 
   OnFocusTableCell(field: string, _rec: BkmCntrtype) {
@@ -1175,7 +1177,6 @@ export class MblSeaComponent {
   }
 
   OnBlurTableCell(field: string, _rec: BkmCntrtype) {
-
     if (field == "bcntr_type") {
       if (this.bChanged) {
         this.FindCntrTotal();
