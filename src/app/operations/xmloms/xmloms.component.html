@@ -1,0 +1,49 @@
+
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-details">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-10">
+          <button [disabled]="loading" (click)="GenerateXml()" class="btn btn-primary btn-sm">Generate Xml</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-sm-6">
+      <div *ngIf="bCompany" class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-6">
+          <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+      </div>
+    </div>-->
+  </div>
+</div>
+<!--<div class="page-box">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="offset-2 col-sm-4">
+        <button [disabled]="loading" (click)="GenerateXml()" class="btn btn-primary btn-sm">Generate Xml</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<br />-->
+<br />
+ 
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+

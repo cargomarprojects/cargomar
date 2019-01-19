@@ -215,6 +215,15 @@
         </div>
       </ng-template>
     </ngb-tab>
+    <ngb-tab *ngIf="mode == 'EDIT'" title="Xml Download">
+        <ng-template ngbTabContent>
+          <div class="page-box">
+            <div class="col">
+              <app-xmloms [pkid]="pkid" [filename]="Record.cntr_no" [type]="'CONTAINER'"></app-xmloms>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
   </ngb-tabset>
 </div>
 
