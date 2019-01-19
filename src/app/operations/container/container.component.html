@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -108,7 +107,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Container#</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no" (blur)="OnBlur('cntr_no')" required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no" (blur)="OnBlur('cntr_no')"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
@@ -120,13 +120,15 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">C.Seal#</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_csealno" (blur)="OnBlur('cntr_csealno')" required maxlength="25" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_csealno" (blur)="OnBlur('cntr_csealno')"
+                    required maxlength="25" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">A.Seal#</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno" (blur)="OnBlur('cntr_asealno')" required maxlength="25" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno" (blur)="OnBlur('cntr_asealno')"
+                    required maxlength="25" />
                 </div>
               </div>
 
@@ -134,7 +136,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Stuffed At</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_stuffed_at" (blur)="OnBlur('cntr_stuffed_at')" required maxlength="50" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_stuffed_at" (blur)="OnBlur('cntr_stuffed_at')"
+                    required maxlength="50" />
                 </div>
               </div>
 
@@ -154,7 +157,8 @@
               <div class="form-group row">
                 <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">MBL#</label>
                 <div class="col-4">
-                  <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm" [(ngModel)]="Record.cntr_booking_no" (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
+                  <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm" [(ngModel)]="Record.cntr_booking_no"
+                    (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
                 </div>
                 <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">{{book_and_mbl}}</label>
               </div>
@@ -162,7 +166,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Egm No</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno" (blur)="OnBlur('cntr_egmno')" required maxlength="30" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno" (blur)="OnBlur('cntr_egmno')"
+                    required maxlength="30" />
                 </div>
               </div>
 
@@ -173,6 +178,24 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">IntertraficInspection</label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_trafinsp">
+                    <option [value]="'Y'">YES</option>
+                    <option [value]="'N'">NO</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Inspection's Supplier</label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspsup">
+                    <option [value]="'INTERTRAFIC'">INTERTRAFIC</option>
+                    <option [value]="'TELESCOPE'">TELESCOPE</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -216,18 +239,13 @@
       </ng-template>
     </ngb-tab>
     <ngb-tab *ngIf="mode == 'EDIT'" title="Xml Download">
-        <ng-template ngbTabContent>
-          <div class="page-box">
-            <div class="col">
-              <app-xmloms [pkid]="pkid" [filename]="Record.cntr_no" [type]="'CONTAINER'"></app-xmloms>
-            </div>
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="col">
+            <app-xmloms [pkid]="pkid" [filename]="Record.cntr_no" [type]="'CONTAINER'"></app-xmloms>
           </div>
-        </ng-template>
-      </ngb-tab>
+        </div>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
 </div>
-
-
-
-
-

@@ -35,6 +35,8 @@ export class Containerm {
   cntr_mbl_etd: string;
   cntr_mbl_shipment_type: string;
   cntr_mbl_nature: string;
+  cntr_trafinsp: string;
+  cntr_inspsup: string;
 
   rec_mode: string;
   rec_category: string;

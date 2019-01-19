@@ -1,5 +1,5 @@
 <div class="page-header">
-  <div style="padding-left:0"  class="col">
+  <div style="padding-left:0" class="col">
     <font color="black">
       <strong>
         CONTAINER#&nbsp;&nbsp;&nbsp;
@@ -7,7 +7,7 @@
     </font>
     <font color="red">
       <strong>
-       {{title}}
+        {{title}}
       </strong>
     </font>
   </div>
@@ -44,7 +44,8 @@
           <td>{{rec.hbl_bl_no}}</td>
 
           <td>
-            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.pack_pkid,name:rec.pack_job_no}" (result)="RemoveList($event)"></App-Dialog>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.pack_pkid,name:rec.pack_job_no}"
+              (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
       </tbody>
@@ -73,7 +74,8 @@
       <div class="form-group row">
         <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">JOB#</label>
         <div class="col-4">
-          <input type="text" [disabled]="mode=='EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.pack_job_no" (blur)="OnBlur('pack_job_no')" #pack_job_no required maxlength="15" />
+          <input type="text" [disabled]="mode=='EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.pack_job_no"
+            (blur)="OnBlur('pack_job_no')" #pack_job_no required maxlength="15" />
         </div>
       </div>
 
@@ -81,7 +83,8 @@
 
         <label class="col-3 col-form-label col-form-label-sm">Total Pkgs</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pkg" (blur)="OnBlur('pack_pkg')" required maxlength="10" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pkg" (blur)="OnBlur('pack_pkg')"
+            required maxlength="10" />
         </div>
         <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
         <div class="col-3">
@@ -89,18 +92,20 @@
         </div>
       </div>
 
-      
+
       <div class="form-group row">
         <label class="col-3 col-form-label col-form-label-sm">Pcs</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pcs" (blur)="OnBlur('pack_pcs')" required maxlength="15" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_pcs" (blur)="OnBlur('pack_pcs')"
+            required maxlength="15" />
         </div>
-        
+
       </div>
       <div class="form-group row">
         <label class="col-3 col-form-label col-form-label-sm">Net. Weight</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_ntwt" (blur)="OnBlur('pack_ntwt')" required maxlength="15" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_ntwt" (blur)="OnBlur('pack_ntwt')"
+            required maxlength="15" />
         </div>
         <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
         <div class="col-3">
@@ -112,8 +117,9 @@
       <div class="form-group row">
         <label class="col-3 col-form-label col-form-label-sm">Gr. Weight</label>
         <div class="col-4">
-          
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_grwt" (blur)="OnBlur('pack_grwt')" required maxlength="15" />
+
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_grwt" (blur)="OnBlur('pack_grwt')"
+            required maxlength="15" />
         </div>
         <label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Unit</label>
         <div class="col-3">
@@ -124,7 +130,8 @@
       <div class="form-group row">
         <label class="col-3 col-form-label col-form-label-sm">Cbm</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_cbm" (blur)="OnBlur('pack_cbm')" required maxlength="15" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.pack_cbm" (blur)="OnBlur('pack_cbm')"
+            required maxlength="15" />
         </div>
         <!--<label style="padding-left:0;padding-right:0" class="col-2 col-form-label col-form-label-sm">Ch. Weight</label>
         <div class="col-3">
@@ -132,20 +139,17 @@
         </div>-->
       </div>
       <div class="form-group row">
+
       </div>
-      <div class="form-group row">
-        <div class="offset-3 col-9">
-          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
-          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
-          <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.pack_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
-        </div>
-      </div>
+
+
+
+
     </div>
   </div>
 
-  
 
-    <!--<div class="row">
+  <!--<div class="row">
 
       <div class="col-sm-6">
         <div class="form-group row">
@@ -166,6 +170,45 @@
     </div>-->
 
 </div>
+<div class="page-list">
+  <div class="row">
+    <div class="col-sm-4">
+        <div style="height: 300px; overflow-y: scroll;">
+      <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th>SELECT</th>
+              <th>PO#</th>
+              <th>STYLE</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody">
+            <tr *ngFor="let rec of Record.OrdList; let i = index" [class.active]="i == selectedRowIndex">
+              <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
+              <td>{{rec.ord_po}}</td>
+              <td>{{rec.ord_style}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="page-box">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+          <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.pack_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
@@ -176,4 +219,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

@@ -12,7 +12,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class XmlomsComponent {
   // Local Variables 
   
-  itle = 'XmlEdi';
+  title = 'XML-EDI';
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -114,6 +114,7 @@ export class XmlomsComponent {
         this.loading = false;
         //this.ErrorMessage = response.savemsg;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
       },
       error => {
         this.loading = false;
