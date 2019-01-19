@@ -710,6 +710,14 @@
         <app-generatedoc [pkid]="pkid" [type]="'SEA EXPORT'"></app-generatedoc>
       </ng-template>
     </ngb-tab>
-
+    <ngb-tab *ngIf="mode == 'EDIT'" title="Xml Download">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="col">
+            <app-xmloms [pkid]="pkid" [filename]="Record.book_slno" [type]="'MBL'"></app-xmloms>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
 </div>

@@ -1,5 +1,5 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
-
+import { Joborderm  } from '../../clearing/models/joborder';
 export class Packingm {
 
   pack_pkid: string;
@@ -21,12 +21,11 @@ export class Packingm {
   pack_cbm: number;
   pack_chwt: number;
 
-
   shipper_name: string;
   hbl_no: string;
   hbl_bl_no: string;
 
-
+  OrdList: Joborderm[] = [];
 
   rec_mode: string;
   _globalvariables: GlobalVariables;

@@ -9,6 +9,7 @@ import { Packingm } from '../models/packing';
 import { PackingService } from '../services/packing.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
+import { Joborderm } from '../../clearing/models/joborder';
 
 @Component({
     selector: 'app-packing',
@@ -25,7 +26,6 @@ export class PackingComponent {
     @Input() type: string = '';
     @Input() parentid: string = '';
 
-
     Total_Amount : number  = 0;
     
     loading = false;
@@ -38,8 +38,6 @@ export class PackingComponent {
 
     ctr: number;
    // jobdisabled = false;
-
-    
 
     // Array For Displaying List
      RecordList: Packingm[] = [];
@@ -193,6 +191,7 @@ export class PackingComponent {
       this.Record.pack_ntwt_unit_code = this.gs.defaultValues.param_unit_kgs_code;
       this.Record.pack_grwt_unit_id = this.gs.defaultValues.param_unit_kgs_id;
       this.Record.pack_grwt_unit_code = this.gs.defaultValues.param_unit_kgs_code;
+      this.Record.OrdList = new Array<Joborderm>();
 
       this.Record.rec_mode = this.mode;
 
@@ -428,7 +427,7 @@ export class PackingComponent {
             this.Record.pack_grwt_unit_code = response.jobm[0].job_grwt_unit_code;
             this.Record.pack_cbm = response.jobm[0].job_cbm;
             this.Record.pack_chwt = response.jobm[0].job_chwt;
-
+            this.Record.OrdList = response.ordlist;
 
             this.InitLov();
             this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;
