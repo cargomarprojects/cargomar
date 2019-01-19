@@ -19,6 +19,8 @@ import { DrawbackComponent } from './drawback/drawback.component';
 import { RitcmComponent } from './ritcm/ritcm.component';
 import { XmlComponent } from './xml/xml.component';
 import { LinkmComponent } from './linkm/linkm.component';
+import { Linkm2Component } from './linkm2/linkm2.component';
+
 import { LinkupdateComponent } from './linkm/linkupdate.component';
 import { AllnumComponent } from './allnum/allnum.component';
 
@@ -47,6 +49,7 @@ import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component
     RitcmComponent,
     XmlComponent,
     LinkmComponent,
+    Linkm2Component,
     LinkupdateComponent,
     AllnumComponent,
     BlFormaterComponent,
