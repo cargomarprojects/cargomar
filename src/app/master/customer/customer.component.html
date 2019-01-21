@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -97,7 +96,7 @@
           <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_group}}</td>
           <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_kyc_status}}</td>
           <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_sman_name}}</td>
-          <td >{{rec.cust_docs}}</td>
+          <td>{{rec.cust_docs}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -130,25 +129,29 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Code</label>
                 <div class="col-4">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_code" required maxlength="15" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_code"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Name</label>
                 <div class="col-10">
-                  <input type="text" [disabled]="!canadd" class="form-control form-control-sm" [(ngModel)]="Record.cust_name" required maxlength="60" />
+                  <input type="text" [disabled]="!canadd" class="form-control form-control-sm" [(ngModel)]="Record.cust_name"
+                    required maxlength="60" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">IE-Code</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_iecode" required maxlength="10" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_iecode" required
+                    maxlength="10" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Pan No</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_panno"  required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_panno" required
+                    maxlength="15" />
                 </div>
               </div>
 
@@ -157,7 +160,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Tan No</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_tanno"  required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_tanno" required
+                    maxlength="15" />
                 </div>
 
                 <label class="col-2 col-form-label col-form-label-sm">Type</label>
@@ -202,13 +206,15 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Days</label>
                 <div class="col-8">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crdays"
+                    (blur)="OnBlur('cust_crdays')" required maxlength="10" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Limit</label>
                 <div class="col-8">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crlimit" (blur)="OnBlur('cust_crlimit')" required maxlength="15" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crlimit"
+                    (blur)="OnBlur('cust_crlimit')" required maxlength="15" />
                 </div>
               </div>
 
@@ -236,7 +242,8 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Refer By</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_referdby" (blur)="OnBlur('cust_referdby')" maxlength="60" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_referdby" (blur)="OnBlur('cust_referdby')"
+                    maxlength="60" />
                 </div>
               </div>
 
@@ -301,7 +308,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">A/c Group</label>
                   <div class="col-10">
-                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm" [(ngModel)]="Record.acc_group_id">
+                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm"
+                      [(ngModel)]="Record.acc_group_id">
                       <option *ngFor="let rec of AcGrpList" [value]="rec.acgrp_pkid">{{rec.acgrp_name}}</option>
                     </select>
                   </div>
@@ -310,7 +318,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">A/c Type</label>
                   <div class="col-10">
-                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm" [(ngModel)]="Record.acc_type_id">
+                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm"
+                      [(ngModel)]="Record.acc_type_id">
                       <option *ngFor="let rec of AcTypeList" [value]="rec.actype_pkid">{{rec.actype_name}}</option>
                     </select>
                   </div>
@@ -319,7 +328,8 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Alloc.Against</label>
                   <div class="col-10">
-                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm" [(ngModel)]="Record.acc_against_invoice">
+                    <select [disabled]="!Record.cust_linked || !canadd" class="form-control form-control-sm"
+                      [(ngModel)]="Record.acc_against_invoice">
                       <option [value]="'N'">NA</option>
                       <option [value]="'D'">DEBIT</option>
                       <option [value]="'C'">CREDIT</option>
@@ -353,7 +363,8 @@
         </div>
 
         <div class="page-box">
-          <app-addressm #addressComponent [RecordList]="Record.AddressList" [StateList]="StateList" [CountryList]="CountryList" [customer_id]="pkid"></app-addressm>
+          <app-addressm #addressComponent [RecordList]="Record.AddressList" [StateList]="StateList" [CountryList]="CountryList"
+            [customer_id]="pkid"></app-addressm>
         </div>
 
         <div class="page-box">
@@ -373,7 +384,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">DBK A/c#</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_dbkacno" required maxlength="50" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_dbkacno" required
+                maxlength="50" />
             </div>
           </div>
 
@@ -381,7 +393,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Ad Code</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_adcode" required maxlength="50" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_adcode" required
+                maxlength="50" />
             </div>
           </div>
 
@@ -398,7 +411,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Forex A/c#</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_forexacno" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_forexacno" required
+                maxlength="60" />
 
             </div>
           </div>
@@ -411,13 +425,15 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_branch" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_branch" required
+                maxlength="60" />
             </div>
           </div>
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Address</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address1" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address1" required
+                maxlength="60" />
 
             </div>
           </div>
@@ -426,7 +442,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm"></label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address2" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address2" required
+                maxlength="60" />
 
             </div>
           </div>
@@ -434,7 +451,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm"></label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address3" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank_address3" required
+                maxlength="60" />
 
             </div>
           </div>
@@ -464,10 +482,17 @@
       </ng-template>
     </ngb-tab>
 
+    <ngb-tab *ngIf="mode == 'EDIT'" title="Xml Download">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="col">
+            <app-xmloms [pkid]="pkid" [filename]="Record.cust_name" [type]="'CUSTOMER'"></app-xmloms>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
   </ngb-tabset>
-
-
-
 </div>
 <br />
 
@@ -484,4 +509,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

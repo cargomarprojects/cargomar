@@ -11,7 +11,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 })
 export class XmlomsComponent {
   // Local Variables 
-  
+
   title = 'XML-EDI';
 
   @Input() menuid: string = '';
@@ -21,14 +21,14 @@ export class XmlomsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   loading = false;
-  
+
   bCompany = false;
   sub: any;
   urlid: string;
- // Prealertdate: boolean = false;
+  // Prealertdate: boolean = false;
   senton_date = "";
   ErrorMessage = "";
-    
+
   constructor(
     private mainService: XmlomsService,
     private route: ActivatedRoute,
@@ -74,16 +74,16 @@ export class XmlomsComponent {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 
   LoadCombo() {
   }
 
   // Query List Data
   List(_type: string) {
-    
+
   }
-   
+
 
   GenerateXml() {
     this.ErrorMessage = '';
@@ -97,11 +97,11 @@ export class XmlomsComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      type:this.type,
-      pkid:'',
-      filedisplayname:''
+      type: this.type,
+      pkid: '',
+      filedisplayname: ''
     };
-     
+
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -109,25 +109,26 @@ export class XmlomsComponent {
     SearchData.pkid = this.pkid;
     SearchData.filedisplayname = this.filename;
 
-     this.mainService.GenerateXmlEdiMexico(SearchData)
+    this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
         //this.ErrorMessage = response.savemsg;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
+        if (this.type == 'CONTAINER' || this.type == 'MBL')
+          this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
- 
+
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
-  
+
 }
