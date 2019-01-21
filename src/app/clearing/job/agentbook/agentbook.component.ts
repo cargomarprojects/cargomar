@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
@@ -186,7 +186,7 @@ export class AgentBookComponent {
       this.pkid = id;
       this.mode = 'EDIT';
       this.ResetControls();
-      this.GetRecord(id,'');
+      this.GetRecord(id, '');
     }
   }
 
@@ -233,10 +233,10 @@ export class AgentBookComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -266,7 +266,7 @@ export class AgentBookComponent {
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string, _type: string) {
     this.loading = true;
-   
+
     //if (_type != "EXCEL") {
     //  //this.book_id = '';
     //  this.book_id = Id;
@@ -278,7 +278,7 @@ export class AgentBookComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       Type: _type,
-      
+
     };
 
     this.ErrorMessage = '';
@@ -286,16 +286,16 @@ export class AgentBookComponent {
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL'||_type == 'ORDER-CSV'||_type == 'BOOKING-CSV')
+        if (_type == 'EXCEL' || _type == 'BOOKING-CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: AgentBookingm) {
@@ -343,11 +343,11 @@ export class AgentBookComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -429,7 +429,7 @@ export class AgentBookComponent {
     //}
     if (this.ErrorMessage)
       return;
-   
+
     this.loading = true;
     let SearchData = {
       rowtype: this.type,
@@ -438,7 +438,7 @@ export class AgentBookComponent {
       agentid: _Record.ab_agent_id,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code
-     
+
     };
 
     this.ErrorMessage = '';
@@ -447,21 +447,21 @@ export class AgentBookComponent {
       .subscribe(response => {
         this.loading = false;
         var REC = null;
-        
-          for (let Rec of response.list) {
-            REC = this.Record.OrderList.find(a => a.ord_pkid == Rec.ord_pkid);
-            if (REC == null) {
-              this.Record.OrderList.push(Rec);
-            }
+
+        for (let Rec of response.list) {
+          REC = this.Record.OrderList.find(a => a.ord_pkid == Rec.ord_pkid);
+          if (REC == null) {
+            this.Record.OrderList.push(Rec);
           }
-        
-        
+        }
+
+
         // this.Record.OrderList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

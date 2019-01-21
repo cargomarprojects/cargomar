@@ -224,8 +224,7 @@
     <div class="col">
       <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'EXCEL')" class="btn btn-success btn-sm">Excel</button>
-      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'ORDER-CSV')" class="btn btn-success btn-sm">Generate Order</button>
-      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'BOOKING-CSV')" class="btn btn-success btn-sm">Generate Booking</button>
+      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'BOOKING-CSV')" class="btn btn-success btn-sm">Generate Csv</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
