@@ -133,10 +133,10 @@ export class CompanyComponent {
         this.CompanyList = response.list;
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -165,10 +165,10 @@ export class CompanyComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -196,6 +196,10 @@ export class CompanyComponent {
     this.Record.comp_reg_address = '';
     this.Record.comp_iata_code = '';
     this.Record.comp_location = '';
+
+    this.Record.comp_country_code = '';
+    this.Record.comp_pol_code = '';
+
     this.Record.comp_order = 0;
 
     this.Record.comp_branch_type = 'BOTH';
@@ -217,10 +221,10 @@ export class CompanyComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Companym) {
@@ -244,11 +248,11 @@ export class CompanyComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -265,16 +269,16 @@ export class CompanyComponent {
       sError += "\n\rName Cannot Be Blank";
     }
 
-
-    if (this.Record.comp_branch_type.trim().length <= 0) {
-      bret = false;
-      sError += "\n\rBranch Type Cannot Be Blank";
-    }
-
-    if (bret) {
-      if (this.Record.comp_branch_type.trim() != 'AIR' && this.Record.comp_branch_type.trim() != 'SEA' && this.Record.comp_branch_type.trim() != 'BOTH') {
+    if (this.type == 'B') {
+      if (this.Record.comp_branch_type.trim().length <= 0) {
         bret = false;
-        sError += "\n\r Invalid Branch Type";
+        sError += "\n\rBranch Type Cannot Be Blank";
+      }
+      if (bret) {
+        if (this.Record.comp_branch_type.trim() != 'AIR' && this.Record.comp_branch_type.trim() != 'SEA' && this.Record.comp_branch_type.trim() != 'BOTH') {
+          bret = false;
+          sError += "\n\r Invalid Branch Type";
+        }
       }
     }
 
@@ -415,7 +419,16 @@ export class CompanyComponent {
           this.Record.comp_branch_type = this.Record.comp_branch_type.toUpperCase();
           break;
         }
-
+      case 'comp_country_code':
+        {
+          this.Record.comp_country_code = this.Record.comp_country_code.toUpperCase();
+          break;
+        }
+      case 'comp_pol_code':
+        {
+          this.Record.comp_pol_code = this.Record.comp_pol_code.toUpperCase();
+          break;
+        }
     }
   }
 
