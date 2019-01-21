@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { XmlomsService } from '../services/xmloms.service';
+import { GenService } from '../services/gen.services';
 import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-xmloms',
   templateUrl: './xmloms.component.html',
-  providers: [XmlomsService]
+  providers: [GenService]
 })
 export class XmlomsComponent {
   // Local Variables 
@@ -30,7 +30,7 @@ export class XmlomsComponent {
   ErrorMessage = "";
 
   constructor(
-    private mainService: XmlomsService,
+    private mainService: GenService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {

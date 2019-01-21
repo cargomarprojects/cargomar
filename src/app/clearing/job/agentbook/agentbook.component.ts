@@ -286,7 +286,7 @@ export class AgentBookComponent {
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL'||_type == 'ORDER-CSV'||_type == 'BOOKING-CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.LoadData(response.record);

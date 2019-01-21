@@ -18,5 +18,8 @@ export class GenService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/UpdateOsRemarks', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  GenerateXmlEdiMexico(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlEdiMexico', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
