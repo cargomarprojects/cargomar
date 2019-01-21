@@ -26,6 +26,8 @@ export class Companym {
     comp_iata_code: string;
     comp_location: string;
     comp_branch_type: string;
+    comp_country_code: string;
+    comp_pol_code: string;
     comp_order: number;
 
     rec_mode: string;
