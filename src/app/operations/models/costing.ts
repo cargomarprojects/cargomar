@@ -212,4 +212,8 @@ export class Costingd {
 
   costd_agent_format: string;
   costd_remarks: string;
+
+  costd_srate: number;
+  costd_brate: number;
+  costd_split: number;
 }

@@ -66,6 +66,8 @@ export class CostInvoiceComponent {
   // Save Data
   OnBlur(field: string) {
 
+
+
   }
 
   OnFocusTableCell(field: string, fieldid: string) {
@@ -93,6 +95,12 @@ export class CostInvoiceComponent {
         REC.costd_acc_name = REC.costd_acc_name.toUpperCase();
       if (field == "costd_remarks")
         REC.costd_remarks = REC.costd_remarks.toUpperCase();
+      if (field == "costd_brate")
+        REC.costd_brate = this.gs.roundNumber(REC.costd_brate, 3);
+      if (field == "costd_srate")
+        REC.costd_srate = this.gs.roundNumber(REC.costd_srate, 3);
+      if (field == "costd_split")
+        REC.costd_split = this.gs.roundNumber(REC.costd_split, 0);
       if (field == "costd_acc_qty") {
         if (this.bChanged) {
           REC.costd_acc_qty = this.gs.roundNumber(REC.costd_acc_qty, 4);
@@ -133,7 +141,7 @@ export class CostInvoiceComponent {
     this.Record.costd_parent_id = this.mRecord.cost_pkid;
     this.Record.costd_category = "INVOICE";
     this.Record.costd_blno = "";
-    if (this.type == "SEA EXPORT COSTING"||this.type == "SE CONSOLE COSTING")
+    if (this.type == "SEA EXPORT COSTING" || this.type == "SE CONSOLE COSTING")
       this.Record.costd_acc_name = "OUR HANDLING CHARGES";
     else
       this.Record.costd_acc_name = "";
@@ -141,6 +149,9 @@ export class CostInvoiceComponent {
     this.Record.costd_acc_qty = 1;
     this.Record.costd_acc_rate = 1;
     this.Record.costd_acc_amt = 0;
+    this.Record.costd_srate = 0;
+    this.Record.costd_brate = 0;
+    this.Record.costd_split = 0;
     this.mRecord.DetailList.push(this.Record);
   }
 

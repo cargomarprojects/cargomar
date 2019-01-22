@@ -1,6 +1,58 @@
 <div class="page-list">
   <div style="max-height: 200px; overflow-y: scroll;">
-    <div class="page-body table-responsive">
+    <div *ngIf="type == 'SE CONSOLE COSTING'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th width="15%">HOUSE BL</th>
+            <th width="25%">DESCRIPTION</th>
+            <th width="15%">REMARKS</th>
+            <th width="8%">SELL RATE</th>
+            <th width="8%">BUY RATE</th>
+            <th width="4%">SPLIT</th>
+            <th width="6%">QTY</th>
+            <th width="6%">RATE</th>
+            <th width="8%">AMT</th>
+            <th width="5%">REMOVE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of mRecord.DetailList">
+          <tr>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="text" name="blno" class="form-control form-control-sm" [(ngModel)]="rec.costd_blno" (blur)="OnBlurTableCell('costd_blno',rec.costd_pkid)" required maxlength="25" />
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <input type="text" name="desc" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_name" (blur)="OnBlurTableCell('costd_acc_name',rec.costd_pkid)" required maxlength="60" />
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <input type="text" name="rem" class="form-control form-control-sm" [(ngModel)]="rec.costd_remarks" (blur)="OnBlurTableCell('costd_remarks',rec.costd_pkid)" required maxlength="100" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="srt" class="form-control form-control-sm" [(ngModel)]="rec.costd_srate"  (blur)="OnBlurTableCell('costd_srate',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="brt" class="form-control form-control-sm" [(ngModel)]="rec.costd_brate" (blur)="OnBlurTableCell('costd_brate',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="splt" class="form-control form-control-sm" [(ngModel)]="rec.costd_split" (blur)="OnBlurTableCell('costd_split',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="qty" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_qty" (focus)="OnFocusTableCell('costd_acc_qty',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_qty',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_qty',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="rate" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_rate" (focus)="OnFocusTableCell('costd_acc_rate',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_rate',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_rate',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td style="padding:0px 0px 0px 0px" >
+              <input type="number" name="amt" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_amt" (focus)="OnFocusTableCell('costd_acc_amt',rec.costd_pkid)" (change)="OnChangeTableCell('costd_acc_amt',rec.costd_pkid)" (blur)="OnBlurTableCell('costd_acc_amt',rec.costd_pkid)" required maxlength="15" />
+            </td>
+            <td align="center" style="padding:0px 0px 0px 0px" >
+              <i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="RemoveRecord(rec.costd_pkid)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="type != 'SE CONSOLE COSTING'" class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
