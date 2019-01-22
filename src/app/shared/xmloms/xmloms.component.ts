@@ -114,7 +114,8 @@ export class XmlomsComponent {
         this.loading = false;
         //this.ErrorMessage = response.savemsg;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        if (this.type == 'CONTAINER' || this.type == 'MBL')
+        // if (this.type == 'CONTAINER' || this.type == 'MBL')
+        if (this.type == 'CONTAINER')
           this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
       },
         error => {
