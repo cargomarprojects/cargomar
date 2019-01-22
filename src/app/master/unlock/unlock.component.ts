@@ -113,6 +113,7 @@ export class UnLockComponent {
       { "code": "OP", "name": "Opening Balance" },
       { "code": "OI", "name": "Opening Invoice" },
       { "code": "OC", "name": "Costing Opening Invoice" },
+      { "code": "OB", "name": "Opening Bank" },
       { "code": "DN", "name": "Debit Note" },
       { "code": "CN", "name": "Credit Note" },
       { "code": "DI", "name": "Inward Debit Note" },
@@ -128,6 +129,7 @@ export class UnLockComponent {
       { "code": "JOB-GN", "name": "General Job" },
       { "code": "AIR EXPORT COSTING", "name": "Air Export Costing" },
       { "code": "SEA EXPORT COSTING", "name": "Sea Export Costing" },
+      { "code": "SE CONSOLE COSTING", "name": "Sea Console Costing" },
       { "code": "AGENT INVOICE", "name": "Agent Invoice" },
       { "code": "DRCR ISSUE", "name": "DRCR Issue" }
     ];
@@ -175,7 +177,7 @@ export class UnLockComponent {
       this.chkbpreaprvd = false;
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" ||
-        this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || 
+        this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
         this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI") {
         this.refnotitle = "Vr.No";
       } else if (this.moduletype == "MBL-AE" || this.moduletype == "MBL-AI" ||
@@ -188,7 +190,7 @@ export class UnLockComponent {
         this.moduletype == "HBL-SE" || this.moduletype == "HBL-SI") {
           this.refnotitle = "SI#";
       } else if (this.moduletype == "AGENT INVOICE" || this.moduletype == "AIR EXPORT COSTING" ||
-        this.moduletype == "DRCR ISSUE" || this.moduletype == "SEA EXPORT COSTING") {
+        this.moduletype == "DRCR ISSUE" || this.moduletype == "SEA EXPORT COSTING"|| this.moduletype == "SE CONSOLE COSTING") {
         this.refnotitle = "Folder#";
       } else if (this.moduletype == "JOB-GN") {
         this.refnotitle = "Job#";
