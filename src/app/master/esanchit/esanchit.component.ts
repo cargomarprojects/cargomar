@@ -486,13 +486,13 @@ export class EsanchitComponent  {
           this.Record.doc_issuer_code = response.record.doc_issuer_code;
           this.Record.doc_issuer_name = response.record.doc_issuer_name;
           this.Record.doc_issuer_add1 = response.record.doc_issuer_add1;
-          this.Record.doc_issuer_add2 = response.record.doc_issuer_add2;
+         // this.Record.doc_issuer_add2 = response.record.doc_issuer_add2;
           //this.Record.doc_issuer_city = response.record.doc_issuer_city;
           //this.Record.doc_issuer_pin = response.record.doc_issuer_pin;
           this.Record.doc_ben_code = response.record.doc_ben_code;
           this.Record.doc_ben_name = response.record.doc_ben_name;
           this.Record.doc_ben_add1 = response.record.doc_ben_add1;
-          this.Record.doc_ben_add2 = response.record.doc_ben_add2;
+         // this.Record.doc_ben_add2 = response.record.doc_ben_add2;
           //this.Record.doc_ben_city = response.record.doc_ben_city;
           //this.Record.doc_ben_pin = response.record.doc_ben_pin;
         }
