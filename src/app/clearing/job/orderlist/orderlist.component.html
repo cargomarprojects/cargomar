@@ -112,7 +112,10 @@
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
           <th>JOB#</th>
+          <th>POL</th>
+          <th>POD</th>
           <th>INVOICE#</th>
+          <th>PO.ID</th>
           <th>PO#</th>
           <th>STYLE</th>
           <th>CONTRACT#</th>
@@ -140,7 +143,10 @@
           <td (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_exp_name}}</td>
           <td >{{rec.ord_imp_name}}</td>
           <td >{{rec.job_docno}}</td>
+          <td >{{rec.ord_pol}}</td>
+          <td >{{rec.ord_pod}}</td>
           <td >{{rec.ord_invno}}</td>
+          <td >{{rec.ord_uid}}</td>
           <td >{{rec.ord_po}}</td>
           <td >{{rec.ord_style}}</td>
           <td >{{rec.ord_contractno}}</td>
