@@ -48,6 +48,10 @@ export class Joborderm {
   ord_delvi_date: string;
   ord_dlv_pol_date: string;
   ord_dlv_pod_date: string;
+  ord_pol: string;
+  ord_pod: string;
+  ord_status: string;
+  ord_uid: number;
 
   job_docno: string;
   rec_mode: string;

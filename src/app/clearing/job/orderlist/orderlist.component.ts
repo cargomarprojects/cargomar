@@ -6,6 +6,7 @@ import { Joborderm } from '../../models/joborder';
 import { JobOrder_VM } from '../../models/joborder';
 import { OrderListService } from '../../services/orderlist.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { ReconComponent } from '../../../accounts/Recon/recon.component';
 
 @Component({
   selector: 'app-orderlist',
@@ -397,6 +398,8 @@ export class OrderListComponent {
     this.Record.ord_color = '';
     this.Record.ord_contractno = '';
     this.Record.ord_source = '';
+    this.Record.ord_pol = '';
+    this.Record.ord_pod = '';
 
     this.initLov();
     this.EXPRECORD.id = '';
@@ -479,6 +482,8 @@ export class OrderListComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
+        if (this.mode == 'ADD')
+          this.Record.ord_uid = response.uidno;
         this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
@@ -550,8 +555,9 @@ export class OrderListComponent {
       REC.ord_hs_code = this.Record.ord_hs_code;
       REC.ord_cargo_status = this.Record.ord_cargo_status;
       REC.rec_created_dte = this.Record.rec_created_dte;
-
-
+      REC.ord_pol = this.Record.ord_pol;
+      REC.ord_pod = this.Record.ord_pod;
+      REC.ord_uid = this.Record.ord_uid;
     }
   }
 
@@ -663,6 +669,16 @@ export class OrderListComponent {
           this.ord_invoice = this.ord_invoice.toUpperCase();
           break;
         }
+      case 'ord_pol':
+        {
+          this.Record.ord_pol = this.Record.ord_pol.toUpperCase();
+          break;
+        }
+      case 'ord_pod':
+        {
+          this.Record.ord_pod = this.Record.ord_pod.toUpperCase();
+          break;
+        }
     }
   }
 
@@ -712,7 +728,8 @@ export class OrderListComponent {
     let col_whd = -1;
     let col_dlv_pol = -1;
     let col_dlv_pod = -1;
-
+    let col_port_pol = -1;
+    let col_port_pod = -1;
 
     if (cbdata != null) {
 
@@ -790,6 +807,12 @@ export class OrderListComponent {
           if (ar2[i].toUpperCase().indexOf("DELIVERY POD DATE") >= 0) {
             col_dlv_pod = i;
           }
+          if (ar2[i].toUpperCase().indexOf("PORT-POL") >= 0) {
+            col_port_pol = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("PORT-POD") >= 0) {
+            col_port_pod = i;
+          }
         };
       }
 
@@ -830,6 +853,8 @@ export class OrderListComponent {
           mRec.ord_delvi_date = '';
           mRec.ord_dlv_pol_date = '';
           mRec.ord_dlv_pod_date = '';
+          mRec.ord_pol = '';
+          mRec.ord_pod = '';
 
           mRec.ord_pkid = this.gs.getGuid();
           mRec.rec_category = this.type;
@@ -918,7 +943,10 @@ export class OrderListComponent {
             mRec.ord_dlv_pol_date = ar2[col_dlv_pol].toUpperCase();
           if (col_dlv_pod > -1)
             mRec.ord_dlv_pod_date = ar2[col_dlv_pod].toUpperCase();
-
+          if (col_port_pol > -1)
+            mRec.ord_pol = ar2[col_port_pol].toUpperCase();
+          if (col_port_pod > -1)
+            mRec.ord_pod = ar2[col_port_pod].toUpperCase();
 
           if (mRec.ord_po != '') {
             let sContract: string = "";
