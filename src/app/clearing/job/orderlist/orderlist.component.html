@@ -133,6 +133,8 @@
           <th>OUR.BK#</th>
           <th>AGENT.BK#</th>
           <th>AGENT.APRVD</th>
+          <th>PLANNING#</th>
+          <th>WEEK#</th>
           <th>TRACK.STATUS</th>
         </tr>
       </thead>
@@ -165,6 +167,8 @@
           <td >{{rec.ord_ourbooking_no}}</td>
           <td>{{rec.ord_booking_no}}</td>
           <td>{{rec.ord_approved ? 'YES' : 'NO'}}</td>
+          <td >{{rec.ord_plan_no}}</td>
+          <td >{{rec.ord_week_no}}</td>
           <td>{{rec.ord_track_status}}</td>
         </tr>
       </tbody>
