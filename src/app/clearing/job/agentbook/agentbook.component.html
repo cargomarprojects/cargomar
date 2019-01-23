@@ -93,7 +93,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Booking#</label>
           <div class="col-4">
-            <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.ab_book_no" [disabled]="true" required maxlength="15" />
+            <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.ab_book_no"
+              [disabled]="true" required maxlength="15" />
           </div>
           <label style="padding-left:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
           <div class="col-sm-5">
@@ -103,7 +104,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Agent</label>
           <div class="col-4">
-            <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0" [inputdata]="AGENTRECORD"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
           <div class="col-6" style="padding-left:0">
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_agent_name" />
@@ -127,13 +129,14 @@
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_imp_name" />
           </div>
         </div>
-      
+
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Comments</label>
           <div class="col-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ab_remarks" (blur)="OnBlur('ab_remarks')" maxlength="250"></textarea>
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ab_remarks" (blur)="OnBlur('ab_remarks')"
+              maxlength="250"></textarea>
           </div>
         </div>
       </div>
@@ -160,19 +163,23 @@
               <button [disabled]="loading" (click)="OrderList(Record)" class="btn btn-primary btn-sm">Find</button>
               <button [disabled]="loading" (click)="TrackOrders(trackorder)" class="btn btn-primary btn-sm">Tracking</button>
             </div>
-           
+
           </div>
         </div>
-        </div>
+      </div>
       <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
           <thead class="page-body-thead">
             <tr>
               <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="ord_selected"></th>
               <th>APPROVED</th>
-              <th>BOOKING-NO</th>
+              <th>BOOKING.NO</th>
+              <th>BOOKING.STATUS</th>
               <th>SHIPPER</th>
               <th>CONSIGNEE</th>
+              <th>POL</th>
+              <th>POD</th>
+              <th>PO.ID</th>
               <th>PO#</th>
               <th>STYLE</th>
               <th>COLOR</th>
@@ -194,10 +201,19 @@
             <tr>
               <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
               <td><input type="checkbox" [(ngModel)]="rec.ord_approved"></td>
-              <td><input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)" required maxlength="50" /></td>
-
+              <td><input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)"
+                  required maxlength="50" /></td>
+              <td><select class="form-control form-control-sm" [(ngModel)]="rec.ord_status">
+                  <option [value]="'REPORTED'">REPORTED</option>
+                  <option [value]="'APPROVED'">APPROVED</option>
+                  <option [value]="'CANCELLED'">CANCELLED</option>
+                  <option [value]="'ON HOLD'">ON HOLD</option>
+                </select></td>
               <td>{{rec.ord_exp_name}}</td>
               <td>{{rec.ord_imp_name}}</td>
+              <td>{{rec.ord_pol}}</td>
+              <td>{{rec.ord_pod}}</td>
+              <td>{{rec.ord_uid}}</td>
               <td>{{rec.ord_po}}</td>
               <td>{{rec.ord_style}}</td>
               <td>{{rec.ord_color}}</td>
@@ -224,7 +240,8 @@
     <div class="col">
       <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'EXCEL')" class="btn btn-success btn-sm">Excel</button>
-      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'BOOKING-CSV')" class="btn btn-success btn-sm">Generate Csv</button>
+      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'BOOKING-CSV')" class="btn btn-success btn-sm">Generate
+        Csv</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -250,7 +267,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-trackorder [pkid]="ord_trkids" [refno]="ord_trkpos" [type]="'AGENTBOOKING'" ></app-trackorder>
+    <app-trackorder [pkid]="ord_trkids" [refno]="ord_trkpos" [type]="'AGENTBOOKING'"></app-trackorder>
   </div>
 </ng-template>
-
