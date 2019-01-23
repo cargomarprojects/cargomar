@@ -33,7 +33,14 @@ export class HblService {
 
     JobList(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Hbl/JobList', SearchData, this.gs.headerparam2('authorized'));
+    
     }
+
+    GetCreditLimit(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/GetCreditLimit', SearchData, this.gs.headerparam2('authorized'));
+    }
+  
+
 
 
 }

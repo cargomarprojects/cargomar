@@ -50,6 +50,14 @@ export class HblSeaAirComponent {
     page_rows = 0;
     page_rowcount = 0;
 
+
+    old_shipper_id = '';
+    old_billto_id = '';
+  
+    bCreditLimit: boolean = false;
+
+    
+
     sub: any;
     urlid: string;
 
@@ -70,6 +78,7 @@ export class HblSeaAirComponent {
     //JobTypeList: any[] = [];
 
     // Shipper
+    BILLTORECORD: SearchTable = new SearchTable();    
     EXPRECORD: SearchTable = new SearchTable();
     EXPADDRECORD: SearchTable = new SearchTable();
     AGENTRECORD: SearchTable = new SearchTable();
@@ -205,6 +214,17 @@ export class HblSeaAirComponent {
 
     InitLov() {
 
+        this.BILLTORECORD = new SearchTable();
+        this.BILLTORECORD.controlname = "BILLTO";
+        this.BILLTORECORD.displaycolumn = "CODE";
+        this.BILLTORECORD.type = "CUSTOMER";
+        this.BILLTORECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+        this.BILLTORECORD.id = "";
+        this.BILLTORECORD.code = "";
+        this.BILLTORECORD.name = "";
+        this.BILLTORECORD.parentid = "";        
+
+
         this.EXPRECORD = new SearchTable();
         this.EXPRECORD.controlname = "SHIPPER";
         this.EXPRECORD.displaycolumn = "CODE";
@@ -324,6 +344,11 @@ export class HblSeaAirComponent {
             this.Record.hbl_exp_br_no = _Record.code;
             this.Record.hbl_exp_br_addr = this.GetBrAddress(_Record.name).address;
         }
+        else if (_Record.controlname == "BILLTO") {
+            this.Record.hbl_billto_id = _Record.id;
+            this.Record.hbl_billto_code = _Record.code;
+            this.Record.hbl_billto_name = _Record.name;
+          }        
         else if (_Record.controlname == "AGENT") {
 
             bchange = false;
@@ -475,6 +500,10 @@ export class HblSeaAirComponent {
 
     NewRecord() {
         // this.disableBookslno = false;
+
+        this.old_shipper_id = '';
+        this.old_billto_id = '';
+
         this.hbl_no = "";
         this.sExp_ID = "";
         this.sImp_ID = "";
@@ -504,6 +533,12 @@ export class HblSeaAirComponent {
         this.Record.hbl_imp_br_id = '';
         this.Record.hbl_imp_br_no = '';
         this.Record.hbl_imp_br_addr = '';
+
+
+        this.Record.hbl_billto_id = '';
+        this.Record.hbl_billto_code = '';
+        this.Record.hbl_billto_name = '';
+
 
         if (this.type == "SEA EXPORT")
             this.Record.hbl_nature = 'FCL/FCL';
@@ -577,6 +612,11 @@ export class HblSeaAirComponent {
 
         this.InitLov();
 
+        this.BILLTORECORD.id = this.Record.hbl_billto_id;
+        this.BILLTORECORD.code = this.Record.hbl_billto_code;
+        this.BILLTORECORD.name = this.Record.hbl_billto_name;
+
+
         this.EXPRECORD.id = this.Record.hbl_exp_id;
         this.EXPRECORD.code = this.Record.hbl_exp_code;
         this.EXPRECORD.name = this.Record.hbl_exp_name;
@@ -614,6 +654,10 @@ export class HblSeaAirComponent {
         this.COLOADERRECORD.code = this.Record.hbl_coloader_code;
         this.COLOADERRECORD.name = this.Record.hbl_coloader_name;
 
+        this.old_shipper_id = this.Record.hbl_exp_id;
+        this.old_billto_id = this.Record.hbl_billto_id;
+
+
         //Fill Duplicate Job
         if (this.mode == "ADD") {
             this.Record.hbl_pkid = this.pkid;
@@ -635,7 +679,21 @@ export class HblSeaAirComponent {
     }
 
     // Save Data
+
     Save() {
+        try {
+          if (this.old_shipper_id != this.Record.hbl_exp_id || this.old_billto_id != this.Record.hbl_billto_id)
+            this.CheckCrLimit(true);
+          else
+            this.SaveFinal();
+        }
+        catch (error) {
+          alert(error.message);
+        }
+      }
+
+
+    SaveFinal() {
         if (!this.allvalid())
             return;
         this.loading = true;
@@ -707,6 +765,44 @@ export class HblSeaAirComponent {
             this.ErrorMessage = sError;
         return bret;
     }
+
+    CheckCrLimit(bCallSave: boolean = false) {
+
+        if (this.Record.hbl_exp_id == "") {
+          alert('Shipper cannot be blank');
+          return;
+        }
+    
+        this.loading = true;
+        let SearchData = {
+          comp_code: this.gs.globalVariables.comp_code,
+          branch_code: this.gs.globalVariables.branch_code,
+          customerid: this.Record.hbl_exp_id,
+          billtoid: this.Record.hbl_billto_id
+        };
+    
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.GetCreditLimit(SearchData)
+          .subscribe(response => {
+            this.loading = false;
+            this.bCreditLimit = response.retvalue;
+            if (!this.bCreditLimit) {
+              this.ErrorMessage = response.message;
+              alert(response.message);
+            }
+            if (this.bCreditLimit && bCallSave) {
+              this.SaveFinal();
+            }
+          },
+            error => {
+              this.loading = false;
+              this.ErrorMessage = this.gs.getError(error);
+            });
+      }
+    
+    
+
 
     RefreshList() {
         if (this.RecordList == null)

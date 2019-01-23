@@ -41,6 +41,11 @@ export class Hblm {
   hbl_imp_br_addr: string;
 
 
+  hbl_billto_id: string;
+  hbl_billto_code: string;
+  hbl_billto_name: string;  
+
+
   hbl_houseno: string;
   hbl_selected: boolean;
 
