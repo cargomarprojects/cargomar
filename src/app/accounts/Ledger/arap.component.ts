@@ -45,6 +45,7 @@ export class ArApComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bAdmin: boolean = false;
   bDocs: boolean = false;
   lock_record: boolean = false;
   lock_date: boolean = false;
@@ -160,14 +161,17 @@ export class ArApComponent {
 
   InitComponent() {
     this.bapprovalstatus = "";
-    this.bDocs = false;
+    this.bDocs = false
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
-      if (this.menu_record.rights_approval.length > 0)
-        this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+      (this.menu_record.rights_approval.length > 0)
+      this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
     this.InitLov();
     this.LoadCombo();
@@ -1956,7 +1960,8 @@ export class ArApComponent {
       company_code: '',
       branch_code: '',
       report_caption: '',
-      report_format: ''
+      report_format: '',
+      menuadmin: ''
     }
 
     SearchData.pkid = this.pkid;
@@ -1966,7 +1971,7 @@ export class ArApComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
     SearchData.report_caption = this.title;
-
+    SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
     this.ErrorMessage = '';
     this.mainService.GenerateInvoice(SearchData)
       .subscribe(response => {
