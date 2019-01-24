@@ -24,6 +24,8 @@ export class PasteDataComponent implements OnInit {
 
   @Input() visible: boolean = false;
 
+  @Input() ExcelFormat: string = '';
+
   displayed: boolean = false;
 
   loading: boolean = false
@@ -33,20 +35,20 @@ export class PasteDataComponent implements OnInit {
   ErrorMessage: string = '';
 
   cbdata: string = '';
-  dateformat: string='DMY';
+  dateformat: string = 'DMY';
   maintype: string = 'ORDER LIST';
 
- // RecList: SearchTable[] = [];
+  // RecList: SearchTable[] = [];
 
   nTotal: string = '';
- 
+
 
   SearchData = {
-    //table: '',
     type: '',
-    comp_code: '',
-    branch_code: '',
-    year_code: '',
+    table: '',
+    company_code: this.gs.globalVariables.comp_code,
+    branch_code: this.gs.globalVariables.branch_code,
+    year_code: this.gs.globalVariables.year_code,
     cbdata: ''
   };
 
@@ -61,7 +63,7 @@ export class PasteDataComponent implements OnInit {
 
         if (this.visible) {
           this.cbdata = '';
-         // this.RecList = null;
+          // this.RecList = null;
           this.open();
         }
         if (!this.visible)
@@ -92,13 +94,11 @@ export class PasteDataComponent implements OnInit {
     if (this.CloseClicked != null)
       this.CloseClicked.emit(this.cbdata);
   }
-  
+
 
   //SearchRecord() {
 
   //  this.loading = true;
-
-   
 
 
   // // SearchData.table = 'pastedata';
@@ -107,14 +107,39 @@ export class PasteDataComponent implements OnInit {
   //  this.SearchData.branch_code = this.gs.globalVariables.branch_code;
   //  this.SearchData.year_code = this.gs.globalVariables.year_code;
   //  this.SearchData.cbdata = this.cbdata;
-    
-    
+
+
   //  //this.RecList = this.SearchData;
 
   //  this.ErrorMessage = '';
-    
-  //}
-  
 
+  //}
+
+  PrintFormat() {
+    if (this.ExcelFormat == '')
+      return;
+    this.loading = true;
+    this.SearchData.type = "ORDERLIST";
+    this.SearchData.table = "excelformat";
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = '';
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
 }
+

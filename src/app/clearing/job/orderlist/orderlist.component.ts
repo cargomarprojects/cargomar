@@ -45,6 +45,8 @@ export class OrderListComponent {
   from_date: string = '';
   to_date: string = '';
   ord_showpending: boolean = false;
+  ord_status: string = "REPORTED";
+  sort_colname: string = "a.rec_created_date desc";
 
   list_exp_id: string = "";
   list_exp_name: string = "";
@@ -72,11 +74,14 @@ export class OrderListComponent {
   EXPRECORD: SearchTable = new SearchTable();
   IMPRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
+  POLRECORD: SearchTable = new SearchTable();
+  PODRECORD: SearchTable = new SearchTable();
 
   LIST_EXPRECORD: SearchTable = new SearchTable();
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
 
+  SortList: any[] = [];
   // Array For Displaying List
   RecordList: Joborderm[] = [];
   // Single Record for add/edit/view details
@@ -127,8 +132,7 @@ export class OrderListComponent {
     this.LoadCombo();
     this.initLov();
     this.initLov2();
-    this.List("NEW");
-
+    // this.List("NEW");
   }
 
   //// Destroy Will be called when this component is closed
@@ -170,7 +174,21 @@ export class OrderListComponent {
     this.AGENTRECORD.code = "";
     this.AGENTRECORD.name = "";
 
+    this.POLRECORD = new SearchTable();
+    this.POLRECORD.controlname = "POL";
+    this.POLRECORD.displaycolumn = "CODE";
+    this.POLRECORD.type = "PORT";
+    this.POLRECORD.id = "";
+    this.POLRECORD.code = "";
+    this.POLRECORD.name = "";
 
+    this.PODRECORD = new SearchTable();
+    this.PODRECORD.controlname = "POD";
+    this.PODRECORD.displaycolumn = "CODE";
+    this.PODRECORD.type = "PORT";
+    this.PODRECORD.id = "";
+    this.PODRECORD.code = "";
+    this.PODRECORD.name = "";
   }
 
   initLov2(caption: string = '') {
@@ -206,7 +224,6 @@ export class OrderListComponent {
     this.LIST_AGENTRECORD.id = "";
     this.LIST_AGENTRECORD.code = "";
     this.LIST_AGENTRECORD.name = "";
-
 
   }
 
@@ -254,22 +271,38 @@ export class OrderListComponent {
 
     }
 
-  }
+    if (_Record.controlname == "POL") {
+      this.Record.ord_pol_id = _Record.id;
+      if (_Record.code.length >= 5)
+        this.Record.ord_pol = _Record.code.substr(2,3);
+      else
+        this.Record.ord_pol = _Record.code;
+    }
+    else if (_Record.controlname == "POD") {
+      this.Record.ord_pod_id = _Record.id;
+      if (_Record.code.length >= 5)
+        this.Record.ord_pod = _Record.code.substr(2,3);
+      else
+        this.Record.ord_pod = _Record.code;
+    }
 
+  }
 
   LoadCombo() {
 
-    this.loading = true;
     this.list_agent_id = "";
     this.list_exp_id = "";
     this.list_imp_id = "";
     this.job_docno = "";
     this.ord_po = "";
     this.ord_invoice = "";
-
+    this.ord_status = "REPORTED";
+    this.sort_colname = "a.rec_created_date desc";
+    this.SortList = [
+      { "colheadername": "CREATED", "colname": "a.rec_created_date desc" },
+      { "colheadername": "AGENT,SHIPPER,PO", "colname": "agent.cust_name,exp.cust_name,ord_po" }
+    ];
   }
-
-
 
   ////function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -342,7 +375,9 @@ export class OrderListComponent {
       list_agent_id: this.list_agent_id,
       ord_showpending: this.ord_showpending == true ? "Y" : "N",
       report_folder: this.gs.globalVariables.report_folder,
-      file_pkid: this.gs.getGuid()
+      file_pkid: this.gs.getGuid(),
+      ord_status: this.ord_status,
+      sort_colname: this.sort_colname
     };
 
     this.ErrorMessage = '';
@@ -363,8 +398,6 @@ export class OrderListComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
-
-
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -400,24 +433,25 @@ export class OrderListComponent {
     this.Record.ord_source = '';
     this.Record.ord_pol = '';
     this.Record.ord_pod = '';
+    this.Record.ord_pol_id = '';
+    this.Record.ord_pod_id = '';
 
     this.initLov();
-    this.EXPRECORD.id = '';
-    this.EXPRECORD.name = '';
-    this.IMPRECORD.id = '';
-    this.IMPRECORD.name = '';
+    // this.EXPRECORD.id = '';
+    // this.EXPRECORD.name = '';
+    // this.IMPRECORD.id = '';
+    // this.IMPRECORD.name = '';
     this.Record.ord_exp_code = '';
     this.Record.ord_imp_code = '';
-    this.EXPRECORD.code = '';
-    this.IMPRECORD.code = '';
-    this.AGENTRECORD.id = '';
-    this.AGENTRECORD.name = '';
+    // this.EXPRECORD.code = '';
+    // this.IMPRECORD.code = '';
+    // this.AGENTRECORD.id = '';
+    // this.AGENTRECORD.name = '';
     this.Record.ord_agent_code = '';
 
     this.Record.rec_mode = this.mode;
     // this.InitLov();
     this.Record.rec_mode = this.mode;
-
   }
 
 
@@ -457,6 +491,10 @@ export class OrderListComponent {
     this.AGENTRECORD.id = this.Record.ord_agent_id;
     this.AGENTRECORD.name = this.Record.ord_agent_name;
     this.AGENTRECORD.code = this.Record.ord_agent_code;
+    this.POLRECORD.id = this.Record.ord_pol_id;
+    this.POLRECORD.code = this.Record.ord_pol;
+    this.PODRECORD.id = this.Record.ord_pod_id;
+    this.PODRECORD.code = this.Record.ord_pod;
 
     if (this.Record.job_docno != "") {
       this.bDisabledControl = true;

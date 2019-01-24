@@ -25,7 +25,8 @@
                 <option value="YMD">YMD</option>
               </select>
           </div>-->
-          <div class="col-3">
+          <div class="col-2">
+              <button *ngIf="ExcelFormat" class="btn btn-primary btn-sm" (click)="PrintFormat()">Excel Format</button>
           </div>
           <div class="col-2">
             <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>

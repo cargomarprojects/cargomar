@@ -126,9 +126,7 @@ export class DateComponent {
                     this.yy = date1.getFullYear();
                 }
             }
-
-        }
-        
+        }    
 
 
         // Check the ranges of month and year
