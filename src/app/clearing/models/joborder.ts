@@ -52,6 +52,8 @@ export class Joborderm {
   ord_pod: string;
   ord_pol_id: string;
   ord_pod_id: string;
+  ord_pol_code: string;
+  ord_pod_code: string;
   ord_status: string;
   ord_uid: number;
   ord_plan_no:number;

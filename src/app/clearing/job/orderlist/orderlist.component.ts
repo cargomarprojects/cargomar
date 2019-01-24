@@ -87,7 +87,6 @@ export class OrderListComponent {
   // Single Record for add/edit/view details
   Record: Joborderm = new Joborderm;
 
-
   bShowList = false;
   mList: Joborderm[] = [];
 
@@ -101,7 +100,6 @@ export class OrderListComponent {
     this.page_count = 0;
     this.page_rows = 30;
     this.page_current = 0;
-
 
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -142,7 +140,6 @@ export class OrderListComponent {
 
   initLov(caption: string = '') {
 
-
     this.EXPRECORD = new SearchTable();
     this.EXPRECORD.controlname = "SHIPPER";
     this.EXPRECORD.displaycolumn = "NAME";
@@ -153,7 +150,6 @@ export class OrderListComponent {
     this.EXPRECORD.name = "";
     this.EXPRECORD.parentid = "";
 
-
     this.IMPRECORD = new SearchTable();
     this.IMPRECORD.controlname = "CONSIGNEE";
     this.IMPRECORD.displaycolumn = "NAME";
@@ -163,7 +159,6 @@ export class OrderListComponent {
     this.IMPRECORD.code = "";
     this.IMPRECORD.name = "";
     this.IMPRECORD.parentid = "";
-
 
     this.AGENTRECORD = new SearchTable();
     this.AGENTRECORD.controlname = "AGENT";
@@ -204,7 +199,6 @@ export class OrderListComponent {
     this.LIST_EXPRECORD.name = "";
     this.LIST_EXPRECORD.parentid = "";
 
-
     this.LIST_IMPRECORD = new SearchTable();
     this.LIST_IMPRECORD.controlname = "LIST_CONSIGNEE";
     this.LIST_IMPRECORD.displaycolumn = "NAME";
@@ -214,7 +208,6 @@ export class OrderListComponent {
     this.LIST_IMPRECORD.code = "";
     this.LIST_IMPRECORD.name = "";
     this.LIST_IMPRECORD.parentid = "";
-
 
     this.LIST_AGENTRECORD = new SearchTable();
     this.LIST_AGENTRECORD.controlname = "LIST_AGENT";
@@ -435,6 +428,8 @@ export class OrderListComponent {
     this.Record.ord_pod = '';
     this.Record.ord_pol_id = '';
     this.Record.ord_pod_id = '';
+    this.Record.ord_pol_code = '';
+    this.Record.ord_pod_code = '';
 
     this.initLov();
     // this.EXPRECORD.id = '';
@@ -492,9 +487,9 @@ export class OrderListComponent {
     this.AGENTRECORD.name = this.Record.ord_agent_name;
     this.AGENTRECORD.code = this.Record.ord_agent_code;
     this.POLRECORD.id = this.Record.ord_pol_id;
-    this.POLRECORD.code = this.Record.ord_pol;
+    this.POLRECORD.code = this.Record.ord_pol_code;
     this.PODRECORD.id = this.Record.ord_pod_id;
-    this.PODRECORD.code = this.Record.ord_pod;
+    this.PODRECORD.code = this.Record.ord_pod_code;
 
     if (this.Record.job_docno != "") {
       this.bDisabledControl = true;

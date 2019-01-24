@@ -11,77 +11,87 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-4">
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
-          <div class="col-4">
-            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+      <div class="col-8">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
+              <div class="col-4">
+                <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+              </div>
+              <label class="col-2 col-form-label col-form-label-sm">To.Date</label>
+              <div class="col-4">
+                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+              <div class="col-10">
+                <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
+              <div class="col-10">
+                <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
+              <div class="col-10">
+                <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">To.Date</label>
-          <div class="col-4">
-            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          <div class="col-6">
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">JOB#</label>
+              <div class="col-10">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="job_docno" (blur)="OnBlur('job_docno')"
+                  required maxlength="30" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">INVOICE#</label>
+              <div class="col-10">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_invoice" (blur)="OnBlur('ord_invoice')"
+                  required maxlength="30" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Sort By</label>
+              <div class="col-10">
+                <select class="form-control form-control-sm" [(ngModel)]="sort_colname">
+                  <option *ngFor="let rec of SortList" [value]="rec.colname">{{rec.colheadername}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-2 col-5">
+                <input type="checkbox" [(ngModel)]="ord_showpending">
+                <span>Show Pending Only</span>
+              </div>
+              <label class="col-1 col-form-label col-form-label-sm">Status</label>
+              <div class="col-4">
+                <select class="form-control form-control-sm" [(ngModel)]="ord_status">
+                  <option [value]="'REPORTED'">REPORTED</option>
+                  <option [value]="'APPROVED'">APPROVED</option>
+                  <option [value]="'CANCELLED'">CANCELLED</option>
+                  <option [value]="'ON HOLD'">ON HOLD</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-          <div class="col-10">
-            <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-          <div class="col-10">
-            <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
-          <div class="col-10">
-            <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">JOB#</label>
-          <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="job_docno" (blur)="OnBlur('job_docno')"
-              required maxlength="30" />
-          </div>
-          <label class="col-2 col-form-label col-form-label-sm">INVOICE#</label>
-          <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_invoice" (blur)="OnBlur('ord_invoice')"
-              required maxlength="30" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">PO#</label>
-          <div class="col-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_po" (blur)="OnBlur('ordr_po')"
-              required maxlength="60" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">SORT</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="sort_colname">
-              <option *ngFor="let rec of SortList" [value]="rec.colname">{{rec.colheadername}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="offset-2 col-5">
-            <input type="checkbox" [(ngModel)]="ord_showpending">
-            <span>Show Pending Only</span>
-          </div>
-          <label class="col-1 col-form-label col-form-label-sm">Status</label>
-          <div class="col-4">
-            <select class="form-control form-control-sm" [(ngModel)]="ord_status">
-              <option [value]="'REPORTED'">REPORTED</option>
-              <option [value]="'APPROVED'">APPROVED</option>
-              <option [value]="'CANCELLED'">CANCELLED</option>
-              <option [value]="'ON HOLD'">ON HOLD</option>
-            </select>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group row">
+              <label class="col-1 col-form-label col-form-label-sm">PO#</label>
+              <div class="col-11">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_po" (blur)="OnBlur('ordr_po')"
+                  required maxlength="60" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,7 +104,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="page-pager">
     <div *ngIf="page_count">
@@ -341,7 +350,7 @@
           </div>
         </div>
         <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">POL</label>
+          <label class="col-2 col-form-label col-form-label-sm">POL</label>
           <div class="col-4">
             <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
@@ -353,8 +362,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">POD</label>
           <div class="col-4">
-              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-            </div>
+            <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
           <div class="col-6">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_pod" (blur)="OnBlur('ord_pod')"
               required maxlength="60" />

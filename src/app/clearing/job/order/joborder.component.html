@@ -249,7 +249,7 @@
 <br />
 
 
-<App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
+<App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ORDERLIST'" (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
