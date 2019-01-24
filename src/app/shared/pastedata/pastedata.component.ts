@@ -46,6 +46,7 @@ export class PasteDataComponent implements OnInit {
   SearchData = {
     type: '',
     table: '',
+    report_folder: '',
     company_code: this.gs.globalVariables.comp_code,
     branch_code: this.gs.globalVariables.branch_code,
     year_code: this.gs.globalVariables.year_code,
@@ -121,6 +122,7 @@ export class PasteDataComponent implements OnInit {
     this.loading = true;
     this.SearchData.type = "ORDERLIST";
     this.SearchData.table = "excelformat";
+    this.SearchData.report_folder=this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
