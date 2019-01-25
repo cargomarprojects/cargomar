@@ -1125,4 +1125,9 @@ export class OrderListComponent {
     }
     this.open(trkorder);
   }
+   
+  ApprovedOrders(approvedorder: any)
+  {
+    this.open(approvedorder);
+  }
 }

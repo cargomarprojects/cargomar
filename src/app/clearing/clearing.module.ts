@@ -20,7 +20,7 @@ import { EsanchitLinkComponent } from './job/esanchitlink/esanchitlink.component
 import { AgentBookComponent } from './job/agentbook/agentbook.component';
 import { TrackOrderComponent } from './job/trackorder/trackorder.component';
 import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component';
-
+import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 
 
 @NgModule({
@@ -46,7 +46,8 @@ import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component
     EsanchitLinkComponent,
     AgentBookComponent,
     TrackOrderComponent,
-    WeekPlanningComponent
+    WeekPlanningComponent,
+    EdiOrderComponent
   ],
   providers: [
   ],

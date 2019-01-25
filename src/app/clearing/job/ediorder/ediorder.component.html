@@ -1,0 +1,146 @@
+<div class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col-1">Search</label>
+      <div class="col-2">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <label class="col-1">From.Date</label>
+      <div class="col-2">
+        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+      </div>
+      <div class="col-6">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="List('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
+        <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="Settings()" class="btn btn-primary btn-sm">Settings</button>
+        <label> Location&nbsp;{{BR_CUSTOM_LOCATIONS}}</label> -->
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngIf="user_admin" class="page-box">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Icegate Email</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BR_ICEGATE_EMAIL" required [maxlength]="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Password</label>
+          <div class="col-8">
+            <input type="password" class="form-control form-control-sm" [(ngModel)]="BR_ICEGATE_EMAIL_PWD" required [maxlength]="100" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Custom Locations</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="BR_CUSTOM_LOCATIONS" (blur)="OnBlur('BR_CUSTOM_LOCATIONS')" required [maxlength]="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Start Index</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="BR_START_INDEX" required [maxlength]="100" />
+          </div>
+          <div class="col-4">
+            <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-success btn-sm">Save</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="height: 400px; overflow-y: scroll;">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>ID PO</th>
+            <th>STATUS</th>
+            <th>DIVISION</th>
+            <th>MODEL.SKU</th>
+            <th>PO</th>
+            <th>SUPPLIER PO</th>
+            <th>PO BEFORE</th>
+            <th>CONSIGNEE</th>
+            <th>ORIGIN.COUNTRY</th>
+            <th>POL</th>
+            <th>POD</th>
+            <th>TRANS.WAY</th>
+            <th>SUPPLIER ID</th>
+            <th>CARGO</th>
+            <th>WINDOW1</th>
+            <th>WINDOW2</th>
+            <th>STOCK1</th>
+            <th>STOCK2</th>
+            <th>FACTORY</th>
+            <th>SHIPPER</th>
+            <th>INCOTERM</th>
+            <th>IMP.EXECUTIVE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+            <td>{{rec.id_po }}</td>
+            <td>{{rec.status}}</td>
+            <td>{{rec.division}}</td>
+            <td>{{rec.model_sku}}</td>
+            <td>{{rec.po}}</td>
+            <td>{{rec.supplier_po}}</td>
+            <td>{{rec.po_before}}</td>
+            <td>{{rec.consignee_id}}</td>
+            <td>{{rec.origin_country}}</td>
+            <td>{{rec.pol}}</td>
+            <td>{{rec.pod}}</td>
+            <td>{{rec.transport_way}}</td>
+            <td>{{rec.supplier_id}}</td>
+            <td>{{rec.cargo_desc}}</td>
+            <td>{{rec.window1}}</td>
+            <td>{{rec.window2}}</td>
+            <td>{{rec.instock1}}</td>
+            <td>{{rec.instock2}}</td>
+            <td>{{rec.factory}}</td>
+            <td>{{rec.supplier_name}}</td>
+            <td>{{rec.incoterm}}</td>
+            <td>{{rec.import_executive}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

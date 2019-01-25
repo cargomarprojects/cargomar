@@ -100,6 +100,7 @@
           <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
           <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
           <button [disabled]="loading" (click)="TrackOrders(trackorder)" class="btn btn-primary btn-sm">Tracking</button>
+          <button [disabled]="loading" (click)="ApprovedOrders(approvedorder)" class="btn btn-primary btn-sm">Approved Orders</button>
         </div>
       </div>
     </div>
@@ -455,3 +456,14 @@
     <app-trackorder [pkid]="ord_trkids" [refno]="ord_trkpos" [type]="'ORDLIST'"></app-trackorder>
   </div>
 </ng-template>
+<ng-template #approvedorder let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Approved Order List</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-ediorder [type]="type" [menuid]="menuid"></app-ediorder>
+    </div>
+  </ng-template>
