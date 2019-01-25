@@ -12,7 +12,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class XmlomsComponent {
   // Local Variables 
 
-  title = 'XML-EDI';
+  title = 'EDI';
 
   @Input() menuid: string = '';
   @Input() type: string = '';

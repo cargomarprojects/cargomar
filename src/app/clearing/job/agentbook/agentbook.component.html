@@ -84,181 +84,188 @@
 </div>
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <ngb-tabset>
+    <ngb-tab title="Basic Details">
+      <ng-template ngbTabContent>
+        <div class="page-box">
 
-  <div class="page-box">
+          <div class="row">
+            <div class="col-sm-4">
 
-    <div class="row">
-      <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Booking#</label>
+                <div class="col-4">
+                  <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                    [(ngModel)]="Record.ab_book_no" [disabled]="true" required maxlength="15" />
+                </div>
+                <label style="padding-left:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                <div class="col-sm-5">
+                  <app-date #ab_book_date [inputdate]="Record.ab_book_date" (ValueChanged)="Record.ab_book_date=$event"></app-date>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+                <div class="col-4">
+                  <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0" [inputdata]="AGENTRECORD"
+                    (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_agent_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
+                <div class="col-4">
+                  <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_exp_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
+                <div class="col-4">
+                  <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_imp_name" />
+                </div>
+              </div>
 
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Booking#</label>
-          <div class="col-4">
-            <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.ab_book_no"
-              [disabled]="true" required maxlength="15" />
-          </div>
-          <label style="padding-left:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
-          <div class="col-sm-5">
-            <app-date #ab_book_date [inputdate]="Record.ab_book_date" (ValueChanged)="Record.ab_book_date=$event"></app-date>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-          <div class="col-4">
-            <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0" [inputdata]="AGENTRECORD"
-              (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-          <div class="col-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_agent_name" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-          <div class="col-4">
-            <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-          <div class="col-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_exp_name" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
-          <div class="col-4">
-            <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
-          <div class="col-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.ab_imp_name" />
-          </div>
-        </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Comments</label>
+                <div class="col-10">
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ab_remarks" (blur)="OnBlur('ab_remarks')"
+                    maxlength="250"></textarea>
+                </div>
+              </div>
+            </div>
 
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Comments</label>
-          <div class="col-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ab_remarks" (blur)="OnBlur('ab_remarks')"
-              maxlength="250"></textarea>
+            <div class="col-sm-4">
+
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="col-sm-4">
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group row">
+                  <label class="col-1 col-form-label col-form-label-sm">PO#</label>
+                  <div class="col-11">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_po" (blur)="OnBlur('ord_po')" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-10">
+                    <button [disabled]="loading" (click)="OrderList(Record)" class="btn btn-primary btn-sm">Find</button>
+                    <button [disabled]="loading" (click)="TrackOrders(trackorder)" class="btn btn-primary btn-sm">Tracking</button>
+                  </div>
 
-      </div>
-    </div>
-
-    <div class="page-box">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">PO#</label>
-            <div class="col-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_po" (blur)="OnBlur('ord_po')" />
+                </div>
+              </div>
+            </div>
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="ord_selected"></th>
+                    <th>APPROVED</th>
+                    <th>BOOKING.NO</th>
+                    <th>BOOKING.STATUS</th>
+                    <th>SHIPPER</th>
+                    <th>CONSIGNEE</th>
+                    <th>POL</th>
+                    <th>POD</th>
+                    <th>PO.ID</th>
+                    <th>PO#</th>
+                    <th>STYLE</th>
+                    <th>COLOR</th>
+                    <th>UNECO</th>
+                    <th>DESCRIPTION</th>
+                    <th>BKD.DT</th>
+                    <th>RND.DT</th>
+                    <th>POR.DT</th>
+                    <th>CR.DT</th>
+                    <th>FCR.DT</th>
+                    <th>INSP.DT</th>
+                    <th>STUF.DT</th>
+                    <th>WHD.DT</th>
+                    <th>DLV.POL.DT</th>
+                    <th>DLV.POD.DT</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of Record.OrderList">
+                  <tr>
+                    <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
+                    <td><input type="checkbox" [(ngModel)]="rec.ord_approved"></td>
+                    <td><input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)"
+                        required maxlength="50" /></td>
+                    <td><select class="form-control form-control-sm" [(ngModel)]="rec.ord_status">
+                        <option [value]="'REPORTED'">REPORTED</option>
+                        <option [value]="'APPROVED'">APPROVED</option>
+                        <option [value]="'CANCELLED'">CANCELLED</option>
+                        <option [value]="'ON HOLD'">ON HOLD</option>
+                      </select></td>
+                    <td>{{rec.ord_exp_name}}</td>
+                    <td>{{rec.ord_imp_name}}</td>
+                    <td>{{rec.ord_pol}}</td>
+                    <td>{{rec.ord_pod}}</td>
+                    <td>{{rec.ord_uid}}</td>
+                    <td>{{rec.ord_po}}</td>
+                    <td>{{rec.ord_style}}</td>
+                    <td>{{rec.ord_color}}</td>
+                    <td>{{rec.ord_uneco}}</td>
+                    <td>{{rec.ord_desc}}</td>
+                    <td>{{rec.ord_booking_date}}</td>
+                    <td>{{rec.ord_rnd_insp_date}}</td>
+                    <td>{{rec.ord_po_rel_date}}</td>
+                    <td>{{rec.ord_cargo_ready_date}}</td>
+                    <td>{{rec.ord_fcr_date}}</td>
+                    <td>{{rec.ord_insp_date}}</td>
+                    <td>{{rec.ord_stuf_date}}</td>
+                    <td>{{rec.ord_whd_date}}</td>
+                    <td>{{rec.ord_dlv_pol_date}}</td>
+                    <td>{{rec.ord_dlv_pod_date}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm"></label>
-            <div class="col-10">
-              <button [disabled]="loading" (click)="OrderList(Record)" class="btn btn-primary btn-sm">Find</button>
-              <button [disabled]="loading" (click)="TrackOrders(trackorder)" class="btn btn-primary btn-sm">Tracking</button>
-            </div>
-
+        <div class="page-box">
+          <div class="col">
+            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'EXCEL')" class="btn btn-success btn-sm">Excel</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
-      </div>
-      <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-          <thead class="page-body-thead">
-            <tr>
-              <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="ord_selected"></th>
-              <th>APPROVED</th>
-              <th>BOOKING.NO</th>
-              <th>BOOKING.STATUS</th>
-              <th>SHIPPER</th>
-              <th>CONSIGNEE</th>
-              <th>POL</th>
-              <th>POD</th>
-              <th>PO.ID</th>
-              <th>PO#</th>
-              <th>STYLE</th>
-              <th>COLOR</th>
-              <th>UNECO</th>
-              <th>DESCRIPTION</th>
-              <th>BKD.DT</th>
-              <th>RND.DT</th>
-              <th>POR.DT</th>
-              <th>CR.DT</th>
-              <th>FCR.DT</th>
-              <th>INSP.DT</th>
-              <th>STUF.DT</th>
-              <th>WHD.DT</th>
-              <th>DLV.POL.DT</th>
-              <th>DLV.POD.DT</th>
-            </tr>
-          </thead>
-          <tbody class="page-body-tbody" *ngFor="let rec of Record.OrderList">
-            <tr>
-              <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
-              <td><input type="checkbox" [(ngModel)]="rec.ord_approved"></td>
-              <td><input type="text" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)"
-                  required maxlength="50" /></td>
-              <td><select class="form-control form-control-sm" [(ngModel)]="rec.ord_status">
-                  <option [value]="'REPORTED'">REPORTED</option>
-                  <option [value]="'APPROVED'">APPROVED</option>
-                  <option [value]="'CANCELLED'">CANCELLED</option>
-                  <option [value]="'ON HOLD'">ON HOLD</option>
-                </select></td>
-              <td>{{rec.ord_exp_name}}</td>
-              <td>{{rec.ord_imp_name}}</td>
-              <td>{{rec.ord_pol}}</td>
-              <td>{{rec.ord_pod}}</td>
-              <td>{{rec.ord_uid}}</td>
-              <td>{{rec.ord_po}}</td>
-              <td>{{rec.ord_style}}</td>
-              <td>{{rec.ord_color}}</td>
-              <td>{{rec.ord_uneco}}</td>
-              <td>{{rec.ord_desc}}</td>
-              <td>{{rec.ord_booking_date}}</td>
-              <td>{{rec.ord_rnd_insp_date}}</td>
-              <td>{{rec.ord_po_rel_date}}</td>
-              <td>{{rec.ord_cargo_ready_date}}</td>
-              <td>{{rec.ord_fcr_date}}</td>
-              <td>{{rec.ord_insp_date}}</td>
-              <td>{{rec.ord_stuf_date}}</td>
-              <td>{{rec.ord_whd_date}}</td>
-              <td>{{rec.ord_dlv_pol_date}}</td>
-              <td>{{rec.ord_dlv_pod_date}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="page-box">
-    <div class="col">
-      <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'EXCEL')" class="btn btn-success btn-sm">Excel</button>
-      <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.ab_pkid,'BOOKING-CSV')" class="btn btn-success btn-sm">Generate
-        Csv</button>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
-  </div>
-
+        <br />
+        <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+        <div *ngIf="InfoMessage" class="alert alert-success">
+          {{InfoMessage}}
+        </div>
+        <div *ngIf="ErrorMessage" class="alert alert-danger">
+          {{ErrorMessage}}
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="mode == 'EDIT'" title="EDI Download">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="col">
+            <app-xmloms [pkid]="pkid" [filename]="Record.ab_book_no" [type]="'AGENTBOOKING'"></app-xmloms>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
 </div>
-
-<br />
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>
-
 <ng-template #trackorder let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Tracking</h4>
