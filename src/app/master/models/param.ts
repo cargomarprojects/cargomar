@@ -23,3 +23,16 @@ export class Param {
 
 }
 
+export class Paramvalues {
+    param_pkid: string;    
+    parent_id: string;
+    param_key: string;
+    param_value: string;
+}
+
+export class Paramvalues_vm{
+    param_pkid: string;    
+    _globalvariables: GlobalVariables;
+    RecordDet : Paramvalues[] = [];
+}
+

@@ -91,8 +91,11 @@
           <th class="text-right">180+</th>
 
           <th>SALESMAN</th>
-          <th>STATUS</th>
+          <th>CATEGORY</th>
           <th>REMARKS</th>
+          <th>STATUS</th>
+          
+          
         </tr>
       </thead>
 
@@ -120,6 +123,7 @@
           <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
 
           <td>{{rec.sman_name}}</td>
+          <td>{{rec.rec_category}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_type}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks}}</td>
         </tr>

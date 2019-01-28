@@ -21,9 +21,9 @@ export class LedgerReport {
   jv_vrno : string ;
   jv_type : string ;
   jv_year : string;
+  rec_category : string ;
   rec_company_code : string ;
   rec_branch_code : string ;
-
 
 
   jv_od_type: string;

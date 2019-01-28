@@ -6,6 +6,9 @@ import { MasterRoutingModule } from './master.routing.module';
 
 import { MasterComponent } from './master.component';
 import { ParamComponent } from './param/param.component';
+
+import { SysParamComponent } from './sysparam/sysparam.component';
+
 import { CustomerComponent } from './customer/customer.component';
 
 import { AddbookComponent } from './customer/addbook.component';
@@ -41,6 +44,7 @@ import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component
   declarations: [
     MasterComponent,
     ParamComponent,
+    SysParamComponent,
     CustomerComponent,
     AddbookComponent,
     AddressmComponent,

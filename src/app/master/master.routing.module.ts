@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ParamComponent } from './param/param.component';
+import { SysParamComponent } from './sysparam/sysparam.component';
 import { CustomerComponent } from './customer/customer.component';
 
 import { AddbookComponent } from './customer/addbook.component';
@@ -28,6 +29,7 @@ import { EsanchitComponent } from './esanchit/esanchit.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
+    { path: 'sysparam', component: SysParamComponent },
     { path: 'customer', component: CustomerComponent },
     { path: 'addbook', component: AddbookComponent },
     { path: 'settings', component: SettingsComponent },
