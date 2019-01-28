@@ -162,15 +162,37 @@ export class EdiOrderComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.RecordList = response.list;
+        this.page_count = response.page_count;
+        this.page_current = response.page_current;
+        this.page_rowcount = response.page_rowcount;
 
-        if (_type == "DOWNLOAD")
-          this.List('NEW');
-        else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
-        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+  Process() {
+    this.loading = true;
+
+    let SearchData = {
+      type: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.Process(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List('NEW');
       },
         error => {
           this.loading = false;
