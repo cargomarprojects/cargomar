@@ -387,4 +387,30 @@ export class EdiOrderComponent {
     this.user_admin = !this.user_admin;
   }
 
+  Update()
+  {
+    this.loading = true;
+
+    let SearchData = {
+      type: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateOrdersList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage="Updated Successfully"
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }

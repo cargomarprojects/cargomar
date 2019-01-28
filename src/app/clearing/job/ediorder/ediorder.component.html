@@ -8,6 +8,7 @@
       <div class="col-6">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Download</button>
+        <button [disabled]="loading" (click)="Update()" class="btn btn-primary btn-sm">Update</button>
         <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="Settings()" class="btn btn-primary btn-sm">Settings</button>
         <label> Location&nbsp;{{BR_CUSTOM_LOCATIONS}}</label> -->
         <i *ngIf="loading" class="fa fa-spinner"></i>

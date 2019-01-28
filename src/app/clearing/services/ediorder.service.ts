@@ -17,5 +17,8 @@ export class EdiOrderService {
   Process(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/JobOrderEdi/Process', SearchData, this.gs.headerparam2('authorized'));
   }
+  UpdateOrdersList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/JobOrderEdi/UpdateOrdersList', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
