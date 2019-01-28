@@ -15,7 +15,7 @@ import { SearchTable } from '../../../shared/models/searchtable';
 export class EdiOrderComponent {
   // Local Variables 
   title = 'Order List';
-    
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
@@ -23,7 +23,7 @@ export class EdiOrderComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
-     
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -76,7 +76,7 @@ export class EdiOrderComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-  //  this.List("NEW");
+    //  this.List("NEW");
   }
 
   InitComponent() {
@@ -130,7 +130,7 @@ export class EdiOrderComponent {
     }
    */
 
-    
+
   }
 
   ResetControls() {
@@ -153,8 +153,8 @@ export class EdiOrderComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.from_date,
-      report_folder:this.gs.globalVariables.report_folder,
-      user_code:this.gs.globalVariables.user_code
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.ErrorMessage = '';
@@ -166,12 +166,38 @@ export class EdiOrderComponent {
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
- 
+
       },
-      error => {
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+  Process() {
+    this.loading = true;
+
+    let SearchData = {
+      type: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.Process(SearchData)
+      .subscribe(response => {
         this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        this.List('NEW');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -296,12 +322,12 @@ export class EdiOrderComponent {
     //   });
   }
 
-  allvalid(_type:string) {
+  allvalid(_type: string) {
     let sError: string = "";
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     /*
       if (this.Record.ord_desc.trim().length <= 0) {
         bret = false;
@@ -360,5 +386,31 @@ export class EdiOrderComponent {
   Settings() {
     this.user_admin = !this.user_admin;
   }
-  
+
+  Update()
+  {
+    this.loading = true;
+
+    let SearchData = {
+      type: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateOrdersList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage="Updated Successfully"
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
