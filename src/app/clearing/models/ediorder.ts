@@ -26,7 +26,8 @@ export class EdiOrder {
   factory: string;
   incoterm: string;
   import_executive: string;
-
+  updated:string;
+  
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;
