@@ -74,12 +74,13 @@
 
   <div class="row">
 
-    <div class="col-sm-6">
+    <div class="col-sm-10">
 
-      <table>
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>KEY</th>
+            <th>DEFAULT VALUE</th>
             <th>VALUE</th>
           </tr>
         </thead>
@@ -88,6 +89,9 @@
             <td>
               {{rec.param_key}}
             </td>
+            <td>
+              {{rec.param_defvalue}}
+            </td>            
             <td>
               <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.param_value" required maxlength="100" />
             </td>
