@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { GenService } from '../services/gen.services';
@@ -21,6 +22,7 @@ export class XmlomsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   loading = false;
+  modal: any;
 
   bCompany = false;
   sub: any;
@@ -29,7 +31,13 @@ export class XmlomsComponent {
   senton_date = "";
   ErrorMessage = "";
 
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
+
   constructor(
+    private modalService: NgbModal,
     private mainService: GenService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -85,7 +93,7 @@ export class XmlomsComponent {
   }
 
 
-  GenerateXml() {
+  GenerateXml(_type: string, ftpsent: any) {
     this.ErrorMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
@@ -112,11 +120,17 @@ export class XmlomsComponent {
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
-        //this.ErrorMessage = response.savemsg;
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        // if (this.type == 'CONTAINER' || this.type == 'MBL')
-        if (this.type == 'CONTAINER')
-          this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
+        if (_type == 'FTP') {
+          this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          if (this.type == 'CONTAINER')
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack });
+          this.open(ftpsent);
+        } else {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          if (this.type == 'CONTAINER')
+            this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
+        }
       },
         error => {
           this.loading = false;
@@ -132,4 +146,7 @@ export class XmlomsComponent {
     this.gs.ClosePage('home');
   }
 
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 }

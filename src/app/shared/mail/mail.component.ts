@@ -39,6 +39,9 @@ export class MailComponent {
   subject: string = '';
   message: string = '';
 
+  ftptype_id: string = '';
+  FtpTypeList: any[] = [];
+
   customer_name: string = '';
   ErrorMessage = "";
   InfoMessage = "";
@@ -254,6 +257,7 @@ export class MailComponent {
           if (response.bcc_ids.length > 0)
             this.bcc_ids = response.bcc_ids;
           this.message += response.mailsignature;
+          this.FtpTypeList = response.ftplist;
         }
         else if (_type == "SAVE") {
           this.InfoMessage = "Save Complete";
@@ -272,4 +276,8 @@ export class MailComponent {
     //this.router.navigate([{ outlets: { blpage: ['operations/seabl'] } }]); 
   }
   */
+
+ SendFtp(){
+   
+ }
 }
