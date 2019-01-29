@@ -69,6 +69,7 @@
         <thead class="page-body-thead">
           <tr>
             <th>ID PO</th>
+            <th>UPDATED</th>
             <th>STATUS</th>
             <th>DIVISION</th>
             <th>MODEL.SKU</th>
@@ -95,6 +96,7 @@
         <tbody class="page-body-tbody">
           <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
             <td>{{rec.id_po }}</td>
+            <td>{{rec.updated == 'Y' ? 'YES' : 'NO'}}</td>
             <td>{{rec.status}}</td>
             <td>{{rec.division}}</td>
             <td>{{rec.model_sku}}</td>
