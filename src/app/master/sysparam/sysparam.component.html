@@ -76,16 +76,16 @@
 
     <div class="col-sm-10">
 
-      <table class="table table-bordered">
+      <table class="table table-bordered  table-sm">
         <thead>
           <tr>
             <th>KEY</th>
-            <th>DEFAULT VALUE</th>
+            <th>REMARKS</th>
             <th>VALUE</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let rec of RecordDet;  let i = index">
+          <tr *ngFor="let rec of RecordDet;  let i = index" >
             <td>
               {{rec.param_key}}
             </td>

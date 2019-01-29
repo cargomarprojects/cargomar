@@ -533,6 +533,9 @@
             <div class="col">
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+
+              <button [disabled]="loading" class="btn btn-success btn-sm" (click)="CheckCrLimit()">Check CR-Limit</button>              
+
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
               <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>

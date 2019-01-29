@@ -775,6 +775,7 @@ export class HblSeaAirComponent {
     
         this.loading = true;
         let SearchData = {
+          searchfrom : 'SI',
           comp_code: this.gs.globalVariables.comp_code,
           branch_code: this.gs.globalVariables.branch_code,
           customerid: this.Record.hbl_exp_id,

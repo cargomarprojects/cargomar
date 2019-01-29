@@ -155,6 +155,7 @@ export class SettingsComponent {
   BR_CHQ_PRINT_HO_APRVD: boolean = false;
 
   BR_CRLIMIT_ENABLED: boolean = false;
+  BR_CRLIMIT_ENABLED_SI: boolean = false;
 
 
   GSTSTATERECORD: any;
@@ -816,6 +817,8 @@ export class SettingsComponent {
 
       if (rec.caption == "CREDIT-LIMIT-ENABLED")
         this.BR_CRLIMIT_ENABLED = rec.name == "Y" ? true : false;
+        if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
+          this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;        
 
 
     })
@@ -966,6 +969,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));    
 
   }
   allvalidBranch() {
