@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
- 
+
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -14,7 +14,7 @@ export class MailComponent {
 
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
-  @Input() public pkid: string='';
+  @Input() public pkid: string = '';
   @Input() public type: string = '';
   @Input() public sHtml: string = '';
   @Input() public defaultto_ids: string = '';
@@ -263,10 +263,10 @@ export class MailComponent {
           this.InfoMessage = "Save Complete";
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   /*
@@ -277,7 +277,58 @@ export class MailComponent {
   }
   */
 
- SendFtp(){
-   
- }
+  SendFtp() {
+    this.InfoMessage = '';
+    this.ErrorMessage = '';
+    if (this.ftptype_id.trim().length <= 0) {
+      this.ErrorMessage = "FTP Type Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    let filename: string = "";
+    let filenameack: string = "";
+    if (this.AttachList != null) {
+      if (this.AttachList.length > 0)
+        filename = this.AttachList[0].filename;
+      if (this.AttachList.length > 1)
+        filenameack = this.AttachList[1].filename;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      table: '',
+      pkid: '',
+      filename: '',
+      filenameack: '',
+      rowtype: this.type,
+      ftptypeid: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_name: this.gs.globalVariables.user_name,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    SearchData.table = 'ftp';
+    SearchData.ftptypeid = this.ftptype_id;
+    SearchData.filename = filename;
+    SearchData.filenameack = filenameack;
+    SearchData.rowtype = this.type;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_pkid = this.gs.globalVariables.user_pkid;
+    SearchData.user_name = this.gs.globalVariables.user_name;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = response.ftp;
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
