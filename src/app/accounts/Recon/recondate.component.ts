@@ -188,11 +188,12 @@ export class RecondateComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    /*
     if (this.inputdate.toString().length <= 0) {
       bret = false;
       sError = " | Date Cannot Be Blank";
     }
-
+*/
     //if (bret === false)
     //  this.ErrorMessage = sError;
     return bret;
