@@ -28,6 +28,7 @@ export class Paramvalues {
     parent_id: string;
     param_key: string;
     param_value: string;
+    param_defvalue: string;
 }
 
 export class Paramvalues_vm{
