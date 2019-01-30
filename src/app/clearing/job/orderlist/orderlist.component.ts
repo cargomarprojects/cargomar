@@ -81,6 +81,7 @@ export class OrderListComponent {
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
 
+  AttachList: any[] = [];
   SortList: any[] = [];
   // Array For Displaying List
   RecordList: Joborderm[] = [];
@@ -267,14 +268,14 @@ export class OrderListComponent {
     if (_Record.controlname == "POL") {
       this.Record.ord_pol_id = _Record.id;
       if (_Record.code.length >= 5)
-        this.Record.ord_pol = _Record.code.substr(2,3);
+        this.Record.ord_pol = _Record.code.substr(2, 3);
       else
         this.Record.ord_pol = _Record.code;
     }
     else if (_Record.controlname == "POD") {
       this.Record.ord_pod_id = _Record.id;
       if (_Record.code.length >= 5)
-        this.Record.ord_pod = _Record.code.substr(2,3);
+        this.Record.ord_pod = _Record.code.substr(2, 3);
       else
         this.Record.ord_pod = _Record.code;
     }
@@ -1125,9 +1126,45 @@ export class OrderListComponent {
     }
     this.open(trkorder);
   }
-   
-  ApprovedOrders(approvedorder: any)
-  {
+
+  ApprovedOrders(approvedorder: any) {
     this.open(approvedorder);
+  }
+
+  MailOrders(ftpsent: any) {
+    this.ErrorMessage = '';
+    if (this.pkid.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Invalid ID";
+      return;
+    }
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      type: '',
+      pkid: '',
+      filedisplayname: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.type = 'ORDERLIST';
+    SearchData.pkid = this.pkid;
+    SearchData.filedisplayname = '';
+    this.mainService.GenerateXmlEdiMexico(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.AttachList = new Array<any>();
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack });
+        this.open(ftpsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
