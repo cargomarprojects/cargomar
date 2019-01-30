@@ -34,6 +34,7 @@ export class DrCrComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  printfcbank: boolean = false;
   lock_record: boolean = false;
   lock_date: boolean = false;
   bAdmin = false;
@@ -736,7 +737,8 @@ export class DrCrComponent {
       report_caption: '',
       parentid: '',
       comp_code: '',
-      incometype: ''
+      incometype: '',
+      printfcbank: 'N'
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;
@@ -744,6 +746,7 @@ export class DrCrComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.printfcbank = this.printfcbank == true ? 'Y' : 'N';
 
     this.ErrorMessage = '';
     this.InfoMessage = '';

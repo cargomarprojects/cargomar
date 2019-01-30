@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -86,7 +85,8 @@
           <td *ngIf="bAdmin"><i class="fa fa-check  fa-lg pointer" aria-hidden="true" (click)="ShowCostSent(costchecked,rec.cost_pkid,rec.cost_refno)"></i></td>
           <td *ngIf="bAdmin"><i class="fa fa-unlock-alt  fa-lg pointer" aria-hidden="true" (click)="ReleaseCosting(rec.cost_pkid,rec.cost_refno)"></i></td>
           <td *ngIf="bAdmin">
-            <App-Dialog [id]="{msg:'DELETE COSTING Y/N', buttons:'yn', selected :false,id:rec.cost_pkid,name:rec.cost_refno}" (result)="RemoveList($event)"></App-Dialog>
+            <App-Dialog [id]="{msg:'DELETE COSTING Y/N', buttons:'yn', selected :false,id:rec.cost_pkid,name:rec.cost_refno}"
+              (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
       </tbody>
@@ -116,7 +116,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Folder#</label>
                 <div class="col-4">
-                  <input type="text" [disabled]="mode=='EDIT'" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.cost_folderno" (blur)="OnBlur('cost_folderno')" required maxlength="20" />
+                  <input type="text" [disabled]="mode=='EDIT'" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cost_folderno" (blur)="OnBlur('cost_folderno')" required maxlength="20" />
                 </div>
                 <label class="col-1 col-form-label  col-form-label-sm">REF#</label>
                 <div class="col-5">
@@ -175,7 +176,8 @@
               <div class="form-group row">
                 <label class="col-sm-1 col-form-label  col-form-label-sm">Containers</label>
                 <div style="padding-left:0" class="col-sm-11">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_book_cntr" required maxlength="500" />
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_book_cntr"
+                    required maxlength="500" />
                 </div>
               </div>
             </div>
@@ -191,7 +193,8 @@
                 </div>
                 <label class="col-3 col-form-label  col-form-label-sm">Ex.Rate</label>
                 <div class="col-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cost_exrate" (blur)="OnBlur('cost_exrate')" required maxlength="10" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cost_exrate" (blur)="OnBlur('cost_exrate')"
+                    required maxlength="10" />
                 </div>
               </div>
             </div>
@@ -200,7 +203,8 @@
               <div class="form-group row">
                 <div class="col-6">
                   <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Process</button>
-                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintNote('FILL-INVOICE')" class="btn btn-primary btn-sm">Process Invoice</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintNote('FILL-INVOICE')" class="btn btn-primary btn-sm">Process
+                    Invoice</button>
                 </div>
               </div>
             </div>
@@ -209,7 +213,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="page-list">
-                <div style="max-height: 300px; overflow-y: scroll;" >
+                <div style="max-height: 300px; overflow-y: scroll;">
                   <div class="page-body table-responsive">
                     <table class="table  table-hover table-sm">
                       <thead class="page-body-thead">
@@ -308,49 +312,59 @@
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Buy</label>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_pp" (blur)="OnBlur('cost_buy_pp')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_pp"
+                    (blur)="OnBlur('cost_buy_pp')" required maxlength="15" />
                 </div>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_cc" (blur)="OnBlur('cost_buy_cc')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_cc"
+                    (blur)="OnBlur('cost_buy_cc')" required maxlength="15" />
                 </div>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_tot" (blur)="OnBlur('cost_buy_tot')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_buy_tot"
+                    (blur)="OnBlur('cost_buy_tot')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Sell</label>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_pp" (blur)="OnBlur('cost_sell_pp')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_pp"
+                    (blur)="OnBlur('cost_sell_pp')" required maxlength="15" />
                 </div>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_cc" (blur)="OnBlur('cost_sell_cc')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_cc"
+                    (blur)="OnBlur('cost_sell_cc')" required maxlength="15" />
                 </div>
                 <div class="col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_tot" (blur)="OnBlur('cost_sell_tot')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_sell_tot"
+                    (blur)="OnBlur('cost_sell_tot')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Rebate</label>
                 <div class="offset-6 col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_rebate" (blur)="OnBlur('cost_rebate')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_rebate"
+                    (blur)="OnBlur('cost_rebate')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">ExWork</label>
                 <div class="offset-6 col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_ex_works" (blur)="OnBlur('cost_ex_works')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_ex_works"
+                    (blur)="OnBlur('cost_ex_works')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">Handling Charges</label>
                 <div class="offset-3 col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_hand_charges" (blur)="OnBlur('cost_hand_charges')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_hand_charges"
+                    (blur)="OnBlur('cost_hand_charges')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">Other Charges</label>
                 <div class="offset-3 col-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_other_charges" (blur)="OnBlur('cost_other_charges')" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_other_charges"
+                    (blur)="OnBlur('cost_other_charges')" required maxlength="15" />
                 </div>
               </div>
             </div>
@@ -358,37 +372,43 @@
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">Expense</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_expense" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_expense"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">Income</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_income" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_income"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">Profit</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_profit" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_profit"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">OurProfit</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_our_profit" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_our_profit"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">YourProfit</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_your_profit" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_your_profit"
+                    required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-6 col-form-label col-form-label-sm">DR/CR.AMT</label>
                 <div class="col-6">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_drcr_amount" required maxlength="15" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.cost_drcr_amount"
+                    required maxlength="15" />
                 </div>
               </div>
             </div>
@@ -414,11 +434,17 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm"></label>
                 <div class="col-10">
-                  <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.cost_jv_agent_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                  <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.cost_jv_agent_br_addr"
+                    [disabled]="true" maxlength="1000"></textarea>
                 </div>
               </div>
             </div>
             <div class="col-sm-2">
+              <div class="form-group row">
+                <div class="col-12">
+                  <input type="checkbox" [(ngModel)]="printfcbank"> Print FC Bank
+                </div>
+              </div>
               <!--<div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Detail1</label>
                 <div class="col-7">
@@ -506,7 +532,8 @@
               <div class="form-group row">
                 <div class="offset-2 col-10">
                   <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print Dr/Cr</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print
+                    Dr/Cr</button>
                   <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL2')" class="btn btn-success btn-sm">Print</button>
                   <button *ngIf="mode == 'EDIT'" (click)="GenerateXml()" class="btn btn-success btn-sm">Generate Xml</button>
                   <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -533,7 +560,7 @@
 <App-Wait [visible]="loading"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{
-InfoMessage
+  InfoMessage
   }}
 </div>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
