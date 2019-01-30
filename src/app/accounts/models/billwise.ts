@@ -52,6 +52,14 @@ export class BillWise {
   jexp_comm_invoice_no: string;
   volum: number;
 
+
+  jv_dest_truck : number;
+  jv_bl_amend : number;
+  jv_bl_surr : number;
+  jv_bl_reissue : number;
+  jv_via_charge : number;
+  jv_detn2 : number
+
   branch: string;
   
   _globalvariables: GlobalVariables;
