@@ -379,6 +379,9 @@ export class DrCrComponent {
     this.RecordDet.costd_acc_qty = 1;
     this.RecordDet.costd_acc_rate = 1;
     this.RecordDet.costd_acc_amt = 0;
+    this.RecordDet.costd_srate = 0;
+    this.RecordDet.costd_brate = 0;
+    this.RecordDet.costd_split = 0;
     this.Record.DetailList.push(this.RecordDet);
   }
 

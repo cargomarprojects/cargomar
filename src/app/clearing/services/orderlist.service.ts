@@ -30,6 +30,9 @@ export class OrderListService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OrderList/Upload', Record, this.gs.headerparam2('authorized'));
   }
 
+  GenerateXmlEdiMexico(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlEdiMexico', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
 
