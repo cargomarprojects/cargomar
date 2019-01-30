@@ -323,8 +323,13 @@ export class MailComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = response.ftp;
-        alert(this.InfoMessage);
+        if (response.error.length > 0) {
+          this.ErrorMessage = response.error;
+          alert(this.ErrorMessage);
+        } else {
+          this.InfoMessage = response.ftp;
+          alert(this.InfoMessage);
+        }
       },
         error => {
           this.loading = false;
