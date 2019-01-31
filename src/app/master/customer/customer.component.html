@@ -346,7 +346,7 @@
 
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
-                <div class="col-10">
+                <div class="col-4">
                   <select [disabled]="!canadd" class="form-control form-control-sm" [(ngModel)]="Record.cust_nomination">
                     <option [value]="'NA'">NA</option>
                     <option [value]="'NOMINATION'">NOMINATION</option>
@@ -482,7 +482,7 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab *ngIf="mode == 'EDIT'" title="Xml Download">
+    <ngb-tab *ngIf="mode == 'EDIT'" title="EDI">
       <ng-template ngbTabContent>
         <div class="page-box">
           <div class="col">

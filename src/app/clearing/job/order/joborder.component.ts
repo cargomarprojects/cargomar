@@ -518,9 +518,7 @@ export class JobOrderComponent {
     if (cbdata != null) {
 
       let mRec: Joborderm = new Joborderm;
-
       this.mList = [];
-
       var ar1 = cbdata.split("\n");
       var ar2;
 
@@ -589,7 +587,6 @@ export class JobOrderComponent {
           mRec.rec_category = '';
           mRec.remove = '';
           mRec.ord_source = '';
-
 
           mRec.ord_pkid = this.gs.getGuid();
           mRec.rec_category = this.type;
