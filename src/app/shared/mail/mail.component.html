@@ -51,11 +51,43 @@
           </div>
         </div>
         <div *ngIf="AttachList.length > 0" class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Attachments
+              <button [disabled]="loading" (click)="ShowAttach()" class="btn btn-link">Attach File</button>
+          </label>
           <div class="col-sm-11">
-            <label *ngFor="let rec of AttachList">
-              <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)" class="btn btn-link pointer">{{rec.filedisplayname}}</button>
-            </label>
+            <div class="page-box">
+              <label *ngFor="let rec of AttachList">
+                <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
+                  class="btn btn-link pointer">{{rec.filedisplayname}}</button>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showattach" class="form-group row">
+          <!-- <div class="col-sm-1">
+          <button [disabled]="loading" (click)="ShowAttach()" class="btn btn-link">Attach File</button>
+        </div> -->
+          <div  class="col-sm-11">
+            <div  class="page-box">
+              <div class="form-group row">
+                <div class="col-7">
+                  <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+                </div>
+                <label class="col-1 col-form-label col-form-label-sm">Type</label>
+                <div Class="col-3">
+                  <select class="form-control form-control-sm" [(ngModel)]="catg_id">
+                    <option [value]="'HBL'">HBL</option>
+                    <option [value]="'MBL'">MBL</option>
+                    <option [value]="'INVOICE'">Invoice</option>
+                    <option [value]="'PACKINGLIST'">Packing List</option>
+                    <option [value]="'OTHERS'">Others</option>
+                  </select>
+                </div>
+                <div class="col-1">
+                  <button (click)="uploadFiles()">Attach</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div *ngIf="sHtml" class="form-group row">
@@ -78,7 +110,6 @@
             <textarea rows="12" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -98,7 +129,7 @@
         </select>
       </div>
       <div class="col-sm-2">
-        <button [disabled]="loading" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload</button>
+        <button [disabled]="loading" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -11,6 +11,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class MailComponent {
   // Local Variables 
   title = 'Mail Details';
+  @ViewChild('fileinput') private fileinput: ElementRef;
 
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
@@ -26,6 +27,11 @@ export class MailComponent {
 
   InitCompleted: boolean = false;
   menu_record: any;
+
+  showattach: boolean = false;
+  catg_id: string = 'OTHERS';
+  myFiles: string[] = [];
+  filesSelected: boolean = false;;
 
   disableSave = true;
   loading = false;
@@ -49,6 +55,7 @@ export class MailComponent {
   CUSTADDRECORD: SearchTable = new SearchTable();
   constructor(
     private route: ActivatedRoute,
+    private http2: HttpClient,
     private gs: GlobalService
   ) {
     // URL Query Parameter 
@@ -80,6 +87,7 @@ export class MailComponent {
       this.title = this.menu_record.menu_name;
     this.InitLov();
     this.customer_name = '';
+    this.catg_id = 'OTHERS';
   }
 
   InitLov() {
@@ -335,5 +343,79 @@ export class MailComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+
+
+
+  getFileDetails(e: any) {
+    //console.log (e.target.files);
+    let isValidFile = true;
+    let fname: string = '';
+    this.filesSelected = false;
+    this.myFiles = [];
+    for (var i = 0; i < e.target.files.length; i++) {
+      this.filesSelected = true;
+      fname = e.target.files[i].name;
+      if (fname.indexOf('&') >= 0)
+        isValidFile = false;
+      if (fname.indexOf('%') >= 0)
+        isValidFile = false;
+      if (fname.indexOf('#') >= 0)
+        isValidFile = false;
+      this.myFiles.push(e.target.files[i]);
+    }
+
+    if (!isValidFile) {
+      this.filesSelected = false;
+      alert('Invalid File Name - &%#');
+    }
+  }
+
+
+  uploadFiles() {
+    if (this.catg_id == '') {
+      alert('Pls Select Category');
+      return;
+    }
+    if (!this.filesSelected) {
+      alert('No File Selected');
+      return;
+    }
+
+    this.loading = true;
+
+    let frmData: FormData = new FormData();
+
+    frmData.append("COMPCODE", this.gs.globalVariables.comp_code);
+    frmData.append("BRANCHCODE", this.gs.globalVariables.branch_code);
+    frmData.append("PARENTID", this.gs.globalVariables.report_folder);
+    frmData.append("GROUPID", 'MAIL-FTP-ATTACHMENT');
+    frmData.append("TYPE", this.type);
+    frmData.append("CATGID", this.catg_id);
+    frmData.append("CREATEDBY", this.gs.globalVariables.user_code);
+
+    for (var i = 0; i < this.myFiles.length; i++) {
+      frmData.append("fileUpload", this.myFiles[i]);
+    }
+
+    this.http2.post<any>(
+      this.gs.baseUrl + '/api/General/UploadFiles', frmData, this.gs.headerparam2('authorized-fileupload')).subscribe(
+        data => {
+          this.loading = false;
+          this.filesSelected = false;
+          this.fileinput.nativeElement.value = '';
+          if (this.AttachList == null)
+            this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category });
+        },
+        error => {
+          this.loading = false;
+          alert('Failed');
+        }
+      );
+  }
+  ShowAttach() {
+    this.showattach = !this.showattach;
   }
 }
