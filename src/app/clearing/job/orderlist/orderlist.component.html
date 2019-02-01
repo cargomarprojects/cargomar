@@ -352,6 +352,15 @@
                 </div>
               </div>
               <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Transport.Way</label>
+                <div class="col-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.rec_category">
+                    <option [value]="'SEA EXPORT'">SEA</option>
+                    <option [value]="'AIR EXPORT'">AIR</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">POL</label>
                 <div class="col-4">
                   <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>

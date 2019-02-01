@@ -430,7 +430,8 @@ export class OrderListComponent {
     this.Record.ord_pol_id = '';
     this.Record.ord_pod_id = '';
     this.Record.ord_pol_code = '';
-    this.Record.ord_pod_code = '';
+    this.Record.ord_pod_code = ''; 
+    this.Record.rec_category = 'SEA EXPORT';
 
     this.initLov();
     // this.EXPRECORD.id = '';
@@ -1132,6 +1133,7 @@ export class OrderListComponent {
   }
 
   MailOrders(ftpsent: any) {
+    this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
