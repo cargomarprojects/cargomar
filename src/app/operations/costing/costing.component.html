@@ -407,11 +407,11 @@
             <div class="col-sm-6">
               <div class="form-group row">
                 <div class="offset-2 col-10">
-                  <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print
-                    Dr/Cr</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL2')" class="btn btn-success btn-sm">Print</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="GenerateXml()" class="btn btn-success btn-sm">Generate Xml</button>
+                  <button [disabled]="loading" [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print Dr/Cr</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL2')" class="btn btn-success btn-sm">Print</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="GenerateXml()" class="btn btn-success btn-sm">Generate Xml</button>
+                  <!-- <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="Mailxml(ftpsent)" class="btn btn-success btn-sm">Mail/FTP</button> -->
                   <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>
@@ -482,3 +482,15 @@
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
+<!-- <ng-template #ftpsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Message Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-mail [pkid]="gs.globalVariables.user_pkid" [canftp]=true [type]="'COSTING-SEA'" [sHtml]="''" [defaultmessage]="''"
+        [defaultsubject]="''" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+    </div>
+  </ng-template> -->

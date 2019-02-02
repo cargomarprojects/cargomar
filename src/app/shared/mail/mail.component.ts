@@ -23,7 +23,7 @@ export class MailComponent {
   @Input() public defaultsubject: string = '';
   @Input() public updateto_ids: boolean = false;
   @Input() public AttachList = new Array<any>();
-
+  @Input() public canftp: boolean = false;
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -407,7 +407,8 @@ export class MailComponent {
           this.fileinput.nativeElement.value = '';
           if (this.AttachList == null)
             this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category });
+            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category });
+          //this.ShowHideAttach(); 
         },
         error => {
           this.loading = false;
@@ -415,7 +416,7 @@ export class MailComponent {
         }
       );
   }
-  ShowAttach() {
+  ShowHideAttach() {
     this.showattach = !this.showattach;
   }
 }

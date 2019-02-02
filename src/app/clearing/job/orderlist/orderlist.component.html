@@ -205,7 +205,6 @@
     </div>
   </div>
 
-
 </div>
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
@@ -486,7 +485,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'ORDERLIST'" [sHtml]="''" [defaultmessage]="''"
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [canftp]=true [type]="'ORDERLIST'" [sHtml]="''" [defaultmessage]="''"
       [defaultsubject]="''" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>

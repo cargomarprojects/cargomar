@@ -51,11 +51,9 @@
           </div>
         </div>
         <div *ngIf="AttachList.length > 0" class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Attachments
-              <button [disabled]="loading" (click)="ShowAttach()" class="btn btn-link">Attach File</button>
-          </label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label>
           <div class="col-sm-11">
-            <div class="page-box">
+            <div style="padding: 0%" class="page-details">
               <label *ngFor="let rec of AttachList">
                 <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
                   class="btn btn-link pointer">{{rec.filedisplayname}}</button>
@@ -63,12 +61,13 @@
             </div>
           </div>
         </div>
-        <div *ngIf="showattach" class="form-group row">
-          <!-- <div class="col-sm-1">
-          <button [disabled]="loading" (click)="ShowAttach()" class="btn btn-link">Attach File</button>
-        </div> -->
-          <div  class="col-sm-11">
-            <div  class="page-box">
+        <div class="form-group row">
+          <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
+          <div class="col-sm-1">
+            <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
+          </div>
+          <div *ngIf="showattach" class="col-sm-11">
+            <div class="page-details">
               <div class="form-group row">
                 <div class="col-7">
                   <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
@@ -91,6 +90,7 @@
           </div>
         </div>
         <div *ngIf="sHtml" class="form-group row">
+          <!-- <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button> -->
           <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
           <div class="col-sm-11">
             <div class="page-box">
@@ -105,6 +105,7 @@
           </div>
         </div>
         <div *ngIf="sHtml==''" class="form-group row">
+          <!-- <i class="fa fa-paperclip fa-lg pointer" aria-hidden="true" (click)="ShowHideAttach()"></i> -->
           <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
           <div class="col-sm-11">
             <textarea rows="12" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
@@ -116,20 +117,28 @@
 </div>
 <div class="page-box">
   <div class="col-sm-12">
-    <div class="form-group row">
-      <div class="offset-sm-1 col-sm-5">
-        <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
-        <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <div class="offset-sm-2 col-sm-10">
+            <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
+            <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
       </div>
-      <label class="col-1 col-form-label col-form-label-sm">FTP</label>
-      <div class="col-3">
-        <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
-          <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-        </select>
-      </div>
-      <div class="col-sm-2">
-        <button [disabled]="loading" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
+      <div class="col-sm-6">
+        <div *ngIf="canftp" class="form-group row">
+          <label class="col-1 col-form-label col-form-label-sm">FTP</label>
+          <div class="col-7">
+            <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
+              <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
