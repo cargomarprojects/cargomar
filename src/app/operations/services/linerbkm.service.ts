@@ -38,6 +38,9 @@ export class LinerBkmService {
     PrintCheckList(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/PrintCheckList', SearchData, this.gs.headerparam2('authorized'));
     }
-
+    
+    GenerateXmlEdi(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlEdi', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

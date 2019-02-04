@@ -136,7 +136,7 @@
             </select>
           </div>
           <div class="col-sm-2">
-            <button [disabled]="loading" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
+            <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
           </div>
         </div>
       </div>

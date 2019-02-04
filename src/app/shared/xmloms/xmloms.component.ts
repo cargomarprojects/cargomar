@@ -122,9 +122,9 @@ export class XmlomsComponent {
         this.loading = false;
         if (_type == 'FTP') {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filecategory:'' });
           if (this.type == 'CONTAINER'||this.type == 'ORDERLIST'||this.type == 'AGENTBOOKING')
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack,filecategory:'ACK' });
           this.open(ftpsent);
         } else {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);

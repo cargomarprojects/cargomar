@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LinerBkm } from '../models/linerbkm';
@@ -8,6 +9,7 @@ import { Param } from '../../master/models/param';
 import { BkmCntrtype } from '../models/bkmcntrtype';
 import { BkmPayment } from '../models/bkmpayment';
 import { BkmCargo } from '../models/bkmcargo';
+import { FileDetails } from '../models/filedetails';
 
 @Component({
   selector: 'app-mblsea',
@@ -36,7 +38,7 @@ export class MblSeaComponent {
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
   folder_chk: boolean = false;
-
+  modal: any;
   searchstring = '';
 
   page_count = 0;
@@ -57,6 +59,9 @@ export class MblSeaComponent {
 
   mode = '';
   pkid = '';
+
+  AttachList: any[] = [];
+  FileList: FileDetails[] = [];
 
   StatusList: Param[] = [];
   ContainerList: Param[] = [];
@@ -84,6 +89,7 @@ export class MblSeaComponent {
   POFDCRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: LinerBkmService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -1114,7 +1120,11 @@ export class MblSeaComponent {
       pkid: '',
       hbl_folder_no: '',
       hbl_folder_sent_date: '',
-      hbl_prealert_date: ''
+      hbl_prealert_date: '',
+      company_code:'',
+      branch_code:'',
+      rec_category:'',
+      hbl_type:''
     };
 
     if (controlname == 'updatemaster') {
@@ -1123,6 +1133,10 @@ export class MblSeaComponent {
       SearchData.hbl_folder_no = this.Record.book_folder_no;
       SearchData.hbl_folder_sent_date = this.Record.book_folder_sent_date;
       SearchData.hbl_prealert_date = this.Record.book_prealert_date;
+      SearchData.company_code = this.gs.globalVariables.comp_code,
+      SearchData.branch_code = this.gs.globalVariables.branch_code,
+      SearchData.rec_category = this.type;
+      SearchData.hbl_type = 'MBL-SE';
     }
 
     this.gs.SearchRecord(SearchData)
@@ -1268,5 +1282,55 @@ export class MblSeaComponent {
     }
 
   }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+
+  GenerateXml(ftpsent: any) {
+    this.ErrorMessage = '';
+    if (this.Record.book_agent_id.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      return;
+    }
+    if (this.Record.book_agent_name.indexOf("RITRA") < 0) {
+      this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      return;
+    }
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      agent_id: this.Record.book_agent_id,
+      pre_alert_date: '',
+      hbl_nos: '',
+      type:'',
+      mbl_id:''
+    };
+     
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.agent_id = this.Record.book_agent_id;
+    SearchData.hbl_nos = '';
+    SearchData.mbl_id = this.Record.book_pkid;
+     this.mainService.GenerateXmlEdi(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.AttachList = new Array<any>();
+        this.FileList =  response.filelist;
+        for (let rec of this.FileList) {
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname });
+        }
+        this.open(ftpsent);
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
+
 
 }

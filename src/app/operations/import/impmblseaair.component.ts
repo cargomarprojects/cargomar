@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Mblm } from '../models/mbl';
-import {ImpMblService } from '../services/impmbl.service';
+import { ImpMblService } from '../services/impmbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 
@@ -62,7 +62,7 @@ export class ImpMblSeaAirComponent {
   RecordList: Mblm[] = [];
   // Single Record for add/edit/view details
   Record: Mblm = new Mblm;
-  
+
   LINERRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
@@ -132,7 +132,7 @@ export class ImpMblSeaAirComponent {
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
     }
-    
+
     this.InitLov();
     this.LoadCombo();
     this.currentTab = 'LIST';
@@ -161,10 +161,10 @@ export class ImpMblSeaAirComponent {
         this.StatusList = response.statuslist;
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
     //this.List("NEW");
   }
@@ -211,8 +211,8 @@ export class ImpMblSeaAirComponent {
     this.SHIPPERRECORD.controlname = "SHIPPER";
     this.SHIPPERRECORD.displaycolumn = "CODE";
     this.SHIPPERRECORD.type = "CUSTOMER";
-   // this.SHIPPERRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-   // this.SHIPPERRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.SHIPPERRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.SHIPPERRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
     this.SHIPPERRECORD.id = "";
     this.SHIPPERRECORD.code = "";
     this.SHIPPERRECORD.name = "";
@@ -229,8 +229,8 @@ export class ImpMblSeaAirComponent {
     this.CONSIGNEERECORD.controlname = "CONSIGNEE";
     this.CONSIGNEERECORD.displaycolumn = "CODE";
     this.CONSIGNEERECORD.type = "CUSTOMER";
-   // this.CONSIGNEERECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-   // this.CONSIGNEERECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.CONSIGNEERECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.CONSIGNEERECORD.where = " CUST_IS_SHIPPER = 'Y' ";
     this.CONSIGNEERECORD.id = "";
     this.CONSIGNEERECORD.code = "";
     this.CONSIGNEERECORD.name = "";
@@ -331,7 +331,7 @@ export class ImpMblSeaAirComponent {
         this.Record.mbl_agent_br_addr = "";
       }
     }
-   if (_Record.controlname == "AGENTADDRESS") {
+    if (_Record.controlname == "AGENTADDRESS") {
       this.Record.mbl_agent_br_id = _Record.id;
       this.Record.mbl_agent_br_no = _Record.code;
       this.Record.mbl_agent_br_addr = this.GetBrAddress(_Record.name).address;
@@ -435,7 +435,7 @@ export class ImpMblSeaAirComponent {
   ResetControls() {
     this.disableSave = true;
 
-    
+
     if (!this.menu_record)
       return;
 
@@ -479,10 +479,10 @@ export class ImpMblSeaAirComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -590,10 +590,10 @@ export class ImpMblSeaAirComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Mblm) {
@@ -696,11 +696,11 @@ export class ImpMblSeaAirComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -748,11 +748,11 @@ export class ImpMblSeaAirComponent {
       sError += "\n\r | POFD Cannot Be Blank";
     }
 
-    if (this.Record.mbl_igmno.trim().length > 0 && this.Record.mbl_igmdate.trim().length<=0) {
+    if (this.Record.mbl_igmno.trim().length > 0 && this.Record.mbl_igmdate.trim().length <= 0) {
       bret = false;
       sError += "\n\r | IGM Date Cannot Be Blank";
     }
-    if (this.Record.mbl_igmno.trim().length <=0 && this.Record.mbl_igmdate.trim().length > 0) {
+    if (this.Record.mbl_igmno.trim().length <= 0 && this.Record.mbl_igmdate.trim().length > 0) {
       bret = false;
       sError += "\n\r | IGM Number Cannot Be Blank";
     }
@@ -864,10 +864,10 @@ export class ImpMblSeaAirComponent {
         this.loading = false;
         _Record.HblList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Close() {
@@ -914,10 +914,10 @@ export class ImpMblSeaAirComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -935,7 +935,11 @@ export class ImpMblSeaAirComponent {
       hbl_folder_sent_date: '',
       hbl_prealert_date: '',
       mbl_igmno: '',
-      mbl_igmdate: ''
+      mbl_igmdate: '',
+      company_code: '',
+      branch_code: '',
+      rec_category: '',
+      hbl_type: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -946,6 +950,13 @@ export class ImpMblSeaAirComponent {
       SearchData.hbl_prealert_date = "";
       SearchData.mbl_igmno = this.Record.mbl_igmno;
       SearchData.mbl_igmdate = this.Record.mbl_igmdate;
+      SearchData.company_code = this.gs.globalVariables.comp_code,
+        SearchData.branch_code = this.gs.globalVariables.branch_code,
+        SearchData.rec_category = this.type;
+      if (this.type == 'SEA IMPORT')
+        SearchData.hbl_type = 'MBL-SI';
+      else
+        SearchData.hbl_type = 'MBL-AI';
     }
 
     this.gs.SearchRecord(SearchData)
@@ -960,10 +971,10 @@ export class ImpMblSeaAirComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   FolderSent() {
     this.folder_chk = !this.folder_chk;

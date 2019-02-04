@@ -26,6 +26,8 @@ export class MailComponent {
   @Input() public canftp: boolean = false;
 
   InitCompleted: boolean = false;
+  ftpcompleted: boolean = false;
+
   menu_record: any;
 
   showattach: boolean = false;
@@ -82,6 +84,7 @@ export class MailComponent {
   }
 
   InitComponent() {
+    this.ftpcompleted = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
@@ -286,6 +289,7 @@ export class MailComponent {
   */
 
   SendFtp() {
+    this.ftpcompleted=false;
     this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.ftptype_id.trim().length <= 0) {
@@ -294,21 +298,38 @@ export class MailComponent {
       return;
     }
 
+    // let filename: string = "";
+    // let filenameack: string = "";
+    // if (this.AttachList != null) {
+    //   if (this.AttachList.length > 0)
+    //     filename = this.AttachList[0].filename;
+    //   if (this.AttachList.length > 1)
+    //     filenameack = this.AttachList[1].filename;
+    // }
+
     let filename: string = "";
-    let filenameack: string = "";
+    let filecategory: string = "";
     if (this.AttachList != null) {
-      if (this.AttachList.length > 0)
+      if (this.AttachList.length == 1) {
         filename = this.AttachList[0].filename;
-      if (this.AttachList.length > 1)
-        filenameack = this.AttachList[1].filename;
+        filecategory = this.AttachList[0].filecategory;
+      } else {
+        for (let rec of this.AttachList) {
+          if (filename != "")
+            filename = filename.concat(",");
+          filename = filename.concat(rec.filename, "~", rec.filecategory);
+        }
+      }
     }
+
+
 
     this.loading = true;
     let SearchData = {
       table: '',
       pkid: '',
       filename: '',
-      filenameack: '',
+      filecategory: '',
       rowtype: this.type,
       ftptypeid: '',
       company_code: this.gs.globalVariables.comp_code,
@@ -321,7 +342,7 @@ export class MailComponent {
     SearchData.table = 'ftp';
     SearchData.ftptypeid = this.ftptype_id;
     SearchData.filename = filename;
-    SearchData.filenameack = filenameack;
+    SearchData.filecategory = filecategory;
     SearchData.rowtype = this.type;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -331,6 +352,7 @@ export class MailComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.ftpcompleted=true;
         if (response.error.length > 0) {
           this.ErrorMessage = response.error;
           alert(this.ErrorMessage);

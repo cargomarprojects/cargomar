@@ -1160,8 +1160,8 @@ export class OrderListComponent {
       .subscribe(response => {
         this.loading = false;
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
-        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack });
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filecategory:'' });
+        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack,filecategory:'ACK' });
         this.open(ftpsent);
       },
         error => {

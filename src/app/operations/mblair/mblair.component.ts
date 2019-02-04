@@ -870,7 +870,11 @@ export class MblAirComponent {
       pkid: '',
       hbl_folder_no: '',
       hbl_folder_sent_date: '',
-      hbl_prealert_date: ''
+      hbl_prealert_date: '',
+      company_code:'',
+      branch_code:'',
+      rec_category:'',
+      hbl_type:''
     };
 
     if (controlname == 'updatemaster') {
@@ -879,6 +883,10 @@ export class MblAirComponent {
       SearchData.hbl_folder_no = this.Record.mbl_folder_no;
       SearchData.hbl_folder_sent_date = this.Record.mbl_folder_sent_date;
       SearchData.hbl_prealert_date = "";
+      SearchData.company_code = this.gs.globalVariables.comp_code,
+      SearchData.branch_code = this.gs.globalVariables.branch_code,
+      SearchData.rec_category = this.type;
+      SearchData.hbl_type = 'MBL-AE';
     }
 
     this.gs.SearchRecord(SearchData)
