@@ -684,7 +684,6 @@
     </ngb-tab>
 
 
-
     <ngb-tab title="Buy Rate-Collect" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
         <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'"></app-jobincome>
@@ -697,7 +696,6 @@
         <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [master_lock]="Record.lock_record"></app-buyrate>
       </ng-template>
     </ngb-tab>
-
 
 
     <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
@@ -731,6 +729,6 @@
     </div>
     <div class="modal-body">
       <app-mail [pkid]="gs.globalVariables.user_pkid" [canftp]=true [type]="'MBL'" [sHtml]="''" [defaultmessage]="''"
-        [defaultsubject]="''" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+        [defaultsubject]="''" [updateto_ids]=true [AttachList]="AttachList" [agentname]="Record.book_agent_name"></app-mail>
     </div>
   </ng-template>

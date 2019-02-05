@@ -926,8 +926,7 @@ export class MblSeaComponent {
     //   }
     // }
 
-    if (bret === false)
-    {
+    if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }
@@ -1121,10 +1120,10 @@ export class MblSeaComponent {
       hbl_folder_no: '',
       hbl_folder_sent_date: '',
       hbl_prealert_date: '',
-      company_code:'',
-      branch_code:'',
-      rec_category:'',
-      hbl_type:''
+      company_code: '',
+      branch_code: '',
+      rec_category: '',
+      hbl_type: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1134,8 +1133,8 @@ export class MblSeaComponent {
       SearchData.hbl_folder_sent_date = this.Record.book_folder_sent_date;
       SearchData.hbl_prealert_date = this.Record.book_prealert_date;
       SearchData.company_code = this.gs.globalVariables.comp_code,
-      SearchData.branch_code = this.gs.globalVariables.branch_code,
-      SearchData.rec_category = this.type;
+        SearchData.branch_code = this.gs.globalVariables.branch_code,
+        SearchData.rec_category = this.type;
       SearchData.hbl_type = 'MBL-SE';
     }
 
@@ -1293,10 +1292,10 @@ export class MblSeaComponent {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
       return;
     }
-    if (this.Record.book_agent_name.indexOf("RITRA") < 0) {
-      this.ErrorMessage = "\n\r | Invalid Agent Selected";
-      return;
-    }
+    // if (this.Record.book_agent_name.indexOf("RITRA") < 0) {
+    //   this.ErrorMessage = "\n\r | Invalid Agent Selected";
+    //   return;
+    // }
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
@@ -1306,30 +1305,30 @@ export class MblSeaComponent {
       agent_id: this.Record.book_agent_id,
       pre_alert_date: '',
       hbl_nos: '',
-      type:'',
-      mbl_id:''
+      type: '',
+      mbl_id: ''
     };
-     
+
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.agent_id = this.Record.book_agent_id;
     SearchData.hbl_nos = '';
     SearchData.mbl_id = this.Record.book_pkid;
-     this.mainService.GenerateXmlEdi(SearchData)
+    this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.AttachList = new Array<any>();
-        this.FileList =  response.filelist;
+        this.FileList = response.filelist;
         for (let rec of this.FileList) {
-          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname });
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N' });
         }
         this.open(ftpsent);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 

@@ -24,6 +24,7 @@ export class MailComponent {
   @Input() public updateto_ids: boolean = false;
   @Input() public AttachList = new Array<any>();
   @Input() public canftp: boolean = false;
+  @Input() public agentname: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -298,43 +299,40 @@ export class MailComponent {
       return;
     }
 
-    // let filename: string = "";
-    // let filenameack: string = "";
-    // if (this.AttachList != null) {
-    //   if (this.AttachList.length > 0)
-    //     filename = this.AttachList[0].filename;
-    //   if (this.AttachList.length > 1)
-    //     filenameack = this.AttachList[1].filename;
-    // }
-
-    // let filename: string = "";
-    // let filecategory: string = "";
-    // if (this.AttachList != null) {
-    //   if (this.AttachList.length == 1) {
-    //     filename = this.AttachList[0].filename;
-    //     filecategory = this.AttachList[0].filecategory;
-    //   } else {
-    //     for (let rec of this.AttachList) {
-    //       if (filename != "")
-    //         filename = filename.concat(",");
-    //       filename = filename.concat(rec.filename, "~", rec.filecategory);
-    //     }
-    //   }fileftpfolder:'FTP-FOLDER-PO-CREATE',fileisack:
-    // }
-
+    if (this.FtpTypeList != null) {
+      var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
+      if (REC != null) {
+        if (this.agentname.indexOf("RITRA") >= 0) {
+          if (REC.param_name != 'RITRA') {
+            this.ErrorMessage = "\n\r | Please Select RITRA FTP and Continue.....";
+            alert(this.ErrorMessage);
+            return;
+          }
+        }
+        if (this.agentname.indexOf("RITRA") < 0) {
+          if (REC.param_name == 'RITRA') {
+            this.ErrorMessage = "\n\r | Invalid FTP Details.....";
+            alert(this.ErrorMessage);
+            return;
+          }
+        }
+      }
+    }
 
     let filename: string = "";
     let filenameack: string = "";
     if (this.AttachList != null) {
       for (let rec of this.AttachList) {
-        if (filename != "")
-          filename = filename.concat(",");
-        if (filenameack != "")
-          filenameack = filenameack.concat(",");
-        if (rec.fileisack == 'Y')
-          filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
-        else
-          filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+        if (rec.filecategory != 'OTHERS') {
+          if (filename != "")
+            filename = filename.concat(",");
+          if (filenameack != "")
+            filenameack = filenameack.concat(",");
+          if (rec.fileisack == 'Y')
+            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+          else
+            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+        }
       }
     }
 
@@ -440,7 +438,7 @@ export class MailComponent {
           this.fileinput.nativeElement.value = '';
           if (this.AttachList == null)
             this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category,fileftpfolder:'',fileisack:'N' });
+          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N' });
           //this.ShowHideAttach(); 
         },
         error => {
