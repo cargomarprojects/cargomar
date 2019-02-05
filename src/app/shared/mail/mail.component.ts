@@ -289,7 +289,7 @@ export class MailComponent {
   */
 
   SendFtp() {
-    this.ftpcompleted=false;
+    this.ftpcompleted = false;
     this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.ftptype_id.trim().length <= 0) {
@@ -307,29 +307,43 @@ export class MailComponent {
     //     filenameack = this.AttachList[1].filename;
     // }
 
+    // let filename: string = "";
+    // let filecategory: string = "";
+    // if (this.AttachList != null) {
+    //   if (this.AttachList.length == 1) {
+    //     filename = this.AttachList[0].filename;
+    //     filecategory = this.AttachList[0].filecategory;
+    //   } else {
+    //     for (let rec of this.AttachList) {
+    //       if (filename != "")
+    //         filename = filename.concat(",");
+    //       filename = filename.concat(rec.filename, "~", rec.filecategory);
+    //     }
+    //   }fileftpfolder:'FTP-FOLDER-PO-CREATE',fileisack:
+    // }
+
+
     let filename: string = "";
-    let filecategory: string = "";
+    let filenameack: string = "";
     if (this.AttachList != null) {
-      if (this.AttachList.length == 1) {
-        filename = this.AttachList[0].filename;
-        filecategory = this.AttachList[0].filecategory;
-      } else {
-        for (let rec of this.AttachList) {
-          if (filename != "")
-            filename = filename.concat(",");
-          filename = filename.concat(rec.filename, "~", rec.filecategory);
-        }
+      for (let rec of this.AttachList) {
+        if (filename != "")
+          filename = filename.concat(",");
+        if (filenameack != "")
+          filenameack = filenameack.concat(",");
+        if (rec.fileisack == 'Y')
+          filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+        else
+          filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
       }
     }
-
-
 
     this.loading = true;
     let SearchData = {
       table: '',
       pkid: '',
       filename: '',
-      filecategory: '',
+      filenameack: '',
       rowtype: this.type,
       ftptypeid: '',
       company_code: this.gs.globalVariables.comp_code,
@@ -342,7 +356,7 @@ export class MailComponent {
     SearchData.table = 'ftp';
     SearchData.ftptypeid = this.ftptype_id;
     SearchData.filename = filename;
-    SearchData.filecategory = filecategory;
+    SearchData.filenameack = filenameack;
     SearchData.rowtype = this.type;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -352,7 +366,7 @@ export class MailComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ftpcompleted=true;
+        this.ftpcompleted = true;
         if (response.error.length > 0) {
           this.ErrorMessage = response.error;
           alert(this.ErrorMessage);
@@ -366,9 +380,6 @@ export class MailComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
-
-
 
   getFileDetails(e: any) {
     //console.log (e.target.files);
@@ -429,7 +440,7 @@ export class MailComponent {
           this.fileinput.nativeElement.value = '';
           if (this.AttachList == null)
             this.AttachList = new Array<any>();
-            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category });
+          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category,fileftpfolder:'',fileisack:'N' });
           //this.ShowHideAttach(); 
         },
         error => {
