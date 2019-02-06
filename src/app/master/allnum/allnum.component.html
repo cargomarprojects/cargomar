@@ -129,26 +129,25 @@
   <hr>
   <br>
   <div class="page-list">
-      <div style="padding-left:0" class="col">
-        <font color="black">
-          <strong>
-            RESERVED LIST&nbsp;&nbsp;&nbsp;
-          </strong>
-        </font>
-      </div>
+    <div style="padding-left:0" class="col">
+      <font color="black">
+        <strong>
+          RESERVED LIST&nbsp;&nbsp;&nbsp;
+        </strong>
+      </font>
+    </div>
     <div class="page-box">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Total BL Nos</label>
             <div class="col-2">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="totblnos" required
-                [maxlength]="2" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="totblnos" required [maxlength]="2" />
             </div>
             <label class="col-1 col-form-label col-form-label-sm">Remarks</label>
             <div class="col-6">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="blremarks" required
-                [maxlength]="100" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="blremarks" (blur)="OnBlur('blremarks')"
+                required [maxlength]="100" />
             </div>
             <div class="col-1">
               <button [disabled]="loading" (click)="Generate(Record.table_pkid)" class="btn btn-primary btn-sm">Save</button>
@@ -164,14 +163,16 @@
             <table class="table  table-hover table-sm">
               <thead class="page-body-thead">
                 <tr>
-                  <th>BLNOS</th>
-                  <th>REMARKS</th>
-                  <th>CREATED.BY</th>
-                  <th>CREATED.ON</th>
+                  <th width="10%">FORMAT</th>
+                  <th width="20%">BLNOS</th>
+                  <th width="50%">REMARKS</th>
+                  <th width="10%">CREATED.BY</th>
+                  <th width="10%">CREATED.ON</th>
                 </tr>
               </thead>
               <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of Record.BlList; let i = index" [class.active]="i == selectedRowIndex">
+                  <td>{{rec.bl_format}}</td>
                   <td>{{rec.bl_no}}</td>
                   <td>{{rec.bl_remarks}}</td>
                   <td>{{rec.rec_created_by}}</td>

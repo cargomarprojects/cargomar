@@ -8,6 +8,7 @@ import { Allnum } from '../models/allnum';
 
 
 import { AllnumService } from '../services/allnum.service';
+import { Bookblno } from '../models/bookblno';
 
 @Component({
   selector: 'app-allnum',
@@ -181,6 +182,7 @@ export class AllnumComponent {
     this.Record.table_value = 0;
     this.Record.table_group = "NA";
     this.Record.rec_mode = this.mode;
+    this.Record.BlList = new Array<Bookblno>();
   }
 
   // Load a single Record for VIEW/EDIT
@@ -276,25 +278,56 @@ export class AllnumComponent {
   }
 
   Generate(Id: string) {
-   
-    this.loading = true;
+    this.ErrorMessage = '';
+    if (this.totblnos <= 0 || this.totblnos > 10) {
+      this.ErrorMessage = "Please Enter Total BL Numbers <= 10 ";
+      alert(this.ErrorMessage);
+      return;
+    }
 
+    if (this.blremarks.trim().length <= 0) {
+      this.ErrorMessage = "Remarks Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm('BOOK BL NUMBERS')) {
+      return;
+    }
+
+    this.loading = true;
     let SearchData = {
       pkid: Id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
       blremarks: this.blremarks,
       blnos: this.totblnos
     };
 
-    this.ErrorMessage = '';
-    this.mainService.GetRecord(SearchData)
+
+    this.mainService.GenerateBLNos(SearchData)
       .subscribe(response => {
         this.loading = false;
-        // this.LoadData(response.record);
+        this.Record.table_value = response.blno;
+        if (this.Record.BlList == null)
+          this.Record.BlList = new Array<Bookblno>();
+        this.Record.BlList.push(response.record);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  OnBlur(field: string) {
+    switch (field) {
+      case 'blremarks':
+        {
+          this.blremarks = this.blremarks.toUpperCase();
+          break;
+        }
+    }
   }
 
 }
