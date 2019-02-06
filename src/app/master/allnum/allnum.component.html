@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -50,7 +49,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.table_pkid, i)" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.table_pkid, i)"
+          [class.active]="i == selectedRowIndex">
           <td>{{rec.table_group}}</td>
           <td>{{rec.table_name}}</td>
           <td>{{rec.table_prefix}}</td>
@@ -76,7 +76,6 @@
 
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
-
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group row">
@@ -100,7 +99,8 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">PreFix</label>
         <div class="col-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.table_prefix" required [maxlength]="25" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.table_prefix" required
+            [maxlength]="25" />
         </div>
       </div>
 
@@ -115,7 +115,6 @@
 
     </div>
   </div>
-
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group row">
@@ -123,6 +122,65 @@
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div *ngIf="mode == 'EDIT'" class="page-list">
+    <div style="padding-left:0" class="col">
+      <font color="black">
+        <strong>
+          RESERVED LIST&nbsp;&nbsp;&nbsp;
+        </strong>
+      </font>
+    </div>
+    <div *ngIf="mode == 'EDIT'" class="page-box">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-1 col-form-label col-form-label-sm">Total.Nos</label>
+            <div class="col-2">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="totblnos" required [maxlength]="2" />
+            </div>
+            <label class="col-1 col-form-label col-form-label-sm">Remarks</label>
+            <div class="col-6">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="blremarks" (blur)="OnBlur('blremarks')"
+                required [maxlength]="100" />
+            </div>
+            <div class="col-2">
+              <button [disabled]="loading" (click)="Generate(Record.table_pkid)" class="btn btn-primary btn-sm">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="mode == 'EDIT'" class="row">
+      <div class="col-sm-6">
+        <div style="height: 300px; overflow-y: scroll;">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th width="10%">FORMAT</th>
+                  <th width="20%">BLNOS</th>
+                  <th width="50%">REMARKS</th>
+                  <th width="10%">CREATED.BY</th>
+                  <th width="10%">CREATED.ON</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of Record.BlList; let i = index" [class.active]="i == selectedRowIndex">
+                  <td>{{rec.bl_format}}</td>
+                  <td>{{rec.bl_no}}</td>
+                  <td>{{rec.bl_remarks}}</td>
+                  <td>{{rec.rec_created_by}}</td>
+                  <td>{{rec.rec_created_date}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -135,4 +193,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-

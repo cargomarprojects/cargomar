@@ -8,6 +8,7 @@ import { Allnum } from '../models/allnum';
 
 
 import { AllnumService } from '../services/allnum.service';
+import { Bookblno } from '../models/bookblno';
 
 @Component({
   selector: 'app-allnum',
@@ -24,25 +25,28 @@ export class AllnumComponent {
   menu_record: any;
 
   selectedRowIndex: number = -1;
-  
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-  
+
   searchstring = '';
   page_count = 0;
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
 
+  totblnos = 0;
+  blremarks = '';
+
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
 
   mode = '';
   pkid = '';
-  
+
   // Array For Displaying List
   RecordList: Allnum[] = [];
   // Single Record for add/edit/view details
@@ -144,7 +148,7 @@ export class AllnumComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      sortby : '',
+      sortby: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       page_count: this.page_count,
@@ -152,7 +156,7 @@ export class AllnumComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount
     };
-    
+
     this.ErrorMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
@@ -162,10 +166,10 @@ export class AllnumComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -178,6 +182,7 @@ export class AllnumComponent {
     this.Record.table_value = 0;
     this.Record.table_group = "NA";
     this.Record.rec_mode = this.mode;
+    this.Record.BlList = new Array<Bookblno>();
   }
 
   // Load a single Record for VIEW/EDIT
@@ -194,10 +199,10 @@ export class AllnumComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Allnum) {
@@ -222,10 +227,10 @@ export class AllnumComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -236,7 +241,7 @@ export class AllnumComponent {
       bret = false;
       sError = "Table Name Cannot Be Blank";
     }
-     
+
     //if (this.Record.user_password.trim().length <= 0) {
     //    bret = false;
     //    sError += "\n\rPassword Cannot Be Blank";
@@ -272,5 +277,57 @@ export class AllnumComponent {
     this.gs.ClosePage('home');
   }
 
+  Generate(Id: string) {
+    this.ErrorMessage = '';
+    if (this.totblnos <= 0 || this.totblnos > 10) {
+      this.ErrorMessage = "Please Enter Total Numbers <= 10 ";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (this.blremarks.trim().length <= 0) {
+      this.ErrorMessage = "Remarks Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm('BOOK BL NUMBERS')) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      blremarks: this.blremarks,
+      blnos: this.totblnos
+    };
+
+
+    this.mainService.GenerateBLNos(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.table_value = response.blno;
+        if (this.Record.BlList == null)
+          this.Record.BlList = new Array<Bookblno>();
+        this.Record.BlList.push(response.record);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  OnBlur(field: string) {
+    switch (field) {
+      case 'blremarks':
+        {
+          this.blremarks = this.blremarks.toUpperCase();
+          break;
+        }
+    }
+  }
 
 }
