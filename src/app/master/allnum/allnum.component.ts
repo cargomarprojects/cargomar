@@ -35,6 +35,9 @@ export class AllnumComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  totblnos = 0;
+  blremarks = '';
+
   sub: any;
   urlid: string;
   

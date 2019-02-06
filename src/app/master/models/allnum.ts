@@ -1,5 +1,6 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
+import { Bookblno } from './bookblno';
 
 export class Allnum {
   table_pkid: string;
@@ -13,8 +14,8 @@ export class Allnum {
   table_group: string;
 
   rec_mode: string;
+  BlList: Bookblno[] = [];
 
   _globalvariables: GlobalVariables;
-
 }
 
