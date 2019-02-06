@@ -280,7 +280,7 @@ export class AllnumComponent {
   Generate(Id: string) {
     this.ErrorMessage = '';
     if (this.totblnos <= 0 || this.totblnos > 10) {
-      this.ErrorMessage = "Please Enter Total BL Numbers <= 10 ";
+      this.ErrorMessage = "Please Enter Total Numbers <= 10 ";
       alert(this.ErrorMessage);
       return;
     }

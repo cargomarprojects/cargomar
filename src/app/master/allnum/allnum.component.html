@@ -140,7 +140,7 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Total BL Nos</label>
+            <label class="col-1 col-form-label col-form-label-sm">Total.Nos</label>
             <div class="col-2">
               <input type="number" class="form-control form-control-sm" [(ngModel)]="totblnos" required [maxlength]="2" />
             </div>
@@ -149,7 +149,7 @@
               <input type="text" class="form-control form-control-sm" [(ngModel)]="blremarks" (blur)="OnBlur('blremarks')"
                 required [maxlength]="100" />
             </div>
-            <div class="col-1">
+            <div class="col-2">
               <button [disabled]="loading" (click)="Generate(Record.table_pkid)" class="btn btn-primary btn-sm">Save</button>
             </div>
           </div>
