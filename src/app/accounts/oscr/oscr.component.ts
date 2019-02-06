@@ -44,6 +44,8 @@ export class OscrComponent {
   all: boolean = false;
   do_not_use_credit_date: boolean = false;
 
+  showzero: boolean = false;
+
   to_date: string;
   
 
@@ -70,6 +72,7 @@ export class OscrComponent {
     branch_name: '',
     isoverdue: false,
     all: false,
+    showzero : false,
     do_not_use_credit_date: false,
   };
 
@@ -231,6 +234,7 @@ export class OscrComponent {
 
     this.SearchData.isoverdue = this.isoverdue;
     this.SearchData.all = this.all;
+    this.SearchData.showzero = this.showzero;
 
     this.SearchData.to_date = this.to_date;
     this.SearchData.acc_id = this.ACCRECORD.id;

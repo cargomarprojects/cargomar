@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -12,7 +11,7 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
             <div class="col-8">
@@ -26,7 +25,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div class="col-8">
@@ -37,30 +36,33 @@
             <label class="col-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <div class="form-group row">
             <div *ngIf="bCompany" class="col-sm-4">
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
             </div>
-
             <div class="col-sm-8">
               <input type="checkbox" [(ngModel)]="do_not_use_credit_date">
               <span>Do Not Use Credit Date</span>
             </div>
-
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="checkbox" [(ngModel)]="isoverdue">
+              <span>Over Due</span>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-4">
-                <input type="checkbox" [(ngModel)]="isoverdue">
-                <span>Over Due</span>
-              </div>
-              <div class="col-sm-8">
-                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
-                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-              </div>
+            <div class="col-sm-4">
+              <input type="checkbox" [(ngModel)]="showzero">
+              <span>Show Zero</span>
+            </div>
+            <div class="col-sm-4">
+              <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process
+                Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -71,6 +73,8 @@
         <tr>
           <th>VRNO</th>
           <th>DATE</th>
+          <th>INV-DATE</th>
+          <th>PAID-DATE</th>
           <th>A/C CODE</th>
           <th>A/C NAME</th>
 
@@ -90,7 +94,7 @@
           <th class="text-right">91-180</th>
           <th class="text-right">180+</th>
 
-        
+
           <th>STATUS</th>
           <th>REMARKS</th>
         </tr>
@@ -100,26 +104,30 @@
         <tr [style.color]="rec.rowcolor">
           <td>{{rec.jv_docno}}</td>
           <td>{{rec.jv_date}}</td>
+
+          <td>{{rec.jv_org_invdt}}</td>
+          <td>{{rec.jv_paid_date}}</td>
+
           <td>{{rec.acc_code}}</td>
           <td>{{rec.acc_name}}</td>
 
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.crlimit }}</td>
           <td align='right'>{{ rec.crdays }}</td>
           <td align='right'>{{ rec.osdays }}</td>
           <td align='right'>{{ rec.overduedays }}</td>
           <td>{{rec.due_date}}</td>
-          <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.age1 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.age2 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.age3 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.age4 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.age5 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.age6 | number : '1.2-2' }}</td>
 
-         
+
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_type}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks}}</td>
         </tr>
@@ -142,5 +150,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-
-
