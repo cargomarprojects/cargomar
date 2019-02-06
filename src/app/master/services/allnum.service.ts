@@ -27,6 +27,10 @@ export class AllnumService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Allnum/Save', Record, this.gs.headerparam2('authorized'));
     }
    
+    GenerateBLNos(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Allnum/GenerateBLNos', SearchData, this.gs.headerparam2('authorized'));
+    }
+
     LoadDefault(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Allnum/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }

@@ -24,11 +24,11 @@ export class AllnumComponent {
   menu_record: any;
 
   selectedRowIndex: number = -1;
-  
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-  
+
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -40,12 +40,12 @@ export class AllnumComponent {
 
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
 
   mode = '';
   pkid = '';
-  
+
   // Array For Displaying List
   RecordList: Allnum[] = [];
   // Single Record for add/edit/view details
@@ -147,7 +147,7 @@ export class AllnumComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      sortby : '',
+      sortby: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       page_count: this.page_count,
@@ -155,7 +155,7 @@ export class AllnumComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount
     };
-    
+
     this.ErrorMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
@@ -165,10 +165,10 @@ export class AllnumComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -197,10 +197,10 @@ export class AllnumComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Allnum) {
@@ -225,10 +225,10 @@ export class AllnumComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -239,7 +239,7 @@ export class AllnumComponent {
       bret = false;
       sError = "Table Name Cannot Be Blank";
     }
-     
+
     //if (this.Record.user_password.trim().length <= 0) {
     //    bret = false;
     //    sError += "\n\rPassword Cannot Be Blank";
@@ -275,5 +275,26 @@ export class AllnumComponent {
     this.gs.ClosePage('home');
   }
 
+  Generate(Id: string) {
+   
+    this.loading = true;
+
+    let SearchData = {
+      pkid: Id,
+      blremarks: this.blremarks,
+      blnos: this.totblnos
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.GetRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        // this.LoadData(response.record);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
 }
