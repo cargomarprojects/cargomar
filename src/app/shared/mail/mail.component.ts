@@ -352,6 +352,7 @@ export class MailComponent {
     };
 
     SearchData.table = 'ftp';
+    SearchData.pkid = this.pkid;
     SearchData.ftptypeid = this.ftptype_id;
     SearchData.filename = filename;
     SearchData.filenameack = filenameack;
