@@ -28,6 +28,7 @@ export class OrderListComponent {
   loading = false;
   currentTab = 'LIST';
 
+  sSubject: string = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -1159,6 +1160,7 @@ export class OrderListComponent {
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.sSubject= response.subject;
         this.AttachList = new Array<any>();
         this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filecategory:'ORDER',fileftpfolder:'FTP-FOLDER-PO-CREATE',fileisack:'N' });
         this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack,filecategory:'ORDER',fileftpfolder:'FTP-FOLDER-PO-CREATE-ACK',fileisack:'Y'});
