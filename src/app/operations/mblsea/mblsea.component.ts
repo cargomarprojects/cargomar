@@ -34,6 +34,7 @@ export class MblSeaComponent {
   bAdmin = false;
   bDocs = false;
 
+  sSubject: string = '';
   folder_id: string;
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
@@ -1318,6 +1319,7 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.sSubject= response.subject;
         this.AttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {

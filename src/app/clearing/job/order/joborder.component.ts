@@ -514,6 +514,18 @@ export class JobOrderComponent {
     let col_cbm = -1;
     let col_hscode = -1;
 
+    let col_bkd = -1;
+    let col_rnd = -1;
+    let col_por = -1;
+    let col_cr = -1;
+    let col_fcr = -1;
+    let col_insp = -1;
+    let col_stf = -1;
+    let col_whd = -1;
+    let col_dlv_pol = -1;
+    let col_dlv_pod = -1;
+    let col_port_pol = -1;
+    let col_port_pod = -1;
 
     if (cbdata != null) {
 
@@ -558,6 +570,42 @@ export class JobOrderComponent {
           if (ar2[i].toUpperCase().indexOf("HS") >= 0) {
             col_hscode = i;
           }
+          if (ar2[i].toUpperCase().indexOf("BOOKING DATE") >= 0) {//BKD
+            col_bkd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("RANDOM DATE") >= 0) { //RND
+            col_rnd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("RELEASE DATE") >= 0) {//POR
+            col_por = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("READY DATE") >= 0) { //CR
+            col_cr = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("FCR DATE") >= 0) {//FCR
+            col_fcr = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("INSPECTION DATE") >= 0) { //INSP
+            col_insp = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("STUFFING DATE") >= 0) {
+            col_stf = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("WARE HOUSE DATE") >= 0) {
+            col_whd = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("DELIVERY POL DATE") >= 0) {
+            col_dlv_pol = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("DELIVERY POD DATE") >= 0) {
+            col_dlv_pod = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("PORT-POL") >= 0) {
+            col_port_pol = i;
+          }
+          if (ar2[i].toUpperCase().indexOf("PORT-POD") >= 0) {
+            col_port_pod = i;
+          }
         };
       }
 
@@ -587,6 +635,20 @@ export class JobOrderComponent {
           mRec.rec_category = '';
           mRec.remove = '';
           mRec.ord_source = '';
+
+          mRec.ord_booking_date = '';
+          mRec.ord_rnd_insp_date = '';
+          mRec.ord_po_rel_date = '';
+          mRec.ord_cargo_ready_date = '';
+          mRec.ord_fcr_date = '';
+          mRec.ord_insp_date = '';
+          mRec.ord_stuf_date = '';
+          mRec.ord_whd_date = '';
+          mRec.ord_delvi_date = '';
+          mRec.ord_dlv_pol_date = '';
+          mRec.ord_dlv_pod_date = '';
+          mRec.ord_pol = '';
+          mRec.ord_pod = '';
 
           mRec.ord_pkid = this.gs.getGuid();
           mRec.rec_category = this.type;
@@ -653,6 +715,31 @@ export class JobOrderComponent {
           }
           if (col_hscode > -1)
             mRec.ord_hs_code = ar2[col_hscode].toUpperCase();
+
+            if (col_bkd > -1)
+            mRec.ord_booking_date = ar2[col_bkd].toUpperCase();
+          if (col_rnd > -1)
+            mRec.ord_rnd_insp_date = ar2[col_rnd].toUpperCase();
+          if (col_por > -1)
+            mRec.ord_po_rel_date = ar2[col_por].toUpperCase();
+          if (col_cr > -1)
+            mRec.ord_cargo_ready_date = ar2[col_cr].toUpperCase();
+          if (col_fcr > -1)
+            mRec.ord_fcr_date = ar2[col_fcr].toUpperCase();
+          if (col_insp > -1)
+            mRec.ord_insp_date = ar2[col_insp].toUpperCase();
+          if (col_stf > -1)
+            mRec.ord_stuf_date = ar2[col_stf].toUpperCase();
+          if (col_whd > -1)
+            mRec.ord_whd_date = ar2[col_whd].toUpperCase();
+          if (col_dlv_pol > -1)
+            mRec.ord_dlv_pol_date = ar2[col_dlv_pol].toUpperCase();
+          if (col_dlv_pod > -1)
+            mRec.ord_dlv_pod_date = ar2[col_dlv_pod].toUpperCase();
+          if (col_port_pol > -1)
+            mRec.ord_pol = ar2[col_port_pol].toUpperCase();
+          if (col_port_pod > -1)
+            mRec.ord_pod = ar2[col_port_pod].toUpperCase();
 
           if (mRec.ord_po != '') {
             let sContract: string = "";
