@@ -58,10 +58,10 @@ export class OsRepComponent {
   InvTab = 'BRANCH';
 
   period: string = '';
-  
+
   ErrorMessage = "";
 
-  
+
   pkid = '';
 
   SearchData = {
@@ -78,10 +78,10 @@ export class OsRepComponent {
 
     iscompany: false,
     isadmin: false,
-    filter_branch_code : '',
-    filter_sman_id : '',
+    filter_branch_code: '',
+    filter_sman_id: '',
     filter_sman_name: '',
-    
+
   };
 
   ChildData = {
@@ -94,8 +94,8 @@ export class OsRepComponent {
     filter_sman_id: '',
     filter_sman_name: '',
     category: '',
-    previos_component_type:''
-   
+    previos_component_type: ''
+
   };
 
   // Array For Displaying List
@@ -144,7 +144,7 @@ export class OsRepComponent {
     }
 
 
-    
+
   }
 
   InitComponent() {
@@ -153,16 +153,16 @@ export class OsRepComponent {
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
 
-   
+
   }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-    if ( this.sub != null )
+    if (this.sub != null)
       this.sub.unsubscribe();
   }
 
-  
+
 
   ResetControls() {
 
@@ -175,13 +175,13 @@ export class OsRepComponent {
       this.iscompany = true;
     if (this.menu_record.rights_admin)
       this.isadmin = true;
-   
+
   }
 
-  
+
 
   // Query List Data
-  List(_type: string, _category : string ) {
+  List(_type: string, _category: string) {
 
     this.loading = true;
 
@@ -198,7 +198,7 @@ export class OsRepComponent {
       this.title = 'OS - Salesman Wise';
     if (this.category == 'LEGAL') {
       this.title = 'OS - Legal Wise';
-     
+
     }
 
     this.pkid = this.gs.getGuid();
@@ -213,10 +213,10 @@ export class OsRepComponent {
 
     this.SearchData.isadmin = this.isadmin;
     this.SearchData.iscompany = this.iscompany;
-    this.SearchData.filter_branch_code = this.gs.globalVariables.branch_code ;
+    this.SearchData.filter_branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.filter_sman_id = this.gs.globalVariables.sman_id;
     this.SearchData.filter_sman_name = this.gs.globalVariables.sman_name;
-    
+
 
     this.ErrorMessage = '';
     this.mainService.OsReport(this.SearchData)
@@ -225,13 +225,13 @@ export class OsRepComponent {
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
 
-        else 
+        else
           this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -243,7 +243,7 @@ export class OsRepComponent {
 
 
 
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
@@ -287,13 +287,13 @@ export class OsRepComponent {
       this.ChildData.iscompany = this.iscompany;
       this.ChildData.category = this.category;
       this.ChildData.previos_component_type = this.category;
-    //  this.ChildData.filter_sman_id = this.gs.globalVariables.sman_id;
-    //  this.ChildData.filter_sman_name = this.gs.globalVariables.sman_name;
+      //  this.ChildData.filter_sman_id = this.gs.globalVariables.sman_id;
+      //  this.ChildData.filter_sman_name = this.gs.globalVariables.sman_name;
       this.currentTab = 'CHILD3';
     }
   }
 
-  
+
 
   Mail(_type: string, mailsent: any) {
 
@@ -333,10 +333,10 @@ export class OsRepComponent {
           this.open(mailsent);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -397,10 +397,10 @@ export class OsRepComponent {
         else
           this.AirList = response.list;
       },
-      error => {
-        this.loading2 = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading2 = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -411,12 +411,13 @@ export class OsRepComponent {
     this.loading3 = true;
 
     // OSLIST and SMANLIST
-
-    if ( _category == 'BRANCH')
-      this.InvTab = _category;
-    else
-      this.InvTab = 'DETAIL';
-
+    if (_type != 'EXCEL') {
+      if (_category == 'BRANCH')
+        this.InvTab = _category;
+      else
+        this.InvTab = 'DETAIL';
+    }
+    
     let SearchData1 = {
       pkid: '',
       type: '',
@@ -462,10 +463,10 @@ export class OsRepComponent {
         else
           this.InvList = response.list;
       },
-      error => {
-        this.loading3 = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading3 = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -476,5 +477,5 @@ export class OsRepComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
-  
+
 }

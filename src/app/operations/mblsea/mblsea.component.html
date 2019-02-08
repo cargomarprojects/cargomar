@@ -651,7 +651,7 @@
         <div class="page-box">
           <div class="col">
             <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm">Mail/FTP</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm">Mail/FTP</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading" (click)="PrintCheckList('','SEA EXPORT','EXCEL')"
               class="btn btn-success btn-sm">Check
@@ -728,7 +728,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-mail [pkid]="gs.globalVariables.user_pkid" [canftp]=true [type]="'MBL'" [sHtml]="''" [defaultmessage]="''"
-        [defaultsubject]="''" [updateto_ids]=true [AttachList]="AttachList" [agentname]="Record.book_agent_name"></app-mail>
+      <app-mail [pkid]="pkid" [canftp]=true [type]="'MBL-SE'" [sHtml]="''" [defaultmessage]="''"
+        [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" [agentname]="Record.book_agent_name"></app-mail>
     </div>
   </ng-template>

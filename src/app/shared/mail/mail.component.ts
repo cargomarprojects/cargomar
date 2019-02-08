@@ -348,10 +348,12 @@ export class MailComponent {
       branch_code: this.gs.globalVariables.branch_code,
       user_pkid: this.gs.globalVariables.user_pkid,
       user_name: this.gs.globalVariables.user_name,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      subject:''
     };
 
     SearchData.table = 'ftp';
+    SearchData.pkid = this.pkid;
     SearchData.ftptypeid = this.ftptype_id;
     SearchData.filename = filename;
     SearchData.filenameack = filenameack;
@@ -361,6 +363,7 @@ export class MailComponent {
     SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.subject = this.subject;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
