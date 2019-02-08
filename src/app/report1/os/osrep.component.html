@@ -218,6 +218,7 @@
                 <th class="text-right">DEBIT</th>
                 <th class="text-right">CREDIT</th>
                 <th class="text-right">BALANCE</th>
+                <th class="text-right"></th>
               </tr>
             </thead>
 
@@ -227,6 +228,7 @@
                 <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
                 <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
                 <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+                <td><i class="fa fa-file-excel-o  fa-lg pointer" aria-hidden="true" (click)="InvReport('EXCEL', rec.branch_code)"></i></td>
               </tr>
             </tbody>
 
