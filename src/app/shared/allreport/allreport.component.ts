@@ -26,7 +26,7 @@ export class AllReportComponent {
     InfoMessage = "";
     constructor(
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
         // URL Query Parameter 
     }
