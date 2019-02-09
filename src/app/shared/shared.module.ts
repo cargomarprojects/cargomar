@@ -47,6 +47,7 @@ import { PasteDataComponent } from './pastedata/pastedata.component';
 import { PaymentReqComponent } from './paymentreq/paymentreq.component';
 import { RateUpdateComponent } from './rateupdate/rateupdate.component';
 import { XmlomsComponent } from './xmloms/xmloms.component';
+import { AllReportComponent } from './allreport/allreport.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { XmlomsComponent } from './xmloms/xmloms.component';
     PasteDataComponent,
     PaymentReqComponent,
     RateUpdateComponent,
-    XmlomsComponent
+    XmlomsComponent,
+    AllReportComponent
   ],
   exports: [
     CommonModule,
@@ -103,7 +105,8 @@ import { XmlomsComponent } from './xmloms/xmloms.component';
     PasteDataComponent,
     PaymentReqComponent,
     RateUpdateComponent,
-    XmlomsComponent
+    XmlomsComponent,
+    AllReportComponent
   ],
   providers: [
     AlertService,

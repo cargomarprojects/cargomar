@@ -1,0 +1,24 @@
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12">
+        <div class="form-group row" style="color:black">
+                <div class="col-sm-2">
+                        <button [disabled]="loading || gs.globalVariables.user_code != 'ADMIN'" (click)="Referesh()" class="btn btn-primary btn-sm">Refresh</button>
+                        <i *ngIf="loading" class="fa fa-spinner"></i>
+                    </div>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                <font color="black">
+                    <strong>
+                        Processed On &nbsp; {{refereshby}}
+                    </strong>
+                </font>
+            </label>
+        </div>
+    </div>
+</div>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

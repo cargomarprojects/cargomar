@@ -1,26 +1,32 @@
-
 <div *ngIf="currentTab=='LIST'">
-
   <div class="page-header">
-    <div class="col">
-      <label>{{title}}</label>
-
-      <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">BRANCH WISE</button>
-      <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">SALESMAN WISE</button>
-      <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">LEGAL</button>
-      <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
-      <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
-      <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
-      <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)" *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
-      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-
-      <i *ngIf="loading" class="fa fa-spinner"></i>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <div class="col-sm-8">
+            <label>{{title}}</label>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">BRANCH WISE</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">SALESMAN WISE</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">LEGAL</button>
+            <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
+            <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)"
+              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
+            <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)"
+              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
+            <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
+              *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
+            <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+          <div class="col-sm-4">
+            <app-allreport [reportname]="title" [company_code]="gs.globalVariables.comp_code" [branch_code]=''  ></app-allreport>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-
   <div class="page-list">
-
     <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'" class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
@@ -116,7 +122,8 @@
       <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH')">BRANCH WISE</button>
       <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'CARRIER')">CARRIER WISE</button>
       <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'SALESMAN')">SALESMAN WISE</button>
-      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-SALESMAN')">BRANCH/SALESMAN</button>
+      <button class="btn btn-primary btn-sm"
+        (click)="AirListReport('SCREEN', 'BRANCH-SALESMAN')">BRANCH/SALESMAN</button>
       <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-CARRIER')">BRANCH/CARRIER</button>
 
       <label>{{period}}</label>
@@ -228,7 +235,8 @@
                 <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
                 <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
                 <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
-                <td><i class="fa fa-file-excel-o  fa-lg pointer" aria-hidden="true" (click)="InvReport('EXCEL', rec.branch_code)"></i></td>
+                <td><i class="fa fa-file-excel-o  fa-lg pointer" aria-hidden="true"
+                    (click)="InvReport('EXCEL', rec.branch_code)"></i></td>
               </tr>
             </tbody>
 
@@ -306,6 +314,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="mailtype" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="mailtype" [sHtml]="sHtml" [defaultmessage]="sMsg"
+      [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
