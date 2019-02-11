@@ -29,6 +29,7 @@ export class Companym {
     comp_country_code: string;
     comp_pol_code: string;
     comp_order: number;
+    comp_uamno: string;
 
     rec_mode: string;
     _globalvariables: GlobalVariables;

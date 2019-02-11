@@ -203,6 +203,7 @@ export class CompanyComponent {
     this.Record.comp_order = 0;
 
     this.Record.comp_branch_type = 'BOTH';
+    this.Record.comp_uamno= '';
 
     this.Record.rec_mode = this.mode;
   }
@@ -427,6 +428,11 @@ export class CompanyComponent {
       case 'comp_pol_code':
         {
           this.Record.comp_pol_code = this.Record.comp_pol_code.toUpperCase();
+          break;
+        }
+        case 'comp_uamno':
+        {
+          this.Record.comp_uamno = this.Record.comp_uamno.toUpperCase();
           break;
         }
     }
