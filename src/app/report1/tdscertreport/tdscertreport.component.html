@@ -1,0 +1,151 @@
+
+<div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <label class="col-sm-2">Search</label>
+        <div class="col-sm-6">
+          <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+        </div>
+        <div class="col-sm-2">
+          <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th width="10%">TAN.CODE</th>
+            <th width="30%">TAN.NAME</th>
+            <th width="15%">CERTIFICATE</th>
+            <th width="10%">QTR</th>
+            <th width="15%">GROSS.AMT</th>
+            <th width="15%">CERT.AMT</th>
+            <th width="5%">DOCS</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr (click)="ActionHandler('EDIT',rec.tds_pkid)">
+            <td>{{rec.tds_tancode}}</td>
+            <td>{{rec.tds_tanname}}</td>
+            <td>{{rec.tds_cert_no}}</td>
+            <td>{{rec.tds_cert_qtr}}</td>
+            <td>{{rec.tds_gross}}</td>
+            <td>{{rec.tds_amt}}</td>
+            <td>{{rec.tds_doc_count}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
+  
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">TDS Certificate No.</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.tds_cert_no" (focus)="OnFocus('tds_cert_no')" (change)="OnChange('tds_cert_no')" (blur)="OnBlur('tds_cert_no')" required maxlength="15" />
+            </div>
+            <label class="col-sm-1 col-form-label col-form-label-sm">Quarter</label>
+            <div class="col-sm-3">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.tds_cert_qtr">
+                    <option [value]="'Q1'">Q1</option>
+                    <option [value]="'Q2'">Q2</option>
+                    <option [value]="'Q3'">Q3</option>
+                    <option [value]="'Q4'">Q4</option>
+                  </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">Certificate Received At.</label>
+            <div class="col-8">
+              <app-autocomplete #brLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">TAN#</label>
+            <div class="col-8">
+              <app-autocomplete #tanLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Gross Amt</label>
+            <div class="col-sm-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_gross" (blur)="OnBlur('tds_gross')" required maxlength="15" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Certificate Amt</label>
+            <div class="col-sm-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_amt" (blur)="OnBlur('tds_amt')" required maxlength="15" />
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-4">
+  
+        </div>
+      </div>
+    </div>
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <div class="offset-4 col-sm-8">
+              <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+  
+  

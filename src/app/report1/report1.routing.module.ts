@@ -19,6 +19,7 @@ import { TeuClrComponent } from './teuclr/teuclr.component';
 import { CoststmtComponent } from './coststmt/coststmt.component';
 import { TrackComponent } from './track/track.component';
 import { DsrRemComponent } from './dsr/dsrrem.component';
+import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'teuclr', component: TeuClrComponent },
   { path: 'coststmt', component: CoststmtComponent },
   { path: 'track', component: TrackComponent },
-  { path: 'dsrrem', component: DsrRemComponent }
+  { path: 'dsrrem', component: DsrRemComponent },
+  { path: 'tdscertreport', component: TdsCertReportComponent }
 ];
 
 @NgModule({
