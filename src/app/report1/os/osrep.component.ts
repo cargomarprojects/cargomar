@@ -417,7 +417,7 @@ export class OsRepComponent {
       else
         this.InvTab = 'DETAIL';
     }
-    
+
     let SearchData1 = {
       pkid: '',
       type: '',

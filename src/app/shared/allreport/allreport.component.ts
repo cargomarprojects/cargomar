@@ -11,9 +11,10 @@ export class AllReportComponent {
     title = 'Refersh Details';
 
     @Output() ModifiedRecords = new EventEmitter<any>();
-    @Input() public reportname: string='';
-    @Input() public branch_code: string='';
-    @Input() public company_code: string='';
+    @Input() public reportname: string = '';
+    @Input() public branch_code: string = '';
+    @Input() public company_code: string = '';
+    @Input() public canrefresh: boolean = false;
 
     InitCompleted: boolean = false;
     disableSave = true;
@@ -59,9 +60,9 @@ export class AllReportComponent {
     Close() {
 
     }
-    Referesh(){
+    Referesh() {
         this.SearchRecord("allreport", 'REFERESH');
-   }
+    }
     SearchRecord(controlname: string, _type: string) {
         this.InfoMessage = '';
         this.ErrorMessage = '';
