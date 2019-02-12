@@ -49,8 +49,8 @@
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr (click)="ActionHandler('EDIT',rec.tds_pkid)">
-            <td>{{rec.tds_tancode}}</td>
-            <td>{{rec.tds_tanname}}</td>
+            <td>{{rec.tds_tan_code}}</td>
+            <td>{{rec.tds_tan_name}}</td>
             <td>{{rec.tds_cert_no}}</td>
             <td>{{rec.tds_cert_qtr}}</td>
             <td>{{rec.tds_gross}}</td>
@@ -109,7 +109,7 @@
               <app-autocomplete #tanLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
             <div class="col-4">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.tds_tanname" />
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.tds_tan_name" />
             </div>
           </div>
           <div class="form-group row">
@@ -130,14 +130,12 @@
   
         </div>
       </div>
-
-
-      <div class="page-box">
+      <div *ngIf="mode=='EDIT'" class="page-box">
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm"></label>
-              <div class="col-8">
+              <label class="col-8 col-form-label col-form-label-sm"></label>
+              <div class="col-4">
                 <button [disabled]="loading" (click)="TdsDetList(Record)" class="btn btn-primary btn-sm">Find</button>
               </div>
             </div>
@@ -147,29 +145,34 @@
           <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
               <tr>
-                <th>JV.NO</th>
-                <th>JV.DATE</th>
-                <th>JV.AMT</th>
+                <th>BRANCH</th>
+                <th>JVNO</th>
+                <th>DATE</th>
+                <th>TYPE</th>
+                <th>REFERENCE</th>
+                <th>NARRATION</th>
+                <th>TDS.AMT</th>
+                <th>ALLOCATED.AMT</th>
                 <th>CERT.AMT</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of Record.TdsDetList">
               <tr>
-                <td>{{rec.ord_exp_name}}</td>
-                <td>{{rec.ord_exp_name}}</td>
-                <td>{{rec.ord_exp_name}}</td>
-                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)"
+                <td>{{rec.tdsd_jv_branch}}</td>
+                <td>{{rec.tdsd_jv_no}}</td>
+                <td>{{rec.tdsd_jv_date}}</td>
+                <td>{{rec.tdsd_jv_type}}</td>
+                <td>{{rec.tdsd_jv_ref}}</td>
+                <td>{{rec.tdsd_jv_narration}}</td>
+                <td>{{rec.tdsd_jv_total}}</td>
+                <td>{{rec.tdsd_other_amt}}</td>
+                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tdsd_amt" (blur)="OnBlur('tdsd_amt')"
                     required maxlength="15" /></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-
-
-
-
 
     </div>
     <div class="page-box">

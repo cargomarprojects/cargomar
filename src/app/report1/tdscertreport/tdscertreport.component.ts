@@ -140,9 +140,9 @@ export class TdsCertReportComponent {
   }
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "TAN") {
-      this.Record.tds_tanid = _Record.id;
-      this.Record.tds_tancode = _Record.code;
-      this.Record.tds_tanname = _Record.name;
+      this.Record.tds_tan_id = _Record.id;
+      this.Record.tds_tan_code = _Record.code;
+      this.Record.tds_tan_name = _Record.name;
     }
     if (_Record.controlname == "BRANCH") {
       this.Record.tds_cert_brcode = _Record.code;
@@ -232,9 +232,9 @@ export class TdsCertReportComponent {
     this.Record.tds_cert_qtr = 'Q1';
     this.Record.tds_cert_brcode = this.gs.globalVariables.branch_code;
     this.Record.tds_cert_brname = this.gs.globalVariables.branch_name;
-    this.Record.tds_tanid = '';
-    this.Record.tds_tancode = '';
-    this.Record.tds_tanname = '';
+    this.Record.tds_tan_id = '';
+    this.Record.tds_tan_code = '';
+    this.Record.tds_tan_name = '';
     this.Record.tds_gross = 0;
     this.Record.tds_amt = 0;
 
@@ -247,6 +247,8 @@ export class TdsCertReportComponent {
     this.loading = true;
     let SearchData = {
       pkid: Id,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
     };
 
     this.ErrorMessage = '';
@@ -265,9 +267,9 @@ export class TdsCertReportComponent {
   LoadData(_Record: TdsCertm) {
     this.Record = _Record;
     this.InitLov();
-    this.TANRECORD.id = this.Record.tds_tanid;
-    this.TANRECORD.code = this.Record.tds_tancode;
-    this.TANRECORD.name = this.Record.tds_tanname;
+    this.TANRECORD.id = this.Record.tds_tan_id;
+    this.TANRECORD.code = this.Record.tds_tan_code;
+    this.TANRECORD.name = this.Record.tds_tan_name;
     this.BRRECORD.code = this.Record.tds_cert_brcode;
     this.BRRECORD.name = this.Record.tds_cert_brname;
     this.Record.rec_mode = this.mode;
@@ -311,7 +313,7 @@ export class TdsCertReportComponent {
       bret = false;
       sError += "\n\r | Certificate Received At cannot be blank ";
     }
-    if (this.Record.tds_tanid.length <= 0) {
+    if (this.Record.tds_tan_id.length <= 0) {
       bret = false;
       sError = "\n\r | Invalid TAN# ";
     }
@@ -339,8 +341,8 @@ export class TdsCertReportComponent {
       this.RecordList.push(this.Record);
     }
     else {
-      REC.tds_tancode = this.Record.tds_tancode;
-      REC.tds_tanname = this.Record.tds_tanname;
+      REC.tds_tan_code = this.Record.tds_tan_code;
+      REC.tds_tan_name = this.Record.tds_tan_name;
       REC.tds_cert_no = this.Record.tds_cert_no;
       REC.tds_cert_qtr = this.Record.tds_cert_qtr;
       REC.tds_gross = this.Record.tds_gross;
@@ -398,9 +400,11 @@ export class TdsCertReportComponent {
     this.loading = true;
     let SearchData = {
       rowtype: this.type,
-      tanid: _Record.tds_tanid,
+      pkid: _Record.tds_pkid,
+      tanid: _Record.tds_tan_id,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
     };
     
     this.mainService.TdsDetList(SearchData)

@@ -6,9 +6,9 @@ export class TdsCertm {
     tds_cert_qtr: string;
     tds_cert_brcode: string;
     tds_cert_brname: string;
-    tds_tanid: string;
-    tds_tancode: string;
-    tds_tanname: string;
+    tds_tan_id: string;
+    tds_tan_code: string;
+    tds_tan_name: string;
     tds_year: number;
     tds_gross: number;
     tds_amt: number;
