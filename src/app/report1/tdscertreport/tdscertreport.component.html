@@ -78,7 +78,7 @@
   
     <div class="page-box">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-5">
           <div class="form-group row">
             <label class="col-sm-4 col-form-label col-form-label-sm">TDS Certificate No.</label>
             <div class="col-sm-4">
@@ -96,14 +96,20 @@
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Certificate Received At.</label>
-            <div class="col-8">
+            <div class="col-4">
               <app-autocomplete #brLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div class="col-4"  >
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.tds_cert_brname" />
             </div>
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">TAN#</label>
-            <div class="col-8">
+            <div class="col-4">
               <app-autocomplete #tanLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <div class="col-4">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.tds_tanname" />
             </div>
           </div>
           <div class="form-group row">
@@ -124,6 +130,47 @@
   
         </div>
       </div>
+
+
+      <div class="page-box">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm"></label>
+              <div class="col-8">
+                <button [disabled]="loading" (click)="TdsDetList(Record)" class="btn btn-primary btn-sm">Find</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>JV.NO</th>
+                <th>JV.DATE</th>
+                <th>JV.AMT</th>
+                <th>CERT.AMT</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of Record.TdsDetList">
+              <tr>
+                <td>{{rec.ord_exp_name}}</td>
+                <td>{{rec.ord_exp_name}}</td>
+                <td>{{rec.ord_exp_name}}</td>
+                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.ord_booking_no" (blur)="OnBlurTableCell('ord_booking_no',rec.ord_pkid)"
+                    required maxlength="15" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+
+
     </div>
     <div class="page-box">
       <div class="row">

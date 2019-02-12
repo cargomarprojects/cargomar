@@ -127,6 +127,8 @@ export class TdsCertReportComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    this.BRRECORD.name = this.gs.globalVariables.branch_name;
+
 
     this.TANRECORD = new SearchTable();
     this.TANRECORD.controlname = "TAN";
@@ -134,15 +136,17 @@ export class TdsCertReportComponent {
     this.TANRECORD.type = "TAN";
     this.TANRECORD.id = "";
     this.TANRECORD.code = "";
+    this.TANRECORD.name = "";
   }
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "TAN") {
       this.Record.tds_tanid = _Record.id;
       this.Record.tds_tancode = _Record.code;
-      this.Record.tds_tanname  = _Record.name;
+      this.Record.tds_tanname = _Record.name;
     }
     if (_Record.controlname == "BRANCH") {
       this.Record.tds_cert_brcode = _Record.code;
+      this.Record.tds_cert_brname = _Record.name;
     }
   }
 
@@ -225,8 +229,9 @@ export class TdsCertReportComponent {
     this.Record = new TdsCertm();
     this.Record.tds_pkid = this.pkid;
     this.Record.tds_cert_no = '';
-    this.Record.tds_cert_qtr = '';
-    this.Record.tds_cert_brcode = '';
+    this.Record.tds_cert_qtr = 'Q1';
+    this.Record.tds_cert_brcode = this.gs.globalVariables.branch_code;
+    this.Record.tds_cert_brname = this.gs.globalVariables.branch_name;
     this.Record.tds_tanid = '';
     this.Record.tds_tancode = '';
     this.Record.tds_tanname = '';
@@ -264,6 +269,7 @@ export class TdsCertReportComponent {
     this.TANRECORD.code = this.Record.tds_tancode;
     this.TANRECORD.name = this.Record.tds_tanname;
     this.BRRECORD.code = this.Record.tds_cert_brcode;
+    this.BRRECORD.name = this.Record.tds_cert_brname;
     this.Record.rec_mode = this.mode;
     //this.FindTotPL();
   }
@@ -272,7 +278,7 @@ export class TdsCertReportComponent {
   Save() {
     if (!this.allvalid())
       return;
-   // this.FindTotPL();
+    // this.FindTotPL();
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -297,63 +303,81 @@ export class TdsCertReportComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    // if (this.Record.lev_year <= 0) {
-    //   bret = false;
-    //   sError = "\n\r | Invalid Year ";
-    // }
+    if (this.Record.tds_cert_no.length <= 0) {
+      bret = false;
+      sError += "\n\r | Certificate Cannot be blank ";
+    }
+    if (this.Record.tds_cert_brcode.length <= 0) {
+      bret = false;
+      sError += "\n\r | Certificate Received At cannot be blank ";
+    }
+    if (this.Record.tds_tanid.length <= 0) {
+      bret = false;
+      sError = "\n\r | Invalid TAN# ";
+    }
 
-    // if (this.Record.lev_year != +this.gs.globalVariables.year_code ) {
-    //   bret = false;
-    //   sError += "\n\r | Invalid Year  ";
-    // }
+    if (this.Record.tds_gross <= 0) {
+      bret = false;
+      sError += "\n\r | Invalid Grosss Amount  ";
+    }
 
-    // if (this.Record.lev_emp_id.trim().length <= 0) {
-    //   bret = false;
-    //   sError += "\n\r | Emplyoee Cannot Be Blank";
-    // }
+    if (this.Record.tds_amt <= 0) {
+      bret = false;
+      sError += "\n\r | Invalid Certificate Amount ";
+    }
 
-    // if (this.tot_pl > 60) {
-    //   bret = false;
-    //   sError += "\n\r | Total Privilege Leave should be less than or equal to sixty";
-    // }
-
-    // if (bret === false)
-    //   this.ErrorMessage = sError;
+    if (bret === false)
+      this.ErrorMessage = sError;
     return bret;
   }
 
   RefreshList() {
     if (this.RecordList == null)
       return;
-    // var REC = this.RecordList.find(rec => rec.lev_pkid == this.Record.lev_pkid);
-    // if (REC == null) {
-    //   this.RecordList.push(this.Record);
-    // }
-    // else {
-    //   REC.lev_emp_code = this.Record.lev_emp_code;
-    //   REC.lev_emp_name = this.Record.lev_emp_name;
-    //   REC.lev_year = this.Record.lev_year;
-    //   REC.lev_pl_carry = this.Record.lev_pl_carry;
-    //   REC.lev_pl = this.Record.lev_pl;
-    //   REC.lev_cl = this.Record.lev_cl;
-    //   REC.lev_sl = this.Record.lev_sl;
-    // } 
+    var REC = this.RecordList.find(rec => rec.tds_pkid == this.Record.tds_pkid);
+    if (REC == null) {
+      this.RecordList.push(this.Record);
+    }
+    else {
+      REC.tds_tancode = this.Record.tds_tancode;
+      REC.tds_tanname = this.Record.tds_tanname;
+      REC.tds_cert_no = this.Record.tds_cert_no;
+      REC.tds_cert_qtr = this.Record.tds_cert_qtr;
+      REC.tds_gross = this.Record.tds_gross;
+      REC.tds_amt = this.Record.tds_amt;
+    }
   }
 
   OnFocus(field: string) {
-    if (field == 'lev_pl' || field == 'lev_pl_carry')
-      this.bChanged = false;
+    // if (field == 'lev_pl' || field == 'lev_pl_carry')
+    //   this.bChanged = false;
   }
   OnChange(field: string) {
-    if (field == 'lev_pl' || field == 'lev_pl_carry')
-      this.bChanged = true;
+    // if (field == 'lev_pl' || field == 'lev_pl_carry')
+    //   this.bChanged = true;
   }
   OnBlur(field: string) {
-    if (field == 'lev_pl') {
-      this.FindTotPL();
-    }
-    if (field == 'lev_pl_carry') {
-      this.FindTotPL();
+    switch (field) {
+      case 'tds_cert_no':
+        {
+          this.Record.tds_cert_no = this.Record.tds_cert_no.toUpperCase();
+          break;
+        }
+      case 'Search':
+        {
+          this.searchstring = this.searchstring.toUpperCase();
+          break;
+        }
+      case 'tds_gross':
+        {
+          this.Record.tds_gross = this.gs.roundNumber(this.Record.tds_gross, 2);
+          break;
+        }
+      case 'tds_amt':
+        {
+          this.Record.tds_amt = this.gs.roundNumber(this.Record.tds_amt, 2);
+          break;
+        }
     }
   }
 
@@ -362,10 +386,32 @@ export class TdsCertReportComponent {
   }
 
 
-
   // Query List Data
   FindTotPL() {
     // this.tot_pl = this.Record.lev_pl + this.Record.lev_pl_carry;
     // this.tot_pl = this.gs.roundNumber(this.tot_pl, 1);
   }
+
+  TdsDetList(_Record: TdsCertm) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      tanid: _Record.tds_tanid,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+    
+    this.mainService.TdsDetList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.TdsDetList = response.list;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
