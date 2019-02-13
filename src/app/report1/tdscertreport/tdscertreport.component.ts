@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { TdsCertm } from '../models/tdscertm';
+import { TdsCertd } from '../models/tdscertd';
 import { TdsCertReportService } from '../services/tdscertreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -25,9 +26,9 @@ export class TdsCertReportComponent {
   currentTab = 'LIST';
 
   searchstring = '';
-  levyear = 0;
-  levmonth = 0;
-  tot_pl = 0;
+  TotTdsAmt = 0;
+  TotTdsBalAmt = 0;
+  TotTdsCertAmt = 0;
 
   page_count = 0;
   page_current = 0;
@@ -128,7 +129,6 @@ export class TdsCertReportComponent {
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
     this.BRRECORD.name = this.gs.globalVariables.branch_name;
-
 
     this.TANRECORD = new SearchTable();
     this.TANRECORD.controlname = "TAN";
@@ -273,14 +273,13 @@ export class TdsCertReportComponent {
     this.BRRECORD.code = this.Record.tds_cert_brcode;
     this.BRRECORD.name = this.Record.tds_cert_brname;
     this.Record.rec_mode = this.mode;
-    //this.FindTotPL();
+    this.FindTotal();
   }
 
   // Save Data
   Save() {
     if (!this.allvalid())
       return;
-    // this.FindTotPL();
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -288,6 +287,10 @@ export class TdsCertReportComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
+        if (this.mode == 'ADD') {
+          this.Record.TdsDetList = response.list;
+          this.FindTotal();
+        }
         this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
@@ -328,8 +331,30 @@ export class TdsCertReportComponent {
       sError += "\n\r | Invalid Certificate Amount ";
     }
 
+    if (this.TotTdsCertAmt > this.Record.tds_amt) {
+      bret = false;
+      sError += "\n\r | Total Certificate Amount Mismatch(" + this.TotTdsCertAmt + " , " + this.Record.tds_amt + ") ";
+    }
+    for (let rec of this.Record.TdsDetList) {
+
+      if (this.Record.tds_tan_id != rec.tdsd_tan_id) {
+        bret = false;
+        sError += "\n\r | Invalid TAN Details Found";
+        break;
+      }
+
+      if (rec.tdsd_amt > rec.tdsd_bal_amt) {
+        bret = false;
+        sError += "\n\r | Invalid Certificate Amount Found in List (" + rec.tdsd_jv_type + " " + rec.tdsd_jv_no + ")";
+        break;
+      }
+    }
+
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert( this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -383,15 +408,46 @@ export class TdsCertReportComponent {
     }
   }
 
+  OnFocusTableCell(field: string, _rec: TdsCertd) {
+    this.bChanged = false;
+  }
+  OnChangeTableCell(field: string, _rec: TdsCertd) {
+    this.bChanged = true;
+  }
+  OnBlurTableCell(field: string, _rec: TdsCertd) {
+    switch (field) {
+      case 'tdsd_amt':
+        {
+          _rec.tdsd_amt = this.gs.roundNumber(_rec.tdsd_amt, 2);
+          if (_rec.tdsd_amt > _rec.tdsd_bal_amt) {
+            alert("Certificate Amount Cannot be greater than Balance Amount")
+          }
+          if (this.bChanged)
+            this.FindTotal();
+          break;
+        }
+    }
+  }
+
   Close() {
     this.gs.ClosePage('home');
   }
 
 
   // Query List Data
-  FindTotPL() {
-    // this.tot_pl = this.Record.lev_pl + this.Record.lev_pl_carry;
-    // this.tot_pl = this.gs.roundNumber(this.tot_pl, 1);
+  FindTotal() {
+    this.TotTdsAmt = 0;
+    this.TotTdsBalAmt = 0;
+    this.TotTdsCertAmt = 0;
+    for (let rec of this.Record.TdsDetList) {
+      this.TotTdsAmt += rec.tdsd_jv_total;
+      this.TotTdsBalAmt += rec.tdsd_bal_amt;
+      this.TotTdsCertAmt += rec.tdsd_amt;
+    }
+    this.TotTdsAmt = this.gs.roundNumber(this.TotTdsAmt, 2);
+    this.TotTdsBalAmt = this.gs.roundNumber(this.TotTdsBalAmt, 2);
+    this.TotTdsCertAmt = this.gs.roundNumber(this.TotTdsCertAmt, 2);
+
   }
 
   TdsDetList(_Record: TdsCertm) {
@@ -406,11 +462,12 @@ export class TdsCertReportComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code
     };
-    
+
     this.mainService.TdsDetList(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Record.TdsDetList = response.list;
+        this.FindTotal();
       },
         error => {
           this.loading = false;

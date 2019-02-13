@@ -112,27 +112,32 @@
               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.tds_tan_name" />
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Gross Amt</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_gross" (blur)="OnBlur('tds_gross')" required maxlength="15" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Certificate Amt</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_amt" (blur)="OnBlur('tds_amt')" required maxlength="15" />
-            </div>
+         
+        </div>
+       <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Gross Amt</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_gross" (blur)="OnBlur('tds_gross')" required maxlength="15" />
           </div>
         </div>
-  
-        <div class="col-sm-4">
-  
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Certificate Amt</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.tds_amt" (blur)="OnBlur('tds_amt')" required maxlength="15" />
+          </div>
         </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group row">
+
+          </div>
+        </div>
+
       </div>
       <div *ngIf="mode=='EDIT'" class="page-box">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="form-group row">
               <label class="col-8 col-form-label col-form-label-sm"></label>
               <div class="col-4">
@@ -140,20 +145,51 @@
               </div>
             </div>
           </div>
+          <div class="col-sm-6">
+              <div class="form-group row">
+             <font color="black">
+                    <strong>
+                      TOTAL&nbsp;&nbsp;
+                    </strong>
+                  </font>
+                  <font color="black">
+                      TDS&nbsp;
+                    </font>
+                  <font color="red">
+                    {{TotTdsAmt}}&nbsp;&nbsp;
+                  </font>
+                  <font color="black">
+                      BALANCE&nbsp;
+                    </font>
+                  <font color="red">
+                    {{TotTdsBalAmt}}&nbsp;&nbsp;
+                  </font>
+                  <font color="black">
+                      CERTIFICATE&nbsp;
+                    </font>
+                  <font color="red">
+                    {{TotTdsCertAmt}} 
+                  </font>
+              </div>
+            </div>
         </div>
         <div class="page-body table-responsive">
           <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
               <tr>
-                <th>BRANCH</th>
-                <th>JVNO</th>
-                <th>DATE</th>
-                <th>TYPE</th>
-                <th>REFERENCE</th>
-                <th>NARRATION</th>
-                <th>TDS.AMT</th>
-                <th>ALLOCATED.AMT</th>
-                <th>CERT.AMT</th>
+                <th width="5%">BRANCH</th>
+                <th width="5%">VRNO</th>
+                <th width="5%">DATE</th>
+                <th width="5%">TYPE</th>
+                <th width="5%">PARTY.CODE</th>
+                <th width="15%">PARTY.NAME</th>
+                <th width="5%">TAN.CODE</th>
+                <th width="15%">TAN.NAME</th>
+                <th width="18%">NARRATION</th>
+                <th width="4%">TDS.AMT</th>
+                <th width="4%">ALLOC.AMT</th>
+                <th width="4%">BAL.AMT</th>
+                <th width="10%">CERT.AMT</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of Record.TdsDetList">
@@ -162,12 +198,15 @@
                 <td>{{rec.tdsd_jv_no}}</td>
                 <td>{{rec.tdsd_jv_date}}</td>
                 <td>{{rec.tdsd_jv_type}}</td>
-                <td>{{rec.tdsd_jv_ref}}</td>
+                <td>{{rec.tdsd_party_code}}</td>
+                <td>{{rec.tdsd_party_name}}</td>
+                <td>{{rec.tdsd_tan_code}}</td>
+                <td>{{rec.tdsd_tan_name}}</td>
                 <td>{{rec.tdsd_jv_narration}}</td>
                 <td>{{rec.tdsd_jv_total}}</td>
                 <td>{{rec.tdsd_other_amt}}</td>
-                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tdsd_amt" (blur)="OnBlur('tdsd_amt')"
-                    required maxlength="15" /></td>
+                <td>{{rec.tdsd_bal_amt}}</td>
+                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tdsd_amt" (focus)="OnFocusTableCell('tdsd_amt',rec)" (change)="OnChangeTableCell('tdsd_amt',rec)" (blur)="OnBlurTableCell('tdsd_amt',rec)" required maxlength="15" /></td>
               </tr>
             </tbody>
           </table>
