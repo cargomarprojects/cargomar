@@ -1,3 +1,4 @@
+
 export class TdsCertd {
     tdsd_pkid: string;
     tdsd_parent_id: string;
@@ -17,5 +18,5 @@ export class TdsCertd {
     tdsd_other_amt: number;
     tdsd_amt: number;
     tdsd_bal_amt: number;
-    tdsd_selected: boolean;
+    tdsd_selected:boolean;
 }

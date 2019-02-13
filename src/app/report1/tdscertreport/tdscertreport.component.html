@@ -153,19 +153,19 @@
                     </strong>
                   </font>
                   <font color="black">
-                      TDS&nbsp;
+                      TDS AMT&nbsp;
                     </font>
                   <font color="red">
                     {{TotTdsAmt}}&nbsp;&nbsp;
                   </font>
-                  <font color="black">
+                  <!-- <font color="black">
                       BALANCE&nbsp;
                     </font>
                   <font color="red">
                     {{TotTdsBalAmt}}&nbsp;&nbsp;
-                  </font>
+                  </font> -->
                   <font color="black">
-                      CERTIFICATE&nbsp;
+                      CERTIFICATE AMT&nbsp;
                     </font>
                   <font color="red">
                     {{TotTdsCertAmt}} 
@@ -192,7 +192,7 @@
                 <th width="10%">CERT.AMT</th>
               </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of Record.TdsDetList">
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordDetList">
               <tr>
                 <td>{{rec.tdsd_jv_branch}}</td>
                 <td>{{rec.tdsd_jv_no}}</td>

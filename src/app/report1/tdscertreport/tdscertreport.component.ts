@@ -20,7 +20,6 @@ export class TdsCertReportComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -47,6 +46,8 @@ export class TdsCertReportComponent {
 
   // Array For Displaying List
   RecordList: TdsCertm[] = [];
+  RecordDetList: TdsCertd[] = [];
+
   // Single Record for add/edit/view details
   Record: TdsCertm = new TdsCertm;
   BRRECORD: SearchTable = new SearchTable();
@@ -85,7 +86,6 @@ export class TdsCertReportComponent {
       this.title = this.menu_record.menu_name;
     this.InitLov();
     this.LoadCombo();
-    this.levyear = +this.gs.globalVariables.year_code;
   }
 
   // Destroy Will be called when this component is closed
@@ -94,7 +94,6 @@ export class TdsCertReportComponent {
   }
 
   LoadCombo() {
-
     //this.loading = true;
     //let SearchData = {
     //  type: 'type',
@@ -200,8 +199,6 @@ export class TdsCertReportComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      levmonth: this.levmonth,
-      levyear: this.levyear,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -240,6 +237,9 @@ export class TdsCertReportComponent {
 
     this.InitLov();
     this.Record.rec_mode = this.mode;
+
+    this.RecordDetList = new Array<TdsCertd>();
+    this.Record.TdsDetList = this.RecordDetList;
   }
 
   // Load a single Record for VIEW/EDIT
@@ -266,6 +266,7 @@ export class TdsCertReportComponent {
 
   LoadData(_Record: TdsCertm) {
     this.Record = _Record;
+    this.RecordDetList = _Record.TdsDetList;
     this.InitLov();
     this.TANRECORD.id = this.Record.tds_tan_id;
     this.TANRECORD.code = this.Record.tds_tan_code;
@@ -284,11 +285,17 @@ export class TdsCertReportComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
+    this.Record.TdsDetList = new Array<TdsCertd>();
+    for (let rec of this.RecordDetList) {
+      if (rec.tdsd_amt > 0)
+        this.Record.TdsDetList.push(rec);
+    }
+
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
         if (this.mode == 'ADD') {
-          this.Record.TdsDetList = response.list;
+          this.RecordDetList = response.list;
           this.FindTotal();
         }
         this.InfoMessage = "Save Complete";
@@ -335,14 +342,13 @@ export class TdsCertReportComponent {
       bret = false;
       sError += "\n\r | Total Certificate Amount Mismatch(" + this.TotTdsCertAmt + " , " + this.Record.tds_amt + ") ";
     }
-    for (let rec of this.Record.TdsDetList) {
+    for (let rec of this.RecordDetList) {
 
       if (this.Record.tds_tan_id != rec.tdsd_tan_id) {
         bret = false;
         sError += "\n\r | Invalid TAN Details Found";
         break;
       }
-
       if (rec.tdsd_amt > rec.tdsd_bal_amt) {
         bret = false;
         sError += "\n\r | Invalid Certificate Amount Found in List (" + rec.tdsd_jv_type + " " + rec.tdsd_jv_no + ")";
@@ -350,10 +356,9 @@ export class TdsCertReportComponent {
       }
     }
 
-    if (bret === false)
-    {
+    if (bret === false) {
       this.ErrorMessage = sError;
-      alert( this.ErrorMessage);
+      alert(this.ErrorMessage);
     }
     return bret;
   }
@@ -439,7 +444,7 @@ export class TdsCertReportComponent {
     this.TotTdsAmt = 0;
     this.TotTdsBalAmt = 0;
     this.TotTdsCertAmt = 0;
-    for (let rec of this.Record.TdsDetList) {
+    for (let rec of this.RecordDetList) {
       this.TotTdsAmt += rec.tdsd_jv_total;
       this.TotTdsBalAmt += rec.tdsd_bal_amt;
       this.TotTdsCertAmt += rec.tdsd_amt;
@@ -466,7 +471,7 @@ export class TdsCertReportComponent {
     this.mainService.TdsDetList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.Record.TdsDetList = response.list;
+        this.RecordDetList = response.list;
         this.FindTotal();
       },
         error => {
