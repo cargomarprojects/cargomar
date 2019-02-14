@@ -431,7 +431,7 @@ export class OrderListComponent {
     this.Record.ord_pol_id = '';
     this.Record.ord_pod_id = '';
     this.Record.ord_pol_code = '';
-    this.Record.ord_pod_code = ''; 
+    this.Record.ord_pod_code = '';
     this.Record.rec_category = 'SEA EXPORT';
 
     this.initLov();
@@ -1133,9 +1133,27 @@ export class OrderListComponent {
     this.open(approvedorder);
   }
 
-  MailOrders(ftpsent: any) {
+  MailOrders(ftpsent: any, sType: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
+    let ord_ids: string = '';
+    if (sType == 'MULTIPLE') {
+      ord_ids = "";
+      for (let rec of this.RecordList) {
+        if (rec.ord_selected) {
+          if (ord_ids != "")
+            ord_ids += ",";
+          ord_ids += rec.ord_pkid;
+        }
+      }
+      if (ord_ids == "") {
+        this.ErrorMessage = " Please select PO and continue.....";
+        alert(this.ErrorMessage);
+        return;
+      }
+      this.pkid=ord_ids;
+    }
+
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
       return;
@@ -1160,16 +1178,16 @@ export class OrderListComponent {
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject= response.subject;
+        this.sSubject = response.subject;
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filecategory:'ORDER',fileftpfolder:'FTP-FOLDER-PO-CREATE',fileisack:'N' });
-        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack,filecategory:'ORDER',fileftpfolder:'FTP-FOLDER-PO-CREATE-ACK',fileisack:'Y'});
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N' });
+        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y' });
         this.open(ftpsent);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 }
