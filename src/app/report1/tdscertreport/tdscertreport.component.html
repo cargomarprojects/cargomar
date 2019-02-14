@@ -142,6 +142,12 @@
               (blur)="OnBlur('tds_amt')" required maxlength="15" />
           </div>
         </div>
+        <div *ngIf="mode=='EDIT'" class="form-group row">
+          <!-- <label class="col-sm-6 col-form-label col-form-label-sm"></label> -->
+          <div class="col-sm-6">
+            <button [disabled]="loading" (click)="TdsDetList(Record)" class="btn btn-primary btn-sm">Find</button>
+          </div>
+        </div>
       </div>
       <div *ngIf="mode=='EDIT'" class="col-sm-4">
         <div class="form-group row">
@@ -159,9 +165,6 @@
           <label class="col-sm-4 col-form-label col-form-label-sm">
             <font color="red">{{TotTdsCertAmt}}</font>
           </label>
-          <div class="col-2">
-            <button [disabled]="loading" (click)="TdsDetList(Record)" class="btn btn-primary btn-sm">Find</button>
-          </div>
         </div>
       </div>
 

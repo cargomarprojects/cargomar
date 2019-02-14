@@ -21,6 +21,7 @@ export class AgentInvoiceComponent {
 
   selectedRowIndex: number = -1;
 
+  canprint = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -86,6 +87,7 @@ export class AgentInvoiceComponent {
   }
 
   InitComponent() {
+    this.canprint = false;
     this.bAdmin = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -93,6 +95,8 @@ export class AgentInvoiceComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.canprint = true;
     }
     this.InitColumns();
     this.InitLov();
@@ -277,6 +281,7 @@ export class AgentInvoiceComponent {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       sortby: '',
+      report_folder: this.gs.globalVariables.report_folder,
       from_date: this.gs.globalData.cost_agentinvoice_fromdate,
       to_date: this.gs.globalData.cost_agentinvoice_todate,
       company_code: this.gs.globalVariables.comp_code,
@@ -292,10 +297,14 @@ export class AgentInvoiceComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
@@ -468,7 +477,7 @@ export class AgentInvoiceComponent {
       sError += "| Invalid Amount";
     }
 
-    if (bret === false){
+    if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }

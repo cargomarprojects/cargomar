@@ -324,7 +324,7 @@ export class TdsCertReportComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.Record.tds_cert_no.length <= 0) {
+    if (this.Record.tds_cert_no.trim().length <= 0) {
       bret = false;
       sError += "\n\r | Certificate Cannot be blank ";
     }
@@ -334,7 +334,7 @@ export class TdsCertReportComponent {
     }
     if (this.Record.tds_tan_id.length <= 0) {
       bret = false;
-      sError = "\n\r | Invalid TAN# ";
+      sError += "\n\r | Invalid TAN# ";
     }
 
     if (this.Record.tds_gross <= 0) {
