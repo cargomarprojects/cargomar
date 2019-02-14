@@ -14,6 +14,8 @@ export class TdsCertm {
     tds_amt: number;
     tds_doc_count: number;
     
+    rec_branch_code:string;
+    rec_created_by:string;
     rec_mode: string;
     _globalvariables: GlobalVariables;
 

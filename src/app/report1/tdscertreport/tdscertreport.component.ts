@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { TdsCertm } from '../models/tdscertm';
@@ -34,9 +35,12 @@ export class TdsCertReportComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  bDocs: boolean = false;
   bChanged: boolean = false;
   sub: any;
   urlid: string;
+
+  modal: any;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -54,6 +58,7 @@ export class TdsCertReportComponent {
   TANRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: TdsCertReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -81,9 +86,13 @@ export class TdsCertReportComponent {
   }
 
   InitComponent() {
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-      this.title = this.menu_record.menu_name;
+      if (this.menu_record) {
+        this.title = this.menu_record.menu_name;
+        if (this.menu_record.rights_docs)
+          this.bDocs = true;
+      }
     this.InitLov();
     this.LoadCombo();
   }
@@ -346,7 +355,7 @@ export class TdsCertReportComponent {
 
       if (this.Record.tds_tan_id != rec.tdsd_tan_id) {
         bret = false;
-        sError += "\n\r | Invalid TAN Details Found";
+        sError += "\n\r | Invalid TAN Details Found, Please click on Find and Continue.....";
         break;
       }
       if (rec.tdsd_amt > rec.tdsd_bal_amt) {
@@ -480,4 +489,11 @@ export class TdsCertReportComponent {
         });
   }
 
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+ open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 }
