@@ -29,6 +29,8 @@ export class OrderListComponent {
   currentTab = 'LIST';
 
   sSubject: string = '';
+  ftpUpdtSql: string = '';
+
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -1179,9 +1181,10 @@ export class OrderListComponent {
       .subscribe(response => {
         this.loading = false;
         this.sSubject = response.subject;
+        this.ftpUpdtSql=response.updatesql;
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N' });
-        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y' });
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N',fileprocessid:response.processid });
+        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y',fileprocessid:response.processid });
         this.open(ftpsent);
       },
         error => {

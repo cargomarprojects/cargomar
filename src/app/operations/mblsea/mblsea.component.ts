@@ -1319,11 +1319,11 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject= response.subject;
+        this.sSubject = response.subject;
         this.AttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N' });
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid });
         }
         this.open(ftpsent);
       },

@@ -25,6 +25,7 @@ export class MailComponent {
   @Input() public AttachList = new Array<any>();
   @Input() public canftp: boolean = false;
   @Input() public agentname: string = '';
+  @Input() public updatesql: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -329,9 +330,9 @@ export class MailComponent {
           if (filenameack != "")
             filenameack = filenameack.concat(",");
           if (rec.fileisack == 'Y')
-            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder,"~", rec.fileprocessid);
           else
-            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder);
+            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder,"~", rec.fileprocessid);
         }
       }
     }
@@ -349,7 +350,8 @@ export class MailComponent {
       user_pkid: this.gs.globalVariables.user_pkid,
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
-      subject:''
+      subject:'',
+      updatesql:''
     };
 
     SearchData.table = 'ftp';
@@ -364,6 +366,7 @@ export class MailComponent {
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.subject = this.subject;
+    SearchData.updatesql=this.updatesql;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -441,7 +444,7 @@ export class MailComponent {
           this.fileinput.nativeElement.value = '';
           if (this.AttachList == null)
             this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N' });
+          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N',fileprocessid:'' });
           //this.ShowHideAttach(); 
         },
         error => {

@@ -3,6 +3,7 @@ export class FileDetails {
     filetype: string;
     filedisplayname: string;
     filecategory: string;
+    fileprocessid:string;
 }
   
   
