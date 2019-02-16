@@ -1139,13 +1139,19 @@ export class OrderListComponent {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     let ord_ids: string = '';
+    let ord_id_POs: string = '';
     if (sType == 'MULTIPLE') {
       ord_ids = "";
+      ord_id_POs = "";
       for (let rec of this.RecordList) {
         if (rec.ord_selected) {
           if (ord_ids != "")
             ord_ids += ",";
           ord_ids += rec.ord_pkid;
+
+          if (ord_id_POs != "")
+            ord_id_POs += ",";
+          ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
         }
       }
       if (ord_ids == "") {
@@ -1153,7 +1159,7 @@ export class OrderListComponent {
         alert(this.ErrorMessage);
         return;
       }
-      this.pkid=ord_ids;
+      this.pkid = ord_ids;
     }
 
     if (this.pkid.trim().length <= 0) {
@@ -1181,10 +1187,12 @@ export class OrderListComponent {
       .subscribe(response => {
         this.loading = false;
         this.sSubject = response.subject;
-        this.ftpUpdtSql=response.updatesql;
+        this.ftpUpdtSql = response.updatesql;
+        if (sType == 'MULTIPLE')
+          this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N',fileprocessid:response.processid });
-        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y',fileprocessid:response.processid });
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
+        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
         this.open(ftpsent);
       },
         error => {
@@ -1192,5 +1200,10 @@ export class OrderListComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
   }
 }

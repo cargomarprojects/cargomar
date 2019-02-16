@@ -154,6 +154,7 @@
           <th>PLANNING#</th>
           <th>WEEK#</th>
           <th>TRACK.STATUS</th>
+          <th>FTP.STATUS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -189,6 +190,7 @@
           <td>{{rec.ord_plan_no}}</td>
           <td>{{rec.ord_week_no}}</td>
           <td>{{rec.ord_track_status}}</td>
+          <td>{{rec.ord_ftp_status}}</td>
         </tr>
       </tbody>
     </table>
@@ -387,6 +389,7 @@
           <div class="col-sm-6">
             <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="MailOrders(ftpsent,'')" class="btn btn-success btn-sm">Mail/FTP</button>
+            <button [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
             <button [disabled]="loading" (click)="PasteData()" class="btn btn-success btn-sm">Paste Data</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -488,5 +491,16 @@
   <div class="modal-body">
     <app-mail [pkid]="pkid" [canftp]=true [type]="'ORDERLIST'" [sHtml]="''" [defaultmessage]="''"
       [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" [updatesql]="ftpUpdtSql" ></app-mail>
+  </div>
+</ng-template>
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     <app-ftpreport [type]="'ORDERLIST'" [pkid]="pkid"></app-ftpreport>
   </div>
 </ng-template>

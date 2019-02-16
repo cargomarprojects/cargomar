@@ -58,6 +58,7 @@ export class Joborderm {
   ord_uid: number;
   ord_plan_no:number;
   ord_agentref_id:string;
+  ord_ftp_status:string;
   
   job_docno: string;
   rec_mode: string;
