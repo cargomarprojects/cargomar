@@ -104,8 +104,8 @@ export class FtpReportComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      from_date: this.gs.globalData.job_fromdate,
-      to_date: this.gs.globalData.job_todate
+      from_date: this.from_date,
+      to_date: this.to_date
     };
 
     // SearchData.table = controlname;
@@ -121,7 +121,7 @@ export class FtpReportComponent {
         this.InfoMessage = '';
         if (controlname == "param") {
           this.FtpTypeList = response.param;
-          this.SearchRecord("ftpreport", "NEW");
+          this.SearchRecord("ftpreport", "LOAD");
         }
         else
         {
