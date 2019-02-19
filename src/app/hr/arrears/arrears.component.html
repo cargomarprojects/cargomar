@@ -1,8 +1,7 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-primary btn-sm">List</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -32,16 +31,13 @@
       </ul>
     </div>
   </div>
+
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
           <th>CODE</th>
           <th>NAME</th>
-          <th>GENERATE.MONTH</th>
-          <th>FROM.DATE</th>
-          <th>TO.DATE</th>
-          <th>GRADE</th>
           <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
           <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
           <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
@@ -99,12 +95,8 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_emp_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_emp_name}}</td>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_month}}</td>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_from_date}}</td>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_to_date}}</td>
-          <td (click)="ActionHandler('EDIT',rec.arr_pkid)">{{rec.arr_emp_grade}}</td>
+          <td (click)="ActionHandler('EDIT',rec.arr_pkid,rec.arr_emp_id)">{{rec.arr_emp_code}}</td>
+          <td (click)="ActionHandler('EDIT',rec.arr_pkid,rec.arr_emp_id)">{{rec.arr_emp_name}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
           <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
           <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>
@@ -155,13 +147,14 @@
           <td *ngIf="Recorddet.d23_visible">{{rec.d23}}</td>
           <td *ngIf="Recorddet.d24_visible">{{rec.d24}}</td>
           <td *ngIf="Recorddet.d25_visible">{{rec.d25}}</td>
-          <td>{{rec.sal_gross_earn}}</td>
-          <td>{{rec.sal_gross_deduct}}</td>
-          <td>{{rec.sal_net}}</td>
+          <td>{{rec.arr_gross_earn}}</td>
+          <td>{{rec.arr_gross_deduct}}</td>
+          <td>{{rec.arr_net}}</td>
         </tr>
       </tbody>
     </table>
   </div>
+
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
@@ -176,56 +169,150 @@
 </div>
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">EMP.CODE</label>
+          <div class="col-sm-1">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{Record.arr_emp_code}} </font>
+            </label>
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">GRADE</label>
+          <div class="col-sm-8">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="blue">{{Record.arr_emp_grade}} </font>
+            </label>
+          </div>
 
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">EMP.NAME</label>
+          <div class="col-sm-10">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="blue">{{Record.arr_emp_name}} </font>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">EARNINGS</label>
+          <div class="col-sm-6">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="green">{{Record.arr_gross_earn}} </font>
+            </label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">DEDUCTIONS</label>
+          <div class="col-sm-6">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{Record.arr_gross_deduct}} </font>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">NET</label>
+          <div class="col-sm-10">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="blue">{{Record.sal_net}} </font>
+            </label>
+          </div>
+        </div>
+        <!--<div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">LOP</label>
+          <div class="col-sm-10">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{Record.sal_lop_amt}} </font>
+            </label>
+          </div>
+        </div>-->
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">PF LIMIT</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit" (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">INCLUDE</label>
+          <div class="col-sm-6">
+            <input type="checkbox" [(ngModel)]="Record.sal_is_esi">&nbsp;ESI
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div style="padding-right:0" class="col-sm-6">
+        <div class="page-box">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th width="36%">PARTICULARS</th>
+                  <th width="14%">EARNINGS</th>
+                  <th width="36%">PARTICULARS</th>
+                  <th width="14%">EARNINGS</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
+                <tr>
+                  <td style="padding:0">{{rec.e_caption1}}</td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible1" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt1" (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)" (change)="OnChangeTableCell('EARN', rec.e_code1, 1)" (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
+                  <td style="padding:5px,0,0,0">{{rec.e_caption2}}</td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt2" (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)" (change)="OnChangeTableCell('EARN', rec.e_code2, 2)" (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="padding-left:10px" class="col-sm-6">
+        <div class="page-box">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th width="36%">PARTICULARS</th>
+                  <th width="14%">DEDUCTIONS</th>
+                  <th width="36%">PARTICULARS</th>
+                  <th width="14%">DEDUCTIONS</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
+                <tr>
+                  <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible1" [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt1" (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)" (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
+                  <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2" (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)" (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="page-box">
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
-          <div class="col-sm-4">
-            <input [disabled]="mode=='EDIT'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.sal_code"
-              (blur)="OnBlur('sal_code')" required maxlength="10" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Description</label>
-          <div class="col-sm-9">
-            <input [disabled]="mode=='EDIT'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.sal_desc"
-              (blur)="OnBlur('sal_desc')" required maxlength="50" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Head</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sal_head" (blur)="OnBlur('sal_head')"
-              required maxlength="50" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Order</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_head_order" (blur)="OnBlur('sal_head_order')"
-              required maxlength="10" />
+          <div class="offset-3 col-sm-4">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
       </div>
-
-      <div class="col-sm-4">
-
-      </div>
-      <div class="col-sm-4">
-
-      </div>
-
     </div>
   </div>
-  <div class="page-box">
-    <div class="col">
-      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
-  </div>
+
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
