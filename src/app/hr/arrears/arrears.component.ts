@@ -102,10 +102,10 @@ export class ArrearsComponent {
       this.currentTab = 'LIST';
     }
     else if (action === 'ADD') {
-      //this.currentTab = 'DETAILS';
-      //this.mode = 'ADD';
-      //this.ResetControls();
-      //this.NewRecord();
+      this.currentTab = 'DETAILS';
+      this.mode = 'ADD';
+      this.ResetControls();
+      this.NewRecord();
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -116,6 +116,9 @@ export class ArrearsComponent {
     }
   }
 
+  NewRecord(){
+
+  }
   ResetControls() {
     this.disableSave = true;
     if (!this.menu_record)
@@ -214,7 +217,6 @@ export class ArrearsComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
-        
       });
   }
 
@@ -242,7 +244,6 @@ export class ArrearsComponent {
     //  bret = false;
     //  sError += "\n\r | Invalid  order ";
     //}
-
 
     //if (bret === false)
     //  this.ErrorMessage = sError;
