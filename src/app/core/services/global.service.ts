@@ -1,36 +1,26 @@
-
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { Router } from '@angular/router';
-
 import { GlobalData } from '../models/globaldata';
 import { GlobalVariables } from '../models/globalvariables';
 import { DefaultValues } from '../models/defaultvalues';
-
 import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
-
 @Injectable()
 export class GlobalService {
   public Token: string;
   public Company_Name: string;
   public IsLoginSuccess: boolean = false;
   public IsAuthenticated: boolean = false;
-
-
   public Access_Token: string;
-
   public globalData: GlobalData;
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
-
   public baseLocalServerUrl: string = "http://localhost:8080";
-
   public baseUrl: string = "http://localhost:5000";
-  
+ 
   // change this is false in production and update
   public isolderror: boolean = false;
 

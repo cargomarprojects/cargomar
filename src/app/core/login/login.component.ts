@@ -1,15 +1,8 @@
-
-
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Companym } from '../models/company';
-
 import { GlobalService } from '../services/global.service';
 import { LoginService } from '../services/login.service';
-
-
 
 @Component({
   selector: 'app-login',
@@ -17,22 +10,17 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent {
   errorMessage: string;
-
   ErrorExternalLogin: string = '';
 
   errorMessageVersion: string = '1.262';
-        
   software_version_string: string = '1.262';
-  
-  
-  server_software_version_string: string = '';
-
-  showloginbutton: boolean = true;
-
   username: string = 'ADMIN';
   password: string = 'ADMIN';
-  company_code: string = '';
+  
+  server_software_version_string: string = '';
+  showloginbutton: boolean = true;
 
+  company_code: string = '';
   
   loading = false;
   showlogin = false;
