@@ -18,6 +18,7 @@ export class GlobalService {
   public globalData: GlobalData;
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
+  
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
  
