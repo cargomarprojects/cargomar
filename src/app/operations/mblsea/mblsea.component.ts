@@ -1332,6 +1332,9 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
+  }
 
 }
