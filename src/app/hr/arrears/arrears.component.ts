@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Arrearsm } from '../models/arrearsm';
 import { ArrDet } from '../models/arrearsm';
 import { ArrearsService } from '../services/arrears.service';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-arrears',
@@ -11,7 +12,7 @@ import { ArrearsService } from '../services/arrears.service';
   providers: [ArrearsService]
 })
 export class ArrearsComponent {
-    // Local Variables 
+  // Local Variables 
   title = 'INCREMENT MASTER';
 
   @Input() menuid: string = '';
@@ -38,6 +39,7 @@ export class ArrearsComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  EMPRECORD: SearchTable = new SearchTable();
   SalDetails: any[] = [];
   mode = '';
   pkid = '';
@@ -88,9 +90,22 @@ export class ArrearsComponent {
   }
 
   InitLov() {
-
+    
+    this.EMPRECORD = new SearchTable();
+    this.EMPRECORD.controlname = "TAN";
+    this.EMPRECORD.displaycolumn = "CODE";
+    this.EMPRECORD.type = "TAN";
+    this.EMPRECORD.id = "";
+    this.EMPRECORD.code = "";
+    this.EMPRECORD.name = "";
   }
-
+  LovSelected(_Record: SearchTable) {
+    if (_Record.controlname == "TAN") {
+      this.Record.arr_emp_id = _Record.id;
+      this.Record.arr_emp_code = _Record.code;
+      this.Record.arr_emp_name = _Record.name;
+    }
+  }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string, empid: string) {
@@ -116,8 +131,23 @@ export class ArrearsComponent {
     }
   }
 
-  NewRecord(){
-
+  NewRecord() {
+    this.Record = new Arrearsm();
+    this.loading = true;
+    let SearchData = {
+      pkid: ''
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.NewRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record = response.record;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   ResetControls() {
     this.disableSave = true;
@@ -149,7 +179,7 @@ export class ArrearsComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      category:'MASTER'
+      category: 'MASTER'
     };
 
     this.ErrorMessage = '';
@@ -163,20 +193,20 @@ export class ArrearsComponent {
         this.page_rowcount = response.page_rowcount;
         this.Recorddet = response.record;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
+
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
       empid: Id,
     };
-     
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
@@ -185,10 +215,10 @@ export class ArrearsComponent {
         this.mode = response.mode;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Arrearsm) {
@@ -214,10 +244,10 @@ export class ArrearsComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -513,5 +543,5 @@ export class ArrearsComponent {
     // this.Record.sal_gross_earn = TotEarning;
     // this.Record.sal_gross_deduct = TotDeductn;
     // this.Record.sal_net = (TotEarning - TotDeductn);
-  } 
+  }
 }

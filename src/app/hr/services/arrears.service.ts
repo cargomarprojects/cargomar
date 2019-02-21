@@ -28,5 +28,8 @@ export class ArrearsService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Arrears/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  NewRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Arrears/NewRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
