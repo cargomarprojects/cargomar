@@ -84,6 +84,7 @@ export class OrderListComponent {
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
 
+  OrdColList: any[] = [];
   AttachList: any[] = [];
   SortList: any[] = [];
   // Array For Displaying List
@@ -299,6 +300,30 @@ export class OrderListComponent {
       { "colheadername": "CREATED", "colname": "a.rec_created_date desc" },
       { "colheadername": "AGENT,SHIPPER,PO", "colname": "agent.cust_name,exp.cust_name,ord_po" }
     ];
+
+    this.loading = true;
+    let SearchData = {
+      type: 'ORDER',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.OrdColList = response.ordercolumns;
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
   }
 
   ////function for handling LIST/NEW/EDIT Buttons
@@ -772,90 +797,135 @@ export class OrderListComponent {
     if (cbdata != null) {
 
       let mRec: Joborderm = new Joborderm;
-
       this.mList = [];
-
       var ar1 = cbdata.split("\n");
       var ar2;
 
       if (ar1.length > 0) {
         ar2 = ar1[0].split("\t");
         for (var i = 0; i < ar2.length; i++) {
-          if (ar2[i].toUpperCase().indexOf("IN") >= 0) {
-            col_inv = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("DESC") >= 0 || ar2[i].toUpperCase().indexOf("ITEM") >= 0 || ar2[i].toUpperCase().indexOf("NAME") >= 0) {
-            col_desc = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("PO") >= 0) {
-            col_po = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("STY") >= 0) {
-            col_style = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("COL") >= 0) {
-            col_color = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("CTN") >= 0 || ar2[i].toUpperCase().indexOf("PKG") >= 0 || ar2[i].toUpperCase().indexOf("CAR") >= 0 || ar2[i].toUpperCase().indexOf("PACK") >= 0) {
-            col_pkg = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("PCS") >= 0) {
-            col_pcs = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("NT") >= 0 || ar2[i].toUpperCase().indexOf("NET") >= 0) {
-            col_ntwt = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("GR") >= 0) {
-            col_grwt = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("CBM") >= 0 || ar2[i].toUpperCase().indexOf("VOL") >= 0) {
-            col_cbm = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("HS") >= 0) {
-            col_hscode = i;
-          }
+          if (col_inv < 0)
+            col_inv = this.GetColIndex(ar2[i].toUpperCase().trim(), "INVOICE-NO", i)
+          if (col_desc < 0)
+            col_desc = this.GetColIndex(ar2[i].toUpperCase().trim(), "DESCRIPTION", i)
+          if (col_po < 0)
+            col_po = this.GetColIndex(ar2[i].toUpperCase().trim(), "PURCHASE-ORDER", i)
+          if (col_style < 0)
+            col_style = this.GetColIndex(ar2[i].toUpperCase().trim(), "STYLE-NO", i);
+          if (col_color < 0)
+            col_color = this.GetColIndex(ar2[i].toUpperCase().trim(), "COLOR", i);
+          if (col_pkg < 0)
+            col_pkg = this.GetColIndex(ar2[i].toUpperCase().trim(), "CARTONS", i);
+          if (col_pcs < 0)
+            col_pcs = this.GetColIndex(ar2[i].toUpperCase().trim(), "PCS", i);
+          if (col_ntwt < 0)
+            col_ntwt = this.GetColIndex(ar2[i].toUpperCase().trim(), "NT-WT", i);
+          if (col_grwt < 0)
+            col_grwt = this.GetColIndex(ar2[i].toUpperCase().trim(), "GR-WT", i);
+          if (col_cbm < 0)
+            col_cbm = this.GetColIndex(ar2[i].toUpperCase().trim(), "CBM", i);
+          if (col_hscode < 0)
+            col_hscode = this.GetColIndex(ar2[i].toUpperCase().trim(), "HS-CODE", i);
+          if (col_bkd < 0)
+            col_bkd = this.GetColIndex(ar2[i].toUpperCase().trim(), "BOOKING-DATE", i);
+          if (col_rnd < 0)
+            col_rnd = this.GetColIndex(ar2[i].toUpperCase().trim(), "RANDOM-DATE", i);
+          if (col_por < 0)
+            col_por = this.GetColIndex(ar2[i].toUpperCase().trim(), "RELEASE-DATE", i);
+          if (col_cr < 0)
+            col_cr = this.GetColIndex(ar2[i].toUpperCase().trim(), "READY-DATE", i);
+          if (col_fcr < 0)
+            col_fcr = this.GetColIndex(ar2[i].toUpperCase().trim(), "FCR-DATE", i);
+          if (col_insp < 0)
+            col_insp = this.GetColIndex(ar2[i].toUpperCase().trim(), "INSPECTION-DATE", i);
+          if (col_stf < 0)
+            col_stf = this.GetColIndex(ar2[i].toUpperCase().trim(), "STUFFING-DATE", i);
+          if (col_whd < 0)
+            col_whd = this.GetColIndex(ar2[i].toUpperCase().trim(), "WARE-HOUSE-DATE", i);
+          if (col_dlv_pol < 0)
+            col_dlv_pol = this.GetColIndex(ar2[i].toUpperCase().trim(), "DELIVERY-POL-DATE", i);
+          if (col_dlv_pod < 0)
+            col_dlv_pod = this.GetColIndex(ar2[i].toUpperCase().trim(), "DELIVERY-POD-DATE", i);
+          if (col_port_pol < 0)
+            col_port_pol = this.GetColIndex(ar2[i].toUpperCase().trim(), "POL", i);
+          if (col_port_pod < 0)
+            col_port_pod = this.GetColIndex(ar2[i].toUpperCase().trim(), "POD", i);
 
-          if (ar2[i].toUpperCase().indexOf("BOOKING DATE") >= 0) {//BKD
-            col_bkd = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("RANDOM DATE") >= 0) { //RND
-            col_rnd = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("RELEASE DATE") >= 0) {//POR
-            col_por = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("READY DATE") >= 0) { //CR
-            col_cr = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("FCR DATE") >= 0) {//FCR
-            col_fcr = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("INSPECTION DATE") >= 0) { //INSP
-            col_insp = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("STUFFING DATE") >= 0) {
-            col_stf = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("WARE HOUSE DATE") >= 0) {
-            col_whd = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("DELIVERY POL DATE") >= 0) {
-            col_dlv_pol = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("DELIVERY POD DATE") >= 0) {
-            col_dlv_pod = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("PORT-POL") >= 0) {
-            col_port_pol = i;
-          }
-          if (ar2[i].toUpperCase().indexOf("PORT-POD") >= 0) {
-            col_port_pod = i;
-          }
-        };
+
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("INVOICE-NO")) >= 0) {
+          //   col_inv = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("DESCRIPTION")) >= 0) {
+          //   col_desc = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("PURCHASE-ORDER")) >= 0) {
+          //   col_po = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("STYLE-NO")) >= 0) {
+          //   col_style = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("COLOR")) >= 0) {
+          //   col_color = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("CARTONS")) >= 0) {
+          //   col_pkg = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("PCS")) >= 0) {
+          //   col_pcs = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("NT-WT")) >= 0) {
+          //   col_ntwt = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("GR-WT")) >= 0) {
+          //   col_grwt = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("CBM")) >= 0) {
+          //   col_cbm = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("HS-CODE")) >= 0) {
+          //   col_hscode = i;
+          // }
+
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("BOOKING-DATE")) >= 0) {//BKD
+          //   col_bkd = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("RANDOM-DATE")) >= 0) { //RND
+          //   col_rnd = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("RELEASE-DATE")) >= 0) {//POR
+          //   col_por = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("READY-DATE")) >= 0) { //CR
+          //   col_cr = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("FCR-DATE")) >= 0) {//FCR
+          //   col_fcr = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("INSPECTION-DATE")) >= 0) { //INSP
+          //   col_insp = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("STUFFING-DATE")) >= 0) {
+          //   col_stf = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("WARE-HOUSE-DATE")) >= 0) {
+          //   col_whd = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("DELIVERY-POL-DATE")) >= 0) {
+          //   col_dlv_pol = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("DELIVERY-POD-DATE")) >= 0) {
+          //   col_dlv_pod = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("POL")) >= 0) {
+          //   col_port_pol = i;
+          // }
+          // if (ar2[i].toUpperCase().indexOf(this.GetColName("POD")) >= 0) {
+          //   col_port_pod = i;
+          // }
+        }
       }
 
       for (var i = 1; i < ar1.length; i++) {
-
         if (ar1[i] != '') {
           ar2 = ar1[i].split("\t");
           mRec = new Joborderm;
@@ -1206,4 +1276,14 @@ export class OrderListComponent {
     this.ErrorMessage = '';
     this.open(history);
   }
+
+  GetColIndex(SourceCol: string, TargetCol: string, indx: number) {
+    let nCol: number = -1;
+    for (let rec of this.OrdColList.filter(rec => rec.source_col == SourceCol && rec.target_col == TargetCol)) {
+      nCol = indx;
+      break;
+    }
+    return nCol;
+  }
+
 }
