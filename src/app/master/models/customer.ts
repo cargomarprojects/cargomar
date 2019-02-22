@@ -57,6 +57,7 @@ export class Customerm {
     acc_type_id: string;
     acc_against_invoice: string;
 
+    cust_remarks: string;
 
     rec_mode: string;
 
