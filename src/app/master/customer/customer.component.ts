@@ -354,6 +354,7 @@ export class CustomerComponent {
     this.Record.cust_sman_id = '';
     this.Record.cust_sman_name = '';
 
+    this.Record.cust_remarks = '';
 
     this.Record.cust_csd_id = '';
     this.Record.cust_csd_name = '';
