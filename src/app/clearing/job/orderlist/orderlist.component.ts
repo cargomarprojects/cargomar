@@ -841,7 +841,7 @@ export class OrderListComponent {
           if (col_stf < 0)
             col_stf = this.GetColIndex(ar2[i].toUpperCase().trim(), "STUFFING-DATE", i);
           if (col_whd < 0)
-            col_whd = this.GetColIndex(ar2[i].toUpperCase().trim(), "WARE-HOUSE-DATE", i);
+            col_whd = this.GetColIndex(ar2[i].toUpperCase().trim(), "WAREHOUSE-DATE", i);
           if (col_dlv_pol < 0)
             col_dlv_pol = this.GetColIndex(ar2[i].toUpperCase().trim(), "DELIVERY-POL-DATE", i);
           if (col_dlv_pod < 0)

@@ -1,0 +1,84 @@
+
+<div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-list">
+      <div class="page-search">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Type</label>
+              <div class="col-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="table_name">
+                            <option [value]="'ORDER'">ORDER</option>
+                          </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+  
+            <!-- <div class="form-group row">
+              <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+              <div class="col-8">
+                <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div> -->
+  
+          </div>
+          <div class="col-4">
+  
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Find</button>
+                <button [disabled]="loading" (click)="AddtoList()" class="btn btn-primary btn-sm">AddRow</button>
+                <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="page-body table-responsive">
+      <table class="table table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>TARGET.COL</th>
+            <th>NAME</th>
+            <th>ORDER</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr >
+            <td *ngIf="rec.rec_mode != 'ADD'">{{rec.target_col}}</td>
+            <td *ngIf="rec.rec_mode == 'ADD'"><select class="form-control form-control-sm" [(ngModel)]="rec.target_col">
+                    <option *ngFor="let rec2 of TargetColList" [value]="rec2.name">{{rec2.name}}</option>
+                  </select></td>
+            <td><input type="text" class="form-control form-control-sm" [(ngModel)]="rec.source_col"
+                (focus)="OnFocusTableCell('source_col',rec)" (change)="OnChangeTableCell('source_col',rec)"
+                (blur)="OnBlurTableCell('source_col',rec)" required maxlength="15" /></td>
+            <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.slno"
+                (focus)="OnFocusTableCell('slno',rec)" (change)="OnChangeTableCell('slno',rec)"
+                (blur)="OnBlurTableCell('slno',rec)" required maxlength="15" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  </div>
+  
+  <br />
+  
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+  
+  

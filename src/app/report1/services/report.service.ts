@@ -7,6 +7,7 @@ import { MonRep } from '../models/monrep';
 import { Rebate } from '../models/rebate';
 import { Rebatem } from '../models/rebate';
 import { GlobalService } from '../../core/services/global.service';
+import { Mappingm } from '../models/mapping';
 
 @Injectable()
 export class RepService {
@@ -84,6 +85,14 @@ export class RepService {
   UpdateDsrRemarks(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UpdateDsrRemarks', SearchData, this.gs.headerparam2('authorized'));
 
+  }
+  MappingList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/MappingList', SearchData, this.gs.headerparam2('authorized'));
+
+  }
+
+  SaveMapping(Record: Mappingm) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SaveMapping', Record, this.gs.headerparam2('authorized'));
   }
 }
 

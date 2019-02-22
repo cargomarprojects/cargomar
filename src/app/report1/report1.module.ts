@@ -42,7 +42,7 @@ import { TrackComponent } from './track/track.component';
 
 import { DsrRemComponent } from './dsr/dsrrem.component';
 import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component';
-
+import { MappingComponent } from './mapping/mapping.component';
 
 @NgModule({
   imports: [
@@ -72,7 +72,8 @@ import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component'
     CoststmtComponent,
     TrackComponent,
     DsrRemComponent,
-    TdsCertReportComponent
+    TdsCertReportComponent,
+    MappingComponent
   ],
   providers: [
   ],

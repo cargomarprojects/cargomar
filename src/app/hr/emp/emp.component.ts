@@ -98,10 +98,6 @@ export class EmpComponent {
       if (!this.InitCompleted) {
         this.InitComponent();
       }
-
-
-        
-
     }
 
     InitComponent() {
