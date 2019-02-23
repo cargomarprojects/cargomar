@@ -24,6 +24,7 @@ export class MappingComponent {
     urlid: string;
 
     ErrorMessage = "";
+    InfoMessage = "";
     mode = '';
     pkid = '';
 
@@ -43,6 +44,7 @@ export class MappingComponent {
         branch_code: ''
     };
 
+    OrderColList: any[] = [];
     TargetColList: any[] = [];
     // Array For Displaying List
     RecordList: Mappingm[] = [];
@@ -104,32 +106,12 @@ export class MappingComponent {
 
 
     initLov(caption: string = '') {
-
         //this.BRRECORD = new SearchTable();
         //this.BRRECORD.controlname = "BRANCH";
         //this.BRRECORD.displaycolumn = "CODE";
         //this.BRRECORD.type = "BRANCH";
         //this.BRRECORD.id = "";
         //this.BRRECORD.code = this.gs.globalVariables.branch_code;
-
-        this.AGENTRECORD = new SearchTable();
-        this.AGENTRECORD.controlname = "AGENT";
-        this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-        this.AGENTRECORD.displaycolumn = "NAME";
-        this.AGENTRECORD.type = "CUSTOMER";
-        this.AGENTRECORD.id = "";
-        this.AGENTRECORD.code = "";
-        this.AGENTRECORD.name = "";
-
-        this.CURRECORD = new SearchTable();
-        this.CURRECORD.controlname = "CURRENCY";
-        this.CURRECORD.displaycolumn = "CODE";
-        this.CURRECORD.type = "CURRENCY";
-        this.CURRECORD.id = "";
-        this.CURRECORD.code = "";
-        this.CURRECORD.name = "";
-
-
     }
 
     LovSelected(_Record: SearchTable) {
@@ -153,32 +135,34 @@ export class MappingComponent {
 
     }
     LoadCombo() {
+        this.OrderColList = [{ "id": "ORDER", "name": "INVOICE-NO" },
+        { "id": "ORDER", "name": "PURCHASE-ORDER" },
+        { "id": "ORDER", "name": "DESCRIPTION" },
+        { "id": "ORDER", "name": "STYLE-NO" },
+        { "id": "ORDER", "name": "COLOR" },
+        { "id": "ORDER", "name": "CARTONS" },
+        { "id": "ORDER", "name": "PCS" },
+        { "id": "ORDER", "name": "NT-WT" },
+        { "id": "ORDER", "name": "GR-WT" },
+        { "id": "ORDER", "name": "CBM" },
+        { "id": "ORDER", "name": "HS-CODE" },
+        { "id": "ORDER", "name": "BOOKING-DATE" },
+        { "id": "ORDER", "name": "RANDOM-DATE" },
+        { "id": "ORDER", "name": "RELEASE-DATE" },
+        { "id": "ORDER", "name": "READY-DATE" },
+        { "id": "ORDER", "name": "FCR-DATE" },
+        { "id": "ORDER", "name": "INSPECTION-DATE" },
+        { "id": "ORDER", "name": "STUFFING-DATE" },
+        { "id": "ORDER", "name": "WAREHOUSE-DATE" },
+        { "id": "ORDER", "name": "DELIVERY-POL-DATE" },
+        { "id": "ORDER", "name": "DELIVERY-POD-DATE" },
+        { "id": "ORDER", "name": "POL" },
+        { "id": "ORDER", "name": "POD" },
+        { "id": "OTHERTYPE", "name": "..." }];//Add Other Type here
 
-        this.TargetColList = [{ "id": "ORD", "name": "INVOICE-NO" },
-        { "id": "ORD", "name": "PURCHASE-ORDER" },
-        { "id": "ORD", "name": "DESCRIPTION" },
-        { "id": "ORD", "name": "STYLE-NO" },
-        { "id": "ORD", "name": "COLOR" },
-        { "id": "ORD", "name": "CARTONS" },
-        { "id": "ORD", "name": "PCS" },
-        { "id": "ORD", "name": "NT-WT" },
-        { "id": "ORD", "name": "GR-WT" },
-        { "id": "ORD", "name": "CBM" },
-        { "id": "ORD", "name": "HS-CODE" },
-        { "id": "ORD", "name": "BOOKING-DATE" },
-        { "id": "ORD", "name": "RANDOM-DATE" },
-        { "id": "ORD", "name": "RELEASE-DATE" },
-        { "id": "ORD", "name": "READY-DATE" },
-        { "id": "ORD", "name": "FCR-DATE" },
-        { "id": "ORD", "name": "INSPECTION-DATE" },
-        { "id": "ORD", "name": "STUFFING-DATE" },
-        { "id": "ORD", "name": "WAREHOUSE-DATE" },
-        { "id": "ORD", "name": "DELIVERY-POL-DATE" },
-        { "id": "ORD", "name": "DELIVERY-POD-DATE" },
-        { "id": "ORD", "name": "POL" },
-        { "id": "ORD", "name": "POD" }];
+        this.FillTargetCol();
+        this.List('NEW');
     }
-
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
@@ -209,15 +193,6 @@ export class MappingComponent {
     List(_type: string) {
 
         this.ErrorMessage = '';
-        // if (this.from_date.trim().length <= 0) {
-        //     this.ErrorMessage = "From Date Cannot Be Blank";
-        //     return;
-        // }
-        // if (this.to_date.trim().length <= 0) {
-        //     this.ErrorMessage = "To Date Cannot Be Blank";
-        //     return;
-        // }
-
         this.loading = true;
         this.pkid = this.gs.getGuid();
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -232,13 +207,12 @@ export class MappingComponent {
             },
                 error => {
                     this.loading = false;
-                    this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
 
     OnChange(field: string) {
-        this.RecordList = null;
+        this.FillTargetCol();
     }
     Close() {
         this.gs.ClosePage('home');
@@ -257,27 +231,25 @@ export class MappingComponent {
         this.Record.table_name = this.table_name;
         this.Record.target_col = '';
         this.Record.source_col = '';
-        this.Record.slno = 0;
+        this.Record.slno = this.RecordList.length + 1;
     }
 
     Save() {
-        // if (!this.allvalid())
-        // return;
+        if (!this.allvalid())
+            return;
         this.loading = true;
         this.ErrorMessage = '';
-
+        this.InfoMessage = "";
+        this.Record = new Mappingm();
+        this.Record.table_name = this.table_name;
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.MappingList = this.RecordList;
         this.mainService.SaveMapping(this.Record)
             .subscribe(response => {
                 this.loading = false;
-
-                this.ErrorMessage = "Save Complete";
-
+                this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
-
-
             },
                 error => {
                     this.loading = false;
@@ -285,4 +257,80 @@ export class MappingComponent {
                     alert(this.ErrorMessage);
                 });
     }
+
+    allvalid() {
+        let sError: string = "";
+        let bret: boolean = true;
+        this.ErrorMessage = '';
+        for (let rec of this.RecordList) {
+            if (rec.source_col == "") {
+                bret = false;
+                sError += "\n\r | SOURCE COL cannot be blank";
+            }
+            if (rec.target_col == "") {
+                bret = false;
+                sError += "\n\r | TARGET COL cannot be blank";
+            }
+            if (rec.table_name != this.table_name) {
+                bret = false;
+                sError += "\n\r | Table Name Mismatch Found";
+            }
+            if (rec.table_name != this.table_name) {
+                bret = false;
+                sError += "\n\r | Table Name Mismatch Found";
+            }
+            if (this.GetItemCount(rec.source_col, "SOURCE") > 1) {
+                bret = false;
+                sError += "\n\r | SOURCE COL Name Duplication Found";
+            }
+            if (this.GetItemCount(rec.target_col, "TARGET") > 1) {
+                bret = false;
+                sError += "\n\r | TARGET COL Name Duplication Found";
+            }
+        }
+        if (bret === false)
+            this.ErrorMessage = sError;
+        return bret;
+    }
+    OnFocusTableCell(field: string, _rec: Mappingm) {
+
+    }
+    OnChangeTableCell(field: string, _rec: Mappingm) {
+
+    }
+    OnBlurTableCell(field: string, _rec: Mappingm) {
+        switch (field) {
+            case 'source_col':
+                {
+                    this.Record.source_col = this.Record.source_col.toUpperCase();
+                    break;
+                }
+        }
+    }
+
+    FillTargetCol() {
+        this.TargetColList = new Array<any>();
+        for (let rec of this.OrderColList.filter(rec => rec.id == this.table_name)) {
+            this.TargetColList.push(rec);
+        }
+    }
+
+    GetItemCount(_Name: string, _Type: string) {
+        let nCount: number = 0;
+        if (_Type == "SOURCE") {
+            for (let rec of this.RecordList.filter(rec => rec.source_col == _Name)) {
+                nCount = nCount + 1;
+            }
+        } else if (_Type == "TARGET") {
+            for (let rec of this.RecordList.filter(rec => rec.target_col == _Name)) {
+                nCount = nCount + 1;
+            }
+        }
+        return nCount;
+    }
+
+    Remove(_id: string) {
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.pkid == _id), 1);
+    }
+
 }
