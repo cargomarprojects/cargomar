@@ -14,7 +14,7 @@
         <div class="col-4">
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-4">
+            <div style="padding-left: 0%" class="col-4">
               <select class="form-control form-control-sm" (change)="OnChange('table_name')" [(ngModel)]="table_name">
                 <option [value]="'ORDER'">ORDER</option>
               </select>
@@ -49,7 +49,7 @@
           <table class="table table-hover table-sm">
             <thead class="page-body-thead">
               <tr>
-                <th width="5%">TABLE</th>
+                <th width="5%">TYPE</th>
                 <th width="20%">SOURCE.COL</th>
                 <th width="20%">TARGET.COL</th>
                 <th width="5%">ORDER</th>
