@@ -273,7 +273,7 @@ export class MappingComponent {
             }
             if (rec.table_name != this.table_name) {
                 bret = false;
-                sError += "\n\r | Table Name Mismatch Found";
+                sError += "\n\r | Type Mismatch Found";
             }
             if (rec.table_name != this.table_name) {
                 bret = false;
