@@ -25,7 +25,7 @@ export class ItemComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
-
+  @Input() nfei: string = '';
   
 
   selectedRowIndex: number = -1;
@@ -590,6 +590,7 @@ export class ItemComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

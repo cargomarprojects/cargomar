@@ -536,6 +536,17 @@
                               [(ngModel)]="Record.job_salesman_name" />
                           </div>
                         </div>
+                        <div *ngIf="bAdmin" class="form-group row">
+                          <label class="col-4 col-form-label  col-form-label-sm">Nomination</label>
+                          <div class="col-8">
+                            <select class="form-control form-control-sm" [(ngModel)]="Record.job_nomination">
+                              <option [value]="''"></option>
+                              <option [value]="'NOMINATION'">NOMINATION</option>
+                              <option [value]="'FREEHAND'">FREEHAND</option>
+                              <option [value]="'MUTUAL'">MUTUAL</option>
+                            </select>
+                          </div>
+                        </div>
 
                       </div>
 
@@ -558,18 +569,6 @@
                               <option [value]="'LCL'">LCL</option>
                               <option [value]="'LCL/FCL'">LCL/FCL</option>
                               <option [value]="'LCL/LCL'">LCL/LCL</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div *ngIf="bAdmin" class="form-group row">
-                          <label class="col-4 col-form-label  col-form-label-sm">Nomination</label>
-                          <div class="col-8">
-                            <select class="form-control form-control-sm" [(ngModel)]="Record.job_nomination">
-                              <option [value]="'NA'">NA</option>
-                              <option [value]="'NOMINATION'">NOMINATION</option>
-                              <option [value]="'FREEHAND'">FREEHAND</option>
-                              <option [value]="'MUTUAL'">MUTUAL</option>
                             </select>
                           </div>
                         </div>
@@ -976,7 +975,7 @@
       <ngb-tab title="Product" *ngIf="mode=='EDIT'">
         <ng-template ngbTabContent>
 
-          <app-jobitem [parentid]="pkid" [type]="type"></app-jobitem>
+          <app-jobitem [parentid]="pkid" [nfei]="Record.job_nfei" [type]="type"></app-jobitem>
 
         </ng-template>
       </ngb-tab>
@@ -1037,12 +1036,10 @@
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')"
                 class="btn btn-success btn-sm">Edi File</button>
             </div>
-
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </ng-template>
       </ngb-tab>
-
     </ngb-tabset>
   </div>
 
