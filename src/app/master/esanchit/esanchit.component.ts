@@ -452,7 +452,6 @@ export class EsanchitComponent  {
       this.Record.doc_ben_pin = this.Record.doc_ben_pin.toUpperCase();
     }
     
-    
   }
   
   // Upload Data

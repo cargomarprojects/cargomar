@@ -5,6 +5,7 @@ import { Arrearsm } from '../models/arrearsm';
 import { ArrDet } from '../models/arrearsm';
 import { ArrearsService } from '../services/arrears.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { from } from 'rxjs/observable/from';
 
 @Component({
   selector: 'app-arrears',
@@ -38,6 +39,10 @@ export class ArrearsComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
+
+  fromdate = "";
+  todate = "";
+  NoOfArrMnth = 0;
 
   EMPRECORD: SearchTable = new SearchTable();
   SalDetails: any[] = [];
@@ -90,7 +95,7 @@ export class ArrearsComponent {
   }
 
   InitLov() {
-    
+
     this.EMPRECORD = new SearchTable();
     this.EMPRECORD.controlname = "TAN";
     this.EMPRECORD.displaycolumn = "CODE";
@@ -386,6 +391,7 @@ export class ArrearsComponent {
     //if (field == 'sal_head') {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
     //}
+    this.FindNoOfMonth() ;
   }
 
   OnFocusTableCell(field: string, fieldid: string, colindex: number) {
@@ -543,5 +549,29 @@ export class ArrearsComponent {
     // this.Record.sal_gross_earn = TotEarning;
     // this.Record.sal_gross_deduct = TotDeductn;
     // this.Record.sal_net = (TotEarning - TotDeductn);
+  }
+  FindNoOfMonth() {
+
+    let NoOfMonth: number = 0;
+
+    var tempdt = this.fromdate.split('-');
+    let yr: number = +tempdt[0];
+    let mn: number = +tempdt[1];
+    let dy: number = +tempdt[2];
+
+    let Fdt = new Date(yr, mn, dy);
+
+    tempdt = this.todate.split('-');
+    yr = +tempdt[0];
+    mn = +tempdt[1];
+    dy = +tempdt[2];
+    let Tdt = new Date(yr, mn, dy);
+
+    while (Fdt <= Tdt) {
+      NoOfMonth++;
+      Fdt.setMonth(Fdt.getMonth() + 1);
+    }
+    this.NoOfArrMnth = NoOfMonth;
+
   }
 }
