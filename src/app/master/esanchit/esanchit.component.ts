@@ -473,7 +473,7 @@ export class EsanchitComponent  {
 
     this.Record._globalvariables = this.gs.globalVariables;
     this.Record.doc_job_year = this.gs.globalVariables.year_code;
-   
+    this.Record.doc_job_id = '';
 
     this.mainService.Upload(this.Record)
       .subscribe(response => {
