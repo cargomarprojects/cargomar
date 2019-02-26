@@ -18,11 +18,13 @@
           <div class="form-group row">
             <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
             <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-              <app-date [inputdate]="gs.globalData.job_fromdate" (ValueChanged)="gs.globalData.job_fromdate=$event"></app-date>
+              <app-date [inputdate]="gs.globalData.job_fromdate" (ValueChanged)="gs.globalData.job_fromdate=$event">
+              </app-date>
             </div>
             <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-            <div style="padding-right:0px;padding-left:0px"  class="col-sm-1">
-              <app-date [inputdate]="gs.globalData.job_todate" (ValueChanged)="gs.globalData.job_todate=$event"></app-date>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+              <app-date [inputdate]="gs.globalData.job_todate" (ValueChanged)="gs.globalData.job_todate=$event">
+              </app-date>
             </div>
             <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
             <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
@@ -35,7 +37,8 @@
             </div>
             <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
             <div class="col-sm-3">
-              <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
+              <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+                [(ngModel)]="searchstring" />
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -61,10 +64,14 @@
     <div class="page-pager">
       <div *ngIf="page_count">
         <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
           <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
         </ul>
       </div>
@@ -91,7 +98,8 @@
             <th align='right'>PKGS</th>
             <th align='right'>GR.WT</th>
             <th align='right'>NT.WT</th>
-            <th align='right'><span *ngIf="type=='SEA EXPORT'">CBM</span><span *ngIf="type=='AIR EXPORT'">CH.WT</span></th>
+            <th align='right'><span *ngIf="type=='SEA EXPORT'">CBM</span><span *ngIf="type=='AIR EXPORT'">CH.WT</span>
+            </th>
             <th>SI#</th>
             <th><span *ngIf="type=='SEA EXPORT'">HBL</span><span *ngIf="type=='AIR EXPORT'">HAWB</span></th>
             <th>SB NO</th>
@@ -103,7 +111,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT',rec.job_pkid,i)">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (click)="ActionHandler('EDIT',rec.job_pkid,i)">
             <td>{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
@@ -121,7 +130,8 @@
             <td align='right'>{{rec.job_pkg}}</td>
             <td align='right'>{{rec.job_grwt | number : '1.3-3'}}</td>
             <td align='right'>{{rec.job_ntwt | number : '1.3-3'}}</td>
-            <td align='right'><span *ngIf="type=='SEA EXPORT'">{{rec.job_cbm | number : '1.3-3'}}</span><span *ngIf="type=='AIR EXPORT'">{{rec.job_chwt | number : '1.3-3'}}</span></td>
+            <td align='right'><span *ngIf="type=='SEA EXPORT'">{{rec.job_cbm | number : '1.3-3'}}</span><span
+                *ngIf="type=='AIR EXPORT'">{{rec.job_chwt | number : '1.3-3'}}</span></td>
             <td>{{rec.job_si_no}}</td>
             <td>{{rec.job_hblnos}}</td>
             <td>{{rec.job_opr_sbill_no}}</td>
@@ -138,10 +148,14 @@
     <div class="page-pager">
       <div *ngIf="page_count">
         <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
           <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
         </ul>
       </div>
@@ -161,13 +175,16 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Job#</label>
                   <div style="padding-right:0" class="col-3">
-                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
+                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                      [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
                   <div style="padding-right:0" class="col-3">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required maxlength="15" />
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required
+                      maxlength="15" />
                   </div>
-                  <div  class="col-2">
-                    <button [disabled]="loading" (click)="SearchRecord('jobno')" class="btn btn-primary btn-sm">Fill</button>
+                  <div class="col-2">
+                    <button [disabled]="loading" (click)="SearchRecord('jobno')"
+                      class="btn btn-primary btn-sm">Fill</button>
                   </div>
                 </div>
               </div>
@@ -176,7 +193,8 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Job#</label>
                   <div class="col-8">
-                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm" [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
+                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                      [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
                 </div>
               </div>
@@ -214,28 +232,32 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
                   <div class="col-8">
-                    <app-autocomplete #ExporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order" [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ExporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
+                      [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
                   <div class="col-8">
-                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label col-form-label-sm"></label>
                   <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_exp_name" />
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.job_exp_name" />
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm"></label>
                   <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_exp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_exp_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
 
@@ -245,28 +267,32 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
                   <div class="col-8">
-                    <app-autocomplete #ImporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order" [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ImporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
+                      [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
                   <div class="col-8">
-                    <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label col-form-label-sm"></label>
                   <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_imp_name" />
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.job_imp_name" />
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm"></label>
                   <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_imp_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_imp_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
 
@@ -279,28 +305,32 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Buyer</label>
                   <div class="col-8">
-                    <app-autocomplete #BuyerLov [inputdata]="BUYERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #BuyerLov [inputdata]="BUYERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
                   <div class="col-8">
-                    <app-autocomplete #BuyerAddLov [inputdata]="BUYERADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #BuyerAddLov [inputdata]="BUYERADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label col-form-label-sm"></label>
                   <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_buyer_name" />
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.job_buyer_name" />
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm"></label>
                   <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_buyer_br_addr" [disabled]="true" maxlength="1000"></textarea>
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_buyer_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
               </div>
@@ -323,34 +353,40 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm">Place-Receipt</label>
                           <div class="col-8">
-                            <app-autocomplete #PlaceofRecptAddLov [inputdata]="PLACERECEIPTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #PlaceofRecptAddLov [inputdata]="PLACERECEIPTRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm">Pre-Carriage</label>
                           <div class="col-8">
-                            <app-autocomplete #PreCarriageAddLov [inputdata]="PRECARRIAGERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #PreCarriageAddLov [inputdata]="PRECARRIAGERECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
                         <div class=" form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Origin-Country</label>
                           <div class="col-4">
-                            <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYORGRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYORGRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_origin_country_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_origin_country_name" />
                           </div>
                         </div>
 
                         <div class=" form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Origin-State</label>
                           <div class="col-4">
-                            <app-autocomplete #StateOrgAddLov [inputdata]="STATEORGRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #StateOrgAddLov [inputdata]="STATEORGRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_origin_state_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_origin_state_name" />
                           </div>
 
                         </div>
@@ -358,50 +394,60 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Load-Port</label>
                           <div class="col-4">
-                            <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_pol_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_pol_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Discharge-Port</label>
                           <div class="col-4">
-                            <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_pod_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_pod_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Disch-Country</label>
                           <div class="col-4">
-                            <app-autocomplete #DischrgCntryAddLov [inputdata]="PODCOUNTRYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DischrgCntryAddLov [inputdata]="PODCOUNTRYRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_pod_country_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_pod_country_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Destination-Port</label>
                           <div class="col-4">
-                            <app-autocomplete #DestPortAddLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DestPortAddLov [inputdata]="POFDRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_pofd_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_pofd_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Dest-Country</label>
                           <div class="col-4">
-                            <app-autocomplete #DestCntryAddLov [inputdata]="POFDCOUNTRYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DestCntryAddLov [inputdata]="POFDCOUNTRYRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_pofd_country_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_pofd_country_name" />
                           </div>
                         </div>
 
@@ -412,10 +458,12 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Carrier</label>
                           <div class="col-4">
-                            <app-autocomplete #CarrierAddLov [inputdata]="SEACARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #CarrierAddLov [inputdata]="SEACARRIERRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_carrier_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_carrier_name" />
                           </div>
                         </div>
 
@@ -424,65 +472,70 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Agent</label>
                           <div class="col-4">
-                            <app-autocomplete #AgentAddLov [disabled]="Record.job_order" [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #AgentAddLov [disabled]="Record.job_order" [inputdata]="AGENTRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_agent_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_agent_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Forwarder</label>
                           <div class="col-4">
-                            <app-autocomplete #FrwdAddLov [inputdata]="FORWARDERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #FrwdAddLov [inputdata]="FORWARDERRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_forwarder_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_forwarder_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">CHA</label>
                           <div class="col-4">
-                            <app-autocomplete #ChaAddLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #ChaAddLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)">
+                            </app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_cha_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_cha_name" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Commodity</label>
                           <div class="col-8">
-                            <app-autocomplete #DestPortAddLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DestPortAddLov [inputdata]="COMMODITYRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Billed To</label>
                           <div class="col-4">
-                            <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                           <div class="col-4" style="padding-left:0">
-                            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_billto_name" />
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_billto_name" />
                           </div>
                         </div>
 
-
-
-
-
-
-
-                        <!--<div class="form-group row">
-                        <label class="col-4 col-form-label col-form-label-sm">Salesman</label>
-                        <div class="col-4">
-                        <app-autocomplete disabled #BuyerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        <div *ngIf="bAdmin" class="form-group row">
+                          <label class="col-4 col-form-label col-form-label-sm">Salesman</label>
+                          <div class="col-4">
+                            <app-autocomplete #smanLov [inputdata]="SALESMANRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                          </div>
+                          <div class="col-4" style="padding-left:0">
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_salesman_name" />
+                          </div>
                         </div>
-                        <div class="col-4" style="padding-left:0">
-                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_salesman_name" />
-                        </div>
-                        </div>-->
 
                       </div>
 
@@ -491,7 +544,8 @@
                         <div class=" form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Cha License</label>
                           <div class="col-8">
-                            <app-autocomplete #DischrgPortAddLov [inputdata]="EDIRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #DischrgPortAddLov [inputdata]="EDIRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
@@ -508,18 +562,17 @@
                           </div>
                         </div>
 
-                        <!--<div class="form-group row">
+                        <div *ngIf="bAdmin" class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm">Nomination</label>
                           <div class="col-8">
-                            <select disabled class="form-control form-control-sm" [(ngModel)]="Record.job_nomination">
+                            <select class="form-control form-control-sm" [(ngModel)]="Record.job_nomination">
                               <option [value]="'NA'">NA</option>
                               <option [value]="'NOMINATION'">NOMINATION</option>
                               <option [value]="'FREEHAND'">FREEHAND</option>
                               <option [value]="'MUTUAL'">MUTUAL</option>
                             </select>
                           </div>
-                        </div>-->
-
+                        </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm">Terms</label>
@@ -545,7 +598,8 @@
                         <div class=" form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Job Bill Type</label>
                           <div class="col-8">
-                            <app-autocomplete #JobbilltypeLov [inputdata]="SCHEMERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #JobbilltypeLov [inputdata]="SCHEMERECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
                       </div>
@@ -556,7 +610,8 @@
                         <div class="form-group row">
                           <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
                           <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_remarks" (blur)="OnBlur('job_remarks')" required maxlength="250" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_remarks"
+                              (blur)="OnBlur('job_remarks')" required maxlength="250" />
                           </div>
                         </div>
                       </div>
@@ -579,7 +634,8 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Cargo.Nature</label>
                           <div class="col-8">
-                            <select class="form-control form-control-sm" [disabled]="type=='AIR EXPORT'" [(ngModel)]="Record.job_cargo_nature">
+                            <select class="form-control form-control-sm" [disabled]="type=='AIR EXPORT'"
+                              [(ngModel)]="Record.job_cargo_nature">
                               <option [value]="'N'">NA</option>
                               <option [value]="'C'">Containerized Cargo</option>
                               <option [value]="'CP'">Containerized & Packaged cargo</option>
@@ -594,41 +650,50 @@
 
                           <label class="col-4 col-form-label col-form-label-sm">Pkgs</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pkg" (blur)="OnBlur('job_pkg')" required maxlength="10" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pkg"
+                              (blur)="OnBlur('job_pkg')" required maxlength="10" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-1 col-form-label col-form-label-sm">Unit</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-1 col-form-label col-form-label-sm">Unit</label>
                           <div class="col-3">
-                            <app-autocomplete #pkgUnitLov [inputdata]="PKGUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #pkgUnitLov [inputdata]="PKGUNITRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Loose Pkgs</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pkg_loose" (blur)="OnBlur('job_pkg_loose')" required maxlength="10" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pkg_loose"
+                              (blur)="OnBlur('job_pkg_loose')" required maxlength="10" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Tot.Cntrs</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_cntr_tot" (blur)="OnBlur('job_cntr_tot')" required maxlength="10" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_cntr_tot"
+                              (blur)="OnBlur('job_cntr_tot')" required maxlength="10" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Pcs</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pcs" (blur)="OnBlur('job_pcs')" required maxlength="15" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_pcs"
+                              (blur)="OnBlur('job_pcs')" required maxlength="15" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Nt.Wt</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_ntwt" (blur)="OnBlur('job_ntwt')" required maxlength="15" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_ntwt"
+                              (blur)="OnBlur('job_ntwt')" required maxlength="15" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-1 col-form-label col-form-label-sm">Unit</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-1 col-form-label col-form-label-sm">Unit</label>
                           <div class="col-3">
-                            <app-autocomplete #pkgUnitLov [inputdata]="GRUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #pkgUnitLov [inputdata]="GRUNITRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
@@ -636,25 +701,30 @@
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Gr.Wt</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_grwt" (blur)="OnBlur('job_grwt')" required maxlength="15" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_grwt"
+                              (blur)="OnBlur('job_grwt')" required maxlength="15" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-1 col-form-label col-form-label-sm">Unit</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-1 col-form-label col-form-label-sm">Unit</label>
                           <div class="col-3">
-                            <app-autocomplete #pkgUnitLov [inputdata]="NETUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                            <app-autocomplete #pkgUnitLov [inputdata]="NETUNITRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Cbm</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_cbm" (blur)="OnBlur('job_cbm')" required maxlength="15" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_cbm"
+                              (blur)="OnBlur('job_cbm')" required maxlength="15" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Ch.Wt</label>
                           <div class="col-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_chwt" (blur)="OnBlur('job_chwt')" required maxlength="15" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_chwt"
+                              (blur)="OnBlur('job_chwt')" required maxlength="15" />
                           </div>
                         </div>
 
@@ -673,11 +743,14 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">RBI Waiver No.</label>
                           <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_rbiwno" (blur)="OnBlur('job_rbiwno')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_rbiwno"
+                              (blur)="OnBlur('job_rbiwno')" required maxlength="30" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                           <div class="col-sm-3">
-                            <app-date [inputdate]="Record.job_rbiw_date" (ValueChanged)="Record.job_rbiw_date=$event"></app-date>
+                            <app-date [inputdate]="Record.job_rbiw_date" (ValueChanged)="Record.job_rbiw_date=$event">
+                            </app-date>
 
                           </div>
                         </div>
@@ -685,27 +758,33 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">Bank/Dealer</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_bank" (blur)="OnBlur('job_bank')" required maxlength="60" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_bank"
+                              (blur)="OnBlur('job_bank')" required maxlength="60" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">A/C Number</label>
                           <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_acno" (blur)="OnBlur('job_acno')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_acno"
+                              (blur)="OnBlur('job_acno')" required maxlength="30" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Forex.A/c</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">Forex.A/c</label>
                           <div class="col-sm-3">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_forexacno" (blur)="OnBlur('job_forexacno')" required maxlength="60" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_forexacno"
+                              (blur)="OnBlur('job_forexacno')" required maxlength="60" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">AD Code</label>
                           <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_dealar_code" (blur)="OnBlur('job_dealar_code')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_dealar_code"
+                              (blur)="OnBlur('job_dealar_code')" required maxlength="30" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">EPZ</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">EPZ</label>
                           <div class="col-sm-3">
                             <select class="form-control form-control-sm" [(ngModel)]="Record.job_epz_code">
                               <option [value]="'N'">NA</option>
@@ -718,22 +797,28 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">MBL No</label>
                           <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_edi_mbl_no" (blur)="OnBlur('job_edi_mbl_no')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_edi_mbl_no"
+                              (blur)="OnBlur('job_edi_mbl_no')" required maxlength="30" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                           <div class="col-3">
-                            <app-date [inputdate]="Record.job_edi_mbl_date" (ValueChanged)="Record.job_edi_mbl_date=$event"></app-date>
+                            <app-date [inputdate]="Record.job_edi_mbl_date"
+                              (ValueChanged)="Record.job_edi_mbl_date=$event"></app-date>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">HBL No</label>
                           <div class="col-sm-5">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_edi_hbl_no" (blur)="OnBlur('job_edi_hbl_no')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_edi_hbl_no"
+                              (blur)="OnBlur('job_edi_hbl_no')" required maxlength="30" />
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                           <div class="col-sm-3">
-                            <app-date [inputdate]="Record.job_edi_hbl_date" (ValueChanged)="Record.job_edi_hbl_date=$event"></app-date>
+                            <app-date [inputdate]="Record.job_edi_hbl_date"
+                              (ValueChanged)="Record.job_edi_hbl_date=$event"></app-date>
                           </div>
                         </div>
 
@@ -745,7 +830,8 @@
                               <option [value]="'N'">NO</option>
                             </select>
                           </div>
-                          <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Category</label>
+                          <label style="padding-left:0;padding-right:0"
+                            class="col-sm-1 col-form-label col-form-label-sm">Category</label>
                           <div class="col-sm-3">
                             <select class="form-control form-control-sm" [(ngModel)]="Record.job_nfei_category">
                               <option [value]="'NA'">NA</option>
@@ -793,14 +879,16 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">Seal.No.</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_seal_no" (blur)="OnBlur('job_seal_no')" required maxlength="30" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_seal_no"
+                              (blur)="OnBlur('job_seal_no')" required maxlength="30" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label col-form-label-sm">Agency.Name</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_agency_name" (blur)="OnBlur('job_agency_name')" required maxlength="60" />
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_agency_name"
+                              (blur)="OnBlur('job_agency_name')" required maxlength="60" />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -818,7 +906,8 @@
                             Marks & Nos <button (click)="SetMarksNos()" class="btn btn-default btn-sm">Set</button>
                           </label>
                           <div class="col-10">
-                            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_marks" (blur)="OnBlur('job_marks')" required maxlength="500"></textarea>
+                            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_marks"
+                              (blur)="OnBlur('job_marks')" required maxlength="500"></textarea>
                           </div>
                         </div>
                       </div>
@@ -830,13 +919,19 @@
           </div>
           <div class="page-box">
             <div class="col">
-              <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-              <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-              <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="CheckCrLimit()">Check CR-Limit</button>
+              <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
+                class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-success btn-sm">Return</button>
+              <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="CheckCrLimit()">Check
+                CR-Limit</button>
               <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="CheckSB(checksb)">Check SB</button>
-              <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm" (click)="GenerateMail(mailsent)">Mail</button>
-              <button *ngIf="mode == 'EDIT' && type=='SEA EXPORT'" [disabled]="loading" (click)="ShowBL()" class="btn btn-primary btn-sm">BL Draft</button>
-              <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm" (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
+                (click)="GenerateMail(mailsent)">Mail</button>
+              <button *ngIf="mode == 'EDIT' && type=='SEA EXPORT'" [disabled]="loading" (click)="ShowBL()"
+                class="btn btn-primary btn-sm">BL Draft</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
+                (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -919,24 +1014,28 @@
           <div class="page-details">
 
             <div>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiNo('R')" class="btn btn-success btn-sm">Show Edi No</button>
+              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiNo('R')"
+                class="btn btn-success btn-sm">Show Edi No</button>
               EDI NO : {{job_edi_no}}
             </div>
             <hr />
             <br />
             <div>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiNo('W')" class="btn btn-success btn-sm">Generate-Edi No</button>
+              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiNo('W')"
+                class="btn btn-success btn-sm">Generate-Edi No</button>
             </div>
             <hr />
             <br />
             <div>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('CHECKLIST','PDF')" class="btn btn-success btn-sm">Check-List</button>
+              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('CHECKLIST','PDF')"
+                class="btn btn-success btn-sm">Check-List</button>
             </div>
 
             <hr />
             <br />
             <div>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')" class="btn btn-success btn-sm">Edi File</button>
+              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')"
+                class="btn btn-success btn-sm">Edi File</button>
             </div>
 
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -967,7 +1066,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-esanchitlink [jobid]="pkid" [linktype]="'JOB'" [linkid]="pkid" [linkno]="Record.job_docno"></app-esanchitlink>
+      <app-esanchitlink [jobid]="pkid" [linktype]="'JOB'" [linkid]="pkid" [linkno]="Record.job_docno">
+      </app-esanchitlink>
     </div>
   </ng-template>
 
@@ -979,7 +1079,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-mail [pkid]="pkid" [type]="Mail_type" [sHtml]="sHtml" [defaultto_ids]="sTo_ids" [updateto_ids]=false [defaultsubject]="sSubject"></app-mail>
+      <app-mail [pkid]="pkid" [type]="Mail_type" [sHtml]="sHtml" [defaultto_ids]="sTo_ids" [updateto_ids]=false
+        [defaultsubject]="sSubject"></app-mail>
     </div>
   </ng-template>
 
@@ -987,7 +1088,8 @@
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">
     <div *ngIf="type=='SEA EXPORT'" class="col">
-      <app-jobseabl [parentid]="pkid" [invokefrom]="'JOB'" [type]="type" (PageChanged)="pageChanged($event)"></app-jobseabl>
+      <app-jobseabl [parentid]="pkid" [invokefrom]="'JOB'" [type]="type" (PageChanged)="pageChanged($event)">
+      </app-jobseabl>
     </div>
   </div>
 </div>

@@ -33,6 +33,7 @@ export class JobComponent {
   job_edi_no = "";
   job_no = "";
   bDocs: boolean = false;
+  bAdmin: boolean = false;
 
   searchstring = '';
   jobtype = 'ALL';
@@ -132,9 +133,12 @@ export class JobComponent {
 
   InitComponent() {
     this.job_no = "";
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -1561,7 +1565,7 @@ export class JobComponent {
 
     this.loading = true;
     let SearchData = {
-      searchfrom : 'JOB',
+      searchfrom: 'JOB',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       customerid: this.Record.job_exp_id,
