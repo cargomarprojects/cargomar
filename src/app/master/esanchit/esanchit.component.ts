@@ -526,6 +526,7 @@ export class EsanchitComponent  {
     this.mainService.Upload(this.Record)
       .subscribe(response => {
         this.loading = false;
+        this.Record.doc_job_id = '';
         if (this.Record.doc_all_drn_selected)
           this.InfoMessage = "Successfully Removed All Links to DRN " + this.Record.doc_drn;
         else
