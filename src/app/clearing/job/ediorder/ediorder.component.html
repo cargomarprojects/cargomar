@@ -1,68 +1,39 @@
 <div class="page-list">
   <div class="page-search">
     <div class="row">
+      <label class="col-1 col-form-label col-form-label-sm">Agent</label>
+      <div class="col-3">
+        <select class="form-control form-control-sm" [(ngModel)]="agent_id">
+          <option [value]="'E5A80C01-0528-4759-A0E3-CBE5DDDD5621'">RITRA</option>
+          <option [value]="'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2'">TRANSPORT MULTI-MODAL</option>
+        </select>
+      </div>
       <label class="col-1">Search</label>
-      <div class="col-5">
+      <div class="col-4">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col-6">
+      <div class="col-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Download</button>
         <button [disabled]="loading" (click)="Update()" class="btn btn-primary btn-sm">Update</button>
-        <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="Settings()" class="btn btn-primary btn-sm">Settings</button>
-        <label> Location&nbsp;{{BR_CUSTOM_LOCATIONS}}</label> -->
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>
   </div>
-  <!-- <div *ngIf="user_admin" class="page-box">
-    <div class="row">
-      <div class="col-sm-5">
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Icegate Email</label>
-          <div class="col-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="BR_ICEGATE_EMAIL" required [maxlength]="100" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Password</label>
-          <div class="col-8">
-            <input type="password" class="form-control form-control-sm" [(ngModel)]="BR_ICEGATE_EMAIL_PWD" required [maxlength]="100" />
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Custom Locations</label>
-          <div class="col-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="BR_CUSTOM_LOCATIONS" (blur)="OnBlur('BR_CUSTOM_LOCATIONS')" required [maxlength]="100" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Start Index</label>
-          <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="BR_START_INDEX" required [maxlength]="100" />
-          </div>
-          <div class="col-4">
-            <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-success btn-sm">Save</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
   </div>
-
   <div style="height: 400px; overflow-y: scroll;">
     <div class="page-body table-responsive">
       <table class="table  table-hover table-sm">
@@ -94,7 +65,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+          <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index"
+            [class.active]="i == selectedRowIndex">
             <td>{{rec.id_po }}</td>
             <td>{{rec.updated == 'Y' ? 'YES' : 'NO'}}</td>
             <td>{{rec.status}}</td>
@@ -126,10 +98,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>

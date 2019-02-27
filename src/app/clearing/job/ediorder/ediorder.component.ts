@@ -43,6 +43,7 @@ export class EdiOrderComponent {
 
   mode = 'ADD';
   pkid = '';
+  agent_id = '';
 
   ctr: number;
 
@@ -82,6 +83,7 @@ export class EdiOrderComponent {
   InitComponent() {
     this.bAdmin = false;
     this.user_admin = false;
+    this.agent_id = 'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       if (this.menu_record.rights_admin)
@@ -387,12 +389,16 @@ export class EdiOrderComponent {
     this.user_admin = !this.user_admin;
   }
 
-  Update()
-  {
-    this.loading = true;
+  Update() {
+    if (this.agent_id == "") {
+      this.ErrorMessage = "Please Select Agent and Continue.....";
+      return;
+    }
 
+    this.loading = true;
     let SearchData = {
       type: '',
+      agent_id: this.agent_id,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -405,11 +411,18 @@ export class EdiOrderComponent {
     this.mainService.UpdateOrdersList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage="Updated Successfully"
+        if (response.error.length > 0)
+        {
+          this.ErrorMessage = response.error;
+          alert(this.ErrorMessage);
+        }
+        else
+          this.InfoMessage = "Updated Successfully"
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
