@@ -97,15 +97,15 @@ export class ArrearsComponent {
   InitLov() {
 
     this.EMPRECORD = new SearchTable();
-    this.EMPRECORD.controlname = "TAN";
+    this.EMPRECORD.controlname = "EMPLOYEE";
     this.EMPRECORD.displaycolumn = "CODE";
-    this.EMPRECORD.type = "TAN";
+    this.EMPRECORD.type = "EMPLOYEE";
     this.EMPRECORD.id = "";
     this.EMPRECORD.code = "";
     this.EMPRECORD.name = "";
   }
   LovSelected(_Record: SearchTable) {
-    if (_Record.controlname == "TAN") {
+    if (_Record.controlname == "EMPLOYEE") {
       this.Record.arr_emp_id = _Record.id;
       this.Record.arr_emp_code = _Record.code;
       this.Record.arr_emp_name = _Record.name;
@@ -391,9 +391,13 @@ export class ArrearsComponent {
     //if (field == 'sal_head') {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
     //}
-    this.FindNoOfMonth() ;
+
+    this.FindNoOfMonth();
   }
 
+  OnChange(field: string) {
+    this.FindNoOfMonth();
+  }
   OnFocusTableCell(field: string, fieldid: string, colindex: number) {
     if (field == "EARN" && colindex == 1) {
       var REC = this.Record.DetList.find(rec => rec.e_code1 == fieldid);
@@ -550,28 +554,28 @@ export class ArrearsComponent {
     // this.Record.sal_gross_deduct = TotDeductn;
     // this.Record.sal_net = (TotEarning - TotDeductn);
   }
+
   FindNoOfMonth() {
-
     let NoOfMonth: number = 0;
+    if (this.fromdate.indexOf("-") > 0 && this.todate.indexOf("-") > 0) {
+      
+      var tempdt = this.fromdate.split('-');
+      let yr: number = +tempdt[0];
+      let mn: number = +tempdt[1];
+      let dy: number = +tempdt[2];
+      let Frmdt = new Date(yr, mn, dy);
 
-    var tempdt = this.fromdate.split('-');
-    let yr: number = +tempdt[0];
-    let mn: number = +tempdt[1];
-    let dy: number = +tempdt[2];
+      tempdt = this.todate.split('-');
+      yr = +tempdt[0];
+      mn = +tempdt[1];
+      dy = +tempdt[2];
+      let Todt = new Date(yr, mn, dy);
 
-    let Fdt = new Date(yr, mn, dy);
-
-    tempdt = this.todate.split('-');
-    yr = +tempdt[0];
-    mn = +tempdt[1];
-    dy = +tempdt[2];
-    let Tdt = new Date(yr, mn, dy);
-
-    while (Fdt <= Tdt) {
-      NoOfMonth++;
-      Fdt.setMonth(Fdt.getMonth() + 1);
+      while (Frmdt <= Todt) {
+        NoOfMonth++;
+        Frmdt.setMonth(Frmdt.getMonth() + 1);
+      }
     }
     this.NoOfArrMnth = NoOfMonth;
-
   }
 }
