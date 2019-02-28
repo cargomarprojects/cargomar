@@ -403,7 +403,8 @@ export class EdiOrderComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      validateonly:'N'
     };
 
     this.ErrorMessage = '';
@@ -418,6 +419,44 @@ export class EdiOrderComponent {
         }
         else
           this.InfoMessage = "Updated Successfully"
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  Validate(){
+ if (this.agent_id == "") {
+      this.ErrorMessage = "Please Select Agent and Continue.....";
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      type: '',
+      agent_id: this.agent_id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code,
+      validateonly:'Y'
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateOrdersList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error.length > 0)
+        {
+          this.ErrorMessage = response.error;
+          alert(this.ErrorMessage);
+        }
+        else
+          this.InfoMessage = "No Errors Found"
       },
         error => {
           this.loading = false;

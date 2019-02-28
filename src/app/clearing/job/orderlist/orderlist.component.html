@@ -3,6 +3,7 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button *ngIf="bAdmin" [disabled]="loading" (click)="DeleteRecord()" class="btn btn-primary btn-sm">Delete</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -162,6 +163,10 @@
           <th>CARGO.STATUS</th>
           <th>TRACK.STATUS</th>
           <th>CREATED</th>
+          <th>WINDOW1</th>
+          <th>WINDOW2</th>
+          <th>INSTOCK1</th>
+          <th>INSTOCK2</th>
           <!-- <th>CONTRACT#</th> -->
         </tr>
       </thead>
@@ -197,6 +202,10 @@
           <td>{{rec.ord_cargo_status}}</td>
           <td>{{rec.ord_track_status}}</td>
           <td>{{rec.rec_created_dte}}</td>
+          <td>{{rec.ord_window1}}</td>
+          <td>{{rec.ord_window2}}</td>
+          <td>{{rec.ord_instock1}}</td>
+          <td>{{rec.ord_instock2}}</td>
           <!-- <td>{{rec.ord_contractno}}</td> -->
         </tr>
       </tbody>

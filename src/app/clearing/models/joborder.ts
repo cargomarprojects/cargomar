@@ -59,7 +59,11 @@ export class Joborderm {
   ord_plan_no:number;
   ord_agentref_id:string;
   ord_ftp_status:string;
-  
+  ord_window1:string;
+  ord_window2:string;
+  ord_instock1:string;
+  ord_instock2:string;
+
   job_docno: string;
   rec_mode: string;
   rec_category: string;

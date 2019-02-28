@@ -24,6 +24,7 @@ export class OrderListComponent {
 
   modal: any;
 
+  bAdmin = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -127,11 +128,13 @@ export class OrderListComponent {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
     this.LoadCombo();
     this.initLov();
     this.initLov2();
@@ -1286,4 +1289,47 @@ export class OrderListComponent {
     return nCol;
   }
 
+  DeleteRecord() {
+
+    this.ErrorMessage = "";
+    let ordids: string = "";
+    for (let rec of this.RecordList) {
+      if (rec.ord_selected) {
+        if (ordids != "")
+          ordids += ",";
+        ordids += rec.ord_pkid;
+      }
+    }
+    if (ordids == "") {
+      this.ErrorMessage = " Please select PO and continue.....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm("Do you want to Delete Order Details")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: ordids
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (ordids.indexOf(",") > 0) {
+          var tempid = ordids.split(',');
+          for (var i = 0; i < tempid.length; i++)
+            this.RecordList.splice(this.RecordList.findIndex(rec => rec.ord_pkid == tempid[i]), 1);
+        } else
+          this.RecordList.splice(this.RecordList.findIndex(rec => rec.ord_pkid == ordids), 1);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
