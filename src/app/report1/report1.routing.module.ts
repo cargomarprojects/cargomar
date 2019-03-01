@@ -21,6 +21,7 @@ import { TrackComponent } from './track/track.component';
 import { DsrRemComponent } from './dsr/dsrrem.component';
 import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component';
 import { MappingComponent } from './mapping/mapping.component';
+import { FtpLogComponent } from './ftplog/ftplog.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: 'track', component: TrackComponent },
   { path: 'dsrrem', component: DsrRemComponent },
   { path: 'tdscertreport', component: TdsCertReportComponent },
-  { path: 'mapping', component: MappingComponent }
+  { path: 'mapping', component: MappingComponent },
+  { path: 'ftplog', component: FtpLogComponent }
 ];
 
 @NgModule({

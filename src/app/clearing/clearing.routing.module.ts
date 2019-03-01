@@ -6,7 +6,7 @@ import { JobOperationsComponent } from './job/operations/joboperations.component
 import { OrderListComponent } from './job/orderlist/orderlist.component';
 import { AgentBookComponent } from './job/agentbook/agentbook.component';
 import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component';
-
+import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 
 const routes: Routes = [
   { path: 'clearing', component: ClearingComponent },
@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'jobopr', component: JobOperationsComponent },
   { path: 'orderlist', component: OrderListComponent },
   { path: 'orderbook', component: AgentBookComponent },
-  { path: 'weekplanning', component: WeekPlanningComponent }
+  { path: 'weekplanning', component: WeekPlanningComponent },
+  { path: 'ediorders', component: EdiOrderComponent }
 ];
 
 @NgModule({

@@ -51,6 +51,7 @@ export class EdiOrderComponent {
   RecordList: EdiOrder[] = [];
   // Single Record for add/edit/view details
   Record: EdiOrder = new EdiOrder;
+  RecordMissingList: EdiOrder[] = [];
 
   constructor(
     private mainService: EdiOrderService,
@@ -58,7 +59,7 @@ export class EdiOrderComponent {
     private gs: GlobalService
   ) {
     this.page_count = 0;
-    this.page_rows = 100;
+    this.page_rows = 30;
     this.page_current = 0;
     this.InitLov();
     this.sub = this.route.queryParams.subscribe(params => {
@@ -83,9 +84,10 @@ export class EdiOrderComponent {
   InitComponent() {
     this.bAdmin = false;
     this.user_admin = false;
-    this.agent_id = 'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2';
+    this.agent_id = 'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2';//Transport Multimodal ID
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
+      this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
     }
@@ -450,6 +452,7 @@ export class EdiOrderComponent {
     this.mainService.UpdateOrdersList(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.RecordMissingList = response.list;
         if (response.error.length > 0)
         {
           this.ErrorMessage = response.error;

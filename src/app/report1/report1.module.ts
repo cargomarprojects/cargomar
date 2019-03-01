@@ -43,6 +43,7 @@ import { TrackComponent } from './track/track.component';
 import { DsrRemComponent } from './dsr/dsrrem.component';
 import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component';
 import { MappingComponent } from './mapping/mapping.component';
+import { FtpLogComponent } from './ftplog/ftplog.component';
 
 @NgModule({
   imports: [
@@ -73,7 +74,8 @@ import { MappingComponent } from './mapping/mapping.component';
     TrackComponent,
     DsrRemComponent,
     TdsCertReportComponent,
-    MappingComponent
+    MappingComponent,
+    FtpLogComponent
   ],
   providers: [
   ],

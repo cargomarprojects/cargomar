@@ -14,7 +14,9 @@ export class FtpReportComponent {
 
   @Input() public pkid: string;
   @Input() public type: string = '';
-
+  @Input() menuid: string = '';
+  
+  menu_record: any;
   InitCompleted: boolean = false;
   disableSave = true;
   loading = false;
@@ -43,6 +45,15 @@ export class FtpReportComponent {
     this.page_rows = 10;
     this.page_current = 0;
     // URL Query Parameter 
+    this.sub = this.route.queryParams.subscribe(params => {
+      if (params["parameter"] != "") {
+        this.InitCompleted = true;
+        var options = JSON.parse(params["parameter"]);
+        this.menuid = options.menuid;
+        this.type = options.type;
+        this.InitComponent();
+      }
+    });
   }
 
   // Init Will be called After executing Constructor
@@ -52,6 +63,10 @@ export class FtpReportComponent {
   }
 
   InitComponent() {
+    this.menu_record = this.gs.getMenu(this.menuid);
+      if (this.menu_record) {
+        this.title = this.menu_record.menu_name;
+      }
     this.InitLov();
   }
 
@@ -64,7 +79,7 @@ export class FtpReportComponent {
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-    // this.sub.unsubscribe();
+     this.sub.unsubscribe();
   }
 
   LoadCombo() {
