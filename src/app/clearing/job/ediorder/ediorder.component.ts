@@ -44,6 +44,7 @@ export class EdiOrderComponent {
   mode = 'ADD';
   pkid = '';
   agent_id = '';
+  update_type="";
 
   ctr: number;
 
@@ -85,6 +86,7 @@ export class EdiOrderComponent {
     this.bAdmin = false;
     this.user_admin = false;
     this.agent_id = 'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2';//Transport Multimodal ID
+    this.update_type="ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -158,7 +160,8 @@ export class EdiOrderComponent {
       page_rowcount: this.page_rowcount,
       from_date: this.from_date,
       report_folder: this.gs.globalVariables.report_folder,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      update_type:this.update_type
     };
 
     this.ErrorMessage = '';
@@ -201,6 +204,7 @@ export class EdiOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -258,13 +262,6 @@ export class EdiOrderComponent {
     this.Record.rec_mode = this.mode;
   }
 
-  UpdateSBData(_Record: EdiOrder) {
-    // let strmsg: string = "";
-    // strmsg = "UPDATE SB# " + _Record.sb_no + " WITH JOB# " + _Record.sb_job_no;
-    // if (confirm(strmsg)) {
-    //   this.Save('UPDATESB', _Record.sb_pkid)
-    // }
-  }
 
   // Save Data
   Save(_type: string) {
@@ -391,7 +388,7 @@ export class EdiOrderComponent {
     this.user_admin = !this.user_admin;
   }
 
-  Update() {
+  Update(_type: string) {
     if (this.agent_id == "") {
       this.ErrorMessage = "Please Select Agent and Continue.....";
       return;
@@ -406,45 +403,7 @@ export class EdiOrderComponent {
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      validateonly:'N'
-    };
-
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.UpdateOrdersList(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        if (response.error.length > 0)
-        {
-          this.ErrorMessage = response.error;
-          alert(this.ErrorMessage);
-        }
-        else
-          this.InfoMessage = "Updated Successfully"
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
-        });
-  }
-
-  Validate(){
- if (this.agent_id == "") {
-      this.ErrorMessage = "Please Select Agent and Continue.....";
-      return;
-    }
-
-    this.loading = true;
-    let SearchData = {
-      type: '',
-      agent_id: this.agent_id,
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code,
-      report_folder: this.gs.globalVariables.report_folder,
-      user_code: this.gs.globalVariables.user_code,
-      validateonly:'Y'
+      validateonly: _type == "UPDATE" ? 'N' : 'Y'
     };
 
     this.ErrorMessage = '';
@@ -453,13 +412,16 @@ export class EdiOrderComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordMissingList = response.list;
-        if (response.error.length > 0)
-        {
+        if (response.error.length > 0) {
           this.ErrorMessage = response.error;
           alert(this.ErrorMessage);
         }
-        else
-          this.InfoMessage = "No Errors Found"
+        else {
+          if (_type == 'UPDATE')
+            this.InfoMessage = "Updated Successfully";
+          else //Validate
+            this.InfoMessage = "No Errors Found";
+        }
       },
         error => {
           this.loading = false;

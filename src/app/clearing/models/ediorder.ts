@@ -27,6 +27,7 @@ export class EdiOrder {
   incoterm: string;
   import_executive: string;
   updated:string;
+  agent_ref_no:string;
   
   rec_mode: string;
   rec_category: string;

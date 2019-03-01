@@ -15,15 +15,23 @@
           <option [value]="'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2'">TRANSPORT MULTI-MODAL</option>
         </select>
       </div>
+      <label class="col-1 col-form-label col-form-label-sm">Updated</label>
+      <div class="col-1">
+        <select class="form-control form-control-sm" [(ngModel)]="update_type">
+          <option [value]="'ALL'">ALL</option>
+          <option [value]="'Y'">YES</option>
+          <option [value]="'N'">NO</option>
+        </select>
+      </div>
       <label class="col-1">Search</label>
-      <div class="col-3">
+      <div class="col-2">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Download</button>
-        <button [disabled]="loading" (click)="Validate()" class="btn btn-primary btn-sm">Validate</button>
-        <button [disabled]="loading" (click)="Update()" class="btn btn-primary btn-sm">Update</button>
+        <button [disabled]="loading" (click)="Update('VALIDATE')" class="btn btn-primary btn-sm">Validate</button>
+        <button [disabled]="loading" (click)="Update('UPDATE')" class="btn btn-primary btn-sm">Update</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>
@@ -55,29 +63,30 @@
             <table class="table  table-hover table-sm">
               <thead class="page-body-thead">
                 <tr>
-                  <th>ID PO</th>
+                  <th>ID</th>
+                  <th>REF#</th>
                   <th>UPDATED</th>
                   <th>STATUS</th>
                   <th>DIVISION</th>
                   <th>MODEL.SKU</th>
                   <th>PO</th>
-                  <th>SUPPLIER PO</th>
-                  <th>PO BEFORE</th>
+                  <th>SUPPLIER.PO</th>
+                  <th>PO.BEFORE</th>
+                  <th>SUPPLIER.ID</th>
+                  <th>SUPPLIER.NAME</th>
                   <th>CONSIGNEE</th>
-                  <th>ORIGIN.COUNTRY</th>
+                  <th>ORG.CNTRY</th>
                   <th>POL</th>
                   <th>POD</th>
                   <th>TRANS.WAY</th>
-                  <th>SUPPLIER ID</th>
-                  <th>SUPPLIER NAME</th>
+                  <th>INCOTERM</th>
                   <th>CARGO</th>
                   <th>WINDOW1</th>
                   <th>WINDOW2</th>
                   <th>STOCK1</th>
                   <th>STOCK2</th>
                   <th>FACTORY</th>
-                  <th>SHIPPER</th>
-                  <th>INCOTERM</th>
+                  <!-- <th>SHIPPER</th> -->
                   <th>IMP.EXECUTIVE</th>
                 </tr>
               </thead>
@@ -85,6 +94,7 @@
                 <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index"
                   [class.active]="i == selectedRowIndex">
                   <td>{{rec.id_po }}</td>
+                  <td>{{rec.agent_ref_no }}</td>
                   <td>{{rec.updated == 'Y' ? 'YES' : 'NO'}}</td>
                   <td>{{rec.status}}</td>
                   <td>{{rec.division}}</td>
@@ -92,21 +102,21 @@
                   <td>{{rec.po}}</td>
                   <td>{{rec.supplier_po}}</td>
                   <td>{{rec.po_before}}</td>
+                  <td>{{rec.supplier_id}}</td>
+                  <td>{{rec.supplier_name}}</td>
                   <td>{{rec.consignee_id}}</td>
                   <td>{{rec.origin_country}}</td>
                   <td>{{rec.pol}}</td>
                   <td>{{rec.pod}}</td>
                   <td>{{rec.transport_way}}</td>
-                  <td>{{rec.supplier_id}}</td>
-                  <td>{{rec.supplier_name}}</td>
+                  <td>{{rec.incoterm}}</td>
                   <td>{{rec.cargo_desc}}</td>
                   <td>{{rec.window1}}</td>
                   <td>{{rec.window2}}</td>
                   <td>{{rec.instock1}}</td>
                   <td>{{rec.instock2}}</td>
                   <td>{{rec.factory}}</td>
-                  <td>{{rec.supplier_name}}</td>
-                  <td>{{rec.incoterm}}</td>
+                  <!-- <td>{{rec.supplier_name}}</td> -->
                   <td>{{rec.import_executive}}</td>
                 </tr>
               </tbody>
@@ -134,7 +144,7 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Missing List">
+    <ngb-tab title="Error List">
       <ng-template ngbTabContent>
           <div class="page-body table-responsive">
               <table class="table  table-hover table-sm">
