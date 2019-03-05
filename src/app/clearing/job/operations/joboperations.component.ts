@@ -214,6 +214,7 @@ export class JobOperationsComponent {
     this.Record.opr_egmno = '';
     this.Record.opr_egmdt = '';
     this.Record.opr_stacked_on = '';
+    this.Record.opr_rotation = false;
     this.InitLov();
 
     //this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;

@@ -142,6 +142,12 @@
           <app-date [inputdate]="Record.opr_stacked_on" (ValueChanged)="Record.opr_stacked_on=$event"></app-date>
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle No</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_vehicle_no" (blur)="OnBlur('opr_vehicle_no')" required maxlength="30" />
+        </div>
+      </div>
 
     </div>
 
@@ -172,12 +178,7 @@
         </div>
       </div>-->
 
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle No</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_vehicle_no" (blur)="OnBlur('opr_vehicle_no')" required maxlength="30" />
-        </div>
-      </div>
+      
 
       <!--<div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">Cargo Arrived At CFS</label>
@@ -254,14 +255,14 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">EGM No</label>
+        <label class="col-sm-6 col-form-label col-form-label-sm">EGM No (Rotation No)</label>
         <div class="col-sm-6">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_egmno" (blur)="OnBlur('opr_egmno')" required maxlength="30" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Date</label>
+        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Date (Rotation Date)</label>
         <div class="col-sm-6">
           <app-date [inputdate]="Record.opr_egmdt" (ValueChanged)="Record.opr_egmdt=$event"></app-date>
         </div>
@@ -280,6 +281,13 @@
             <option [value]="'SCROLL-IN'">SCROLL-IN</option>
             <option [value]="'STUFF'">STUFF</option>
           </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-6">
+          <input type="checkbox" [(ngModel)]="Record.opr_rotation">Include Rotation Number and Date in EDI
         </div>
       </div>
 
@@ -339,7 +347,7 @@
           <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.opr_remarks" (blur)="OnBlur('opr_remarks')" maxlength="100"></textarea>
         </div>
       </div>
-
+     
 
     </div>
 

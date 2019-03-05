@@ -42,7 +42,8 @@ export class JobOperationsm {
     opr_egmno: string;
     opr_egmdt: string;
     opr_stacked_on: string;
-
+    opr_rotation: boolean;
+    
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;
