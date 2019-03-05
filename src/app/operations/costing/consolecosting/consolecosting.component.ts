@@ -244,6 +244,7 @@ export class ConsoleCostingComponent {
       to_date: this.gs.globalData.cost_air_todate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      year_code:this.gs.globalVariables.year_code,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
