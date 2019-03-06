@@ -123,23 +123,23 @@ export class XmlomsComponent {
         if (_type == 'FTP') {
           this.AttachList = new Array<any>();
           if (this.type == 'MBL')
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N' });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid });
           if (this.type == 'CONTAINER') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N' });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA-ACK', fileisack: 'Y' });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
+            // this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA-ACK', fileisack: 'Y' });
           }
           if (this.type == 'ORDERLIST') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N' });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y' });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid  });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
           }
           if (this.type == 'AGENTBOOKING') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N' });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y' });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
           }
           this.open(ftpsent);
         } else {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          if (this.type == 'CONTAINER' || this.type == 'ORDERLIST' || this.type == 'AGENTBOOKING')
+          if (this.type == 'ORDERLIST' || this.type == 'AGENTBOOKING')
             this.Downloadfile(response.filenameack, response.filetypeack, response.filedisplaynameack);
         }
       },
