@@ -31,6 +31,7 @@ export class XmlomsComponent {
   senton_date = "";
   ErrorMessage = "";
 
+  ftpUpdtSql: string = '';
   sSubject: string = '';
   sMsg: string = '';
   sHtml: string = '';
@@ -121,6 +122,8 @@ export class XmlomsComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'FTP') {
+          this.sSubject = response.subject;
+          this.ftpUpdtSql = response.updatesql;
           this.AttachList = new Array<any>();
           if (this.type == 'MBL')
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid });

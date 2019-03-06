@@ -31,6 +31,7 @@ export class OrderListComponent {
 
   sSubject: string = '';
   ftpUpdtSql: string = '';
+  ftpTransfertype: string = 'ORDERLIST';
 
   searchstring = '';
   page_count = 0;
@@ -1253,7 +1254,7 @@ export class OrderListComponent {
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
-    SearchData.type = 'ORDERLIST';
+      SearchData.type = this.ftpTransfertype;
     SearchData.pkid = this.pkid;
     SearchData.filedisplayname = '';
     this.mainService.GenerateXmlEdiMexico(SearchData)
@@ -1264,8 +1265,12 @@ export class OrderListComponent {
         if (sType == 'MULTIPLE')
           this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
-        this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+        if (this.ftpTransfertype == 'ORDERLIST') {
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
+          this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+        } else //TRACKING CARGO PROCESS
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
+
         this.open(ftpsent);
       },
         error => {
