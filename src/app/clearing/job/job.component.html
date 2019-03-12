@@ -931,6 +931,7 @@
                 class="btn btn-primary btn-sm">BL Draft</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
                 (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
+                <button *ngIf="mode == 'EDIT'"  [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-primary btn-sm">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -1090,3 +1091,14 @@
     </div>
   </div>
 </div>
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-history [pkid]="pkid" [type]="'JOB'"></app-history>
+  </div>
+</ng-template>

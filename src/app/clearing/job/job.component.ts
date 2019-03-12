@@ -442,6 +442,7 @@ export class JobComponent {
         bchange = true;
 
       this.Record.job_exp_id = _Record.id;
+      this.Record.job_exp_code = _Record.code;
       this.Record.job_exp_name = _Record.name;
 
       if (bchange) {
@@ -468,6 +469,7 @@ export class JobComponent {
         bchange = true;
 
       this.Record.job_imp_id = _Record.id;
+      this.Record.job_imp_code = _Record.code;
       this.Record.job_imp_name = _Record.name;
 
       if (bchange) {
@@ -493,6 +495,7 @@ export class JobComponent {
         bchange = true;
 
       this.Record.job_buyer_id = _Record.id;
+      this.Record.job_buyer_code = _Record.code;
       this.Record.job_buyer_name = _Record.name;
 
       if (bchange) {
@@ -1717,5 +1720,9 @@ export class JobComponent {
 
   LinkDocs(esanchitlink: any) {
     this.open(esanchitlink);
+  }
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
   }
 }

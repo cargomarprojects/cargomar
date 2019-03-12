@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Customerm } from '../models/customer';
@@ -33,7 +34,7 @@ export class CustomerComponent {
   bPrint = false;
   bAdmin2 = false;//for list part
 
-
+  modal: any;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -86,6 +87,7 @@ export class CustomerComponent {
 
 
   constructor(
+    private modalService: NgbModal,
     private mainService: CustomerService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -644,9 +646,11 @@ export class CustomerComponent {
     this.gs.ClosePage('home');
   }
 
-
-
-
-
-
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
+  }
 }
