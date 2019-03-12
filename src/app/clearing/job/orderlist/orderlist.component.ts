@@ -1214,6 +1214,7 @@ export class OrderListComponent {
     this.ErrorMessage = '';
     let ord_ids: string = '';
     let ord_id_POs: string = '';
+    let POID_Is_Blank: Boolean = false;
     if (sType == 'MULTIPLE') {
       ord_ids = "";
       ord_id_POs = "";
@@ -1226,20 +1227,38 @@ export class OrderListComponent {
           if (ord_id_POs != "")
             ord_id_POs += ",";
           ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
+
+          if (this.ftpTransfertype == 'TRACKING')
+            if (rec.ord_uid == 0)
+              POID_Is_Blank = true;
         }
       }
+
       if (ord_ids == "") {
         this.ErrorMessage = " Please select PO and continue.....";
         alert(this.ErrorMessage);
         return;
       }
       this.pkid = ord_ids;
+    } else {
+      if (this.ftpTransfertype == 'TRACKING')
+        for (let rec of this.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
+          if (rec.ord_uid == 0)
+            POID_Is_Blank = true;
+        }
     }
+
 
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
       return;
     }
+    if (POID_Is_Blank) {
+      this.ErrorMessage = " PO.ID Not Found ";
+      alert(this.ErrorMessage);
+      return;
+    }
+
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
@@ -1254,7 +1273,7 @@ export class OrderListComponent {
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
-      SearchData.type = this.ftpTransfertype;
+    SearchData.type = this.ftpTransfertype;
     SearchData.pkid = this.pkid;
     SearchData.filedisplayname = '';
     this.mainService.GenerateXmlEdiMexico(SearchData)
