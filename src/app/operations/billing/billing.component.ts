@@ -47,6 +47,7 @@ export class BillingComponent {
 
   cc_category: string = '';
 
+  bAdmin: boolean = false;
   lock_record: boolean = false;
   lock_date: boolean = false;
 
@@ -137,7 +138,7 @@ export class BillingComponent {
 
     this.cc_category_type = this.type;
     this.cc_category = 'SI ' + this.type;
-
+    this.bAdmin = false;
     // SI SEA EXPORT
     // SI AIR EXPORT
     // SI SEA IMPORT
@@ -149,7 +150,11 @@ export class BillingComponent {
 
     this.menu_record = this.gs.getMenu('ARINVOICE');
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
     this.InitLov();
     this.LoadCombo();
   }
@@ -1414,7 +1419,8 @@ export class BillingComponent {
       company_code: '',
       branch_code: '',
       report_caption: '',
-      report_format: ''
+      report_format: '',
+      menuadmin: ''
     }
 
     SearchData.pkid = this.pkid;
@@ -1424,6 +1430,7 @@ export class BillingComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
     SearchData.report_caption = this.title;
+    SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
 
     this.ErrorMessage = '';
     this.mainService.GenerateInvoice(SearchData)

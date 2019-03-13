@@ -16,7 +16,7 @@ export class OsRep {
   party: string;
   invno: string;
   invdate: string;
-
+  awbno: string;
 
   jv_od_type: string;
   jv_od_remarks: string;

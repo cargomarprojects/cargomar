@@ -253,6 +253,7 @@
             <thead class="page-body-thead">
               <tr>
                 <th>BRANCH</th>
+                <th>AWB</th>
                 <th>PARTY</th>
                 <th>INVNO</th>
                 <th>DATE</th>
@@ -265,6 +266,7 @@
             <tbody class="page-body-tbody" *ngFor="let rec of InvList">
               <tr [style.color]="rec.row_colour">
                 <td>{{rec.branch}}</td>
+                <td>{{ rec.awbno}}</td>
                 <td>{{ rec.party}}</td>
                 <td>{{ rec.invno}}</td>
                 <td>{{ rec.invdate}}</td>
