@@ -265,11 +265,13 @@ export class ItemComponent {
         bchange = true;
 
       this.Record.itm_third_party_id = _Record.id;
+      this.Record.itm_third_party_code = _Record.code;
       this.Record.itm_third_party_name = _Record.name;
 
       if (bchange) {
         this.THRDADDRRECORD = new SearchTable();
         this.THRDADDRRECORD.controlname = "THRDADDR";
+        this.THRDADDRRECORD.displaycolumn = "CODE";
         this.THRDADDRRECORD.type = "CUSTOMERADDRESS";
         this.THRDADDRRECORD.id = "";
         this.THRDADDRRECORD.code = "";
