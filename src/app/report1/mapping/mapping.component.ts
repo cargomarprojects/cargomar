@@ -138,6 +138,7 @@ export class MappingComponent {
         this.OrderColList = [{ "id": "ORDER", "name": "INVOICE-NO" },
         { "id": "ORDER", "name": "PURCHASE-ORDER" },
         { "id": "ORDER", "name": "DESCRIPTION" },
+        { "id": "ORDER", "name": "UNECO" },
         { "id": "ORDER", "name": "STYLE-NO" },
         { "id": "ORDER", "name": "COLOR" },
         { "id": "ORDER", "name": "CARTONS" },

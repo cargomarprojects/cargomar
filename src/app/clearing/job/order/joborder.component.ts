@@ -528,6 +528,7 @@ export class JobOrderComponent {
 
     let col_inv = -1;
     let col_desc = -1;
+    let col_uneco = -1;
     let col_po = -1;
     let col_style = -1;
     let col_color = -1;
@@ -565,6 +566,8 @@ export class JobOrderComponent {
             col_inv = this.GetColIndex(ar2[i].toUpperCase().trim(), "INVOICE-NO", i)
           if (col_desc < 0)
             col_desc = this.GetColIndex(ar2[i].toUpperCase().trim(), "DESCRIPTION", i)
+            if (col_uneco < 0)
+            col_uneco = this.GetColIndex(ar2[i].toUpperCase().trim(), "UNECO", i)
           if (col_po < 0)
             col_po = this.GetColIndex(ar2[i].toUpperCase().trim(), "PURCHASE-ORDER", i)
           if (col_style < 0)
@@ -689,6 +692,7 @@ export class JobOrderComponent {
           mRec.ord_pkid = '';
           mRec.ord_invno = '';
           mRec.ord_desc = '';
+          mRec.ord_uneco = '';
           mRec.ord_po = '';
           mRec.ord_style = '';
           mRec.ord_color = '';
@@ -729,6 +733,8 @@ export class JobOrderComponent {
             mRec.ord_invno = ar2[col_inv].toUpperCase();
           if (col_desc > -1)
             mRec.ord_desc = ar2[col_desc].toUpperCase();
+            if (col_uneco > -1)
+            mRec.ord_uneco = ar2[col_uneco].toUpperCase();
           if (col_po > -1)
             mRec.ord_po = ar2[col_po].toUpperCase();
           if (col_style > -1)
