@@ -28,6 +28,7 @@ export class EdiOrder {
   import_executive: string;
   updated:string;
   agent_ref_no:string;
+  selected:boolean;
   
   rec_mode: string;
   rec_category: string;

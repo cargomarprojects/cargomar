@@ -31,7 +31,9 @@ export class EdiOrderComponent {
 
   loading = false;
   currentTab = 'LIST';
-
+  
+  selectcheckbox: boolean = false;
+  selectcheck: boolean = false;
   bAdmin = false;
   bChanged: boolean;
   user_admin = false;
@@ -144,6 +146,9 @@ export class EdiOrderComponent {
   }
 
   List(_type: string) {
+
+    this.selectcheck = false;
+    this.selectcheckbox = false;
     this.loading = true;
 
     let SearchData = {
@@ -394,6 +399,15 @@ export class EdiOrderComponent {
       return;
     }
 
+    let ordids: string = "";
+    for (let rec of this.RecordList) {
+      if (rec.selected) {
+        if (ordids != "")
+          ordids += ",";
+        ordids += rec.pkid;
+      }
+    }
+    
     this.loading = true;
     let SearchData = {
       type: '',
@@ -403,7 +417,8 @@ export class EdiOrderComponent {
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      validateonly: _type == "UPDATE" ? 'N' : 'Y'
+      validateonly: _type == "UPDATE" ? 'N' : 'Y',
+      pkid:ordids
     };
 
     this.ErrorMessage = '';
@@ -428,6 +443,14 @@ export class EdiOrderComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  SelectCheckbox() {
+    this.selectcheckbox = !this.selectcheckbox;
+    for (var i = 0; i < this.RecordList.length; i++) {
+      this.RecordList[i].selected = this.selectcheckbox;
+    }
+
   }
 
 }
