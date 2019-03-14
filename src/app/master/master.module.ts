@@ -35,6 +35,7 @@ import { SearchShipmentComponent } from './searchshipment/searchshipment.compone
 import { BankInfoComponent } from './bankinfo/bankinfo.component';
 import { EsanchitComponent } from './esanchit/esanchit.component';
 import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component';
+import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 
 @NgModule({
   imports: [
@@ -63,7 +64,8 @@ import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component
     SearchShipmentComponent,
     BankInfoComponent,
     EsanchitComponent,
-    EsanchitDownloadComponent
+    EsanchitDownloadComponent,
+    JobTransferComponent
   ],
   providers: [
   ],
