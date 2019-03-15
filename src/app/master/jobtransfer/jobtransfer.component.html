@@ -7,7 +7,28 @@
     <div class="page-search">
         <div class="row">
             <div class="col-sm-4">
-
+                <div class="form-group row">
+                    <div class="offset-2 col-sm-10">
+                        <font color="black">
+                            <strong>
+                                JOB TRANSFER FROM &nbsp;
+                            </strong>
+                        </font>
+                        <font color="red">
+                            <strong>
+                                {{prefinyear}}
+                            </strong>
+                        </font>
+                        <strong>
+                            &nbsp;TO&nbsp;
+                        </strong>
+                        <font color="red">
+                            <strong>
+                                {{finyear}}
+                            </strong>
+                        </font>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Type</label>
                     <div class="col-sm-10">
@@ -39,11 +60,11 @@
                         <input type="number" class="form-control form-control-sm" [(ngModel)]="refno"
                             (blur)="OnBlur('refno')" required maxlength="10" />
                     </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Year</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">JobYear</label>
                     <div class="col-sm-4">
-                            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="finyear"
-                                (blur)="OnBlur('refno')" required maxlength="10" />
-                        </div>
+                        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="prefinyear"
+                            (blur)="OnBlur('refno')" required maxlength="10" />
+                    </div>
                 </div>
                 <!-- <div class="form-group row">
                     <label style="color:red"

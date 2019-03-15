@@ -14,7 +14,7 @@ export class JobTransferComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
- 
+
   InitCompleted: boolean = false;
   menu_record: any;
   modal: any;
@@ -23,17 +23,18 @@ export class JobTransferComponent {
 
   loading = false;
   currentTab = 'LIST';
-  
+
   ErrorMessage = "";
   InfoMessage = "";
   mode = 'ADD';
   pkid = '';
-  
-  modulecategory="AE";
+
+  modulecategory = "AE";
   searchstring = '';
-  finyear=2016;
+  prefinyear = 2017;
+  finyear = 2018;
   ctr: number;
- 
+
   sub: any;
   bValueChanged: boolean = false;
   moduletype: string = "";
@@ -46,9 +47,9 @@ export class JobTransferComponent {
   chkresetfldr: boolean = false;
   chkbpreaprvd: boolean = false;
 
- // Array For Displaying List
+  // Array For Displaying List
   ModuleList: any[] = [];
-  
+
   constructor(
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -68,7 +69,8 @@ export class JobTransferComponent {
   }
 
   InitComponent() {
-      this.finyear= +this.gs.globalVariables.year_code-1
+    this.prefinyear = +this.gs.globalVariables.year_code - 1;
+    this.finyear = +this.gs.globalVariables.year_code;
     this.pkid = '';
     this.refno = '';
     this.refnodesc = '';
@@ -77,7 +79,7 @@ export class JobTransferComponent {
     this.refnotitle = "Job No";
     this.moduletype = "JOB";
     this.chkresetfldr = false;
-    this.chkbpreaprvd=false; 
+    this.chkbpreaprvd = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -87,7 +89,7 @@ export class JobTransferComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-     
+
   }
 
   // Destroy Will be called when this component is closed
@@ -109,7 +111,7 @@ export class JobTransferComponent {
       { "code": "MASTER", "name": "MASTER" }
     ];
   }
-  
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -118,7 +120,7 @@ export class JobTransferComponent {
 
   ResetControls() {
   }
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
@@ -140,7 +142,7 @@ export class JobTransferComponent {
   }
 
   onLostFocus(field: string) {
-    
+
   }
   OnChange(field: string) {
     // if (field == 'moduletype') {
@@ -185,7 +187,7 @@ export class JobTransferComponent {
         return;
       }
     }
-     
+
     this.loading = true;
     let SearchData = {
       table: '',
@@ -197,16 +199,16 @@ export class JobTransferComponent {
       remarks: '',
       chkdate: '',
       chkcc: '',
-      chkresetfldr:'',
+      chkresetfldr: '',
       company_code: '',
       branch_code: '',
       year_code: '',
       user_code: '',
       cntrltype: '',
-      chkbpreaprvd:''
+      chkbpreaprvd: ''
     };
 
-    if (controlname == "save" || controlname == "lock" )
+    if (controlname == "save" || controlname == "lock")
       SearchData.type = "SAVE";
     else
       SearchData.type = "LOAD";
@@ -252,12 +254,12 @@ export class JobTransferComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-   
+
   UnlockRecord(savetype: string) {
 
     if (this.refno.toString().trim().length <= 0) {
@@ -269,7 +271,7 @@ export class JobTransferComponent {
       this.ErrorMessage = " Invalid Reference ID ";
       return;
     }
-     
+
     if (this.remarks.toString().trim().length <= 0) {
       this.ErrorMessage = " Remarks Cannot be blank ";
       return;
