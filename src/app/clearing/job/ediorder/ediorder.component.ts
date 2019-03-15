@@ -71,6 +71,7 @@ export class EdiOrderComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        
         this.InitComponent();
       }
     });
@@ -79,7 +80,9 @@ export class EdiOrderComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     if (!this.InitCompleted) {
+      
       this.InitComponent();
+
     }
     //  this.List("NEW");
   }

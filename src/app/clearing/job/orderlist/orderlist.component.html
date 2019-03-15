@@ -3,7 +3,7 @@
     <ng-template ngbTabContent>
       <div class="page-header">
         <div class="col">
-          <label>{{title}}</label>
+          <!-- <label>{{title}}</label> -->
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
           <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
           <button *ngIf="bAdmin" [disabled]="loading" (click)="DeleteRecord()"
@@ -606,7 +606,7 @@
   </ngb-tab>
   <ngb-tab title="Approved List">
     <ng-template ngbTabContent>
-      <app-ediorder [type]="" [menuid]=""></app-ediorder>
+      <app-ediorder [type]="" [menuid]="APPROVEDORDERS"></app-ediorder>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
