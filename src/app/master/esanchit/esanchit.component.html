@@ -220,7 +220,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Code</label>
           <div class="col-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_code" (blur)="OnBlur('doc_issuer_code')" required maxlength="20" />
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_issuer_code" (blur)="OnBlur('doc_issuer_code')" required maxlength="20" />
           </div>
         </div>
 
@@ -267,7 +267,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Code</label>
           <div class="col-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_code" (blur)="OnBlur('doc_ben_code')" required maxlength="20" />
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.doc_ben_code" (blur)="OnBlur('doc_ben_code')" required maxlength="20" />
           </div>
         </div>
 
