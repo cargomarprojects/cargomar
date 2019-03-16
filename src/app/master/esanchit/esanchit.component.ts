@@ -237,6 +237,7 @@ export class EsanchitComponent  {
     this.Record.doc_ref_no = '';
     this.Record.doc_type_code = '';
     this.Record.doc_issued_at = '';
+    this.Record.doc_issued_date ='';
     this.Record.doc_issuer_name = '';
     this.Record.doc_issuer_code = '';
     this.Record.doc_issuer_add1 = '';
@@ -258,11 +259,9 @@ export class EsanchitComponent  {
     this.Record.doc_type_name = '';
     this.Record.doc_all_drn_selected = true;
     this.Record.rec_mode = this.mode;
-
+    
     this.InitLov();
   }
-
-
 
 
   // Load a single Record for VIEW/EDIT

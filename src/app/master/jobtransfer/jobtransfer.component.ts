@@ -19,7 +19,6 @@ export class JobTransferComponent {
   menu_record: any;
   modal: any;
 
-  Total_Amount: number = 0;
 
   loading = false;
   currentTab = 'LIST';
@@ -30,22 +29,15 @@ export class JobTransferComponent {
   pkid = '';
 
   modulecategory = "AE";
+  moduletype: string = "";
+  refnotitle: string = "";
+  refno: string = "";
   searchstring = '';
   prefinyear = 2017;
   finyear = 2018;
   ctr: number;
 
   sub: any;
-  bValueChanged: boolean = false;
-  moduletype: string = "";
-  refnotitle: string = "";
-  refno: string = "";
-  refnodesc: string = "";
-  chkdate: boolean = false;
-  chkcc: boolean = false;
-  remarks: string = "";
-  chkresetfldr: boolean = false;
-  chkbpreaprvd: boolean = false;
 
   // Array For Displaying List
   ModuleList: any[] = [];
@@ -72,14 +64,9 @@ export class JobTransferComponent {
     this.prefinyear = +this.gs.globalVariables.year_code - 1;
     this.finyear = +this.gs.globalVariables.year_code;
     this.pkid = '';
-    this.refno = '';
-    this.refnodesc = '';
-    this.chkdate = false;
-    this.chkcc = false;
     this.refnotitle = "Job No";
+    this.refno = "";
     this.moduletype = "JOB";
-    this.chkresetfldr = false;
-    this.chkbpreaprvd = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -126,19 +113,16 @@ export class JobTransferComponent {
   }
 
   OnBlur(field: string) {
-    switch (field) {
-      case 'refno':
-        {
-          this.refno = this.refno.toUpperCase();
-          //this.SearchRecord('refno');
-          break;
-        }
-      case 'remarks':
-        {
-          this.remarks = this.remarks.toUpperCase();
-          break;
-        }
-    }
+    // switch (field) {
+    //   case 'refno':
+    //     {
+    //       break;
+    //     }
+    //   case 'remarks':
+    //     {
+    //       break;
+    //     }
+    // }
   }
 
   onLostFocus(field: string) {
@@ -174,16 +158,17 @@ export class JobTransferComponent {
     // }
   }
   OnFocus(field: string) {
-    if (field == 'search')
-      this.bValueChanged = false;
+
   }
 
 
   SearchRecord(controlname: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (controlname == "refno") {
+    if (controlname == "jobtransfer") {
       if (this.refno.trim().length <= 0) {
+        this.ErrorMessage = "Invalid Data";
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -191,68 +176,34 @@ export class JobTransferComponent {
     this.loading = true;
     let SearchData = {
       table: '',
-      type: 'LOAD',
-      moduletype: '',
+      type: '',
       pkid: '',
+      moduletype: '',
+      modulecategory: '',
       refno: '',
-      refnodesc: '',
-      remarks: '',
-      chkdate: '',
-      chkcc: '',
-      chkresetfldr: '',
       company_code: '',
       branch_code: '',
       year_code: '',
-      user_code: '',
-      cntrltype: '',
-      chkbpreaprvd: ''
+      job_year_code: '',
+      user_code: ''
     };
 
-    if (controlname == "save" || controlname == "lock")
-      SearchData.type = "SAVE";
-    else
-      SearchData.type = "LOAD";
-    SearchData.table = "unlockmodule";
+    SearchData.table = "jobtransfer";
     SearchData.refno = this.refno;
     SearchData.moduletype = this.moduletype;
-    SearchData.pkid = this.pkid;
-    SearchData.refnodesc = this.refnodesc;
-    SearchData.remarks = this.remarks;
-    SearchData.chkdate = this.chkdate == true ? "Y" : "N";
-    SearchData.chkcc = this.chkcc == true ? "Y" : "N";
-    SearchData.chkresetfldr = this.chkresetfldr == true ? "Y" : "N";
+    SearchData.modulecategory = this.modulecategory;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.job_year_code = this.prefinyear.toString();
     SearchData.user_code = this.gs.globalVariables.user_code;
-    SearchData.cntrltype = controlname;
-    SearchData.chkbpreaprvd = this.chkbpreaprvd == true ? "Y" : "N";
-
+    
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = '';
-        this.InfoMessage = '';
-        if (controlname == 'refno') {
-          this.pkid = "";
-          this.refnodesc = "";
-          if (response.pkid.length > 0) {
-            this.pkid = response.pkid;
-            this.refnodesc = response.refno;
-          } else {
-            this.ErrorMessage = " Invalid Reference Number ";
-            alert(this.ErrorMessage);
-          }
-        }
-        if (controlname == 'save' || controlname == 'lock') {
-          this.pkid = response.pkid;
-          if (controlname == 'save')
-            this.InfoMessage = " Unlocked Successfully ";
-          else
-            this.InfoMessage = " Locked Successfully ";
-          alert(this.InfoMessage);
-        }
-
+        this.InfoMessage = " Transfered Successfully ";
+        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
@@ -260,30 +211,7 @@ export class JobTransferComponent {
         });
   }
 
-  UnlockRecord(savetype: string) {
-
-    if (this.refno.toString().trim().length <= 0) {
-      this.ErrorMessage = " Reference# Cannot be blank ";
-      return;
-    }
-
-    if (this.pkid.toString().trim().length <= 0) {
-      this.ErrorMessage = " Invalid Reference ID ";
-      return;
-    }
-
-    if (this.remarks.toString().trim().length <= 0) {
-      this.ErrorMessage = " Remarks Cannot be blank ";
-      return;
-    }
-    this.SearchRecord(savetype);
-  }
-
   open(content: any) {
     this.modal = this.modalService.open(content);
-  }
-  ShowHistory(history: any) {
-    this.ErrorMessage = '';
-    this.open(history);
   }
 }
