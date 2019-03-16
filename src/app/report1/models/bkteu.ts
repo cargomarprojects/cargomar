@@ -22,6 +22,7 @@ export class BkTeu {
   hbl_pod: string;
   hbl_pofd: string;
   hbl_agent: string;
+  hbl_nomination:String;
   branch: string;
 
     _globalvariables: GlobalVariables;
