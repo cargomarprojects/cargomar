@@ -1512,8 +1512,11 @@ export class JobComponent {
   }
   SetMarksNos() {
     let str: string = "";
-    str = "I/We undertake to abide by the provisions of Foreign Exchange Management Act, 1999, as amended from time to time, including realisation  or repatriation of foreign exchange to or from India.";
-    str += "(WE INTEND TO CLAIM REWARDS UNDER MERCHANDISE EXPORTS FROM INDIAN SCHEME (MEIS))";
+    
+    str = "I/WE UNDERTAKE TO ABIDE BY THE PROVISIONS OF FOREIGN EXCHANGE MANAGEMENT ACT, 1999, ";
+    str += "AS AMENDED FROM TIME TO TIME, INCLUDING REALISATION OR REPATRIATION OF FOREIGN EXCHANGE TO";
+    str += " OR FROM INDIA.(WE INTEND TO CLAIM REWARDS UNDER MEIS & ROSCL)";
+
     this.Record.job_marks = str.toUpperCase();
   }
   GetBrAddress(straddress: string) {
