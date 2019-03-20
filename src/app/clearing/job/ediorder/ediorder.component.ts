@@ -4,6 +4,7 @@ import { GlobalService } from '../../../core/services/global.service';
 import { EdiOrder } from '../../models/ediorder';
 import { EdiOrderService } from '../../services/ediorder.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 //import { Settings } from '../../../master/models/settings';
 
 
@@ -31,7 +32,7 @@ export class EdiOrderComponent {
 
   loading = false;
   currentTab = 'LIST';
-  
+
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
   bAdmin = false;
@@ -46,7 +47,7 @@ export class EdiOrderComponent {
   mode = 'ADD';
   pkid = '';
   agent_id = '';
-  update_type="";
+  update_type = "";
 
   ctr: number;
 
@@ -71,7 +72,7 @@ export class EdiOrderComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        
+
         this.InitComponent();
       }
     });
@@ -80,7 +81,7 @@ export class EdiOrderComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     if (!this.InitCompleted) {
-      
+
       this.InitComponent();
 
     }
@@ -90,8 +91,8 @@ export class EdiOrderComponent {
   InitComponent() {
     this.bAdmin = false;
     this.user_admin = false;
-    this.agent_id = 'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2';//Transport Multimodal ID
-    this.update_type="ALL";
+    this.agent_id = 'B8C93DB0-5127-E16A-23C0-BF42E6E06005';//Transport Multimodal ID
+    this.update_type = "ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -169,7 +170,7 @@ export class EdiOrderComponent {
       from_date: this.from_date,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      update_type:this.update_type
+      update_type: this.update_type
     };
 
     this.ErrorMessage = '';
@@ -190,16 +191,16 @@ export class EdiOrderComponent {
   }
 
 
-  Process() {
+  Process(_type: string) {
     this.loading = true;
-
     let SearchData = {
-      type: '',
+      type: _type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      ftptypeid: this.agent_id
     };
 
     this.ErrorMessage = '';
@@ -207,7 +208,14 @@ export class EdiOrderComponent {
     this.mainService.Process(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.List('NEW');
+        if (_type == "DOWNLOAD") {
+          if (response.serror == "Complete")
+            this.InfoMessage = "Download Complete";
+          else
+            this.ErrorMessage = response.serror;
+        } else {
+          this.List('NEW');
+        }
       },
         error => {
           this.loading = false;
@@ -410,7 +418,7 @@ export class EdiOrderComponent {
         ordids += rec.pkid;
       }
     }
-    
+
     this.loading = true;
     let SearchData = {
       type: '',
@@ -421,7 +429,7 @@ export class EdiOrderComponent {
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
       validateonly: _type == "UPDATE" ? 'N' : 'Y',
-      pkid:ordids
+      pkid: ordids
     };
 
     this.ErrorMessage = '';

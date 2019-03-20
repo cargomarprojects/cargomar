@@ -154,7 +154,9 @@ export class ParamComponent {
     if (this.type == 'COUNTRY') {
       this.id1 = "Region";
     }
-
+    if (this.type == 'PARAM') {
+      this.id1 = "Customer Code";
+    }
   }
 
   // Destroy Will be called when this component is closed
