@@ -12,7 +12,8 @@
       <div class="col-3">
         <select class="form-control form-control-sm" [(ngModel)]="agent_id">
           <!-- <option [value]="'E5A80C01-0528-4759-A0E3-CBE5DDDD5621'">RITRA</option> -->
-          <option [value]="'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2'">TRANSPORT MULTI-MODAL</option>
+          <!-- <option [value]="'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2'">TRANSPORT MULTI-MODAL</option> -->
+          <option [value]="'B8C93DB0-5127-E16A-23C0-BF42E6E06005'">TRANSPORT MULTI-MODAL</option>
         </select>
       </div>
       <label class="col-1 col-form-label col-form-label-sm">Updated</label>
@@ -29,7 +30,8 @@
       </div>
       <div class="col-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Download</button>
+        <button [disabled]="loading" (click)="Process('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
+        <button [disabled]="loading" (click)="Process('PROCESS')" class="btn btn-primary btn-sm">Process</button>
         <button [disabled]="loading" (click)="Update('VALIDATE')" class="btn btn-primary btn-sm">Validate</button>
         <button [disabled]="loading" (click)="Update('UPDATE')" class="btn btn-primary btn-sm">Update</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
