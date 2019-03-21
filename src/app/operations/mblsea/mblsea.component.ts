@@ -1304,6 +1304,8 @@ export class MblSeaComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       agent_id: this.Record.book_agent_id,
+      agent_code: this.Record.book_agent_code,
+      agent_name: this.Record.book_agent_name,
       pre_alert_date: '',
       hbl_nos: '',
       type: '',
@@ -1314,6 +1316,8 @@ export class MblSeaComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.agent_id = this.Record.book_agent_id;
+    SearchData.agent_code = this.Record.book_agent_code;
+    SearchData.agent_name = this.Record.book_agent_name;
     SearchData.hbl_nos = '';
     SearchData.mbl_id = this.Record.book_pkid;
     this.mainService.GenerateXmlEdi(SearchData)

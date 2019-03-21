@@ -631,7 +631,6 @@ export class OrderListComponent {
 
   OnBlur(field: string) {
     switch (field) {
-
       case 'ord_exp_name':
         {
           this.Record.ord_exp_name = this.Record.ord_exp_name.toUpperCase();

@@ -155,7 +155,7 @@ export class JobTransferComponent {
         alert(this.ErrorMessage);
         return;
       }
-      
+
       if (+this.refno <= 0) {
         this.ErrorMessage = "Invalid " + this.refnotitle;
         alert(this.ErrorMessage);
@@ -163,9 +163,9 @@ export class JobTransferComponent {
       }
 
       let strmsg: string = "";
-      strmsg = "WANT TO TRANSFER "+this.modulecategory +" "+this.refnotitle.toUpperCase()+" "+this.refno+ " TO YEAR "+this.finyear;
+      strmsg = "WANT TO TRANSFER " + this.modulecategory + " " + this.refnotitle.toUpperCase() + " " + this.refno + " TO YEAR " + this.finyear;
       if (!confirm(strmsg)) {
-         return;
+        return;
       }
     }
 
@@ -197,9 +197,14 @@ export class JobTransferComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ErrorMessage = '';
-        this.InfoMessage = " Transfered Successfully ";
-        alert(this.InfoMessage);
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
+        else {
+          this.InfoMessage = " Transfered Successfully ";
+          alert(this.InfoMessage);
+        }
       },
         error => {
           this.loading = false;

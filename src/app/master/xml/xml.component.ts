@@ -40,6 +40,7 @@ export class XmlComponent {
   hbl_nos = '';
   agent_id = '';
   agent_name = '';
+  agent_code = '';
 
   BRRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
@@ -114,6 +115,7 @@ export class XmlComponent {
     if (_Record.controlname == "AGENT") {
       this.agent_id = _Record.id
       this.agent_name = _Record.name
+      this.agent_code = _Record.code
     }
 
     if (_Record.controlname == "BRANCH") {
@@ -154,6 +156,8 @@ export class XmlComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       agent_id: this.agent_id,
+      agent_code: this.agent_code,
+      agent_name: this.agent_name,
       pre_alert_date: '',
       hbl_nos: '',
       type:''
@@ -170,6 +174,8 @@ export class XmlComponent {
     SearchData.agent_id = this.agent_id;
     SearchData.hbl_nos = this.hbl_nos;
     SearchData.type = _type;
+    SearchData.agent_code = this.agent_code;
+    SearchData.agent_name = this.agent_name;
 
      this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
