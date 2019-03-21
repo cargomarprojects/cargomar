@@ -28,7 +28,7 @@ export class JobTransferComponent {
   mode = 'ADD';
   pkid = '';
 
-  modulecategory = "AE";
+  modulecategory = "AIR EXPORT";
   moduletype: string = "";
   refnotitle: string = "";
   refno: string = "";
@@ -64,7 +64,7 @@ export class JobTransferComponent {
     this.prefinyear = +this.gs.globalVariables.year_code - 1;
     this.finyear = +this.gs.globalVariables.year_code;
     this.pkid = '';
-    this.refnotitle = "Job No";
+    this.refnotitle = "Job#";
     this.refno = "";
     this.moduletype = "JOB";
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -129,33 +129,17 @@ export class JobTransferComponent {
 
   }
   OnChange(field: string) {
-    // if (field == 'moduletype') {
-    //   this.pkid = '';
-    //   this.refno = '';
-    //   this.refnodesc = '';
-    //   this.chkresetfldr = false;
-    //   this.chkbpreaprvd = false;
-    //   if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
-    //     this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" ||
-    //     this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
-    //     this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI") {
-    //     this.refnotitle = "Vr.No";
-    //   } else if (this.moduletype == "MBL-AE" || this.moduletype == "MBL-AI" ||
-    //     this.moduletype == "MBL-SE" || this.moduletype == "MBL-SI") {
-    //     if (this.moduletype.indexOf("S") >= 0)
-    //       this.refnotitle = "Folder#/MBL";
-    //     else
-    //       this.refnotitle = "Folder/MAWB";
-    //   } else if (this.moduletype == "HBL-AE" || this.moduletype == "HBL-AI" ||
-    //     this.moduletype == "HBL-SE" || this.moduletype == "HBL-SI") {
-    //       this.refnotitle = "SI#";
-    //   } else if (this.moduletype == "AGENT INVOICE" || this.moduletype == "AIR EXPORT COSTING" ||
-    //     this.moduletype == "DRCR ISSUE" || this.moduletype == "SEA EXPORT COSTING"|| this.moduletype == "SE CONSOLE COSTING") {
-    //     this.refnotitle = "Folder#";
-    //   } else if (this.moduletype == "JOB-GN") {
-    //     this.refnotitle = "Job#";
-    //   }
-    // }
+    if (field == 'moduletype') {
+      this.pkid = '';
+      this.refno = '';
+      if (this.moduletype == "JOB") {
+        this.refnotitle = "Job#";
+      } else if (this.moduletype == "HOUSE") {
+        this.refnotitle = "SI#";
+      } else if (this.moduletype == "MASTER") {
+        this.refnotitle = "MBLBK#";
+      }
+    }
   }
   OnFocus(field: string) {
 
@@ -166,10 +150,22 @@ export class JobTransferComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (controlname == "jobtransfer") {
-      if (this.refno.trim().length <= 0) {
-        this.ErrorMessage = "Invalid Data";
+      if (this.moduletype == "JOB" && this.modulecategory.indexOf("IMPORT") >= 0) {
+        this.ErrorMessage = "Invalid Transfer";
         alert(this.ErrorMessage);
         return;
+      }
+      
+      if (+this.refno <= 0) {
+        this.ErrorMessage = "Invalid " + this.refnotitle;
+        alert(this.ErrorMessage);
+        return;
+      }
+
+      let strmsg: string = "";
+      strmsg = "WANT TO TRANSFER "+this.modulecategory +" "+this.refnotitle.toUpperCase()+" "+this.refno+ " TO YEAR "+this.finyear;
+      if (!confirm(strmsg)) {
+         return;
       }
     }
 
@@ -197,7 +193,7 @@ export class JobTransferComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.job_year_code = this.prefinyear.toString();
     SearchData.user_code = this.gs.globalVariables.user_code;
-    
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
