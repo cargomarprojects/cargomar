@@ -49,6 +49,9 @@ export class EsanchitDownloadComponent {
   pkid = '';
 
   ctr: number;
+  // bShowPasteData: boolean = false;
+  // bShowList = false;
+  // mList: Esanchit[] = [];
 
   // Array For Displaying List
   RecordList: Esanchit[] = [];
@@ -235,6 +238,10 @@ export class EsanchitDownloadComponent {
 
   Settings() {
     this.user_admin = !this.user_admin;
+  }
+
+  SavePasteData(){
+
   }
   
 }

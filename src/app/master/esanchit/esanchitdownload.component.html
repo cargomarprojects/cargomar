@@ -169,9 +169,11 @@
       </table>
     </div>
 
-    <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+    <button [disabled]="loading" (click)="SavePasteData()" class="btn btn-success btn-sm">Save</button>
   </div> -->
 <br />
+<!-- <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ESANCHIT'"
+(CloseClicked)="PasteDataClosed($event)"></App-PasteData> -->
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
