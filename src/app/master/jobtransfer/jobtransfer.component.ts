@@ -30,6 +30,7 @@ export class JobTransferComponent {
 
   modulecategory = "AIR EXPORT";
   moduletype: string = "";
+  yeartitle: string = "";
   refnotitle: string = "";
   refno: string = "";
   searchstring = '';
@@ -64,6 +65,7 @@ export class JobTransferComponent {
     this.prefinyear = +this.gs.globalVariables.year_code - 1;
     this.finyear = +this.gs.globalVariables.year_code;
     this.pkid = '';
+    this.yeartitle = "Job Year";
     this.refnotitle = "Job#";
     this.refno = "";
     this.moduletype = "JOB";
@@ -133,10 +135,13 @@ export class JobTransferComponent {
       this.pkid = '';
       this.refno = '';
       if (this.moduletype == "JOB") {
+        this.yeartitle = "Job Year";
         this.refnotitle = "Job#";
       } else if (this.moduletype == "HOUSE") {
+        this.yeartitle = "SI Year";
         this.refnotitle = "SI#";
       } else if (this.moduletype == "MASTER") {
+        this.yeartitle = "MBLBK Year";
         this.refnotitle = "MBLBK#";
       }
     }
