@@ -41,7 +41,7 @@ export class HeaderComponent {
     Logout() {
         this.loginservice.Logout();
         this.title = 'Pls Login';
-        this.router.navigate(['login'], { replaceUrl: true });
+        this.router.navigate(['login'], { replaceUrl: true }); 
     }
 
     getUrlID() {
