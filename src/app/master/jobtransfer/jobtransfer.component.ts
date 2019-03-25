@@ -34,6 +34,7 @@ export class JobTransferComponent {
   moduletype: string = "";
   yeartitle: string = "";
   refnotitle: string = "";
+  listrefnotitle: string = "";
   refno: string = "";
   searchstring = '';
   prefinyear = 2017;
@@ -169,16 +170,17 @@ export class JobTransferComponent {
     this.InfoMessage = '';
     if (controlname == "jobtransfer") {
       if (_invokefrm != "LIST") {
-      this.JobList = new Array<any>();
-      if (this.refno.indexOf(',') >= 0) {
-        var tempjob = this.refno.split(',');
-        for (var i = 0; i < tempjob.length; i++) {
-          this.NewJobRecord(tempjob[i]);
+        this.listrefnotitle = this.refnotitle.toUpperCase();
+        this.JobList = new Array<any>();
+        if (this.refno.indexOf(',') >= 0) {
+          var tempjob = this.refno.split(',');
+          for (var i = 0; i < tempjob.length; i++) {
+            this.NewJobRecord(tempjob[i]);
+          }
+          this.refno = '';
+          return;
         }
-        this.refno = '';
-        return;
       }
-    }
 
       if (this.moduletype == "JOB" && this.modulecategory.indexOf("IMPORT") >= 0) {
         this.ErrorMessage = "Invalid Transfer";
@@ -266,11 +268,11 @@ export class JobTransferComponent {
     this.refno = _rec.job_docno;
     this.moduletype = _rec.type;
     this.modulecategory = _rec.rec_category;
-    this.SearchRecord('jobtransfer',"LIST");
+    this.SearchRecord('jobtransfer', "LIST");
   }
-  ClearList(){
-    this.ErrorMessage ='';
-    this.InfoMessage ='';
+  ClearList() {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
     this.JobList = new Array<any>();
   }
 }

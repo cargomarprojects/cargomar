@@ -80,7 +80,7 @@
                     <button [disabled]="loading || JobList.length>0" (click)="SearchRecord('jobtransfer','DETAIL')"
                         class="btn btn-success btn-sm">Transfer</button>
                     <button *ngIf="JobList.length>0" [disabled]="loading" (click)="ClearList()"
-                        class="btn btn-success btn-sm">Clear List</button>
+                        class="btn btn-success btn-sm">New List</button>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                 <th width="5%">TYPE</th>
                 <th width="10%">CATEGORY</th>
                 <th width="5%">YEAR</th>
-                <th width="10%">JOB#</th>
+                <th width="10%">{{listrefnotitle}}</th>
                 <th width="10%">TRANSFER</th>
                 <th width="60%">REMARKS</th>
             </tr>
