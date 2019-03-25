@@ -3,6 +3,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { SearchShipment } from '../models/searchshipment';
+import { JobPackingListComponent } from '../../clearing/job/packinglist/jobpackinglist.component';
 
 @Component({
   selector: 'app-jobtransfer',
@@ -42,6 +44,8 @@ export class JobTransferComponent {
 
   // Array For Displaying List
   ModuleList: any[] = [];
+  JobList: any[] = [];
+  Record: SearchShipment = new SearchShipment;
 
   constructor(
     private modalService: NgbModal,
@@ -62,6 +66,7 @@ export class JobTransferComponent {
   }
 
   InitComponent() {
+    this.JobList = new Array<any>();
     this.prefinyear = +this.gs.globalVariables.year_code - 1;
     this.finyear = +this.gs.globalVariables.year_code;
     this.pkid = '';
@@ -115,16 +120,24 @@ export class JobTransferComponent {
   }
 
   OnBlur(field: string) {
-    // switch (field) {
-    //   case 'refno':
-    //     {
-    //       break;
-    //     }
-    //   case 'remarks':
-    //     {
-    //       break;
-    //     }
-    // }
+    switch (field) {
+      case 'refno':
+        {
+          // this.JobList = new Array<any>();
+          // if (this.refno.indexOf(',') >= 0) {
+          //   var tempjob = this.refno.split(',');
+          //   for (var i = 0; i < tempjob.length; i++) {
+          //     this.NewJobRecord(tempjob[i]);
+          //   }
+          //   this.refno = '';
+          // }
+          break;
+        }
+      case 'remarks':
+        {
+          break;
+        }
+    }
   }
 
   onLostFocus(field: string) {
@@ -151,10 +164,22 @@ export class JobTransferComponent {
   }
 
 
-  SearchRecord(controlname: string) {
+  SearchRecord(controlname: string, _invokefrm: string = "") {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (controlname == "jobtransfer") {
+      if (_invokefrm != "LIST") {
+      this.JobList = new Array<any>();
+      if (this.refno.indexOf(',') >= 0) {
+        var tempjob = this.refno.split(',');
+        for (var i = 0; i < tempjob.length; i++) {
+          this.NewJobRecord(tempjob[i]);
+        }
+        this.refno = '';
+        return;
+      }
+    }
+
       if (this.moduletype == "JOB" && this.modulecategory.indexOf("IMPORT") >= 0) {
         this.ErrorMessage = "Invalid Transfer";
         alert(this.ErrorMessage);
@@ -210,6 +235,14 @@ export class JobTransferComponent {
           this.InfoMessage = " Transfered Successfully ";
           alert(this.InfoMessage);
         }
+        if (_invokefrm == "LIST") {
+          for (let rec of this.JobList.filter(rec => rec.job_docno == SearchData.refno)) {
+            if (response.serror.length > 0)
+              rec.remarks = this.ErrorMessage;
+            else
+              rec.remarks = this.InfoMessage;
+          }
+        }
       },
         error => {
           this.loading = false;
@@ -219,5 +252,25 @@ export class JobTransferComponent {
 
   open(content: any) {
     this.modal = this.modalService.open(content);
+  }
+  NewJobRecord(_docno: string) {
+    this.Record = new SearchShipment();
+    this.Record.job_docno = _docno;
+    this.Record.job_year = this.prefinyear.toString();
+    this.Record.rec_category = this.modulecategory;
+    this.Record.type = this.moduletype;
+    this.JobList.push(this.Record);
+  }
+
+  Transfer(_rec: SearchShipment) {
+    this.refno = _rec.job_docno;
+    this.moduletype = _rec.type;
+    this.modulecategory = _rec.rec_category;
+    this.SearchRecord('jobtransfer',"LIST");
+  }
+  ClearList(){
+    this.ErrorMessage ='';
+    this.InfoMessage ='';
+    this.JobList = new Array<any>();
   }
 }

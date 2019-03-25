@@ -77,12 +77,40 @@
         <div class="col-sm-6">
             <div class="form-group row">
                 <div class="offset-2 col-sm-10">
-                    <button [disabled]="loading" (click)="SearchRecord('jobtransfer')"
+                    <button [disabled]="loading || JobList.length>0" (click)="SearchRecord('jobtransfer','DETAIL')"
                         class="btn btn-success btn-sm">Transfer</button>
+                    <button *ngIf="JobList.length>0" [disabled]="loading" (click)="ClearList()"
+                        class="btn btn-success btn-sm">Clear List</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="JobList.length>0" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+            <tr>
+                <th width="5%">TYPE</th>
+                <th width="10%">CATEGORY</th>
+                <th width="5%">YEAR</th>
+                <th width="10%">JOB#</th>
+                <th width="10%">TRANSFER</th>
+                <th width="60%">REMARKS</th>
+            </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of JobList">
+            <tr>
+                <td>{{rec.type}}</td>
+                <td>{{rec.rec_category}}</td>
+                <td>{{rec.job_year}}</td>
+                <td>{{rec.job_docno}}</td>
+                <td><i class="fa fa-exchange fa-lg pointer" style="font-size:24px" aria-hidden="true"
+                        (click)="Transfer(rec)"></i></td>
+                <td>{{rec.remarks}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <br />
