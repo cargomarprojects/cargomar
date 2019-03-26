@@ -1487,6 +1487,12 @@ export class JobComponent {
     this.mainService.GenerateEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
+        if (edifiletype == 'CHECKLIST') {
+          if (response.serror.toString().indexOf("ESANCHIT") >= 0) {
+            alert(response.serror.toString());
+          }
+        }
+
         if (_type == 'SIGN')
           this.SignDoc(response.signedtext);
         else
