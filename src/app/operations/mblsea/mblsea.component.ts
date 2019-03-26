@@ -1323,7 +1323,7 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = response.subject;
+        this.sSubject = "MBLBK#-" + this.Record.book_slno + ", " + response.subject;
         this.AttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
