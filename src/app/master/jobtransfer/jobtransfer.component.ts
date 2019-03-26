@@ -261,7 +261,8 @@ export class JobTransferComponent {
     this.Record.job_year = this.prefinyear.toString();
     this.Record.rec_category = this.modulecategory;
     this.Record.type = this.moduletype;
-    this.JobList.push(this.Record);
+    if (_docno != '')
+      this.JobList.push(this.Record);
   }
 
   Transfer(_rec: SearchShipment) {

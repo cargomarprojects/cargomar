@@ -910,6 +910,14 @@
                           </div>
                         </div>
                       </div>
+                      <div class="col-sm-4">
+                        <div class="form-group row">
+                            <span [style.color]="Record.job_marks.length > 300 ?'red':'green'" >{{Record.job_marks.length}}&nbsp;CHARACTERS</span>
+                        </div>
+                        <div class="form-group row">
+                            <span *ngIf="Record.job_marks.length > 300" [style.color]="'red'" >ONLY 300 CHARACTERS WILL BE SENT TO CUSTOMS</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </ng-template>

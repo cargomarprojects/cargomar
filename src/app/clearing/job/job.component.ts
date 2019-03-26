@@ -1423,6 +1423,9 @@ export class JobComponent {
 
   }
 
+  OnChange(field: string) {
+  }
+
   folder_id: string;
 
 
@@ -1512,7 +1515,7 @@ export class JobComponent {
   }
   SetMarksNos() {
     let str: string = "";
-    
+
     str = "I/WE UNDERTAKE TO ABIDE BY THE PROVISIONS OF FOREIGN EXCHANGE MANAGEMENT ACT, 1999, ";
     str += "AS AMENDED FROM TIME TO TIME, INCLUDING REALISATION OR REPATRIATION OF FOREIGN EXCHANGE TO";
     str += " OR FROM INDIA.(WE INTEND TO CLAIM REWARDS UNDER MEIS & ROSCL)";
