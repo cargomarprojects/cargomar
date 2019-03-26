@@ -912,10 +912,10 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group row">
-                            <span [style.color]="Record.job_marks.length > 300 ?'red':'green'" >{{Record.job_marks.length}}&nbsp;CHARACTERS</span>
+                            <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"  [style.color]="Record.job_marks.length > 300 ?'red':'green'" >{{Record.job_marks.length}}&nbsp;CHARACTERS</label>
                         </div>
                         <div class="form-group row">
-                            <span *ngIf="Record.job_marks.length > 300" [style.color]="'red'" >ONLY 300 CHARACTERS WILL BE SENT TO CUSTOMS</span>
+                            <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" [style.color]="'red'" *ngIf="Record.job_marks.length > 300" >ONLY 300 CHARACTERS WILL BE SENT TO CUSTOMS</label>
                         </div>
                       </div>
                     </div>
