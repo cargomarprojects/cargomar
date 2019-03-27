@@ -9,13 +9,13 @@ import { Modulem } from '../models/modulem';
 import { MenuService } from '../services/menu.service';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
+    selector: 'app-newyear',
+    templateUrl: './newyear.component.html',
     providers : [MenuService]
 })
-export class MenuComponent {
+export class NewYearComponent {
     // Local Variables 
-    title = 'MENU MASTER';
+    title = 'NEW FIN-YEAR';
     loading = false;
     currentTab = 'LIST';
     
