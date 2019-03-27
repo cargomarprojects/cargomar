@@ -209,10 +209,16 @@ export class EdiOrderComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == "DOWNLOAD") {
-          if (response.serror == "Complete")
-            this.InfoMessage = "Download Complete";
-          else
-            this.ErrorMessage = response.serror;
+          if (response.serror == "Complete") {
+            this.InfoMessage = response.dfilecount + " Files Downloaded";
+            alert(this.InfoMessage);
+          }
+          else {
+            if (response.serror) {
+              this.ErrorMessage = response.serror;
+              alert(this.ErrorMessage);
+            }
+          }
         } else {
           this.List('NEW');
         }

@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="col">
     <label *ngIf="type=='MENUCALL'" >{{title}}</label>
-    <button  class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <button *ngIf="type=='MENUCALL'" class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>

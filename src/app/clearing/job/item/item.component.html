@@ -1,6 +1,3 @@
-
-
-
 <div class="page-list">
 
   <div class="page-search">
@@ -40,7 +37,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" (click)="ActionHandler('EDIT',rec.itm_pkid,i)" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList; let i = index" (click)="ActionHandler('EDIT',rec.itm_pkid,i)"
+          [class.active]="i == selectedRowIndex">
           <td>{{i+1}}</td>
           <td>{{rec.itm_invoice_no}}</td>
           <td>{{rec.itm_desc}}</td>
@@ -48,7 +46,8 @@
           <td>{{rec.itm_unit_rate}}</td>
           <td>{{rec.itm_amount}}</td>
           <td>
-            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.itm_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.itm_pkid,name:i+1}"
+              (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
       </tbody>
@@ -71,24 +70,28 @@
               <div class="form-group row">
                 <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">INVOICE#</label>
                 <div class="col-sm-9">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="inv_no" required maxlength="30" />
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="inv_no" required
+                    maxlength="30" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
                 <div style="padding-right:0" class="col-sm-6">
-                  <app-autocomplete #itmmLov [inputdata]="ITMMASTERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #itmmLov [inputdata]="ITMMASTERRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
-                  <div *ngIf="mode=='EDIT'" class="col-sm-3">
-                    <button [disabled]="loading" (click)="UpdateItmMaster()" class="btn btn-default btn-sm">UPDATE</button>
-                  </div>
+                <div *ngIf="mode=='EDIT'" class="col-sm-3">
+                  <button [disabled]="loading" (click)="UpdateItmMaster()"
+                    class="btn btn-default btn-sm">UPDATE</button>
                 </div>
+              </div>
 
               <div class="form-group row">
                 <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">Description</label>
                 <div class="col-sm-9">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.itm_desc" (blur)="OnBlur('itm_desc')" required maxlength="180"></textarea>
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.itm_desc"
+                    (blur)="OnBlur('itm_desc')" required maxlength="180"></textarea>
                 </div>
               </div>
 
@@ -99,37 +102,47 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Unit.Type</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="UNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="UNITRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Factor</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_factor" (blur)="OnBlur('itm_unit_factor')" required maxlength="10" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_factor"
+                    (blur)="OnBlur('itm_unit_factor')" required maxlength="10" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_qty" (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_qty"
+                    (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')" required maxlength="14" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
                 <div class="col-sm-4">
                   <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="ex_rate" />
                 </div>
               </div>
-
-
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Unit.Rate</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_rate" (blur)="OnBlur('itm_unit_rate')" required maxlength="16" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_rate"
+                    (blur)="OnBlur('itm_unit_rate')" required maxlength="16" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Amt</label>
                 <div class="col-sm-4">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_amount" (blur)="OnBlur('itm_amount')" required maxlength="14" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_amount"
+                    (blur)="OnBlur('itm_amount')" required maxlength="14" />
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" 
+                  [style.color]="Record.itm_desc.length > 119 ?'red':'green'">{{Record.itm_desc.length}}&nbsp;CHARACTERS</label>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label  col-form-label-sm" 
+                 style="padding: 0%" [style.color]="'red'" *ngIf="Record.itm_desc.length > 119" >ONLY 119 CHARACTERS WILL BE SENT TO CUSTOMS</label>
+              </div>
             </div>
 
             <div class="col-sm-4">
@@ -137,33 +150,39 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Cartons</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_total_cartons" required maxlength="10" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_total_cartons"
+                    required maxlength="10" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">CBM</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_cbm" (blur)="OnBlur('itm_cbm')" required maxlength="14" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_cbm"
+                    (blur)="OnBlur('itm_cbm')" required maxlength="14" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Nt.Wt</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_ntwt" (blur)="OnBlur('itm_ntwt')" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_ntwt"
+                    (blur)="OnBlur('itm_ntwt')" required maxlength="14" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Gr.Wt</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_grwt" (blur)="OnBlur('itm_grwt')" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_grwt"
+                    (blur)="OnBlur('itm_grwt')" required maxlength="14" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">PMV</label>
                 <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv" (blur)="OnBlur('itm_pmv')" required maxlength="14" />
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv"
+                    (blur)="OnBlur('itm_pmv')" required maxlength="14" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">PMV.Total</label>
                 <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv_total" (blur)="OnBlur('itm_pmv_total')" required maxlength="14" />
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv_total"
+                    (blur)="OnBlur('itm_pmv_total')" required maxlength="14" />
                 </div>
               </div>
 
@@ -181,25 +200,30 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Scheme</label>
                 <div class="col-sm-9">
-                  <app-autocomplete #LinerLov [inputdata]="SCHEMERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="SCHEMERECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">RITC</label>
                 <div class="col-sm-9">
-                  <app-autocomplete #LinerLov [inputdata]="RITCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="RITCRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">DBK Code</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="DBKRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="DBKRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_qty" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_qty" required
+                    maxlength="14" />
                 </div>
               </div>
 
@@ -211,9 +235,11 @@
                 <div class="col-sm-2">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_unit" />
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value Cap</label>
+                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value
+                  Cap</label>
                 <div class="col-sm-3">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_valuecap" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_dbk_valuecap" />
                 </div>
               </div>
 
@@ -222,33 +248,41 @@
                 <div class="col-sm-4">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_rosl_rate" />
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value Cap</label>
+                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value
+                  Cap</label>
                 <div class="col-sm-3">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_rosl_valuecap" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_rosl_valuecap" />
                 </div>
               </div>
 
-              
+
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">STR Code</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="STRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="STRRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label  col-form-label-sm">Rate</label>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-2 col-form-label  col-form-label-sm">Rate</label>
                 <div class="col-sm-3">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_strrefund_rate" required maxlength="10" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_strrefund_rate" required maxlength="10" />
                 </div>
               </div>
-              
+
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">CESS Code</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_code" required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_code" required
+                    maxlength="15" />
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_qty" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_qty" required
+                    maxlength="14" />
                 </div>
               </div>
 
@@ -270,18 +304,22 @@
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">END USE</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="ENDUSERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="ENDUSERECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label  col-form-label-sm">HAWB#</label>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-1 col-form-label  col-form-label-sm">HAWB#</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_hawb" (blur)="OnBlur('itm_hawb')" required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_hawb"
+                    (blur)="OnBlur('itm_hawb')" required maxlength="15" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">IGST Pay.Status</label>
                 <div class="col-sm-8">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_pay_status" (change)="OnChange('itm_igst_pay_status')" >
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_pay_status"
+                    (change)="OnChange('itm_igst_pay_status')">
                     <option [value]="'NA'">NA</option>
                     <option [value]="'LUT'">LUT-Export Under Bond</option>
                     <option [value]="'P'">P-Export Against Payment</option>
@@ -292,18 +330,24 @@
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label  col-form-label-sm">Taxable Value</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_taxable_value" (blur)="OnBlur('itm_taxable_value')" (change)="OnChange('itm_taxable_value')" (focus)="OnFocus('itm_taxable_value')" required maxlength="16" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_taxable_value"
+                    (blur)="OnBlur('itm_taxable_value')" (change)="OnChange('itm_taxable_value')"
+                    (focus)="OnFocus('itm_taxable_value')" required maxlength="16" />
                 </div>
-                <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label  col-form-label-sm">IGST%</label>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-1 col-form-label  col-form-label-sm">IGST%</label>
                 <div class="col-sm-3">
-                  <input type="number"  class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_rate" (blur)="OnBlur('itm_igst_rate')" (change)="OnChange('itm_igst_rate')" (focus)="OnFocus('itm_igst_rate')" required maxlength="10" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_rate"
+                    (blur)="OnBlur('itm_igst_rate')" (change)="OnChange('itm_igst_rate')"
+                    (focus)="OnFocus('itm_igst_rate')" required maxlength="10" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label  col-form-label-sm">IGST Amount</label>
                 <div class="col-sm-8">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_amt" (blur)="OnBlur('itm_igst_amt')" required maxlength="16" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_amt"
+                    (blur)="OnBlur('itm_igst_amt')" required maxlength="16" />
                 </div>
               </div>
 
@@ -334,7 +378,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Third.Party</label>
                 <div class="col-sm-10">
-                  <app-autocomplete #LinerLov [inputdata]="THRDSHPRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="THRDSHPRRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
 
@@ -342,14 +387,16 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Branch#</label>
                 <div class="col-sm-10">
-                  <app-autocomplete #LinerLov [inputdata]="THRDADDRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="THRDADDRRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                 <div class="col-sm-10">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_third_party_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_third_party_name" />
                 </div>
               </div>
 
@@ -358,7 +405,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                 <div class="col-sm-10">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.itm_third_party_br_address" [disabled]="true" maxlength="1000"></textarea>
+                  <textarea rows="3" class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_third_party_br_address" [disabled]="true" maxlength="1000"></textarea>
                 </div>
               </div>
 
@@ -370,7 +418,8 @@
               </div>
 
               <div *ngIf="nfei=='Y' && Record.itm_reward" class="form-group row">
-                <label style="color: red" class="offset-2 col-sm-10 col-form-label col-form-label-sm">For NFEI Shipments Reward item cannot be checked</label>
+                <label style="color: red" class="offset-2 col-sm-10 col-form-label col-form-label-sm">For NFEI Shipments
+                  Reward item cannot be checked</label>
               </div>
 
             </div>
@@ -385,8 +434,10 @@
               <div class="form-group row">
                 <div class="col-sm-8">
                   <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
-                  <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
-                  <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm" (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
+                  <button [disabled]="loading" (click)="ActionHandler('ADD','')"
+                    class="btn btn-default btn-sm">NEW</button>
+                  <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
+                    (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
                 </div>
               </div>
               <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.itm_pkid)" *ngIf="mode=='EDIT'" class="btn btn-default btn-sm">REMOVE</button>-->
@@ -433,6 +484,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-esanchitlink [jobid]="parentid" [linktype]="'ITEM'" [linkid]="pkid" [linkno]="Record.itm_desc"></app-esanchitlink>
+    <app-esanchitlink [jobid]="parentid" [linktype]="'ITEM'" [linkid]="pkid" [linkno]="Record.itm_desc">
+    </app-esanchitlink>
   </div>
 </ng-template>

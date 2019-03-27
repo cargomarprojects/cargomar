@@ -11,6 +11,10 @@ export class SearchShipment {
   consignee_name: string;
   agent_name: string;
 
+  job_year: string;
+  rec_category: string;
+  remarks: string;
+
   rec_mode: string;
 
   _globalvariables: GlobalVariables;
