@@ -50,7 +50,7 @@ export class OrderListComponent {
   from_date: string = '';
   to_date: string = '';
   ord_showpending: boolean = false;
-  ord_status: string = "REPORTED";
+  ord_status: string = "ALL";
   sort_colname: string = "a.rec_created_date desc";
 
   list_exp_id: string = "";
@@ -298,7 +298,7 @@ export class OrderListComponent {
     this.job_docno = "";
     this.ord_po = "";
     this.ord_invoice = "";
-    this.ord_status = "REPORTED";
+    this.ord_status = "ALL";
     this.sort_colname = "a.rec_created_date desc";
     this.SortList = [
       { "colheadername": "CREATED", "colname": "a.rec_created_date desc" },

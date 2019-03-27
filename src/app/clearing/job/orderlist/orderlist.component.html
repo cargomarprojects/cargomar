@@ -82,6 +82,7 @@
                     <label class="col-1 col-form-label col-form-label-sm">Status</label>
                     <div class="col-4">
                       <select class="form-control form-control-sm" [(ngModel)]="ord_status">
+                        <option [value]="'ALL'">ALL</option>
                         <option [value]="'REPORTED'">REPORTED</option>
                         <option [value]="'APPROVED'">APPROVED</option>
                         <option [value]="'CANCELLED'">CANCELLED</option>
