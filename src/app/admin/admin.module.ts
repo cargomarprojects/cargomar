@@ -10,6 +10,9 @@ import { MenuComponent } from './menu/menu.component';
 import { ModuleComponent } from './module/module.component';
 import { RightsComponent } from './rights/rights.component';
 
+
+import { NewYearComponent } from './newyear/newyear.component';
+
 @NgModule({
     imports: [
         SharedModule, 
@@ -21,7 +24,8 @@ import { RightsComponent } from './rights/rights.component';
         CompanyComponent,
         MenuComponent,
         ModuleComponent,
-        RightsComponent
+        RightsComponent,
+        NewYearComponent
    ],
     providers: [
     ],
