@@ -29,5 +29,11 @@ export class ModuleService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/Module/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    newyear(SearchData :any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/Module/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
+
 }
 
