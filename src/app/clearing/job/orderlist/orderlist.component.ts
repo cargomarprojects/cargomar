@@ -372,11 +372,7 @@ export class OrderListComponent {
 
   //// Query List Data
   List(_type: string) {
-
-
-
     this.loading = true;
-
     this.selectcheck = false;
     this.selectcheckbox = false;
 
