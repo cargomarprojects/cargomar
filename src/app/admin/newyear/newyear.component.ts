@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
-
-
 import { ModuleService } from '../services/module.service';
 
 @Component({
@@ -17,18 +15,10 @@ export class NewYearComponent {
     loading = false;
     currentTab = 'DETAILS';
     
-    searchstring = '';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
-
     sub: any;
     urlid: string;
 
-    
-
-    ErrorMessage = "User Details";
+    ErrorMessage = "New Year Setup";
     
     mode = '';
     pkid = '';
@@ -42,27 +32,17 @@ export class NewYearComponent {
         private mainService: ModuleService,
         private route: ActivatedRoute,
         private gs: GlobalService
-    ) {
-        this.page_count = 0;
-        this.page_rows = 50;
-        this.page_current = 0;
-
-        //this.List("NEW"); this is moved to LoadCombo Function
-    }
+    ) {}
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-    
     }
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
-        
     }
-
 
     NewRecord() {
     }
-
 
     // Save Data
     NewYear() {
@@ -81,7 +61,7 @@ export class NewYearComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ErrorMessage = "Save Complete";
-        
+                alert("New Fin Year Created");
             },
             error => {
               this.loading = false;
@@ -102,7 +82,6 @@ export class NewYearComponent {
     Close() {
         this.gs.ClosePage('home');
     }
-
 
 
 }
