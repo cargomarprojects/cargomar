@@ -34,6 +34,11 @@ export class ModuleService {
     }
 
 
+    TransferBalance(SearchData :any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/Module/TransferBalance', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
 
 }
 
