@@ -7,13 +7,17 @@ import { MenuComponent } from './menu/menu.component';
 import { ModuleComponent } from './module/module.component';
 import { RightsComponent } from './rights/rights.component';
 
+import { NewYearComponent } from './newyear/newyear.component';
+
+
 const routes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'company/:type', component: CompanyComponent },
     { path: 'branch/:type', component: CompanyComponent },
     { path: 'menu', component: MenuComponent },
     { path: 'module', component: ModuleComponent },
-    { path: 'rights', component: RightsComponent }
+    { path: 'rights', component: RightsComponent },
+    { path: 'newyear', component: NewYearComponent }
 ];
 
 @NgModule({

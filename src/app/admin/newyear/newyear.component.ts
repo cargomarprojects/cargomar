@@ -11,14 +11,16 @@ import { ModuleService } from '../services/module.service';
 })
 export class NewYearComponent {
     // Local Variables 
-    title = 'NEW FIN-YEAR';
+    title = 'Transfer Balance';
     loading = false;
     currentTab = 'DETAILS';
     
     sub: any;
     urlid: string;
 
-    ErrorMessage = "New Year Setup";
+    year_code : string;
+
+    ErrorMessage = "";
     
     mode = '';
     pkid = '';
@@ -32,7 +34,11 @@ export class NewYearComponent {
         private mainService: ModuleService,
         private route: ActivatedRoute,
         private gs: GlobalService
-    ) {}
+    ) {
+
+        this.year_code = this.gs.globalVariables.year_code;
+
+    }
 
     // Init Will be called After executing Constructor
     ngOnInit() {
@@ -57,6 +63,7 @@ export class NewYearComponent {
             current_year : this.gs.globalVariables.year_code,
             company_code :this.gs.globalVariables.comp_code,
             branch_code :this.gs.globalVariables.branch_code,
+            user_code :this.gs.globalVariables.user_code,            
         }
 
         this.mainService.newyear(SearchData)
@@ -71,6 +78,37 @@ export class NewYearComponent {
                 
             });
     }
+
+    TransferBalance() {
+        if (!this.allvalid())
+            return;
+        this.loading = true;
+        this.ErrorMessage = '';
+
+        //this.Record._globalvariables = this.gs.globalVariables;
+
+        let SearchData = {
+            current_year : this.gs.globalVariables.year_code,
+            company_code :this.gs.globalVariables.comp_code,
+            branch_code :this.gs.globalVariables.branch_code,
+            user_code :this.gs.globalVariables.user_code,
+        }
+
+        this.mainService.TransferBalance(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = response.status;
+                alert(this.ErrorMessage);
+            },
+            error => {
+              this.loading = false;
+              this.ErrorMessage = this.gs.getError(error);
+                
+            });
+    }
+
+
+
 
     allvalid() {
         let sError: string = "";
