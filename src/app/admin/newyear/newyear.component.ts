@@ -54,14 +54,16 @@ export class NewYearComponent {
         //this.Record._globalvariables = this.gs.globalVariables;
 
         let SearchData = {
-            finyear : 2001
+            current_year : this.gs.globalVariables.year_code,
+            company_code :this.gs.globalVariables.comp_code,
+            branch_code :this.gs.globalVariables.branch_code,
         }
 
         this.mainService.newyear(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = "Save Complete";
-                alert("New Fin Year Created");
+                this.ErrorMessage = response.status;
+                alert(this.ErrorMessage);
             },
             error => {
               this.loading = false;
