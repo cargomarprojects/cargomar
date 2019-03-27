@@ -15,7 +15,7 @@ import { Settings } from '../../master/models/settings';
 export class EsanchitDownloadComponent {
   // Local Variables 
   title = 'Esanchit List';
-    
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
@@ -27,7 +27,7 @@ export class EsanchitDownloadComponent {
   BR_ESANCHIT_EMAIL_PWD: string = '';
   BR_ESANCHIT_LOCATIONS: string = '';
   BR_START_INDEX: number = 0;
-   
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -100,7 +100,7 @@ export class EsanchitDownloadComponent {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
- 
+
 
   List(_type: string) {
     this.loading = true;
@@ -126,7 +126,7 @@ export class EsanchitDownloadComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-         
+
         this.RecordList = response.list;
         this.page_count = response.page_count;
         this.page_current = response.page_current;
@@ -135,14 +135,14 @@ export class EsanchitDownloadComponent {
         this.BR_ESANCHIT_EMAIL = response.email;
         this.BR_ESANCHIT_EMAIL_PWD = response.emailpwd;
         this.BR_ESANCHIT_LOCATIONS = response.locations;
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-    
+
   // Save Data
   Save(_type: string, _id: string = "") {
     if (!this.allvalid(_type))
@@ -183,24 +183,26 @@ export class EsanchitDownloadComponent {
           this.InfoMessage = "Save Complete";
         else if (_type == "DOWNLOAD") {
           this.InfoMessage = "Download Complete";
+          if (response.errormsg.length > 0)
+            this.InfoMessage += ", Error " + response.errormsg;
           alert(this.InfoMessage);
           this.List("NEW");
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
-  allvalid(_type:string) {
+  allvalid(_type: string) {
     let sError: string = "";
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     /*
       if (this.Record.ord_desc.trim().length <= 0) {
         bret = false;
@@ -213,7 +215,7 @@ export class EsanchitDownloadComponent {
 
     return bret;
   }
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
@@ -240,8 +242,8 @@ export class EsanchitDownloadComponent {
     this.user_admin = !this.user_admin;
   }
 
-  SavePasteData(){
+  SavePasteData() {
 
   }
-  
+
 }
