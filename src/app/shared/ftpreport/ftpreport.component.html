@@ -6,14 +6,14 @@
     </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-search">
+    <div *ngIf="type =='FTPLOGREPORT'" class="page-search">
         <div class="row">
             <label class="col-1 col-form-label col-form-label-sm">From Date</label>
-            <div class="col-2">
+            <div class="col-1">
                 <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
             <label class="col-1 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-2">
+            <div class="col-1">
                 <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
             <label class="col-1 col-form-label col-form-label-sm">FTP To</label>
@@ -22,7 +22,11 @@
                     <option *ngFor="let rec of FtpTypeList" [value]="rec.param_code">{{rec.param_name}}</option>
                 </select>
             </div>
-            <div class="col">
+            <label class="col-1 col-form-label col-form-label-sm">Search</label>
+            <div class="col-2">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col-2">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             </div>
         </div>
@@ -49,18 +53,20 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
+                    <th width="5%">BRANCH</th>
                     <th width="5%">ID</th>
                     <th width="12%">DATE</th>
                     <th width="10%">ACTION</th>
                     <th width="5%">MODULE</th>
                     <th width="5%">FROM</th>
                     <th width="5%">TO</th>
-                    <th width="53%">SUBJECT</th>
+                    <th width="48%">SUBJECT</th>
                     <th width="5%">USER</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
+                    <td>{{rec.ftp_branch_code}}</td>
                     <td>{{rec.ftp_process_id}}</td>
                     <td>{{rec.ftp_date}}</td>
                     <td>{{rec.ftp_action}}</td>

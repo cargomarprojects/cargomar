@@ -107,6 +107,7 @@ export class XmlomsComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       type: this.type,
+      rowtype: _type,
       pkid: '',
       filedisplayname: ''
     };

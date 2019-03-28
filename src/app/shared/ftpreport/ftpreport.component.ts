@@ -15,7 +15,7 @@ export class FtpReportComponent {
   @Input() public pkid: string;
   @Input() public type: string = '';
   @Input() menuid: string = '';
-  
+
   menu_record: any;
   InitCompleted: boolean = false;
   disableSave = true;
@@ -64,27 +64,22 @@ export class FtpReportComponent {
 
   InitComponent() {
     this.menu_record = this.gs.getMenu(this.menuid);
-      if (this.menu_record) {
-        this.title = this.menu_record.menu_name;
-      }
+    if (this.menu_record) {
+      this.title = this.menu_record.menu_name;
+    }
     this.InitLov();
   }
 
   InitLov() {
-
-
   }
   LovSelected(_Record: SearchTable) {
-
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-     this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   LoadCombo() {
-
-
   }
 
   // Save Data
@@ -101,7 +96,10 @@ export class FtpReportComponent {
   SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
-
+    if (this.type == "FTPLOGREPORT")
+      this.page_rows = 30;
+    else
+      this.page_rows = 10;
     this.loading = true;
     let SearchData = {
       table: controlname,
@@ -138,8 +136,7 @@ export class FtpReportComponent {
           this.FtpTypeList = response.param;
           this.SearchRecord("ftpreport", "LOAD");
         }
-        else
-        {
+        else {
           this.RecordList = response.ftpreport;
           this.page_count = response.page_count;
           this.page_current = response.page_current;

@@ -28,6 +28,7 @@
   </div>
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="page-list">
+      Order List
       <div class="row">
         <div class="col-sm-6">
           <div style="height: 300px; overflow-y: scroll;">
@@ -36,6 +37,7 @@
                 <thead class="page-body-thead">
                   <tr>
                     <th>REF#</th>
+                    <th>PO.ID</th>
                     <th>PO#</th>
                     <th>STYLE</th>
                   </tr>
@@ -43,6 +45,7 @@
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"  (click)="Getagentrefno(rec.ord_agentref_id)">
                     <td>{{rec.ord_agentref_id}}</td>
+                    <td>{{rec.ord_uid}}</td>
                     <td>{{rec.ord_po}}</td>
                     <td>{{rec.ord_style}}</td>
                   </tr>
@@ -56,7 +59,7 @@
     <div class="page-details">
       <div class="col-sm-6">
         <div class="form-group row" style="color:black">
-          <label class="col-sm-2 col-form-label col-form-label-sm">REFERENCE#</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">REF#</label>
           <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_agentref_id"
               (blur)="OnBlur('ord_agentref_id')" required maxlength="30" />
