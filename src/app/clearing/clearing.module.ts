@@ -21,7 +21,7 @@ import { AgentBookComponent } from './job/agentbook/agentbook.component';
 import { TrackOrderComponent } from './job/trackorder/trackorder.component';
 import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component';
 import {EdiOrderComponent } from './job/ediorder/ediorder.component';
-
+import {EdiOrdUpdateComponent} from './job/ediordupdate/ediordupdate.component';
 
 @NgModule({
   imports: [
@@ -47,7 +47,8 @@ import {EdiOrderComponent } from './job/ediorder/ediorder.component';
     AgentBookComponent,
     TrackOrderComponent,
     WeekPlanningComponent,
-    EdiOrderComponent
+    EdiOrderComponent,
+    EdiOrdUpdateComponent
   ],
   providers: [
   ],

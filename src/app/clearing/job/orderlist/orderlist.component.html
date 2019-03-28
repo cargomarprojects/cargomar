@@ -157,6 +157,7 @@
             <thead class="page-body-thead">
               <tr>
                 <th><input type="checkbox" [(ngModel)]="selectcheck" (click)="SelectCheckbox()"></th>
+                <th>REF#</th>
                 <th>AGENT</th>
                 <th>SHIPPER</th>
                 <th>CONSIGNEE</th>
@@ -196,6 +197,7 @@
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
               <tr>
                 <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
+                <td>{{rec.ord_agentref_id}}</td>
                 <td (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_agent_name}}</td>
                 <td (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_exp_name}}</td>
                 <td>{{rec.ord_imp_name}}</td>

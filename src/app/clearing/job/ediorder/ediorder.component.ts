@@ -1,10 +1,11 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { EdiOrder } from '../../models/ediorder';
 import { EdiOrderService } from '../../services/ediorder.service';
 import { SearchTable } from '../../../shared/models/searchtable';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 //import { Settings } from '../../../master/models/settings';
 
 
@@ -25,6 +26,7 @@ export class EdiOrderComponent {
   menu_record: any;
   sub: any;
 
+  modal: any;
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -48,6 +50,9 @@ export class EdiOrderComponent {
   pkid = '';
   agent_id = '';
   update_type = "";
+  pono = "";
+  poid = "";
+  styleno = "";
 
   ctr: number;
 
@@ -58,6 +63,7 @@ export class EdiOrderComponent {
   RecordMissingList: EdiOrder[] = [];
 
   constructor(
+    private modalService: NgbModal,
     private mainService: EdiOrderService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -467,7 +473,31 @@ export class EdiOrderComponent {
     for (var i = 0; i < this.RecordList.length; i++) {
       this.RecordList[i].selected = this.selectcheckbox;
     }
-
   }
+
+
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+  ShowEdiUpdate(ediordupdt: any, _rec: EdiOrder) {
+    this.InfoMessage = '';
+    this.ErrorMessage = '';
+    this.pkid = _rec.pkid;
+    this.poid = _rec.id_po;
+    this.pono = _rec.po;
+    this.styleno = _rec.model_sku;
+    this.open(ediordupdt);
+  }
+  ModifiedRecords(params: any) {
+    // for (let rec of this.RecordList.filter(rec => rec.cost_pkid == params.sid)) {
+    //   if (params.saction == "SENT-ON")
+    //     rec.cost_sent_on = params.sdate;
+    //   if (params.saction == "CHECKED-ON")
+    //     rec.cost_checked_on = params.sdate;
+    // }
+
+    // this.modal.close();
+  }
+
 
 }
