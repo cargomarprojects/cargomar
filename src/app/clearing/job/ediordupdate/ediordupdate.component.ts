@@ -70,14 +70,14 @@ export class EdiOrdUpdateComponent {
 
     LoadCombo() {
         this.ErrorMessage = '';
-        this.SearchRecord('ordediupdate', 'LIST');
+        this.SearchRecord('ediordupdate', 'LIST');
     }
 
     // Save Data
     Save() {
         if (!this.allvalid())
             return;
-        this.SearchRecord('ordediupdate', 'SAVE');
+        this.SearchRecord('ediordupdate', 'SAVE');
     }
 
     allvalid() {
@@ -107,28 +107,32 @@ export class EdiOrdUpdateComponent {
         let SearchData = {
             pkid: this.pkid,
             rowtype: this.type,
-            ord_agentref_id: this.ord_agentref_id,
+            agent_refno: this.ord_agentref_id,
             table: controlname,
             type: _type,
+            pono:''
         };
 
+        SearchData.pono = this.pono;
         SearchData.pkid = this.pkid;
-        SearchData.ord_agentref_id = this.ord_agentref_id;
+        SearchData.agent_refno = this.ord_agentref_id;
         SearchData.table = controlname;
+
         this.gs.SearchRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.InfoMessage = '';
 
                 if (_type == "LIST") {
-                    if (response.ordediupdate.length > 0)
-                        this.ord_agentref_id = response.ordediupdate;
+                    if (response.ediordupdate.length > 0)
+                        this.ord_agentref_id = response.ediordupdate;
                     else
                         this.ord_agentref_id = "";
+                        this.RecordList=response.list;
                 }
                 else {
                     if (this.ModifiedRecords != null)
-                        this.ModifiedRecords.emit({ saction: this.type, sid: this.pkid, srefno: response.ordediupdate });
+                        this.ModifiedRecords.emit({ saction: 'SAVE', sid: this.pkid, srefno: response.ediordupdate });
                     this.InfoMessage = "Save Complete";
                 }
             },
@@ -151,6 +155,11 @@ export class EdiOrdUpdateComponent {
                     break;
                 }
         }
+    }
+
+    Getagentrefno(_refno:string)
+    {
+        this.ord_agentref_id=_refno;
     }
 
 }

@@ -68,7 +68,6 @@
                   <th><input type="checkbox" [(ngModel)]="selectcheck" (click)="SelectCheckbox()"></th>
                   <th>ID</th>
                   <th>REF#</th>
-                  <th>REF</th>
                   <th>UPDATED</th>
                   <th>STATUS</th>
                   <th>DIVISION</th>
@@ -99,8 +98,7 @@
                   [class.active]="i == selectedRowIndex">
                   <td><input type="checkbox" [(ngModel)]="rec.selected"></td>
                   <td>{{rec.id_po }}</td>
-                  <td>{{rec.agent_ref_no }}</td>
-                  <td><i class="fa fa-paper-plane  fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(ediordupdt,rec)"></i></td>
+                  <td>{{rec.agent_ref_no }}<i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(ediordupdt,rec)"></i></td>
                   <td>{{rec.updated == 'Y' ? 'YES' : 'NO'}}</td>
                   <td>{{rec.status}}</td>
                   <td>{{rec.division}}</td>

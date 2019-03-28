@@ -41,8 +41,8 @@
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
-                  <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
-                    <td>{{rec.ord_po}}</td>
+                  <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"  (click)="Getagentrefno(rec.ord_agentref_id)">
+                    <td>{{rec.ord_agentref_id}}</td>
                     <td>{{rec.ord_po}}</td>
                     <td>{{rec.ord_style}}</td>
                   </tr>

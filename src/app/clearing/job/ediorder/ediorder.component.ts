@@ -488,15 +488,13 @@ export class EdiOrderComponent {
     this.styleno = _rec.model_sku;
     this.open(ediordupdt);
   }
+  
   ModifiedRecords(params: any) {
-    // for (let rec of this.RecordList.filter(rec => rec.cost_pkid == params.sid)) {
-    //   if (params.saction == "SENT-ON")
-    //     rec.cost_sent_on = params.sdate;
-    //   if (params.saction == "CHECKED-ON")
-    //     rec.cost_checked_on = params.sdate;
-    // }
-
-    // this.modal.close();
+    for (let rec of this.RecordList.filter(rec => rec.pkid == params.sid)) {
+      if (params.saction == "SAVE")
+        rec.agent_ref_no = params.srefno;
+    }
+    this.modal.close();
   }
 
 
