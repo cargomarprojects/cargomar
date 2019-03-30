@@ -1410,6 +1410,12 @@ export class LedgerComponent {
       return;
     }
 
+    if (this.Recorddet.jv_curr_id == '') {
+      this.ErrorMessage = 'Currency Cannot Be Blank';
+      return;
+    }
+
+
     if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
       this.ErrorMessage = 'Invalid Sea/Air Code';
       return;
