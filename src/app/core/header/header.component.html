@@ -1,10 +1,10 @@
 <div *ngIf="gs.IsAuthenticated">
   <nav class="navbar  navbar-dark bg-primary">
-    <div>
-      <h4 style="color:white">{{gs.Company_Name}}</h4>
+    <div style="margin-top: 5px">
+      <h5 style="color:white">{{gs.Company_Name}}[{{gs.globalVariables.year_name}}]</h5>
     </div>
 
-    <div class="btn-group" [ngStyle]="{'margin':'1px'}" ngbDropdown *ngFor="let rech of gs.Modules">
+    <div class="btn-group" [ngStyle]="{'margin':'0px'}" ngbDropdown *ngFor="let rech of gs.Modules">
       <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{rech.module_name}}</button>
       <div class="dropdown-menu" ngbDropdownMenu>
         <div *ngFor="let rec of gs.MenuList" class="menulist">
@@ -14,13 +14,13 @@
       </div>
     </div>
 
-    <span style="color:white">
+    <span  style="color:white;margin-top: 5px">
       <label>{{gs.globalVariables.user_name}}</label>
       <label>|</label>
       <label>{{gs.globalVariables.branch_name}}</label>
       <label>|</label>
-      <label>{{gs.globalVariables.year_name}}</label>
-      <label>|</label>
+      <!-- <label>{{gs.globalVariables.year_name}}</label>
+      <label>|</label> -->
       <a (click)="Logout()">Logout</a>
     </span>
   </nav>
