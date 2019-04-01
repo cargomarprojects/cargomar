@@ -247,7 +247,7 @@ export class CcReportComponent {
     sWhere = " cc_type ='" + this.cc_type + "'"
     if (this.cc_type != "EMPLOYEE")
       sWhere += " and cc_year =" + this.gs.globalVariables.year_code;
-
+      
     this.CCRECORD.where = sWhere;
   }
 
