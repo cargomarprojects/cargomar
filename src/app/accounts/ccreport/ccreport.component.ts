@@ -187,10 +187,12 @@ export class CcReportComponent {
       return;
     }
 
-    if (_CanUpdate == "Y" && !(this.cc_type == "MBL SEA EXPORT" || this.cc_type == "MBL SEA IMPORT" || this.cc_type == "MAWB AIR EXPORT" || this.cc_type == "MAWB AIR IMPORT")) {
-      this.ErrorMessage = " Please select Master CC type and continue....";
-      alert(this.ErrorMessage);
-      return;
+    if (_CanUpdate == "Y") {
+      if (this.cc_type == "CNTR SEA EXPORT" || this.cc_type == "GENERAL JOB" || this.cc_type == "EMPLOYEE" || this.cc_type == "ACC CODE") {
+        this.ErrorMessage = "Cannot Update this type";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     this.loading = true;
@@ -230,6 +232,10 @@ export class CcReportComponent {
         });
   }
 
+  clearcc(){
+    this.InitLov();
+    this.ChangeCCList();
+  }
 
   Downloadfile(_type: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
@@ -247,7 +253,7 @@ export class CcReportComponent {
     sWhere = " cc_type ='" + this.cc_type + "'"
     if (this.cc_type != "EMPLOYEE")
       sWhere += " and cc_year =" + this.gs.globalVariables.year_code;
-      
+
     this.CCRECORD.where = sWhere;
   }
 
