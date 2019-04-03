@@ -1733,6 +1733,7 @@ export class JobComponent {
   LinkDocs(esanchitlink: any) {
     this.open(esanchitlink);
   }
+  
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);

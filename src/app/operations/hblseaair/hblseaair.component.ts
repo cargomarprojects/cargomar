@@ -53,10 +53,10 @@ export class HblSeaAirComponent {
 
     old_shipper_id = '';
     old_billto_id = '';
-  
+
     bCreditLimit: boolean = false;
 
-    
+
 
     sub: any;
     urlid: string;
@@ -78,7 +78,7 @@ export class HblSeaAirComponent {
     //JobTypeList: any[] = [];
 
     // Shipper
-    BILLTORECORD: SearchTable = new SearchTable();    
+    BILLTORECORD: SearchTable = new SearchTable();
     EXPRECORD: SearchTable = new SearchTable();
     EXPADDRECORD: SearchTable = new SearchTable();
     AGENTRECORD: SearchTable = new SearchTable();
@@ -222,7 +222,7 @@ export class HblSeaAirComponent {
         this.BILLTORECORD.id = "";
         this.BILLTORECORD.code = "";
         this.BILLTORECORD.name = "";
-        this.BILLTORECORD.parentid = "";        
+        this.BILLTORECORD.parentid = "";
 
 
         this.EXPRECORD = new SearchTable();
@@ -348,7 +348,7 @@ export class HblSeaAirComponent {
             this.Record.hbl_billto_id = _Record.id;
             this.Record.hbl_billto_code = _Record.code;
             this.Record.hbl_billto_name = _Record.name;
-          }        
+        }
         else if (_Record.controlname == "AGENT") {
 
             bchange = false;
@@ -682,15 +682,15 @@ export class HblSeaAirComponent {
 
     Save() {
         try {
-          if (this.old_shipper_id != this.Record.hbl_exp_id || this.old_billto_id != this.Record.hbl_billto_id)
-            this.CheckCrLimit(true);
-          else
-            this.SaveFinal();
+            if (this.old_shipper_id != this.Record.hbl_exp_id || this.old_billto_id != this.Record.hbl_billto_id)
+                this.CheckCrLimit(true);
+            else
+                this.SaveFinal();
         }
         catch (error) {
-          alert(error.message);
+            alert(error.message);
         }
-      }
+    }
 
 
     SaveFinal() {
@@ -769,40 +769,40 @@ export class HblSeaAirComponent {
     CheckCrLimit(bCallSave: boolean = false) {
 
         if (this.Record.hbl_exp_id == "") {
-          alert('Shipper cannot be blank');
-          return;
+            alert('Shipper cannot be blank');
+            return;
         }
-    
+
         this.loading = true;
         let SearchData = {
-          searchfrom : 'SI',
-          comp_code: this.gs.globalVariables.comp_code,
-          branch_code: this.gs.globalVariables.branch_code,
-          customerid: this.Record.hbl_exp_id,
-          billtoid: this.Record.hbl_billto_id
+            searchfrom: 'SI',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            customerid: this.Record.hbl_exp_id,
+            billtoid: this.Record.hbl_billto_id
         };
-    
+
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.GetCreditLimit(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.bCreditLimit = response.retvalue;
-            if (!this.bCreditLimit) {
-              this.ErrorMessage = response.message;
-              alert(response.message);
-            }
-            if (this.bCreditLimit && bCallSave) {
-              this.SaveFinal();
-            }
-          },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-            });
-      }
-    
-    
+            .subscribe(response => {
+                this.loading = false;
+                this.bCreditLimit = response.retvalue;
+                if (!this.bCreditLimit) {
+                    this.ErrorMessage = response.message;
+                    alert(response.message);
+                }
+                if (this.bCreditLimit && bCallSave) {
+                    this.SaveFinal();
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
+
 
 
     RefreshList() {
@@ -1021,5 +1021,8 @@ export class HblSeaAirComponent {
         this.InfoMessage = '';
         this.open(buysellrate);
     }
-
+    // ShowHistory(history: any) {
+    //     this.ErrorMessage = '';
+    //     this.open(history);
+    // }
 }
