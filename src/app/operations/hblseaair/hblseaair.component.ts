@@ -1021,8 +1021,8 @@ export class HblSeaAirComponent {
         this.InfoMessage = '';
         this.open(buysellrate);
     }
-    // ShowHistory(history: any) {
-    //     this.ErrorMessage = '';
-    //     this.open(history);
-    // }
+    ShowHistory(history: any) {
+        this.ErrorMessage = '';
+        this.open(history);
+    }
 }

@@ -654,7 +654,8 @@
           <div class="col">
             <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm">Mail/FTP</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)" class="btn btn-success btn-sm">FTPHistory</button>
+            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading" (click)="PrintCheckList('','SEA EXPORT','EXCEL')"
               class="btn btn-success btn-sm">Check
@@ -735,7 +736,7 @@
         [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" [agentname]="Record.book_agent_name"></app-mail>
     </div>
   </ng-template>
-  <ng-template #history let-c="close" let-d="dismiss">
+  <ng-template #ftphistory let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">History</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -744,5 +745,16 @@
     </div>
     <div class="modal-body">
        <app-ftpreport [type]="'MBL-SE'" [pkid]="pkid"></app-ftpreport>
+    </div>
+  </ng-template>
+  <ng-template #history let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">History</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
     </div>
   </ng-template>

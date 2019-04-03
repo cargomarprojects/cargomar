@@ -540,7 +540,7 @@
               <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>
-              <!-- <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button> -->
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -596,7 +596,7 @@
     <app-rateupdate [badd]="buysell_record.rights_add" [pkid]="pkid" [hblno]="Record.hbl_no" [category]="type" [type]="'HBL'"></app-rateupdate>
   </div>
 </ng-template>
-<!-- <ng-template #history let-c="close" let-d="dismiss">
+<ng-template #history let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">History</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -604,6 +604,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-history [pkid]="pkid" [type]="'HBL'"></app-history>
+    <app-history [pkid]="pkid" [type]="'HBL-SE-AE'"></app-history>
   </div>
-</ng-template> -->
+</ng-template>
