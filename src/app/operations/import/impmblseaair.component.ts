@@ -854,7 +854,8 @@ export class ImpMblSeaAirComponent {
       carrierid: this.sCarrier_ID,
       mblid: _Record.mbl_pkid,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
     };
 
     this.ErrorMessage = '';
