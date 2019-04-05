@@ -1166,7 +1166,8 @@ export class BuyRateComponent {
 
   // Detail Handling
   ActionHandlerDetail(action: string, rec: Ledgert) {
-    // this.ErrorMessage = '';
+    if (this.ErrorMessage.indexOf("Transactions Locked") < 0 && this.ErrorMessage.indexOf("Cannot Edit") < 0)
+      this.ErrorMessage = '';
     if (action == 'LIST') {
       this.DetailTab = 'LIST';
       this.modeDetail = '';

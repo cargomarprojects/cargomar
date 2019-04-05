@@ -34,7 +34,7 @@ export class SalaryMasterComponent {
 
   sub: any;
   urlid: string;
-
+  lock_record: boolean = false;
   porttype = 'PORT';
 
   ErrorMessage = "";
@@ -193,6 +193,10 @@ export class SalaryMasterComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
+
+    this.lock_record = true;
+    if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
+    this.lock_record = false;
   }
 
   // Save Data

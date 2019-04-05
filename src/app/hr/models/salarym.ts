@@ -106,6 +106,7 @@ export class Salarym {
   sal_ot: number;
   sal_lp: number;
 
+  sal_edit_code:string;
   rec_mode: string;
   rec_printed:boolean;
   _globalvariables: GlobalVariables;
