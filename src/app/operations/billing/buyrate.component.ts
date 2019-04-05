@@ -1166,7 +1166,7 @@ export class BuyRateComponent {
 
   // Detail Handling
   ActionHandlerDetail(action: string, rec: Ledgert) {
-    this.ErrorMessage = '';
+    // this.ErrorMessage = '';
     if (action == 'LIST') {
       this.DetailTab = 'LIST';
       this.modeDetail = '';
