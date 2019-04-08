@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { PayRollService } from '../services/payroll.service';
-  
+
 
 @Component({
   selector: 'app-payroll',
@@ -21,8 +21,9 @@ export class PayRollComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  chkallselected:boolean = false;
-  selectdeselect:boolean = false;
+  bAdmin: boolean = false;
+  chkallselected: boolean = false;
+  selectdeselect: boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -88,9 +89,13 @@ export class PayRollComponent {
   InitComponent() {
     this.empstatus = 'BOTH';
     this.bRemove = true;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
@@ -159,8 +164,7 @@ export class PayRollComponent {
     if (this.salmonth > 12) { //this.salmonth <= 0 ||
       this.ErrorMessage += " | Invalid Month";
     }
-    if (this.ErrorMessage.length > 0)
-    {
+    if (this.ErrorMessage.length > 0) {
       alert(this.ErrorMessage);
       return;
     }
@@ -172,7 +176,7 @@ export class PayRollComponent {
       searchstring: this.searchstring.toUpperCase(),
       salmonth: this.salmonth,
       salyear: this.salyear,
-      empstatus:this.empstatus,
+      empstatus: this.empstatus,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -192,24 +196,24 @@ export class PayRollComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
         this.Recorddet = response.record;
-        this.chkallselected=false;
-        this.selectdeselect=false;
+        this.chkallselected = false;
+        this.selectdeselect = false;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
-  
+
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
       pkid: Id,
     };
-     
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
@@ -218,11 +222,11 @@ export class PayRollComponent {
         this.mode = response.mode;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Salarym) {
@@ -248,11 +252,11 @@ export class PayRollComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -502,9 +506,9 @@ export class PayRollComponent {
   FindNetAmt() {
     let TotEarning: number = 0;
     let TotDeductn: number = 0;
-   // let PF_LimitAmt: number = 0;
-   // let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
-   // let ESIAmt: number = 0;
+    // let PF_LimitAmt: number = 0;
+    // let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
+    // let ESIAmt: number = 0;
 
     for (let rec of this.Record.DetList) {
       TotEarning += rec.e_amt1;
@@ -521,7 +525,7 @@ export class PayRollComponent {
     //  PF_LimitAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
     //PF_LimitAmt *= this.gs.defaultValues.pf_percent / 100;
     //PF_LimitAmt = this.gs.roundNumber(PF_LimitAmt, 0);
-    
+
     //ESIAmt=0
     //if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
     //  ESIAmt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
@@ -535,7 +539,7 @@ export class PayRollComponent {
       TotDeductn += rec.d_amt1;
       TotDeductn += rec.d_amt2;
     }
- 
+
     TotEarning = this.gs.roundNumber(TotEarning, 0);
     TotDeductn = this.gs.roundNumber(TotDeductn, 0);
 
@@ -549,7 +553,7 @@ export class PayRollComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.bRemove = true;
-    
+
     if (this.salyear <= 0) {
       this.ErrorMessage += " | Invalid Year";
     } else if (this.salyear < 100) {
@@ -558,14 +562,14 @@ export class PayRollComponent {
     if (this.salmonth <= 0 || this.salmonth > 12) {
       this.ErrorMessage += " | Invalid Month";
     }
-    
+
     if (_type == 'SAVE') {
       if (this.RecordList2.length <= 0) {
         alert("No Records Found");
         return;
       }
     }
-    
+
     let SalPkids: string = "";//Main List
     let ListMonth: number = 0;
     for (let rec of this.RecordList) {
@@ -613,11 +617,11 @@ export class PayRollComponent {
           this.List('NEW');
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   open(content: any) {
@@ -659,30 +663,29 @@ export class PayRollComponent {
         this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.sal_emp_id == Id), 1);
         alert("Removed Successfully");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
-   
+
   folder_id: string;
   PrintSalarySheet(_type: string = '') {
     this.ErrorMessage = ''
     let SalPkids: string = "";
-    if(_type=="PAYSLIP")
-    {
-    for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
-      if (SalPkids != "")
-      SalPkids += ",";
-      SalPkids += rec.sal_pkid;
+    if (_type == "PAYSLIP") {
+      for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
+        if (SalPkids != "")
+          SalPkids += ",";
+        SalPkids += rec.sal_pkid;
+      }
+      if (SalPkids == "") {
+        this.ErrorMessage = "Please select and Continue.....";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
-    if (SalPkids == "") {
-      this.ErrorMessage = "Please select and Continue.....";
-      alert(this.ErrorMessage);
-      return;
-    }
-  }
 
     this.loading = true;
     this.folder_id = this.gs.getGuid();
@@ -716,11 +719,11 @@ export class PayRollComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -737,20 +740,20 @@ export class PayRollComponent {
     let SalPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
       if (SalPkids != "")
-      SalPkids += ",";
+        SalPkids += ",";
       SalPkids += rec.sal_pkid;
     }
 
     if (_type == "PAYSLIP-ALL") {
-      Msg="Send Payslip to ALL Employees of "+this.gs.globalVariables.branch_name;
-      if(SalPkids!="")
-      Msg="Send Payslip to Selected Employees of "+this.gs.globalVariables.branch_name;
-      if (!confirm(Msg )) {
+      Msg = "Send Payslip to ALL Employees of " + this.gs.globalVariables.branch_name;
+      if (SalPkids != "")
+        Msg = "Send Payslip to Selected Employees of " + this.gs.globalVariables.branch_name;
+      if (!confirm(Msg)) {
         return;
       }
     }
-    
-  
+
+
     this.loading = true;
 
     let eSearchData = {
@@ -764,7 +767,7 @@ export class PayRollComponent {
       report_folder: this.gs.globalVariables.report_folder,
       salmonth: this.salmonth,
       salyear: this.salyear,
-      empstatus:this.empstatus,
+      empstatus: this.empstatus,
       salpkid: SalPkids
     };
 
@@ -781,10 +784,10 @@ export class PayRollComponent {
             alert(response.error);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }
