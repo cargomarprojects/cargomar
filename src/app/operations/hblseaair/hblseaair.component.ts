@@ -26,6 +26,7 @@ export class HblSeaAirComponent {
     buysell_record: any;
     bAdmin = false;
 
+    bDocs = false;
     bBilling = false;
     bJobIncome = false;
     bbuysellrate = false;
@@ -123,6 +124,7 @@ export class HblSeaAirComponent {
         this.bBilling = false;
         this.bJobIncome = false;
         this.bbuysellrate = false;
+        this.bDocs = false;
         this.hbl_no = "";
         let billrecord: any;
         let incomerecord: any;
@@ -160,6 +162,8 @@ export class HblSeaAirComponent {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_admin)
                 this.bAdmin = true;
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
         }
 
 

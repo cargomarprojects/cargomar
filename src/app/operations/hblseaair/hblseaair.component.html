@@ -560,6 +560,11 @@
         </ng-template>
       </ngb-tab>
 
+      <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
+        <ng-template ngbTabContent>
+          <app-upload [pkid]="pkid" [type]="type=='AIR EXPORT'?'HBL-AE':'HBL-SE'" [defaultdoctype]="'HBL/HAWB'" ></app-upload>
+        </ng-template>
+      </ngb-tab>
     </ngb-tabset>
 
   </div>
@@ -604,6 +609,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-history [pkid]="pkid" [type]="'HBL-SE-AE'"></app-history>
+    <app-history [pkid]="pkid" [type]="type=='AIR EXPORT'?'HBL-AE':'HBL-SE'"></app-history>
   </div>
 </ng-template>

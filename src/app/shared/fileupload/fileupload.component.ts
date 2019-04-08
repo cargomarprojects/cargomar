@@ -21,7 +21,8 @@ export class FileUploadComponent {
   @Input() public groupid: string = '';
   @Input() public type: string = '';
   @Input() public canupload: boolean = true;
-  
+  @Input() public defaultdoctype: string = '';
+
   title = 'Documents';
 
   ErrorMessage: string = '';
@@ -42,7 +43,7 @@ export class FileUploadComponent {
   ) {
 
   }
-  
+
   @ViewChild('fileinput') private fileinput: ElementRef;
 
   RecordList: documentm[] = [];
@@ -52,8 +53,8 @@ export class FileUploadComponent {
   ngOnInit() {
     this.LoadCombo();
   }
-  
-  
+
+
   LoadCombo() {
 
     let sid: string = '';
@@ -62,29 +63,35 @@ export class FileUploadComponent {
       type: 'type',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code
-      
+
 
     };
 
-    
+
     this.lovService.LoadDefault(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.DocTypeList = response.dtlist;
-
-        this.DocTypeList.forEach(Rec => {
-          if ( sid == '' )
+        if (this.DocTypeList != null) {
+          var REC = this.DocTypeList.find(rec => rec.param_name == this.defaultdoctype);
+          if (REC != null) {
+            sid = REC.param_pkid;
+          }
+        }
+        if (sid == '') {
+          this.DocTypeList.forEach(Rec => {
             sid = Rec.param_pkid;
-        });
+          });
+        }
 
         this.catg_id = sid;
 
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        alert( this.gs.getError(error));
-      });
+        error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        });
   }
 
 
@@ -99,7 +106,7 @@ export class FileUploadComponent {
     for (var i = 0; i < e.target.files.length; i++) {
       this.filesSelected = true;
       fname = e.target.files[i].name;
-      if (fname.indexOf('&') >=0 )
+      if (fname.indexOf('&') >= 0)
         isValidFile = false;
       if (fname.indexOf('%') >= 0)
         isValidFile = false;
@@ -132,7 +139,7 @@ export class FileUploadComponent {
 
     let frmData: FormData = new FormData();
 
-    
+
     frmData.append("COMPCODE", this.gs.globalVariables.comp_code);
     frmData.append("BRANCHCODE", this.gs.globalVariables.branch_code);
     frmData.append("PARENTID", this.pkid);
@@ -140,45 +147,45 @@ export class FileUploadComponent {
     frmData.append("TYPE", this.type);
     frmData.append("CATGID", this.catg_id);
     frmData.append("CREATEDBY", this.gs.globalVariables.user_code);
-    
+
 
     for (var i = 0; i < this.myFiles.length; i++) {
       frmData.append("fileUpload", this.myFiles[i]);
     }
 
     this.http2.post<any>(
-      this.gs.baseUrl + '/api/General/UploadFiles',frmData, this.gs.headerparam2('authorized-fileupload')).subscribe(
-      data => {
-        this.loading = false;
-        this.filesSelected = false;
-        this.fileinput.nativeElement.value = '';
-        this.List('NEW');
-        alert('Upload Complete');
-      },
-      error => {
-        this.loading = false;
-        alert('Failed');
-      }
+      this.gs.baseUrl + '/api/General/UploadFiles', frmData, this.gs.headerparam2('authorized-fileupload')).subscribe(
+        data => {
+          this.loading = false;
+          this.filesSelected = false;
+          this.fileinput.nativeElement.value = '';
+          this.List('NEW');
+          alert('Upload Complete');
+        },
+        error => {
+          this.loading = false;
+          alert('Failed');
+        }
       );
   }
 
 
 
 
-  List(_type: string, _subtype : string = '') {
+  List(_type: string, _subtype: string = '') {
 
     this.loading = true;
 
     let SearchData = {
       type: this.type,
-      subtype : _subtype,
+      subtype: _subtype,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       parent_id: this.pkid,
-      group_id:this.groupid
+      group_id: this.groupid
     };
 
-    
+
 
 
     this.lovService.DocumentList(SearchData)
@@ -186,15 +193,15 @@ export class FileUploadComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        alert(this.gs.getError(error));
-      });
+        error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        });
   }
 
 
   ShowFile(filename: string) {
-    this.Downloadfile(filename,"",filename);
+    this.Downloadfile(filename, "", filename);
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -214,7 +221,7 @@ export class FileUploadComponent {
       pkid: event.id,
       type: this.type,
       parentid: this.pkid,
-      user_code : this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.ErrorMessage = '';
@@ -224,10 +231,10 @@ export class FileUploadComponent {
         this.loading = false;
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.doc_pkid == this.pkid), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
