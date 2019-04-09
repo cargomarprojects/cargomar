@@ -25,13 +25,15 @@ export class MailComponent {
   @Input() public AttachList = new Array<any>();
   @Input() public canftp: boolean = false;
   @Input() public agentname: string = '';
+  @Input() public agentcode: string = '';
   @Input() public updatesql: string = '';
+  @Input() public rootpage: string = 'MAILPAGE';
+  @Input() public FtpAttachList = new Array<any>();
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
 
   menu_record: any;
-
   showattach: boolean = false;
   catg_id: string = 'OTHERS';
   myFiles: string[] = [];
@@ -42,7 +44,7 @@ export class MailComponent {
   currentTab = 'LIST';
   sub: any;
   urlid: string;
-
+  rdbchkd: true;
   to_ids: string = '';
   cc_ids: string = '';
   bcc_ids: string = '';
@@ -101,7 +103,7 @@ export class MailComponent {
     this.CUSTRECORD.controlname = "CUSTOMER";
     this.CUSTRECORD.displaycolumn = "CODE";
     this.CUSTRECORD.type = "CUSTOMER";
-    this.CUSTRECORD.where = " CUST_IS_AGENT <> 'Y' ";
+    //this.CUSTRECORD.where = " CUST_IS_AGENT <> 'Y' ";
     this.CUSTRECORD.id = "";
     this.CUSTRECORD.code = "";
     this.CUSTRECORD.name = "";
@@ -271,6 +273,12 @@ export class MailComponent {
             this.bcc_ids = response.bcc_ids;
           this.message += response.mailsignature;
           this.FtpTypeList = response.ftplist;
+          if (this.FtpTypeList != null) {
+            var REC = this.FtpTypeList.find(rec => rec.param_id1 == this.agentcode);
+            if (REC != null) {
+              this.ftptype_id = REC.param_pkid;
+            }
+          }
         }
         else if (_type == "SAVE") {
           this.InfoMessage = "Save Complete";
@@ -322,17 +330,17 @@ export class MailComponent {
 
     let filename: string = "";
     let filenameack: string = "";
-    if (this.AttachList != null) {
-      for (let rec of this.AttachList) {
+    if (this.FtpAttachList != null) {
+      for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")
             filename = filename.concat(",");
           if (filenameack != "")
             filenameack = filenameack.concat(",");
           if (rec.fileisack == 'Y')
-            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder,"~", rec.fileprocessid);
+            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
           else
-            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder,"~", rec.fileprocessid);
+            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
         }
       }
     }
@@ -350,8 +358,8 @@ export class MailComponent {
       user_pkid: this.gs.globalVariables.user_pkid,
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
-      subject:'',
-      updatesql:''
+      subject: '',
+      updatesql: ''
     };
 
     SearchData.table = 'ftp';
@@ -366,7 +374,7 @@ export class MailComponent {
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.subject = this.subject;
-    SearchData.updatesql=this.updatesql;
+    SearchData.updatesql = this.updatesql;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -411,7 +419,7 @@ export class MailComponent {
 
 
   uploadFiles() {
-    if (this.catg_id == '') {
+    if (this.catg_id == '' && this.rootpage == "FTPPAGE") {
       alert('Pls Select Category');
       return;
     }
@@ -442,9 +450,15 @@ export class MailComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
-          if (this.AttachList == null)
-            this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N',fileprocessid:'' });
+          if (this.rootpage == "FTPPAGE") {
+            if (this.FtpAttachList == null)
+              this.FtpAttachList = new Array<any>();
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+          } else {
+            if (this.AttachList == null)
+              this.AttachList = new Array<any>();
+            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+          }
           //this.ShowHideAttach(); 
         },
         error => {
@@ -456,4 +470,12 @@ export class MailComponent {
   ShowHideAttach() {
     this.showattach = !this.showattach;
   }
+  ShowPage(_type: string) {
+    // this.rootpage =_type;
+    if (_type == "MAIL")
+      this.rootpage = "MAILPAGE";
+    else
+      this.rootpage = "FTPPAGE";
+  }
+
 }

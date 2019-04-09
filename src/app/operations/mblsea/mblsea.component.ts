@@ -61,6 +61,7 @@ export class MblSeaComponent {
   mode = '';
   pkid = '';
 
+  FtpAttachList: any[] = [];
   AttachList: any[] = [];
   FileList: FileDetails[] = [];
 
@@ -123,7 +124,7 @@ export class MblSeaComponent {
     this.folder_chk = false;
     this.bAdmin = false;
     this.bDocs = false;
-
+    this.AttachList = new Array<any>();
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
 
@@ -1327,10 +1328,10 @@ export class MblSeaComponent {
       .subscribe(response => {
         this.loading = false;
         this.sSubject = "MBLBK#-" + this.Record.book_slno + ", " + response.subject;
-        this.AttachList = new Array<any>();
+        this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid });
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid });
         }
         this.open(ftpsent);
       },
@@ -1339,6 +1340,7 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+  
   ShowFtpHistory(ftphistory: any) {
     this.ErrorMessage = '';
     this.open(ftphistory);

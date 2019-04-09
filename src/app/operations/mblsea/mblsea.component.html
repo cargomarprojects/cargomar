@@ -17,11 +17,13 @@
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-            <app-date [inputdate]="gs.globalData.mbl_fromdate" (ValueChanged)="gs.globalData.mbl_fromdate=$event"></app-date>
+            <app-date [inputdate]="gs.globalData.mbl_fromdate" (ValueChanged)="gs.globalData.mbl_fromdate=$event">
+            </app-date>
           </div>
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-            <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event"></app-date>
+            <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event">
+            </app-date>
           </div>
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-4">
@@ -39,10 +41,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -114,10 +119,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -144,68 +152,78 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label  col-form-label-sm">Booking No</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no" (blur)="OnBlur('book_no')"
-                    required maxlength="30" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no"
+                    (blur)="OnBlur('book_no')" required maxlength="30" />
                 </div>
                 <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                 <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event"></app-date>
+                  <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event">
+                  </app-date>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label  col-form-label-sm">MBL No</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno" (blur)="OnBlur('book_mblno')"
-                    required maxlength="30" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
+                    (blur)="OnBlur('book_mblno')" required maxlength="30" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="SHIPPERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="SHIPPERRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_exporter_name"
-                    (blur)="OnBlur('book_exporter_name')" required maxlength="60" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_exporter_name" (blur)="OnBlur('book_exporter_name')" required
+                    maxlength="60" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="CONSIGNEERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="CONSIGNEERECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_consignee_name"
-                    (blur)="OnBlur('book_consignee_name')" required maxlength="60" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_consignee_name" (blur)="OnBlur('book_consignee_name')" required
+                    maxlength="60" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Liner</label>
                 <div class="col-4">
-                  <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_liner_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_liner_name" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Co-Loader</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_coloader_name"
-                    (blur)="OnBlur('book_coloader_name')" required maxlength="60" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_coloader_name" (blur)="OnBlur('book_coloader_name')" required
+                    maxlength="60" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">CHA</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_cha_name" />
@@ -216,16 +234,19 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_agent_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_agent_name" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
                 <div class="col-10">
-                  <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
 
@@ -241,10 +262,12 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Agent 2</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="AGENT2RECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="AGENT2RECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_agent2_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_agent2_name" />
                 </div>
               </div>
               <div class="form-group row">
@@ -290,11 +313,13 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Sales.Rep.</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
             </div>
@@ -302,9 +327,11 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">MBL.Released.On</label>
                 <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event"></app-date>
+                  <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
+                  </app-date>
                 </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">Status</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm"
+                  style="padding-left:0;padding-right:0">Status</label>
                 <div style="padding-left:0" class="col-sm-3">
                   <select class="form-control form-control-sm" [(ngModel)]="Record.book_status_id">
                     <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
@@ -314,37 +341,40 @@
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm"> Folder# </label>
                 <div class="col-4">
-                  <input [disabled]="foldersent" type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_folder_no"
-                    (blur)="OnBlur('book_folder_no')" required maxlength="20" />
+                  <input [disabled]="foldersent" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_folder_no" (blur)="OnBlur('book_folder_no')" required maxlength="20" />
                 </div>
                 <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">Sent.On
                   <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                 </label>
                 <div style="padding-left:0" class="col-3">
-                  <app-date disabled [inputdate]="Record.book_folder_sent_date" (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
+                  <app-date disabled [inputdate]="Record.book_folder_sent_date"
+                    (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_commodity_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_commodity_name" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label  col-form-label-sm">Description</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_description" (blur)="OnBlur('book_description')"
-                    required maxlength="60" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_description"
+                    (blur)="OnBlur('book_description')" required maxlength="60" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label  col-form-label-sm">Remarks</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc" (blur)="OnBlur('book_mdesc')"
-                    required maxlength="100" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc"
+                    (blur)="OnBlur('book_mdesc')" required maxlength="100" />
                 </div>
               </div>
               <div class="form-group row">
@@ -357,11 +387,12 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">PreAlert.SentOn</label>
                 <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event"></app-date>
+                  <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
+                  </app-date>
                 </div>
                 <div class="col-4">
-                  <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading" (click)="SearchRecord('updatemaster')"
-                    class="btn btn-success btn-sm">Update</button>
+                  <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">Update</button>
                 </div>
               </div>
             </div>
@@ -382,9 +413,11 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
+                <label style="padding-right:0"
+                  class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <label class="col-sm-1 col-form-label col-form-label-sm">ETD</label>
                 <div class="col-sm-4">
@@ -392,30 +425,35 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
+                <label style="padding-right:0"
+                  class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
                 <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event"></app-date>
+                  <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event">
+                  </app-date>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Vessel</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-5">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_vessel_name" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Voyage</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no" (blur)="OnBlur('book_vessel_no')"
-                    required maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no"
+                    (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                 </div>
                 <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
                 <div class="col-sm-4">
@@ -425,7 +463,8 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Port Cut.Off</label>
                 <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event"></app-date>
+                  <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
+                  </app-date>
                 </div>
               </div>
             </div>
@@ -434,7 +473,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-6" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pol_name" />
@@ -458,7 +498,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-6" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pod_name" />
@@ -481,10 +522,12 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
                 <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pofd_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.book_pofd_name" />
                 </div>
               </div>
               <div class="form-group row">
@@ -506,13 +549,15 @@
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Customer Comments</label>
                 <div class="col-9">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"  maxlength="100"></textarea>
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
+                    maxlength="100"></textarea>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Partner Email</label>
                 <div class="col-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_partner_email" required maxlength="100" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_partner_email"
+                    required maxlength="100" />
                 </div>
               </div>
             </div>
@@ -549,7 +594,8 @@
                             (blur)="OnBlur('book_mcbm')" required maxlength="15" />
                         </div>
                         <div class="col-sm-1">
-                          <button [disabled]="loading" (click)="NewCntrRecord()" class="btn btn-default btn-sm">ADD</button>
+                          <button [disabled]="loading" (click)="NewCntrRecord()"
+                            class="btn btn-default btn-sm">ADD</button>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -571,19 +617,23 @@
                                     <tr>
                                       <td style="padding:0"> <input type="number" class="form-control form-control-sm"
                                           [(ngModel)]="rec.bcntr_qty" (focus)="OnFocusTableCell('bcntr_qty',rec)"
-                                          (change)="OnChangeTableCell('bcntr_qty',rec)" (blur)="OnBlurTableCell('bcntr_qty',rec)"
-                                          required maxlength="15" /> </td>
-                                      <td style="padding:0"><select class="form-control form-control-sm" [(ngModel)]="rec.bcntr_type_id"
-                                          (focus)="OnFocusTableCell('bcntr_type',rec)" (change)="OnChangeTableCell('bcntr_type',rec)"
+                                          (change)="OnChangeTableCell('bcntr_qty',rec)"
+                                          (blur)="OnBlurTableCell('bcntr_qty',rec)" required maxlength="15" /> </td>
+                                      <td style="padding:0"><select class="form-control form-control-sm"
+                                          [(ngModel)]="rec.bcntr_type_id" (focus)="OnFocusTableCell('bcntr_type',rec)"
+                                          (change)="OnChangeTableCell('bcntr_type',rec)"
                                           (blur)="OnBlurTableCell('bcntr_type',rec)">
-                                          <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">{{rec.param_id3}}</option>
+                                          <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">
+                                            {{rec.param_id3}}</option>
                                         </select></td>
                                       <td style="padding:0"><input type="text" class="form-control form-control-sm"
                                           [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlurTableCell('bcntr_remarks',rec)"
                                           required maxlength="15" />
                                       </td>
-                                      <td style="padding:0;vertical-align:middle"><input type="checkbox" [(ngModel)]="rec.bcntr_shpr_own">Owned</td>
-                                      <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveCntrRecord(rec)"></i></td>
+                                      <td style="padding:0;vertical-align:middle"><input type="checkbox"
+                                          [(ngModel)]="rec.bcntr_shpr_own">Owned</td>
+                                      <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+                                          (click)="RemoveCntrRecord(rec)"></i></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -602,14 +652,16 @@
             <ngb-tab title="Cargo Details">
               <ng-template ngbTabContent>
                 <div class="col-sm-12" *ngFor="let rec of Record.BkmCargoList">
-                  <app-bkmcargo [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)"></app-bkmcargo>
+                  <app-bkmcargo [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+                  </app-bkmcargo>
                 </div>
               </ng-template>
             </ngb-tab>
             <ngb-tab title="Payment Details">
               <ng-template ngbTabContent>
                 <div class="col-sm-12" *ngFor="let rec of Record.BkmPayList">
-                  <app-bkmpayment [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)"></app-bkmpayment>
+                  <app-bkmpayment [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+                  </app-bkmpayment>
                 </div>
               </ng-template>
             </ngb-tab>
@@ -652,13 +704,18 @@
         </div>
         <div class="page-box">
           <div class="col">
-            <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm">Mail/FTP</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)" class="btn btn-success btn-sm">FTPHistory</button>
-            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading" (click)="PrintCheckList('','SEA EXPORT','EXCEL')"
-              class="btn btn-success btn-sm">Check
+            <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
+              class="btn btn-success btn-sm">Save</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="GenerateXml(ftpsent)"
+              class="btn btn-success btn-sm">Mail/FTP</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
+              class="btn btn-success btn-sm">FTPHistory</button>
+            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+              class="btn btn-success btn-sm">History</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
+            <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
+              (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm">Check
               List</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
@@ -697,7 +754,8 @@
 
     <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
-        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [master_lock]="Record.lock_record"></app-buyrate>
+        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [master_lock]="Record.lock_record">
+        </app-buyrate>
       </ng-template>
     </ngb-tab>
 
@@ -725,36 +783,37 @@
   </ngb-tabset>
 </div>
 <ng-template #ftpsent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Message Details</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <app-mail [pkid]="pkid" [canftp]=true [type]="'MBL-SE'" [sHtml]="''" [defaultmessage]="''"
-        [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" [agentname]="Record.book_agent_name"></app-mail>
-    </div>
-  </ng-template>
-  <ng-template #ftphistory let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">History</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-       <app-ftpreport [type]="'MBL-SE'" [pkid]="pkid"></app-ftpreport>
-    </div>
-  </ng-template>
-  <ng-template #history let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">History</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
-    </div>
-  </ng-template>
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="pkid" [canftp]=true [type]="'MBL-SE'" [sHtml]="''" [defaultmessage]="''"
+      [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
+      [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'FTPPAGE'"></app-mail>
+  </div>
+</ng-template>
+<ng-template #ftphistory let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-ftpreport [type]="'MBL-SE'" [pkid]="pkid"></app-ftpreport>
+  </div>
+</ng-template>
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
+  </div>
+</ng-template>

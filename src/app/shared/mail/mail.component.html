@@ -1,152 +1,263 @@
-<div class="page-details">
-  <label>{{title}}</label>
-  <!--<hr>-->
-  <div class="row">
-    <div class="col-sm-12">
-      <div style="height: 400px; overflow-y: scroll;">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-group row">
-              <label class="col-1 col-form-label col-form-label-sm">Mail To</label>
-              <div class="col-3">
-                <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-              <label style="padding-left:0;padding-right:0" class="col-1 col-form-label col-form-label-sm">Branch#</label>
-              <div style="padding-left:0;" class="col-1">
-                <app-autocomplete #CustAddrLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-              <div class="col-6" style="padding-left:0">
-                <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="customer_name" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="to_ids" (blur)="OnBlur('to_ids')"
-              maxlength="500" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Cc</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="cc_ids" (blur)="OnBlur('cc_ids')"
-              maxlength="500" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Bcc</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="bcc_ids" (blur)="OnBlur('bcc_ids')"
-              maxlength="500" />
-          </div>
-        </div>
+<div class="page-header">
+  <div style="padding:5px" class="row">
+    <div style="padding-right:2px" class="col-sm-6">
+      <!-- <label>{{title}}</label> -->
 
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Subject</label>
-          <div class="col-sm-11">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="subject" (blur)="OnBlur('subject')"
-              maxlength="500" />
+      <button [disabled]="loading" (click)="ShowPage('MAIL')" [ngClass]="{'active':rootpage=='MAILPAGE'}" class="btn btn-outline-success btn-block">MAIL</button>
+    </div>
+    <div style="padding-left:2px" class="col-sm-6">
+      <button [disabled]="loading" (click)="ShowPage('FTP')" [ngClass]="{'active':rootpage=='FTPPAGE'}" class="btn btn-outline-success btn-block">FTP</button>
+
+      <!-- <input type="radio" name="rdbtn" [checked]="rootpage=='MAILPAGE'" (click)="ShowPage('MAIL')"><label>Mail</label>
+    <input type="radio" name="rdbtn" [checked]="rootpage=='FTPPAGE'" (click)="ShowPage('FTP')" ><label>FTP</label> -->
+
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+</div>
+<div *ngIf="rootpage=='MAILPAGE'">
+  <div class="page-details">
+    <!-- <label>{{title}}</label> -->
+    <!--<hr>-->
+    <div class="row">
+      <div class="col-sm-12">
+        <div style="height: 400px; overflow-y: scroll;">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group row">
+                <label class="col-1 col-form-label col-form-label-sm">Mail To</label>
+                <div class="col-3">
+                  <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-1 col-form-label col-form-label-sm">Branch#</label>
+                <div style="padding-left:0;" class="col-1">
+                  <app-autocomplete #CustAddrLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="customer_name" />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div *ngIf="AttachList.length > 0" class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label>
-          <div class="col-sm-11">
-            <div style="padding: 0%" class="page-details">
-              <label *ngFor="let rec of AttachList">
-                <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
-                  class="btn btn-link pointer">{{rec.filedisplayname}}</button>
-              </label>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="to_ids" (blur)="OnBlur('to_ids')"
+                maxlength="500" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Cc</label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="cc_ids" (blur)="OnBlur('cc_ids')"
+                maxlength="500" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Bcc</label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="bcc_ids" (blur)="OnBlur('bcc_ids')"
+                maxlength="500" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Subject</label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="subject" (blur)="OnBlur('subject')"
+                maxlength="500" />
+            </div>
+          </div>
+          <div *ngIf="AttachList.length > 0" class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label>
+            <div class="col-sm-11">
+              <div style="padding: 0%" class="page-details">
+                <label *ngFor="let rec of AttachList">
+                  <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
+                    class="btn btn-link pointer">{{rec.filedisplayname}}</button>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
+            <div class="col-sm-1">
+              <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
+            </div>
+            <div *ngIf="showattach" class="col-sm-11">
+              <div class="page-details">
+                <div class="form-group row">
+                  <div class="col-7">
+                    <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+                  </div>
+                  <!-- <label class="col-1 col-form-label col-form-label-sm">Type</label>
+                  <div Class="col-3">
+                    <select class="form-control form-control-sm" [(ngModel)]="catg_id">
+                      <option [value]="'HBL'">HBL</option>
+                      <option [value]="'MBL'">MBL</option>
+                      <option [value]="'INVOICE'">Invoice</option>
+                      <option [value]="'PACKINGLIST'">Packing List</option>
+                      <option [value]="'OTHERS'">Others</option>
+                    </select>
+                  </div> -->
+                  <div class="col-1">
+                    <button (click)="uploadFiles()">Attach</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="sHtml" class="form-group row">
+            <!-- <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button> -->
+            <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
+            <div class="col-sm-11">
+              <div class="page-box">
+                <div [innerHTML]="sHtml"></div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="sHtml" class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-11">
+              <textarea rows="6" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
+            </div>
+          </div>
+          <div *ngIf="sHtml==''" class="form-group row">
+            <!-- <i class="fa fa-paperclip fa-lg pointer" aria-hidden="true" (click)="ShowHideAttach()"></i> -->
+            <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
+            <div class="col-sm-11">
+              <textarea rows="12" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
-          <div class="col-sm-1">
-            <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
+      </div>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
+              <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
           </div>
-          <div *ngIf="showattach" class="col-sm-11">
-            <div class="page-details">
-              <div class="form-group row">
-                <div class="col-7">
-                  <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
-                </div>
-                <label class="col-1 col-form-label col-form-label-sm">Type</label>
-                <div Class="col-3">
-                  <select class="form-control form-control-sm" [(ngModel)]="catg_id">
-                    <option [value]="'HBL'">HBL</option>
-                    <option [value]="'MBL'">MBL</option>
-                    <option [value]="'INVOICE'">Invoice</option>
-                    <option [value]="'PACKINGLIST'">Packing List</option>
-                    <option [value]="'OTHERS'">Others</option>
+        </div>
+        <!-- <div class="col-sm-6">
+          <div *ngIf="canftp" class="form-group row">
+            <label class="col-1 col-form-label col-form-label-sm">FTP</label>
+            <div class="col-7">
+              <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
+                <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
+                FTP</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <br />
+</div>
+<div *ngIf="rootpage=='FTPPAGE'">
+  <div class="page-details">
+    <!-- <label>{{title}}</label> -->
+    <!--<hr>-->
+    <div class="row">
+      <div class="col-sm-12">
+        <div style="height: 400px; overflow-y: scroll;">
+          <div class="row">
+            <div class="col-sm-12">
+              <div *ngIf="canftp" class="form-group row">
+                <label class="col-1 col-form-label col-form-label-sm">FTP</label>
+                <div class="col-11">
+                  <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
+                    <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                   </select>
                 </div>
-                <div class="col-1">
-                  <button (click)="uploadFiles()">Attach</button>
+                <!-- <div class="col-sm-2">
+                    <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
+                      FTP</button>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Subject</label>
+            <div class="col-sm-11">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="subject" (blur)="OnBlur('subject')"
+                maxlength="500" />
+            </div>
+          </div>
+          <div *ngIf="FtpAttachList.length > 0" class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label>
+            <div class="col-sm-11">
+              <div style="padding: 0%" class="page-details">
+                <label *ngFor="let rec of FtpAttachList">
+                  <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
+                    class="btn btn-link pointer">{{rec.filedisplayname}}</button>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
+            <div class="col-sm-1">
+              <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
+            </div>
+            <div *ngIf="showattach" class="col-sm-11">
+              <div class="page-details">
+                <div class="form-group row">
+                  <div class="col-7">
+                    <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+                  </div>
+                  <label class="col-1 col-form-label col-form-label-sm">Type</label>
+                  <div Class="col-3">
+                    <select class="form-control form-control-sm" [(ngModel)]="catg_id">
+                      <option [value]="'HBL'">HBL</option>
+                      <option [value]="'MBL'">MBL</option>
+                      <option [value]="'INVOICE'">Invoice</option>
+                      <option [value]="'PACKINGLIST'">Packing List</option>
+                      <option [value]="'OTHERS'">Others</option>
+                    </select>
+                  </div>
+                  <div class="col-1">
+                    <button (click)="uploadFiles()">Attach</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="sHtml" class="form-group row">
-          <!-- <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button> -->
-          <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
-          <div class="col-sm-11">
-            <div class="page-box">
-              <div [innerHTML]="sHtml"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
+              <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
+                FTP</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
         </div>
-        <div *ngIf="sHtml" class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm"></label>
-          <div class="col-sm-11">
-            <textarea rows="6" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
-          </div>
-        </div>
-        <div *ngIf="sHtml==''" class="form-group row">
-          <!-- <i class="fa fa-paperclip fa-lg pointer" aria-hidden="true" (click)="ShowHideAttach()"></i> -->
-          <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
-          <div class="col-sm-11">
-            <textarea rows="12" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
-          </div>
-        </div>
       </div>
     </div>
   </div>
+  <br />
 </div>
-<div class="page-box">
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group row">
-          <div class="offset-sm-2 col-sm-10">
-            <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
-            <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div *ngIf="canftp" class="form-group row">
-          <label class="col-1 col-form-label col-form-label-sm">FTP</label>
-          <div class="col-7">
-            <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
-              <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-            </select>
-          </div>
-          <div class="col-sm-2">
-            <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To FTP</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<br />
-
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
 </div>
