@@ -471,11 +471,18 @@ export class MailComponent {
     this.showattach = !this.showattach;
   }
   ShowPage(_type: string) {
-    // this.rootpage =_type;
-    if (_type == "MAIL")
-      this.rootpage = "MAILPAGE";
-    else
-      this.rootpage = "FTPPAGE";
+    this.rootpage =_type;
+    // if (_type == "MAIL")
+    //   this.rootpage = "MAILPAGE";
+    // else
+    //   this.rootpage = "FTPPAGE";
   }
 
+  RemoveAttachment(Id: string, _type: string) {
+    if (_type == "MAIL") {
+      this.AttachList.splice(this.AttachList.findIndex(rec => rec.filename == Id), 1);
+    }else{
+      this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
+    }
+  }
 }

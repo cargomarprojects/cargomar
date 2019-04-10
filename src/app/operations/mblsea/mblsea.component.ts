@@ -10,11 +10,12 @@ import { BkmCntrtype } from '../models/bkmcntrtype';
 import { BkmPayment } from '../models/bkmpayment';
 import { BkmCargo } from '../models/bkmcargo';
 import { FileDetails } from '../models/filedetails';
+import { PreAlertReportService } from '../services/prealertreport.service';
 
 @Component({
   selector: 'app-mblsea',
   templateUrl: './mblsea.component.html',
-  providers: [LinerBkmService]
+  providers: [LinerBkmService, PreAlertReportService]
 })
 export class MblSeaComponent {
   // Local Variables 
@@ -93,6 +94,7 @@ export class MblSeaComponent {
   constructor(
     private modalService: NgbModal,
     private mainService: LinerBkmService,
+    private prealertService: PreAlertReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -622,7 +624,7 @@ export class MblSeaComponent {
     this.Record.book_pofdc_code = '';
     this.Record.book_pofdc_name = '';
     this.Record.book_pofdc_eta = '';
-
+    this.Record.book_ftp_agent = false;
     this.Record.book_move = '';
     this.Record.book_partner_email = '';
     this.Record.book_cust_comments = '';
@@ -1289,6 +1291,14 @@ export class MblSeaComponent {
     this.modal = this.modalService.open(content);
   }
 
+  MailFtp(ftpsent: any) {
+    if (this.Record.book_cntr.trim().length > 11) {
+      var cntrarry = this.Record.book_cntr.split('/');
+      this.PrealertList(cntrarry[0].toString(), ftpsent);
+    } else {
+      this.GenerateXml(ftpsent);
+    }
+  }
   GenerateXml(ftpsent: any) {
     this.ErrorMessage = '';
     if (this.Record.book_agent_id.trim().length <= 0) {
@@ -1340,7 +1350,7 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-  
+
   ShowFtpHistory(ftphistory: any) {
     this.ErrorMessage = '';
     this.open(ftphistory);
@@ -1348,5 +1358,41 @@ export class MblSeaComponent {
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
+  }
+
+  PrealertList(_cntrno: string, ftpsent: any) {
+    this.loading = true;
+    let SearchData = {
+      type: this.Record.book_agent_name,
+      pkid: this.gs.globalVariables.branch_name,
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.Record.book_agent_id,
+      searchcontainer: this.Record.book_agent_code
+    };
+    SearchData.pkid = this.gs.getGuid();
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.searchcontainer = _cntrno.toUpperCase();
+    SearchData.type = "EXCEL";
+
+    this.ErrorMessage = '';
+    this.prealertService.List(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.AttachList = new Array<any>();
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+        if (this.Record.book_ftp_agent) {
+          this.GenerateXml(ftpsent);
+        } else
+          this.open(ftpsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
