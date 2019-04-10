@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { stringify } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'app-mail',
@@ -262,7 +263,12 @@ export class MailComponent {
           this.InfoMessage = response.smtpmail;
           if (this.ModifiedRecords != null && this.type == "DESPATCH-DETAILS")
             this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
-          alert(this.InfoMessage);
+
+            // Auto ftp Sent
+          if (this.type == "MBL-SE" && this.canftp && (this.agentcode=="RITRACARGO-NL" ||this.agentcode=="MOTHERLINES-US")) {
+            this.SendFtp(this.InfoMessage);
+          } else
+            alert(this.InfoMessage);
         }
         else if (_type == "LIST") {
           if (response.to_ids.length > 0 && this.updateto_ids)
@@ -298,12 +304,12 @@ export class MailComponent {
   }
   */
 
-  SendFtp() {
+  SendFtp(_smsg: string = "") {
     this.ftpcompleted = false;
-    this.InfoMessage = '';
+    this.InfoMessage = _smsg;
     this.ErrorMessage = '';
     if (this.ftptype_id.trim().length <= 0) {
-      this.ErrorMessage = "FTP Type Cannot Be Blank";
+      this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
       alert(this.ErrorMessage);
       return;
     }
@@ -313,14 +319,14 @@ export class MailComponent {
       if (REC != null) {
         if (this.agentname.indexOf("RITRA") >= 0) {
           if (REC.param_name != 'RITRA') {
-            this.ErrorMessage = "\n\r | Please Select RITRA FTP and Continue.....";
+            this.ErrorMessage += "\n\r | Please Select RITRA FTP and Continue.....";
             alert(this.ErrorMessage);
             return;
           }
         }
         if (this.agentname.indexOf("RITRA") < 0) {
           if (REC.param_name == 'RITRA') {
-            this.ErrorMessage = "\n\r | Invalid FTP Details.....";
+            this.ErrorMessage += "\n\r | Invalid FTP Details.....";
             alert(this.ErrorMessage);
             return;
           }
@@ -380,10 +386,10 @@ export class MailComponent {
         this.loading = false;
         this.ftpcompleted = true;
         if (response.error.length > 0) {
-          this.ErrorMessage = response.error;
+          this.ErrorMessage += "\n\r | " + response.error;
           alert(this.ErrorMessage);
         } else {
-          this.InfoMessage = response.ftp;
+          this.InfoMessage += "\n\r | " + response.ftp;
           alert(this.InfoMessage);
         }
       },
@@ -471,7 +477,7 @@ export class MailComponent {
     this.showattach = !this.showattach;
   }
   ShowPage(_type: string) {
-    this.rootpage =_type;
+    this.rootpage = _type;
     // if (_type == "MAIL")
     //   this.rootpage = "MAILPAGE";
     // else
@@ -481,7 +487,7 @@ export class MailComponent {
   RemoveAttachment(Id: string, _type: string) {
     if (_type == "MAIL") {
       this.AttachList.splice(this.AttachList.findIndex(rec => rec.filename == Id), 1);
-    }else{
+    } else {
       this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
     }
   }

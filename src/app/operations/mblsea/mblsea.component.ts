@@ -628,6 +628,7 @@ export class MblSeaComponent {
     this.Record.book_move = '';
     this.Record.book_partner_email = '';
     this.Record.book_cust_comments = '';
+    this.Record.book_agent_br_email='';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -1363,13 +1364,14 @@ export class MblSeaComponent {
   PrealertList(_cntrno: string, ftpsent: any) {
     this.loading = true;
     let SearchData = {
-      type: this.Record.book_agent_name,
-      pkid: this.gs.globalVariables.branch_name,
+      type: '',
+      pkid: '',
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.Record.book_agent_id,
-      searchcontainer: this.Record.book_agent_code
+      searchcontainer: this.Record.book_agent_code,
+      docattach:'Y'
     };
     SearchData.pkid = this.gs.getGuid();
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1378,6 +1380,7 @@ export class MblSeaComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.searchcontainer = _cntrno.toUpperCase();
     SearchData.type = "EXCEL";
+    SearchData.docattach = "Y";
 
     this.ErrorMessage = '';
     this.prealertService.List(SearchData)
@@ -1385,6 +1388,9 @@ export class MblSeaComponent {
         this.loading = false;
         this.AttachList = new Array<any>();
         this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+         for (let rec of response.filelist) {
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+        }
         if (this.Record.book_ftp_agent) {
           this.GenerateXml(ftpsent);
         } else

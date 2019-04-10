@@ -46,7 +46,8 @@ export class PreAlertComponent {
     company_code: '',
     branch_code: '',
     year_code: '',
-    searchcontainer: ''
+    searchcontainer: '',
+    docattach:'N'
   };
 
   EXPRECORD: any;
@@ -154,6 +155,7 @@ export class PreAlertComponent {
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchcontainer = this.searchcontainer.toUpperCase();
     this.SearchData.type = _type;
+    this.SearchData.docattach = "N";
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)

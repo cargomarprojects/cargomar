@@ -134,7 +134,8 @@ export class LinerBkm {
   book_cust_comments: string;
   book_partner_email: string;
   book_ftp_agent: boolean;
-
+  book_agent_br_email:string;
+  
   rec_category: string;
   rec_mode: string;
   _globalvariables: GlobalVariables;
