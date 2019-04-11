@@ -247,6 +247,7 @@ export class LeaveDetComponent {
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.Record.lev_year = +tempdt[0];
+      this.Record.lev_month = +tempdt[1];
     }
 
     this.InitLov();
