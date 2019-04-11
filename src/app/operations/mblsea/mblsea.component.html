@@ -775,7 +775,7 @@
       <ng-template ngbTabContent>
         <div class="page-box">
           <div class="col">
-            <app-xmloms [pkid]="pkid" [filename]="Record.book_slno" [type]="'MBL'"></app-xmloms>
+            <app-xmloms [pkid]="pkid" [filename]="Record.book_slno" [ftp_agent_name]="Record.book_agent_name" [ftp_agent_code]="Record.book_agent_code"  [type]="'MBL-SE'"></app-xmloms>
           </div>
         </div>
       </ng-template>
@@ -790,7 +790,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [type]="'MBL-SE'" [defaultto_ids]="Record.book_agent_br_email"  [sHtml]="''" [defaultmessage]="''"
+    <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder" [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''"  [sHtml]="''" [defaultmessage]="''"
       [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
       [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'"></app-mail>
   </div>

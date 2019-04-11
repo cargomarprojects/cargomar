@@ -628,7 +628,8 @@ export class MblSeaComponent {
     this.Record.book_move = '';
     this.Record.book_partner_email = '';
     this.Record.book_cust_comments = '';
-    this.Record.book_agent_br_email='';
+    this.Record.book_agent_br_email = '';
+    this.Record.book_ftp_agent_folder = false;
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -1349,6 +1350,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1399,6 +1401,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }

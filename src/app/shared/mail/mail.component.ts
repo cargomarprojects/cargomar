@@ -25,6 +25,7 @@ export class MailComponent {
   @Input() public updateto_ids: boolean = false;
   @Input() public AttachList = new Array<any>();
   @Input() public canftp: boolean = false;
+  @Input() public ftpfolderblexist: boolean = false;
   @Input() public agentname: string = '';
   @Input() public agentcode: string = '';
   @Input() public updatesql: string = '';
@@ -265,7 +266,7 @@ export class MailComponent {
             this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
 
             // Auto ftp Sent
-          if (this.type == "MBL-SE" && this.canftp && (this.agentcode=="RITRACARGO-NL" ||this.agentcode=="MOTHERLINES-US")) {
+          if (this.InfoMessage.trim().toUpperCase()=="MAIL SENT SUCCESSFULLY" && this.canftp && this.ftpfolderblexist) {
             this.SendFtp(this.InfoMessage);
           } else
             alert(this.InfoMessage);

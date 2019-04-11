@@ -19,6 +19,9 @@ export class XmlomsComponent {
   @Input() type: string = '';
   @Input() pkid: string = '';
   @Input() filename: string = '';
+  @Input() ftp_agent_name:string ='';
+  @Input() ftp_agent_code:string ='';
+
   InitCompleted: boolean = false;
   menu_record: any;
   loading = false;
@@ -126,7 +129,7 @@ export class XmlomsComponent {
           this.sSubject = response.subject;
           this.ftpUpdtSql = response.updatesql;
           this.AttachList = new Array<any>();
-          if (this.type == 'MBL')
+          if (this.type == 'MBL-SE')
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid });
           if (this.type == 'CONTAINER') {
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });

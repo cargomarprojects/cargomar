@@ -62,7 +62,8 @@ export class OrderListComponent {
   list_agent_id: string = "";
   list_agent_name: string = "";
   list_agent_code: string = "";
-
+  ftp_agent_name: string = "";
+  ftp_agent_code: string = "";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -1213,6 +1214,8 @@ export class OrderListComponent {
   MailOrders(ftpsent: any, sType: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
+    this.ftp_agent_code = '';
+    this.ftp_agent_name = '';
     let ord_ids: string = '';
     let ord_id_POs: string = '';
     let POID_Is_Blank: Boolean = false;
@@ -1232,6 +1235,9 @@ export class OrderListComponent {
           if (this.ftpTransfertype == 'TRACKING')
             if (rec.ord_uid == 0)
               POID_Is_Blank = true;
+
+          this.ftp_agent_code = rec.ord_agent_code;
+          this.ftp_agent_name = rec.ord_agent_name;
         }
       }
 
@@ -1242,11 +1248,12 @@ export class OrderListComponent {
       }
       this.pkid = ord_ids;
     } else {
-      if (this.ftpTransfertype == 'TRACKING')
-        for (let rec of this.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
-          if (rec.ord_uid == 0)
-            POID_Is_Blank = true;
-        }
+      for (let rec of this.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
+        this.ftp_agent_code = rec.ord_agent_code;
+        this.ftp_agent_name = rec.ord_agent_name;
+        if (this.ftpTransfertype == 'TRACKING' && rec.ord_uid == 0)
+          POID_Is_Blank = true;
+      }
     }
 
 

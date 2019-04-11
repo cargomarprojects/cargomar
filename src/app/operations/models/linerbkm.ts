@@ -135,6 +135,7 @@ export class LinerBkm {
   book_partner_email: string;
   book_ftp_agent: boolean;
   book_agent_br_email:string;
+  book_ftp_agent_folder:boolean;
   
   rec_category: string;
   rec_mode: string;
