@@ -88,6 +88,7 @@ export class LeaveDetComponent {
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.levyear = +tempdt[0];
+      this.levmonth = +tempdt[1];
     }
   }
 
