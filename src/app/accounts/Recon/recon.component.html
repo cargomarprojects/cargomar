@@ -125,6 +125,7 @@
         <tr>
           <th class="text-left">VRNO</th>
           <th class="text-left">TYPE</th>
+          <th class="text-left">FIN-YEAR</th>
           <th class="text-left">DATE</th>
           <th class="text-right">DEBIT</th>
           <th class="text-right">CREDIT</th>
@@ -141,6 +142,7 @@
         <tr (click)="showhiderow(rec)">
           <td align='left'>{{ rec.recon_jv_vrno }}</td>
           <td align='left'>{{ rec.recon_jv_type }}</td>
+          <td align='left'>{{ rec.recon_jv_year }}</td>
           <td align='left'>{{ rec.recon_jv_date }}</td>
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.credit | number : '1.2-2'  }}</td>
