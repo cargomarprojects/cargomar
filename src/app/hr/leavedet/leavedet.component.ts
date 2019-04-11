@@ -41,7 +41,7 @@ export class LeaveDetComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
-  emp_status = "CONFIRMED";
+  // emp_status = "CONFIRMED";
 
   mode = '';
   pkid = '';
@@ -138,8 +138,9 @@ export class LeaveDetComponent {
       this.Record.lev_emp_id = _Record.id;
       this.Record.lev_emp_code = _Record.code;
       this.Record.lev_emp_name = _Record.name;
-      this.emp_status = _Record.col1;
-      if (this.emp_status == 'CONFIRMED' || this.emp_status == 'TRANSFER') {
+      this.Record.rec_category=_Record.col1;
+      // this.emp_status = _Record.col1;
+      if (this.Record.rec_category == 'CONFIRMED' || this.Record.rec_category == 'TRANSFER') {
         if (this.Record.lev_year > 0 && this.Record.lev_month > 0) {
           var nDate = new Date(this.Record.lev_year, this.Record.lev_month, 0)
           this.Record.lev_days_worked = nDate.getDate();
@@ -241,6 +242,7 @@ export class LeaveDetComponent {
     this.Record.lev_days_worked = 0;
     this.Record.lev_pl_carry = 0;
     this.Record.lev_fin_year = 0;
+    this.Record.rec_category='CONFIRMED';
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.Record.lev_year = +tempdt[0];

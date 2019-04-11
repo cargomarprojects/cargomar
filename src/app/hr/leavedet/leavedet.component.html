@@ -159,7 +159,7 @@
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_others" (blur)="OnBlur('lev_others')" required maxlength="10" />
           </div>
         </div>
-        <div *ngIf="emp_status=='CONFIRMED' || emp_status=='TRANSFER'" class="form-group row">
+        <div *ngIf="Record.rec_category=='CONFIRMED' || Record.rec_category=='TRANSFER'" class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Loss of Pay/ Off Days</label>
           <div class="col-sm-3">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_lp" (blur)="OnBlur('lev_lp')" required maxlength="10" />
@@ -168,7 +168,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Days Worked</label>
           <div class="col-sm-3">
-            <input type="number" [disabled]="emp_status=='CONFIRMED' || emp_status=='TRANSFER'"  class="form-control form-control-sm" [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
+            <input type="number" [disabled]="Record.rec_category=='CONFIRMED' || Record.rec_category=='TRANSFER'"  class="form-control form-control-sm" [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
           </div>
         </div>
       </div>
