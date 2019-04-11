@@ -35,6 +35,7 @@ export class MblSeaComponent {
   bAdmin = false;
   bDocs = false;
 
+  mMsg: string = '';
   sSubject: string = '';
   folder_id: string;
   chk_foldersent: boolean = false;
@@ -1339,7 +1340,7 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = "MBLBK#-" + this.Record.book_slno + ", " + response.subject;
+        this.sSubject += ", " + response.subject + ", MBL- " + this.Record.book_mblno;
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
@@ -1373,7 +1374,7 @@ export class MblSeaComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.Record.book_agent_id,
       searchcontainer: this.Record.book_agent_code,
-      docattach:'Y'
+      docattach: 'Y'
     };
     SearchData.pkid = this.gs.getGuid();
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1388,9 +1389,29 @@ export class MblSeaComponent {
     this.prealertService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.sSubject = "PRE-ALERT FOR " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+        let _hblnos: string = '';
+        for (let rec of this.Record.HblList) {
+          if (_hblnos != '')
+            _hblnos += ", ";
+          _hblnos += rec.hbl_bl_no;
+        }
+
+        this.mMsg = "Dear Sir/Madam, ";
+        this.mMsg += " \n\n";
+        this.mMsg += " VESSEL: " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+        this.mMsg += " \n\n";
+        this.mMsg += " CNTR# " + this.Record.book_cntr;
+        this.mMsg += " \n\n";
+        this.mMsg += " HBL# " + _hblnos;
+        this.mMsg += " \n\n";
+        this.mMsg += " MBL# " + this.Record.book_mblno;
+        this.mMsg += " \n\n";
+        this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
+
         this.AttachList = new Array<any>();
         this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
-         for (let rec of response.filelist) {
+        for (let rec of response.filelist) {
           this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
         }
         if (this.Record.book_ftp_agent) {
