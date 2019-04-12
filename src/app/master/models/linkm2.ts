@@ -9,7 +9,8 @@ export class Linkm2 {
   sourcecode: string;  
   sourcename: string;  
   targetid: string;  
-
+  targetdesc:string;
+  
   branchcode: string;  
   
   rowdisplayed: boolean;

@@ -29,6 +29,8 @@
             <select class="form-control form-control-sm" [(ngModel)]="source_type">
               <option value="SHIPPER">SHIPPER</option>
               <option value="CONSIGNEE">CONSIGNEE</option>
+              <option value="CONTAINER">CONTAINER</option>
+              <option value="SEA CARRIER">SEA CARRIER</option>
             </select>
           </div>
 
@@ -56,6 +58,7 @@
           <th>CODE</th>
           <th>NAME</th>
           <th>VALUE</th>
+          <th>DESCRIPTION</th>
           <th>REMOVE</th>
         </tr>
       </thead>
@@ -66,6 +69,7 @@
           <td>{{rec.sourcecode}}</td>
           <td>{{rec.sourcename}}</td>
           <td>{{rec.targetid}}</td>
+          <td>{{rec.targetdesc}}</td>
           <td>
               <span>
                 <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.targetid}" (result)="RemoveList($event)"></App-Dialog>
@@ -99,10 +103,12 @@
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Type</label>
           <div class="col-9">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetype">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetype" (change)="OnChange('sourcetype')">
               <option value="SHIPPER">SHIPPER</option>
               <option value="CONSIGNEE">CONSIGNEE</option>
               <option value="SHIPPER-GROUP">SHIPPER-GROUP</option>
+              <option value="CONTAINER">CONTAINER</option>
+              <option value="SEA CARRIER">SEA CARRIER</option>
             </select>
           </div>
         </div>
@@ -129,7 +135,13 @@
               required maxlength="100" />
           </div>
         </div>
-
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Description</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetdesc" (blur)="OnBlur('targetdesc')"
+              required maxlength="200" />
+          </div>
+        </div>
       </div>
     </div>
 

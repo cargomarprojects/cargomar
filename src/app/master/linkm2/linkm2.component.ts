@@ -41,8 +41,8 @@ export class Linkm2Component {
   mode = '';
   pkid = '';
 
-  source_table  ='MEXICO-TMM';
-  source_type  = 'SHIPPER';
+  source_table = 'MEXICO-TMM';
+  source_type = 'SHIPPER';
 
 
   PARTYRECORD: SearchTable = new SearchTable();
@@ -104,6 +104,31 @@ export class Linkm2Component {
       this.PARTYRECORD.code = "";
       this.PARTYRECORD.name = "";
       this.PARTYRECORD.parentid = "";
+      this.Record.sourcename = "";
+    }
+    if (_type == 'CONTAINER') {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = "CONTAINER";
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = "CONTAINER TYPE";
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      this.Record.sourcename = "";
+    }
+    if (_type == 'SEA CARRIER') {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = "SEA CARRIER";
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = "SEA CARRIER";
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      this.Record.sourcename = "";
     }
   }
 
@@ -136,18 +161,16 @@ export class Linkm2Component {
     //    this.ErrorMessage = JSON.parse(error._body).Message;
     //  });
 
-    
+
   }
 
 
   LovSelected(_Record: any) {
-
-    if (_Record.controlname == "CUSTOMER") {
+    if (_Record.controlname == "CUSTOMER" || _Record.controlname == "CONTAINER" || _Record.controlname == "SEA CARRIER") {
       this.Record.sourceid = _Record.id;
       this.Record.sourcecode = _Record.code;
       this.Record.sourcename = _Record.name;
     }
-
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -164,14 +187,14 @@ export class Linkm2Component {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-      this.initlov('CUSTOMER');      
+      this.initlov('CUSTOMER');
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
-      this.initlov('CUSTOMER');      
+      this.initlov('CUSTOMER');
     }
   }
 
@@ -201,8 +224,8 @@ export class Linkm2Component {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
-      source_table : this.source_table,
-      source_type : this.source_type,
+      source_table: this.source_table,
+      source_type: this.source_type,
       branch_code: ''
     };
 
@@ -219,18 +242,18 @@ export class Linkm2Component {
         });
   }
 
-  
+
 
   NewRecord() {
 
     this.pkid = this.gs.getGuid();
     this.Record = new Linkm2();
     this.Record.pkid = this.pkid;
-    this.Record.branchcode = "";    
+    this.Record.branchcode = "";
     this.Record.sourcetable = 'MEXICO-TMM';
     this.Record.sourcetype = 'SHIPPER';
     this.Record.rec_mode = this.mode;
-    
+
   }
 
 
@@ -298,9 +321,27 @@ export class Linkm2Component {
 
 
   OnBlur(field: string) {
-
+    switch (field) {
+      case 'targetid':
+        {
+          this.Record.targetid = this.Record.targetid.toUpperCase();
+          break;
+        }
+        case 'targetdesc':
+        {
+          this.Record.targetdesc = this.Record.targetdesc.toUpperCase();
+          break;
+        }
+    }
   }
-
+  OnChange(field: string) {
+    if (field == 'sourcetype') {
+      if (this.Record.sourcetype == "CONTAINER" || this.Record.sourcetype == "SEA CARRIER")
+        this.initlov(this.Record.sourcetype);
+      else
+        this.initlov('CUSTOMER');
+    }
+  }
 
   RemoveList(event: any) {
     if (event.selected) {
@@ -321,14 +362,11 @@ export class Linkm2Component {
         this.loading = false;
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.pkid == Id), 1);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-
-
-
 
   Close() {
     this.gs.ClosePage('home');
