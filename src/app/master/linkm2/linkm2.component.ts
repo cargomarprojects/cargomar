@@ -4,7 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Linkm2 } from '../models/linkm2';
 import { Linkm2Service } from '../services/linkm2.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+import { targetlistm } from '../models/targetlistm';
 @Component({
   selector: 'app-linkm2',
   templateUrl: './linkm2.component.html',
@@ -40,12 +40,15 @@ export class Linkm2Component {
 
   mode = '';
   pkid = '';
-
+  targetcode: string="";
+  targetname:string ="";
   source_table = 'MEXICO-TMM';
   source_type = 'SHIPPER';
 
 
   PARTYRECORD: SearchTable = new SearchTable();
+
+  RecordList2: targetlistm[] = [];
 
   // Array For Displaying List
   RecordList: Linkm2[] = [];
@@ -332,6 +335,16 @@ export class Linkm2Component {
           this.Record.targetdesc = this.Record.targetdesc.toUpperCase();
           break;
         }
+        case 'targetcode':
+        {
+          this.targetcode = this.targetcode.toUpperCase();
+          break;
+        }
+        case 'targetname':
+        {
+          this.targetname = this.targetname.toUpperCase();
+          break;
+        }
     }
   }
   OnChange(field: string) {
@@ -373,4 +386,48 @@ export class Linkm2Component {
   }
 
 
+  Remove(_id:string){
+
+  }
+
+  SearchRecord(controlname: string,_type:string) {
+    this.InfoMessage = '';
+    this.ErrorMessage = '';
+     
+    this.loading = true;
+    let SearchData = {
+      table: controlname,
+      pkid: '',
+      type:_type,
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      sourcetable:'',
+      sourcetype:'',
+      targetcode:'',
+      targetname:''
+    };
+
+    SearchData.table = controlname;
+    SearchData.pkid = this.pkid;
+    SearchData.type=_type;
+    SearchData.rowtype = this.type;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.sourcetable = this.Record.sourcetable;
+    SearchData.sourcetype = this.Record.sourcetype;
+    SearchData.targetcode = this.targetcode;
+    SearchData.targetname = this.targetname;
+
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = '';
+        this.RecordList2 = response.list;
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
 }

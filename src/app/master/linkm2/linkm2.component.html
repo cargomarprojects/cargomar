@@ -71,10 +71,11 @@
           <td>{{rec.targetid}}</td>
           <td>{{rec.targetdesc}}</td>
           <td>
-              <span>
-                <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.targetid}" (result)="RemoveList($event)"></App-Dialog>
-              </span>
-            </td>          
+            <span>
+              <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.targetid}"
+                (result)="RemoveList($event)"></App-Dialog>
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -103,7 +104,8 @@
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Type</label>
           <div class="col-9">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetype" (change)="OnChange('sourcetype')">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetype"
+              (change)="OnChange('sourcetype')">
               <option value="SHIPPER">SHIPPER</option>
               <option value="CONSIGNEE">CONSIGNEE</option>
               <option value="SHIPPER-GROUP">SHIPPER-GROUP</option>
@@ -120,7 +122,7 @@
           </div>
         </div>
 
-        <div class="form-group row" >
+        <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
           <div class="col-9">
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sourcename" />
@@ -131,15 +133,15 @@
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Value</label>
           <div class="col-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetid" (blur)="OnBlur('targetid')"
-              required maxlength="100" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetid"
+              (blur)="OnBlur('targetid')" required maxlength="100" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Description</label>
           <div class="col-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetdesc" (blur)="OnBlur('targetdesc')"
-              required maxlength="200" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetdesc"
+              (blur)="OnBlur('targetdesc')" required maxlength="200" />
           </div>
         </div>
       </div>
@@ -156,6 +158,90 @@
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
   </div>
+
+<br>
+  <div class="page-header">
+    
+      <div class="col-sm-12">
+          <div class="row">
+        <div class="col-sm-1">
+          <!-- <label>{{title}}</label> -->
+          <button [disabled]="loading" (click)="SearchRecord('targetlistm','LIST')"
+            class="btn btn-primary btn-sm">Serach</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">Code/Name</label>
+        <div class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="targetcode" (blur)="OnBlur('targetcode')"
+            required [maxlength]="100" />
+        </div>
+        <!-- <label class="col-1 col-form-label col-form-label-sm">Name</label> -->
+        <div class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="targetname" (blur)="OnBlur('targetname')"
+            required [maxlength]="100" />
+        </div>
+        <div *ngIf="gs.globalVariables.user_code=='ADMIN'" class="col-4">
+          <button [disabled]="loading" (click)="SearchRecord('targetlistm','SAVE')"
+            class="btn btn-success btn-sm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngIf="gs.globalVariables.user_code=='ADMIN'" class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Code</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="targetcode" (blur)="OnBlur('targetcode')"
+              required [maxlength]="100" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-6 col-form-label col-form-label-sm">Name</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="targetname" (blur)="OnBlur('targetname')"
+              required [maxlength]="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-6 col-form-label col-form-label-sm"></label>
+            <div class="col-4">
+                <button [disabled]="loading" (click)="SearchRecord('targetlistm','SAVE')" class="btn btn-success btn-sm">Save</button>
+            </div>
+          </div>
+      </div>
+    </div> -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-body table-responsive">
+        <table class="table table-hover table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th width="10%">TYPE</th>
+              <th width="20%">CODE</th>
+              <th width="20%">NAME</th>
+              <th width="10%">DELETE</th>
+              <th width="40%"></th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+            <tr>
+              <td style="padding:0px ">{{rec.tl_sourcetype}}</td>
+              <td style="padding:0px ">{{rec.tl_code}}</td>
+              <td style="padding:0px ">{{rec.tl_name}}</td>
+              <td style="padding:5px 0px 0px 10px"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                  (click)="Remove(rec.pkid)"></i></td>
+              <td style="padding:0px "></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+
 
 </div>
 <br />
