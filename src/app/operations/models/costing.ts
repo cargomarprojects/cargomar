@@ -70,6 +70,7 @@ export class Costingm {
   cost_jv_posted: boolean;
   cost_jv_ho_id: string;
   cost_jv_br_id: string;
+  cost_jv_br_inv_id: string;
 
   cost_checked_on: string;
   cost_sent_on: string;
@@ -154,6 +155,7 @@ export class Costingd {
 
   cost_jv_ho_vrno: string;
   cost_jv_br_vrno: string;
+  cost_jv_br_invno: string;
   cost_jv_posted: boolean;
 
   costd_category: string;
