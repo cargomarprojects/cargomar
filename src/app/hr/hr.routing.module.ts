@@ -13,6 +13,7 @@ import { HrReportsComponent } from './hrreports/hrreports.component';
 import { WageRegisterComponent } from './wageregister/wageregister.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { ArrearsComponent } from './arrears/arrears.component';
+import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'hrreports', component: HrReportsComponent },
   { path: 'wageregister', component: WageRegisterComponent },
   { path: 'bonus', component: BonusComponent },
+  { path: 'consolpayroll', component: ConsolPayrollComponent },
   { path: 'arrears', component: ArrearsComponent }
 ];
 

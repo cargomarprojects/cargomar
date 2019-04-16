@@ -16,6 +16,7 @@ import { HrReportsComponent } from './hrreports/hrreports.component';
 import { WageRegisterComponent } from './wageregister/wageregister.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { ArrearsComponent } from './arrears/arrears.component';
+import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { ArrearsComponent } from './arrears/arrears.component';
     HrReportsComponent,
     WageRegisterComponent,
     BonusComponent,
-    ArrearsComponent
+    ArrearsComponent,
+    ConsolPayrollComponent
   ],
   providers: [
   ],
