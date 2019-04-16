@@ -48,6 +48,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th>BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
           <th>DOJ</th>
@@ -112,6 +113,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
+          <td>{{rec.rec_branch_code}}</td>
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
           <td>{{rec.sal_emp_do_joining}}</td>

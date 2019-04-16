@@ -109,6 +109,7 @@ export class Salarym {
   sal_edit_code:string;
   rec_mode: string;
   rec_printed:boolean;
+  rec_branch_code:string;
   _globalvariables: GlobalVariables;
 
   DetList: SalDet[] = [];
