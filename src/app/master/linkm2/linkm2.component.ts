@@ -350,7 +350,7 @@ export class Linkm2Component {
   OnChange(field: string) {
     if (field == 'sourcetype') {
       this.RecordList2 = new Array<targetlistm>();
-      this.source_typedet=this.Record.sourcetype;
+      this.source_typedet = this.Record.sourcetype;
       if (this.Record.sourcetype == "CONTAINER" || this.Record.sourcetype == "SEA CARRIER")
         this.initlov(this.Record.sourcetype);
       else
@@ -387,8 +387,11 @@ export class Linkm2Component {
     this.gs.ClosePage('home');
   }
 
+  Remove(_id: string, _Code: string) {
 
-  Remove(_id: string) {
+    if (!confirm("Do you want to Delete " + _Code)) {
+      return;
+    }
     this.tl_pkid = _id;
     this.SearchRecord('targetlistm', 'DELETE');
   }
@@ -396,7 +399,13 @@ export class Linkm2Component {
   SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
-
+    if (_type == "SAVE") {
+      if (this.targetcode.length <= 0) {
+        this.ErrorMessage += " | Code cannot be blank"
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
     this.loading = true;
     let SearchData = {
       table: controlname,
@@ -428,13 +437,19 @@ export class Linkm2Component {
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = '';
+
         if (_type == "LIST")
           this.RecordList2 = response.list;
         if (_type == "SAVE") {
-          this.targetcode = "";
-          this.targetname = "";
-          if (this.RecordList2 != null)
-            this.RecordList2.push(response.rec);
+          if (response.serror.length > 0) {
+            this.ErrorMessage = response.serror;
+            alert(this.ErrorMessage);
+          } else {
+            this.targetcode = "";
+            this.targetname = "";
+            if (this.RecordList2 != null)
+              this.RecordList2.push(response.rec);
+          }
         }
         if (_type == "DELETE") {
           this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.tl_pkid == this.tl_pkid), 1);
@@ -443,6 +458,11 @@ export class Linkm2Component {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
+  }
+  Settargetvalue(_rec: targetlistm) {
+    this.Record.targetid = _rec.tl_code;
+    this.Record.targetdesc = _rec.tl_name;
   }
 }

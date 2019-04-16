@@ -46,9 +46,6 @@
 
     </div>
   </div>
-
-
-
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
@@ -144,94 +141,80 @@
               (blur)="OnBlur('targetdesc')" required maxlength="200" />
           </div>
         </div>
-      </div>
-    </div>
 
-  </div>
+        <div class="page-box">
+          <div class="col-sm-6">
 
-  <div class="page-box">
-    <div class="col-sm-6">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
 
-      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
-  </div>
-
-  <br>
-  <div class="page-box">
-    <div class="row">
-      <!-- <div class="col-sm-6">
-        <div class="form-group row">
-          <label class="col-3 col-form-label col-form-label-sm">Code/Name</label>
-          <div class="col-sm-7">
-            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search2')" name="Search2"
-              [(ngModel)]="searchstring2" />
-          </div>
-          <div class="col-sm-2">
-            <button [disabled]="loading" (click)="SearchRecord('targetlistm','LIST')"
-              class="btn btn-primary btn-sm">Serach</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
-      </div> -->
+      </div>
       <div class="col-sm-6">
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Code/Name</label>
-          <div style="padding-right: 0" class="col-2">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="targetcode"
-              (blur)="OnBlur('targetcode')" required [maxlength]="100" />
-          </div>
-          <div  style="padding-left: 2px" class="col-6">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="targetname"
-              (blur)="OnBlur('targetname')" required [maxlength]="100" />
-          </div>
-          <div class="col-sm-1">
-              <button [disabled]="loading" (click)="SearchRecord('targetlistm','LIST')"
-                class="btn btn-primary btn-sm">Serach</button>
-              <i *ngIf="loading" class="fa fa-spinner"></i>
+        <div class="page-box">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Code/Name</label>
+                <div style="padding-right: 0" class="col-2">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="targetcode"
+                    (blur)="OnBlur('targetcode')" required [maxlength]="100" />
+                </div>
+                <div style="padding-left: 2px" class="col-5">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="targetname"
+                    (blur)="OnBlur('targetname')" required [maxlength]="100" />
+                </div>
+                <div *ngIf="gs.globalVariables.user_code=='ADMIN'" class="col-1">
+                  <button [disabled]="loading" (click)="SearchRecord('targetlistm','SAVE')"
+                    class="btn btn-success btn-sm">Save</button>
+                </div>
+                <div class="col-sm-2">
+                  <button [disabled]="loading" (click)="SearchRecord('targetlistm','LIST')"
+                    class="btn btn-primary btn-sm">Serach</button>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+              </div>
+
             </div>
-          <div *ngIf="gs.globalVariables.user_code=='ADMIN'" class="col-1">
-            <button [disabled]="loading" (click)="SearchRecord('targetlistm','SAVE')"
-              class="btn btn-success btn-sm">Save</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div style="height: 400px; overflow-y: scroll;">
+              <div class="page-body table-responsive">
+                <table class="table table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th width="10%">TYPE</th>
+                      <th width="10%">CODE</th>
+                      <th width="30%">NAME</th>
+                      <th width="10%">DELETE</th>
+                      <th width="40%"></th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+                    <tr>
+                      <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_sourcetype}}</td>
+                      <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_code}}</td>
+                      <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_name}}</td>
+                      <td style="padding:5px 0px 0px 10px"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                          (click)="Remove(rec.tl_pkid,rec.tl_code)"></i></td>
+                      <td style="padding:0px "></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="page-body table-responsive">
-        <table class="table table-hover table-sm">
-          <thead class="page-body-thead">
-            <tr>
-              <th width="10%">TYPE</th>
-              <th width="20%">CODE</th>
-              <th width="20%">NAME</th>
-              <th width="10%">DELETE</th>
-              <th width="40%"></th>
-            </tr>
-          </thead>
-          <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
-            <tr>
-              <td style="padding:0px ">{{rec.tl_sourcetype}}</td>
-              <td style="padding:0px ">{{rec.tl_code}}</td>
-              <td style="padding:0px ">{{rec.tl_name}}</td>
-              <td style="padding:5px 0px 0px 10px"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
-                  (click)="Remove(rec.tl_pkid)"></i></td>
-              <td style="padding:0px "></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-
-
-
+  <br>
 </div>
 <br />
 
