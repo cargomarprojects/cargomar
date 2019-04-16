@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Salarym} from '../models/salarym';
 import { SalDet } from '../models/salarym';
+import { SearchTable } from '../../shared/models/searchtable';
 import { ConsolPayrollService } from '../services/consolpayroll.service';
   
 
@@ -39,6 +40,8 @@ export class ConsolPayrollComponent {
   sub: any;
   urlid: string;
 
+  branch_code:string;
+  bCompany = false;
   salyear = 0;
   salmonth = 0;
   
@@ -49,6 +52,7 @@ export class ConsolPayrollComponent {
 
   mode = '';
   pkid = '';
+  BRRECORD: SearchTable = new SearchTable();
   // Array For Displaying List
   RecordList: Salarym[] = [];
 
@@ -85,16 +89,20 @@ export class ConsolPayrollComponent {
   }
 
   InitComponent() {
+    this.branch_code = this.gs.globalVariables.branch_code;
     this.reporttype = 'FORMAT1';
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.bAdmin=false;
+    this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
     {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+        if (this.menu_record.rights_company)
+        this.bCompany = true;
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -109,10 +117,20 @@ export class ConsolPayrollComponent {
   }
 
   InitLov() {
-
+    this.BRRECORD = new SearchTable();
+    this.BRRECORD.controlname = "BRANCH";
+    this.BRRECORD.displaycolumn = "CODE";
+    this.BRRECORD.type = "BRANCH";
+    this.BRRECORD.id = "";
+    this.BRRECORD.code = this.gs.globalVariables.branch_code;
   }
 
-
+  LovSelected(_Record: SearchTable) {
+    // Company Settings
+    if (_Record.controlname == "BRANCH") {
+      this.branch_code = _Record.code;
+    }
+  }
   // Query List Data
   List(_type: string) {
     this.ErrorMessage = '';
@@ -148,6 +166,10 @@ export class ConsolPayrollComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount
     };
+
+    if (this.bCompany) {
+      SearchData.branch_code = this.branch_code;
+    }
 
     this.ErrorMessage = '';
     this.InfoMessage = '';

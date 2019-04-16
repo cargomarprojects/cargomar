@@ -21,19 +21,25 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
               <option [value]="'BOTH'">Both</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
               <option [value]="'UNCONFIRM'">Unconfirmed</option>
             </select>
           </div>
+          <div *ngIf="bCompany" class="form-group row">
+              <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+              <div class="col-5">
+                <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
         </div>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <div class="form-group row">
           <div class="col-sm-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -118,7 +124,7 @@
           <td>{{rec.sal_emp_name}}</td>
           <td>{{rec.sal_emp_do_joining}}</td>
           <td>{{rec.sal_emp_grade}}</td>
-          <td>{{rec.sal_date}}</td>
+          <td>{{rec.sal_emp_bank_acno}}</td>
           <td>{{rec.sal_pf_mon_year}}</td>
           <td>{{rec.sal_emp_designation}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>

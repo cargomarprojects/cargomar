@@ -6,6 +6,7 @@ export class Salarym {
   sal_emp_id: string;
   sal_emp_code: string;
   sal_emp_name: string;
+  sal_emp_bank_acno:string;
   sal_date: string;
   sal_month: number;
   sal_year: number;
