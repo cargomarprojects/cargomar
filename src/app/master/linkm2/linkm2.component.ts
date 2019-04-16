@@ -34,17 +34,17 @@ export class Linkm2Component {
   sub: any;
   urlid: string;
 
-
   ErrorMessage = "";
   InfoMessage = "";
 
+  tl_pkid = '';
   mode = '';
   pkid = '';
-  targetcode: string="";
-  targetname:string ="";
+  targetcode: string = "";
+  targetname: string = "";
   source_table = 'MEXICO-TMM';
   source_type = 'SHIPPER';
-
+  source_typedet = 'SHIPPER';
 
   PARTYRECORD: SearchTable = new SearchTable();
 
@@ -253,8 +253,8 @@ export class Linkm2Component {
     this.Record = new Linkm2();
     this.Record.pkid = this.pkid;
     this.Record.branchcode = "";
-    this.Record.sourcetable = 'MEXICO-TMM';
-    this.Record.sourcetype = 'SHIPPER';
+    this.Record.sourcetable = this.source_table;
+    this.Record.sourcetype = this.source_typedet;
     this.Record.rec_mode = this.mode;
 
   }
@@ -330,17 +330,17 @@ export class Linkm2Component {
           this.Record.targetid = this.Record.targetid.toUpperCase();
           break;
         }
-        case 'targetdesc':
+      case 'targetdesc':
         {
           this.Record.targetdesc = this.Record.targetdesc.toUpperCase();
           break;
         }
-        case 'targetcode':
+      case 'targetcode':
         {
           this.targetcode = this.targetcode.toUpperCase();
           break;
         }
-        case 'targetname':
+      case 'targetname':
         {
           this.targetname = this.targetname.toUpperCase();
           break;
@@ -349,6 +349,8 @@ export class Linkm2Component {
   }
   OnChange(field: string) {
     if (field == 'sourcetype') {
+      this.RecordList2 = new Array<targetlistm>();
+      this.source_typedet=this.Record.sourcetype;
       if (this.Record.sourcetype == "CONTAINER" || this.Record.sourcetype == "SEA CARRIER")
         this.initlov(this.Record.sourcetype);
       else
@@ -386,31 +388,33 @@ export class Linkm2Component {
   }
 
 
-  Remove(_id:string){
-
+  Remove(_id: string) {
+    this.tl_pkid = _id;
+    this.SearchRecord('targetlistm', 'DELETE');
   }
 
-  SearchRecord(controlname: string,_type:string) {
+  SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
-     
+
     this.loading = true;
     let SearchData = {
       table: controlname,
-      pkid: '',
-      type:_type,
+      pkid: this.tl_pkid,
+      type: _type,
       rowtype: this.type,
+      searchstring: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      sourcetable:'',
-      sourcetype:'',
-      targetcode:'',
-      targetname:''
+      sourcetable: '',
+      sourcetype: '',
+      targetcode: '',
+      targetname: ''
     };
 
     SearchData.table = controlname;
-    SearchData.pkid = this.pkid;
-    SearchData.type=_type;
+    SearchData.pkid = this.tl_pkid;
+    SearchData.type = _type;
     SearchData.rowtype = this.type;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -418,16 +422,27 @@ export class Linkm2Component {
     SearchData.sourcetype = this.Record.sourcetype;
     SearchData.targetcode = this.targetcode;
     SearchData.targetname = this.targetname;
+    SearchData.searchstring = '';
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = '';
-        this.RecordList2 = response.list;
+        if (_type == "LIST")
+          this.RecordList2 = response.list;
+        if (_type == "SAVE") {
+          this.targetcode = "";
+          this.targetname = "";
+          if (this.RecordList2 != null)
+            this.RecordList2.push(response.rec);
+        }
+        if (_type == "DELETE") {
+          this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.tl_pkid == this.tl_pkid), 1);
+        }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
