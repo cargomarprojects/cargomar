@@ -1036,7 +1036,7 @@ export class CostingComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
-    SearchData.report_caption = this.title;
+    SearchData.report_caption = "INVOICE";
     SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
     this.ErrorMessage = '';
     this.mainService.GenerateInvoice(SearchData)

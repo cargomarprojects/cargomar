@@ -287,6 +287,7 @@
                   <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print
                     Dr/Cr</button>
                   <button *ngIf="mode == 'EDIT'" (click)="GenerateXml()" class="btn btn-success btn-sm">Generate Xml</button>
+                  <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintInvoice('SUMMARY','PDF',Record.cost_jv_br_inv_id)" class="btn btn-success btn-sm">Invoice</button>
                   <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>

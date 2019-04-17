@@ -43,5 +43,9 @@ export class DrCrService {
     GenerateXmlCostingInvoice(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlCostingInvoice', SearchData, this.gs.headerparam2('authorized'));
     }
+    
+    GenerateInvoice(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/GenerateInvoice', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
