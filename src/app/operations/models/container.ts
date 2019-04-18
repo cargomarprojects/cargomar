@@ -38,6 +38,9 @@ export class Containerm {
   cntr_trafinsp: string;
   cntr_inspsup: string;
   cntr_inspin: string;
+  cntr_service_contract_id: string;
+  cntr_service_contract_code: string;
+  cntr_service_contract_name: string;
 
   rec_mode: string;
   rec_category: string;

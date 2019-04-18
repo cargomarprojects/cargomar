@@ -276,16 +276,16 @@
                 </div> -->
                 <div class="form-group row">
                   <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">MBL#</label>
-                  <div class="col-5">
+                  <div  class="col-4">
                     <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm"
                       [(ngModel)]="Record.cntr_booking_no" (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
                   </div>
-                  <label style="padding-left:0" class="col-4 col-form-label col-form-label-sm">{{book_and_mbl}}</label>
+                  <label style="padding-left:5px" class="col-5 col-form-label col-form-label-sm">{{book_and_mbl}}</label>
                 </div>
   
                 <div class="form-group row">
                   <label class="col-3 col-form-label col-form-label-sm">Egm No</label>
-                  <div class="col-5">
+                  <div class="col-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno"
                       (blur)="OnBlur('cntr_egmno')" required maxlength="30" />
                   </div>
@@ -293,23 +293,35 @@
   
                 <div class="form-group row">
                   <label class="col-3 col-form-label col-form-label-sm">Egm Date</label>
-                  <div class="col-5">
+                  <div class="col-4">
                     <app-date [inputdate]="Record.cntr_egmdt" (ValueChanged)="Record.cntr_egmdt=$event"></app-date>
                   </div>
                 </div>
   
                 <div class="form-group row">
+                    <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">Service Contract</label>
+                    <div  class="col-4">
+                        <app-autocomplete #serviceLov [inputdata]="SERVICECONTRACTRECORD"
+                              (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                    <div class="col-5" style="padding-left:5px">
+                        <input type="text" disabled class="form-control form-control-sm"
+                          [(ngModel)]="Record.cntr_service_contract_name" />
+                      </div>
+                  </div>
+
+                <div class="form-group row">
                   <label class="col-sm-3 col-form-label  col-form-label-sm">IntertraficInspection</label>
-                  <div class="col-sm-5">
+                  <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_trafinsp">
-                      <option [value]="'Y'">YES</option>
-                      <option [value]="'N'">NO</option>
+                      <option [value]="'YES'">YES</option>
+                      <option [value]="'NOT'">NO</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label  col-form-label-sm">Inspection In</label>
-                  <div class="col-sm-5">
+                  <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspin">
                       <option [value]="''"></option>
                       <option [value]="'CARGOMAR WHAREHOUSE'">CARGOMAR'S WHAREHOUSE</option>
@@ -320,7 +332,7 @@
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label  col-form-label-sm">InspectionSupplier</label>
-                  <div class="col-sm-5">
+                  <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspsup">
                       <option [value]="''"></option>
                       <option [value]="'INTERTRAFIC'">INTERTRAFIC</option>

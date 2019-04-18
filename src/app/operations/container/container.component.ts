@@ -57,6 +57,7 @@ export class ContainerComponent {
   // Single Record for add/edit/view details
   Record: Containerm = new Containerm;
   CNTRTYPERECORD: SearchTable = new SearchTable();
+  SERVICECONTRACTRECORD:SearchTable = new SearchTable();
 
   constructor(
     private mainService: ContainerService,
@@ -134,6 +135,14 @@ export class ContainerComponent {
     this.CNTRTYPERECORD.id = "";
     this.CNTRTYPERECORD.code = "";
     this.CNTRTYPERECORD.name = "";
+
+    this.SERVICECONTRACTRECORD = new SearchTable();
+    this.SERVICECONTRACTRECORD.controlname = "SERVICE-CONTRACT";
+    this.SERVICECONTRACTRECORD.displaycolumn = "CODE";
+    this.SERVICECONTRACTRECORD.type = "SERVICE CONTRACT";
+    this.SERVICECONTRACTRECORD.id = "";
+    this.SERVICECONTRACTRECORD.code = "";
+    this.SERVICECONTRACTRECORD.name = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -142,6 +151,11 @@ export class ContainerComponent {
       this.Record.cntr_type_id = _Record.id;
       this.Record.cntr_type_code = _Record.code;
       this.Record.cntr_type_name = _Record.name;
+    }
+    if (_Record.controlname == "SERVICE-CONTRACT") {
+      this.Record.cntr_service_contract_id = _Record.id;
+      this.Record.cntr_service_contract_code = _Record.code;
+      this.Record.cntr_service_contract_name = _Record.name;
     }
   }
 
@@ -246,9 +260,12 @@ export class ContainerComponent {
     this.Record.cntr_stuffed_on = '';
     this.Record.cntr_egmno = '';
     this.Record.cntr_egmdt = '';
-    this.Record.cntr_trafinsp = 'N';
+    this.Record.cntr_trafinsp = 'NOT';
     this.Record.cntr_inspsup = '';
     this.Record.cntr_inspin = '';
+    this.Record.cntr_service_contract_id ="";
+    this.Record.cntr_service_contract_code ="";
+    this.Record.cntr_service_contract_name ="";
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -295,7 +312,9 @@ export class ContainerComponent {
     this.CNTRTYPERECORD.id = this.Record.cntr_type_id;
     this.CNTRTYPERECORD.code = this.Record.cntr_type_code;
     this.CNTRTYPERECORD.name = this.Record.cntr_type_name;
-
+    this.SERVICECONTRACTRECORD.id = this.Record.cntr_service_contract_id;
+    this.SERVICECONTRACTRECORD.code = this.Record.cntr_service_contract_code;
+    this.SERVICECONTRACTRECORD.name = this.Record.cntr_service_contract_name;
     this.Record.rec_mode = this.mode;
     /*
     this.lock_record = true;
@@ -515,10 +534,6 @@ export class ContainerComponent {
     this.Record.cntr_booking_name = '';
     this.Record.cntr_booking_no = '';
     this.book_and_mbl = "";
-
-
-
   }
-
 
 }
