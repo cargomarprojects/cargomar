@@ -21,6 +21,7 @@ export class PayRollComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  lock_record: boolean = false;
   bAdmin: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
@@ -234,6 +235,10 @@ export class PayRollComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
+    
+    this.lock_record = true;
+    if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
+    this.lock_record = false;
   }
 
   // Save Data
@@ -700,7 +705,8 @@ export class PayRollComponent {
       year_code: '',
       salmonth: 0,
       salyear: 0,
-      empstatus: ''
+      empstatus: '',
+      isadmin: 'N'
     }
 
     SearchData.type = _type;
@@ -713,6 +719,7 @@ export class PayRollComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.folderid = this.folder_id;
+    SearchData.isadmin = this.bAdmin ? "Y" : "N";
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)

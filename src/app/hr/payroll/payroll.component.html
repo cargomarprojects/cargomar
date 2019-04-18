@@ -78,7 +78,7 @@
           <th>GRADE</th>
           <th>SAL.DATE</th>
           <th>PAYSLIP</th>
-          <th>MAIL</th>
+          <th *ngIf="bAdmin">MAIL</th>
           <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
           <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
           <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
@@ -143,7 +143,7 @@
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_grade}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_date}}</td>
           <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
-          <td>{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
+          <td *ngIf="bAdmin">{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
           <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
           <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>
@@ -362,7 +362,7 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <div class="offset-3 col-sm-4">
-            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
