@@ -25,10 +25,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -86,10 +89,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -102,63 +108,66 @@
       <ng-template ngbTabContent>
         <div class="page-box">
           <div class="row">
-            <div class="col-sm-12">
-
+            <div class="col-sm-4">
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Container#</label>
-                <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no" (blur)="OnBlur('cntr_no')"
-                    required maxlength="15" />
+                <label class="col-4 col-form-label col-form-label-sm">Container#</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no"
+                    (blur)="OnBlur('cntr_no')" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                <div class="col-4">
-                  <app-autocomplete #CntrTypeLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                <label class="col-4 col-form-label col-form-label-sm">Type</label>
+                <div class="col-8">
+                  <app-autocomplete #CntrTypeLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">C.Seal#</label>
-                <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_csealno" (blur)="OnBlur('cntr_csealno')"
-                    required maxlength="25" />
+                <label class="col-4 col-form-label col-form-label-sm">C.Seal#</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_csealno"
+                    (blur)="OnBlur('cntr_csealno')" required maxlength="25" />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">A.Seal#</label>
-                <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno" (blur)="OnBlur('cntr_asealno')"
-                    required maxlength="25" />
-                </div>
-              </div>
-
-
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Stuffed At</label>
-                <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_stuffed_at" (blur)="OnBlur('cntr_stuffed_at')"
-                    required maxlength="50" />
+                <label class="col-4 col-form-label col-form-label-sm">A.Seal#</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno"
+                    (blur)="OnBlur('cntr_asealno')" required maxlength="25" />
                 </div>
               </div>
 
+
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Stuffed On</label>
-                <div class="col-4">
-                  <app-date [inputdate]="Record.cntr_stuffed_on" (ValueChanged)="Record.cntr_stuffed_on=$event"></app-date>
+                <label class="col-4 col-form-label col-form-label-sm">Stuffed At</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_stuffed_at"
+                    (blur)="OnBlur('cntr_stuffed_at')" required maxlength="50" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-4 col-form-label col-form-label-sm">Stuffed On</label>
+                <div class="col-8">
+                  <app-date [inputdate]="Record.cntr_stuffed_on" (ValueChanged)="Record.cntr_stuffed_on=$event">
+                  </app-date>
                 </div>
               </div>
               <div class="form-group row">
-                <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm"></label>
-                <div class="col-4">
-                  <input type="checkbox" [disabled]="lock_bookingno" (change)="Onchange()" [(ngModel)]="Record.cntr_clearing" />
+                <label style="padding-right:0" class="col-4 col-form-label col-form-label-sm"></label>
+                <div class="col-8">
+                  <input type="checkbox" [disabled]="lock_bookingno" (change)="Onchange()"
+                    [(ngModel)]="Record.cntr_clearing" />
                   <span>Clearance Only</span>
                 </div>
               </div>
-              <div class="form-group row">
+
+              <!-- <div class="form-group row">
                 <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">MBL#</label>
                 <div class="col-4">
-                  <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm" [(ngModel)]="Record.cntr_booking_no"
-                    (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
+                  <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cntr_booking_no" (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
                 </div>
                 <label style="padding-left:0" class="col-6 col-form-label col-form-label-sm">{{book_and_mbl}}</label>
               </div>
@@ -166,8 +175,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Egm No</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno" (blur)="OnBlur('cntr_egmno')"
-                    required maxlength="30" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno"
+                    (blur)="OnBlur('cntr_egmno')" required maxlength="30" />
                 </div>
               </div>
 
@@ -188,15 +197,139 @@
                 </div>
               </div>
               <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Inspection In</label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspin">
+                    <option [value]="''"></option>
+                    <option [value]="'CARGOMAR'">CARGOMAR'S WHAREHOUSE</option>
+                    <option [value]="'EVERGREEN'">EVERGREEN'S WAREHOUSE</option>
+                    <option [value]="'SHIPPER'">SHIPPER'S WAREHOUSE</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Inspection's Supplier</label>
                 <div class="col-sm-4">
                   <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspsup">
+                    <option [value]="''"></option>
                     <option [value]="'INTERTRAFIC'">INTERTRAFIC</option>
                     <option [value]="'TELESCOPE'">TELESCOPE</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
+
             </div>
+            <div class="col-sm-5">
+
+                <!-- <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Container#</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_no"
+                      (blur)="OnBlur('cntr_no')" required maxlength="15" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                  <div class="col-4">
+                    <app-autocomplete #CntrTypeLov [inputdata]="CNTRTYPERECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">C.Seal#</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_csealno"
+                      (blur)="OnBlur('cntr_csealno')" required maxlength="25" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">A.Seal#</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_asealno"
+                      (blur)="OnBlur('cntr_asealno')" required maxlength="25" />
+                  </div>
+                </div>
+  
+  
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Stuffed At</label>
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_stuffed_at"
+                      (blur)="OnBlur('cntr_stuffed_at')" required maxlength="50" />
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Stuffed On</label>
+                  <div class="col-4">
+                    <app-date [inputdate]="Record.cntr_stuffed_on" (ValueChanged)="Record.cntr_stuffed_on=$event">
+                    </app-date>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-4">
+                    <input type="checkbox" [disabled]="lock_bookingno" (change)="Onchange()"
+                      [(ngModel)]="Record.cntr_clearing" />
+                    <span>Clearance Only</span>
+                  </div>
+                </div> -->
+                <div class="form-group row">
+                  <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">MBL#</label>
+                  <div class="col-5">
+                    <input type="text" [disabled]="lock_bookingno" class="form-control form-control-sm"
+                      [(ngModel)]="Record.cntr_booking_no" (blur)="OnBlur('cntr_booking_no')" maxlength="100" />
+                  </div>
+                  <label style="padding-left:0" class="col-4 col-form-label col-form-label-sm">{{book_and_mbl}}</label>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Egm No</label>
+                  <div class="col-5">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cntr_egmno"
+                      (blur)="OnBlur('cntr_egmno')" required maxlength="30" />
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Egm Date</label>
+                  <div class="col-5">
+                    <app-date [inputdate]="Record.cntr_egmdt" (ValueChanged)="Record.cntr_egmdt=$event"></app-date>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">IntertraficInspection</label>
+                  <div class="col-sm-5">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_trafinsp">
+                      <option [value]="'Y'">YES</option>
+                      <option [value]="'N'">NO</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Inspection In</label>
+                  <div class="col-sm-5">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspin">
+                      <option [value]="''"></option>
+                      <option [value]="'CARGOMAR WHAREHOUSE'">CARGOMAR'S WHAREHOUSE</option>
+                      <option [value]="'EVERGREEN WHAREHOUSE'">EVERGREEN'S WAREHOUSE</option>
+                      <option [value]="'SHIPPER WHAREHOUSE'">SHIPPER'S WAREHOUSE</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">InspectionSupplier</label>
+                  <div class="col-sm-5">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.cntr_inspsup">
+                      <option [value]="''"></option>
+                      <option [value]="'INTERTRAFIC'">INTERTRAFIC</option>
+                      <option [value]="'TELESCOPE'">TELESCOPE</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
           </div>
         </div>
 
@@ -214,8 +347,10 @@
 
         <div class="page-box">
           <div class="col">
-            <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+            <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
+              class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>

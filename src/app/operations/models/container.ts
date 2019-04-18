@@ -37,6 +37,7 @@ export class Containerm {
   cntr_mbl_nature: string;
   cntr_trafinsp: string;
   cntr_inspsup: string;
+  cntr_inspin: string;
 
   rec_mode: string;
   rec_category: string;

@@ -157,6 +157,9 @@ export class ParamComponent {
     if (this.type == 'PARAM') {
       this.id1 = "Customer Code";
     }
+    if (this.type == 'SERVICE CONTRACT') {
+      this.id3 = "Group";
+    }
   }
 
   // Destroy Will be called when this component is closed

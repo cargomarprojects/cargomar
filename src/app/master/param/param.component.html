@@ -49,6 +49,7 @@
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
           <th *ngIf="type == 'COUNTRY'">REGION</th>
           <th *ngIf="type == 'CONTAINER TYPE'">DESCRIPTION</th>
+          <th *ngIf="type == 'SERVICE CONTRACT'">GROUP</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
@@ -59,6 +60,7 @@
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
           <td *ngIf="type == 'COUNTRY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CONTAINER TYPE'">{{rec.param_id3}}</td>
+          <td *ngIf="type == 'SERVICE CONTRACT'">{{rec.param_id3}}</td>
         </tr>
       </tbody>
     </table>

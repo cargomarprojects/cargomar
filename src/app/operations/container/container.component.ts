@@ -241,7 +241,6 @@ export class ContainerComponent {
     this.Record.cntr_morh = 'N';
     this.Record.cntr_mbl_no = '';
 
-
     this.Record.cntr_clearing = true;
     this.Record.cntr_stuffed_at = '';
     this.Record.cntr_stuffed_on = '';
@@ -249,6 +248,7 @@ export class ContainerComponent {
     this.Record.cntr_egmdt = '';
     this.Record.cntr_trafinsp = 'N';
     this.Record.cntr_inspsup = '';
+    this.Record.cntr_inspin = '';
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
