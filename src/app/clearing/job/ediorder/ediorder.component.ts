@@ -505,6 +505,8 @@ export class EdiOrderComponent {
         this.Update('CREATE-PO');
       }
     }
-    this.modal.close();
+    
+    if (params.saction != "VALIDATE")
+      this.modal.close();
   }
 }

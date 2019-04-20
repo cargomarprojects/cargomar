@@ -186,6 +186,7 @@ export class LeaveMasterComponent {
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
+            report_folder: this.gs.globalVariables.report_folder,
             levmonth: this.levmonth,
             levyear: this.levyear,
             page_count: this.page_count,
@@ -199,17 +200,25 @@ export class LeaveMasterComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
+
+                if (_type == 'EXCEL')
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else
+                {
                 this.RecordList = response.list;
                 this.page_count = response.page_count;
                 this.page_current = response.page_current;
                 this.page_rowcount = response.page_rowcount;
+                }
             },
             error => {
                 this.loading = false;
                 this.ErrorMessage = this.gs.getError(error);
             });
     }
-
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+      this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
     //NewRecord() {
     //  this.pkid = this.gs.getGuid();
     //  this.Record = new Leavem();
