@@ -433,14 +433,14 @@ export class EdiOrderComponent {
 
     this.loading = true;
     let SearchData = {
-      type: '',
+      type: _type,
       agent_id: this.agent_id,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      validateonly: _type == "UPDATE" ? 'N' : 'Y',
+      validateonly: _type == "VALIDATE" ? 'Y' : 'N',
       pkid: ordids
     };
 
@@ -457,8 +457,10 @@ export class EdiOrderComponent {
         else {
           if (_type == 'UPDATE')
             this.InfoMessage = "Updated Successfully";
-          else //Validate
+          else if (_type == 'VALIDATE')//Validate
             this.InfoMessage = "No Errors Found";
+          if (_type == 'CREATE-PO')
+            this.InfoMessage = "Save Complete";
         }
       },
         error => {
@@ -488,14 +490,21 @@ export class EdiOrderComponent {
     this.styleno = _rec.model_sku;
     this.open(ediordupdt);
   }
-  
+
   ModifiedRecords(params: any) {
+
     for (let rec of this.RecordList.filter(rec => rec.pkid == params.sid)) {
+
       if (params.saction == "SAVE")
         rec.agent_ref_no = params.srefno;
+      else if (params.saction == "VALIDATE") {
+        rec.selected = true;
+        this.Update('VALIDATE');
+      } else if (params.saction == "CREATE-PO") {
+        rec.selected = true;
+        this.Update('CREATE-PO');
+      }
     }
     this.modal.close();
   }
-
-
 }

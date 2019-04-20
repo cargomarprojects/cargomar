@@ -85,13 +85,13 @@ export class EdiOrdUpdateComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        // if (this.costupdt_date.trim().length <= 0) {
-        //   sError = "Date Cannot Be Blank";
-        //   bret = false;
-        // }
+        if (this.ord_agentref_id.trim().length <= 0) {
+            sError = "Ref# Cannot Be Blank";
+            bret = false;
+        }
 
-        // if (bret === false)
-        //   this.ErrorMessage = sError;
+        if (bret === false)
+            this.ErrorMessage = sError;
         return bret;
     }
 
@@ -110,7 +110,7 @@ export class EdiOrdUpdateComponent {
             agent_refno: this.ord_agentref_id,
             table: controlname,
             type: _type,
-            pono:''
+            pono: ''
         };
 
         SearchData.pono = this.pono;
@@ -128,12 +128,18 @@ export class EdiOrdUpdateComponent {
                         this.ord_agentref_id = response.ediordupdate;
                     else
                         this.ord_agentref_id = "";
-                        this.RecordList=response.list;
+                    this.RecordList = response.list;
                 }
                 else {
-                    if (this.ModifiedRecords != null)
-                        this.ModifiedRecords.emit({ saction: 'SAVE', sid: this.pkid, srefno: response.ediordupdate });
-                    this.InfoMessage = "Save Complete";
+
+                    if (response.serror.length > 0) {
+                        this.ErrorMessage = response.serror;
+                        alert(this.ErrorMessage);
+                    } else {
+                        if (this.ModifiedRecords != null)
+                            this.ModifiedRecords.emit({ saction: 'SAVE', sid: this.pkid, srefno: response.ediordupdate });
+                        this.InfoMessage = "Save Complete";
+                    }
                 }
             },
                 error => {
@@ -157,9 +163,22 @@ export class EdiOrdUpdateComponent {
         }
     }
 
-    Getagentrefno(_refno:string)
-    {
-        this.ord_agentref_id=_refno;
+    Getagentrefno(_refno: string) {
+        this.ord_agentref_id = _refno;
     }
 
+    CreateOrder(_type: string) {
+        if (_type == "VALIDATE") {
+            if (this.ModifiedRecords != null)
+                this.ModifiedRecords.emit({ saction: 'VALIDATE', sid: this.pkid, srefno: '' });
+        }
+
+        if (_type == "CREATE-PO") {
+            if (!confirm("Do you want to Create PO " + this.pono + " with style " + this.styleno + " in Order List")) {
+                return;
+            }
+            if (this.ModifiedRecords != null)
+                this.ModifiedRecords.emit({ saction: 'CREATE-PO', sid: this.pkid, srefno: '' });
+        }
+    }
 }
