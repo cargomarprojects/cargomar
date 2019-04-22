@@ -50,8 +50,8 @@
             <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET')" class="btn btn-primary btn-sm">SalarySheet</button>
             <button [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP')" class="btn btn-primary btn-sm">PaySlip</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')" class="btn btn-primary btn-sm">Mail/Payslip</button>
-            <label class="col-form-label  col-form-label-sm">JV#
-              <!-- <font color="red">{{Record.salh_jvno}} </font> -->
+            <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
+              <font color="red">{{salh_jvno}} </font>
             </label>
           </div>
         </div>

@@ -32,6 +32,7 @@ export class PayRollComponent {
   currentTab = 'LIST';
 
   searchstring = '';
+  salh_jvno =0;
 
   page_count = 0;
   page_current = 0;
@@ -198,6 +199,7 @@ export class PayRollComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
         this.Recorddet = response.record;
+        this.salh_jvno = response.saljvno;
         this.chkallselected = false;
         this.selectdeselect = false;
       },

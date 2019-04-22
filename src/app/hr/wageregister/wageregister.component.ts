@@ -100,6 +100,7 @@ export class WageRegisterComponent {
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.salyear = +tempdt[0];
+      this.salmonth = +tempdt[1];
     }
   }
 
