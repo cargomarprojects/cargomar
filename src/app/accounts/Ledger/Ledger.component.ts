@@ -2260,6 +2260,73 @@ export class LedgerComponent {
     }
     this.modal.close();
   }
+
+  PrintInvoice(reportformat: string, _type: string = 'PDF', _invid: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    if (_invid.trim().length <= 0) {
+      this.ErrorMessage = "Invalid Invoice ID";
+      return;
+    }
+
+    // if (_type == "MAIL") {
+
+    //   this.mSubject = "SALES INVOICE  " + this.Record.jvh_docno;
+    //   this.mSubject += " - M/S " + this.Record.jvh_acc_name;
+    //   this.mSubject += " - DT " + this.jvh_date.GetDisplayDate();
+    //   if (this.Record.jvh_cc_code != "") {
+    //     this.mSubject += " - " + this.Record.jvh_cc_category + "#" + this.Record.jvh_cc_code;
+    //   }
+
+    //   this.mMsg = "Dear Valued Customer,";
+    //   this.mMsg += " \n\n";
+    //   this.mMsg += "  Pls find the attached sales invoice for your kind reference";
+    //   this.mMsg += " \n\n";
+    // }
+
+
+    this.loading = true;
+    this.folder_id = this.gs.getGuid();
+
+    let SearchData = {
+      type: '',
+      araptype: '',
+      pkid: '',
+      report_folder: '',
+      folderid: '',
+      company_code: '',
+      branch_code: '',
+      report_caption: '',
+      report_format: '',
+      menuadmin: ''
+    }
+
+    SearchData.pkid = _invid;
+    SearchData.report_format = reportformat;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.folderid = this.folder_id;
+    SearchData.report_caption = "INVOICE";
+    //SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
+    SearchData.menuadmin = "N";
+    this.ErrorMessage = '';
+    this.mainService.GenerateInvoice(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        // if (_type == 'MAIL') {
+        //   this.AttachList = new Array<any>();
+        //   this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+        //   this.open(mailsent);
+        // } else
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
 
 

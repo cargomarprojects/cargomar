@@ -27,11 +27,11 @@
           <div class="col-sm-5">
             <select class="form-control form-control-sm" name="rtype" [(ngModel)]="reporttype" (change)="OnChange('reporttype')">
               <option [value]="'EPF'">EPF</option>
-              <option *ngIf="bAdmin" [value]="'EPF-SOUTH'">EPF-SOUTH-BRANCHES</option>
-              <option *ngIf="bAdmin" [value]="'EPF-NORTH'">EPF-NORTH-BRANCHES</option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('EPF-S')>=0" [value]="'EPF-SOUTH'">EPF-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('EPF-N')>=0" [value]="'EPF-NORTH'">EPF-NORTH-BRANCHES</option>
               <option [value]="'ESI'">ESI</option>
-              <option *ngIf="bAdmin" [value]="'ESI-SOUTH'">ESI-SOUTH-BRANCHES</option>
-              <option *ngIf="bAdmin" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES</option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('ESI-S')>=0" [value]="'ESI-SOUTH'">ESI-SOUTH-BRANCHES</option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('ESI-N')>=0" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES</option>
             </select>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>

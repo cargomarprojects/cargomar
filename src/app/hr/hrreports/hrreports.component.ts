@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { HrReport } from '../models/hrreport';
 import { HrReportService } from '../services/hrreport.service';
-  
 
 @Component({
   selector: 'app-hrreports',
@@ -40,8 +39,9 @@ export class HrReportsComponent {
 
   salyear = 0;
   salmonth = 0;
-  
-  reporttype="EPF";
+
+  bapprovalstatus = "";
+  reporttype = "EPF";
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
@@ -53,7 +53,7 @@ export class HrReportsComponent {
 
   // Single Record for add/edit/view details
   Record: HrReport = new HrReport;
-  
+
   constructor(
     private modalService: NgbModal,
     private mainService: HrReportService,
@@ -86,13 +86,14 @@ export class HrReportsComponent {
     this.reporttype = 'EPF';
     this.empstatus = 'BOTH';
     this.bRemove = true;
-    this.bAdmin=false;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -120,7 +121,7 @@ export class HrReportsComponent {
     } else if (this.salyear < 100) {
       this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
     }
-    if (this.salmonth <= 0 || this.salmonth > 12) { 
+    if (this.salmonth <= 0 || this.salmonth > 12) {
       this.ErrorMessage += " | Invalid Month";
     }
     if (this.ErrorMessage.length > 0)
@@ -133,14 +134,14 @@ export class HrReportsComponent {
       searchstring: this.searchstring.toUpperCase(),
       salmonth: this.salmonth,
       salyear: this.salyear,
-      reporttype:this.reporttype,
-      empstatus:this.empstatus,
+      reporttype: this.reporttype,
+      empstatus: this.empstatus,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      branch_region:this.gs.defaultValues.pf_br_region,
-      folderid:this.gs.getGuid(),
+      branch_region: this.gs.defaultValues.pf_br_region,
+      folderid: this.gs.getGuid(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -153,19 +154,19 @@ export class HrReportsComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else 
-        this.RecordList = response.list;
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else
+          this.RecordList = response.list;
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
-  
+
+
 
   allvalid() {
     let sError: string = "";
@@ -195,7 +196,7 @@ export class HrReportsComponent {
 
     //if (bret === false)
     //  this.ErrorMessage = sError;
-    
+
     return bret;
   }
 
