@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SalaryHead } from '../models/salaryhead';
 import { SalaryHeadService } from '../services/salaryhead.service';
-  
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-salaryhead',
@@ -45,7 +45,8 @@ export class SalaryHeadComponent {
     RecordList: SalaryHead[] = [];
     // Single Record for add/edit/view details
     Record: SalaryHead = new SalaryHead;
-     
+    ACCRECORD: SearchTable = new SearchTable();
+
     constructor(
       private mainService: SalaryHeadService,
         private route: ActivatedRoute,
@@ -115,9 +116,22 @@ export class SalaryHeadComponent {
 
 
     InitLov() {
- 
+      this.ACCRECORD = new SearchTable();
+      this.ACCRECORD.controlname = "ACCTM";
+      this.ACCRECORD.displaycolumn = "CODE";
+      this.ACCRECORD.type = "ACCTM";
+      this.ACCRECORD.id = "";
+      this.ACCRECORD.code = "";
+      this.ACCRECORD.name = "";
+  
     }
-
+    LovSelected(_Record: SearchTable) {
+      if (_Record.controlname == "ACCTM") {
+        this.Record.sal_acc_id = _Record.id;
+        this.Record.sal_acc_code = _Record.code;
+        this.Record.sal_acc_name = _Record.name;
+      }
+    }
      
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action : string, id :string ) {
@@ -199,6 +213,9 @@ export class SalaryHeadComponent {
       this.Record.sal_desc = '';
       this.Record.sal_head = '';
       this.Record.sal_head_order = 0;
+      this.Record.sal_acc_id ='';
+      this.Record.sal_acc_code ='';
+      this.Record.sal_acc_name ='';
       this.InitLov();
       this.Record.rec_mode = this.mode;
     } 
@@ -226,6 +243,10 @@ export class SalaryHeadComponent {
     LoadData(_Record: SalaryHead) {
         this.Record = _Record;
         this.InitLov();
+        this.ACCRECORD.id = this.Record.sal_acc_id;
+        this.ACCRECORD.code = this.Record.sal_acc_code;
+        this.ACCRECORD.name = this.Record.sal_acc_name;
+    
         this.Record.rec_mode = this.mode;
     }
 
@@ -295,6 +316,8 @@ export class SalaryHeadComponent {
         REC.sal_desc = this.Record.sal_desc;
         REC.sal_head_order = this.Record.sal_head_order;
         REC.sal_head = this.Record.sal_head;
+        REC.sal_acc_code = this.Record.sal_acc_code;
+        REC.sal_acc_name = this.Record.sal_acc_name;
       } 
     }
     
