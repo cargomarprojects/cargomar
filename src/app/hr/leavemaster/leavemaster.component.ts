@@ -34,6 +34,7 @@ export class LeaveMasterComponent {
     page_rows = 0;
     page_rowcount = 0;
 
+    lock_record: boolean = false;
     bChanged: boolean = false;
     sub: any;
     urlid: string;
@@ -274,6 +275,10 @@ export class LeaveMasterComponent {
         this.EMPRECORD.name = this.Record.lev_emp_name;
         this.Record.rec_mode = this.mode;
         this.FindTotPL();
+
+        this.lock_record = true;
+        if (this.Record.lev_edit_code.indexOf("{S}") >= 0)
+        this.lock_record = false;
     }
 
     // Save Data

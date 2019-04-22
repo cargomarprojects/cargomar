@@ -260,7 +260,7 @@ export class ContainerComponent {
     this.Record.cntr_stuffed_on = '';
     this.Record.cntr_egmno = '';
     this.Record.cntr_egmdt = '';
-    this.Record.cntr_trafinsp = 'NOT';
+    this.Record.cntr_trafinsp = 'N';
     this.Record.cntr_inspsup = '';
     this.Record.cntr_inspin = '';
     this.Record.cntr_service_contract_id ="";

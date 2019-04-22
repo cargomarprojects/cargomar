@@ -25,7 +25,7 @@
     <font color="red">
       {{styleno}}
     </font>
-    <button [disabled]="loading" (click)="CreateOrder('VALIDATE')" class="btn btn-primary btn-sm">Validate</button>
+    <!-- <button [disabled]="loading" (click)="CreateOrder('VALIDATE')" class="btn btn-primary btn-sm">Validate</button> -->
     <button [disabled]="loading" (click)="CreateOrder('CREATE-PO')" class="btn btn-primary btn-sm">Add To Order
       List</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>

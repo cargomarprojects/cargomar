@@ -603,6 +603,8 @@ export class PayRollComponent {
       searchstring: this.searchstring.toUpperCase(),
       salmonth: this.salmonth,
       salyear: this.salyear,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
