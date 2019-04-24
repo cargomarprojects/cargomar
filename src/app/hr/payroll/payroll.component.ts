@@ -32,7 +32,7 @@ export class PayRollComponent {
   currentTab = 'LIST';
 
   searchstring = '';
-  salh_jvno =0;
+  salh_jvno = 0;
 
   page_count = 0;
   page_current = 0;
@@ -237,10 +237,10 @@ export class PayRollComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
-    
+
     this.lock_record = true;
     if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
-    this.lock_record = false;
+      this.lock_record = false;
   }
 
   // Save Data
@@ -800,6 +800,48 @@ export class PayRollComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  PostJV() {
+    let Msg: string = "";
+    Msg = "Generate JV";
+    if (this.salh_jvno > 0)
+      Msg = "Re-Generate JV";
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      year_prefix : this.gs.globalVariables.year_prefix,
+      year_start_date : this.gs.globalVariables.year_start_date,
+      year_end_date : this.gs.globalVariables.year_end_date,
+      sal_year: this.salyear,
+      sal_month: this.salmonth,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+
+    this.ErrorMessage = '';
+
+    this.mainService.List(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.salh_jvno = response.saljvno;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
   }
 
 }
