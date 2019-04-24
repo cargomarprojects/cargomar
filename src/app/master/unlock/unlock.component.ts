@@ -14,7 +14,7 @@ export class UnLockComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
- 
+
   InitCompleted: boolean = false;
   menu_record: any;
   modal: any;
@@ -23,16 +23,17 @@ export class UnLockComponent {
 
   loading = false;
   currentTab = 'LIST';
-  
+
+  unlockdate = "";
   ErrorMessage = "";
   InfoMessage = "";
   mode = 'ADD';
   pkid = '';
-  
+
   searchstring = '';
 
   ctr: number;
- 
+
   sub: any;
   bValueChanged: boolean = false;
   moduletype: string = "";
@@ -45,9 +46,9 @@ export class UnLockComponent {
   chkresetfldr: boolean = false;
   chkbpreaprvd: boolean = false;
 
- // Array For Displaying List
+  // Array For Displaying List
   ModuleList: any[] = [];
-  
+
   constructor(
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -75,7 +76,8 @@ export class UnLockComponent {
     this.refnotitle = "Vr.No";
     this.moduletype = "JV";
     this.chkresetfldr = false;
-    this.chkbpreaprvd=false; 
+    this.chkbpreaprvd = false;
+    this.unlockdate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -85,7 +87,7 @@ export class UnLockComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-     
+
   }
 
   // Destroy Will be called when this component is closed
@@ -131,10 +133,14 @@ export class UnLockComponent {
       { "code": "SEA EXPORT COSTING", "name": "Sea Export Costing" },
       { "code": "SE CONSOLE COSTING", "name": "Sea Console Costing" },
       { "code": "AGENT INVOICE", "name": "Agent Invoice" },
-      { "code": "DRCR ISSUE", "name": "DRCR Issue" }
+      { "code": "DRCR ISSUE", "name": "DRCR Issue" },
+      { "code": "HR-SALARY-MASTER", "name": "Salary Master" },
+      { "code": "HR-PAYROLL", "name": "Payroll" },
+      { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
+      { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" }
     ];
   }
-  
+
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -144,7 +150,7 @@ export class UnLockComponent {
 
   ResetControls() {
   }
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
@@ -166,7 +172,7 @@ export class UnLockComponent {
   }
 
   onLostFocus(field: string) {
-    
+
   }
   OnChange(field: string) {
     if (field == 'moduletype') {
@@ -188,12 +194,15 @@ export class UnLockComponent {
           this.refnotitle = "Folder/MAWB";
       } else if (this.moduletype == "HBL-AE" || this.moduletype == "HBL-AI" ||
         this.moduletype == "HBL-SE" || this.moduletype == "HBL-SI") {
-          this.refnotitle = "SI#";
+        this.refnotitle = "SI#";
       } else if (this.moduletype == "AGENT INVOICE" || this.moduletype == "AIR EXPORT COSTING" ||
-        this.moduletype == "DRCR ISSUE" || this.moduletype == "SEA EXPORT COSTING"|| this.moduletype == "SE CONSOLE COSTING") {
+        this.moduletype == "DRCR ISSUE" || this.moduletype == "SEA EXPORT COSTING" || this.moduletype == "SE CONSOLE COSTING") {
         this.refnotitle = "Folder#";
       } else if (this.moduletype == "JOB-GN") {
         this.refnotitle = "Job#";
+      }
+      else if (this.moduletype.indexOf('HR-') == 0) {
+        this.refnotitle = "Employee#";
       }
     }
   }
@@ -211,7 +220,7 @@ export class UnLockComponent {
         return;
       }
     }
-     
+
     this.loading = true;
     let SearchData = {
       table: '',
@@ -223,16 +232,17 @@ export class UnLockComponent {
       remarks: '',
       chkdate: '',
       chkcc: '',
-      chkresetfldr:'',
+      chkresetfldr: '',
       company_code: '',
       branch_code: '',
       year_code: '',
       user_code: '',
       cntrltype: '',
-      chkbpreaprvd:''
+      chkbpreaprvd: '',
+      unlockdate: ''
     };
 
-    if (controlname == "save" || controlname == "lock" )
+    if (controlname == "save" || controlname == "lock")
       SearchData.type = "SAVE";
     else
       SearchData.type = "LOAD";
@@ -251,6 +261,7 @@ export class UnLockComponent {
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.cntrltype = controlname;
     SearchData.chkbpreaprvd = this.chkbpreaprvd == true ? "Y" : "N";
+    SearchData.unlockdate = this.unlockdate;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
@@ -278,12 +289,12 @@ export class UnLockComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-   
+
   UnlockRecord(savetype: string) {
 
     if (this.refno.toString().trim().length <= 0) {
@@ -295,7 +306,7 @@ export class UnLockComponent {
       this.ErrorMessage = " Invalid Reference ID ";
       return;
     }
-     
+
     if (this.remarks.toString().trim().length <= 0) {
       this.ErrorMessage = " Remarks Cannot be blank ";
       return;

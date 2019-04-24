@@ -33,6 +33,7 @@ export class LeaveDetComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  lock_record: boolean = false;
   bChanged: boolean = false;
   sub: any;
   urlid: string;
@@ -244,6 +245,7 @@ export class LeaveDetComponent {
     this.Record.lev_pl_carry = 0;
     this.Record.lev_fin_year = 0;
     this.Record.rec_category='CONFIRMED';
+    this.lock_record = false;
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.Record.lev_year = +tempdt[0];
@@ -281,6 +283,10 @@ export class LeaveDetComponent {
     this.EMPRECORD.code = this.Record.lev_emp_code;
     this.EMPRECORD.name = this.Record.lev_emp_name;
     this.Record.rec_mode = this.mode;
+
+    this.lock_record = true;
+    if (this.Record.lev_edit_code.indexOf("{S}") >= 0)
+    this.lock_record = false;
   }
 
   // Save Data
