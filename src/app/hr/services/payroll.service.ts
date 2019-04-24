@@ -37,5 +37,12 @@ export class PayRollService {
   PrintSalarySheet(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payroll/PrintSalarySheet', SearchData, this.gs.headerparam2('authorized'));
   }
+
+
+  PostPayRoll(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SavePayRoll', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
 }
 
