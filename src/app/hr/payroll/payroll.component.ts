@@ -831,10 +831,10 @@ export class PayRollComponent {
 
     this.ErrorMessage = '';
 
-    this.mainService.List(SearchData)
+    this.mainService.PostPayRoll(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.salh_jvno = response.saljvno;
+        alert( 'JV Generated : ' + response.jvno);
       },
         error => {
           this.loading = false;
