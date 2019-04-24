@@ -123,8 +123,10 @@
                     <option [value]="'TRACKING'">TRACKING</option>
                   </select>
                 </div>
-                <div class="col-2">
-                  <button [disabled]="loading" (click)="MailOrders(ftpsent,'MULTIPLE')"
+                <div class="col-6">
+                  <button [disabled]="loading" (click)="MailOrders(ftpsent,'MULTIPLE','CHECK-LIST')"
+                    class="btn btn-primary btn-sm">Checklist</button>
+                    <button [disabled]="loading" (click)="MailOrders(ftpsent,'MULTIPLE','')"
                     class="btn btn-primary btn-sm">Mail/FTP</button>
                 </div>
               </div>
@@ -464,7 +466,7 @@
                       </select>
                     </div>
                     <div class="col-sm-2">
-                      <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="MailOrders(ftpsent,'')"
+                      <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="MailOrders(ftpsent,'','')"
                         class="btn btn-success btn-sm">Mail/FTP</button>
                     </div>
                   </div>
@@ -589,8 +591,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"  [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" 
-            [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="AttachList" [updatesql]="ftpUpdtSql" [rootpage]="'FTPPAGE'">
+          <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"
+            [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true
+            [FtpAttachList]="AttachList" [updatesql]="ftpUpdtSql" [rootpage]="'FTPPAGE'">
           </app-mail>
         </div>
       </ng-template>

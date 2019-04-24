@@ -1211,7 +1211,7 @@ export class OrderListComponent {
     this.open(approvedorder);
   }
 
-  MailOrders(ftpsent: any, sType: string) {
+  MailOrders(ftpsent: any, sType: string, _filetype: string = "") {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     this.ftp_agent_code = '';
@@ -1273,6 +1273,7 @@ export class OrderListComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      rowtype: _filetype,
       type: '',
       pkid: '',
       filedisplayname: ''
@@ -1283,22 +1284,26 @@ export class OrderListComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.type = this.ftpTransfertype;
     SearchData.pkid = this.pkid;
+    SearchData.rowtype = _filetype;
     SearchData.filedisplayname = '';
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = response.subject;
-        this.ftpUpdtSql = response.updatesql;
-        if (sType == 'MULTIPLE')
-          this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
-        this.AttachList = new Array<any>();
-        if (this.ftpTransfertype == 'ORDERLIST') {
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
-          this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
-        } else //TRACKING CARGO PROCESS
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
-
-        this.open(ftpsent);
+        if (_filetype == 'CHECK-LIST') { 
+            this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
+        } else {
+          this.sSubject = response.subject;
+          this.ftpUpdtSql = response.updatesql;
+          if (sType == 'MULTIPLE')
+            this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
+          this.AttachList = new Array<any>();
+          if (this.ftpTransfertype == 'ORDERLIST') {
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+          } else //TRACKING CARGO PROCESS
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
+          this.open(ftpsent);
+        }
       },
         error => {
           this.loading = false;
