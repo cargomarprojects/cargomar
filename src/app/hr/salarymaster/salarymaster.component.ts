@@ -497,8 +497,11 @@ export class SalaryMasterComponent {
 
     ESI_Amt = 0
     if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
-      ESI_Amt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
-
+    { 
+      ESI_Amt = TotEarning * (this.gs.defaultValues.esi_emply_percent / 100);
+      ESI_Amt= this.gs.roundNumber(ESI_Amt,2);
+      ESI_Amt = Math.ceil(ESI_Amt);
+    }
     for (let rec of this.Record.DetList) {
       if (rec.d_code1 == "D01") //Employee PF Deduction
         rec.d_amt1 = PF_Amt;

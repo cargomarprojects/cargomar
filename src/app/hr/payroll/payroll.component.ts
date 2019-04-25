@@ -6,7 +6,6 @@ import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { PayRollService } from '../services/payroll.service';
 
-
 @Component({
   selector: 'app-payroll',
   templateUrl: './payroll.component.html',
@@ -514,36 +513,13 @@ export class PayRollComponent {
   FindNetAmt() {
     let TotEarning: number = 0;
     let TotDeductn: number = 0;
-    // let PF_LimitAmt: number = 0;
-    // let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
-    // let ESIAmt: number = 0;
-
+    
     for (let rec of this.Record.DetList) {
       TotEarning += rec.e_amt1;
       TotEarning += rec.e_amt2;
-
-      //if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
-      //  PF_ExcludedAmt += rec.e_amt1;
-      //if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
-      //  PF_ExcludedAmt += rec.e_amt2;
     }
 
-    //PF_LimitAmt = this.Record.sal_pf_limit;
-    //if (PF_LimitAmt <= 0)
-    //  PF_LimitAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
-    //PF_LimitAmt *= this.gs.defaultValues.pf_percent / 100;
-    //PF_LimitAmt = this.gs.roundNumber(PF_LimitAmt, 0);
-
-    //ESIAmt=0
-    //if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
-    //  ESIAmt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
-
     for (let rec of this.Record.DetList) {
-      //if (rec.d_code1 == "D01")
-      //  rec.d_amt1 = PF_LimitAmt;
-      //if (rec.d_code1 == "D02")
-      //  rec.d_amt1 = ESIAmt;
-
       TotDeductn += rec.d_amt1;
       TotDeductn += rec.d_amt2;
     }
