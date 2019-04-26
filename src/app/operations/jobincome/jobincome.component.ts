@@ -543,7 +543,6 @@ export class JobIncomeComponent {
       REC.inv_source = this.Record.inv_source;
       REC.inv_type = this.Record.inv_type;
       REC.inv_cntr_type = this.Record.inv_cntr_type;
-
       REC.inv_curr_code = this.Record.inv_curr_code;
       REC.inv_qty = this.Record.inv_qty;
       REC.inv_rate = this.Record.inv_rate;
@@ -556,7 +555,6 @@ export class JobIncomeComponent {
   }
 
   RemoveRecord(Id: string) {
-
     this.loading = true;
     let SearchData = {
       pkid: Id,

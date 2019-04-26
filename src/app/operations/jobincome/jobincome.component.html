@@ -72,7 +72,7 @@
           <th>EXRATE</th>
           <th>TOTAL</th>
           <th>POSTED</th>
-          <th>DELETE</th>
+          <th *ngIf="!lock_record">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -90,7 +90,7 @@
           <td>{{rec.inv_exrate}}</td>
           <td>{{rec.inv_total}}</td>
           <td>{{(rec.inv_posted) ? 'Y' : 'N'}}</td>
-          <td>
+          <td *ngIf="!lock_record">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.inv_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
