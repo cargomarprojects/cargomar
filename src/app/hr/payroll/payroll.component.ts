@@ -66,7 +66,7 @@ export class PayRollComponent {
     private gs: GlobalService
   ) {
     this.page_count = 0;
-    this.page_rows = 30;
+    this.page_rows = 50;
     this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -660,14 +660,15 @@ export class PayRollComponent {
   PrintSalarySheet(_type: string = '') {
     this.ErrorMessage = ''
     let SalPkids: string = "";
+    for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
+      if (SalPkids != "")
+        SalPkids += ",";
+      SalPkids += rec.sal_pkid;
+    }
+
     if (_type == "PAYSLIP") {
-      for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
-        if (SalPkids != "")
-          SalPkids += ",";
-        SalPkids += rec.sal_pkid;
-      }
       if (SalPkids == "") {
-        this.ErrorMessage = "Please select and Continue.....";
+        this.ErrorMessage = "Please Select and Continue.....";
         alert(this.ErrorMessage);
         return;
       }
