@@ -513,7 +513,7 @@ export class PayRollComponent {
   FindNetAmt() {
     let TotEarning: number = 0;
     let TotDeductn: number = 0;
-    
+
     for (let rec of this.Record.DetList) {
       TotEarning += rec.e_amt1;
       TotEarning += rec.e_amt2;
@@ -657,7 +657,7 @@ export class PayRollComponent {
   }
 
   folder_id: string;
-  PrintSalarySheet(_type: string = '') {
+  PrintSalarySheet(_type: string = '', _filetype: string = '') {
     this.ErrorMessage = ''
     let SalPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
@@ -687,7 +687,8 @@ export class PayRollComponent {
       salmonth: 0,
       salyear: 0,
       empstatus: '',
-      isadmin: 'N'
+      isadmin: 'N',
+      filetype:'PDF'
     }
 
     SearchData.type = _type;
@@ -701,6 +702,7 @@ export class PayRollComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.folderid = this.folder_id;
     SearchData.isadmin = this.bAdmin ? "Y" : "N";
+    SearchData.filetype=_filetype;
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
@@ -797,9 +799,9 @@ export class PayRollComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      year_prefix : this.gs.globalVariables.year_prefix,
-      year_start_date : this.gs.globalVariables.year_start_date,
-      year_end_date : this.gs.globalVariables.year_end_date,
+      year_prefix: this.gs.globalVariables.year_prefix,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
       sal_year: this.salyear,
       sal_month: this.salmonth,
       report_folder: this.gs.globalVariables.report_folder
@@ -811,7 +813,7 @@ export class PayRollComponent {
     this.mainService.PostPayRoll(SearchData)
       .subscribe(response => {
         this.loading = false;
-        alert( 'JV Generated : ' + response.jvno);
+        alert('JV Generated : ' + response.jvno);
       },
         error => {
           this.loading = false;

@@ -14,6 +14,7 @@ export class SearchShipment {
   category: string;
   carrier_name: string;
   commodity_name: string;
+  blno:string;
   sbno: string;
   beno: string;
   teu:number;

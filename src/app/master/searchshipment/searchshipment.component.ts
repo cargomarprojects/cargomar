@@ -14,7 +14,7 @@ import { SearchShipmentService } from '../services/searchshipment.service';
 
 export class SearchShipmentComponent {
   title = 'Search Shipment'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
 
@@ -35,6 +35,7 @@ export class SearchShipmentComponent {
   agent: string = "";
   from_date: string = '';
   to_date: string = '';
+  hbltype: string = 'ALL';
 
   page_count = 0;
   page_current = 0;
@@ -69,8 +70,9 @@ export class SearchShipmentComponent {
     page_rowcount: 0,
     agent: '',
     from_date: '',
-    to_date:  '',
-    all: false
+    to_date: '',
+    all: false,
+    hbltype: ''
 
   };
 
@@ -123,7 +125,7 @@ export class SearchShipmentComponent {
   }
 
   Init() {
-    
+    this.hbltype="ALL";
     this.job_type = "ALL";
     this.RecordList = null;
     this.shipper = "";
@@ -156,7 +158,7 @@ export class SearchShipmentComponent {
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
-     
+
     }
   }
   LoadCombo() {
@@ -215,7 +217,7 @@ export class SearchShipmentComponent {
 
     }
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-  
+
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
@@ -230,8 +232,8 @@ export class SearchShipmentComponent {
     this.SearchData.page_current = this.page_current;
     this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
+    this.SearchData.hbltype = this.hbltype;
 
-    
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -245,11 +247,11 @@ export class SearchShipmentComponent {
           this.page_rowcount = response.page_rowcount;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
