@@ -22,6 +22,7 @@ export class PayRollComponent {
 
   lock_record: boolean = false;
   bAdmin: boolean = false;
+  bEmail: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bRemove: boolean = false;
@@ -91,11 +92,14 @@ export class PayRollComponent {
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.bAdmin = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -660,10 +664,24 @@ export class PayRollComponent {
   PrintSalarySheet(_type: string = '', _filetype: string = '') {
     this.ErrorMessage = ''
     let SalPkids: string = "";
+    let empbrgrp: number = 0;
+    let ismultigrp: boolean = false;
     for (let rec of this.RecordList.filter(rec => rec.sal_selected == true)) {
       if (SalPkids != "")
         SalPkids += ",";
       SalPkids += rec.sal_pkid;
+      if (empbrgrp <= 0)
+        empbrgrp = rec.sal_emp_branch_group;
+      if (empbrgrp != rec.sal_emp_branch_group)
+        ismultigrp = true;
+    }
+
+    if (_type == "SALSHEET") {
+      if (ismultigrp) {
+        this.ErrorMessage = "Please Select Single Group and Continue.....";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     if (_type == "PAYSLIP") {
@@ -673,6 +691,9 @@ export class PayRollComponent {
         return;
       }
     }
+
+    if (empbrgrp <= 0)
+      empbrgrp = 1;
 
     this.loading = true;
     this.folder_id = this.gs.getGuid();
@@ -688,7 +709,8 @@ export class PayRollComponent {
       salyear: 0,
       empstatus: '',
       isadmin: 'N',
-      filetype:'PDF'
+      filetype: 'PDF',
+      empbrgroup: 1
     }
 
     SearchData.type = _type;
@@ -702,13 +724,16 @@ export class PayRollComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.folderid = this.folder_id;
     SearchData.isadmin = this.bAdmin ? "Y" : "N";
-    SearchData.filetype=_filetype;
-
+    SearchData.filetype = _filetype;
+    SearchData.empbrgroup = empbrgrp;
+    
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        if (response.filename2.length > 0)
+          this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
       },
         error => {
           this.loading = false;

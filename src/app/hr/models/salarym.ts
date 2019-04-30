@@ -12,6 +12,7 @@ export class Salarym {
   sal_year: number;
   sal_fin_year: number;
   sal_days_worked: number;
+  sal_emp_branch_group:number;
   a01: number;
   a02: number;
   a03: number;

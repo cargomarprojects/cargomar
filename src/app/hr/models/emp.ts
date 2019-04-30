@@ -70,6 +70,8 @@ export class Emp {
   emp_trans_date: string;
   emp_branch_name: string;
   emp_company_id: string;
+  emp_branch_group: number;
+
 
   rec_mode: string;
   rec_branch_code: string;

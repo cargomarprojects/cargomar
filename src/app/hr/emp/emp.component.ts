@@ -308,7 +308,7 @@ export class EmpComponent {
     this.Record.emp_is_relieved = false;
     this.Record.emp_trans_date = '';
     this.ageinyears = '';
-
+    this.Record.emp_branch_group=1;
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.Record.rec_mode = this.mode;
     this.Initdefault();
@@ -357,7 +357,6 @@ export class EmpComponent {
   }
 
   LoadData(_Record: Emp) {
-
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
     this.ageinyears = '';
