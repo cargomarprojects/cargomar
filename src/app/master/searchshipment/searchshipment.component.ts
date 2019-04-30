@@ -193,14 +193,14 @@ export class SearchShipmentComponent {
   List(_type: string) {
 
     this.ErrorMessage = '';
-    if (this.shipper.trim().length <= 0 && this.consignee.trim().length <= 0 && this.agent.trim().length <= 0) {
-      this.RecordList = null;
-      this.page_count = 0;
-      this.page_rows = 15;
-      this.page_current = 0;
-      this.ErrorMessage = "Shipper Or Consignee Or Agent Cannot Be Blank";
-      return;
-    }
+    // if (this.shipper.trim().length <= 0 && this.consignee.trim().length <= 0 && this.agent.trim().length <= 0) {
+    //   this.RecordList = null;
+    //   this.page_count = 0;
+    //   this.page_rows = 15;
+    //   this.page_current = 0;
+    //   this.ErrorMessage = "Shipper Or Consignee Or Agent Cannot Be Blank";
+    //   return;
+    // }
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
