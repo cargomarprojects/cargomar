@@ -29,6 +29,7 @@ export class MblSeaComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  currentPage = 'ROOTPAGE';
 
   bChanged: boolean;
 
@@ -1424,5 +1425,13 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+  
+  ShowBL(){
+    this.currentPage = 'BLPAGE';
+  }
+
+  pageChanged() {
+    this.currentPage = 'ROOTPAGE';
   }
 }

@@ -583,7 +583,7 @@
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">
     <div *ngIf="type=='SEA EXPORT'" class="col">
-      <app-seabl [parentid]="pkid" [type]="type" (PageChanged)="pageChanged($event)"></app-seabl>
+      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="'HBL'"  (PageChanged)="pageChanged($event)"></app-seabl>
     </div>
     <div *ngIf="type=='AIR EXPORT'" class="col">
       <app-airbl [parentid]="pkid" [type]="type" [invokefrom]="'HAWB'" (PageChanged)="pageChanged($event)"></app-airbl>

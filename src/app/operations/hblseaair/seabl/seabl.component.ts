@@ -19,6 +19,7 @@ export class BlComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() invokefrom: string = '';
   @Input() parentid: string = '';
   @Output() PageChanged = new EventEmitter<any>();
 
@@ -67,6 +68,7 @@ export class BlComponent {
     this.user_admin = false;
     if (this.gs.globalVariables.user_code == "ADMIN")
       this.user_admin = true;
+      this.title = this.invokefrom;
   }
 
   // Destroy Will be called when this component is closed
@@ -213,7 +215,7 @@ export class BlComponent {
 
 
   LoadCombo() {
-    
+
     this.loading = true;
     let SearchData = {
       type: 'SEABL',
@@ -224,15 +226,15 @@ export class BlComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.LoadDefault(SearchData)
-        .subscribe(response => {
-            this.loading = false;
-            this.BLFormatList = response.blformatlist;
-            this.BLPrintFormatList = response.blprintformatlist;
-            this.GetRecord("LIST","");
-        },
+      .subscribe(response => {
+        this.loading = false;
+        this.BLFormatList = response.blformatlist;
+        this.BLPrintFormatList = response.blprintformatlist;
+        this.GetRecord("LIST", "");
+      },
         error => {
-            this.loading = false;
-            this.ErrorMessage = this.gs.getError(error);
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
         });
   }
 
@@ -245,13 +247,13 @@ export class BlComponent {
       var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id)
       if (REC != null) {
         if (REC.blf_name == "NA") {
-            this.ErrorMessage = "\n\r | Please select  print format and continue....";
+          this.ErrorMessage = "\n\r | Please select  print format and continue....";
         }
       }
     }
-    if (this.ErrorMessage.length>0)
+    if (this.ErrorMessage.length > 0)
       return;
-    
+
     this.loading = true;
     this.folder_id = this.gs.getGuid();
     let _colorprint: string = "N";
@@ -267,7 +269,8 @@ export class BlComponent {
       folderid: this.folder_id,
       colorprint: _colorprint,
       issuedplace: this.gs.defaultValues.bl_issued_place,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      invokefrm: this.invokefrom
     };
 
     this.mainService.GetRecord(SearchData)
@@ -284,10 +287,10 @@ export class BlComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -299,7 +302,7 @@ export class BlComponent {
     this.Initdefault('');
     this.InitLov();
   }
-  Initdefault(fldtype:string) {
+  Initdefault(fldtype: string) {
 
     if (fldtype == '' || fldtype == 'SEQ')
       if (this.BLFormatList != null) {
@@ -310,12 +313,12 @@ export class BlComponent {
       }
 
     if (fldtype == '' || fldtype == 'PRINT')
-    if (this.BLPrintFormatList != null) {
-      var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'NA');
-      if (REC != null) {
-        this.Record.bl_print_format_id = REC.blf_pkid;
+      if (this.BLPrintFormatList != null) {
+        var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'NA');
+        if (REC != null) {
+          this.Record.bl_print_format_id = REC.blf_pkid;
+        }
       }
-    }
 
   }
   LoadData(_Record: Bl) {
@@ -339,9 +342,9 @@ export class BlComponent {
     this.SHPRRECORD.id = this.Record.bl_shipper_id;
     this.SHPRRECORD.code = this.Record.bl_shipper_code;
 
-     this.SHPRADDRECORD.id = this.Record.bl_shipper_br_id;
-     this.SHPRADDRECORD.code = this.Record.bl_shipper_br_no;
-     this.SHPRADDRECORD.parentid = this.Record.bl_shipper_id;
+    this.SHPRADDRECORD.id = this.Record.bl_shipper_br_id;
+    this.SHPRADDRECORD.code = this.Record.bl_shipper_br_no;
+    this.SHPRADDRECORD.parentid = this.Record.bl_shipper_id;
 
     this.CNGERECORD.id = this.Record.bl_consignee_id;
     this.CNGERECORD.code = this.Record.bl_consignee_code;
@@ -380,11 +383,11 @@ export class BlComponent {
         this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -403,7 +406,7 @@ export class BlComponent {
     //    sError += "\n\rAmount Cannot Be Blank";
     //}
     if (bret == false)
-        this.ErrorMessage = sError;
+      this.ErrorMessage = sError;
 
     return bret;
   }
@@ -1076,10 +1079,10 @@ export class BlComponent {
           this.ErrorMessage = 'Invalid Address';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -1113,7 +1116,7 @@ export class BlComponent {
     this.AttchRecord.bl_marks = '';
     this.AttchRecord.bl_desc = '';
   }
-   
+
   RemoveList(event: any) {
     if (event.selected) {
       this.ActionHandler('REMOVE', event.id)
@@ -1127,9 +1130,9 @@ export class BlComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (_type == "SEABL" && this.Record.hbl_date.trim().length <= 0) {
-        this.ErrorMessage = "\n\r | BL Date Cannot Be Blank";
+      this.ErrorMessage = "\n\r | BL Date Cannot Be Blank";
     }
-    
+
     if (_type == 'SEABL') {
       if (this.BLFormatList != null) {
         var REC = this.BLFormatList.find(rec => rec.table_pkid == this.Record.hbl_seq_format_id)
@@ -1154,9 +1157,9 @@ export class BlComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       bldate: this.Record.hbl_date,
-      category:"SEA EXPORT"
+      category: "SEA EXPORT"
     };
-   
+
     this.mainService.GenerateBLNumber(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1170,11 +1173,11 @@ export class BlComponent {
         else if (_type == "FCR")
           this.Record.hbl_fcr_no = response.newno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
 
   }
   UnlockBLNo(_type: string) {
@@ -1200,10 +1203,10 @@ export class BlComponent {
         this.loading = false;
         this.InfoMessage = "Successfully Unlocked";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 
@@ -1225,20 +1228,20 @@ export class BlComponent {
     SearchData.type = _type;
     SearchData.itm_po = spo;
     SearchData.itm_desc = sdesc;
-    
+
     this.mainService.UpdateBL(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == "LOAD") {
           this.Record.bl_itm_po = response.itmpo;
           this.Record.bl_itm_desc = response.itmdesc;
-        }else
-        this.InfoMessage = "Successfully Updated";
+        } else
+          this.InfoMessage = "Successfully Updated";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
   LoadDescription(_type: string) {
@@ -1260,7 +1263,7 @@ export class BlComponent {
     SearchData.format = _type;
     SearchData.issuedplace = this.gs.defaultValues.bl_issued_place;
     SearchData.company_name = this.gs.globalVariables.comp_name;
-    
+
     this.mainService.LoadDescription(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1307,11 +1310,11 @@ export class BlComponent {
         //this.Record.bl_itm_po = _NewRecord.bl_itm_po;
         //this.Record.bl_itm_desc = _NewRecord.bl_itm_desc;
         this.AttchRecordList = _NewRecord.AttachList;
- 
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

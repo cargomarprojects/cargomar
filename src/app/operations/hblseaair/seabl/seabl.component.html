@@ -3,8 +3,8 @@
   <div class="col-sm-12">
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')" class="btn btn-success btn-sm">Unlock</button>
-    <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
-    <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
+    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
+    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -191,8 +191,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
-
+    <div *ngIf="invokefrom=='HBL'" class="col-sm-6">
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
@@ -735,7 +734,7 @@
         </div>
 
       </div>
-      <div class="page-box">
+      <div *ngIf="invokefrom=='HBL'" class="page-box">
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">
               PO Numbers
@@ -876,7 +875,7 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="col-sm-6">
-              <div class="form-group row">
+              <div *ngIf="invokefrom=='HBL'"  class="form-group row">
                 <div class="offset-4 col-8">
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
@@ -908,16 +907,16 @@
                 <div class="offset-4 col-8">
                   <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()" class="btn btn-success btn-sm">Save</button>
                   <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
-                  <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
-                  <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
+                  <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
+                  <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
                   <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft</button>
-                  <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
+                  <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
                   <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>
 
             </div>
-            <div class="col-sm-6">
+            <div *ngIf="invokefrom=='HBL'" class="col-sm-6">
               <label style="color:red" class="col-form-label col-form-label-sm">No changes will be allowed after printing ORIGINAL. Also Printing ORIGINAL will only be allowed once.</label>
             </div>
 

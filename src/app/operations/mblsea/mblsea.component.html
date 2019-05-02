@@ -1,3 +1,4 @@
+<div *ngIf="currentPage=='ROOTPAGE'">
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -717,6 +718,7 @@
             <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
               (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm">Check
               List</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">Master BL</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
                 <strong>
@@ -817,3 +819,11 @@
     <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
   </div>
 </ng-template>
+</div>
+<div *ngIf="currentPage=='BLPAGE'">
+  <div class="page-box">
+    <div *ngIf="type=='SEA EXPORT'" class="col">
+      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="'MBL'" (PageChanged)="pageChanged($event)"></app-seabl>
+    </div>
+  </div>
+</div>
