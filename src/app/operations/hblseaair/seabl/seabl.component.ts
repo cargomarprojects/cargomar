@@ -68,7 +68,7 @@ export class BlComponent {
     this.user_admin = false;
     if (this.gs.globalVariables.user_code == "ADMIN")
       this.user_admin = true;
-      this.title = this.invokefrom;
+    this.title = this.invokefrom;
   }
 
   // Destroy Will be called when this component is closed
@@ -336,7 +336,8 @@ export class BlComponent {
       this.Record.bl_issued_by3 = this.gs.defaultValues.bl_issued_by3;
       this.Record.bl_issued_by4 = this.gs.defaultValues.bl_issued_by4;
       this.Record.bl_issued_by5 = this.gs.defaultValues.bl_issued_by5;
-      this.Record.bl_issued_place = this.gs.defaultValues.bl_issued_place;
+      if (this.invokefrom == 'HBL')
+        this.Record.bl_issued_place = this.gs.defaultValues.bl_issued_place;
     }
     this.InitLov();
     this.SHPRRECORD.id = this.Record.bl_shipper_id;

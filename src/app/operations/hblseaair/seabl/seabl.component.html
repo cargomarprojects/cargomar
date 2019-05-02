@@ -758,15 +758,18 @@
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="invokefrom=='HBL'" class="form-group row">
           <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Freight Amount</label>
           <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight Payable At</label>
           <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">No. of Original BL</label>
           <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued Place</label>
           <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued Date </label>
         </div>
-
-        <div class="form-group row">
+        <div *ngIf="invokefrom=='MBL'" class="form-group row">
+          <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Movement</label>
+          <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight</label>
+        </div>
+        <div *ngIf="invokefrom=='HBL'"  class="form-group row">
           <div style="padding-right:0" class="offset-2 col-2">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_amount" (blur)="OnBlur('bl_frt_amount')" required maxlength="15" />
           </div>
@@ -784,7 +787,14 @@
           </div>
 
         </div>
-
+        <div *ngIf="invokefrom=='MBL'"  class="form-group row">
+          <div style="padding-right:0" class="offset-2 col-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place" (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
+          </div>
+          <div style="padding-right:0;padding-left:1px" class="col-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_pay_at" (blur)="OnBlur('bl_frt_pay_at')" required maxlength="15" />
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Other Particulars.</label>
           <div class="col-10">
