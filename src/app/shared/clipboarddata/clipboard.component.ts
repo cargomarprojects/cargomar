@@ -32,7 +32,8 @@ export class ClipBoardComponent implements OnInit {
   cbdata: string = '';
 
   maintype: string = 'JOB SEA EXPORT';
-
+  yearcode: string = '2019';
+  
   RecList: SearchTable[] = [];
 
   nTotal: string = '';
@@ -79,7 +80,7 @@ export class ClipBoardComponent implements OnInit {
     if (this.CloseClicked != null)
       this.CloseClicked.emit(this.RecList);
   }
-  
+
 
   SearchRecord() {
 
@@ -91,7 +92,8 @@ export class ClipBoardComponent implements OnInit {
       comp_code: '',
       branch_code: '',
       year_code: '',
-      cbdata: ''
+      cbdata: '',
+      isoldyear: 'N'
     };
 
 
@@ -99,7 +101,9 @@ export class ClipBoardComponent implements OnInit {
     SearchData.type = this.maintype;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
-    SearchData.year_code = this.gs.globalVariables.year_code;
+    // SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.year_code = this.yearcode;
+    SearchData.isoldyear = this.gs.globalVariables.year_code == this.yearcode ? 'N' : 'Y';
     SearchData.cbdata = this.cbdata;
 
 
@@ -110,12 +114,12 @@ export class ClipBoardComponent implements OnInit {
         this.RecList = response.pastedata;
         this.nTotal = response.total;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
 
 
 }

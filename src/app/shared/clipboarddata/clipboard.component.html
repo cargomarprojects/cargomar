@@ -21,7 +21,7 @@
 
 
         <div class="form-group row">
-          <div class="col-5">
+          <div class="col-4">
             <select class="form-control form-control-sm" [(ngModel)]="maintype">
               <option value="JOB SEA EXPORT">JOB SEA EXPORT</option>
               <option value="JOB AIR EXPORT">JOB AIR EXPORT</option>
@@ -36,11 +36,16 @@
               <option value="EMPLOYEE">EMPLOYEE</option>
             </select>
           </div>
-
           <div class="col-3">
-            <button class="btn btn-primary btn-sm" (click)="SearchRecord()">Search</button>
+            <select class="form-control form-control-sm" [(ngModel)]="yearcode">
+              <option value="2018">2018-2019</option>
+              <option value="2019">2019-2020</option>
+            </select>
           </div>
           <div class="col-2">
+            <button class="btn btn-primary btn-sm" (click)="SearchRecord()">Search</button>
+          </div>
+          <div class="col-1">
             <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>
           </div>
           <div class="col-2">
