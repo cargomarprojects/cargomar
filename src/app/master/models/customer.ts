@@ -58,7 +58,8 @@ export class Customerm {
     acc_against_invoice: string;
 
     cust_remarks: string;
-
+    cust_country:string;
+    
     rec_mode: string;
 
     rec_locked: boolean = false;

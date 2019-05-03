@@ -32,6 +32,7 @@ export class ParamComponent {
   currentTab = 'LIST';
 
   sortby: boolean = false;
+  bPrint = false;
 
   searchstring = '';
   page_count = 0;
@@ -98,11 +99,14 @@ export class ParamComponent {
 
 
   InitComponent() {
-
+    this.bPrint = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
+    }
     this.InitColumns();
     this.List("NEW");
   }
@@ -217,8 +221,10 @@ export class ParamComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      sortby : '',
+      sortby: '',
+      report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -233,17 +239,23 @@ export class ParamComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   NewRecord() {
 
     this.pkid = this.gs.getGuid();
@@ -278,10 +290,10 @@ export class ParamComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Param) {
@@ -306,11 +318,11 @@ export class ParamComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -337,38 +349,38 @@ export class ParamComponent {
     if (this.type == 'PAN') {
 
       if (this.Record.param_code.length != 10) {
-          bret = false;
-          sError += "\n\r | Pan# Need To Be 10 Characters  ";
-        }
-        else {
+        bret = false;
+        sError += "\n\r | Pan# Need To Be 10 Characters  ";
+      }
+      else {
 
-          for (var i = 0; i <= 9; i++) {
+        for (var i = 0; i <= 9; i++) {
 
-            if (i <= 4) {
-              if (this.Isnumeric(this.Record.param_code[i]) == true) {
-                bret = false;
-                sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
-                break;
-              }
-            }
-            else if (i <= 8) {
-              if (this.Isnumeric(this.Record.param_code[i]) == false) {
-                bret = false;
-                sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
-                break;
-              }
-            }
-            else if (i == 9) {
-              if (this.Isnumeric(this.Record.param_code[i]) == true) {
-                bret = false;
-                sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
-
-              }
+          if (i <= 4) {
+            if (this.Isnumeric(this.Record.param_code[i]) == true) {
+              bret = false;
+              sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
+              break;
             }
           }
+          else if (i <= 8) {
+            if (this.Isnumeric(this.Record.param_code[i]) == false) {
+              bret = false;
+              sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
+              break;
+            }
+          }
+          else if (i == 9) {
+            if (this.Isnumeric(this.Record.param_code[i]) == true) {
+              bret = false;
+              sError += "\n\r | Invalid Pan#, Format XXXXX9999X ";
 
+            }
+          }
         }
+
       }
+    }
 
     if (this.type == 'TAN') {
 

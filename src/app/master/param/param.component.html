@@ -23,6 +23,7 @@
       </div>
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
       </div>
     </div>
   </div>
