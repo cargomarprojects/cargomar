@@ -31,6 +31,7 @@ export class PayRollComponent {
   loading = false;
   currentTab = 'LIST';
 
+  bapprovalstatus = "";
   searchstring = '';
   salh_jvno = 0;
 
@@ -89,6 +90,7 @@ export class PayRollComponent {
   }
 
   InitComponent() {
+    this.bapprovalstatus = "";
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.bAdmin = false;
@@ -100,6 +102,8 @@ export class PayRollComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_email)
         this.bEmail = true;
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -710,7 +714,8 @@ export class PayRollComponent {
       empstatus: '',
       isadmin: 'N',
       filetype: 'PDF',
-      empbrgroup: 1
+      empbrgroup: 1,
+      psadmin:'N'
     }
 
     SearchData.type = _type;
@@ -726,7 +731,8 @@ export class PayRollComponent {
     SearchData.isadmin = this.bAdmin ? "Y" : "N";
     SearchData.filetype = _filetype;
     SearchData.empbrgroup = empbrgrp;
-    
+    SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN')>=0 || this.gs.globalVariables.user_code=="ADMIN" ) ?'Y':'N';
+
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
       .subscribe(response => {

@@ -327,7 +327,7 @@ export class LeaveMasterComponent {
 
       if (this.tot_pl > 60) {
         bret = false;
-        sError += "\n\r | Total Privilege Leave should be less than or equal to sixty";
+        sError += "\n\r | Total Privilege Leave should be less than or equal to 60";
       }
       
       if (bret === false)

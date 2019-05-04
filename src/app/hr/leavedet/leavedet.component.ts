@@ -254,6 +254,7 @@ export class LeaveDetComponent {
 
     this.InitLov();
     this.Record.rec_mode = this.mode;
+    this.FindDaysWorked();
   }
 
   // Load a single Record for VIEW/EDIT
