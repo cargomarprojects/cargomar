@@ -715,7 +715,8 @@ export class PayRollComponent {
       isadmin: 'N',
       filetype: 'PDF',
       empbrgroup: 1,
-      psadmin:'N'
+      psadmin:'N',
+      ssadmin:'N'
     }
 
     SearchData.type = _type;
@@ -732,6 +733,7 @@ export class PayRollComponent {
     SearchData.filetype = _filetype;
     SearchData.empbrgroup = empbrgrp;
     SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN')>=0 || this.gs.globalVariables.user_code=="ADMIN" ) ?'Y':'N';
+    SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN')>=0 || this.gs.globalVariables.user_code=="ADMIN" ) ?'Y':'N';
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
