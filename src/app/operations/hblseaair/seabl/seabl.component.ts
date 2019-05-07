@@ -1257,14 +1257,16 @@ export class BlComponent {
       company_name: this.gs.globalVariables.comp_name,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      invokefrm: ''
     }
 
     SearchData.pkid = this.parentid;
     SearchData.format = _type;
     SearchData.issuedplace = this.gs.defaultValues.bl_issued_place;
     SearchData.company_name = this.gs.globalVariables.comp_name;
-
+    SearchData.invokefrm = this.invokefrom;
+    
     this.mainService.LoadDescription(SearchData)
       .subscribe(response => {
         this.loading = false;
