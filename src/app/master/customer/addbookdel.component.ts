@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input,Output, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Addressdel } from '../models/addressdel';
@@ -13,13 +13,9 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class AddbookdelComponent {
   // Local Variables 
   title = 'Address MASTER';
-
-
-  mdate: string;
-
   @Input() menuid: string = '';
   @Input() type: string = '';
-  @Input() addpkid: string='';
+  @Input() addrpkid: string ='';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -30,6 +26,8 @@ export class AddbookdelComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+
+  mdate: string;
 
   searchstring = '';
   page_count = 0;
@@ -118,7 +116,7 @@ export class AddbookdelComponent {
   // Query List Data
   List(_type: string) {
     this.ErrorMessage='';
-    if (this.addpkid.trim().length <= 0) {
+    if (this.addrpkid.trim().length <= 0) {
       this.ErrorMessage = "Invalid ID";
       return;
   }
@@ -134,7 +132,7 @@ export class AddbookdelComponent {
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      addid: this.addpkid
+      addid: this.addrpkid
     };
 
     this.ErrorMessage = '';
