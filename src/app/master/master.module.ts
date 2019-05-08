@@ -36,6 +36,7 @@ import { BankInfoComponent } from './bankinfo/bankinfo.component';
 import { EsanchitComponent } from './esanchit/esanchit.component';
 import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component';
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
+import { AddbookdelComponent  } from './customer/addbookdel.component';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
     BankInfoComponent,
     EsanchitComponent,
     EsanchitDownloadComponent,
-    JobTransferComponent
+    JobTransferComponent,
+    AddbookdelComponent
   ],
   providers: [
   ],

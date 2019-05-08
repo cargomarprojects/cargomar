@@ -30,6 +30,9 @@ export class AddbookService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    AddressLinkList(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Addbook/AddressLinkList', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 
 }

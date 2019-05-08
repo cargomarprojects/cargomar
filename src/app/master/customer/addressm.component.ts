@@ -1,5 +1,5 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
-
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -7,6 +7,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Addressm } from '../models/addressm';
 
 import { CustomerService } from '../services/customer.service';
+import { Addressdel } from '../models/addressdel';
 
 
 @Component({
@@ -23,15 +24,17 @@ export class AddressmComponent {
 
     @Output() ValueChanged = new EventEmitter<boolean>();
 
-    
+
     loading = false;
-    currentTab : string  = 'LIST';
-    
+    currentTab: string = 'LIST';
+    addid: string =  "";
+
     ErrorMessage = "";
-    
+
     mode = '';
     pkid = '';
-    
+    modal: any;
+
     // Array For Displaying List
     @Input() RecordList: Addressm[] = [];
 
@@ -41,27 +44,28 @@ export class AddressmComponent {
     @Input() customer_id: string = '';
 
 
-    
+
     GstList: any[] = [];
-    
+
     // Single Record for add/edit/view details
     Record: Addressm = new Addressm;
 
     constructor(
+        private modalService: NgbModal,
         private mainService: CustomerService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
 
-      this.GstList = [
-        { "code": 'GSN', "name": "IEC" },
-        { "code": 'GSG', "name": "GOVT.ENTITIES" },
-        { "code": 'GSD', "name": "DIPLOMATS" },
-        { "code": 'PAN', "name": "PAN NO" },
-        { "code": 'TAN', "name": "TAN NO" },
-        { "code": 'PSP', "name": "PASSPORT NO" },
-        { "code": 'ADH', "name": "ADHAR NO" },
-        { "code": 'NA', "name": "NA" }];
+        this.GstList = [
+            { "code": 'GSN', "name": "IEC" },
+            { "code": 'GSG', "name": "GOVT.ENTITIES" },
+            { "code": 'GSD', "name": "DIPLOMATS" },
+            { "code": 'PAN', "name": "PAN NO" },
+            { "code": 'TAN', "name": "TAN NO" },
+            { "code": 'PSP', "name": "PASSPORT NO" },
+            { "code": 'ADH', "name": "ADHAR NO" },
+            { "code": 'NA', "name": "NA" }];
 
     }
 
@@ -72,7 +76,7 @@ export class AddressmComponent {
 
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
-     
+
     }
 
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -80,7 +84,7 @@ export class AddressmComponent {
     }
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action : string, rec : Addressm ) {
+    ActionHandler(action: string, rec: Addressm) {
         this.ErrorMessage = '';
         if (action == 'LIST') {
             this.mode = '';
@@ -103,7 +107,7 @@ export class AddressmComponent {
         }
     }
 
-   
+
 
     NewRecord() {
         this.pkid = this.gs.getGuid();
@@ -111,13 +115,13 @@ export class AddressmComponent {
         this.Record.add_pkid = this.pkid;
 
         if (this.RecordList.length <= 0)
-            this.Record.add_pkid = this.customer_id;    
+            this.Record.add_pkid = this.customer_id;
 
         this.Record.add_line1 = '';
         this.Record.add_line2 = '';
         this.Record.add_line3 = '';
         this.Record.add_line4 = '';
-        
+
 
 
         this.Record.add_city = '';
@@ -145,7 +149,7 @@ export class AddressmComponent {
         this.Record.add_sepz_unit = false;
 
         this.Record.rec_mode = "ADD";
-        
+
     }
 
     LoadData(_Record: Addressm) {
@@ -170,7 +174,7 @@ export class AddressmComponent {
 
         this.Record.add_city = _Record.add_city;
 
-      
+
         this.Record.add_state_id = _Record.add_state_id;
         this.Record.add_state_name = _Record.add_state_name;
 
@@ -236,10 +240,10 @@ export class AddressmComponent {
 
     IsSpecialCharacter(str: string) {
 
-      if (str.indexOf("–") >= 0) 
-        return true;
-      else
-        return false;
+        if (str.indexOf("–") >= 0)
+            return true;
+        else
+            return false;
     }
 
     allvalid() {
@@ -273,33 +277,33 @@ export class AddressmComponent {
         }
 
         if (this.Record.add_gst_type.trim() == 'IEC') {
-          if (this.Record.add_gstin.trim().length != 15) {
-            bret = false;
-            sError += "|Invalid GSTIN";
-          }
+            if (this.Record.add_gstin.trim().length != 15) {
+                bret = false;
+                sError += "|Invalid GSTIN";
+            }
         }
 
 
         if (this.IsSpecialCharacter(this.Record.add_line1)) {
-          bret = false;
-          sError += "|Special Character in Address Line1";
+            bret = false;
+            sError += "|Special Character in Address Line1";
         }
 
         if (this.IsSpecialCharacter(this.Record.add_line2)) {
-          bret = false;
-          sError += "|Special Character in Address Line2";
+            bret = false;
+            sError += "|Special Character in Address Line2";
         }
 
         if (this.IsSpecialCharacter(this.Record.add_line3)) {
-          bret = false;
-          sError += "|Special Character in Address Line3";
+            bret = false;
+            sError += "|Special Character in Address Line3";
         }
 
         if (this.IsSpecialCharacter(this.Record.add_line4)) {
-          bret = false;
-          sError += "|Special Character in Address Line4";
+            bret = false;
+            sError += "|Special Character in Address Line4";
         }
-      
+
 
 
         if (this.Record.add_gst_type.trim() != 'NA') {
@@ -315,10 +319,16 @@ export class AddressmComponent {
 
         return bret;
     }
-    
+
     Close() {
         this.gs.ClosePage('home');
     }
-
-
+    open(content: any) {
+        this.modal = this.modalService.open(content);
+    }
+    ShowlinkList(addlnklst: any, _rec: Addressm) {
+        this.ErrorMessage = '';
+        this.addid = _rec.add_pkid;
+        this.open(addlnklst);
+    }
 }

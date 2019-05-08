@@ -25,14 +25,15 @@
           <th width="10%">LOCATION</th>
           <th width="10%">STATE</th>
           <th width="5%">PIN</th>
-          <th width="10%">COUNTRY</th>
+          <th width="6%">COUNTRY</th>
+          <th width="4%">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec)">
-          <td>{{rec.add_branch_slno}}</td>
-          <td>{{rec.add_gstin}}</td>
-          <td>{{(rec.add_sepz_unit) ? 'Y' : 'N' }}</td>
+        <tr>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_branch_slno}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_gstin}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{(rec.add_sepz_unit) ? 'Y' : 'N' }}</td>
           <td>{{rec.add_contact}}</td>
           <td>{{rec.add_tel}}</td>
           <td>{{rec.add_email}}</td>
@@ -42,6 +43,7 @@
           <td>{{rec.add_state_name}}</td>
           <td>{{rec.add_pin}}</td>
           <td>{{rec.add_country_name}}</td>
+          <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="ShowlinkList(addlnklst,rec)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -211,5 +213,18 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-
+<ng-template #addlnklst let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Address Linked Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-addbookdel [addpkid]="'addid'" [menuid]="''"  [type]="''" ></app-addbookdel>
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div> -->
+</ng-template>
 
