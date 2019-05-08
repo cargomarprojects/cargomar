@@ -33,6 +33,7 @@ export class CustomerComponent {
   canadd = true;
   bPrint = false;
   bAdmin2 = false;//for list part
+  bDelete = false;
 
   modal: any;
   disableSave = true;
@@ -124,12 +125,14 @@ export class CustomerComponent {
   }
 
   InitComponent() {
-
+    this.bDelete = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin2 = true;
+      if (this.menu_record.rights_delete)
+        this.bDelete = true;
     }
 
 

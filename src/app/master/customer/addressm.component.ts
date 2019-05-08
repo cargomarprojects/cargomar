@@ -27,7 +27,7 @@ export class AddressmComponent {
 
     loading = false;
     currentTab: string = 'LIST';
-    addid: string =  "";
+    addid: string = "";
 
     ErrorMessage = "";
 
@@ -40,7 +40,7 @@ export class AddressmComponent {
 
     @Input() StateList: any[] = [];
     @Input() CountryList: any[] = [];
-
+    @Input() bDelete: boolean = false;
     @Input() customer_id: string = '';
 
 
@@ -330,5 +330,15 @@ export class AddressmComponent {
         this.ErrorMessage = '';
         this.addid = _rec.add_pkid;
         this.open(addlnklst);
+    }
+
+    ModifiedRecords(params: any) {
+        if (params.saction == "DELETE") {
+            this.RecordList.splice(this.RecordList.findIndex(rec => rec.add_pkid == params.sid), 1);
+            this.modal.close();
+        }
+        if (params.saction == "CLOSE") {
+            this.modal.close();
+        }
     }
 }

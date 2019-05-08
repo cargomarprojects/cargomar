@@ -1,9 +1,8 @@
-import { Component, Input,Output, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, AfterViewInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Addressdel } from '../models/addressdel';
 import { AddbookService } from '../services/addbook.service';
-import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-addbookdel',
@@ -13,9 +12,10 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class AddbookdelComponent {
   // Local Variables 
   title = 'Address MASTER';
+  @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() type: string = '';
-  @Input() addrpkid: string ='';
+  @Input() public addid: string = '';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -80,6 +80,7 @@ export class AddbookdelComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.List('NEW');
   }
 
   InitComponent() {
@@ -88,7 +89,7 @@ export class AddbookdelComponent {
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
     this.LoadCombo();
-    this.List('NEW');
+
   }
 
   // Destroy Will be called when this component is closed
@@ -112,14 +113,14 @@ export class AddbookdelComponent {
 
   }
 
-
   // Query List Data
   List(_type: string) {
-    this.ErrorMessage='';
-    if (this.addrpkid.trim().length <= 0) {
+    this.ErrorMessage = '';
+    if (this.addid.trim().length <= 0) {
       this.ErrorMessage = "Invalid ID";
       return;
-  }
+    }
+
     this.loading = true;
 
     let SearchData = {
@@ -132,7 +133,7 @@ export class AddbookdelComponent {
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      addid: this.addrpkid
+      addid: this.addid
     };
 
     this.ErrorMessage = '';
@@ -149,14 +150,46 @@ export class AddbookdelComponent {
   }
 
 
-
   OnBlur(field: string) {
 
   }
 
   Close() {
-    this.gs.ClosePage('home');
+    if (this.ModifiedRecords != null)
+    this.ModifiedRecords.emit({ saction: 'CLOSE', sid: this.addid });
   }
 
+  RemoveRecord() {
+    this.ErrorMessage = '';
+    if (this.RecordList.length > 0) {
+      this.ErrorMessage = "Cannot Delete, Already Linked";
+      return;
+    }
+
+    if (!confirm("Do you want to Delete")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: this.addid,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      user_pkid: this.gs.globalVariables.user_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (this.ModifiedRecords != null)
+          this.ModifiedRecords.emit({ saction: 'DELETE', sid: this.addid });
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
 }

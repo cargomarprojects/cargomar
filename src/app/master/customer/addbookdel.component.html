@@ -1,6 +1,6 @@
-<div class="page-list">
-<div class="col-sm-12 col-md-12 col-lg-12">
-    Address Linked List
+<!-- <div class="page-list"> -->
+<div class="page-details">
+  <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="row">
       <div class="col-sm-6">
         <div style="height: 300px; overflow-y: scroll;">
@@ -9,18 +9,18 @@
               <thead class="page-body-thead">
                 <tr>
                   <th>BRANCH</th>
-                  <th>REF#</th>
-                  <th>TYPE</th>
                   <th>YEAR</th>
+                  <th>TYPE</th>
+                  <th>REF#</th>
                   <th>CATEGORY</th>
                 </tr>
               </thead>
               <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
                   <td>{{rec.addopr_branch}}</td>
-                  <td>{{rec.addopr_refno}}</td>
-                  <td>{{rec.addopr_type}}</td>
                   <td>{{rec.addopr_year}}</td>
+                  <td>{{rec.addopr_type}}</td>
+                  <td>{{rec.addopr_refno}}</td>
                   <td>{{rec.addopr_category}}</td>
                 </tr>
               </tbody>
@@ -30,24 +30,21 @@
       </div>
     </div>
   </div>
-  <!-- <div class="page-details">
-    <div class="col-sm-6">
-      <div class="form-group row" style="color:black">
-        <label class="col-sm-1 col-form-label col-form-label-sm">REF#</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_agentref_id"
-            (blur)="OnBlur('ord_agentref_id')" required maxlength="30" />
-        </div>
-        <div class="col-sm-8">
-          <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
-          <i *ngIf="loading" class="fa fa-spinner"></i>
-        </div>
+</div>
+<div class="page-details">
+  <div class="col-sm-6">
+    <div class="form-group row" style="color:black">
+      <div class="col-sm-8">
+        <button [disabled]="loading" (click)="RemoveRecord()" class="btn btn-success btn-sm">Delete</button>
+        <button class="btn btn-success btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>
+
 <br>
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<!-- <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait> -->
 
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
@@ -55,4 +52,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

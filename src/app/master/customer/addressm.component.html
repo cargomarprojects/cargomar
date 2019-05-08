@@ -26,7 +26,7 @@
           <th width="10%">STATE</th>
           <th width="5%">PIN</th>
           <th width="6%">COUNTRY</th>
-          <th width="4%">DELETE</th>
+          <th *ngIf="bDelete" width="4%">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -34,16 +34,16 @@
           <td (click)="ActionHandler('EDIT',rec)">{{rec.add_branch_slno}}</td>
           <td (click)="ActionHandler('EDIT',rec)">{{rec.add_gstin}}</td>
           <td (click)="ActionHandler('EDIT',rec)">{{(rec.add_sepz_unit) ? 'Y' : 'N' }}</td>
-          <td>{{rec.add_contact}}</td>
-          <td>{{rec.add_tel}}</td>
-          <td>{{rec.add_email}}</td>
-          <td>{{rec.add_line1}}</td>
-          <td>{{rec.add_city}}</td>
-          <td>{{rec.add_location}}</td>
-          <td>{{rec.add_state_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_contact}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_tel}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_email}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_line1}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_city}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_location}}</td>
+          <td (click)="ActionHandler('EDIT',rec)">{{rec.add_state_name}}</td>
           <td>{{rec.add_pin}}</td>
           <td>{{rec.add_country_name}}</td>
-          <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="ShowlinkList(addlnklst,rec)"></i></td>
+          <td *ngIf="bDelete"><i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="ShowlinkList(addlnklst,rec)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -206,7 +206,6 @@
     </div>
   </div>
 
-
 </div>
 <br />
 
@@ -215,13 +214,13 @@
 </div>
 <ng-template #addlnklst let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Address Linked Details</h4>
+    <h4 class="modal-title">Address Linked List</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <app-addbookdel [addrpkid]="'ABC'" [menuid]="''"  [type]="''" ></app-addbookdel>
+    <app-addbookdel [addid]="addid" (ModifiedRecords)="ModifiedRecords($event)"></app-addbookdel>
   </div>
   <!-- <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
