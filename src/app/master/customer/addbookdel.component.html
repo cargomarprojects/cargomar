@@ -35,7 +35,7 @@
   <div class="col-sm-6">
     <div class="form-group row" style="color:black">
       <div class="col-sm-8">
-        <button [disabled]="loading" (click)="RemoveRecord()" class="btn btn-success btn-sm">Delete</button>
+        <button [disabled]="loading||cannotdelete" (click)="RemoveRecord()" class="btn btn-success btn-sm">Delete</button>
         <button class="btn btn-success btn-sm" (click)="Close()">Close</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>

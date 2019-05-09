@@ -22,6 +22,7 @@ export class AddbookdelComponent {
 
   bDocs = false;
   canadd = true;
+  cannotdelete: boolean = true;
 
   disableSave = true;
   loading = false;
@@ -142,6 +143,10 @@ export class AddbookdelComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
+        if (this.RecordList.length > 0)
+          this.cannotdelete = true;
+        else
+          this.cannotdelete = false;
       },
         error => {
           this.loading = false;
@@ -156,7 +161,7 @@ export class AddbookdelComponent {
 
   Close() {
     if (this.ModifiedRecords != null)
-    this.ModifiedRecords.emit({ saction: 'CLOSE', sid: this.addid });
+      this.ModifiedRecords.emit({ saction: 'CLOSE', sid: this.addid });
   }
 
   RemoveRecord() {
