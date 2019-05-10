@@ -231,6 +231,9 @@ export class TdspaidReportComponent {
     this.RecordList = null;
 
   }
+  OnBlur(field: string) {
+    this.searchstring = this.searchstring.toUpperCase();
+  }
   Close() {
     this.gs.ClosePage('home');
   }

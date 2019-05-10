@@ -15,5 +15,6 @@ export class TdsPaidReport {
     gross_cert_amt: number;
     tds_amt: number;
     cert_amt: number;
+    cert_alloc_amt:number;
     pending_amt: number;
 }

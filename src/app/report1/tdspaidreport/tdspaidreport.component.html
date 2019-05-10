@@ -36,7 +36,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Search</label>
           <div class="col-10">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
           </div>
         </div>
 
@@ -85,12 +85,13 @@
           <th>TAN-NAME</th>
           <th>CERT-NO</th>
           <th>CERT-QTR</th>
-          <th>CERT-RECVD</th>
+          <th>CERT-RECVD-AT</th>
           <th class="text-right">GROSS-BILL-AMT</th>
           <th class="text-right">GROSS-CERT-AMT</th>
+          <th class="text-right">CERT-AMT</th>
           <th class="text-right">TDS-AMT</th>
-          <th class="text-right">CERT</th>
-          <th class="text-right">PENDING-AMT</th>
+          <th class="text-right">ALLOCATED</th>
+          <th class="text-right">PENDING</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -108,8 +109,9 @@
           <td>{{rec.cert_recvd_at}}</td>
           <td align='right'>{{ rec.gross_bill_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.gross_cert_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.cert_alloc_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
         </tr>
       </tbody>
@@ -119,11 +121,12 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th>TAN-CODE</th>
-          <th>TAN-NAME</th>
-          <th class="text-right">TDS-AMT</th>
-          <th class="text-right">CERT</th>
-          <th class="text-right">PENDING-AMT</th>
+          <th width="5%">TAN-CODE</th>
+          <th width="30%">TAN-NAME</th>
+          <th width="5%" class="text-right">TDS-AMT</th>
+          <th width="5%" class="text-right">ALLOCATED</th>
+          <th width="5%" class="text-right">PENDING</th>
+          <th width="50%"></th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -133,6 +136,7 @@
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
