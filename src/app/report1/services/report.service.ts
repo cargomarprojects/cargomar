@@ -94,5 +94,10 @@ export class RepService {
   SaveMapping(Record: Mappingm) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SaveMapping', Record, this.gs.headerparam2('authorized'));
   }
+
+  TdspaidReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/TdsPaidList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

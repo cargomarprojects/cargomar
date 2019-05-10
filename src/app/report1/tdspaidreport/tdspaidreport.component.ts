@@ -3,19 +3,17 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { GstReport } from '../models/gstreport';
-
-
+import { TdsPaidReport} from '../models/tdspaidreport';
 import { RepService } from '../services/report.service';
 
 @Component({
-  selector: 'app-gst',
-  templateUrl: './gst.component.html',
+  selector: 'app-tdspaidreport',
+  templateUrl: './tdspaidreport.component.html',
   providers: [RepService]
 })
 
-export class GstComponent {
-  title = 'GST Report'
+export class TdspaidReportComponent {
+  title = 'Tds Paid Report'
   
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -57,10 +55,9 @@ export class GstComponent {
   };
   
   // Array For Displaying List
-  RecordList: GstReport[] = [];
+  RecordList: TdsPaidReport[] = [];
  //  Single Record for add/edit/view details
-  Record: GstReport = new GstReport;
-
+  Record: TdsPaidReport = new TdsPaidReport;
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
@@ -103,7 +100,7 @@ export class GstComponent {
 
   Init() {
     this.branch_code = this.gs.globalVariables.branch_code;
-    this.format_type = "GSTR1";
+    this.format_type = "TDS-PAID-DETAILS";
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
     this.display_format_type = this.format_type;
@@ -162,40 +159,39 @@ export class GstComponent {
   List(_type: string) {
 
     this.ErrorMessage = '';
-    if (this.from_date.trim().length <= 0) {
-      this.ErrorMessage = "From Date Cannot Be Blank";
-      return;
-    }
-    if (this.to_date.trim().length <= 0) {
-      this.ErrorMessage = "To Date Cannot Be Blank";
-      return;
-    }
+    // if (this.from_date.trim().length <= 0) {
+    //   this.ErrorMessage = "From Date Cannot Be Blank";
+    //   return;
+    // }
+    // if (this.to_date.trim().length <= 0) {
+    //   this.ErrorMessage = "To Date Cannot Be Blank";
+    //   return;
+    // }
 
-    if (this.branch_code.trim().length <= 0) {
-      this.ErrorMessage = "Branch Code Cannot Be Blank";
-      return;
-    }
+    // if (this.branch_code.trim().length <= 0) {
+    //   this.ErrorMessage = "Branch Code Cannot Be Blank";
+    //   return;
+    // }
 
-    if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B-RATE WISE") {
-      if (this.all == true) {
-        this.ErrorMessage = "Cannot Process Report With All Option";
-        return;
-      }
-    }
+    // if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B-RATE WISE") {
+    //   if (this.all == true) {
+    //     this.ErrorMessage = "Cannot Process Report With All Option";
+    //     return;
+    //   }
+    // }
     
      
     
 
-    if (_type == "GSTR1") {
+    // if (_type == "GSTR1") {
 
-      if (this.format_type != "GSTR1") {
-        this.ErrorMessage = "Please Select  GSTR1 Type and Continue........";
-        return;
-      }
-    }
+    //   if (this.format_type != "GSTR1") {
+    //     this.ErrorMessage = "Please Select  GSTR1 Type and Continue........";
+    //     return;
+    //   }
+    // }
 
     this.display_format_type = this.format_type;
-
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -205,22 +201,19 @@ export class GstComponent {
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
+    // this.SearchData.from_date = this.from_date;
+    // this.SearchData.to_date = this.to_date;
     this.SearchData.format_type = this.format_type;
-    this.SearchData.all = this.all;
-   
+    // this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
-    this.mainService.GstReport(this.SearchData)
+    this.mainService.TdspaidReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-          if (_type == "GSTR1")
-            alert(response.generatemsg);
         }
       },
       error => {
@@ -236,6 +229,7 @@ export class GstComponent {
 
   OnChange(field: string) {
     this.RecordList = null;
+
   }
   Close() {
     this.gs.ClosePage('home');

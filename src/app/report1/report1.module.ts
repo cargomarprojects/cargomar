@@ -44,6 +44,7 @@ import { DsrRemComponent } from './dsr/dsrrem.component';
 import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component';
 import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
+import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { FtpLogComponent } from './ftplog/ftplog.component';
     DsrRemComponent,
     TdsCertReportComponent,
     MappingComponent,
-    FtpLogComponent
+    FtpLogComponent,
+    TdspaidReportComponent
   ],
   providers: [
   ],
