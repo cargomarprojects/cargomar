@@ -625,7 +625,7 @@ export class CostingComponent {
         }
       case 'cost_exrate':
         {
-          this.Record.cost_exrate = this.gs.roundNumber(this.Record.cost_exrate, 2);
+          this.Record.cost_exrate = this.gs.roundNumber(this.Record.cost_exrate, 5);
           break;
         }
     }

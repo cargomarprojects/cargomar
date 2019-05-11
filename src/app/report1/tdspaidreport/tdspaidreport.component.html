@@ -92,6 +92,7 @@
           <th class="text-right">TDS-AMT</th>
           <th class="text-right">ALLOCATED</th>
           <th class="text-right">PENDING</th>
+          <th class="text-right">CR-AMT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -113,6 +114,7 @@
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_alloc_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
         </tr>
       </tbody>
     </table>
@@ -124,9 +126,11 @@
           <th width="5%">TAN-CODE</th>
           <th width="30%">TAN-NAME</th>
           <th width="5%" class="text-right">TDS-AMT</th>
+          <th width="5%" class="text-right">CERT-AMT</th>
           <th width="5%" class="text-right">ALLOCATED</th>
           <th width="5%" class="text-right">PENDING</th>
-          <th width="50%"></th>
+          <th width="5%" class="text-right">CR-AMT</th>
+          <th width="40%"></th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -135,7 +139,9 @@
           <td>{{rec.tan_name}}</td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.cert_alloc_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
           <td></td>
         </tr>
       </tbody>

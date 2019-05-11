@@ -4,6 +4,7 @@ export class TdsPaidReport {
     jv_vrno: string;
     jv_type: string;
     jv_date: string;
+    jv_credit:number;
     party_code: string;
     party_name: string;
     tan_code: string;
