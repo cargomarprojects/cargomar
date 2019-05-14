@@ -1,4 +1,6 @@
 export class TdsPaidReport {
+    row_type:string;
+    row_colour:string;
     branch_code: string;
     jv_pkid: string;
     jv_vrno: string;
@@ -7,6 +9,7 @@ export class TdsPaidReport {
     jv_credit:number;
     party_code: string;
     party_name: string;
+    tan_id:string;
     tan_code: string;
     tan_name: string;
     tds_cert_no: string;
@@ -18,4 +21,5 @@ export class TdsPaidReport {
     cert_amt: number;
     cert_alloc_amt:number;
     pending_amt: number;
+    displayed: boolean;
 }

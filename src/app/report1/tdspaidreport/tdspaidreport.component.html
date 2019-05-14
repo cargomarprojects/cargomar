@@ -135,8 +135,8 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td>{{rec.tan_code}}</td>
-          <td>{{rec.tan_name}}</td>
+          <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_code}}</td>
+          <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_name}}</td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
@@ -144,6 +144,12 @@
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
           <td></td>
         </tr>
+        <tr *ngIf="rec.displayed">
+          <td colspan="8">
+            <app-tdspaiddet [menuid]="menuid" [type]="type" [pkid]="rec.tan_id" ></app-tdspaiddet>
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </div>

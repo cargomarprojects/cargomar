@@ -237,5 +237,11 @@ export class TdspaidReportComponent {
   Close() {
     this.gs.ClosePage('home');
   }
-  
+  showDetails(rec: TdsPaidReport) {
+    if (rec.tan_id == null)
+      return;
+    if (rec.tan_id !== '') {
+      rec.displayed = !rec.displayed;
+    }
+  }
 }
