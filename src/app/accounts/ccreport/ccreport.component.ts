@@ -181,10 +181,13 @@ export class CcReportComponent {
       alert(this.ErrorMessage);
       return;
     }
-    if (this.CCRECORD.id.trim().length <= 0) {
-      this.ErrorMessage = 'Code Cannot Be Blank';
-      alert(this.ErrorMessage);
-      return;
+
+    if (this.cc_type != "GENERAL JOB" || this.gs.globalVariables.comp_code == 'CPL') {
+      if (this.CCRECORD.id.trim().length <= 0) {
+        this.ErrorMessage = 'Code Cannot Be Blank';
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     if (_CanUpdate == "Y") {
@@ -215,7 +218,6 @@ export class CcReportComponent {
     this.SearchData.showIncExpOnly = (this.showIncExpOnly) ? 'Y' : 'N';
     this.SearchData.cc_update = _CanUpdate;
 
-
     this.ErrorMessage = '';
     this.mainService.CcReport(this.SearchData)
       .subscribe(response => {
@@ -232,7 +234,7 @@ export class CcReportComponent {
         });
   }
 
-  clearcc(){
+  clearcc() {
     this.InitLov();
     this.ChangeCCList();
   }
