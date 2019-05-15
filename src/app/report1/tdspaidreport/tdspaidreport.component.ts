@@ -239,7 +239,6 @@ export class TdspaidReportComponent {
   }
   showDetails(rec: TdsPaidReport) {
     rec.displayed = !rec.displayed;
-    
     // if (rec.tan_id == null)
     //   return;
     // if (rec.tan_id !== '') {
