@@ -35,6 +35,7 @@ export class EdiOrderComponent {
   loading = false;
   currentTab = 'LIST';
 
+  chk_all_pol: boolean = false;
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
   bAdmin = false;
@@ -176,7 +177,8 @@ export class EdiOrderComponent {
       from_date: this.from_date,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      update_type: this.update_type
+      update_type: this.update_type,
+      chkallpol: this.chk_all_pol == true ? "Y" : "N";
     };
 
     this.ErrorMessage = '';
@@ -425,6 +427,11 @@ export class EdiOrderComponent {
     let ordids: string = "";
     for (let rec of this.RecordList) {
       if (rec.selected) {
+        if (rec.pol != rec.comp_pol_code) {
+          this.ErrorMessage = "Invalid POL Selected";
+          alert(this.ErrorMessage);
+          return;
+        }
         if (ordids != "")
           ordids += ",";
         ordids += rec.pkid;
@@ -484,6 +491,11 @@ export class EdiOrderComponent {
   ShowEdiUpdate(ediordupdt: any, _rec: EdiOrder) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
+    if (_rec.comp_pol_code != _rec.pol) {
+      this.ErrorMessage = "Invalid POL " + _rec.pol + " Found.";
+      alert(this.ErrorMessage);
+      return;
+    }
     this.pkid = _rec.pkid;
     this.poid = _rec.id_po;
     this.pono = _rec.po;
@@ -505,7 +517,7 @@ export class EdiOrderComponent {
         this.Update('CREATE-PO');
       }
     }
-    
+
     if (params.saction != "VALIDATE")
       this.modal.close();
   }

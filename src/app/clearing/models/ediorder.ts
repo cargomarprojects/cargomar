@@ -30,6 +30,7 @@ export class EdiOrder {
   agent_ref_no:string;
   selected:boolean;
   
+  comp_pol_code:string;
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;

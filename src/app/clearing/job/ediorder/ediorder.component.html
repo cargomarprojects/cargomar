@@ -8,8 +8,8 @@
 <div class="page-list">
   <div class="page-search">
     <div class="row">
-      <label class="col-1 col-form-label col-form-label-sm">Agent</label>
-      <div class="col-3">
+      <label class="col-sm-1 col-form-label col-form-label-sm">Agent</label>
+      <div class="col-sm-2">
         <select class="form-control form-control-sm" [(ngModel)]="agent_id">
           <!-- <option [value]="'E5A80C01-0528-4759-A0E3-CBE5DDDD5621'">RITRA</option> -->
           <!-- <option [value]="'BB8C7BAA-4B3B-4BBE-B946-8B6F245194B2'">TRANSPORT MULTI-MODAL</option> -->
@@ -23,6 +23,9 @@
           <option [value]="'Y'">YES</option>
           <option [value]="'N'">NO</option>
         </select>
+      </div>
+      <div class="col-sm-1">
+        <input type="checkbox" [(ngModel)]="chk_all_pol">All POL
       </div>
       <label class="col-1">Search</label>
       <div class="col-2">
