@@ -19,5 +19,9 @@ export class HrReportService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/HrReport/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  ProcessLetter(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/HrReport/ProcessLetter', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 
