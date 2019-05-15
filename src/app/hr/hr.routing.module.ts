@@ -14,6 +14,7 @@ import { WageRegisterComponent } from './wageregister/wageregister.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { ArrearsComponent } from './arrears/arrears.component';
 import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
+import { IncLetterComponent } from './incletter/incletter.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'wageregister', component: WageRegisterComponent },
   { path: 'bonus', component: BonusComponent },
   { path: 'consolpayroll', component: ConsolPayrollComponent },
-  { path: 'arrears', component: ArrearsComponent }
+  { path: 'arrears', component: ArrearsComponent },
+  { path: 'incletter', component: IncLetterComponent }
 ];
 
 @NgModule({

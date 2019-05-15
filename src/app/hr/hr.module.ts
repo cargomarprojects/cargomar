@@ -1,8 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-
 import { HrRoutingModule } from './hr.routing.module';
-
 import { HrComponent } from './hr.component';
 import { EmpComponent } from './emp/emp.component';
 import { TaxplanDetComponent } from './taxplandet/taxplandet.component';
@@ -17,6 +15,7 @@ import { WageRegisterComponent } from './wageregister/wageregister.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { ArrearsComponent } from './arrears/arrears.component';
 import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
+import { IncLetterComponent } from './incletter/incletter.component';
 
 @NgModule({
   imports: [
@@ -37,7 +36,8 @@ import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component'
     WageRegisterComponent,
     BonusComponent,
     ArrearsComponent,
-    ConsolPayrollComponent
+    ConsolPayrollComponent,
+    IncLetterComponent
   ],
   providers: [
   ],
