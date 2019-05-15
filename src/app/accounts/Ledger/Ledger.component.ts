@@ -54,8 +54,8 @@ export class LedgerComponent {
   DetailTab = 'LIST';
 
   bChanged: boolean;
-  
-    
+
+
 
   searchstring = '';
   page_count = 0;
@@ -65,7 +65,7 @@ export class LedgerComponent {
 
   sub: any;
   urlid: string;
-  fromdate: string="";
+  fromdate: string = "";
   todate: string = "";
 
   ProcessPendingList: boolean = false;
@@ -501,10 +501,10 @@ export class LedgerComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -600,10 +600,10 @@ export class LedgerComponent {
         this.LockErrorMessage = response.lockedmsg;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Ledgerh) {
@@ -696,12 +696,12 @@ export class LedgerComponent {
         this.RefreshList(response);
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
 
-        alert(this.ErrorMessage);
-      });
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -1057,7 +1057,7 @@ export class LedgerComponent {
         }
       }
     }
-    
+
 
   }
 
@@ -1132,7 +1132,7 @@ export class LedgerComponent {
     this.Recorddet.jv_curr_code = this.gs.defaultValues.param_curr_local_code;
     this.Recorddet.jv_curr_name = this.gs.defaultValues.param_curr_local_code;
 
-    
+
 
     this.Recorddet.jv_ftotal = 0;
     this.Recorddet.jv_total = 0;
@@ -1389,10 +1389,10 @@ export class LedgerComponent {
 
         this.open(content);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Ok() {
@@ -1424,7 +1424,7 @@ export class LedgerComponent {
     if (this.Recorddet.jv_drcr == 'CR') {
       if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' || this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' || this.Recorddet.jv_acc_code == '194IA' || this.Recorddet.jv_acc_code == '194J') {
 
-        if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate !=20) {
+        if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {
           this.ErrorMessage = 'Invalid Pan | Tds% ';
           return;
         }
@@ -1433,7 +1433,7 @@ export class LedgerComponent {
     }
 
     if (this.Recorddet.jv_drcr == 'DR') {
-      if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID' ) {
+      if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
         if (this.Recorddet.jv_tan_id.toString() == '' || this.Recorddet.jv_tan_party_id.toString() == '' || this.Recorddet.jv_gross_bill_amt <= 0) {
           this.ErrorMessage = 'Invalid Tan / Tan Party / Gross Bill Amt ';
           return;
@@ -1469,6 +1469,31 @@ export class LedgerComponent {
         this.ErrorMessage = 'Cannot Credit Cash';
         return;
       }
+
+      if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
+
+        if (this.Recorddet.jv_chqno == null) {
+          this.ErrorMessage = 'Cheque Number Cannot Be Blank';
+          return;
+        }
+
+        if (this.Recorddet.jv_chqno <= 0) {
+          this.ErrorMessage = 'Invalid Cheque Number Found.';
+          return;
+        }
+
+        if (this.Recorddet.jv_due_date == null) {
+          this.ErrorMessage = 'Cheque Date Cannot Be Blank';
+          return;
+        }
+
+        if (this.Recorddet.jv_due_date == '') {
+          this.ErrorMessage = 'Cheque Date Cannot Be Blank';
+          return;
+        }
+
+      }
+
     }
     if (this.type == "BR") {
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
@@ -1502,14 +1527,14 @@ export class LedgerComponent {
     if (!bok)
       return;
 
-    
+
     if (this.Recorddet.jv_acc_cost_centre == "N") {
       if (this.CCList.length > 0) {
         this.ErrorMessage = 'Cost Center Cannot Be Allocated';
         return;
       }
     }
-    
+
     if (this.Recorddet.jv_acc_cost_centre == "Y") {
       if (this.CCList.length <= 0) {
         this.ErrorMessage = 'Cost Center Not Allocated';
@@ -2021,7 +2046,7 @@ export class LedgerComponent {
       SearchData.year = this.gs.globalVariables.year_code;
       SearchData.searchstring = this.CostCode;
     }
-    
+
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
@@ -2108,10 +2133,10 @@ export class LedgerComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   folder_id: string;
@@ -2140,10 +2165,10 @@ export class LedgerComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -2172,7 +2197,7 @@ export class LedgerComponent {
 
 
   changeNarration($event: any) {
-    
+
   }
 
 
@@ -2218,7 +2243,7 @@ export class LedgerComponent {
       this.SearchRecord('cntrsinos');
     }
   }
-  
+
   UpdateInvoice() {
     this.loading = true;
     this.ErrorMessage = '';
@@ -2230,11 +2255,11 @@ export class LedgerComponent {
         this.InfoMessage = "Updated Successfully";
         alert(this.InfoMessage);
       },
-      error => {
-        this.ErrorMessage = this.gs.getError(error);
-        this.loading = false;
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          this.loading = false;
+          alert(this.ErrorMessage);
+        });
   }
 
   ShowHistory(history: any) {
