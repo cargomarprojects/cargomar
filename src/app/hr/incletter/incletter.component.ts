@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit, OnDestroy,, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -114,15 +114,15 @@ export class IncLetterComponent {
   }
 
   OnBlur(field: string) {
-    switch (field) {
-      case 'opr_sbill_no':
-        {
-          //   this.Record.opr_sbill_no = this.Record.opr_sbill_no.toUpperCase();
-          //   this.SearchRecord('opr_sbill_no');
-          break;
-        }
+    // switch (field) {
+    //   case 'opr_sbill_no':
+    //     {
+    //       //   this.Record.opr_sbill_no = this.Record.opr_sbill_no.toUpperCase();
+    //       //   this.SearchRecord('opr_sbill_no');
+    //       break;
+    //     }
 
-    }
+    // }
   }
 
   onLostFocus(field: string) {
@@ -183,9 +183,15 @@ export class IncLetterComponent {
     this.mainService.ProcessLetter(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'DOWNLOAD-TEMPLATE' || _type == 'PROCESS-LETTER')
+        if (_type == 'DOWNLOAD-TEMPLATE')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-
+        if (_type == 'PROCESS-LETTER') {
+          if (response.serror.length > 0) {
+            this.ErrorMessage = response.serror;
+            alert(this.ErrorMessage);
+          } else
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
       },
         error => {
           this.loading = false;
