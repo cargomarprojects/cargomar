@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Settings } from '../models/settings';
@@ -34,6 +35,7 @@ export class SettingsComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  modal: any;
   sub: any;
   urlid: string;
 
@@ -55,7 +57,7 @@ export class SettingsComponent {
   RecordList: Settings[] = [];
   // Single Record for add/edit/view details
   Record: Settings_VM = new Settings_VM;
-  
+
   SaveList: Settings[] = [];
 
   _Record: Settings = new Settings;
@@ -72,7 +74,7 @@ export class SettingsComponent {
   CO_BL_ISSUE_BY3: string = '';
   CO_BL_ISSUE_BY4: string = '';
   CO_BL_ISSUE_BY5: string = '';
-   
+
   CGSTRECORD: any;
   CGSTREC: any = { id: '', code: '', name: '' };
 
@@ -101,7 +103,7 @@ export class SettingsComponent {
 
   RCCRIGSTRECORD: any;
   RCCRIGSTREC: any = { id: '', code: '', name: '' };
-  
+
 
   UNITPCSRECORD: any;
   UNITPCSREC: any = { id: '', code: '', name: '' };
@@ -141,7 +143,7 @@ export class SettingsComponent {
 
   BRACRECORD: any;
   BRACREC: any = { id: '', code: '', name: '' };
-  
+
 
   // BRANCH SETTINGS
   BR_BL_ISSUED_PLACE: string = '';
@@ -163,6 +165,7 @@ export class SettingsComponent {
 
 
   constructor(
+    private modalService: NgbModal,
     private mainService: ParamService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -179,7 +182,7 @@ export class SettingsComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-    
+
         this.InitComponent();
       }
     });
@@ -189,7 +192,7 @@ export class SettingsComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     if (!this.InitCompleted) {
-      
+
       this.InitComponent();
     }
   }
@@ -229,14 +232,14 @@ export class SettingsComponent {
     // COMPANY SETTINGS
     if (caption == '' || caption == 'CGST')
       this.CGSTRECORD = {
-        controlname: 'CGST',type: 'ACCTM',displaycolumn: 'CODE',
-        parentid: '',id: this.CGSTREC.id, code: this.CGSTREC.code, name: this.CGSTREC.name
+        controlname: 'CGST', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.CGSTREC.id, code: this.CGSTREC.code, name: this.CGSTREC.name
       };
 
     if (caption == '' || caption == 'SGST')
       this.SGSTRECORD = {
         controlname: 'SGST', type: 'ACCTM', displaycolumn: 'CODE',
-        parentid: '',id: this.SGSTREC.id,code: this.SGSTREC.code,name: this.SGSTREC.name
+        parentid: '', id: this.SGSTREC.id, code: this.SGSTREC.code, name: this.SGSTREC.name
       };
 
     if (caption == '' || caption == 'IGST')
@@ -509,7 +512,7 @@ export class SettingsComponent {
 
   }
 
-  
+
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -548,10 +551,10 @@ export class SettingsComponent {
         this.loading = false;
         this.DataTransfrList = response.dtlist;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   // Query List Data
@@ -586,10 +589,10 @@ export class SettingsComponent {
         if (this.currentTab == 'BRANCH')
           this.ShowBranch();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -725,7 +728,7 @@ export class SettingsComponent {
         this.initLov(rec.caption);
       }
 
-      if (rec.caption =="LOCAL-CURRENCY") {
+      if (rec.caption == "LOCAL-CURRENCY") {
         this.LOCCURREC.id = rec.id;
         this.LOCCURREC.code = rec.code;
         this.LOCCURREC.name = rec.name;
@@ -755,7 +758,7 @@ export class SettingsComponent {
         this.initLov(rec.caption);
       }
 
-      
+
       if (rec.caption == "BL-REG-NO")
         this.CO_BL_REG_NO = rec.name;
       if (rec.caption == "BL-ISSUED-BY1")
@@ -768,7 +771,7 @@ export class SettingsComponent {
         this.CO_BL_ISSUE_BY4 = rec.name;
       if (rec.caption == "BL-ISSUED-BY5")
         this.CO_BL_ISSUE_BY5 = rec.name;
-      
+
 
     })
   }
@@ -817,21 +820,21 @@ export class SettingsComponent {
 
       if (rec.caption == "CREDIT-LIMIT-ENABLED")
         this.BR_CRLIMIT_ENABLED = rec.name == "Y" ? true : false;
-        if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
-          this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;        
+      if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
+        this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;
 
 
     })
   }
 
 
-  addRec(parentid :string,tablename:string, caption :string, id : string, code : string , name : string ) : Settings {
+  addRec(parentid: string, tablename: string, caption: string, id: string, code: string, name: string): Settings {
     var rec = new Settings;
     rec.parentid = parentid;
     rec.tablename = tablename;
     rec.caption = caption;
     rec.id = id;
-    rec.code =code;
+    rec.code = code;
     rec.name = name;
     return rec;
   }
@@ -853,10 +856,10 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   SaveBranch() {
@@ -873,12 +876,12 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
 
   //Company
 
@@ -895,7 +898,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY3', '', '', this.CO_BL_ISSUE_BY3));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY4', '', '', this.CO_BL_ISSUE_BY4));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY5', '', '', this.CO_BL_ISSUE_BY5));
-    
+
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'CGST', this.CGSTREC.id, this.CGSTREC.code, this.CGSTREC.name));
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'SGST', this.SGSTREC.id, this.SGSTREC.code, this.SGSTREC.name));
@@ -928,8 +931,8 @@ export class SettingsComponent {
 
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'HOACCODE', this.HOACREC.id, this.HOACREC.code, this.HOACREC.name));
-    
-    
+
+
 
   }
   allvalidCompany() {
@@ -969,7 +972,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
-    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));    
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));
 
   }
   allvalidBranch() {
@@ -996,18 +999,18 @@ export class SettingsComponent {
     let SearchData = {
       report_folder: this.gs.globalVariables.report_folder
     };
-     
+
     SearchData.report_folder = this.gs.globalVariables.report_folder;
-     
+
     this.mainService.DataTransfer(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   SaveImportData() {
@@ -1046,14 +1049,14 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
-  SaveInvoices(mtype : string,  subtype  : string = '') {
+  SaveInvoices(mtype: string, subtype: string = '') {
 
     this.loading = true;
     this.ErrorMessage = '';
@@ -1077,11 +1080,11 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
 
   }
 
@@ -1095,11 +1098,11 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
   Close() {
     this.gs.ClosePage('home');
@@ -1108,7 +1111,7 @@ export class SettingsComponent {
   PayrollList() {
     this.loading = true;
     let SearchData = {
-      comp_code:  this.gs.globalVariables.comp_code,
+      comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code
     };
 
@@ -1116,12 +1119,12 @@ export class SettingsComponent {
     this.mainService.GetPayroll(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.PayrollRecord= response.record;
+        this.PayrollRecord = response.record;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   SavePayroll() {
     this.loading = true;
@@ -1132,11 +1135,11 @@ export class SettingsComponent {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
   OnBlur(field: string) {
 
@@ -1209,5 +1212,74 @@ export class SettingsComponent {
           break;
         }
     }
+  }
+
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+
+
+  SearchRecord(controlname: string) {
+    this.ErrorMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: '',
+      parentid: '',
+      table: '26AS-UPDATE-FILE'
+    };
+
+    if (controlname == '26AS-UPDATE-FILE') {
+      SearchData.pkid = '';
+      SearchData.parentid = '';
+      SearchData.table = '26as-update-file';
+    }
+
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0)
+          this.ErrorMessage = response.serror;
+        else {
+          let strmsg: string = "";
+          strmsg = "PROCESS 26AS ("+ this.gs.globalVariables.year_name +")  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
+          if (confirm(strmsg)) {
+            this.Process26AS();
+          }
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  Process26AS() {
+    this.ErrorMessage = "";
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+    this.ErrorMessage = '';
+    this.mainService.Process(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0)
+          this.ErrorMessage = response.serror;
+        else
+          this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

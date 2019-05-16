@@ -66,6 +66,10 @@ export class ParamService {
     SavePayroll(Record: PayrollSetting) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payrollsetting/Save', Record, this.gs.headerparam2('authorized'));
     }
+    
+    Process(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/Process', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 
