@@ -367,8 +367,13 @@ export class LedgerComponent {
       this.Recorddet.jv_acc_main_code = _Record.col3;      //  Main Code
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
       this.Recorddet.jv_is_taxable = false;
-      if (_Record.col4 == "Y")
-        this.Recorddet.jv_is_taxable = true;      //  Taxable
+      if (_Record.col4 == "Y")  //  Taxable
+        this.Recorddet.jv_is_taxable = true;    
+         
+      if(this.type == "BP"){  
+        if(this.Recorddet.jv_acc_type_name == "BANK")
+          this.Recorddet.jv_doc_type = "CHEQUE";
+      }
 
       this.SearchRecord('taxcode');
     }
@@ -1402,22 +1407,26 @@ export class LedgerComponent {
 
     if (this.Recorddet.jv_acc_id == null) {
       this.ErrorMessage = 'A/c code Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.Recorddet.jv_acc_id == '') {
       this.ErrorMessage = 'A/c code Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.Recorddet.jv_curr_id == '') {
       this.ErrorMessage = 'Currency Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
 
     if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
       this.ErrorMessage = 'Invalid Sea/Air Code';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1426,6 +1435,7 @@ export class LedgerComponent {
 
         if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {
           this.ErrorMessage = 'Invalid Pan | Tds% ';
+          alert(this.ErrorMessage);
           return;
         }
 
@@ -1436,6 +1446,7 @@ export class LedgerComponent {
       if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
         if (this.Recorddet.jv_tan_id.toString() == '' || this.Recorddet.jv_tan_party_id.toString() == '' || this.Recorddet.jv_gross_bill_amt <= 0) {
           this.ErrorMessage = 'Invalid Tan / Tan Party / Gross Bill Amt ';
+          alert(this.ErrorMessage);
           return;
         }
       }
@@ -1444,20 +1455,24 @@ export class LedgerComponent {
     if (this.type == "CP") {
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "DR") {
         this.ErrorMessage = 'Cannot Debit Cash';
+        alert(this.ErrorMessage);
         return;
       }
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Cannot Credit Bank';
+        alert(this.ErrorMessage);
         return;
       }
     }
     if (this.type == "CR") {
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Cannot Credit Cash';
+        alert(this.ErrorMessage);
         return;
       }
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "DR") {
         this.ErrorMessage = 'Cannot Debit Bank';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1467,42 +1482,51 @@ export class LedgerComponent {
 
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Cannot Credit Cash';
+        alert(this.ErrorMessage);
         return;
       }
 
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
 
-        if (this.Recorddet.jv_chqno == null) {
-          this.ErrorMessage = 'Cheque Number Cannot Be Blank';
-          return;
-        }
+        if(this.Recorddet.jv_doc_type != "NA")
+        {
+          if (this.Recorddet.jv_chqno == null) {
+            this.ErrorMessage = 'Cheque Number Cannot Be Blank';
+            alert(this.ErrorMessage);
+              return;
+          }
 
-        if (this.Recorddet.jv_chqno <= 0) {
-          this.ErrorMessage = 'Invalid Cheque Number Found.';
-          return;
-        }
+          if (this.Recorddet.jv_chqno <= 0) {
+            this.ErrorMessage = 'Invalid Cheque Number Found.';
+            alert(this.ErrorMessage);
+              return;
+          }
 
-        if (this.Recorddet.jv_due_date == null) {
-          this.ErrorMessage = 'Cheque Date Cannot Be Blank';
-          return;
-        }
+          if (this.Recorddet.jv_due_date == null) {
+            this.ErrorMessage = 'Cheque Date Cannot Be Blank';
+            alert(this.ErrorMessage);
+              return;
+          }
 
-        if (this.Recorddet.jv_due_date == '') {
-          this.ErrorMessage = 'Cheque Date Cannot Be Blank';
-          return;
+          if (this.Recorddet.jv_due_date == '') {
+            this.ErrorMessage = 'Cheque Date Cannot Be Blank';
+            alert(this.ErrorMessage);
+              return;
+          }
         }
-
       }
 
     }
     if (this.type == "BR") {
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Cannot Credit Bank';
+        alert(this.ErrorMessage);
         return;
       }
 
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "DR") {
         this.ErrorMessage = 'Cannot Debit Cash';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1512,6 +1536,7 @@ export class LedgerComponent {
 
     if (this.Recorddet.jv_total <= 0) {
       this.ErrorMessage = 'Invalid Amount';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1524,13 +1549,16 @@ export class LedgerComponent {
       cctotal += rec.ct_amount;
     });
 
-    if (!bok)
+    if (!bok){
+      if(this.ErrorMessage!='')
+        alert(this.ErrorMessage);
       return;
-
+    }
 
     if (this.Recorddet.jv_acc_cost_centre == "N") {
       if (this.CCList.length > 0) {
         this.ErrorMessage = 'Cost Center Cannot Be Allocated';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1538,10 +1566,12 @@ export class LedgerComponent {
     if (this.Recorddet.jv_acc_cost_centre == "Y") {
       if (this.CCList.length <= 0) {
         this.ErrorMessage = 'Cost Center Not Allocated';
+        alert(this.ErrorMessage);
         return;
       }
       if (this.Recorddet.jv_total != cctotal) {
         this.ErrorMessage = 'Amount not matching with Cost Center Amt';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1549,6 +1579,7 @@ export class LedgerComponent {
     if (cctotal != 0) {
       if (this.Recorddet.jv_total != cctotal) {
         this.ErrorMessage = 'Amount not matching with Cost Center Amt';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1562,10 +1593,12 @@ export class LedgerComponent {
     if (!this.ProcessPendingList) {
       if (this.Recorddet.jv_acc_against_invoice == "D" && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Invalid Invoice Allocation';
+        alert(this.ErrorMessage);
         return;
       }
       if (this.Recorddet.jv_acc_against_invoice == "C" && this.Recorddet.jv_drcr == "DR") {
         this.ErrorMessage = 'Invalid Invoice Allocation';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -1585,20 +1618,24 @@ export class LedgerComponent {
 
     if (!bok) {
       this.ErrorMessage = 'Mismatch in Invoice Allocation';
+      alert(this.ErrorMessage);
       return;
     }
     if (xref_Total > 0 && xref_Total > this.Recorddet.jv_total) {
       this.ErrorMessage = 'Allocated amount is above ledger amount';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.Recorddet.jv_curr_id == '') {
       this.ErrorMessage = 'Invalid Currency';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.Recorddet.jv_exrate <= 0) {
       this.ErrorMessage = 'Invalid Ex.Rate';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1614,12 +1651,14 @@ export class LedgerComponent {
 
         if (this.Recorddet.jv_taxable_amt <= 0) {
           this.ErrorMessage = 'Invalid Taxable Amount';
+          alert(this.ErrorMessage);
           return;
         }
         // Check GST Amt And Rate - INTRA-STATE
         if (this.Record.jvh_gst_type == "INTRA-STATE") {
           if (this.Recorddet.jv_cgst_amt <= 0 || this.Recorddet.jv_sgst_amt <= 0 || this.Recorddet.jv_cgst_rate <= 0 || this.Recorddet.jv_sgst_rate <= 0) {
             this.ErrorMessage = 'Invalid CGST/SGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1627,18 +1666,21 @@ export class LedgerComponent {
         if (this.Record.jvh_gst_type == "INTER-STATE") {
           if (this.Recorddet.jv_igst_amt <= 0 || this.Recorddet.jv_igst_rate <= 0) {
             this.ErrorMessage = 'Invalid IGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
         if (this.Record.jvh_gst_type == "INTER-STATE") {
           if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_cgst_rate != 0 || this.Recorddet.jv_sgst_rate != 0) {
             this.ErrorMessage = 'Invalid CGST/SGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
         if (this.Record.jvh_gst_type == "INTRA-STATE") {
           if (this.Recorddet.jv_igst_amt != 0 || this.Recorddet.jv_igst_rate != 0) {
             this.ErrorMessage = 'Invalid IGST';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1646,6 +1688,7 @@ export class LedgerComponent {
         if (!this.Recorddet.jv_is_taxable) {
           if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0 || this.Recorddet.jv_cgst_rate != 0 || this.Recorddet.jv_sgst_rate != 0 || this.Recorddet.jv_igst_rate != 0) {
             this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1657,12 +1700,14 @@ export class LedgerComponent {
       if (this.Recorddet.jv_is_taxable) {
         if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0) {
           this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+          alert(this.ErrorMessage);
           return;
         }
       }
       if (!this.Recorddet.jv_is_taxable) {
         if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0) {
           this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+          alert(this.ErrorMessage);
           return;
         }
       }

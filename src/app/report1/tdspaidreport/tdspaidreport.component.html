@@ -28,6 +28,8 @@
             <select class="form-control form-control-sm" [(ngModel)]="format_type"  (change)="OnChange('format_type')">
               <option [value]="'TDS-PAID-DETAILS'">TDS PAID DETAILS</option>
               <option [value]="'TDS-PAID-SUMMARY'">TDS PAID SUMMARY</option>
+              <option [value]="'26AS-MASTERS'">26AS MASTERS</option>
+              <option [value]="'26AS-DETAILS'">26AS DETAILS</option>
             </select>
           </div>
         </div>
@@ -134,7 +136,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
+        <tr [style.color]="rec.row_colour">
           <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_code}}</td>
           <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_name}}</td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
@@ -153,6 +155,62 @@
       </tbody>
     </table>
   </div>
+  <div *ngIf="display_format_type=='26AS-MASTERS'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th width="5%">TAN-CODE</th>
+          <th width="30%">TAN-NAME</th>
+          <th width="10%" class="text-right">PAID-CREDITED</th>
+          <th width="10%" class="text-right">TAX-DEDUCTED</th>
+          <th width="10%" class="text-right">TDS-DEPOSITED</th>
+          <th width="35%"></th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td >{{rec.tan_code}}</td>
+          <td >{{rec.tan_name}}</td>
+          <td align='right'>{{ rec.asm_gross | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.asm_deducted | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.asm_tds | number : '1.2-2' }}</td>       
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="display_format_type=='26AS-DETAILS'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th width="5%">TAN-CODE</th>
+          <th width="30%">TAN-NAME</th>
+          <th width="5%">SECTION</th>
+          <th width="10%">TRANSACTION-DATE</th>
+          <th width="7%">BOOKING-DATE</th>
+          <th width="7%" class="text-right">PAID-CREDITED</th>
+          <th width="7%" class="text-right">TAX-DEDUCTED</th>
+          <th width="7%" class="text-right">TDS-DEPOSITED</th>
+          <th width="22%"></th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.tan_code}}</td>
+          <td>{{rec.tan_name}}</td>
+          <td>{{rec.asd_section}}</td>
+          <td>{{rec.asd_trans_date}}</td>
+          <td>{{rec.asd_book_date}}</td>
+          <td align='right'>{{rec.asd_gross | number : '1.2-2' }}</td>
+          <td align='right'>{{rec.asd_deducted | number : '1.2-2' }}</td>
+          <td align='right'>{{rec.asd_tds | number : '1.2-2' }}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
   <!-- <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
