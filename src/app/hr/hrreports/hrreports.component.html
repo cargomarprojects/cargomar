@@ -82,9 +82,9 @@
           <td>{{rec.emplyr_share}}</td>
           <td>{{rec.pension}}</td>
           <td>{{rec.vpf}}</td>
-          <td>{{rec.admin_chrg}}</td>
+          <td>{{rec.admin_chrg | number : '1.2-2'}}</td>
           <td>{{rec.edli_chrg | number : '1.2-2'}}</td>
-          <td>{{rec.total_chrg}}</td>
+          <td>{{rec.total_chrg | number : '1.2-2'}}</td>
           <td>{{rec.eps_amt}}</td>
         </tr>
       </tbody>
@@ -110,8 +110,8 @@
           <td>{{rec.emp_name}}</td>
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.emply_esi}}</td>
-          <td>{{rec.emplr_esi}}</td>
-          <td>{{rec.total}}</td>
+          <td>{{rec.emplr_esi | number : '1.2-2'}}</td>
+          <td>{{rec.total | number : '1.2-2'}}</td>
         </tr>
       </tbody>
     </table>
