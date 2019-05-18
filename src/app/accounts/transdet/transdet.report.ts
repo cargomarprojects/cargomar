@@ -54,6 +54,8 @@ export class TransDetComponent {
     // Single Record for add/edit/view details
     Record: AcTransReport = new AcTransReport;
 
+    RecordXrefList: AcTransReport[] = [];
+
     BRRECORD: SearchTable = new SearchTable();
 
     constructor(
@@ -111,13 +113,13 @@ export class TransDetComponent {
                 this.loading = false;
                 this.RecordList = response.list;
                 this.narration = response.narration;
+                this.RecordXrefList = response.xreflist;
             },
             error => {
                 this.loading = false;
                 this.RecordList = null;
                 this.narration = '';
                 this.ErrorMessage = this.gs.getError(error);
-
             });
     }
 

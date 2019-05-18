@@ -17,4 +17,10 @@ export class AcTransReport {
     jv_debit: number;
     jv_credit: number;
 
+    slno:number;
+    jvh_docno: string;
+    xref_no: string;
+    xref_date: string;
+    xref_amt:number;
+
 }

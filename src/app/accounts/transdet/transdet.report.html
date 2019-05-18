@@ -42,6 +42,39 @@
   {{narration}}
 </div>
 <br />
+<div *ngIf="currentTab=='LIST'" class="page-list">
+ <label>XREF Details</label> 
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SLNO</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>DOCNO</th>
+          <th class="text-right">DEBIT</th>
+          <th class="text-right">CREDIT</th>
+          <th>XREF.NO</th>
+          <th>XREF.DATE</th>
+          <th class="text-right">XREF.AMT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordXrefList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.slno}}</td>
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.jv_credit | number : '1.2-2'}}</td>
+          <td>{{rec.xref_no}}</td>
+          <td>{{rec.xref_date}}</td>
+          <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
