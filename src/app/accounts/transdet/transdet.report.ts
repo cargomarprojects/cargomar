@@ -18,7 +18,7 @@ export class TransDetComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
 
-    
+
 
     CloseCaption = 'Return';
 
@@ -28,25 +28,25 @@ export class TransDetComponent {
 
     ErrorMessage = "";
     pkid = '';
-    
+
     bCompany = false;
     loading = false;
 
     currentTab = 'LIST';
     searchstring = '';
 
-    narration : '';
+    narration: '';
 
     SearchData = {
         pkid: '',
         company_code: '',
         branch_code: '',
         branch_name: '',
-        acc_code : '',
+        acc_code: '',
         searchstring: '',
-        jvh_year : '',
-        jvh_type : '',
-        jvh_vrno : ''
+        jvh_year: '',
+        jvh_type: '',
+        jvh_vrno: ''
     };
 
     // Array For Displaying List
@@ -68,12 +68,12 @@ export class TransDetComponent {
             if (params["parameter"] != "") {
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
-                this.SearchData.company_code =  options.company_code;
-                this.SearchData.branch_code =  options.branch_code;
-                this.SearchData.acc_code =  options.acc_code;
-                this.SearchData.jvh_year =  options.jvh_year;
-                this.SearchData.jvh_type =  options.jvh_type;
-                this.SearchData.jvh_vrno =  options.jvh_vrno;
+                this.SearchData.company_code = options.company_code;
+                this.SearchData.branch_code = options.branch_code;
+                this.SearchData.acc_code = options.acc_code;
+                this.SearchData.jvh_year = options.jvh_year;
+                this.SearchData.jvh_type = options.jvh_type;
+                this.SearchData.jvh_vrno = options.jvh_vrno;
                 this.List('NEW');
             }
         });
@@ -115,17 +115,58 @@ export class TransDetComponent {
                 this.narration = response.narration;
                 this.RecordXrefList = response.xreflist;
             },
-            error => {
-                this.loading = false;
-                this.RecordList = null;
-                this.narration = '';
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.RecordList = null;
+                    this.narration = '';
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     Close() {
         let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
-        this.gs.ClosePage('home', IsCloseButton);        
+        this.gs.ClosePage('home', IsCloseButton);
+    }
+
+    DeleteRecord() {
+        this.ErrorMessage = '';
+        let jvhid: string = "";
+        if (this.RecordXrefList.length <= 0) {
+            this.ErrorMessage = "No List Found";
+            return;
+        }
+
+        for (let rec of this.RecordXrefList) {
+            jvhid = rec.jvh_pkid;
+            break;
+        }
+
+        if (jvhid.length <= 0)
+            return;
+
+        if (!confirm("Do you want to Delete")) {
+            return;
+        }
+
+        this.loading = true;
+        let SearchData = {
+            pkid: jvhid,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+            user_pkid: this.gs.globalVariables.user_pkid
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = "Delete Complete";
+                alert(this.ErrorMessage);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 }

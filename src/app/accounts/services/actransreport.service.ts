@@ -23,6 +23,10 @@ export class AcTransReportService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/TransDetList', SearchData, this.gs.headerparam2('authorized'));
   
       }
+
+      DeleteRecord(SearchData : any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/XrefTransDeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   
+      }
 }
 

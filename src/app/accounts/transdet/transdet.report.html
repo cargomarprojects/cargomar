@@ -74,6 +74,13 @@
       </tbody>
     </table>
   </div>
+  <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-header">
+      <div class="col">
+          <button  class="btn btn-primary btn-sm" (click)="DeleteRecord()">Delete</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+      </div>
+    </div>
+ 
 </div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
