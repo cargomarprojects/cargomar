@@ -112,7 +112,8 @@ export class Ledgerh {
     rec_aprvd_remark: string;
     rec_aprvd: string;
     rec_aprvd_by: string;
-
+    jvh_chq_printed:number;
+    
     jvh_allocation_found: boolean;
 
     jvh_not_over_chq: boolean;

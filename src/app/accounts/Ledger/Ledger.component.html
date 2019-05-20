@@ -70,7 +70,7 @@
           <th width="8%">REFERENCE</th>
           <!--<th *ngIf="type=='BP'" width="32%">NARRATION</th>
           <th *ngIf="type!='BP'" width="40%">NARRATION</th>-->
-          <th width="{{type == 'BP' ? '32%' : '40%'}}">NARRATION</th>
+          <th width="{{type == 'BP' ? '30%' : '40%'}}">NARRATION</th>
           <th width="8%">DEBIT</th>
           <th width="8%">CREDIT</th>
           <th width="8%">BY</th>
@@ -78,7 +78,8 @@
           <th width="4%" align='center'>DOCS</th>
 
           <th *ngIf="type=='BP'" width="4%">APPROVED</th>
-          <th *ngIf="type=='BP'" width="4%">BY</th>
+          <th *ngIf="type=='BP'" width="3%">BY</th>
+          <th *ngIf="type=='BP'" width="3%">CHQ.PRINT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -92,8 +93,10 @@
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td align='center'>{{rec.jvh_docs}}</td>
-          <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='BP'">{{rec.rec_aprvd_status}}</td>
-          <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='BP'">{{rec.rec_aprvd_by}}</td>
+          
+          <td *ngIf="type=='BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_status}}</td>
+          <td *ngIf="type=='BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_by}}</td>
+          <td *ngIf="type=='BP'" align='center'  >{{rec.jvh_chq_printed}}</td>
         </tr>
       </tbody>
     </table>

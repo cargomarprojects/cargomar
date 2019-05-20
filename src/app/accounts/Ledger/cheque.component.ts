@@ -148,13 +148,15 @@ export class ChequeComponent {
       company_code: '',
       branch_code: '',
       ac_payee:'N',
-      format_id:''
+      format_id:'',
+      user_code:''
     }
 
     SearchData.pkid = this.parentid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.folderid = this.folder_id;
     SearchData.ac_payee = this.isacpayee == true ? "Y" : "N";
     SearchData.format_id = this.cheque_format_id;
