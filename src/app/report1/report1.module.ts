@@ -46,6 +46,7 @@ import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
 import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
+import { TdsosComponent} from './tdsos/tdsos.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
     MappingComponent,
     FtpLogComponent,
     TdspaidReportComponent,
-    TdspaidDetComponent
+    TdspaidDetComponent,
+    TdsosComponent
   ],
   providers: [
   ],

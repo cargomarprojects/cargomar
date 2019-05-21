@@ -10,7 +10,11 @@ export class Acgroupm {
     acgrp_level: number;
     acgrp_order: number;
     acgrp_fixedasset_code: string;
-
+    acgrp_bs_id: string;
+    acgrp_bs_code: string;
+    acgrp_bs_name: string;
+    acgrp_acc_update: boolean;
+    
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

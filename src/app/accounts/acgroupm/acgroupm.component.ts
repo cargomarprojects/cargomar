@@ -8,11 +8,13 @@ import { Acgroupm } from '../models/acgroupm';
 
 
 import { AcgroupmService } from '../services/acgroupm.service';
+import { SearchTable } from '../../shared/models/searchtable';
+
 
 @Component({
     selector: 'app-acgroup',
     templateUrl: './acgroupm.component.html',
-    providers : [AcgroupmService]
+    providers: [AcgroupmService]
 })
 export class AcgroupmComponent {
     // Local Variables 
@@ -26,7 +28,7 @@ export class AcgroupmComponent {
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
-    
+
     searchstring = '';
     page_count = 0;
     page_current = 0;
@@ -38,9 +40,10 @@ export class AcgroupmComponent {
 
 
     ErrorMessage = "";
-    
+
     mode = '';
     pkid = '';
+    BSHEADRECORD: SearchTable = new SearchTable();
 
     AcGrpList: Acgroupm[] = [];
 
@@ -80,11 +83,12 @@ export class AcgroupmComponent {
     }
 
     InitComponent() {
-        
+
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record)
             this.title = this.menu_record.menu_name;
         this.LoadCombo();
+        this.InitLov();
     }
 
     // Destroy Will be called when this component is closed
@@ -108,15 +112,32 @@ export class AcgroupmComponent {
                 this.AcGrpList = response.list;
                 this.List("NEW");
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
+    InitLov() {
 
+        this.BSHEADRECORD = new SearchTable();
+        this.BSHEADRECORD.controlname = "BSHEAD";
+        this.BSHEADRECORD.displaycolumn = "NAME";
+        this.BSHEADRECORD.type = "BSHEAD";
+        this.BSHEADRECORD.id = "";
+        this.BSHEADRECORD.code = "";
+        this.BSHEADRECORD.name = "";
+        this.BSHEADRECORD.parentid = "";
+    }
+    LovSelected(_Record: SearchTable) {
+        if (_Record.controlname == "BSHEAD") {
+            this.Record.acgrp_bs_id = _Record.id;
+            this.Record.acgrp_bs_code = _Record.code;
+            this.Record.acgrp_bs_name = _Record.name;
+        }
+    }
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action : string, id :string ) {
+    ActionHandler(action: string, id: string) {
         this.ErrorMessage = '';
         if (action == 'LIST') {
             this.mode = '';
@@ -146,9 +167,9 @@ export class AcgroupmComponent {
 
         if (this.menu_record.rights_admin)
             this.disableSave = false;
-        if (this.mode =="ADD" && this.menu_record.rights_add)
+        if (this.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
-        if (this.mode == "EDIT" && this.menu_record.rights_edit )
+        if (this.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
@@ -171,7 +192,7 @@ export class AcgroupmComponent {
         };
 
         this.ErrorMessage = '';
-        
+
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
@@ -180,10 +201,10 @@ export class AcgroupmComponent {
                 this.page_current = response.page_current;
                 this.page_rowcount = response.page_rowcount;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     NewRecord() {
@@ -201,8 +222,12 @@ export class AcgroupmComponent {
         this.Record.acgrp_drcr = 'DR';
         this.Record.acgrp_fixedasset_code = '';
         this.Record.acgrp_order = 0;
-
+        this.Record.acgrp_bs_id = '';
+        this.Record.acgrp_bs_code = '';
+        this.Record.acgrp_bs_name = '';
+        this.Record.acgrp_acc_update = false;
         this.Record.rec_mode = this.mode;
+        this.InitLov();
     }
 
     // Load a single Record for VIEW/EDIT
@@ -219,15 +244,20 @@ export class AcgroupmComponent {
                 this.loading = false;
                 this.LoadData(response.record);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     LoadData(_Record: Acgroupm) {
         this.Record = _Record;
+        this.Record.acgrp_acc_update = false;
         this.Record.rec_mode = this.mode;
+        this.InitLov();
+        this.BSHEADRECORD.id = this.Record.acgrp_bs_id;
+        this.BSHEADRECORD.code = this.Record.acgrp_bs_code;
+        this.BSHEADRECORD.name = this.Record.acgrp_bs_name;
     }
 
 
@@ -246,10 +276,10 @@ export class AcgroupmComponent {
                 this.Record.rec_mode = this.mode;
                 this.RefreshList();
             },
-            error => {
-                this.ErrorMessage = this.gs.getError(error);
-                this.loading = false;
-            });
+                error => {
+                    this.ErrorMessage = this.gs.getError(error);
+                    this.loading = false;
+                });
     }
 
     allvalid() {
@@ -299,7 +329,7 @@ export class AcgroupmComponent {
             REC.acgrp_parent_name = this.AcGrpList.find(row => row.acgrp_pkid == this.Record.acgrp_parent_id).acgrp_name;
         }
     }
-    
+
     Close() {
         this.gs.ClosePage('home');
     }
