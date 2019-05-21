@@ -42,7 +42,7 @@
   {{narration}}
 </div>
 <br />
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="currentTab=='LIST' && RecordXrefList.length>0" class="page-list">
  <label>Allocation Details</label> 
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
