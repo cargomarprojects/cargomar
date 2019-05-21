@@ -34,8 +34,7 @@
         <div class="col-sm-4">
           <div class="form-group row">
             <div class="col-6">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
-                Report</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process</button>
               <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
             </div>
           </div>
@@ -48,45 +47,25 @@
         <thead class="page-body-thead">
           <tr>
             <th>BRANCH</th>
-            <th>TYPE</th>
-            <th>VRNO</th>
-            <th>DATE</th>
-            <th>PARTY-CODE</th>
-            <th>PARTY-NAME</th>
-            <th>TAN-CODE</th>
-            <th>TAN-NAME</th>
-            <th>CERT-NO</th>
-            <th>CERT-QTR</th>
-            <th>CERT-RECVD-AT</th>
-            <th class="text-right">GROSS-BILL-AMT</th>
-            <th class="text-right">GROSS-CERT-AMT</th>
-            <th class="text-right">CERT-AMT</th>
-            <th class="text-right">TDS-DR</th>
-            <th class="text-right">TDS-CR</th>
-            <th class="text-right">ALLOCATED</th>
+            <th class="text-right">TDS-PAID</th>
+            <th class="text-right">COLLECTED</th>
             <th class="text-right">PENDING</th>
+            <th class="text-right">Q1.BAL</th>
+            <th class="text-right">Q2.BAL</th>
+            <th class="text-right">Q3.BAL</th>
+            <th class="text-right">Q4.BAL</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr>
-            <td>{{rec.branch_code}}</td>
-            <td>{{rec.jv_type}}</td>
-            <td>{{rec.jv_vrno}}</td>
-            <td>{{rec.jv_date}}</td>
-            <td>{{rec.party_code}}</td>
-            <td>{{rec.party_name}}</td>
-            <td>{{rec.tan_code}}</td>
-            <td>{{rec.tan_name}}</td>
-            <td>{{rec.tds_cert_no}}</td>
-            <td>{{rec.tds_cert_qtr}}</td>
-            <td>{{rec.cert_recvd_at}}</td>
-            <td align='right'>{{ rec.gross_bill_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.gross_cert_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
+          <tr [style.color]="rec.row_colour">
+            <td>{{rec.branch}}</td>
             <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.cert_alloc_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.q1_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.q2_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.q3_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.q4_amt | number : '1.2-2' }}</td>
           </tr>
         </tbody>
       </table>

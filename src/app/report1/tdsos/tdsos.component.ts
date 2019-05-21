@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { TdsPaidReport} from '../models/tdspaidreport';
+import { TdsOsReport} from '../models/tdsosreport';
 import { RepService } from '../services/report.service';
 
 @Component({
@@ -55,11 +55,10 @@ export class TdsosComponent {
   };
   
   // Array For Displaying List
-  RecordList: TdsPaidReport[] = [];
+  RecordList: TdsOsReport[] = [];
  //  Single Record for add/edit/view details
-  Record: TdsPaidReport = new TdsPaidReport;
-  BRRECORD: SearchTable = new SearchTable();
-
+  Record: TdsOsReport = new TdsOsReport;
+   
   constructor(
     private mainService: RepService,
     private route: ActivatedRoute,
@@ -96,14 +95,11 @@ export class TdsosComponent {
     this.initLov();
     this.LoadCombo();
     this.Init();
+    this.List('SCREEN');
   }
 
   Init() {
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.format_type = "TDS-PAID-DETAILS";
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.display_format_type = this.format_type;
+    
   }
 
  // // Destroy Will be called when this component is closed
@@ -112,13 +108,7 @@ export class TdsosComponent {
   }
 
   initLov(caption: string = '') {
-
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+ 
   }
 
   LovSelected(_Record: SearchTable) {
@@ -159,39 +149,6 @@ export class TdsosComponent {
   List(_type: string) {
 
     this.ErrorMessage = '';
-    // if (this.from_date.trim().length <= 0) {
-    //   this.ErrorMessage = "From Date Cannot Be Blank";
-    //   return;
-    // }
-    // if (this.to_date.trim().length <= 0) {
-    //   this.ErrorMessage = "To Date Cannot Be Blank";
-    //   return;
-    // }
-
-    // if (this.branch_code.trim().length <= 0) {
-    //   this.ErrorMessage = "Branch Code Cannot Be Blank";
-    //   return;
-    // }
-
-    // if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B-RATE WISE") {
-    //   if (this.all == true) {
-    //     this.ErrorMessage = "Cannot Process Report With All Option";
-    //     return;
-    //   }
-    // }
-    
-     
-    
-
-    // if (_type == "GSTR1") {
-
-    //   if (this.format_type != "GSTR1") {
-    //     this.ErrorMessage = "Please Select  GSTR1 Type and Continue........";
-    //     return;
-    //   }
-    // }
-
-    this.display_format_type = this.format_type;
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -201,13 +158,10 @@ export class TdsosComponent {
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    // this.SearchData.from_date = this.from_date;
-    // this.SearchData.to_date = this.to_date;
     this.SearchData.format_type = this.format_type;
-    // this.SearchData.all = this.all;
-
+   
     this.ErrorMessage = '';
-    this.mainService.TdspaidReport(this.SearchData)
+    this.mainService.TdsosReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
