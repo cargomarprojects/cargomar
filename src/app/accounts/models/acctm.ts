@@ -24,8 +24,12 @@ export class Acctm {
     acc_sac_id: string;
     acc_sac_code: string;
 
-    acc_branch_code : string;
-  
+    acc_branch_code: string;
+
+    acc_bs_id: string;
+    acc_bs_code: string;
+    acc_bs_name: string;
+
     rec_mode: string;
 
     _globalvariables: GlobalVariables;

@@ -53,7 +53,7 @@ export class AcctmComponent {
 
     sub: any;
     urlid: string;
-
+    bPrint = false;
 
     ErrorMessage = "";
 
@@ -72,6 +72,7 @@ export class AcctmComponent {
     SACRECORD: SearchTable = new SearchTable();
 
     COMPRECORD: SearchTable = new SearchTable();
+    BSHEADRECORD: SearchTable = new SearchTable();
 
     constructor(
         private mainService: AcctmService,
@@ -107,10 +108,13 @@ export class AcctmComponent {
     }
 
     InitComponent() {
-
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
+        }
 
         this.LoadCombo();
 
@@ -140,10 +144,10 @@ export class AcctmComponent {
 
                 this.List("NEW");
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     InitLov() {
@@ -163,17 +167,31 @@ export class AcctmComponent {
         this.COMPRECORD.id = "";
         this.COMPRECORD.code = "";
 
+        this.BSHEADRECORD = new SearchTable();
+        this.BSHEADRECORD.controlname = "BSHEAD";
+        this.BSHEADRECORD.displaycolumn = "NAME";
+        this.BSHEADRECORD.type = "BSHEAD";
+        this.BSHEADRECORD.id = "";
+        this.BSHEADRECORD.code = "";
+        this.BSHEADRECORD.name = "";
+        this.BSHEADRECORD.parentid = "";
+
     }
 
     LovSelected(_Record: SearchTable) {
 
-      if (_Record.controlname == "SAC") {
-        this.Record.acc_sac_id = _Record.id;
-        this.Record.acc_sac_code = _Record.code;
-      }
-      if (_Record.controlname == "BRANCH") {
-        this.Record.acc_branch_code = _Record.code;
-      }
+        if (_Record.controlname == "SAC") {
+            this.Record.acc_sac_id = _Record.id;
+            this.Record.acc_sac_code = _Record.code;
+        }
+        if (_Record.controlname == "BRANCH") {
+            this.Record.acc_branch_code = _Record.code;
+        }
+        if (_Record.controlname == "BSHEAD") {
+            this.Record.acc_bs_id = _Record.id;
+            this.Record.acc_bs_code = _Record.code;
+            this.Record.acc_bs_name = _Record.name;
+        }
     }
 
     SearchRecord(controlname: string) {
@@ -182,8 +200,8 @@ export class AcctmComponent {
 
 
         let SearchData = {
-          table: 'param',
-          comp_code : '',
+            table: 'param',
+            comp_code: '',
             param_type: '',
             param_code: ''
         };
@@ -206,10 +224,10 @@ export class AcctmComponent {
                     this.Record.acc_main_name = response.param[0].param_name;
                 }
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -269,23 +287,30 @@ export class AcctmComponent {
             page_rowcount: this.page_rowcount,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
-
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
     NewRecord() {
 
         this.pkid = this.gs.getGuid();
@@ -302,7 +327,9 @@ export class AcctmComponent {
         this.Record.acc_sac_code = '';
 
         this.Record.acc_branch_code = '';
-
+        this.Record.acc_bs_id = '';
+        this.Record.acc_bs_code = '';
+        this.Record.acc_bs_name = '';
         this.Record.rec_mode = this.mode;
 
         this.InitLov();
@@ -322,10 +349,10 @@ export class AcctmComponent {
                 this.loading = false;
                 this.LoadData(response.record);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     LoadData(_Record: Acctm) {
@@ -337,7 +364,9 @@ export class AcctmComponent {
         this.SACRECORD.code = this.Record.acc_sac_code;
 
         this.COMPRECORD.code = this.Record.acc_branch_code;
-
+        this.BSHEADRECORD.id = this.Record.acc_bs_id;
+        this.BSHEADRECORD.code = this.Record.acc_bs_code;
+        this.BSHEADRECORD.name = this.Record.acc_bs_name;
         this.Record.rec_mode = this.mode;
     }
 
@@ -359,11 +388,11 @@ export class AcctmComponent {
                 this.Record.rec_mode = this.mode;
                 this.RefreshList();
             },
-          error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-                
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+
+                });
     }
 
     allvalid() {
