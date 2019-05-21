@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { TeuComponent } from './teu/teu.component';
 import { TonnageComponent } from './tonnage/tonnage.component';
 import { BkTeuComponent } from './bkteu/bkteu.component';
@@ -23,6 +22,7 @@ import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component'
 import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
+import { TdsosComponent} from './tdsos/tdsos.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -44,7 +44,8 @@ const routes: Routes = [
   { path: 'tdscertreport', component: TdsCertReportComponent },
   { path: 'mapping', component: MappingComponent },
   { path: 'ftplog', component: FtpLogComponent },
-  { path: 'tdspaidreport', component: TdspaidReportComponent }
+  { path: 'tdspaidreport', component: TdspaidReportComponent },
+  { path: 'tdsos', component: TdsosComponent}
 ];
 
 @NgModule({
