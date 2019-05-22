@@ -57,6 +57,7 @@
           <th>XREF.NO</th>
           <th>XREF.DATE</th>
           <th class="text-right">XREF.AMT</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordXrefList">
@@ -70,13 +71,16 @@
           <td>{{rec.xref_no}}</td>
           <td>{{rec.xref_date}}</td>
           <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+            <App-Dialog *ngIf="rec.xref_pkid" [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.xref_pkid,name:rec.xref_no}" (result)="RemoveList($event)"></App-Dialog>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-header">
       <div class="col">
-          <button  class="btn btn-primary btn-sm" (click)="DeleteRecord()">Delete</button>
+          <button  class="btn btn-primary btn-sm" (click)="DeleteRecord('FULL-DELETE','')">Delete</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>

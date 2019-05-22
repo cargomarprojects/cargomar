@@ -13,15 +13,16 @@ import { AcTransReportService } from '../services/actransreport.service';
 })
 
 export class TransDetComponent {
+    /*
+Ajith 22/05/19 -DeleteRecord modified to delete single row
+
+*/
     title = 'Transaction Details'
 
     @Input() menuid: string = '';
     @Input() type: string = '';
 
-
-
     CloseCaption = 'Return';
-
     menu_record: any;
     sub: any;
     urlid: string;
@@ -128,28 +129,43 @@ export class TransDetComponent {
         this.gs.ClosePage('home', IsCloseButton);
     }
 
-    DeleteRecord() {
+    RemoveList(event: any) {
+        if (event.selected) {
+            this.DeleteRecord("ROW-DELETE", event.id);
+        }
+    }
+
+    DeleteRecord(_type: string, _id: string) {
         this.ErrorMessage = '';
         let jvhid: string = "";
-        if (this.RecordXrefList.length <= 0) {
-            this.ErrorMessage = "No List Found";
-            return;
+
+        if (_type == "FULL-DELETE") {
+
+            if (this.RecordXrefList.length <= 0) {
+                this.ErrorMessage = "No List Found";
+                return;
+            }
+
+            for (let rec of this.RecordXrefList) {
+                jvhid = rec.jvh_pkid;
+                break;
+            }
+
+            if (jvhid.length <= 0)
+                return;
+
+            if (!confirm("Do you want to Delete")) {
+                return;
+            }
         }
-
-        for (let rec of this.RecordXrefList) {
-            jvhid = rec.jvh_pkid;
-            break;
+        if (_type == "ROW-DELETE") {
+            jvhid = _id;
+            if (jvhid.length <= 0)
+                return;
         }
-
-        if (jvhid.length <= 0)
-            return;
-
-        if (!confirm("Do you want to Delete")) {
-            return;
-        }
-
         this.loading = true;
         let SearchData = {
+            type: _type,
             pkid: jvhid,
             branch_code: this.gs.globalVariables.branch_code,
             user_code: this.gs.globalVariables.user_code,
@@ -160,8 +176,12 @@ export class TransDetComponent {
         this.mainService.DeleteRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = "Delete Complete";
-                alert(this.ErrorMessage);
+                if (_type == "ROW-DELETE") {
+                    this.RecordXrefList.splice(this.RecordXrefList.findIndex(rec => rec.xref_pkid == _id), 1);
+                } else {
+                    this.ErrorMessage = "Delete Complete";
+                    alert(this.ErrorMessage);
+                }
             },
                 error => {
                     this.loading = false;

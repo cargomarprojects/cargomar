@@ -20,6 +20,7 @@ export class AcTransReport {
     jvh_pkid:string;
     slno:number;
     jvh_docno: string;
+    xref_pkid:string;
     xref_no: string;
     xref_date: string;
     xref_amt:number;
