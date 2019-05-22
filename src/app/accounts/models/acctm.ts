@@ -12,6 +12,7 @@ export class Acctm {
 
     acc_group_id: string;
     acc_group_name: string;
+    acc_main_group_name: string;
 
     acc_type_id: string;
     acc_type_name: string;
@@ -29,6 +30,10 @@ export class Acctm {
     acc_bs_id: string;
     acc_bs_code: string;
     acc_bs_name: string;
+    acc_bs_note_no: string;
+    acc_bs_main_head: string;
+    acc_bs_sub_head: string;
+    acc_bs_sub_note: string;
 
     rec_mode: string;
 
