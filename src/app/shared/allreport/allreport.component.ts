@@ -7,6 +7,9 @@ import { GlobalService } from '../../core/services/global.service';
     templateUrl: './allreport.component.html'
 })
 export class AllReportComponent {
+    /*
+     Ajith 22/05/2019 add new input variable to identify referesh view name
+    */
     // Local Variables 
     title = 'Refersh Details';
 
@@ -15,6 +18,7 @@ export class AllReportComponent {
     @Input() public branch_code: string = '';
     @Input() public company_code: string = '';
     @Input() public canrefresh: boolean = false;
+    @Input() public view_name: string = '';
 
     InitCompleted: boolean = false;
     disableSave = true;
@@ -78,7 +82,8 @@ export class AllReportComponent {
             reportname: this.reportname,
             company_code: this.company_code,
             branch_code: this.branch_code,
-            user_code: this.gs.globalVariables.user_code
+            user_code: this.gs.globalVariables.user_code,
+            view_name:this.view_name
         };
 
         this.gs.SearchRecord(SearchData)

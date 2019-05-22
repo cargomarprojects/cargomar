@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { TdsOsReport} from '../models/tdsosreport';
+import { TdsOsReport } from '../models/tdsosreport';
 import { RepService } from '../services/report.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { RepService } from '../services/report.service';
 
 export class TdsosComponent {
   title = 'Tds OS Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -25,7 +25,11 @@ export class TdsosComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-  
+
+  tds_paid: number = 0;
+  tds_collected: number = 0;
+  tds_pending: number = 0;
+
   branch_code: string = '';
   format_type: string = '';
   from_date: string = '';
@@ -33,6 +37,7 @@ export class TdsosComponent {
   searchstring = '';
   display_format_type: string = '';
 
+  bAdmin = false;
   bCompany = false;
   disableSave = true;
   loading = false;
@@ -53,12 +58,12 @@ export class TdsosComponent {
     format_type: '',
     all: false
   };
-  
+
   // Array For Displaying List
   RecordList: TdsOsReport[] = [];
- //  Single Record for add/edit/view details
+  //  Single Record for add/edit/view details
   Record: TdsOsReport = new TdsOsReport;
-   
+
   constructor(
     private mainService: RepService,
     private route: ActivatedRoute,
@@ -85,12 +90,15 @@ export class TdsosComponent {
   }
 
   InitComponent() {
+    this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_company )
+      if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -99,16 +107,16 @@ export class TdsosComponent {
   }
 
   Init() {
-    
+
   }
 
- // // Destroy Will be called when this component is closed
+  // // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
   initLov(caption: string = '') {
- 
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -145,7 +153,7 @@ export class TdsosComponent {
     return this.disableSave;
   }
 
- // // Query List Data
+  // // Query List Data
   List(_type: string) {
 
     this.ErrorMessage = '';
@@ -159,7 +167,7 @@ export class TdsosComponent {
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.format_type = this.format_type;
-   
+
     this.ErrorMessage = '';
     this.mainService.TdsosReport(this.SearchData)
       .subscribe(response => {
@@ -168,13 +176,18 @@ export class TdsosComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          for (let rec of this.RecordList.filter(rec => rec.row_type == 'TOTAL')) {
+            this.tds_paid = rec.tds_amt;
+            this.tds_collected = rec.collected_amt;
+            this.tds_pending = rec.pending_amt;
+          }
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -192,5 +205,5 @@ export class TdsosComponent {
   Close() {
     this.gs.ClosePage('home');
   }
-   
+
 }

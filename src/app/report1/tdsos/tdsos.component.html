@@ -1,79 +1,83 @@
 <div class="page-header">
-    <div class="col">
-      <label>{{title}}</label>
-      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
-  
-  <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-search">
-      <div class="row">
-        <!-- <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-10">
-              <select class="form-control form-control-sm" [(ngModel)]="format_type"  (change)="OnChange('format_type')">
-                <option [value]="'TDS-PAID-DETAILS'">TDS PAID DETAILS</option>
-                <option [value]="'TDS-PAID-SUMMARY'">TDS PAID SUMMARY</option>
-                <option [value]="'26AS-MASTERS'">26AS MASTERS</option>
-                <option [value]="'26AS-DETAILS'">26AS DETAILS</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Search</label>
-            <div class="col-10">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
-            </div>
-          </div>
-  
-        </div> -->
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <div class="col-6">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process</button>
-              <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
-            </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <div class="col-6">
+            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Branch Wise</button>
+            <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
           </div>
         </div>
       </div>
-    </div>
-  
-    <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
-        <thead class="page-body-thead">
-          <tr>
-            <th>BRANCH</th>
-            <th class="text-right">TDS-PAID</th>
-            <th class="text-right">COLLECTED</th>
-            <th class="text-right">PENDING</th>
-            <th class="text-right">Q1.BAL</th>
-            <th class="text-right">Q2.BAL</th>
-            <th class="text-right">Q3.BAL</th>
-            <th class="text-right">Q4.BAL</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr [style.color]="rec.row_colour">
-            <td>{{rec.branch}}</td>
-            <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.q1_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.q2_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.q3_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.q4_amt | number : '1.2-2' }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col-sm-4">
+        <div *ngIf="tds_paid>0" class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">TDS PAID</label>
+          <div class="col-sm-2">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{tds_paid}} </font>
+            </label>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">COLLECTED</label>
+          <div class="col-sm-2">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{tds_collected}} </font>
+            </label>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">PENDING</label>
+          <div class="col-sm-2">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{tds_pending}} </font>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <app-allreport [reportname]="title" [canrefresh]="bAdmin" [company_code]="this.gs.globalVariables.comp_code"
+          [branch_code]='' [view_name]='TDSPAIDM'></app-allreport>
+      </div>
     </div>
   </div>
-  
-  <br />
-    <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-    <div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th class="text-right">TDS-PAID</th>
+          <th class="text-right">COLLECTED</th>
+          <th class="text-right">PENDING</th>
+          <th class="text-right">Q1.BAL</th>
+          <th class="text-right">Q2.BAL</th>
+          <th class="text-right">Q3.BAL</th>
+          <th class="text-right">Q4.BAL</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.branch}}</td>
+          <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.q1_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.q2_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.q3_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.q4_amt | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>
+
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>
