@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <h2>{{title}}</h2>
@@ -52,10 +51,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -93,10 +95,10 @@
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td align='center'>{{rec.jvh_docs}}</td>
-          
+
           <td *ngIf="type=='BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_status}}</td>
           <td *ngIf="type=='BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_by}}</td>
-          <td *ngIf="type=='BP'" align='center'  >{{rec.jvh_chq_printed}}</td>
+          <td *ngIf="type=='BP'" align='center'>{{rec.jvh_chq_printed}}</td>
         </tr>
       </tbody>
     </table>
@@ -105,10 +107,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -126,32 +131,36 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Vr.No</label>
           <div class="col-4">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_vrno" required maxlength="15" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_vrno" required
+              maxlength="15" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Date</label>
           <div class="col-4">
-            <app-date [disabled]="lock_date" [inputdate]="Record.jvh_date" (ValueChanged)="Record.jvh_date=$event"></app-date>
+            <app-date [disabled]="lock_date" [inputdate]="Record.jvh_date" (ValueChanged)="Record.jvh_date=$event">
+            </app-date>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Ref.No</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" required maxlength="50" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" required
+              maxlength="50" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Ref.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event"></app-date>
+            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event">
+            </app-date>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Org.Inv#</label>
           <div class="col-4">
-            <input  type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
-            <app-date  [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
+            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
           </div>
         </div>
         <div class="form-group row">
@@ -172,12 +181,14 @@
           </div>
           <label class="col-1 col-form-label col-form-label-sm">Code</label>
           <div class="col-4">
-            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_code" (blur)="onLostFocus('jvh_cc_code')" required maxlength="30" />
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_code"
+              (blur)="onLostFocus('jvh_cc_code')" required maxlength="30" />
           </div>
         </div>
         <div class="form-group row">
           <div class="col-2">
-            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="UpdateInvoice()" class="btn btn-success btn-sm">InvUpdt</button>
+            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="UpdateInvoice()"
+              class="btn btn-success btn-sm">InvUpdt</button>
           </div>
           <div class="col-10">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
@@ -208,7 +219,8 @@
 
           <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
           <div class="col-3">
-            <app-autocomplete #CsdLov [inputdata]="PARTYADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #CsdLov [inputdata]="PARTYADDRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
 
         </div>
@@ -216,14 +228,16 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Name</label>
           <div class="col-10">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_name" (blur)="OnBlur('jvh_acc_name')" required maxlength="60" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_name"
+              (blur)="OnBlur('jvh_acc_name')" required maxlength="60" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_br_address" [disabled]="true" maxlength="1000"></textarea>
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_br_address"
+              [disabled]="true" maxlength="1000"></textarea>
           </div>
         </div>
 
@@ -235,7 +249,9 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Gst#</label>
           <div class="col-7">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_gstin" (blur)="OnBlur('jvh_gstin')" (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required maxlength="15" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_gstin"
+              (blur)="OnBlur('jvh_gstin')" (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required
+              maxlength="15" />
           </div>
 
           <div class="col-sm-3">
@@ -263,11 +279,13 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Currency</label>
           <div class="col-5">
-            <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
           <label class="col-1 col-form-label col-form-label-sm">Ex.Rate</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required maxlength="15" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required
+              maxlength="15" />
           </div>
 
         </div>
@@ -299,7 +317,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
           <div class="col-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_remarks" required maxlength="255" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_remarks" required
+              maxlength="255" />
           </div>
         </div>
 
@@ -361,7 +380,8 @@
               <td>{{rec.jv_sgst_rate}}</td>
               <td>{{rec.jv_igst_rate}}</td>
               <td>
-                <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jv_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
+                <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jv_pkid,name:i+1}"
+                  (result)="RemoveList($event)"></App-Dialog>
               </td>
 
             </tr>
@@ -388,7 +408,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Name</label>
             <div class="col-10">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_acc_name" (blur)="OnBlur('jv_acc_name')" required maxlength="60" />
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_acc_name"
+                (blur)="OnBlur('jv_acc_name')" required maxlength="60" />
             </div>
           </div>
 
@@ -399,18 +420,24 @@
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Ex.Rate</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_exrate" (focus)="OnFocus('jv_exrate')" (change)="OnChange('jv_exrate')" (blur)="OnBlur('jv_exrate')" required maxlength="10" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_exrate"
+                (focus)="OnFocus('jv_exrate')" (change)="OnChange('jv_exrate')" (blur)="OnBlur('jv_exrate')" required
+                maxlength="10" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Amount</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_ftotal" (focus)="OnFocus('jv_ftotal')" (change)="OnChange('jv_ftotal')" (blur)="OnBlur('jv_ftotal')" required maxlength="20" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_ftotal"
+                (focus)="OnFocus('jv_ftotal')" (change)="OnChange('jv_ftotal')" (blur)="OnBlur('jv_ftotal')" required
+                maxlength="20" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Total</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_total" (focus)="OnFocus('jv_total')" (change)="OnChange('jv_total')" (blur)="OnBlur('jv_total')" required maxlength="20" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_total"
+                (focus)="OnFocus('jv_total')" (change)="OnChange('jv_total')" (blur)="OnBlur('jv_total')" required
+                maxlength="20" />
             </div>
           </div>
 
@@ -426,52 +453,63 @@
 
             <label class="col-2 col-form-label  col-form-label-sm">Taxable</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_taxable_amt" (focus)="OnFocus('jv_taxable_amt')" (change)="OnChange('jv_taxable_amt')" (blur)="OnBlur('jv_taxable_amt')" required maxlength="20" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_taxable_amt"
+                (focus)="OnFocus('jv_taxable_amt')" (change)="OnChange('jv_taxable_amt')"
+                (blur)="OnBlur('jv_taxable_amt')" required maxlength="20" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Sac</label>
             <div class="col-4">
-              <app-autocomplete #LinerLov [inputdata]="SACRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #LinerLov [inputdata]="SACRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
 
             <label class="col-2 col-form-label  col-form-label-sm"></label>
             <div class="col-4">
-              <input type="checkbox" [disabled]="Recorddet.jv_acc_type_name == 'DIRECT INCOME' || Recorddet.jv_acc_type_name == 'DIRECT EXPENSE'  || Recorddet.jv_acc_type_name == ''" [(ngModel)]="Recorddet.jv_gst_edited">
+              <input type="checkbox"
+                [disabled]="Recorddet.jv_acc_type_name == 'DIRECT INCOME' || Recorddet.jv_acc_type_name == 'DIRECT EXPENSE'  || Recorddet.jv_acc_type_name == ''"
+                [(ngModel)]="Recorddet.jv_gst_edited">
               <span>Edit GST</span>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Cgst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_cgst_rate" (blur)="OnBlur('jv_cgst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_cgst_rate" (blur)="OnBlur('jv_cgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
-              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_cgst_amt" (blur)="OnBlur('jv_cgst_amt')" maxlength="15" />
+              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_cgst_amt" (blur)="OnBlur('jv_cgst_amt')" maxlength="15" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Sgst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_sgst_rate" (blur)="OnBlur('jv_sgst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_sgst_rate" (blur)="OnBlur('jv_sgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
-              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_sgst_amt" (blur)="OnBlur('jv_sgst_amt')" maxlength="15" />
+              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_sgst_amt" (blur)="OnBlur('jv_sgst_amt')" maxlength="15" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Igst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_igst_rate" (blur)="OnBlur('jv_igst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_igst_rate" (blur)="OnBlur('jv_igst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
-              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_igst_amt" (blur)="OnBlur('jv_igst_amt')" maxlength="15" />
+              <input type="number" [disabled]="!Recorddet.jv_gst_edited" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_igst_amt" (blur)="OnBlur('jv_igst_amt')" maxlength="15" />
             </div>
 
           </div>
@@ -494,18 +532,21 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_bank" (blur)="OnBlur('jv_bank')" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_bank"
+                (blur)="OnBlur('jv_bank')" required maxlength="60" />
             </div>
-            <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
+            <label style="padding-left: 0%" class="col-2 col-form-label  col-form-label-sm">Branch</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_branch" (blur)="OnBlur('jv_branch')" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_branch"
+                (blur)="OnBlur('jv_branch')" required maxlength="60" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Chq.No</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_chqno" (blur)="OnBlur('jv_chqno')" required maxlength="60" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_chqno"
+                (blur)="OnBlur('jv_chqno')" required maxlength="60" />
             </div>
 
             <label class="col-2 col-form-label col-form-label-sm">Chq.Date</label>
@@ -518,28 +559,32 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Pay.Reason</label>
             <div class="col-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_pay_reason" (blur)="OnBlur('jv_pay_reason')" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_pay_reason"
+                (blur)="OnBlur('jv_pay_reason')" required maxlength="60" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Supp.Docs</label>
             <div class="col-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_supp_docs" (blur)="OnBlur('jv_supp_docs')" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_supp_docs"
+                (blur)="OnBlur('jv_supp_docs')" required maxlength="60" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Paid.To</label>
             <div class="col-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_paid_to" (blur)="OnBlur('jv_paid_to')" required maxlength="100" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_paid_to"
+                (blur)="OnBlur('jv_paid_to')" required maxlength="100" />
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Remarks</label>
             <div class="col-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_remarks" (blur)="OnBlur('jv_remarks')" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_remarks"
+                (blur)="OnBlur('jv_remarks')" required maxlength="60" />
             </div>
           </div>
         </div>
@@ -549,7 +594,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Pan#</label>
             <div class="col-4">
-              <app-autocomplete #LinerLov [inputdata]="PANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #LinerLov [inputdata]="PANRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
             <div class="col-6">
               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_pan_name" />
@@ -559,18 +605,27 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Tds%</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_rate" (blur)="OnBlur('jv_tds_rate')" maxlength="15" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_rate"
+                (blur)="OnBlur('jv_tds_rate')" maxlength="15" />
             </div>
             <div class="col-6">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_gross_amt" maxlength="15" />
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_gross_amt"
+                maxlength="15" />
             </div>
           </div>
 
-
+          <div class="form-group row" *ngIf="this.Recorddet.jv_acc_type_name == 'BANK'">
+            <label class="col-2 col-form-label col-form-label-sm"></label>
+            <div class="col-4">
+              <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading" (click)="SearchRecord('chqnoupdate')"
+                class="btn btn-success btn-sm">Cheque Update</button>
+            </div>
+          </div>
           <div class="form-group row" *ngIf="this.Recorddet.jv_acc_code == 'TDSPAID'">
             <label class="col-2 col-form-label col-form-label-sm">Tan#</label>
             <div class="col-4">
-              <app-autocomplete #LinerLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #LinerLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
             <div class="col-6">
               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tan_name" />
@@ -583,20 +638,22 @@
               <app-autocomplete #CsdLov [inputdata]="TPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
             <div class="col-6">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tan_party_name" (blur)="OnBlur('jv_tan_party_name')" required maxlength="60" />
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tan_party_name"
+                (blur)="OnBlur('jv_tan_party_name')" required maxlength="60" />
             </div>
           </div>
 
           <div class="form-group row" *ngIf="this.Recorddet.jv_acc_code == 'TDSPAID'">
             <label class="col-2 col-form-label  col-form-label-sm">Gross.Amt</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_gross_bill_amt" (blur)="OnBlur('jv_gross_bill_amt')" maxlength="15" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_gross_bill_amt"
+                (blur)="OnBlur('jv_gross_bill_amt')" maxlength="15" />
             </div>
           </div>
         </div>
       </div>
 
-  <div class="row">
+      <div class="row">
         <div class="col-sm-12">
           <div class="form-group row">
             <div class="col-12">
@@ -613,9 +670,12 @@
           <div class="form-group row">
             <div class="offset-2 col-10">
               <button [disabled]="loading" (click)="Ok()" class="btn btn-default btn-sm">OK</button>
-              <button [disabled]="loading" (click)="ActionHandlerDetail('LIST','')" class="btn btn-default btn-sm">Cancel</button>
-              <button [disabled]="loading" (click)="LoadPendingList(content)" class="btn btn-default btn-sm">Allocation</button>
-              <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading" (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
+              <button [disabled]="loading" (click)="ActionHandlerDetail('LIST','')"
+                class="btn btn-default btn-sm">Cancel</button>
+              <button [disabled]="loading" (click)="LoadPendingList(content)"
+                class="btn btn-default btn-sm">Allocation</button>
+              <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading"
+                (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
             </div>
           </div>
         </div>
@@ -630,9 +690,14 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()" style=" text-decoration: underline;cursor:pointer"> Narration</label>
+          <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()"
+            style=" text-decoration: underline;cursor:pointer"> Narration
+            <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading" (click)="UpdateInvoice()"
+            class="btn btn-success btn-sm">Update</button>
+          </label>
           <div class="col-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required maxlength="255"></textarea>
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required
+              maxlength="255"></textarea>
           </div>
         </div>
       </div>
@@ -649,22 +714,28 @@
         </div>
         <div class="form-group row">
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_debit" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_debit" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_credit" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_credit" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_cgst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_cgst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_sgst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_sgst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_igst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_igst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_diff" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_diff" required
+              maxlength="20" />
           </div>
         </div>
       </div>
@@ -687,12 +758,17 @@
 
   <div *ngIf="DetailTab=='LIST'" class="page-box">
     <div class="col">
-      <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Print</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT' && type=='IN-ES'" (click)="PrintInvoice('SUMMARY','PDF',Record.jvh_pkid)" class="btn btn-success btn-sm">Invoice</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
+      <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
+        class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')"
+        class="btn btn-success btn-sm">Print</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && type=='IN-ES'"
+        (click)="PrintInvoice('SUMMARY','PDF',Record.jvh_pkid)" class="btn btn-success btn-sm">Invoice</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+        class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bapprovalstatus !='' && type=='BP'" (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bapprovalstatus !='' && type=='BP'"
+        (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -718,7 +794,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-pendingist [RecordList]="PendingListRecords" [jv_total]="Recorddet.jv_total" (OkSelected)="PendingListOkSelected($event)"></app-pendingist>
+    <app-pendingist [RecordList]="PendingListRecords" [jv_total]="Recorddet.jv_total"
+      (OkSelected)="PendingListOkSelected($event)"></app-pendingist>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
@@ -760,7 +837,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)"></app-approval>
+    <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)">
+    </app-approval>
   </div>
 </ng-template>
-

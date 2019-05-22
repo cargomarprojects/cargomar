@@ -31,6 +31,10 @@ import { PendingListComponent } from './Pendinglist.component';
   providers: [LedgerService]
 })
 export class LedgerComponent {
+  /*
+   Ajith 22/05/2019 chqno and narration updation while locking
+  */
+   
   // Local Variables 
   title = 'Ledger Details';
 
@@ -2396,7 +2400,6 @@ export class LedgerComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+ 
 
 }
-
-
