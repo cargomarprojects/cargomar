@@ -14,7 +14,7 @@ import { RepService } from '../services/report.service';
 
 export class TdsosComponent {
   /*
-Ajith 23/05/2019 add party wise tds os report
+Ajith 23/05/2019 add party wise and detail tds os report
   */
   title = 'Tds OS Report'
 
