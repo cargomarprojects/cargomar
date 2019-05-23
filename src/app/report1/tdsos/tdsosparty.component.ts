@@ -45,7 +45,8 @@ export class TdsosPartyComponent {
     report_folder: '',
     company_code: '',
     branch_code: '',
-    year_code: ''  
+    year_code: ''  ,
+    format_type:''
   };
 
   // Array For Displaying List
@@ -152,7 +153,8 @@ export class TdsosPartyComponent {
    // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
-    
+    this.SearchData.format_type = "PARTY-WISE";
+
     this.ErrorMessage = '';
     this.mainService.TdsosReport(this.SearchData)
       .subscribe(response => {

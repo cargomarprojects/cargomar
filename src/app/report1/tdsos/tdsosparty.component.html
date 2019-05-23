@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="col">
-        <label>{{title}}</label>
+        <label>{{title}}/{{this.SearchData.branch_code}}</label>
         <button class="btn btn-primary btn-sm" (click)="Close()">{{CloseCaption}}</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -50,7 +50,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr [style.color]="rec.row_colour">
-                    <td>{{rec.acc_name}}</td>
+                    <td>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>

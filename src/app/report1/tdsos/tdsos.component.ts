@@ -34,7 +34,7 @@ Ajith 23/05/2019 add party wise tds os report
   tds_pending: number = 0;
 
   branch_code: string = '';
-  format_type: string = '';
+  format_type: string = 'BRANCH-WISE';
   from_date: string = '';
   to_date: string = '';
   searchstring = '';
@@ -210,12 +210,15 @@ Ajith 23/05/2019 add party wise tds os report
   }
 
   drilldown(rec: TdsOsReport) {
+    if (rec.row_type == "TOTAL")
+      return;
+
     let param = {
-        menuid: 'TDSOSPARTYRPT',
-        company_code:this.gs.globalVariables.comp_code,
-        branch_code: rec.branch,
-        isdrildown: true
+      menuid: 'TDSOSPARTYRPT',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: rec.branch,
+      isdrildown: true
     }
     this.gs.Naviagete("report1/tdsosparty", JSON.stringify(param));
-}
+  }
 }
