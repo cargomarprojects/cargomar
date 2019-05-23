@@ -33,8 +33,9 @@ import { PendingListComponent } from './Pendinglist.component';
 export class LedgerComponent {
   /*
    Ajith 22/05/2019 chqno and narration updation while locking
+   Ajith 23/05/2019 chqno updation ReScripted due to lost code while checking
   */
-   
+
   // Local Variables 
   title = 'Ledger Details';
 
@@ -372,10 +373,10 @@ export class LedgerComponent {
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
       this.Recorddet.jv_is_taxable = false;
       if (_Record.col4 == "Y")  //  Taxable
-        this.Recorddet.jv_is_taxable = true;    
-         
-      if(this.type == "BP"){  
-        if(this.Recorddet.jv_acc_type_name == "BANK")
+        this.Recorddet.jv_is_taxable = true;
+
+      if (this.type == "BP") {
+        if (this.Recorddet.jv_acc_type_name == "BANK")
           this.Recorddet.jv_doc_type = "CHEQUE";
       }
 
@@ -1492,30 +1493,29 @@ export class LedgerComponent {
 
       if (this.Recorddet.jv_acc_type_name == 'BANK' && this.Recorddet.jv_drcr == "CR") {
 
-        if(this.Recorddet.jv_doc_type != "NA")
-        {
+        if (this.Recorddet.jv_doc_type != "NA") {
           if (this.Recorddet.jv_chqno == null) {
             this.ErrorMessage = 'Cheque Number Cannot Be Blank';
             alert(this.ErrorMessage);
-              return;
+            return;
           }
 
           if (this.Recorddet.jv_chqno <= 0) {
             this.ErrorMessage = 'Invalid Cheque Number Found.';
             alert(this.ErrorMessage);
-              return;
+            return;
           }
 
           if (this.Recorddet.jv_due_date == null) {
             this.ErrorMessage = 'Cheque Date Cannot Be Blank';
             alert(this.ErrorMessage);
-              return;
+            return;
           }
 
           if (this.Recorddet.jv_due_date == '') {
             this.ErrorMessage = 'Cheque Date Cannot Be Blank';
             alert(this.ErrorMessage);
-              return;
+            return;
           }
         }
       }
@@ -1553,8 +1553,8 @@ export class LedgerComponent {
       cctotal += rec.ct_amount;
     });
 
-    if (!bok){
-      if(this.ErrorMessage!='')
+    if (!bok) {
+      if (this.ErrorMessage != '')
         alert(this.ErrorMessage);
       return;
     }
@@ -2073,7 +2073,8 @@ export class LedgerComponent {
       branch_code: '',
       type: '',
       year: '',
-      searchstring: ''
+      searchstring: '',
+      chqno: ''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
@@ -2095,7 +2096,11 @@ export class LedgerComponent {
       SearchData.year = this.gs.globalVariables.year_code;
       SearchData.searchstring = this.CostCode;
     }
-
+    if (controlname == 'chqnoupdate') {
+      SearchData.table = 'chqnoupdate';
+      SearchData.pkid = this.Recorddet.jv_pkid;
+      SearchData.chqno = this.Recorddet.jv_chqno.toString();
+    }
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
@@ -2180,6 +2185,12 @@ export class LedgerComponent {
             if (this.CostNarration.length > 0)
               this.Record.jvh_narration = this.CostNarration;
           }
+        }
+        if (controlname == 'chqnoupdate') {
+          for (let rec of this.Record.LedgerList.filter(rec => rec.jv_pkid == this.Recorddet.jv_pkid)) {
+            rec.jv_chqno = this.Recorddet.jv_chqno;
+          }
+          alert("Cheque Number Updated Successfully");
         }
       },
         error => {
@@ -2400,6 +2411,6 @@ export class LedgerComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
- 
+
 
 }
