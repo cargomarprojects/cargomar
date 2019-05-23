@@ -46,7 +46,8 @@ export class TdsosDetComponent {
     company_code: '',
     branch_code: '',
     year_code: ''  ,
-    format_type:''
+    format_type:'',
+    party_name:''
   };
 
   // Array For Displaying List
@@ -66,6 +67,7 @@ export class TdsosDetComponent {
             this.menuid = options.menuid;
             this.SearchData.company_code = options.company_code;
             this.SearchData.branch_code = options.branch_code;
+            this.SearchData.party_name = options.party_name;
             this.InitComponent();
             this.List('NEW');
         }
@@ -150,10 +152,9 @@ export class TdsosDetComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
-    this.SearchData.format_type = "PARTY-WISE";
+    this.SearchData.format_type = "TDS-DETAILS";
 
     this.ErrorMessage = '';
     this.mainService.TdsosReport(this.SearchData)

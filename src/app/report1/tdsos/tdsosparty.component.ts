@@ -201,6 +201,7 @@ export class TdsosPartyComponent {
       menuid: 'TDSOSDETRPT',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: rec.branch,
+      party_name: rec.party_name,
       isdrildown: true
     }
     this.gs.Naviagete("report1/tdsosdet", JSON.stringify(param));

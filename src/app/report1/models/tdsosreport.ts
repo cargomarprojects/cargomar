@@ -4,6 +4,12 @@ export class TdsOsReport {
     branch: string;
     party_name: string;
     party_code: string;
+    jvh_docno: string;
+    jvh_date: string;
+    sman_name: string;
+    tan_code: string;
+    tan_name: string;
+    tds_cert_no: string;
     tds_amt: number;
     collected_amt: number;
     pending_amt: number;
