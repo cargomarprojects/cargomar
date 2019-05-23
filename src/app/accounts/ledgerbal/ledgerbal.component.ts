@@ -20,6 +20,9 @@ import { Observable } from 'rxjs';
 })
 
 export class LedgerBalComponent {
+    /*
+   Ajith 23/05/2019 Branch selection implemented 
+  */
     // Local Variables 
     title = 'Ledger';
 
@@ -49,6 +52,8 @@ export class LedgerBalComponent {
     to_date: string;
     ismaincode: boolean = false;
     bAdmin: boolean = false;
+    bCompany = false;
+    branch_code: string = '';
 
     ErrorMessage = "";
 
@@ -56,6 +61,7 @@ export class LedgerBalComponent {
 
     isdrilldown: boolean = false;
 
+    BRRECORD: SearchTable = new SearchTable();
     ACCRECORD: SearchTable = new SearchTable();
     ACCMAINRECORD: SearchTable = new SearchTable();
 
@@ -138,12 +144,16 @@ export class LedgerBalComponent {
     }
 
     InitComponent() {
+        this.branch_code = this.gs.globalVariables.branch_code;
         this.bAdmin = false;
+        this.bCompany = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_admin)
                 this.bAdmin = true;
+            if (this.menu_record.rights_company)
+                this.bCompany = true;
         }
         this.storesub = this.store.select(ledgerrepreducer.getLedgerStateRec(this.urlid)).subscribe(rec => {
             if (rec) {
@@ -190,7 +200,8 @@ export class LedgerBalComponent {
         this.SearchData.pkid = this.pkid;
         this.SearchData.report_folder = this.gs.globalVariables.report_folder;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.branch_code = this.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.from_date = this.from_date;
@@ -238,6 +249,13 @@ export class LedgerBalComponent {
         this.ACCMAINRECORD.id = "";
         this.ACCMAINRECORD.code = "";
         this.ACCMAINRECORD.name = "";
+
+        this.BRRECORD = new SearchTable();
+        this.BRRECORD.controlname = "BRANCH";
+        this.BRRECORD.displaycolumn = "CODE";
+        this.BRRECORD.type = "BRANCH";
+        this.BRRECORD.id = "";
+        this.BRRECORD.code = this.gs.globalVariables.branch_code;
     }
 
     LovSelected(_Record: SearchTable) {
@@ -263,6 +281,9 @@ export class LedgerBalComponent {
             this.ACCRECORD.code = "";
             this.ACCRECORD.name = "";
         }
+        if (_Record.controlname == "BRANCH") {
+            this.branch_code = _Record.code;
+        }
     }
 
     // Query List Data
@@ -275,8 +296,12 @@ export class LedgerBalComponent {
             this.ErrorMessage = 'To Date Cannot Be Blank';
             return;
         }
-        this.loading = true;
+        if (this.branch_code.trim().length <= 0) {
+            this.ErrorMessage = "Branch Code Cannot Be Blank";
+            return;
+        }
 
+        this.loading = true;
         if (_type == "NEW") {
             this.pkid = this.gs.getGuid();
             this.InitSearchData();
@@ -347,7 +372,7 @@ export class LedgerBalComponent {
 
     GenerateAll() {
         this.ErrorMessage = '';
-        if (!confirm("Generate ALL Ledger of " + this.gs.globalVariables.branch_name+", "+this.gs.globalVariables.year_name)) {
+        if (!confirm("Generate ALL Ledger of " + this.gs.globalVariables.branch_name + ", " + this.gs.globalVariables.year_name)) {
             return;
         }
         this.loading = true;
