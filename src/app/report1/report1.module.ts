@@ -47,6 +47,7 @@ import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
 import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
 import { TdsosComponent} from './tdsos/tdsos.component';
+import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import { TdsosComponent} from './tdsos/tdsos.component';
     FtpLogComponent,
     TdspaidReportComponent,
     TdspaidDetComponent,
-    TdsosComponent
+    TdsosComponent,
+    TdsosPartyComponent
   ],
   providers: [
   ],

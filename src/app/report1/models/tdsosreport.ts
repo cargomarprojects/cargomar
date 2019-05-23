@@ -2,6 +2,8 @@ export class TdsOsReport {
     row_type: string;
     row_colour: string;
     branch: string;
+    acc_name: string;
+    acc_code: string;
     tds_amt: number;
     collected_amt: number;
     pending_amt: number;

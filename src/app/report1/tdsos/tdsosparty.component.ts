@@ -7,19 +7,18 @@ import { TdsOsReport } from '../models/tdsosreport';
 import { RepService } from '../services/report.service';
 
 @Component({
-  selector: 'app-tdsos',
-  templateUrl: './tdsos.component.html',
+  selector: 'app-tdsosparty',
+  templateUrl: './tdsosparty.component.html',
   providers: [RepService]
 })
 
-export class TdsosComponent {
-  /*
-Ajith 23/05/2019 add party wise tds os report
-  */
+export class TdsosPartyComponent {
   title = 'Tds OS Report'
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  
+  
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -28,38 +27,25 @@ Ajith 23/05/2019 add party wise tds os report
   ErrorMessage = "";
   mode = '';
   pkid = '';
+  CloseCaption = 'Return';
 
   tds_paid: number = 0;
   tds_collected: number = 0;
   tds_pending: number = 0;
-
-  branch_code: string = '';
-  format_type: string = '';
-  from_date: string = '';
-  to_date: string = '';
-  searchstring = '';
-  display_format_type: string = '';
 
   bAdmin = false;
   bCompany = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
-  all: boolean = false;
-
+ 
   SearchData = {
     type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
     branch_code: '',
-    year_code: '',
-    searchstring: '',
-    from_date: '',
-    to_date: '',
-    format_type: '',
-    all: false
+    year_code: ''  
   };
 
   // Array For Displaying List
@@ -74,13 +60,14 @@ Ajith 23/05/2019 add party wise tds os report
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
-      if (params["parameter"] != "") {
-        this.InitCompleted = true;
-        var options = JSON.parse(params["parameter"]);
-        this.menuid = options.menuid;
-        this.type = options.type;
-        this.InitComponent();
-      }
+        if (params["parameter"] != "") {
+            var options = JSON.parse(params["parameter"]);
+            this.menuid = options.menuid;
+            this.SearchData.company_code = options.company_code;
+            this.SearchData.branch_code = options.branch_code;
+            this.InitComponent();
+            this.List('NEW');
+        }
     });
 
   }
@@ -106,7 +93,7 @@ Ajith 23/05/2019 add party wise tds os report
     this.initLov();
     this.LoadCombo();
     this.Init();
-    this.List('SCREEN');
+    //this.List('SCREEN');
   }
 
   Init() {
@@ -123,9 +110,6 @@ Ajith 23/05/2019 add party wise tds os report
   }
 
   LovSelected(_Record: SearchTable) {
-    if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-    }
   }
   LoadCombo() {
   }
@@ -165,12 +149,10 @@ Ajith 23/05/2019 add party wise tds os report
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.branch_code;
+   // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.format_type = this.format_type;
-
+    
     this.ErrorMessage = '';
     this.mainService.TdsosReport(this.SearchData)
       .subscribe(response => {
@@ -202,20 +184,11 @@ Ajith 23/05/2019 add party wise tds os report
   }
 
   OnBlur(field: string) {
-    this.searchstring = this.searchstring.toUpperCase();
   }
 
   Close() {
-    this.gs.ClosePage('home');
+    let IsCloseButton = this.CloseCaption == 'Close' ? true : false;
+    this.gs.ClosePage('home', IsCloseButton);
   }
 
-  drilldown(rec: TdsOsReport) {
-    let param = {
-        menuid: 'TDSOSPARTYRPT',
-        company_code:this.gs.globalVariables.comp_code,
-        branch_code: rec.branch,
-        isdrildown: true
-    }
-    this.gs.Naviagete("report1/tdsosparty", JSON.stringify(param));
-}
 }

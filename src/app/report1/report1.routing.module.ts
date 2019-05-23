@@ -23,6 +23,7 @@ import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
 import { TdsosComponent} from './tdsos/tdsos.component';
+import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -45,7 +46,8 @@ const routes: Routes = [
   { path: 'mapping', component: MappingComponent },
   { path: 'ftplog', component: FtpLogComponent },
   { path: 'tdspaidreport', component: TdspaidReportComponent },
-  { path: 'tdsos', component: TdsosComponent}
+  { path: 'tdsos', component: TdsosComponent},
+  { path: 'tdsosparty', component: TdsosPartyComponent}
 ];
 
 @NgModule({
