@@ -48,7 +48,7 @@ import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component'
 import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
 import { TdsosComponent} from './tdsos/tdsos.component';
 import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
-
+import { TdsosDetComponent} from './tdsos/tdsosdet.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -83,7 +83,8 @@ import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
     TdspaidReportComponent,
     TdspaidDetComponent,
     TdsosComponent,
-    TdsosPartyComponent
+    TdsosPartyComponent,
+    TdsosDetComponent
   ],
   providers: [
   ],

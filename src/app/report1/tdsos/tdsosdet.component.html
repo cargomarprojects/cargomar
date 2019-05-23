@@ -1,0 +1,70 @@
+<div class="page-header">
+        <div class="col">
+            <label>{{title}}/{{this.SearchData.branch_code}}</label>
+            <button class="btn btn-primary btn-sm" (click)="Close()">{{CloseCaption}}</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+    </div>
+    <div *ngIf="currentTab=='LIST'" class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div *ngIf="tds_paid>0" class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">TDS PAID</label>
+                        <div class="col-sm-2">
+                            <label class="col-form-label  col-form-label-sm">
+                                <font color="red">{{tds_paid}} </font>
+                            </label>
+                        </div>
+                        <label class="col-sm-2 col-form-label col-form-label-sm">COLLECTED</label>
+                        <div class="col-sm-2">
+                            <label class="col-form-label  col-form-label-sm">
+                                <font color="red">{{tds_collected}} </font>
+                            </label>
+                        </div>
+                        <label class="col-sm-2 col-form-label col-form-label-sm">PENDING</label>
+                        <div class="col-sm-2">
+                            <label class="col-form-label  col-form-label-sm">
+                                <font color="red">{{tds_pending}} </font>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>PARTY</th>
+                        <th>BRANCH</th>
+                        <th class="text-right">TDS-PAID</th>
+                        <th class="text-right">COLLECTED</th>
+                        <th class="text-right">PENDING</th>
+                        <th class="text-right">Q1.BAL</th>
+                        <th class="text-right">Q2.BAL</th>
+                        <th class="text-right">Q3.BAL</th>
+                        <th class="text-right">Q4.BAL</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                    <tr [style.color]="rec.row_colour">
+                        <td>{{rec.party_name}}</td>
+                        <td>{{rec.branch}}</td>
+                        <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.q1_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.q2_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.q3_amt | number : '1.2-2' }}</td>
+                        <td align='right'>{{ rec.q4_amt | number : '1.2-2' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+        {{ErrorMessage}}
+    </div>

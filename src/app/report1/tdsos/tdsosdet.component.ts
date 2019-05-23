@@ -7,12 +7,12 @@ import { TdsOsReport } from '../models/tdsosreport';
 import { RepService } from '../services/report.service';
 
 @Component({
-  selector: 'app-tdsosparty',
-  templateUrl: './tdsosparty.component.html',
+  selector: 'app-tdsosdet',
+  templateUrl: './tdsosdet.component.html',
   providers: [RepService]
 })
 
-export class TdsosPartyComponent {
+export class TdsosDetComponent {
   title = 'Tds OS Report'
 
   @Input() menuid: string = '';
@@ -193,16 +193,4 @@ export class TdsosPartyComponent {
     this.gs.ClosePage('home', IsCloseButton);
   }
 
-  drilldown(rec: TdsOsReport) {
-    if (rec.row_type == "TOTAL")
-      return;
-
-    let param = {
-      menuid: 'TDSOSDETRPT',
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: rec.branch,
-      isdrildown: true
-    }
-    this.gs.Naviagete("report1/tdsosdet", JSON.stringify(param));
-  }
 }

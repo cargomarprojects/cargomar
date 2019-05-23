@@ -50,7 +50,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr [style.color]="rec.row_colour">
-                    <td>{{rec.party_name}}</td>
+                    <td (click)="drilldown(rec)" style="cursor:pointer">{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
