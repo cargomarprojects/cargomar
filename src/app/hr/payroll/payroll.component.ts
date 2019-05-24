@@ -12,6 +12,10 @@ import { PayRollService } from '../services/payroll.service';
   providers: [PayRollService]
 })
 export class PayRollComponent {
+  /*
+  Ajith 24/05/2019 print rights set for payslip
+  
+  */
   // Local Variables 
   title = 'SALARY MASTER';
 
@@ -21,6 +25,7 @@ export class PayRollComponent {
   menu_record: any;
 
   lock_record: boolean = false;
+  bPrint: boolean = false;
   bAdmin: boolean = false;
   bEmail: boolean = false;
   chkallselected: boolean = false;
@@ -95,6 +100,7 @@ export class PayRollComponent {
     this.bRemove = true;
     this.bAdmin = false;
     this.bEmail = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -102,6 +108,8 @@ export class PayRollComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_email)
         this.bEmail = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
@@ -715,8 +723,8 @@ export class PayRollComponent {
       isadmin: 'N',
       filetype: 'PDF',
       empbrgroup: 1,
-      psadmin:'N',
-      ssadmin:'N'
+      psadmin: 'N',
+      ssadmin: 'N'
     }
 
     SearchData.type = _type;
@@ -732,8 +740,8 @@ export class PayRollComponent {
     SearchData.isadmin = this.bAdmin ? "Y" : "N";
     SearchData.filetype = _filetype;
     SearchData.empbrgroup = empbrgrp;
-    SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN')>=0 || this.gs.globalVariables.user_code=="ADMIN" ) ?'Y':'N';
-    SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN')>=0 || this.gs.globalVariables.user_code=="ADMIN" ) ?'Y':'N';
+    SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
+    SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
