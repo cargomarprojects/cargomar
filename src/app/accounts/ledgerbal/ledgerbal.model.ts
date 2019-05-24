@@ -9,6 +9,7 @@ export interface LedgerReportState{
     to_date : string ,
     ismaincode : boolean,
     isloaded : boolean,
+    branch_code : string,
     acc_pkid : string ,
     acc_code : string ,
     acc_name : string ,

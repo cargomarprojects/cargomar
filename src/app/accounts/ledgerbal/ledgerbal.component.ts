@@ -165,6 +165,7 @@ export class LedgerBalComponent {
                 this.isloaded = rec.isloaded;
                 this.to_date = rec.to_date;
                 this.ismaincode = rec.ismaincode;
+                this.branch_code = rec.branch_code;
                 if (this.ismaincode) {
                     this.ACCMAINRECORD.id = rec.acc_pkid;
                     this.ACCMAINRECORD.code = rec.acc_code;
@@ -175,6 +176,9 @@ export class LedgerBalComponent {
                     this.ACCRECORD.code = rec.acc_code;
                     this.ACCRECORD.name = rec.acc_name;
                 }
+
+                this.BRRECORD.code = this.branch_code;
+
                 this.page_count = rec.page_count;
                 this.page_current = rec.page_current;
                 this.page_rowcount = rec.page_rowcount;
@@ -325,6 +329,7 @@ export class LedgerBalComponent {
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
                         ismaincode: this.SearchData.ismaincode,
+                        branch_code : this.SearchData.branch_code,
                         acc_pkid: this.SearchData.acc_id,
                         acc_code: this.SearchData.acc_code,
                         acc_name: this.SearchData.acc_name,
