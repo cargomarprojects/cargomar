@@ -120,7 +120,7 @@ export class PasteDataComponent implements OnInit {
     if (this.ExcelFormat == '')
       return;
     this.loading = true;
-    this.SearchData.type = "ORDERLIST";
+    this.SearchData.type = this.ExcelFormat;
     this.SearchData.table = "excelformat";
     this.SearchData.report_folder=this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;

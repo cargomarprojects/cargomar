@@ -871,6 +871,7 @@
                     <div class="form-group row">
                       <div class="offset-1 col-10">
                         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">ADD</button>
+                        <button [disabled]="loading" (click)="PasteData()" class="btn btn-success btn-sm">Paste Data</button>
                       </div>
                     </div>
                   </div>
@@ -948,6 +949,8 @@
   </div>
 
   <br />
+  <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ATTACHLIST'"
+                (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
   <div *ngIf="InfoMessage" class="alert alert-success">
