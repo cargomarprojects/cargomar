@@ -21,8 +21,9 @@ import { Observable } from 'rxjs';
 
 export class LedgerBalComponent {
     /*
-   Ajith 23/05/2019 Branch selection implemented 
-  */
+    Ajith 23/05/2019 Branch selection implemented 
+    Joy   24/05/2019 Branch Drill Down Corrected Using Store
+    */
     // Local Variables 
     title = 'Ledger';
 
