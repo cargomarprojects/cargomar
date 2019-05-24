@@ -15,6 +15,7 @@ import { RepService } from '../services/report.service';
 export class TdsosComponent {
   /*
 Ajith 23/05/2019 add party wise and detail tds os report
+Ajith 24/05/2019 total certamt shown on header,caption collected changed to allocated
   */
   title = 'Tds OS Report'
 
@@ -29,6 +30,7 @@ Ajith 23/05/2019 add party wise and detail tds os report
   mode = '';
   pkid = '';
 
+  cert_amt:number=0;
   tds_paid: number = 0;
   tds_collected: number = 0;
   tds_pending: number = 0;
@@ -179,6 +181,7 @@ Ajith 23/05/2019 add party wise and detail tds os report
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          this.cert_amt = response.cert_amt;
           for (let rec of this.RecordList.filter(rec => rec.row_type == 'TOTAL')) {
             this.tds_paid = rec.tds_amt;
             this.tds_collected = rec.collected_amt;
