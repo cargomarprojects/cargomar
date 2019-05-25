@@ -16,6 +16,7 @@ export class TdsosComponent {
   /*
 Ajith 23/05/2019 add party wise and detail tds os report
 Ajith 24/05/2019 total certamt shown on header,caption collected changed to allocated
+Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
   */
   title = 'Tds OS Report'
 
