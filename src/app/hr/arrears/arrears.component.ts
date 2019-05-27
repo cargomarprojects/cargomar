@@ -506,10 +506,10 @@ export class ArrearsComponent {
   FindNetAmt() {
     let TotEarning: number = 0;
     let TotDeductn: number = 0;
-    let PF_BaseAmt: number = 0;
-    let PF_Amt: number = 0;
-    let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
-    let ESI_Amt: number = 0;
+    // let PF_BaseAmt: number = 0;
+    // let PF_Amt: number = 0;
+    // let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
+    // let ESI_Amt: number = 0;
 
     // this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
     // this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
@@ -517,10 +517,10 @@ export class ArrearsComponent {
       TotEarning += rec.e_amt1;
       TotEarning += rec.e_amt2;
 
-      if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
-        PF_ExcludedAmt += rec.e_amt1;
-      if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
-        PF_ExcludedAmt += rec.e_amt2;
+      // if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
+      //   PF_ExcludedAmt += rec.e_amt1;
+      // if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
+      //   PF_ExcludedAmt += rec.e_amt2;
     }
 
 
@@ -528,18 +528,18 @@ export class ArrearsComponent {
     // if (PF_BaseAmt <= 0)
     //   PF_BaseAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
 
-    PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
-    PF_Amt = this.gs.roundNumber(PF_Amt, 0);
+    // PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
+    // PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
-    ESI_Amt = 0
+    //ESI_Amt = 0
     // if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
     //   ESI_Amt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
 
     for (let rec of this.Record.DetList) {
-      if (rec.d_code1 == "D01") //Employee PF Deduction
-        rec.d_amt1 = PF_Amt;
-      if (rec.d_code1 == "D02")
-        rec.d_amt1 = ESI_Amt;
+      // if (rec.d_code1 == "D01") //Employee PF Deduction
+      //   rec.d_amt1 = PF_Amt;
+      // if (rec.d_code1 == "D02")
+      //   rec.d_amt1 = ESI_Amt;
 
       TotDeductn += rec.d_amt1;
       TotDeductn += rec.d_amt2;
@@ -548,11 +548,11 @@ export class ArrearsComponent {
     TotEarning = this.gs.roundNumber(TotEarning, 0);
     TotDeductn = this.gs.roundNumber(TotDeductn, 0);
 
-    this.Record.d01 = PF_Amt;
-    this.Record.d02 = ESI_Amt;
-    // this.Record.sal_gross_earn = TotEarning;
-    // this.Record.sal_gross_deduct = TotDeductn;
-    // this.Record.sal_net = (TotEarning - TotDeductn);
+    // this.Record.d01 = PF_Amt;
+    // this.Record.d02 = ESI_Amt;
+    this.Record.arr_gross_earn = TotEarning;
+    this.Record.arr_gross_deduct = TotDeductn;
+    this.Record.arr_net = (TotEarning - TotDeductn);
   }
 
   FindNoOfMonth() {

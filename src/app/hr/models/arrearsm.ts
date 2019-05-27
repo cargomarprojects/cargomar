@@ -68,7 +68,8 @@ export class Arrearsm {
   arr_net: number;
   arr_lop_amt: number;
   arr_lop_days: number;
-
+  arr_tot_esi_month:number;
+  
   rec_mode: string;
   rec_printed: boolean;
   _globalvariables: GlobalVariables;

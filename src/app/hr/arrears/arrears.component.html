@@ -194,12 +194,12 @@
           </div> -->
           <label class="col-sm-1 col-form-label col-form-label-sm">From.Date</label>
           <div style="padding-left: 25px" class="col-sm-3">
-            <app-date [inputdate]="fromdate" (blur)="OnBlur('fromdate')" (change)="OnChange('fromdate')" (ValueChanged)="fromdate=$event">
+            <app-date [inputdate]="fromdate" (blur)="OnBlur('arr_from_date')" (change)="OnChange('arr_from_date')" (ValueChanged)="Record.arr_from_date=$event">
             </app-date>
           </div>
           <label class="col-sm-1 col-form-label col-form-label-sm">To.Date</label>
           <div class="col-sm-3">
-            <app-date [inputdate]="todate" (blur)="OnBlur('todate')" (change)="OnChange('todate')" (ValueChanged)="todate=$event">
+            <app-date [inputdate]="todate" (blur)="OnBlur('arr_to_date')" (change)="OnChange('arr_to_date')" (ValueChanged)="Record.arr_to_date=$event">
             </app-date>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">EARNINGS</label>
@@ -265,15 +265,15 @@
         <div class="form-group row">
           <label class="col-sm-8 col-form-label col-form-label-sm">NO OF ESI MONTHS</label>
           <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit"
-              (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.arr_tot_esi_month"
+              (blur)="OnBlur('arr_tot_esi_month')" required maxlength="14" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-8 col-form-label col-form-label-sm">TOTAL LOP DURING THE PERIOD</label>
+          <label class="col-sm-8 col-form-label col-form-label-sm">TOTAL LOP DURING THE PERIOD (Days)</label>
           <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit"
-              (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.arr_lop_days"
+              (blur)="OnBlur('arr_lop_days')" required maxlength="14" />
           </div>
         </div>
       </div>
@@ -327,7 +327,7 @@
                 <tr>
                   <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
                   <td style="padding:0"> <input *ngIf="rec.d_visible1"
-                      [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number"
+                      type="number"
                       class="form-control form-control-sm" [(ngModel)]="rec.d_amt1"
                       (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)"
                       (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)"
