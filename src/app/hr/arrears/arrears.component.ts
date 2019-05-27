@@ -13,6 +13,10 @@ import { from } from 'rxjs/observable/from';
   providers: [ArrearsService]
 })
 export class ArrearsComponent {
+  
+  /* 
+  Ajith 27/05/2019 modified to save arrears
+  */
   // Local Variables 
   title = 'INCREMENT MASTER';
 
@@ -132,7 +136,7 @@ export class ArrearsComponent {
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
-      this.GetRecord(empid);
+      this.GetRecord(id);
     }
   }
 
@@ -180,6 +184,8 @@ export class ArrearsComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      from_date:'',
+      to_date:'',
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -209,7 +215,8 @@ export class ArrearsComponent {
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
-      empid: Id,
+      pkid: Id,
+      category:'MASTER'
     };
 
     this.ErrorMessage = '';
@@ -557,15 +564,15 @@ export class ArrearsComponent {
 
   FindNoOfMonth() {
     let NoOfMonth: number = 0;
-    if (this.fromdate.indexOf("-") > 0 && this.todate.indexOf("-") > 0) {
-      
-      var tempdt = this.fromdate.split('-');
+    if (this.Record.arr_from_date.indexOf("-") > 0 && this.Record.arr_to_date.indexOf("-") > 0) {
+
+      var tempdt = this.Record.arr_from_date.split('-');
       let yr: number = +tempdt[0];
       let mn: number = +tempdt[1];
       let dy: number = +tempdt[2];
       let Frmdt = new Date(yr, mn, dy);
 
-      tempdt = this.todate.split('-');
+      tempdt = this.Record.arr_to_date.split('-');
       yr = +tempdt[0];
       mn = +tempdt[1];
       dy = +tempdt[2];
@@ -576,6 +583,34 @@ export class ArrearsComponent {
         Frmdt.setMonth(Frmdt.getMonth() + 1);
       }
     }
+
+    // if (this.Record.arr_from_date.indexOf("-") > 0 && this.Record.arr_to_date.indexOf("-") > 0) {
+    //   let iCtr: number = 0;
+    //   var tempdt = this.Record.arr_from_date.split('-');
+    //   let FrmMonth: number = +tempdt[1];
+    //   tempdt = this.Record.arr_to_date.split('-');
+    //   let ToMonth: number = +tempdt[1];
+
+
+    //   if (FrmMonth <= ToMonth) {
+    //     while (FrmMonth <= ToMonth) {
+    //       NoOfMonth++;
+    //       FrmMonth++;
+    //     }
+    //   } else {
+    //     while (FrmMonth <= 12) {
+    //       NoOfMonth++;
+    //       FrmMonth++;
+    //     }
+        
+    //     iCtr = 1;
+    //     while (iCtr <= ToMonth) {
+    //       NoOfMonth++;
+    //       iCtr++;
+    //     }
+
+    //   }
+    // }
     this.NoOfArrMnth = NoOfMonth;
   }
 }
