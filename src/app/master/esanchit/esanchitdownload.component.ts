@@ -35,6 +35,7 @@ export class EsanchitDownloadComponent {
 
   loading = false;
   currentTab = 'LIST';
+  Invoke_count = 0;
 
   bAdmin = false;
   bChanged: boolean;
@@ -49,7 +50,7 @@ export class EsanchitDownloadComponent {
   pkid = '';
 
   ctr: number;
-  // bShowPasteData: boolean = false;
+  bShowPasteData: boolean = false;
   // bShowList = false;
   // mList: Esanchit[] = [];
 
@@ -162,7 +163,8 @@ export class EsanchitDownloadComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      cbdata: ''
     };
 
     SearchData.type = _type;
@@ -242,7 +244,57 @@ export class EsanchitDownloadComponent {
     this.user_admin = !this.user_admin;
   }
 
-  SavePasteData() {
+  PasteData() {
+    this.bShowPasteData = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Invoke_count = 0;
+  }
+  PasteDataClosed(cbdata: string) {
+    this.Invoke_count++;
+    this.bShowPasteData = false;
+    if (this.Invoke_count > 1 || cbdata==null)
+      return;
+      
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    let SearchData = {
+      type: 'PASTE-DATA',
+      rowtype: 'SEA-AIR',
+      pkid: '',
+      br_esanchit_email: '',
+      br_esanchit_email_pwd: '',
+      br_esanchit_locations: '',
+      br_start_index: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      cbdata: cbdata
+    };
+
+    SearchData.type = "PASTE-DATA";
+    SearchData.rowtype = "SEA-AIR";
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.cbdata = cbdata;
+
+    this.mainService.SaveSettings(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Save Complete";
+        if (response.errormsg.length > 0)
+          this.InfoMessage = ", Error " + response.errormsg;
+        alert(this.InfoMessage);
+        this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
 
   }
 

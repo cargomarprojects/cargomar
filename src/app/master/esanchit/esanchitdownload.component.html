@@ -13,6 +13,7 @@
       <div class="col-6">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Save('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
+        <button [disabled]="loading" (click)="PasteData()" class="btn btn-primary btn-sm">Paste Data</button>
         <button *ngIf="bAdmin" [disabled]="loading" (click)="Settings()" class="btn btn-primary btn-sm">Settings</button>
         <!--<label> Location&nbsp;{{BR_ESANCHIT_LOCATIONS}}</label>-->
         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -172,8 +173,8 @@
     <button [disabled]="loading" (click)="SavePasteData()" class="btn btn-success btn-sm">Save</button>
   </div> -->
 <br />
-<!-- <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ESANCHIT'"
-(CloseClicked)="PasteDataClosed($event)"></App-PasteData> -->
+<App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="''"
+(CloseClicked)="PasteDataClosed($event)"></App-PasteData>
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
