@@ -34,6 +34,7 @@ export class LedgerComponent {
   /*
    Ajith 22/05/2019 chqno and narration updation while locking
    Ajith 23/05/2019 chqno updation ReScripted due to lost code while checking
+   Ajith 28/05/2019 Chqno updation include more feild and disabled after entry creation date
   */
 
   // Local Variables 
@@ -581,7 +582,7 @@ export class LedgerComponent {
     this.Record.rec_aprvd = 'N';
 
     this.Record.jvh_not_over_chq = false;
-
+    this.Record.jvh_update_chq = false;
     this.ProcessPendingList = false;
 
     this.InitLov();
@@ -2074,7 +2075,12 @@ export class LedgerComponent {
       type: '',
       year: '',
       searchstring: '',
-      chqno: ''
+      chqno: '',
+      jv_due_date: '',
+      jv_pay_reason: '',
+      jv_supp_docs: '',
+      jv_paid_to: '',
+      jv_remarks: ''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
@@ -2100,6 +2106,11 @@ export class LedgerComponent {
       SearchData.table = 'chqnoupdate';
       SearchData.pkid = this.Recorddet.jv_pkid;
       SearchData.chqno = this.Recorddet.jv_chqno.toString();
+      SearchData.jv_due_date = this.Recorddet.jv_due_date.toString();
+      SearchData.jv_pay_reason = this.Recorddet.jv_pay_reason.toString();
+      SearchData.jv_supp_docs = this.Recorddet.jv_supp_docs.toString();
+      SearchData.jv_paid_to = this.Recorddet.jv_paid_to.toString();
+      SearchData.jv_remarks = this.Recorddet.jv_remarks.toString();
     }
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
@@ -2189,8 +2200,13 @@ export class LedgerComponent {
         if (controlname == 'chqnoupdate') {
           for (let rec of this.Record.LedgerList.filter(rec => rec.jv_pkid == this.Recorddet.jv_pkid)) {
             rec.jv_chqno = this.Recorddet.jv_chqno;
+            rec.jv_due_date = this.Recorddet.jv_due_date;
+            rec.jv_pay_reason = this.Recorddet.jv_pay_reason;
+            rec.jv_supp_docs = this.Recorddet.jv_supp_docs;
+            rec.jv_paid_to = this.Recorddet.jv_paid_to;
+            rec.jv_remarks = this.Recorddet.jv_remarks;
           }
-          alert("Cheque Number Updated Successfully");
+          alert("Cheque Details Updated Successfully");
         }
       },
         error => {

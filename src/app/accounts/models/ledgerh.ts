@@ -117,7 +117,8 @@ export class Ledgerh {
     jvh_allocation_found: boolean;
 
     jvh_not_over_chq: boolean;
-
+    jvh_update_chq:boolean;
+    
     _globalvariables: GlobalVariables;
 
     LedgerList: Ledgert[] = [];

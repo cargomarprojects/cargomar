@@ -617,7 +617,7 @@
           <div class="form-group row" *ngIf="this.Recorddet.jv_acc_type_name == 'BANK'">
             <label class="col-2 col-form-label col-form-label-sm"></label>
             <div class="col-4">
-              <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading" (click)="SearchRecord('chqnoupdate')"
+              <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading||!this.Record.jvh_update_chq" (click)="SearchRecord('chqnoupdate')"
                 class="btn btn-success btn-sm">Cheque Update</button>
             </div>
           </div>
