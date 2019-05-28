@@ -13,6 +13,9 @@ import { Settings } from '../../master/models/settings';
   providers: [EsanchitDownloadService]
 })
 export class EsanchitDownloadComponent {
+  /*
+  Ajith 28/05/2019 pastedata implemented
+  */
   // Local Variables 
   title = 'Esanchit List';
 
@@ -51,9 +54,7 @@ export class EsanchitDownloadComponent {
 
   ctr: number;
   bShowPasteData: boolean = false;
-  // bShowList = false;
-  // mList: Esanchit[] = [];
-
+   
   // Array For Displaying List
   RecordList: Esanchit[] = [];
   // Single Record for add/edit/view details
