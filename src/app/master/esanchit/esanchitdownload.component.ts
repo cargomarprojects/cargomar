@@ -38,8 +38,7 @@ export class EsanchitDownloadComponent {
 
   loading = false;
   currentTab = 'LIST';
-  Invoke_count = 0;
-
+  
   bAdmin = false;
   bChanged: boolean;
   user_admin = false;
@@ -54,7 +53,7 @@ export class EsanchitDownloadComponent {
 
   ctr: number;
   bShowPasteData: boolean = false;
-   
+
   // Array For Displaying List
   RecordList: Esanchit[] = [];
   // Single Record for add/edit/view details
@@ -249,14 +248,14 @@ export class EsanchitDownloadComponent {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.Invoke_count = 0;
   }
   PasteDataClosed(cbdata: string) {
-    this.Invoke_count++;
     this.bShowPasteData = false;
-    if (this.Invoke_count > 1 || cbdata==null)
+    if (cbdata == null)
       return;
-      
+    if (cbdata.toString().trim() == "")
+      return;
+
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
