@@ -6,6 +6,7 @@ import { ArrDet } from '../models/arrearsm';
 import { ArrearsService } from '../services/arrears.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { from } from 'rxjs/observable/from';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-arrears',
@@ -224,7 +225,6 @@ export class ArrearsComponent {
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.mode = response.mode;
         this.LoadData(response.record);
       },
         error => {
@@ -237,6 +237,10 @@ export class ArrearsComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
+
+   this.EMPRECORD.id= this.Record.arr_emp_id  ;
+   this.EMPRECORD.code = this.Record.arr_emp_code ;
+   this.EMPRECORD.name = this.Record.arr_emp_name ;
   }
 
   // Save Data
