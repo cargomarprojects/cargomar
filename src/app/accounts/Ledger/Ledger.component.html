@@ -692,7 +692,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()"
             style=" text-decoration: underline;cursor:pointer"> Narration
-            <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading" (click)="UpdateInvoice()"
+            <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading||!this.Record.jvh_update_chq" (click)="UpdateInvoice()"
             class="btn btn-success btn-sm">Update</button>
           </label>
           <div class="col-10">
