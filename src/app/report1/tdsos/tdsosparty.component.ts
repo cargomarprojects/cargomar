@@ -13,12 +13,17 @@ import { RepService } from '../services/report.service';
 })
 
 export class TdsosPartyComponent {
+  /* Ajith 29/05/2019 excel print implemented
+  
+  
+  */
+  
   title = 'Tds OS Report'
 
   @Input() menuid: string = '';
   @Input() type: string = '';
-  
-  
+
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -33,20 +38,21 @@ export class TdsosPartyComponent {
   tds_collected: number = 0;
   tds_pending: number = 0;
 
+  bPrint = false;
   bAdmin = false;
   bCompany = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
- 
+
   SearchData = {
     type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
     branch_code: '',
-    year_code: ''  ,
-    format_type:''
+    year_code: '',
+    format_type: ''
   };
 
   // Array For Displaying List
@@ -61,14 +67,14 @@ export class TdsosPartyComponent {
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
-        if (params["parameter"] != "") {
-            var options = JSON.parse(params["parameter"]);
-            this.menuid = options.menuid;
-            this.SearchData.company_code = options.company_code;
-            this.SearchData.branch_code = options.branch_code;
-            this.InitComponent();
-            this.List('NEW');
-        }
+      if (params["parameter"] != "") {
+        var options = JSON.parse(params["parameter"]);
+        this.menuid = options.menuid;
+        this.SearchData.company_code = options.company_code;
+        this.SearchData.branch_code = options.branch_code;
+        this.InitComponent();
+        this.List('NEW');
+      }
     });
 
   }
@@ -81,6 +87,7 @@ export class TdsosPartyComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -90,11 +97,12 @@ export class TdsosPartyComponent {
         this.bCompany = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.initLov();
     this.LoadCombo();
     this.Init();
-    //this.List('SCREEN');
   }
 
   Init() {
@@ -150,7 +158,7 @@ export class TdsosPartyComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    // this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
     this.SearchData.format_type = "PARTY-WISE";

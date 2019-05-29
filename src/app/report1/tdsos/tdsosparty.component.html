@@ -2,6 +2,7 @@
     <div class="col">
         <label>{{title}}/{{this.SearchData.branch_code}}</label>
         <button class="btn btn-primary btn-sm" (click)="Close()">{{CloseCaption}}</button>
+        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
 </div>

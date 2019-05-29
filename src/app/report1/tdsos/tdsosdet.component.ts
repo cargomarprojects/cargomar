@@ -13,12 +13,16 @@ import { RepService } from '../services/report.service';
 })
 
 export class TdsosDetComponent {
+  /*Ajith 29/05/2019 excel print implemented
+  
+  */
+  
   title = 'Tds OS Report'
 
   @Input() menuid: string = '';
   @Input() type: string = '';
-  
-  
+
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -34,20 +38,21 @@ export class TdsosDetComponent {
   tds_pending: number = 0;
 
   bAdmin = false;
+  bPrint = false;
   bCompany = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
- 
+
   SearchData = {
     type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
     branch_code: '',
-    year_code: ''  ,
-    format_type:'',
-    party_name:''
+    year_code: '',
+    format_type: '',
+    party_name: ''
   };
 
   // Array For Displaying List
@@ -62,15 +67,15 @@ export class TdsosDetComponent {
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
-        if (params["parameter"] != "") {
-            var options = JSON.parse(params["parameter"]);
-            this.menuid = options.menuid;
-            this.SearchData.company_code = options.company_code;
-            this.SearchData.branch_code = options.branch_code;
-            this.SearchData.party_name = options.party_name;
-            this.InitComponent();
-            this.List('NEW');
-        }
+      if (params["parameter"] != "") {
+        var options = JSON.parse(params["parameter"]);
+        this.menuid = options.menuid;
+        this.SearchData.company_code = options.company_code;
+        this.SearchData.branch_code = options.branch_code;
+        this.SearchData.party_name = options.party_name;
+        this.InitComponent();
+        this.List('NEW');
+      }
     });
 
   }
@@ -83,6 +88,7 @@ export class TdsosDetComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -92,6 +98,8 @@ export class TdsosDetComponent {
         this.bCompany = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.initLov();
     this.LoadCombo();
