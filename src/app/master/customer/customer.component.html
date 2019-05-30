@@ -501,6 +501,16 @@
       </ng-template>
     </ngb-tab>
 
+    <ngb-tab *ngIf="mode == 'EDIT'" title="Beneficiary">
+      <ng-template ngbTabContent>
+        <div class="page-box">
+          <div class="col">
+            <app-benf [parentid]="pkid" [type]="type"></app-benf>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+
   </ngb-tabset>
 </div>
 <br />

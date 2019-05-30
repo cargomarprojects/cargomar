@@ -12,6 +12,9 @@ import { SearchTable } from '../../shared/models/searchtable';
   providers: [CustomerService]
 })
 export class CustomerComponent {
+  /*
+  Ajith new tab Beneficiary Details 
+  */
   // Local Variables 
   title = 'Address MASTER';
 

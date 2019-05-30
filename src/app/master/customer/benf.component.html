@@ -1,0 +1,63 @@
+
+<div class="page-list">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>CODE</th>
+            <th>NAME</th>
+            <th>A/c.NO</th>
+            <th>A/c.TYPE</th>
+            <th>BANK</th>
+            <th>IFSC</th>
+            <th>EMAIL</th>
+            <th>MOB</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.ben_pkid,i)">
+            <td>{{rec.ben_code}}</td>
+            <td>{{rec.ben_name}}</td>
+            <td>{{rec.ben_acc_no}}</td>
+            <td>{{rec.ben_acc_type}}</td>
+            <td>{{rec.ben_bank_name}}</td>
+            <td>{{rec.ben_ifsc}}</td>
+            <td>{{rec.ben_email1}}</td>
+            <td>{{rec.ben_mob}}</td>
+            <!-- <td>
+              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.pack_pkid,name:rec.pack_ctns}" (result)="RemoveList($event)"></App-Dialog>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-details">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary Code</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_code" (change)="OnChange('ben_code')" required maxlength="30" #ben_code />
+          </div>
+        </div>
+  
+      </div>
+      <div class="col-sm-4">
+        <div class="col">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+  
+  

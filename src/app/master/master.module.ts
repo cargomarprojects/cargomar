@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
-
 import { MasterRoutingModule } from './master.routing.module';
 
 import { MasterComponent } from './master.component';
@@ -37,6 +36,7 @@ import { EsanchitComponent } from './esanchit/esanchit.component';
 import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component';
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { AddbookdelComponent  } from './customer/addbookdel.component';
+import { BenfComponent   } from './customer/benf.component';
 
 @NgModule({
   imports: [
@@ -67,7 +67,8 @@ import { AddbookdelComponent  } from './customer/addbookdel.component';
     EsanchitComponent,
     EsanchitDownloadComponent,
     JobTransferComponent,
-    AddbookdelComponent
+    AddbookdelComponent,
+    BenfComponent
   ],
   providers: [
   ],
