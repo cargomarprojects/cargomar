@@ -39,7 +39,8 @@ export class BenfComponent {
     // Single Record for add/edit/view details
     Record: Benfm = new Benfm;
 
-    PKGUNITRECORD: SearchTable = new SearchTable();
+    BRRECORD: SearchTable = new SearchTable();
+    STATERECORD: SearchTable = new SearchTable();
 
     constructor(
         private mainService: BenfService,
@@ -61,21 +62,32 @@ export class BenfComponent {
     }
 
     InitLov() {
-        this.PKGUNITRECORD = new SearchTable();
-        this.PKGUNITRECORD.controlname = "PKG-UNIT";
-        this.PKGUNITRECORD.displaycolumn = "CODE";
-        this.PKGUNITRECORD.type = "UNIT";
-        this.PKGUNITRECORD.id = "";
-        this.PKGUNITRECORD.code = "";
-        this.PKGUNITRECORD.name = "";
+
+        this.STATERECORD = new SearchTable();
+        this.STATERECORD.controlname = "STATE";
+        this.STATERECORD.displaycolumn = "NAME";
+        this.STATERECORD.type = "STATE";
+        this.STATERECORD.id = "";
+        this.STATERECORD.code = "";
+        this.STATERECORD.name = "";
+
+        this.BRRECORD = new SearchTable();
+        this.BRRECORD.controlname = "BRANCH";
+        this.BRRECORD.displaycolumn = "CODE";
+        this.BRRECORD.type = "BRANCH";
+        this.BRRECORD.id = "";
+        this.BRRECORD.code = "";
     }
 
     LovSelected(_Record: SearchTable) {
-        // if (_Record.controlname == "PKG-UNIT") {
-        //     this.Record.pack_type_id = _Record.id;
-        //     this.Record.pack_type_code = _Record.code;
-        //     this.Record.pack_type_name = _Record.name;
-        // }
+        if (_Record.controlname == "STATE") {
+            this.Record.ben_state_id = _Record.id;
+            this.Record.ben_state_code = _Record.code;
+            this.Record.ben_state_name = _Record.name;
+        }
+        if (_Record.controlname == "BRANCH") {
+            this.Record.ben_branch_code = _Record.code;
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
@@ -92,7 +104,6 @@ export class BenfComponent {
             this.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
-
         }
         else if (action === 'EDIT') {
             this.selectedRowIndex = _selectedRowIndex;
@@ -137,25 +148,29 @@ export class BenfComponent {
     }
 
     NewRecord() {
-
         this.pkid = this.gs.getGuid();
         this.Record = new Benfm();
         this.Record.ben_pkid = this.pkid;
-        // this.Record.pack_from = 0;
-        // this.Record.pack_to = 0;
-        // this.Record.pack_type_id = this.gs.defaultValues.param_unit_ctn_id;
-        // this.Record.pack_type_code = this.gs.defaultValues.param_unit_ctn_code;;
-        // this.Record.pack_type_name = '';
-        // this.Record.pack_order = 0;
-        // this.Record.pack_source = '';
-        // this.Record.pack_ctns = 0;
+        this.Record.ben_code = '';
+        this.Record.ben_name = '';
+        this.Record.ben_acc_no = '';
+        this.Record.ben_acc_type = '10';
+        this.Record.ben_addr1 = '';
+        this.Record.ben_addr2 = '';
+        this.Record.ben_addr3 = '';
+        this.Record.ben_city = '';
+        this.Record.ben_state_id = '';
+        this.Record.ben_state_code = '';
+        this.Record.ben_state_name = '';
+        this.Record.ben_pin = '';
+        this.Record.ben_ifsc = '';
+        this.Record.ben_bank_name = '';
+        this.Record.ben_email1 = '';
+        this.Record.ben_email2 = '';
+        this.Record.ben_mob = '';
+        this.Record.ben_branch_code = '';
         this.Record.rec_mode = this.mode;
-
         this.InitLov();
-
-        // this.PKGUNITRECORD.id = this.Record.pack_type_id;
-        // this.PKGUNITRECORD.code = this.Record.pack_type_code;
-
         this.ben_code.nativeElement.focus();
     }
 
@@ -181,12 +196,12 @@ export class BenfComponent {
 
     LoadData(_Record: Benfm) {
         this.Record = _Record;
-        // this.InitLov();
-        // this.PKGUNITRECORD.id = this.Record.pack_type_id;
-        // this.PKGUNITRECORD.code = this.Record.pack_type_code;
-        // this.PKGUNITRECORD.name = this.Record.pack_type_name;
-        // this.Record.rec_mode = this.mode;
-
+        this.InitLov();
+        this.STATERECORD.id = this.Record.ben_state_id;
+        this.STATERECORD.code = this.Record.ben_state_code;
+        this.STATERECORD.name = this.Record.ben_state_name;
+        this.BRRECORD.code = this.Record.ben_branch_code;
+        this.Record.rec_mode = this.mode;
         this.ben_code.nativeElement.focus();
     }
 
@@ -197,8 +212,7 @@ export class BenfComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        // this.Record.pack_source = this.type;
-        // this.Record.pack_job_id = this.parentid;
+        this.Record.ben_parent_id = this.parentid;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
@@ -221,17 +235,31 @@ export class BenfComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        // if (this.Record.pack_type_id.trim().length <= 0) {
-        //     bret = false;
-        //     sError += "\n\r | Pack Type Cannot Be Blank";
-        // }
-        // if (this.Record.pack_ctns <= 0) {
-        //     bret = false;
-        //     sError += "\n\r | Invalid Cartons";
-        // }
+        if (this.Record.ben_code.trim().length <= 0) {
+            bret = false;
+            sError += "| Beneficiary / Vendor Code Cannot Be Blank";
+        }
+        if (this.Record.ben_name.trim().length <= 0){
+            bret = false;
+            sError += "| Beneficiary Name Cannot Be Blank";
+        }
+        if (this.Record.ben_acc_type.trim().length <= 0){
+            bret = false;
+            sError += "| Beneficiary Account Type Cannot Be Blank";
+        }
+        if (this.Record.ben_acc_no.trim().length <= 0){
+            bret = false;
+            sError += "| Beneficiary Account Number Cannot Be Blank";
+        }
+        if (this.Record.ben_ifsc.trim().length <= 0){
+            bret = false;
+            sError += "| IFSC Cannot Be Blank";
+        }
 
-        // if (bret === false)
-        //     this.ErrorMessage = sError;
+       
+
+        if (bret === false)
+            this.ErrorMessage = sError;
         return bret;
     }
 
@@ -244,10 +272,14 @@ export class BenfComponent {
             this.RecordList.push(this.Record);
         }
         else {
-            // REC.pack_from = this.Record.pack_from;
-            // REC.pack_to = this.Record.pack_to;
-            // REC.pack_type_code = this.Record.pack_type_code;
-            // REC.pack_ctns = this.Record.pack_ctns;
+            REC.ben_code = this.Record.ben_code;
+            REC.ben_name = this.Record.ben_name;
+            REC.ben_acc_no = this.Record.ben_acc_no;
+            REC.ben_acc_type = this.Record.ben_acc_type;
+            REC.ben_bank_name = this.Record.ben_bank_name;
+            REC.ben_ifsc = this.Record.ben_ifsc;
+            REC.ben_email1 = this.Record.ben_email1;
+            REC.ben_mob = this.Record.ben_mob;
         }
     }
     RemoveList(event: any) {
@@ -294,15 +326,58 @@ export class BenfComponent {
     }
 
     OnBlur(field: string) {
-        //switch (field) {
-
-        //  case 'ord_exp_name':
-        //    {
-        //      this.Record.ord_exp_name = this.Record.ord_exp_name.toUpperCase();
-        //      break;
-        //    }
-
-        //}
+        switch (field) {
+            case 'ben_code':
+                {
+                    this.Record.ben_code = this.Record.ben_code.toUpperCase();
+                    break;
+                }
+            case 'ben_name':
+                {
+                    this.Record.ben_name = this.Record.ben_name.toUpperCase();
+                    break;
+                }
+            case 'ben_acc_no':
+                {
+                    this.Record.ben_acc_no = this.Record.ben_acc_no.toUpperCase();
+                    break;
+                }
+            case 'ben_addr1':
+                {
+                    this.Record.ben_addr1 = this.Record.ben_addr1.toUpperCase();
+                    break;
+                }
+            case 'ben_addr2':
+                {
+                    this.Record.ben_addr2 = this.Record.ben_addr2.toUpperCase();
+                    break;
+                }
+            case 'ben_addr3':
+                {
+                    this.Record.ben_addr3 = this.Record.ben_addr3.toUpperCase();
+                    break;
+                }
+            case 'ben_city':
+                {
+                    this.Record.ben_city = this.Record.ben_city.toUpperCase();
+                    break;
+                }
+            case 'ben_pin':
+                {
+                    this.Record.ben_pin = this.Record.ben_pin.toUpperCase();
+                    break;
+                }
+            case 'ben_ifsc':
+                {
+                    this.Record.ben_ifsc = this.Record.ben_ifsc.toUpperCase();
+                    break;
+                }
+            case 'ben_bank_name':
+                {
+                    this.Record.ben_bank_name = this.Record.ben_bank_name.toUpperCase();
+                    break;
+                }
+        }
     }
 
 }

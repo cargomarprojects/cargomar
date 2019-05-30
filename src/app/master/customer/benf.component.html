@@ -6,7 +6,6 @@
           <th>CODE</th>
           <th>NAME</th>
           <th>A/c.NO</th>
-          <th>A/c.TYPE</th>
           <th>BANK</th>
           <th>IFSC</th>
           <th>EMAIL</th>
@@ -19,7 +18,6 @@
           <td>{{rec.ben_code}}</td>
           <td>{{rec.ben_name}}</td>
           <td>{{rec.ben_acc_no}}</td>
-          <td>{{rec.ben_acc_type}}</td>
           <td>{{rec.ben_bank_name}}</td>
           <td>{{rec.ben_ifsc}}</td>
           <td>{{rec.ben_email1}}</td>
@@ -37,32 +35,130 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary/Vendor Code</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary.Code</label>
           <div class="col-sm-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_code"
               (blur)="OnBlur('ben_code')" required maxlength="30" #ben_code />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary Name</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary.Name</label>
           <div class="col-sm-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_name"
               (blur)="OnBlur('ben_name')" required maxlength="70" />
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary A/c Number</label>
+          <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Address</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_no"
-              (blur)="OnBlur('ben_acc_no')" required maxlength="26" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_addr1"
+              (blur)="OnBlur('ben_addr1')" required maxlength="100" />
           </div>
         </div>
 
-        
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_addr2"
+              (blur)="OnBlur('ben_addr2')" required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_addr3"
+              (blur)="OnBlur('ben_addr3')" required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
+          <div class="col-sm-8">
+              <app-autocomplete #StateLov [inputdata]="STATERECORD"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
       </div>
       <div class="col-sm-4">
-
+          <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">City</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_city"
+                  (blur)="OnBlur('ben_city')" required maxlength="25" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">Pin</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_pin" (blur)="OnBlur('ben_pin')" required
+                  maxlength="25" />
+              </div>
+            </div>
+            
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Bank Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_bank_name"
+              (blur)="OnBlur('ben_bank_name')" required maxlength="25" />
+          </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">A/c Number</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_no"
+                (blur)="OnBlur('ben_acc_no')" required maxlength="26" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Category</label>
+            <div class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_type"
+                (change)="OnChange('ben_acc_type')">
+                <!-- <option [value]="''">NA</option> -->
+                <option [value]="'10'">10-SAVINGS BANK</option>
+                <option [value]="'11'">11-CURRENT ACCOUNT</option>
+                <option [value]="'13'">13-CASH CREDIT</option>
+              </select>
+            </div>
+          </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">ISFC</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_ifsc" (blur)="OnBlur('ben_ifsc')" required
+              maxlength="11" />
+          </div>
+        </div>
       </div>
+      <div class="col-sm-4">
+          <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">Email1</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_email1"
+                  (blur)="OnBlur('ben_email1')" required maxlength="250" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">Email2</label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control form-control-sm" [(ngModel)]="Record.ben_email2" (blur)="OnBlur('ben_email2')" required
+                  maxlength="250" />
+              </div>
+            </div>
+    
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">Mobile</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_mob"
+                  (blur)="OnBlur('ben_mob')" required maxlength="55" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label  col-form-label-sm">This Branch Only</label>
+              <div class="col-sm-8">
+                  <app-autocomplete #BrLov [inputdata]="BRRECORD"
+                  (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
+        </div>
     </div>
   </div>
   <div class="page-box">

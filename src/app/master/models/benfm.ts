@@ -11,7 +11,9 @@ export class Benfm {
     ben_addr2: string;
     ben_addr3: string;
     ben_city: string;
-    ben_state: string;
+    ben_state_id: string;
+    ben_state_code: string;
+    ben_state_name: string;
     ben_pin: string;
     ben_ifsc: string;
     ben_bank_name: string;

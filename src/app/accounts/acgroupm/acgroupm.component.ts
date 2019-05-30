@@ -17,6 +17,9 @@ import { SearchTable } from '../../shared/models/searchtable';
     providers: [AcgroupmService]
 })
 export class AcgroupmComponent {
+    /*
+    Ajith 30/05/2019 user rights enabled
+    */
     // Local Variables 
     title = 'A/c Group MASTER';
 
