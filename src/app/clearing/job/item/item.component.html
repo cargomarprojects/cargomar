@@ -108,7 +108,8 @@
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Factor</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_factor"
-                    (blur)="OnBlur('itm_unit_factor')" required maxlength="10" />
+                    (blur)="OnBlur('itm_unit_factor')" (change)="OnChange('itm_unit_factor')"
+                    (focus)="OnFocus('itm_unit_factor')"  required maxlength="10" />
                 </div>
               </div>
 
@@ -116,7 +117,8 @@
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_qty"
-                    (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')" required maxlength="14" />
+                    (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')"
+                    (focus)="OnFocus('itm_qty')"  required maxlength="14" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
                 <div class="col-sm-4">
@@ -127,12 +129,14 @@
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Unit.Rate</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_rate"
-                    (blur)="OnBlur('itm_unit_rate')" required maxlength="16" />
+                    (blur)="OnBlur('itm_unit_rate')" (change)="OnChange('itm_unit_rate')"
+                    (focus)="OnFocus('itm_unit_rate')" required maxlength="16" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Amt</label>
                 <div class="col-sm-4">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_amount"
-                    (blur)="OnBlur('itm_amount')" required maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_amount"
+                    (blur)="OnBlur('itm_amount')" (change)="OnChange('itm_amount')"
+                    (focus)="OnFocus('itm_amount')"  required maxlength="14" />
                 </div>
               </div>
               <div class="form-group row">

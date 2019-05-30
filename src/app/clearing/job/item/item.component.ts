@@ -19,6 +19,9 @@ import { SearchTable } from '../../../shared/models/searchtable';
   providers: [ItemService]
 })
 export class ItemComponent {
+  /*
+  Ajith Findtotal Changed ,itm amt enabled
+  */
   // Local Variables 
   title = 'Item List';
 
@@ -26,7 +29,7 @@ export class ItemComponent {
   @Input() type: string = '';
   @Input() parentid: string = '';
   @Input() nfei: string = '';
-  
+
 
   selectedRowIndex: number = -1;
 
@@ -52,9 +55,9 @@ export class ItemComponent {
 
   bListLoaded: boolean = false;
   bValueChanged: boolean = false;
-  
+
   Prev_item_name = '';
-  
+
   // Array For Displaying List
   RecordList: Itemm[] = [];
   // Single Record for add/edit/view details
@@ -109,10 +112,10 @@ export class ItemComponent {
         this.InvoiceList = response.jobexpm;
         this.ChangeInvoiceList(true);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   ChangeInvoiceList(bfirstTime: boolean) {
@@ -352,10 +355,10 @@ export class ItemComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -428,10 +431,10 @@ export class ItemComponent {
         this.ActionHandler("ADD", null);
         this.bListLoaded = true;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -527,10 +530,10 @@ export class ItemComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Itemm) {
@@ -589,11 +592,11 @@ export class ItemComponent {
         }
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -644,10 +647,10 @@ export class ItemComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.itm_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -664,7 +667,7 @@ export class ItemComponent {
 
       case 'itm_qty': {
         this.Record.itm_qty = this.gs.roundNumber(this.Record.itm_qty, 3);
-          this.FindTotal();
+        this.FindTotal("itm_qty");
         break;
       }
 
@@ -672,17 +675,18 @@ export class ItemComponent {
         this.Record.itm_unit_factor = this.gs.roundNumber(this.Record.itm_unit_factor, 3);
         if (this.Record.itm_unit_factor <= 0)
           this.Record.itm_unit_factor = 1;
-        this.FindTotal();
+        this.FindTotal("itm_unit_factor");
         break;
       }
       case 'itm_unit_rate': {
         this.Record.itm_unit_rate = this.gs.roundNumber(this.Record.itm_unit_rate, 5);
-        this.FindTotal();
+        this.FindTotal("itm_unit_rate");
         break;
       }
 
       case 'itm_amount': {
-
+        this.Record.itm_amount = this.gs.roundNumber(this.Record.itm_amount, 3);
+        this.FindTotal("itm_amount");
         break;
       }
       case 'itm_pmv': {
@@ -747,20 +751,31 @@ export class ItemComponent {
   OnChange(field: string) {
     if (field == 'itm_igst_pay_status')
       this.FindIgstAmt();
-    /*
+
     if (field == 'itm_unit_factor')
       this.bValueChanged = true;
     if (field == 'itm_qty')
       this.bValueChanged = true;
     if (field == 'itm_unit_rate')
       this.bValueChanged = true;
-    */
+    if (field == 'itm_amount')
+      this.bValueChanged = true;
 
-    if (field == 'itm_taxable_value' || field == 'itm_igst_rate' )
+    if (field == 'itm_taxable_value' || field == 'itm_igst_rate')
       this.bValueChanged = true;
   }
 
   OnFocus(field: string) {
+
+    if (field == 'itm_unit_factor')
+      this.bValueChanged = false;
+    if (field == 'itm_qty')
+      this.bValueChanged = false;
+    if (field == 'itm_unit_rate')
+      this.bValueChanged = false;
+    if (field == 'itm_amount')
+      this.bValueChanged = false;
+
     if (field == 'itm_taxable_value' || field == 'itm_igst_rate')
       this.bValueChanged = false;
   }
@@ -769,7 +784,36 @@ export class ItemComponent {
 
   }
 
-  FindTotal() {
+  FindTotal(_type: string = "") {
+    if (this.bValueChanged == false)
+      return;
+
+    let amt: number;
+    let res: number;
+    let pmv: number;
+    let pmvtotal: number
+    res = 0;
+    if (this.Record.itm_unit_factor > 0) {
+      if (_type == "itm_amount") {
+        if (this.Record.itm_qty > 0) {
+          this.Record.itm_unit_rate = this.Record.itm_amount / this.Record.itm_qty;
+          this.Record.itm_unit_rate = this.gs.roundNumber(this.Record.itm_unit_rate, 5);
+        }
+      }
+
+      amt = this.Record.itm_unit_rate * this.Record.itm_qty;
+      res = amt / this.Record.itm_unit_factor;
+      pmv = (this.Record.itm_unit_rate * this.ex_rate) * 110 / 100;
+      pmvtotal = (amt * this.ex_rate) * 110 / 100;
+    }
+
+    this.Record.itm_amount = this.gs.roundNumber(res, 3);
+    this.Record.itm_pmv = this.gs.roundNumber(pmv, 2);
+    this.Record.itm_pmv_total = this.gs.roundNumber(pmvtotal, 2);
+    // this.FindIgstAmt();
+  }
+
+  FindTotalOld() {
     let amt: number;
     let res: number;
     let pmv: number;
@@ -785,9 +829,8 @@ export class ItemComponent {
     this.Record.itm_amount = this.gs.roundNumber(res, 3);
     this.Record.itm_pmv = this.gs.roundNumber(pmv, 2);
     this.Record.itm_pmv_total = this.gs.roundNumber(pmvtotal, 2);
-   // this.FindIgstAmt();
+    // this.FindIgstAmt();
   }
-
   GetBrAddress(straddress: string) {
     let AddressSplit = {
       addressbrno: '',
@@ -858,10 +901,10 @@ export class ItemComponent {
 
         this.SearchRecord('dbk');
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   FindIgstAmt() {
@@ -869,7 +912,7 @@ export class ItemComponent {
     let taxbleamt: number;
     if (this.Record.itm_igst_pay_status == "P") {
 
-     // taxbleamt = this.Record.itm_unit_rate * this.Record.itm_qty;
+      // taxbleamt = this.Record.itm_unit_rate * this.Record.itm_qty;
       taxbleamt = this.ex_rate * this.Record.itm_amount;
       taxbleamt = this.gs.roundNumber(taxbleamt, 2);
       this.Record.itm_taxable_value = taxbleamt;
