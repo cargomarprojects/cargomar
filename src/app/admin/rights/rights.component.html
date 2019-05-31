@@ -25,10 +25,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -60,10 +63,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -71,13 +77,34 @@
 </div>
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
-  <div>
-    User : {{user_name}}  - Branch : {{branch_name}}
+
+  <div class="row">
+    <div class="col-6">
+      User : {{user_name}} - Branch : {{branch_name}}
+    </div>
+    <div class="col-6">
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Copy to User</label>
+        <div class="col-4">
+          <app-autocomplete #UserLov [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
+        <label class="col-1 col-form-label col-form-label-sm">Branch</label>
+        <div class="col-3">
+          <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete>
+        </div>
+        <div class="col-2">
+        <button [disabled]="loading" (click)="Copy()" class="btn btn-primary btn-sm">Copy</button>
+      </div>
+      </div>
+    </div>
   </div>
+
   <div class="form-group row">
     <label class="col-2 col-form-label col-form-label-sm">Module</label>
-    <div  *ngFor="let rec of ModuleList">
-      <button [disabled]="loading" class="btn btn-default btn-sm" (click)="module_name=rec.module_name">{{rec.module_name}}</button>
+    <div *ngFor="let rec of ModuleList">
+      <button [disabled]="loading" class="btn btn-default btn-sm"
+        (click)="module_name=rec.module_name">{{rec.module_name}}</button>
       <span>&nbsp;</span>
     </div>
   </div>
@@ -115,7 +142,8 @@
           <td> <input type="checkbox" [(ngModel)]="rec.rights_email"></td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_docs"></td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_docs_upload"></td>
-          <td> <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.rights_approval" required maxlength="30"/></td>
+          <td> <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.rights_approval" required
+              maxlength="30" /></td>
         </tr>
       </tbody>
     </table>
@@ -134,4 +162,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-

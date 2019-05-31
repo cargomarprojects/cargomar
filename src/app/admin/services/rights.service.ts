@@ -23,5 +23,9 @@ export class RightsService {
     Save(Record: UserRights_VM ) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/UserRight/Save', Record, this.gs.headerparam2('authorized'));
     }
+
+    CopyRights(Record: UserRights_VM ) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/UserRight/CopyRights', Record, this.gs.headerparam2('authorized'));
+    }
 }
 

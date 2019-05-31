@@ -35,4 +35,6 @@ export class UserRights {
 export class UserRights_VM {
     globalvariables: GlobalVariables;
     userRights: UserRights[] = [];
+    copyto_user_id: string;
+    copyto_branch_id: string;
 }

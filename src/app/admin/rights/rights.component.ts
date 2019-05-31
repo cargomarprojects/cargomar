@@ -13,14 +13,19 @@ import { UserRights } from '../models/userrights';
 
 import { UserRights_VM } from '../models/userrights';
 
+import { SearchTable } from '../../shared/models/searchtable';
+
 @Component({
     selector: 'app-rights',
     templateUrl: './rights.component.html',
-    providers : [RightsService]
+    providers: [RightsService]
 })
 
 export class RightsComponent {
 
+    /*
+Ajith 31/05/2019 copy user rights from one user to another implemented
+*/
     title = 'User Rights';
 
     currentTab = "LIST";
@@ -28,14 +33,19 @@ export class RightsComponent {
     ErrorMessage: string = "";
 
 
-    searchstring : string = '';
-    
+    searchstring: string = '';
+
     module_name: string = '';
 
-    branch_id: string  ='' ;
+    branch_id: string = '';
     user_id: string = '';
     user_name: string = '';
     branch_name: string = '';
+
+    copyto_userid: string = '';
+    copyto_usercode: string = '';
+    copyto_username: string = '';
+    copyto_branch_id: string = '';
 
     page_count: number = 0;
     page_current: number = 0;
@@ -53,7 +63,8 @@ export class RightsComponent {
 
     BranchList: any[] = [];
     UserList: any[] = [];
-
+    USERRECORD: SearchTable = new SearchTable();
+    BRRECORD: SearchTable = new SearchTable();
     loading = false;
 
     constructor(
@@ -65,14 +76,43 @@ export class RightsComponent {
 
         this.page_count = 0;
         this.page_current = 0;
+        this.InitLov();
         this.List('NEW');
     }
 
     ngOnInit() {
 
     }
+    InitLov() {
+        this.USERRECORD = new SearchTable();
+        this.USERRECORD.controlname = "USER";
+        this.USERRECORD.displaycolumn = "NAME";
+        this.USERRECORD.type = "USER";
+        this.USERRECORD.where = "";
+        this.USERRECORD.id = "";
+        this.USERRECORD.code = "";
+        this.USERRECORD.name = "";
 
-    List(_type: string ) {
+        this.BRRECORD = new SearchTable();
+        this.BRRECORD.controlname = "BRANCH";
+        this.BRRECORD.displaycolumn = "CODE";
+        this.BRRECORD.type = "BRANCH";
+        this.BRRECORD.id = "";
+        this.BRRECORD.code = this.gs.globalVariables.branch_code;
+
+    }
+    LovSelected(_Record: SearchTable) {
+
+        if (_Record.controlname == "USER") {
+            this.copyto_userid = _Record.id;
+            this.copyto_usercode = _Record.code;
+            this.copyto_username = _Record.name;
+        }
+        if (_Record.controlname == "BRANCH") {
+            this.copyto_branch_id = _Record.id;
+        }
+    }
+    List(_type: string) {
 
         this.currentTab = 'LIST';
 
@@ -81,7 +121,7 @@ export class RightsComponent {
         let SearchData = {
             type: _type,
             rowtype: _type,
-            comp_code : this.gs.globalVariables.comp_code,
+            comp_code: this.gs.globalVariables.comp_code,
             searchstring: this.searchstring.toUpperCase(),
             page_count: this.page_count,
             page_current: this.page_current,
@@ -101,14 +141,14 @@ export class RightsComponent {
                 this.page_rowcount = response.page_rowcount;
                 this.loading = false;
             },
-            error => {
-                this.ErrorMessage = error.error;
-                this.loading = false;
-            }
+                error => {
+                    this.ErrorMessage = error.error;
+                    this.loading = false;
+                }
             );
     }
 
-    RightsList(_type: string, _Rec: User ) {
+    RightsList(_type: string, _Rec: User) {
 
         this.currentTab = 'DETAILS';
         this.ErrorMessage = "";
@@ -128,9 +168,9 @@ export class RightsComponent {
         let SearchData = {
             type: _type,
             searchstring: this.searchstring,
-            comp_code : this.gs.globalVariables.comp_code,
-            branchid :  _Rec.user_branch_id,
-            userid  : _Rec.user_pkid,
+            comp_code: this.gs.globalVariables.comp_code,
+            branchid: _Rec.user_branch_id,
+            userid: _Rec.user_pkid,
         };
 
         this.loading = true;
@@ -140,23 +180,23 @@ export class RightsComponent {
                 this.ModuleList = response.modules;
                 this.module_name = '';
                 this.ModuleList.forEach(rec => {
-                    if( this.module_name =='')
-                      this.module_name = rec.module_name;
+                    if (this.module_name == '')
+                        this.module_name = rec.module_name;
                 });
                 this.loading = false;
                 this.ErrorMessage = "";
             },
-            error => {
-                this.ErrorMessage =  error.error;
-                this.loading = false;
-            }
+                error => {
+                    this.ErrorMessage = error.error;
+                    this.loading = false;
+                }
             );
     }
 
     ActionHandler(action: string, id: string) {
 
         this.ErrorMessage = '';
-        if (action == 'LIST' ) {
+        if (action == 'LIST') {
             this.currentTab = 'LIST';
         }
         else {
@@ -178,10 +218,10 @@ export class RightsComponent {
                 this.ErrorMessage = "Save Complete";
                 this.loading = false;
             },
-            error => {
-                this.ErrorMessage = error.error;
-                this.loading = false;
-            }
+                error => {
+                    this.ErrorMessage = error.error;
+                    this.loading = false;
+                }
             );
     }
 
@@ -193,6 +233,28 @@ export class RightsComponent {
         this.gs.ClosePage('home');
     }
 
+    Copy() {
+        this.loading = true;
+
+        this.ErrorMessage = "";
+        let VM = new UserRights_VM;
+
+        VM.userRights = this.RecordList;
+        VM.globalvariables = this.gs.globalVariables;
+        VM.copyto_user_id = this.copyto_userid;
+        VM.copyto_branch_id = this.copyto_branch_id;
+
+        this.rightsService.CopyRights(VM)
+            .subscribe(response => {
+                this.ErrorMessage = "Save Complete";
+                this.loading = false;
+            },
+                error => {
+                    this.ErrorMessage = error.error;
+                    this.loading = false;
+                }
+            );
+    }
 }
 
 
