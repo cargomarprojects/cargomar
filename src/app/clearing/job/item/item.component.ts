@@ -800,8 +800,7 @@ export class ItemComponent {
           this.Record.itm_unit_rate = amt / this.Record.itm_qty;
           this.Record.itm_unit_rate = this.gs.roundNumber(this.Record.itm_unit_rate, 5);
         }
-      }
-      else
+      } else
         amt = this.Record.itm_unit_rate * this.Record.itm_qty;
 
       res = amt / this.Record.itm_unit_factor;
