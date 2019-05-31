@@ -795,13 +795,15 @@ export class ItemComponent {
     res = 0;
     if (this.Record.itm_unit_factor > 0) {
       if (_type == "itm_amount") {
+        amt = this.Record.itm_amount;
         if (this.Record.itm_qty > 0) {
-          this.Record.itm_unit_rate = this.Record.itm_amount / this.Record.itm_qty;
+          this.Record.itm_unit_rate = amt / this.Record.itm_qty;
           this.Record.itm_unit_rate = this.gs.roundNumber(this.Record.itm_unit_rate, 5);
         }
       }
+      else
+        amt = this.Record.itm_unit_rate * this.Record.itm_qty;
 
-      amt = this.Record.itm_unit_rate * this.Record.itm_qty;
       res = amt / this.Record.itm_unit_factor;
       pmv = (this.Record.itm_unit_rate * this.ex_rate) * 110 / 100;
       pmvtotal = (amt * this.ex_rate) * 110 / 100;
