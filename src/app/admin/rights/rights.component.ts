@@ -46,6 +46,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
     copyto_usercode: string = '';
     copyto_username: string = '';
     copyto_branch_id: string = '';
+    copyto_branch_code: string = '';
 
     page_count: number = 0;
     page_current: number = 0;
@@ -98,8 +99,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
         this.BRRECORD.displaycolumn = "CODE";
         this.BRRECORD.type = "BRANCH";
         this.BRRECORD.id = "";
-        this.BRRECORD.code = this.gs.globalVariables.branch_code;
-
+        this.BRRECORD.code = "";
     }
     LovSelected(_Record: SearchTable) {
 
@@ -110,6 +110,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
         }
         if (_Record.controlname == "BRANCH") {
             this.copyto_branch_id = _Record.id;
+            this.copyto_branch_code = _Record.code;
         }
     }
     List(_type: string) {
@@ -142,8 +143,9 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
                 this.loading = false;
             },
                 error => {
-                    this.ErrorMessage = error.error;
+                    this.ErrorMessage = this.gs.getError(error);
                     this.loading = false;
+                    alert(this.ErrorMessage);
                 }
             );
     }
@@ -187,8 +189,9 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
                 this.ErrorMessage = "";
             },
                 error => {
-                    this.ErrorMessage = error.error;
+                    this.ErrorMessage = this.gs.getError(error);
                     this.loading = false;
+                    alert(this.ErrorMessage);
                 }
             );
     }
@@ -217,10 +220,12 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
             .subscribe(response => {
                 this.ErrorMessage = "Save Complete";
                 this.loading = false;
+                alert(this.ErrorMessage);
             },
                 error => {
-                    this.ErrorMessage = error.error;
                     this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 }
             );
     }
@@ -234,11 +239,31 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
     }
 
     Copy() {
-        this.loading = true;
-
         this.ErrorMessage = "";
-        let VM = new UserRights_VM;
+        if (this.copyto_userid.length <= 0) {
+            this.ErrorMessage += "| Please select a user and continue....... ";
+        }
 
+        if (this.ErrorMessage.length > 0) {
+            alert(this.ErrorMessage);
+            return;
+        }
+
+        let Msg: string = "";
+
+        Msg = "Do you want to Copy Rights of " + this.user_name + " to " + this.copyto_username + " of ";
+        if (this.copyto_branch_code.length > 0)
+            Msg += this.copyto_branch_code;
+        else
+            Msg += " ALL ";
+        Msg += " Branch";
+
+        if (!confirm(Msg)) {
+            return;
+        }
+
+        this.loading = true;
+        let VM = new UserRights_VM;
         VM.userRights = this.RecordList;
         VM.globalvariables = this.gs.globalVariables;
         VM.copyto_user_id = this.copyto_userid;
@@ -250,8 +275,9 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
                 this.loading = false;
             },
                 error => {
-                    this.ErrorMessage = error.error;
                     this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 }
             );
     }

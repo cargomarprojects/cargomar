@@ -12,6 +12,9 @@ import { SearchTable } from '../../shared/models/searchtable';
   providers: [BlFormterService]
 })
 export class BlFormaterComponent {
+  /*
+  Ajith 01/06/2019 format copy implemented
+  */
   // Local Variables 
   title = 'BL Format';
 
@@ -38,12 +41,17 @@ export class BlFormaterComponent {
   sub: any;
   urlid: string;
 
+  copyto_typename: string = '';
+  copyto_branch_id: string = '';
+  copyto_branch_code: string = '';
 
   ErrorMessage = "";
   InfoMessage = "";
 
   mode = '';
   pkid = '';
+
+  BRRECORD: SearchTable = new SearchTable();
 
   // Array For Displaying List
   RecordList: printformatm[] = [];
@@ -53,7 +61,7 @@ export class BlFormaterComponent {
 
   RecordListDet: printformatd[] = [];
 
-  
+
 
   constructor(
     private mainService: BlFormterService,
@@ -93,9 +101,24 @@ export class BlFormaterComponent {
       this.title = this.menu_record.menu_name;
 
     this.LoadCombo();
-
+    this.InitLov();
   }
 
+  InitLov() {
+    this.BRRECORD = new SearchTable();
+    this.BRRECORD.controlname = "BRANCH";
+    this.BRRECORD.displaycolumn = "CODE";
+    this.BRRECORD.type = "BRANCH";
+    this.BRRECORD.id = "";
+    this.BRRECORD.code = "";
+  }
+  LovSelected(_Record: SearchTable) {
+
+    if (_Record.controlname == "BRANCH") {
+      this.copyto_branch_id = _Record.id;
+      this.copyto_branch_code = _Record.code;
+    }
+  }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -127,12 +150,6 @@ export class BlFormaterComponent {
 
     this.List("NEW");
   }
-
-
-  LovSelected(_Record: any) {
-  }
-
-
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -200,12 +217,11 @@ export class BlFormaterComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-
 
   NewRecord() {
 
@@ -219,9 +235,6 @@ export class BlFormaterComponent {
     this.Record.rec_mode = this.mode;
 
   }
-
-
-
 
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
@@ -238,10 +251,10 @@ export class BlFormaterComponent {
         this.loading = false;
         this.LoadData(response.list);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: printformatm) {
@@ -252,7 +265,7 @@ export class BlFormaterComponent {
     this.Record.rec_mode = this.mode;
   }
 
-  changepos(pos : string, rec : printformatd) {
+  changepos(pos: string, rec: printformatd) {
     if (pos == 'left') {
       rec.blf_col_x = rec.blf_col_x - 8;
     }
@@ -287,11 +300,11 @@ export class BlFormaterComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -326,12 +339,15 @@ export class BlFormaterComponent {
   }
 
 
-  OnBlur(field: string, rec : printformatd) {
+  OnBlur(field: string, rec: printformatd) {
     if (field == 'blf_col_x') {
 
     }
     if (field == 'blf_col_y') {
 
+    }
+    if (field == 'copyto_typename') {
+      this.copyto_typename = this.copyto_typename.toLocaleUpperCase();
     }
 
   }
@@ -353,5 +369,54 @@ export class BlFormaterComponent {
     this.gs.ClosePage('home');
   }
 
+  Copy(_id: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    if (_id.length <= 0) {
+      this.ErrorMessage += "| Invalid ID ";
+    }
+    if (this.copyto_typename.length <= 0) {
+      this.ErrorMessage += "| Type Name Cannot be blank. ";
+    }
+    if (this.copyto_branch_code.length <= 0) {
+      this.ErrorMessage += "| Please select a branch and continue....... ";
+    }
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    let Msg: string = "";
+    Msg = "Do you want to Copy ? ";
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid: _id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      copyto_branch_code: this.copyto_branch_code,
+      copyto_typename: this.copyto_typename
+    };
+
+    this.mainService.CopyFormat(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.copyto_branch_code='';
+        this.copyto_branch_id ='';
+        this.copyto_typename ='';
+        this.InfoMessage = "Save Complete";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
 }

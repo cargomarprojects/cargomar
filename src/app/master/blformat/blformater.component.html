@@ -73,17 +73,32 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group row">
-          <label class="col-3 col-form-label col-form-label-sm" (click)="focus()">Type</label>
+          <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Type</label>
           <div class="col-4">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_type" (blur)="OnBlur('blf_type')" required maxlength="8" />
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-3 col-form-label  col-form-label-sm">Name</label>
-          <div class="col-9">
+          <label class="col-2 col-form-label  col-form-label-sm">Name</label>
+          <div class="col-10">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_name" (blur)="OnBlur('blf_name')" required maxlength="250" />
           </div>
+        </div>
+
+        <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Format Name</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="copyto_typename" (blur)="OnBlur('copyto_typename','')" required maxlength="50" />
+          </div>
+          <label class="col-1 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-3">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <div class="col-2">
+          <button [disabled]="loading" (click)="Copy(Record.blf_pkid)" class="btn btn-primary btn-sm">Copy</button>
+        </div>
         </div>
       </div>
     </div>
