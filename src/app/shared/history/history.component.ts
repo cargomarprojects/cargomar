@@ -10,6 +10,9 @@ import { Auditlog } from '../../shared/models/auditlog';
   templateUrl: './history.component.html',
 })
 export class HistoryComponent {
+  /*
+  Ajith 04/06/2019 ,Busy page shown 
+  */
   // Local Variables 
   title = 'History Details';
   

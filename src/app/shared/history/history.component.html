@@ -26,6 +26,8 @@
     </div>
   </div>
 </div>
+<br>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
 </div>
