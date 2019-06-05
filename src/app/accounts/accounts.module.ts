@@ -82,6 +82,7 @@ import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
 
 import { TransDetComponent} from './transdet/transdet.report';
 
+import { MoneyTransferComponent } from './ledger/moneytransfer.component';
 
 @NgModule({
   imports: [
@@ -128,7 +129,8 @@ import { TransDetComponent} from './transdet/transdet.report';
     OscrAgingComponent,
     PayRequestComponent,
     SetlmntComponent,
-    TransDetComponent
+    TransDetComponent,
+    MoneyTransferComponent
   ],
   providers: [
   ],

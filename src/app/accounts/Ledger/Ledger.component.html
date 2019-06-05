@@ -676,6 +676,8 @@
                 class="btn btn-default btn-sm">Allocation</button>
               <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading"
                 (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
+                <!-- <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP'" [disabled]="loading"
+                (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Money Transfer</button> -->
             </div>
           </div>
         </div>
@@ -839,5 +841,16 @@
   <div class="modal-body">
     <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)">
     </app-approval>
+  </div>
+</ng-template>
+<ng-template #moneytransfer let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Transfer Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-moneytransfer  [type]="type" [menuid]=''></app-moneytransfer>
   </div>
 </ng-template>

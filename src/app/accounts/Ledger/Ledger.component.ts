@@ -35,6 +35,7 @@ export class LedgerComponent {
    Ajith 22/05/2019 chqno and narration updation while locking
    Ajith 23/05/2019 chqno updation ReScripted due to lost code while checking
    Ajith 28/05/2019 Chqno updation include more feild and disabled after entry creation date
+   Ajith 5/06/2019 Money tranfer window addeded
   */
 
   // Local Variables 
@@ -2428,5 +2429,9 @@ export class LedgerComponent {
         });
   }
 
+  ShowMoneyTransfer(moneytransfer: any) {
+    this.ErrorMessage = '';
+    this.open(moneytransfer);
+  }
 
 }
