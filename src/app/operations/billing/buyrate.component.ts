@@ -28,6 +28,9 @@ import { SearchTable } from '../../shared/models/searchtable';
 })
 
 export class BuyRateComponent {
+  /*
+  Ajith 05/06/2019 MBL No validation
+  */
   // Local Variables 
   title = 'BUY RATE';
   @Input() parentid: string = '';
@@ -36,6 +39,7 @@ export class BuyRateComponent {
   @Input() subtype: string = '';
   @Input() editdrcr: string = '';
   @Input() master_lock: boolean = false;
+  @Input() mbl_no: string = '';
 
 
   headerdrcr: string = '';
@@ -1141,6 +1145,15 @@ export class BuyRateComponent {
   }
 
   NewInvoice(_type: string, _subtype: string) {
+    this.ErrorMessage = "";
+    if (this.mbl_no.trim() == '') {
+      if (this.type.indexOf('SEA') >= 0)
+        this.ErrorMessage = "MBL Number Not Found";
+      else
+        this.ErrorMessage = "MAWB Number Not Found";
+      alert(this.ErrorMessage);
+      return;
+    }
     this.type = _type;
     this.subtype = _subtype;
     this.headerdrcr = 'CR';

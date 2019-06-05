@@ -326,7 +326,7 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">MBL.Released.On</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
                 <div class="col-sm-4">
                   <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
                   </app-date>
@@ -340,12 +340,12 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-3 col-form-label col-form-label-sm"> Folder# </label>
+                <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label>
                 <div class="col-4">
                   <input [disabled]="foldersent" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.book_folder_no" (blur)="OnBlur('book_folder_no')" required maxlength="20" />
                 </div>
-                <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">Sent.On
+                <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">*Sent.On
                   <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                 </label>
                 <div style="padding-left:0" class="col-3">
@@ -372,7 +372,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">Remarks</label>
+                <label class="col-sm-3 col-form-label  col-form-label-sm">*Remarks</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc"
                     (blur)="OnBlur('book_mdesc')" required maxlength="100" />
@@ -386,14 +386,14 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">PreAlert.SentOn</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">*PreAlert.SentOn</label>
                 <div class="col-sm-4">
                   <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
                   </app-date>
                 </div>
                 <div class="col-4">
                   <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">Update</button>
+                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
                 </div>
               </div>
             </div>
@@ -548,7 +548,7 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group row">
-                <label class="col-3 col-form-label col-form-label-sm">Customer Comments</label>
+                <label class="col-3 col-form-label col-form-label-sm">*Customer Comments</label>
                 <div class="col-9">
                   <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
                     maxlength="100"></textarea>
@@ -756,7 +756,7 @@
 
     <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
-        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [master_lock]="Record.lock_record">
+        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [mbl_no]="Record.book_mblno" [master_lock]="Record.lock_record">
         </app-buyrate>
       </ng-template>
     </ngb-tab>

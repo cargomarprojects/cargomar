@@ -526,7 +526,7 @@
 
     <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
-        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [master_lock]="Record.lock_record"></app-buyrate>
+        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [mbl_no]="Record.mbl_no" [master_lock]="Record.lock_record"></app-buyrate>
       </ng-template>
     </ngb-tab>
 

@@ -1132,7 +1132,10 @@ export class MblSeaComponent {
       company_code: '',
       branch_code: '',
       rec_category: '',
-      hbl_type: ''
+      hbl_type: '',
+      hbl_book_cntr_mdesc: '',
+      hbl_released_date: '',
+      hbl_buy_remarks: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1141,10 +1144,13 @@ export class MblSeaComponent {
       SearchData.hbl_folder_no = this.Record.book_folder_no;
       SearchData.hbl_folder_sent_date = this.Record.book_folder_sent_date;
       SearchData.hbl_prealert_date = this.Record.book_prealert_date;
-      SearchData.company_code = this.gs.globalVariables.comp_code,
-        SearchData.branch_code = this.gs.globalVariables.branch_code,
-        SearchData.rec_category = this.type;
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.rec_category = this.type;
       SearchData.hbl_type = 'MBL-SE';
+      SearchData.hbl_book_cntr_mdesc = this.Record.book_mdesc;
+      SearchData.hbl_released_date = this.Record.book_released_date;
+      SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
     }
 
     this.gs.SearchRecord(SearchData)
@@ -1426,8 +1432,8 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         });
   }
-  
-  ShowBL(){
+
+  ShowBL() {
     this.currentPage = 'BLPAGE';
   }
 
