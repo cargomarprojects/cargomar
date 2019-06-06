@@ -17,6 +17,7 @@ export class TdsosComponent {
 Ajith 23/05/2019 add party wise and detail tds os report
 Ajith 24/05/2019 total certamt shown on header,caption collected changed to allocated
 Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
+Ajith 06/06/2019 Excel print for branch wise implemented
   */
   title = 'Tds OS Report'
 
@@ -31,7 +32,7 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
   mode = '';
   pkid = '';
 
-  cert_amt:number=0;
+  cert_amt: number = 0;
   tds_paid: number = 0;
   tds_collected: number = 0;
   tds_pending: number = 0;
@@ -43,6 +44,7 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
   searchstring = '';
   display_format_type: string = '';
 
+  bPrint = false;
   bAdmin = false;
   bCompany = false;
   disableSave = true;
@@ -62,7 +64,8 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
     from_date: '',
     to_date: '',
     format_type: '',
-    all: false
+    all: false,
+    iscompany: false
   };
 
   // Array For Displaying List
@@ -96,6 +99,7 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -105,6 +109,8 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
         this.bCompany = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -168,11 +174,12 @@ Ajith 25/05/2019 tds paid,allocated,pending shown on header, hide
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.format_type = this.format_type;
+    this.SearchData.iscompany = this.bCompany;
 
     this.ErrorMessage = '';
     this.mainService.TdsosReport(this.SearchData)
