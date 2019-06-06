@@ -69,8 +69,8 @@ export class MoneyTransferComponent {
   // Single Record for add/edit/view details
   Record: MoneyTransfer = new MoneyTransfer;
 
-  ACCRECORD: SearchTable = new SearchTable();
-  CURRECORD: SearchTable = new SearchTable();
+  PARTYRECORD: SearchTable = new SearchTable();
+  BENFRECORD: SearchTable = new SearchTable();
 
   constructor(
     private modalService: NgbModal,
@@ -127,25 +127,15 @@ export class MoneyTransferComponent {
 
 
   InitLov(saction: string = '') {
-
-    if (saction == 'ACCTM' || saction == 'DETAIL' || saction == '') {
-      this.ACCRECORD = new SearchTable();
-      this.ACCRECORD.controlname = "ACCTM";
-      this.ACCRECORD.displaycolumn = "CODE";
-      this.ACCRECORD.type = "ACCTM";
-      this.ACCRECORD.id = "";
-      this.ACCRECORD.code = "";
-      this.ACCRECORD.name = "";
-    }
-    if (saction == 'CURRENCY' || saction == 'DETAIL' || saction == '') {
-      this.CURRECORD = new SearchTable();
-      this.CURRECORD.controlname = "CURRENCY";
-      this.CURRECORD.displaycolumn = "CODE";
-      this.CURRECORD.type = "CURRENCY";
-      this.CURRECORD.id = "";
-      this.CURRECORD.code = "";
-      this.CURRECORD.name = "";
-    }
+    this.PARTYRECORD = new SearchTable();
+    this.PARTYRECORD.controlname = "PARTY";
+    this.PARTYRECORD.displaycolumn = "CODE";
+    this.PARTYRECORD.type = "CUSTOMER";
+//    this.PARTYRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.PARTYRECORD.id = "";
+    this.PARTYRECORD.code = "";
+    this.PARTYRECORD.name = "";
+    this.PARTYRECORD.parentid = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -341,7 +331,8 @@ export class MoneyTransferComponent {
     this.lock_date = false;
 
     this.pkid = this.gs.getGuid();
-    // this.Record = new OpLedger();
+    this.Record = new MoneyTransfer();
+     
     // this.Record.jvh_pkid = this.pkid;
     // this.Record.jvh_type = this.type;
     // this.Record.jvh_year = this.gs.globalVariables.year_code;

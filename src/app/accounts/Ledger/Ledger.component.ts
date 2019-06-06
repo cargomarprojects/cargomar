@@ -21,9 +21,6 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 import { PendingListComponent } from './Pendinglist.component';
 
-
-
-
 @Component({
   selector: 'app-ledger',
   templateUrl: './ledger.component.html',
@@ -61,8 +58,6 @@ export class LedgerComponent {
   DetailTab = 'LIST';
 
   bChanged: boolean;
-
-
 
   searchstring = '';
   page_count = 0;
