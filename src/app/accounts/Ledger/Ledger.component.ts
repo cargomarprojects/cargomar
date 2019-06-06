@@ -2433,5 +2433,4 @@ export class LedgerComponent {
     this.ErrorMessage = '';
     this.open(moneytransfer);
   }
-
 }

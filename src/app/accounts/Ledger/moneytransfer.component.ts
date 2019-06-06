@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, Input, OnInit, OnDestroy,Output, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -16,6 +16,7 @@ export class MoneyTransferComponent {
   // Local Variables 
   title = 'Money Transfer Details';
 
+  @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -627,7 +628,8 @@ export class MoneyTransferComponent {
   }
 
   Close() {
-    this.gs.ClosePage('home');
+    if (this.ModifiedRecords != null)
+    this.ModifiedRecords.emit({ saction: 'CLOSE', sid: ''});
   }
 
 
