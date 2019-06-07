@@ -11,10 +11,7 @@ export class MoneyTransferService {
         private gs: GlobalService) {
     }
 
-    List(SearchData : any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/List', SearchData, this.gs.headerparam2('authorized'));
-    }
-
+     
     GetRecord(SearchData: any) {
         
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/GetRecord', SearchData, this.gs.headerparam2('authorized'));
@@ -24,7 +21,5 @@ export class MoneyTransferService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/Save', Record, this.gs.headerparam2('authorized'));
     }
 
-    LoadDefault(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
-    }
+    
 }

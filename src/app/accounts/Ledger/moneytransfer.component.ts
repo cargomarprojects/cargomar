@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy,Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -22,6 +22,7 @@ export class MoneyTransferComponent {
   @Input() jvhid: string = '';
   @Input() jvid: string = '';
   @Input() jvaccid: string = '';
+  @Input() jvaccname: string = '';
   @Input() jvhdocno: string = '';
 
 
@@ -48,7 +49,7 @@ export class MoneyTransferComponent {
   page_rows = 0;
   page_rowcount = 0;
 
-  CanDelete : boolean = false;
+  CanDelete: boolean = false;
 
   sub: any;
   urlid: string;
@@ -106,6 +107,7 @@ export class MoneyTransferComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.GetRecord('');
   }
 
   InitComponent() {
@@ -115,11 +117,11 @@ export class MoneyTransferComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_delete)
         this.CanDelete = true;
-
     }
+
     this.InitLov();
     this.LoadCombo();
-    this.GetRecord('');
+   
   }
 
   // Destroy Will be called when this component is closed
@@ -128,7 +130,7 @@ export class MoneyTransferComponent {
   }
 
   LoadCombo() {
-    
+
   }
 
   InitLov(saction: string = '') {
@@ -136,7 +138,7 @@ export class MoneyTransferComponent {
     this.PARTYRECORD.controlname = "PARTY";
     this.PARTYRECORD.displaycolumn = "CODE";
     this.PARTYRECORD.type = "CUSTOMER";
-//    this.PARTYRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    //    this.PARTYRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
     this.PARTYRECORD.id = "";
     this.PARTYRECORD.code = "";
     this.PARTYRECORD.name = "";
@@ -147,11 +149,11 @@ export class MoneyTransferComponent {
 
     let _bchanged: boolean = false;
 
-    // if (_Record.controlname == "ACCTM") {
-    //   this.Record.jvh_acc_id = _Record.id;
-    //   this.Record.jvh_acc_code = _Record.code;
-    //   this.Record.jvh_acc_name = _Record.name;
-    // }
+    if (_Record.controlname == "PARTY") {
+      this.Record.mt_party_id = _Record.id;
+      this.Record.mt_party_code = _Record.code;
+      this.Record.mt_party_name = _Record.name;
+    }
     // if (_Record.controlname == "CURRENCY") {
     //   this.Record.jvh_curr_id = _Record.id;
     //   this.Record.jvh_curr_code = _Record.code;
@@ -161,8 +163,8 @@ export class MoneyTransferComponent {
     //   this.OnBlur('jvh_exrate');
     // }
   }
- 
-  
+
+
 
   NewRecord() {
     this.lock_record = false;
@@ -170,8 +172,8 @@ export class MoneyTransferComponent {
 
     this.pkid = this.gs.getGuid();
     this.Record = new MoneyTransfer();
-     
-   
+
+
     this.ProcessPendingList = false;
 
     this.InitLov();
@@ -181,35 +183,38 @@ export class MoneyTransferComponent {
     // this.CURRECORD.name = this.Record.jvh_curr_code;
 
     this.Record.rec_mode = this.mode;
-  }
 
+  }
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
-    
+
     this.loading = true;
     let SearchData = {
-      jvhid:'',
-      jvid:'',
-      jvaccid:'',
-      jvhdocno:''
-    };
+      jvhid: '',
+      jvid: '',
+      jvaccid: '',
+      jvaccname: '',
+      jvhdocno: ''
+    }
 
-    SearchData.jvhid=this.jvhid;
-    SearchData.jvaccid=this.jvaccid;
-    SearchData.jvid=this.jvid;
-    SearchData.jvhdocno=this.jvhdocno;
+    SearchData.jvhid = this.jvhid;
+    SearchData.jvaccid = this.jvaccid;
+    SearchData.jvaccname = this.jvaccid;
+    SearchData.jvid = this.jvid;
+    SearchData.jvhdocno = this.jvhdocno;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.mode = response.recmode;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: MoneyTransfer) {
@@ -277,13 +282,12 @@ export class MoneyTransferComponent {
         this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-        this.RefreshList(response);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+      
   }
 
   allvalid() {
@@ -341,25 +345,7 @@ export class MoneyTransferComponent {
     return bret;
   }
 
-  RefreshList(retdata: any) {
-
-    if (this.RecordList == null)
-      return;
-
-    // var REC = this.RecordList.find(rec => rec.jvh_pkid == this.Record.jvh_pkid);
-    // if (REC == null) {
-    //   this.Record.jvh_vrno = retdata.jvh_vrno;
-    //   this.Record.jvh_docno = retdata.jvh_docno;
-    //   this.RecordList.push(this.Record);
-    // }
-    // else {
-    //   REC.jvh_reference = this.Record.jvh_reference;
-    //   REC.jvh_narration = this.Record.jvh_narration;
-    //   REC.jvh_debit = this.Record.jvh_debit;
-    //   REC.jvh_credit = this.Record.jvh_credit;
-    // }
-  }
-
+  
 
   OnFocus(field: string) {
     this.bChanged = false;
@@ -412,11 +398,12 @@ export class MoneyTransferComponent {
     // if (field == 'jvh_reference') {
     //   this.Record.jvh_reference = this.Record.jvh_reference.toUpperCase();
     // }
+
   }
 
   Close() {
     if (this.ModifiedRecords != null)
-    this.ModifiedRecords.emit({ saction: 'CLOSE', sid: ''});
+      this.ModifiedRecords.emit({ saction: 'CLOSE', sid: '' });
   }
 
 
