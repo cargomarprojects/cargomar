@@ -19,6 +19,12 @@ export class MoneyTransferComponent {
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() jvhid: string = '';
+  @Input() jvid: string = '';
+  @Input() jvaccid: string = '';
+  @Input() jvhdocno: string = '';
+
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -113,6 +119,7 @@ export class MoneyTransferComponent {
     }
     this.InitLov();
     this.LoadCombo();
+    this.GetRecord('');
   }
 
   // Destroy Will be called when this component is closed
@@ -121,10 +128,8 @@ export class MoneyTransferComponent {
   }
 
   LoadCombo() {
-    this.currentTab = 'LIST';
-    this.List("NEW");
+    
   }
-
 
   InitLov(saction: string = '') {
     this.PARTYRECORD = new SearchTable();
@@ -156,174 +161,7 @@ export class MoneyTransferComponent {
     //   this.OnBlur('jvh_exrate');
     // }
   }
-
-
-  //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
-    }
-    else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
-      this.ResetControls();
-      this.NewRecord();
-    }
-    else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
-      this.ResetControls();
-      this.pkid = id;
-      this.GetRecord(id);
-    }
-    else if (action === 'REMOVE') {
-      this.pkid = id;
-      this.RemoveRecord(id);
-    }
-  }
-
-  RemoveList(event: any) {
-    if (event.selected) {
-      if ( this.CanDelete)
-        this.ActionHandler('REMOVE', event.id)
-      else
-        alert('Insufficient Rights')
-    }
-  }
-
-
-  RemoveRecord(Id: string) {
-    // this.loading = true;
-    
-    // let SearchData = {
-    //   pkid: Id,
-    //   comp_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code,
-    //   user_code: this.gs.globalVariables.user_code,
-    //   jvh_type : '',
-    //   jvh_docno: '',
-    //   jvh_narration : ''
-    // };
-
-    // var REC = this.RecordList.find(rec => rec.jvh_pkid == Id);
-    // if (REC != null) {
-    //   SearchData.jvh_type = REC.jvh_type;
-    //   SearchData.jvh_docno = REC.jvh_docno;
-    //   SearchData.jvh_narration = REC.jvh_acc_name + ', Dr ' + REC.jvh_debit.toString() + ',CR ' + REC.jvh_credit.toString();
-    // }
-
-    // this.ErrorMessage = '';
-    // this.InfoMessage = '';
-    // this.mainService.DeleteRecord(SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.RecordList.splice(this.RecordList.findIndex(rec => rec.jvh_pkid == this.pkid), 1);
-    //     this.ErrorMessage = "Record Removed : " + SearchData.jvh_docno;
-    //   },
-    //   error => {
-    //     this.loading = false;
-    //     this.ErrorMessage = this.gs.getError(error);
-    //   });
-  }
-
-
-
-  ResetControls() {
-    this.disableSave = true;
-    if (!this.menu_record)
-      return;
-
-    if (this.menu_record.rights_admin)
-      this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
-      this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
-      this.disableSave = false;
-
-    return this.disableSave;
-  }
-
-
-  folder_id: string;
-  // Query List Data
-  List(_type: string) {
-
-    this.loading = true;
-
-    this.folder_id = this.gs.getGuid();
-
-
-
-    let SearchData = {
-      type: _type,
-      rowtype: this.type,
-      subtype: '',
-      showcurrency : (this.showCurrency) ? 'Y' : 'N',
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code,
-      searchstring: this.searchstring.toUpperCase(),
-      report_folder: this.gs.globalVariables.report_folder,
-      folderid: this.folder_id,
-      report_caption: this.title,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
-    };
-
-
-    
-
-    if (SearchData.type == 'EXCEL2') {
-      SearchData.type = 'EXCEL';
-      SearchData.subtype = 'DIFFERENCE';
-    }
-
-
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-
-        if (_type == 'EXCEL') {
-          this.Downloadfile(_type);
-          return;
-        }
-
-        if (_type == 'EXCEL2') {
-          this.Downloadfile('EXCEL');
-          return;
-        }
-
-
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
-
-        if (_type == 'NEW') {
-          this.DR_BAL = response.dr;
-          this.CR_BAL = response.cr;
-          this.BAL = response.bal;
-        }
-
-      },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
-  }
-
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.folder_id, _type);
-  }
-
+ 
   
 
   NewRecord() {
@@ -333,57 +171,7 @@ export class MoneyTransferComponent {
     this.pkid = this.gs.getGuid();
     this.Record = new MoneyTransfer();
      
-    // this.Record.jvh_pkid = this.pkid;
-    // this.Record.jvh_type = this.type;
-    // this.Record.jvh_year = this.gs.globalVariables.year_code;
-    // this.Record.jvh_date = '';
-    // this.Record.jvh_reference = '';
-    // this.Record.jvh_reference_date = '';
-    // this.Record.jvh_narration = '';
-    // this.Record.jvh_rec_source = 'JV';
-
-
-    // this.Record.jvh_remarks = "";
-    // this.Record.jvh_location = "";
-
-    // this.Record.jvh_allocation_found = false;
-
-    // this.Record.jvh_acc_id = '';
-    // this.Record.jvh_acc_code = '';
-    // this.Record.jvh_acc_name = '';
-    // // this.Record.jvh_acc_br_id = '';
-
-    // this.Record.jvh_curr_id = this.gs.defaultValues.param_curr_local_id;
-    // this.Record.jvh_curr_code = this.gs.defaultValues.param_curr_local_code;
-    // this.Record.jvh_curr_name = this.gs.defaultValues.param_curr_local_code;
-
-
-    // this.Record.jvh_exrate = 1;
-
-    // this.Record.jvh_cc_category = "NA";
-    //this.Record.jvh_cc_code = "";
-    //this.Record.jvh_cc_id = "";
-    //this.Record.jvh_cc_name = "";
-
-    //this.Record.jvh_org_invno = '';
-    //this.Record.jvh_org_invdt = '';
-
-
-    // this.Record.jvh_debit = 0;
-    // this.Record.jvh_credit = 0;
-
-    // this.Record.jvh_diff = 0;
-
-    // this.Record.jvh_ftotal = 0;
-    // this.Record.jvh_total = 0;
-    // this.Record.jvh_bank = '';
-    // this.Record.jvh_branch = '';
-    // this.Record.jvh_chqno = 0;
-    // this.Record.jvh_due_date = '';
-    // this.Record.jvh_remarks = '';
-    // this.Record.jvh_drcr = '';
-    // this.Record.rec_category = '';
-
+   
     this.ProcessPendingList = false;
 
     this.InitLov();
@@ -397,11 +185,19 @@ export class MoneyTransferComponent {
 
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
+    
     this.loading = true;
-
     let SearchData = {
-      pkid: Id,
+      jvhid:'',
+      jvid:'',
+      jvaccid:'',
+      jvhdocno:''
     };
+
+    SearchData.jvhid=this.jvhid;
+    SearchData.jvaccid=this.jvaccid;
+    SearchData.jvid=this.jvid;
+    SearchData.jvhdocno=this.jvhdocno;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';

@@ -676,8 +676,8 @@
                 class="btn btn-default btn-sm">Allocation</button>
               <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading"
                 (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
-                <!-- <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP'" [disabled]="loading"
-                (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Money Transfer</button> -->
+                <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP'" [disabled]="loading"
+                (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Money Transfer</button>
             </div>
           </div>
         </div>
