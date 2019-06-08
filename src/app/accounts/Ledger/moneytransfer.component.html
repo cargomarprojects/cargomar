@@ -7,103 +7,225 @@
 </div>
 <div class="page-details">
   <div class="page-box">
-   <div class="row" >
-    <div class="col-sm-4">
-      <div class="form-group row">
-        <label class="col-4 col-form-label  col-form-label-sm">Customer.Ref.No</label>
-        <div class="col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_cust_uniq_ref"
-            (blur)="OnBlur('mt_cust_uniq_ref')" required maxlength="50" />
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm">Customer.Ref.No</label>
+          <div class="col-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_cust_uniq_ref"
+              (blur)="OnBlur('mt_cust_uniq_ref')" required maxlength="50" />
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
+        <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">Customer</label>
           <div class="col-8">
-            <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_party_name" required
+              maxlength="70" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">Benificary.Details</label>
           <div class="col-8">
-            <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)">
+            <app-autocomplete #ImporterAddLov [inputdata]="BENFRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label class="col-sm-4 col-form-label col-form-label-sm"></label>
             <div class="col-sm-8">
                 <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="Record.mt_enrichment1"
                 [disabled]="true" maxlength="1000"></textarea>
             </div>
+          </div> -->
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary.Code</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_code"
+               required maxlength="30"  />
           </div>
         </div>
-     <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Beneficiary.Name</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_name"
+               required maxlength="70" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Address</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_addr1"
+              required maxlength="100" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_addr2"
+               required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_addr3"
+            disabled required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_addr3"
+               required maxlength="100" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">City</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_city"
+               required maxlength="25" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Pin</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_pin"
+               required maxlength="25" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Bank Name</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_bank_name"
+              required maxlength="25" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">A/c Number</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_acc_no"
+               required maxlength="26" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Category</label>
+          <div class="col-sm-8">
+            <select disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_acc_type">
+              <!-- <option [value]="''">NA</option> -->
+              <option [value]="'10'">10-SAVINGS BANK</option>
+              <option [value]="'11'">11-CURRENT ACCOUNT</option>
+              <option [value]="'13'">13-CASH CREDIT</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">ISFC</label>
+          <div class="col-sm-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_ifsc"
+              required maxlength="11" />
+          </div>
+        </div>
+        <div class="form-group row">
+        <label class="col-sm-4 col-form-label  col-form-label-sm">Email1</label>
+        <div class="col-sm-8">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_email1"
+            required maxlength="250" />
+        </div>
+      </div>
       <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Payment Mode</label>
-        <div class="col-8">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_mode">
-            <option value="RT">RT - RTGS</option>
-            <option value="NE">NE - NEFT</option>
-            <option value="FT">FT - Fund Transfer (Axis to Axis)</option>
-            <option value="CC">CC - Corporate Cheques</option>
-            <option value="DD">DD - Demand Draft</option>
-            <option value="PA">PA - IMPS</option>
-          </select>
+        <label class="col-sm-4 col-form-label  col-form-label-sm">Email2</label>
+        <div class="col-sm-8">
+          <input type="text" disabled  class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_email2" required
+            maxlength="250" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Corporate.Code</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_code" required
-            maxlength="15" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">PaymentDate</label>
-        <div class="col-8">
-          <app-date disabled [inputdate]="Record.mt_value_date" (ValueChanged)="Record.mt_value_date=$event">
-          </app-date>
-        </div>
-      </div>
-     
-      <div class="form-group row">
-        <label class="col-4 col-form-label  col-form-label-sm">Debit.A/c.No</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_acc_no"
-            (blur)="OnBlur('mt_corp_acc_no')" required maxlength="60" />
+        <label class="col-sm-4 col-form-label  col-form-label-sm">Mobile</label>
+        <div class="col-sm-8">
+          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_ben_mob"
+            required maxlength="55" />
         </div>
       </div>
 
-      <div class="form-group row">
-        <label class="col-4 col-form-label  col-form-label-sm">Amount</label>
-        <div class="col-8">
-          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_amt"
-            (focus)="OnFocus('mt_txn_amt')" (change)="OnChange('mt_txn_amt')" (blur)="OnBlur('mt_txn_amt')" required
-            maxlength="20" />
-        </div>
       </div>
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Pay Type</label>
-        <div class="col-8">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.mt_pay_type">
-            <option value="DR">CUST - Customer Payment</option>
-            <option value="CR">MERC - Merchant Payment</option>
-            <option value="CR">DIST - Distributor Payment</option>
-            <option value="CR">INTN - Internal Payment</option>
-            <option value="CR">VEND - Vendor Payment</option>
-          </select>
-        </div>
+      <div class="col-sm-4">
+          <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Payment Mode</label>
+              <div class="col-8">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_mode">
+                  <option value="RT">RT - RTGS</option>
+                  <option value="NE">NE - NEFT</option>
+                  <option value="FT">FT - Fund Transfer (Axis to Axis)</option>
+                  <option value="CC">CC - Corporate Cheques</option>
+                  <option value="DD">DD - Demand Draft</option>
+                  <option value="PA">PA - IMPS</option>
+                </select>
+              </div>
+            </div>
+    
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Corporate.Code</label>
+              <div class="col-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_code" required
+                  maxlength="15" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">PaymentDate</label>
+              <div class="col-8">
+                <app-date disabled [inputdate]="Record.mt_value_date" (ValueChanged)="Record.mt_value_date=$event">
+                </app-date>
+              </div>
+            </div>
+    
+            <div class="form-group row">
+              <label class="col-4 col-form-label  col-form-label-sm">Debit.A/c.No</label>
+              <div class="col-8">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_acc_no"
+                  (blur)="OnBlur('mt_corp_acc_no')" required maxlength="60" />
+              </div>
+            </div>
+    
+            <div class="form-group row">
+              <label class="col-4 col-form-label  col-form-label-sm">Amount</label>
+              <div class="col-8">
+                <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_amt"
+                  (focus)="OnFocus('mt_txn_amt')" (change)="OnChange('mt_txn_amt')" (blur)="OnBlur('mt_txn_amt')" required
+                  maxlength="20" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Pay Type</label>
+              <div class="col-8">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.mt_pay_type">
+                  <option value="DR">CUST - Customer Payment</option>
+                  <option value="CR">MERC - Merchant Payment</option>
+                  <option value="CR">DIST - Distributor Payment</option>
+                  <option value="CR">INTN - Internal Payment</option>
+                  <option value="CR">VEND - Vendor Payment</option>
+                </select>
+              </div>
+            </div>
       </div>
     </div>
-    <div class="col-sm-4">
-    </div>
-  </div>
   </div>
   <div class="page-box">
     <div class="col-sm-4">
       <div class="col-10">
         <button (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="Generate()" class="btn btn-success btn-sm">Generate</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>

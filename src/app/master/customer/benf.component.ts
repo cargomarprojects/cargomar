@@ -18,6 +18,8 @@ export class BenfComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
+    @Input() cust_code: string = '';
+    @Input() cust_name: string = '';
 
     Total_Amount: number = 0;
     selectedRowIndex: number = -1;
@@ -151,8 +153,8 @@ export class BenfComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new Benfm();
         this.Record.ben_pkid = this.pkid;
-        this.Record.ben_code = '';
-        this.Record.ben_name = '';
+        this.Record.ben_code = this.cust_code;
+        this.Record.ben_name = this.cust_name;
         this.Record.ben_acc_no = '';
         this.Record.ben_acc_type = '10';
         this.Record.ben_addr1 = '';

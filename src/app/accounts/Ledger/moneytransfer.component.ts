@@ -121,7 +121,7 @@ export class MoneyTransferComponent {
 
     this.InitLov();
     this.LoadCombo();
-   
+
   }
 
   // Destroy Will be called when this component is closed
@@ -143,6 +143,16 @@ export class MoneyTransferComponent {
     this.PARTYRECORD.code = "";
     this.PARTYRECORD.name = "";
     this.PARTYRECORD.parentid = "";
+
+    this.BENFRECORD = new SearchTable();
+    this.BENFRECORD.controlname = "BENF";
+    this.BENFRECORD.displaycolumn = "CODE";
+    this.BENFRECORD.type = "BENEFICIARY";
+    //    this.BENFRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.BENFRECORD.id = "";
+    this.BENFRECORD.code = "";
+    this.BENFRECORD.name = "";
+    this.BENFRECORD.parentid = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -150,21 +160,42 @@ export class MoneyTransferComponent {
     let _bchanged: boolean = false;
 
     if (_Record.controlname == "PARTY") {
-      this.Record.mt_party_id = _Record.id;
-      this.Record.mt_party_code = _Record.code;
-      this.Record.mt_party_name = _Record.name;
+      if (this.Record.mt_party_id != _Record.id) {
+        this.Record.mt_party_id = _Record.id;
+        this.Record.mt_party_code = _Record.code;
+        this.Record.mt_party_name = _Record.name;
+        this.Record.mt_ben_name = "";
+        this.Record.mt_ben_code = "";
+        this.Record.mt_ben_acc_no = "";
+        this.Record.mt_ben_acc_type = "";
+        this.Record.mt_ben_addr1 = "";
+        this.Record.mt_ben_addr2 = "";
+        this.Record.mt_ben_addr3 = "";
+        this.Record.mt_ben_city = "";
+        this.Record.mt_ben_state = "";
+        this.Record.mt_ben_pin = "";
+        this.Record.mt_ben_ifsc = "";
+        this.Record.mt_ben_bank_name = "";
+        this.Record.mt_ben_email1 = "";
+        this.Record.mt_ben_email2 = "";
+        this.Record.mt_ben_mob = "";
+
+        this.BENFRECORD = new SearchTable();
+        this.BENFRECORD.controlname = "BENF";
+        this.BENFRECORD.displaycolumn = "CODE";
+        this.BENFRECORD.type = "BENEFICIARY";
+        //    this.BENFRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+        this.BENFRECORD.id = "";
+        this.BENFRECORD.code = "";
+        this.BENFRECORD.name = "";
+        this.BENFRECORD.parentid = this.Record.mt_party_id;
+      }
+    } else if (_Record.controlname == "BENF") {
+
+      this.Record.mt_ben_id = _Record.id;
+      this.SearchRecord("BENEFICIARY", this.Record.mt_ben_id, this.Record.mt_party_id);
     }
-    // if (_Record.controlname == "CURRENCY") {
-    //   this.Record.jvh_curr_id = _Record.id;
-    //   this.Record.jvh_curr_code = _Record.code;
-    //   this.Record.jvh_curr_name = _Record.name;
-    //   this.Record.jvh_exrate = _Record.rate;
-    //   this.bChanged = true;
-    //   this.OnBlur('jvh_exrate');
-    // }
   }
-
-
 
   NewRecord() {
     this.lock_record = false;
@@ -199,7 +230,7 @@ export class MoneyTransferComponent {
 
     SearchData.jvhid = this.jvhid;
     SearchData.jvaccid = this.jvaccid;
-    SearchData.jvaccname = this.jvaccid;
+    SearchData.jvaccname = this.jvaccname;
     SearchData.jvid = this.jvid;
     SearchData.jvhdocno = this.jvhdocno;
 
@@ -221,61 +252,28 @@ export class MoneyTransferComponent {
     this.Record = _Record;
     this.InitLov();
 
-    // this.ACCRECORD.id = this.Record.jvh_acc_id;
-    // this.ACCRECORD.code = this.Record.jvh_acc_code;
-    // this.ACCRECORD.name = this.Record.jvh_acc_name;
-    // this.CURRECORD.id = this.Record.jvh_curr_id;
-    // this.CURRECORD.code = this.Record.jvh_curr_code;
+    this.PARTYRECORD.id = this.Record.mt_party_id;
+    this.PARTYRECORD.code = this.Record.mt_party_code;
+    this.PARTYRECORD.name = this.Record.mt_party_name;
+    this.BENFRECORD.id = this.Record.mt_ben_id;
+    this.BENFRECORD.code = this.Record.mt_ben_code;
 
-    // this.Record.rec_mode = this.mode;
-
-    // this.lock_record = true;
-    // this.lock_date = true;
-    // if (this.Record.jvh_edit_code.indexOf("{S}") >= 0) {
-    //   this.lock_record = false;
-    // }
-    // if (this.Record.jvh_edit_code.indexOf("{D}") >= 0) {
-    //   this.lock_date = false;
-    // }
-
-    // if (this.Record.jvh_allocation_found) {
-    //   this.ErrorMessage = "Cannot Edit Allocation Exists";
-    //   this.lock_record = true;
-    // }
+    this.Record.rec_mode = this.mode;
 
   }
 
 
   // Save Data
   Save() {
-
     //this.FindTotal();
-
     if (!this.allvalid())
       return;
+
+
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-
-    // this.Record.jvh_date = this.Record.jvh_reference_date;
-    // if (this.type == "OP")
-    //   this.Record.jvh_narration = "OPENING BALANCE";
-    // else if (this.type == "OB")
-    //   this.Record.jvh_narration = "OPENING BANK";
-    // else if (this.type == "OI")
-    //   this.Record.jvh_narration = "OPENING INVOICE";
-    // this.Record._globalvariables = this.gs.globalVariables;
-
-    // if (this.Record.jvh_drcr == 'DR') {
-    //   this.Record.jvh_debit = this.Record.jvh_total;
-    //   this.Record.jvh_credit = 0;
-    // }
-    // if (this.Record.jvh_drcr == 'CR') {
-    //   this.Record.jvh_debit = 0;
-    //   this.Record.jvh_credit = this.Record.jvh_total;
-    // }
-
-
+    this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
@@ -287,7 +285,7 @@ export class MoneyTransferComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
-      
+
   }
 
   allvalid() {
@@ -345,7 +343,7 @@ export class MoneyTransferComponent {
     return bret;
   }
 
-  
+
 
   OnFocus(field: string) {
     this.bChanged = false;
@@ -416,6 +414,116 @@ export class MoneyTransferComponent {
     //if (field == 'jvh_cc_code') {
     //  this.SearchRecord('jvh_cc_code');
     //}
+  }
+
+  SearchRecord(controlname: string, controlid: string, controlparentid: string) {
+    if (controlid.trim().length <= 0)
+      return;
+
+    this.loading = true;
+    let SearchData = {
+      table: 'beneficiary',
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      ben_pkid: '',
+      ben_parent_id: ''
+    };
+
+    SearchData.table = 'beneficiary';
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.ben_pkid = controlid;
+    SearchData.ben_parent_id = controlparentid;
+
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = '';
+
+        if (controlname == 'BENEFICIARY') {
+          this.Record.mt_ben_name = "";
+          this.Record.mt_ben_code = "";
+          this.Record.mt_ben_acc_no = "";
+          this.Record.mt_ben_acc_type = "";
+          this.Record.mt_ben_addr1 = "";
+          this.Record.mt_ben_addr2 = "";
+          this.Record.mt_ben_addr3 = "";
+          this.Record.mt_ben_city = "";
+          this.Record.mt_ben_state = "";
+          this.Record.mt_ben_pin = "";
+          this.Record.mt_ben_ifsc = "";
+          this.Record.mt_ben_bank_name = "";
+          this.Record.mt_ben_email1 = "";
+          this.Record.mt_ben_email2 = "";
+          this.Record.mt_ben_mob = "";
+        }
+
+        if (response.beneficiary.length > 0) {
+          
+          if (controlname == 'BENEFICIARY') {
+
+            this.Record.mt_ben_name = response.beneficiary[0].ben_name;
+            this.Record.mt_ben_code = response.beneficiary[0].ben_code;
+            this.Record.mt_ben_acc_no = response.beneficiary[0].ben_acc_no;
+            this.Record.mt_ben_acc_type = response.beneficiary[0].ben_acc_type;
+            this.Record.mt_ben_addr1 = response.beneficiary[0].ben_addr1;
+            this.Record.mt_ben_addr2 = response.beneficiary[0].ben_addr2;
+            this.Record.mt_ben_addr3 = response.beneficiary[0].ben_addr3;
+            this.Record.mt_ben_city = response.beneficiary[0].ben_city;
+            this.Record.mt_ben_state = response.beneficiary[0].ben_state_name;
+            this.Record.mt_ben_pin = response.beneficiary[0].ben_pin;
+            this.Record.mt_ben_ifsc = response.beneficiary[0].ben_ifsc;
+            this.Record.mt_ben_bank_name = response.beneficiary[0].ben_bank_name;
+            this.Record.mt_ben_email1 = response.beneficiary[0].ben_email1;
+            this.Record.mt_ben_email2 = response.beneficiary[0].ben_email2;
+            this.Record.mt_ben_mob = response.beneficiary[0].ben_mob;
+          }
+
+        }
+        else {
+          this.ErrorMessage = 'Invalid Details';
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  Generate() {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    if (this.jvid.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Invalid ID";
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      pkid: this.jvid
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.pkid = this.jvid;
+
+    this.mainService.GenerateEdiBank(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = response.savemsg;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }
