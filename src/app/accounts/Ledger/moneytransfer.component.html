@@ -185,7 +185,7 @@
             <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">PaymentDate</label>
               <div class="col-8">
-                <app-date disabled [inputdate]="Record.mt_value_date" (ValueChanged)="Record.mt_value_date=$event">
+                <app-date [inputdate]="Record.mt_value_date" (ValueChanged)="Record.mt_value_date=$event">
                 </app-date>
               </div>
             </div>
@@ -210,11 +210,11 @@
               <label class="col-4 col-form-label col-form-label-sm">Pay Type</label>
               <div class="col-8">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.mt_pay_type">
-                  <option value="DR">CUST - Customer Payment</option>
-                  <option value="CR">MERC - Merchant Payment</option>
-                  <option value="CR">DIST - Distributor Payment</option>
-                  <option value="CR">INTN - Internal Payment</option>
-                  <option value="CR">VEND - Vendor Payment</option>
+                  <option value="CUST">CUST - Customer Payment</option>
+                  <option value="MERC">MERC - Merchant Payment</option>
+                  <option value="DIST">DIST - Distributor Payment</option>
+                  <option value="INTN">INTN - Internal Payment</option>
+                  <option value="VEND">VEND - Vendor Payment</option>
                 </select>
               </div>
             </div>

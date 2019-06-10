@@ -294,52 +294,28 @@ export class MoneyTransferComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    if (this.Record.mt_txn_mode.trim().length <= 0) {
+      bret = false;
+      sError += " | Payment Mode Cannot Be Blank";
+    }
 
-    // if (this.Record.jvh_rec_source.trim() != "JV") {
-    //   bret = false;
-    //   sError += " | Cannot Edit, Records Created In Another Module";
-    // }
+    if (this.Record.mt_value_date.trim().length <= 0) {
+      bret = false;
+      sError += " | Payment Date Cannot Be Blank";
+    }
 
-    // if (this.type == "OI") {
-    //   if (this.Record.jvh_reference.trim().length <= 0) {
-    //     bret = false;
-    //     sError += " | Reference Cannot Be Blank";
-    //   }
-    // }
+    if (this.Record.mt_corp_code.trim().length <= 0) {
+      bret = false;
+      sError += " | Corporate Code Cannot Be Blank";
+    }
 
-    // if (this.Record.jvh_reference_date.trim().length <= 0) {
-    //   bret = false;
-    //   sError += " | Date Cannot Be Blank";
-    // }
+    if (this.Record.mt_corp_acc_no.trim().length <= 0) {
+      bret = false;
+      sError += " | Debit A/c Number Cannot Be Blank";
+    }
 
-    // if (this.Record.jvh_drcr.trim().length <= 0) {
-    //   bret = false;
-    //   sError += " | DrCr Cannot Be Blank";
-    // }
-
-    // if (this.Record.rec_category.trim().length <= 0) {
-    //   bret = false;
-    //   sError += " | Category Cannot Be Blank";
-    // }
-
-    // if (this.Record.jvh_curr_id.trim().length <= 0) {
-    //   bret = false;
-    //   sError += " | Invalid Currency";
-    // }
-
-
-    // if (this.Record.jvh_total <= 0 || this.Record.jvh_ftotal <= 0 || this.Record.jvh_exrate <= 0) {
-    //   bret = false;
-    //   sError += " | Invalid Amount";
-    // }
-
-
-    // if (bret) {
-    //   this.Record.jvh_reference = this.Record.jvh_reference.toUpperCase().replace(' ', '');
-    // }
-
-    // if (!bret)
-    //   this.ErrorMessage = sError;
+       if (!bret)
+      this.ErrorMessage = sError;
     return bret;
   }
 
