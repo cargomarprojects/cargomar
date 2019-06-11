@@ -25,7 +25,6 @@ import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component'
 import { TdsosComponent} from './tdsos/tdsos.component';
 import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 import { TdsosDetComponent} from './tdsos/tdsosdet.component';
-import { MtReportComponent} from './moneytransfer/mtreport.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -50,8 +49,7 @@ const routes: Routes = [
   { path: 'tdspaidreport', component: TdspaidReportComponent },
   { path: 'tdsos', component: TdsosComponent},
   { path: 'tdsosparty', component: TdsosPartyComponent},
-  { path: 'tdsosdet', component: TdsosDetComponent},
-  { path: 'mtreport', component: MtReportComponent}
+  { path: 'tdsosdet', component: TdsosDetComponent}
 ];
 
 @NgModule({

@@ -4,13 +4,13 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { MtReport } from '../models/mtreport';
-import { RepService } from '../services/report.service';
+import { MoneyTransfer } from '../models/moneytransfer';
+import { MoneyTransferService } from '../services/moneytransfer.service';
 
 @Component({
   selector: 'app-mtreport',
   templateUrl: './mtreport.component.html',
-  providers: [RepService]
+  providers: [MoneyTransferService]
 })
 
 export class MtReportComponent {
@@ -40,7 +40,7 @@ export class MtReportComponent {
   page_rows = 0;
   page_rowcount = 0;
 
-   jvid="";
+  jv_id: string = "";
   all: boolean = false;
 
   SearchData = {
@@ -59,13 +59,13 @@ export class MtReportComponent {
   };
 
   // Array For Displaying List
-  RecordList: MtReport[] = [];
+  RecordList: MoneyTransfer[] = [];
   //  Single Record for add/edit/view details
-  Record: MtReport = new MtReport;
+  Record: MoneyTransfer = new MoneyTransfer;
 
   constructor(
     private modalService: NgbModal,
-    private mainService: RepService,
+    private mainService: MoneyTransferService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -126,7 +126,7 @@ export class MtReportComponent {
   }
 
   LovSelected(_Record: SearchTable) {
-    
+
   }
   LoadCombo() {
 
@@ -170,10 +170,10 @@ export class MtReportComponent {
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
-    this.SearchData.page_count= this.page_count;
-    this.SearchData.page_current= this.page_current;
-    this.SearchData.page_rows= this.page_rows;
-    this.SearchData.page_rowcount= this.page_rowcount;
+    this.SearchData.page_count = this.page_count;
+    this.SearchData.page_current = this.page_current;
+    this.SearchData.page_rows = this.page_rows;
+    this.SearchData.page_rowcount = this.page_rowcount;
 
     this.ErrorMessage = '';
     this.mainService.MtReport(this.SearchData)
@@ -193,7 +193,7 @@ export class MtReportComponent {
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
-    }
+  }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -214,14 +214,14 @@ export class MtReportComponent {
     this.modal = this.modalService.open(content);
   }
 
-  ShowMoneyTransfer(moneytransfer: any,_jvid:string) {
+  ShowMoneyTransfer(moneytransfer: any, _jvid: string="") {
     this.ErrorMessage = '';
-    this.jvid=_jvid;
+    this.jv_id = _jvid;
     this.open(moneytransfer);
   }
 
- ModifiedRecords(params: any) {
-     
+  ModifiedRecords(params: any) {
+
     this.modal.close();
   }
 }

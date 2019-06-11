@@ -24,6 +24,9 @@ export class MoneyTransferService {
     GenerateEdiBank(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateEdiBank', SearchData, this.gs.headerparam2('authorized'));
     }
-
+    
+    MtReport(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/MtReport', SearchData, this.gs.headerparam2('authorized'));
+    }
     
 }

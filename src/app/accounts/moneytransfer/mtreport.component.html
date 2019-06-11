@@ -67,11 +67,11 @@
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
                     <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_uniq_ref}}</td>
-                    <td>{{rec.mt_txn_mode}}</td>
-                    <td>{{rec.mt_corp_code}}</td>
-                    <td>{{rec.mt_corp_acc_no}}</td>
-                    <td>{{rec.mt_value_date}}</td>
-                    <td>{{rec.mt_txn_curr}}</td>
+                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_mode}}</td>
+                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_code}}</td>
+                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_acc_no}}</td>
+                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_value_date}}</td>
+                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_curr}}</td>
                     <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
                     <td>{{rec.mt_ben_name}}</td>
                     <td>{{rec.mt_ben_code}}</td>
@@ -116,7 +116,7 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
 </div>
-<!-- <ng-template #moneytransfer let-c="close" let-d="dismiss">
+<ng-template #moneytransfer let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Fund Transfer Details</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -124,6 +124,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-moneytransfer [jvid]="jvid" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
+        <app-moneytransfer [menuid]="''"  [type]="type" [jvid]="this.jv_id" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
     </div>
-</ng-template> -->
+</ng-template>
