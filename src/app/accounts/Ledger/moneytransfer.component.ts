@@ -298,11 +298,14 @@ export class MoneyTransferComponent {
       bret = false;
       sError += " | Payment Mode Cannot Be Blank";
     }
-
-    if (this.Record.mt_value_date.trim().length <= 0) {
+    if (this.Record.mt_pay_type.trim().length <= 0) {
       bret = false;
-      sError += " | Payment Date Cannot Be Blank";
+      sError += " | Payment Type Cannot Be Blank";
     }
+    // if (this.Record.mt_value_date.trim().length <= 0) {
+    //   bret = false;
+    //   sError += " | Payment Date Cannot Be Blank";
+    // }
 
     if (this.Record.mt_corp_code.trim().length <= 0) {
       bret = false;
@@ -314,6 +317,10 @@ export class MoneyTransferComponent {
       sError += " | Debit A/c Number Cannot Be Blank";
     }
 
+    if (this.Record.mt_txn_amt <= 0) {
+      bret = false;
+      sError += " | Amount Cannot Be Blank";
+    }
        if (!bret)
       this.ErrorMessage = sError;
     return bret;
@@ -331,60 +338,23 @@ export class MoneyTransferComponent {
 
 
   OnBlur(field: string) {
-    // if (field == 'jvh_acc_name') {
-    //   this.Record.jvh_acc_name = this.Record.jvh_acc_name.toUpperCase();
-    // }
 
-    // if (field == "jvh_ftotal") {
-    //   if (!this.bChanged)
-    //     return;
-    //   this.Record.jvh_ftotal = this.gs.roundNumber(this.Record.jvh_ftotal, 2);
-    //   this.Record.jvh_total = this.Record.jvh_ftotal * this.Record.jvh_exrate;
-    //   this.Record.jvh_total = this.gs.roundNumber(this.Record.jvh_total, 2);
-    // }
-    // if (field == "jvh_exrate") {
-    //   if (!this.bChanged)
-    //     return;
-    //   this.Record.jvh_exrate = this.gs.roundNumber(this.Record.jvh_exrate, 5);
-    //   this.Record.jvh_total = this.Record.jvh_ftotal * this.Record.jvh_exrate;
-    //   this.Record.jvh_total = this.gs.roundNumber(this.Record.jvh_total, 2);
-    // }
-
-    // if (field == "jvh_total") {
-    //   if (!this.bChanged)
-    //     return;
-    //   if (this.Record.jvh_exrate > 0) {
-    //     this.Record.jvh_ftotal = this.Record.jvh_total / this.Record.jvh_exrate;
-    //     this.Record.jvh_ftotal = this.gs.roundNumber(this.Record.jvh_ftotal, 2);
-    //   }
-    // }
-
-    // if (field == 'jvh_bank') {
-    //   this.Record.jvh_bank = this.Record.jvh_bank.toUpperCase();
-    // }
-    // if (field == 'jvh_branch') {
-    //   this.Record.jvh_branch = this.Record.jvh_branch.toUpperCase();
-    // }
-
-    // if (field == 'jvh_remarks') {
-    //   this.Record.jvh_remarks = this.Record.jvh_remarks.toUpperCase();
-    // }
-    // if (field == 'jvh_reference') {
-    //   this.Record.jvh_reference = this.Record.jvh_reference.toUpperCase();
-    // }
-
-  }
+    if (field == 'mt_corp_code') {
+      this.Record.mt_corp_code = this.Record.mt_corp_code.toUpperCase();
+    }
+    if (field == 'mt_txn_amt') {
+      this.Record.mt_txn_amt = this.gs.roundNumber(this.Record.mt_txn_amt, 2);
+    }
+ }
 
   Close() {
     if (this.ModifiedRecords != null)
       this.ModifiedRecords.emit({ saction: 'CLOSE', sid: '' });
   }
 
-
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
-
 
   onLostFocus(field: string) {
     //if (field == 'jvh_cc_code') {

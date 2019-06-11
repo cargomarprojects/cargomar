@@ -1,0 +1,85 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <!-- <button *ngIf="bPrint"  [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>PAY.MODE</th>
+                    <th>CORP.CODE</th>
+                    <th>CUST.REF#</th>
+                    <th>DEBIT A/C#</th>
+                    <th>PAY.DATE</th>
+                    <th>CURR</th>
+                    <th class="text-right">AMOUNT</th>
+                    <th>BENEF.NAME</th>
+                    <th>BENEF.CODE</th>
+                    <th>BENEF.A/C#</th>
+                    <th>BENEF.A/C.TYPE</th>
+                    <th>BENEF.ADDR1</th>
+                    <th>BENEF.ADDR2</th>
+                    <th>BENEF.ADDR3</th>
+                    <th>BENEF.CITY</th>
+                    <th>BENEF.STATE</th>
+                    <th>BENEF.PIN.CODE</th>
+                    <th>BENEF.IFSC.CODE</th>
+                    <th>BENEF.BANK.NAME</th>
+                    <th>BENEF.EMAIL1</th>
+                    <th>BENEF.EMAIL2</th>
+                    <th>BENEF.MOB</th>
+                    <th>PAYTYPE</th>
+                    <th>CORP.EMAIL</th>
+                    <th>TRANSMISSION.DATE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr [style.color]="rec.row_colour">
+                    <td>{{rec.mt_txn_mode}}</td>
+                    <td>{{rec.mt_corp_code}}</td>
+                    <td>{{rec.mt_cust_uniq_ref}}</td>
+                    <td>{{rec.mt_corp_acc_no}}</td>
+                    <td>{{rec.mt_value_date}}</td>
+                    <td>{{rec.mt_txn_curr}}</td>
+                    <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
+                    <td>{{rec.mt_ben_name}}</td>
+                    <td>{{rec.mt_ben_code}}</td>
+                    <td>{{rec.mt_ben_acc_no}}</td>
+                    <td>{{rec.mt_ben_acc_type}}</td>
+                    <td>{{rec.mt_ben_addr1}}</td>
+                    <td>{{rec.mt_ben_addr2}}</td>
+                    <td>{{rec.mt_ben_addr3}}</td>
+                    <td>{{rec.mt_ben_city}}</td>
+                    <td>{{rec.mt_ben_state}}</td>
+                    <td>{{rec.mt_ben_pin}}</td>
+                    <td>{{rec.mt_ben_ifsc}}</td>
+                    <td>{{rec.mt_ben_bank_name}}</td>
+                    <td>{{rec.mt_ben_email1}}</td>
+                    <td>{{rec.mt_ben_email2}}</td>
+                    <td>{{rec.mt_ben_mob}}</td>
+                    <td>{{rec.mt_pay_type}}</td>
+                    <td>{{rec.mt_corp_email}}</td>
+                    <td>{{rec.mt_transmission_date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

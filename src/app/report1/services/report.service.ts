@@ -103,5 +103,8 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/TdsosReport', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  MtReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/MtReport', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
