@@ -19,12 +19,7 @@ export class MoneyTransferComponent {
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() type: string = '';
-  @Input() jvhid: string = '';
   @Input() jvid: string = '';
-  @Input() jvaccid: string = '';
-  @Input() jvaccname: string = '';
-  @Input() jvhdocno: string = '';
-
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -228,11 +223,10 @@ export class MoneyTransferComponent {
       jvhdocno: ''
     }
 
-    SearchData.jvhid = this.jvhid;
-    SearchData.jvaccid = this.jvaccid;
-    SearchData.jvaccname = this.jvaccname;
+    
+    
     SearchData.jvid = this.jvid;
-    SearchData.jvhdocno = this.jvhdocno;
+    
 
     this.ErrorMessage = '';
     this.InfoMessage = '';

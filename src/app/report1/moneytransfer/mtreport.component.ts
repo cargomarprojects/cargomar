@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -27,14 +28,19 @@ export class MtReportComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  modal: any;
   bPrint = false;
   bAdmin = false;
   bCompany = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  page_count = 0;
+  page_current = 0;
+  page_rows = 0;
+  page_rowcount = 0;
 
+   jvid="";
   all: boolean = false;
 
   SearchData = {
@@ -45,7 +51,11 @@ export class MtReportComponent {
     branch_code: '',
     year_code: '',
     searchstring: '',
-    format_type: ''
+    format_type: '',
+    page_count: this.page_count,
+    page_current: this.page_current,
+    page_rows: this.page_rows,
+    page_rowcount: this.page_rowcount
   };
 
   // Array For Displaying List
@@ -54,10 +64,14 @@ export class MtReportComponent {
   Record: MtReport = new MtReport;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
+    this.page_count = 0;
+    this.page_rows = 30;
+    this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -95,7 +109,7 @@ export class MtReportComponent {
     this.initLov();
     this.LoadCombo();
     this.Init();
-    this.List('SCREEN');
+    this.List('NEW');
   }
 
   Init() {
@@ -156,6 +170,10 @@ export class MtReportComponent {
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
+    this.SearchData.page_count= this.page_count;
+    this.SearchData.page_current= this.page_current;
+    this.SearchData.page_rows= this.page_rows;
+    this.SearchData.page_rowcount= this.page_rowcount;
 
     this.ErrorMessage = '';
     this.mainService.MtReport(this.SearchData)
@@ -165,6 +183,9 @@ export class MtReportComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
         }
       },
         error => {
@@ -189,4 +210,18 @@ export class MtReportComponent {
     this.gs.ClosePage('home');
   }
 
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+
+  ShowMoneyTransfer(moneytransfer: any,_jvid:string) {
+    this.ErrorMessage = '';
+    this.jvid=_jvid;
+    this.open(moneytransfer);
+  }
+
+ ModifiedRecords(params: any) {
+     
+    this.modal.close();
+  }
 }

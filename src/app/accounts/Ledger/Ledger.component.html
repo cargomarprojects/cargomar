@@ -677,7 +677,7 @@
               <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading"
                 (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
                 <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP'" [disabled]="loading"
-                (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Money Transfer</button>
+                (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Fund Transfer</button>
             </div>
           </div>
         </div>
@@ -851,6 +851,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-moneytransfer  [type]="type" [menuid]='' [jvhid]="this.Record.jvh_pkid" [jvid]="this.Recorddet.jv_pkid" [jvaccid]="this.Recorddet.jv_acc_id" [jvaccname]="this.Recorddet.jv_acc_name" [jvhdocno]="Record.jvh_docno" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
+    <app-moneytransfer  [type]="type" [menuid]="''" [jvid]="this.Recorddet.jv_pkid" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
   </div>
 </ng-template>
