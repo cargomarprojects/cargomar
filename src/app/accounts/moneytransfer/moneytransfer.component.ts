@@ -179,7 +179,7 @@ export class MoneyTransferComponent {
         this.BENFRECORD.controlname = "BENF";
         this.BENFRECORD.displaycolumn = "CODE";
         this.BENFRECORD.type = "BENEFICIARY";
-        //    this.BENFRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+        this.BENFRECORD.where = " (ben_branch_code ='"+ this.gs.globalVariables.branch_code +"' or ben_branch_code is null ) ";
         this.BENFRECORD.id = "";
         this.BENFRECORD.code = "";
         this.BENFRECORD.name = "";
@@ -445,6 +445,7 @@ export class MoneyTransferComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
       pkid: this.jvid
     };
 
