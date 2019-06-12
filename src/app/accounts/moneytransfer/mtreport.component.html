@@ -7,14 +7,21 @@
     </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <!-- <div class="page-search">
+    <div class="page-search">
         <div class="row">
-            <div class="col-sm-4">
+          <div class="col-sm-12">
+            <div class="form-group row">
+              <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+              <div class="col-sm-4">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+              </div>
+              <div class="col-sm-3">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+              </div>
             </div>
-            <div class="col-sm-4">
-            </div>
+          </div>
         </div>
-    </div> -->
+      </div>
 
     <div class="page-pager">
         <div *ngIf="page_count">

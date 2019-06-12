@@ -50,6 +50,8 @@ export class MoneyTransfer {
     mt_transmission_date: string;
     mt_user_id: string;
     mt_user_dept: string;
+    mt_lock: string;
+    mt_slno: number;
 
     rec_mode: string;
 

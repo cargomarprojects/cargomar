@@ -164,7 +164,7 @@
         <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">Corporate.Code</label>
           <div class="col-8">
-            <input type="text" class="form-control form-control-sm" (blur)="OnBlur('mt_corp_code')" [(ngModel)]="Record.mt_corp_code" required maxlength="15" />
+            <input type="text" disabled="this.gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" (blur)="OnBlur('mt_corp_code')" [(ngModel)]="Record.mt_corp_code" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
@@ -186,8 +186,8 @@
               <option value="RT">RT - RTGS</option>
               <option value="NE">NE - NEFT</option>
               <option value="FT">FT - Fund Transfer (Axis to Axis)</option>
-              <option value="CC">CC - Corporate Cheques</option>
-              <option value="DD">DD - Demand Draft</option>
+              <!-- <option value="CC">CC - Corporate Cheques</option>
+              <option value="DD">DD - Demand Draft</option> -->
               <option value="PA">PA - IMPS</option>
             </select>
           </div>
@@ -225,8 +225,8 @@
   <div class="page-box">
     <div class="col-sm-4">
       <div class="col-10">
-        <button (click)="Save()" class="btn btn-success btn-sm">Save</button>
-        <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="Generate()"
+        <button [disabled]="loading || Record.mt_lock == 'G'" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
           class="btn btn-success btn-sm">Generate</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>

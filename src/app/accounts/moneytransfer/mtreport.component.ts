@@ -39,7 +39,7 @@ export class MtReportComponent {
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
-
+  searchstring = "";
   jv_id: string = "";
   all: boolean = false;
 
@@ -174,7 +174,8 @@ export class MtReportComponent {
     this.SearchData.page_current = this.page_current;
     this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
-
+    this.SearchData.searchstring = this.searchstring;
+    
     this.ErrorMessage = '';
     this.mainService.MtReport(this.SearchData)
       .subscribe(response => {
@@ -214,7 +215,7 @@ export class MtReportComponent {
     this.modal = this.modalService.open(content);
   }
 
-  ShowMoneyTransfer(moneytransfer: any, _jvid: string="") {
+  ShowMoneyTransfer(moneytransfer: any, _jvid: string = "") {
     this.ErrorMessage = '';
     this.jv_id = _jvid;
     this.open(moneytransfer);

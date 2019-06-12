@@ -133,7 +133,7 @@ export class MoneyTransferComponent {
     this.PARTYRECORD.controlname = "PARTY";
     this.PARTYRECORD.displaycolumn = "CODE";
     this.PARTYRECORD.type = "CUSTOMER";
-    //    this.PARTYRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+   // this.PARTYRECORD.where =  " CUST_IS_SHIPPER = 'Y' ";
     this.PARTYRECORD.id = "";
     this.PARTYRECORD.code = "";
     this.PARTYRECORD.name = "";
@@ -143,7 +143,7 @@ export class MoneyTransferComponent {
     this.BENFRECORD.controlname = "BENF";
     this.BENFRECORD.displaycolumn = "CODE";
     this.BENFRECORD.type = "BENEFICIARY";
-    //    this.BENFRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.BENFRECORD.where = " (ben_branch_code ='"+ this.gs.globalVariables.branch_code +"' or ben_branch_code is null ) ";
     this.BENFRECORD.id = "";
     this.BENFRECORD.code = "";
     this.BENFRECORD.name = "";
@@ -217,16 +217,10 @@ export class MoneyTransferComponent {
     this.loading = true;
     let SearchData = {
       jvhid: '',
-      jvid: '',
-      jvaccid: '',
-      jvaccname: '',
-      jvhdocno: ''
+      jvid: ''
     }
 
-    
-    
     SearchData.jvid = this.jvid;
-    
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -441,6 +435,10 @@ export class MoneyTransferComponent {
       return;
     }
 
+    if (!confirm("Do you want to Generate")) {
+      return;
+    }
+
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
@@ -458,7 +456,10 @@ export class MoneyTransferComponent {
     this.mainService.GenerateEdiBank(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.Record.mt_lock = response.mtlock;
+        this.Record.mt_cust_uniq_ref= response.custrefno;
         this.InfoMessage = response.savemsg;
+       alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
