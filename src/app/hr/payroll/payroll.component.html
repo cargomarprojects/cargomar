@@ -48,7 +48,7 @@
         <div class="form-group row">
           <div class="col-sm-12">
             <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','PDF')" class="btn btn-primary btn-sm">SalarySheet</button>
-            <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')" class="btn btn-primary btn-sm">PaySlip</button>
             <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')" class="btn btn-primary btn-sm">Mail/Payslip</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm">Post JV</button>

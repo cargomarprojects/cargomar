@@ -43,7 +43,8 @@
         <div class="form-group row">
           <div class="col-sm-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+            <button [disabled]="loading" *ngIf="bPrint"  (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+            <input type="checkbox" *ngIf="bPrint" [(ngModel)]="bSalarySheet"> Salary Sheet
           </div>
         </div>
       </div>

@@ -2,11 +2,11 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Salarym} from '../models/salarym';
+import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { SearchTable } from '../../shared/models/searchtable';
 import { ConsolPayrollService } from '../services/consolpayroll.service';
-  
+
 
 @Component({
   selector: 'app-consolpayroll',
@@ -22,6 +22,7 @@ export class ConsolPayrollComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bPrint: boolean = false;
   bAdmin: boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
@@ -40,12 +41,13 @@ export class ConsolPayrollComponent {
   sub: any;
   urlid: string;
 
-  branch_code:string;
+  branch_code: string;
   bCompany = false;
   salyear = 0;
   salmonth = 0;
-  
-  reporttype="FORMAT1";
+  bSalarySheet = false;
+
+  reporttype = "FORMAT1";
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
@@ -93,16 +95,18 @@ export class ConsolPayrollComponent {
     this.reporttype = 'FORMAT1';
     this.empstatus = 'BOTH';
     this.bRemove = true;
-    this.bAdmin=false;
+    this.bPrint = false;
+    this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
-        if (this.menu_record.rights_company)
+      if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -141,7 +145,7 @@ export class ConsolPayrollComponent {
     } else if (this.salyear < 100) {
       this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
     }
-    if (this.salmonth <= 0 || this.salmonth > 12) { 
+    if (this.salmonth <= 0 || this.salmonth > 12) {
       this.ErrorMessage += " | Invalid Month";
     }
     if (this.ErrorMessage.length > 0)
@@ -154,18 +158,19 @@ export class ConsolPayrollComponent {
       searchstring: this.searchstring.toUpperCase(),
       salmonth: this.salmonth,
       salyear: this.salyear,
-      reporttype:this.reporttype,
-      empstatus:this.empstatus,
+      reporttype: this.reporttype,
+      empstatus: this.empstatus,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      branch_region:this.gs.defaultValues.pf_br_region,
-      folderid:this.gs.getGuid(),
+      branch_region: this.gs.defaultValues.pf_br_region,
+      folderid: this.gs.getGuid(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_rowcount: this.page_rowcount,
+      bsalarysheet:this.bSalarySheet
     };
 
     if (this.bCompany) {
@@ -178,22 +183,21 @@ export class ConsolPayrollComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else 
-        {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
           this.Recorddet = response.record;
           this.RecordList = response.list;
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
-  
+
+
 
   allvalid() {
     let sError: string = "";
@@ -223,7 +227,7 @@ export class ConsolPayrollComponent {
 
     //if (bret === false)
     //  this.ErrorMessage = sError;
-    
+
     return bret;
   }
 
