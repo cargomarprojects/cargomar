@@ -19,6 +19,8 @@ export class BonusComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bRelived = false;
+  bPrint: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bChanged: boolean;
@@ -79,8 +81,15 @@ export class BonusComponent {
 
   InitComponent() {
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      // if (this.menu_record.rights_admin)
+      //   this.bAdmin = true;
+      // if (this.menu_record.rights_company)
+      //   this.bCompany = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
+    }
     this.InitLov();
     this.List("NEW");
   }
@@ -143,12 +152,16 @@ export class BonusComponent {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
+      company_name: this.gs.globalVariables.comp_name,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      folderid: this.gs.getGuid(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_rowcount: this.page_rowcount,
+      brelived: this.bRelived
     };
 
     this.ErrorMessage = '';
@@ -156,19 +169,25 @@ export class BonusComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
-        this.chkallselected = false;
-        this.selectdeselect = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+          this.chkallselected = false;
+          this.selectdeselect = false;
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
@@ -282,7 +301,7 @@ export class BonusComponent {
   OnBlur(field: string) {
     if (field == 'bon_gross_wages') {
       this.Record.bon_gross_wages = this.gs.roundNumber(this.Record.bon_gross_wages, 2);
-      this.FindNetAmt();
+      //this.FindNetAmt();
     }
     if (field == 'bon_gross_bonus') {
       this.Record.bon_gross_bonus = this.gs.roundNumber(this.Record.bon_gross_bonus, 2);
@@ -311,17 +330,17 @@ export class BonusComponent {
 
     if (field == 'bon_tot_deduct') {
       this.Record.bon_tot_deduct = this.gs.roundNumber(this.Record.bon_tot_deduct, 2);
-      this.FindNetAmt();
+      //this.FindNetAmt();
     }
 
     if (field == 'bon_net_amount') {
       this.Record.bon_net_amount = this.gs.roundNumber(this.Record.bon_net_amount, 2);
-      this.FindNetAmt();
+      // this.FindNetAmt();
     }
 
     if (field == 'bon_actual_paid') {
       this.Record.bon_actual_paid = this.gs.roundNumber(this.Record.bon_actual_paid, 2);
-      this.FindNetAmt();
+      // this.FindNetAmt();
     }
 
     if (field == 'bon_remarks') {
@@ -347,55 +366,19 @@ export class BonusComponent {
   }
 
   FindNetAmt() {
-    let TotEarning: number = 0;
-    let TotDeductn: number = 0;
-    let PF_BaseAmt: number = 0;
-    let PF_Amt: number = 0;
-    let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
-    let ESI_Amt: number = 0;
+    let nBonusAmt: number = 0;
+    let nDeductAmt: number = 0;
 
-    // this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
-    // this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
-    // for (let rec of this.Record.DetList) {
-    //   TotEarning += rec.e_amt1;
-    //   TotEarning += rec.e_amt2;
+    nBonusAmt = this.Record.bon_gross_bonus;
 
-    //   if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
-    //     PF_ExcludedAmt += rec.e_amt1;
-    //   if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code2) >= 0)
-    //     PF_ExcludedAmt += rec.e_amt2;
-    // }
+    nDeductAmt = this.Record.bon_puja_deduct;
+    nDeductAmt += this.Record.bon_interim_deduct;
+    nDeductAmt += this.Record.bon_tax_deduct;
+    nDeductAmt += this.Record.bon_other_deduct;
 
-
-    // PF_BaseAmt = this.Record.sal_pf_limit;//Special pf Entered against employee
-    // if (PF_BaseAmt <= 0)
-    //   PF_BaseAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
-
-    // PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
-    // PF_Amt = this.gs.roundNumber(PF_Amt, 0);
-
-    // ESI_Amt = 0
-    // if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
-    //   ESI_Amt = Math.ceil((TotEarning * (this.gs.defaultValues.esi_emply_percent / 100)));
-
-    // for (let rec of this.Record.DetList) {
-    //   if (rec.d_code1 == "D01") //Employee PF Deduction
-    //     rec.d_amt1 = PF_Amt;
-    //   if (rec.d_code1 == "D02")
-    //     rec.d_amt1 = ESI_Amt;
-
-    //   TotDeductn += rec.d_amt1;
-    //   TotDeductn += rec.d_amt2;
-    // }
-
-    // TotEarning = this.gs.roundNumber(TotEarning, 0);
-    // TotDeductn = this.gs.roundNumber(TotDeductn, 0);
-
-    // this.Record.d01 = PF_Amt;
-    // this.Record.d02 = ESI_Amt;
-    // this.Record.sal_gross_earn = TotEarning;
-    // this.Record.sal_gross_deduct = TotDeductn;
-    // this.Record.sal_net = (TotEarning - TotDeductn);
+    this.Record.bon_tot_deduct = this.gs.roundNumber(nDeductAmt, 0);
+    this.Record.bon_net_amount = nBonusAmt - this.Record.bon_tot_deduct;
+    this.Record.bon_net_amount = this.gs.roundNumber(this.Record.bon_net_amount, 0);
   }
   Generate(_type: string, generatemodal: any) {
     this.ErrorMessage = '';
