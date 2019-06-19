@@ -124,7 +124,8 @@ export class Ledgert {
     jv_nature_ref: string;
 
     jv_income_type: string;
-
+    jv_tan_update:boolean;
+    
     rec_mode: string;
 
 }

@@ -33,7 +33,7 @@ export class LedgerComponent {
    Ajith 23/05/2019 chqno updation ReScripted due to lost code while checking
    Ajith 28/05/2019 Chqno updation include more feild and disabled after entry creation date
    Ajith 5/06/2019 Money tranfer window addeded
-   Ajith 19/06/2019 rec_locked checked for tan Searchtable
+   Ajith 19/06/2019 rec_locked checked for tan Searchtable, separate one time  updation for tan and tan party implemented
   */
 
   // Local Variables 
@@ -1208,7 +1208,7 @@ export class LedgerComponent {
 
     this.Recorddet.jv_od_type = '';
     this.Recorddet.jv_od_remarks = '';
-
+    this.Recorddet.jv_tan_update = false;
     this.CCList = new Array<CostCentert>();
 
 
@@ -1296,11 +1296,10 @@ export class LedgerComponent {
 
     this.Recorddet.jv_recon_by = _Record.jv_recon_by;
     this.Recorddet.jv_recon_date = _Record.jv_recon_date;
-
-
     this.Recorddet.jv_od_type = _Record.jv_od_type;
     this.Recorddet.jv_od_remarks = _Record.jv_od_remarks;
-
+    this.Recorddet.jv_tan_update = _Record.jv_tan_update;
+    
     this.InitLov('DETAIL');
 
     this.ACCRECORD.id = this.Recorddet.jv_acc_id;
@@ -2063,6 +2062,19 @@ export class LedgerComponent {
 
   SearchRecord(controlname: string) {
 
+    if (controlname == 'tanupdate') {
+      if(this.Recorddet.jv_tan_id=='')
+      {
+        alert("TAN # Cannot be empty");
+        return;
+      }
+      if(this.Recorddet.jv_tan_party_id=='')
+      {
+        alert("Tan Party Cannot be empty");
+        return;
+      }
+    }
+
     this.loading = true;
 
     let SearchData = {
@@ -2078,7 +2090,9 @@ export class LedgerComponent {
       jv_pay_reason: '',
       jv_supp_docs: '',
       jv_paid_to: '',
-      jv_remarks: ''
+      jv_remarks: '',
+      jv_tan_id: '',
+      jv_tan_party_id:''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
@@ -2109,6 +2123,12 @@ export class LedgerComponent {
       SearchData.jv_supp_docs = this.Recorddet.jv_supp_docs.toString();
       SearchData.jv_paid_to = this.Recorddet.jv_paid_to.toString();
       SearchData.jv_remarks = this.Recorddet.jv_remarks.toString();
+    }
+    if (controlname == 'tanupdate') {
+      SearchData.table = 'tanupdate';
+      SearchData.pkid = this.Recorddet.jv_pkid;
+      SearchData.jv_tan_id = this.Recorddet.jv_tan_id;
+      SearchData.jv_tan_party_id=this.Recorddet.jv_tan_party_id;
     }
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
@@ -2205,6 +2225,17 @@ export class LedgerComponent {
             rec.jv_remarks = this.Recorddet.jv_remarks;
           }
           alert("Cheque Details Updated Successfully");
+        }
+        if (controlname == 'tanupdate') {
+          for (let rec of this.Record.LedgerList.filter(rec => rec.jv_pkid == this.Recorddet.jv_pkid)) {
+            rec.jv_tan_id = this.Recorddet.jv_tan_id;
+            rec.jv_tan_code = this.Recorddet.jv_tan_code;
+            rec.jv_tan_name = this.Recorddet.jv_tan_name;
+            rec.jv_tan_party_id = this.Recorddet.jv_tan_party_id;
+            rec.jv_tan_party_code = this.Recorddet.jv_tan_party_code;
+            rec.jv_tan_party_name = this.Recorddet.jv_tan_party_name;
+          }
+          alert("TAN Updated Successfully");
         }
       },
         error => {

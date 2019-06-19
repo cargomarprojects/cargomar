@@ -622,7 +622,7 @@
             </div>
           </div>
           <div class="form-group row" *ngIf="this.Recorddet.jv_acc_code == 'TDSPAID'">
-            <label class="col-2 col-form-label col-form-label-sm">Tan#</label>
+            <label class="col-2 col-form-label col-form-label-sm">Tan#<i  *ngIf="this.Recorddet.jv_tan_update" class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="SearchRecord('tanupdate')"></i></label>
             <div class="col-4">
               <app-autocomplete #LinerLov [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
