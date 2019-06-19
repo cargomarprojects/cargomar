@@ -145,6 +145,7 @@ export class TdsCertReportComponent {
     this.TANRECORD.id = "";
     this.TANRECORD.code = "";
     this.TANRECORD.name = "";
+    this.TANRECORD.where = "nvl(a.rec_locked,'N') = 'N'";
   }
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "TAN") {

@@ -15,6 +15,9 @@ import { ParamService } from '../services/param.service';
   providers: [ParamService]
 })
 export class ParamComponent {
+  /*Ajith 19/06/2019 LOcked TAN Enabled
+  
+  */
   // Local Variables 
   title = 'Param MASTER';
 

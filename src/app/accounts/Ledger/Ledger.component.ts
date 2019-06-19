@@ -33,6 +33,7 @@ export class LedgerComponent {
    Ajith 23/05/2019 chqno updation ReScripted due to lost code while checking
    Ajith 28/05/2019 Chqno updation include more feild and disabled after entry creation date
    Ajith 5/06/2019 Money tranfer window addeded
+   Ajith 19/06/2019 rec_locked checked for tan Searchtable
   */
 
   // Local Variables 
@@ -268,6 +269,7 @@ export class LedgerComponent {
       this.TANRECORD.type = "TAN";
       this.TANRECORD.id = "";
       this.TANRECORD.code = "";
+      this.TANRECORD.where = "nvl(a.rec_locked,'N') = 'N'";
     }
 
     if (saction == 'TANPARTY' || saction == 'DETAIL' || saction == '') {
