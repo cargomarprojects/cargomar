@@ -18,6 +18,9 @@ import { SearchTable } from '../../shared/models/searchtable';
     providers : [UserService]
 })
 export class UserComponent {
+    /*
+    Ajith 19/06/2019 Page row increase to 50,server det added in list
+    */
     // Local Variables 
     title = 'USER MASTER';
     loading = false;
@@ -53,7 +56,7 @@ export class UserComponent {
         private gs: GlobalService
     ) {
         this.page_count = 0;
-        this.page_rows = 10;
+        this.page_rows = 50;
         this.page_current = 0;
 
         this.InitLov();

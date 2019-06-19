@@ -44,6 +44,8 @@
           <th>EMAIL</th>
           <th>SALESMAN</th>
           <th>BRANCH</th>
+          <th>SERVER</th>
+          <th>BR.USER</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -53,6 +55,8 @@
           <td>{{rec.user_email}}</td>
           <td>{{rec.user_sman_name}}</td>
           <td>{{rec.user_branch_name}}</td>
+          <td>{{rec.user_local_server}}</td>
+          <td>{{rec.user_branch_user ? 'YES' : 'NO'}}</td>
         </tr>
       </tbody>
     </table>
