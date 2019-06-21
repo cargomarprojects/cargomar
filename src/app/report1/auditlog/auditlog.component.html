@@ -16,8 +16,12 @@
             <div class="col-1">
                 <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
+            <label class="col-1 col-form-label col-form-label-sm">User</label>
+            <div class="col-2">
+                <input type="text" class="col form-control form-control-sm" name="Search2" [(ngModel)]="searchuser" />
+            </div>
             <label class="col-1 col-form-label col-form-label-sm">Search</label>
-            <div class="col-4">
+            <div class="col-2">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
             </div>
             <div class="col-2">
@@ -48,9 +52,9 @@
                 <tr>
                     <th width="5%">BRANCH</th>
                     <th width="10%">USER</th>
-                    <th width="5%">DATE</th>
+                    <th width="12%">DATE</th>
                     <th width="10%">MODULE</th>
-                    <th width="12%">TYPE</th>
+                    <th width="5%">TYPE</th>
                     <th width="10%">ACTION</th>
                     <th width="48%">REMARKS</th>
                 </tr>

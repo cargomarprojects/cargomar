@@ -27,6 +27,7 @@ export class AuditLogComponent {
 
   pkid: string;
   searchstring: string = '';
+  searchuser: string = '';
   from_date: string = '';
   to_date: string = '';
   page_count: number = 0;
@@ -64,6 +65,8 @@ export class AuditLogComponent {
   }
 
   InitComponent() {
+    this.to_date=this.gs.defaultValues.today;
+    this.from_date=this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -118,7 +121,8 @@ export class AuditLogComponent {
         page_rows: this.page_rows,
         page_rowcount: this.page_rowcount,
         from_date: this.from_date,
-        to_date: this.to_date
+        to_date: this.to_date,
+        searchuser:this.searchuser
       };
 
     this.ErrorMessage = '';
