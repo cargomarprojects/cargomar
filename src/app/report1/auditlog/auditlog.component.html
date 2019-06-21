@@ -1,0 +1,96 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-1">
+                <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+            <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-1">
+                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+            <label class="col-1 col-form-label col-form-label-sm">Search</label>
+            <div class="col-4">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col-2">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th width="5%">BRANCH</th>
+                    <th width="10%">USER</th>
+                    <th width="5%">DATE</th>
+                    <th width="10%">MODULE</th>
+                    <th width="12%">TYPE</th>
+                    <th width="10%">ACTION</th>
+                    <th width="48%">REMARKS</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr>
+                    <td>{{rec.audit_branch_code}}</td>
+                    <td>{{rec.audit_user_code}}</td>
+                    <td>{{rec.audit_date}}</td>
+                    <td>{{rec.audit_module}}</td>
+                    <td>{{rec.audit_type}}</td>
+                    <td>{{rec.audit_action}}</td>
+                    <td>{{rec.audit_remarks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+                <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>

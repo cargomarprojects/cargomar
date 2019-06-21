@@ -49,6 +49,7 @@ import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
 import { TdsosComponent} from './tdsos/tdsos.component';
 import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 import { TdsosDetComponent} from './tdsos/tdsosdet.component';
+import { AuditLogComponent} from './auditlog/auditlog.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { TdsosDetComponent} from './tdsos/tdsosdet.component';
     TdspaidDetComponent,
     TdsosComponent,
     TdsosPartyComponent,
-    TdsosDetComponent
+    TdsosDetComponent,
+    AuditLogComponent
   ],
   providers: [
   ],
