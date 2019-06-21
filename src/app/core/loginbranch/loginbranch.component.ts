@@ -49,7 +49,8 @@ export class LoginBranchComponent {
             userid: this.gs.globalVariables.user_pkid,
             usercode: this.gs.globalVariables.user_code,
             compid: this.gs.globalVariables.user_company_id,
-            compcode: this.gs.globalVariables.user_company_code,
+            compcode: this.gs.globalVariables.user_company_code
+
         };
 
         this.loginservice.LoadBranch(SearchData)
@@ -85,6 +86,7 @@ export class LoginBranchComponent {
             compcode: this.gs.globalVariables.user_company_code,
             branchid: this.branchid,
             yearid: this.yearid,
+            ipaddress : this.gs.globalVariables.ipaddress            
         };
 
         if (this.branchid == '') {

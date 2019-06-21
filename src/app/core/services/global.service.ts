@@ -21,6 +21,8 @@ export class GlobalService {
   
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
+
+  
  
   // change this is false in production and update
   public isolderror: boolean = false;
