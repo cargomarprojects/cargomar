@@ -8,24 +8,81 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
     <div class="page-search">
         <div class="row">
-            <label class="col-1 col-form-label col-form-label-sm">From Date</label>
-            <div class="col-1">
-                <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-10">
+                        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">To</label>
+                    <div class="col-10">
+                        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                    </div>
+                </div>
             </div>
-            <label class="col-1 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-1">
-                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">User</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search2"
+                            [(ngModel)]="searchuser" (blur)="OnBlur('searchuser')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search5"
+                            [(ngModel)]="searchbranch" (blur)="OnBlur('searchbranch')" />
+                    </div>
+                </div>
             </div>
-            <label class="col-1 col-form-label col-form-label-sm">User</label>
-            <div class="col-2">
-                <input type="text" class="col form-control form-control-sm" name="Search2" [(ngModel)]="searchuser" />
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search3"
+                            [(ngModel)]="searchtype" (blur)="OnBlur('searchtype')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Module</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search4"
+                            [(ngModel)]="searchmodule" (blur)="OnBlur('searchmodule')" />
+                    </div>
+                </div>
             </div>
-            <label class="col-1 col-form-label col-form-label-sm">Search</label>
-            <div class="col-2">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Action</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search6"
+                            [(ngModel)]="searchaction" (blur)="OnBlur('searchaction')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="Search7"
+                            [(ngModel)]="searchremarks" (blur)="OnBlur('searchremarks')" />
+                    </div>
+                </div>
             </div>
-            <div class="col-2">
-                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                        <div class="offset-2 col-10">
+                                <button [disabled]="loading" (click)="List('NEW')"
+                                    class="btn btn-primary btn-sm">Search</button>
+                            </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-2 col-10">
+                        <button [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm">Excel</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,24 +107,26 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th width="5%">BRANCH</th>
-                    <th width="10%">USER</th>
-                    <th width="12%">DATE</th>
-                    <th width="10%">MODULE</th>
-                    <th width="5%">TYPE</th>
-                    <th width="10%">ACTION</th>
-                    <th width="48%">REMARKS</th>
+                    <th>DATE</th>
+                    <th>MODULE</th>
+                    <th>USER</th>
+                    <th>BRANCH</th>
+                    <th>TYPE</th>
+                    <th>ACTION</th>
+                    <th>REMARKS</th>
+                    <!-- <th></th> -->
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td>{{rec.audit_branch_code}}</td>
-                    <td>{{rec.audit_user_code}}</td>
                     <td>{{rec.audit_date}}</td>
                     <td>{{rec.audit_module}}</td>
+                    <td>{{rec.audit_user_code}}</td>
+                    <td>{{rec.audit_branch_code}}</td>
                     <td>{{rec.audit_type}}</td>
                     <td>{{rec.audit_action}}</td>
-                    <td>{{rec.audit_remarks}}</td>
+                    <td (click)="openWebSite(rec.audit_type,rec.audit_remarks)">{{rec.audit_remarks}}</td>
+                    <!-- <td ><i *ngIf="rec.audit_type=='USER-LOGIN'" class="fa fa-check  fa-lg pointer" aria-hidden="true" (click)="openWebSite(rec.audit_remarks)"></i></td> -->
                 </tr>
             </tbody>
         </table>

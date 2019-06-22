@@ -28,6 +28,11 @@ export class AuditLogComponent {
   pkid: string;
   searchstring: string = '';
   searchuser: string = '';
+  searchtype: string = '';
+  searchmodule: string = '';
+  searchbranch: string = '';
+  searchaction: string = '';
+  searchremarks: string = '';
   from_date: string = '';
   to_date: string = '';
   page_count: number = 0;
@@ -88,7 +93,24 @@ export class AuditLogComponent {
 
   // Save Data
   OnBlur(field: string) {
-
+    if (field == 'searchuser') {
+       this.searchuser = this.searchuser.toUpperCase();
+      }
+      if (field == 'searchtype') {
+        this.searchtype = this.searchtype.toUpperCase();
+       }
+       if (field == 'searchmodule') {
+        this.searchmodule = this.searchmodule.toUpperCase();
+       }
+       if (field == 'searchbranch') {
+        this.searchbranch = this.searchbranch.toUpperCase();
+       }
+       if (field == 'searchaction') {
+        this.searchaction = this.searchaction.toUpperCase();
+       }
+       if (field == 'searchremarks') {
+        this.searchremarks = this.searchremarks.toUpperCase();
+       }
   }
   Close() {
     this.gs.ClosePage('home');
@@ -106,11 +128,13 @@ export class AuditLogComponent {
     //  return;
     //}
 
+    this.pkid = this.gs.getGuid();
     this.loading = true;
     let SearchData = {
         pkid: this.pkid,
         type: _type,
         rowtype: this.type,
+        report_folder: this.gs.globalVariables.report_folder,
         searchstring: this.searchstring.toUpperCase(),
         comp_code: this.gs.globalVariables.comp_code,
         branch_code: this.gs.globalVariables.branch_code,
@@ -122,17 +146,26 @@ export class AuditLogComponent {
         page_rowcount: this.page_rowcount,
         from_date: this.from_date,
         to_date: this.to_date,
-        searchuser:this.searchuser
+        searchuser:this.searchuser,
+        searchtype: this.searchtype,
+        searchmodule:this.searchmodule,
+        searchbranch: this.searchbranch,
+        searchaction: this.searchaction,
+        searchremarks: this.searchremarks
       };
 
     this.ErrorMessage = '';
     this.mainService.AuditLog(SearchData)
       .subscribe(response => {
         this.loading = false;
+        if (_type == 'EXCEL')
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
+      }
       },
       error => {
         this.loading = false;
@@ -140,5 +173,13 @@ export class AuditLogComponent {
         this.ErrorMessage = this.gs.getError(error);
       });
   }
- 
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
+  openWebSite(_type:string,_webid:string) {
+    if(_type =="USER-LOGIN")
+    window.open("https://www.whtop.com/tools.ip/"+_webid, "_blank");
+  }
+
 }
