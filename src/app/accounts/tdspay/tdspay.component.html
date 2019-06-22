@@ -33,6 +33,10 @@
             <div class="col-8">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
+            <div class="col-2">
+                <input type="checkbox" [(ngModel)]="allbranch">
+              <span> All</span>
+              </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
@@ -65,6 +69,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf="allbranch">BRANCH</th>
           <th>ACC-CODE</th>
           <th>PAID/CREDITED DATE DEDUCTION DATE</th>
           <th>TYPE</th>
@@ -88,6 +93,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.rowcolor">
+          <td *ngIf="allbranch">{{rec.rec_branch_code}}</td>
           <td>{{rec.acc_code}}</td>
           <td>{{rec.jvh_date}}</td>
           <td>{{rec.jvh_type}}</td>

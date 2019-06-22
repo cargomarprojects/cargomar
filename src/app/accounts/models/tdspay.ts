@@ -26,7 +26,7 @@ export class TdsPay {
   forgnpay: number;
   ptax: number;
   jv_credit: number;
-  
+  rec_branch_code:string;
  
 
     _globalvariables: GlobalVariables;

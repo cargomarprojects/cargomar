@@ -14,7 +14,9 @@ import { TdsPayService } from '../services/tdspay.service';
 
 export class TdsPayComponent {
   title = 'Tdspay Report'
-
+/*
+Ajith 22/06/2019 allbranch implemented
+*/
 
 
   @Input() menuid: string = '';
@@ -22,6 +24,7 @@ export class TdsPayComponent {
 
   InitCompleted: boolean = false;
   final: boolean = false;
+  allbranch: boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
@@ -29,7 +32,7 @@ export class TdsPayComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-  
+
   rec_category: string = "";
   from_date: string = '';
   to_date: string = '';
@@ -51,7 +54,7 @@ export class TdsPayComponent {
     report_folder: '',
     company_code: '',
     branch_code: '',
-    branch_name:'',
+    branch_name: '',
     year_code: '',
     searchstring: '',
     from_date: '',
@@ -59,6 +62,7 @@ export class TdsPayComponent {
     type_date: '',
     code: '',
     final: false,
+    allbranch: false
   };
 
   // Array For Displaying List
@@ -139,7 +143,7 @@ export class TdsPayComponent {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
     }
-   
+
   }
   LoadCombo() {
   }
@@ -198,7 +202,7 @@ export class TdsPayComponent {
 
     }
 
-   
+
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
@@ -207,31 +211,32 @@ export class TdsPayComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.code = this.code;
     this.SearchData.final = this.final;
+    this.SearchData.allbranch = this.allbranch;
 
     this.ErrorMessage = '';
-      this.mainService.List(this.SearchData)
-        .subscribe(response => {
-          this.loading = false;
-          if (_type == 'EXCEL')
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          else {
-            this.RecordList = response.list;
-          }
-        },
+    this.mainService.List(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+        }
+      },
         error => {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
-    }
+  }
 
-    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
-      this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
-    }
-    Close() {
-      this.gs.ClosePage('home');
-    }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+  Close() {
+    this.gs.ClosePage('home');
+  }
 
 
-  
+
 }
