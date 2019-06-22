@@ -10,8 +10,10 @@ export class GlobalVariables {
     user_branch_user: string;
 
     hide_ho_entries: string;
-    ipaddress : string;
 
+    ipaddress : string;
+    tokenid : string;
+    
     comp_pkid: string;
     comp_code: string;
     comp_name: string;

@@ -115,6 +115,7 @@ export class LoginComponent {
           this.gs.globalVariables.sman_name = user.usersmanname;
           this.gs.baseLocalServerUrl = user.userlocalserver;
           this.gs.globalVariables.ipaddress = user.useripaddress;
+          this.gs.globalVariables.tokenid = user.usertokenid;
           this.gs.globalVariables.user_branch_user = user.user_branch_user;
           // If a branch user hide ho entries
           if (user.user_branch_user == "Y")
