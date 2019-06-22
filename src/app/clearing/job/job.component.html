@@ -174,11 +174,11 @@
               <div *ngIf="mode=='ADD'" class="col-sm-4">
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                  <div style="padding-right:0" class="col-3">
+                  <div style="padding-right:0" class="col-4">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
-                  <div style="padding-right:0" class="col-3">
+                  <div style="padding-right:0" class="col-2">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required
                       maxlength="15" />
                   </div>
@@ -192,10 +192,14 @@
               <div *ngIf="mode=='EDIT'" class="col-sm-4">
                 <div class="form-group row">
                   <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                  <div class="col-8">
+                  <div class="col-4">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
+                  <div *ngIf="Record.job_prefix" class="col-4">
+                      <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix" required
+                        maxlength="65" />
+                    </div>
                 </div>
               </div>
 
