@@ -397,10 +397,58 @@ export class BlFormaterComponent {
 
     let SearchData = {
       pkid: _id,
+      type:"COPY",
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       copyto_branch_code: this.copyto_branch_code,
-      copyto_typename: this.copyto_typename
+      copyto_typename: this.copyto_typename,
+      copyto_type:this.Record.blf_type
+    };
+
+    this.mainService.CopyFormat(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.copyto_branch_code='';
+        this.copyto_branch_id ='';
+        this.copyto_typename ='';
+        this.InfoMessage = "Save Complete";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  AddRow(_id: string)
+  {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    if (_id.length <= 0) {
+      this.ErrorMessage += "| Invalid ID ";
+    }
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    let Msg: string = "";
+    Msg = "Do you want to  Add Row ? ";
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid: _id,
+      type:"ADD",
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      copyto_branch_code: this.copyto_branch_code,
+      copyto_typename: this.copyto_typename,
+      copyto_type:this.Record.blf_type
     };
 
     this.mainService.CopyFormat(SearchData)

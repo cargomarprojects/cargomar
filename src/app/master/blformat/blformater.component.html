@@ -88,7 +88,7 @@
 
         <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Format Name</label>
-          <div class="col-4">
+          <div class="col-3">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="copyto_typename" (blur)="OnBlur('copyto_typename','')" required maxlength="50" />
           </div>
           <label class="col-1 col-form-label col-form-label-sm">Branch</label>
@@ -96,8 +96,9 @@
             <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <div class="col-2">
+          <div class="col-3">
           <button [disabled]="loading" (click)="Copy(Record.blf_pkid)" class="btn btn-primary btn-sm">Copy</button>
+          <button [disabled]="loading" (click)="AddRow(Record.blf_pkid)" class="btn btn-primary btn-sm">Add Row</button>
         </div>
         </div>
       </div>
