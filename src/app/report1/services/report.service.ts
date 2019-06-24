@@ -105,5 +105,8 @@ export class RepService {
   AuditLog(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/AuditLog', SearchData, this.gs.headerparam2('authorized'));
   }
+  UpdateMonReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UpdateMonReport', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

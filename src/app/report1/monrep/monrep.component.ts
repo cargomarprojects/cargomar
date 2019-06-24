@@ -14,12 +14,14 @@ import { RepService } from '../services/report.service';
 
 export class MonrepComponent {
   title = 'Monthly Report'
+/*
+Ajith 24/06/2019 nom/sman update implemented
+*/
 
 
-  
   @Input() menuid: string = '';
   @Input() type: string = '';
- 
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -30,7 +32,7 @@ export class MonrepComponent {
   pkid = '';
 
   rec_category: string = "";
-  type_date: string ='SOB';
+  type_date: string = 'SOB';
   from_date: string = '';
   to_date: string = '';
   branch_name: string;
@@ -52,13 +54,15 @@ export class MonrepComponent {
   bExcel = false;
   bCompany = false;
   bAdmin = false;
+  bEdit = false;
+
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
 
   SearchData = {
     type: '',
-    rec_category:'',
+    rec_category: '',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -76,9 +80,9 @@ export class MonrepComponent {
     consignee_id: '',
     carrier_id: '',
     pol_id: '',
-    pod_id:'',
+    pod_id: '',
     all: false,
-    badmin : false
+    badmin: false
   };
 
   // Array For Displaying List
@@ -126,6 +130,7 @@ export class MonrepComponent {
     this.bCompany = false;
     this.bAdmin = false;
     this.bExcel = false;
+    this.bEdit = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -135,6 +140,8 @@ export class MonrepComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      if (this.menu_record.rights_edit)
+        this.bEdit = true;
     }
     if (this.type.toString() == "HBL-SE" || this.type.toString() == "HBL-SI") {
       this.porttype = "SEA PORT";
@@ -248,26 +255,26 @@ export class MonrepComponent {
     }
     if (_Record.controlname == "SHIPPER") {
       this.shipper_id = _Record.id;
-     // this.shipper_name = _Record.name;
+      // this.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
       this.consignee_id = _Record.id;
-    //  this.consignee_name = _Record.name;
+      //  this.consignee_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
       this.carrier_id = _Record.id;
-     // this.carrier_code = _Record.code;
-     // this.carrier_name = _Record.name;
+      // this.carrier_code = _Record.code;
+      // this.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
       this.pol_id = _Record.id;
-     // this.pol_code = _Record.code;
-    //  this.pol_name = _Record.name;
+      // this.pol_code = _Record.code;
+      //  this.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
       this.pod_id = _Record.id;
-     // this.pod_code = _Record.code;
-     // this.pod_name = _Record.name;
+      // this.pod_code = _Record.code;
+      // this.pod_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -317,7 +324,7 @@ export class MonrepComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
       this.SearchData.branch_name = this.branch_name;
@@ -357,11 +364,11 @@ export class MonrepComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -376,13 +383,19 @@ export class MonrepComponent {
     this.gs.ClosePage('home');
   }
 
-
+  showMonRepUpdt(rec: MonRep) {
+    if (rec.hbl_pkid == null)
+      return;
+    if (rec.hbl_pkid != '') {
+      rec.displayed = !rec.displayed;
+    }
+  }
   onKeyUp(event: KeyboardEvent): void {
 
-    
-  
+
+
   }
 
-   
-  
+
+
 }

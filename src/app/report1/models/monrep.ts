@@ -50,9 +50,12 @@ export class MonRep {
 
   branch: string;
   agent_created_date: string;
+  
+  hbl_pkid: string; 
+  sman_id: string;
+  displayed: boolean;
 
   created_date: string;
   
-
     _globalvariables: GlobalVariables;
 }
