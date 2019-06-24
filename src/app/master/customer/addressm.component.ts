@@ -18,9 +18,12 @@ import { Addressdel } from '../models/addressdel';
 export class AddressmComponent {
     // Local Variables 
     title = 'Address List';
-
+/*
+Ajith 24/06/2019 validate GSTIN with PAN no
+*/
     @Input() menuid: string = '';
     @Input() type: string = '';
+
 
     @Output() ValueChanged = new EventEmitter<boolean>();
 
@@ -42,7 +45,7 @@ export class AddressmComponent {
     @Input() CountryList: any[] = [];
     @Input() bDelete: boolean = false;
     @Input() customer_id: string = '';
-
+    @Input() pan_no: string = '';
 
 
     GstList: any[] = [];
@@ -283,6 +286,13 @@ export class AddressmComponent {
             }
         }
 
+        if (this.Record.add_gstin.trim() != '') {
+
+            if (this.Record.add_gstin.trim().indexOf(this.pan_no) < 0) {
+                bret = false;
+                sError += "|Invalid GSTIN or Mismatch with Pan Number";
+            }
+        }
 
         if (this.IsSpecialCharacter(this.Record.add_line1)) {
             bret = false;
