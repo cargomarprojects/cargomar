@@ -21,6 +21,7 @@ export class Bonusm {
   bon_remarks: string;
   bon_selected:boolean;
   bon_emp_grade:string;
+  bon_edit_code:string;
   
   rec_mode: string;
   _globalvariables: GlobalVariables;

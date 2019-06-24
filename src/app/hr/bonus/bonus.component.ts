@@ -19,6 +19,7 @@ export class BonusComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  lock_record: boolean = false;
   bRelived = false;
   bPrint: boolean = false;
   chkallselected: boolean = false;
@@ -213,6 +214,10 @@ export class BonusComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
+
+    this.lock_record = true;
+    if (this.Record.bon_edit_code.indexOf("{S}") >= 0)
+      this.lock_record = false;
   }
 
   // Save Data

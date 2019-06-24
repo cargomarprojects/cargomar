@@ -222,9 +222,14 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <div class="offset-3 col-sm-4">
-            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+          <div class="offset-3 col-sm-9">
+            <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+            <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+              <font color="RED">
+                  {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+              </font>
+            </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>

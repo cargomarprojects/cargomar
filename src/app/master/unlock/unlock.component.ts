@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { IfObservable } from 'rxjs/observable/IfObservable';
 
 @Component({
   selector: 'app-unlock',
@@ -137,7 +138,8 @@ export class UnLockComponent {
       { "code": "HR-SALARY-MASTER", "name": "Salary Master" },
       { "code": "HR-PAYROLL", "name": "Payroll" },
       { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
-      { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" }
+      { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" },
+      { "code": "LOCK-ALL", "name": "Lock/Unlock All Records (" + this.gs.globalVariables.year_name + ")" }
     ];
   }
 
@@ -221,6 +223,16 @@ export class UnLockComponent {
       }
     }
 
+    if (this.moduletype == "LOCK-ALL") {
+      if (controlname == "lock")
+        this.ErrorMessage = " LOCK ALL RECORDS " + this.gs.globalVariables.year_name;
+      else
+        this.ErrorMessage = " UNLOCK ALL RECORDS " + this.gs.globalVariables.year_name;
+      if (!confirm(this.ErrorMessage)) {
+        return;
+      }
+    }
+
     this.loading = true;
     let SearchData = {
       table: '',
@@ -297,16 +309,18 @@ export class UnLockComponent {
 
   UnlockRecord(savetype: string) {
 
-    if (this.refno.toString().trim().length <= 0) {
-      this.ErrorMessage = " Reference# Cannot be blank ";
-      return;
-    }
+    if (this.moduletype != "LOCK-ALL") {
+     
+      if (this.refno.toString().trim().length <= 0) {
+        this.ErrorMessage = " Reference# Cannot be blank ";
+        return;
+      }
 
-    if (this.pkid.toString().trim().length <= 0) {
-      this.ErrorMessage = " Invalid Reference ID ";
-      return;
+      if (this.pkid.toString().trim().length <= 0) {
+        this.ErrorMessage = " Invalid Reference ID ";
+        return;
+      }
     }
-
     if (this.remarks.toString().trim().length <= 0) {
       this.ErrorMessage = " Remarks Cannot be blank ";
       return;
