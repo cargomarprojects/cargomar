@@ -286,13 +286,13 @@ Ajith 24/06/2019 validate GSTIN with PAN no
             }
         }
 
-        if (this.Record.add_gstin.trim() != '') {
+        // if (this.Record.add_gstin.trim() != '') {
 
-            if (this.Record.add_gstin.trim().indexOf(this.pan_no) < 0) {
-                bret = false;
-                sError += "|Invalid GSTIN or Mismatch with Pan Number";
-            }
-        }
+        //     if (this.Record.add_gstin.trim().indexOf(this.pan_no) < 0) {
+        //         bret = false;
+        //         sError += "|Invalid GSTIN or Mismatch with Pan Number";
+        //     }
+        // }
 
         if (this.IsSpecialCharacter(this.Record.add_line1)) {
             bret = false;

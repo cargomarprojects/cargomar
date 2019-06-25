@@ -178,7 +178,7 @@ export class AuditLogComponent {
   }
 
   openWebSite(_type:string,_webid:string) {
-    if(_type =="USER-LOGIN")
+    if(_type =="USER-LOGIN"||_type =="BRANCH-LOGIN")
     window.open("https://www.whtop.com/tools.ip/"+_webid, "_blank");
   }
 
