@@ -446,9 +446,10 @@ export class CustomerComponent {
 
   // Save Data
   Save() {
-
-    if (!this.allvalid())
+    if (!this.allvalid()) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     this.ErrorMessage = '';
@@ -471,7 +472,7 @@ export class CustomerComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 

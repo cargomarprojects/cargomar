@@ -18,9 +18,9 @@ import { Addressdel } from '../models/addressdel';
 export class AddressmComponent {
     // Local Variables 
     title = 'Address List';
-/*
-Ajith 24/06/2019 validate GSTIN with PAN no
-*/
+    /*
+    Ajith 24/06/2019 validate GSTIN with PAN no
+    */
     @Input() menuid: string = '';
     @Input() type: string = '';
 
@@ -195,9 +195,10 @@ Ajith 24/06/2019 validate GSTIN with PAN no
 
     // Save Data
     Save() {
-        if (!this.allvalid())
+        if (!this.allvalid()) {
+            alert(this.ErrorMessage);
             return;
-
+        }
         if (this.mode == "ADD") {
 
             this.Record.add_state_name = this.StateList.find(rec => rec.param_pkid == this.Record.add_state_id).param_name;
