@@ -19,7 +19,9 @@ import { SearchTable } from '../../../shared/models/searchtable';
 export class JobInvoiceComponent {
     // Local Variables 
     title = 'Invoice List';
-
+/*
+Ajith 25/06/2019 Show rate and amt in checklist added
+*/
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
@@ -99,17 +101,17 @@ export class JobInvoiceComponent {
         this.INVCURRECORD.id = "";
         this.INVCURRECORD.code = "";
 
-      /*
-        if (this.gs.globalVariables.branch_code == "TUTSF" ||
-          this.gs.globalVariables.branch_code == "CHNSF" ||
-          this.gs.globalVariables.branch_code == "CHNAF") {
-          this.INVCURRECORD.id = "";
-          this.INVCURRECORD.code = "";
-        } else {
-          this.INVCURRECORD.id = this.gs.defaultValues.param_curr_foreign_id;
-          this.INVCURRECORD.code = this.gs.defaultValues.param_curr_foreign_code;
-        }
-      */
+        /*
+          if (this.gs.globalVariables.branch_code == "TUTSF" ||
+            this.gs.globalVariables.branch_code == "CHNSF" ||
+            this.gs.globalVariables.branch_code == "CHNAF") {
+            this.INVCURRECORD.id = "";
+            this.INVCURRECORD.code = "";
+          } else {
+            this.INVCURRECORD.id = this.gs.defaultValues.param_curr_foreign_id;
+            this.INVCURRECORD.code = this.gs.defaultValues.param_curr_foreign_code;
+          }
+        */
 
         this.FCURRECORD = new SearchTable();
         this.FCURRECORD.controlname = "FCURRENCY";
@@ -196,14 +198,14 @@ export class JobInvoiceComponent {
         }
 
         if (_Record.controlname == "INVCURRENCY") {
-          this.Record.jexp_curr_id = _Record.id;
-          this.Record.jexp_curr_code = _Record.code;
-          if (_Record.col1 != "")
-            this.Record.jexp_exrate = +_Record.col1;//clr rate
-          else
-            this.Record.jexp_exrate = 1;
+            this.Record.jexp_curr_id = _Record.id;
+            this.Record.jexp_curr_code = _Record.code;
+            if (_Record.col1 != "")
+                this.Record.jexp_exrate = +_Record.col1;//clr rate
+            else
+                this.Record.jexp_exrate = 1;
 
-          this.CurrencyLoad();
+            this.CurrencyLoad();
         }
 
         if (_Record.controlname == "FCURRENCY") {
@@ -275,7 +277,7 @@ export class JobInvoiceComponent {
 
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string, _selectedRowIndex: number = -1 ) {
+    ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         if (action == 'LIST') {
@@ -306,9 +308,9 @@ export class JobInvoiceComponent {
     }
 
     RemoveList(event: any) {
-      if (event.selected) {
-        this.ActionHandler('REMOVE', event.id)
-      }
+        if (event.selected) {
+            this.ActionHandler('REMOVE', event.id)
+        }
     }
 
 
@@ -341,10 +343,10 @@ export class JobInvoiceComponent {
                 this.loading = false;
                 this.RecordList = response.list;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     NewRecord() {
@@ -358,19 +360,19 @@ export class JobInvoiceComponent {
         this.Record.jexp_curr_code = "";
         this.Record.jexp_exrate = 0;
 
-      /*
-        if (this.gs.globalVariables.branch_code == "TUTSF" ||
-           this.gs.globalVariables.branch_code == "CHNSF"  ||
-           this.gs.globalVariables.branch_code == "CHNAF") {
-           this.Record.jexp_curr_id = "";
-           this.Record.jexp_curr_code = "";
-           this.Record.jexp_exrate = 0;
-        } else {
-          this.Record.jexp_curr_id = this.gs.defaultValues.param_curr_foreign_id;
-          this.Record.jexp_curr_code = this.gs.defaultValues.param_curr_foreign_code;
-          this.Record.jexp_exrate = this.gs.defaultValues.param_curr_foreign_clrrate;
-        }
-      */
+        /*
+          if (this.gs.globalVariables.branch_code == "TUTSF" ||
+             this.gs.globalVariables.branch_code == "CHNSF"  ||
+             this.gs.globalVariables.branch_code == "CHNAF") {
+             this.Record.jexp_curr_id = "";
+             this.Record.jexp_curr_code = "";
+             this.Record.jexp_exrate = 0;
+          } else {
+            this.Record.jexp_curr_id = this.gs.defaultValues.param_curr_foreign_id;
+            this.Record.jexp_curr_code = this.gs.defaultValues.param_curr_foreign_code;
+            this.Record.jexp_exrate = this.gs.defaultValues.param_curr_foreign_clrrate;
+          }
+        */
 
         this.Record.jexp_lcno = '';
         this.Record.jexp_payment_type = "DP";
@@ -438,12 +440,12 @@ export class JobInvoiceComponent {
         this.Record.jexp_aeo_operator_country_name = '';
         this.Record.jexp_aeo_operator_role = '';
         this.Record.jexp_aeo_term_place = '';
-
+        this.Record.jexp_show_amount = false;
 
         this.Record.rec_mode = this.mode;
 
         this.InitLov();
-        
+
         //this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;
     }
 
@@ -462,10 +464,10 @@ export class JobInvoiceComponent {
                 this.loading = false;
                 this.LoadData(response.record);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     LoadData(_Record: JobInvoicem) {
@@ -515,26 +517,26 @@ export class JobInvoiceComponent {
     }
     // Save Data
     Save() {
-      if (!this.allvalid())
-        return;
-      this.loading = true;
-      this.ErrorMessage = '';
-      this.InfoMessage = '';
-      this.Record.jexp_job_id = this.parentid;
-      this.Record._globalvariables = this.gs.globalVariables;
-      this.mainService.Save(this.Record)
-        .subscribe(response => {
-          this.loading = false;
-          this.InfoMessage = "Save Complete";
-          this.mode = 'EDIT';
-          this.Record.rec_mode = this.mode;
-          this.RefreshList();
-          this.ActionHandler('ADD', null);
-        },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
+        if (!this.allvalid())
+            return;
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.Record.jexp_job_id = this.parentid;
+        this.Record._globalvariables = this.gs.globalVariables;
+        this.mainService.Save(this.Record)
+            .subscribe(response => {
+                this.loading = false;
+                this.InfoMessage = "Save Complete";
+                this.mode = 'EDIT';
+                this.Record.rec_mode = this.mode;
+                this.RefreshList();
+                this.ActionHandler('ADD', null);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     allvalid() {
@@ -624,10 +626,10 @@ export class JobInvoiceComponent {
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.jexp_pkid == this.pkid), 1);
                 this.ActionHandler('ADD', null);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -640,16 +642,16 @@ export class JobInvoiceComponent {
     }
 
     OnChange(field: string) {
-      this.bChanged = true;
-     
+        this.bChanged = true;
+
     }
 
     OnBlur(field: string) {
         switch (field) {
             case 'jexp_invoice_no':
                 {
-              this.Record.jexp_invoice_no = this.Record.jexp_invoice_no.toUpperCase();
-              this.SearchRecord('jexp_invoice_no');
+                    this.Record.jexp_invoice_no = this.Record.jexp_invoice_no.toUpperCase();
+                    this.SearchRecord('jexp_invoice_no');
                     break;
                 }
             case 'jexp_lcno':
@@ -802,50 +804,50 @@ export class JobInvoiceComponent {
     }
 
     SearchRecord(controlname: string) {
-      this.ErrorMessage = '';
-      if (this.Record.jexp_invoice_no.trim().length <= 0)
-        return;
+        this.ErrorMessage = '';
+        if (this.Record.jexp_invoice_no.trim().length <= 0)
+            return;
 
-      if (this.parentid.trim().length <= 0 || this.jobexporterid.trim().length <= 0) {
-        this.ErrorMessage = "Invalid ID";
-        return;
-      }
-      this.loading = true;
-      let SearchData = {
-        rowtype: this.type,
-        table: 'dupjobinvno',
-        company_code: this.gs.globalVariables.comp_code,
-        branch_code: this.gs.globalVariables.branch_code,
-        year_code: this.gs.globalVariables.year_code,
-        job_exp_id: '',
-        invoice_no: '',
-        job_pkid:''
-      };
-      if (controlname == 'jexp_invoice_no') {
-        SearchData.rowtype = this.type;
-        SearchData.table = 'dupjobinvno';
-        SearchData.company_code = this.gs.globalVariables.comp_code;
-        SearchData.branch_code = this.gs.globalVariables.branch_code;
-        SearchData.year_code = this.gs.globalVariables.year_code;
-        SearchData.job_exp_id = this.jobexporterid;
-        SearchData.invoice_no = this.Record.jexp_invoice_no;
-        SearchData.job_pkid = this.parentid;
-      }
-      this.ErrorMessage = '';
-      this.gs.SearchRecord(SearchData)
-        .subscribe(response => {
-          this.loading = false;
-          this.ErrorMessage = '';
-          if (response.dupjobinvno.length > 0) {
+        if (this.parentid.trim().length <= 0 || this.jobexporterid.trim().length <= 0) {
+            this.ErrorMessage = "Invalid ID";
+            return;
+        }
+        this.loading = true;
+        let SearchData = {
+            rowtype: this.type,
+            table: 'dupjobinvno',
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            job_exp_id: '',
+            invoice_no: '',
+            job_pkid: ''
+        };
+        if (controlname == 'jexp_invoice_no') {
+            SearchData.rowtype = this.type;
+            SearchData.table = 'dupjobinvno';
+            SearchData.company_code = this.gs.globalVariables.comp_code;
+            SearchData.branch_code = this.gs.globalVariables.branch_code;
+            SearchData.year_code = this.gs.globalVariables.year_code;
+            SearchData.job_exp_id = this.jobexporterid;
+            SearchData.invoice_no = this.Record.jexp_invoice_no;
+            SearchData.job_pkid = this.parentid;
+        }
+        this.ErrorMessage = '';
+        this.gs.SearchRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = '';
+                if (response.dupjobinvno.length > 0) {
 
-            this.ErrorMessage = "Invoice no Duplication, JOB NO " + response.dupjobinvno;
-            alert(this.ErrorMessage);
-          }
-        },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
+                    this.ErrorMessage = "Invoice no Duplication, JOB NO " + response.dupjobinvno;
+                    alert(this.ErrorMessage);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -924,26 +926,26 @@ export class JobInvoiceComponent {
     }
 
     OnChange2(field: string) {
-     
-      if (field == "CF") {
-        this.Record.jexp_add = "FREIGHT";
-      }
-      if (field == "CI") {
-        this.Record.jexp_add = "INSURANCE";
-      }
-      if (field == "CIF") {
-        this.Record.jexp_add = "BOTH";
-      }
-      if (field == "FOB") {
-        this.Record.jexp_add = "NO";
-      }
+
+        if (field == "CF") {
+            this.Record.jexp_add = "FREIGHT";
+        }
+        if (field == "CI") {
+            this.Record.jexp_add = "INSURANCE";
+        }
+        if (field == "CIF") {
+            this.Record.jexp_add = "BOTH";
+        }
+        if (field == "FOB") {
+            this.Record.jexp_add = "NO";
+        }
     }
 
     open(content: any) {
-      this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content);
     }
 
     LinkDocs(esanchitlink: any) {
-      this.open(esanchitlink);
+        this.open(esanchitlink);
     }
 }

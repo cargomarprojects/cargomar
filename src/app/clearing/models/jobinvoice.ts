@@ -64,6 +64,7 @@ export class JobInvoicem {
     jexp_aeo_operator_country_name: string
     jexp_aeo_operator_role: string;
     jexp_aeo_term_place: string;
+    jexp_show_amount: Boolean;
 
     rec_mode: string;
     rec_category: string;
