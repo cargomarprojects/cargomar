@@ -279,12 +279,12 @@ Ajith 24/06/2019 validate GSTIN with PAN no
             sError += "|Country  Cannot Be Blank";
         }
 
-        if (this.Record.add_gst_type.trim() == 'IEC') {
-            if (this.Record.add_gstin.trim().length != 15) {
-                bret = false;
-                sError += "|Invalid GSTIN";
-            }
-        }
+        // if (this.Record.add_gst_type.trim() == 'IEC') {
+        //     if (this.Record.add_gstin.trim().length != 15) {
+        //         bret = false;
+        //         sError += "|Invalid GSTIN";
+        //     }
+        // }
 
         // if (this.Record.add_gstin.trim() != '') {
 
