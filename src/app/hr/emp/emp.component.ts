@@ -41,7 +41,8 @@ export class EmpComponent {
   page_rows = 0;
   page_rowcount = 0;
   ageinyears = '';
-
+  
+  bPrint: boolean = false;
   sub: any;
   urlid: string;
   // type: string;
@@ -101,11 +102,14 @@ export class EmpComponent {
   }
 
   InitComponent() {
-
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
-
+      if (this.menu_record.rights_print)
+      this.bPrint = true;
+    }
     this.LoadCombo();
   }
   // Destroy Will be called when this component is closed
@@ -213,6 +217,7 @@ export class EmpComponent {
       company_id: this.gs.globalVariables.comp_pkid,
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
+      report_folder: this.gs.globalVariables.report_folder,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -224,17 +229,23 @@ export class EmpComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
         this.RecordList = response.list;
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   NewRecord() {
 
     this.pkid = this.gs.getGuid();

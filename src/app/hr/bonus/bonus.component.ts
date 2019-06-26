@@ -81,6 +81,7 @@ export class BonusComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;

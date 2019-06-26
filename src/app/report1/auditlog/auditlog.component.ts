@@ -43,7 +43,7 @@ export class AuditLogComponent {
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Auditlog[] = [];
-  
+
   constructor(
     private mainService: RepService,
     private route: ActivatedRoute,
@@ -70,8 +70,8 @@ export class AuditLogComponent {
   }
 
   InitComponent() {
-    this.to_date=this.gs.defaultValues.today;
-    this.from_date=this.gs.defaultValues.today;
+    this.to_date = this.gs.defaultValues.today;
+    this.from_date = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -94,30 +94,30 @@ export class AuditLogComponent {
   // Save Data
   OnBlur(field: string) {
     if (field == 'searchuser') {
-       this.searchuser = this.searchuser.toUpperCase();
-      }
-      if (field == 'searchtype') {
-        this.searchtype = this.searchtype.toUpperCase();
-       }
-       if (field == 'searchmodule') {
-        this.searchmodule = this.searchmodule.toUpperCase();
-       }
-       if (field == 'searchbranch') {
-        this.searchbranch = this.searchbranch.toUpperCase();
-       }
-       if (field == 'searchaction') {
-        this.searchaction = this.searchaction.toUpperCase();
-       }
-       if (field == 'searchremarks') {
-        this.searchremarks = this.searchremarks.toUpperCase();
-       }
+      this.searchuser = this.searchuser.toUpperCase();
+    }
+    if (field == 'searchtype') {
+      this.searchtype = this.searchtype.toUpperCase();
+    }
+    if (field == 'searchmodule') {
+      this.searchmodule = this.searchmodule.toUpperCase();
+    }
+    if (field == 'searchbranch') {
+      this.searchbranch = this.searchbranch.toUpperCase();
+    }
+    if (field == 'searchaction') {
+      this.searchaction = this.searchaction.toUpperCase();
+    }
+    if (field == 'searchremarks') {
+      this.searchremarks = this.searchremarks.toUpperCase();
+    }
   }
   Close() {
     this.gs.ClosePage('home');
   }
 
   List(_type: string) {
-
+    this.InfoMessage = "";
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -131,55 +131,97 @@ export class AuditLogComponent {
     this.pkid = this.gs.getGuid();
     this.loading = true;
     let SearchData = {
-        pkid: this.pkid,
-        type: _type,
-        rowtype: this.type,
-        report_folder: this.gs.globalVariables.report_folder,
-        searchstring: this.searchstring.toUpperCase(),
-        comp_code: this.gs.globalVariables.comp_code,
-        branch_code: this.gs.globalVariables.branch_code,
-        user_pkid: this.gs.globalVariables.user_pkid,
-        year_code: this.gs.globalVariables.year_code,
-        page_count: this.page_count,
-        page_current: this.page_current,
-        page_rows: this.page_rows,
-        page_rowcount: this.page_rowcount,
-        from_date: this.from_date,
-        to_date: this.to_date,
-        searchuser:this.searchuser,
-        searchtype: this.searchtype,
-        searchmodule:this.searchmodule,
-        searchbranch: this.searchbranch,
-        searchaction: this.searchaction,
-        searchremarks: this.searchremarks
-      };
+      pkid: this.pkid,
+      type: _type,
+      rowtype: this.type,
+      report_folder: this.gs.globalVariables.report_folder,
+      searchstring: this.searchstring.toUpperCase(),
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      year_code: this.gs.globalVariables.year_code,
+      page_count: this.page_count,
+      page_current: this.page_current,
+      page_rows: this.page_rows,
+      page_rowcount: this.page_rowcount,
+      from_date: this.from_date,
+      to_date: this.to_date,
+      searchuser: this.searchuser,
+      searchtype: this.searchtype,
+      searchmodule: this.searchmodule,
+      searchbranch: this.searchbranch,
+      searchaction: this.searchaction,
+      searchremarks: this.searchremarks
+    };
 
     this.ErrorMessage = '';
     this.mainService.AuditLog(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-      else {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
-      }
+        }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
-  openWebSite(_type:string,_webid:string) {
-    if(_type =="USER-LOGIN"||_type =="BRANCH-LOGIN")
-    window.open("https://www.whtop.com/tools.ip/"+_webid, "_blank");
+  openWebSite(_type: string, _webid: string) {
+    if (_type == "USER-LOGIN" || _type == "BRANCH-LOGIN")
+      window.open("https://www.whtop.com/tools.ip/" + _webid, "_blank");
+  }
+
+
+  SearchRecord(_type: string) {
+    this.InfoMessage = "";
+    this.ErrorMessage = "";
+
+    let SearchData = {
+      table: '',
+      type: '',
+      pkid: '',
+      company_code: '',
+      branch_code: '',
+      audit_date: ''
+    };
+
+    if (_type == "AUDITLOG") {
+      if (this.from_date == '') {
+        this.ErrorMessage = "From Date Cannot be Empty."
+        alert(this.ErrorMessage);
+        return;
+      }
+      SearchData.table = 'updategeneral';
+      SearchData.type = _type;
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.audit_date = this.from_date;
+    }
+
+    this.loading = true;
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0)
+          this.ErrorMessage = response.serror;
+        else
+          this.InfoMessage = 'Save Complete';
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }
