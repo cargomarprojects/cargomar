@@ -79,8 +79,12 @@ export class ReconComponent {
         page_rowcount: 0,
         basedonreconcileddate: false,
         hide_ho_entries : '',
+        user_code : ''
     };
 
+
+    
+    
 
 
 
@@ -209,6 +213,11 @@ export class ReconComponent {
           return;
         }
 
+        this.SearchData.user_code = "";
+        if ( _type =="EXCEL2"){
+            _type = "EXCEL";
+            this.SearchData.user_code = this.gs.globalVariables.user_code;
+        }
 
         this.loading = true;
 
@@ -242,7 +251,11 @@ export class ReconComponent {
         this.SearchData.page_rows = this.page_rows;
         this.SearchData.page_rowcount = this.page_rowcount;
 
+        
+
         this.SearchData.basedonreconcileddate = this.basedonreconcileddate;
+
+        
 
 
         this.ErrorMessage = '';
