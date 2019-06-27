@@ -178,8 +178,13 @@ export class AuditLogComponent {
   }
 
   openWebSite(_type: string, _webid: string) {
-    if (_type == "USER-LOGIN" || _type == "BRANCH-LOGIN")
+    if (_type == "USER-LOGIN" || _type == "BRANCH-LOGIN") {
+      if (_webid.indexOf('-') >= 0) {
+        var temparr = _webid.split('-');
+        _webid = temparr[0];
+      }
       window.open("https://www.whtop.com/tools.ip/" + _webid, "_blank");
+    }
   }
 
 
