@@ -139,6 +139,7 @@ export class UnLockComponent {
       { "code": "HR-PAYROLL", "name": "Payroll" },
       { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
       { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" },
+      { "code": "HR-RE-JVPOST", "name": "Repost Payroll" },
       { "code": "LOCK-ALL", "name": "Lock/Unlock All Records (" + this.gs.globalVariables.year_name + ")" }
     ];
   }
@@ -204,6 +205,9 @@ export class UnLockComponent {
         this.refnotitle = "Job#";
       }
       else if (this.moduletype.indexOf('HR-') == 0) {
+        if(this.moduletype =="HR-RE-JVPOST")
+        this.refnotitle = "JV#";
+        else
         this.refnotitle = "Employee#";
       }
     }
