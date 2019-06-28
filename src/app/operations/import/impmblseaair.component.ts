@@ -984,4 +984,34 @@ export class ImpMblSeaAirComponent {
     else
       this.Record.mbl_folder_sent_date = "";
   }
+
+  GenerateFolderNo(_id: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    this.loading = true;
+    let SearchData = {
+      type: "MBL-SE",
+      pkid: _id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      category: "SEA IMPORT"
+    };
+
+    this.mainService.GenerateFolderNumber(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        } else
+          this.Record.mbl_folder_no = response.newno;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

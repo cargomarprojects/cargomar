@@ -342,7 +342,7 @@
               <div class="form-group row">
                 <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label>
                 <div class="col-4">
-                  <input [disabled]="foldersent" type="text" class="form-control form-control-sm"
+                  <input disabled type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.book_folder_no" (blur)="OnBlur('book_folder_no')" required maxlength="20" />
                 </div>
                 <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">*Sent.On
@@ -391,9 +391,15 @@
                   <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
                   </app-date>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-4">
                   <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
                     (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-3 col-8">
+                  <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')" (click)="GenerateFolderNo(Record.book_pkid)" class="btn btn-success btn-sm">Generate Folder No And Save</button>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>
             </div>

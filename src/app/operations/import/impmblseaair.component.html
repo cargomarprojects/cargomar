@@ -276,12 +276,12 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Folder#</label>
                 <div class="col-4">
-                  <input [disabled]="foldersent" type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_folder_no" (blur)="OnBlur('mbl_folder_no')" required maxlength="20" />
+                  <input [disabled]="type == 'SEA IMPORT'?'true':foldersent" type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_folder_no" (blur)="OnBlur('mbl_folder_no')" required maxlength="20" />
                 </div>
                 <!--<label class="col-2 col-form-label col-form-label-sm">Sent.Date</label>-->
                 <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">
                   Sent.On
-                  <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
+                  <input [disabled]=" foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                 </label>
                 <div class="col-4">
                   <app-date disabled [inputdate]="Record.mbl_folder_sent_date" (ValueChanged)="Record.mbl_folder_sent_date=$event"></app-date>
@@ -298,8 +298,12 @@
                 </div>
               </div>
               <div class="form-group row">
-                <div class="col-4">
+                <div class="col-2">
                   <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading" (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">Update</button>
+                </div>
+                <div *ngIf="type == 'SEA IMPORT'" class="col-4">
+                  <button [disabled]="(loading || Record.mbl_folder_no != ''|| mode=='ADD')" (click)="GenerateFolderNo(Record.mbl_pkid)" class="btn btn-success btn-sm">Generate Folder No And Save</button>
+                  <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>
             </div>

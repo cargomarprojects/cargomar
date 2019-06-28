@@ -38,6 +38,8 @@ export class ImpMblService {
     PrintCheckList(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/PrintCheckList', SearchData, this.gs.headerparam2('authorized'));
     }
-
+    GenerateFolderNumber(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/GenerateFolderNumber', SearchData, this.gs.headerparam2('authorized'))
+    }
 }
 

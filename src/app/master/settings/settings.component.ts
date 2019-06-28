@@ -155,6 +155,8 @@ export class SettingsComponent {
   BR_DEFAULT_JOB_SEA: string = '';
   BR_DEFAULT_JOB_AIR: string = '';
   BR_CHQ_PRINT_HO_APRVD: boolean = false;
+  BR_FLDR_SE_PREFIX: string = '';
+  BR_FLDR_SI_PREFIX: string = '';
 
   BR_CRLIMIT_ENABLED: boolean = false;
   BR_CRLIMIT_ENABLED_SI: boolean = false;
@@ -823,7 +825,10 @@ export class SettingsComponent {
       if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
         this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;
 
-
+      if (rec.caption == "FOLDER-SE-PREFIX")
+        this.BR_FLDR_SE_PREFIX = rec.name;
+      if (rec.caption == "FOLDER-SI-PREFIX")
+        this.BR_FLDR_SI_PREFIX = rec.name;
     })
   }
 
@@ -973,6 +978,8 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SE-PREFIX', '', '', this.BR_FLDR_SE_PREFIX.toString().toUpperCase()));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SI-PREFIX', '', '', this.BR_FLDR_SI_PREFIX.toString().toUpperCase()));
 
   }
   allvalidBranch() {
@@ -1246,7 +1253,7 @@ export class SettingsComponent {
           this.ErrorMessage = response.serror;
         else {
           let strmsg: string = "";
-          strmsg = "PROCESS 26AS ("+ this.gs.globalVariables.year_name +")  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
+          strmsg = "PROCESS 26AS (" + this.gs.globalVariables.year_name + ")  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
           if (confirm(strmsg)) {
             this.Process26AS();
           }
