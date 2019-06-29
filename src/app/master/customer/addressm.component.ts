@@ -20,6 +20,7 @@ export class AddressmComponent {
     title = 'Address List';
     /*
     Ajith 24/06/2019 validate GSTIN with PAN no
+    Ajith 29/06/2019 validate Gistin cannot blank
     */
     @Input() menuid: string = '';
     @Input() type: string = '';
@@ -255,49 +256,46 @@ export class AddressmComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
 
+        if (this.Record.add_gstin.trim().length <= 0) {
+            bret = false;
+            sError += "| GSTIN Cannot Be Blank ";
+        }
+
         if (this.Record.add_contact.trim().length <= 0) {
             bret = false;
-            sError += "|Contact Name Cannot Be Blank";
+            sError += "| Contact Name Cannot Be Blank";
         }
 
         if (this.Record.add_line1.trim().length <= 0) {
             bret = false;
-            sError += "|Address Line1  Cannot Be Blank";
+            sError += "| Address Line1  Cannot Be Blank";
         }
 
         if (this.Record.add_city.trim().length <= 0) {
             bret = false;
-            sError += "|City  Cannot Be Blank";
+            sError += "| City  Cannot Be Blank";
         }
 
         if (this.Record.add_state_id.trim().length <= 0) {
             bret = false;
-            sError += "|State  Cannot Be Blank";
+            sError += "| State  Cannot Be Blank";
         }
 
         if (this.Record.add_country_id.trim().length <= 0) {
             bret = false;
-            sError += "|Country  Cannot Be Blank";
+            sError += "| Country  Cannot Be Blank";
         }
 
-        // if (this.Record.add_gst_type.trim() == 'IEC') {
-        //     if (this.Record.add_gstin.trim().length != 15) {
-        //         bret = false;
-        //         sError += "|Invalid GSTIN";
-        //     }
-        // }
-
-        // if (this.Record.add_gstin.trim() != '') {
-
-        //     if (this.Record.add_gstin.trim().indexOf(this.pan_no) < 0) {
-        //         bret = false;
-        //         sError += "|Invalid GSTIN or Mismatch with Pan Number";
-        //     }
-        // }
+        if (this.Record.add_gst_type.trim() == 'GSN') {
+            if (this.Record.add_gstin.trim().length != 15) {
+                bret = false;
+                sError += "| Invalid GSTIN ";
+            }
+        }
 
         if (this.IsSpecialCharacter(this.Record.add_line1)) {
             bret = false;
-            sError += "|Special Character in Address Line1";
+            sError += "| Special Character in Address Line1";
         }
 
         if (this.IsSpecialCharacter(this.Record.add_line2)) {
@@ -307,12 +305,12 @@ export class AddressmComponent {
 
         if (this.IsSpecialCharacter(this.Record.add_line3)) {
             bret = false;
-            sError += "|Special Character in Address Line3";
+            sError += "| Special Character in Address Line3";
         }
 
         if (this.IsSpecialCharacter(this.Record.add_line4)) {
             bret = false;
-            sError += "|Special Character in Address Line4";
+            sError += "| Special Character in Address Line4";
         }
 
 
