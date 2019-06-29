@@ -34,6 +34,7 @@ export class LedgerComponent {
    Ajith 28/05/2019 Chqno updation include more feild and disabled after entry creation date
    Ajith 5/06/2019 Money tranfer window addeded
    Ajith 19/06/2019 rec_locked checked for tan Searchtable, separate one time  updation for tan and tan party implemented
+   Ajith 29/06/2019 A label will show near save button  if allocation exist
   */
 
   // Local Variables 

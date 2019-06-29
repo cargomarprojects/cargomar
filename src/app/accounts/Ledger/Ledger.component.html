@@ -772,6 +772,11 @@
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bapprovalstatus !='' && type=='BP'"
         (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+        <font color="RED">
+            {{Record.jvh_allocation_found == true ? 'Cannot Edit Allocation Exists' : ''}}
+        </font>
+      </label>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
   </div>
