@@ -47,7 +47,7 @@ export class AddressmComponent {
     @Input() bDelete: boolean = false;
     @Input() customer_id: string = '';
     @Input() pan_no: string = '';
-
+    @Input() bShipper: boolean = false;
 
     GstList: any[] = [];
 
@@ -256,7 +256,7 @@ export class AddressmComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
 
-        if (this.Record.add_gstin.trim().length <= 0) {
+        if (this.bShipper && this.Record.add_gstin.trim().length <= 0) {
             bret = false;
             sError += "| GSTIN Cannot Be Blank ";
         }
