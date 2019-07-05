@@ -35,6 +35,7 @@ export class OpLedgerComponent {
 
   bChanged: boolean;
 
+  LockErrorMessage = "";
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -412,11 +413,13 @@ export class OpLedgerComponent {
       pkid: Id,
     };
 
+    this.LockErrorMessage = "";
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.LockErrorMessage = response.lockedmsg;
         this.LoadData(response.record);
       },
       error => {
@@ -446,8 +449,13 @@ export class OpLedgerComponent {
       this.lock_date = false;
     }
 
+    if (this.LockErrorMessage.length > 0) {
+      this.ErrorMessage = this.LockErrorMessage;
+      this.lock_record = true;
+    }
+
     if (this.Record.jvh_allocation_found) {
-      this.ErrorMessage = "Cannot Edit Allocation Exists";
+      this.ErrorMessage += " | Cannot Edit Allocation Exists";
       this.lock_record = true;
     }
 
