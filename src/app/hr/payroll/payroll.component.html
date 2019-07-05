@@ -137,6 +137,7 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -202,6 +203,7 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="Removepayroll(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"></i></td>
         </tr>
       </tbody>
     </table>

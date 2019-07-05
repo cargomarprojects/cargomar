@@ -647,10 +647,11 @@ export class PayRollComponent {
     }
   }
 
-  RemoveRecord(Id: string) {
+  RemoveRecord(Id: string, _type: string = "") {
     this.loading = true;
     let SearchData = {
       rowtype: this.type,
+      type: _type,
       pkid: Id,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -662,7 +663,11 @@ export class PayRollComponent {
     this.mainService.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.sal_emp_id == Id), 1);
+        if (_type == "PAYROLL") {
+          this.RecordList.splice(this.RecordList.findIndex(rec => rec.sal_emp_id == Id), 1);
+        } else {
+          this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.sal_emp_id == Id), 1);
+        }
         alert("Removed Successfully");
       },
         error => {
@@ -862,6 +867,13 @@ export class PayRollComponent {
           alert(this.ErrorMessage);
         });
 
+  }
+
+  Removepayroll(_salid: string, _empnam: string, _saldate: string) {
+    if (!confirm("Do you want to Delete Payroll of " + _empnam + ", Dated " + _saldate)) {
+      return;
+    }
+    this.RemoveRecord(_salid, "PAYROLL");
   }
 
 }
