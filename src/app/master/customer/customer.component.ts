@@ -526,12 +526,13 @@ export class CustomerComponent {
 
     this.Record.cust_panno = this.Record.cust_panno.toUpperCase().trim();
 
-    if (this.bAdmin2 == false) {
+    if (this.gs.globalVariables.user_code != 'ADMIN') {
       if (this.Record.cust_is_shipper && this.Record.cust_panno == "" && this.gs.globalVariables.comp_code == 'CPL') {
         bret = false;
         sError += "\n\r | Pan No Cannot be Blank  ";
       }
     }
+    
     if (this.Record.cust_panno != "" && this.Record.cust_panno != "NA") {
 
       if (this.Record.cust_panno.length != 10) {

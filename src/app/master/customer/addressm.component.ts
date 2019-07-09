@@ -257,7 +257,7 @@ export class AddressmComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
 
-        if (!this.bAdmin) {
+        if (this.gs.globalVariables.user_code != 'ADMIN') {
             if (this.bShipper && this.Record.add_gstin.trim().length <= 0) {
                 bret = false;
                 sError += "| GSTIN Cannot Be Blank ";
