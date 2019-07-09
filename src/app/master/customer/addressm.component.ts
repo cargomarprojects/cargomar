@@ -48,6 +48,7 @@ export class AddressmComponent {
     @Input() customer_id: string = '';
     @Input() pan_no: string = '';
     @Input() bShipper: boolean = false;
+    @Input() bAdmin: boolean = false;
 
     GstList: any[] = [];
 
@@ -256,11 +257,12 @@ export class AddressmComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
 
-        if (this.bShipper && this.Record.add_gstin.trim().length <= 0) {
-            bret = false;
-            sError += "| GSTIN Cannot Be Blank ";
+        if (!this.bAdmin) {
+            if (this.bShipper && this.Record.add_gstin.trim().length <= 0) {
+                bret = false;
+                sError += "| GSTIN Cannot Be Blank ";
+            }
         }
-
         if (this.Record.add_contact.trim().length <= 0) {
             bret = false;
             sError += "| Contact Name Cannot Be Blank";
