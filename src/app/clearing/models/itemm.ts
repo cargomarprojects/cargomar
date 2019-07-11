@@ -41,6 +41,8 @@ export class Itemm {
     itm_dbk_valuecap: number;
     itm_rosl_rate: number;
     itm_rosl_valuecap: number;
+    itm_rosl_ctl_rate: number;
+    itm_rosl_ctl_valuecap: number;
 
     itm_dbk_caption1: string;
     itm_dbk_caption2: string;

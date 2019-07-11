@@ -248,18 +248,29 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Rosl Rate</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">Rosl Rate[ST]</label>
                 <div class="col-sm-4">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_rosl_rate" />
                 </div>
                 <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value
-                  Cap</label>
+                  Cap[ST]</label>
                 <div class="col-sm-3">
                   <input type="text" disabled class="form-control form-control-sm"
                     [(ngModel)]="Record.itm_rosl_valuecap" />
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Rosl Rate[CTL]</label>
+                <div class="col-sm-4">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_rosl_ctl_rate" />
+                </div>
+                <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value
+                  Cap[CTL]</label>
+                <div class="col-sm-3">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_rosl_ctl_valuecap" />
+                </div>
+              </div>
 
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">STR Code</label>

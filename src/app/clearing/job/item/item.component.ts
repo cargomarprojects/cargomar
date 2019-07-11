@@ -341,6 +341,8 @@ export class ItemComponent {
           this.Record.itm_dbk_valuecap = 0;
           this.Record.itm_rosl_rate = 0;
           this.Record.itm_rosl_valuecap = 0;
+          this.Record.itm_rosl_ctl_rate = 0;
+          this.Record.itm_rosl_ctl_valuecap = 0;
           this.Record.itm_dbk_caption1 = '';
           this.Record.itm_dbk_caption2 = '';
 
@@ -352,6 +354,8 @@ export class ItemComponent {
             this.Record.itm_dbk_valuecap = response.drawback[0].dbk_valuecap;
             this.Record.itm_rosl_rate = response.drawback[0].dbk_state_rt;
             this.Record.itm_rosl_valuecap = response.drawback[0].dbk_state_valuecap;
+            this.Record.itm_rosl_ctl_rate = response.drawback[0].dbk_ctl_rt;
+            this.Record.itm_rosl_ctl_valuecap = response.drawback[0].dbk_ctl_valuecap;
           }
         }
       },
@@ -481,7 +485,8 @@ export class ItemComponent {
 
     this.Record.itm_rosl_rate = 0;
     this.Record.itm_rosl_valuecap = 0;
-
+    this.Record.itm_rosl_ctl_rate = 0;
+    this.Record.itm_rosl_ctl_valuecap = 0;
 
     this.Record.itm_strrefund_no = '';
     this.Record.itm_strrefund_rate = 0;
