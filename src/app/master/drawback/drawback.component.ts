@@ -218,7 +218,8 @@ export class DrawbackComponent  {
     this.Record.dbk_valuecap = 0;
     this.Record.dbk_state_rt = 0;
     this.Record.dbk_state_valuecap = 0;
-
+    this.Record.dbk_ctl_rt = 0;
+    this.Record.dbk_ctl_valuecap = 0;
     this.Record.rec_mode = this.mode;
   
   }
@@ -312,6 +313,8 @@ export class DrawbackComponent  {
       REC.dbk_valuecap = this.Record.dbk_valuecap;
       REC.dbk_state_rt = this.Record.dbk_state_rt;
       REC.dbk_state_valuecap = this.Record.dbk_state_valuecap;
+      REC.dbk_ctl_rt = this.Record.dbk_ctl_rt;
+      REC.dbk_ctl_valuecap = this.Record.dbk_ctl_valuecap;
     }
   }
 
@@ -341,12 +344,17 @@ export class DrawbackComponent  {
     if (field == 'dbk_state_valuecap') {
       this.Record.dbk_state_valuecap = this.gs.roundWeight(this.Record.dbk_state_valuecap, "RATE");
     }
+    if (field == 'dbk_ctl_rt') {
+      this.Record.dbk_ctl_rt = this.gs.roundWeight(this.Record.dbk_ctl_rt, "RATE");
+    }
+    if (field == 'dbk_ctl_valuecap') {
+      this.Record.dbk_ctl_valuecap = this.gs.roundWeight(this.Record.dbk_ctl_valuecap, "RATE");
+    }
   }
 
   Close() {
     this.gs.ClosePage('home');
   }
-
 
 
   SearchRecord(controlname: string) {
