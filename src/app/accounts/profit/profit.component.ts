@@ -31,6 +31,8 @@ export class ProfitComponent {
   mode = '';
   pkid = '';
 
+  finyear : number;
+
   rec_category: string = "";
   type_date: string = '';
   from_date: string = '';
@@ -44,7 +46,7 @@ export class ProfitComponent {
   loading = false;
 
 
-  isnewformat = false;
+  isnewformat = true;
 
   currentTab = 'LIST';
   searchstring = '';
@@ -65,7 +67,8 @@ export class ProfitComponent {
     code: '',
     main_code: false,
     all: false,
-    isnewformat: false
+    finyear : 0,
+    isnewformat: true
   };
 
   // Array For Displaying List
@@ -216,6 +219,10 @@ export class ProfitComponent {
     this.SearchData.main_code = this.main_code;
     this.SearchData.all = this.all;
     this.SearchData.isnewformat = this.isnewformat;
+    if ( this.finyear == null)
+      this.SearchData.finyear = 0;
+    else
+      this.SearchData.finyear = this.finyear;
 
     this.ErrorMessage = '';
       this.mainService.List(this.SearchData)
