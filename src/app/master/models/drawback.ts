@@ -16,7 +16,7 @@ export class Drawback {
   dbk_ctl_rt: number;
   dbk_ctl_valuecap: number;
   dbk_notdt: string;
-
+  dbk_rosl_notdt: string;
   rec_mode: string;
 
   _globalvariables: GlobalVariables;

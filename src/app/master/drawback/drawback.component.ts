@@ -60,7 +60,7 @@ export class DrawbackComponent  {
 
   ) {
     this.page_count = 0;
-    this.page_rows = 10;
+    this.page_rows = 30;
     this.page_current = 0;
 
 
