@@ -16,6 +16,7 @@ export const initialState: TrialReportState = {
     from_date : '',
     to_date : '',
     ismaincode : false,
+    shownote : false,
     page_count :0,
     page_current : 0,
     page_rowcount :0,

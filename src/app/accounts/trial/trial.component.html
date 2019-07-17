@@ -25,6 +25,14 @@
         <input type="checkbox" [(ngModel)]="ismaincode" />
         <span>Main Code Wise</span>
       </div>
+
+      <div class="col-2" *ngIf="bAdmin">
+        <input type="checkbox" [(ngModel)]="shownote" />
+        <span>Show Note</span>
+      </div>
+
+
+
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
       </div>
@@ -58,6 +66,12 @@
           <th class="text-right">CREDIT</th>
           <th class="text-right">DR-BAL</th>
           <th class="text-right">CR-BAL</th>
+
+          <th *ngIf='shownote' >NOTE-NO</th>
+          <th *ngIf='shownote' >MAIN-HEAD</th>
+          <th *ngIf='shownote' >SUB HEAD</th>
+          <th *ngIf='shownote' >SUB-NOTE</th>
+
         </tr>
       </thead>
 
@@ -72,6 +86,13 @@
           <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.drbal | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.crbal | number : '1.2-2' }}</td>
+
+
+          <td *ngIf='shownote'>{{rec.bs_note_no}}</td>
+          <td *ngIf='shownote'>{{rec.bs_main_head}}</td>
+          <td *ngIf='shownote'>{{rec.bs_sub_head}}</td>
+          <td *ngIf='shownote'>{{rec.bs_sub_note}}</td>
+
 
         </tr>
       </tbody>

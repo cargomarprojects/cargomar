@@ -35,6 +35,9 @@ export class TrialComponent {
 
   currentTab='LIST';
 
+  bAdmin  : boolean = false;
+  shownote : boolean = false;
+
   ErrorMessage = "";
 
   pkid: string = '';
@@ -61,6 +64,7 @@ export class TrialComponent {
     from_date: '',
     to_date: '',
     ismaincode: false,
+    shownote: false,
     page_count: 0,
     page_current: 0,
     page_rows: 0,
@@ -101,7 +105,14 @@ export class TrialComponent {
 
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
+       this.bAdmin =  this.menu_record.rights_admin;
+       if ( this.gs.globalVariables.user_code == 'ADMIN')
+        this.bAdmin = true;
+    }
+
+    
 
     this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec => {
       if (rec) {
@@ -111,14 +122,17 @@ export class TrialComponent {
         this.from_date = rec.from_date;
         this.to_date = rec.to_date;
         this.ismaincode = rec.ismaincode;
+        this.shownote = rec.shownote;
         this.page_count = rec.page_count;
         this.page_current = rec.page_current;
         this.page_rowcount = rec.page_rowcount;
+
         this.InitSearchData();
       }
       else {
         this.RecordList = undefined;
         this.ismaincode = false;
+        this.shownote =false;
         this.page_count = 0;
         this.page_current = 0;
         this.page_rowcount = 0;
@@ -155,6 +169,8 @@ export class TrialComponent {
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
     this.SearchData.ismaincode = this.ismaincode;
+    this.SearchData.shownote = this.shownote;
+
 
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
@@ -199,6 +215,7 @@ export class TrialComponent {
             from_date : this.SearchData.from_date,
             to_date : this.SearchData.to_date ,
             ismaincode: this.SearchData.ismaincode,
+            shownote: this.SearchData.shownote,
             page_count: response.page_count,
             page_current: response.page_current,
             page_rowcount: response.page_rowcount,

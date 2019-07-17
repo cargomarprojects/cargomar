@@ -67,6 +67,12 @@ export class LedgerReport {
 
   displayed: boolean;
 
+  
+  bs_note_no : string;
+  bs_main_head : string;
+  bs_sub_head : string;
+  bs_sub_note : string;
+
 
   apr: number;
   may: number;
