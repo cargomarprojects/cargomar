@@ -51,6 +51,9 @@ export class AcTransComponent {
     currentTab = 'LIST';
     searchstring = '';
 
+
+    sItems: string = '';
+
     SearchData = {
         type: '',
         rec_category: '',
@@ -81,6 +84,12 @@ export class AcTransComponent {
 
     BRRECORD: SearchTable = new SearchTable();
 
+
+    items: string[] = ['ALL', 'BP', 'BR', 'CI', 'CN', 'CP', 'CR', 'DI', 'DN', 'HO', 'IN', 'IN-ES', 'JV', 'OB', 'OC', 'OI', 'OP', 'PN'];
+
+    myitems : string [] = [];
+
+
     constructor(
         private mainService: AcTransReportService,
         private route: ActivatedRoute,
@@ -110,13 +119,28 @@ export class AcTransComponent {
     }
 
     InitComponent() {
+        this.category = "ALL";
         this.bCompany = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_company)
                 this.bCompany = true;
+
+            if (this.menu_record.rights_admin || this.gs.globalVariables.user_code == 'ADMIN' || this.menu_record.rights_approval == 'ALL') 
+                this.myitems =  this.items;
+            else{
+
+                
+                this.myitems =  this.menu_record.rights_approval.split(',');
+                if ( this.myitems.length >0 )
+                    this.category = this.myitems[0];
+
+            }
         }
+
+
+
         this.Init();
         this.initLov();
         this.LoadCombo();
@@ -126,7 +150,7 @@ export class AcTransComponent {
         this.vrnos = '';
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
-        this.category = "ALL";
+        
         this.type_date = "jvh_date";
         this.RecordList = null;
         this.branch_code = this.gs.globalVariables.branch_code;
@@ -193,7 +217,7 @@ export class AcTransComponent {
         if (this.vrnos.toUpperCase().indexOf(",") >= 0 && this.vrnos.toUpperCase().indexOf("-") >= 0) {
             this.ErrorMessage += " | Invalid Nos Format, Both Comma And Hyphen together cannot be used.";
         }
-        if (this.branch_code.length <= 0 ) {
+        if (this.branch_code.length <= 0) {
             this.ErrorMessage += " | Branch cannot be blank";
         }
         if (this.ErrorMessage.length > 0) {
