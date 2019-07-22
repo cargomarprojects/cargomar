@@ -29,7 +29,6 @@ import { DateComponent } from '../../shared/date/date.component';
 export class BillingComponent {
   // Local Variables 
   // title = 'Billing Details';
-  // Ajith 22/07/2019 for foreign curreny banktype is set to NA in LOV SELECT Curr
   title = 'Invoice';
   @ViewChild('jvh_date') private jvh_date: DateComponent;
   @Input() parentid: string = '';
@@ -323,7 +322,7 @@ export class BillingComponent {
       this.Record.jvh_curr_code = _Record.code;
       this.Record.jvh_curr_name = _Record.name;
       this.Record.jvh_exrate = _Record.rate;
-      
+      /*
       //local currency bank have to select otherwise NA
       if (this.Record.jvh_curr_code == this.gs.defaultValues.param_curr_local_code) {
         if (this.cc_category.indexOf("AIR EXPORT") >= 0)
@@ -338,6 +337,7 @@ export class BillingComponent {
           this.Record.jvh_banktype = 'NA';
       } else
         this.Record.jvh_banktype = 'NA';
+        */
     }
 
     if (_Record.controlname == "GSTSTATE") {
