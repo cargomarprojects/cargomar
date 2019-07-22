@@ -34,24 +34,7 @@
             <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
             <div class="col-4">
               <select class="form-control form-control-sm" [(ngModel)]="category">
-                <option [value]="'ALL'">ALL</option>
-                <option [value]="'BP'">BP</option>
-                <option [value]="'BR'">BR</option>
-                <option [value]="'CI'">CI</option>
-                <option [value]="'CN'">CN</option>
-                <option [value]="'CP'">CP</option>
-                <option [value]="'CR'">CR</option>
-                <option [value]="'DI'">DI</option>
-                <option [value]="'DN'">DN</option>
-                <option [value]="'HO'">HO</option>
-                <option [value]="'IN'">IN</option>
-                <option [value]="'IN-ES'">IN-ES</option>
-                <option [value]="'JV'">JV</option>
-                <option [value]="'OB'">OB</option>
-                <option [value]="'OC'">OC</option>
-                <option [value]="'OI'">OI</option>
-                <option [value]="'OP'">OP</option>
-                <option [value]="'PN'">PN</option>
+                <option *ngFor="let str of myitems" [value]="str">{{str}}</option>
               </select>
             </div>
           </div>
