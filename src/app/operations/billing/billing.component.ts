@@ -28,7 +28,8 @@ import { DateComponent } from '../../shared/date/date.component';
 
 export class BillingComponent {
   // Local Variables 
- // title = 'Billing Details';
+  // title = 'Billing Details';
+  // Ajith 22/07/2019 for foreign curreny banktype is set to NA in LOV SELECT Curr
   title = 'Invoice';
   @ViewChild('jvh_date') private jvh_date: DateComponent;
   @Input() parentid: string = '';
@@ -149,8 +150,7 @@ export class BillingComponent {
     // jvh_cc_name
 
     this.menu_record = this.gs.getMenu('ARINVOICE');
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
@@ -192,10 +192,10 @@ export class BillingComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -213,7 +213,7 @@ export class BillingComponent {
 
 
       this.PARTYRECORD.name = "";
-      if ( this.cc_category_type == "SEA EXPORT")
+      if (this.cc_category_type == "SEA EXPORT")
         this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1105001' )";
       if (this.cc_category_type == "AIR EXPORT")
         this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1205001' )";
@@ -270,11 +270,11 @@ export class BillingComponent {
       this.Record.jvh_acc_code = _Record.code;
       this.Record.jvh_acc_name = _Record.name;
 
-      
-      if (this.narration_shipper == _Record.name) 
+
+      if (this.narration_shipper == _Record.name)
         this.Record.jvh_narration = _Record.name + ' ' + this.narration;
       else
-        this.Record.jvh_narration = _Record.name + ' ON A/C OF ' + this.narration_shipper + ' '  + this.narration; 
+        this.Record.jvh_narration = _Record.name + ' ON A/C OF ' + this.narration_shipper + ' ' + this.narration;
 
 
       if (_bchanged) {
@@ -323,6 +323,21 @@ export class BillingComponent {
       this.Record.jvh_curr_code = _Record.code;
       this.Record.jvh_curr_name = _Record.name;
       this.Record.jvh_exrate = _Record.rate;
+      
+      //local currency bank have to select otherwise NA
+      if (this.Record.jvh_curr_code == this.gs.defaultValues.param_curr_local_code) {
+        if (this.cc_category.indexOf("AIR EXPORT") >= 0)
+          this.Record.jvh_banktype = 'AE';
+        else if (this.cc_category.indexOf("AIR IMPORT") >= 0)
+          this.Record.jvh_banktype = 'AI';
+        else if (this.cc_category.indexOf("SEA EXPORT") >= 0)
+          this.Record.jvh_banktype = 'SE';
+        else if (this.cc_category.indexOf("SEA IMPORT") >= 0)
+          this.Record.jvh_banktype = 'SI';
+        else
+          this.Record.jvh_banktype = 'NA';
+      } else
+        this.Record.jvh_banktype = 'NA';
     }
 
     if (_Record.controlname == "GSTSTATE") {
@@ -336,7 +351,7 @@ export class BillingComponent {
   }
 
 
-  NewInvoice(_type : string, _subtype : string ) {
+  NewInvoice(_type: string, _subtype: string) {
     this.type = _type;
     this.subtype = _subtype;
     if (this.subtype == 'AR') {
@@ -517,17 +532,17 @@ export class BillingComponent {
     this.mainService.GetPendingList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        
+
         this.narration = response.narration;
         this.narration_shipper = response.shipper;
 
         this.Record.jvh_narration = "ON A/C OF " + response.shipper + " " + response.narration;
         this.LoadPendingList(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadPendingList(_Record: Ledgerh) {
@@ -563,7 +578,7 @@ export class BillingComponent {
     if (this.narration_shipper == this.Record.jvh_acc_name)
       this.Record.jvh_narration = this.Record.jvh_acc_name + ' ' + this.narration;
     else
-      this.Record.jvh_narration = this.Record.jvh_acc_name + ' ON A/C OF ' + this.narration_shipper + ' ' + this.narration; 
+      this.Record.jvh_narration = this.Record.jvh_acc_name + ' ON A/C OF ' + this.narration_shipper + ' ' + this.narration;
 
   }
 
@@ -572,7 +587,7 @@ export class BillingComponent {
     this.loading = true;
 
     let SearchData = {
-      parentid : this.parentid,
+      parentid: this.parentid,
       pkid: Id,
     };
 
@@ -588,10 +603,10 @@ export class BillingComponent {
         this.LoadData(response.record);
         this.FindTotal();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Ledgerh) {
@@ -623,12 +638,12 @@ export class BillingComponent {
 
     this.lock_record = true;
     this.lock_date = true;
-    
+
 
     if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
     if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
-      this.lock_date =  false;
+      this.lock_date = false;
 
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;
@@ -672,7 +687,7 @@ export class BillingComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if ( this.mode == 'ADD')
+        if (this.mode == 'ADD')
           this.InfoMessage = "New Record Successfully Saved";
         else
           this.InfoMessage = "Save Complete";
@@ -681,11 +696,11 @@ export class BillingComponent {
         this.RefreshList(response);
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -693,7 +708,7 @@ export class BillingComponent {
     let bret: boolean = true;
 
     let isexworkitem: boolean = false;
-    let isnotexworkitem : boolean = false;
+    let isnotexworkitem: boolean = false;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -704,7 +719,7 @@ export class BillingComponent {
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
-    let rowCount : number = 0;
+    let rowCount: number = 0;
 
 
     let cgst_dr = 0;
@@ -737,7 +752,7 @@ export class BillingComponent {
 
 
     if (this.Record.jvh_gstin != "") {
-      if (this.Record.jvh_gstin.length != 15 ) {
+      if (this.Record.jvh_gstin.length != 15) {
         bret = false;
         sError += " | Invalid GSTIN";
       }
@@ -762,7 +777,7 @@ export class BillingComponent {
       bret = false;
       sError += " | Invalid Currency";
     }
-    if (this.Record.jvh_exrate <=0) {
+    if (this.Record.jvh_exrate <= 0) {
       bret = false;
       sError += " | Invalid Ex.Rate";
     }
@@ -772,14 +787,14 @@ export class BillingComponent {
       sError += " | Narration Cannot Be Blank";
     }
 
-    
+
     this.Record.LedgerList.forEach(rec => {
       if (rec.jv_selected) {
         rowCount++;
 
         if (rec.jv_income_type == 'EX-WORK')
           isexworkitem = true;
-        else 
+        else
           isnotexworkitem = true;
 
         if (rec.jv_debit > 0) {
@@ -789,10 +804,10 @@ export class BillingComponent {
           gst_cr += rec.jv_gst_amt;
         }
 
-        if (this.Record.jvh_gst &&  rec.jv_is_taxable && rec.jv_gst_amt <= 0)
+        if (this.Record.jvh_gst && rec.jv_is_taxable && rec.jv_gst_amt <= 0)
           isGstBlank = true;
-        if (this.Record.jvh_gst && rec.jv_is_gst_item && rec.jv_gst_amt <= 0) 
-          isGstBlank = true;        
+        if (this.Record.jvh_gst && rec.jv_is_gst_item && rec.jv_gst_amt <= 0)
+          isGstBlank = true;
         if ((this.Record.jvh_gst && rec.jv_gst_amt <= 0) && (rec.jv_cgst_rate != 0 || rec.jv_sgst_rate != 0 || rec.jv_igst_rate != 0)) {
           isGstBlank = true;
         }
@@ -807,7 +822,7 @@ export class BillingComponent {
       }
     });
 
-    if (rowCount <=0) {
+    if (rowCount <= 0) {
       bret = false;
       sError += " |No Rows Selected";
     }
@@ -1108,7 +1123,7 @@ export class BillingComponent {
   Close() {
     this.gs.ClosePage('home');
   }
-  
+
 
   GstCheckBox() {
     this.FindTotal();
@@ -1205,16 +1220,16 @@ export class BillingComponent {
         if (!this.Record.jvh_rc)
           rec.jv_net_total = rec.jv_total + rec.jv_gst_amt;
 
-        cgstamt = this.gs.roundNumber(cgstamt + rec.jv_cgst_amt,2);
-        sgstamt = this.gs.roundNumber( sgstamt + rec.jv_sgst_amt,2);
-        igstamt = this.gs.roundNumber(igstamt + rec.jv_igst_amt,2);
-        gstamt = this.gs.roundNumber(gstamt + rec.jv_gst_amt,2);
+        cgstamt = this.gs.roundNumber(cgstamt + rec.jv_cgst_amt, 2);
+        sgstamt = this.gs.roundNumber(sgstamt + rec.jv_sgst_amt, 2);
+        igstamt = this.gs.roundNumber(igstamt + rec.jv_igst_amt, 2);
+        gstamt = this.gs.roundNumber(gstamt + rec.jv_gst_amt, 2);
 
 
-        fcgstamt = this.gs.roundNumber(fcgstamt + rec.jv_cgst_famt,2);
-        fsgstamt = this.gs.roundNumber(fsgstamt + rec.jv_sgst_famt,2);
-        figstamt = this.gs.roundNumber(figstamt + rec.jv_igst_famt,2);
-        fgstamt = this.gs.roundNumber(fgstamt  + rec.jv_gst_famt,2);
+        fcgstamt = this.gs.roundNumber(fcgstamt + rec.jv_cgst_famt, 2);
+        fsgstamt = this.gs.roundNumber(fsgstamt + rec.jv_sgst_famt, 2);
+        figstamt = this.gs.roundNumber(figstamt + rec.jv_igst_famt, 2);
+        fgstamt = this.gs.roundNumber(fgstamt + rec.jv_gst_famt, 2);
 
         if (rec.jv_debit > 0) {
           ftotamt_dr = ftotamt_dr + rec.jv_total_fc;
@@ -1283,7 +1298,7 @@ export class BillingComponent {
     if (!this.Record.jvh_rc) {
       this.diff = this.diff + gstamt;
     }
-    this.Record.jvh_diff = this.gs.roundNumber(this.diff,2);
+    this.Record.jvh_diff = this.gs.roundNumber(this.diff, 2);
   }
 
   PendingListOkSelected(sAction: string) {
@@ -1335,7 +1350,7 @@ export class BillingComponent {
           Rec.jv_gst_amt = 0;
 
           Rec.jv_is_gst_item = false;
-          
+
 
 
           this.ErrorMessage = '';
@@ -1368,10 +1383,10 @@ export class BillingComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -1441,12 +1456,12 @@ export class BillingComponent {
           this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
           this.open(mailsent);
         } else
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -1475,10 +1490,10 @@ export class BillingComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
