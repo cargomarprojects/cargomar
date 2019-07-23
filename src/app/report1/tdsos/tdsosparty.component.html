@@ -41,6 +41,7 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>PARTY</th>
+                    <th>TAN</th>
                     <th>BRANCH</th>
                     <th class="text-right">TDS-PAID</th>
                     <th class="text-right">ALLOCATED</th>
@@ -54,6 +55,7 @@
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr [style.color]="rec.row_colour">
                     <td (click)="drilldown(rec)" style="cursor:pointer">{{rec.party_name}}</td>
+                    <td>{{rec.tan_code}}</td>
                     <td>{{rec.branch}}</td>
                     <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>

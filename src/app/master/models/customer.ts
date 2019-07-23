@@ -37,6 +37,7 @@ export class Customerm {
     cust_is_cha: boolean;
     cust_is_others: boolean;
     cust_is_creditor: boolean;
+    cust_is_foreigner: boolean;
 
     cust_nomination: string;
 

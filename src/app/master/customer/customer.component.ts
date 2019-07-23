@@ -346,6 +346,7 @@ export class CustomerComponent {
     this.Record.cust_sepz_unit = false;
     this.Record.cust_linked = false;
     this.Record.cust_is_shipper = false;
+    this.Record.cust_is_foreigner = false;
     this.Record.cust_is_consignee = false;
     this.Record.cust_is_agent = false;
     this.Record.cust_is_cha = false;
@@ -481,6 +482,7 @@ export class CustomerComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+
     if (this.Record.cust_code.trim().length <= 0) {
       bret = false;
       sError = " | Code Cannot Be Blank";
@@ -488,6 +490,14 @@ export class CustomerComponent {
     if (this.Record.cust_name.trim().length <= 0) {
       bret = false;
       sError += "\n\r | Name Cannot Be Blank";
+    }
+
+    if(this.Record.cust_is_foreigner)
+    {
+      if (this.Record.cust_is_shipper==false) {
+        bret = false;
+        sError += "\n\r | Shipper Need To Be Selected";
+      }
     }
 
     if (this.Record.cust_linked) {
@@ -502,6 +512,7 @@ export class CustomerComponent {
       }
 
     }
+
 
     if (this.Record.cust_is_consignee) {
       if (this.Record.cust_nomination == 'NA') {
@@ -527,7 +538,7 @@ export class CustomerComponent {
     this.Record.cust_panno = this.Record.cust_panno.toUpperCase().trim();
 
     if (this.gs.globalVariables.user_code != 'ADMIN') {
-      if (this.Record.cust_is_shipper && this.Record.cust_panno == "" && this.gs.globalVariables.comp_code == 'CPL') {
+      if (this.Record.cust_is_foreigner== false && this.Record.cust_is_shipper && this.Record.cust_panno == "" && this.gs.globalVariables.comp_code == 'CPL') {
         bret = false;
         sError += "\n\r | Pan No Cannot be Blank  ";
       }
