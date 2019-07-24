@@ -1300,7 +1300,7 @@ export class LedgerComponent {
     this.Recorddet.jv_od_type = _Record.jv_od_type;
     this.Recorddet.jv_od_remarks = _Record.jv_od_remarks;
     this.Recorddet.jv_tan_update = _Record.jv_tan_update;
-    
+
     this.InitLov('DETAIL');
 
     this.ACCRECORD.id = this.Recorddet.jv_acc_id;
@@ -1552,6 +1552,8 @@ export class LedgerComponent {
       cctotal += rec.ct_amount;
     });
 
+    cctotal = this.gs.roundNumber(cctotal, 2);
+    
     if (!bok) {
       if (this.ErrorMessage != '')
         alert(this.ErrorMessage);
@@ -2064,13 +2066,11 @@ export class LedgerComponent {
   SearchRecord(controlname: string) {
 
     if (controlname == 'tanupdate') {
-      if(this.Recorddet.jv_tan_id=='')
-      {
+      if (this.Recorddet.jv_tan_id == '') {
         alert("TAN # Cannot be empty");
         return;
       }
-      if(this.Recorddet.jv_tan_party_id=='')
-      {
+      if (this.Recorddet.jv_tan_party_id == '') {
         alert("Tan Party Cannot be empty");
         return;
       }
@@ -2093,7 +2093,7 @@ export class LedgerComponent {
       jv_paid_to: '',
       jv_remarks: '',
       jv_tan_id: '',
-      jv_tan_party_id:''
+      jv_tan_party_id: ''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
@@ -2129,7 +2129,7 @@ export class LedgerComponent {
       SearchData.table = 'tanupdate';
       SearchData.pkid = this.Recorddet.jv_pkid;
       SearchData.jv_tan_id = this.Recorddet.jv_tan_id;
-      SearchData.jv_tan_party_id=this.Recorddet.jv_tan_party_id;
+      SearchData.jv_tan_party_id = this.Recorddet.jv_tan_party_id;
     }
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
