@@ -249,7 +249,6 @@ export class TrialComponent {
       from_date : this.SearchData.from_date,
       to_date : this.SearchData.to_date,
       ismaincode : this.SearchData.ismaincode,
-      showtotaldrcr :false
     }
     this.gs.Naviagete("accounts/ledger",JSON.stringify(param));
   }
