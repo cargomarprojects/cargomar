@@ -52,6 +52,7 @@ export class LedgerBalComponent {
     from_date: string;
     to_date: string;
     ismaincode: boolean = false;
+    showtotaldrcr : boolean =false;
     bAdmin: boolean = false;
     bCompany = false;
     branch_code: string = '';
@@ -82,6 +83,7 @@ export class LedgerBalComponent {
         from_date: '',
         to_date: '',
         ismaincode: false,
+        showtotaldrcr : false,
         page_count: 0,
         page_current: 0,
         page_rows: 0,
@@ -116,6 +118,7 @@ export class LedgerBalComponent {
                     this.from_date = options.from_date;
                     this.to_date = options.to_date;
                     this.ismaincode = options.ismaincode;
+                    this.showtotaldrcr = false;
                     if (this.ismaincode) {
                         this.ACCMAINRECORD.id = options.acc_pkid;
                         this.ACCMAINRECORD.code = options.acc_code;
@@ -166,6 +169,7 @@ export class LedgerBalComponent {
                 this.isloaded = rec.isloaded;
                 this.to_date = rec.to_date;
                 this.ismaincode = rec.ismaincode;
+                this.showtotaldrcr = rec.showtotaldrcr;
                 this.branch_code = rec.branch_code;
                 if (this.ismaincode) {
                     this.ACCMAINRECORD.id = rec.acc_pkid;
@@ -213,6 +217,7 @@ export class LedgerBalComponent {
         this.SearchData.to_date = this.to_date;
 
         this.SearchData.ismaincode = this.ismaincode;
+        this.SearchData.showtotaldrcr = this.showtotaldrcr;
         if (this.ismaincode) {
             this.SearchData.acc_id = this.ACCMAINRECORD.id;
             this.SearchData.acc_code = this.ACCMAINRECORD.code;
@@ -330,6 +335,7 @@ export class LedgerBalComponent {
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
                         ismaincode: this.SearchData.ismaincode,
+                        showtotaldrcr : this.SearchData.showtotaldrcr,
                         branch_code : this.SearchData.branch_code,
                         acc_pkid: this.SearchData.acc_id,
                         acc_code: this.SearchData.acc_code,
