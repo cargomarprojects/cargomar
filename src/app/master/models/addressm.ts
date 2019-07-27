@@ -38,6 +38,8 @@ export class Addressm {
 
     add_sepz_unit: boolean;
 
+    add_is_export : boolean ;
+
     rec_mode: string;
 
 }

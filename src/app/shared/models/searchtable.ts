@@ -14,6 +14,7 @@ export class SearchTable {
     col4: string;
     col5: string;
     col6: string;
+    col7: string;
     constructor(_controlname: string = '',
         _type: string = '',
         _displaycolumn: string = '',
@@ -28,7 +29,8 @@ export class SearchTable {
         _col3: string = '',
         _col4: string = '',
         _col5: string = '',
-        _col6: string = ''
+        _col6: string = '',
+        _col7: string = ''
     ){
         this.controlname = _controlname;
         this.displaycolumn = _displaycolumn;
@@ -45,6 +47,7 @@ export class SearchTable {
         this.col4 = _col4;
         this.col5 = _col5;
         this.col6 = _col6;
+        this.col7 = _col7;
     }
 }
 
