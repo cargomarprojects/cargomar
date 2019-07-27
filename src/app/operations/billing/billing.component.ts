@@ -303,9 +303,8 @@ export class BillingComponent {
       this.Record.jvh_state_code = _Record.col3;
       this.Record.jvh_state_name = _Record.col4;
 
-      this.Record.jvh_sez = false;
-      if (_Record.col5 == "Y")
-        this.Record.jvh_sez = true;
+      this.Record.jvh_sez = (_Record.col5 == "Y") ? true : false;
+      this.Record.jvh_is_export = (_Record.col7 == "Y") ? true : false;
 
       this.InitLov('GSTSTATE');
 
@@ -455,6 +454,7 @@ export class BillingComponent {
     this.Record.jvh_acc_br_id = '';
 
     this.Record.jvh_sez = false;
+    this.Record.jvh_is_export = false;
 
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
@@ -889,9 +889,9 @@ export class BillingComponent {
       //SPECIAL ECONOMIC ZONE
       // Zero Rated Invoice Only for Sez Units
       if (this.gs.globalVariables.comp_code == "CPL") {
-        if (this.Record.jvh_gst_amt <= 0 && !this.Record.jvh_sez) {
+        if (this.Record.jvh_gst_amt <= 0 && !this.Record.jvh_sez && !this.Record.jvh_is_export) {
           bret = false;
-          sError += " | Sez units only can generate Zero Rated Invoice";
+          sError += " | Zero Rated invoice possible only wtih Sez units / Export Of Service";
         }
       }
 
