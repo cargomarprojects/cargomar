@@ -216,27 +216,33 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Gst#</label>
-          <div class="col-7">
+          <div class="col-5">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_gstin" (blur)="OnBlur('jvh_gstin')"
               (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required maxlength="15" />
           </div>
 
-          <div class="col-sm-3">
+          <div class="col-sm-2 px-0">
             <input disabled type="checkbox" [(ngModel)]="Record.jvh_sez" (change)="OnChange('jvh_sez')">
             <span>SEZ</span>
           </div>
+
+          <div class="col-sm-3 px-0">
+            <input disabled type="checkbox" [(ngModel)]="Record.jvh_is_export">
+            <span>EXPORT</span>
+          </div>
+
 
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">State</label>
-          <div class="col-3">
+          <div class="col-5">
             <app-autocomplete #CsdLov [inputdata]="STATERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
-          <div class="col-4">
+          <div class="col-4 mx-0">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_state_name" />
           </div>
-          <span>{{Record.jvh_gst_type}}</span>
+          
         </div>
 
         <div class="form-group row">
@@ -244,6 +250,7 @@
           <div class="col-5">
             <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
+          <span>{{Record.jvh_gst_type}}</span>          
         </div>
 
         <div class="form-group row">
@@ -251,6 +258,9 @@
           <div class="col-5">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required maxlength="15" />
           </div>
+
+
+
         </div>
 
         <div class="form-group row">
