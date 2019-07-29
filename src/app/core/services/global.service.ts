@@ -198,7 +198,7 @@ export class GlobalService {
     return nDate.toISOString().slice(0, 10);
   }
 
-  public getGstType(_gstin: string, _gstin_state_code: string, isSez: boolean) {
+  public getGstType(_gstin: string, _gstin_state_code: string, isSez: boolean, bISGT_Exception = false ) {
     let _type: string = '';
     if (_gstin.length == 15) {
       if (_gstin.substring(0, 2) == this.defaultValues.gstin_state_code)
@@ -214,6 +214,11 @@ export class GlobalService {
     }
     if (isSez)
       _type = 'INTER-STATE';
+
+    if ( bISGT_Exception){
+      if ( _type == 'INTRA-STATE')
+        _type = 'INTER-STATE' ;
+    }
 
     return _type;
   }
