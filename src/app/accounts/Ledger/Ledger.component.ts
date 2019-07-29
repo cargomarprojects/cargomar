@@ -335,6 +335,8 @@ export class LedgerComponent {
       if (_Record.col5 == "Y")
         this.Record.jvh_sez = true;
 
+      this.Record.jvh_is_export =  (_Record.col7 == "Y") ? true : false;
+
       this.InitLov('GSTSTATE');
 
       this.STATERECORD.id = this.Record.jvh_state_id;
@@ -545,6 +547,7 @@ export class LedgerComponent {
     this.Record.jvh_acc_name = '';
     this.Record.jvh_acc_br_id = '';
     this.Record.jvh_sez = false;
+    this.Record.jvh_is_export = false;
 
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
