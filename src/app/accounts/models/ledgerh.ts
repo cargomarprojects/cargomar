@@ -56,7 +56,9 @@ export class Ledgerh {
     jvh_rc: boolean;
     jvh_sez: boolean;
 
-    jvh_is_export ;
+    jvh_is_export : boolean ;
+
+    jvh_igst_exception : boolean ;
 
 
     jvh_no_brok: boolean;

@@ -335,7 +335,7 @@ export class LedgerComponent {
       if (_Record.col5 == "Y")
         this.Record.jvh_sez = true;
 
-      this.Record.jvh_is_export =  (_Record.col7 == "Y") ? true : false;
+      this.Record.jvh_is_export = (_Record.col7 == "Y") ? true : false;
 
       this.InitLov('GSTSTATE');
 
@@ -770,6 +770,20 @@ export class LedgerComponent {
         sError += " | Invalid GSTIN";
       }
 
+      if (this.Record.jvh_state_id.trim() == "" || this.Record.jvh_state_code.trim() == "") {
+        bret = false;
+        sError += " | State Cannot Be Blank";
+      }
+
+    }
+
+
+    if (this.Record.jvh_gst) {
+
+      if (this.Record.jvh_state_id.trim() == "" || this.Record.jvh_state_code.trim() == "") {
+        bret = false;
+        sError += " | State Cannot Be Blank";
+      }
     }
 
 
@@ -1556,7 +1570,7 @@ export class LedgerComponent {
     });
 
     cctotal = this.gs.roundNumber(cctotal, 2);
-    
+
     if (!bok) {
       if (this.ErrorMessage != '')
         alert(this.ErrorMessage);

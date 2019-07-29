@@ -253,6 +253,12 @@
               (blur)="OnBlur('jvh_gstin')" (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required
               maxlength="15" />
           </div>
+
+          <div class="col-sm-3">
+            <input disabled type="checkbox" [(ngModel)]="Record.jvh_igst_exception" (change)="OnChange('jvh_igst_exception')">
+            <span>Courier IGST</span>
+          </div>
+
         </div>
 
         <div class="form-group row">
@@ -263,7 +269,7 @@
           <div class="col-4">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_state_name" />
           </div>
-          <span>{{Record.jvh_gst_type}}</span>
+          <span>{{Record.jvh_gst_type}}</span>  
         </div>
 
         <div class="form-group row">
