@@ -150,8 +150,8 @@
           </div>
 
           <div class="col-sm-3">
-            <input disabled type="checkbox" [(ngModel)]="Record.jvh_sez" (change)="OnChange('jvh_sez')">
-            <span>SEZ</span>
+            <input  type="checkbox" [(ngModel)]="Record.jvh_igst_exception" (change)="OnChange('jvh_igst_exception')">
+            <span>Courier IGST</span>
           </div>
 
         </div>
@@ -169,14 +169,21 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Currency</label>
-          <div class="col-5">
+          <div class="col-3">
             <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
+
+          <div class="col-sm-4">
+            <input disabled type="checkbox" [(ngModel)]="Record.jvh_sez" (change)="OnChange('jvh_sez')">
+            <span>SEZ</span>
+          </div>
+
+
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Ex.Rate</label>
-          <div class="col-5">
+          <div class="col-3">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required maxlength="15" />
           </div>
         </div>
