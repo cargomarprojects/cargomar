@@ -840,6 +840,14 @@ export class LedgerComponent {
       sError += " | Narration Cannot Be Blank";
     }
 
+
+    if ( !this.Record.jvh_gst  && this.Record.jvh_igst_exception)
+    {
+      bret = false;
+      sError += " | Courier IGST Cannot Be Selected";
+    }
+
+
     this.Record.LedgerList.forEach(rec => {
       iTotalRows++;
       if (rec.jv_debit > 0) {
