@@ -908,7 +908,7 @@ export class LedgerComponent {
 
       if (iTotalRows != 2) {
         bret = false;
-        sError += " |Only one code 1205030 can be used";
+        sError += " |Only two rows can be entered";
       }
     }
     
