@@ -338,7 +338,7 @@ export class ArApComponent {
       this.STATERECORD.code = this.Record.jvh_state_code;
       this.STATERECORD.name = this.Record.jvh_state_name;
 
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
 
 
     }
@@ -354,7 +354,7 @@ export class ArApComponent {
       this.Record.jvh_state_id = _Record.id;
       this.Record.jvh_state_code = _Record.code;
       this.Record.jvh_state_name = _Record.name;
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
     }
 
     if (_Record.controlname == "ACCTM") {
@@ -703,6 +703,7 @@ export class ArApComponent {
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
+    let Courier_Code_Found: Boolean = false;
 
     let rowCount: number = 0;
 
@@ -871,6 +872,11 @@ export class ArApComponent {
         isGstBlank = true;
       }
 
+      if (rec.jv_acc_code == '1205030') {
+        Courier_Code_Found = true;
+      }
+
+
     });
 
     if (rowCount <= 0) {
@@ -882,6 +888,21 @@ export class ArApComponent {
       bret = false;
       sError += " |Invalid Gst for one or more records";
     }
+
+    if (this.Record.jvh_igst_exception) {
+      if (!Courier_Code_Found) {
+        bret = false;
+        sError += " |Invalid A/c Code selected for Courier IGST";
+      }
+
+      if (rowCount != 1) {
+        bret = false;
+        sError += " |Only one row can be entered";
+      }
+    }
+    
+
+
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
@@ -996,7 +1017,10 @@ export class ArApComponent {
   OnChange(field: string) {
     this.bChanged = true;
     if (field == 'jvh_sez') {
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
+    }
+    if (field == 'jvh_igst_exception') {
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
     }
   }
 
@@ -1019,7 +1043,7 @@ export class ArApComponent {
       if (this.bChanged) {
         this.Record.jvh_gstin = this.Record.jvh_gstin.toUpperCase();
         if (this.Record.jvh_gstin.length == 15)
-          this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+          this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
       }
     }
     if (field == "jv_qty") {
