@@ -724,6 +724,8 @@ export class BuyRateComponent {
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
+    let isCourierException: Boolean = false;
+    
 
     let rowCount: number = 0;
 
@@ -871,6 +873,14 @@ export class BuyRateComponent {
         isGstBlank = true;
       }
 
+
+      if ( this.Record.jvh_igst_exception){
+        if ( rec.jv_acc_code != '1205030' ){
+          isCourierException = true;
+        }
+      }
+
+
     });
 
     if (rowCount <= 0) {
@@ -882,6 +892,12 @@ export class BuyRateComponent {
       bret = false;
       sError += " |Invalid Gst for one or more records";
     }
+
+    if (isCourierException) {
+      bret = false;
+      sError += " |Invalid A/c Code selected for Courier IGST";
+    }
+
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;

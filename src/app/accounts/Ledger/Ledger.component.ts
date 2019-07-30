@@ -729,7 +729,8 @@ export class LedgerComponent {
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
-
+    let isCourierException: Boolean = false;
+    
     let iTotalRows: number = 0;
 
     let cgst_dr = 0;
@@ -878,6 +879,15 @@ export class LedgerComponent {
         isGstBlank = true;
       }
 
+      if ( this.Record.jvh_igst_exception){
+        if ( rec.jv_acc_code != '1205030' ){
+          isCourierException = true;
+        }
+      }
+
+
+
+
     });
 
 
@@ -891,6 +901,13 @@ export class LedgerComponent {
       bret = false;
       sError += " |Invalid Gst for one or more records";
     }
+
+    if (isCourierException) {
+      bret = false;
+      sError += " |Invalid A/c Code selected for Courier IGST";
+    }
+
+
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
