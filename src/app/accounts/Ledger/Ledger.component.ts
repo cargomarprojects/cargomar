@@ -548,6 +548,7 @@ export class LedgerComponent {
     this.Record.jvh_acc_br_id = '';
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
+    this.Record.jvh_igst_exception =false;    
 
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';

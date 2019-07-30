@@ -516,6 +516,9 @@ export class ArApComponent {
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
 
+    this.Record.jvh_igst_exception =false;
+    
+
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
     this.Record.jvh_state_name = '';
