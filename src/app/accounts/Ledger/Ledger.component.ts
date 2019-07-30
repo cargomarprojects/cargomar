@@ -729,8 +729,8 @@ export class LedgerComponent {
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
-    let isCourierException: Boolean = false;
-    
+    let Courier_Code_Found: Boolean = false;
+
     let iTotalRows: number = 0;
 
     let cgst_dr = 0;
@@ -842,8 +842,7 @@ export class LedgerComponent {
     }
 
 
-    if ( !this.Record.jvh_gst  && this.Record.jvh_igst_exception)
-    {
+    if (!this.Record.jvh_gst && this.Record.jvh_igst_exception) {
       bret = false;
       sError += " | Courier IGST Cannot Be Selected";
     }
@@ -879,12 +878,10 @@ export class LedgerComponent {
         isGstBlank = true;
       }
 
-      if ( this.Record.jvh_igst_exception){
-        if ( rec.jv_acc_code != '1205030' ){
-          isCourierException = true;
-        }
-      }
 
+      if (rec.jv_acc_code == '1205030') {
+        Courier_Code_Found = true;
+      }
 
 
 
@@ -902,10 +899,18 @@ export class LedgerComponent {
       sError += " |Invalid Gst for one or more records";
     }
 
-    if (isCourierException) {
-      bret = false;
-      sError += " |Invalid A/c Code selected for Courier IGST";
+    if (this.Record.jvh_igst_exception) {
+      if (!Courier_Code_Found) {
+        bret = false;
+        sError += " |Invalid A/c Code selected for Courier IGST";
+      }
+
+      if (rowCount != 1) {
+        bret = false;
+        sError += " |Only one code 1205030 can be used";
+      }
     }
+    
 
 
 
