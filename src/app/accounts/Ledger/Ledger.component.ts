@@ -906,7 +906,7 @@ export class LedgerComponent {
         sError += " |Invalid A/c Code selected for Courier IGST";
       }
 
-      if (rowCount != 1) {
+      if (iTotalRows != 2) {
         bret = false;
         sError += " |Only one code 1205030 can be used";
       }
