@@ -311,6 +311,7 @@ export class FileUploadComponent {
       branch_code: this.gs.globalVariables.branch_code,
       pkids : id,
       parentid: this.pkid,
+      type : this.type,      
       root_folder: this.gs.defaultValues.root_folder,
       sub_folder: this.gs.defaultValues.sub_folder,
       year_code: this.gs.globalVariables.year_code,
