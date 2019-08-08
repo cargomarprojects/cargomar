@@ -24,6 +24,15 @@ export class LovService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/General/DocumentList', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    ExtraList(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/General/ExtraList', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    CopyFiles(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/General/CopyFiles', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
     LoadDefault(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/General/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }

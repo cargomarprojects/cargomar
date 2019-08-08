@@ -31,6 +31,9 @@ export class FileUploadComponent {
   catg_id: string = '';
   DocTypeList: any[] = [];
 
+  copy_type: string = 'MBL-SE';
+  copy_no: string = '';
+
   loading = false;
   myFiles: string[] = [];
   sMsg: string = '';
@@ -48,7 +51,11 @@ export class FileUploadComponent {
 
   RecordList: documentm[] = [];
 
+  RecordList2: documentm[] = [];
+
   filesSelected: boolean = false;;
+
+  show_docs_list: boolean = false;
 
   ngOnInit() {
     this.LoadCombo();
@@ -162,8 +169,8 @@ export class FileUploadComponent {
 
     frmData.append("ROOT-FOLDER", this.gs.defaultValues.root_folder);
     frmData.append("SUB-FOLDER", this.gs.defaultValues.sub_folder);
-    
-    
+
+
 
 
 
@@ -201,8 +208,9 @@ export class FileUploadComponent {
       branch_code: this.gs.globalVariables.branch_code,
       parent_id: this.pkid,
       group_id: this.groupid,
-      root_folder : this.gs.defaultValues.root_folder,
-      sub_folder : this.gs.defaultValues.sub_folder,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder,
+      year_code: this.gs.globalVariables.year_code,
     };
 
 
@@ -255,6 +263,73 @@ export class FileUploadComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+
+  showFiles() {
+
+    this.loading = true;
+
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      copy_type: this.copy_type,
+      copy_no: this.copy_no,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder,
+      year_code: this.gs.globalVariables.year_code,
+    };
+
+    this.lovService.ExtraList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList2 = response.list;
+        this.show_docs_list = true;
+      },
+        error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        });
+  }
+
+  CopyFiles() {
+
+    this.loading = true;
+
+    var id = '';
+    for (let itm of this.RecordList2) {
+      if (itm.doc_selected) {
+        if (id != "")
+          id += ",";
+        id += "'" + itm.doc_pkid + "'";
+      }
+    }
+
+
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      pkids : id,
+      parentid: this.pkid,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder,
+      year_code: this.gs.globalVariables.year_code,
+      created_by : this.gs.globalVariables.user_code
+    };
+
+    this.lovService.CopyFiles(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.List('LIST');
+
+      },
+        error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        });
+
+
   }
 
 

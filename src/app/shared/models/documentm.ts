@@ -8,4 +8,7 @@ export class documentm {
   rec_delete_by: string;
   rec_created_by: string;
   rec_created_date: string;
+
+  doc_selected : boolean;
+
 }
