@@ -17,6 +17,7 @@
           <th>UPLOAD-DATE</th>
           <th>TYPE</th>
           <th>NAME</th>
+          <th>SIZE</th>
           <th>DELETED</th>
           <th *ngIf="canupload">DELETE</th>
         </tr>
@@ -27,6 +28,7 @@
           <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_catg_name}}</td>
           <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_name}}</td>
+          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_size}}</td>
           <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_deleted_by}}</td>
           <td *ngIf="canupload">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
@@ -117,6 +119,7 @@
             <th>UPLOAD-DATE</th>
             <th>TYPE</th>
             <th>NAME</th>
+            <th>SIZE</th>
             <th>DELETED</th>
           </tr>
         </thead>
@@ -131,6 +134,7 @@
             <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_date}}</td>
             <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_catg_name}}</td>
             <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_name}}</td>
+            <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_size}}</td>
             <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_deleted_by}}</td>
           </tr>
         </tbody>
