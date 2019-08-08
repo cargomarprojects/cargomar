@@ -125,6 +125,18 @@ export class FileUploadComponent {
   uploadFiles() {
 
 
+    if (this.gs.defaultValues.root_folder == '') {
+      alert('Root Folder is blank');
+      return;
+    }
+
+
+    if (this.gs.defaultValues.sub_folder == '') {
+      alert('Root Folder is blank');
+      return;
+    }
+
+
     if (this.catg_id == '') {
       alert('Pls Select Category');
       return;
