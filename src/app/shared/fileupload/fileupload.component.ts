@@ -148,6 +148,12 @@ export class FileUploadComponent {
     frmData.append("CATGID", this.catg_id);
     frmData.append("CREATEDBY", this.gs.globalVariables.user_code);
 
+    frmData.append("ROOT-FOLDER", this.gs.defaultValues.root_folder);
+    frmData.append("SUB-FOLDER", this.gs.defaultValues.sub_folder);
+    
+    
+
+
 
     for (var i = 0; i < this.myFiles.length; i++) {
       frmData.append("fileUpload", this.myFiles[i]);
@@ -182,7 +188,9 @@ export class FileUploadComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       parent_id: this.pkid,
-      group_id: this.groupid
+      group_id: this.groupid,
+      root_folder : this.gs.defaultValues.root_folder,
+      sub_folder : this.gs.defaultValues.sub_folder,
     };
 
 

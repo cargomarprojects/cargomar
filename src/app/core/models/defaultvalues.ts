@@ -25,6 +25,9 @@ export class DefaultValues {
     param_curr_local_id: string;
     param_curr_local_code: string;
 
+    root_folder: string;
+    sub_folder: string;
+
     bl_reg_no: string;
     bl_issued_by1: string;
     bl_issued_by2: string;

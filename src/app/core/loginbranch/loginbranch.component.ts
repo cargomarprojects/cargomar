@@ -290,8 +290,17 @@ export class LoginBranchComponent {
             this.gs.defaultValues.param_curr_foreign_id = rec.id;
             this.gs.defaultValues.param_curr_foreign_code = rec.code;
           }
+
+          if (rec.caption == 'ROOT-FOLDER')
+          this.gs.defaultValues.root_folder = rec.name;
+
+          if (rec.caption == 'SUB-FOLDER')
+          this.gs.defaultValues.sub_folder = rec.name;
+
+          
           if (rec.caption == 'BL-REG-NO')
             this.gs.defaultValues.bl_reg_no = rec.name;
+
           if (rec.caption == 'BL-ISSUED-BY1')
             this.gs.defaultValues.bl_issued_by1 = rec.name;
           if (rec.caption == 'BL-ISSUED-BY2')

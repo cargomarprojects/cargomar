@@ -68,6 +68,9 @@ export class SettingsComponent {
 
   // COMPANY SETTINGS
 
+  CO_ROOT_FOLDER: string = '';
+  CO_SUB_FOLDER: string = '';
+
   CO_BL_REG_NO: string = '';
   CO_BL_ISSUE_BY1: string = '';
   CO_BL_ISSUE_BY2: string = '';
@@ -760,7 +763,10 @@ export class SettingsComponent {
         this.initLov(rec.caption);
       }
 
-
+      if (rec.caption == "ROOT-FOLDER")
+        this.CO_ROOT_FOLDER = rec.name;
+      if (rec.caption == "SUB-FOLDER")
+        this.CO_SUB_FOLDER = rec.name;
       if (rec.caption == "BL-REG-NO")
         this.CO_BL_REG_NO = rec.name;
       if (rec.caption == "BL-ISSUED-BY1")
@@ -897,7 +903,11 @@ export class SettingsComponent {
     let _parentid = '';
     _parentid = this.gs.globalVariables.comp_code;
 
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'ROOT-FOLDER', '', '', this.CO_ROOT_FOLDER));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SUB-FOLDER', '', '', this.CO_SUB_FOLDER));
+
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-REG-NO', '', '', this.CO_BL_REG_NO));
+
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY1', '', '', this.CO_BL_ISSUE_BY1));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY2', '', '', this.CO_BL_ISSUE_BY2));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY3', '', '', this.CO_BL_ISSUE_BY3));
