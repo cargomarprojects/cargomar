@@ -19,6 +19,7 @@
           <tr>
             <th>INVNO</th>
             <th>DATE</th>
+            <th>CATEGORY</th>
             <th class="text-right">0-15</th>
             <th class="text-right">16-30</th>
             <th class="text-right">31-60</th>
@@ -40,6 +41,8 @@
 
             <td>{{rec.invno}}</td>
             <td>{{rec.invdate}}</td>
+
+            <td>{{rec.jv_inv_category}}</td>
 
             <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
             <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>

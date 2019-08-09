@@ -21,6 +21,8 @@ export class OsRep {
   jv_od_type: string;
   jv_od_remarks: string;
 
+  jv_inv_category: string;
+
   age1: number;
   age2: number;
   age3: number;
