@@ -259,9 +259,17 @@
 
 
             <div class="col-sm-3">
-              <div class="col-12">
-                <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_shipper" />
-                <span>Shipper</span>
+              <div class="col-sm-12">
+                <!-- <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_shipper" />
+                <span>Shipper</span> -->
+                <div class="form-check form-check-inline">
+                  <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_shipper" />
+                  <span>Shipper</span>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_ungst" />
+                  <span>Unregistered</span>
+                </div>
               </div>
 
               <div class="col-12">
@@ -377,7 +385,7 @@
 
         <div class="page-box">
           <app-addressm #addressComponent [RecordList]="Record.AddressList" [StateList]="StateList" [CountryList]="CountryList"
-            [customer_id]="pkid" [bAdmin]="bAdmin2" [bDelete]="bDelete" [pan_no]="Record.cust_panno" [bShipper]="Record.cust_is_shipper" [bForeigner]="Record.cust_is_foreigner"  ></app-addressm>
+            [customer_id]="pkid" [bAdmin]="bAdmin2" [bDelete]="bDelete" [pan_no]="Record.cust_panno" [bShipper]="Record.cust_is_shipper" [bForeigner]="Record.cust_is_foreigner" [bUnregistered]="Record.cust_is_ungst"  ></app-addressm>
         </div>
 
         <div class="page-box">

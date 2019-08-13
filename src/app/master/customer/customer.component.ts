@@ -14,6 +14,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class CustomerComponent {
   /*
   Ajith 08/06/2019 new tab Beneficiary Details 
+   Ajith 13/08/2019 add  customer Unregistered 
   */
   // Local Variables 
   title = 'Address MASTER';
@@ -346,6 +347,7 @@ export class CustomerComponent {
     this.Record.cust_sepz_unit = false;
     this.Record.cust_linked = false;
     this.Record.cust_is_shipper = false;
+    this.Record.cust_is_ungst = false;
     this.Record.cust_is_foreigner = false;
     this.Record.cust_is_consignee = false;
     this.Record.cust_is_agent = false;

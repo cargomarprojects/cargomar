@@ -33,6 +33,7 @@ export class Customerm {
 
     cust_is_agent: boolean;
     cust_is_shipper: boolean;
+    cust_is_ungst: boolean;
     cust_is_consignee: boolean;
     cust_is_cha: boolean;
     cust_is_others: boolean;

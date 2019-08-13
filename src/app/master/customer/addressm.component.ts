@@ -50,6 +50,7 @@ export class AddressmComponent {
     @Input() bShipper: boolean = false;
     @Input() bForeigner: boolean = false;
     @Input() bAdmin: boolean = false;
+    @Input() bUnregistered: boolean = false;
 
     GstList: any[] = [];
 
@@ -258,12 +259,15 @@ export class AddressmComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
 
-        if (this.gs.globalVariables.user_code != 'ADMIN') {
-            if (this.bForeigner==false && this.bShipper && this.Record.add_gstin.trim().length <= 0) {
-                bret = false;
-                sError += "| GSTIN Cannot Be Blank ";
+        if (!this.bUnregistered) {
+            if (this.gs.globalVariables.user_code != 'ADMIN') {
+                if (this.bForeigner == false && this.bShipper && this.Record.add_gstin.trim().length <= 0) {
+                    bret = false;
+                    sError += "| GSTIN Cannot Be Blank ";
+                }
             }
         }
+
         if (this.Record.add_contact.trim().length <= 0) {
             bret = false;
             sError += "| Contact Name Cannot Be Blank";
@@ -289,7 +293,7 @@ export class AddressmComponent {
             sError += "| Country  Cannot Be Blank";
         }
 
-        if (this.bForeigner ==false && this.Record.add_gst_type.trim() == 'GSN') {
+        if (this.bForeigner == false && !this.bUnregistered && this.Record.add_gst_type.trim() == 'GSN') {
             if (this.Record.add_gstin.trim().length != 15) {
                 bret = false;
                 sError += "| Invalid GSTIN ";
