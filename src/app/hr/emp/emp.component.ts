@@ -41,8 +41,9 @@ export class EmpComponent {
   page_rows = 0;
   page_rowcount = 0;
   ageinyears = '';
-  
+
   bPrint: boolean = false;
+  bAdmin: boolean = false;
   sub: any;
   urlid: string;
   // type: string;
@@ -103,12 +104,14 @@ export class EmpComponent {
 
   InitComponent() {
     this.bPrint = false;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_print)
-      this.bPrint = true;
+        this.bPrint = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     this.LoadCombo();
   }
@@ -232,10 +235,10 @@ export class EmpComponent {
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
         }
       },
         error => {
@@ -320,7 +323,7 @@ export class EmpComponent {
     this.Record.emp_is_retired = false;
     this.Record.emp_trans_date = '';
     this.ageinyears = '';
-    this.Record.emp_branch_group=1;
+    this.Record.emp_branch_group = 1;
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.Record.rec_mode = this.mode;
     this.Initdefault();
@@ -393,9 +396,9 @@ export class EmpComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.ageinyears = '';
-      if (this.Record.emp_do_birth != null) {
-        this.ageinyears = this.GetAge().ageyears + "Yrs";
-      }
+        if (this.Record.emp_do_birth != null) {
+          this.ageinyears = this.GetAge().ageyears + "Yrs";
+        }
         this.RefreshList();
       },
         error => {
