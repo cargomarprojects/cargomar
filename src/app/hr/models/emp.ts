@@ -71,7 +71,7 @@ export class Emp {
   emp_branch_name: string;
   emp_company_id: string;
   emp_branch_group: number;
-
+  emp_is_retired: boolean;
 
   rec_mode: string;
   rec_branch_code: string;

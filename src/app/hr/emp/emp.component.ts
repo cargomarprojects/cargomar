@@ -317,6 +317,7 @@ export class EmpComponent {
     this.Record.emp_do_confirmation = '';
     this.Record.emp_do_relieve = '';
     this.Record.emp_is_relieved = false;
+    this.Record.emp_is_retired = false;
     this.Record.emp_trans_date = '';
     this.ageinyears = '';
     this.Record.emp_branch_group=1;
