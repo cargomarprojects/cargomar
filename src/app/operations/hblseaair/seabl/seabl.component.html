@@ -4,6 +4,7 @@
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')" class="btn btn-success btn-sm">Unlock</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
+    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('RESETFCR')" class="btn btn-success btn-sm">Reset FCR#</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
