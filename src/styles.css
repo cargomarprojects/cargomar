@@ -5,6 +5,11 @@
 }
 
 
+html, body {
+  font-size: 12px;
+}
+
+
 hr {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
