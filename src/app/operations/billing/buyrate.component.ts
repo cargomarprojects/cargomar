@@ -875,9 +875,8 @@ export class BuyRateComponent {
       }
 
 
-
-      if (rec.jv_acc_code == '1205030') {
-        Courier_Code_Found = true;
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030') {
+         Courier_Code_Found = true;
       }
 
 
@@ -904,7 +903,7 @@ export class BuyRateComponent {
 
       if (rowCount != 1) {
         bret = false;
-        sError += " |Only one code 1205030 can be used";
+        sError += " |Only one code 1205030/1105033 can be used";
       }
 
     }
