@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 
-import { HttpClientModule } from '@angular/common/http';
-
 import { AlertService } from './services/alert.service';
 import { LovService } from './services/lov.service';
 import { GenerateDocService } from './services/generatedoc.service';
@@ -54,8 +52,6 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   imports: [
     CommonModule,
     FormsModule,
-   
-    HttpClientModule,
     NgbModule
   ],
   declarations: [
@@ -85,8 +81,6 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   exports: [
     CommonModule,
     FormsModule,
-
-    HttpClientModule,
     NgbModule,
     AlertComponent,
     AutoCompleteComponent,

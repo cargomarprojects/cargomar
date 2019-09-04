@@ -53,6 +53,7 @@ export class LoginComponent {
 
         if (this.software_version_string != this.server_software_version_string) {
           this.errorMessage = "New Version Available, Kindly Clear Browser History";
+
           this.showloginbutton = false;
         }
 

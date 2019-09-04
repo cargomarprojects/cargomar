@@ -1,11 +1,6 @@
 
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { LoadingScreenService } from '../services/loadingscreen.service';
-
-
 
 import { Subscription } from "rxjs";
 import { debounceTime } from 'rxjs/operators';
