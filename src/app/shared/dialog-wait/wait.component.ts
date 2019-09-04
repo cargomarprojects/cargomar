@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
-import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'App-Wait',
@@ -7,7 +7,7 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class WaitComponent implements OnInit {
 
-  @ViewChild('content') private content : any;
+  @ViewChild('content') private content: any;
 
   @Input() msg: string;
 
@@ -20,10 +20,10 @@ export class WaitComponent implements OnInit {
   constructor(private modalService: NgbModal) {
   }
 
-/*   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
       if (propName == 'visible') {
-        
+
         if (this.visible)
           this.open();
         if (!this.visible)
@@ -32,7 +32,7 @@ export class WaitComponent implements OnInit {
       }
     }
   }
- */  
+
   ngOnInit() {
   }
 
