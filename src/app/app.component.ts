@@ -1,14 +1,5 @@
 ﻿import { Component } from '@angular/core';
-
-import {
-    Event,
-    NavigationCancel,
-    NavigationEnd,
-    NavigationError,
-    NavigationStart,
-    Router
-} from '@angular/router';
-
+import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @Component({
     selector: 'my-app',
@@ -17,7 +8,6 @@ import {
 export class AppComponent {
     title = 'Application Root Page';
     loading = false;
-
     constructor(private router: Router) {
         this.router.events.subscribe((event: Event) => {
             switch (true) {
