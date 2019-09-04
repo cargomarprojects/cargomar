@@ -16,7 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { LoginBranchComponent } from './loginbranch/loginbranch.component';
 import { ContactComponent } from './contact/contact.component';
-
+import { LoadingScreenComponent } from './loadingscreen/loading-screen.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { ContactComponent } from './contact/contact.component';
         HeaderComponent,
         LoginComponent,
         LoginBranchComponent,
-        ContactComponent
+        ContactComponent,
+        LoadingScreenComponent
     ],
     exports : [
         HeaderComponent

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -54,7 +54,7 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   imports: [
     CommonModule,
     FormsModule,
-    HttpModule,
+   
     HttpClientModule,
     NgbModule
   ],
@@ -85,7 +85,7 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   exports: [
     CommonModule,
     FormsModule,
-    HttpModule,
+
     HttpClientModule,
     NgbModule,
     AlertComponent,

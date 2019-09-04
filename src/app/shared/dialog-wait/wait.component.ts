@@ -20,10 +20,10 @@ export class WaitComponent implements OnInit {
   constructor(private modalService: NgbModal) {
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+/*   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
       if (propName == 'visible') {
-
+        
         if (this.visible)
           this.open();
         if (!this.visible)
@@ -32,7 +32,7 @@ export class WaitComponent implements OnInit {
       }
     }
   }
-  
+ */  
   ngOnInit() {
   }
 

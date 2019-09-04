@@ -604,3 +604,29 @@ a {
 .fixed_header thead tr th td {
   width:auto;
 }
+
+
+
+
+/* For Loading Screen  */
+
+.loading-screen-wrapper {
+  z-index: 1;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  height: 100%;
+  display: block;
+  left :0;
+  top :0;
+}
+
+.loading-screen-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0px solid black;
+}
+
+
