@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
-import { HttpClientModule } from '@angular/common/http';
 
 import { AlertService } from './services/alert.service';
 import { LovService } from './services/lov.service';
@@ -54,8 +52,6 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   imports: [
     CommonModule,
     FormsModule,
-    HttpModule,
-    HttpClientModule,
     NgbModule
   ],
   declarations: [
@@ -85,8 +81,6 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
   exports: [
     CommonModule,
     FormsModule,
-    HttpModule,
-    HttpClientModule,
     NgbModule,
     AlertComponent,
     AutoCompleteComponent,

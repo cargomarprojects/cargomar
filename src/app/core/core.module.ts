@@ -1,11 +1,8 @@
 import { NgModule }      from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
-
-
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,6 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { LoginBranchComponent } from './loginbranch/loginbranch.component';
 import { ContactComponent } from './contact/contact.component';
+import { LoadingScreenComponent } from './loadingscreen/loading-screen.component';
+
 
 
 
@@ -23,7 +22,6 @@ import { ContactComponent } from './contact/contact.component';
     imports: [
       CommonModule,
       FormsModule,
-      HttpModule,
       HttpClientModule,
       RouterModule,
       NgbModule.forRoot()
@@ -33,14 +31,15 @@ import { ContactComponent } from './contact/contact.component';
         HeaderComponent,
         LoginComponent,
         LoginBranchComponent,
-        ContactComponent
+        ContactComponent,
+        LoadingScreenComponent
     ],
     exports : [
         HeaderComponent
     ],
     providers: [
         GlobalService,
-        LoginService
+        LoginService,
     ]
 })
 export class CoreModule { }
