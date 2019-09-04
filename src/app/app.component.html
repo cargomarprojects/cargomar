@@ -1,6 +1,10 @@
 ﻿
 <app-header></app-header>
 
-<div >
+<div class="text-center align-middle" *ngIf='loading'>
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+</div>
+
+<div>
   <router-outlet></router-outlet>
 </div>
