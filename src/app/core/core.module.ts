@@ -1,7 +1,8 @@
 import { NgModule }      from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,7 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginBranchComponent } from './loginbranch/loginbranch.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoadingScreenComponent } from './loadingscreen/loading-screen.component';
-import { HttpClientModule } from '@angular/common/http';
+
 
 
 
