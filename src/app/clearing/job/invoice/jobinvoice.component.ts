@@ -19,9 +19,9 @@ import { SearchTable } from '../../../shared/models/searchtable';
 export class JobInvoiceComponent {
     // Local Variables 
     title = 'Invoice List';
-/*
-Ajith 25/06/2019 Show rate and amt in checklist added
-*/
+    /*
+    Ajith 25/06/2019 Show rate and amt in checklist added
+    */
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
@@ -530,6 +530,9 @@ Ajith 25/06/2019 Show rate and amt in checklist added
                 this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
+                if (response.STATUS == "SPECIAL CHARACTER") {
+                    alert("Specical Character Found Buyer Address, Pls Re-Check Data");
+                }
                 this.RefreshList();
                 this.ActionHandler('ADD', null);
             },
