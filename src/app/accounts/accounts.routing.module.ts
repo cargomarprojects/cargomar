@@ -57,6 +57,7 @@ import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
 import { TransDetComponent} from './transdet/transdet.report';
 import { MtReportComponent} from './moneytransfer/mtreport.component';
+import { CashBookComponent } from './cashbook/cashbook.component';
 
 const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
@@ -91,7 +92,8 @@ const routes: Routes = [
   { path: 'oscraging', component: OscrAgingComponent },
   { path: 'payrequest', component: PayRequestComponent },
   { path: 'setlmnt', component: SetlmntComponent },
-  { path: 'mtreport', component: MtReportComponent}
+  { path: 'mtreport', component: MtReportComponent},
+  { path: 'cashbook', component: CashBookComponent },
 ];
 
 @NgModule({

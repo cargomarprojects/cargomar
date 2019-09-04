@@ -1,0 +1,174 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">{{CloseCaption}}</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+
+      <div class="col-2">
+        <div class="form-group row">
+          <label class="col-5 col-form-label col-form-label-sm">From Date</label>
+          <div class="col-7">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-5 col-form-label col-form-label-sm">To Date</label>
+          <div class="col-7">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Main Code</label>
+          <div class="col-9">
+            <app-autocomplete #CsdLov [inputdata]="ACCMAINRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">A/c Code</label>
+          <div class="col-9">
+            <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-4">
+        <div class="form-group row">
+          <div class="col-6">
+            <span>{{ACCMAINRECORD.name}}</span>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-sm-4">
+            <app-autocomplete [disabled]="!bCompany" #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-12">
+            <span>{{ACCRECORD.name}}</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-3">
+
+        <div class="form-group row">
+          <div class="col-6">
+            <input [disabled] type="checkbox" [(ngModel)]="ismaincode" />
+            <span>Main Code Wise</span>
+          </div>
+
+          <div class="col-6">
+            <input [disabled] type="checkbox" [(ngModel)]="showtotaldrcr" />
+            <span>Row Totals</span>
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+            <button [disabled]="loading" *ngIf="bAdmin" (click)="GenerateAll()" class="btn btn-primary btn-sm">Generate
+              All</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span
+                class="fa fa-file-excel-o"></span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+
+            <th class="text-left">DATE</th>
+            <th class="text-left">TYPE</th>
+            <th class="text-left">VRNO</th>
+            <th class="text-right">DEBIT</th>
+            <th class="text-right">CREDIT</th>
+            <th class="text-right">BALANCE</th>
+            <th class="text-left">TYPE</th>
+            <th class="text-left">NARRATION</th>
+          </tr>
+        </thead>
+
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr (click)="drilldown(rec)" style="cursor:pointer">
+            <td align='left'>{{ rec.jv_date }}</td>
+            <td align='left'>{{ rec.jv_type }}</td>
+            <td align='left'>{{ rec.jv_vrno }}</td>
+            <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+            <td align='left'>{{ rec.jv_drcr}}</td>
+            <td align='left'>{{ rec.jv_narration}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a></li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span
+                class="fa fa-file-excel-o"></span></a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>

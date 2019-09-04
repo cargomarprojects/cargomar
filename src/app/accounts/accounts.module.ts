@@ -84,6 +84,9 @@ import { TransDetComponent} from './transdet/transdet.report';
 
 import { MoneyTransferComponent } from './moneytransfer/moneytransfer.component';
 import { MtReportComponent} from './moneytransfer/mtreport.component';
+import { CashBookReportreducer } from './cashbook/cashbook.reducer';
+import { CashBookComponent } from './cashbook/cashbook.component';
+
 
 @NgModule({
   imports: [
@@ -92,6 +95,7 @@ import { MtReportComponent} from './moneytransfer/mtreport.component';
     StoreModule.forFeature('trial',Trialreducer),
     StoreModule.forFeature('pandl',Pandlreducer),
     StoreModule.forFeature('ledgerreport',LedgerReportreducer),
+    StoreModule.forFeature('cashbook', CashBookReportreducer ),
   ],
   declarations: [
     AccountsComponent,
@@ -132,7 +136,8 @@ import { MtReportComponent} from './moneytransfer/mtreport.component';
     SetlmntComponent,
     TransDetComponent,
     MoneyTransferComponent,
-    MtReportComponent
+    MtReportComponent,
+    CashBookComponent
   ],
   providers: [
   ],
