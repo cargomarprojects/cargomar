@@ -21,6 +21,11 @@ export class LedgerBalService {
     }
 
 
+    cashbook(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/CashBookReport', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
     FcList(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/FcBalReport', SearchData, this.gs.headerparam2('authorized'));
     }

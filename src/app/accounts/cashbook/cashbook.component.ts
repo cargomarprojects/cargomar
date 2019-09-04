@@ -320,7 +320,7 @@ export class CashBookComponent {
         this.SearchData.subtype = '';
 
         this.ErrorMessage = '';
-        this.mainService.List(this.SearchData)
+        this.mainService.cashbook(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
