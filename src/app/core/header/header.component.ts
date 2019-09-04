@@ -31,6 +31,8 @@ export class HeaderComponent {
             bFlag = true;            
         if (rec.menu_route1 == 'accounts/ledger')
             bFlag = true;
+        if (rec.menu_route1 == 'accounts/cashbook')
+            bFlag = true;
 
         if (bFlag)
             this.router.navigate([rec.menu_route1], { queryParams: { id: this.id, parameter: rec.menu_route2 }, replaceUrl: true });
