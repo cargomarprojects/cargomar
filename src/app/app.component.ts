@@ -1,15 +1,18 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnDestroy } from '@angular/core';
 import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     title = 'Application Root Page';
     loading = false;
+
+    sub : any;
+
     constructor(private router: Router) {
-        this.router.events.subscribe((event: Event) => {
+        this.sub =  this.router.events.subscribe((event: Event) => {
             switch (true) {
                 case event instanceof NavigationStart: {
                     this.loading = true;
@@ -28,4 +31,9 @@ export class AppComponent {
         });
 
     }
+
+    ngOnDestroy(){
+        this.sub.unsubscribe();
+    }
+
 }
