@@ -1,28 +1,41 @@
 <div *ngIf="gs.IsAuthenticated">
-  <nav class="navbar  navbar-dark bg-primary">
-    <div style="margin-top: 5px">
-      <h5 style="color:white">{{gs.Company_Name}}[{{gs.globalVariables.year_name}}]</h5>
-    </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">
+      <h5>{{gs.Company_Name}}[{{gs.globalVariables.year_name}}]</h5>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="btn-group" [ngStyle]="{'margin':'0px'}" ngbDropdown *ngFor="let rech of gs.Modules">
-      <button class="btn btn-primary btn-sm" ngbDropdownToggle>{{rech.module_name}}</button>
-      <div class="dropdown-menu" ngbDropdownMenu>
-        <div *ngFor="let rec of gs.MenuList" class="menulist">
-          <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed" class="dropdown-item"
-            (click)="LoadPage(rec)">{{rec.menu_name}}</a>
-        </div>
-      </div>
-    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-    <span  style="color:white;margin-top: 5px">
-      <label>{{gs.globalVariables.user_name}}</label>
-      <label>|</label>
-      <label>{{gs.globalVariables.branch_name}}</label>
-      <label>|</label>
-      <!-- <label>{{gs.globalVariables.year_name}}</label>
-      <label>|</label> -->
-      <a (click)="Logout()">Logout</a>
-    </span>
+        <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{rech.module_name}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div *ngFor="let rec of gs.MenuList" class="menulist">
+              <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed" class="dropdown-item"
+                (click)="LoadPage(rec)">{{rec.menu_name}}</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <label>{{gs.globalVariables.user_name}}</label>
+        <label>|</label>
+        <label>{{gs.globalVariables.branch_name}}</label>
+        <label>|</label>
+        <!-- <label>{{gs.globalVariables.year_name}}</label>
+          <label>|</label> -->
+        <a (click)="Logout()">Logout</a>
+      </form>
+    </div>
   </nav>
+
 
 </div>
