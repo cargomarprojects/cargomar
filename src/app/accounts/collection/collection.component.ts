@@ -47,7 +47,7 @@ export class CollectionComponent {
   to_date: string;
   from_date: string;
 
-  
+
 
   ACCRECORD: SearchTable = new SearchTable();
 
@@ -66,14 +66,14 @@ export class CollectionComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    from_date:'',
-    acc_id:'',
+    from_date: '',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: ''
   };
 
-  
+
   // Array For Displaying List
   RecordList: collectionreport[] = [];
   // Single Record for add/edit/view details
@@ -119,7 +119,7 @@ export class CollectionComponent {
     }
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
-    
+
 
     this.Init();
     this.LoadCombo();
@@ -127,11 +127,11 @@ export class CollectionComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
 
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -144,7 +144,7 @@ export class CollectionComponent {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
@@ -156,7 +156,7 @@ export class CollectionComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
@@ -253,10 +253,10 @@ export class CollectionComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -280,6 +280,6 @@ export class CollectionComponent {
   //    rec.displayed = !rec.displayed;
   //  }
   //}
-  
+
 
 }
