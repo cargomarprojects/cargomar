@@ -1,0 +1,72 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+
+<div class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Invoice Date</label>
+          <div class="col-8">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Payment Date</label>
+          <div class="col-8">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-4">
+        <div *ngIf="bCompany" class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-4">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process
+              Report</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td>{{rec.desc1}}</td>
+          <td>{{rec.desc2}}</td>
+          <td align='right'>{{rec.col1 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.col2 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.col3 | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.col4 | number : '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
