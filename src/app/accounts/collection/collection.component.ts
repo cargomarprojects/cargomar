@@ -247,11 +247,7 @@ export class CollectionComponent {
     this.mainService.CollectionReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
-          this.Downloadfile(_type);
-        else {
-          this.RecordList = response.list;
-        }
+        this.RecordList = response.list;
       },
         error => {
           this.loading = false;
@@ -259,6 +255,7 @@ export class CollectionComponent {
         });
   }
 
+  
 
   Downloadfile(_type: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);

@@ -1,5 +1,6 @@
 
 export class collectionreport {
+    row_type: string;
     row_color: string;
     desc1: string;
     desc2: string;
