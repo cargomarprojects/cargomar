@@ -67,6 +67,7 @@ export class OsAgingComponent {
     acc_name:'',
     isoverdue: false,
     all: false,
+    user_name:''
   };
 
   
@@ -200,6 +201,7 @@ export class OsAgingComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.user_name = this.gs.globalVariables.user_name;
 
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
@@ -227,7 +229,7 @@ export class OsAgingComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(_type);
-        else {
+        else  if (_type != 'BAL-CONFIRM'){
           this.RecordList = response.list;
         }
       },

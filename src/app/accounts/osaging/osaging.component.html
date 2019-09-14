@@ -47,6 +47,7 @@
             <div class="col-sm-8">
               <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button [disabled]="loading" (click)="List('BAL-CONFIRM')" class="btn btn-primary btn-sm">Balance Confirmation</button>
             </div>
           </div>
         </div>
