@@ -137,6 +137,8 @@
         <tr>
           <th *ngIf="all">BRANCH</th>
           <th>SI-NO</th>
+          <th>SB#</th>
+          <th>SB-DT</th>
           <th>JOBNOS</th>
           <th>COMM.INVNOS</th>
           <th>CUSTM.INVNOS</th>
@@ -162,6 +164,10 @@
         <tr [style.color]="rec.rowcolor">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
+
+          <td>{{rec.job_sbno}}</td>
+          <td>{{rec.job_sbdt}}</td>
+
           <td>{{rec.job_docno}}</td>
           <td>{{rec.jexp_invoice_no}}</td>
           <td>{{rec.jexp_comm_invoice_no}}</td>
@@ -195,6 +201,8 @@
         <tr>
           <th *ngIf="all">BRANCH</th>
           <th>SI-NO</th>
+          <th>SB#</th>
+          <th>SB-DT</th>          
           <th>JOBNOS</th>
           <th>COMM.INVNOS</th>
           <th>CUSTM.INVNOS</th>
@@ -216,6 +224,10 @@
         <tr [style.color]="rec.rowcolor">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
+
+          <td>{{rec.job_sbno}}</td>
+          <td>{{rec.job_sbdt}}</td>
+
           <td>{{rec.job_docno}}</td>
           <td>{{rec.jexp_invoice_no}}</td>
           <td>{{rec.jexp_comm_invoice_no}}</td>
@@ -244,6 +256,8 @@
         <tr>
           <th width="10%" *ngIf="all">BRANCH</th>
           <th width="10%" >SI-NO</th>
+          <th width="10%" >SB#</th>
+          <th width="10%" >SB-DT</th>
           <th width="10%" >JOBNOS</th>
           <th width="10%" >COMM.INVNOS</th>
           <th width="10%" >CUSTM.INVNOS</th>
@@ -269,6 +283,10 @@
         <tr [style.color]="rec.rowcolor">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
+
+          <td>{{rec.job_sbno}}</td>
+          <td>{{rec.job_sbdt}}</td>          
+
           <td>{{rec.job_docno}}</td>
           <td>{{rec.jexp_invoice_no}}</td>
           <td>{{rec.jexp_comm_invoice_no}}</td>

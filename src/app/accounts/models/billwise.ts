@@ -22,6 +22,9 @@ export class BillWise {
   hbl_no: string;
 
 
+  job_sbno : string;
+  job_sbdt : string ;
+
   jvh_tot_amt: number;
   jvh_cgst_amt: number;
   jvh_sgst_amt: number;
