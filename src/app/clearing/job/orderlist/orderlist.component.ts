@@ -761,10 +761,11 @@ export class OrderListComponent {
     this.Record.ord_contractno = sContract.trim();
   }
 
-  PasteData() {
+  PasteData(content : any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.modal = this.modalService.open(content);        
   }
 
   PasteDataClosed(cbdata: string) {
@@ -1089,6 +1090,8 @@ export class OrderListComponent {
 
     }
     this.bShowPasteData = false;
+
+    this.closeModal();
   }
 
   //upload
@@ -1369,4 +1372,12 @@ export class OrderListComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+  closeModal() {
+    this.modal.close();
+ 
+  }
+
+
+
 }

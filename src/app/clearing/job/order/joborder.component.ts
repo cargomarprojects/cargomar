@@ -857,6 +857,7 @@ export class JobOrderComponent {
 
     }
     this.bShowPasteData = false;
+    this.closeModal();
   }
 
 
@@ -927,7 +928,7 @@ export class JobOrderComponent {
     return nCol;
   }
 
-  closeAprovalModal() {
+  closeModal() {
     this.modal.close();
  
   }

@@ -302,9 +302,10 @@ export class costCenterComponent {
       this.findtotal();
     }
     this.bShowClipBoard = false;
+    this.closeModal();
   }
 
-  closeAprovalModal() {
+  closeModal() {
     this.modal.close();
  
   }
