@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -19,6 +21,8 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class costCenterComponent {
   // Local Variables 
   title = 'Cost Center List';
+
+  modal: any;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -50,7 +54,8 @@ export class costCenterComponent {
   constructor(
     private mainService: LedgerService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private modalService: NgbModal,    
   ) {
 
     this.CCGrpList = [
@@ -268,8 +273,9 @@ export class costCenterComponent {
     this.gs.ClosePage('home');
   }
 
-  PasteData() {
+  PasteData( content : any ) {
     this.bShowClipBoard = true;
+    this.modal = this.modalService.open(content);
   }
 
   ClipBoardClosed(cbdata: SearchTable[]) {
@@ -296,6 +302,11 @@ export class costCenterComponent {
       this.findtotal();
     }
     this.bShowClipBoard = false;
+  }
+
+  closeAprovalModal() {
+    this.modal.close();
+ 
   }
 
 

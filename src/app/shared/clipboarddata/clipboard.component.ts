@@ -64,13 +64,13 @@ export class ClipBoardComponent implements OnInit {
 
   open() {
     this.displayed = true;
-    this.modalref = this.modalService.open(this.content, { size: "lg", backdrop: 'static', keyboard: false });
+    //this.modalref = this.modalService.open(this.content, { size: "lg", backdrop: 'static', keyboard: false });
   }
 
   close() {
     if (this.displayed) {
       this.displayed = false;
-      this.modalref.close();
+      //this.modalref.close();
       if (this.CloseClicked != null)
         this.CloseClicked.emit(null);
     }

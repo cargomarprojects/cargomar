@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-3">
-          <button [disabled]="loading" (click)="PasteData()" class="btn btn-default btn-sm">Paste Data</button>
+          <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-default btn-sm">Paste Data</button>
         </div>
 
 
@@ -62,7 +62,22 @@
 <br />
 
 
-<App-ClipBoard [visible]="bShowClipBoard" [msg]="'Please Wait'" (CloseClicked)="ClipBoardClosed($event)"></App-ClipBoard>
+
+
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Paste Data</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeAprovalModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-ClipBoard [visible]="bShowClipBoard" [msg]="'Please Wait'" (CloseClicked)="ClipBoardClosed($event)"></App-ClipBoard>    
+  </div>
+</ng-template>
+
+
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
