@@ -527,7 +527,7 @@ export class JobOrderComponent {
         });
   }
 
-  PasteData() {
+  PasteData(content : any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
