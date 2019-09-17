@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Bl } from '../../models/bl';
@@ -31,6 +32,7 @@ export class BlComponent {
   currentTab = 'LIST';
   ErrorMessage = "";
   InfoMessage = '';
+  modal: any;
 
   attchmode = 'ADD';
   mode = 'ADD';
@@ -59,6 +61,7 @@ export class BlComponent {
   NFYADDRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal, 
     private mainService: BlService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -1326,10 +1329,11 @@ export class BlComponent {
         });
   }
 
-  PasteData() {
+  PasteData(content:any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.modal = this.modalService.open(content);
   }
 
   PasteDataClosed(cbdata: string) {
@@ -1418,5 +1422,12 @@ export class BlComponent {
       }
     }
     this.bShowPasteData = false;
+    this.closeModal();
   }
+
+  closeModal() {
+    this.modal.close();
+ 
+  }
+
 }
