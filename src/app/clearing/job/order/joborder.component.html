@@ -133,7 +133,7 @@
         <div class="col">
           <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
           <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
-          <button [disabled]="loading" (click)="PasteData()" class="btn btn-default btn-sm">PASTE DATA</button>
+          <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-default btn-sm">PASTE DATA</button>
           <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.ord_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
         </div>
       </div>
@@ -273,7 +273,26 @@
 <br />
 
 
-<App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ORDERLIST'" (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
+
+
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Paste Data</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeAprovalModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ORDERLIST'" (CloseClicked)="PasteDataClosed($event)"></App-PasteData>    
+  </div>
+</ng-template>
+
+
+
+
+
+
 
 <!-- <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait> -->
 

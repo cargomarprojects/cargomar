@@ -1,10 +1,16 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
+
 import { GlobalService } from '../../../core/services/global.service';
 import { Joborderm } from '../../models/joborder';
 import { JobOrder_VM } from '../../models/joborder';
 import { JobOrderService } from '../../services/joborder.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+
+
 
 @Component({
   selector: 'app-joborder',
@@ -21,6 +27,8 @@ export class JobOrderComponent {
   selectedRowIndex: number = -1;
 
   Total_Amount: number = 0;
+
+  modal :  any;
 
   loading = false;
   currentTab = 'LIST';
@@ -51,7 +59,8 @@ export class JobOrderComponent {
   constructor(
     private mainService: JobOrderService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private modalService: NgbModal,        
   ) {
 
     this.InitLov();
@@ -522,6 +531,7 @@ export class JobOrderComponent {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.modal = this.modalService.open(content);    
   }
 
   PasteDataClosed(cbdata: string) {
@@ -916,4 +926,10 @@ export class JobOrderComponent {
     }
     return nCol;
   }
+
+  closeAprovalModal() {
+    this.modal.close();
+ 
+  }
+
 }
