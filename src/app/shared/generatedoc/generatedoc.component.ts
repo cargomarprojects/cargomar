@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+
+
+
+import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'RxJS/Rx';
 import 'rxjs/add/operator/map'
 
@@ -29,7 +33,7 @@ export class GenerateDocComponent {
     private gs: GlobalService,
     private mainService: GenerateDocService,
     private alertService: AlertService,
-    private http: Http,
+    private http: HttpClient,
   ) {
 
   }
