@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'RxJS/Rx';
-import 'rxjs/add/operator/map'
 
 import { SearchTable } from '../models/searchtable';
 import { GlobalService } from '../../core/services/global.service';
@@ -79,7 +76,7 @@ export class PasteDataComponent implements OnInit {
 
   open() {
     this.displayed = true;
-    this.modalref = this.modalService.open(this.content, { size: "lg", backdrop: 'static', keyboard: false });
+    this.modalref = this.modalService.open(this.content, { size: "sm", backdrop: 'static', keyboard: false });
   }
 
   close() {
