@@ -13,7 +13,7 @@
       <div class="col-6">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Save('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
-        <button [disabled]="loading" (click)="PasteData()" class="btn btn-primary btn-sm">Paste Data</button>
+        <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm">Paste Data</button>
         <button *ngIf="bAdmin" [disabled]="loading" (click)="Settings()" class="btn btn-primary btn-sm">Settings</button>
         <!--<label> Location&nbsp;{{BR_ESANCHIT_LOCATIONS}}</label>-->
         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -107,8 +107,20 @@
     </div>
   </div>
 <br />
-<App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="''"
-(CloseClicked)="PasteDataClosed($event)"></App-PasteData>
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Paste Data</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="''"
+    (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
+  </div>
+</ng-template>
+
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}

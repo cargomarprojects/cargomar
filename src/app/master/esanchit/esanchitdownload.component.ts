@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Esanchit } from '../models/esanchit';
@@ -25,6 +26,7 @@ export class EsanchitDownloadComponent {
   selectedRowIndex: number = -1;
   InitCompleted: boolean = false;
   menu_record: any;
+  modal: any;
   sub: any;
   BR_ESANCHIT_EMAIL: string = '';
   BR_ESANCHIT_EMAIL_PWD: string = '';
@@ -60,6 +62,7 @@ export class EsanchitDownloadComponent {
   Record: Esanchit = new Esanchit;
 
   constructor(
+    private modalService: NgbModal, 
     private mainService: EsanchitDownloadService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -244,13 +247,15 @@ export class EsanchitDownloadComponent {
     this.user_admin = !this.user_admin;
   }
 
-  PasteData() {
+  PasteData(content:any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.modal = this.modalService.open(content);
   }
   PasteDataClosed(cbdata: string) {
     this.bShowPasteData = false;
+    this.closeModal();  
     if (cbdata == null)
       return;
     if (cbdata.toString().trim() == "")
@@ -296,6 +301,11 @@ export class EsanchitDownloadComponent {
           alert(this.ErrorMessage);
         });
 
+       
+  }
+  closeModal() {
+    this.modal.close();
+ 
   }
 
 }
