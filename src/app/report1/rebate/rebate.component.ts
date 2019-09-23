@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -20,6 +21,8 @@ export class RebateComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
+  
+  modal: any;
   sub: any;
   urlid: string;
 
@@ -81,6 +84,7 @@ export class RebateComponent {
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal, 
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -252,7 +256,7 @@ export class RebateComponent {
     this.gs.ClosePage('home');
   }
 
-  ShowDlg() {
+  ShowDlg(content:any) {
     let sid: string = '';
     let bok: boolean = true;
     let serr: string = '';
@@ -285,14 +289,17 @@ export class RebateComponent {
     });
 
     if (bok)
+    {
       this.bShowDlg = true;
+      this.modal = this.modalService.open(content);
+    }
     else
       alert(serr);
   }
 
   
 
-  EditDlg(_record  : Rebate) {
+  EditDlg(_record  : Rebate,content:any) {
 
     let sid: string = '';
     let bok: boolean = true;
@@ -329,7 +336,10 @@ export class RebateComponent {
     });
 
     if (bok)
+    {
       this.bShowDlg = true;
+      this.modal = this.modalService.open(content);
+    }
     else
       alert(serr);
 
@@ -342,6 +352,7 @@ export class RebateComponent {
 
   DlgClosed(irec : any ) {
     this.bShowDlg = false;
+    this.closeModal();
     if (irec.status == 'OK') {
 
       this.RecordList.forEach(rec => {
@@ -370,6 +381,10 @@ export class RebateComponent {
    
   }
 
+closeModal() {
+    this.modal.close();
+ 
+  }
 } 
 
 

@@ -61,7 +61,7 @@
             <div class="col-sm-7">
               <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-              <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg()" class="btn btn-primary btn-sm">POST-JV</button>
+              <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)" class="btn btn-primary btn-sm">POST-JV</button>
             </div>
             <div class="col-5">
               <input type="checkbox" [(ngModel)]="paymentwise">
@@ -127,7 +127,7 @@
           <td>{{rec.inv_rebate_curr_code}}</td>
           <td align='right'>{{rec.inv_rebate_exrate | number : '1.2-2'}}</td>
           <td align='right'>{{rec.inv_rebate_amt_inr | number : '1.2-2'}}</td>
-          <td (click)="EditDlg(rec)" style="cursor: pointer">{{rec.inv_rebate_jvno}}</td>
+          <td (click)="EditDlg(rec,postrebate)" style="cursor: pointer">{{rec.inv_rebate_jvno}}</td>
           <td>{{rec.inv_rebate_jvdate}}</td>
           <td>{{rec.consignee_name}}</td>
           <td>{{rec.salesman}}</td>
@@ -139,7 +139,7 @@
       </tbody>
     </table>
   </div>
-  <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg()" class="btn btn-primary btn-sm">POST-JV</button>
+  <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)" class="btn btn-primary btn-sm">POST-JV</button>
 </div>
 
 <br />
@@ -147,8 +147,19 @@
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-<App-PostRebate [jvid]="jvid" [jvdate]="jvdate" [jvno]="jvno" [visible]="bShowDlg" [RecordList]="SelectedList" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
+<!-- <App-PostRebate [jvid]="jvid" [jvdate]="jvdate" [jvno]="jvno" [visible]="bShowDlg" [RecordList]="SelectedList" (CloseClicked)="DlgClosed($event)"></App-PostRebate> -->
 
+<ng-template #postrebate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Post Rebate</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-PostRebate [jvid]="jvid" [jvdate]="jvdate" [jvno]="jvno" [visible]="bShowDlg" [RecordList]="SelectedList" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
+  </div>
+</ng-template>
 
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
