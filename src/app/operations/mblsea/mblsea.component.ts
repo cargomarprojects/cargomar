@@ -1415,7 +1415,7 @@ export class MblSeaComponent {
         this.mMsg += " MBL# " + this.Record.book_mblno;
         this.mMsg += " \n\n";
         this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
-
+        
         this.AttachList = new Array<any>();
         this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
         for (let rec of response.filelist) {

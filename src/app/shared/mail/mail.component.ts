@@ -235,7 +235,8 @@ export class MailComponent {
       user_pkid: this.gs.globalVariables.user_pkid,
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
-      update_toids: ''
+      update_toids: '',
+      canftp:'N'
     };
 
     SearchData.table = controlname;
@@ -255,6 +256,7 @@ export class MailComponent {
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.update_toids = (this.updateto_ids == true) ? "Y" : "N";
+    SearchData.canftp = (this.canftp == true) ? "Y" : "N";
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
