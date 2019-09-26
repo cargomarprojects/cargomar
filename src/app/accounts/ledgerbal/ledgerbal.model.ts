@@ -10,6 +10,7 @@ export interface LedgerReportState{
     ismaincode : boolean,
     showtotaldrcr: boolean,
     isloaded : boolean,
+    transdet: boolean,
     branch_code : string,
     acc_pkid : string ,
     acc_code : string ,

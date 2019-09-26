@@ -20,6 +20,7 @@ export const initialState: LedgerReportState = {
     acc_code : '',
     acc_name : '',
     ismaincode : false,
+    transdet : false,
     showtotaldrcr :false,
     branch_code : '',
     isloaded : false,

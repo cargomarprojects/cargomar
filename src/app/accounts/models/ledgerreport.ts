@@ -18,12 +18,12 @@ export class LedgerReport {
   jv_remarks: string;
 
 
-  jv_vrno : string ;
-  jv_type : string ;
-  jv_year : string;
-  rec_category : string ;
-  rec_company_code : string ;
-  rec_branch_code : string ;
+  jv_vrno: string;
+  jv_type: string;
+  jv_year: string;
+  rec_category: string;
+  rec_company_code: string;
+  rec_branch_code: string;
 
 
   jv_od_type: string;
@@ -67,11 +67,17 @@ export class LedgerReport {
 
   displayed: boolean;
 
-  
-  bs_note_no : string;
-  bs_main_head : string;
-  bs_sub_head : string;
-  bs_sub_note : string;
+
+  bs_note_no: string;
+  bs_main_head: string;
+  bs_sub_head: string;
+  bs_sub_note: string;
+
+
+  cb_desc: string;
+  cb_dr: number;
+  cb_cr: number;
+
 
 
   apr: number;

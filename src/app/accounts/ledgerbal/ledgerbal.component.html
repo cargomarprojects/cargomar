@@ -57,8 +57,12 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-12">
+          <div class="col-8">
             <span>{{ACCRECORD.name}}</span>
+          </div>
+          <div class="col-4">
+            <input  type="checkbox" [(ngModel)]="transdet" />
+            <span>Detail</span>
           </div>
         </div>
       </div>
@@ -123,6 +127,11 @@
             <th class="text-right">BALANCE</th>
             <th class="text-left">TYPE</th>
             <th class="text-left">NARRATION</th>
+
+            <th *ngIf='transdet' class="text-left">A/C NAME</th>
+            <th *ngIf='transdet' class="text-left">DR</th>
+            <th *ngIf='transdet' class="text-left">CR</th>
+
           </tr>
         </thead>
 
@@ -136,6 +145,11 @@
             <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
             <td align='left'>{{ rec.jv_drcr}}</td>
             <td align='left'>{{ rec.jv_narration}}</td>
+
+            <td *ngIf='transdet' align='left'>{{ rec.cb_desc}}</td>
+            <td *ngIf='transdet' align='right'>{{ rec.cb_dr | number : '1.2-2' }}</td>
+            <td *ngIf='transdet' align='right'>{{ rec.cb_cr | number : '1.2-2' }}</td>
+
           </tr>
         </tbody>
       </table>
