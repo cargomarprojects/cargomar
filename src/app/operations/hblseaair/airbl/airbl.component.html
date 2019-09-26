@@ -4,6 +4,8 @@
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')" class="btn btn-success btn-sm">Unlock</button>
     <button *ngIf="user_admin && invokefrom=='HAWB'" [disabled]="loading" (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
+    <button *ngIf="user_admin && invokefrom=='HAWB'" [disabled]="loading" (click)="UnlockBLNo('RESETFCR')" class="btn btn-success btn-sm">Reset FCR#</button>
+    <button *ngIf="user_admin && invokefrom=='HAWB'" [disabled]="loading" (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -206,7 +208,7 @@
 
           <label class="col-4 col-form-label col-form-label-sm">HAWB No.</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no" (blur)="OnBlur('hbl_bl_no')" [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y' "  required maxlength="30" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no" (blur)="OnBlur('hbl_bl_no')" [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y' || Record.hbl_fcr_no != ''"  required maxlength="30" />
           </div>
           <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
           <div class="col-3">
@@ -216,7 +218,7 @@
         <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">HAWB Sequence Format</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id" [disabled]="Record.hbl_blno_generated == 'G' ||  Record.bl_original_print == 'Y'">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id" [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_fcr_no != '' ||  Record.bl_original_print == 'Y') && (Record.hbl_blno_generated != 'B')">
               <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
             </select>
           </div>
@@ -224,7 +226,7 @@
 
         <div class="form-group row">
           <div class="offset-4 col-8">
-            <button [disabled]="loading || (Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || mode=='ADD') || Record.bl_original_print == 'Y' " (click)="GenerateBLNo('AIRBL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No And Save</button>
+            <button [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != ''|| Record.hbl_fcr_no != '' || mode=='ADD' || Record.bl_original_print == 'Y' ) && (Record.hbl_blno_generated != 'B')" (click)="GenerateBLNo('AIRBL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No And Save</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
@@ -1094,6 +1096,47 @@
             </div>
           </div>
 
+          <div *ngIf="invokefrom=='HAWB'" class="page-box">
+            <div class="form-group row">
+              <label class="offset-1 col-4 col-form-label col-form-label-sm">FCR No.</label>
+              <div class="col-7">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_fcr_no" (blur)="OnBlur('hbl_fcr_no')" disabled required maxlength="50" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="offset-1 col-4 col-form-label col-form-label-sm">Documents</label>
+              <div class="col-7">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fcr_doc1" (blur)="OnBlur('bl_fcr_doc1')" required maxlength="50" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-5 col-7">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fcr_doc2" (blur)="OnBlur('bl_fcr_doc2')" required maxlength="50" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-5 col-7">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fcr_doc3" (blur)="OnBlur('bl_fcr_doc3')" required maxlength="50" />
+              </div>
+            </div>
+    
+            <div class="form-group row">
+              <div class="offset-5 col-7">
+                <button [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || Record.hbl_fcr_no != '' || mode=='ADD' ) && (Record.hbl_blno_generated != 'B')" (click)="GenerateBLNo('FCR','')" class="btn btn-success btn-sm">Generate FCR No And Save</button>
+                <i *ngIf="loading" class="fa fa-spinner"></i>
+              </div>
+            </div>
+    
+          </div>
+
+          
+
+
+
+
+
+
+
         </div>
       </div>
 
@@ -1170,6 +1213,7 @@
           <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()" class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','AIRBL')" class="btn btn-success btn-sm"><span *ngIf="invokefrom=='HAWB'">HAWB Print</span><span *ngIf="invokefrom=='MAWB'">MAWB Print</span></button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HAWB'" (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary Print</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
