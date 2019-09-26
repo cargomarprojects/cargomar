@@ -1291,6 +1291,29 @@ export class AirBlComponent {
           this.Record.hbl_bl_no = this.Record.hbl_bl_no.replace(oldChar2, '').toUpperCase();
           break;
         }
+        case 'hbl_fcr_no':
+        {
+          this.Record.hbl_fcr_no = this.Record.hbl_fcr_no.toUpperCase();
+          break;
+        }
+
+      case 'bl_fcr_doc1':
+        {
+          this.Record.bl_fcr_doc1 = this.Record.bl_fcr_doc1.toUpperCase();
+          break;
+        }
+
+      case 'bl_fcr_doc2':
+        {
+          this.Record.bl_fcr_doc2 = this.Record.bl_fcr_doc2.toUpperCase();
+          break;
+        }
+
+      case 'bl_fcr_doc3':
+        {
+          this.Record.bl_fcr_doc3 = this.Record.bl_fcr_doc3.toUpperCase();
+          break;
+        }
     }
   }
   OnChange(field: string) {
@@ -1456,6 +1479,7 @@ export class AirBlComponent {
     this.InfoMessage = '';
     if (_type == "AIRBL" && this.Record.hbl_date.trim().length <= 0) {
       this.ErrorMessage = "\n\r | AWB Date Cannot Be Blank";
+      alert(this.ErrorMessage);
     }
 
     if (_type == 'AIRBL') {
@@ -1464,6 +1488,7 @@ export class AirBlComponent {
         if (REC != null) {
           if (REC.table_name == "NA") {
             this.ErrorMessage += "\n\r | Please select AWB Sequence format and continue....";
+            alert(this.ErrorMessage);
           }
         }
       }
@@ -1490,7 +1515,8 @@ export class AirBlComponent {
           this.Record.hbl_bl_no = response.newno;
           if (this.Record.hbl_bl_no.trim().length > 0)
             this.Record.hbl_blno_generated = "G";
-        }
+        }else if (_type == "FCR")
+        this.Record.hbl_fcr_no = response.newno;
       },
       error => {
         this.loading = false;
