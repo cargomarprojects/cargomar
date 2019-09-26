@@ -302,6 +302,10 @@ export class ItemComponent {
 
 
   SearchRecord(controlname: string) {
+    if (controlname == 'dbk') {
+      if(this.Record.itm_dbk_code==null || this.Record.itm_dbk_code==undefined)
+      return;
+    }
 
     this.loading = true;
 
