@@ -1479,6 +1479,7 @@ export class AirBlComponent {
     this.InfoMessage = '';
     if (_type == "AIRBL" && this.Record.hbl_date.trim().length <= 0) {
       this.ErrorMessage = "\n\r | AWB Date Cannot Be Blank";
+      alert(this.ErrorMessage);
     }
 
     if (_type == 'AIRBL') {
@@ -1487,6 +1488,7 @@ export class AirBlComponent {
         if (REC != null) {
           if (REC.table_name == "NA") {
             this.ErrorMessage += "\n\r | Please select AWB Sequence format and continue....";
+            alert(this.ErrorMessage);
           }
         }
       }
