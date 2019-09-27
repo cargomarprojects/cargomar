@@ -3,7 +3,8 @@ export class DefaultValues {
     today: string;
     monthbegindate: string;
     lastmonthdate: string;
-
+    
+   
     gstin: string;
     gstin_state_code: string;
     print_cheque_only_after_ho_approved: string;

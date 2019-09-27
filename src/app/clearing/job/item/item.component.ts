@@ -303,8 +303,8 @@ export class ItemComponent {
 
   SearchRecord(controlname: string) {
     if (controlname == 'dbk') {
-      if(this.Record.itm_dbk_code==null || this.Record.itm_dbk_code==undefined)
-      return;
+      if (this.Record.itm_dbk_code == null || this.Record.itm_dbk_code == undefined)
+        return;
     }
 
     this.loading = true;
@@ -859,6 +859,10 @@ export class ItemComponent {
     this.InfoMessage = '';
     if (this.itm_code == '') {
       this.ErrorMessage = " Code Cannot be Blank. ";
+      return;
+    }
+    if (this.Record.itm_dbk_code == null || this.Record.itm_dbk_code == undefined) {
+      this.ErrorMessage = " Drawback Code Cannot be Blank. ";
       return;
     }
     this.SearchRecord('itemmaster');

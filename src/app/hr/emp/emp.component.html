@@ -170,7 +170,7 @@
         <label class="col-sm-3 col-form-label col-form-label-sm">DOB
           <font style="color:orangered">{{ageinyears}}</font></label>
         <div class="col-sm-3">
-          <app-date [inputdate]="Record.emp_do_birth" (ValueChanged)="Record.emp_do_birth=$event"></app-date>
+          <app-date #_do_birth [inputdate]="Record.emp_do_birth" (ValueChanged)="Record.emp_do_birth=$event"></app-date>
         </div>
       </div>
 
@@ -191,11 +191,11 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Join Date</label>
         <div class="col-sm-3">
-          <app-date [inputdate]="Record.emp_do_joining" (ValueChanged)="Record.emp_do_joining=$event"></app-date>
+          <app-date #_do_joining [inputdate]="Record.emp_do_joining" (ValueChanged)="Record.emp_do_joining=$event"></app-date>
         </div>
         <label class="col-sm-3 col-form-label col-form-label-sm">Confirm Date</label>
         <div class="col-sm-3">
-          <app-date [inputdate]="Record.emp_do_confirmation" (ValueChanged)="Record.emp_do_confirmation=$event">
+          <app-date #_do_confirmation [inputdate]="Record.emp_do_confirmation" (ValueChanged)="Record.emp_do_confirmation=$event">
           </app-date>
         </div>
       </div>
@@ -217,7 +217,7 @@
 
         <label class="col-sm-3 col-form-label col-form-label-sm">Relieve Date</label>
         <div class="col-sm-3">
-          <app-date [inputdate]="Record.emp_do_relieve" (ValueChanged)="Record.emp_do_relieve=$event"></app-date>
+          <app-date #_do_relieve [inputdate]="Record.emp_do_relieve" (ValueChanged)="Record.emp_do_relieve=$event"></app-date>
         </div>
       </div>
       <div class="form-group row">
@@ -728,7 +728,7 @@
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label  col-form-label-sm">Transfer Date</label>
                   <div class="col-sm-4">
-                    <app-date [inputdate]="Record.emp_trans_date" (ValueChanged)="Record.emp_trans_date=$event">
+                    <app-date #_trans_date [inputdate]="Record.emp_trans_date" (ValueChanged)="Record.emp_trans_date=$event">
                     </app-date>
                   </div>
                 </div>

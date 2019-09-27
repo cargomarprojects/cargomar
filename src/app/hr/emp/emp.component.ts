@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy,ViewChild } from '@angular/core';
 
 import { Location } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { Emp } from '../models/emp';
 import { EmpService } from '../services/emp.service';
 
 import { Param } from '../../master/models/param';
-
+import { DateComponent } from '../../shared/date/date.component';
 
 @Component({
   selector: 'app-emp',
@@ -23,6 +23,12 @@ import { Param } from '../../master/models/param';
 export class EmpComponent {
   // Local Variables 
   title = 'EMP MASTER';
+
+  @ViewChild('_do_relieve') private _do_relieve: DateComponent;
+  @ViewChild('_do_confirmation') private _do_confirmation: DateComponent;
+  @ViewChild('_do_joining') private _do_joining: DateComponent;
+  @ViewChild('_do_birth') private _do_birth: DateComponent;
+  @ViewChild('_trans_date') private _trans_date: DateComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -111,7 +117,7 @@ export class EmpComponent {
       if (this.menu_record.rights_print)
         this.bPrint = true;
       if (this.menu_record.rights_admin)
-        this.bAdmin = true;
+        this.bAdmin = true;  
     }
     this.LoadCombo();
   }
@@ -505,6 +511,11 @@ export class EmpComponent {
     var REC = this.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
     if (REC == null) {
       this.RecordList.push(this.Record);
+      REC = this.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
+      REC.emp_do_joining = this._do_joining.GetDisplayDate();
+      REC.emp_do_confirmation = this._do_confirmation.GetDisplayDate();
+      REC.emp_do_relieve = this._do_relieve.GetDisplayDate();
+      REC.emp_trans_date = this._trans_date.GetDisplayDate();
     }
     else {
       REC.emp_no = this.Record.emp_no;
@@ -518,10 +529,10 @@ export class EmpComponent {
       REC.emp_email_personal = this.Record.emp_email_personal;
       REC.emp_bank_acno = this.Record.emp_bank_acno;
       REC.emp_pfno = this.Record.emp_pfno;
-      REC.emp_do_joining = this.Record.emp_do_joining;
-      REC.emp_do_confirmation = this.Record.emp_do_confirmation;
-      REC.emp_do_relieve = this.Record.emp_do_relieve;
-      REC.emp_trans_date = this.Record.emp_trans_date;
+      REC.emp_do_joining = this._do_joining.GetDisplayDate();
+      REC.emp_do_confirmation = this._do_confirmation.GetDisplayDate();
+      REC.emp_do_relieve = this._do_relieve.GetDisplayDate();
+      REC.emp_trans_date = this._trans_date.GetDisplayDate();
     }
   }
 
