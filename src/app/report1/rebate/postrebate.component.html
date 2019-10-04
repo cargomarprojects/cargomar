@@ -78,8 +78,8 @@
 <div class="row">
 
   <div class="col">
-    <button class="btn btn-primary btn-sm" (click)="ok()">Save</button>
-    <button class="btn btn-primary btn-sm" (click)="close()">Cancel</button>
+    <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="ok()">Save</button>
+    <button [disabled]="loading"  class="btn btn-primary btn-sm" (click)="close()">Cancel</button>
   </div>
 
 </div>
