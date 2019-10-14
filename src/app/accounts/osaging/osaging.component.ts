@@ -41,11 +41,12 @@ export class OsAgingComponent {
   isoverdue: boolean = false;
   bCompany = false;
   all: boolean = false;
+  do_not_use_credit_date: boolean = false;
 
   to_date: string;
 
   
-
+  ACCRECORD: SearchTable = new SearchTable();
   BRRECORD: SearchTable = new SearchTable();
 
   ErrorMessage = "";
@@ -67,7 +68,8 @@ export class OsAgingComponent {
     acc_name:'',
     isoverdue: false,
     all: false,
-    user_name:''
+    user_name:'',
+    do_not_use_credit_date: false,    
   };
 
   
@@ -131,7 +133,16 @@ export class OsAgingComponent {
 
   InitLov() {
 
-   
+    this.ACCRECORD = new SearchTable();
+    this.ACCRECORD.controlname = "ACCTM";
+    this.ACCRECORD.displaycolumn = "CODE";
+    this.ACCRECORD.type = "ACCTM";
+    this.ACCRECORD.where  = "";
+    this.ACCRECORD.id = "";
+    this.ACCRECORD.code = "";
+    this.ACCRECORD.name = "";
+
+    
 
 
     this.BRRECORD = new SearchTable();
@@ -220,8 +231,15 @@ export class OsAgingComponent {
 
     this.SearchData.all = this.all;
 
+    this.SearchData.acc_id = this.ACCRECORD.id;
+    this.SearchData.acc_name = this.ACCRECORD.name;
+    
+
+
     this.SearchData.to_date = this.to_date;
   
+    this.SearchData.do_not_use_credit_date = this.do_not_use_credit_date;
+
    
     this.ErrorMessage = '';
     this.mainService.OsAging(this.SearchData)
