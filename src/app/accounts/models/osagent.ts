@@ -15,6 +15,9 @@ export class OsAgentReport {
   balance: number;
   advance: number;
 
+  balance_inr: number;
+  advance_inr: number;
+
   sea: number;
   air: number;
   oth: number;

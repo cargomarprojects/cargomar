@@ -56,7 +56,7 @@
               <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
 
                 <option [value]="'DETAIL'">DETAIL</option>
-                <option [value]="'SUMMERY'">SUMMERY</option>
+                <option [value]="'SUMMERY'">SUMMARY</option>
 
               </select>
             </div>
@@ -93,6 +93,8 @@
           <th class="text-right">180+</th>
           <th class="text-right">BALANCE</th>
           <th class="text-right">ADVANCE</th>
+          <th class="text-right">BALANCE-INR</th>
+          <th class="text-right">ADVANCE-INR</th>
         </tr>
       </thead>
 
@@ -110,6 +112,8 @@
           <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.balance_inr | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance_inr | number : '1.2-2'  }}</td>          
 
         </tr>
       </tbody>
