@@ -14,9 +14,9 @@ import { RepService } from '../services/report.service';
 
 export class MonrepComponent {
   title = 'Monthly Report'
-/*
-Ajith 24/06/2019 nom/sman update implemented
-*/
+  /*
+  Ajith 24/06/2019 nom/sman update implemented
+  */
 
 
   @Input() menuid: string = '';
@@ -396,6 +396,43 @@ Ajith 24/06/2019 nom/sman update implemented
 
   }
 
+  ModifiedRecords(params: any) {
 
+    if (params.saction == "SALESMAN-ALL") {
+
+      this.ErrorMessage = '';
+      if (this.SearchData.shipper_id == null || this.SearchData.shipper_id == "" || this.SearchData.shipper_id == undefined) {
+        this.ErrorMessage = "Please Enter the Shipper and Process Report"
+        alert(this.ErrorMessage);
+        return;
+      }
+
+      let hbl_ids: string = "";
+      for (let rec of this.RecordList) {
+        if (hbl_ids != "")
+          hbl_ids += ",";
+        hbl_ids += rec.hbl_pkid;
+      }
+      params.SearchData.pkid = hbl_ids;
+      this.loading = true;
+      this.ErrorMessage = '';
+      this.mainService.UpdateMonReport(params.SearchData)
+        .subscribe(response => {
+          this.loading = false;
+          if (response.status == "OK") {
+            for (let rec of this.RecordList) {
+              rec.sman_id = params.smanid;
+              rec.sman_name = params.smanname;
+              rec.displayed = false;
+            }
+          }
+        },
+          error => {
+            this.loading = false;
+            this.ErrorMessage = this.gs.getError(error);
+
+          });
+    }
+  }
 
 }

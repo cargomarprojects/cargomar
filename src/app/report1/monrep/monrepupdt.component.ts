@@ -15,14 +15,16 @@ export class MonRepUpdtComponent {
     // Local Variables 
     title = '';
 
+    @Input() bAdmin: boolean = false;
     @Input() record: MonRep;
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     pkid: string = '';
     nomination: string = '';
     smanid: string = '';
     smanname: string = '';
     hbltype: string = '';
-    hblno:string='';
+    hblno: string = '';
 
     InitCompleted: boolean = false;
     menu_record: any;
@@ -54,7 +56,8 @@ export class MonRepUpdtComponent {
         branch_code: '',
         user_code: '',
         hblno: '',
-        rowtype: ''
+        rowtype: '',
+        type: ''
     }
     SALESMANRECORD: SearchTable = new SearchTable();
 
@@ -107,47 +110,53 @@ export class MonRepUpdtComponent {
         }
     }
     // Save Data
-    Save() {
+    Save(_type: string) {
         /*
         if (!this.allvalid())
           return;
         */
         this.ErrorMessage = '';
-        // if (this.nomination == '') {
-        //     this.ErrorMessage = 'Remarks Cannot Be Empty';
-        //     return;
-        // }
 
-        this.loading = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.SearchData.type = _type;
         this.SearchData.pkid = this.pkid;
         this.SearchData.nomination = this.nomination;
         this.SearchData.smanid = this.smanid;
         this.SearchData.smanname = this.smanname;
         this.SearchData.rowtype = this.hbltype;
         this.SearchData.hblno = this.hblno;
-        this.SearchData.company_code=this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code=this.gs.globalVariables.branch_code;
-        this.SearchData.user_code=this.gs.globalVariables.user_code;
+        this.SearchData.company_code = this.gs.globalVariables.comp_code;
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.user_code = this.gs.globalVariables.user_code;
 
-        this.mainService.UpdateMonReport(this.SearchData)
-            .subscribe(response => {
-                this.loading = false;
+        if (_type === "SALESMAN-ALL") {
+            if (this.ModifiedRecords != null)
+                this.ModifiedRecords.emit({ saction: _type, smanid: this.smanid, smanname: this.smanname, SearchData: this.SearchData });
+        } else {
 
-                if (response.status == "OK") {
-                    this.record.hbl_nomination = this.nomination.toUpperCase();
-                    this.record.sman_id = this.smanid;
-                    this.record.sman_name = this.smanname;
-                    this.record.displayed = false;
-                }
-
-            },
-                error => {
+            this.loading = true;
+            this.ErrorMessage = '';
+            this.InfoMessage = '';
+            this.mainService.UpdateMonReport(this.SearchData)
+                .subscribe(response => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
 
-                });
+                    if (response.status == "OK") {
+                        if (_type === "NOMINATION")
+                            this.record.hbl_nomination = this.nomination.toUpperCase();
+                        if (_type === "SALESMAN") {
+                            this.record.sman_id = this.smanid;
+                            this.record.sman_name = this.smanname;
+                        }
+                        this.record.displayed = false;
+                    }
+
+                },
+                    error => {
+                        this.loading = false;
+                        this.ErrorMessage = this.gs.getError(error);
+
+                    });
+        }
     }
 
     allvalid() {

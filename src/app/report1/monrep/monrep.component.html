@@ -194,7 +194,7 @@
         </tr>
         <tr *ngIf="bEdit && rec.displayed">
           <td colspan="30">
-            <app-monrepupdt [record]="rec" ></app-monrepupdt>
+            <app-monrepupdt [record]="rec" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
           </td>
         </tr>
       </tbody>
@@ -362,7 +362,7 @@
         </tr>
         <tr *ngIf="bEdit && rec.displayed">
           <td colspan="30">
-            <app-monrepupdt [record]="rec" ></app-monrepupdt>
+            <app-monrepupdt [record]="rec" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
           </td>
         </tr>
       </tbody>
