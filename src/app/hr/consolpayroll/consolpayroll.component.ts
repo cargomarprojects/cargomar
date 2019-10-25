@@ -51,6 +51,7 @@ export class ConsolPayrollComponent {
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
+  empregion = "ALL";
 
   mode = '';
   pkid = '';
@@ -94,6 +95,7 @@ export class ConsolPayrollComponent {
     this.branch_code = this.gs.globalVariables.branch_code;
     this.reporttype = 'FORMAT1';
     this.empstatus = 'BOTH';
+    this.empregion='ALL';
     this.bRemove = true;
     this.bPrint = false;
     this.bAdmin = false;
@@ -160,6 +162,7 @@ export class ConsolPayrollComponent {
       salyear: this.salyear,
       reporttype: this.reporttype,
       empstatus: this.empstatus,
+      empregion: this.empregion,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
