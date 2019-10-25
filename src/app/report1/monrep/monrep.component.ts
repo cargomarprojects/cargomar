@@ -406,6 +406,8 @@ export class MonrepComponent {
         alert(this.ErrorMessage);
         return;
       }
+      if (!confirm("Update ALL Records in the List With Sman " + params.smanname))
+        return;
 
       let hbl_ids: string = "";
       for (let rec of this.RecordList) {
