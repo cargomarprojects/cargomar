@@ -21,8 +21,10 @@ export class MonRepUpdtComponent {
 
     pkid: string = '';
     nomination: string = '';
+    old_nomination: string = '';
     smanid: string = '';
     smanname: string = '';
+    old_smanname: string = '';
     hbltype: string = '';
     hblno: string = '';
 
@@ -50,14 +52,18 @@ export class MonRepUpdtComponent {
     SearchData = {
         pkid: '',
         nomination: '',
+        old_nomination: '',
         smanid: '',
         smanname: '',
+        old_smanname: '',
         company_code: '',
         branch_code: '',
         user_code: '',
         hblno: '',
         rowtype: '',
-        type: ''
+        type: '',
+        periods:'',
+        shipper:''
     }
     SALESMANRECORD: SearchTable = new SearchTable();
 
@@ -80,8 +86,10 @@ export class MonRepUpdtComponent {
     ngOnInit() {
         this.pkid = this.record.hbl_pkid;
         this.nomination = this.record.hbl_nomination;
+        this.old_nomination = this.record.hbl_nomination;
         this.smanid = this.record.sman_id;
         this.smanname = this.record.sman_name;
+        this.old_smanname = this.record.sman_name;
         this.hbltype = this.record.hbl_type;
         this.hblno = this.record.sino;
         this.InitLov();
@@ -120,14 +128,18 @@ export class MonRepUpdtComponent {
         this.SearchData.type = _type;
         this.SearchData.pkid = this.pkid;
         this.SearchData.nomination = this.nomination;
+        this.SearchData.old_nomination = this.old_nomination;
         this.SearchData.smanid = this.smanid;
         this.SearchData.smanname = this.smanname;
+        this.SearchData.old_smanname = this.old_smanname;
         this.SearchData.rowtype = this.hbltype;
         this.SearchData.hblno = this.hblno;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
         this.SearchData.branch_code = this.gs.globalVariables.branch_code;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
-
+        this.SearchData.periods = '';
+        this.SearchData.shipper = '';
+        
         if (_type === "SALESMAN-ALL") {
             if (this.ModifiedRecords != null)
                 this.ModifiedRecords.emit({ saction: _type, smanid: this.smanid, smanname: this.smanname, SearchData: this.SearchData });

@@ -410,12 +410,27 @@ export class MonrepComponent {
         return;
 
       let hbl_ids: string = "";
+      let old_sman_names: string = "";
+      let hblnos: string = "";
+      let shpr: string = "";
       for (let rec of this.RecordList) {
-        if (hbl_ids != "")
-          hbl_ids += ",";
-        hbl_ids += rec.hbl_pkid;
+        if (rec.hbl_pkid != null) {
+          shpr=rec.shipper_name;
+          if (hbl_ids != "") {
+            hbl_ids += ",";
+            old_sman_names += ",";
+            hblnos += ",";
+          }
+          hbl_ids += rec.hbl_pkid;
+          old_sman_names += rec.sman_name;
+          hblnos += rec.sino;
+        }
       }
       params.SearchData.pkid = hbl_ids;
+      params.SearchData.old_smanname = old_sman_names;
+      params.SearchData.hblno = hblnos;
+      params.SearchData.shipper = shpr;
+      params.SearchData.periods = 'From ' + this.from_date + ' to ' + this.to_date;
       this.loading = true;
       this.ErrorMessage = '';
       this.mainService.UpdateMonReport(params.SearchData)
