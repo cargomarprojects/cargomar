@@ -25,9 +25,9 @@ export class ArrivalNotice {
     mbl_vessel_name: string;
     mbl_vessel_no: string;
     hbl_commodity: string;
-    hbl_packages: string;
-    hbl_grweight: string;
-    hbl_volume: string;
+    hbl_packages: number;
+    hbl_grweight: number;
+    hbl_volume: number;
 
     _globalvariables: GlobalVariables;
 }
