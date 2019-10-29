@@ -27,6 +27,8 @@ import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 import { TdsosDetComponent} from './tdsos/tdsosdet.component';
 import { AuditLogComponent} from './auditlog/auditlog.component';
 
+import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
+
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
   { path: 'tonnage', component: TonnageComponent },
@@ -51,7 +53,8 @@ const routes: Routes = [
   { path: 'tdsos', component: TdsosComponent},
   { path: 'tdsosparty', component: TdsosPartyComponent},
   { path: 'tdsosdet', component: TdsosDetComponent},
-  { path: 'auditlog', component: AuditLogComponent}
+  { path: 'auditlog', component: AuditLogComponent},
+  { path: 'arrivalnotice', component: ArrivalNoticeComponent}
 ];
 
 @NgModule({

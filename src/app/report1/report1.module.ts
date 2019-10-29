@@ -51,6 +51,7 @@ import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
 import { TdsosDetComponent} from './tdsos/tdsosdet.component';
 import { AuditLogComponent} from './auditlog/auditlog.component';
 import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
+import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 
 @NgModule({
   imports: [
@@ -89,7 +90,8 @@ import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
     TdsosPartyComponent,
     TdsosDetComponent,
     AuditLogComponent,
-    MonRepUpdtComponent
+    MonRepUpdtComponent,
+    ArrivalNoticeComponent
   ],
   providers: [
   ],
