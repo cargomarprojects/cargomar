@@ -12,7 +12,7 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-6">
+        <div class="col-4">
 
           <!-- <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">From Date</label>
@@ -25,14 +25,15 @@
               <div class="col-8">
                 <app-date #todate [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
               </div>
+            </div> -->
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
+            <div class="col-8">
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
-            <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
-              <div class="col-8">
-                <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-            <div class="form-group row">
+          </div>
+          <!-- <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
               <div  class="col-8">
                 <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
@@ -41,76 +42,26 @@
 
 
         </div>
-        <!-- <div class="col-4">
-  
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
-              <div class="col-8">
-                <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
+        <div class="col-4">
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Days to Arrival</label>
+            <div class="col-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="priordays" required
+                maxlength="10" />
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
-              <div class="col-8">
-                <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-  
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
-              <div class="col-8">
-                <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
-              <div class="col-8">
-                <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-  
-  
-            
-  
-          </div> -->
-        <div class="col-6">
 
-          <!-- <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-              <div class="col-8">
-  
-                <select class="form-control form-control-sm" [(ngModel)]="type_date">
-                  <option [value]="'SOB'">SOB</option>
-                  <option [value]="'CREATED'">CREATED DATE</option>
-                </select>
-  
-              </div>
-            </div> -->
+          </div>
 
-          <!-- <div *ngIf="bCompany" class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-              <div class="col-8">
-                <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div> -->
-
-          <!-- <div *ngIf="bCompany" class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-              <div class="col-8">
-                <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-                <span> All</span>
-              </div>
-            </div> -->
-
-
+        </div>
+        <div class="col-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
               <button [disabled]="loading" (click)="List('SCREEN','')" class="btn btn-primary btn-sm">Process
                 Report</button>
-              <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')" class="btn btn-primary btn-sm">Excel</button> -->
-              <button *ngIf="bAdmin" [disabled]="loading" (click)="List('MAIL', mailsent)"
-                class="btn btn-primary btn-sm">Mail</button>
+              <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="List('MAIL', mailsent)"
+                class="btn btn-primary btn-sm">Mail</button> -->
             </div>
           </div>
         </div>
@@ -121,36 +72,53 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
+          <th>SL#</th>
+          <th>MBL#</th>
           <th>BOOKING#</th>
           <th>DATE</th>
           <th>HBL#</th>
           <th>SHIPPER</th>
-          <th>SHPR-ADDR</th>
+          <!-- <th>SHPR-ADDR</th> -->
           <th>CONSIGNEE</th>
-          <th>CNGE-ADDR</th>
+          <!-- <th>CNGE-ADDR</th> -->
           <th>TERMS</th>
           <th>CARRIER</th>
           <th>POL</th>
+          <th>ETD</th>
           <th>POD</th>
+          <th>ETA</th>
+          <th>ETA.DAYS</th>
+          <th>EMAIL</th>
+          <th>SENT</th>
           <th>COMMODITY</th>
           <th class="text-right">PKGS</th>
           <th class="text-right">GRWT</th>
           <th class="text-right">VOLUME</th>
+         
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
+          <!-- <td><input type="checkbox" [(ngModel)]="rec.hbl_selected"></td> -->
+          <td>{{rec.mbl_slno}}</td>
+          <td>{{rec.mbl_no}}</td>
           <td>{{rec.mbl_book_no}}</td>
           <td>{{rec.mbl_book_date}}</td>
           <td>{{rec.hbl_blno}}</td>
           <td>{{rec.hbl_exp_name}}</td>
-          <td>{{rec.hbl_exp_addr1}}</td>
+          <!-- <td>{{rec.hbl_exp_addr1}}</td> -->
           <td>{{rec.hbl_imp_name}}</td>
-          <td>{{rec.hbl_imp_addr1}}</td>
+          <!-- <td>{{rec.hbl_imp_addr1}}</td> -->
           <td>{{rec.hbl_terms}}</td>
           <td>{{rec.mbl_carrier_name}}</td>
-          <td>{{rec.hbl_pol_name}}</td>
-          <td>{{rec.hbl_pod_name}}</td>
+          <td>{{rec.mbl_pol_name}}</td>
+          <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pod_name}}</td>
+          <td>{{rec.mbl_pod_eta}}</td>
+          <td align='center'>{{rec.mbl_eta_days}}</td>
+          <td align='center'><i class="fa fa-envelope  fa-lg pointer" aria-hidden="true" (click)="Showemail(rec.mbl_pkid, mailsent)"></i></td>
+          <td>{{rec.hbl_ar_notice}}</td>
           <td>{{rec.hbl_commodity}}</td>
           <td align='right'>{{ rec.hbl_packages | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.hbl_grweight | number : '1.2-2' }}</td>
@@ -177,7 +145,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'BOOKING TEU'" [sHtml]="sHtml" [defaultmessage]="sMsg"
+    <app-mail [pkid]="mbl_pkid" [type]="'ARRIVAL NOTICE'" [sHtml]="sHtml" [defaultmessage]="sMsg"
       [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
   <!--<div class="modal-footer">

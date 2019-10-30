@@ -7,6 +7,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { ArrivalNotice } from '../models/arrivalnotice';
 import { ArrivalNoticeService } from '../services/arrivalnotice.service';
 import { DateComponent } from '../../shared/date/date.component';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 
 @Component({
@@ -21,19 +22,20 @@ export class ArrivalNoticeComponent {
   @ViewChild('todate') private todate: DateComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
-  InitCompleted: boolean = false;  
+  InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
 
   modal: any;
 
-  
+
   ErrorMessage = "";
   mode = '';
   pkid = '';
-   
 
+  chkallselected: boolean = false;
+  selectdeselect: boolean = false;
   type_date: string = 'SOB';
   from_date: string = '';
   to_date: string = '';
@@ -47,7 +49,9 @@ export class ArrivalNoticeComponent {
   pol_id: string;
   pod_id: string;
   porttype: string;
+  mbl_pkid:string="";
 
+  priordays: number=10;
   bExcel = false;
   disableSave = true;
   bCompany = false;
@@ -71,12 +75,12 @@ export class ArrivalNoticeComponent {
     type_date: '',
     shipper_id: '',
     consignee_id: '',
-    agent_id:'',
+    agent_id: '',
     carrier_id: '',
     pol_id: '',
     pod_id: '',
     all: false,
-   
+    priordays: 10
   };
 
   sSubject: string = '';
@@ -86,7 +90,7 @@ export class ArrivalNoticeComponent {
 
   // Array For Displaying List
   RecordList: ArrivalNotice[] = [];
- //  Single Record for add/edit/view details
+  //  Single Record for add/edit/view details
   Record: ArrivalNotice = new ArrivalNotice;
 
   BRRECORD: SearchTable = new SearchTable();
@@ -121,7 +125,7 @@ export class ArrivalNoticeComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    
+
   }
 
   InitComponent() {
@@ -156,13 +160,13 @@ export class ArrivalNoticeComponent {
     this.shipper_id = '';
     this.consignee_id = '';
     this.agent_id = '';
-   
+
     this.carrier_id = '';
     this.pol_id = '';
     this.pod_id = '';
   }
 
- // // Destroy Will be called when this component is closed
+  // // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -251,8 +255,8 @@ export class ArrivalNoticeComponent {
     }
     if (_Record.controlname == "AGENT") {
       this.agent_id = _Record.id;
-     // this.agent_code = _Record.code;
-     // this.agent_name = _Record.name;
+      // this.agent_code = _Record.code;
+      // this.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
       this.carrier_id = _Record.id;
@@ -300,7 +304,7 @@ export class ArrivalNoticeComponent {
     return this.disableSave;
   }
 
- // // Query List Data
+  // // Query List Data
   List(_type: string, mailsent: any) {
 
     this.ErrorMessage = '';
@@ -312,65 +316,57 @@ export class ArrivalNoticeComponent {
     //  this.ErrorMessage = "To Date Cannot Be Blank";
     //  return;
     //}
-    
+
     this.loading = true;
-    this.pkid = this.gs.getGuid();
-    this.SearchData.pkid = this.pkid;
+    this.SearchData.pkid = this.mbl_pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   
-    if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
-    }
-    else {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+    this.SearchData.priordays = this.priordays;
 
-    }
+    // }
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
-    if (_type == "MAIL")
-      this.SearchData.type = "EXCEL";
-    else
-      this.SearchData.type = _type;
-    this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
+    this.SearchData.type = _type;
+    // this.SearchData.type_date = this.type_date;
+    // this.SearchData.from_date = this.from_date;
+    // this.SearchData.to_date = this.to_date;
     this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.all = this.all;
+    // this.SearchData.consignee_id = this.consignee_id;
+    // this.SearchData.agent_id = this.agent_id;
+    // this.SearchData.carrier_id = this.carrier_id;
+    // this.SearchData.pol_id = this.pol_id;
+    // this.SearchData.pod_id = this.pod_id;
+    // this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.chkallselected = false;
+        this.selectdeselect = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'MAIL')
-        {
+        else if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
-          this.setMailBody(response.totteu, response.totteuday, response.tomonth);
-           
+         // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          //this.setMailBody(response.totteu, response.totteuday, response.tomonth);
+          this.sSubject = response.mailsubject;
+          this.sHtml = response.mailmessage;
           this.open(mailsent);
         }
-      else
-        {
+        else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  setMailBody(totteu: number, totteuday: number,tomonth:string) {
+  setMailBody(totteu: number, totteuday: number, tomonth: string) {
 
     this.sSubject = "LINER BOOKING REPORT";
 
@@ -400,5 +396,17 @@ export class ArrivalNoticeComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
-  
+
+  SelectDeselect() {
+    this.selectdeselect = !this.selectdeselect;
+    for (let rec of this.RecordList) {
+      rec.hbl_selected = this.selectdeselect;
+    }
+  }
+
+  Showemail(_id:string, msent:any)
+  {
+     this.mbl_pkid=_id;
+     this.List('MAIL',msent);
+  }
 }

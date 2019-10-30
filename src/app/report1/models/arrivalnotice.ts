@@ -1,6 +1,9 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 export class ArrivalNotice {
+    mbl_pkid: string;
     mbl_book_no: string;
+    mbl_no: string;
+    mbl_slno: string;
     mbl_book_date: string;
     hbl_blno: string;
     mbl_pol_code: string;
@@ -28,6 +31,10 @@ export class ArrivalNotice {
     hbl_packages: number;
     hbl_grweight: number;
     hbl_volume: number;
-
+    hbl_selected:boolean;
+    mbl_pol_etd: string;
+    mbl_pod_eta: string;
+    mbl_eta_days: number;
+    hbl_ar_notice:string;
     _globalvariables: GlobalVariables;
 }
