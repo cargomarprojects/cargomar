@@ -13,19 +13,6 @@
     <div class="page-search">
       <div class="row">
         <div class="col-4">
-
-          <!-- <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">From Date</label>
-              <div class="col-8">
-                <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">To Date</label>
-              <div class="col-8">
-                <app-date #todate [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
-              </div>
-            </div> -->
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
             <div class="col-8">
@@ -33,19 +20,11 @@
               </app-autocomplete>
             </div>
           </div>
-          <!-- <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
-              <div  class="col-8">
-                <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div> -->
-
-
         </div>
         <div class="col-4">
 
           <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Days to Arrival</label>
+            <label class="col-sm-4 col-form-label col-form-label-sm">Days Prior to Arrival</label>
             <div class="col-4">
               <input type="number" class="form-control form-control-sm" [(ngModel)]="priordays" required
                 maxlength="10" />
@@ -58,7 +37,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
-              <button [disabled]="loading" (click)="List('SCREEN','')" class="btn btn-primary btn-sm">Process
+              <button [disabled]="loading" (click)="List('NEW','')" class="btn btn-primary btn-sm">Process
                 Report</button>
               <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="List('MAIL', mailsent)"
                 class="btn btn-primary btn-sm">Mail</button> -->
@@ -68,34 +47,50 @@
       </div>
     </div>
   </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST','')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV','')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT','')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST','')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
           <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
-          <th>SL#</th>
+          <th>MBLBK#</th>
           <th>MBL#</th>
           <th>BOOKING#</th>
           <th>DATE</th>
           <th>HBL#</th>
-          <th>SHIPPER</th>
+          <!-- <th>SHIPPER</th> -->
           <!-- <th>SHPR-ADDR</th> -->
           <th>CONSIGNEE</th>
           <!-- <th>CNGE-ADDR</th> -->
-          <th>TERMS</th>
+          <!-- <th>TERMS</th> -->
           <th>CARRIER</th>
-          <th>POL</th>
-          <th>ETD</th>
+          <!-- <th>POL</th> -->
+          <!-- <th>ETD</th> -->
           <th>POD</th>
           <th>ETA</th>
-          <th>ETA.DAYS</th>
+          <th>PRIOR.DAYS</th>
           <th>EMAIL</th>
           <th>SENT</th>
-          <th>COMMODITY</th>
-          <th class="text-right">PKGS</th>
+          <!-- <th>COMMODITY</th> -->
+          <!-- <th class="text-right">PKGS</th>
           <th class="text-right">GRWT</th>
-          <th class="text-right">VOLUME</th>
-         
+          <th class="text-right">VOLUME</th> -->
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -106,26 +101,44 @@
           <td>{{rec.mbl_book_no}}</td>
           <td>{{rec.mbl_book_date}}</td>
           <td>{{rec.hbl_blno}}</td>
-          <td>{{rec.hbl_exp_name}}</td>
+          <!-- <td>{{rec.hbl_exp_name}}</td> -->
           <!-- <td>{{rec.hbl_exp_addr1}}</td> -->
           <td>{{rec.hbl_imp_name}}</td>
           <!-- <td>{{rec.hbl_imp_addr1}}</td> -->
-          <td>{{rec.hbl_terms}}</td>
+          <!-- <td>{{rec.hbl_terms}}</td> -->
           <td>{{rec.mbl_carrier_name}}</td>
-          <td>{{rec.mbl_pol_name}}</td>
-          <td>{{rec.mbl_pol_etd}}</td>
+          <!-- <td>{{rec.mbl_pol_name}}</td> -->
+          <!-- <td>{{rec.mbl_pol_etd}}</td> -->
           <td>{{rec.mbl_pod_name}}</td>
           <td>{{rec.mbl_pod_eta}}</td>
           <td align='center'>{{rec.mbl_eta_days}}</td>
-          <td align='center'><i class="fa fa-envelope  fa-lg pointer" aria-hidden="true" (click)="Showemail(rec.mbl_pkid, mailsent)"></i></td>
+          <td align='center'><i class="fa fa-envelope  fa-lg pointer" aria-hidden="true"
+              (click)="Showemail(rec.hbl_pkid, mailsent)"></i></td>
           <td>{{rec.hbl_ar_notice}}</td>
-          <td>{{rec.hbl_commodity}}</td>
-          <td align='right'>{{ rec.hbl_packages | number : '1.2-2' }}</td>
+          <!-- <td>{{rec.hbl_commodity}}</td> -->
+          <!-- <td align='right'>{{ rec.hbl_packages | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.hbl_grweight | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.hbl_volume | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.hbl_volume | number : '1.2-2' }}</td> -->
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST','')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV','')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT','')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST','')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -145,7 +158,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="mbl_pkid" [type]="'ARRIVAL NOTICE'" [sHtml]="sHtml" [defaultmessage]="sMsg"
+    <app-mail [pkid]="hbl_pkid" [type]="'ARRIVAL NOTICE'" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultto_ids]="sTo_ids"
       [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
   <!--<div class="modal-footer">

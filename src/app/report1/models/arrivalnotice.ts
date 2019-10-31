@@ -36,5 +36,6 @@ export class ArrivalNotice {
     mbl_pod_eta: string;
     mbl_eta_days: number;
     hbl_ar_notice:string;
+    hbl_pkid:string;
     _globalvariables: GlobalVariables;
 }

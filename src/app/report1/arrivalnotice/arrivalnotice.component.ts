@@ -19,7 +19,7 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 export class ArrivalNoticeComponent {
   title = 'Arrival Report'
 
-  @ViewChild('todate') private todate: DateComponent;
+  //@ViewChild('todate') private todate: DateComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -29,6 +29,11 @@ export class ArrivalNoticeComponent {
 
   modal: any;
 
+
+  page_count = 0;
+  page_current = 0;
+  page_rows = 0;
+  page_rowcount = 0;
 
   ErrorMessage = "";
   mode = '';
@@ -49,9 +54,9 @@ export class ArrivalNoticeComponent {
   pol_id: string;
   pod_id: string;
   porttype: string;
-  mbl_pkid:string="";
+  hbl_pkid: string = "";
 
-  priordays: number=10;
+  priordays: number = 10;
   bExcel = false;
   disableSave = true;
   bCompany = false;
@@ -80,9 +85,14 @@ export class ArrivalNoticeComponent {
     pol_id: '',
     pod_id: '',
     all: false,
-    priordays: 10
+    priordays: 10,
+    page_count: this.page_count,
+    page_current: this.page_current,
+    page_rows: this.page_rows,
+    page_rowcount: this.page_rowcount
   };
 
+  sTo_ids: string = '';
   sSubject: string = '';
   sMsg: string = '';
   sHtml: string = '';
@@ -107,6 +117,9 @@ export class ArrivalNoticeComponent {
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
+    this.page_count = 0;
+    this.page_rows = 20;
+    this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -308,37 +321,27 @@ export class ArrivalNoticeComponent {
   List(_type: string, mailsent: any) {
 
     this.ErrorMessage = '';
-    //if (this.from_date.trim().length <= 0) {
-    //  this.ErrorMessage = "From Date Cannot Be Blank";
-    //  return;
-    //}
-    //if (this.to_date.trim().length <= 0) {
-    //  this.ErrorMessage = "To Date Cannot Be Blank";
-    //  return;
-    //}
+    if (this.shipper_id.trim().length <= 0) {
+      this.ErrorMessage = "Shipper Cannot Be Blank";
+      return;
+    }
+
 
     this.loading = true;
-    this.SearchData.pkid = this.mbl_pkid;
+    this.SearchData.pkid = this.hbl_pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.branch_name = this.gs.globalVariables.branch_name;
     this.SearchData.priordays = this.priordays;
-
-    // }
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    // this.SearchData.type_date = this.type_date;
-    // this.SearchData.from_date = this.from_date;
-    // this.SearchData.to_date = this.to_date;
     this.SearchData.shipper_id = this.shipper_id;
-    // this.SearchData.consignee_id = this.consignee_id;
-    // this.SearchData.agent_id = this.agent_id;
-    // this.SearchData.carrier_id = this.carrier_id;
-    // this.SearchData.pol_id = this.pol_id;
-    // this.SearchData.pod_id = this.pod_id;
-    // this.SearchData.all = this.all;
+    this.SearchData.page_count = this.page_count;
+    this.SearchData.page_current = this.page_current;
+    this.SearchData.page_rows = this.page_rows;
+    this.SearchData.page_rowcount = this.page_rowcount;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
@@ -350,14 +353,18 @@ export class ArrivalNoticeComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
-         // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
           //this.setMailBody(response.totteu, response.totteuday, response.tomonth);
+          this.sTo_ids = response.mailto_ids;
           this.sSubject = response.mailsubject;
           this.sHtml = response.mailmessage;
           this.open(mailsent);
         }
         else {
           this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
         }
       },
         error => {
@@ -368,17 +375,17 @@ export class ArrivalNoticeComponent {
   }
   setMailBody(totteu: number, totteuday: number, tomonth: string) {
 
-    this.sSubject = "LINER BOOKING REPORT";
+    // this.sSubject = "LINER BOOKING REPORT";
 
-    this.sMsg = "Dear All,";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Please find the attached Daily Booking Report as on date;";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Bookings as on " + this.todate.GetDisplayDate() + "  : " + totteuday.toString() + " Teus";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Bookings in the month of " + tomonth + " as on " + this.todate.GetDisplayDate();
-    this.sMsg += "  : " + totteu.toString() + " Teus ( Confirmed bookings )";
-    this.sMsg += " \n\n";
+    // this.sMsg = "Dear All,";
+    // this.sMsg += " \n\n";
+    // this.sMsg += "  Please find the attached Daily Booking Report as on date;";
+    // this.sMsg += " \n\n";
+    // this.sMsg += "  Bookings as on " + this.todate.GetDisplayDate() + "  : " + totteuday.toString() + " Teus";
+    // this.sMsg += " \n\n";
+    // this.sMsg += "  Bookings in the month of " + tomonth + " as on " + this.todate.GetDisplayDate();
+    // this.sMsg += "  : " + totteu.toString() + " Teus ( Confirmed bookings )";
+    // this.sMsg += " \n\n";
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -404,9 +411,8 @@ export class ArrivalNoticeComponent {
     }
   }
 
-  Showemail(_id:string, msent:any)
-  {
-     this.mbl_pkid=_id;
-     this.List('MAIL',msent);
+  Showemail(_id: string, msent: any) {
+    this.hbl_pkid = _id;
+    this.List('MAIL', msent);
   }
 }
