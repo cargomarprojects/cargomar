@@ -1,575 +1,601 @@
 <div *ngIf="currentPage=='ROOTPAGE'">
-<div class="page-header">
-  <div class="col">
-    <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-    <i *ngIf="loading" class="fa fa-spinner"></i>
+  <div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
   </div>
-</div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div *ngIf="currentTab=='LIST'" class="page-list">
 
-  <div class="page-search">
+    <div class="page-search">
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group row">
-          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-            <app-date [inputdate]="gs.globalData.mbl_fromdate" (ValueChanged)="gs.globalData.mbl_fromdate=$event">
-            </app-date>
-          </div>
-          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-            <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event">
-            </app-date>
-          </div>
-          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-4">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
-          </div>
-          <div class="col-sm-3">
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group row">
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+              <app-date [inputdate]="gs.globalData.mbl_fromdate" (ValueChanged)="gs.globalData.mbl_fromdate=$event">
+              </app-date>
+            </div>
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+              <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event">
+              </app-date>
+            </div>
+            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+            <div class="col-sm-4">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col-sm-3">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="page-pager">
-    <div *ngIf="page_count">
-      <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-      </ul>
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
-      <thead class="page-body-thead">
-        <tr>
-          <th>MBLBK#</th>
-          <th>BOOK#</th>
-          <th>MBL#</th>
-          <th>DATE</th>
-          <th>FOLDER</th>
-          <th>SENT.ON</th>
-          <th>SHIPPER</th>
-          <th>AGENT</th>
-          <th>CARRIER</th>
-          <th>POL</th>
-          <th>POD</th>
-          <th>POFD</th>
-          <th>20</th>
-          <th>40</th>
-          <th>CBM</th>
-          <th>TEU</th>
-          <th>SINOS</th>
-          <th align='center'>DOCS</th>
-          <th>LINER INVNOS</th>
-          <th>CONTAINER</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.book_pkid)">
-          <td>{{rec.book_slno}}</td>
-          <td>{{rec.book_no}}</td>
-          <td>{{rec.book_mblno}}</td>
-          <td>{{rec.book_booked_on}}</td>
-          <td>{{rec.book_folder_no}}</td>
-          <td>{{rec.book_folder_sent_date}}</td>
-          <td>{{rec.book_shipper_name}}</td>
-          <td>{{rec.book_agent_name}}</td>
-          <td>{{rec.book_liner_name}}</td>
-          <td>{{rec.book_pol_name}}</td>
-          <td>{{rec.book_pod_name}}</td>
-          <td>{{rec.book_pofd_name}}</td>
-          <td>{{rec.book_m20}}</td>
-          <td>{{rec.book_m40}}</td>
-          <td>{{rec.book_mcbm}}</td>
-          <td>{{rec.book_mteu}}</td>
-          <td>{{rec.book_sinos}}</td>
-          <td align='center'>{{rec.book_docs}}</td>
-          <td>{{rec.book_ap_invnos}}</td>
-          <td>{{rec.book_cntr}}</td>
-        </tr>
-        <!--<tr>
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>MBLBK#</th>
+            <th>BOOK#</th>
+            <th>MBL#</th>
+            <th>DATE</th>
+            <th>FOLDER</th>
+            <th>SENT.ON</th>
+            <th>SHIPPER</th>
+            <th>AGENT</th>
+            <th>CARRIER</th>
+            <th>POL</th>
+            <th>POD</th>
+            <th>POFD</th>
+            <th>20</th>
+            <th>40</th>
+            <th>CBM</th>
+            <th>TEU</th>
+            <th>SINOS</th>
+            <th align='center'>DOCS</th>
+            <th>LINER INVNOS</th>
+            <th>CONTAINER</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr (click)="ActionHandler('EDIT',rec.book_pkid)">
+            <td>{{rec.book_slno}}</td>
+            <td>{{rec.book_no}}</td>
+            <td>{{rec.book_mblno}}</td>
+            <td>{{rec.book_booked_on}}</td>
+            <td>{{rec.book_folder_no}}</td>
+            <td>{{rec.book_folder_sent_date}}</td>
+            <td>{{rec.book_shipper_name}}</td>
+            <td>{{rec.book_agent_name}}</td>
+            <td>{{rec.book_liner_name}}</td>
+            <td>{{rec.book_pol_name}}</td>
+            <td>{{rec.book_pod_name}}</td>
+            <td>{{rec.book_pofd_name}}</td>
+            <td>{{rec.book_m20}}</td>
+            <td>{{rec.book_m40}}</td>
+            <td>{{rec.book_mcbm}}</td>
+            <td>{{rec.book_mteu}}</td>
+            <td>{{rec.book_sinos}}</td>
+            <td align='center'>{{rec.book_docs}}</td>
+            <td>{{rec.book_ap_invnos}}</td>
+            <td>{{rec.book_cntr}}</td>
+          </tr>
+          <!--<tr>
           <td></td>
           <td style="color:blue">CNTRS</td>
           <td colspan="15">{{rec.book_cntr}}</td>
         </tr>-->
-        <!--<tr>
+          <!--<tr>
           <td></td>
           <td style="color:blue">LINER INVNOS</td>
           <td colspan="15">{{rec.book_ap_invnos}}</td>
         </tr>-->
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="page-pager">
-    <div *ngIf="page_count">
-      <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-      </ul>
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
 
-  <ngb-tabset>
-    <ngb-tab title="Basic Details">
-      <ng-template ngbTabContent>
-        <div class="page-box">
-          <div class="row">
-            <div class="col-sm-4">
+    <ngb-tabset>
+      <ngb-tab title="Basic Details">
+        <ng-template ngbTabContent>
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-4">
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">MBLBK#</label>
-                <div class="col-sm-4">
-                  <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">MBLBK#</label>
+                  <div class="col-sm-4">
+                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">Booking No</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no"
-                    (blur)="OnBlur('book_no')" required maxlength="30" />
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Booking No</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no"
+                      (blur)="OnBlur('book_no')" required maxlength="30" />
+                  </div>
+                  <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event">
+                    </app-date>
+                  </div>
                 </div>
-                <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event">
-                  </app-date>
-                </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">MBL No</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
-                    (blur)="OnBlur('book_mblno')" required maxlength="30" />
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">MBL No</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
+                      (blur)="OnBlur('book_mblno')" required maxlength="30" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="SHIPPERRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="SHIPPERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_exporter_name" (blur)="OnBlur('book_exporter_name')" required
+                      maxlength="60" />
+                  </div>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_exporter_name" (blur)="OnBlur('book_exporter_name')" required
-                    maxlength="60" />
-                </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="CONSIGNEERECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="CONSIGNEERECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_consignee_name" (blur)="OnBlur('book_consignee_name')" required
+                      maxlength="60" />
+                  </div>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_consignee_name" (blur)="OnBlur('book_consignee_name')" required
-                    maxlength="60" />
-                </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Liner</label>
-                <div class="col-4">
-                  <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Liner</label>
+                  <div class="col-4">
+                    <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_liner_name" />
+                  </div>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_liner_name" />
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Co-Loader</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_coloader_name" (blur)="OnBlur('book_coloader_name')" required
+                      maxlength="60" />
+                  </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Co-Loader</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_coloader_name" (blur)="OnBlur('book_coloader_name')" required
-                    maxlength="60" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">CHA</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_cha_name" />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_agent_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
-                <div class="col-10">
-                  <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-              </div>
-
-
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm"></label>
-                <div class="col-10">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_agent_br_addr"
-                    [disabled]="true" maxlength="1000"></textarea>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Agent 2</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="AGENT2RECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_agent2_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Terms</label>
-                <div class="col-sm-4">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_terms">
-                    <option [value]="'EX-WORK'">EX-WORK</option>
-                    <option [value]="'FREIGHT COLLECT'">FREIGHT COLLECT</option>
-                    <option [value]="'FREIGHT PREPAID'">FREIGHT PREPAID</option>
-                  </select>
-                </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Nomination</label>
-                <div class="col-sm-4">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_nomination">
-                    <option [value]="'NA'">NA</option>
-                    <option [value]="'NOMINATION'">NOMINATION</option>
-                    <option [value]="'MUTUAL'">MUTUAL</option>
-                    <option [value]="'FREEHAND'">FREEHAND</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label  col-form-label-sm">Nature</label>
-                <div class="col-sm-4">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_nature">
-                    <option [value]="'FCL/FCL'">FCL/FCL</option>
-                    <option [value]="'FCL/LCL'">FCL/LCL</option>
-                    <option [value]="'LCL'">LCL</option>
-                    <option [value]="'LCL/FCL'">LCL/FCL</option>
-                    <option [value]="'LCL/LCL'">LCL/LCL</option>
-                  </select>
-                </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Ship.Type</label>
-                <div class="col-sm-4">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_shipment_type">
-                    <option [value]="'FCL'">FCL</option>
-                    <option [value]="'BUYERS CONSOLE'">BUYER CONSOLE</option>
-                    <option [value]="'CONSOLE'">CONSOLE</option>
-                    <option [value]="'LCL'">LCL</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Sales.Rep.</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
-                  </app-date>
-                </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm"
-                  style="padding-left:0;padding-right:0">Status</label>
-                <div style="padding-left:0" class="col-sm-3">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_status_id">
-                    <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label>
-                <div class="col-4">
-                  <input disabled type="text" class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_folder_no" (blur)="OnBlur('book_folder_no')" required maxlength="20" />
-                </div>
-                <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">*Sent.On
-                  <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
-                </label>
-                <div style="padding-left:0" class="col-3">
-                  <app-date disabled [inputdate]="Record.book_folder_sent_date"
-                    (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_commodity_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">Description</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_description"
-                    (blur)="OnBlur('book_description')" required maxlength="60" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">*Remarks</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc"
-                    (blur)="OnBlur('book_mdesc')" required maxlength="100" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">Containers</label>
-                <div class="col-sm-9">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_cntr"
-                    required maxlength="500" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">*PreAlert.SentOn</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
-                  </app-date>
-                </div>
-                <div class="col-sm-4">
-                  <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="offset-3 col-8">
-                  <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')" (click)="GenerateFolderNo(Record.book_pkid)" class="btn btn-success btn-sm">Generate Folder No And Save</button>
-                  <i *ngIf="loading" class="fa fa-spinner"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-4">
-              <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label  col-form-label-sm">Move Type</label>
-                <div class="col-sm-9">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.book_move">
-                    <option [value]="'4'">Ramp or CY to Port, Ramp or CY</option>
-                    <option [value]="'2'">Door to Port, Ramp or CY</option>
-                    <option [value]="'1'">Door To Door</option>
-                    <option [value]="'3'">Port, Ramp or CY to Door</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label style="padding-right:0"
-                  class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <label class="col-sm-1 col-form-label col-form-label-sm">ETD</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_por_etd" (ValueChanged)="Record.book_por_etd=$event"></app-date>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label style="padding-right:0"
-                  class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event">
-                  </app-date>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Vessel</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_vessel_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Voyage</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no"
-                    (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
-                </div>
-                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event"></app-date>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Port Cut.Off</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
-                  </app-date>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pol_name" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POL ETD</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">ETD Confirm
-                    </label>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">CHA</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="CHARECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_cha_name" />
                   </div>
                 </div>
               </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_agent_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                  <div class="col-10">
+                    <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                </div>
 
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pod_name" />
-                </div>
-              </div>
 
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POD ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-10">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_agent_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
+                  </div>
                 </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">ETA Confirm
-                    </label>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent 2</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="AGENT2RECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_agent2_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Terms</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_terms">
+                      <option [value]="'EX-WORK'">EX-WORK</option>
+                      <option [value]="'FREIGHT COLLECT'">FREIGHT COLLECT</option>
+                      <option [value]="'FREIGHT PREPAID'">FREIGHT PREPAID</option>
+                    </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Nomination</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_nomination">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NOMINATION'">NOMINATION</option>
+                      <option [value]="'MUTUAL'">MUTUAL</option>
+                      <option [value]="'FREEHAND'">FREEHAND</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Nature</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_nature">
+                      <option [value]="'FCL/FCL'">FCL/FCL</option>
+                      <option [value]="'FCL/LCL'">FCL/LCL</option>
+                      <option [value]="'LCL'">LCL</option>
+                      <option [value]="'LCL/FCL'">LCL/FCL</option>
+                      <option [value]="'LCL/LCL'">LCL/LCL</option>
+                    </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Ship.Type</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_shipment_type">
+                      <option [value]="'FCL'">FCL</option>
+                      <option [value]="'BUYERS CONSOLE'">BUYER CONSOLE</option>
+                      <option [value]="'CONSOLE'">CONSOLE</option>
+                      <option [value]="'LCL'">LCL</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Sales.Rep.</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
+                    </app-date>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm"
+                    style="padding-left:0;padding-right:0">Status</label>
+                  <div style="padding-left:0" class="col-sm-3">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_status_id">
+                      <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.book_pofd_name" />
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label>
+                  <div class="col-4">
+                    <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_folder_no"
+                      (blur)="OnBlur('book_folder_no')" required maxlength="20" />
+                  </div>
+                  <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">*Sent.On
+                    <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
+                  </label>
+                  <div style="padding-left:0" class="col-3">
+                    <app-date disabled [inputdate]="Record.book_folder_sent_date"
+                      (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">POFD.ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event"></app-date>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_commodity_name" />
+                  </div>
                 </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">ETA
-                      Confirm
-                    </label>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Description</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_description"
+                      (blur)="OnBlur('book_description')" required maxlength="60" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">*Remarks</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc"
+                      (blur)="OnBlur('book_mdesc')" required maxlength="100" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Containers</label>
+                  <div class="col-sm-9">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_cntr"
+                      required maxlength="500" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">*PreAlert.SentOn</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
+                    </app-date>
+                  </div>
+                  <div class="col-sm-4">
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-3 col-8">
+                    <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')"
+                      (click)="GenerateFolderNo(Record.book_pkid)" class="btn btn-success btn-sm">Generate Folder No And
+                      Save</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-4">
-              <div class="form-group row">
-                <label class="col-3 col-form-label col-form-label-sm">*Customer Comments</label>
-                <div class="col-9">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
-                    maxlength="100"></textarea>
+            <hr>
+            <div class="row">
+              <div class="col-sm-4">
+                <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Move Type</label>
+                  <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_move">
+                      <option [value]="'4'">Ramp or CY to Port, Ramp or CY</option>
+                      <option [value]="'2'">Door to Port, Ramp or CY</option>
+                      <option [value]="'1'">Door To Door</option>
+                      <option [value]="'3'">Port, Ramp or CY to Door</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label style="padding-right:0"
+                    class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <label class="col-sm-1 col-form-label col-form-label-sm">ETD</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_por_etd" (ValueChanged)="Record.book_por_etd=$event"></app-date>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label style="padding-right:0"
+                    class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event">
+                    </app-date>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Vessel</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_vessel_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Voyage</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no"
+                      (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
+                  </div>
+                  <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event"></app-date>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Port Cut.Off</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
+                    </app-date>
+                  </div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label col-form-label-sm">Partner Email</label>
-                <div class="col-9">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_partner_email"
-                    required maxlength="100" />
+              <div class="col-sm-4">
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_pol_name" />
+                  </div>
                 </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POL ETD</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">ETD
+                        Confirm
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_pod_name" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POD ETA</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">ETA
+                        Confirm
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6" style="padding-left:0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.book_pofd_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">POFD.ETA</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event">
+                    </app-date>
+                  </div>
+                  <div class="col-sm-4" style="padding-left:0">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">ETA
+                        Confirm
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
+                      class="btn btn-success btn-sm">Tracking</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">*Customer Comments</label>
+                  <div class="col-9">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
+                      maxlength="100"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm">Partner Email</label>
+                  <div class="col-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_partner_email"
+                      required maxlength="100" />
+                  </div>
+                </div>
+
+
+                <!-- <div class="form-group row">
+                  <label class="col-3 col-form-label col-form-label-sm"></label>
+                  <div class="col-9">
+                    <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
+                      class="btn btn-success btn-sm">Tracking</button>
+                  </div>
+                </div> -->
+
               </div>
             </div>
-          </div>
-          <!-- <div class="row">
+            <!-- <div class="row">
             <div class="col-sm-12">
               <div class="form-group row">
                 <label class="col-sm-8 col-form-label col-form-label-sm">
@@ -582,249 +608,267 @@
               </div>
             </div>
           </div> -->
-        </div>
-        <div class="page-box">
-          <ngb-tabset>
-            <ngb-tab title="Container Details">
-              <ng-template ngbTabContent>
-                <div class="page-box">
+          </div>
+          <div class="page-box">
+            <ngb-tabset>
+              <ngb-tab title="Container Details">
+                <ng-template ngbTabContent>
+                  <div class="page-box">
 
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="form-group row">
-                        <label class="col-sm-1 col-form-label col-form-label-sm">Teu :&nbsp;{{Record.book_mteu}}</label>
-                        <label class="col-sm-1 col-form-label col-form-label-sm">20 :&nbsp;{{Record.book_m20}}</label>
-                        <label class="col-sm-1 col-form-label col-form-label-sm">40 :&nbsp;{{Record.book_m40}}</label>
-                        <label style="text-align:center" class="col-sm-1 col-form-label col-form-label-sm">Cbm :</label>
-                        <div style="padding-left:0" class="col-sm-1">
-                          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_mcbm"
-                            (blur)="OnBlur('book_mcbm')" required maxlength="15" />
-                        </div>
-                        <div class="col-sm-1">
-                          <button [disabled]="loading" (click)="NewCntrRecord()"
-                            class="btn btn-default btn-sm">ADD</button>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="col-12">
-                          <div style="height: 150px; overflow-y: scroll;">
-                            <div class="page-list">
-                              <div class="page-body table-responsive">
-                                <table class="table  table-hover table-sm">
-                                  <thead class="page-body-thead">
-                                    <tr>
-                                      <th width="15%">QTY</th>
-                                      <th width="30%">TYPE</th>
-                                      <th width="40%">COMMENTS</th>
-                                      <th width="10%">SHIPPER</th>
-                                      <th width="5%">REMOVE</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="page-body-tbody" *ngFor="let rec of Record.BkmCntrList">
-                                    <tr>
-                                      <td style="padding:0"> <input type="number" class="form-control form-control-sm"
-                                          [(ngModel)]="rec.bcntr_qty" (focus)="OnFocusTableCell('bcntr_qty',rec)"
-                                          (change)="OnChangeTableCell('bcntr_qty',rec)"
-                                          (blur)="OnBlurTableCell('bcntr_qty',rec)" required maxlength="15" /> </td>
-                                      <td style="padding:0"><select class="form-control form-control-sm"
-                                          [(ngModel)]="rec.bcntr_type_id" (focus)="OnFocusTableCell('bcntr_type',rec)"
-                                          (change)="OnChangeTableCell('bcntr_type',rec)"
-                                          (blur)="OnBlurTableCell('bcntr_type',rec)">
-                                          <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">
-                                            {{rec.param_id3}}</option>
-                                        </select></td>
-                                      <td style="padding:0"><input type="text" class="form-control form-control-sm"
-                                          [(ngModel)]="rec.bcntr_remarks" (blur)="OnBlurTableCell('bcntr_remarks',rec)"
-                                          required maxlength="15" />
-                                      </td>
-                                      <td style="padding:0;vertical-align:middle"><input type="checkbox"
-                                          [(ngModel)]="rec.bcntr_shpr_own">Owned</td>
-                                      <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                                          (click)="RemoveCntrRecord(rec)"></i></td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group row">
+                          <label class="col-sm-1 col-form-label col-form-label-sm">Teu
+                            :&nbsp;{{Record.book_mteu}}</label>
+                          <label class="col-sm-1 col-form-label col-form-label-sm">20 :&nbsp;{{Record.book_m20}}</label>
+                          <label class="col-sm-1 col-form-label col-form-label-sm">40 :&nbsp;{{Record.book_m40}}</label>
+                          <label style="text-align:center" class="col-sm-1 col-form-label col-form-label-sm">Cbm
+                            :</label>
+                          <div style="padding-left:0" class="col-sm-1">
+                            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_mcbm"
+                              (blur)="OnBlur('book_mcbm')" required maxlength="15" />
+                          </div>
+                          <div class="col-sm-1">
+                            <button [disabled]="loading" (click)="NewCntrRecord()"
+                              class="btn btn-default btn-sm">ADD</button>
                           </div>
                         </div>
-                      </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <div style="height: 150px; overflow-y: scroll;">
+                              <div class="page-list">
+                                <div class="page-body table-responsive">
+                                  <table class="table  table-hover table-sm">
+                                    <thead class="page-body-thead">
+                                      <tr>
+                                        <th width="15%">QTY</th>
+                                        <th width="30%">TYPE</th>
+                                        <th width="40%">COMMENTS</th>
+                                        <th width="10%">SHIPPER</th>
+                                        <th width="5%">REMOVE</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="page-body-tbody" *ngFor="let rec of Record.BkmCntrList">
+                                      <tr>
+                                        <td style="padding:0"> <input type="number" class="form-control form-control-sm"
+                                            [(ngModel)]="rec.bcntr_qty" (focus)="OnFocusTableCell('bcntr_qty',rec)"
+                                            (change)="OnChangeTableCell('bcntr_qty',rec)"
+                                            (blur)="OnBlurTableCell('bcntr_qty',rec)" required maxlength="15" /> </td>
+                                        <td style="padding:0"><select class="form-control form-control-sm"
+                                            [(ngModel)]="rec.bcntr_type_id" (focus)="OnFocusTableCell('bcntr_type',rec)"
+                                            (change)="OnChangeTableCell('bcntr_type',rec)"
+                                            (blur)="OnBlurTableCell('bcntr_type',rec)">
+                                            <option *ngFor="let rec of ContainerList" [value]="rec.param_pkid">
+                                              {{rec.param_id3}}</option>
+                                          </select></td>
+                                        <td style="padding:0"><input type="text" class="form-control form-control-sm"
+                                            [(ngModel)]="rec.bcntr_remarks"
+                                            (blur)="OnBlurTableCell('bcntr_remarks',rec)" required maxlength="15" />
+                                        </td>
+                                        <td style="padding:0;vertical-align:middle"><input type="checkbox"
+                                            [(ngModel)]="rec.bcntr_shpr_own">Owned</td>
+                                        <td><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+                                            (click)="RemoveCntrRecord(rec)"></i></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
 
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Cargo Details">
-              <ng-template ngbTabContent>
-                <div class="col-sm-12" *ngFor="let rec of Record.BkmCargoList">
-                  <app-bkmcargo [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
-                  </app-bkmcargo>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Payment Details">
-              <ng-template ngbTabContent>
-                <div class="col-sm-12" *ngFor="let rec of Record.BkmPayList">
-                  <app-bkmpayment [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
-                  </app-bkmpayment>
-                </div>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
-        </div>
-        <div class="page-box">
-          <div>
-            <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Cargo Details">
+                <ng-template ngbTabContent>
+                  <div class="col-sm-12" *ngFor="let rec of Record.BkmCargoList">
+                    <app-bkmcargo [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+                    </app-bkmcargo>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Payment Details">
+                <ng-template ngbTabContent>
+                  <div class="col-sm-12" *ngFor="let rec of Record.BkmPayList">
+                    <app-bkmpayment [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+                    </app-bkmpayment>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
           </div>
-          <div>
-            <div class="page-body table-responsive">
-              <table class="table  table-hover table-sm">
-                <thead class="page-body-thead">
-                  <tr>
-                    <th>SI#</th>
-                    <th>HBL#</th>
-                    <th>HBL.DATE</th>
-                    <th>SHIPPER</th>
-                    <th>CONSIGNEE</th>
-                    <th>AGENT</th>
-                    <th>LINER</th>
-                    <th>TERMS</th>
-                  </tr>
-                </thead>
-                <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
-                  <tr>
-                    <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
-                    <td>{{rec.hbl_bl_no}}</td>
-                    <td>{{rec.hbl_date}}</td>
-                    <td>{{rec.hbl_exp_name}}</td>
-                    <td>{{rec.hbl_imp_name}}</td>
-                    <td>{{rec.hbl_agent_name}}</td>
-                    <td>{{rec.hbl_carrier_name}}</td>
-                    <td>{{rec.hbl_terms}}</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="page-box">
+            <div>
+              <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
+            </div>
+            <div>
+              <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th>SI#</th>
+                      <th>HBL#</th>
+                      <th>HBL.DATE</th>
+                      <th>SHIPPER</th>
+                      <th>CONSIGNEE</th>
+                      <th>AGENT</th>
+                      <th>LINER</th>
+                      <th>TERMS</th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
+                    <tr>
+                      <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
+                      <td>{{rec.hbl_bl_no}}</td>
+                      <td>{{rec.hbl_date}}</td>
+                      <td>{{rec.hbl_exp_name}}</td>
+                      <td>{{rec.hbl_imp_name}}</td>
+                      <td>{{rec.hbl_agent_name}}</td>
+                      <td>{{rec.hbl_carrier_name}}</td>
+                      <td>{{rec.hbl_terms}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="page-box">
-          <div class="col">
-            <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
-              class="btn btn-success btn-sm">Save</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent)"
-              class="btn btn-success btn-sm">Mail/FTP</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
-              class="btn btn-success btn-sm">FTPHistory</button>
-            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
-              class="btn btn-success btn-sm">History</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-              class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
-              (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm">Check
-              List</button>
-              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">Master BL</button>
-            <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
-              <font color="RED">
-                <strong>
-                  {{Record.lock_record == true ? 'LOCKED' : 'UNLOCKED'}}
-                </strong>
-              </font>
-            </label>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
+          <div class="page-box">
+            <div class="col">
+              <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
+                class="btn btn-success btn-sm">Save</button>
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent)"
+                class="btn btn-success btn-sm">Mail/FTP</button>
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
+                class="btn btn-success btn-sm">FTPHistory</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+                class="btn btn-success btn-sm">History</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-success btn-sm">Return</button>
+              <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
+                (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm">Check
+                List</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
+                class="btn btn-success btn-sm">Master BL</button>
+              <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+                <font color="RED">
+                  <strong>
+                    {{Record.lock_record == true ? 'LOCKED' : 'UNLOCKED'}}
+                  </strong>
+                </font>
+              </label>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
           </div>
-        </div>
-        <br />
-        <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-        <div *ngIf="InfoMessage" class="alert alert-success">
-          {{InfoMessage}}
-        </div>
-        <div *ngIf="ErrorMessage" class="alert alert-danger">
-          {{ErrorMessage}}
-        </div>
+          <br />
+          <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+          <div *ngIf="InfoMessage" class="alert alert-success">
+            {{InfoMessage}}
+          </div>
+          <div *ngIf="ErrorMessage" class="alert alert-danger">
+            {{ErrorMessage}}
+          </div>
 
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Tracking" *ngIf="mode=='EDIT'">
+        </ng-template>
+      </ngb-tab>
+      <!-- <ngb-tab title="Tracking" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
         <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
       </ng-template>
-    </ngb-tab>
+    </ngb-tab> -->
 
 
-    <ngb-tab title="Buy Rate-Collect" *ngIf="mode == 'EDIT'">
-      <ng-template ngbTabContent>
-        <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'"></app-jobincome>
-      </ng-template>
-    </ngb-tab>
+      <ngb-tab title="Buy Rate-Collect" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'"></app-jobincome>
+        </ng-template>
+      </ngb-tab>
 
 
-    <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
-      <ng-template ngbTabContent>
-        <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [mbl_no]="Record.book_mblno" [master_lock]="Record.lock_record">
-        </app-buyrate>
-      </ng-template>
-    </ngb-tab>
+      <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [mbl_no]="Record.book_mblno"
+            [master_lock]="Record.lock_record">
+          </app-buyrate>
+        </ng-template>
+      </ngb-tab>
 
 
-    <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
-      <ng-template ngbTabContent>
-        <app-upload [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
-      </ng-template>
-    </ngb-tab>
+      <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
+        <ng-template ngbTabContent>
+          <app-upload [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
+        </ng-template>
+      </ngb-tab>
 
-    <ngb-tab title="Generate Docs" *ngIf="mode == 'EDIT' && bDocs">
-      <ng-template ngbTabContent>
-        <app-generatedoc [pkid]="pkid" [type]="'SEA EXPORT'"></app-generatedoc>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab *ngIf="mode == 'EDIT'" title="EDI">
-      <ng-template ngbTabContent>
-        <div class="page-box">
-          <div class="col">
-            <app-xmloms [pkid]="pkid" [filename]="Record.book_slno" [ftp_agent_name]="Record.book_agent_name" [ftp_agent_code]="Record.book_agent_code"  [type]="'MBL-SE'"></app-xmloms>
+      <ngb-tab title="Generate Docs" *ngIf="mode == 'EDIT' && bDocs">
+        <ng-template ngbTabContent>
+          <app-generatedoc [pkid]="pkid" [type]="'SEA EXPORT'"></app-generatedoc>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab *ngIf="mode == 'EDIT'" title="EDI">
+        <ng-template ngbTabContent>
+          <div class="page-box">
+            <div class="col">
+              <app-xmloms [pkid]="pkid" [filename]="Record.book_slno" [ftp_agent_name]="Record.book_agent_name"
+                [ftp_agent_code]="Record.book_agent_code" [type]="'MBL-SE'"></app-xmloms>
+            </div>
           </div>
-        </div>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
-</div>
-<ng-template #ftpsent let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">{{title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
-  <div class="modal-body">
-    <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder" [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''"  [sHtml]="''" [defaultmessage]="mMsg"
-      [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
-      [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'"></app-mail>
-  </div>
-</ng-template>
-<ng-template #ftphistory let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">History</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-ftpreport [type]="'MBL-SE'" [pkid]="pkid"></app-ftpreport>
-  </div>
-</ng-template>
-<ng-template #history let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">History</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
-  </div>
-</ng-template>
+  <ng-template #ftpsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">{{title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder"
+        [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
+        [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
+        [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'"></app-mail>
+    </div>
+  </ng-template>
+  <ng-template #ftphistory let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">History</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-ftpreport [type]="'MBL-SE'" [pkid]="pkid"></app-ftpreport>
+    </div>
+  </ng-template>
+  <ng-template #history let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">History</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history>
+    </div>
+  </ng-template>
+  <ng-template #tracking let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Tracking</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history> -->
+      <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
+    </div>
+  </ng-template>
 </div>
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">

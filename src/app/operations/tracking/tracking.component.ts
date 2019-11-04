@@ -336,6 +336,13 @@ export class TrackingComponent {
       bret = false;
       sError += "\n\r | ETA Cannot Be Blank";
     }
+   
+    if(this.Record.trk_pkid == this.parentid && this.RecordList.length==1)
+    {
+      bret = false;
+      sError = "\n\r | Update tracking in Basic Details if there is no Transit Shipment";
+    }
+
     if (bret === false)
       this.ErrorMessage = sError;
     return bret;
