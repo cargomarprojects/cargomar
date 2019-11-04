@@ -451,6 +451,19 @@ export class EmpComponent {
       sError += "\n\r| Join Date Cannot Be Blank";
     }
 
+    if (this.Record.emp_department_id.trim().length <= 0) {
+
+      bret = false;
+      sError += "\n\r| Department Cannot Be Blank";
+    }
+
+    if (this.Record.emp_designation_id.trim().length <= 0) {
+
+      bret = false;
+      sError += "\n\r| Designation Cannot Be Blank";
+    }
+
+
     if (this.GetFieldName("CONFIRMED").fieldid == this.Record.emp_status_id || this.GetFieldName("TRANSFER").fieldid == this.Record.emp_status_id) {
 
       if (this.Record.emp_do_confirmation.trim().length <= 0) {
