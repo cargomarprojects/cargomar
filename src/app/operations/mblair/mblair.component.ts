@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -27,6 +27,7 @@ export class MblAirComponent {
   bAdmin = false;
   bDocs = false;
 
+  modal:any;
   folder_id: string;
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
@@ -82,6 +83,7 @@ export class MblAirComponent {
   SALESMANRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: MblService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -913,5 +915,13 @@ export class MblAirComponent {
       this.Record.mbl_folder_sent_date = this.gs.defaultValues.today;
     else
       this.Record.mbl_folder_sent_date = "";
+  }
+
+  ShowModal(trk: any) {
+    this.ErrorMessage = '';
+    this.open(trk);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content);
   }
 }
