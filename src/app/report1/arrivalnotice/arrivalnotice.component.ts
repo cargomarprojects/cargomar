@@ -354,7 +354,7 @@ export class ArrivalNoticeComponent {
         else if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
           // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
-          //this.setMailBody(response.totteu, response.totteuday, response.tomonth);
+          this.setMailBody();
           this.sTo_ids = response.mailto_ids;
           this.sSubject = response.mailsubject;
           this.sHtml = response.mailmessage;
@@ -373,19 +373,14 @@ export class ArrivalNoticeComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-  setMailBody(totteu: number, totteuday: number, tomonth: string) {
+  setMailBody() {
 
     // this.sSubject = "LINER BOOKING REPORT";
 
-    // this.sMsg = "Dear All,";
-    // this.sMsg += " \n\n";
-    // this.sMsg += "  Please find the attached Daily Booking Report as on date;";
-    // this.sMsg += " \n\n";
-    // this.sMsg += "  Bookings as on " + this.todate.GetDisplayDate() + "  : " + totteuday.toString() + " Teus";
-    // this.sMsg += " \n\n";
-    // this.sMsg += "  Bookings in the month of " + tomonth + " as on " + this.todate.GetDisplayDate();
-    // this.sMsg += "  : " + totteu.toString() + " Teus ( Confirmed bookings )";
-    // this.sMsg += " \n\n";
+    this.sMsg  = "  Kindly inform your customer to arrange for the delivery immediately upon arrival to avoid any detention / demurrage.";
+    this.sMsg += " \n\n";
+    this.sMsg += "  Thanks for your understanding and confirmation.";
+    this.sMsg += " \n\n";
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
