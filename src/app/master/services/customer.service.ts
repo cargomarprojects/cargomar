@@ -30,6 +30,10 @@ export class CustomerService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    UnlinkAccounts(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/UnlinkAccounts', SearchData, this.gs.headerparam2('authorized'));
+    }
+
 
 }
 

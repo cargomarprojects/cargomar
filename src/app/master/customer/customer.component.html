@@ -58,7 +58,8 @@
       </div>
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">EXCEL</button>
+        <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
+          class="btn btn-primary btn-sm">EXCEL</button>
       </div>
     </div>
   </div>
@@ -66,10 +67,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -107,10 +111,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -129,15 +136,15 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Code</label>
                 <div class="col-4">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_code"
-                    required maxlength="15" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_code" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Name</label>
                 <div class="col-10">
-                  <input type="text" [disabled]="!canadd" class="form-control form-control-sm" [(ngModel)]="Record.cust_name"
-                    required maxlength="60" />
+                  <input type="text" [disabled]="!canadd" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_name" required maxlength="60" />
                 </div>
               </div>
               <div class="form-group row">
@@ -198,7 +205,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">This Branch Only</label>
                 <div class="col-sm-4">
-                  <app-autocomplete [disabled]="!canadd" #LinerLov [inputdata]="COMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  <app-autocomplete [disabled]="!canadd" #LinerLov [inputdata]="COMPRECORD"
+                    (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
               </div>
             </div>
@@ -206,15 +214,15 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Days</label>
                 <div class="col-8">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crdays"
-                    (blur)="OnBlur('cust_crdays')" required maxlength="10" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Limit</label>
                 <div class="col-8">
-                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_crlimit"
-                    (blur)="OnBlur('cust_crlimit')" required maxlength="15" />
+                  <input [disabled]="!canadd" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_crlimit" (blur)="OnBlur('cust_crlimit')" required maxlength="15" />
                 </div>
               </div>
 
@@ -222,36 +230,39 @@
                 <label class="col-4 col-form-label col-form-label-sm">Credit-Date</label>
 
                 <div class="col-8">
-                  <app-date [disabled]="!canadd" [inputdate]="Record.cust_crdate" (ValueChanged)="Record.cust_crdate=$event"></app-date>
+                  <app-date [disabled]="!canadd" [inputdate]="Record.cust_crdate"
+                    (ValueChanged)="Record.cust_crdate=$event"></app-date>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Salesman</label>
                 <div class="col-8">
-                  <app-autocomplete2 #sman [disabled]="!canadd" [inputdata]="SMANREC" (ValueChanged)="LovSelected($event)"></app-autocomplete2>
+                  <app-autocomplete2 #sman [disabled]="!canadd" [inputdata]="SMANREC"
+                    (ValueChanged)="LovSelected($event)"></app-autocomplete2>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">CSD</label>
                 <div class="col-8">
-                  <app-autocomplete2 #csd [disabled]="!canadd" [inputdata]="CSDREC" (ValueChanged)="LovSelected($event)"></app-autocomplete2>
+                  <app-autocomplete2 #csd [disabled]="!canadd" [inputdata]="CSDREC"
+                    (ValueChanged)="LovSelected($event)"></app-autocomplete2>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Refer By</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_referdby" (blur)="OnBlur('cust_referdby')"
-                    maxlength="60" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_referdby"
+                    (blur)="OnBlur('cust_referdby')" maxlength="60" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Remarks</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_remarks" (blur)="OnBlur('cust_remarks')"
-                    maxlength="100" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_remarks"
+                    (blur)="OnBlur('cust_remarks')" maxlength="100" />
                 </div>
               </div>
 
@@ -310,7 +321,11 @@
             <div class="col-sm-6">
 
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <!-- <label class="col-2 col-form-label col-form-label-sm"></label> -->
+                <div class="col-2">
+                  <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="Unlink(Record.cust_pkid)"
+                    class="btn btn-success btn-sm">Unlink</button>
+                </div>
                 <div class="col-4">
                   <input [disabled]="cust_linked || !canadd" type="checkbox" [(ngModel)]="Record.cust_linked" />
                   <span>Link To Accounts</span>
@@ -368,7 +383,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
                 <div class="col-4">
-                  <select [disabled]="!canadd" class="form-control form-control-sm" [(ngModel)]="Record.cust_nomination">
+                  <select [disabled]="!canadd" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_nomination">
                     <option [value]="'NA'">NA</option>
                     <option [value]="'NOMINATION'">NOMINATION</option>
                     <option [value]="'MUTUAL'">MUTUAL</option>
@@ -384,15 +400,20 @@
         </div>
 
         <div class="page-box">
-          <app-addressm #addressComponent [RecordList]="Record.AddressList" [StateList]="StateList" [CountryList]="CountryList"
-            [customer_id]="pkid" [bAdmin]="bAdmin2" [bDelete]="bDelete" [pan_no]="Record.cust_panno" [bShipper]="Record.cust_is_shipper" [bForeigner]="Record.cust_is_foreigner" [bUnregistered]="Record.cust_is_ungst"  ></app-addressm>
+          <app-addressm #addressComponent [RecordList]="Record.AddressList" [StateList]="StateList"
+            [CountryList]="CountryList" [customer_id]="pkid" [bAdmin]="bAdmin2" [bDelete]="bDelete"
+            [pan_no]="Record.cust_panno" [bShipper]="Record.cust_is_shipper" [bForeigner]="Record.cust_is_foreigner"
+            [bUnregistered]="Record.cust_is_ungst"></app-addressm>
         </div>
 
         <div class="page-box">
           <div class="col">
-            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode == 'EDIT'"  [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
+            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+              class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
+            <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+              class="btn btn-success btn-sm">History</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
@@ -424,7 +445,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Bank A/c#</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_acno" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_acno" required
+                maxlength="60" />
 
             </div>
           </div>
@@ -441,7 +463,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank" required maxlength="60" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_bank" required
+                maxlength="60" />
             </div>
           </div>
           <div class="form-group row">
@@ -518,7 +541,8 @@
       <ng-template ngbTabContent>
         <div class="page-box">
           <div class="col">
-            <app-benf [parentid]="pkid" [cust_code]="Record.cust_code" [cust_name]="Record.cust_name" [type]="type"></app-benf>
+            <app-benf [parentid]="pkid" [cust_code]="Record.cust_code" [cust_name]="Record.cust_name" [type]="type">
+            </app-benf>
           </div>
         </div>
       </ng-template>

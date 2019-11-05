@@ -494,9 +494,8 @@ export class CustomerComponent {
       sError += "\n\r | Name Cannot Be Blank";
     }
 
-    if(this.Record.cust_is_foreigner)
-    {
-      if (this.Record.cust_is_shipper==false) {
+    if (this.Record.cust_is_foreigner) {
+      if (this.Record.cust_is_shipper == false) {
         bret = false;
         sError += "\n\r | Shipper Need To Be Selected";
       }
@@ -540,12 +539,12 @@ export class CustomerComponent {
     this.Record.cust_panno = this.Record.cust_panno.toUpperCase().trim();
 
     if (this.gs.globalVariables.user_code != 'ADMIN') {
-      if (this.Record.cust_is_foreigner== false && this.Record.cust_is_shipper && this.Record.cust_panno == "" && this.gs.globalVariables.comp_code == 'CPL') {
+      if (this.Record.cust_is_foreigner == false && this.Record.cust_is_shipper && this.Record.cust_panno == "" && this.gs.globalVariables.comp_code == 'CPL') {
         bret = false;
         sError += "\n\r | Pan No Cannot be Blank  ";
       }
     }
-    
+
     if (this.Record.cust_panno != "" && this.Record.cust_panno != "NA") {
 
       if (this.Record.cust_panno.length != 10) {
@@ -678,5 +677,40 @@ export class CustomerComponent {
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
+  }
+
+  Unlink(Id: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    if (this.gs.globalVariables.user_code != "ADMIN")
+      return;
+
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
+    };
+
+    SearchData.pkid = Id;
+    this.mainService.UnlinkAccounts(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error.length > 0) {
+          this.ErrorMessage = response.error;
+          alert(this.ErrorMessage);
+        }
+        else {
+          this.InfoMessage = "Successfully Unlinked";
+          alert(this.InfoMessage);
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
