@@ -24,7 +24,7 @@ export class ImpHblSeaAirComponent {
   menu_record: any;
 
   currentPage = 'ROOTPAGE';
- // disableBookslno = false;
+  // disableBookslno = false;
 
   lblhblname = 'HBL No';
   masterexist = false;
@@ -56,6 +56,14 @@ export class ImpHblSeaAirComponent {
   mode = '';
   pkid = '';
 
+  old_shipper_id = '';
+  old_billto_id = '';
+
+  bCreditLimit: boolean = false;
+
+
+
+
   // Array For Displaying List
   RecordList: Hblm[] = [];
   // Single Record for add/edit/view details
@@ -64,6 +72,7 @@ export class ImpHblSeaAirComponent {
   //JobTypeList: any[] = [];
 
   // Shipper
+  BILLTORECORD: SearchTable = new SearchTable();
   LINERRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
   EXPRECORD: SearchTable = new SearchTable();
@@ -164,6 +173,20 @@ export class ImpHblSeaAirComponent {
 
   InitLov() {
 
+
+    this.BILLTORECORD = new SearchTable();
+    this.BILLTORECORD.controlname = "BILLTO";
+    this.BILLTORECORD.displaycolumn = "CODE";
+    this.BILLTORECORD.type = "CUSTOMER";
+    this.BILLTORECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.BILLTORECORD.id = "";
+    this.BILLTORECORD.code = "";
+    this.BILLTORECORD.name = "";
+    this.BILLTORECORD.parentid = "";
+
+
+
+
     this.LINERRECORD = new SearchTable();
     this.LINERRECORD.controlname = "LINER";
     this.LINERRECORD.displaycolumn = "CODE";
@@ -205,7 +228,7 @@ export class ImpHblSeaAirComponent {
     this.IMPRECORD.controlname = "CONSIGNEE";
     this.IMPRECORD.displaycolumn = "CODE";
     this.IMPRECORD.type = "CUSTOMER";
-   // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
     this.IMPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
     this.IMPRECORD.id = "";
     this.IMPRECORD.code = "";
@@ -328,6 +351,13 @@ export class ImpHblSeaAirComponent {
       this.Record.hbl_exp_br_no = _Record.code;
       this.Record.hbl_exp_br_addr = this.GetBrAddress(_Record.name).address;
     }
+
+    else if (_Record.controlname == "BILLTO") {
+      this.Record.hbl_billto_id = _Record.id;
+      this.Record.hbl_billto_code = _Record.code;
+      this.Record.hbl_billto_name = _Record.name;
+    }
+
     else if (_Record.controlname == "CONSIGNEE") {
 
       bchange = false;
@@ -460,14 +490,19 @@ export class ImpHblSeaAirComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
-   // this.disableBookslno = false;
+    // this.disableBookslno = false;
+
+    this.old_shipper_id = '';
+    this.old_billto_id = '';
+
+
     this.pkid = this.gs.getGuid();
     this.Record = new Hblm();
     this.Record.hbl_pkid = this.pkid;
@@ -494,6 +529,11 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_imp_br_id = '';
     this.Record.hbl_imp_br_no = '';
     this.Record.hbl_imp_br_addr = '';
+
+    this.Record.hbl_billto_id = '';
+    this.Record.hbl_billto_code = '';
+    this.Record.hbl_billto_name = '';
+
 
     if (this.type == "SEA IMPORT")
       this.Record.hbl_nature = 'FCL/FCL';
@@ -586,10 +626,10 @@ export class ImpHblSeaAirComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Hblm) {
@@ -604,6 +644,12 @@ export class ImpHblSeaAirComponent {
     this.masterexist = this.IsMasterExist();
 
     this.InitLov();
+
+
+    this.BILLTORECORD.id = this.Record.hbl_billto_id;
+    this.BILLTORECORD.code = this.Record.hbl_billto_code;
+    this.BILLTORECORD.name = this.Record.hbl_billto_name;
+
 
     this.LINERRECORD.id = this.Record.hbl_carrier_id;
     this.LINERRECORD.code = this.Record.hbl_carrier_code;
@@ -658,10 +704,29 @@ export class ImpHblSeaAirComponent {
     this.ICURRECORD.id = this.Record.hbl_insu_curr_id;
     this.ICURRECORD.code = this.Record.hbl_insu_curr_code;
 
+    this.old_shipper_id = this.Record.hbl_exp_id;
+    this.old_billto_id = this.Record.hbl_billto_id;
+
+
   }
 
-  // Save Data
+
   Save() {
+    try {
+        if (this.old_shipper_id != this.Record.hbl_exp_id || this.old_billto_id != this.Record.hbl_billto_id)
+            this.CheckCrLimit(true);
+        else
+            this.SaveFinal();
+    }
+    catch (error) {
+        alert(error.message);
+    }
+}
+
+
+
+  // Save Data
+  SaveFinal() {
     if (!this.allvalid())
       return;
     this.loading = true;
@@ -687,11 +752,11 @@ export class ImpHblSeaAirComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -716,6 +781,47 @@ export class ImpHblSeaAirComponent {
       this.ErrorMessage = sError;
     return bret;
   }
+
+
+  CheckCrLimit(bCallSave: boolean = false) {
+
+    if (this.Record.hbl_exp_id == "") {
+      alert('Shipper cannot be blank');
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      searchfrom: 'SI',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      customerid: this.Record.hbl_exp_id,
+      billtoid: this.Record.hbl_billto_id
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetCreditLimit(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.bCreditLimit = response.retvalue;
+        if (!this.bCreditLimit) {
+          this.ErrorMessage = response.message;
+          alert(response.message);
+        }
+        if (this.bCreditLimit && bCallSave) {
+          this.SaveFinal();
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+
+
 
   RefreshList() {
     if (this.RecordList == null)
@@ -844,9 +950,9 @@ export class ImpHblSeaAirComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       book_slno: '',
-      pkid:'',
-      hbl_beno:'',
-      hbl_bedate:''
+      pkid: '',
+      hbl_beno: '',
+      hbl_bedate: ''
     };
     if (controlname == 'hbl_mbl_bookslno') {
       SearchData.rowtype = this.type;
@@ -867,25 +973,25 @@ export class ImpHblSeaAirComponent {
       .subscribe(response => {
         this.loading = false;
         if (controlname == 'updatehouse') {
-            this.InfoMessage = 'Save Complete';
-        }else{
-        this.Record.hbl_mbl_id = '';
-        this.ErrorMessage = '';
-        if (response.linerbkm.length > 0) {
-          this.Record.hbl_mbl_id = response.linerbkm[0].book_pkid;
-          this.Record.hbl_mbl_bookno = response.linerbkm[0].book_no;
-          this.Record.hbl_mbl_no = response.linerbkm[0].book_mblno;
+          this.InfoMessage = 'Save Complete';
+        } else {
+          this.Record.hbl_mbl_id = '';
+          this.ErrorMessage = '';
+          if (response.linerbkm.length > 0) {
+            this.Record.hbl_mbl_id = response.linerbkm[0].book_pkid;
+            this.Record.hbl_mbl_bookno = response.linerbkm[0].book_no;
+            this.Record.hbl_mbl_no = response.linerbkm[0].book_mblno;
+          }
+          else {
+            this.ErrorMessage = 'Invalid Booking';
+          }
         }
-        else {
-          this.ErrorMessage = 'Invalid Booking';
-        }
-      }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
-    }
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
   Close() {
     this.gs.ClosePage('home');
   }
@@ -920,12 +1026,12 @@ export class ImpHblSeaAirComponent {
   pageChanged() {
     this.currentPage = 'ROOTPAGE';
   }
-  GenerateArrivalNotice(id: string, ftype: string,formattype: string) {
+  GenerateArrivalNotice(id: string, ftype: string, formattype: string) {
     this.loading = true;
     let SearchData = {
       rowtype: '',
       ftype: '',
-      formattype:'',
+      formattype: '',
       pkid: '',
       report_folder: '',
       folderid: '',
@@ -934,7 +1040,7 @@ export class ImpHblSeaAirComponent {
     }
     SearchData.rowtype = this.type;
     SearchData.formattype = formattype;
-    
+
     SearchData.pkid = id;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.folderid = this.gs.getGuid();
@@ -947,10 +1053,10 @@ export class ImpHblSeaAirComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
