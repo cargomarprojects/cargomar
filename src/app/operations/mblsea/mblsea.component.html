@@ -461,6 +461,21 @@
           <div class="page-box">
             <div class="row">
               <div class="col-sm-8">
+                <div  class="form-group row">
+                  <div class="col-sm-5 input-group input-group-sm">
+                    <label class="col-form-label col-form-label-sm">Port.Cut.Off</label>
+                    <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
+                    </app-date>
+                    <label class="col-form-label col-form-label-sm p-2">POL.Vsl.ETA</label>
+                    <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
+                    </app-date>
+                  </div>
+
+
+
+                  <label style="background-color:lightgray;" class="col-sm-5 col-form-label col-form-label-sm">Vessel</label>
+                  <label style="background-color:lightgray;" class="col-sm-2  col-form-label col-form-label-sm">Voyage</label>
+                </div>
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
                   <div class="col-sm-2 pr-2">
@@ -471,103 +486,71 @@
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_pol_name" />
                   </div>
-
-                  <label class="col-sm-1 col-form-label col-form-label-sm">Vessel</label>
                   <div class="col-sm-2 pr-2">
                     <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-2 pl-0">
+                  <div class="col-sm-3 pl-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_vessel_name" />
                   </div>
-                  <label class="col-sm-1 pr-2 col-form-label col-form-label-sm">Voyage</label>
-                  <div class="col-sm-1 pl-0">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. book_vessel_no"
+                  <div class="col-sm-2 ">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_no"
                       (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                   </div>
                 </div>
 
-                <!-- <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-10">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.book_vessel_name" />
-                  </div>
-                </div> -->
 
               </div>
 
               <div class="col-sm-4">
 
-                <div class="form-group row">
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                  <div class="col-sm-3 pr-2">
-                    <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
-                    </app-date>
-                  </div>
-                  <div class="col-sm-2 pl-0 pr-0" >
-                    <div class="form-check form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">Confirm
-                      </label>
-                    </div>
-                  </div>
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETD</label>
-                  <div class="col-sm-3 pr-2">
-                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
-                  </div>
-                  <div class="col-sm-2 pl-0 pr-0" >
-                    <div class="form-check form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">Confirm
-                      </label>
-                    </div>
-                  </div>
+                <div style="background-color:lightgray;"  class="form-group row">
+                  <label class="col-sm-6 col-form-label col-form-label-sm">ETD</label>
+                  <label class="col-sm-6 col-form-label col-form-label-sm">ETA</label>
 
 
                 </div>
 
-
-
-
-                <!-- <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
-                  <div class="col-sm-3">
-                    <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
+                <div class="form-group row">
+                  <div class="col-sm-3 pr-2">
+                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                   </div>
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                  <div class="col-sm-3">
-                    <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
-                  </div>
-                  <div class="col-sm-2" style="padding-left:0">
+                  <div class="col-sm-2 pl-0 pr-0">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">Confirm
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">Confirm
                       </label>
                     </div>
                   </div>
-
-                </div> -->
-
-                <!-- <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-9">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.book_pod_name" />
+                  <div class="col-sm-3 pr-2">
+                    <app-date [inputdate]="trk_vsl_1_eta" (ValueChanged)="trk_vsl_1_eta=$event">
+                    </app-date>
+                  </div>
+                  <div class="col-sm-2 pl-0 pr-0">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" disabled type="checkbox"
+                          [(ngModel)]="trk_vsl_1_eta_confirm">Confirm
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddTransit()"></i>
+                    <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveTransit()"></i>
                   </div>
 
-                </div> -->
-
-
+                </div>
               </div>
+            </div>
 
+            <div *ngFor="let rec of Record.TransitList">
+              <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+              </app-transit>
             </div>
 
 
             <hr>
-
             <div class="row">
               <div class="col-sm-8">
                 <div class="form-group row">
@@ -619,15 +602,12 @@
                     </div>
                     <!-- <input type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confirm -->
                   </div>
-
-                  <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label>
+                  <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label> -->
                   <div class="col-sm-2">
-                    <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
-                    </app-date>
+                    <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
+                      class="btn btn-success btn-sm">Tracking</button>
                   </div>
-
                 </div>
-
               </div>
 
               <div class="col-sm-4">
@@ -648,7 +628,7 @@
 
               </div>
             </div>
- 
+
           </div>
 
           <div class="page-box">

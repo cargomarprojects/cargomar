@@ -11,6 +11,8 @@ import { BkmPayment } from '../models/bkmpayment';
 import { BkmCargo } from '../models/bkmcargo';
 import { FileDetails } from '../models/filedetails';
 import { PreAlertReportService } from '../services/prealertreport.service';
+import { Trackingm } from '../models/tracking';
+import { transition } from '@angular/core/src/animation/dsl';
 
 @Component({
   selector: 'app-mblsea',
@@ -44,6 +46,8 @@ export class MblSeaComponent {
   folder_chk: boolean = false;
   modal: any;
   searchstring = '';
+  trk_vsl_1_eta: string = '';
+  trk_vsl_1_eta_confirm: boolean = false;
 
   page_count = 0;
   page_current = 0;
@@ -635,8 +639,10 @@ export class MblSeaComponent {
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
+    this.Record.TransitList = new Array<Trackingm>();
     this.NewPayRecord();
     this.NewCargoRecord();
+    this.NewTransitRecord();
     this.InitDefault();
 
     this.InitLov();
@@ -762,6 +768,8 @@ export class MblSeaComponent {
       this.NewCargoRecord();
     if (this.Record.BkmPayList.length == 0)
       this.NewPayRecord();
+    if (this.Record.TransitList.length == 0)
+      this.NewTransitRecord();
   }
 
   // Save Data
@@ -1275,6 +1283,26 @@ export class MblSeaComponent {
     Rec.bc_pkg_name = '';
     this.Record.BkmCargoList.push(Rec);
   }
+
+  NewTransitRecord() {
+    let Rec: Trackingm = new Trackingm;
+    Rec.trk_pkid = this.gs.getGuid();
+    Rec.trk_vsl_id = '';
+    Rec.trk_vsl_code = '';
+    Rec.trk_vsl_name = '';
+    Rec.trk_voyage = '';
+    Rec.trk_pol_id = '';
+    Rec.trk_pol_code = '';
+    Rec.trk_pol_name = '';
+    Rec.trk_pol_etd = '';
+    Rec.trk_pol_etd_confirm = false;
+    Rec.trk_pod_id = '';
+    Rec.trk_pod_code = '';
+    Rec.trk_pod_name = '';
+    Rec.trk_pod_eta = '';
+    Rec.trk_pod_eta_confirm = false;
+    this.Record.TransitList.push(Rec);
+  }
   ModifiedRecords(params: any) {
     if (params.type == "PAYMENT") {
       if (params.saction == "ADD")
@@ -1295,6 +1323,15 @@ export class MblSeaComponent {
       }
     }
 
+    if (params.type == "TRANSIT") {
+      if (params.saction == "ADD")
+        this.NewTransitRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.TransitList.splice(this.Record.TransitList.findIndex(rec => rec.trk_pkid == params.sid), 1);
+        if (this.Record.TransitList.length == 0)
+          this.NewTransitRecord();
+      }
+    }
   }
 
   open(content: any) {
@@ -1415,7 +1452,7 @@ export class MblSeaComponent {
         this.mMsg += " MBL# " + this.Record.book_mblno;
         this.mMsg += " \n\n";
         this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
-        
+
         this.AttachList = new Array<any>();
         this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
         for (let rec of response.filelist) {
@@ -1469,6 +1506,10 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+  AddTransit()
+  {
+    this.NewTransitRecord();
   }
 
 }

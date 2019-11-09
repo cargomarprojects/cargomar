@@ -3,6 +3,7 @@ import { Hblm } from '../../operations/models/hbl';
 import { BkmCntrtype } from './bkmcntrtype';
 import { BkmPayment } from './bkmpayment';
 import { BkmCargo } from './bkmcargo';
+import { Trackingm } from './tracking';
 
 export class LinerBkm {
   book_pkid: string;
@@ -145,5 +146,6 @@ export class LinerBkm {
   BkmCntrList: BkmCntrtype[] = [];
   BkmPayList: BkmPayment[] = [];
   BkmCargoList: BkmCargo[] = [];
+  TransitList:Trackingm[] = [];
 }
 

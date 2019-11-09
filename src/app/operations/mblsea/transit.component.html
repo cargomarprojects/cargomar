@@ -1,0 +1,71 @@
+<div class="row">
+
+    <div class="col-sm-8">
+        <!-- <div class="form-group row">
+                <label class="offset-5 col-sm-5 col-form-label col-form-label-sm">Vessel</label>
+                <label class="col-sm-2  col-form-label col-form-label-sm">Voyage</label>
+            </div> -->
+        <div class="form-group row">
+            <label style="background-color:lightgray;" class="col-sm-1 col-form-label col-form-label-sm">TRANSIT</label>
+            <div class="col-sm-2 pr-2">
+                <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+            </div>
+            <div class="col-sm-2 pl-0">
+                <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.trk_pol_name" />
+            </div>
+            <div class="col-sm-2 pr-2">
+                <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+            </div>
+            <div class="col-sm-3 pl-0">
+                <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.trk_vsl_name" />
+            </div>
+            <div class="col-sm-2 ">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="mRecord.trk_voyage"
+                    (blur)="OnBlur('trk_voyage')" required maxlength="15" />
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-4">
+
+        <!-- <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">ETD</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">ETA</label>
+            </div> -->
+
+        <div class="form-group row">
+            <div class="col-sm-3 pr-2">
+                <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
+            </div>
+            <div class="col-sm-2 pl-0 pr-0">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"
+                            [(ngModel)]="mRecord.trk_pol_etd_confirm">Confirm
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3 pr-2">
+                <app-date [inputdate]="mRecord.trk_pod_eta" (ValueChanged)="mRecord.trk_pod_eta=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-2 pl-0 pr-0">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" disabled type="checkbox"
+                            [(ngModel)]="mRecord.trk_pod_eta_confirm">Confirm
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
+                <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
