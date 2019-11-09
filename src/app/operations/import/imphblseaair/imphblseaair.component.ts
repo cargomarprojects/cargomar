@@ -792,10 +792,10 @@ export class ImpHblSeaAirComponent {
 
     this.loading = true;
     let SearchData = {
-      searchfrom: 'SI',
+      searchfrom: 'SI-IMPORT',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      customerid: this.Record.hbl_exp_id,
+      customerid: this.Record.hbl_imp_id,
       billtoid: this.Record.hbl_billto_id
     };
 
