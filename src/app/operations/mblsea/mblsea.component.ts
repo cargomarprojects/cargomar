@@ -1289,6 +1289,8 @@ export class MblSeaComponent {
   NewTransitRecord() {
     let Rec: Trackingm = new Trackingm;
     Rec.trk_pkid = this.gs.getGuid();
+    Rec.trk_parent_id= this.Record.book_pkid;
+    Rec.rec_category = this.type;
     Rec.trk_vsl_id = '';
     Rec.trk_vsl_code = '';
     Rec.trk_vsl_name = '';

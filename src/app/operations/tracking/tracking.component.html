@@ -7,10 +7,12 @@
           <th>SL#</th>
           <th><span *ngIf="type=='SEA EXPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'">AIRLINE</span></th>
           <th><span *ngIf="type=='SEA EXPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'">FLIGHT#</span></th>
-          <th>POL</th>
+          <th>POL.CODE</th>
+          <th>POL.NAME</th>
           <th>ETD</th>
           <th>CONFIRM</th>
-          <th>POD</th>
+          <th>POD.CODE</th>
+          <th>POD.NAME</th>
           <th>ETA</th>
           <th>CONFIRM</th>
           <th>DELETE</th>
@@ -21,9 +23,11 @@
           <td>{{i+1}}</td>
           <td>{{rec.trk_vsl_name}}</td>
           <td>{{rec.trk_voyage}}</td>
+          <td>{{rec.trk_pol_code}}</td>
           <td>{{rec.trk_pol_name}}</td>
           <td>{{rec.trk_pol_etd}}</td>
           <td>{{rec.trk_pol_etd_confirm ? 'YES' : 'NO'}}</td>
+          <td>{{rec.trk_pod_code}}</td>
           <td>{{rec.trk_pod_name}}</td>
           <td>{{rec.trk_pod_eta}}</td>
           <td>{{rec.trk_pod_eta_confirm ? 'YES' : 'NO'}}</td>
@@ -36,7 +40,7 @@
     </table>
   </div>
 </div>
-<div class="page-details">
+<div  *ngIf="type=='AIR EXPORT'" class="page-details">
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group row">
@@ -66,7 +70,6 @@
         </div>
       </div>
       <div class="form-group row">
-        <!--<label class="col-sm-3 col-form-label col-form-label-sm"></label>-->
         <div class="offset-3 col-sm-9">
           <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.trk_pol_name" />
         </div>
@@ -115,7 +118,7 @@
     </div>
   </div>
 </div>
-<div class="page-box">
+<div  *ngIf="type=='AIR EXPORT'" class="page-box">
   <div class="col">
     <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
