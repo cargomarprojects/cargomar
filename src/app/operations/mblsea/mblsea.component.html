@@ -456,25 +456,41 @@
                 </div>
               </div>
             </div>
-
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">Port.Cut.Off</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
+                    </app-date>
+                  </div>
+                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
+                    </app-date>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="page-box">
             <div class="row">
               <div class="col-sm-8">
-                <div  class="form-group row">
-                  <div class="col-sm-5 input-group input-group-sm">
-                    <label class="col-form-label col-form-label-sm">Port.Cut.Off</label>
+                <div class="form-group row">
+                  <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label>
+                  <div class="col-sm-1">
                     <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
                     </app-date>
-                    <label class="col-form-label col-form-label-sm p-2">POL.Vsl.ETA</label>
+                  </div>
+                  <div class="col-sm-3 input-group input-group-sm p-0">
+                    <label class="col-form-label col-form-label-sm">ETA</label>
                     <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
                     </app-date>
-                  </div>
-
-
-
-                  <label style="background-color:lightgray;" class="col-sm-5 col-form-label col-form-label-sm">Vessel</label>
-                  <label style="background-color:lightgray;" class="col-sm-2  col-form-label col-form-label-sm">Voyage</label>
+                  </div> -->
+                  <label style="background-color:lightgray;"
+                    class="offset-5 col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm">VOYAGE</label>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
@@ -504,46 +520,49 @@
               </div>
 
               <div class="col-sm-4">
-
-                <div style="background-color:lightgray;"  class="form-group row">
-                  <label class="col-sm-6 col-form-label col-form-label-sm">ETD</label>
-                  <label class="col-sm-6 col-form-label col-form-label-sm">ETA</label>
-
-
+                <div class="form-group row">
+                  <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm">ETD-[POL]</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm">CONFM</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm">CONFM</label>
+                  <!-- <label style="background-color:lightgray;" class="col-sm-1 col-form-label col-form-label-sm"></label> -->
                 </div>
 
                 <div class="form-group row">
-                  <div class="col-sm-3 pr-2">
+                  <div class="col-sm-3">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                   </div>
-                  <div class="col-sm-2 pl-0 pr-0">
+                  <div class="col-sm-2">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">Confirm
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">
                       </label>
                     </div>
                   </div>
-                  <div class="col-sm-3 pr-2">
-                    <app-date [inputdate]="trk_vsl_1_eta" (ValueChanged)="trk_vsl_1_eta=$event">
+                  <div class="col-sm-3">
+                    <app-date [inputdate]="Record.book_pol_eta" (ValueChanged)="Record.book_pol_eta=$event">
                     </app-date>
                   </div>
-                  <div class="col-sm-2 pl-0 pr-0">
+                  <div class="col-sm-2">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" disabled type="checkbox"
-                          [(ngModel)]="trk_vsl_1_eta_confirm">Confirm
+                        <input class="form-check-input"  type="checkbox" [(ngModel)]="Record.book_pol_eta_confirm">
                       </label>
                     </div>
                   </div>
                   <div class="col-sm-2">
-                    <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddTransit()"></i>
-                    <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveTransit()"></i>
+                    <!-- <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddTransit()"></i>
+                    <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveTransit()"></i> -->
                   </div>
 
                 </div>
               </div>
             </div>
-
+            <hr>
             <div *ngFor="let rec of Record.TransitList">
               <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
               </app-transit>
@@ -571,7 +590,7 @@
                   <div class="col-sm-2 pl-0">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">Confirm
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">Confm
                       </label>
                     </div>
                   </div>
@@ -596,8 +615,7 @@
                   <div class="col-sm-1 pl-0">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox"
-                          [(ngModel)]="Record.book_pofd_eta_confirm">Confirm
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confm
                       </label>
                     </div>
                     <!-- <input type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confirm -->

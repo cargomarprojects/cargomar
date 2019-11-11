@@ -636,6 +636,8 @@ export class MblSeaComponent {
     this.Record.book_cust_comments = '';
     this.Record.book_agent_br_email = '';
     this.Record.book_ftp_agent_folder = false;
+    this.Record.book_pol_eta='';
+    this.Record.book_pol_eta_confirm = false;
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
