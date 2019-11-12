@@ -476,7 +476,7 @@
           <div class="page-box">
             <div class="row">
               <div class="col-sm-8">
-                <div class="form-group row">
+                <div class="form-group row mx-0">
                   <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label>
                   <div class="col-sm-1">
                     <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
@@ -488,9 +488,13 @@
                     </app-date>
                   </div> -->
                   <label style="background-color:lightgray;"
-                    class="offset-5 col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                  class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-2 col-form-label col-form-label-sm">VOYAGE</label>
+                  class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm pl-4">VOYAGE</label>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
@@ -520,15 +524,15 @@
               </div>
 
               <div class="col-sm-4">
-                <div class="form-group row">
+                <div class="form-group row mx-0">
                   <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm">ETD-[POL]</label>
+                    class="col-sm-3 col-form-label col-form-label-sm pl-0">ETD-[POL]</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-2 col-form-label col-form-label-sm">CONFM</label>
+                    class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm">CONFM</label>
+                    class="col-sm-4 col-form-label col-form-label-sm">CONFM</label>
                   <!-- <label style="background-color:lightgray;" class="col-sm-1 col-form-label col-form-label-sm"></label> -->
                 </div>
 
