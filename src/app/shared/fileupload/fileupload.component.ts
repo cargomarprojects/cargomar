@@ -217,9 +217,9 @@ export class FileUploadComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
-        for (let rec of this.RecordList) {
-          rec.row_displayed=false;
-        }
+        // for (let rec of this.RecordList) {
+        //   rec.row_displayed=false;
+        // }
       },
         error => {
           this.loading = false;

@@ -12,5 +12,5 @@ export class documentm {
   rec_created_date: string;
   row_displayed:boolean;
   doc_selected : boolean;
-
+  
 }

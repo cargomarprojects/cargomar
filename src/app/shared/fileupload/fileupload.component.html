@@ -20,11 +20,11 @@
           <th>SIZE</th>
           <th>DELETED</th>
           <th *ngIf="canupload">DELETE</th>
-          <th>EDIT</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">EDIT</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_catg_name}}</td>
@@ -35,11 +35,11 @@
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
               (result)="RemoveList($event)"></App-Dialog>
           </td>
-          <td><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
         </tr>
-        <tr *ngIf="rec.row_displayed">
+        <tr *ngIf="rec.row_displayed" >
           <td colspan="4">
-            <app-fileedit  [DocTypeList]="DocTypeList" [catg_id]="catg_id"  [record]="rec"></app-fileedit>
+            <app-fileedit  [DocTypeList]="DocTypeList"  [record]="rec"></app-fileedit>
           </td>
         </tr>
       </tbody>
@@ -127,11 +127,11 @@
             <th>NAME</th>
             <th>SIZE</th>
             <th>DELETED</th>
-            <th>EDIT</th>
+            <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">EDIT</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList2">
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+          <tr >
             <td>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="rec.doc_selected">
@@ -143,11 +143,11 @@
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
-            <td><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+            <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
           </tr>
           <tr *ngIf="rec.row_displayed">
             <td colspan="5">
-              <app-fileedit [DocTypeList]="DocTypeList" [catg_id]="catg_id" [record]="rec"></app-fileedit>
+              <app-fileedit [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
             </td>
           </tr>
         </tbody>

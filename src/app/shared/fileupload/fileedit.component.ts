@@ -12,38 +12,25 @@ import { documentm } from '../models/documentm';
 export class FileEditComponent {
   // Local Variables 
   title = '';
- 
+
   @Input() record: documentm;
-  @Input() DocTypeList:any[] = [];
-  @Input() catg_id: string = '';
+  @Input() DocTypeList: any[] = [];
 
   pkid: string = '';
-  
-      
+
+
   InitCompleted: boolean = false;
   menu_record: any;
 
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
- 
+
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
   InfoMessage = "";
-
-  mode = '';
-  
-  SearchData = {
-    pkid: '',
-    catgid: '',
-    filename:''
-  }
-  
-  // Array For Displaying List
-
-  // Single Record for add/edit/view details
 
 
   constructor(
@@ -51,7 +38,7 @@ export class FileEditComponent {
     private gs: GlobalService
 
   ) {
-    
+
   }
 
   // Init Will be called After executing Constructor
@@ -60,7 +47,7 @@ export class FileEditComponent {
   }
 
   InitComponent() {
-    
+
   }
 
 
@@ -76,28 +63,58 @@ export class FileEditComponent {
       return;
     }
 
-    this.loading = true;
-    this.ErrorMessage = '';
+    if (this.record.doc_catg_id == '') {
+      this.ErrorMessage = 'Type Cannot Be Empty';
+      return;
+    }
+
+    this.SearchRecord("DOCUMENTUPDATE", "SAVE");
+  }
+
+
+  SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
- 
-    // this.SearchData.pkid = this.pkid;
-    // this.SearchData.remarks = this.remarks;
+    this.ErrorMessage = '';
+    if (this.record.doc_pkid.trim().length <= 0) {
+      this.ErrorMessage = "Invalid ID";
+      return;
+    }
 
-    // this.mainService.UpdateDsrRemarks(this.SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
+    this.loading = true;
+    let SearchData = {
+      pkid: this.record.doc_pkid,
+      catgid: this.record.doc_catg_id,
+      filename: this.record.doc_file_name,
+      table: 'documentupdate',
+      type: _type
+    };
 
-    //     if (response.status == "OK") {
-    //      
-    //       this.record.rec_displayed = false;
-    //     }
+    SearchData.pkid = this.record.doc_pkid;
+    SearchData.catgid = this.record.doc_catg_id;
+    SearchData.filename = this.record.doc_file_name;
+    SearchData.table = 'documentupdate';
 
-    //   },
-    //   error => {
-    //     this.loading = false;
-    //     this.ErrorMessage = this.gs.getError(error);
-        
-    //   });
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = '';
+        this.ErrorMessage = response.errormsg;
+        if (response.status == "OK") {
+          {
+            if (this.DocTypeList != null) {
+              var REC = this.DocTypeList.find(rec => rec.param_pkid == SearchData.catgid);
+              if (REC != null) {
+                this.record.doc_catg_name = REC.param_name;
+              }
+            }
+            this.record.row_displayed = false;
+          }
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -105,7 +122,7 @@ export class FileEditComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
 
     //if (bret === false)
     //  this.ErrorMessage = sError;
