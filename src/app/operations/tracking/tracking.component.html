@@ -15,7 +15,7 @@
           <th>POD.NAME</th>
           <th>ETA</th>
           <th>CONFIRM</th>
-          <th>DELETE</th>
+          <th *ngIf="type=='AIR EXPORT'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -31,7 +31,7 @@
           <td>{{rec.trk_pod_name}}</td>
           <td>{{rec.trk_pod_eta}}</td>
           <td>{{rec.trk_pod_eta_confirm ? 'YES' : 'NO'}}</td>
-          <td>
+          <td *ngIf="type=='AIR EXPORT'">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.trk_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
           </td>
 
