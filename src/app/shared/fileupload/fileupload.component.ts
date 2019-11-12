@@ -228,8 +228,10 @@ export class FileUploadComponent {
   }
 
 
-  ShowFile(filename: string) {
-    this.Downloadfile(filename, "", filename);
+  ShowFile(filename: string, filedisplayname: string = '') {
+    if (filedisplayname == undefined || filedisplayname == '')
+      filedisplayname = filename;
+    this.Downloadfile(filename, "", filedisplayname);
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -309,13 +311,13 @@ export class FileUploadComponent {
     let SearchData = {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      pkids : id,
+      pkids: id,
       parentid: this.pkid,
-      type : this.type,      
+      type: this.type,
       root_folder: this.gs.defaultValues.root_folder,
       sub_folder: this.gs.defaultValues.sub_folder,
       year_code: this.gs.globalVariables.year_code,
-      created_by : this.gs.globalVariables.user_code
+      created_by: this.gs.globalVariables.user_code
     };
 
     this.lovService.CopyFiles(SearchData)

@@ -24,12 +24,12 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList">
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_by}}</td>
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_date}}</td>
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_catg_name}}</td>
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_name}}</td>
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_size}}</td>
-          <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_deleted_by}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_catg_name}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
           <td *ngIf="canupload">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
               (result)="RemoveList($event)"></App-Dialog>
@@ -126,23 +126,23 @@
         <tbody class="page-body-tbody">
           <tr *ngFor="let rec of RecordList2">
             <td>
-                <div class="form-check">
-              <input type="checkbox" class="form-check-input" [(ngModel)]="rec.doc_selected" >
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="rec.doc_selected">
               </div>
             </td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_by}}</td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_created_date}}</td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_catg_name}}</td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_name}}</td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.doc_file_size}}</td>
-            <td (click)="ShowFile(rec.doc_full_name)">{{rec.rec_deleted_by}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_catg_name}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div >
-        <button (click)="CopyFiles()">Copy Files</button>
-      </div>
+    <div>
+      <button (click)="CopyFiles()">Copy Files</button>
+    </div>
   </div>
 
 </div>
