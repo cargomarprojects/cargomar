@@ -20,6 +20,7 @@
           <th>SIZE</th>
           <th>DELETED</th>
           <th *ngIf="canupload">DELETE</th>
+          <th>EDIT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -34,7 +35,12 @@
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
               (result)="RemoveList($event)"></App-Dialog>
           </td>
-
+          <td><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+        </tr>
+        <tr *ngIf="rec.row_displayed">
+          <td colspan="4">
+            <app-fileedit  [DocTypeList]="DocTypeList" [catg_id]="catg_id"  [record]="rec"></app-fileedit>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -121,6 +127,7 @@
             <th>NAME</th>
             <th>SIZE</th>
             <th>DELETED</th>
+            <th>EDIT</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -136,6 +143,12 @@
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
+            <td><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+          </tr>
+          <tr *ngIf="rec.row_displayed">
+            <td colspan="5">
+              <app-fileedit [DocTypeList]="DocTypeList" [catg_id]="catg_id" [record]="rec"></app-fileedit>
+            </td>
           </tr>
         </tbody>
       </table>

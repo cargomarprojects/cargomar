@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
-
-
 import { HttpClient } from '@angular/common/http';
-
 
 import { GlobalService } from '../../core/services/global.service';
 import { AlertService } from '../services/alert.service';
@@ -220,6 +217,9 @@ export class FileUploadComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
+        for (let rec of this.RecordList) {
+          rec.row_displayed=false;
+        }
       },
         error => {
           this.loading = false;
@@ -238,6 +238,13 @@ export class FileUploadComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
+  ShowEdiUpdate(_rec: documentm) {
+    if (_rec.doc_pkid == null)
+      return;
+    if (_rec.doc_pkid !== '') {
+      _rec.row_displayed = !_rec.row_displayed;
+    }
+  }
 
   RemoveList(event: any) {
 

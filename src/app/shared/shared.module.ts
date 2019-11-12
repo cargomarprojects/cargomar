@@ -47,6 +47,7 @@ import { RateUpdateComponent } from './rateupdate/rateupdate.component';
 import { XmlomsComponent } from './xmloms/xmloms.component';
 import { AllReportComponent } from './allreport/allreport.component';
 import { FtpReportComponent } from './ftpreport/ftpreport.component';
+import { FileEditComponent } from './fileupload/fileedit.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
     RateUpdateComponent,
     XmlomsComponent,
     AllReportComponent,
-    FtpReportComponent
+    FtpReportComponent,
+    FileEditComponent
   ],
   exports: [
     CommonModule,
@@ -103,7 +105,8 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
     RateUpdateComponent,
     XmlomsComponent,
     AllReportComponent,
-    FtpReportComponent
+    FtpReportComponent,
+    FileEditComponent
   ],
   providers: [
     AlertService,
