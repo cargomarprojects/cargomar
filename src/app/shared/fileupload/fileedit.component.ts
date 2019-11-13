@@ -86,13 +86,15 @@ export class FileEditComponent {
       catgid: this.record.doc_catg_id,
       filename: this.record.doc_file_name,
       table: 'documentupdate',
-      type: _type
+      type: _type,
+      root_folder: ''
     };
 
     SearchData.pkid = this.record.doc_pkid;
     SearchData.catgid = this.record.doc_catg_id;
     SearchData.filename = this.record.doc_file_name;
     SearchData.table = 'documentupdate';
+    SearchData.root_folder = this.gs.defaultValues.root_folder;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
@@ -107,6 +109,7 @@ export class FileEditComponent {
                 this.record.doc_catg_name = REC.param_name;
               }
             }
+            this.record.doc_full_name = response.newfilename;
             this.record.row_displayed = false;
           }
         }
