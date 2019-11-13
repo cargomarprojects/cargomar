@@ -36,7 +36,7 @@ export class FileUploadComponent {
   sMsg: string = '';
 
   constructor(
-    private gs: GlobalService,
+    public gs: GlobalService,
     private lovService: LovService,
     private alertService: AlertService,
     private http2: HttpClient,
