@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LovService } from '../services/lov.service';
 import { documentm } from '../models/documentm';
+import { strictEqual } from 'assert';
 
 @Component({
   selector: 'app-fileedit',
@@ -31,7 +32,7 @@ export class FileEditComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
-
+  oldFileExtn: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class FileEditComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     this.pkid = this.record.doc_pkid;
+    this.oldFileExtn = this.getFileExtension(this.record.doc_file_name);
   }
 
   InitComponent() {
@@ -65,6 +67,12 @@ export class FileEditComponent {
 
     if (this.record.doc_catg_id == '') {
       this.ErrorMessage = 'Type Cannot Be Empty';
+      return;
+    }
+
+    let newFileExtn: string = this.getFileExtension(this.record.doc_file_name);
+    if (this.oldFileExtn != newFileExtn) {
+      this.ErrorMessage = 'File Extension Mismatch';
       return;
     }
 
@@ -135,7 +143,14 @@ export class FileEditComponent {
 
   Close() {
     this.record.row_displayed = false;
+  }
 
+  getFileExtension(_fname: string) {
+    var temparr = _fname.split('.');
+    let extn: string = '';
+    if (temparr.length > 1)
+      extn = temparr[temparr.length - 1];
+    return extn;
   }
 
 }
