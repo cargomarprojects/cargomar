@@ -23,6 +23,9 @@ export class ImpHblSeaAirComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+
+  bDocs = false;
+
   currentPage = 'ROOTPAGE';
   // disableBookslno = false;
 
@@ -120,7 +123,10 @@ export class ImpHblSeaAirComponent {
 
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
+    {
       this.title = this.menu_record.menu_name;
+      this.bDocs =this.menu_record.rights_docs;
+    }
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
       this.lblhblname = "HBL.No";

@@ -639,6 +639,13 @@
         </ng-template>
       </ngb-tab>
 
+      <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
+        <ng-template ngbTabContent>
+          <app-upload [pkid]="pkid" [type]="'IMPORT-HBL'"></app-upload>
+        </ng-template>
+      </ngb-tab>
+
+
 
 
     </ngb-tabset>

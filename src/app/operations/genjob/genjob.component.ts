@@ -45,6 +45,9 @@ export class GenJobComponent {
   mode = '';
   pkid = '';
 
+
+  bDocs =  false;
+
   // Array For Displaying List
   RecordList: GenJobm[] = [];
   // Single Record for add/edit/view details
@@ -88,8 +91,11 @@ export class GenJobComponent {
   InitComponent() {
 
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      this.bDocs =this.menu_record.rights_docs;
+    }
+
     this.InitLov();
     this.LoadCombo();
   }
