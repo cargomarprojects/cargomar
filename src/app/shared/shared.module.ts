@@ -48,6 +48,7 @@ import { XmlomsComponent } from './xmloms/xmloms.component';
 import { AllReportComponent } from './allreport/allreport.component';
 import { FtpReportComponent } from './ftpreport/ftpreport.component';
 import { FileEditComponent } from './fileupload/fileedit.component';
+import { CrLimitComponent } from './crlimit/crlimit.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { FileEditComponent } from './fileupload/fileedit.component';
     XmlomsComponent,
     AllReportComponent,
     FtpReportComponent,
-    FileEditComponent
+    FileEditComponent,
+    CrLimitComponent
   ],
   exports: [
     CommonModule,
@@ -106,7 +108,8 @@ import { FileEditComponent } from './fileupload/fileedit.component';
     XmlomsComponent,
     AllReportComponent,
     FtpReportComponent,
-    FileEditComponent
+    FileEditComponent,
+    CrLimitComponent
   ],
   providers: [
     AlertService,
