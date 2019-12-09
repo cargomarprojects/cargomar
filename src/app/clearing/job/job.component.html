@@ -1103,6 +1103,7 @@
     </div>
   </div>
 </div>
+
 <ng-template #history let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">History</h4>
@@ -1114,3 +1115,8 @@
     <app-history [pkid]="pkid" [type]="'JOB'"></app-history>
   </div>
 </ng-template>
+
+
+<div *ngIf="bCreditLimit">
+    <app-crlimit [RecordList]="CrList"></app-crlimit>
+</div>

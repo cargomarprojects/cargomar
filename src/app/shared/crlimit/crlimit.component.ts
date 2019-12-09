@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
 
+
 @Component({
   selector: 'app-crlimit',
   templateUrl: './crlimit.component.html',
@@ -20,6 +21,7 @@ export class CrLimitComponent {
   constructor(
     private route: ActivatedRoute,
     private gs: GlobalService
+
   ) {
     // URL Query Parameter 
   }

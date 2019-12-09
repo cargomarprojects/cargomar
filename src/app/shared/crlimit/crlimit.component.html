@@ -1,25 +1,37 @@
-<div class="page-list">
-  <div style="height: 400px; overflow-y: scroll;">
-    <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
-        <thead class="page-body-thead">
-          <tr>
-            <th width="12%">BRANCH</th>
-            <th width="5%">BALANCE</th>
-            <th width="10%">OVERDUE-AMT</th>
-            <th width="5%">OVERDUE-DAYS</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList">
-            <td>{{rec.brcode}}</td>
-            <td>{{rec.creditamt}}</td>
-            <td>{{rec.overdueamt}}</td>
-            <td>{{rec.overduedays}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+
+<div class="modal fade show" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+      <div class="page-list">
+          <div style="height: 400px; overflow-y: scroll;">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th width="12%">BRANCH</th>
+                    <th width="5%">BALANCE</th>
+                    <th width="10%">OVERDUE-AMT</th>
+                    <th width="5%">OVERDUE-DAYS</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                  <tr *ngFor="let rec of RecordList">
+                    <td>{{rec.brcode}}</td>
+                    <td>{{rec.creditamt}}</td>
+                    <td>{{rec.overdueamt}}</td>
+                    <td>{{rec.overduedays}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+
+        
+
+
   </div>
 </div>
-

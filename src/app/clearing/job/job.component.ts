@@ -21,6 +21,8 @@ export class JobComponent {
   menu_record: any;
   selectedRowIndex: number = -1;
 
+  CrList : any;
+
   modal: any;
 
   disableSave = true;
@@ -1595,9 +1597,12 @@ export class JobComponent {
       .subscribe(response => {
         this.loading = false;
         this.bCreditLimit = response.retvalue;
+        this.CrList = response.list;
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
-          alert(response.message);
+
+          //alert(response.message);
+
         }
         if (this.bCreditLimit && bCallSave) {
           this.SaveFinal();
