@@ -635,20 +635,14 @@ a {
   z-index: 1;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.6);
-
   display: block;
-
   width: 100%;
   height: 100%;
-
   top: 50%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
-
-
 }
-
 
 .modal-body-css {
   position: absolute;
@@ -657,6 +651,12 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 0px solid black;
+  border: 1px solid black;
   background-color: beige;
+}
+
+
+.center-content { 
+  display: flex; 
+  justify-content: center; 
 }
