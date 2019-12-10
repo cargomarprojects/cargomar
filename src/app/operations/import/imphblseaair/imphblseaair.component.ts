@@ -63,6 +63,7 @@ export class ImpHblSeaAirComponent {
   old_billto_id = '';
 
   bCreditLimit: boolean = false;
+  showalert = false;
 
 
 
@@ -813,7 +814,8 @@ export class ImpHblSeaAirComponent {
         this.bCreditLimit = response.retvalue;
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
-          alert(response.message);
+          this.showalert = true;
+          //alert(response.message);
         }
         if (this.bCreditLimit && bCallSave) {
           this.SaveFinal();

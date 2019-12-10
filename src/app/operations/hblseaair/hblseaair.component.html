@@ -659,3 +659,5 @@
     <app-history [pkid]="pkid" [type]="type=='AIR EXPORT'?'HBL-AE':'HBL-SE'"></app-history>
   </div>
 </ng-template>
+
+<app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>

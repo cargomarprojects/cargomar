@@ -57,6 +57,8 @@ export class HblSeaAirComponent {
 
     bCreditLimit: boolean = false;
 
+    showalert = false;
+
 
 
     sub: any;
@@ -794,7 +796,7 @@ export class HblSeaAirComponent {
                 this.bCreditLimit = response.retvalue;
                 if (!this.bCreditLimit) {
                     this.ErrorMessage = response.message;
-                    alert(response.message);
+                    this.showalert = true;
                 }
                 if (this.bCreditLimit && bCallSave) {
                     this.SaveFinal();
