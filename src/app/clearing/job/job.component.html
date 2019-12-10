@@ -1117,6 +1117,6 @@
 </ng-template>
 
 
-<div *ngIf="bCreditLimit">
-    <app-crlimit [RecordList]="CrList"></app-crlimit>
+<div *ngIf="bCreditLimit == true">
+    <app-crlimit [visible]="bCreditLimit" [RecordList]="CrList"></app-crlimit>
 </div>

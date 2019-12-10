@@ -1,29 +1,46 @@
-<div class="modal-css">
 
-  <div class="page-list">
-    <div style="height: 400px; overflow-y: scroll;">
-      <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-          <thead class="page-body-thead">
-            <tr>
-              <th width="15%">BRANCH</th>
-              <th width="15%">BALANCE</th>
-              <th width="15%">OVERDUE-AMT</th>
-              <th width="15%">OVERDUE-DAYS</th>
-            </tr>
-          </thead>
-          <tbody class="page-body-tbody">
-            <tr *ngFor="let rec of RecordList">
-              <td>{{rec.brcode}}</td>
-              <td>{{rec.creditamt}}</td>
-              <td>{{rec.overdueamt}}</td>
-              <td>{{rec.overduedays}}</td>
-            </tr>
-          </tbody>
-        </table>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div align="center" class="modal-custom">
+
+
+      <div class="page-list">
+        <div style="height: 400px; overflow-y: scroll;">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th width="15%">BRANCH</th>
+                  <th width="15%">BALANCE</th>
+                  <th width="15%">OVERDUE-AMT</th>
+                  <th width="15%">OVERDUE-DAYS</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList">
+                  <td>{{rec.brcode}}</td>
+                  <td>{{rec.creditamt}}</td>
+                  <td>{{rec.overdueamt}}</td>
+                  <td>{{rec.overduedays}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+    
+    
+      
+
+
+
     </div>
   </div>
+</ng-template>
 
 
-</div>
+
+
+
+
+

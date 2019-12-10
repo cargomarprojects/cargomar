@@ -21,7 +21,7 @@ export class JobComponent {
   menu_record: any;
   selectedRowIndex: number = -1;
 
-  CrList : any;
+  CrList : any[];
 
   modal: any;
 
