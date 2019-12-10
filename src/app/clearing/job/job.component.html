@@ -1117,6 +1117,9 @@
 </ng-template>
 
 
-<div *ngIf="bCreditLimit == true">
-    <app-crlimit [visible]="bCreditLimit" [RecordList]="CrList"></app-crlimit>
-</div>
+
+  <app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>
+
+
+
+

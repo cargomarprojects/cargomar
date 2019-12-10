@@ -53,6 +53,8 @@ export class JobComponent {
 
   bCreditLimit: boolean = false;
 
+  showalert = false;
+
 
   sub: any;
   urlid: string;
@@ -1596,11 +1598,12 @@ export class JobComponent {
     this.mainService.GetCreditLimit(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.bCreditLimit = response.retvalue;
         this.CrList = response.list;
+        this.bCreditLimit = response.retvalue;
+        
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
-
+          this.showalert = true;
           //alert(response.message);
 
         }
