@@ -59,7 +59,7 @@ export class HblSeaAirComponent {
 
     showalert = false;
 
-
+    CrList : any[];
 
     sub: any;
     urlid: string;
