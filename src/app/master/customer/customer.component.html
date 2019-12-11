@@ -414,6 +414,10 @@
               class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
               class="btn btn-success btn-sm">History</button>
+
+              <button [disabled]="loading" *ngIf="mode == 'EDIT'"  class="btn btn-primary btn-sm" (click)="CheckCrLimit()">Check
+                CR-Limit</button>
+
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
@@ -576,3 +580,6 @@
     <app-history [pkid]="pkid" [type]="'CUSTOMER'"></app-history>
   </div>
 </ng-template>
+
+<app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>
+

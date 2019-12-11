@@ -30,6 +30,10 @@ export class CustomerComponent {
   menu_record: any;
 
 
+  bCreditLimit: boolean = false;
+  showalert = false;
+  CrList : any[];
+
 
   bAdmin = false;//for detail part
   bDocs = false;
@@ -713,4 +717,40 @@ export class CustomerComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  CheckCrLimit(bCallSave: boolean = false) {
+
+
+    let SearchData = {
+      searchfrom: 'SI-IMPORT',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      customerid: this.pkid,
+      billtoid: ''
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetCreditLimit(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.CrList = response.list;
+        this.bCreditLimit = response.retvalue;
+        
+        if (!this.bCreditLimit) {
+          this.ErrorMessage = response.message;
+          
+          this.showalert = true;
+          //alert(response.message);
+
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+
 }

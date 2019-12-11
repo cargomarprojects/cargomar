@@ -52,7 +52,6 @@ export class JobComponent {
   old_billto_id = '';
 
   bCreditLimit: boolean = false;
-
   showalert = false;
 
 
