@@ -6,6 +6,7 @@ import { Jobm } from '../models/job';
 import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
+
 @Component({
   selector: 'app-jobm',
   templateUrl: './job.component.html',
@@ -1547,7 +1548,8 @@ export class JobComponent {
   FillCustInfo() {
     this.loading = true;
     let SearchData = {
-      pkid: this.Record.job_exp_id
+      pkid: this.Record.job_exp_id,
+      brcode :  this.gs.globalVariables.branch_code
     };
 
     SearchData.pkid = this.Record.job_exp_id;
