@@ -64,7 +64,7 @@ export class ImpHblSeaAirComponent {
 
   bCreditLimit: boolean = false;
   showalert = false;
-
+  CrList : any[];
 
 
 
