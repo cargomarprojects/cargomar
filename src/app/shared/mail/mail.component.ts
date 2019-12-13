@@ -236,7 +236,7 @@ export class MailComponent {
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
       update_toids: '',
-      canftp:'N'
+      canftp: 'N'
     };
 
     SearchData.table = controlname;
@@ -267,8 +267,8 @@ export class MailComponent {
           if (this.ModifiedRecords != null && this.type == "DESPATCH-DETAILS")
             this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
 
-            // Auto ftp Sent
-          if (this.InfoMessage.trim().toUpperCase()=="MAIL SENT SUCCESSFULLY" && this.canftp && this.ftpfolderblexist) {
+          // Auto ftp Sent
+          if (this.InfoMessage.trim().toUpperCase() == "MAIL SENT SUCCESSFULLY" && this.canftp && this.ftpfolderblexist) {
             this.SendFtp(this.InfoMessage);
           } else
             alert(this.InfoMessage);
@@ -428,6 +428,7 @@ export class MailComponent {
 
 
   uploadFiles() {
+    let ftpFolder: string = "";
     if (this.catg_id == '' && this.rootpage == "FTPPAGE") {
       alert('Pls Select Category');
       return;
@@ -462,7 +463,8 @@ export class MailComponent {
           if (this.rootpage == "FTPPAGE") {
             if (this.FtpAttachList == null)
               this.FtpAttachList = new Array<any>();
-            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+            ftpFolder = this.GetAttachFtpFolder();
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '' });
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
@@ -476,6 +478,20 @@ export class MailComponent {
         }
       );
   }
+
+  GetAttachFtpFolder() {
+    if (this.catg_id == 'HBL')
+      return 'FTP-FOLDER-HBL-DIGITAL';
+    else if (this.catg_id == 'MBL')
+      return 'FTP-FOLDER-MBL-DIGITAL';
+    else if (this.catg_id == 'INVOICE')
+      return 'FTP-FOLDER-INVOICE-DIGITAL';
+    else if (this.catg_id == 'PACKINGLIST')
+      return 'FTP-FOLDER-PL-DIGITAL';
+    else
+      return '';
+  }
+
   ShowHideAttach() {
     this.showattach = !this.showattach;
   }
