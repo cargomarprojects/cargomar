@@ -143,6 +143,10 @@ export class CustomerComponent {
         this.bDelete = true;
     }
 
+    if ( this.gs.globalVariables.user_code == "ADMIN")
+      this.bAdmin2 = true;
+   
+
 
     this.LoadCombo();
 
@@ -273,6 +277,10 @@ export class CustomerComponent {
     this.bDocsUpload = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs_upload)
       this.bDocsUpload = true;
+
+
+    if ( this.gs.globalVariables.user_code == "ADMIN")
+      this.bAdmin = true;
 
 
     this.canadd = this.menu_record.rights_add;
