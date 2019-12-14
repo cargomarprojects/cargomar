@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { stringify } from '@angular/core/src/render3/util';
+import { concat } from 'rxjs/operator/concat';
 
 @Component({
   selector: 'app-mail',
@@ -429,6 +430,7 @@ export class MailComponent {
 
   uploadFiles() {
     let ftpFolder: string = "";
+    let ftpFilePrefix: string = "";
     if (this.catg_id == '' && this.rootpage == "FTPPAGE") {
       alert('Pls Select Category');
       return;
@@ -463,8 +465,9 @@ export class MailComponent {
           if (this.rootpage == "FTPPAGE") {
             if (this.FtpAttachList == null)
               this.FtpAttachList = new Array<any>();
+            ftpFilePrefix = this.GetAttachFtpFilePreFix();
             ftpFolder = this.GetAttachFtpFolder();
-            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '' });
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '' });
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
@@ -477,6 +480,19 @@ export class MailComponent {
           alert('Failed');
         }
       );
+  }
+
+  GetAttachFtpFilePreFix() {
+    if (this.catg_id == 'HBL')
+      return 'HBL-';
+    else if (this.catg_id == 'MBL')
+      return 'MBL-';
+    else if (this.catg_id == 'INVOICE')
+      return 'IN-';
+    else if (this.catg_id == 'PACKINGLIST')
+      return 'PL-';
+    else
+      return '';
   }
 
   GetAttachFtpFolder() {
