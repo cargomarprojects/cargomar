@@ -41,6 +41,8 @@ export class MailComponent {
   catg_id: string = 'OTHERS';
   myFiles: string[] = [];
   filesSelected: boolean = false;;
+  attach_totfilesize: number = 0;
+  lbl_attachfz: string = '';
 
   disableSave = true;
   loading = false;
@@ -473,6 +475,10 @@ export class MailComponent {
               this.AttachList = new Array<any>();
             this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
           }
+
+          this.attach_totfilesize += data.filesize;
+          this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
+
           //this.ShowHideAttach(); 
         },
         error => {
@@ -526,4 +532,21 @@ export class MailComponent {
       this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
     }
   }
+
+  GetFileSize(_fsize: number) {
+    let strsize: string = "";
+    if (_fsize < 1024)
+      strsize = _fsize.toString() + "bytes";
+    else {
+      let _newfsize = (_fsize / 1024.00);
+      _newfsize = this.gs.roundNumber(_newfsize, 2);
+      _newfsize = Math.ceil(_newfsize);
+      if (_newfsize < 1024)
+        strsize = _newfsize.toString() + "KB";
+      else
+        strsize = _newfsize.toString() + "MB";
+    }
+    return " "+strsize;
+  }
+
 }
