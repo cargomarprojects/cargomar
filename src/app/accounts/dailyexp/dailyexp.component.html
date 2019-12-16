@@ -184,36 +184,35 @@
         </div>
     </div>
 
-    <!-- <div class="page-box">
+    <div class="page-box">
         <div class="page-body table-responsive">
             <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                     <tr>
                         <th>SI#</th>
-                        <th>HBL#</th>
-                        <th>HBL.DATE</th>
-                        <th>SHIPPER</th>
-                        <th>CONSIGNEE</th>
-                        <th>AGENT</th>
-                        <th>LINER</th>
-                        <th>TERMS</th>
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th>NATURE</th>
+                        <th>A/C-CREDIT</th>
+                        <th>TYPE</th>
+                        <th>AMOUNT</th>
                     </tr>
                 </thead>
-                <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
+                <tbody class="page-body-tbody" *ngFor="let rec of Record.ExpList">
                     <tr>
-                        <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
-                        <td>{{rec.hbl_bl_no}}</td>
-                        <td>{{rec.hbl_date}}</td>
-                        <td>{{rec.hbl_exp_name}}</td>
-                        <td>{{rec.hbl_imp_name}}</td>
-                        <td>{{rec.hbl_agent_name}}</td>
-                        <td>{{rec.hbl_carrier_name}}</td>
-                        <td>{{rec.hbl_terms}}</td>
+                        <td>{{rec.ded_slno}}</td>
+                        <td>{{rec.ded_accode}}</td>
+                        <td>{{rec.ded_acname}}</td>
+                        <td>{{rec.ded_nature}}</td>
+                        <td>{{rec.ded_accrcode}}</td>
+                        <td>{{rec.ded_type}}</td>
+                        <td style="padding:0"> <input type="number" class="form-control form-control-sm"
+                                            [(ngModel)]="rec.ded_amt"  (blur)="OnBlur('ded_amt',rec)" required maxlength="15" /> </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div> -->
+    </div>
     <div class="page-box">
         <div class="col">
             <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"

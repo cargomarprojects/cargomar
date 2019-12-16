@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Dailyexpm } from '../models/dailyexpm';
 import { DailyExpService } from '../services/dailyexp.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { Dailyexpd } from '../models/dailyexpd';
 
 @Component({
   selector: 'app-dailyexp',
@@ -196,7 +197,8 @@ export class DailyExpComponent {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-
+      id = this.pkid;
+      this.GetRecord(id);
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -298,6 +300,7 @@ export class DailyExpComponent {
     this.loading = true;
     let SearchData = {
       pkid: Id,
+      mode: this.mode,
     };
 
     this.ErrorMessage = '';
@@ -315,18 +318,23 @@ export class DailyExpComponent {
 
   LoadData(_Record: Dailyexpm) {
     this.Record = _Record;
-    //this.Record.HblList = _Record.HblList;
-
-    this.InitLov();
-
-    this.PARTYRECORD.id = this.Record.dem_party_id;
-    this.PARTYRECORD.code = this.Record.dem_party_code;
-    this.PARTYRECORD.name = this.Record.dem_party_name;
-    this.PARTYADDRECORD.id = this.Record.dem_party_br_id;
-    this.PARTYADDRECORD.code = this.Record.dem_party_br_no;
-    this.PARTYADDRECORD.parentid = this.Record.dem_party_id;
-
+    this.Record.ExpList = _Record.ExpList;
     this.Record.rec_mode = this.mode;
+    if (this.mode == "ADD")
+      this.Record.dem_cfno = null;
+      
+    if (this.mode == "EDIT") {
+
+      this.InitLov();
+
+      this.PARTYRECORD.id = this.Record.dem_party_id;
+      this.PARTYRECORD.code = this.Record.dem_party_code;
+      this.PARTYRECORD.name = this.Record.dem_party_name;
+      this.PARTYADDRECORD.id = this.Record.dem_party_br_id;
+      this.PARTYADDRECORD.code = this.Record.dem_party_br_no;
+      this.PARTYADDRECORD.parentid = this.Record.dem_party_id;
+    }
+
   }
 
   // Save Data
@@ -395,7 +403,7 @@ export class DailyExpComponent {
   }
 
 
-  OnBlur(field: string) {
+  OnBlur(field: string, _rec: Dailyexpd = null) {
     var oldChar2 = / /gi;//replace all blank space in a string
     // if (field == 'book_exporter_name') {
     //   this.Record.book_exporter_name = this.Record.book_exporter_name.toUpperCase();
@@ -470,7 +478,7 @@ export class DailyExpComponent {
         if (response.genjobm.length > 0) {
           this.Record.dem_genjob_id = response.genjobm[0].gj_pkid;
           this.Record.dem_genjob_prefix = response.genjobm[0].gj_job_prefix;
- 
+
         }
         else {
           this.ErrorMessage = 'Invalid General Job';

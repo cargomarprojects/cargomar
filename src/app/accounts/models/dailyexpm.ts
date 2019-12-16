@@ -1,4 +1,5 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
+import { Dailyexpd } from './dailyexpd';
 
 export class Dailyexpm {
     dem_pkid: string;
@@ -21,4 +22,6 @@ export class Dailyexpm {
 
     rec_mode: string;
     _globalvariables: GlobalVariables;
+
+    ExpList: Dailyexpd[] = [];
 }
