@@ -110,21 +110,17 @@
 
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">CF#</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                             [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
                     </div>
-                </div>
-
-                <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event">
                         </app-date>
                     </div>
                 </div>
-
-                <div class="form-group row">
+              <div class="form-group row">
                     <label class="col-sm-3 col-form-label  col-form-label-sm">General Job#</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
@@ -140,7 +136,7 @@
                     </div>
                     <div class="col-sm-5" style="padding-left:0">
                         <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.book_exporter_name" (blur)="OnBlur('book_exporter_name')" required
+                            [(ngModel)]="Record.dem_party_name" (blur)="OnBlur('dem_party_name')" required
                             maxlength="60" />
                     </div>
                 </div>
