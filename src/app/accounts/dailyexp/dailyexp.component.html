@@ -109,32 +109,37 @@
             <div class="col-sm-4">
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">CF#</label>
-                    <div class="col-sm-3">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">CF#</label>
+                    <div class="col-sm-4">
                         <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
-                            [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
+                            [(ngModel)]="Record.dem_cfno" [disabled]="true" required maxlength="15" />
                     </div>
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-sm-3">
-                        <app-date [inputdate]="Record.book_booked_on" (ValueChanged)="Record.book_booked_on=$event">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.dem_date" (ValueChanged)="Record.dem_date=$event">
                         </app-date>
                     </div>
                 </div>
               <div class="form-group row">
-                    <label class="col-sm-3 col-form-label  col-form-label-sm">General Job#</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
-                            (blur)="OnBlur('book_mblno')" required maxlength="30" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">GenJob#</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dem_genjob_no"
+                            (blur)="OnBlur('dem_genjob_no')" required maxlength="10" />
+                    </div>
+                    <div class="col-sm-6" style="padding-left:0">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_genjob_prefix" (blur)="OnBlur('dem_genjob_prefix')" required
+                            maxlength="60" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Party</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
                     <div class="col-sm-4">
                         <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                     </div>
-                    <div class="col-sm-5" style="padding-left:0">
+                    <div class="col-sm-6" style="padding-left:0">
                         <input type="text" disabled class="form-control form-control-sm"
                             [(ngModel)]="Record.dem_party_name" (blur)="OnBlur('dem_party_name')" required
                             maxlength="60" />
@@ -142,16 +147,40 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-3 col-form-label col-form-label-sm">Branch#</label>
-                    <div class="col-9">
+                    <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                    <div class="col-10">
                         <app-autocomplete #PartyAddLov [inputdata]="PARTYADDRECORD"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.dem_party_br_addr"
+                        [disabled]="true" maxlength="1000"></textarea>
+                    </div>
+                  </div>
+  
 
             </div>
 
+            <div class="col-sm-4">
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Inv.Date</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.dem_inv_date" (ValueChanged)="Record.dem_inv_date=$event">
+                        </app-date>
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Exp.Date</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.dem_exp_date" (ValueChanged)="Record.dem_exp_date=$event">
+                        </app-date>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 

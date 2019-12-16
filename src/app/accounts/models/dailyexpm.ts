@@ -7,6 +7,7 @@ export class Dailyexpm {
     dem_date: string;
     dem_genjob_id: string;
     dem_genjob_no: string;
+    dem_genjob_prefix: string;
     dem_party_id: string;
     dem_party_code: string;
     dem_party_name: string;

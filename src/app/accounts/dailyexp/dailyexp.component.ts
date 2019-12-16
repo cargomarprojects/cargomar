@@ -23,13 +23,13 @@ export class DailyExpComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-   
+
   bChanged: boolean;
 
   bAdmin = false;
   bDocs = false;
   searchstring = '';
-  
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -54,7 +54,7 @@ export class DailyExpComponent {
 
   constructor(
     private modalService: NgbModal,
-    private mainService: DailyExpService,  
+    private mainService: DailyExpService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -145,7 +145,7 @@ export class DailyExpComponent {
     this.PARTYADDRECORD.code = "";
     this.PARTYADDRECORD.name = "";
     this.PARTYADDRECORD.parentid = "";
-  
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -179,7 +179,7 @@ export class DailyExpComponent {
       this.Record.dem_party_br_no = _Record.code;
       this.Record.dem_party_br_addr = this.GetBrAddress(_Record.name).address;
     }
-    
+
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -263,20 +263,21 @@ export class DailyExpComponent {
     this.Record.dem_pkid = this.pkid;
     this.Record.dem_cfno = null;
     this.Record.dem_date = this.gs.defaultValues.today;
-    this.Record.dem_genjob_id='';
-    this.Record.dem_genjob_no='';
-    this.Record.dem_party_id='';
-    this.Record.dem_party_code='';
-    this.Record.dem_party_name='';
-    this.Record.dem_party_br_id='';
-    this.Record.dem_party_br_no='';
-    this.Record.dem_party_br_addr='';
-    this.Record.dem_inv_date='';
-    this.Record.dem_exp_date='';
+    this.Record.dem_genjob_id = '';
+    this.Record.dem_genjob_no = '';
+    this.Record.dem_party_id = '';
+    this.Record.dem_party_code = '';
+    this.Record.dem_party_name = '';
+    this.Record.dem_party_br_id = '';
+    this.Record.dem_party_br_no = '';
+    this.Record.dem_party_br_addr = '';
+    this.Record.dem_inv_date = '';
+    this.Record.dem_exp_date = '';
+    this.Record.dem_genjob_prefix = '';
 
     this.Record.lock_record = false;
     this.Record.dem_edit_code = '{S}';
-   // this.Record.BkmCntrList = new Array<BkmCntrtype>();
+    // this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.InitDefault();
     this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -290,7 +291,7 @@ export class DailyExpComponent {
     //     this.Record.book_status_id = REC.param_pkid;
     //   }
     // }
-    
+
   }
   // Load a single Record for VIEW/EDIT 
   GetRecord(Id: string) {
@@ -315,9 +316,9 @@ export class DailyExpComponent {
   LoadData(_Record: Dailyexpm) {
     this.Record = _Record;
     //this.Record.HblList = _Record.HblList;
-    
+
     this.InitLov();
-    
+
     this.PARTYRECORD.id = this.Record.dem_party_id;
     this.PARTYRECORD.code = this.Record.dem_party_code;
     this.PARTYRECORD.name = this.Record.dem_party_name;
@@ -333,7 +334,7 @@ export class DailyExpComponent {
     if (!this.allvalid())
       return;
 
-   // this.FindCntrTotal();
+    // this.FindCntrTotal();
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -371,7 +372,7 @@ export class DailyExpComponent {
       bret = false;
       sError += "\n\r | Party Cannot Be Blank";
     }
-   
+
     if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
@@ -389,7 +390,7 @@ export class DailyExpComponent {
     else {
       REC.dem_cfno = this.Record.dem_cfno;
       REC.dem_date = this.Record.dem_date;
-      REC.dem_party_name= this.Record.dem_party_name;
+      REC.dem_party_name = this.Record.dem_party_name;
     }
   }
 
@@ -399,10 +400,18 @@ export class DailyExpComponent {
     // if (field == 'book_exporter_name') {
     //   this.Record.book_exporter_name = this.Record.book_exporter_name.toUpperCase();
     // }
-    
+
     // if (field == 'book_mblno') {
     //   this.Record.book_mblno = this.Record.book_mblno.replace(oldChar2, '').toUpperCase();
     // }
+
+    if (field == 'dem_genjob_no') {
+      this.Record.dem_genjob_no = this.Record.dem_genjob_no.toUpperCase();
+      this.Record.dem_genjob_id = '';
+      this.Record.dem_genjob_prefix = '';
+      this.SearchRecord('dem_genjob_no');
+    }
+
   }
 
   OnChange(field: string) {
@@ -432,58 +441,48 @@ export class DailyExpComponent {
   }
 
   SearchRecord(controlname: string) {
-    // this.InfoMessage = "";
-    // this.ErrorMessage = "";
-    // this.loading = true;
-    // let SearchData = {
-    //   table: '',
-    //   pkid: '',
-    //   hbl_folder_no: '',
-    //   hbl_folder_sent_date: '',
-    //   hbl_prealert_date: '',
-    //   company_code: '',
-    //   branch_code: '',
-    //   rec_category: '',
-    //   hbl_type: '',
-    //   hbl_book_cntr_mdesc: '',
-    //   hbl_released_date: '',
-    //   hbl_buy_remarks: ''
-    // };
+    if (this.Record.dem_genjob_no.trim().length <= 0)
+      return;
 
-    // if (controlname == 'updatemaster') {
-    //   SearchData.table = 'updatemaster';
-    //   SearchData.pkid = this.Record.book_pkid;
-    //   SearchData.hbl_folder_no = this.Record.book_folder_no;
-    //   SearchData.hbl_folder_sent_date = this.Record.book_folder_sent_date;
-    //   SearchData.hbl_prealert_date = this.Record.book_prealert_date;
-    //   SearchData.company_code = this.gs.globalVariables.comp_code;
-    //   SearchData.branch_code = this.gs.globalVariables.branch_code;
-    //   SearchData.rec_category = this.type;
-    //   SearchData.hbl_type = 'MBL-SE';
-    //   SearchData.hbl_book_cntr_mdesc = this.Record.book_mdesc;
-    //   SearchData.hbl_released_date = this.Record.book_released_date;
-    //   SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
-    // }
-
-    // this.gs.SearchRecord(SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     if (controlname == 'updatemaster') {
-    //       if (response.serror.length > 0)
-    //         this.ErrorMessage = response.serror;
-    //       else {
-    //         this.foldersent = response.foldersent;
-    //         this.InfoMessage = 'Save Complete';
-    //       }
-    //     }
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ErrorMessage = this.gs.getError(error);
-    //     });
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      table: 'genjobm',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      gen_jobno: ''
+    };
+    if (controlname == 'dem_genjob_no') {
+      SearchData.rowtype = this.type;
+      SearchData.table = 'genjobm';
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.year_code = this.gs.globalVariables.year_code;
+      SearchData.gen_jobno = this.Record.dem_genjob_no;
+    }
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.dem_genjob_id = '';
+        this.ErrorMessage = '';
+        if (response.genjobm.length > 0) {
+          this.Record.dem_genjob_id = response.genjobm[0].gj_pkid;
+          this.Record.dem_genjob_prefix = response.genjobm[0].gj_job_prefix;
+ 
+        }
+        else {
+          this.ErrorMessage = 'Invalid General Job';
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
+
   FindCntrTotal() {
     // let TotTeu: number = 0;
     // let n20: number = 0;
@@ -511,5 +510,5 @@ export class DailyExpComponent {
     // }
   }
 
-  
+
 }
