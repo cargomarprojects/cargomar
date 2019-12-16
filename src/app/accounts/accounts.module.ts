@@ -87,7 +87,7 @@ import { MtReportComponent} from './moneytransfer/mtreport.component';
 import { CashBookReportreducer } from './cashbook/cashbook.reducer';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
-
+import { DailyExpComponent } from './dailyexp/dailyexp.component';
 
 @NgModule({
   imports: [
@@ -139,7 +139,8 @@ import { CollectionComponent } from './collection/collection.component';
     MoneyTransferComponent,
     MtReportComponent,
     CashBookComponent,
-    CollectionComponent
+    CollectionComponent,
+    DailyExpComponent
   ],
   providers: [
   ],
