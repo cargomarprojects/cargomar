@@ -202,8 +202,7 @@ export class DailyExpComponent {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-      id = this.pkid;
-      this.GetRecord(id);
+      this.GetRecord(this.pkid);
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -289,7 +288,7 @@ export class DailyExpComponent {
     this.Record.dem_to  = '';
     this.Record.lock_record = false;
     this.Record.dem_edit_code = '{S}';
-    // this.Record.BkmCntrList = new Array<BkmCntrtype>();
+    this.Record.detList = new Array<Dailyexpd>();
     this.InitDefault();
     this.InitLov();
     this.Record.rec_mode = this.mode;
