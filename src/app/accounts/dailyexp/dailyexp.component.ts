@@ -276,7 +276,12 @@ export class DailyExpComponent {
     this.Record.dem_inv_date = '';
     this.Record.dem_exp_date = '';
     this.Record.dem_genjob_prefix = '';
-
+    this.Record.dem_party_br_gst = '';
+    this.Record.dem_driver_name  = '';
+    this.Record.dem_container  = '';
+    this.Record.dem_vehicle_no  = '';
+    this.Record.dem_from  = '';
+    this.Record.dem_to  = '';
     this.Record.lock_record = false;
     this.Record.dem_edit_code = '{S}';
     // this.Record.BkmCntrList = new Array<BkmCntrtype>();
@@ -318,7 +323,7 @@ export class DailyExpComponent {
 
   LoadData(_Record: Dailyexpm) {
     this.Record = _Record;
-    this.Record.ExpList = _Record.ExpList;
+    this.Record.detList = _Record.detList;
     this.Record.rec_mode = this.mode;
     if (this.mode == "ADD")
       this.Record.dem_cfno = null;
@@ -420,6 +425,12 @@ export class DailyExpComponent {
       this.SearchRecord('dem_genjob_no');
     }
 
+    if (field == 'ded_amt')
+    {
+      _rec.ded_amt = this.gs.roundNumber( _rec.ded_amt, 2);
+      return;
+    }
+
   }
 
   OnChange(field: string) {
@@ -478,8 +489,28 @@ export class DailyExpComponent {
         if (response.genjobm.length > 0) {
           this.Record.dem_genjob_id = response.genjobm[0].gj_pkid;
           this.Record.dem_genjob_prefix = response.genjobm[0].gj_job_prefix;
+          this.Record.dem_party_id = response.genjobm[0].gj_shipper_id;
+          this.Record.dem_party_code = response.genjobm[0].gj_shipper_code;
+          this.Record.dem_party_name = response.genjobm[0].gj_shipper_name;
+          this.Record.dem_party_br_id = response.genjobm[0].gj_shipper_br_id;
+          this.Record.dem_party_br_no = response.genjobm[0].gj_shipper_br_no;
+          this.Record.dem_party_br_addr = response.genjobm[0].gj_shipper_br_addr;
+          this.Record.dem_party_br_gst = response.genjobm[0].gj_shipper_br_gst;
+          this.Record.dem_driver_name  = response.genjobm[0].gj_driver_name;
+          this.Record.dem_container  = response.genjobm[0].gj_container_no;
+          this.Record.dem_vehicle_no  = response.genjobm[0].gj_vehicle_no;
+          this.Record.dem_from  = response.genjobm[0].gj_from;
+          this.Record.dem_to  = response.genjobm[0].gj_to1;
+          
+          this.InitLov();
 
-        }
+          this.PARTYRECORD.id = this.Record.dem_party_id;
+          this.PARTYRECORD.code = this.Record.dem_party_code;
+          this.PARTYRECORD.name = this.Record.dem_party_name;
+          this.PARTYADDRECORD.id = this.Record.dem_party_br_id;
+          this.PARTYADDRECORD.code = this.Record.dem_party_br_no;
+          this.PARTYADDRECORD.parentid = this.Record.dem_party_id;
+       }
         else {
           this.ErrorMessage = 'Invalid General Job';
         }

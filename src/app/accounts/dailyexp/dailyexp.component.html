@@ -120,7 +120,7 @@
                         </app-date>
                     </div>
                 </div>
-              <div class="form-group row">
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label  col-form-label-sm">GenJob#</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dem_genjob_no"
@@ -157,11 +157,18 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <div class="col-10">
-                      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.dem_party_br_addr"
-                        [disabled]="true" maxlength="1000"></textarea>
+                        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.dem_party_br_addr"
+                            [disabled]="true" maxlength="1000"></textarea>
                     </div>
-                  </div>
-  
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">GST#</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_party_br_gst" (blur)="OnBlur('dem_party_br_gst')"  />
+                    </div>
+                </div>
 
             </div>
 
@@ -177,6 +184,47 @@
                     <div class="col-sm-4">
                         <app-date [inputdate]="Record.dem_exp_date" (ValueChanged)="Record.dem_exp_date=$event">
                         </app-date>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Driver</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_driver_name" (blur)="OnBlur('dem_driver_name')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Cntr#</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_container" (blur)="OnBlur('dem_container')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Vehicle#</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_vehicle_no" (blur)="OnBlur('dem_vehicle_no')" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">From</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_from" (blur)="OnBlur('dem_from')"  />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">To</label>
+                    <div class="col-10">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.dem_to" (blur)="OnBlur('dem_to')" />
                     </div>
                 </div>
 
@@ -198,7 +246,7 @@
                         <th>AMOUNT</th>
                     </tr>
                 </thead>
-                <tbody class="page-body-tbody" *ngFor="let rec of Record.ExpList">
+                <tbody class="page-body-tbody" *ngFor="let rec of Record.detList">
                     <tr>
                         <td>{{rec.ded_slno}}</td>
                         <td>{{rec.ded_accode}}</td>
@@ -206,8 +254,9 @@
                         <td>{{rec.ded_nature}}</td>
                         <td>{{rec.ded_accrcode}}</td>
                         <td>{{rec.ded_type}}</td>
-                        <td style="padding:0"> <input type="number" class="form-control form-control-sm"
-                                            [(ngModel)]="rec.ded_amt"  (blur)="OnBlur('ded_amt',rec)" required maxlength="15" /> </td>
+                        <td style="padding:0"> <input type="number" class="form-control form-control-sm" [disabled]="rec.rec_deleted=='Y'"
+                                [(ngModel)]="rec.ded_amt" (blur)="OnBlur('ded_amt',rec)" required maxlength="15" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -219,13 +268,13 @@
                 class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-success btn-sm">Return</button>
-            <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+            <!-- <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                 <font color="RED">
                     <strong>
                         {{Record.lock_record == true ? 'LOCKED' : 'UNLOCKED'}}
                     </strong>
                 </font>
-            </label>
+            </label> -->
         </div>
     </div>
     <br />

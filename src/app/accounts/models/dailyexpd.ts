@@ -14,7 +14,9 @@ export class Dailyexpd {
     ded_type: string;
     ded_amt: number;
     ded_headerid:string;
-    
+    ded_old_amt: number;
+
+    rec_deleted:string;
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

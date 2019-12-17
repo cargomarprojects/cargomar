@@ -18,10 +18,17 @@ export class Dailyexpm {
     dem_inv_date: string;
     dem_exp_date: string;
     dem_edit_code: string;
-    lock_record:boolean;
 
+    dem_party_br_gst: string;
+    dem_driver_name: string;
+    dem_container: string;
+    dem_vehicle_no: string;
+    dem_from: string;
+    dem_to: string;
+
+    lock_record:boolean;
     rec_mode: string;
     _globalvariables: GlobalVariables;
 
-    ExpList: Dailyexpd[] = [];
+    detList: Dailyexpd[] = [];
 }
