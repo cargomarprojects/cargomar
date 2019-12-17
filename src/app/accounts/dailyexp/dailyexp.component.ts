@@ -521,11 +521,13 @@ export class DailyExpComponent {
        }
         else {
           this.ErrorMessage = 'Invalid General Job';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
