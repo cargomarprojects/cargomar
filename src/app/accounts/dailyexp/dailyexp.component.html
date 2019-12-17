@@ -68,6 +68,8 @@
                     <th>CF#</th>
                     <th>DATE</th>
                     <th>PARTY</th>
+                    <th>INVOICE.DATE</th>
+                    <th>EXPENSE.DATE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -75,6 +77,8 @@
                     <td>{{rec.dem_cfno}}</td>
                     <td>{{rec.dem_date}}</td>
                     <td>{{rec.dem_party_name}}</td>
+                    <td>{{rec.dem_inv_date}}</td>
+                    <td>{{rec.dem_exp_date}}</td>
                 </tr>
             </tbody>
         </table>
@@ -116,7 +120,7 @@
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
                     <div class="col-sm-4">
-                        <app-date [inputdate]="Record.dem_date" (ValueChanged)="Record.dem_date=$event">
+                        <app-date #_dem_date [inputdate]="Record.dem_date" (ValueChanged)="Record.dem_date=$event">
                         </app-date>
                     </div>
                 </div>
@@ -177,12 +181,12 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Inv.Date</label>
                     <div class="col-sm-4">
-                        <app-date [inputdate]="Record.dem_inv_date" (ValueChanged)="Record.dem_inv_date=$event">
+                        <app-date #_dem_inv_date [inputdate]="Record.dem_inv_date" (ValueChanged)="Record.dem_inv_date=$event">
                         </app-date>
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Exp.Date</label>
                     <div class="col-sm-4">
-                        <app-date [inputdate]="Record.dem_exp_date" (ValueChanged)="Record.dem_exp_date=$event">
+                        <app-date #_dem_exp_date [inputdate]="Record.dem_exp_date" (ValueChanged)="Record.dem_exp_date=$event">
                         </app-date>
                     </div>
                 </div>
@@ -241,8 +245,8 @@
                         <th>CODE</th>
                         <th>NAME</th>
                         <th>NATURE</th>
-                        <th>A/C-CREDIT</th>
-                        <th>TYPE</th>
+                        <th *ngIf="bAdmin">A/C-CREDIT</th>
+                        <th *ngIf="bAdmin">TYPE</th>
                         <th>AMOUNT</th>
                     </tr>
                 </thead>
@@ -252,8 +256,8 @@
                         <td>{{rec.ded_accode}}</td>
                         <td>{{rec.ded_acname}}</td>
                         <td>{{rec.ded_nature}}</td>
-                        <td>{{rec.ded_accrcode}}</td>
-                        <td>{{rec.ded_type}}</td>
+                        <td *ngIf="bAdmin">{{rec.ded_accrcode}}</td>
+                        <td *ngIf="bAdmin">{{rec.ded_type}}</td>
                         <td style="padding:0"> <input type="number" class="form-control form-control-sm" [disabled]="rec.rec_deleted=='Y'"
                                 [(ngModel)]="rec.ded_amt" (blur)="OnBlur('ded_amt',rec)" required maxlength="15" />
                         </td>

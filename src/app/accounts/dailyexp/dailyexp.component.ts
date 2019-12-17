@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -6,6 +6,7 @@ import { Dailyexpm } from '../models/dailyexpm';
 import { DailyExpService } from '../services/dailyexp.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Dailyexpd } from '../models/dailyexpd';
+import { DateComponent } from '../../shared/date/date.component';
 
 @Component({
   selector: 'app-dailyexp',
@@ -15,6 +16,10 @@ import { Dailyexpd } from '../models/dailyexpd';
 export class DailyExpComponent {
   // Local Variables 
   title = 'Daily Expense';
+
+  @ViewChild('_dem_inv_date') private _dem_inv_date: DateComponent;
+  @ViewChild('_dem_exp_date') private _dem_exp_date: DateComponent;
+  @ViewChild('_dem_date') private _dem_date: DateComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -399,11 +404,17 @@ export class DailyExpComponent {
     var REC = this.RecordList.find(rec => rec.dem_pkid == this.Record.dem_pkid);
     if (REC == null) {
       this.RecordList.push(this.Record);
+      REC = this.RecordList.find(rec => rec.dem_pkid == this.Record.dem_pkid);
+      REC.dem_date = this._dem_date.GetDisplayDate();
+      REC.dem_exp_date = this._dem_exp_date.GetDisplayDate();
+      REC.dem_inv_date = this._dem_inv_date.GetDisplayDate();
     }
     else {
       REC.dem_cfno = this.Record.dem_cfno;
-      REC.dem_date = this.Record.dem_date;
+      REC.dem_date = this._dem_date.GetDisplayDate();
       REC.dem_party_name = this.Record.dem_party_name;
+      REC.dem_exp_date = this._dem_exp_date.GetDisplayDate();
+      REC.dem_inv_date = this._dem_inv_date.GetDisplayDate();
     }
   }
 
@@ -414,10 +425,7 @@ export class DailyExpComponent {
     //   this.Record.book_exporter_name = this.Record.book_exporter_name.toUpperCase();
     // }
 
-    // if (field == 'book_mblno') {
-    //   this.Record.book_mblno = this.Record.book_mblno.replace(oldChar2, '').toUpperCase();
-    // }
-
+    
     if (field == 'dem_genjob_no') {
       this.Record.dem_genjob_no = this.Record.dem_genjob_no.toUpperCase();
       this.Record.dem_genjob_id = '';
