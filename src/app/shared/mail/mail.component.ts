@@ -89,6 +89,7 @@ export class MailComponent {
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
     this.message = this.defaultmessage;
+    this.GetTotfilesize();
     this.LoadCombo();
   }
 
@@ -469,16 +470,16 @@ export class MailComponent {
               this.FtpAttachList = new Array<any>();
             ftpFilePrefix = this.GetAttachFtpFilePreFix();
             ftpFolder = this.GetAttachFtpFolder();
-            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '' });
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize });
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
-            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: 0 });
           }
 
-          this.attach_totfilesize += data.filesize;
-          this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
-
+          this.GetTotfilesize();
+          // this.attach_totfilesize += data.filesize;
+         // this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
           //this.ShowHideAttach(); 
         },
         error => {
@@ -486,6 +487,21 @@ export class MailComponent {
           alert('Failed');
         }
       );
+  }
+
+  GetTotfilesize() {
+    this.attach_totfilesize = 0;
+    try {
+      if (this.FtpAttachList != null) {
+        for (let rec of this.FtpAttachList) {
+          this.attach_totfilesize += rec.filesize;
+        }
+      }
+      this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
+    } catch (e) {
+
+    }
+
   }
 
   GetAttachFtpFilePreFix() {
@@ -546,7 +562,7 @@ export class MailComponent {
       else
         strsize = _newfsize.toString() + "MB";
     }
-    return " "+strsize;
+    return " " + strsize;
   }
 
 }

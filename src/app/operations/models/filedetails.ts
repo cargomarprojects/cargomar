@@ -4,6 +4,7 @@ export class FileDetails {
     filedisplayname: string;
     filecategory: string;
     fileprocessid:string;
+    filesize:number;
 }
   
   
