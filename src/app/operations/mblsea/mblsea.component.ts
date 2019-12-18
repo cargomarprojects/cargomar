@@ -636,7 +636,7 @@ export class MblSeaComponent {
     this.Record.book_cust_comments = '';
     this.Record.book_agent_br_email = '';
     this.Record.book_ftp_agent_folder = false;
-    this.Record.book_pol_eta='';
+    this.Record.book_pol_eta = '';
     this.Record.book_pol_eta_confirm = false;
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
@@ -1289,7 +1289,7 @@ export class MblSeaComponent {
   NewTransitRecord() {
     let Rec: Trackingm = new Trackingm;
     Rec.trk_pkid = this.gs.getGuid();
-    Rec.trk_parent_id= this.Record.book_pkid;
+    Rec.trk_parent_id = this.Record.book_pkid;
     Rec.rec_category = this.type;
     Rec.trk_vsl_id = '';
     Rec.trk_vsl_code = '';
@@ -1422,6 +1422,7 @@ export class MblSeaComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.Record.book_agent_id,
       searchcontainer: this.Record.book_agent_code,
+      root_folder: this.gs.defaultValues.root_folder,
       docattach: 'Y'
     };
     SearchData.pkid = this.gs.getGuid();
@@ -1432,7 +1433,8 @@ export class MblSeaComponent {
     SearchData.searchcontainer = _cntrno.toUpperCase();
     SearchData.type = "EXCEL";
     SearchData.docattach = "Y";
-
+    SearchData.root_folder = this.gs.defaultValues.root_folder;
+    
     this.ErrorMessage = '';
     this.prealertService.List(SearchData)
       .subscribe(response => {
@@ -1458,9 +1460,9 @@ export class MblSeaComponent {
         this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
 
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: response.filesize });
         for (let rec of response.filelist) {
-          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
         if (this.Record.book_ftp_agent) {
           this.GenerateXml(ftpsent);
@@ -1511,8 +1513,7 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         });
   }
-  AddTransit()
-  {
+  AddTransit() {
     this.NewTransitRecord();
   }
 

@@ -42,7 +42,8 @@ export class MailComponent {
   myFiles: string[] = [];
   filesSelected: boolean = false;;
   attach_totfilesize: number = 0;
-  lbl_attachfz: string = '';
+  lbl_ftpattachfz: string = '';
+  lbl_msgattachfz: string = '';
 
   disableSave = true;
   loading = false;
@@ -474,13 +475,10 @@ export class MailComponent {
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
-            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: 0 });
+            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: data.filesize });
           }
 
           this.GetTotfilesize();
-          // this.attach_totfilesize += data.filesize;
-         // this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
-          //this.ShowHideAttach(); 
         },
         error => {
           this.loading = false;
@@ -491,13 +489,23 @@ export class MailComponent {
 
   GetTotfilesize() {
     this.attach_totfilesize = 0;
+    
     try {
       if (this.FtpAttachList != null) {
         for (let rec of this.FtpAttachList) {
           this.attach_totfilesize += rec.filesize;
         }
       }
-      this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
+      this.lbl_ftpattachfz = this.GetFileSize(this.attach_totfilesize);
+
+      this.attach_totfilesize = 0;
+      if (this.AttachList != null) {
+        for (let rec of this.AttachList) {
+          this.attach_totfilesize += rec.filesize;
+        }
+      }
+      this.lbl_msgattachfz = this.GetFileSize(this.attach_totfilesize);
+
     } catch (e) {
 
     }
@@ -547,6 +555,7 @@ export class MailComponent {
     } else {
       this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
     }
+    this.GetTotfilesize();
   }
 
   GetFileSize(_fsize: number) {
