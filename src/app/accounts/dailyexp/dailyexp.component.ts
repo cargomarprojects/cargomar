@@ -35,6 +35,8 @@ export class DailyExpComponent {
   bAdmin = false;
   bDocs = false;
   searchstring = '';
+  fromdate:string='';
+  todate:string='';
 
   page_count = 0;
   page_current = 0;
@@ -97,6 +99,8 @@ export class DailyExpComponent {
       if (this.menu_record.rights_docs)
         this.bDocs = true;
     }
+    this.fromdate=this.gs.defaultValues.lastmonthdate;
+    this.todate=this.gs.defaultValues.today;
     this.InitLov();
     this.LoadCombo();
   }
@@ -310,6 +314,7 @@ export class DailyExpComponent {
     let SearchData = {
       pkid: Id,
       mode: this.mode,
+      company_code: this.gs.globalVariables.comp_code,
     };
 
     this.ErrorMessage = '';
