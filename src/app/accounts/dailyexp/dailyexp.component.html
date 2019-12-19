@@ -67,6 +67,8 @@
                 <tr>
                     <th>CF#</th>
                     <th>DATE</th>
+                    <th>JOB#</th>
+                    <th>CNTR#</th>
                     <th>PARTY</th>
                     <th>INVOICE.DATE</th>
                     <th>EXPENSE.DATE</th>
@@ -76,6 +78,8 @@
                 <tr (click)="ActionHandler('EDIT',rec.dem_pkid)">
                     <td>{{rec.dem_cfno}}</td>
                     <td>{{rec.dem_date}}</td>
+                    <td>{{rec.dem_genjob_prefix}}</td>
+                    <td>{{rec.dem_container}}</td>
                     <td>{{rec.dem_party_name}}</td>
                     <td>{{rec.dem_inv_date}}</td>
                     <td>{{rec.dem_exp_date}}</td>
