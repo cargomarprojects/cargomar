@@ -247,8 +247,8 @@ export class DailyExpComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      from_date: this.gs.globalData.mbl_fromdate,
-      to_date: this.gs.globalData.mbl_todate
+      from_date: this.fromdate,
+      to_date: this.todate
     };
 
     this.ErrorMessage = '';
