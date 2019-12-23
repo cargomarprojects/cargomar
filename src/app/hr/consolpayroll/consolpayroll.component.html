@@ -146,6 +146,7 @@
           <th *ngIf="Recorddet.d23_visible">{{Recorddet.d23_desc}}</th>
           <th *ngIf="Recorddet.d24_visible">{{Recorddet.d24_desc}}</th>
           <th *ngIf="Recorddet.d25_visible">{{Recorddet.d25_desc}}</th>
+          <th>LOP</th>
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
@@ -211,6 +212,7 @@
           <td *ngIf="Recorddet.d23_visible">{{rec.d23}}</td>
           <td *ngIf="Recorddet.d24_visible">{{rec.d24}}</td>
           <td *ngIf="Recorddet.d25_visible">{{rec.d25}}</td>
+          <td>{{rec.sal_lop_amt}}</td>
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
