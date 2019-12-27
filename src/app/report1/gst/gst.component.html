@@ -54,7 +54,8 @@
             <app-autocomplete [disabled]="!bCompany" #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
           <div class="col-6">
-            <button [disabled]="loading" (click)="List('GSTR1')" class="btn btn-primary btn-sm">Generate GSTR1</button>
+            <button [disabled]="loading" (click)="List('GSTR1')" class="btn btn-primary btn-sm mr-1">Generate GSTR1</button>
+            <button [disabled]="loading" (click)="List('NEW-GSTR1')" class="btn btn-primary btn-sm">New GSTR1</button>
           </div>
         </div>
         <div class="form-group row">
