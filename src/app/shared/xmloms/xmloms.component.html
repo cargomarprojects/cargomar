@@ -15,7 +15,7 @@
         <div class="col-10 input-group input-group-sm">
           <button [disabled]="loading" (click)="GenerateXml('CHECK-LIST', '')" class="btn btn-primary btn-sm mr-1">Checklist</button>
           <button [disabled]="loading" (click)="GenerateXml('FTP', ftpsent)" class="btn btn-primary btn-sm mr-1">Mail/FTP</button>
-          <label class="col-form-label col-form-label-sm" ><input type="checkbox" [(ngModel)]="chk_documents">Documents</label>
+          <label class="col-form-label col-form-label-sm" ><input type="checkbox" [(ngModel)]="chk_documents">Documents Only</label>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
