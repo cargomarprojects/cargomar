@@ -160,7 +160,7 @@ export class SettingsComponent {
   BR_CHQ_PRINT_HO_APRVD: boolean = false;
   BR_FLDR_SE_PREFIX: string = '';
   BR_FLDR_SI_PREFIX: string = '';
-
+  BR_SMAN_EMAIL: string = '';
   BR_CRLIMIT_ENABLED: boolean = false;
   BR_CRLIMIT_ENABLED_SI: boolean = false;
 
@@ -835,6 +835,8 @@ export class SettingsComponent {
         this.BR_FLDR_SE_PREFIX = rec.name;
       if (rec.caption == "FOLDER-SI-PREFIX")
         this.BR_FLDR_SI_PREFIX = rec.name;
+        if (rec.caption == "BR-SMAN-EMAIL")
+        this.BR_SMAN_EMAIL = rec.name;
     })
   }
 
@@ -990,6 +992,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SE-PREFIX', '', '', this.BR_FLDR_SE_PREFIX.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SI-PREFIX', '', '', this.BR_FLDR_SI_PREFIX.toString().toUpperCase()));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR-SMAN-EMAIL', '', '', this.BR_SMAN_EMAIL.toString().toUpperCase()));
 
   }
   allvalidBranch() {

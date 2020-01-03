@@ -761,11 +761,11 @@ export class OrderListComponent {
     this.Record.ord_contractno = sContract.trim();
   }
 
-  PasteData(content : any) {
+  PasteData(content: any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.modal = this.modalService.open(content);        
+    this.modal = this.modalService.open(content);
   }
 
   PasteDataClosed(cbdata: string) {
@@ -1292,8 +1292,8 @@ export class OrderListComponent {
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_filetype == 'CHECK-LIST') { 
-            this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
+        if (_filetype == 'CHECK-LIST') {
+          this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
         } else {
           this.sSubject = response.subject;
           this.ftpUpdtSql = response.updatesql;
@@ -1301,10 +1301,10 @@ export class OrderListComponent {
             this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
           this.AttachList = new Array<any>();
           if (this.ftpTransfertype == 'ORDERLIST') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
           } else //TRACKING CARGO PROCESS
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
           this.open(ftpsent);
         }
       },
@@ -1375,7 +1375,7 @@ export class OrderListComponent {
 
   closeModal() {
     this.modal.close();
- 
+
   }
 
 

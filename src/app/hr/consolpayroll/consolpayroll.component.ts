@@ -47,11 +47,15 @@ export class ConsolPayrollComponent {
   salmonth = 0;
   bSalarySheet = false;
 
+  fromdate: string = '';
+  todate: string = '';
+
   reporttype = "FORMAT1";
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
   empregion = "ALL";
+  prtype = "PAY ROLL";
 
   mode = '';
   pkid = '';
@@ -92,10 +96,13 @@ export class ConsolPayrollComponent {
   }
 
   InitComponent() {
+    this.fromdate = this.gs.defaultValues.today;
+    this.todate = this.gs.defaultValues.today;
     this.branch_code = this.gs.globalVariables.branch_code;
     this.reporttype = 'FORMAT1';
     this.empstatus = 'BOTH';
-    this.empregion='ALL';
+    this.empregion = 'ALL';
+    this.prtype = 'PAY ROLL'
     this.bRemove = true;
     this.bPrint = false;
     this.bAdmin = false;
@@ -142,13 +149,19 @@ export class ConsolPayrollComponent {
   List(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.salyear <= 0) {
-      this.ErrorMessage += " | Invalid Year";
-    } else if (this.salyear < 100) {
-      this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
+    if (this.prtype === 'PAY ROLL') {
+      if (this.salyear <= 0) {
+        this.ErrorMessage += " | Invalid Year";
+      } else if (this.salyear < 100) {
+        this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
+      }
+      if (this.salmonth <= 0 || this.salmonth > 12) {
+        this.ErrorMessage += " | Invalid Month";
+      }
     }
-    if (this.salmonth <= 0 || this.salmonth > 12) {
-      this.ErrorMessage += " | Invalid Month";
+
+    if (this.bSalarySheet && this.prtype != 'PAY ROLL') {
+      this.ErrorMessage += " | To print Salary Sheet Please select type as Monthwise and Continue.....";
     }
     if (this.ErrorMessage.length > 0)
       return;
@@ -163,6 +176,7 @@ export class ConsolPayrollComponent {
       reporttype: this.reporttype,
       empstatus: this.empstatus,
       empregion: this.empregion,
+      prtype: this.prtype,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -173,7 +187,9 @@ export class ConsolPayrollComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      bsalarysheet:this.bSalarySheet
+      bsalarysheet: this.bSalarySheet,
+      fromdate: this.fromdate,
+      todate: this.todate
     };
 
     if (this.bCompany) {
@@ -247,6 +263,7 @@ export class ConsolPayrollComponent {
     //}
   }
   OnChange(field: string) {
+    this.bSalarySheet=false;
     this.RecordList = null;
   }
 

@@ -46,6 +46,7 @@ export class EdiOrderComponent {
   searchstring = "";
   ErrorMessage = "";
   InfoMessage = "";
+  ord_po_aprvd: string = "";
 
   mode = 'ADD';
   pkid = '';
@@ -178,7 +179,8 @@ export class EdiOrderComponent {
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
       update_type: this.update_type,
-      chkallpol: this.chk_all_pol == true ? "Y" : "N"
+      chkallpol: this.chk_all_pol == true ? "Y" : "N",
+      ord_po_aprvd:this.ord_po_aprvd
     };
 
     this.ErrorMessage = '';

@@ -16,7 +16,7 @@ import { RepService } from '../services/report.service';
 
 export class GstComponent {
   title = 'GST Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -27,7 +27,7 @@ export class GstComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-  
+
   branch_code: string = '';
   format_type: string = '';
   from_date: string = '';
@@ -55,10 +55,10 @@ export class GstComponent {
     format_type: '',
     all: false
   };
-  
+
   // Array For Displaying List
   RecordList: GstReport[] = [];
- //  Single Record for add/edit/view details
+  //  Single Record for add/edit/view details
   Record: GstReport = new GstReport;
 
   BRRECORD: SearchTable = new SearchTable();
@@ -93,7 +93,7 @@ export class GstComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_company )
+      if (this.menu_record.rights_company)
         this.bCompany = true;
     }
     this.initLov();
@@ -109,7 +109,7 @@ export class GstComponent {
     this.display_format_type = this.format_type;
   }
 
- // // Destroy Will be called when this component is closed
+  // // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -158,7 +158,7 @@ export class GstComponent {
     return this.disableSave;
   }
 
- // // Query List Data
+  // // Query List Data
   List(_type: string) {
 
     this.ErrorMessage = '';
@@ -182,11 +182,11 @@ export class GstComponent {
         return;
       }
     }
-    
-     
-    
 
-    if (_type == "GSTR1") {
+
+
+
+    if (_type == "GSTR1" || _type == "NEW-GSTR1") {
 
       if (this.format_type != "GSTR1") {
         this.ErrorMessage = "Please Select  GSTR1 Type and Continue........";
@@ -209,7 +209,7 @@ export class GstComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.format_type = this.format_type;
     this.SearchData.all = this.all;
-   
+
 
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
@@ -219,15 +219,15 @@ export class GstComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-          if (_type == "GSTR1")
+          if (_type == "GSTR1" || _type == "NEW-GSTR1")
             alert(response.generatemsg);
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -240,5 +240,5 @@ export class GstComponent {
   Close() {
     this.gs.ClosePage('home');
   }
-  
+
 }

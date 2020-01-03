@@ -46,7 +46,7 @@ export class GenJobComponent {
   pkid = '';
 
 
-  bDocs =  false;
+  bDocs = false;
 
   // Array For Displaying List
   RecordList: GenJobm[] = [];
@@ -93,7 +93,7 @@ export class GenJobComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      this.bDocs =this.menu_record.rights_docs;
+      this.bDocs = this.menu_record.rights_docs;
     }
 
     this.InitLov();
@@ -356,8 +356,8 @@ export class GenJobComponent {
     this.Record.gj_sb_no = '';
     this.Record.gj_commodity = '';
     this.Record.gj_pack_list_no = '';
-    this.Record.gj_refno=''
-
+    this.Record.gj_refno = ''
+    this.Record.gj_driver_name = '';
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -587,6 +587,10 @@ export class GenJobComponent {
     if (field == 'gj_refno') {
       this.Record.gj_refno = this.Record.gj_refno.toUpperCase();
     }
+    if (field == 'gj_driver_name') {
+      this.Record.gj_driver_name = this.Record.gj_driver_name.toUpperCase();
+    }
+
   }
 
   Close() {

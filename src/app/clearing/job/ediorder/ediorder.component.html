@@ -32,6 +32,20 @@
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
       <div class="col-3">
+        <!-- <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <button [disabled]="loading" (click)="Process('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
+        <button [disabled]="loading" (click)="Process('PROCESS')" class="btn btn-primary btn-sm">Process</button>
+        <button [disabled]="loading" (click)="Update('VALIDATE')" class="btn btn-primary btn-sm">Validate</button>
+        <button [disabled]="loading" (click)="Update('UPDATE')" class="btn btn-primary btn-sm">Update</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i> -->
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-1 col-form-label col-form-label-sm">PO#</label>
+      <div class="col-8">
+        <input type="text" class="col form-control form-control-sm" name="poaprvd" [(ngModel)]="ord_po_aprvd" />
+      </div>
+      <div class="col-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" (click)="Process('DOWNLOAD')" class="btn btn-primary btn-sm">Download</button>
         <button [disabled]="loading" (click)="Process('PROCESS')" class="btn btn-primary btn-sm">Process</button>

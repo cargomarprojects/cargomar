@@ -42,7 +42,8 @@ export class MailComponent {
   myFiles: string[] = [];
   filesSelected: boolean = false;;
   attach_totfilesize: number = 0;
-  lbl_attachfz: string = '';
+  lbl_ftpattachfz: string = '';
+  lbl_msgattachfz: string = '';
 
   disableSave = true;
   loading = false;
@@ -89,6 +90,7 @@ export class MailComponent {
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
     this.message = this.defaultmessage;
+    this.GetTotfilesize();
     this.LoadCombo();
   }
 
@@ -469,23 +471,45 @@ export class MailComponent {
               this.FtpAttachList = new Array<any>();
             ftpFilePrefix = this.GetAttachFtpFilePreFix();
             ftpFolder = this.GetAttachFtpFolder();
-            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '' });
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize });
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
-            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '' });
+            this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: data.filesize });
           }
 
-          this.attach_totfilesize += data.filesize;
-          this.lbl_attachfz = this.GetFileSize(this.attach_totfilesize);
-
-          //this.ShowHideAttach(); 
+          this.GetTotfilesize();
         },
         error => {
           this.loading = false;
           alert('Failed');
         }
       );
+  }
+
+  GetTotfilesize() {
+    this.attach_totfilesize = 0;
+    
+    try {
+      if (this.FtpAttachList != null) {
+        for (let rec of this.FtpAttachList) {
+          this.attach_totfilesize += rec.filesize;
+        }
+      }
+      this.lbl_ftpattachfz = this.GetFileSize(this.attach_totfilesize);
+
+      this.attach_totfilesize = 0;
+      if (this.AttachList != null) {
+        for (let rec of this.AttachList) {
+          this.attach_totfilesize += rec.filesize;
+        }
+      }
+      this.lbl_msgattachfz = this.GetFileSize(this.attach_totfilesize);
+
+    } catch (e) {
+
+    }
+
   }
 
   GetAttachFtpFilePreFix() {
@@ -531,6 +555,7 @@ export class MailComponent {
     } else {
       this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
     }
+    this.GetTotfilesize();
   }
 
   GetFileSize(_fsize: number) {
@@ -546,7 +571,7 @@ export class MailComponent {
       else
         strsize = _newfsize.toString() + "MB";
     }
-    return " "+strsize;
+    return " " + strsize;
   }
 
 }

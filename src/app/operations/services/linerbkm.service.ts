@@ -46,5 +46,10 @@ export class LinerBkmService {
     GenerateFolderNumber(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/GenerateFolderNumber', SearchData, this.gs.headerparam2('authorized'))
     }
+
+    UpdateTracking(Record: LinerBkm) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/UpdateTracking', Record, this.gs.headerparam2('authorized'));
+    }
+    
 }
 

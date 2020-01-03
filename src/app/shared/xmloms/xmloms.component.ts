@@ -19,13 +19,14 @@ export class XmlomsComponent {
   @Input() type: string = '';
   @Input() pkid: string = '';
   @Input() filename: string = '';
-  @Input() ftp_agent_name:string ='';
-  @Input() ftp_agent_code:string ='';
+  @Input() ftp_agent_name: string = '';
+  @Input() ftp_agent_code: string = '';
 
   InitCompleted: boolean = false;
   menu_record: any;
   loading = false;
   modal: any;
+  chk_documents: boolean = false;
 
   bCompany = false;
   sub: any;
@@ -67,6 +68,7 @@ export class XmlomsComponent {
   }
 
   InitComponent() {
+    this.chk_documents = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -112,7 +114,8 @@ export class XmlomsComponent {
       type: this.type,
       rowtype: _type,
       pkid: '',
-      filedisplayname: ''
+      filedisplayname: '',
+      doc_upload: this.chk_documents == true ? 'Y' : 'N'
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -129,19 +132,19 @@ export class XmlomsComponent {
           this.sSubject = response.subject;
           this.ftpUpdtSql = response.updatesql;
           this.AttachList = new Array<any>();
-          if (this.type == 'MBL-SE')
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid });
-          if (this.type == 'CONTAINER') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid });
+          if (this.type == 'MBL-SE' && this.chk_documents==false)
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+          if (this.type == 'CONTAINER' && this.chk_documents==false) {
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
             // this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA-ACK', fileisack: 'Y' });
           }
           if (this.type == 'ORDERLIST') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid  });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
           }
           if (this.type == 'AGENTBOOKING') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid });
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDERS', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
           }
           this.open(ftpsent);
         } else {

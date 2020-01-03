@@ -72,6 +72,7 @@ export class GenJobm {
   gj_ap_gst: number;
   gj_pack_list_no:string;
   gj_refno:string;
+  gj_driver_name:string;
 
   rec_mode: string;
   rec_category: string;

@@ -617,7 +617,7 @@
                     <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event">
                     </app-date>
                   </div>
-                  <div class="col-sm-1 pl-0">
+                  <div class="col-sm-1 pl-0 Pr-0">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confm
@@ -626,9 +626,11 @@
                     <!-- <input type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confirm -->
                   </div>
                   <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label> -->
-                  <div class="col-sm-2">
+                  <div class="col-sm-3 input-group input-group-sm">
                     <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
-                      class="btn btn-success btn-sm">Tracking</button>
+                      class="btn btn-success btn-sm mr-1">Tracking</button>
+                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading" (click)="UpdateTracking()"
+                      class="btn btn-success btn-sm">Update</button>
                   </div>
                 </div>
               </div>

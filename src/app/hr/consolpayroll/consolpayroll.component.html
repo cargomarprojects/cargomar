@@ -8,8 +8,28 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-3">
+      <div *ngIf="bCompany" class="col-sm-3">
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="etype" [(ngModel)]="prtype" (change)="OnChange('prtype')">
+              <option [value]="'PAY ROLL'">Month Wise</option>
+              <option [value]="'CONSOL PAY ROLL'">Period Wise</option>
+              <option [value]="'CONSOL PAY ROLL[FOR LBR RTN]'">Labour Return</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Region</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="eregion" [(ngModel)]="empregion">
+              <option [value]="'ALL'">All</option>
+              <option [value]="'SOUTH'">South</option>
+              <option [value]="'NORTH'">North</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div *ngIf="prtype=='PAY ROLL'" class="form-group row">
           <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
             <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
@@ -21,34 +41,33 @@
               [(ngModel)]="salmonth" />
           </div>
         </div>
+
+        <div *ngIf="prtype !='PAY ROLL'" class="form-group row">
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">FromDate</label>
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-4">
+            <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event"></app-date>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">ToDate</label>
+          <div style="padding-right:0px;padding-left:5px" class="col-sm-4">
+            <app-date [inputdate]="todate" (ValueChanged)="todate=$event"></app-date>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Emp.Status</label>
-          <div class="col-sm-3">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Status</label>
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
               <option [value]="'BOTH'">Both</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
               <option [value]="'UNCONFIRM'">Unconfirmed</option>
             </select>
           </div>
-          <label *ngIf="bCompany" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-          <div *ngIf="bCompany" class="col-5">
+          <label *ngIf="bCompany" class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
+          <div *ngIf="bCompany" class="col-6">
             <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
 
-        </div>
-      </div>
-      <div *ngIf="bCompany" class="col-sm-2">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Region</label>
-          <div class="col-sm-10">
-            <select class="form-control form-control-sm" name="eregion" [(ngModel)]="empregion">
-              <option [value]="'ALL'">All</option>
-              <option [value]="'SOUTH'">South</option>
-              <option [value]="'NORTH'">North</option>
-            </select>
-          </div>
         </div>
       </div>
       <div class="col-sm-3">
@@ -57,7 +76,8 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
-            <input type="checkbox" *ngIf="bPrint" [(ngModel)]="bSalarySheet"> Salary Sheet
+              <span *ngIf="bPrint && prtype=='PAY ROLL'">
+            <input type="checkbox"  [(ngModel)]="bSalarySheet"> Salary Sheet</span>
           </div>
         </div>
       </div>
@@ -68,14 +88,14 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th>BRANCH</th>
+          <th *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
-          <th>DOJ</th>
-          <th>GRADE</th>
-          <th>A/C.NO</th>
-          <th>SALARY.MONTH</th>
-          <th>DESIGNATION</th>
+          <th *ngIf="prtype=='PAY ROLL'">DOJ</th>
+          <th *ngIf="prtype=='PAY ROLL'">GRADE</th>
+          <th *ngIf="prtype=='PAY ROLL'">A/C.NO</th>
+          <th *ngIf="prtype=='PAY ROLL'">SALARY.MONTH</th>
+          <th *ngIf="prtype=='PAY ROLL'">DESIGNATION</th>
           <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
           <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
           <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
@@ -126,6 +146,7 @@
           <th *ngIf="Recorddet.d23_visible">{{Recorddet.d23_desc}}</th>
           <th *ngIf="Recorddet.d24_visible">{{Recorddet.d24_desc}}</th>
           <th *ngIf="Recorddet.d25_visible">{{Recorddet.d25_desc}}</th>
+          <th>LOP</th>
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
@@ -133,14 +154,14 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td>{{rec.rec_branch_code}}</td>
+          <td *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">{{rec.rec_branch_code}}</td>
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
-          <td>{{rec.sal_emp_do_joining}}</td>
-          <td>{{rec.sal_emp_grade}}</td>
-          <td>{{rec.sal_emp_bank_acno}}</td>
-          <td>{{rec.sal_pf_mon_year}}</td>
-          <td>{{rec.sal_emp_designation}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_do_joining}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_grade}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_bank_acno}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_pf_mon_year}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_designation}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
           <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
           <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>
@@ -191,6 +212,7 @@
           <td *ngIf="Recorddet.d23_visible">{{rec.d23}}</td>
           <td *ngIf="Recorddet.d24_visible">{{rec.d24}}</td>
           <td *ngIf="Recorddet.d25_visible">{{rec.d25}}</td>
+          <td>{{rec.sal_lop_amt}}</td>
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>

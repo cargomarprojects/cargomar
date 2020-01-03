@@ -59,6 +59,7 @@ import { TransDetComponent} from './transdet/transdet.report';
 import { MtReportComponent} from './moneytransfer/mtreport.component';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
+import { DailyExpComponent } from './dailyexp/dailyexp.component';
 
 const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
@@ -96,6 +97,7 @@ const routes: Routes = [
   { path: 'mtreport', component: MtReportComponent},
   { path: 'cashbook', component: CashBookComponent },
   { path: 'collection', component: CollectionComponent },
+  { path: 'dailyexp', component: DailyExpComponent },
 ];
 
 @NgModule({

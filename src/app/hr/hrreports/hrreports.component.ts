@@ -39,6 +39,8 @@ export class HrReportsComponent {
 
   salyear = 0;
   salmonth = 0;
+  // fromdate: string = '';
+  // todate: string = '';
 
   bapprovalstatus = "";
   reporttype = "EPF";
