@@ -7,6 +7,7 @@ import { JobOrder_VM } from '../../models/joborder';
 import { OrderListService } from '../../services/orderlist.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { ReconComponent } from '../../../accounts/Recon/recon.component';
+import { multicast } from 'rxjs/operator/multicast';
 
 @Component({
   selector: 'app-orderlist',
@@ -1221,12 +1222,21 @@ export class OrderListComponent {
     this.ftp_agent_name = '';
     let ord_ids: string = '';
     let ord_id_POs: string = '';
+    let pre_data: string = '';
     let POID_Is_Blank: Boolean = false;
+    let Multiple_Agent_Found: Boolean = false;
     if (sType == 'MULTIPLE') {
       ord_ids = "";
       ord_id_POs = "";
+      pre_data = "";
       for (let rec of this.RecordList) {
         if (rec.ord_selected) {
+
+          if (pre_data === "")
+            pre_data = rec.ord_agent_code;
+          if (pre_data != rec.ord_agent_code)
+            Multiple_Agent_Found = true;
+
           if (ord_ids != "")
             ord_ids += ",";
           ord_ids += rec.ord_pkid;
@@ -1243,7 +1253,11 @@ export class OrderListComponent {
           this.ftp_agent_name = rec.ord_agent_name;
         }
       }
-
+      if (Multiple_Agent_Found) {
+        this.ErrorMessage = " Different Agent Found in selected List....";
+        alert(this.ErrorMessage);
+        return;
+      }
       if (ord_ids == "") {
         this.ErrorMessage = " Please select PO and continue.....";
         alert(this.ErrorMessage);
@@ -1279,7 +1293,8 @@ export class OrderListComponent {
       rowtype: _filetype,
       type: '',
       pkid: '',
-      filedisplayname: ''
+      filedisplayname: '',
+      agent_code:''
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1289,6 +1304,7 @@ export class OrderListComponent {
     SearchData.pkid = this.pkid;
     SearchData.rowtype = _filetype;
     SearchData.filedisplayname = '';
+    SearchData.agent_code = this.ftp_agent_code;
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1302,6 +1318,7 @@ export class OrderListComponent {
           this.AttachList = new Array<any>();
           if (this.ftpTransfertype == 'ORDERLIST') {
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+            if (response.filenameack)
             this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
           } else //TRACKING CARGO PROCESS
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
