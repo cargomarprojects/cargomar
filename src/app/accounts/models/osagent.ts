@@ -12,6 +12,8 @@ export class OsAgentReport {
   G3: number;
   G4: number;
   G5: number;
+  G6: number;
+
   balance: number;
   advance: number;
 
