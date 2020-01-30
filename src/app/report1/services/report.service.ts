@@ -108,5 +108,9 @@ export class RepService {
   UpdateMonReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UpdateMonReport', SearchData, this.gs.headerparam2('authorized'));
   }
+  
+  GenerateXmlCostingInvoice(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlCostingInvoice', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

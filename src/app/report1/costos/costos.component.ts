@@ -56,7 +56,7 @@ export class CostOsComponent {
   AGENTADDRECORD: SearchTable = new SearchTable();
   CURRECORD: SearchTable = new SearchTable();
   // Array For Displaying List
-  
+
   // Single Record for add/edit/view details
   Record: Stmtm = new Stmtm;
 
@@ -88,7 +88,7 @@ export class CostOsComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
 
-      this.InitComponent();
+    this.InitComponent();
 
   }
 
@@ -109,7 +109,7 @@ export class CostOsComponent {
 
     this.CURRECORD.id = this.Record.stm_currencyid;
     this.CURRECORD.code = this.Record.stm_curr_code;
-    
+
   }
 
   InitColumns() {
@@ -193,7 +193,7 @@ export class CostOsComponent {
     }
   }
 
-  
+
   ResetControls() {
     this.disableSave = true;
     if (!this.menu_record)
@@ -208,8 +208,8 @@ export class CostOsComponent {
 
     return this.disableSave;
   }
-  
-  ShowPending(_type : string) {
+
+  ShowPending(_type: string) {
 
     this.loading = true;
 
@@ -221,7 +221,7 @@ export class CostOsComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       stm_date: this.Record.stm_date,
-      report_folder : this.gs.globalVariables.report_folder,
+      report_folder: this.gs.globalVariables.report_folder,
       folderid: this.gs.getGuid(),
       agent: this.Record.stm_acc_name
 
@@ -233,21 +233,21 @@ export class CostOsComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else 
+        else
           this.PendingList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-     
+
 
   Close() {
     this.gs.ClosePage('home');
   }
 
-  
+
 
   PrintList(_type: string) {
     this.folder_id = this.gs.getGuid();
@@ -280,10 +280,10 @@ export class CostOsComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -305,5 +305,51 @@ export class CostOsComponent {
     return AddressSplit;
   }
 
+  GenerateXml() {
+    this.ErrorMessage = '';
+
+    if (this.PendingList.length <= 0) {
+      this.ErrorMessage = "\n\r | List Not Found";
+      return;
+    }
+
+    let costIds: string = "";
+    for (let rec of this.PendingList) {
+      if (costIds != "")
+        costIds = costIds.concat(",");
+      costIds = costIds.concat(rec.jv_entity_id);
+    }
+
+    if (costIds.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Invalid IDs";
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      cost_pkid: costIds,
+      invoke_from: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.cost_pkid = costIds;
+    SearchData.invoke_from = "COSTING-OS-REPORT";
+
+    this.mainService.GenerateXmlCostingInvoice(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = response.savemsg;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
 }
