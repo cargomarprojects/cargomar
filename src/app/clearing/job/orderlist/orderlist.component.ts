@@ -1246,7 +1246,7 @@ export class OrderListComponent {
           ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
 
           if (this.ftpTransfertype == 'TRACKING')
-            if (rec.ord_uid == 0)
+            if (rec.ord_uid == 0 && rec.ord_agent_code=="TRANSPORTE-MX")
               POID_Is_Blank = true;
 
           this.ftp_agent_code = rec.ord_agent_code;
