@@ -73,7 +73,7 @@
           </div>
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-primary btn-sm">Save</button>
-            <button [disabled]="loading" (click)="Save('CLEAR')" class="btn btn-primary btn-sm">Clear REF#</button>
+            <button [disabled]="loading"  *ngIf="gs.globalVariables.user_code == 'ADMIN'" (click)="Save('CLEAR')" class="btn btn-primary btn-sm">Clear REF#</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
