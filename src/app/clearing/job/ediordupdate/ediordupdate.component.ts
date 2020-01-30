@@ -74,18 +74,25 @@ export class EdiOrdUpdateComponent {
     }
 
     // Save Data
-    Save() {
-        if (!this.allvalid())
+    Save(_type: string) {
+        if (!this.allvalid(_type))
             return;
-        this.SearchRecord('ediordupdate', 'SAVE');
+        if (_type == "CLEAR") {
+            let strmsg: string = "";
+            strmsg = " CLEAR REF# ";
+            if (!confirm(strmsg)) {
+                return;
+            }
+        }
+        this.SearchRecord('ediordupdate', _type);
     }
 
-    allvalid() {
+    allvalid(_type: string) {
         let sError: string = "";
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        if (this.ord_agentref_id.trim().length <= 0) {
+        if (this.ord_agentref_id.trim().length <= 0 && _type == "SAVE") {
             sError = "Ref# Cannot Be Blank";
             bret = false;
         }

@@ -72,7 +72,8 @@
               (blur)="OnBlur('ord_agentref_id')" required maxlength="30" />
           </div>
           <div class="col-sm-8">
-            <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+            <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-primary btn-sm">Save</button>
+            <button [disabled]="loading" (click)="Save('CLEAR')" class="btn btn-primary btn-sm">Clear REF#</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
