@@ -408,6 +408,7 @@ export class DrawbackComponent  {
     SearchData.user_code=this.gs.globalVariables.user_code;
     SearchData.ispercent= this.ispercent == true?'Y':'N';
     SearchData.root_folder=this.gs.defaultValues.root_folder;
+    
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
