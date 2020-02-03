@@ -399,13 +399,15 @@ export class DrawbackComponent  {
       dbkmode:'',
       comp_code:'',
       user_code:'',
-      ispercent:'N'
+      ispercent:'N',
+      root_folder:''
     };
 
     SearchData.dbkmode=this.dbkmode;
     SearchData.comp_code=this.gs.globalVariables.comp_code;
     SearchData.user_code=this.gs.globalVariables.user_code;
     SearchData.ispercent= this.ispercent == true?'Y':'N';
+    SearchData.root_folder=this.gs.defaultValues.root_folder;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
