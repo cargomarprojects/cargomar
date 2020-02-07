@@ -493,11 +493,11 @@ export class EdiOrderComponent {
   ShowEdiUpdate(ediordupdt: any, _rec: EdiOrder) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
-    if (_rec.comp_pol_code != _rec.pol) {
-      this.ErrorMessage = "Invalid POL " + _rec.pol + " Found.";
-      alert(this.ErrorMessage);
-      return;
-    }
+    // if (_rec.comp_pol_code != _rec.pol) {
+    //   this.ErrorMessage = "Invalid POL " + _rec.pol + " Found.";
+    //   alert(this.ErrorMessage);
+    //   return;
+    // }
     this.pkid = _rec.pkid;
     this.poid = _rec.id_po;
     this.pono = _rec.po;
