@@ -163,6 +163,7 @@ export class ParamComponent {
     }
     if (this.type == 'PARAM') {
       this.id1 = "Customer Code";
+      this.id2 = "Type";
     }
     if (this.type == 'SERVICE CONTRACT') {
       this.id3 = "Group";
