@@ -68,6 +68,7 @@ export class MblSeaComponent {
   mode = '';
   pkid = '';
 
+  PoFtpAttachList: any[] = [];
   FtpAttachList: any[] = [];
   AttachList: any[] = [];
   FileList: FileDetails[] = [];
@@ -1394,7 +1395,13 @@ export class MblSeaComponent {
         for (let rec of this.FileList) {
           this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize });
         }
-        this.open(ftpsent);
+        if (this.Record.book_agent_code == "MOTHERLINES-US")
+          this.GenerateXmlPO('MBL-SE', ftpsent);
+        else {
+          this.PoFtpAttachList = new Array<any>();
+          this.open(ftpsent);
+        }
+
       },
         error => {
           this.loading = false;
@@ -1402,6 +1409,48 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         });
   }
+
+
+  GenerateXmlPO(_type: string, ftpsent: any) {
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      type: this.type,
+      rowtype: _type,
+      pkid: '',
+      filedisplayname: '',
+      doc_upload: 'N',
+      agent_code: '',
+      ftp_type: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.type = _type;
+    SearchData.pkid = this.Record.book_pkid;
+    SearchData.filedisplayname = this.Record.book_slno.toString();
+    SearchData.agent_code = this.Record.book_agent_code;
+    SearchData.ftp_type = 'PO-FTP';
+
+    this.mainService.GenerateXmlEdiMexico(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.PoFtpAttachList = new Array<any>();
+        if (_type == 'MBL-SE')
+          this.PoFtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+        this.open(ftpsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
 
   ShowFtpHistory(ftphistory: any) {
     this.ErrorMessage = '';
