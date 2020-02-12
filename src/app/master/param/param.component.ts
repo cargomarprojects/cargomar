@@ -168,6 +168,12 @@ export class ParamComponent {
     if (this.type == 'SERVICE CONTRACT') {
       this.id3 = "Group";
     }
+    if (this.type == 'DISTRICT') {
+      this.id1 = "State Code";
+    }
+    if (this.type == 'TRADE AGREEMENTS') {
+      this.id1 = "Agreement Signing Date";
+    }
   }
 
   // Destroy Will be called when this component is closed
