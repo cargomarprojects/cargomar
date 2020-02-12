@@ -87,7 +87,12 @@
           </div>
         </div>
 
-      
+        <label class="col-3 col-form-label col-form-label-sm" >Unit</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_unit" (blur)="OnBlur('ritc_unit')" required maxlength="3" />
+        </div>
+      </div>
+
       </div>
 
 

@@ -208,6 +208,7 @@ export class RitcmComponent  {
     this.Record.ritc_pkid = this.pkid;     
     this.Record.ritc_code = '';
     this.Record.ritc_name = '';
+    this.Record.ritc_unit = '';
 
     this.Record.rec_mode = this.mode;
   
@@ -290,8 +291,7 @@ export class RitcmComponent  {
       bret = false;
       sError = "\n\r  Invalid Ritc name";
     }
-
-       
+           
     if (bret === false)
       this.ErrorMessage = sError;
     return bret;
@@ -308,7 +308,7 @@ export class RitcmComponent  {
     else {
       REC.ritc_code = this.Record.ritc_code;
       REC.ritc_name = this.Record.ritc_name;
-     
+      REC.ritc_unit = this.Record.ritc_unit;
     }
   }
 
@@ -321,6 +321,9 @@ export class RitcmComponent  {
     }
     if (field == 'ritc_name') {
       this.Record.ritc_name = this.Record.ritc_name.toUpperCase();
+    }
+    if (field == 'ritc_unit') {
+      this.Record.ritc_unit = this.Record.ritc_unit.toUpperCase();
     }
     
   }

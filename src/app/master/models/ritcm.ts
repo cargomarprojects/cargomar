@@ -6,6 +6,7 @@ export class Ritcm {
   ritc_pkid: string;
   ritc_code: string;
   ritc_name: string;
+  ritc_unit: string;
 
   rec_mode: string;
 
