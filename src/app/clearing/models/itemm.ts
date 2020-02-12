@@ -75,6 +75,18 @@ export class Itemm {
     itm_third_party_br_address: string;
 
     itm_reward: boolean;
+
+    itm_state_id: string;
+    itm_state_code: string;
+    itm_state_name: string;
+
+    itm_district_id: string;
+    itm_district_code: string;
+    itm_district_name: string;
+
+    itm_ta_id: string;
+    itm_ta_code: string;
+    itm_ta_name: string;
     
     rec_mode: string;
     rec_category: string;

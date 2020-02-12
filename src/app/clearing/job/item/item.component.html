@@ -109,7 +109,7 @@
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_unit_factor"
                     (blur)="OnBlur('itm_unit_factor')" (change)="OnChange('itm_unit_factor')"
-                    (focus)="OnFocus('itm_unit_factor')"  required maxlength="10" />
+                    (focus)="OnFocus('itm_unit_factor')" required maxlength="10" />
                 </div>
               </div>
 
@@ -117,8 +117,8 @@
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_qty"
-                    (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')"
-                    (focus)="OnFocus('itm_qty')"  required maxlength="14" />
+                    (blur)="OnBlur('itm_qty')" (change)="OnChange('itm_qty')" (focus)="OnFocus('itm_qty')" required
+                    maxlength="14" />
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
                 <div class="col-sm-4">
@@ -135,17 +135,17 @@
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Amt</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_amount"
-                    (blur)="OnBlur('itm_amount')" (change)="OnChange('itm_amount')"
-                    (focus)="OnFocus('itm_amount')"  required maxlength="14" />
+                    (blur)="OnBlur('itm_amount')" (change)="OnChange('itm_amount')" (focus)="OnFocus('itm_amount')"
+                    required maxlength="14" />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" 
+                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
                   [style.color]="Record.itm_desc.length > 119 ?'red':'green'">{{Record.itm_desc.length}}&nbsp;CHARACTERS</label>
               </div>
               <div class="form-group row">
-                <label class="col-sm-12 col-form-label  col-form-label-sm" 
-                 style="padding: 0%" [style.color]="'red'" *ngIf="Record.itm_desc.length > 119" >ONLY 119 CHARACTERS WILL BE SENT TO CUSTOMS</label>
+                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" [style.color]="'red'"
+                  *ngIf="Record.itm_desc.length > 119">ONLY 119 CHARACTERS WILL BE SENT TO CUSTOMS</label>
               </div>
             </div>
 
@@ -262,7 +262,8 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Rosl Rate[CTL]</label>
                 <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_rosl_ctl_rate" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_rosl_ctl_rate" />
                 </div>
                 <label style="padding-left:0;padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Value
                   Cap[CTL]</label>
@@ -386,22 +387,19 @@
                   <input type="checkbox" [(ngModel)]="Record.itm_stmt_code3"> DB003
                 </div>
               </div>
+
             </div>
 
             <div class="col-sm-4">
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Third.Party</label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="THRDSHPRRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
-              </div>
-
-
-              <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Branch#</label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="THRDADDRRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
@@ -414,7 +412,6 @@
                     [(ngModel)]="Record.itm_third_party_name" />
                 </div>
               </div>
-
 
 
               <div class="form-group row">
@@ -436,6 +433,44 @@
                 <label style="color: red" class="offset-2 col-sm-10 col-form-label col-form-label-sm">For NFEI Shipments
                   Reward item cannot be checked</label>
               </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Trade.Agre.</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #TaLov [inputdata]="TARECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_ta_name" />
+                </div>
+              </div>
+
+              <div class=" form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">State</label>
+                <div class="col-4">
+                  <app-autocomplete #StateAddLov [inputdata]="STATERECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_state_name" />
+                </div>
+
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">District</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #DistLov [inputdata]="DISTRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_district_name" />
+                </div>
+              </div>
+
+
 
             </div>
 

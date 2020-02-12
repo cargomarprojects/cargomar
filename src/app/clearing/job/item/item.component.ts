@@ -72,6 +72,9 @@ export class ItemComponent {
   THRDSHPRRECORD: SearchTable = new SearchTable();
   THRDADDRRECORD: SearchTable = new SearchTable();
   ITMMASTERRECORD: SearchTable = new SearchTable();
+  STATERECORD: SearchTable = new SearchTable();
+  DISTRECORD: SearchTable = new SearchTable();
+  TARECORD: SearchTable = new SearchTable();
   InvoiceList: JobInvoicem[] = [];
 
   constructor(
@@ -225,6 +228,38 @@ export class ItemComponent {
       this.ITMMASTERRECORD.code = "";
       this.ITMMASTERRECORD.name = ""
     }
+
+    
+    if (action == '' || action == 'STATE') {
+      this.STATERECORD = new SearchTable();
+      this.STATERECORD.controlname = "STATE";
+      this.STATERECORD.displaycolumn = "CODE";
+      this.STATERECORD.type = "STATE";
+      this.STATERECORD.id = "";
+      this.STATERECORD.code = "";
+      this.STATERECORD.name = "";
+      this.STATERECORD.parentid = "";
+    }
+    if (action == '' || action == 'DISTRICT') {
+      this.DISTRECORD = new SearchTable();
+      this.DISTRECORD.controlname = "DISTRICT";
+      this.DISTRECORD.displaycolumn = "CODE";
+      this.DISTRECORD.type = "DISTRICT";
+      this.DISTRECORD.id = "";
+      this.DISTRECORD.code = "";
+      this.DISTRECORD.name = "";
+      this.DISTRECORD.parentid = "";
+    }
+    if (action == '' || action == 'TA') {
+      this.TARECORD = new SearchTable();
+      this.TARECORD.controlname = "TA";
+      this.TARECORD.displaycolumn = "CODE";
+      this.TARECORD.type = "TRADE AGREEMENTS";
+      this.TARECORD.id = "";
+      this.TARECORD.code = "";
+      this.TARECORD.name = "";
+      this.TARECORD.parentid = "";
+    }
   }
 
   LovSelected(_Record: SearchTable) {
@@ -294,6 +329,41 @@ export class ItemComponent {
       if (_Record.id != '')
         this.GetDefaultRecord(_Record.id);
     }
+
+    if (_Record.controlname == "STATE") {
+
+      bchange = false;
+      if (this.Record.itm_state_id != _Record.id)
+        bchange = true;
+
+      this.Record.itm_state_id = _Record.id;
+      this.Record.itm_state_code = _Record.code;
+      this.Record.itm_state_name = _Record.name;
+
+      if (bchange) {
+        this.DISTRECORD = new SearchTable();
+        this.DISTRECORD.controlname = "DISTRICT";
+        this.DISTRECORD.displaycolumn = "CODE";
+        this.DISTRECORD.type = "DISTRICT";
+        this.DISTRECORD.id = "";
+        this.DISTRECORD.code = "";
+        this.DISTRECORD.name = "";
+        this.DISTRECORD.parentid = this.Record.itm_state_code;
+        this.Record.itm_district_name="";
+      }
+    }
+
+    if (_Record.controlname == "DISTRICT") {
+      this.Record.itm_district_id = _Record.id;
+      this.Record.itm_district_code = _Record.code;
+      this.Record.itm_district_name = _Record.name;
+    }
+    if (_Record.controlname == "TA") {
+      this.Record.itm_ta_id = _Record.id;
+      this.Record.itm_ta_code = _Record.code;
+      this.Record.itm_ta_name = _Record.name;
+    }
+
   }
 
   LoadDbkRate() {
@@ -517,11 +587,41 @@ export class ItemComponent {
     this.Record.itm_reward = true;
     this.itm_code = '';
 
+    this.Record.itm_state_id = '';
+    this.Record.itm_state_code = '';
+    this.Record.itm_state_name = '';
+
+    this.Record.itm_district_id = '';
+    this.Record.itm_district_code = '';
+    this.Record.itm_district_name = '';
+
+    this.Record.itm_ta_id = '';
+    this.Record.itm_ta_code = '';
+    this.Record.itm_ta_name = '';
+
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
 
+    if(this.RecordList.length>1)
+    {
+      this.Record.itm_state_id = this.RecordList[this.RecordList.length-1].itm_state_id;
+      this.Record.itm_state_code = this.RecordList[this.RecordList.length-1].itm_state_code;
+      this.Record.itm_state_name =  this.RecordList[this.RecordList.length-1].itm_state_name;
 
+      this.Record.itm_district_id = this.RecordList[this.RecordList.length-1].itm_district_id;
+      this.Record.itm_district_code =  this.RecordList[this.RecordList.length-1].itm_district_code;
+      this.Record.itm_district_name =  this.RecordList[this.RecordList.length-1].itm_district_name;
+
+      this.STATERECORD.id = this.Record.itm_state_id;
+      this.STATERECORD.code = this.Record.itm_state_code;
+      this.STATERECORD.name = this.Record.itm_state_name;
+
+      this.DISTRECORD.id = this.Record.itm_district_id;
+      this.DISTRECORD.code = this.Record.itm_district_code;
+      this.DISTRECORD.name = this.Record.itm_district_name;
+      this.DISTRECORD.parentid = this.Record.itm_state_code;
+    }
   }
 
   // Load a single Record for VIEW/EDIT
@@ -577,6 +677,19 @@ export class ItemComponent {
     this.THRDADDRRECORD.id = this.Record.itm_third_party_br_id;
     this.THRDADDRRECORD.code = this.Record.itm_third_party_br_no;
     this.THRDADDRRECORD.parentid = this.Record.itm_third_party_br_address;
+
+    this.STATERECORD.id = this.Record.itm_state_id;
+    this.STATERECORD.code = this.Record.itm_state_code;
+    this.STATERECORD.name = this.Record.itm_state_name;
+
+    this.DISTRECORD.id = this.Record.itm_district_id;
+    this.DISTRECORD.code = this.Record.itm_district_code;
+    this.DISTRECORD.name = this.Record.itm_district_name;
+    this.DISTRECORD.parentid = this.Record.itm_state_code;
+
+    this.TARECORD.id = this.Record.itm_ta_id;
+    this.TARECORD.code = this.Record.itm_ta_code;
+    this.TARECORD.name = this.Record.itm_ta_name;
 
     this.Record.rec_mode = this.mode;
   }
@@ -635,6 +748,12 @@ export class ItemComponent {
       REC.itm_qty = this.Record.itm_qty;
       REC.itm_unit_rate = this.Record.itm_unit_rate;
       REC.itm_amount = this.Record.itm_amount;
+      REC.itm_state_id = this.Record.itm_state_id;
+      REC.itm_state_code = this.Record.itm_state_code;
+      REC.itm_state_name = this.Record.itm_state_name;
+      REC.itm_district_id = this.Record.itm_district_id;
+      REC.itm_district_code = this.Record.itm_district_code;
+      REC.itm_district_name = this.Record.itm_district_name;
     }
   }
 
