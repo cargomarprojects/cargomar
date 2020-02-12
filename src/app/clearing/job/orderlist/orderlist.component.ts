@@ -1395,6 +1395,11 @@ export class OrderListComponent {
 
   }
 
+  ModifiedRecords(params: any) {
+    if (params.type == "MAIL-PO-CHECKLIST") {
+      this.MailOrders('','MULTIPLE','CHECK-LIST');
+    }
+  }
 
 
 }

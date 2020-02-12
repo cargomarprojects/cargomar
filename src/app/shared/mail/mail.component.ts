@@ -347,6 +347,21 @@ export class MailComponent {
       return;
     }
 
+    if (_ftp_type == 'BL-FTP')
+      if (this.FtpAttachList == null || this.FtpAttachList.length <= 0) {
+        this.ErrorMessage += "\n\r | Attachment Not Found ";
+        alert(this.ErrorMessage);
+        return
+      }
+
+    if (_ftp_type == 'PO-FTP')
+      if (this.PoFtpAttachList == null || this.PoFtpAttachList.length <= 0) {
+        this.ErrorMessage += "\n\r | Attachment Not Found ";
+        alert(this.ErrorMessage);
+        return
+      }
+
+
     if (this.FtpTypeList != null) {
       var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
       if (REC != null) {
@@ -366,6 +381,7 @@ export class MailComponent {
         }
       }
     }
+
 
     let filename: string = "";
     let filenameack: string = "";
@@ -601,6 +617,8 @@ export class MailComponent {
     //   this.rootpage = "MAILPAGE";
     // else
     //   this.rootpage = "FTPPAGE";
+    if (_type == "FTPPAGE" || _type == "PO-FTPPAGE")
+      this.canftp = true;
   }
 
   RemoveAttachment(Id: string, _type: string) {
@@ -628,6 +646,11 @@ export class MailComponent {
         strsize = _newfsize.toString() + "MB";
     }
     return " " + strsize;
+  }
+
+  CheckList() {
+    if (this.ModifiedRecords != null)
+      this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid, type: 'MAIL-PO-CHECKLIST' });
   }
 
 }

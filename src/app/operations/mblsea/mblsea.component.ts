@@ -1337,6 +1337,10 @@ export class MblSeaComponent {
           this.NewTransitRecord();
       }
     }
+
+    if (params.type == "MAIL-PO-CHECKLIST") {
+      this.GenerateXmlPO('CHECK-LIST', '');
+    }
   }
 
   open(content: any) {
@@ -1395,8 +1399,8 @@ export class MblSeaComponent {
         for (let rec of this.FileList) {
           this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize });
         }
-        if (this.Record.book_agent_code == "MOTHERLINES-US")
-          this.GenerateXmlPO('MBL-SE', ftpsent);
+        if (response.poftpexist)
+          this.GenerateXmlPO('FTP', ftpsent);
         else {
           this.PoFtpAttachList = new Array<any>();
           this.open(ftpsent);
@@ -1410,7 +1414,6 @@ export class MblSeaComponent {
         });
   }
 
-
   GenerateXmlPO(_type: string, ftpsent: any) {
     this.loading = true;
     this.ErrorMessage = '';
@@ -1418,7 +1421,7 @@ export class MblSeaComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      type: this.type,
+      type: 'MBL-SE',
       rowtype: _type,
       pkid: '',
       filedisplayname: '',
@@ -1430,7 +1433,7 @@ export class MblSeaComponent {
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
-    SearchData.type = _type;
+    SearchData.type = 'MBL-SE';
     SearchData.pkid = this.Record.book_pkid;
     SearchData.filedisplayname = this.Record.book_slno.toString();
     SearchData.agent_code = this.Record.book_agent_code;
@@ -1439,10 +1442,17 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlEdiMexico(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.PoFtpAttachList = new Array<any>();
-        if (_type == 'MBL-SE')
-          this.PoFtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
-        this.open(ftpsent);
+
+        if (_type == 'FTP') {
+          this.PoFtpAttachList = new Array<any>();
+          if (response.errormsg.length > 0)
+            this.ErrorMessage = response.errormsg;
+          else
+            this.PoFtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+          this.open(ftpsent);
+        } else {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
       },
         error => {
           this.loading = false;
@@ -1513,10 +1523,12 @@ export class MblSeaComponent {
         for (let rec of response.filelist) {
           this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
-        if (this.Record.book_ftp_agent) {
+        if (this.Record.book_ftp_agent) {// this.Record.book_ftp_agent is true when FTP Folder for BL exist in system settings of trading partner
           this.GenerateXml(ftpsent);
-        } else
-          this.open(ftpsent);
+        } else {
+          this.GenerateXmlPO('FTP', ftpsent);
+        }
+        // this.open(ftpsent);
       },
         error => {
           this.loading = false;

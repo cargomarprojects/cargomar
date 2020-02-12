@@ -881,7 +881,7 @@
       <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder"
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
         [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList" [PoFtpAttachList]="PoFtpAttachList"
-        [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'"></app-mail>
+        [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
   <ng-template #ftphistory let-c="close" let-d="dismiss">

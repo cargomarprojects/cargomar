@@ -360,6 +360,7 @@
       <div class="col-sm-6">
         <div class="form-group row">
           <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
+            <button [disabled]="loading" (click)="CheckList()" class="btn btn-primary btn-sm">Check List</button>
             <button [disabled]="loading||ftpcompleted" (click)="SendFtp('','PO-FTP')" class="btn btn-primary btn-sm">Upload To
               PO-FTP</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
