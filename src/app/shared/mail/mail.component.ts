@@ -341,7 +341,13 @@ export class MailComponent {
     this.ftpcompleted = false;
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
-    if (this.ftptype_id.trim().length <= 0) {
+    if (this.ftptype_id.trim().length <= 0 && _ftp_type=='BL-FTP') {
+      this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (this.poftptype_id.trim().length <= 0 && _ftp_type=='PO-FTP') {
       this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
       alert(this.ErrorMessage);
       return;
