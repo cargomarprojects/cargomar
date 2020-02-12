@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -26,10 +25,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -55,10 +57,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -76,22 +81,26 @@
         <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm" (click)="focus()">Code</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_code" (blur)="OnBlur('ritc_code')" required maxlength="8" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_code"
+              (blur)="OnBlur('ritc_code')" required maxlength="8" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-3 col-form-label  col-form-label-sm">Name</label>
           <div class="col-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_name"  (blur)="OnBlur('ritc_name')" required maxlength="250" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_name"
+              (blur)="OnBlur('ritc_name')" required maxlength="250" />
           </div>
         </div>
 
-        <label class="col-3 col-form-label col-form-label-sm" >Unit</label>
-        <div class="col-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_unit" (blur)="OnBlur('ritc_unit')" required maxlength="3" />
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Unit</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_unit"
+              (blur)="OnBlur('ritc_unit')" required maxlength="3" />
+          </div>
         </div>
-      </div>
 
       </div>
 
@@ -119,4 +128,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
