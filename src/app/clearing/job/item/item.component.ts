@@ -229,7 +229,7 @@ export class ItemComponent {
       this.ITMMASTERRECORD.name = ""
     }
 
-    
+
     if (action == '' || action == 'STATE') {
       this.STATERECORD = new SearchTable();
       this.STATERECORD.controlname = "STATE";
@@ -273,6 +273,7 @@ export class ItemComponent {
       this.Record.itm_ritc_id = _Record.id;
       this.Record.itm_ritc_code = _Record.code;
       this.Record.itm_ritc_name = _Record.name;
+      this.Record.itm_ritc_unit =_Record.col1;
     }
     if (_Record.controlname == "UNITTYPE") {
       this.Record.itm_unit_id = _Record.id;
@@ -349,7 +350,7 @@ export class ItemComponent {
         this.DISTRECORD.code = "";
         this.DISTRECORD.name = "";
         this.DISTRECORD.parentid = this.Record.itm_state_code;
-        this.Record.itm_district_name="";
+        this.Record.itm_district_name = "";
       }
     }
 
@@ -599,19 +600,22 @@ export class ItemComponent {
     this.Record.itm_ta_code = '';
     this.Record.itm_ta_name = '';
 
+    this.Record.itm_ritc_unit = '';
+    this.Record.itm_gst_cess = 0;
+    this.Record.itm_ritc_qty = 0;
+
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
 
-    if(this.RecordList.length>1)
-    {
-      this.Record.itm_state_id = this.RecordList[this.RecordList.length-1].itm_state_id;
-      this.Record.itm_state_code = this.RecordList[this.RecordList.length-1].itm_state_code;
-      this.Record.itm_state_name =  this.RecordList[this.RecordList.length-1].itm_state_name;
+    if (this.RecordList.length > 1) {
+      this.Record.itm_state_id = this.RecordList[this.RecordList.length - 1].itm_state_id;
+      this.Record.itm_state_code = this.RecordList[this.RecordList.length - 1].itm_state_code;
+      this.Record.itm_state_name = this.RecordList[this.RecordList.length - 1].itm_state_name;
 
-      this.Record.itm_district_id = this.RecordList[this.RecordList.length-1].itm_district_id;
-      this.Record.itm_district_code =  this.RecordList[this.RecordList.length-1].itm_district_code;
-      this.Record.itm_district_name =  this.RecordList[this.RecordList.length-1].itm_district_name;
+      this.Record.itm_district_id = this.RecordList[this.RecordList.length - 1].itm_district_id;
+      this.Record.itm_district_code = this.RecordList[this.RecordList.length - 1].itm_district_code;
+      this.Record.itm_district_name = this.RecordList[this.RecordList.length - 1].itm_district_name;
 
       this.STATERECORD.id = this.Record.itm_state_id;
       this.STATERECORD.code = this.Record.itm_state_code;
@@ -873,6 +877,18 @@ export class ItemComponent {
         this.itm_code = this.itm_code.toUpperCase();
         break;
       }
+      case 'itm_gst_cess': {
+        this.Record.itm_gst_cess = this.gs.roundNumber(this.Record.itm_gst_cess, 2);
+        break;
+      }
+      case 'itm_ritc_qty': {
+        this.Record.itm_ritc_qty = this.gs.roundNumber(this.Record.itm_ritc_qty, 3);
+        break;
+      }
+      case 'itm_ritc_unit': {
+        this.Record.itm_ritc_unit = this.Record.itm_ritc_unit.toUpperCase();
+        break;
+      }
     }
   }
 
@@ -1008,10 +1024,12 @@ export class ItemComponent {
         this.Record.itm_ritc_id = _NewRecord.itm_ritc_id;
         this.Record.itm_ritc_code = _NewRecord.itm_ritc_code;
         this.Record.itm_ritc_name = _NewRecord.itm_ritc_name;
+        this.Record.itm_ritc_unit = _NewRecord.itm_ritc_unit;
         this.Record.itm_dbk_code = _NewRecord.itm_dbk_code;
         this.Record.itm_dbk_name = _NewRecord.itm_dbk_name;
         this.Record.itm_unit_id = this.gs.defaultValues.param_unit_pcs_id;
         this.Record.itm_unit_code = this.gs.defaultValues.param_unit_pcs_code;
+        
 
         this.InitLov('SCHEME');
         this.SCHEMERECORD.id = this.Record.itm_scheme_id;

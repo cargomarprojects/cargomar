@@ -87,6 +87,10 @@ export class Itemm {
     itm_ta_id: string;
     itm_ta_code: string;
     itm_ta_name: string;
+
+    itm_ritc_unit: string;
+    itm_ritc_qty:number;
+    itm_gst_cess:number;
     
     rec_mode: string;
     rec_category: string;

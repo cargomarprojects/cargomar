@@ -90,7 +90,7 @@
               <div class="form-group row">
                 <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">Description</label>
                 <div class="col-sm-9">
-                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.itm_desc"
+                  <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.itm_desc"
                     (blur)="OnBlur('itm_desc')" required maxlength="180"></textarea>
                 </div>
               </div>
@@ -140,12 +140,21 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
-                  [style.color]="Record.itm_desc.length > 119 ?'red':'green'">{{Record.itm_desc.length}}&nbsp;CHARACTERS</label>
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Ritc.Qty</label>
+                <div class="col-sm-2 pr-0">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_ritc_qty"
+                    (blur)="OnBlur('itm_ritc_qty')"  required maxlength="15" />
+                </div>
+                <div class="col-sm-2 pl-0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_ritc_unit" />
+                </div>
+                <!-- <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
+                  [style.color]="Record.itm_desc.length > 119 ?'red':'green'">{{Record.itm_desc.length}}&nbsp;CHARACTERS</label> -->
               </div>
               <div class="form-group row">
-                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" [style.color]="'red'"
-                  *ngIf="Record.itm_desc.length > 119">ONLY 119 CHARACTERS WILL BE SENT TO CUSTOMS</label>
+                <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
+                  [style.color]="Record.itm_desc.length > 119 ?'red':'green'">{{Record.itm_desc.length}}&nbsp;CHARACTERS<span
+                    *ngIf="Record.itm_desc.length > 119"> ONLY 119 CHARACTERS WILL BE SENT TO CUSTOMS</span></label>
               </div>
             </div>
 
@@ -361,9 +370,15 @@
 
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label  col-form-label-sm">IGST Amount</label>
-                <div class="col-sm-8">
+                <div class="col-sm-4">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_igst_amt"
                     (blur)="OnBlur('itm_igst_amt')" required maxlength="16" />
+                </div>
+                <label style="padding-left:0;padding-right:0"
+                  class="col-sm-1 col-form-label  col-form-label-sm">CESS</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_gst_cess"
+                    (blur)="OnBlur('itm_gst_cess')" required maxlength="15" />
                 </div>
               </div>
 
@@ -434,18 +449,6 @@
                   Reward item cannot be checked</label>
               </div>
 
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Trade.Agre.</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #TaLov [inputdata]="TARECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.itm_ta_name" />
-                </div>
-              </div>
-
               <div class=" form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">State</label>
                 <div class="col-4">
@@ -469,8 +472,16 @@
                     [(ngModel)]="Record.itm_district_name" />
                 </div>
               </div>
-
-
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Trade.Agrmt</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #TaLov [inputdata]="TARECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_ta_name" />
+                </div>
+              </div>
 
             </div>
 
