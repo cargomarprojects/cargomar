@@ -34,6 +34,7 @@ export class MailComponent {
   @Input() public FtpAttachList = new Array<any>();
   @Input() public PoFtpAttachList = new Array<any>();
   @Input() public disableBLftp: boolean = false;
+  @Input() public PoFtpError: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -341,33 +342,37 @@ export class MailComponent {
     this.ftpcompleted = false;
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
-    if (this.ftptype_id.trim().length <= 0 && _ftp_type=='BL-FTP') {
-      this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
-    }
 
-    if (this.poftptype_id.trim().length <= 0 && _ftp_type=='PO-FTP') {
-      this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
-    }
-
-    if (_ftp_type == 'BL-FTP')
+    if (_ftp_type == 'BL-FTP') {
+      if (this.ftptype_id.trim().length <= 0) {
+        this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
       if (this.FtpAttachList == null || this.FtpAttachList.length <= 0) {
         this.ErrorMessage += "\n\r | Attachment Not Found ";
         alert(this.ErrorMessage);
         return
       }
+    }
 
-    if (_ftp_type == 'PO-FTP')
+    if (_ftp_type == 'PO-FTP') {
+      if (this.poftptype_id.trim().length <= 0) {
+        this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+      if (this.PoFtpError.trim().length > 0) {
+        this.ErrorMessage += "\n\r " + this.PoFtpError;
+        alert(this.ErrorMessage);
+        return;
+      }
       if (this.PoFtpAttachList == null || this.PoFtpAttachList.length <= 0) {
         this.ErrorMessage += "\n\r | Attachment Not Found ";
         alert(this.ErrorMessage);
         return
       }
-
-
+    }
     if (this.FtpTypeList != null) {
       var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
       if (REC != null) {
@@ -387,7 +392,6 @@ export class MailComponent {
         }
       }
     }
-
 
     let filename: string = "";
     let filenameack: string = "";

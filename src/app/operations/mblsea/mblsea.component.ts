@@ -72,7 +72,7 @@ export class MblSeaComponent {
   FtpAttachList: any[] = [];
   AttachList: any[] = [];
   FileList: FileDetails[] = [];
-
+  PoFtpError:string="";
   StatusList: Param[] = [];
   ContainerList: Param[] = [];
   // Array For Displaying List
@@ -1446,7 +1446,7 @@ export class MblSeaComponent {
         if (_type == 'FTP') {
           this.PoFtpAttachList = new Array<any>();
           if (response.errormsg.length > 0)
-            this.ErrorMessage = response.errormsg;
+            this.PoFtpError = response.errormsg;
           else
             this.PoFtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
           this.open(ftpsent);
