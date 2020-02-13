@@ -233,7 +233,7 @@ export class costCenterComponent {
       SearchData.comp_code = this.gs.globalVariables.comp_code;
       SearchData.branch_code = this.gs.globalVariables.branch_code;
       SearchData.searchstring = _rec.ct_cost_code;
-      SearchData.year = _rec.ct_cost_year;
+      SearchData.year = _rec.ct_year;
     }
     this.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
@@ -245,6 +245,9 @@ export class costCenterComponent {
         if (response.costcenterm.length > 0) {
           _rec.ct_cost_id = response.costcenterm[0].cc_pkid;
           _rec.ct_cost_name = response.costcenterm[0].cc_name;
+          _rec.ct_cost_year = +this.gs.globalVariables.year_code;
+          if ( response.costcenterm[0].cc_year > 0)
+            _rec.ct_cost_year = response.costcenterm[0].cc_year;
         }
         else {
           _rec.ct_cost_name = 'Invalid Cost Center Code';
