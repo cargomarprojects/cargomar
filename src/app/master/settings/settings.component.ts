@@ -78,6 +78,8 @@ export class SettingsComponent {
   CO_BL_ISSUE_BY4: string = '';
   CO_BL_ISSUE_BY5: string = '';
 
+  SW_ENABLED = false;
+
   CGSTRECORD: any;
   CGSTREC: any = { id: '', code: '', name: '' };
 
@@ -780,6 +782,9 @@ export class SettingsComponent {
       if (rec.caption == "BL-ISSUED-BY5")
         this.CO_BL_ISSUE_BY5 = rec.name;
 
+      if (rec.caption == "SW-ENABLED")
+        this.SW_ENABLED = rec.name == "Y" ? true : false;
+
 
     })
   }
@@ -831,11 +836,13 @@ export class SettingsComponent {
       if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
         this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;
 
+
+
       if (rec.caption == "FOLDER-SE-PREFIX")
         this.BR_FLDR_SE_PREFIX = rec.name;
       if (rec.caption == "FOLDER-SI-PREFIX")
         this.BR_FLDR_SI_PREFIX = rec.name;
-        if (rec.caption == "BR-SMAN-EMAIL")
+      if (rec.caption == "BR-SMAN-EMAIL")
         this.BR_SMAN_EMAIL = rec.name;
     })
   }
@@ -915,6 +922,10 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY3', '', '', this.CO_BL_ISSUE_BY3));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY4', '', '', this.CO_BL_ISSUE_BY4));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY5', '', '', this.CO_BL_ISSUE_BY5));
+
+
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SW-ENABLED', '', '', (this.SW_ENABLED) ? "Y" : "N"));
+
 
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'CGST', this.CGSTREC.id, this.CGSTREC.code, this.CGSTREC.name));
