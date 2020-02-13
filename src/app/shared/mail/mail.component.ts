@@ -60,6 +60,7 @@ export class MailComponent {
   bcc_ids: string = '';
   subject: string = '';
   message: string = '';
+  ftpsubject: string = '';
 
   ftptype_id: string = '';
   FtpTypeList: any[] = [];
@@ -95,7 +96,10 @@ export class MailComponent {
     }
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
+    this.ftpsubject = this.defaultsubject;
     this.message = this.defaultmessage;
+    this.ftpsubject = this.ftpsubject.replace('PRE-ALERT FOR', '');
+    this.ftpsubject = this.ftpsubject.trim();
     this.GetTotfilesize();
     this.LoadCombo();
   }
