@@ -172,7 +172,7 @@ export class ParamComponent {
       this.id1 = "State Code";
     }
     if (this.type == 'TRADE AGREEMENTS') {
-      this.id1 = "Agreement Signing Date";
+      this.id3 = "Agreement Signing Date";
     }
   }
 
@@ -439,6 +439,7 @@ export class ParamComponent {
 
       this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
+      this.Record.param_id3 = this.Record.param_id3.toUpperCase().trim();
       this.Record.param_email = this.Record.param_email.trim();
 
     }
