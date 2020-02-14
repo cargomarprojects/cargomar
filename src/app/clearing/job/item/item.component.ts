@@ -273,7 +273,7 @@ export class ItemComponent {
       this.Record.itm_ritc_id = _Record.id;
       this.Record.itm_ritc_code = _Record.code;
       this.Record.itm_ritc_name = _Record.name;
-      this.Record.itm_ritc_unit =_Record.col1;
+      this.Record.itm_ritc_unit = _Record.col1;
     }
     if (_Record.controlname == "UNITTYPE") {
       this.Record.itm_unit_id = _Record.id;
@@ -799,6 +799,8 @@ export class ItemComponent {
 
       case 'itm_qty': {
         this.Record.itm_qty = this.gs.roundNumber(this.Record.itm_qty, 3);
+        if (this.bValueChanged)
+          this.Record.itm_ritc_qty = this.Record.itm_qty;
         this.FindTotal("itm_qty");
         break;
       }
@@ -1029,7 +1031,7 @@ export class ItemComponent {
         this.Record.itm_dbk_name = _NewRecord.itm_dbk_name;
         this.Record.itm_unit_id = this.gs.defaultValues.param_unit_pcs_id;
         this.Record.itm_unit_code = this.gs.defaultValues.param_unit_pcs_code;
-        
+
 
         this.InitLov('SCHEME');
         this.SCHEMERECORD.id = this.Record.itm_scheme_id;
