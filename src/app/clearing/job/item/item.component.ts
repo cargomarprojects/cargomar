@@ -29,6 +29,9 @@ export class ItemComponent {
   @Input() type: string = '';
   @Input() parentid: string = '';
   @Input() nfei: string = '';
+  @Input() job_org_state_id: string = '';
+  @Input() job_org_state_code: string = '';
+  @Input() job_org_state_name: string = '';
 
 
   selectedRowIndex: number = -1;
@@ -608,7 +611,7 @@ export class ItemComponent {
 
     this.InitLov();
 
-    if (this.RecordList.length > 1) {
+    if (this.RecordList.length > 0) {
       this.Record.itm_state_id = this.RecordList[this.RecordList.length - 1].itm_state_id;
       this.Record.itm_state_code = this.RecordList[this.RecordList.length - 1].itm_state_code;
       this.Record.itm_state_name = this.RecordList[this.RecordList.length - 1].itm_state_name;
@@ -617,10 +620,31 @@ export class ItemComponent {
       this.Record.itm_district_code = this.RecordList[this.RecordList.length - 1].itm_district_code;
       this.Record.itm_district_name = this.RecordList[this.RecordList.length - 1].itm_district_name;
 
+      this.Record.itm_ta_id = this.RecordList[this.RecordList.length - 1].itm_ta_id;
+      this.Record.itm_ta_code = this.RecordList[this.RecordList.length - 1].itm_ta_code;
+      this.Record.itm_ta_name = this.RecordList[this.RecordList.length - 1].itm_ta_name;
+
       this.STATERECORD.id = this.Record.itm_state_id;
       this.STATERECORD.code = this.Record.itm_state_code;
       this.STATERECORD.name = this.Record.itm_state_name;
 
+      this.DISTRECORD.id = this.Record.itm_district_id;
+      this.DISTRECORD.code = this.Record.itm_district_code;
+      this.DISTRECORD.name = this.Record.itm_district_name;
+      this.DISTRECORD.parentid = this.Record.itm_state_code;
+
+      this.TARECORD.id = this.Record.itm_ta_id;
+      this.TARECORD.code = this.Record.itm_ta_code;
+      this.TARECORD.name = this.Record.itm_ta_name;
+
+    } else {
+      this.Record.itm_state_id = this.job_org_state_id;
+      this.Record.itm_state_code = this.job_org_state_code;
+      this.Record.itm_state_name = this.job_org_state_name;
+      this.STATERECORD.id = this.Record.itm_state_id;
+      this.STATERECORD.code = this.Record.itm_state_code;
+      this.STATERECORD.name = this.Record.itm_state_name;
+      
       this.DISTRECORD.id = this.Record.itm_district_id;
       this.DISTRECORD.code = this.Record.itm_district_code;
       this.DISTRECORD.name = this.Record.itm_district_name;

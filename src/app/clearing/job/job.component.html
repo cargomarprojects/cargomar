@@ -988,7 +988,7 @@
       <ngb-tab title="Product" *ngIf="mode=='EDIT'">
         <ng-template ngbTabContent>
 
-          <app-jobitem [parentid]="pkid" [nfei]="Record.job_nfei" [type]="type"></app-jobitem>
+          <app-jobitem [parentid]="pkid" [nfei]="Record.job_nfei" [type]="type" [job_org_state_id]="Record.job_origin_state_id" [job_org_state_code]="Record.job_origin_state_code" [job_org_state_name]="Record.job_origin_state_name"></app-jobitem>
 
         </ng-template>
       </ngb-tab>
