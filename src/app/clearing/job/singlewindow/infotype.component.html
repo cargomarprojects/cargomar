@@ -1,0 +1,68 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>TYPE</th>
+                    <th>QUALIFIERS</th>
+                    <th>CODE</th>
+                    <th>INFORMATION</th>
+                    <th>MEASURE</th>
+                    <th>UQC</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (click)="ActionHandler('EDIT', rec.sw_pkid,i)">
+                    <td>{{rec.sw_info_type_code}}</td>
+                    <td>{{rec.sw_info_qfr_code}}</td>
+                    <td>{{rec.sw_info_code_code}}</td>
+                    <td>{{rec.sw_info_text}}</td>
+                    <td>{{rec.sw_info_msr}}</td>
+                    <td>{{rec.sw_info_uqc_code}}</td>
+                    <td>
+                        <App-Dialog
+                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.sw_pkid,name:rec.sw_info_type_code}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-details">
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                <div class="col-sm-10">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_info_type_id">
+                        <option *ngFor="let rec of InfoTypeList" [value]="rec.pkid">{{rec.name}}</option>
+                    </select>
+                    <!-- <app-autocomplete #pkgUnitLov [inputdata]="LICUNITRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete> -->
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="page-box">
+    <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

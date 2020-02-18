@@ -22,6 +22,7 @@ import { TrackOrderComponent } from './job/trackorder/trackorder.component';
 import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component';
 import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 import {EdiOrdUpdateComponent} from './job/ediordupdate/ediordupdate.component';
+import { InfoTypeComponent } from './job/singlewindow/infotype.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import {EdiOrdUpdateComponent} from './job/ediordupdate/ediordupdate.component';
     TrackOrderComponent,
     WeekPlanningComponent,
     EdiOrderComponent,
-    EdiOrdUpdateComponent
+    EdiOrdUpdateComponent,
+    InfoTypeComponent
   ],
   providers: [
   ],
