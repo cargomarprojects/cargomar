@@ -249,6 +249,7 @@ export class InfoTypeComponent {
         this.InfoMessage = '';
         this.Record.sw_itmid = this.parentid;
         this.Record.sw_jobid = this.jobid;
+        this.Record.rec_category=this.type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
