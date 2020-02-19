@@ -11,6 +11,9 @@ export class Param {
     param_id2: string;
     param_id3: string;
     param_id4: string;
+    param_id5: string;
+    param_id5_code: string;
+    param_id5_name: string;
 
     param_email: string;
 

@@ -1,13 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../core/services/global.service';
-
 import { Param } from '../models/param';
-
-
 import { ParamService } from '../services/param.service';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-param',
@@ -16,8 +12,7 @@ import { ParamService } from '../services/param.service';
 })
 export class ParamComponent {
   /*Ajith 19/06/2019 LOcked TAN Enabled
-  
-  */
+   */
   // Local Variables 
   title = 'Param MASTER';
 
@@ -50,7 +45,9 @@ export class ParamComponent {
   id2: string = '';
   id3: string = '';
   id4: string = '';
-
+  id5: string = '';
+  id5_lovtype='';
+  
   email: string = '';
 
 
@@ -61,6 +58,8 @@ export class ParamComponent {
 
   code_length: number = 10;
 
+
+  ID5RECORD: SearchTable = new SearchTable();
 
   // Array For Displaying List
   RecordList: Param[] = [];
@@ -110,6 +109,7 @@ export class ParamComponent {
       if (this.menu_record.rights_print)
         this.bPrint = true;
     }
+    this.InitLov();
     this.InitColumns();
     this.List("NEW");
   }
@@ -120,7 +120,8 @@ export class ParamComponent {
     this.id2 = '';
     this.id3 = '';
     this.id4 = '';
-
+    this.id5 = '';
+    this.id5_lovtype = '';
     this.email = '';
 
     this.code_length = 15;
@@ -173,6 +174,40 @@ export class ParamComponent {
     }
     if (this.type == 'TRADE AGREEMENTS') {
       this.id3 = "Agreement Signing Date";
+    }
+
+    if (this.type == 'INFO-QLFR') {
+      this.id1="Next Indicator"
+      this.id5 = "Info Type";
+      this.id5_lovtype="INFO-TYPE";
+    }
+
+    if (this.type == 'INFO-CODE') {
+      this.id1="PGA UQC"
+      this.id5 = "Info Qualifier";
+      this.id5_lovtype="INFO-QLFR";
+    }
+
+  }
+
+  InitLov() {
+
+    this.ID5RECORD = new SearchTable();
+    this.ID5RECORD.controlname = "ID5";
+    this.ID5RECORD.displaycolumn = "CODE";
+    this.ID5RECORD.type = this.id5_lovtype;
+    this.ID5RECORD.where = "";
+    this.ID5RECORD.id = "";
+    this.ID5RECORD.code = "";
+    this.ID5RECORD.name = "";
+    this.ID5RECORD.parentid = "";
+  }
+
+  LovSelected(_Record: SearchTable) {
+    if (_Record.controlname == "ID5") {
+      this.Record.param_id5 = _Record.id;
+      this.Record.param_id5_code = _Record.code;
+      this.Record.param_id5_name = _Record.name;
     }
   }
 
@@ -278,12 +313,15 @@ export class ParamComponent {
     this.Record.param_id2 = '';
     this.Record.param_id3 = '';
     this.Record.param_id4 = '';
+    this.Record.param_id5 = '';
+    this.Record.param_id5_code = '';
+    this.Record.param_id5_name = '';
     this.Record.param_email = '';
     this.Record.param_rate = 0;
     this.Record.param_type = this.type;
     this.Record.rec_locked = false;
     this.Record.rec_mode = this.mode;
-
+    this.InitLov();
   }
 
   // Load a single Record for VIEW/EDIT
@@ -309,6 +347,11 @@ export class ParamComponent {
   LoadData(_Record: Param) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
+    this.InitLov();
+
+    this.ID5RECORD.id = this.Record.param_id5;
+    this.ID5RECORD.code = this.Record.param_id5_code;
+    this.ID5RECORD.name = this.Record.param_id5_name;
   }
 
 
@@ -478,6 +521,7 @@ export class ParamComponent {
       REC.param_id4 = this.Record.param_id4;
       REC.param_email = this.Record.param_email;
       REC.param_rate = this.Record.param_rate;
+      REC.param_id5_code=this.Record.param_id5_code;
 
     }
   }
