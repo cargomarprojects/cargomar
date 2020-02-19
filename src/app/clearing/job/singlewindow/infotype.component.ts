@@ -37,7 +37,11 @@ export class InfoTypeComponent {
     ctr: number;
 
     InfoTypeList: any[] = [];
+    InfoQlfrList: any[] = [];
+    InfoCodeList: any[] = [];
 
+    AllInfoQlfrList: any[] = [];
+    AllInfoCodeList: any[] = [];
     // Array For Displaying List
     RecordList: InfoType[] = [];
     // Single Record for add/edit/view details
@@ -77,7 +81,30 @@ export class InfoTypeComponent {
         }
     }
     LoadCombo() {
-        this.InfoTypeList = [{ "pkid": "1", "name": "ALL" }, { "pkid": "2", "name": "CHR" }, { "pkid": "3", "name": "STO" }, { "pkid": "4", "name": "ORC" }];
+
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
+
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.InfoTypeList = response.infotypelist;
+                this.AllInfoQlfrList = response.infoqlfrlist;
+                this.AllInfoCodeList = response.infocodelist;
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     InitLov() {
@@ -162,7 +189,7 @@ export class InfoTypeComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new InfoType();
         this.Record.sw_pkid = this.pkid;
-        this.Record.sw_info_type_id = '2';
+        this.Record.sw_info_type_id = '';
         this.Record.sw_info_type_code = '';
         this.Record.sw_info_type_name = '';
         this.Record.sw_info_qfr_id = '';
@@ -269,8 +296,12 @@ export class InfoTypeComponent {
             this.RecordList.push(this.Record);
         }
         else {
-            REC.sw_info_type_code = this.Record.sw_info_type_code;
-
+            REC.sw_info_type_name = this.Record.sw_info_type_name;
+            REC.sw_info_qfr_name = this.Record.sw_info_qfr_name;
+            REC.sw_info_code_name = this.Record.sw_info_code_name;
+            REC.sw_info_text = this.Record.sw_info_text;
+            REC.sw_info_msr = this.Record.sw_info_msr;
+            REC.sw_info_uqc_code = this.Record.sw_info_uqc_code;
         }
     }
 
@@ -311,7 +342,13 @@ export class InfoTypeComponent {
 
     OnChange(field: string) {
         this.bChanged = true;
-
+        if (field == "sw_info_type_id") {
+           this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
+           this.InfoCodeList = new Array<any>();
+        }
+       else if (field == "sw_info_qfr_id") {
+            this.InfoCodeList = this.AllInfoCodeList.filter(rec => rec.param_id5 == this.Record.sw_info_qfr_id);
+         }
     }
 
     OnBlur(field: string) {
