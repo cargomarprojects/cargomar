@@ -23,6 +23,7 @@ import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component
 import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 import {EdiOrdUpdateComponent} from './job/ediordupdate/ediordupdate.component';
 import { InfoTypeComponent } from './job/singlewindow/infotype.component';
+import { ConstComponent } from './job/singlewindow/const.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { InfoTypeComponent } from './job/singlewindow/infotype.component';
     WeekPlanningComponent,
     EdiOrderComponent,
     EdiOrdUpdateComponent,
-    InfoTypeComponent
+    InfoTypeComponent,
+    ConstComponent
   ],
   providers: [
   ],

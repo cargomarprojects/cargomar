@@ -532,6 +532,12 @@
       </ng-template>
     </ngb-tab>
 
+    <ngb-tab title="Constituents" *ngIf="mode=='EDIT'">
+      <ng-template ngbTabContent>
+        <app-const [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-const>
+      </ng-template>
+    </ngb-tab>
+
   </ngb-tabset>
 
 </div>

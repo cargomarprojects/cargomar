@@ -1,0 +1,97 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>NAME</th>
+                    <th>CODE</th>
+                    <th>PERCENTAGE</th>
+                    <th>YIELD%</th>
+                    <th>ACTIVE</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (click)="ActionHandler('EDIT', rec.sw_pkid,i)">
+                    <td>{{rec.sw_const_elementname}}</td>
+                    <td>{{rec.sw_const_code}}</td>
+                    <td>{{rec.sw_const_percent}}</td>
+                    <td>{{rec.sw_const_yieldpercent}}</td>
+                    <td>{{rec.sw_active_ingredient}}</td>
+                    <td>
+                        <App-Dialog
+                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.sw_pkid,name:rec.sw_const_elementname}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sw_const_elementname"
+                    (blur)="OnBlur('sw_const_elementname')" required maxlength="256" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Code</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sw_const_code"
+                    (blur)="OnBlur('sw_const_code')" required maxlength="17" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Percentage</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sw_const_percent"
+                        (blur)="OnBlur('sw_const_percent')" required maxlength="9" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Yield%</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sw_const_yieldpercent"
+                        (blur)="OnBlur('sw_const_yieldpercent')" required maxlength="9" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Active</label>
+                <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_active_ingredient">
+                        <option [value]="'Y'">YES</option>
+                        <option [value]="'N'">NO</option>
+                      </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-box">
+    <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>
