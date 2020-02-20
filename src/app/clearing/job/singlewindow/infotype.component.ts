@@ -238,6 +238,8 @@ export class InfoTypeComponent {
 
         this.Record.rec_mode = this.mode;
         // this.lic_reg_no.nativeElement.focus();
+        this.FillQlfrList();
+        this.FillCodeList();
     }
 
     // Save Data
@@ -359,12 +361,19 @@ export class InfoTypeComponent {
     OnChange(field: string) {
         this.bChanged = true;
         if (field == "sw_info_type_id") {
-            this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
-            this.InfoCodeList = new Array<any>();
+            this.FillQlfrList();
         }
         else if (field == "sw_info_qfr_id") {
-            this.InfoCodeList = this.AllInfoCodeList.filter(rec => rec.param_id5 == this.Record.sw_info_qfr_id);
+            this.FillCodeList();
         }
+    }
+
+    FillQlfrList() {
+        this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
+        this.InfoCodeList = new Array<any>();
+    }
+    FillCodeList() {
+        this.InfoCodeList = this.AllInfoCodeList.filter(rec => rec.param_id5 == this.Record.sw_info_qfr_id);
     }
 
     OnBlur(field: string) {
