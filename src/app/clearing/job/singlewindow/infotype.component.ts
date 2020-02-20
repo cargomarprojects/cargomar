@@ -249,7 +249,7 @@ export class InfoTypeComponent {
         this.InfoMessage = '';
         this.Record.sw_itmid = this.parentid;
         this.Record.sw_jobid = this.jobid;
-        this.Record.rec_category=this.type;
+        this.Record.rec_category = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
@@ -294,6 +294,21 @@ export class InfoTypeComponent {
             return;
         var REC = this.RecordList.find(rec => rec.sw_pkid == this.Record.sw_pkid);
         if (REC == null) {
+            var Rec = this.InfoTypeList.find(rec => rec.param_pkid == this.Record.sw_info_type_id);
+            if (Rec != null) {
+                this.Record.sw_info_type_code = Rec.param_code;
+                this.Record.sw_info_type_name = Rec.param_name;
+            }
+            var Rec2 = this.InfoQlfrList.find(rec => rec.param_pkid == this.Record.sw_info_qfr_id);
+            if (Rec2 != null) {
+                this.Record.sw_info_qfr_code = Rec2.param_code;
+                this.Record.sw_info_qfr_name = Rec2.param_name;
+            }
+            var Rec3 = this.InfoCodeList.find(rec => rec.param_pkid == this.Record.sw_info_code_id);
+            if (Rec3 != null) {
+                this.Record.sw_info_code_code = Rec3.param_code;
+                this.Record.sw_info_code_name = Rec3.param_name;
+            }
             this.RecordList.push(this.Record);
         }
         else {
@@ -344,12 +359,12 @@ export class InfoTypeComponent {
     OnChange(field: string) {
         this.bChanged = true;
         if (field == "sw_info_type_id") {
-           this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
-           this.InfoCodeList = new Array<any>();
+            this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
+            this.InfoCodeList = new Array<any>();
         }
-       else if (field == "sw_info_qfr_id") {
+        else if (field == "sw_info_qfr_id") {
             this.InfoCodeList = this.AllInfoCodeList.filter(rec => rec.param_id5 == this.Record.sw_info_qfr_id);
-         }
+        }
     }
 
     OnBlur(field: string) {
