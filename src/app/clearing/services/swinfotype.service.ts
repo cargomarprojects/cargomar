@@ -5,7 +5,7 @@ import { SwInfoType } from '../models/swinfotype';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
-export class InfoTypeService {
+export class SwInfoTypeService {
 
   constructor(
     private http2: HttpClient,

@@ -2,13 +2,13 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, E
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SwProd } from '../../models/swprod';
-import { ProdService } from '../../services/prod.service';
+import { SwProdService } from '../../services/swprod.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
 @Component({
     selector: 'app-prod',
     templateUrl: './prod.component.html',
-    providers: [ProdService]
+    providers: [SwProdService]
 })
 export class ProdComponent {
     // Local Variables 
@@ -44,7 +44,7 @@ export class ProdComponent {
     UQCUNITRECORD: SearchTable = new SearchTable();
 
     constructor(
-        private mainService: ProdService,
+        private mainService: SwProdService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {

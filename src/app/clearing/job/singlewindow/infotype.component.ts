@@ -2,13 +2,13 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, E
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SwInfoType } from '../../models/swinfotype';
-import { InfoTypeService } from '../../services/infotype.service';
+import { SwInfoTypeService } from '../../services/swinfotype.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
 @Component({
     selector: 'app-infotype',
     templateUrl: './infotype.component.html',
-    providers: [InfoTypeService]
+    providers: [SwInfoTypeService]
 })
 export class InfoTypeComponent {
     // Local Variables 
@@ -50,7 +50,7 @@ export class InfoTypeComponent {
     UQCUNITRECORD: SearchTable = new SearchTable();
 
     constructor(
-        private mainService: InfoTypeService,
+        private mainService: SwInfoTypeService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {

@@ -5,7 +5,7 @@ import { SwConst } from '../models/swconst';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
-export class ConstService {
+export class SwConstService {
 
   constructor(
     private http2: HttpClient,

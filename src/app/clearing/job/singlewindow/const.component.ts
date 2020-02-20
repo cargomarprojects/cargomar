@@ -2,13 +2,13 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, E
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SwConst } from '../../models/swconst';
-import { ConstService } from '../../services/const.service';
+import { SwConstService } from '../../services/swconst.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
 @Component({
     selector: 'app-const',
     templateUrl: './const.component.html',
-    providers: [ConstService]
+    providers: [SwConstService]
 })
 export class ConstComponent {
     // Local Variables 
@@ -44,7 +44,7 @@ export class ConstComponent {
     UQCUNITRECORD: SearchTable = new SearchTable();
 
     constructor(
-        private mainService: ConstService,
+        private mainService: SwConstService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {

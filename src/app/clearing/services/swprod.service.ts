@@ -5,7 +5,7 @@ import { SwProd } from '../models/swprod';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
-export class ProdService {
+export class SwProdService {
 
   constructor(
     private http2: HttpClient,
