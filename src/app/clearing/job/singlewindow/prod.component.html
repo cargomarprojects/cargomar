@@ -1,0 +1,106 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>BATCH.ID</th>
+                    <th>QTY</th>
+                    <th>UNIT</th>
+                    <th>MANUFACTURE DATE</th>
+                    <th>EXPIRY DATE</th>
+                    <th>BEST BEFORE DATE</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (click)="ActionHandler('EDIT', rec.sw_pkid,i)">
+                    <td>{{rec.sw_prod_batch_id}}</td>
+                    <td>{{rec.sw_prod_batch_qty}}</td>
+                    <td>{{rec.sw_unit_code}}</td>
+                    <td>{{rec.sw_date_manufacture}}</td>
+                    <td>{{rec.sw_date_expiry}}</td>
+                    <td>{{rec.sw_best_before}}</td>
+                    <td>
+                        <App-Dialog
+                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.sw_pkid,name:rec.sw_prod_batch_id}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Batch.ID</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sw_prod_batch_id"
+                    (blur)="OnBlur('sw_prod_batch_id')" required maxlength="256" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Qty</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sw_prod_batch_qty"
+                    (blur)="OnBlur('sw_prod_batch_qty')" required maxlength="16" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Unit</label>
+                <div class="col-sm-9">
+                        <app-autocomplete #pkgUnitLov [inputdata]="UQCUNITRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Manufr.Date</label>
+                <div class="col-sm-8">
+                    <app-date [inputdate]="Record.sw_date_manufacture" (ValueChanged)="Record.sw_date_manufacture=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">ExpiryDate</label>
+                <div class="col-sm-8">
+                    <app-date [inputdate]="Record.sw_date_expiry" (ValueChanged)="Record.sw_date_expiry=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">BestBeforeDate</label>
+                <div class="col-sm-8">
+                    <app-date [inputdate]="Record.sw_best_before" (ValueChanged)="Record.sw_best_before=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-box">
+    <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

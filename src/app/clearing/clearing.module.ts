@@ -24,6 +24,7 @@ import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 import {EdiOrdUpdateComponent} from './job/ediordupdate/ediordupdate.component';
 import { InfoTypeComponent } from './job/singlewindow/infotype.component';
 import { ConstComponent } from './job/singlewindow/const.component';
+import { ProdComponent } from './job/singlewindow/prod.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { ConstComponent } from './job/singlewindow/const.component';
     EdiOrderComponent,
     EdiOrdUpdateComponent,
     InfoTypeComponent,
-    ConstComponent
+    ConstComponent,
+    ProdComponent
   ],
   providers: [
   ],

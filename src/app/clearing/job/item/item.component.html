@@ -526,23 +526,22 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab title="Info Type" *ngIf="mode=='EDIT'">
+    <ngb-tab title="SW Info Type" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
         <app-infotype [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-infotype>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Constituents" *ngIf="mode=='EDIT'">
+    <ngb-tab title="SW Constituents" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
         <app-const [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-const>
       </ng-template>
     </ngb-tab>
 
-
-    <!-- <ngb-tab title="Constituents" *ngIf="mode=='EDIT'">
+    <ngb-tab title="SW Production" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
-        <app-const [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-const>
+        <app-prod [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-prod>
       </ng-template>
-    </ngb-tab> -->
+    </ngb-tab>
 
   </ngb-tabset>
 
