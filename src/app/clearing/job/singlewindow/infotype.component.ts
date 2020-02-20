@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { InfoType } from '../../models/swinfotype';
+import { SwInfoType } from '../../models/swinfotype';
 import { InfoTypeService } from '../../services/infotype.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
@@ -43,9 +43,9 @@ export class InfoTypeComponent {
     AllInfoQlfrList: any[] = [];
     AllInfoCodeList: any[] = [];
     // Array For Displaying List
-    RecordList: InfoType[] = [];
+    RecordList: SwInfoType[] = [];
     // Single Record for add/edit/view details
-    Record: InfoType = new InfoType;
+    Record: SwInfoType = new SwInfoType;
 
     UQCUNITRECORD: SearchTable = new SearchTable();
 
@@ -187,7 +187,7 @@ export class InfoTypeComponent {
     NewRecord() {
 
         this.pkid = this.gs.getGuid();
-        this.Record = new InfoType();
+        this.Record = new SwInfoType();
         this.Record.sw_pkid = this.pkid;
         this.Record.sw_info_type_id = '';
         this.Record.sw_info_type_code = '';
@@ -231,7 +231,7 @@ export class InfoTypeComponent {
                 });
     }
 
-    LoadData(_Record: InfoType) {
+    LoadData(_Record: SwInfoType) {
         this.Record = _Record;
         this.InitLov();
         this.UQCUNITRECORD.id = this.Record.sw_info_uqc_id;

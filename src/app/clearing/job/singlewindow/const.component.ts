@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { Const } from '../../models/swconst';
+import { SwConst } from '../../models/swconst';
 import { ConstService } from '../../services/const.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
@@ -37,9 +37,9 @@ export class ConstComponent {
     ctr: number;
 
     // Array For Displaying List
-    RecordList: Const[] = [];
+    RecordList: SwConst[] = [];
     // Single Record for add/edit/view details
-    Record: Const = new Const;
+    Record: SwConst = new SwConst;
 
     UQCUNITRECORD: SearchTable = new SearchTable();
 
@@ -158,7 +158,7 @@ export class ConstComponent {
     NewRecord() {
 
         this.pkid = this.gs.getGuid();
-        this.Record = new Const();
+        this.Record = new SwConst();
         this.Record.sw_pkid = this.pkid;
         this.Record.sw_jobid = '';
         this.Record.sw_itmid = '';
@@ -192,7 +192,7 @@ export class ConstComponent {
                 });
     }
 
-    LoadData(_Record: Const) {
+    LoadData(_Record: SwConst) {
         this.Record = _Record;
         this.InitLov();
         // this.UQCUNITRECORD.id = this.Record.sw_info_uqc_id;

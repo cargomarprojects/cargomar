@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { Prod } from '../../models/swprod';
+import { SwProd } from '../../models/swprod';
 import { ProdService } from '../../services/prod.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
@@ -37,9 +37,9 @@ export class ProdComponent {
     ctr: number;
 
     // Array For Displaying List
-    RecordList: Prod[] = [];
+    RecordList: SwProd[] = [];
     // Single Record for add/edit/view details
-    Record: Prod = new Prod;
+    Record: SwProd = new SwProd;
 
     UQCUNITRECORD: SearchTable = new SearchTable();
 
@@ -157,7 +157,7 @@ export class ProdComponent {
 
     NewRecord() {
         this.pkid = this.gs.getGuid();
-        this.Record = new Prod();
+        this.Record = new SwProd();
         this.Record.sw_pkid = this.pkid;
         this.Record.sw_serial_no = 0;
         this.Record.sw_prod_batch_id = '';
@@ -193,7 +193,7 @@ export class ProdComponent {
                 });
     }
 
-    LoadData(_Record: Prod) {
+    LoadData(_Record: SwProd) {
         this.Record = _Record;
         this.InitLov();
         this.UQCUNITRECORD.id = this.Record.sw_unit_id;
