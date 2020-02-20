@@ -206,6 +206,8 @@ export class InfoTypeComponent {
 
         this.Record.rec_mode = this.mode;
         this.InitLov();
+        this.InfoQlfrList = new Array<any>();
+        this.InfoCodeList = new Array<any>();
     }
 
     // Load a single Record for VIEW/EDIT
@@ -237,9 +239,11 @@ export class InfoTypeComponent {
         this.UQCUNITRECORD.name = this.Record.sw_info_uqc_name;
 
         this.Record.rec_mode = this.mode;
-        // this.lic_reg_no.nativeElement.focus();
+
         this.FillQlfrList();
         this.FillCodeList();
+
+        // this.lic_reg_no.nativeElement.focus();
     }
 
     // Save Data
