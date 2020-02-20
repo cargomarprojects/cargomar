@@ -1,0 +1,103 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>TYPE</th>
+                    <th>LOCATION</th>
+                    <th>START DATE</th>
+                    <th>END DATE</th>
+                    <th>RESULT</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (click)="ActionHandler('EDIT', rec.sw_pkid,i)">
+                    <td>{{rec.sw_ctrl_type_name}}</td>
+                    <td>{{rec.sw_ctrl_location}}</td>
+                    <td>{{rec.sw_ctrl_startdate}}</td>
+                    <td>{{rec.sw_ctrl_enddate}}</td>
+                    <td>{{rec.sw_ctrl_result_name}}</td>
+                    <td>
+                        <App-Dialog
+                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.sw_pkid,name:rec.sw_ctrl_type_name}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
+                <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_ctrl_type_id" (change)="OnChange('sw_ctrl_type_id')">
+                        <option *ngFor="let rec of InfoTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+               
+
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Location</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sw_ctrl_location"
+                        (blur)="OnBlur('sw_ctrl_location')" required maxlength="17" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">StartDate</label>
+                <div class="col-sm-8">
+                    <app-date [inputdate]="Record.sw_ctrl_startdate" (ValueChanged)="Record.sw_ctrl_startdate=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">EndDate</label>
+                <div class="col-sm-8">
+                    <app-date [inputdate]="Record.sw_ctrl_enddate" (ValueChanged)="Record.sw_ctrl_enddate=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Result</label>
+                <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_ctrl_result_id" (change)="OnChange('sw_ctrl_result_id')">
+                        <option *ngFor="let rec of InfoQlfrList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page-box">
+    <div class="col">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>
