@@ -33,6 +33,68 @@
 </div>
 <div class="page-details">
     <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
+                <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_info_type_id" (change)="OnChange('sw_info_type_id')">
+                        <option *ngFor="let rec of InfoTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Qualifier</label>
+                <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_info_qfr_id" (change)="OnChange('sw_info_qfr_id')">
+                        <option *ngFor="let rec of InfoQlfrList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
+                <div class="col-sm-9">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.sw_info_code_id">
+                        <option *ngFor="let rec of InfoCodeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Information</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sw_info_text"
+                        (blur)="OnBlur('sw_info_text')" required maxlength="100" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Measure</label>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sw_info_msr"
+                        (blur)="OnBlur('sw_info_msr')" required maxlength="15" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Unit</label>
+                <div class="col-sm-9">
+                    <app-autocomplete #pkgUnitLov [inputdata]="UQCUNITRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="row">
         <div class="col-sm-4">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
@@ -92,7 +154,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div class="page-box">
