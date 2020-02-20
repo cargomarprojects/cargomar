@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { InfoType } from '../models/infotype';
+import { SwInfoType } from '../models/swinfotype';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class InfoTypeService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/InfoType/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  Save(Record: InfoType) {
+  Save(Record: SwInfoType) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/InfoType/Save', Record, this.gs.headerparam2('authorized'));
   }
 

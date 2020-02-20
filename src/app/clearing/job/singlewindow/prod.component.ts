@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { Prod } from '../../models/prod';
+import { Prod } from '../../models/swprod';
 import { ProdService } from '../../services/prod.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 

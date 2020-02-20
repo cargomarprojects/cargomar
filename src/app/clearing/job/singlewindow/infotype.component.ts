@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { InfoType } from '../../models/infotype';
+import { InfoType } from '../../models/swinfotype';
 import { InfoTypeService } from '../../services/infotype.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 

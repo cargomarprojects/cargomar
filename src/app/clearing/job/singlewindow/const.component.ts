@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { Const } from '../../models/const';
+import { Const } from '../../models/swconst';
 import { ConstService } from '../../services/const.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 

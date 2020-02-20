@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Prod } from '../models/prod';
+import { SwProd } from '../models/swprod';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ProdService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Prod/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  Save(Record: Prod) {
+  Save(Record: SwProd) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Prod/Save', Record, this.gs.headerparam2('authorized'));
   }
 

@@ -1,6 +1,6 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
-export class InfoType {
+export class SwInfoType {
     sw_pkid: string;
     sw_jobid: string;
     sw_itmid: string;

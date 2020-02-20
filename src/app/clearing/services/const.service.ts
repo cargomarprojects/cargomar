@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Const } from '../models/const';
+import { SwConst } from '../models/swconst';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ConstService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Const/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  Save(Record: Const) {
+  Save(Record: SwConst) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Const/Save', Record, this.gs.headerparam2('authorized'));
   }
 
