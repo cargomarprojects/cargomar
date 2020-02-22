@@ -4,6 +4,7 @@ import { GlobalService } from '../../../core/services/global.service';
 import { SwCtrl } from '../../models/swctrl';
 import { SwCtrlService } from '../../services/swctrl.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { DateComponent } from '../../../shared/date/date.component';
 
 @Component({
     selector: 'app-ctrl',
@@ -14,6 +15,8 @@ export class CtrlComponent {
     // Local Variables 
     title = 'Control';
     //   @ViewChild('lic_reg_no') private lic_reg_no: ElementRef;
+    @ViewChild('sw_ctrl_startdate') private ctrl_startdate: DateComponent;
+    @ViewChild('sw_ctrl_enddate') private ctrl_enddate: DateComponent;
 
     @Input() menuid: string = '';
     @Input() type: string = '';
@@ -36,12 +39,11 @@ export class CtrlComponent {
 
     ctr: number;
 
-    InfoTypeList: any[] = [];
-    InfoQlfrList: any[] = [];
-    InfoCodeList: any[] = [];
+    CtrlTypeList: any[] = [];
+    CtrlResultList: any[] = [];
 
-    AllInfoQlfrList: any[] = [];
-    AllInfoCodeList: any[] = [];
+    AllCtrlResultList: any[] = [];
+
     // Array For Displaying List
     RecordList: SwCtrl[] = [];
     // Single Record for add/edit/view details
@@ -97,9 +99,8 @@ export class CtrlComponent {
         this.mainService.LoadDefault(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.InfoTypeList = response.infotypelist;
-                this.AllInfoQlfrList = response.infoqlfrlist;
-                this.AllInfoCodeList = response.infocodelist;
+                this.CtrlTypeList = response.ctrltypelist;
+                this.AllCtrlResultList = response.ctrlresultlist;
             },
                 error => {
                     this.loading = false;
@@ -201,8 +202,7 @@ export class CtrlComponent {
 
         this.Record.rec_mode = this.mode;
         this.InitLov();
-        this.InfoQlfrList = new Array<any>();
-        this.InfoCodeList = new Array<any>();
+        this.CtrlResultList = new Array<any>();
     }
 
     // Load a single Record for VIEW/EDIT
@@ -228,15 +228,14 @@ export class CtrlComponent {
 
     LoadData(_Record: SwCtrl) {
         this.Record = _Record;
-        this.InitLov();
+        //this.InitLov();
         // this.UQCUNITRECORD.id = this.Record.sw_info_uqc_id;
         // this.UQCUNITRECORD.code = this.Record.sw_info_uqc_code;
         // this.UQCUNITRECORD.name = this.Record.sw_info_uqc_name;
 
         this.Record.rec_mode = this.mode;
 
-        this.FillQlfrList();
-        this.FillCodeList();
+        this.FillResultList();
 
         // this.lic_reg_no.nativeElement.focus();
     }
@@ -295,28 +294,27 @@ export class CtrlComponent {
             return;
         var REC = this.RecordList.find(rec => rec.sw_pkid == this.Record.sw_pkid);
         if (REC == null) {
-            // var Rec = this.InfoTypeList.find(rec => rec.param_pkid == this.Record.sw_info_type_id);
-            // if (Rec != null) {
-            //     this.Record.sw_info_type_code = Rec.param_code;
-            //     this.Record.sw_info_type_name = Rec.param_name;
-            // }
-            // var Rec2 = this.InfoQlfrList.find(rec => rec.param_pkid == this.Record.sw_info_qfr_id);
-            // if (Rec2 != null) {
-            //     this.Record.sw_info_qfr_code = Rec2.param_code;
-            //     this.Record.sw_info_qfr_name = Rec2.param_name;
-            // }
-            // var Rec3 = this.InfoCodeList.find(rec => rec.param_pkid == this.Record.sw_info_code_id);
-            // if (Rec3 != null) {
-            //     this.Record.sw_info_code_code = Rec3.param_code;
-            //     this.Record.sw_info_code_name = Rec3.param_name;
-            // }
             this.RecordList.push(this.Record);
+            REC = this.RecordList.find(rec => rec.sw_pkid == this.Record.sw_pkid);
+            REC.sw_ctrl_startdate = this.ctrl_startdate.GetDisplayDate();
+            REC.sw_ctrl_enddate = this.ctrl_enddate.GetDisplayDate();
+
+            var Rec = this.CtrlTypeList.find(rec => rec.param_pkid == this.Record.sw_ctrl_type_id);
+            if (Rec != null) {
+                REC.sw_ctrl_type_code = Rec.param_code;
+                REC.sw_ctrl_type_name = Rec.param_name;
+            }
+            var Rec2 = this.CtrlResultList.find(rec => rec.param_pkid == this.Record.sw_ctrl_result_id);
+            if (Rec2 != null) {
+                REC.sw_ctrl_result_code = Rec2.param_code;
+                REC.sw_ctrl_result_name = Rec2.param_name;
+            }
         }
         else {
             REC.sw_ctrl_type_name = this.Record.sw_ctrl_type_name;
             REC.sw_ctrl_location = this.Record.sw_ctrl_location;
-            REC.sw_ctrl_startdate = this.Record.sw_ctrl_startdate;
-            REC.sw_ctrl_enddate = this.Record.sw_ctrl_enddate;
+            REC.sw_ctrl_startdate = this.ctrl_startdate.GetDisplayDate();
+            REC.sw_ctrl_enddate = this.ctrl_enddate.GetDisplayDate();
             REC.sw_ctrl_result_code = this.Record.sw_ctrl_result_code;
             REC.sw_ctrl_result_name = this.Record.sw_ctrl_result_name;
         }
@@ -359,21 +357,15 @@ export class CtrlComponent {
 
     OnChange(field: string) {
         this.bChanged = true;
-        // if (field == "sw_info_type_id") {
-        //     this.FillQlfrList();
-        // }
-        // else if (field == "sw_info_qfr_id") {
-        //     this.FillCodeList();
-        // }
+        if (field == "sw_ctrl_type_id") {
+            this.FillResultList();
+        }
     }
 
-    FillQlfrList() {
-        // this.InfoQlfrList = this.AllInfoQlfrList.filter(rec => rec.param_id5 == this.Record.sw_info_type_id);
-        // this.InfoCodeList = new Array<any>();
+    FillResultList() {
+        this.CtrlResultList = this.AllCtrlResultList.filter(rec => rec.param_id5 == this.Record.sw_ctrl_type_id);
     }
-    FillCodeList() {
-        // this.InfoCodeList = this.AllInfoCodeList.filter(rec => rec.param_id5 == this.Record.sw_info_qfr_id);
-    }
+
 
     OnBlur(field: string) {
         switch (field) {

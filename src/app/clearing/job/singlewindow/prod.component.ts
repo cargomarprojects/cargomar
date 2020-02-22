@@ -4,6 +4,7 @@ import { GlobalService } from '../../../core/services/global.service';
 import { SwProd } from '../../models/swprod';
 import { SwProdService } from '../../services/swprod.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { DateComponent } from '../../../shared/date/date.component';
 
 @Component({
     selector: 'app-prod',
@@ -14,6 +15,9 @@ export class ProdComponent {
     // Local Variables 
     title = 'Production';
     //   @ViewChild('lic_reg_no') private lic_reg_no: ElementRef;
+    @ViewChild('sw_date_manufacture') private date_manufacture: DateComponent;
+    @ViewChild('sw_date_expiry') private date_expiry: DateComponent;
+    @ViewChild('sw_best_before') private best_before: DateComponent;
 
     @Input() menuid: string = '';
     @Input() type: string = '';
@@ -259,14 +263,18 @@ export class ProdComponent {
         var REC = this.RecordList.find(rec => rec.sw_pkid == this.Record.sw_pkid);
         if (REC == null) {
             this.RecordList.push(this.Record);
+            REC = this.RecordList.find(rec => rec.sw_pkid == this.Record.sw_pkid);
+            REC.sw_date_manufacture = this.date_manufacture.GetDisplayDate();
+            REC.sw_date_expiry = this.date_expiry.GetDisplayDate();
+            REC.sw_best_before = this.best_before.GetDisplayDate();
         }
         else {
             REC.sw_prod_batch_id = this.Record.sw_prod_batch_id;
             REC.sw_prod_batch_qty = this.Record.sw_prod_batch_qty;
             REC.sw_unit_code = this.Record.sw_unit_code;
-            REC.sw_date_manufacture = this.Record.sw_date_manufacture;
-            REC.sw_date_expiry = this.Record.sw_date_expiry;
-            REC.sw_best_before = this.Record.sw_best_before;
+            REC.sw_date_manufacture = this.date_manufacture.GetDisplayDate();
+            REC.sw_date_expiry = this.date_expiry.GetDisplayDate();
+            REC.sw_best_before = this.best_before.GetDisplayDate();
         }
     }
 

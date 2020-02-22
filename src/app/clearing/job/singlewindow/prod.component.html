@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Manufr.Date</label>
                 <div class="col-sm-8">
-                    <app-date [inputdate]="Record.sw_date_manufacture" (ValueChanged)="Record.sw_date_manufacture=$event">
+                    <app-date #sw_date_manufacture [inputdate]="Record.sw_date_manufacture" (ValueChanged)="Record.sw_date_manufacture=$event">
                     </app-date>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">ExpiryDate</label>
                 <div class="col-sm-8">
-                    <app-date [inputdate]="Record.sw_date_expiry" (ValueChanged)="Record.sw_date_expiry=$event">
+                    <app-date #sw_date_expiry [inputdate]="Record.sw_date_expiry" (ValueChanged)="Record.sw_date_expiry=$event">
                     </app-date>
                 </div>
             </div>
@@ -82,7 +82,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">BestBeforeDate</label>
                 <div class="col-sm-8">
-                    <app-date [inputdate]="Record.sw_best_before" (ValueChanged)="Record.sw_best_before=$event">
+                    <app-date #sw_best_before [inputdate]="Record.sw_best_before" (ValueChanged)="Record.sw_best_before=$event">
                     </app-date>
                 </div>
             </div>
