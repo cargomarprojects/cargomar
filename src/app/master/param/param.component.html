@@ -57,6 +57,7 @@
           <th *ngIf="type == 'TRADE AGREEMENTS'">DATE</th>
           <th *ngIf="type == 'INFO-QLFR'">INFO TYPE</th>
           <th *ngIf="type == 'INFO-CODE'">INFO QLFR</th>
+          <th *ngIf="type == 'CTRL-RESULT'">CTRL TYPE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
@@ -74,6 +75,7 @@
           <td *ngIf="type == 'TRADE AGREEMENTS'">{{rec.param_id3}}</td>
           <td *ngIf="type == 'INFO-QLFR'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'INFO-CODE'">{{rec.param_id5_code}}</td>
+          <td *ngIf="type == 'CTRL-RESULT'">{{rec.param_id5_code}}</td>
         </tr>
       </tbody>
     </table>

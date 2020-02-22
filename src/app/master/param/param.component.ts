@@ -188,6 +188,11 @@ export class ParamComponent {
       this.id5_lovtype="INFO-QLFR";
     }
 
+    if (this.type == 'CTRL-RESULT') {
+      this.id5 = "Control Type";
+      this.id5_lovtype="CTRL-TYPE";
+    }
+
   }
 
   InitLov() {
