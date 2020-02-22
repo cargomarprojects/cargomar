@@ -92,6 +92,8 @@ export class Itemm {
     itm_ritc_qty:number;
     itm_gst_cess:number;
     
+    itm_sw: boolean;
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

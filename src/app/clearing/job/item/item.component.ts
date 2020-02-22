@@ -589,6 +589,7 @@ export class ItemComponent {
     this.Record.itm_third_party_br_address = '';
 
     this.Record.itm_reward = true;
+
     this.itm_code = '';
 
     this.Record.itm_state_id = '';
@@ -607,6 +608,7 @@ export class ItemComponent {
     this.Record.itm_gst_cess = 0;
     this.Record.itm_ritc_qty = 0;
 
+    this.Record.itm_sw = false;
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
@@ -644,7 +646,7 @@ export class ItemComponent {
       this.STATERECORD.id = this.Record.itm_state_id;
       this.STATERECORD.code = this.Record.itm_state_code;
       this.STATERECORD.name = this.Record.itm_state_name;
-      
+
       this.DISTRECORD.id = this.Record.itm_district_id;
       this.DISTRECORD.code = this.Record.itm_district_code;
       this.DISTRECORD.name = this.Record.itm_district_name;
