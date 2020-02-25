@@ -30,15 +30,18 @@
           <th>SL#</th>
           <th>INV#</th>
           <th>DESCRIPTION</th>
-          <th>DBK</th>
-          <th>RITC</th>
           <th>QTY</th>
           <th>UNIT</th>
-          <th>UNIT.RATE</th>
+          <th>RATE</th>
           <th>AMOUNT</th>
+          <th>RITC</th>
+          <th>R.QTY</th>
+          <th>R.UNIT</th>
+          <th>DBK</th>   
+          <th>DBK.QTY</th>   
           <th>STATE</th>
           <th>DISTRICT</th>
-          <th>TRADEAGREMT</th>
+          <th>PTA/FTA</th>
           <th>DELETE</th>
         </tr>
       </thead>
@@ -48,15 +51,18 @@
           <td>{{i+1}}</td>
           <td>{{rec.itm_invoice_no}}</td>
           <td>{{rec.itm_desc}}</td>
-          <td>{{rec.itm_dbk_code}}</td>
-          <td>{{rec.itm_ritc_code}}</td>
           <td>{{rec.itm_qty}}</td>
           <td>{{rec.itm_unit_code}}</td>
           <td>{{rec.itm_unit_rate}}</td>
           <td>{{rec.itm_amount}}</td>
+          <td>{{rec.itm_ritc_code}}</td>          
+          <td>{{rec.itm_ritc_qty}}</td>          
+          <td>{{rec.itm_ritc_unit}}</td>          
+          <td>{{rec.itm_dbk_code}}</td>          
+          <td>{{rec.itm_dbk_qty}}</td>          
           <td>{{rec.itm_state_name}}</td>
           <td>{{rec.itm_district_name}}</td>
-          <td>{{rec.itm_ta_name}}</td>
+          <td>{{rec.itm_ta_code}}</td>
           <td>
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.itm_pkid,name:i+1}"
               (result)="RemoveList($event)"></App-Dialog>

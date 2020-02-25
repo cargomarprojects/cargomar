@@ -776,6 +776,7 @@ export class ItemComponent {
     else {
       REC.itm_desc = this.Record.itm_desc;
       REC.itm_qty = this.Record.itm_qty;
+      REC.itm_unit_code = this.Record.itm_unit_code;      
       REC.itm_unit_rate = this.Record.itm_unit_rate;
       REC.itm_amount = this.Record.itm_amount;
       REC.itm_state_id = this.Record.itm_state_id;
@@ -784,6 +785,14 @@ export class ItemComponent {
       REC.itm_district_id = this.Record.itm_district_id;
       REC.itm_district_code = this.Record.itm_district_code;
       REC.itm_district_name = this.Record.itm_district_name;
+
+      REC.itm_ritc_code = this.Record.itm_ritc_code;
+      REC.itm_ritc_unit = this.Record.itm_ritc_unit;
+      REC.itm_dbk_code = this.Record.itm_dbk_code;
+      REC.itm_dbk_qty = this.Record.itm_dbk_qty;
+      REC.itm_ta_code = this.Record.itm_ta_code;      
+
+
     }
   }
 
