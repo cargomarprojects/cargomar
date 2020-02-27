@@ -157,6 +157,12 @@ export class GlobalService {
   }
 
 
+  public DownloadFileFromLocalhost(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
+    let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
+    window.open('http://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
+  }
+
+
   public roundNumber(_number: number, _precision: number) {
     var factor = Math.pow(10, _precision);
     var tempNumber = _number * factor;

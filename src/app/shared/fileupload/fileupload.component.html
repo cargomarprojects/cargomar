@@ -19,6 +19,7 @@
           <th>NAME</th>
           <th>SIZE</th>
           <th>DELETED</th>
+          <th>REMARKS</th>          
           <th *ngIf="canupload">DELETE</th>
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">EDIT</th>
         </tr>
@@ -31,6 +32,7 @@
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
+          <td (click)="ShowFile2(rec.doc_full_name,rec.doc_file_name)">NA</td>
           <td *ngIf="canupload">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
               (result)="RemoveList($event)"></App-Dialog>

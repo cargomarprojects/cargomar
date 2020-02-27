@@ -238,6 +238,18 @@ export class FileUploadComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
+
+  ShowFile2(filename: string, filedisplayname: string = '') {
+    if (filedisplayname == undefined || filedisplayname == '')
+      filedisplayname = filename;
+    this.Downloadfile2(filename, "", filedisplayname);
+  }
+
+  Downloadfile2(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFileFromLocalhost (this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
+
   ShowEdiUpdate(_rec: documentm) {
     if (_rec.doc_pkid == null)
       return;
