@@ -78,7 +78,7 @@ export class BenfComponent {
         this.BRRECORD.displaycolumn = "CODE";
         this.BRRECORD.type = "BRANCH";
         this.BRRECORD.id = "";
-        this.BRRECORD.code = "";
+        this.BRRECORD.code = this.gs.globalVariables.branch_code;
     }
 
     LovSelected(_Record: SearchTable) {
