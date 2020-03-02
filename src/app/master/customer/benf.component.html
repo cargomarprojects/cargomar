@@ -156,7 +156,7 @@
             <div class="form-group row">
               <label class="col-sm-4 col-form-label  col-form-label-sm">This Branch Only</label>
               <div class="col-sm-8">
-                  <app-autocomplete #BrLov [inputdata]="BRRECORD" 
+                  <app-autocomplete #BrLov [inputdata]="BRRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'" 
                   (ValueChanged)="LovSelected($event)"></app-autocomplete>
               </div>
             </div>

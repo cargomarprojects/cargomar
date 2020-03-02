@@ -29,6 +29,7 @@ export class BenfComponent {
 
     bChanged: boolean;
 
+    // ben_branch_code = "";
     ErrorMessage = "";
     InfoMessage = "";
     mode = 'ADD';
@@ -170,7 +171,7 @@ export class BenfComponent {
         this.Record.ben_email1 = '';
         this.Record.ben_email2 = '';
         this.Record.ben_mob = '';
-        this.Record.ben_branch_code = '';
+        this.Record.ben_branch_code = this.gs.globalVariables.branch_code;
         this.Record.rec_mode = this.mode;
         this.InitLov();
         this.ben_code.nativeElement.focus();
