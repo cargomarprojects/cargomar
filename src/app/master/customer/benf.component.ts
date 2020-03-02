@@ -48,7 +48,7 @@ export class BenfComponent {
     constructor(
         private mainService: BenfService,
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
         this.InitLov();
     }
