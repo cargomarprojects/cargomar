@@ -159,6 +159,27 @@ export class MappingComponent {
         { "id": "ORDER", "name": "DELIVERY-POD-DATE" },
         { "id": "ORDER", "name": "POL" },
         { "id": "ORDER", "name": "POD" },
+
+        { "id": "ITEM", "name": "SLNO" },
+        { "id": "ITEM", "name": "ITEM" },
+        { "id": "ITEM", "name": "QTY" },
+        { "id": "ITEM", "name": "UNIT" },
+        { "id": "ITEM", "name": "RATE" },
+        { "id": "ITEM", "name": "RITC" },
+        { "id": "ITEM", "name": "RITC-QTY" },
+        { "id": "ITEM", "name": "SCHEME-CODE" },
+        { "id": "ITEM", "name": "DBK-CODE" },
+        { "id": "ITEM", "name": "DBK-QTY" },
+        { "id": "ITEM", "name": "END-USE" },
+        { "id": "ITEM", "name": "STATE" },
+        { "id": "ITEM", "name": "DISTRICT" },
+        { "id": "ITEM", "name": "PTA-FTA" },
+        { "id": "ITEM", "name": "TAXABLE-VALUE" },
+        { "id": "ITEM", "name": "IGST-PER" },
+        { "id": "ITEM", "name": "IGST-AMT" },
+        { "id": "ITEM", "name": "CESS-AMT" },
+        { "id": "ITEM", "name": "THIRD-PARTY" },
+        { "id": "ITEM", "name": "BRANCH-SLNO" },
         { "id": "OTHERTYPE", "name": "..." }];//Add Other Type here
 
         this.FillTargetCol();

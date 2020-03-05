@@ -6,15 +6,24 @@
       <div class="col-sm-4">
 
         <div class="form-group row">
+
           <label class="col-sm-2 col-form-label col-form-label-sm">Invoice#</label>
-          <div class="col-sm-7">
+
+          <div class="col-sm-6">
             <select class="form-control form-control-sm" name="jtype" [(ngModel)]="search_inv_pkid">
               <option *ngFor="let rec of InvoiceList" [value]="rec.jexp_pkid">{{rec.jexp_invoice_no}}</option>
             </select>
           </div>
+
           <div class="col-sm-2">
             <button [disabled]="loading" (click)="ChangeInvoiceList(false)" class="btn btn-primary btn-sm">Find</button>
           </div>
+
+          <div class="col-sm-2" *ngIf="false">
+            <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm">Paste
+              Data</button>
+          </div>
+
         </div>
 
       </div>
@@ -37,8 +46,8 @@
           <th>RITC</th>
           <th>R.QTY</th>
           <th>R.UNIT</th>
-          <th>DBK</th>   
-          <th>DBK.QTY</th>   
+          <th>DBK</th>
+          <th>DBK.QTY</th>
           <th>STATE</th>
           <th>DISTRICT</th>
           <th>PTA/FTA</th>
@@ -55,11 +64,11 @@
           <td>{{rec.itm_unit_code}}</td>
           <td>{{rec.itm_unit_rate}}</td>
           <td>{{rec.itm_amount}}</td>
-          <td>{{rec.itm_ritc_code}}</td>          
-          <td>{{rec.itm_ritc_qty}}</td>          
-          <td>{{rec.itm_ritc_unit}}</td>          
-          <td>{{rec.itm_dbk_code}}</td>          
-          <td>{{rec.itm_dbk_qty}}</td>          
+          <td>{{rec.itm_ritc_code}}</td>
+          <td>{{rec.itm_ritc_qty}}</td>
+          <td>{{rec.itm_ritc_unit}}</td>
+          <td>{{rec.itm_dbk_code}}</td>
+          <td>{{rec.itm_dbk_qty}}</td>
           <td>{{rec.itm_state_name}}</td>
           <td>{{rec.itm_district_name}}</td>
           <td>{{rec.itm_ta_code}}</td>
@@ -593,5 +602,19 @@
   <div class="modal-body">
     <app-esanchitlink [jobid]="parentid" [linktype]="'ITEM'" [linkid]="pkid" [linkno]="Record.itm_desc">
     </app-esanchitlink>
+  </div>
+</ng-template>
+
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Paste Data</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ITEM'" [version]="1"
+      (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   </div>
 </ng-template>

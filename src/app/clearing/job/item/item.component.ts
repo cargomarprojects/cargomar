@@ -58,8 +58,11 @@ export class ItemComponent {
 
   bListLoaded: boolean = false;
   bValueChanged: boolean = false;
-
   Prev_item_name = '';
+
+
+  bShowPasteData: boolean = false;
+
 
   // Array For Displaying List
   RecordList: Itemm[] = [];
@@ -1135,4 +1138,20 @@ export class ItemComponent {
   LinkDocs(esanchitlink: any) {
     this.open(esanchitlink);
   }
+
+
+  PasteData(content: any) {
+    this.bShowPasteData = true;
+    this.modal = this.modalService.open(content);
+  }
+
+  PasteDataClosed(cbdata: string) {
+    this.bShowPasteData =false;
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.modal.close();
+  }
+
 }

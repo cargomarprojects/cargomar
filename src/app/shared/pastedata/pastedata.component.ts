@@ -23,6 +23,8 @@ export class PasteDataComponent implements OnInit {
 
   @Input() ExcelFormat: string = '';
 
+  @Input() version: number = 0;
+
   displayed: boolean = false;
 
   loading: boolean = false
@@ -31,7 +33,15 @@ export class PasteDataComponent implements OnInit {
 
   ErrorMessage: string = '';
 
+  isVerified = false;
+
+
   cbdata: string = '';
+
+  result: any;
+
+  htmldata = '';
+
   dateformat: string = 'DMY';
   maintype: string = 'ORDER LIST';
 
@@ -82,7 +92,7 @@ export class PasteDataComponent implements OnInit {
   close() {
     if (this.displayed) {
       this.displayed = false;
-//      this.modalref.close();
+      //      this.modalref.close();
       if (this.CloseClicked != null)
         this.CloseClicked.emit(null);
     }
@@ -92,6 +102,7 @@ export class PasteDataComponent implements OnInit {
     if (this.CloseClicked != null)
       this.CloseClicked.emit(this.cbdata);
   }
+
 
 
   //SearchRecord() {
@@ -119,7 +130,7 @@ export class PasteDataComponent implements OnInit {
     this.loading = true;
     this.SearchData.type = this.ExcelFormat;
     this.SearchData.table = "excelformat";
-    this.SearchData.report_folder=this.gs.globalVariables.report_folder;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
@@ -139,6 +150,54 @@ export class PasteDataComponent implements OnInit {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+
+  verify() {
+
+    this.result = this.cbdata.split("\n");
+
+
+
+    this.htmldata = '';
+    this.htmldata += '<div class="page-body table-responsive">';
+    this.htmldata += '<table class="table  table-hover table-sm">';
+
+    this.htmldata += '<thead class="page-body-thead">';
+
+
+    this.htmldata += '<tr>';
+
+    var colhead = this.result[0].split('\t');
+    for (var i = 0; i < colhead.length; i++) {
+      this.htmldata += '<th>' + colhead[i] + '</th>';
+    }
+
+
+    this.htmldata += '</tr>';
+
+    this.htmldata += '</thead>';
+
+    this.htmldata += '<tbody class="page-body-tbody">';
+
+    for (var i = 1; i < this.result.length; i++) {
+      this.htmldata += '<tr>';
+
+      var coldata = this.result[i].split('\t');
+
+      for (let itm of coldata) {
+        this.htmldata += '<td>' + itm + '</td>';
+      }
+      this.htmldata += '</tr>';
+    }
+
+    this.htmldata += '</tbody>';
+
+    this.htmldata += '</table>';
+    this.htmldata += '</div>';
+
+    //this.isVerified = true;
+  }
+
+
 
 }
 
