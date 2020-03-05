@@ -51,6 +51,11 @@ export class MonRep {
   branch: string;
   agent_created_date: string;
   
+  hbl_sell_rate_pp:number;
+  hbl_sell_rate_cc:number;
+  hbl_buy_rate_pp:number;
+  hbl_buy_rate_cc:number;
+
   hbl_pkid: string; 
   sman_id: string;
   displayed: boolean;
