@@ -151,6 +151,10 @@
           <th>INV-NO</th>
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST</th>
+          <th class="text-right">SELL[P]</th>
+          <th class="text-right">SELL[C]</th>
+          <th class="text-right">BUY[P]</th>
+          <th class="text-right">BUY[C]</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -191,6 +195,10 @@
           <td>{{rec.hbl_ar_invnos}}</td>
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
         </tr>
         <tr *ngIf="bEdit && rec.displayed">
           <td colspan="30">
@@ -237,6 +245,10 @@
           <th>INV-NO</th>
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST</th>
+          <th class="text-right">SELL[P]</th>
+          <th class="text-right">SELL[C]</th>
+          <th class="text-right">BUY[P]</th>
+          <th class="text-right">BUY[C]</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -273,6 +285,10 @@
           <td>{{rec.hbl_ar_invnos}}</td>
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
         </tr>
       </tbody>
     </table>
@@ -318,6 +334,10 @@
           <th>INV-NO</th>
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST</th>
+          <th class="text-right">SELL[P]</th>
+          <th class="text-right">SELL[C]</th>
+          <th class="text-right">BUY[P]</th>
+          <th class="text-right">BUY[C]</th>
           <th></th>
         </tr>
       </thead>
@@ -359,6 +379,10 @@
           <td>{{rec.hbl_ar_invnos}}</td>
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
         </tr>
         <tr *ngIf="bEdit && rec.displayed">
           <td colspan="30">
@@ -402,6 +426,10 @@
           <th>INV-NO</th>
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST</th>
+          <th class="text-right">SELL[P]</th>
+          <th class="text-right">SELL[C]</th>
+          <th class="text-right">BUY[P]</th>
+          <th class="text-right">BUY[C]</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -436,6 +464,10 @@
           <td>{{rec.hbl_ar_invnos}}</td>
           <td align='right'>{{rec.hbl_ar_invamt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_ar_gstamt | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
         </tr>
       </tbody>
     </table>
