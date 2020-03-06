@@ -63,6 +63,8 @@ export class ItemComponent {
 
   bShowPasteData: boolean = false;
 
+  myData : any ;
+
 
   // Array For Displaying List
   RecordList: Itemm[] = [];
@@ -1141,6 +1143,9 @@ export class ItemComponent {
 
 
   PasteData(content: any) {
+
+    this.myData =  {job_id : this.parentid, inv_id :  this.search_inv_pkid};
+
     this.bShowPasteData = true;
     this.modal = this.modalService.open(content);
   }

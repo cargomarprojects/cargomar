@@ -200,7 +200,6 @@ export class PasteDataComponent implements OnInit {
 
   Save() {
 
-    this.data.table = 'pastedata';
     this.data.type = this.ExcelFormat;
     this.data.comp_code = this.gs.globalVariables.comp_code;
     this.data.branch_code = this.gs.globalVariables.branch_code;

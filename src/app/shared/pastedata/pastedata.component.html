@@ -32,6 +32,10 @@
         <button class="btn btn-primary btn-sm" (click)="verify()">VERIFY</button>
       </div>
 
+      <div class="col-2" *ngIf="version == 1 && isVerified ==true ">
+        <button class="btn btn-primary btn-sm" (click)="Save()">Save</button>
+      </div>
+
       <!-- <div class="col-2">
            <button class="btn btn-primary btn-sm" (click)="close()">Cancel</button>
            </div> 

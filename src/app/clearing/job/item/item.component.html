@@ -614,7 +614,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ITEM'" [version]="1"
+    <App-PasteData [visible]="bShowPasteData" [msg]="'Please Wait'" [ExcelFormat]="'ITEM'" [version]="1" [data]="myData"
       (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   </div>
 </ng-template>
