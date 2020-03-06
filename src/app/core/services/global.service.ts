@@ -151,6 +151,12 @@ export class GlobalService {
     return this.http2.post<any>(this.baseUrl + "/api/Admin/Lov/SearchRecord", SearchData, this.headerparam2('authorized'));
   }
 
+  public importData(SearchData: any) {
+    if ( SearchData.type == 'ITEM'   )
+      return this.http2.post<any>(this.baseUrl + '/api/Operations/Item/ImportData',SearchData, this.headerparam2('authorized'));
+  }
+
+
   public DownloadFile(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
     window.open(this.baseUrl + '/api/Admin/User/DownloadFile?' + body, "_blank");

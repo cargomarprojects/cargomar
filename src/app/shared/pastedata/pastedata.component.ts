@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { SearchTable } from '../models/searchtable';
 import { GlobalService } from '../../core/services/global.service';
-
 
 
 @Component({
@@ -22,6 +20,8 @@ export class PasteDataComponent implements OnInit {
   @Input() visible: boolean = false;
 
   @Input() ExcelFormat: string = '';
+
+  @Input() data: any;
 
   @Input() version: number = 0;
 
@@ -194,7 +194,29 @@ export class PasteDataComponent implements OnInit {
     this.htmldata += '</table>';
     this.htmldata += '</div>';
 
-    //this.isVerified = true;
+    this.isVerified = true;
+  }
+
+
+  Save() {
+
+    this.data.table = 'pastedata';
+    this.data.type = this.ExcelFormat;
+    this.data.comp_code = this.gs.globalVariables.comp_code;
+    this.data.branch_code = this.gs.globalVariables.branch_code;
+    this.data.year_code = this.gs.globalVariables.year_code;
+    this.data.cbdata = this.cbdata;
+
+    this.ErrorMessage = '';
+    this.gs.importData(this.data)
+      .subscribe(response => {
+        this.loading = false;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
   }
 
 
