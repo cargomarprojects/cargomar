@@ -92,7 +92,6 @@ export class PasteDataComponent implements OnInit {
   close() {
     if (this.displayed) {
       this.displayed = false;
-      //      this.modalref.close();
       if (this.CloseClicked != null)
         this.CloseClicked.emit(null);
     }
@@ -210,6 +209,8 @@ export class PasteDataComponent implements OnInit {
     this.gs.importData(this.data)
       .subscribe(response => {
         this.loading = false;
+        alert('Import Data Complete');
+        this.close();
       },
         error => {
           this.loading = false;
