@@ -43,12 +43,14 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
+          <th>UNIT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr (click)="ActionHandler('EDIT',rec.ritc_pkid)">
           <td>{{rec.ritc_code}}</td>
           <td>{{rec.ritc_name}}</td>
+          <td>{{rec.ritc_unit}}</td>
         </tr>
       </tbody>
     </table>
