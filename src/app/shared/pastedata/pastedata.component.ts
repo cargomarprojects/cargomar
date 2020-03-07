@@ -204,7 +204,7 @@ export class PasteDataComponent implements OnInit {
     this.data.branch_code = this.gs.globalVariables.branch_code;
     this.data.year_code = this.gs.globalVariables.year_code;
     this.data.cbdata = this.cbdata;
-
+    this.data._globalvariables = this.gs.globalVariables;
     this.ErrorMessage = '';
     this.gs.importData(this.data)
       .subscribe(response => {
