@@ -97,6 +97,7 @@ export class PasteDataComponent implements OnInit {
     }
   }
 
+
   ok() {
     if (this.CloseClicked != null)
       this.CloseClicked.emit(this.cbdata);
@@ -198,6 +199,12 @@ export class PasteDataComponent implements OnInit {
 
 
   Save() {
+
+
+    if ( this.loading)
+      return;
+
+    this.loading =true;
 
     this.data.type = this.ExcelFormat;
     this.data.comp_code = this.gs.globalVariables.comp_code;

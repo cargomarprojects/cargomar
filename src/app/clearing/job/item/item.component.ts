@@ -63,7 +63,7 @@ export class ItemComponent {
 
   bShowPasteData: boolean = false;
 
-  myData : any ;
+  myData: any;
 
 
   // Array For Displaying List
@@ -121,7 +121,7 @@ export class ItemComponent {
       .subscribe(response => {
         this.loading = false;
         this.InvoiceList = response.jobexpm;
-        this.ChangeInvoiceList(true);
+        this.ChangeInvoiceList(true, 'NEW');
       },
         error => {
           this.loading = false;
@@ -129,7 +129,7 @@ export class ItemComponent {
         });
   }
 
-  ChangeInvoiceList(bfirstTime: boolean) {
+  ChangeInvoiceList(bfirstTime: boolean, saction: string) {
     if (this.InvoiceList != null) {
       for (var i = 0; i < this.InvoiceList.length; i++) {
         if ((bfirstTime && i == 0) || (!bfirstTime && this.InvoiceList[i].jexp_pkid == this.search_inv_pkid)) {
@@ -137,13 +137,16 @@ export class ItemComponent {
           this.inv_no = this.InvoiceList[i].jexp_invoice_no;
           this.ex_rate = this.InvoiceList[i].jexp_exrate;
           this.search_inv_pkid = this.InvoiceList[i].jexp_pkid;
-          this.List('NEW');
+          this.List(saction);
           break;
         }
       }
     }
   }
 
+  PrintItemList() {
+    this.ChangeInvoiceList(false, 'EXCEL');
+  }
 
   InitLov(action: string = '') {
 
@@ -507,6 +510,8 @@ export class ItemComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      file_pkid: this.gs.getGuid(),
     };
 
     this.ErrorMessage = '';
@@ -514,15 +519,24 @@ export class ItemComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.ActionHandler("ADD", null);
-        this.bListLoaded = true;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.ActionHandler("ADD", null);
+          this.bListLoaded = true;
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
 
   NewRecord() {
 
@@ -781,7 +795,7 @@ export class ItemComponent {
     else {
       REC.itm_desc = this.Record.itm_desc;
       REC.itm_qty = this.Record.itm_qty;
-      REC.itm_unit_code = this.Record.itm_unit_code;      
+      REC.itm_unit_code = this.Record.itm_unit_code;
       REC.itm_unit_rate = this.Record.itm_unit_rate;
       REC.itm_amount = this.Record.itm_amount;
       REC.itm_state_id = this.Record.itm_state_id;
@@ -795,7 +809,7 @@ export class ItemComponent {
       REC.itm_ritc_unit = this.Record.itm_ritc_unit;
       REC.itm_dbk_code = this.Record.itm_dbk_code;
       REC.itm_dbk_qty = this.Record.itm_dbk_qty;
-      REC.itm_ta_code = this.Record.itm_ta_code;      
+      REC.itm_ta_code = this.Record.itm_ta_code;
 
 
     }
@@ -1144,19 +1158,23 @@ export class ItemComponent {
 
   PasteData(content: any) {
 
-    this.myData =  {job_id : this.parentid, inv_id :  this.search_inv_pkid};
+    this.myData = { job_id: this.parentid, inv_id: this.search_inv_pkid };
 
     this.bShowPasteData = true;
     this.modal = this.modalService.open(content);
   }
 
   PasteDataClosed(cbdata: string) {
-    this.bShowPasteData =false;
+    this.bShowPasteData = false;
+    this.ChangeInvoiceList(true, 'NEW');        
     this.closeModal();
   }
 
   closeModal() {
     this.modal.close();
+  
   }
+
+
 
 }

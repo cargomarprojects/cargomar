@@ -28,12 +28,12 @@
         <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>
       </div>
 
-      <div class="col-2" *ngIf="version == 1">
+<!--       <div class="col-2" *ngIf="version == 1">
         <button class="btn btn-primary btn-sm" (click)="verify()">VERIFY</button>
-      </div>
+      </div> -->
 
-      <div class="col-2" *ngIf="version == 1 && isVerified ==true ">
-        <button class="btn btn-primary btn-sm" (click)="Save()">Save</button>
+      <div class="col-2" *ngIf="version == 1">
+        <button class="btn btn-primary btn-sm" (click)="Save()">OK</button>
       </div>
 
       <!-- <div class="col-2">
@@ -43,6 +43,10 @@
 
     </div>
   </div>
+</div>
+
+<div>
+  <i *ngIf="loading" class="fa fa-spinner"></i>
 </div>
 
 

@@ -9,19 +9,23 @@
 
           <label class="col-sm-2 col-form-label col-form-label-sm">Invoice#</label>
 
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" name="jtype" [(ngModel)]="search_inv_pkid">
               <option *ngFor="let rec of InvoiceList" [value]="rec.jexp_pkid">{{rec.jexp_invoice_no}}</option>
             </select>
           </div>
 
           <div class="col-sm-2">
-            <button [disabled]="loading" (click)="ChangeInvoiceList(false)" class="btn btn-primary btn-sm">Find</button>
+            <button [disabled]="loading" (click)="ChangeInvoiceList(false, 'NEW')" class="btn btn-primary btn-sm">Find</button>
           </div>
 
           <div class="col-sm-2" *ngIf="true">
             <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm">Paste
               Data</button>
+          </div>
+
+          <div class="col-sm-2" *ngIf="true">
+            <button [disabled]="loading" (click)="PrintItemList()" class="btn btn-primary btn-sm">Print</button>
           </div>
 
         </div>
