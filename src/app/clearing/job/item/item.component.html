@@ -37,9 +37,11 @@
 
 
   <div class="page-body table-responsive">
+   <div [style.height]="RecordList.length>8?'250px':'auto'"
+          [style.overflow-y]="RecordList.length>8?'scroll':'auto'" >
     <table class="table  table-hover table-sm">
-      <thead class="page-body-thead">
-        <tr>
+      <thead class="page-body-thead" >
+        <tr >
           <th>SL#</th>
           <th>INV#</th>
           <th>DESCRIPTION</th>
@@ -59,6 +61,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
+        
         <tr *ngFor="let rec of RecordList; let i = index" (click)="ActionHandler('EDIT',rec.itm_pkid,i)"
           [class.active]="i == selectedRowIndex">
           <td>{{i+1}}</td>
@@ -81,8 +84,11 @@
               (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
+     
       </tbody>
+
     </table>
+   </div>
   </div>
 
 </div>
