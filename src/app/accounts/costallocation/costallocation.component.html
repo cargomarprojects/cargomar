@@ -176,7 +176,7 @@
         </div>
 
         <div class="page-box">
-          <table class="table" style="overflow:auto;display:inline-block;width:100%">
+          <table class="table" style="overflow:auto;display:block;width:100%">
             <thead class="page-body-thead">
               <tr>
                 <th style="width:100px;text-align:left">DATE</th>
@@ -189,7 +189,7 @@
                 <th style="width:100px;text-align:right">DR</th>
                 <th style="width:100px;text-align:right">CR</th>
                 <th style="width:100px;text-align:right">BAL</th>
-                <th style="width:100px;text-align:right">ALLOC.</th>
+                <th style="width:150px;text-align:left">ALLOC.</th>
                 <th style="width:100px;text-align:left">Y/N</th>
                 <th style="width:100px;text-align:right">EXRATE</th>
                 <th style="width:100px;text-align:right">DR</th>
@@ -198,7 +198,7 @@
                 <th style="width:100px;text-align:right">ALLOC-INR</th>
               </tr>
             </thead>
-            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:inline-block;width:100%">
+            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:block;width:100%">
               <tr *ngFor="let rec of PendingList">
                 <td style="width:100px;text-align:left">{{rec.jv_display_date}}</td>
                 <td style="width:200px;max-width:200px;text-align:left">{{rec.jv_reference}}</td>
@@ -210,7 +210,7 @@
                 <td style="width:100px;text-align:right">{{ rec.dr | number : '1.2-2' }}</td>
                 <td style="width:100px;text-align:right">{{ rec.cr | number : '1.2-2' }}</td>
                 <td style="width:100px;text-align:right">{{ rec.balance | number : '1.2-2' }}</td>
-                <td style="width:100px;text-align:right">
+                <td style="width:150px;text-align:left">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.allocation" (blur)="OnBlur('allocation', rec)" />
                 </td>
                 <td style="width:100px;text-align:left">
