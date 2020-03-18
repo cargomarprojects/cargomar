@@ -176,54 +176,54 @@
         </div>
 
         <div class="page-box">
-          <table class="table table-sm" style="display:block;width:100%;">
+          <table class="table" style="overflow:auto;display:inline-block;width:100%">
             <thead class="page-body-thead">
               <tr>
-                <th width="100" class="text-left">DATE</th>
-                <th width="100" class="text-left">REF#</th>
-                <th width="10" class="text-left">REMARKS</th>
-                <th width="100" class="text-left">VRNO</th>
-                <th width="100" class="text-left">TYPE</th>
-                <th width="100" class="text-left">CATEGORY</th>
-                <th width="100" class="text-right">DR</th>
-                <th width="100" class="text-right">CR</th>
-                <th width="100" class="text-right">BAL</th>
-                <th width="100" class="text-right">ALLOC.</th>
-                <th width="50"  class="text-left">Y/N</th>
-                <th width="100" class="text-right">EXRATE</th>
-                <th width="100" class="text-right">DR</th>
-                <th width="100" class="text-right">CR</th>
-                <th width="100" class="text-right">BAL-INR</th>
-                <th width="100" class="text-right">ALLOC-INR</th>
+                <th style="width:100px;text-align:left">DATE</th>
+                <th style="width:200px;text-align:left">REF#</th>
+                <th style="width:100px;text-align:left">REMARKS</th>
+                <th style="width:100px;text-align:left">VRNO</th>
+                <th style="width:100px;text-align:left">TYPE</th>
+                <th style="width:100px;text-align:left">CATEGORY</th>
+
+                <th style="width:100px;text-align:right">DR</th>
+                <th style="width:100px;text-align:right">CR</th>
+                <th style="width:100px;text-align:right">BAL</th>
+                <th style="width:100px;text-align:right">ALLOC.</th>
+                <th style="width:100px;text-align:left">Y/N</th>
+                <th style="width:100px;text-align:right">EXRATE</th>
+                <th style="width:100px;text-align:right">DR</th>
+                <th style="width:100px;text-align:right">CR</th>
+                <th style="width:100px;text-align:right">BAL-INR</th>
+                <th style="width:100px;text-align:right">ALLOC-INR</th>
               </tr>
             </thead>
-            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:block;width:100%;">
+            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:inline-block;width:100%">
               <tr *ngFor="let rec of PendingList">
-                <td width="100" align='left'>{{rec.jv_display_date}}</td>
-                <td width="100" align='left'>{{rec.jv_reference}}</td>
-                <td width="10" align='left'>{{rec.jv_remarks}}</td>
-                <td width="100" align='left'>{{rec.jv_vrno}}</td>
-                <td width="100" align='left'>{{rec.jv_type}}</td>
-                <td width="100" align='left'>{{rec.rec_category}}</td>
-                <td width="100" align='right'>{{ rec.dr | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.cr | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.balance | number : '1.2-2' }}</td>
-                <td width="100" align='right'>
+                <td style="width:100px;text-align:left">{{rec.jv_display_date}}</td>
+                <td style="width:200px;max-width:200px;text-align:left">{{rec.jv_reference}}</td>
+                <td style="width:100px;max-width:100px;text-align:left">{{rec.jv_remarks}}</td>
+                <td style="width:100px;text-align:left">{{rec.jv_vrno}}</td>
+                <td style="width:100px;text-align:left">{{rec.jv_type}}</td>
+                <td style="width:100px;text-align:left">{{rec.rec_category}}</td>
+
+                <td style="width:100px;text-align:right">{{ rec.dr | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.cr | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.balance | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.allocation" (blur)="OnBlur('allocation', rec)" />
                 </td>
-                <td width="50" align='left'>
+                <td style="width:100px;text-align:left">
                   <input type="checkbox" [(ngModel)]="rec.jv_selected" (change)="OnChange('jv_selected', rec)">
                 </td>
-                <td width="100" align='right'>{{ rec.jv_exchange_rate | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.jv_debit | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.inrbalance | number : '1.2-2' }}</td>
-                <td width="100" align='right'>{{ rec.inrallocation | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.jv_exchange_rate | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.jv_debit | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.jv_credit | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.inrbalance | number : '1.2-2' }}</td>
+                <td style="width:100px;text-align:right">{{ rec.inrallocation | number : '1.2-2' }}</td>
               </tr>
             </tbody>
           </table>
-
-
         </div>
 
 
