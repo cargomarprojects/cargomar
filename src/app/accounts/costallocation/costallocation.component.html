@@ -131,7 +131,7 @@
 
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
 
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Agent</label>
@@ -154,7 +154,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm"></label>
                 <div class="col-10">
@@ -164,9 +164,24 @@
 
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm"></label>
-                <div class="col-10">
+                
+                <div class="col-2">
                   <button [disabled]="loading" (click)="ShowPending()" class="btn btn-primary btn-sm">Search Pending</button>
                 </div>
+
+                <label class="col-2 col-form-label col-form-label-sm">HT</label>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="ht" />
+                </div>
+
+                
+
+                <div class="col-4">
+                  <input type="checkbox" [(ngModel)]="showrem">
+                  <span>Remarks</span>
+                </div>
+
+
               </div>
 
             </div>
@@ -181,7 +196,7 @@
               <tr>
                 <th style="width:100px;text-align:left">DATE</th>
                 <th style="width:200px;text-align:left">REF#</th>
-                <th style="width:100px;text-align:left">REMARKS</th>
+                <th style="width:100px;text-align:left" *ngIf ="showrem">REMARKS</th>
                 <th style="width:100px;text-align:left">VRNO</th>
                 <th style="width:100px;text-align:left">TYPE</th>
                 <th style="width:100px;text-align:left">CATEGORY</th>
@@ -198,11 +213,11 @@
                 <th style="width:100px;text-align:right">ALLOC-INR</th>
               </tr>
             </thead>
-            <tbody class="page-body-tbody" style="height:300px;overflow:auto;display:block;width:100%">
+            <tbody class="page-body-tbody" style="overflow:auto;display:block;width:100%" [style.height]='getht()'>
               <tr *ngFor="let rec of PendingList">
                 <td style="width:100px;text-align:left">{{rec.jv_display_date}}</td>
                 <td style="width:200px;max-width:200px;text-align:left">{{rec.jv_reference}}</td>
-                <td style="width:100px;max-width:100px;text-align:left">{{rec.jv_remarks}}</td>
+                <td style="width:100px;max-width:100px;text-align:left" *ngIf ="showrem">{{rec.jv_remarks}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_vrno}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_type}}</td>
                 <td style="width:100px;text-align:left">{{rec.rec_category}}</td>

@@ -27,6 +27,10 @@ export class CostAllocationComponent {
 
   selectedRowIndex: number = -1;
 
+  showrem = true;
+
+  ht = 300;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -621,6 +625,14 @@ export class CostAllocationComponent {
       AddressSplit.address = straddress.substr(AddressSplit.addressbrno.length).trim();
     }
     return AddressSplit;
+  }
+
+
+  getht(){
+    if ( this.ht < 300)
+      return '300px'; 
+    else
+      return this.ht + 'px';
   }
 
 
