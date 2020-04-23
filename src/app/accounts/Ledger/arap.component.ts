@@ -2069,22 +2069,33 @@ export class ArApComponent {
     this.ACCRECORD.where = "1=2";
     if (this.Record.jvh_cc_category == "SI SEA EXPORT" || this.Record.jvh_cc_category == "MBL SEA EXPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1104','1105','1106','1107')";
+      if ( this.Record.jvh_cc_category == "SI SEA EXPORT"){
+        this.ACCRECORD.where = "acc_main_code in ('1101','1102','1103','1104','1105','1106','1107')";
+      }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1101','1102','1103','1104', '1105','1106','1107')";
     }
     if (this.Record.jvh_cc_category == "SI AIR EXPORT" || this.Record.jvh_cc_category == "MAWB AIR EXPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1204','1205')";
+      if ( this.Record.jvh_cc_category == "SI AIR EXPORT"){
+        this.ACCRECORD.where = "acc_main_code in ('1201','1202','1203','1204', '1205')";
+      }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1201','1202','1203','1204', '1205')";
     }
     if (this.Record.jvh_cc_category == "SI SEA IMPORT" || this.Record.jvh_cc_category == "MBL SEA IMPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1304','1305', '1306','1307')";
+      if (this.Record.jvh_cc_category == "SI SEA IMPORT"){
+        this.ACCRECORD.where = "acc_main_code in ('1301','1302','1303','1304', '1305','1306','1307')";
+      }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1301','1302','1303','1304', '1305','1306','1307')";
     }
     if (this.Record.jvh_cc_category == "SI AIR IMPORT" || this.Record.jvh_cc_category == "MAWB AIR IMPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1404','1405')";
-
+      if (this.Record.jvh_cc_category == "SI AIR IMPORT"){
+        this.ACCRECORD.where = "acc_main_code in ('1401','1402','1403','1404', '1405')";
+      }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1401','1402','1403','1404', '1405')";
     }
