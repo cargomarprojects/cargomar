@@ -33,9 +33,12 @@
         </select>
       </div>
       <div class="col-3">
-        <select class="form-control form-control-sm" [(ngModel)]="yearcode">
+        <!-- <select class="form-control form-control-sm" [(ngModel)]="yearcode">
           <option value="2018">2018-2019</option>
           <option value="2019">2019-2020</option>
+        </select> -->
+        <select class="form-control form-control-sm" [(ngModel)]="yearcode">
+          <option *ngFor="let rec1 of YearList" [value]="rec1.year_code">{{rec1.year_name}}</option>
         </select>
       </div>
       <div class="col-2">

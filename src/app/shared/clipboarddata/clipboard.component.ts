@@ -31,6 +31,7 @@ export class ClipBoardComponent implements OnInit {
 
   cbdata: string = '';
 
+  YearList: any[] = [];
   maintype: string = 'JOB SEA EXPORT';
   yearcode: string = '2019';
   
@@ -41,6 +42,7 @@ export class ClipBoardComponent implements OnInit {
   constructor(
     private gs: GlobalService,
     private modalService: NgbModal) {
+      this.LoadCombo();
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -59,6 +61,25 @@ export class ClipBoardComponent implements OnInit {
     }
   }
 
+  LoadCombo() {
+    this.loading = true;
+    let SearchData = {
+        table: 'YEARLIST',
+        comp_code: this.gs.globalVariables.comp_code    };
+
+    this.gs.SearchRecord(SearchData)
+        .subscribe(response => {
+          this.loading = false;
+            this.YearList = response.list;
+            this.YearList.forEach(rec => {
+                this.yearcode = rec.year_code;
+            });
+        },
+        error => {
+            this.loading = false;
+            this.ErrorMessage = this.gs.getError(error);
+        });
+}
   ngOnInit() {
   }
 
