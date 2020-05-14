@@ -18,7 +18,8 @@ export class PayrollSetting {
   ps_pf_per: number;
   ps_esi_emply_per: number;
   ps_pf_br_region: string;
-
+  ps_sal_calc_days:number;
+  
   rec_mode: string;
 
   _globalvariables: GlobalVariables;

@@ -1242,6 +1242,11 @@ export class SettingsComponent {
           this.PayrollRecord.ps_pf_col_excluded = this.PayrollRecord.ps_pf_col_excluded.toUpperCase();
           break;
         }
+        case 'ps_sal_calc_days':
+        {
+          this.PayrollRecord.ps_sal_calc_days = this.gs.roundNumber(this.PayrollRecord.ps_sal_calc_days, 0);
+          break;
+        }
     }
   }
 
