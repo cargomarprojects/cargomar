@@ -9,6 +9,8 @@ export class GstReport {
   jvh_cc_category: string;
   jvh_date: string;
   jvh_gstin: string;
+  jvh_reference: string;
+  jvh_reference_date: string;
   jvh_org_invno: string;
   jvh_org_invdt: string;
   jvh_net_amt: number;
