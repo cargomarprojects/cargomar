@@ -2433,7 +2433,7 @@ export class LedgerComponent {
   ModifiedRecords(params: any) {
     var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
     if (REC != null) {
-      if (params.stype == "BP") {
+      if (params.stype == "BP"||params.stype == "CP") {
         if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
           REC.rec_aprvd_status = params.mstatus;
           REC.rec_aprvd_remark = params.mremarks;
