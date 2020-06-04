@@ -245,6 +245,8 @@ export class MoneyTransferComponent {
     this.PARTYRECORD.name = this.Record.mt_party_name;
     this.BENFRECORD.id = this.Record.mt_ben_id;
     this.BENFRECORD.code = this.Record.mt_ben_code;
+    this.BENFRECORD.name = this.Record.mt_ben_name;
+    this.BENFRECORD.parentid = this.Record.mt_party_id;
 
     this.Record.rec_mode = this.mode;
 

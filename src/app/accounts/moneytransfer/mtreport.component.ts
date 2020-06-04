@@ -24,6 +24,7 @@ export class MtReportComponent {
   menu_record: any;
   sub: any;
   urlid: string;
+  generatedtype:string='PENDING';
 
   ErrorMessage = "";
   mode = '';

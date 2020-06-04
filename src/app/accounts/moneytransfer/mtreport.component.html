@@ -10,7 +10,7 @@
     <div class="page-search">
         <div class="row">
           <div class="col-sm-12">
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
               <div class="col-sm-4">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
@@ -18,7 +18,37 @@
               <div class="col-sm-3">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
               </div>
-            </div>
+            </div> -->
+            <div class="form-group row">
+                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
+                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                  <app-date [inputdate]="gs.globalData.job_fromdate" (ValueChanged)="gs.globalData.job_fromdate=$event">
+                  </app-date>
+                </div>
+                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
+                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                  <app-date [inputdate]="gs.globalData.job_todate" (ValueChanged)="gs.globalData.job_todate=$event">
+                  </app-date>
+                </div>
+                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                  <select class="form-control form-control-sm" name="gtype" [(ngModel)]="generatedtype">
+                    <option [value]="'ALL'">ALL</option>
+                    <option [value]="'GENERATED'">GENERATED</option>
+                    <option [value]="'PENDING'">PENDING</option>
+                  </select>
+                </div>
+                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+                <div class="col-sm-2">
+                  <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+                    [(ngModel)]="searchstring" />
+                </div>
+                <div class="col-sm-3">
+                  <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                  <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Generate</button>
+                  <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">CheckList</button>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -44,6 +74,7 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
+                    <th>BANK</th>
                     <th>CUST.REF#</th>
                     <th>PAY.MODE</th>
                     <th>CORP.CODE</th>
@@ -73,6 +104,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
+                    <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td>
                     <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_uniq_ref}}</td>
                     <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_mode}}</td>
                     <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_code}}</td>

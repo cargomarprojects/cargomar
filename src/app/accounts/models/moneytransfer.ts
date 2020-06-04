@@ -52,6 +52,8 @@ export class MoneyTransfer {
     mt_user_dept: string;
     mt_lock: string;
     mt_slno: number;
+    mt_format:string;
+    mt_selected:boolean;
 
     rec_mode: string;
 
