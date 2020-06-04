@@ -213,7 +213,7 @@
         <div class="form-group row">
           <label class="col-4 col-form-label  col-form-label-sm">Amount</label>
           <div class="col-8">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_amt"
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_txn_amt"
               (focus)="OnFocus('mt_txn_amt')" (change)="OnChange('mt_txn_amt')" (blur)="OnBlur('mt_txn_amt')" required
               maxlength="20" />
           </div>
