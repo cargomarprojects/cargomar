@@ -24,7 +24,9 @@ export class MtReportComponent {
   menu_record: any;
   sub: any;
   urlid: string;
-  generatedtype:string='PENDING';
+  generatedtype: string = 'PENDING';
+  fromdate: string = '';
+  todate: string = '';
 
   ErrorMessage = "";
   mode = '';
@@ -97,6 +99,8 @@ export class MtReportComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
+    this.fromdate = this.gs.defaultValues.today;
+    this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -176,7 +180,7 @@ export class MtReportComponent {
     this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
     this.SearchData.searchstring = this.searchstring;
-    
+
     this.ErrorMessage = '';
     this.mainService.MtReport(this.SearchData)
       .subscribe(response => {

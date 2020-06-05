@@ -22,12 +22,12 @@
             <div class="form-group row">
                 <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
                 <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                  <app-date [inputdate]="gs.globalData.job_fromdate" (ValueChanged)="gs.globalData.job_fromdate=$event">
+                  <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
                   </app-date>
                 </div>
                 <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
                 <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                  <app-date [inputdate]="gs.globalData.job_todate" (ValueChanged)="gs.globalData.job_todate=$event">
+                  <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
                   </app-date>
                 </div>
                 <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>

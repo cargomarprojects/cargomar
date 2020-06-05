@@ -133,7 +133,7 @@ export class MoneyTransferComponent {
     this.PARTYRECORD.controlname = "PARTY";
     this.PARTYRECORD.displaycolumn = "CODE";
     this.PARTYRECORD.type = "CUSTOMER";
-   // this.PARTYRECORD.where =  " CUST_IS_SHIPPER = 'Y' ";
+    // this.PARTYRECORD.where =  " CUST_IS_SHIPPER = 'Y' ";
     this.PARTYRECORD.id = "";
     this.PARTYRECORD.code = "";
     this.PARTYRECORD.name = "";
@@ -143,7 +143,7 @@ export class MoneyTransferComponent {
     this.BENFRECORD.controlname = "BENF";
     this.BENFRECORD.displaycolumn = "CODE";
     this.BENFRECORD.type = "BENEFICIARY";
-    this.BENFRECORD.where = " (ben_branch_code ='"+ this.gs.globalVariables.branch_code +"' or ben_branch_code is null ) ";
+    this.BENFRECORD.where = " (ben_branch_code ='" + this.gs.globalVariables.branch_code + "' or ben_branch_code is null ) ";
     this.BENFRECORD.id = "";
     this.BENFRECORD.code = "";
     this.BENFRECORD.name = "";
@@ -179,7 +179,7 @@ export class MoneyTransferComponent {
         this.BENFRECORD.controlname = "BENF";
         this.BENFRECORD.displaycolumn = "CODE";
         this.BENFRECORD.type = "BENEFICIARY";
-        this.BENFRECORD.where = " (ben_branch_code ='"+ this.gs.globalVariables.branch_code +"' or ben_branch_code is null ) ";
+        this.BENFRECORD.where = " (ben_branch_code ='" + this.gs.globalVariables.branch_code + "' or ben_branch_code is null ) ";
         this.BENFRECORD.id = "";
         this.BENFRECORD.code = "";
         this.BENFRECORD.name = "";
@@ -311,7 +311,7 @@ export class MoneyTransferComponent {
       bret = false;
       sError += " | Amount Cannot Be Blank";
     }
-       if (!bret)
+    if (!bret)
       this.ErrorMessage = sError;
     return bret;
   }
@@ -335,7 +335,7 @@ export class MoneyTransferComponent {
     if (field == 'mt_txn_amt') {
       this.Record.mt_txn_amt = this.gs.roundNumber(this.Record.mt_txn_amt, 2);
     }
- }
+  }
 
   Close() {
     if (this.ModifiedRecords != null)
@@ -399,7 +399,7 @@ export class MoneyTransferComponent {
         }
 
         if (response.beneficiary.length > 0) {
-          
+
           if (controlname == 'BENEFICIARY') {
 
             this.Record.mt_ben_name = response.beneficiary[0].ben_name;
@@ -454,20 +454,30 @@ export class MoneyTransferComponent {
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.pkid = this.jvid;
 
     this.mainService.GenerateEdiBank(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Record.mt_lock = response.mtlock;
-        this.Record.mt_cust_uniq_ref= response.custrefno;
-        this.InfoMessage = response.savemsg;
-       alert(this.InfoMessage);
+        this.Record.mt_cust_uniq_ref = response.custrefno;
+        if (response.bank === 'IOB') {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        } else {
+          this.InfoMessage = response.savemsg;
+          alert(this.InfoMessage);
+        }
+
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
 }

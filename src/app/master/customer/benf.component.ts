@@ -259,7 +259,11 @@ export class BenfComponent {
             sError += "| IFSC Cannot Be Blank";
         }
 
-       
+        if (this.Record.ben_city.trim().length <= 0){
+            bret = false;
+            sError += "| Beneficiary City Cannot Be Blank";
+        }
+
 
         if (bret === false)
             this.ErrorMessage = sError;
