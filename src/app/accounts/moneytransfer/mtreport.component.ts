@@ -29,6 +29,7 @@ export class MtReportComponent {
   todate: string = '';
 
   ErrorMessage = "";
+  InfoMessage = "";
   mode = '';
   pkid = '';
   modal: any;
@@ -54,7 +55,9 @@ export class MtReportComponent {
     branch_code: '',
     year_code: '',
     searchstring: '',
-    format_type: '',
+    report_type: '',
+    from_date: '',
+    to_date: '',
     page_count: this.page_count,
     page_current: this.page_current,
     page_rows: this.page_rows,
@@ -180,6 +183,9 @@ export class MtReportComponent {
     this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
     this.SearchData.searchstring = this.searchstring;
+    this.SearchData.report_type = this.generatedtype;
+    this.SearchData.from_date = this.fromdate;
+    this.SearchData.to_date = this.todate;
 
     this.ErrorMessage = '';
     this.mainService.MtReport(this.SearchData)
@@ -228,6 +234,103 @@ export class MtReportComponent {
 
   ModifiedRecords(params: any) {
 
+    for (let rec of this.RecordList.filter(rec => rec.mt_jv_id == params.sid)) {
+      if (params.saction == "GENERATE")
+      {
+        rec.mt_lock = params.mlock;
+        rec.mt_cust_uniq_ref= params.custrefno;
+      }
+    }
     this.modal.close();
   }
+
+  Generate(_type: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    let pre_data: string = '';
+    let Multiple_Bank_Found: Boolean = false;
+    let Generated_Bank_Found: Boolean = false;
+    this.jv_id = "";
+    pre_data = "";
+    for (let rec of this.RecordList) {
+      if (rec.mt_selected) {
+        if (pre_data === "")
+          pre_data = rec.mt_format;
+        if (pre_data != rec.mt_format)
+          Multiple_Bank_Found = true;
+
+        if (_type != 'CHECK-LIST' && rec.mt_lock === 'G')
+          Generated_Bank_Found = true;
+
+        if (this.jv_id != "")
+          this.jv_id += ",";
+        this.jv_id += rec.mt_jv_id;
+      }
+    }
+
+    if (this.jv_id.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Please select Bank and Continue.....";
+      return;
+    }
+
+    if (Multiple_Bank_Found) {
+      this.ErrorMessage = "Different Bank Found in Selected List....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (Generated_Bank_Found) {
+      this.ErrorMessage = "Generated Bank Found in Selected List....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (_type != 'CHECK-LIST')
+      if (!confirm("Do you want to Generate")) {
+        return;
+      }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      pkid: this.jv_id,
+      rowtype: _type
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.pkid = this.jv_id;
+    SearchData.rowtype = _type;
+
+    this.mainService.GenerateEdiBank(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type === 'CHECK-LIST')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          for (let rec of this.RecordList) {
+            if (rec.mt_selected) {
+              rec.mt_lock = response.mtlock;
+            }
+          }
+          if (response.bank === 'IOB') {
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          } else {
+            this.InfoMessage = response.savemsg;
+            alert(this.InfoMessage);
+          }
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }

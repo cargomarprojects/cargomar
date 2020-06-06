@@ -54,6 +54,7 @@ export class MoneyTransfer {
     mt_slno: number;
     mt_format:string;
     mt_selected:boolean;
+    mt_remarks:string;
 
     rec_mode: string;
 

@@ -335,11 +335,14 @@ export class MoneyTransferComponent {
     if (field == 'mt_txn_amt') {
       this.Record.mt_txn_amt = this.gs.roundNumber(this.Record.mt_txn_amt, 2);
     }
+    if (field == 'mt_remarks') {
+      this.Record.mt_remarks = this.Record.mt_remarks.toUpperCase();
+    }
   }
 
   Close() {
     if (this.ModifiedRecords != null)
-      this.ModifiedRecords.emit({ saction: 'CLOSE', sid: '' });
+      this.ModifiedRecords.emit({ saction: 'CLOSE', sid: this.Record.mt_jv_id, mlock: this.Record.mt_lock });  
   }
 
   open(content: any) {
@@ -468,6 +471,9 @@ export class MoneyTransferComponent {
           this.InfoMessage = response.savemsg;
           alert(this.InfoMessage);
         }
+
+        if (this.ModifiedRecords != null)
+          this.ModifiedRecords.emit({ saction: 'GENERATE', sid: this.Record.mt_jv_id, mlock: this.Record.mt_lock, custrefno: this.Record.mt_cust_uniq_ref });
 
       },
         error => {
