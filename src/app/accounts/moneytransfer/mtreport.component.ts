@@ -102,7 +102,7 @@ export class MtReportComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
-    this.fromdate = this.gs.defaultValues.today;
+    this.fromdate = this.gs.defaultValues.lastmonthdate ;
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -235,10 +235,9 @@ export class MtReportComponent {
   ModifiedRecords(params: any) {
 
     for (let rec of this.RecordList.filter(rec => rec.mt_jv_id == params.sid)) {
-      if (params.saction == "GENERATE")
-      {
+      if (params.saction == "GENERATE") {
         rec.mt_lock = params.mlock;
-        rec.mt_cust_uniq_ref= params.custrefno;
+        rec.mt_cust_uniq_ref = params.custrefno;
       }
     }
     this.modal.close();
@@ -311,21 +310,23 @@ export class MtReportComponent {
     this.mainService.GenerateEdiBank(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type === 'CHECK-LIST')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else {
-          for (let rec of this.RecordList) {
-            if (rec.mt_selected) {
-              rec.mt_lock = response.mtlock;
-            }
-          }
-          if (response.bank === 'IOB') {
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          } else {
-            this.InfoMessage = response.savemsg;
-            alert(this.InfoMessage);
+
+        for (let rec of this.RecordList) {
+          if (rec.mt_selected) {
+            rec.mt_lock = response.mtlock;
           }
         }
+        // if (response.bank === 'IOB') {
+        //   this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        // } else {
+        //   this.InfoMessage = response.savemsg;
+        //   alert(this.InfoMessage);
+        // }
+        for (let rec of response.filelist) {
+          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        }
+        
+
       },
         error => {
           this.loading = false;

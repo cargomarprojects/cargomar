@@ -10,6 +10,13 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm">Ref.No</label>
+          <div class="col-8">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="RefNo"
+              (blur)="OnBlur('mt_cust_cfno')" required maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-4 col-form-label  col-form-label-sm">Customer.Ref.No</label>
           <div class="col-8">
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_cust_uniq_ref"
@@ -80,6 +87,8 @@
               maxlength="100" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-8">
@@ -87,8 +96,6 @@
               maxlength="100" />
           </div>
         </div>
-      </div>
-      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label  col-form-label-sm">City</label>
           <div class="col-sm-8">
@@ -164,7 +171,9 @@
         <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">Corporate.Code</label>
           <div class="col-8">
-            <input type="text" disabled="this.gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" (blur)="OnBlur('mt_corp_code')" [(ngModel)]="Record.mt_corp_code" required maxlength="15" />
+            <input type="text" disabled="this.gs.globalVariables.user_code != 'ADMIN'"
+              class="form-control form-control-sm" (blur)="OnBlur('mt_corp_code')" [(ngModel)]="Record.mt_corp_code"
+              required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
@@ -222,7 +231,7 @@
           <label class="col-4 col-form-label  col-form-label-sm">Remarks/SenderInfo</label>
           <div class="col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_remarks"
-            (blur)="OnBlur('mt_remarks')" required maxlength="100" />
+              (blur)="OnBlur('mt_remarks')" required maxlength="100" />
           </div>
         </div>
 
@@ -232,7 +241,8 @@
   <div class="page-box">
     <div class="col-sm-4">
       <div class="col-10">
-        <button [disabled]="loading || Record.mt_lock == 'G'" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <button [disabled]="loading || Record.mt_lock == 'G'" (click)="Save()"
+          class="btn btn-success btn-sm">Save</button>
         <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
           class="btn btn-success btn-sm">Generate</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
