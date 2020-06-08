@@ -121,6 +121,7 @@ export class UnLockComponent {
       { "code": "CN", "name": "Credit Note" },
       { "code": "DI", "name": "Inward Debit Note" },
       { "code": "CI", "name": "Inward Credit Note" },
+      { "code": "FUND-TRANSFER", "name": "Fund Transfer" },
       { "code": "MBL-AE", "name": "Air Export Folder" },
       { "code": "MBL-AI", "name": "Air Import Folder" },
       { "code": "MBL-SE", "name": "Sea Export Folder" },
@@ -203,6 +204,8 @@ export class UnLockComponent {
         this.refnotitle = "Folder#";
       } else if (this.moduletype == "JOB-GN") {
         this.refnotitle = "Job#";
+      }else if (this.moduletype == "FUND-TRANSFER") {
+        this.refnotitle = "Ref#";
       }
       else if (this.moduletype.indexOf('HR-') == 0) {
         if(this.moduletype =="HR-RE-JVPOST")
