@@ -13,6 +13,7 @@ import { FileDetails } from '../models/filedetails';
 import { PreAlertReportService } from '../services/prealertreport.service';
 import { Trackingm } from '../models/tracking';
 import { transition } from '@angular/core/src/animation/dsl';
+import { Hblm } from '../models/hbl';
 
 @Component({
   selector: 'app-mblsea',
@@ -60,6 +61,7 @@ export class MblSeaComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  bookno = "";
   sDefaultCntrType_ID = "";
   sAgent_ID = "";
   sAgent_ID2 = "";
@@ -72,7 +74,7 @@ export class MblSeaComponent {
   FtpAttachList: any[] = [];
   AttachList: any[] = [];
   FileList: FileDetails[] = [];
-  PoFtpError:string="";
+  PoFtpError: string = "";
   StatusList: Param[] = [];
   ContainerList: Param[] = [];
   // Array For Displaying List
@@ -128,6 +130,7 @@ export class MblSeaComponent {
   }
 
   InitComponent() {
+    this.bookno = "";
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -529,6 +532,7 @@ export class MblSeaComponent {
   }
 
   NewRecord() {
+    this.bookno = "";
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -773,6 +777,54 @@ export class MblSeaComponent {
       this.NewPayRecord();
     if (this.Record.TransitList.length == 0)
       this.NewTransitRecord();
+
+    //Fill Duplicate Job
+    if (this.mode == "ADD") {
+      this.foldersent = false;
+      this.chk_foldersent = false;
+      this.folder_chk = false;
+
+      this.Record.book_pkid = this.pkid;
+      this.Record.book_slno = null;
+      this.Record.book_no = '';
+      this.Record.book_mblno = '';
+      this.Record.book_booked_on = this.gs.defaultValues.today;
+      this.Record.book_folder_no = '';
+      this.Record.book_folder_sent_date = '';
+      this.Record.lock_record = false;
+      this.Record.book_edit_code = '{S}';
+      this.Record.book_cntr = '';
+      this.Record.book_total_container = 0;
+      this.Record.book_mdesc = '';
+      this.Record.book_por_etd = '';
+      this.Record.book_pofdc_eta = '';
+      this.Record.book_cutoff_on = '';
+      this.Record.book_vsl_eta = '';
+      this.Record.book_vessel_name = '';
+      this.Record.book_vessel_no = '';
+      this.Record.book_etd = '';
+      this.Record.book_etd_confirm = false;
+      this.Record.book_pol_eta = '';
+      this.Record.book_pol_eta_confirm = false;
+      this.Record.book_eta = '';
+      this.Record.book_eta_confirm = false;
+      this.Record.book_pofd_eta = '';
+      this.Record.book_pofd_eta_confirm = false;
+
+      this.VESSELRECORD.id = '';
+      this.VESSELRECORD.code = '';
+      this.VESSELRECORD.name = '';
+
+      this.Record.HblList = new Array<Hblm>();
+      this.Record.BkmCntrList = new Array<BkmCntrtype>();
+      this.Record.BkmPayList = new Array<BkmPayment>();
+      this.Record.BkmCargoList = new Array<BkmCargo>();
+      this.Record.TransitList = new Array<Trackingm>();
+      this.NewPayRecord();
+      this.NewCargoRecord();
+      this.NewTransitRecord();
+      this.InitDefault();
+    }
   }
 
   // Save Data
@@ -1146,7 +1198,10 @@ export class MblSeaComponent {
       hbl_type: '',
       hbl_book_cntr_mdesc: '',
       hbl_released_date: '',
-      hbl_buy_remarks: ''
+      hbl_buy_remarks: '',
+      year_code: '',
+      rowtype: '',
+      book_slno: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1164,6 +1219,15 @@ export class MblSeaComponent {
       SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
     }
 
+    if (controlname == 'bookno') {
+      SearchData.table = 'LINERBKM';
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.year_code = this.gs.globalVariables.year_code;
+      SearchData.book_slno = this.bookno;
+      SearchData.rowtype = 'SEA EXPORT';
+    }
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1173,6 +1237,15 @@ export class MblSeaComponent {
           else {
             this.foldersent = response.foldersent;
             this.InfoMessage = 'Save Complete';
+          }
+        }
+        if (controlname == 'bookno') {
+          if (response.linerbkm.length > 0) {
+            this.GetRecord(response.linerbkm[0].book_pkid);
+          }
+          else {
+            this.ErrorMessage = 'Invalid MBLBK#';
+            alert(this.ErrorMessage);
           }
         }
       },

@@ -152,6 +152,15 @@
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
                   </div>
+                  <div *ngIf="mode=='ADD'" style="padding-right:0" class="offset-1 col-2">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="bookno" required
+                      maxlength="15" />
+                  </div>
+                  <div *ngIf="mode=='ADD'" class="col-2">
+                    <button [disabled]="loading" (click)="SearchRecord('bookno')"
+                      class="btn btn-primary btn-sm">Fill</button>
+                  </div>
+
                 </div>
 
                 <div class="form-group row">

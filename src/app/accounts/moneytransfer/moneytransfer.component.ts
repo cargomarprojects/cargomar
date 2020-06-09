@@ -278,7 +278,7 @@ export class MoneyTransferComponent {
           this.Record.mt_cust_cfno = response.refno;
           this.RefNo=this.Record.mt_cust_cfno.toString();
         }
-        this.mode =  response.recmode;
+        this.mode =  "EDIT";
         this.Record.rec_mode = this.mode;
         this.InfoMessage = "Save Complete";
       },
