@@ -243,8 +243,8 @@
       <div class="col-10">
         <button [disabled]="loading || Record.mt_lock == 'G'" (click)="Save()"
           class="btn btn-success btn-sm">Save</button>
-        <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
-          class="btn btn-success btn-sm">Generate</button>
+        <!-- <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
+          class="btn btn-success btn-sm">Generate</button> -->
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>

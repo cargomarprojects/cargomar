@@ -1,16 +1,16 @@
 <div class="page-header">
-    <div class="col">
-        <label>{{title}}</label>
-        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <!-- <button *ngIf="bPrint"  [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
-        <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <!-- <button *ngIf="bPrint"  [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-search">
-        <div class="row">
-          <div class="col-sm-12">
-            <!-- <div class="form-group row">
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- <div class="form-group row">
               <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
               <div class="col-sm-4">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
@@ -19,160 +19,159 @@
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
               </div>
             </div> -->
-            <div class="form-group row">
-                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
-                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                  <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
-                  </app-date>
-                </div>
-                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                  <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
-                  </app-date>
-                </div>
-                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
-                <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                  <select class="form-control form-control-sm" name="gtype" [(ngModel)]="generatedtype">
-                    <option [value]="'ALL'">ALL</option>
-                    <option [value]="'GENERATED'">GENERATED</option>
-                    <option [value]="'PENDING'">PENDING</option>
-                  </select>
-                </div>
-                <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-                <div class="col-sm-2">
-                  <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
-                    [(ngModel)]="searchstring" />
-                </div>
-                <div class="col-sm-3">
-                  <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                  <button [disabled]="loading" (click)="Generate('BANK')" class="btn btn-primary btn-sm">Generate</button>
-                  <!-- <button [disabled]="loading" (click)="Generate('CHECK-LIST')" class="btn btn-primary btn-sm">CheckList</button> -->
-                </div>
-              </div>
+        <div class="form-group row">
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
+            </app-date>
+          </div>
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+            </app-date>
+          </div>
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <select class="form-control form-control-sm" name="gtype" [(ngModel)]="generatedtype">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'GENERATED'">GENERATED</option>
+              <option [value]="'PENDING'">PENDING</option>
+            </select>
+          </div>
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-2">
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+              [(ngModel)]="searchstring" />
+          </div>
+          <div class="col-sm-3">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button [disabled]="loading" (click)="Generate('BANK')" class="btn btn-primary btn-sm">Generate</button>
+            <!-- <button [disabled]="loading" (click)="Generate('CHECK-LIST')" class="btn btn-primary btn-sm">CheckList</button> -->
           </div>
         </div>
       </div>
-
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-            </ul>
-        </div>
     </div>
+  </div>
 
-    <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                  <th>REF#</th>
-                    <th>BANK</th>
-                    <th>TYPE</th>
-                    <th>CUST.REF#</th>
-                    <!-- <th>PAY.MODE</th> -->
-                    <!-- <th>CORP.CODE</th> -->
-                    <th>DEBIT A/C#</th>
-                    <th>PAY.DATE</th>
-                    <!-- <th>CURR</th> -->
-                    <th class="text-right">AMOUNT</th>
-                    <th>BENEF.NAME</th>
-                    <!-- <th>BENEF.CODE</th> -->
-                    <th>BENEF.CITY</th>
-                    <th>BENEF.BANK.NAME</th>
-                    <th>BENEF.IFSC.CODE</th>
-                    <th>BENEF.A/C#</th>
-                    <th>BENEF.A/C.TYPE</th>
-                    <!-- <th>BENEF.ADDR1</th>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BANK</th>
+          <th>APRVD</th>
+          <th>REF#</th>
+          <th>TYPE</th>
+          <th>CUST.REF#</th>
+          <!-- <th>PAY.MODE</th> -->
+          <!-- <th>CORP.CODE</th> -->
+          <th>DEBIT A/C#</th>
+          <th>PAY.DATE</th>
+          <!-- <th>CURR</th> -->
+          <th class="text-right">AMOUNT</th>
+          <th>BENEF.NAME</th>
+          <!-- <th>BENEF.CODE</th> -->
+          <th>BENEF.CITY</th>
+          <th>BENEF.BANK.NAME</th>
+          <th>BENEF.IFSC.CODE</th>
+          <th>BENEF.A/C#</th>
+          <th>BENEF.A/C.TYPE</th>
+          <!-- <th>BENEF.ADDR1</th>
                     <th>BENEF.ADDR2</th>
                     <th>BENEF.ADDR3</th> -->
-                    <!-- <th>BENEF.STATE</th>
+          <!-- <th>BENEF.STATE</th>
                     <th>BENEF.PIN.CODE</th> -->
-                    <th>BENEF.EMAIL1</th>
-                    <!-- <th>BENEF.EMAIL2</th> -->
-                    <th>BENEF.MOB</th>
-                    <!-- <th>PAYTYPE</th> -->
-                    <!-- <th>CORP.EMAIL</th>
+          <th>BENEF.EMAIL1</th>
+          <!-- <th>BENEF.EMAIL2</th> -->
+          <th>BENEF.MOB</th>
+          <!-- <th>PAYTYPE</th> -->
+          <!-- <th>CORP.EMAIL</th>
                     <th>TRANSMISSION.DATE</th> -->
-                    <th>SENDER.INFO</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr>
-                  <!-- *ngIf="rec.mt_lock!='G'" -->
-                  <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
-                    <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td> 
-                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td> 
-                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_uniq_ref}}</td>
-                    <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_mode}}</td> -->
-                    <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_code}}</td> -->
-                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_acc_no}}</td>
-                    <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_value_date}}</td>
-                    <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_curr}}</td> -->
-                    <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
-                    <td>{{rec.mt_ben_name}}</td>
-                    <td>{{rec.mt_ben_city}}</td>
-                    <td>{{rec.mt_ben_bank_name}}</td>
-                    <td>{{rec.mt_ben_ifsc}}</td>
-                    <!-- <td>{{rec.mt_ben_code}}</td> -->
-                    <td>{{rec.mt_ben_acc_no}}</td>
-                    <td>{{rec.mt_ben_acc_type}}</td>
-                    <!-- <td>{{rec.mt_ben_addr1}}</td>
+          <th>SENDER.INFO</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <!-- *ngIf="rec.mt_lock!='G'" -->
+          <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td>
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_aprvd}}</td>
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_uniq_ref}}</td>
+          <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_mode}}</td> -->
+          <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_code}}</td> -->
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_acc_no}}</td>
+          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_value_date}}</td>
+          <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_curr}}</td> -->
+          <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
+          <td>{{rec.mt_ben_name}}</td>
+          <td>{{rec.mt_ben_city}}</td>
+          <td>{{rec.mt_ben_bank_name}}</td>
+          <td>{{rec.mt_ben_ifsc}}</td>
+          <!-- <td>{{rec.mt_ben_code}}</td> -->
+          <td>{{rec.mt_ben_acc_no}}</td>
+          <td>{{rec.mt_ben_acc_type}}</td>
+          <!-- <td>{{rec.mt_ben_addr1}}</td>
                     <td>{{rec.mt_ben_addr2}}</td>
                     <td>{{rec.mt_ben_addr3}}</td> -->
-                    <!-- <td>{{rec.mt_ben_state}}</td>
+          <!-- <td>{{rec.mt_ben_state}}</td>
                     <td>{{rec.mt_ben_pin}}</td> -->
-                    <td>{{rec.mt_ben_email1}}</td>
-                    <!-- <td>{{rec.mt_ben_email2}}</td> -->
-                    <td>{{rec.mt_ben_mob}}</td>
-                    <!-- <td>{{rec.mt_pay_type}}</td> -->
-                    <!-- <td>{{rec.mt_corp_email}}</td>
+          <td>{{rec.mt_ben_email1}}</td>
+          <!-- <td>{{rec.mt_ben_email2}}</td> -->
+          <td>{{rec.mt_ben_mob}}</td>
+          <!-- <td>{{rec.mt_pay_type}}</td> -->
+          <!-- <td>{{rec.mt_corp_email}}</td>
                     <td>{{rec.mt_transmission_date}}</td> -->
-                    <td>{{rec.mt_remarks}}</td>
-                </tr>
-            </tbody>
-        </table>
+          <td>{{rec.mt_remarks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
     </div>
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </div>
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
+  {{ErrorMessage}}
 </div>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
 </div>
 <ng-template #moneytransfer let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Fund Transfer Details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <app-moneytransfer [menuid]="''"  [type]="type" [jvid]="this.jv_id" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Fund Transfer Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-moneytransfer [menuid]="''" [type]="type" [jvid]="this.jv_id" (ModifiedRecords)="ModifiedRecords($event)">
+    </app-moneytransfer>
+  </div>
 </ng-template>

@@ -102,7 +102,7 @@ export class MtReportComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
-    this.fromdate = this.gs.defaultValues.lastmonthdate ;
+    this.fromdate = this.gs.getNewdate(1) ;
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -249,6 +249,7 @@ export class MtReportComponent {
     let pre_data: string = '';
     let Multiple_Bank_Found: Boolean = false;
     let Generated_Bank_Found: Boolean = false;
+    let Not_Aprvd_Found: Boolean = false;
     this.jv_id = "";
     pre_data = "";
     for (let rec of this.RecordList) {
@@ -257,6 +258,9 @@ export class MtReportComponent {
           pre_data = rec.mt_format;
         if (pre_data != rec.mt_format)
           Multiple_Bank_Found = true;
+
+        if (rec.mt_aprvd != 'Y')
+          Not_Aprvd_Found = true;
 
         if (_type != 'CHECK-LIST' && rec.mt_lock === 'G')
           Generated_Bank_Found = true;
@@ -274,6 +278,12 @@ export class MtReportComponent {
 
     if (Multiple_Bank_Found) {
       this.ErrorMessage = "Different Bank Found in Selected List....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (Not_Aprvd_Found) {
+      this.ErrorMessage = "Only Approved Bank Entries Can be Transfered.";
       alert(this.ErrorMessage);
       return;
     }
@@ -325,7 +335,7 @@ export class MtReportComponent {
         for (let rec of response.filelist) {
           this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
         }
-        
+
 
       },
         error => {

@@ -55,7 +55,8 @@ export class MoneyTransfer {
     mt_format:string;
     mt_selected:boolean;
     mt_remarks:string;
-
+    mt_aprvd:string;
+    
     rec_mode: string;
 
     _globalvariables: GlobalVariables;
