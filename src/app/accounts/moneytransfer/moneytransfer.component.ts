@@ -280,6 +280,7 @@ export class MoneyTransferComponent {
         }
         this.mode =  "EDIT";
         this.Record.rec_mode = this.mode;
+        this.Record.mt_txn_amt = response.txnamt;
         this.InfoMessage = "Save Complete";
       },
         error => {
