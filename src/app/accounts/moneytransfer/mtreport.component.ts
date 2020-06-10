@@ -289,7 +289,7 @@ export class MtReportComponent {
     }
 
     if (Generated_Bank_Found) {
-      this.ErrorMessage = "Generated Bank Found in Selected List....";
+      this.ErrorMessage = "Few Items Already Generated.....";
       alert(this.ErrorMessage);
       return;
     }
