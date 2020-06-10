@@ -289,7 +289,7 @@ export class MtReportComponent {
     }
 
     if (Generated_Bank_Found) {
-      this.ErrorMessage = "Few Items Already Generated.....";
+      this.ErrorMessage = "One or More Records Already Generated.....";
       alert(this.ErrorMessage);
       return;
     }
