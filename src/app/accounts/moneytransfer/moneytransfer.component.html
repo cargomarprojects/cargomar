@@ -245,6 +245,7 @@
           class="btn btn-success btn-sm">Save</button>
         <!-- <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
           class="btn btn-success btn-sm">Generate</button> -->
+          <button [disabled]="loading" *ngIf="mode == 'EDIT'"  (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>
@@ -260,3 +261,14 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-history [pkid]="jvid" [type]="'FUND-TRANSFER'"></app-history>
+  </div>
+</ng-template>

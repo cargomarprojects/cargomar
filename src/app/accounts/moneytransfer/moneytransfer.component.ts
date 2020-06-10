@@ -280,6 +280,7 @@ export class MoneyTransferComponent {
         }
         this.mode =  "EDIT";
         this.Record.rec_mode = this.mode;
+        this.Record.mt_txn_amt = response.txnamt;
         this.InfoMessage = "Save Complete";
       },
         error => {
@@ -497,5 +498,8 @@ export class MoneyTransferComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
+  }
 }
