@@ -102,7 +102,7 @@ export class MtReportComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
-    this.fromdate = this.gs.getNewdate(1) ;
+    this.fromdate = this.gs.getNewdate(1);
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -216,6 +216,8 @@ export class MtReportComponent {
   }
 
   OnBlur(field: string) {
+    if (field == 'Search')
+      this.searchstring = this.searchstring.toUpperCase();
   }
 
   Close() {
