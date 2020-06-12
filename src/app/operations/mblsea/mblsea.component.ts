@@ -46,6 +46,7 @@ export class MblSeaComponent {
   foldersent: boolean = false;
   folder_chk: boolean = false;
   modal: any;
+  searchby = '';
   searchstring = '';
   trk_vsl_1_eta: string = '';
   trk_vsl_1_eta_confirm: boolean = false;
@@ -130,6 +131,7 @@ export class MblSeaComponent {
   }
 
   InitComponent() {
+    this.searchby = "MBLBK";
     this.bookno = "";
     this.foldersent = false;
     this.chk_foldersent = false;
@@ -503,6 +505,7 @@ export class MblSeaComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -1070,6 +1073,9 @@ export class MblSeaComponent {
     }
     if (field == 'book_mcbm') {
       this.Record.book_mcbm = this.gs.roundWeight(this.Record.book_mcbm, "CBM");
+    }
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase();
     }
   }
 
