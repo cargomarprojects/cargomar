@@ -38,6 +38,7 @@ export class MblAirComponent {
   currentTab = 'LIST';
   HblTab = 'LIST';
 
+  searchby = '';
   searchstring = '';
   jobtype = 'BOTH';
   //porttype = 'SEA PORT';
@@ -112,6 +113,7 @@ export class MblAirComponent {
   }
 
   InitComponent() {
+    this.searchby = 'MAWBK';
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -436,6 +438,7 @@ export class MblAirComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -749,6 +752,11 @@ export class MblAirComponent {
       case 'mbl_flight_no':
         {
           this.Record.mbl_flight_no = this.Record.mbl_flight_no.toUpperCase();
+          break;
+        }
+        case 'searchstring':
+        {
+          this.searchstring = this.searchstring.toUpperCase();
           break;
         }
         

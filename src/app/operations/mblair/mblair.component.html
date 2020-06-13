@@ -26,11 +26,24 @@
               <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event">
               </app-date>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-            <div class="col-sm-4">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <!-- <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Search</label> -->
+
+            <div class="col-sm-2" style="padding-right:0px" >
+              <select class="form-control form-control-sm" [(ngModel)]="searchby">
+                <option [value]="'MAWBK'">MAWBK#</option>
+                <option [value]="'MAWBNO'">MAWB#</option>
+                <option [value]="'FOLDER'">FOLDER</option>               
+                <option [value]="'AGENT'">AGENT</option>
+                <option [value]="'CARRIER'">CARRIER</option>
+                <option [value]="'POL'">POL</option>
+                <option [value]="'POD'">POD</option>
+                <option [value]="'SINOS'">SINOS</option>
+              </select>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"/>
+            </div>
+            <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             </div>
           </div>
