@@ -42,6 +42,7 @@ export class HblSeaAirComponent {
     JobTab = 'LIST';
 
     hbl_no = "";
+    searchby = "";
     searchstring = '';
     jobtype = 'BOTH';
     carriertype = 'SEA CARRIER';
@@ -59,7 +60,7 @@ export class HblSeaAirComponent {
 
     showalert = false;
 
-    CrList : any[];
+    CrList: any[];
 
     sub: any;
     urlid: string;
@@ -123,6 +124,7 @@ export class HblSeaAirComponent {
     }
 
     InitComponent() {
+        this.searchby = "SINO";
         this.bBilling = false;
         this.bJobIncome = false;
         this.bbuysellrate = false;
@@ -475,6 +477,7 @@ export class HblSeaAirComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
+            searchby: this.searchby,
             searchstring: this.searchstring.toUpperCase(),
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
@@ -850,6 +853,11 @@ export class HblSeaAirComponent {
             case 'hbl_commodity':
                 {
                     this.Record.hbl_commodity = this.Record.hbl_commodity.toUpperCase();
+                    break;
+                }
+            case 'searchstring':
+                {
+                    this.searchstring = this.searchstring.toUpperCase();
                     break;
                 }
             case 'hbl_mbl_bookslno':

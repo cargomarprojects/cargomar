@@ -35,8 +35,23 @@
                 <option [value]="'FORWARDING'">FORWARDING</option>
               </select>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-            <div class="col-sm-3">
+            <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
+            <div class="col-sm-2" style="padding-right:0px">
+              <select class="form-control form-control-sm" [(ngModel)]="searchby">
+                <option [value]="'JOBNO'">JOB#</option>
+                <option [value]="'AGENT'">AGENT</option>
+                <option [value]="'SHIPPER'">SHIPPER</option>
+                <option [value]="'CONSIGNEE'">CONSIGNEE</option>
+                <option [value]="'COMMODITY'">COMMODITY</option>
+                <option [value]="'POL'">POL</option>
+                <option [value]="'POD'">POD</option>
+                <option [value]="'SINOS'">SINOS</option>
+                <option [value]="'INVNOS'">INVNOS</option>
+                <option [value]="'SBNO'">SB NO</option>
+                <option *ngIf="type=='SEA EXPORT'" [value]="'CONTAINER'">CONTAINER</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
               <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
                 [(ngModel)]="searchstring" />
             </div>
@@ -107,7 +122,7 @@
             <th>JOB.BILL.TYPE</th>
             <th align='center'>DOCS</th>
             <th>REMARK</th>
-            <th>CONTAINER</th>
+            <th *ngIf="type=='SEA EXPORT'">CONTAINER</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -139,7 +154,7 @@
             <td>{{rec.job_billtype_name}}</td>
             <td align='center'>{{rec.job_docs}}</td>
             <td>{{rec.job_remarks}}</td>
-            <td>{{rec.job_cntr}}</td>
+            <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr}}</td>
           </tr>
         </tbody>
       </table>
@@ -197,9 +212,9 @@
                       [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
                   <div *ngIf="Record.job_prefix" class="col-4">
-                      <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix" required
-                        maxlength="65" />
-                    </div>
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
+                      required maxlength="65" />
+                  </div>
                 </div>
               </div>
 
@@ -916,10 +931,13 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group row">
-                            <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"  [style.color]="Record.job_marks.length > 250 ?'red':'green'" >{{Record.job_marks.length}}&nbsp;CHARACTERS</label>
+                          <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
+                            [style.color]="Record.job_marks.length > 250 ?'red':'green'">{{Record.job_marks.length}}&nbsp;CHARACTERS</label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%" [style.color]="'red'" *ngIf="Record.job_marks.length > 250" >ONLY 250 CHARACTERS WILL BE SENT TO CUSTOMS</label>
+                          <label class="col-sm-12 col-form-label  col-form-label-sm" style="padding: 0%"
+                            [style.color]="'red'" *ngIf="Record.job_marks.length > 250">ONLY 250 CHARACTERS WILL BE SENT
+                            TO CUSTOMS</label>
                         </div>
                       </div>
                     </div>
@@ -943,7 +961,8 @@
                 class="btn btn-primary btn-sm">BL Draft</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
                 (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
-                <button *ngIf="mode == 'EDIT'"  [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-primary btn-sm">History</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+                class="btn btn-primary btn-sm">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -988,7 +1007,9 @@
       <ngb-tab title="Product" *ngIf="mode=='EDIT'">
         <ng-template ngbTabContent>
 
-          <app-jobitem [parentid]="pkid" [nfei]="Record.job_nfei" [type]="type" [job_org_state_id]="Record.job_origin_state_id" [job_org_state_code]="Record.job_origin_state_code" [job_org_state_name]="Record.job_origin_state_name"></app-jobitem>
+          <app-jobitem [parentid]="pkid" [nfei]="Record.job_nfei" [type]="type"
+            [job_org_state_id]="Record.job_origin_state_id" [job_org_state_code]="Record.job_origin_state_code"
+            [job_org_state_name]="Record.job_origin_state_name"></app-jobitem>
 
         </ng-template>
       </ngb-tab>
@@ -1118,8 +1139,5 @@
 
 
 
-<app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>
-
-
-
-
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" (hidealert)="showalert=$event">
+</app-crlimit>

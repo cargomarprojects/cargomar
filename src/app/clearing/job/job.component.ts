@@ -22,7 +22,7 @@ export class JobComponent {
   menu_record: any;
   selectedRowIndex: number = -1;
 
-  CrList : any[];
+  CrList: any[];
 
   modal: any;
 
@@ -38,6 +38,7 @@ export class JobComponent {
   bDocs: boolean = false;
   bAdmin: boolean = false;
 
+  searchby = '';
   searchstring = '';
   jobtype = 'ALL';
   porttype = 'SEA PORT';
@@ -136,6 +137,7 @@ export class JobComponent {
   }
 
   InitComponent() {
+    this.searchby = "JOBNO";
     this.job_no = "";
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -686,6 +688,7 @@ export class JobComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       jobtype: this.jobtype.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
@@ -1549,7 +1552,7 @@ export class JobComponent {
     this.loading = true;
     let SearchData = {
       pkid: this.Record.job_exp_id,
-      brcode :  this.gs.globalVariables.branch_code
+      brcode: this.gs.globalVariables.branch_code
     };
 
     SearchData.pkid = this.Record.job_exp_id;
@@ -1601,10 +1604,10 @@ export class JobComponent {
         this.loading = false;
         this.CrList = response.list;
         this.bCreditLimit = response.retvalue;
-        
+
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
-          
+
           this.showalert = true;
           //alert(response.message);
 
@@ -1743,7 +1746,7 @@ export class JobComponent {
   LinkDocs(esanchitlink: any) {
     this.open(esanchitlink);
   }
-  
+
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
