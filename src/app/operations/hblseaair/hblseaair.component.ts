@@ -1039,4 +1039,9 @@ export class HblSeaAirComponent {
         this.ErrorMessage = '';
         this.open(history);
     }
+
+    AmsFiling(amsedi: any) {
+        this.ErrorMessage = '';
+        this.open(amsedi);
+    }
 }

@@ -44,6 +44,7 @@ import { ConsoleEditorComponent } from './costing/consoleeditor/consoleeditor.co
 import { BkmPaymentComponent } from './mblsea/bkmpayment.component';
 import { BkmCargoComponent } from './mblsea/bkmcargo.component';
 import { TransitComponent } from './mblsea/transit.component';
+import { AmsEdiComponent } from './amsedi/amsedi.component';
 
 @NgModule({
   imports: [
@@ -87,7 +88,8 @@ import { TransitComponent } from './mblsea/transit.component';
     ConsoleEditorComponent,
     BkmPaymentComponent,
     BkmCargoComponent,
-    TransitComponent
+    TransitComponent,
+    AmsEdiComponent
   ],
   providers: [
   ],
