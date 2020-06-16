@@ -1,12 +1,12 @@
 <div class="page-list">
     <div class="page-search">
         <div class="row">
-            <label class="col-1">Search</label>
+            <!-- <label class="col-1">Search</label>
             <div class="col-2">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
-            </div>
+            </div> -->
             <div class="col-6">
-                <button [disabled]="loading" (click)="List()" class="btn btn-primary btn-sm">Search</button>
+                <!-- <button [disabled]="loading" (click)="List()" class="btn btn-primary btn-sm">Search</button> -->
                 <button [disabled]="loading" (click)="ImportData()" class="btn btn-primary btn-sm">ImportData</button>
                 <button [disabled]="loading" (click)="Generate()" class="btn btn-primary btn-sm">Generate</button>
                 <i *ngIf="loading" class="fa fa-spinner"></i>
