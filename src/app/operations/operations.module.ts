@@ -45,6 +45,8 @@ import { BkmPaymentComponent } from './mblsea/bkmpayment.component';
 import { BkmCargoComponent } from './mblsea/bkmcargo.component';
 import { TransitComponent } from './mblsea/transit.component';
 import { AmsEdiComponent } from './amsedi/amsedi.component';
+import { EdiErrorComponent } from './amsedi/edi-error.component';
+import { Linkm2Component } from './amsedi/linkm2.component';
 
 @NgModule({
   imports: [
@@ -89,7 +91,9 @@ import { AmsEdiComponent } from './amsedi/amsedi.component';
     BkmPaymentComponent,
     BkmCargoComponent,
     TransitComponent,
-    AmsEdiComponent
+    AmsEdiComponent,
+    EdiErrorComponent,
+    Linkm2Component
   ],
   providers: [
   ],

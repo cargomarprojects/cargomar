@@ -1,0 +1,35 @@
+<div class="page-header" *ngIf="showHeading">
+    <div class="col">
+      <label>{{title}}</label>
+      <button class="btn btn-primary btn-sm mx-1" (click)="Close()">Close</button>
+      
+    </div>
+  </div>
+  
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SENDER</th>
+          <th>TYPE</th>
+          <th>SOURCE</th>
+          <th>TARGET-ID</th>
+          <th>TARGET-VALUE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr [style.color]="rec.row_colour" *ngFor="let rec of EdiErrorList; let i = index">
+          <td>{{rec.sender}}</td>
+          <td>{{rec.type}}</td>
+          <td>{{rec.source}}</td>
+          <td>{{rec.target_id}}</td>
+          <td>{{rec.target_name}}</td>
+  
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+  
+  

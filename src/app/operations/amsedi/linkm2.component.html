@@ -1,0 +1,242 @@
+<div class="page-header" *ngIf="showheader">
+    <div class="col">
+      <label>{{title}}</label>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mx-1">List</button>
+      <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+  
+    <div class="page-search">
+      <div class="row">
+  
+        <div class="col-sm-4">
+  
+          <div class="form-group row">
+            <label class="col-3 col-form-label col-form-label-sm">Partner</label>
+            <div class="col-9">
+              <select class="form-control form-control-sm" [(ngModel)]="link_sender">
+                <option value="DESCARTES">DESCARTES</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-3 col-form-label col-form-label-sm">Type</label>
+            <div class="col-9">
+              <select class="form-control form-control-sm" [(ngModel)]="link_type">
+                <option value="INWARD">INWARD</option>
+                <option value="OUTWARD">OUTWARD</option>
+              </select>
+            </div>
+          </div>
+  
+  
+          <div class="form-group row">
+            <label class="col-3 col-form-label  col-form-label-sm">Category</label>
+            <div class="col-9">
+              <select class="form-control form-control-sm" [(ngModel)]="link_category">
+                <option value="">ALL</option>
+                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="PORT">PORT</option>
+              </select>
+            </div>
+          </div>
+  
+  
+          <div class="form-group row">
+            <label class="col-3 col-form-label  col-form-label-sm">Sub Category</label>
+            <div class="col-9">
+              <select class="form-control form-control-sm" [(ngModel)]="link_subcategory">
+                <option value="">ALL</option>
+                <option value="SHIPPER">SHIPPER</option>
+                <option value="CONSIGNEE">CONSIGNEE</option>
+                <option value="POL">POL</option>
+                <option value="POD">POD</option>
+                <option value="POL-AGENT">POL-AGENT</option>
+              </select>
+            </div>
+          </div>
+  
+  
+        </div>
+  
+        <div class="col-sm-4">
+  
+          <div class="form-group row">
+            <label class="col-3 col-form-label  col-form-label-sm">Link Status</label>
+            <div class="col-9">
+              <select class="form-control form-control-sm" [(ngModel)]="link_status">
+                <option value="">ALL</option>
+                <option value="Y">LINKED</option>
+                <option value="N">BLANK</option>
+              </select>
+            </div>
+          </div>
+  
+  
+          <div class="form-group row">
+            <label class="col-3">Search</label>
+            <div class="col-9">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+          </div>
+  
+  
+        </div>
+  
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <div class="col-9 offset-3">
+              <button (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
+          </div>
+        </div>
+  
+  
+  
+      </div>
+    </div>
+  
+  
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>TRADING-PARTNER</th>
+            <th>TYPE</th>
+            <th>CATEGORY</th>
+            <th>SUB-CATEGORY</th>
+            <th>SOURCE-NAME</th>
+            <th>LINK-TYPE</th>
+            <th>TARGET-ID</th>
+            <th>TARGET-NAME</th>
+            <th>LINKED</th>
+            <th>REMOVE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr >
+            <td (click)="ActionHandler('EDIT',rec.link_pkid)" class="hlink" >{{rec.link_messagesender}}</td>
+            <td>{{rec.link_type}}</td>
+            <td>{{rec.link_category}}</td>
+            <td>{{rec.link_subcategory}}</td>
+            <td (click)="ActionHandler('EDIT',rec.link_pkid)" class="undline" >{{rec.link_source_name}}</td>
+            <td>{{rec.link_mode}}</td>
+            <td>{{rec.link_target_id}}</td>
+            <td>{{rec.link_target_name}}</td>
+            <td>{{rec.link_status}}</td>          
+            <td>
+              <span>
+                <App-Dialog
+                  [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.link_pkid,name:rec.link_source_name}"
+                  (result)="RemoveList($event)"></App-Dialog>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  
+  </div>
+  
+  
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
+  
+    <div class="page-box">
+  
+      <div class="row">
+  
+        <div class="col-sm-6">
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm" >Group</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_messagesender" />
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_category" />
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Sub Type</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_subcategory" />
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Source</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_source_name" />
+            </div>
+          </div>
+  
+  
+          <div *ngIf="Record.link_mode == 'ID' ">
+            <div class="form-group row" style="color:black">
+  
+              <label class="col-2 col-form-label col-form-label-sm">Target</label>
+              <div class="col-10">
+               <!-- <app-autocomplete2 [controlname]="controlname" [tabletype]="tabletype" [tabletype]="subtype" [displaycolumn]="'NAME'"
+                [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
+              </app-autocomplete2> -->
+  
+  
+  
+              </div>
+            </div>
+          </div>
+  
+  
+          <div *ngIf="Record.link_mode == 'VALUE' ">
+  
+            <div class="form-group row">
+              <label class="col-2 col-form-label  col-form-label-sm">Value</label>
+              <div class="col-10">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.link_target_name"
+                  (blur)="OnBlur('link_target_name')" required maxlength="200" />
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm"></label>
+            <div class="col-10">
+              <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm mr-1">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-success btn-sm">Return</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <br>
+  </div>
+  <br />
+  
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
