@@ -34,6 +34,7 @@ export class AmsEdiComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  partnercategory="AMS";
   mode = 'ADD';
   pkid = '';
 
