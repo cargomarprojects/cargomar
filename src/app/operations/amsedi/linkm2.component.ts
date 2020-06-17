@@ -105,7 +105,7 @@ export class Linkm2Component {
         // if ( this.TradingPartners.length >0)
         //   this.link_sender = this.TradingPartners[0].param_code;
 
-        this.link_sender = "CARGOMAR";
+        this.link_sender = "DESCARTES";
 
     }
 

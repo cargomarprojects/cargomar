@@ -38,23 +38,27 @@
             <div class="col-9">
               <select class="form-control form-control-sm" [(ngModel)]="link_category">
                 <option value="">ALL</option>
-                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="CARRIER">CARRIER</option>
+                <option value="VESSEL">VESSEL</option>
+                <option value="CONTAINER TYPE">CONTAINER TYPE</option>
                 <option value="PORT">PORT</option>
+                <option value="UNIT">UNIT</option>
               </select>
             </div>
           </div>
   
   
           <div class="form-group row">
-            <label class="col-3 col-form-label  col-form-label-sm">Sub Category</label>
+            <label class="col-3 col-form-label  col-form-label-sm">SubCategory</label>
             <div class="col-9">
               <select class="form-control form-control-sm" [(ngModel)]="link_subcategory">
                 <option value="">ALL</option>
-                <option value="SHIPPER">SHIPPER</option>
-                <option value="CONSIGNEE">CONSIGNEE</option>
-                <option value="POL">POL</option>
-                <option value="POD">POD</option>
-                <option value="POL-AGENT">POL-AGENT</option>
+                <option value="SEA CARRIER">SEA CARRIER</option>
+                <option value="VESSEL">VESSEL</option>
+                <option value="CONTAINER TYPE">CONTAINER TYPE</option>
+                <option value="PORT">PORT</option>
+                <option value="USPORT">USPORT</option>
+                <option value="UNIT">UNIT</option>
               </select>
             </div>
           </div>
@@ -188,7 +192,9 @@
                <!-- <app-autocomplete2 [controlname]="controlname" [tabletype]="tabletype" [tabletype]="subtype" [displaycolumn]="'NAME'"
                 [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
               </app-autocomplete2> -->
-  
+
+              <!-- <app-autocomplete2 #sman [disabled]="!canadd" [inputdata]="SMANREC"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete2> -->
   
   
               </div>
