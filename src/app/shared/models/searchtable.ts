@@ -4,6 +4,7 @@ export class SearchTable {
     type: string = '';
     parentid: string = '';
     where: string = '';
+    uid: string;
     id: string;
     code: string;
     name: string;
@@ -18,23 +19,25 @@ export class SearchTable {
     constructor(_controlname: string = '',
         _type: string = '',
         _displaycolumn: string = '',
-        _id: string ='',
+        _uid: string = '',
+        _id: string = '',
         _parentid: string = '',
         _where: string = '',
-        _code: string ='',
-        _name: string ='',
+        _code: string = '',
+        _name: string = '',
         _rate: number = 0,
-        _col1: string ='',
-        _col2: string='',
+        _col1: string = '',
+        _col2: string = '',
         _col3: string = '',
         _col4: string = '',
         _col5: string = '',
         _col6: string = '',
         _col7: string = ''
-    ){
+    ) {
         this.controlname = _controlname;
         this.displaycolumn = _displaycolumn;
         this.type = _type;
+        this.uid = _uid;
         this.id = _id;
         this.parentid = _parentid;
         this.where = _where;
