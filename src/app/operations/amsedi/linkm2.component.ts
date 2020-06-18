@@ -55,7 +55,7 @@ export class Linkm2Component {
     tabletype = '';
     subtype = '';
     displaydata = '';
-
+    where = " tl_sourcetable='DESCARTES' ";
 
     RecordList2: targetlistm[] = [];
 
@@ -159,7 +159,7 @@ export class Linkm2Component {
                 this.Record.rec_mode = this.mode;
 
                 this.controlname = this.Record.link_category + "-" + this.Record.link_subcategory;
-                this.tabletype = this.Record.link_category;
+                this.tabletype = this.Record.link_type + "-" + this.Record.link_subcategory;
                 this.subtype = this.Record.link_subcategory;
                 this.displaydata = this.Record.link_target_name;
                 if (this.displaydata == null || this.displaydata == undefined || this.displaydata == '')

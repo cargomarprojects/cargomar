@@ -92,7 +92,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Group</label>
           <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
+            <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
               <option value="MEXICO-TMM">MEXICO-TMM</option>
               <option value="DESCARTES">DESCARTES</option>
             </select>
