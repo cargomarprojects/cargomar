@@ -19,5 +19,9 @@ export class AmsEdiService {
   ImportData(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/AmsEdi/ImportData', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  GenerateXml(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/AmsEdi/GenerateXml', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

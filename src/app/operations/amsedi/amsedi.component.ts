@@ -223,10 +223,69 @@ export class AmsEdiComponent {
       //     }
     }
   }
+ 
 
-  Generate(){
-    
+  GenerateXml(ftpsent: any) {
+    this.ErrorMessage = '';
+    // if (this.Record.book_agent_id.trim().length <= 0) {
+    //   this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+    //   return;
+    // }
+    // if (this.Record.book_agent_name.indexOf("RITRA") < 0) {
+    //   this.ErrorMessage = "\n\r | Invalid Agent Selected";
+    //   return;
+    // }
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      agent_id: '',
+      agent_code: 'RITRA',
+      agent_name: '',
+      pre_alert_date: '',
+      hbl_nos: '',
+      type: '',
+      mbl_id: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.branch_name = this.gs.globalVariables.branch_name;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    // SearchData.agent_id = this.Record.book_agent_id;
+    // SearchData.agent_code = this.Record.book_agent_code;
+    // SearchData.agent_name = this.Record.book_agent_name;
+    SearchData.hbl_nos = '';
+    //SearchData.mbl_id = this.Record.book_pkid;
+    this.mainService.GenerateXml(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        // this.sSubject += ", " + response.subject + ", MBL- " + this.Record.book_mblno;
+        // this.FtpAttachList = new Array<any>();
+        // this.FileList = response.filelist;
+        // for (let rec of this.FileList) {
+        //   this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize });
+        // }
+        // if (response.poftpexist)
+        //   this.GenerateXmlPO('FTP', ftpsent);
+        // else {
+        //   this.PoFtpAttachList = new Array<any>();
+        //   this.open(ftpsent);
+        // }
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
 }
