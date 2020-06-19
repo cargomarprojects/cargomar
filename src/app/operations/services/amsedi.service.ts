@@ -6,7 +6,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
 export class AmsEdiService {
-
+  
   constructor(
     private http2: HttpClient,
     private gs: GlobalService) {
@@ -23,5 +23,10 @@ export class AmsEdiService {
   GenerateXml(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/AmsEdi/GenerateXml', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  getValidate(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/AmsEdi/Validate', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

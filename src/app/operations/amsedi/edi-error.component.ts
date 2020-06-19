@@ -15,8 +15,8 @@ export class EdiErrorComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() showHeading : boolean = true;
-
-  EdiErrorList: any[] = [];
+  @Input() EdiErrorList: any[] = [];
+  
   menu_record: any;
   sub: any;
   currentTab = 'LIST';

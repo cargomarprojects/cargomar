@@ -34,12 +34,12 @@ export class AmsEdiComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
-  partnercategory="AMS";
+  partnercategory = "AMS";
   mode = 'ADD';
   pkid = '';
 
   ctr: number;
-
+  EdiErrorList: any[]=[];
   // Array For Displaying List
   RecordList: EdiHouse[] = [];
   // Single Record for add/edit/view details
@@ -223,7 +223,28 @@ export class AmsEdiComponent {
       //     }
     }
   }
- 
+
+  ValidateXml() {
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      user_code: this.gs.globalVariables.user_code,
+      hbl_pkid: this.hblid
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.getValidate(SearchData)
+      .subscribe(response => {
+        this.EdiErrorList = response.list;
+        if (response.list.length > 0)
+          alert('pls check the Error List tab to see the Missing Data');
+        else
+          alert('No Missing Data Found');
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 
   GenerateXml(ftpsent: any) {
     this.ErrorMessage = '';
