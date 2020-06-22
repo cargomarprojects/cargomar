@@ -61,7 +61,7 @@ export class BlComponent {
   NFYADDRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private modalService: NgbModal, 
+    private modalService: NgbModal,
     private mainService: BlService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -448,6 +448,16 @@ export class BlComponent {
           this.Record.bl_shipper_add4 = this.Record.bl_shipper_add4.toUpperCase();
           break;
         }
+      case 'bl_shipper_st_code':
+        {
+          this.Record.bl_shipper_st_code = this.Record.bl_shipper_st_code.toUpperCase();
+          break;
+        }
+      case 'bl_shipper_cntry_code':
+        {
+          this.Record.bl_shipper_cntry_code = this.Record.bl_shipper_cntry_code.toUpperCase();
+          break;
+        }
       case 'bl_consignee_name':
         {
           this.Record.bl_consignee_name = this.Record.bl_consignee_name.toUpperCase();
@@ -471,6 +481,16 @@ export class BlComponent {
       case 'bl_consignee_add4':
         {
           this.Record.bl_consignee_add4 = this.Record.bl_consignee_add4.toUpperCase();
+          break;
+        }
+      case 'bl_consignee_st_code':
+        {
+          this.Record.bl_consignee_st_code = this.Record.bl_consignee_st_code.toUpperCase();
+          break;
+        }
+      case 'bl_consignee_cntry_code':
+        {
+          this.Record.bl_consignee_cntry_code = this.Record.bl_consignee_cntry_code.toUpperCase();
           break;
         }
       case 'bl_notify_name':
@@ -498,7 +518,16 @@ export class BlComponent {
           this.Record.bl_notify_add4 = this.Record.bl_notify_add4.toUpperCase();
           break;
         }
-
+      case 'bl_notify_st_code':
+        {
+          this.Record.bl_notify_st_code = this.Record.bl_notify_st_code.toUpperCase();
+          break;
+        }
+      case 'bl_notify_cntry_code':
+        {
+          this.Record.bl_notify_cntry_code = this.Record.bl_notify_cntry_code.toUpperCase();
+          break;
+        }
       case 'bl_place_receipt':
         {
           this.Record.bl_place_receipt = this.Record.bl_place_receipt.toUpperCase();
@@ -1329,7 +1358,7 @@ export class BlComponent {
         });
   }
 
-  PasteData(content:any) {
+  PasteData(content: any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -1427,7 +1456,7 @@ export class BlComponent {
 
   closeModal() {
     this.modal.close();
- 
+
   }
 
 }

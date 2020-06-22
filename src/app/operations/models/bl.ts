@@ -64,7 +64,7 @@ export class Bl {
   bl_vsl_voy_no: string;
   bl_period_delivery: string;
   bl_move_type: string;
-  bl_place_transhipment: string;  
+  bl_place_transhipment: string;
 
   bl_is_mark1: boolean;
   bl_is_mark2: boolean;
@@ -167,7 +167,7 @@ export class Bl {
   bl_remarks4: string;
   bl_is_original: boolean;
   bl_brazil_declaration: boolean;
-   
+
   hbl_date: string;
   hbl_blno_generated: string;
   hbl_fcr_no: string;
@@ -177,7 +177,7 @@ export class Bl {
   bl_print_format_name: string;
   bl_print: string;
   bl_original_print: string;
-  
+
   rec_mode: string;
   rec_category: string;
 
@@ -246,5 +246,12 @@ export class Bl {
   bl_direct: boolean;
   bl_itm_desc: string;
   bl_itm_po: string;
+
+  bl_shipper_st_code: string;
+  bl_shipper_cntry_code: string;
+  bl_consignee_st_code: string;
+  bl_consignee_cntry_code: string;
+  bl_notify_st_code: string;
+  bl_notify_cntry_code: string;
 }
 
