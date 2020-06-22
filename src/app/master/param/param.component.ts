@@ -140,11 +140,19 @@ export class ParamComponent {
     }
 
 
-
     if (this.type == 'AIR CARRIER') {
       this.id1 = "3DigitCode";
       this.id2 = "Type";
+      this.id3 = "SCAC";
     }
+    if (this.type == 'SEA CARRIER') {
+      this.id3 = "SCAC";
+    }
+
+    if (this.type == 'VESSEL') {
+      this.id1 = "Vessel Flag";
+    }
+
     if (this.type == 'PAN') {
       this.id1 = "Location";
     }
