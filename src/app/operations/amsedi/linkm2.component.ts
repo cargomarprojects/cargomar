@@ -175,7 +175,7 @@ export class Linkm2Component {
 
     LovSelected(_Record: any) {
         this.Record.link_target_id = _Record.id;
-        if (this.Record.link_subcategory == "PORT" || this.Record.link_subcategory == "USPORT"||this.Record.link_subcategory == "UNIT")
+        if (this.Record.link_subcategory == "PORT" || this.Record.link_subcategory == "USPORT" || this.Record.link_subcategory == "UNIT" || this.Record.link_subcategory == "CONTAINER TYPE")
             this.Record.link_target_name = _Record.code;
         else
             this.Record.link_target_name = _Record.name;
