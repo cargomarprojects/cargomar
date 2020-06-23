@@ -26,6 +26,7 @@ export class FileUploadComponent {
   InfoMessage: string = '';
 
   catg_id: string = '';
+  desc : string ='';
   DocTypeList: any[] = [];
 
   copy_type: string = 'MBL-SE';
@@ -140,7 +141,6 @@ export class FileUploadComponent {
       return;
     }
 
-
     if (this.catg_id == '') {
       alert('Pls Select Category');
       return;
@@ -150,6 +150,23 @@ export class FileUploadComponent {
       alert('No File Selected');
       return;
     }
+
+
+    const itm =  this.DocTypeList.find(rec => rec.param_pkid == this.catg_id);
+    if ( !itm){
+      alert('Pls Select Category');
+      return;
+    }
+
+    if ( itm.param_name == 'INVOICE'){
+      if (this.desc =='')  {
+        alert('Description Cannot Be Blank');
+        return;
+      }
+    }
+
+
+
 
     this.loading = true;
 
@@ -161,13 +178,12 @@ export class FileUploadComponent {
     frmData.append("PARENTID", this.pkid);
     frmData.append("GROUPID", this.groupid);
     frmData.append("TYPE", this.type);
+    frmData.append("DESC", this.desc);
     frmData.append("CATGID", this.catg_id);
     frmData.append("CREATEDBY", this.gs.globalVariables.user_code);
 
     frmData.append("ROOT-FOLDER", this.gs.defaultValues.root_folder);
     frmData.append("SUB-FOLDER", this.gs.defaultValues.sub_folder);
-
-
 
 
 
@@ -181,6 +197,7 @@ export class FileUploadComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
+          this.desc = '';
           this.List('NEW');
           alert('Upload Complete');
         },

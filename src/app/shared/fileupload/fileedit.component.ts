@@ -76,6 +76,17 @@ export class FileEditComponent {
       return;
     }
 
+
+    var REC = this.DocTypeList.find(rec => rec.param_pkid == this.record.doc_catg_id);
+    if (REC != null) {
+      if ( REC.param_name =='INVOICE') {
+        if (this.record.doc_desc =='')  {
+          alert('Description Cannot Be Blank');
+          return;
+        }
+      }
+    }
+
     this.SearchRecord("DOCUMENTUPDATE", "SAVE");
   }
 
@@ -92,6 +103,7 @@ export class FileEditComponent {
     let SearchData = {
       pkid: this.record.doc_pkid,
       catgid: this.record.doc_catg_id,
+      desc: this.record.doc_desc,
       filename: this.record.doc_file_name,
       table: 'documentupdate',
       type: _type,
@@ -100,6 +112,7 @@ export class FileEditComponent {
 
     SearchData.pkid = this.record.doc_pkid;
     SearchData.catgid = this.record.doc_catg_id;
+    SearchData.desc = this.record.doc_desc;
     SearchData.filename = this.record.doc_file_name;
     SearchData.table = 'documentupdate';
     SearchData.root_folder = this.gs.defaultValues.root_folder;
