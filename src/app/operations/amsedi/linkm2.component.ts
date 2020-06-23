@@ -55,7 +55,7 @@ export class Linkm2Component {
     tabletype = '';
     subtype = '';
     displaydata = '';
-
+    where = " tl_sourcetable='DESCARTES' ";
 
     RecordList2: targetlistm[] = [];
 
@@ -159,7 +159,7 @@ export class Linkm2Component {
                 this.Record.rec_mode = this.mode;
 
                 this.controlname = this.Record.link_category + "-" + this.Record.link_subcategory;
-                this.tabletype = this.Record.link_category;
+                this.tabletype = this.Record.link_type + "-" + this.Record.link_subcategory;
                 this.subtype = this.Record.link_subcategory;
                 this.displaydata = this.Record.link_target_name;
                 if (this.displaydata == null || this.displaydata == undefined || this.displaydata == '')
@@ -175,7 +175,10 @@ export class Linkm2Component {
 
     LovSelected(_Record: any) {
         this.Record.link_target_id = _Record.id;
-        this.Record.link_target_name = _Record.name;
+        if (this.Record.link_subcategory == "PORT" || this.Record.link_subcategory == "USPORT" || this.Record.link_subcategory == "UNIT" || this.Record.link_subcategory == "CONTAINER TYPE")
+            this.Record.link_target_name = _Record.code;
+        else
+            this.Record.link_target_name = _Record.name;
     }
 
 

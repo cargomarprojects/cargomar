@@ -12,7 +12,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 })
 export class AmsEdiComponent {
   // Local Variables 
-  title = 'AMS List';
+  title = 'Data Transfer List';
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -34,12 +34,12 @@ export class AmsEdiComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
-  partnercategory="AMS";
+  partnercategory = "AMS";
   mode = 'ADD';
   pkid = '';
 
   ctr: number;
-
+  EdiErrorList: any[]=[];
   // Array For Displaying List
   RecordList: EdiHouse[] = [];
   // Single Record for add/edit/view details
@@ -224,9 +224,87 @@ export class AmsEdiComponent {
     }
   }
 
-  Generate(){
-    
+  ValidateXml() {
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      user_code: this.gs.globalVariables.user_code,
+      hbl_pkid: this.hblid
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.getValidate(SearchData)
+      .subscribe(response => {
+        this.EdiErrorList = response.list;
+        if (response.list.length > 0)
+          alert('pls check the Error List tab to see the Missing Data');
+        else
+          alert('No Missing Data Found');
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
+
+  GenerateXml(ftpsent: any) {
+    this.ErrorMessage = '';
+    // if (this.Record.book_agent_id.trim().length <= 0) {
+    //   this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+    //   return;
+    // }
+    // if (this.Record.book_agent_name.indexOf("RITRA") < 0) {
+    //   this.ErrorMessage = "\n\r | Invalid Agent Selected";
+    //   return;
+    // }
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      agent_id: '',
+      agent_code: 'MOTHERLINES',
+      agent_name: '',
+      type: '',
+      pkid:''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.branch_name = this.gs.globalVariables.branch_name;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    // SearchData.agent_id = this.Record.book_agent_id;
+    // SearchData.agent_code = this.Record.book_agent_code;
+    // SearchData.agent_name = this.Record.book_agent_name;
+    SearchData.pkid = this.hblid;
+  
+    this.mainService.GenerateXml(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        // this.sSubject += ", " + response.subject + ", MBL- " + this.Record.book_mblno;
+        // this.FtpAttachList = new Array<any>();
+        // this.FileList = response.filelist;
+        // for (let rec of this.FileList) {
+        //   this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize });
+        // }
+        // if (response.poftpexist)
+        //   this.GenerateXmlPO('FTP', ftpsent);
+        // else {
+        //   this.PoFtpAttachList = new Array<any>();
+        //   this.open(ftpsent);
+        // }
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
 }

@@ -59,6 +59,11 @@
           <th *ngIf="type == 'INFO-QLFR'">INFO TYPE</th>
           <th *ngIf="type == 'INFO-CODE'">INFO QLFR</th>
           <th *ngIf="type == 'CTRL-RESULT'">CTRL TYPE</th>
+          <th *ngIf="type == 'VESSEL'">FLAG</th>
+          <th *ngIf="type == 'SEA CARRIER'">SCAC</th>
+          <th *ngIf="type == 'AIR CARRIER'">3DIGITCODE</th>
+          <th *ngIf="type == 'AIR CARRIER'">TYPE</th>
+          <th *ngIf="type == 'AIR CARRIER'">SCAC</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
@@ -78,6 +83,11 @@
           <td *ngIf="type == 'INFO-QLFR'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'INFO-CODE'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'CTRL-RESULT'">{{rec.param_id5_code}}</td>
+          <td *ngIf="type == 'VESSEL'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'SEA CARRIER'">{{rec.param_id3}}</td>
+          <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id2}}</td>
+          <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id3}}</td>
         </tr>
       </tbody>
     </table>

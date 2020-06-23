@@ -597,7 +597,7 @@
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()"
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
-                class="btn btn-success btn-sm">AmsFiling</button>
+                class="btn btn-success btn-sm">Data Transfer</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-success btn-sm">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -676,7 +676,7 @@
 
 <ng-template #amsedi let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">AMS FILING</h4>
+    <h4 class="modal-title">Data Transfer List</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
