@@ -113,7 +113,7 @@ export class MblAirComponent {
   }
 
   InitComponent() {
-    this.searchby = 'MAWBK';
+    this.searchby = 'ALL';
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;

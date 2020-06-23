@@ -124,7 +124,7 @@ export class HblSeaAirComponent {
     }
 
     InitComponent() {
-        this.searchby = "SINO";
+        this.searchby = "ALL";
         this.bBilling = false;
         this.bJobIncome = false;
         this.bbuysellrate = false;

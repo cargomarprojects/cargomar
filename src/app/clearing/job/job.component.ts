@@ -137,7 +137,7 @@ export class JobComponent {
   }
 
   InitComponent() {
-    this.searchby = "JOBNO";
+    this.searchby = "ALL";
     this.job_no = "";
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
