@@ -2,6 +2,7 @@
 export class documentm {
   doc_pkid: string;
   doc_catg_name: string;
+  doc_desc: string;
   doc_file_name: string;
   doc_file_size: string;
   doc_full_name: string;

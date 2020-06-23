@@ -170,6 +170,11 @@ export class ParamComponent {
     if (this.type == 'COUNTRY') {
       this.id1 = "Region";
     }
+
+    if (this.type == 'APP-DOC-TYPES') {
+      this.id1 = "Doc Type";
+    }
+
     if (this.type == 'PARAM') {
       this.id1 = "Customer Code";
       this.id2 = "Type";
