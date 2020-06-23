@@ -29,6 +29,7 @@
             <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
             <div class="col-sm-2" style="padding-right:0px" >
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
+                <option [value]="'ALL'">ALL</option>
                 <option [value]="'MBLBK'">MBLBK#</option>
                 <option [value]="'BOOKNO'">BOOK#</option>
                 <option [value]="'MBLNO'">MBL#</option>

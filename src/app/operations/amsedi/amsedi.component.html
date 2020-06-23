@@ -5,11 +5,11 @@
                 <div class="form-group row">
                     <label class="col-3 col-form-label col-form-label-sm">Category</label>
                     <div class="col-9">
-                      <select class="form-control form-control-sm" [(ngModel)]="partnercategory">
-                        <option value="AMS">AMS</option>
-                      </select>
+                        <select class="form-control form-control-sm" [(ngModel)]="partnercategory">
+                            <option value="AMS">AMS</option>
+                        </select>
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="col-6">
                 <!-- <button [disabled]="loading" (click)="List()" class="btn btn-primary btn-sm">Search</button> -->
@@ -63,15 +63,15 @@
         </ngb-tab>
         <ngb-tab title="Error List">
             <ng-template ngbTabContent>
-              <app-edierror [showHeading]=false [EdiErrorList]="EdiErrorList" ></app-edierror>
+                <app-edierror [showHeading]=false [EdiErrorList]="EdiErrorList"></app-edierror>
             </ng-template>
-          </ngb-tab>
-      
-          <ngb-tab title="Code Mapping">
+        </ngb-tab>
+
+        <ngb-tab title="Code Mapping">
             <ng-template ngbTabContent>
-              <app-linkm2 [showheader]=false> </app-linkm2>
+                <app-linkm2 [showheader]=false> </app-linkm2>
             </ng-template>
-          </ngb-tab>
+        </ngb-tab>
 
     </ngb-tabset>
 </div>

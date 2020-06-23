@@ -47,6 +47,9 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" (click)="Generate('BANK')" class="btn btn-primary btn-sm">Generate</button>
             <!-- <button [disabled]="loading" (click)="Generate('CHECK-LIST')" class="btn btn-primary btn-sm">CheckList</button> -->
+            <label *ngIf="tot_amt!=0" class="col-form-label  col-form-label-sm">&nbsp;AMT:&nbsp;
+              <font color="red">{{tot_amt}} </font>
+            </label>
           </div>
         </div>
       </div>

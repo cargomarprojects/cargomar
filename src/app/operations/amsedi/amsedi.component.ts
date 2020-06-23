@@ -263,6 +263,7 @@ export class AmsEdiComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
+      category:this.partnercategory,
       agent_id: '',
       agent_code: 'MOTHERLINES',
       agent_name: '',
@@ -274,6 +275,7 @@ export class AmsEdiComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.branch_name = this.gs.globalVariables.branch_name;
     SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.category = this.partnercategory;
     // SearchData.agent_id = this.Record.book_agent_id;
     // SearchData.agent_code = this.Record.book_agent_code;
     // SearchData.agent_name = this.Record.book_agent_name;

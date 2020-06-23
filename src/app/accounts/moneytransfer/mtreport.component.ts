@@ -27,7 +27,7 @@ export class MtReportComponent {
   generatedtype: string = 'PENDING';
   fromdate: string = '';
   todate: string = '';
-
+  tot_amt: number = 0;
   ErrorMessage = "";
   InfoMessage = "";
   mode = '';
@@ -198,6 +198,11 @@ export class MtReportComponent {
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
+          this.tot_amt = 0;
+          for (let rec of this.RecordList) {
+            this.tot_amt += rec.mt_txn_amt;
+          }
+          this.tot_amt=this.gs.roundNumber(this.tot_amt,2);
         }
       },
         error => {

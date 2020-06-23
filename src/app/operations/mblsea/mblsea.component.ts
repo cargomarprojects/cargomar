@@ -131,7 +131,7 @@ export class MblSeaComponent {
   }
 
   InitComponent() {
-    this.searchby = "MBLBK";
+    this.searchby = "ALL";
     this.bookno = "";
     this.foldersent = false;
     this.chk_foldersent = false;
