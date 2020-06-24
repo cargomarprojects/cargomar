@@ -62,8 +62,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.cntr_pkid)">
-          <td>{{rec.cntr_no}}</td>
+        <tr >
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.cntr_pkid)">{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
           <td>{{rec.cntr_asealno}}</td>
           <td>{{rec.cntr_csealno}}</td>

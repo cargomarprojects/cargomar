@@ -81,8 +81,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr (click)="ActionHandler('EDIT',rec.hbl_pkid)">
-            <td>{{rec.hbl_no}}</td>
+          <tr >
+            <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
             <td>{{rec.hbl_sidate}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
             <td>{{rec.hbl_bl_no}}</td>

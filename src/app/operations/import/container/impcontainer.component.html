@@ -15,8 +15,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.cntr_pkid,i)">
-          <td>{{rec.cntr_no}}</td>
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" >
+          <td class="hlink" (click)="ActionHandler('EDIT', rec.cntr_pkid,i)">{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
           <td>{{rec.cntr_asealno}}</td>
           <td>{{rec.cntr_pcs}}</td>
