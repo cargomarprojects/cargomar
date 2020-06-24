@@ -16,11 +16,11 @@
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
           <th>TYPE</th>
-          <th>DESC</th>          
+          <th>DESC</th>
           <th>NAME</th>
           <th>SIZE</th>
           <th>DELETED</th>
-          <th>REMARKS</th>          
+          <th>REMARKS</th>
           <th *ngIf="canupload">DELETE</th>
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">EDIT</th>
         </tr>
@@ -39,11 +39,12 @@
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.doc_pkid,name:1}"
               (result)="RemoveList($event)"></App-Dialog>
           </td>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true"
+              (click)="ShowEdiUpdate(rec)"></i></td>
         </tr>
-        <tr *ngIf="rec.row_displayed" >
+        <tr *ngIf="rec.row_displayed">
           <td colspan="4">
-            <app-fileedit  [DocTypeList]="DocTypeList"  [record]="rec"></app-fileedit>
+            <app-fileedit [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
           </td>
         </tr>
       </tbody>
@@ -61,7 +62,7 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Type</label>
         <div class="col-10">
-          <select class="form-control form-control-sm" [(ngModel)]="catg_id">
+          <select class="form-control form-control-sm" [(ngModel)]="catg_id" (ngModelChange)="onChangeData(catg_id,'catg')">
             <option *ngFor="let rec of DocTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
           </select>
         </div>
@@ -69,9 +70,9 @@
       <br />
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Description</label>
+        <label class="col-2 col-form-label col-form-label-sm" >Description</label>
         <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="desc" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="desc" required maxlength="200" (ngModelChange)="onChangeData(desc,'desc')"/>
         </div>
       </div>
       <br />
@@ -93,6 +94,12 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="col-sm-6">
+      <div style="width:100px; height:100px;">
+        <qrcode [qrdata]="QrData" [size]="256" [level]="'M'" usesvg="true"></qrcode>
+      </div>
     </div>
 
   </div>
@@ -144,7 +151,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
-          <tr >
+          <tr>
             <td>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" [(ngModel)]="rec.doc_selected">
@@ -157,7 +164,8 @@
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_deleted_by}}</td>
-            <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="ShowEdiUpdate(rec)"></i></td>
+            <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-edit fa-lg pointer" aria-hidden="true"
+                (click)="ShowEdiUpdate(rec)"></i></td>
           </tr>
           <tr *ngIf="rec.row_displayed">
             <td colspan="5">
