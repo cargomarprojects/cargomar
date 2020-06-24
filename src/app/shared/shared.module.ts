@@ -3,6 +3,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AlertService } from './services/alert.service';
 import { LovService } from './services/lov.service';
@@ -54,7 +55,8 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
   imports: [
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    QRCodeModule
   ],
   declarations: [
     AlertComponent,

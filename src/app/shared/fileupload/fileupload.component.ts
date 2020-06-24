@@ -20,13 +20,22 @@ export class FileUploadComponent {
   @Input() public canupload: boolean = true;
   @Input() public defaultdoctype: string = '';
 
+
+  public QrData: string = null;
+  qrJson = {
+    pkid: '',
+    type: '',
+    catg: '',
+    desc: ''
+  };
+
   title = 'Documents';
 
   ErrorMessage: string = '';
   InfoMessage: string = '';
 
   catg_id: string = '';
-  desc : string ='';
+  desc: string = '';
   DocTypeList: any[] = [];
 
   copy_type: string = 'MBL-SE';
@@ -42,7 +51,7 @@ export class FileUploadComponent {
     private alertService: AlertService,
     private http2: HttpClient,
   ) {
-
+    this.QrData = JSON.stringify(this.qrJson);
   }
 
   @ViewChild('fileinput') private fileinput: ElementRef;
@@ -55,10 +64,25 @@ export class FileUploadComponent {
 
   show_docs_list: boolean = false;
 
+
+
+
   ngOnInit() {
+
     this.LoadCombo();
+    this.qrJson.pkid = this.pkid;
+    this.qrJson.type = this.type;
+    this.qrJson.catg = this.catg_id;
+    this.QrData = JSON.stringify(this.qrJson);
   }
 
+  onChangeData(mid, _type) {
+    if (_type == 'catg')
+      this.qrJson.catg = mid;
+    if (_type == 'desc')
+      this.qrJson.desc = mid;
+    this.QrData = JSON.stringify(this.qrJson);
+  }
 
   LoadCombo() {
 
@@ -90,6 +114,10 @@ export class FileUploadComponent {
         }
 
         this.catg_id = sid;
+
+        this.qrJson.catg = this.catg_id;
+        this.QrData = JSON.stringify(this.qrJson);
+
 
         this.List("NEW");
       },
@@ -152,14 +180,14 @@ export class FileUploadComponent {
     }
 
 
-    const itm =  this.DocTypeList.find(rec => rec.param_pkid == this.catg_id);
-    if ( !itm){
+    const itm = this.DocTypeList.find(rec => rec.param_pkid == this.catg_id);
+    if (!itm) {
       alert('Pls Select Category');
       return;
     }
 
-    if ( itm.param_name == 'INVOICE'){
-      if (this.desc =='')  {
+    if (itm.param_name == 'OTHER' || itm.param_name == 'OTHERS') {
+      if (this.desc == '') {
         alert('Description Cannot Be Blank');
         return;
       }
@@ -263,7 +291,7 @@ export class FileUploadComponent {
   }
 
   Downloadfile2(filename: string, filetype: string, filedisplayname: string) {
-    this.gs.DownloadFileFromLocalhost (this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    this.gs.DownloadFileFromLocalhost(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
 
