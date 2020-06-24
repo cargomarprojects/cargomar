@@ -99,8 +99,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr (click)="ActionHandler('EDIT',rec.book_pkid)">
-            <td>{{rec.book_slno}}</td>
+          <tr >
+            <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
             <td>{{rec.book_booked_on}}</td>

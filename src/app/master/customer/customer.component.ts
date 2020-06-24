@@ -83,6 +83,7 @@ export class CustomerComponent {
   ClassList: any[] = [];
   StateList: any[] = [];
   CountryList: any[] = [];
+  fStateList: any[] = [];
 
   // Acc Group , Acc Type
   AcGrpList: any[] = [];
@@ -189,6 +190,7 @@ export class CustomerComponent {
         this.loading = false;
         this.StateList = response.statelist;
         this.CountryList = response.countrylist;
+        this.fStateList = response.fstatelist;
         this.AcGrpList = response.acgroupm;
         this.AcTypeList = response.actypem;
         this.List("NEW");

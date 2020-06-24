@@ -543,7 +543,10 @@ a {
   cursor: zoom-out;
 }
 
-
+.hlink {
+  color: red;
+  text-decoration: underline;
+}
 
 
 /* Extra small devices (portrait phones, less than 576px) */

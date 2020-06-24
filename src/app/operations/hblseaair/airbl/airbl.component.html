@@ -68,15 +68,15 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">StateCode</label>
-        <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_st_code"
-            (blur)="OnBlur('bl_shipper_st_code')" required maxlength="5" />
+        <label class="col-4 col-form-label col-form-label-sm">State</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_state"
+            (blur)="OnBlur('bl_shipper_state')" required maxlength="60" />
         </div>
-        <label class="col-4 col-form-label col-form-label-sm">CountryCode</label>
-        <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_cntry_code"
-            (blur)="OnBlur('bl_shipper_cntry_code')" required maxlength="5" />
+        <label class="col-2 col-form-label col-form-label-sm">Country</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_shipper_country"
+            (blur)="OnBlur('bl_shipper_country')" required maxlength="60" />
         </div>
       </div>
       <div class="form-group row">
@@ -129,15 +129,15 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">StateCode</label>
-        <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_st_code"
-            (blur)="OnBlur('bl_consignee_st_code')" required maxlength="5" />
+        <label class="col-4 col-form-label col-form-label-sm">State</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_state"
+            (blur)="OnBlur('bl_consignee_state')" required maxlength="60" />
         </div>
-        <label class="col-4 col-form-label col-form-label-sm">CountryCode</label>
-        <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_cntry_code"
-            (blur)="OnBlur('bl_consignee_cntry_code')" required maxlength="5" />
+        <label class="col-2 col-form-label col-form-label-sm">Country</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_consignee_country"
+            (blur)="OnBlur('bl_consignee_country')" required maxlength="60" />
         </div>
       </div>
 
@@ -393,15 +393,15 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm"> Notify City Code</label>
+        <label class="col-4 col-form-label col-form-label-sm">State</label>
         <div class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_city_code"
-            (blur)="OnBlur('bl_notify_city_code')" required maxlength="10" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_state"
+            (blur)="OnBlur('bl_notify_state')" required maxlength="60" />
         </div>
         <label style="padding-left:0" class="col-2 col-form-label col-form-label-sm">Country</label>
         <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_country_code"
-            (blur)="OnBlur('bl_notify_country_code')" required maxlength="60" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_notify_country"
+            (blur)="OnBlur('bl_notify_country')" required maxlength="60" />
         </div>
       </div>
 

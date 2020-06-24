@@ -37,6 +37,7 @@ export class ImpHblSeaAirComponent {
   currentTab = 'LIST';
   JobTab = 'LIST';
 
+  searchby = "";
   searchstring = '';
   jobtype = 'BOTH';
   porttype = 'SEA PORT';
@@ -121,7 +122,7 @@ export class ImpHblSeaAirComponent {
   }
 
   InitComponent() {
-
+    this.searchby = "ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
     {
@@ -475,6 +476,7 @@ export class ImpHblSeaAirComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,

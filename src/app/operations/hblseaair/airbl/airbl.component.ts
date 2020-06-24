@@ -535,6 +535,16 @@ export class AirBlComponent {
           this.Record.bl_shipper_add4 = this.Record.bl_shipper_add4.toUpperCase();
           break;
         }
+        case 'bl_shipper_state':
+        {
+          this.Record.bl_shipper_state = this.Record.bl_shipper_state.toUpperCase();
+          break;
+        }
+        case 'bl_shipper_country':
+        {
+          this.Record.bl_shipper_country = this.Record.bl_shipper_country.toUpperCase();
+          break;
+        }
       case 'bl_consignee_name':
         {
           this.Record.bl_consignee_name = this.Record.bl_consignee_name.toUpperCase();
@@ -560,6 +570,16 @@ export class AirBlComponent {
           this.Record.bl_consignee_add4 = this.Record.bl_consignee_add4.toUpperCase();
           break;
         }
+        case 'bl_consignee_state':
+        {
+          this.Record.bl_consignee_state = this.Record.bl_consignee_state.toUpperCase();
+          break;
+        }
+        case 'bl_consignee_country':
+        {
+          this.Record.bl_consignee_country = this.Record.bl_consignee_country.toUpperCase();
+          break;
+        }
       case 'bl_notify_name':
         {
           this.Record.bl_notify_name = this.Record.bl_notify_name.toUpperCase();
@@ -583,6 +603,16 @@ export class AirBlComponent {
       case 'bl_notify_add4':
         {
           this.Record.bl_notify_add4 = this.Record.bl_notify_add4.toUpperCase();
+          break;
+        }
+        case 'bl_notify_state':
+        {
+          this.Record.bl_notify_state = this.Record.bl_notify_state.toUpperCase();
+          break;
+        }
+        case 'bl_notify_country':
+        {
+          this.Record.bl_notify_country = this.Record.bl_notify_country.toUpperCase();
           break;
         }
 
@@ -1379,16 +1409,22 @@ export class AirBlComponent {
           this.Record.bl_shipper_add2 = '';
           this.Record.bl_shipper_add3 = '';
           this.Record.bl_shipper_add4 = '';
+          this.Record.bl_shipper_state = '';
+          this.Record.bl_shipper_country = '';
         } else if (controlname == 'CONSIGNEEADDRESS') {
           this.Record.bl_consignee_add1 = '';
           this.Record.bl_consignee_add2 = '';
           this.Record.bl_consignee_add3 = '';
           this.Record.bl_consignee_add4 = '';
+          this.Record.bl_consignee_state = '';
+          this.Record.bl_consignee_country = '';
         } else if (controlname == 'NOTIFYADDRESS') {
           this.Record.bl_notify_add1 = '';
           this.Record.bl_notify_add2 = '';
           this.Record.bl_notify_add3 = '';
           this.Record.bl_notify_add4 = '';
+          this.Record.bl_notify_state = '';
+          this.Record.bl_notify_country = '';
         }
 
         if (response.customeraddress.length > 0) {
@@ -1398,16 +1434,22 @@ export class AirBlComponent {
             this.Record.bl_shipper_add2 = response.customeraddress[0].add_line2;
             this.Record.bl_shipper_add3 = response.customeraddress[0].add_line3;
             this.Record.bl_shipper_add4 = response.customeraddress[0].add_line4;
+            this.Record.bl_shipper_state = response.customeraddress[0].add_state_name;
+            this.Record.bl_shipper_country = response.customeraddress[0].add_country_name;
           } else if (controlname == 'CONSIGNEEADDRESS') {
             this.Record.bl_consignee_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_consignee_add2 = response.customeraddress[0].add_line2;
             this.Record.bl_consignee_add3 = response.customeraddress[0].add_line3;
             this.Record.bl_consignee_add4 = response.customeraddress[0].add_line4;
+            this.Record.bl_consignee_state = response.customeraddress[0].add_fstate_name;
+            this.Record.bl_consignee_country = response.customeraddress[0].add_country_name;
           } else if (controlname == 'NOTIFYADDRESS') {
             this.Record.bl_notify_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_notify_add2 = response.customeraddress[0].add_line2;
             this.Record.bl_notify_add3 = response.customeraddress[0].add_line3;
             this.Record.bl_notify_add4 = response.customeraddress[0].add_line4;
+            this.Record.bl_notify_state = response.customeraddress[0].add_fstate_name;
+            this.Record.bl_notify_country = response.customeraddress[0].add_country_name;
           }
 
         }

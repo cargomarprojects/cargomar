@@ -21,7 +21,9 @@ export class Addressm {
     add_country_id: string;
     add_country_name: string;
 
-    
+    add_fstate_id: string;
+    add_fstate_name: string;
+
     add_contact: string;
     add_location: string;
 

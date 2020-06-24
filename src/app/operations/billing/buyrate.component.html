@@ -33,7 +33,7 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList" (click)="EditInvoice(rec.jvh_pkid, rec.jvh_type, rec.jvh_subtype,rec.jvh_rec_source)">
-          <td>{{rec.jvh_docno}}</td>
+          <td >{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
           <td>{{rec.jvh_acc_name}}</td>
           <td>{{rec.jvh_gstin}}</td>

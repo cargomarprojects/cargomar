@@ -247,11 +247,11 @@ export class Bl {
   bl_itm_desc: string;
   bl_itm_po: string;
 
-  bl_shipper_st_code: string;
-  bl_shipper_cntry_code: string;
-  bl_consignee_st_code: string;
-  bl_consignee_cntry_code: string;
-  bl_notify_st_code: string;
-  bl_notify_cntry_code: string;
+  bl_shipper_state: string;
+  bl_shipper_country: string;
+  bl_consignee_state: string;
+  bl_consignee_country: string;
+  bl_notify_state: string;
+  bl_notify_country: string;
 }
 
