@@ -82,6 +82,7 @@ export class FileUploadComponent {
     if (_type == 'desc')
       this.qrJson.desc = mid;
     this.QrData = JSON.stringify(this.qrJson);
+    console.log( this.QrData);
   }
 
   LoadCombo() {
