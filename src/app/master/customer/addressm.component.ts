@@ -51,6 +51,7 @@ export class AddressmComponent {
     @Input() bForeigner: boolean = false;
     @Input() bAdmin: boolean = false;
     @Input() bUnregistered: boolean = false;
+    @Input() fStateList: any[] = [];
 
     GstList: any[] = [];
 
@@ -139,6 +140,9 @@ export class AddressmComponent {
         this.Record.add_state_id = '';
         this.Record.add_state_name = '';
 
+        this.Record.add_fstate_id = '';
+        this.Record.add_fstate_name = '';
+
         this.Record.add_country_id = '';
         this.Record.add_country_name = '';
 
@@ -156,6 +160,11 @@ export class AddressmComponent {
         this.Record.add_sepz_unit = false;
 
         this.Record.rec_mode = "ADD";
+        var REC = this.fStateList.find(rec => rec.param_code == 'NA');
+        if (REC != null) {
+            this.Record.add_fstate_id = REC.param_pkid;
+            this.Record.add_fstate_name = REC.param_name;
+        }
 
     }
 
@@ -184,6 +193,8 @@ export class AddressmComponent {
 
         this.Record.add_state_id = _Record.add_state_id;
         this.Record.add_state_name = _Record.add_state_name;
+        this.Record.add_fstate_id = _Record.add_fstate_id;
+        this.Record.add_fstate_name = _Record.add_fstate_name;
 
         this.Record.add_country_id = _Record.add_country_id;
         this.Record.add_country_name = _Record.add_country_name;
@@ -195,6 +206,15 @@ export class AddressmComponent {
         this.Record.add_gstin = _Record.add_gstin;
         this.Record.add_gst_type = _Record.add_gst_type;
 
+        if (this.Record.add_fstate_id == "" || this.Record.add_fstate_id == null || this.Record.add_fstate_id == undefined) {
+            this.Record.add_fstate_id = "";
+            this.Record.add_fstate_name = "";
+            var REC = this.fStateList.find(rec => rec.param_code == 'NA');
+            if (REC != null) {
+                this.Record.add_fstate_id = REC.param_pkid;
+                this.Record.add_fstate_name = REC.param_name;
+            }
+        }
     }
 
     // Save Data
@@ -207,6 +227,7 @@ export class AddressmComponent {
 
             this.Record.add_state_name = this.StateList.find(rec => rec.param_pkid == this.Record.add_state_id).param_name;
             this.Record.add_country_name = this.CountryList.find(rec => rec.param_pkid == this.Record.add_country_id).param_name;
+            this.Record.add_fstate_name = this.fStateList.find(rec => rec.param_pkid == this.Record.add_fstate_id).param_name;
             this.RecordList.push(this.Record);
         }
         else {
@@ -238,6 +259,8 @@ export class AddressmComponent {
 
             REC.add_country_id = this.Record.add_country_id;
             REC.add_country_name = this.CountryList.find(rec => rec.param_pkid == this.Record.add_country_id).param_name;
+            REC.add_fstate_id = this.Record.add_fstate_id;
+            REC.add_fstate_name = this.fStateList.find(rec => rec.param_pkid == this.Record.add_fstate_id).param_name;
 
         }
         this.ErrorMessage = '';
@@ -325,6 +348,7 @@ export class AddressmComponent {
         if (this.Record.add_gst_type.trim() != 'NA') {
 
         }
+
 
         if (bret) {
             this.Record.add_contact = this.Record.add_contact.toUpperCase().trim();
