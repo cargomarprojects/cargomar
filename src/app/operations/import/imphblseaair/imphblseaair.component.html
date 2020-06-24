@@ -25,8 +25,20 @@
               <app-date [inputdate]="gs.globalData.hbl_todate" (ValueChanged)="gs.globalData.hbl_todate=$event">
               </app-date>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-            <div class="col-sm-4">
+            <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
+            <div class="col-sm-2" style="padding-right:0px">
+              <select class="form-control form-control-sm" [(ngModel)]="searchby">
+                <option [value]="'ALL'">ALL</option>
+                <option [value]="'SINO'">SI#</option>
+                <option [value]="'MBLNO'"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></option>
+                <option [value]="'HBLNO'"><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></option>
+                <option [value]="'SHIPPER'">EXPORTER</option>
+                <option [value]="'CONSIGNEE'">IMPORTER</option>
+                <option [value]="'BENO'">BENO</option>
+                <option *ngIf="type=='SEA IMPORT'" [value]="'CONTAINER'">CONTAINER</option>
+              </select>
+            </div>
+            <div class="col-sm-3">
               <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
             </div>
             <div class="col-sm-3">

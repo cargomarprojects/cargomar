@@ -33,6 +33,7 @@ export class ImpMblSeaAirComponent {
   searchstring = '';
   porttype = 'SEA PORT';
   carriertype = 'SEA CARRIER';
+  searchby = "";
 
   page_count = 0;
   page_current = 0;
@@ -107,6 +108,7 @@ export class ImpMblSeaAirComponent {
   }
 
   InitComponent() {
+    this.searchby = "ALL";
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -457,6 +459,7 @@ export class ImpMblSeaAirComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
