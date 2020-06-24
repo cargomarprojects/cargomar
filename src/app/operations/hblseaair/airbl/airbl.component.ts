@@ -1441,14 +1441,14 @@ export class AirBlComponent {
             this.Record.bl_consignee_add2 = response.customeraddress[0].add_line2;
             this.Record.bl_consignee_add3 = response.customeraddress[0].add_line3;
             this.Record.bl_consignee_add4 = response.customeraddress[0].add_line4;
-            this.Record.bl_consignee_state = response.customeraddress[0].add_state_name;
+            this.Record.bl_consignee_state = response.customeraddress[0].add_fstate_name;
             this.Record.bl_consignee_country = response.customeraddress[0].add_country_name;
           } else if (controlname == 'NOTIFYADDRESS') {
             this.Record.bl_notify_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_notify_add2 = response.customeraddress[0].add_line2;
             this.Record.bl_notify_add3 = response.customeraddress[0].add_line3;
             this.Record.bl_notify_add4 = response.customeraddress[0].add_line4;
-            this.Record.bl_notify_state = response.customeraddress[0].add_state_name;
+            this.Record.bl_notify_state = response.customeraddress[0].add_fstate_name;
             this.Record.bl_notify_country = response.customeraddress[0].add_country_name;
           }
 
