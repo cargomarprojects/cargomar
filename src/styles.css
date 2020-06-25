@@ -546,6 +546,7 @@ a {
 .hlink {
   color: red;
   text-decoration: underline;
+  cursor:pointer;
 }
 
 
