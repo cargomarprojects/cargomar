@@ -60,6 +60,7 @@ export class AddbookComponent {
   ClassList: any[] = [];
   StateList: any[] = [];
   CountryList: any[] = [];
+  fStateList: any[] = [];
 
   // Acc Group , Acc Type
   AcGrpList: any[] = [];
@@ -147,6 +148,7 @@ export class AddbookComponent {
         this.CountryList = response.countrylist;
         this.AcGrpList = response.acgroupm;
         this.AcTypeList = response.actypem;
+        this.fStateList = response.fstatelist;
         this.List("NEW");
       },
       error => {

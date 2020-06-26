@@ -26,7 +26,7 @@
         <ngb-tab title="House">
             <ng-template ngbTabContent>
                 <div class="page-body table-responsive">
-                    <table class="table  table-hover table-sm">
+                    <!-- <table class="table  table-hover table-sm">
                         <thead class="page-body-thead">
                             <tr>
                                 <th>MBL#</th>
@@ -57,7 +57,23 @@
                                 <td>{{rec.hbl_pod_name}}</td>
                             </tr>
                         </tbody>
+                    </table> -->
+                    <div [style.height]="'350px'" [style.overflow-y]="'scroll'">
+                    <table class="table  table-hover table-sm">
+                        <thead class="page-body-thead">
+                            <tr>
+                                <th width="30%">FEILD</th>
+                                <th width="70%">VALUES</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody">
+                            <tr *ngFor="let rec of KeyList; let i = index" [class.active]="i == selectedRowIndex">
+                                <td><strong>{{rec.key}}</strong></td>
+                                <td>{{rec.value}}</td>
+                            </tr>
+                        </tbody>
                     </table>
+                </div>
                 </div>
             </ng-template>
         </ngb-tab>

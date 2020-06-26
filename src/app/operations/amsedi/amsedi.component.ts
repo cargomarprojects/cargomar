@@ -44,7 +44,7 @@ export class AmsEdiComponent {
   RecordList: EdiHouse[] = [];
   // Single Record for add/edit/view details
   Record: EdiHouse = new EdiHouse;
-
+  KeyList: any[] = [];
 
   constructor(
     private mainService: AmsEdiService,
@@ -118,6 +118,7 @@ export class AmsEdiComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
+        this.KeyList  = response.klist;
 
       },
         error => {

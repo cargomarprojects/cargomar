@@ -501,6 +501,9 @@ export class MblSeaComponent {
   // Query List Data
   List(_type: string) {
 
+    if (this.searchby == "FOLDERSENT")
+      this.searchstring = "";
+
     this.loading = true;
     let SearchData = {
       type: _type,
