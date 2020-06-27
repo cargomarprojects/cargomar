@@ -71,6 +71,24 @@
                                 <td><strong>{{rec.key}}</strong></td>
                                 <td>{{rec.value}}</td>
                             </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table class="table  table-hover table-sm">
+                                        <thead class="page-body-thead">
+                                            <tr>
+                                                <th *ngIf="KeyfeildList.length>0" >FEILD</th>
+                                                <th *ngFor="let rec2 of KeydetList">{{rec2.colname}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="page-body-tbody">
+                                            <tr *ngFor="let rec3 of KeydetList; let i = index" [class.active]="i == selectedRowIndex">
+                                                <td *ngFor="let rec4 of KeyfeildList"><strong>{{rec4.keyList[rec3.colindex].key}}</strong></td>
+                                                <td *ngFor="let rec5 of KeydetList">{{rec5.keyList[rec3.colindex].value}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

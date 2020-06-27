@@ -45,7 +45,8 @@ export class AmsEdiComponent {
   // Single Record for add/edit/view details
   Record: EdiHouse = new EdiHouse;
   KeyList: any[] = [];
-
+  KeydetList: any[]=[];
+  KeyfeildList: any[]=[];
   constructor(
     private mainService: AmsEdiService,
     private route: ActivatedRoute,
@@ -119,8 +120,15 @@ export class AmsEdiComponent {
         this.loading = false;
         this.RecordList = response.list;
         this.KeyList  = response.klist;
-
-      },
+        this.KeydetList  = response.kdetlist;
+        this.KeyfeildList = new Array<any>();
+        if(this.KeydetList!=null&&this.KeydetList!=undefined)
+        {
+          for (let rec of this.KeydetList.filter(rec => rec.colindex == 0)) {
+            this.KeyfeildList.push(rec);
+          }
+        }
+     },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
