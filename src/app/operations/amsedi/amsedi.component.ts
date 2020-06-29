@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { EdiHouse } from '../models/edihouse';
@@ -23,6 +23,8 @@ export class AmsEdiComponent {
   menu_record: any;
   sub: any;
 
+  @ViewChild('tabset') tabset: any;
+
   loading = false;
   currentTab = 'LIST';
 
@@ -33,11 +35,12 @@ export class AmsEdiComponent {
   searchstring = "";
   ErrorMessage = "";
   InfoMessage = "";
-
+  
   partnercategory = "AMS";
   mode = 'ADD';
   pkid = '';
 
+  sHtml:string ="";
   ctr: number;
   EdiErrorList: any[]=[];
   // Array For Displaying List
@@ -69,7 +72,8 @@ export class AmsEdiComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    this.List();
+   //this.List();
+   this.GenerateXml('');
   }
 
   InitComponent() {
@@ -305,7 +309,10 @@ export class AmsEdiComponent {
         //   this.PoFtpAttachList = new Array<any>();
         //   this.open(ftpsent);
         // }
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+       // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+       this.sHtml=response.xslthtml;
+
+      // this.tabset.select('tabchk');
 
       },
         error => {

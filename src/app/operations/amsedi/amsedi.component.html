@@ -15,83 +15,21 @@
                 <!-- <button [disabled]="loading" (click)="List()" class="btn btn-primary btn-sm">Search</button> -->
                 <button [disabled]="loading" (click)="ImportData()" class="btn btn-primary btn-sm">Process</button>
                 <button [disabled]="loading" (click)="ValidateXml()" class="btn btn-primary btn-sm">Validate</button>
-                <button [disabled]="loading" (click)="GenerateXml('')" class="btn btn-primary btn-sm">Sent</button>
+                <button [disabled]="loading" (click)="GenerateXml('')" class="btn btn-primary btn-sm">Refresh</button>
+                <button [disabled]="loading" (click)="GenerateXml('')" class="btn btn-primary btn-sm">Send</button>
                 <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
         </div>
     </div>
 </div>
 <div class="page-list">
-    <ngb-tabset>
-        <ngb-tab title="House">
+    <ngb-tabset  #tabset>
+        <ngb-tab title="Check List" id="tabchk">
             <ng-template ngbTabContent>
-                <div class="page-body table-responsive">
-                    <!-- <table class="table  table-hover table-sm">
-                        <thead class="page-body-thead">
-                            <tr>
-                                <th>MBL#</th>
-                                <th>HBL#</th>
-                                <th>VESSEL</th>
-                                <th>VOYAGE</th>
-                                <th>ETD</th>
-                                <th>ETA</th>
-                                <th>CARRIER</th>
-                                <th>SHIPPER</th>
-                                <th>CONSIGNEE</th>
-                                <th>POL</th>
-                                <th>POD</th>
-                            </tr>
-                        </thead>
-                        <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
-                                <td>{{rec.hbl_master_no}}</td>
-                                <td>{{rec.hbl_house_no}}</td>
-                                <td>{{rec.hbl_vessel}}</td>
-                                <td>{{rec.hbl_voyage}}</td>
-                                <td>{{rec.hbl_etd}}</td>
-                                <td>{{rec.hbl_eta}}</td>
-                                <td>{{rec.hbl_carrier_name}}</td>
-                                <td>{{rec.hbl_shipper_name}}</td>
-                                <td>{{rec.hbl_consignee_name}}</td>
-                                <td>{{rec.hbl_pol_name}}</td>
-                                <td>{{rec.hbl_pod_name}}</td>
-                            </tr>
-                        </tbody>
-                    </table> -->
+                <div class="page-box">
                     <div [style.height]="'350px'" [style.overflow-y]="'scroll'">
-                    <table class="table  table-hover table-sm">
-                        <thead class="page-body-thead">
-                            <tr>
-                                <th width="30%">FEILD</th>
-                                <th width="70%">VALUES</th>
-                            </tr>
-                        </thead>
-                        <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of KeyList; let i = index" [class.active]="i == selectedRowIndex">
-                                <td><strong>{{rec.key}}</strong></td>
-                                <td>{{rec.value}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <table class="table  table-hover table-sm">
-                                        <thead class="page-body-thead">
-                                            <tr>
-                                                <th *ngIf="KeyfeildList.length>0" >FEILD</th>
-                                                <th *ngFor="let rec2 of KeydetList">{{rec2.colname}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="page-body-tbody">
-                                            <tr *ngFor="let rec3 of KeydetList; let i = index" [class.active]="i == selectedRowIndex">
-                                                <td *ngFor="let rec4 of KeyfeildList"><strong>{{rec4.keyList[rec3.colindex].key}}</strong></td>
-                                                <td *ngFor="let rec5 of KeydetList">{{rec5.keyList[rec3.colindex].value}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <div innerHTML="{{sHtml}}"></div>
+                    </div>
                 </div>
             </ng-template>
         </ngb-tab>
@@ -100,13 +38,11 @@
                 <app-edierror [showHeading]=false [EdiErrorList]="EdiErrorList"></app-edierror>
             </ng-template>
         </ngb-tab>
-
         <ngb-tab title="Code Mapping">
             <ng-template ngbTabContent>
                 <app-linkm2 [showheader]=false> </app-linkm2>
             </ng-template>
         </ngb-tab>
-
     </ngb-tabset>
 </div>
 <br />

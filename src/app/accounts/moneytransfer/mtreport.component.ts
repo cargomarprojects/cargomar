@@ -202,7 +202,7 @@ export class MtReportComponent {
           for (let rec of this.RecordList) {
             this.tot_amt += rec.mt_txn_amt;
           }
-          this.tot_amt=this.gs.roundNumber(this.tot_amt,2);
+          this.tot_amt = this.gs.roundNumber(this.tot_amt, 2);
         }
       },
         error => {
@@ -283,24 +283,27 @@ export class MtReportComponent {
       return;
     }
 
-    if (Multiple_Bank_Found) {
-      this.ErrorMessage = "Different Bank Found in Selected List....";
-      alert(this.ErrorMessage);
-      return;
-    }
+    if (this.gs.globalVariables.user_code != 'ADMIN') {
+     
+      if (Multiple_Bank_Found) {
+        this.ErrorMessage = "Different Bank Found in Selected List....";
+        alert(this.ErrorMessage);
+        return;
+      }
 
-    if (Not_Aprvd_Found) {
-      this.ErrorMessage = "Only Approved Bank Entries Can be Transfered.";
-      alert(this.ErrorMessage);
-      return;
-    }
+      if (Not_Aprvd_Found) {
+        this.ErrorMessage = "Only Approved Bank Entries Can be Transfered.";
+        alert(this.ErrorMessage);
+        return;
+      }
 
-    if (Generated_Bank_Found) {
-      this.ErrorMessage = "One or More Records Already Generated.....";
-      alert(this.ErrorMessage);
-      return;
+      if (Generated_Bank_Found) {
+        this.ErrorMessage = "One or More Records Already Generated.....";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
-
+    
     if (_type != 'CHECK-LIST')
       if (!confirm("Do you want to Generate")) {
         return;
