@@ -333,7 +333,8 @@
 
                 <label class="col-2 col-form-label col-form-label-sm"></label>
                 <div class="col-4">
-                  <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.rec_locked" />
+                  <!-- <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.rec_locked" /> -->
+                  <input disabled type="checkbox" [(ngModel)]="Record.rec_locked" />
                   <span>Lock This Customer</span>
                 </div>
 
@@ -414,6 +415,10 @@
               class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
               class="btn btn-success btn-sm">History</button>
+              <button *ngIf="mode == 'EDIT' && bAdmin2 && Record.rec_locked" [disabled]="loading" (click)="UnlockCustomer('UNLOCKED')"
+              class="btn btn-success btn-sm">Unlock</button>
+              <button *ngIf="mode == 'EDIT' && bAdmin2 && !Record.rec_locked" [disabled]="loading" (click)="UnlockCustomer('LOCKED')"
+              class="btn btn-success btn-sm">Lock</button>
 
               <button [disabled]="loading" *ngIf="mode == 'EDIT'"  class="btn btn-primary btn-sm" (click)="CheckCrLimit()">Check
                 CR-Limit</button>

@@ -32,7 +32,7 @@ export class CustomerComponent {
 
   bCreditLimit: boolean = false;
   showalert = false;
-  CrList : any[];
+  CrList: any[];
 
 
   bAdmin = false;//for detail part
@@ -144,9 +144,9 @@ export class CustomerComponent {
         this.bDelete = true;
     }
 
-    if ( this.gs.globalVariables.user_code == "ADMIN")
+    if (this.gs.globalVariables.user_code == "ADMIN")
       this.bAdmin2 = true;
-   
+
 
 
     this.LoadCombo();
@@ -281,7 +281,7 @@ export class CustomerComponent {
       this.bDocsUpload = true;
 
 
-    if ( this.gs.globalVariables.user_code == "ADMIN")
+    if (this.gs.globalVariables.user_code == "ADMIN")
       this.bAdmin = true;
 
 
@@ -368,7 +368,7 @@ export class CustomerComponent {
     this.Record.cust_is_cha = false;
     this.Record.cust_is_creditor = false;
     this.Record.cust_is_others = false;
-    this.Record.rec_locked = false;
+    this.Record.rec_locked = true;
 
     this.Record.cust_crdays = 1;
     this.Record.cust_crlimit = 1;
@@ -746,10 +746,10 @@ export class CustomerComponent {
         this.loading = false;
         this.CrList = response.list;
         this.bCreditLimit = response.retvalue;
-        
+
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
-          
+
           this.showalert = true;
           //alert(response.message);
 
@@ -761,6 +761,51 @@ export class CustomerComponent {
         });
   }
 
+  UnlockCustomer(locktype: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    this.loading = true;
+    let SearchData = {
+      type: locktype,
+      pkid: '',
+      company_code: '',
+      branch_code: '',
+      year_code: '',
+      user_code: '',
+      cust_code: '',
+      cust_name: '',
+      remarks: ''
+    };
+
+    SearchData.type = locktype;
+    SearchData.pkid = this.pkid;
+    SearchData.remarks = ''
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.cust_code = this.Record.cust_code;
+    SearchData.cust_name = this.Record.cust_name;
+
+    this.mainService.UnlockCustomer(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (locktype == 'UNLOCKED') {
+          this.Record.rec_locked = false;
+          this.InfoMessage = " Unlocked Successfully ";
+        }
+        else {
+          this.Record.rec_locked = true;
+          this.InfoMessage = " Locked Successfully ";
+        }
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
 
 }

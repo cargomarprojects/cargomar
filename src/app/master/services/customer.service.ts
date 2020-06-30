@@ -38,7 +38,9 @@ export class CustomerService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/GetCreditLimit', SearchData, this.gs.headerparam2('authorized'));
     }
   
-
+    UnlockCustomer(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/UnlockCustomer', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 
