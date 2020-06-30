@@ -253,6 +253,7 @@ export class CustomerComponent {
 
     this.canadd = true;
     this.bAdmin = true;
+    
     this.bDocs = true;
     this.bDocsUpload = true;
 
