@@ -102,7 +102,8 @@ export class MtReportComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
-    this.fromdate = this.gs.getNewdate(1);
+    // this.fromdate = this.gs.getNewdate(1);
+    this.fromdate = this.gs.defaultValues.today;
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -345,8 +346,7 @@ export class MtReportComponent {
         for (let rec of response.filelist) {
           this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
         }
-
-
+        this.List('NEW');
       },
         error => {
           this.loading = false;

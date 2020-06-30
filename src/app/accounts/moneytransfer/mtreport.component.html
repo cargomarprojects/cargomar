@@ -112,15 +112,15 @@
         <tr>
           <!-- *ngIf="rec.mt_lock!='G'" -->
           <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_jvh_docno}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_aprvd}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_cust_uniq_ref}}</td>
+          <td class="hlink" (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_jvh_docno}}</td>
+          <td >{{rec.mt_aprvd}}</td>
+          <td >{{rec.mt_cust_cfno}}</td>
+          <td >{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
+          <td >{{rec.mt_cust_uniq_ref}}</td>
           <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_mode}}</td> -->
           <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_code}}</td> -->
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_corp_acc_no}}</td>
-          <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_value_date}}</td>
+          <td >{{rec.mt_corp_acc_no}}</td>
+          <td >{{rec.mt_value_date}}</td>
           <!-- <td (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_txn_curr}}</td> -->
           <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
           <td>{{rec.mt_ben_name}}</td>
