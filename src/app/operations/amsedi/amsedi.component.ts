@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { EdiHouse } from '../models/edihouse';
@@ -35,21 +35,21 @@ export class AmsEdiComponent {
   searchstring = "";
   ErrorMessage = "";
   InfoMessage = "";
-  
+
   partnercategory = "AMS";
   mode = 'ADD';
   pkid = '';
 
-  sHtml:string ="";
+  sHtml: string = "";
   ctr: number;
-  EdiErrorList: any[]=[];
+  EdiErrorList: any[] = [];
   // Array For Displaying List
   RecordList: EdiHouse[] = [];
   // Single Record for add/edit/view details
   Record: EdiHouse = new EdiHouse;
   KeyList: any[] = [];
-  KeydetList: any[]=[];
-  KeyfeildList: any[]=[];
+  KeydetList: any[] = [];
+  KeyfeildList: any[] = [];
   constructor(
     private mainService: AmsEdiService,
     private route: ActivatedRoute,
@@ -72,8 +72,8 @@ export class AmsEdiComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-   //this.List();
-   this.GenerateXml('');
+    //this.List();
+    this.GenerateXml('CHECK-LIST');
   }
 
   InitComponent() {
@@ -123,16 +123,15 @@ export class AmsEdiComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
-        this.KeyList  = response.klist;
-        this.KeydetList  = response.kdetlist;
+        this.KeyList = response.klist;
+        this.KeydetList = response.kdetlist;
         this.KeyfeildList = new Array<any>();
-        if(this.KeydetList!=null&&this.KeydetList!=undefined)
-        {
+        if (this.KeydetList != null && this.KeydetList != undefined) {
           for (let rec of this.KeydetList.filter(rec => rec.colindex == 0)) {
             this.KeyfeildList.push(rec);
           }
         }
-     },
+      },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
@@ -259,7 +258,7 @@ export class AmsEdiComponent {
   }
 
 
-  GenerateXml(ftpsent: any) {
+  GenerateXml(_type: string) {
     this.ErrorMessage = '';
     // if (this.Record.book_agent_id.trim().length <= 0) {
     //   this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
@@ -276,12 +275,13 @@ export class AmsEdiComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
-      category:this.partnercategory,
+      category: this.partnercategory,
       agent_id: '',
       agent_code: 'MOTHERLINES',
       agent_name: '',
       type: '',
-      pkid:''
+      rowtype: '',
+      pkid: ''
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -289,11 +289,12 @@ export class AmsEdiComponent {
     SearchData.branch_name = this.gs.globalVariables.branch_name;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.category = this.partnercategory;
+    SearchData.rowtype = _type;
     // SearchData.agent_id = this.Record.book_agent_id;
     // SearchData.agent_code = this.Record.book_agent_code;
     // SearchData.agent_name = this.Record.book_agent_name;
     SearchData.pkid = this.hblid;
-  
+
     this.mainService.GenerateXml(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -309,10 +310,14 @@ export class AmsEdiComponent {
         //   this.PoFtpAttachList = new Array<any>();
         //   this.open(ftpsent);
         // }
-       // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-       this.sHtml=response.xslthtml;
 
-       this.tabset.select('tabchk');
+        if (_type == "CHECK-LIST") {
+          this.sHtml = response.xslthtml;
+          this.tabset.select('tabchk');
+        }
+        else
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
 
       },
         error => {
