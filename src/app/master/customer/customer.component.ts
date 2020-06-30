@@ -477,9 +477,15 @@ export class CustomerComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
+        if (this.mode == "ADD") {
+          this.InfoMessage = "Save Complete," + response.mailerror;
+          alert(this.InfoMessage);
+        } else
+          this.InfoMessage = "Save Complete";
+
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
+
 
         if (response.STATUS == "SPECIAL CHARACTER") {
           alert("Specical Character Found In Address, Pls Re-Check Data");
@@ -771,7 +777,9 @@ export class CustomerComponent {
       pkid: '',
       company_code: '',
       branch_code: '',
+      branch_name:'',
       year_code: '',
+      user_pkid:'',
       user_code: '',
       cust_code: '',
       cust_name: '',
@@ -783,7 +791,9 @@ export class CustomerComponent {
     SearchData.remarks = ''
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.branch_name = this.gs.globalVariables.branch_name;
     SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.cust_code = this.Record.cust_code;
     SearchData.cust_name = this.Record.cust_name;
@@ -793,7 +803,7 @@ export class CustomerComponent {
         this.loading = false;
         if (locktype == 'UNLOCKED') {
           this.Record.rec_locked = false;
-          this.InfoMessage = " Unlocked Successfully ";
+          this.InfoMessage = " Unlocked Successfully, " + response.mailerror;
         }
         else {
           this.Record.rec_locked = true;
