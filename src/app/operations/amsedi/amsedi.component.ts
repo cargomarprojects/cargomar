@@ -312,7 +312,7 @@ export class AmsEdiComponent {
        // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
        this.sHtml=response.xslthtml;
 
-      // this.tabset.select('tabchk');
+       this.tabset.select('tabchk');
 
       },
         error => {
