@@ -28,5 +28,8 @@ export class MoneyTransferService {
     MtReport(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/MtReport', SearchData, this.gs.headerparam2('authorized'));
     }
-    
+
+    Process(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/MoneyTransfer/Process', SearchData, this.gs.headerparam2('authorized'));
+    }
 }

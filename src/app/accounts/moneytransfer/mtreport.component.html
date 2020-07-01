@@ -46,6 +46,7 @@
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" (click)="Generate('BANK')" class="btn btn-primary btn-sm">Generate</button>
+            <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Check Status</button>
             <!-- <button [disabled]="loading" (click)="Generate('CHECK-LIST')" class="btn btn-primary btn-sm">CheckList</button> -->
             <label *ngIf="tot_amt!=0" class="col-form-label  col-form-label-sm">&nbsp;AMT:&nbsp;
               <font color="red">{{tot_amt}} </font>
@@ -106,6 +107,10 @@
           <!-- <th>CORP.EMAIL</th>
                     <th>TRANSMISSION.DATE</th> -->
           <th>SENDER.INFO</th>
+          <th>STATUS</th>
+          <th>DESCRIPTION</th>
+          <th>UTR</th>
+          <th>BANK.REF#</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -142,6 +147,10 @@
           <!-- <td>{{rec.mt_corp_email}}</td>
                     <td>{{rec.mt_transmission_date}}</td> -->
           <td>{{rec.mt_remarks}}</td>
+          <td>{{rec.mt_status_code}}</td>
+          <td>{{rec.mt_status_desc}}</td>
+          <td>{{rec.mt_utr}}</td>
+          <td>{{rec.mt_bank_refno}}</td>
         </tr>
       </tbody>
     </table>

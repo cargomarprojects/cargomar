@@ -13,6 +13,7 @@
           <th>TYPE</th>
           <th>CODE</th>
           <th>NAME</th>
+          <th>DATE</th>
           <th>DOWNLOAD</th>
         </tr>
       </thead>
@@ -21,6 +22,7 @@
           <td>{{rec.type}}</td>
           <td>{{rec.code}}</td>
           <td>{{rec.name}}</td>
+          <td>{{rec.col1}}</td>
           <td><i class="fa fa-download fa-lg pointer" aria-hidden="true" (click)="GenerateDocs(rec.id,rec.type)" ></i></td>
         </tr>
       </tbody>

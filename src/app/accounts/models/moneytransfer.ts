@@ -57,6 +57,11 @@ export class MoneyTransfer {
     mt_remarks:string;
     mt_aprvd:string;
     
+    mt_bank_refno:string;
+    mt_status_code:string;
+    mt_status_desc:string;
+    mt_utr:string;
+
     rec_mode: string;
 
     _globalvariables: GlobalVariables;

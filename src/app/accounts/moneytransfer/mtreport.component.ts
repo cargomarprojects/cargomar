@@ -354,4 +354,29 @@ export class MtReportComponent {
         });
   }
 
-}
+  Process() {
+    this.loading = true;
+    let SearchData = {
+      type: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.Process(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+          this.List('NEW');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+      }
+
+    }

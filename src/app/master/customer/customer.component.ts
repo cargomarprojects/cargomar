@@ -782,6 +782,7 @@ export class CustomerComponent {
       year_code: '',
       user_pkid:'',
       user_code: '',
+      user_name:'',
       cust_code: '',
       cust_name: '',
       remarks: ''
@@ -796,6 +797,7 @@ export class CustomerComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.cust_code = this.Record.cust_code;
     SearchData.cust_name = this.Record.cust_name;
 
