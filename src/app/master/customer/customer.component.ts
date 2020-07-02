@@ -33,9 +33,7 @@ export class CustomerComponent {
   bCreditLimit: boolean = false;
   showalert = false;
   CrList: any[];
-
-
-  bAdmin = false;//for detail part
+ 
   bDocs = false;
   bDocsUpload = false;
   canadd = true;
@@ -71,6 +69,7 @@ export class CustomerComponent {
   Is_Creditor: boolean = false;
   Is_Others: boolean = false;
   Last_Bill_date: boolean = false;
+  Is_Incomplete: boolean = false;
 
   rec_category: string;
   // Array For Displaying List
@@ -135,6 +134,7 @@ export class CustomerComponent {
 
   InitComponent() {
     this.bDelete = false;
+    this.bAdmin2 = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -252,8 +252,8 @@ export class CustomerComponent {
 
 
     this.canadd = true;
-    this.bAdmin = true;
-    
+    // this.bAdmin = true;
+
     this.bDocs = true;
     this.bDocsUpload = true;
 
@@ -269,9 +269,9 @@ export class CustomerComponent {
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
-    this.bAdmin = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_admin)
-      this.bAdmin = true;
+    // this.bAdmin = false;
+    // if (this.mode == "EDIT" && this.menu_record.rights_admin)
+    //   this.bAdmin = true;
 
     this.bDocs = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
@@ -281,13 +281,10 @@ export class CustomerComponent {
     if (this.mode == "EDIT" && this.menu_record.rights_docs_upload)
       this.bDocsUpload = true;
 
-
-    if (this.gs.globalVariables.user_code == "ADMIN")
-      this.bAdmin = true;
-
+    // if (this.gs.globalVariables.user_code == "ADMIN")
+    //   this.bAdmin = true;
 
     this.canadd = this.menu_record.rights_add;
-
 
     return this.disableSave;
   }
@@ -313,6 +310,7 @@ export class CustomerComponent {
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
       Is_Creditor: this.Is_Creditor,
       Is_Others: this.Is_Others,
+      Is_Incomplete: this.Is_Incomplete,
       Last_Bill_date: this.Last_Bill_date,
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
@@ -403,7 +401,8 @@ export class CustomerComponent {
     this.cust_linked = false;
 
     this.Record.cust_nomination = 'NA';
-
+    this.Record.cust_is_incomplete = true;
+    this.Record.cust_incomplete_remarks = '';
 
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
@@ -673,6 +672,13 @@ export class CustomerComponent {
     else {
       REC.cust_code = this.Record.cust_code;
       REC.cust_name = this.Record.cust_name;
+      REC.cust_group = this.Record.cust_group;
+      REC.cust_kyc_status = this.Record.cust_kyc_status;
+      REC.cust_sman_name = this.Record.cust_sman_name;
+      REC.cust_docs = this.Record.cust_docs;
+      REC.rec_locked = this.Record.rec_locked;
+      REC.cust_is_complete = this.Record.cust_is_incomplete == true ? 'N' : 'Y';
+      REC.cust_incomplete_remarks = this.Record.cust_incomplete_remarks;
     }
   }
 
@@ -685,7 +691,9 @@ export class CustomerComponent {
       this.Record.cust_crlimit = this.Record.cust_crlimit;
     }
 
-
+    if (field == 'cust_incomplete_remarks') {
+      this.Record.cust_incomplete_remarks = this.Record.cust_incomplete_remarks.toUpperCase();
+    }
   }
 
   Close() {
@@ -778,11 +786,11 @@ export class CustomerComponent {
       pkid: '',
       company_code: '',
       branch_code: '',
-      branch_name:'',
+      branch_name: '',
       year_code: '',
-      user_pkid:'',
+      user_pkid: '',
       user_code: '',
-      user_name:'',
+      user_name: '',
       cust_code: '',
       cust_name: '',
       remarks: ''

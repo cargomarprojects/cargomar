@@ -61,7 +61,10 @@ export class Customerm {
 
     cust_remarks: string;
     cust_country:string;
-    
+    cust_is_incomplete: boolean;
+    cust_incomplete_remarks:string;
+    cust_is_complete: string;
+
     rec_mode: string;
 
     rec_locked: boolean = false;

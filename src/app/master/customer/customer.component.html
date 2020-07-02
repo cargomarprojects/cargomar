@@ -28,7 +28,7 @@
         <span>Agent</span>
       </div>
 
-      <div class="col-2">
+      <div class="col-1">
         <input type="checkbox" [(ngModel)]="Is_Cha_Forwarder" />
         <span>Cha/Forwarder</span>
       </div>
@@ -41,6 +41,11 @@
       <div class="col-1">
         <input type="checkbox" [(ngModel)]="Is_Others" />
         <span>Others</span>
+      </div>
+
+      <div class="col-1">
+        <input type="checkbox" [(ngModel)]="Is_Incomplete" />
+        <span>Incomplete</span>
       </div>
 
       <div *ngIf="bAdmin2" class="col-2">
@@ -89,18 +94,24 @@
           <th>KYC</th>
           <th>SALESMAN</th>
           <th>DOCS</th>
+          <th>STATUS</th>
+          <th>COMPLETE</th>
+          <th>REMARKS</th>
           <th>CREATED.BY</th>
           <th>CREATED.DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_name}}</td>
-          <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_group}}</td>
-          <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_kyc_status}}</td>
-          <td (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_sman_name}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_code}}</td>
+          <td>{{rec.cust_name}}</td>
+          <td>{{rec.cust_group}}</td>
+          <td>{{rec.cust_kyc_status}}</td>
+          <td>{{rec.cust_sman_name}}</td>
           <td>{{rec.cust_docs}}</td>
+          <td>{{rec.rec_locked==true?'LOCKED':'UNLOCKED'}}</td>
+          <td>{{rec.cust_is_complete}}</td>
+          <td>{{rec.cust_incomplete_remarks}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -288,7 +299,7 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_foreigner" />
+                <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_foreigner" />
                 <span>Foreign Shipper</span>
               </div>
 
@@ -298,12 +309,12 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_agent" />
+                <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_agent" />
                 <span>Agent</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_cha" />
+                <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_cha" />
                 <span>Cha/Forwarder</span>
               </div>
 
@@ -313,7 +324,7 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_others" />
+                <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_others" />
                 <span>Others</span>
               </div>
             </div>
@@ -331,7 +342,7 @@
                     class="btn btn-success btn-sm">Unlink</button>
                 </div>
                 <div class="col-4">
-                  <input [disabled]="cust_linked || !canadd" type="checkbox" [(ngModel)]="Record.cust_linked" />
+                  <input [disabled]="cust_linked || !bAdmin2" type="checkbox" [(ngModel)]="Record.cust_linked" />
                   <span>Link To Accounts</span>
                 </div>
 
@@ -398,8 +409,22 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <div class="offset-2 col-4">
+                  <input [disabled]="!bAdmin2"  type="checkbox" [(ngModel)]="Record.cust_is_incomplete" />
+                  <span>Incomplete</span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+              <div class="col-sm-10">
+                <textarea rows="3" [disabled]="!bAdmin2" class="form-control form-control-sm" [(ngModel)]="Record.cust_incomplete_remarks"
+                  (blur)="OnBlur('cust_incomplete_remarks')" required maxlength="250"></textarea>
+              </div>
             </div>
 
+            </div>
 
           </div>
         </div>
@@ -534,7 +559,7 @@
     </ngb-tab>
 
 
-    <ngb-tab title="Salesman" *ngIf="mode == 'EDIT' && bAdmin">
+    <ngb-tab title="Salesman" *ngIf="mode == 'EDIT' && bAdmin2">
       <ng-template ngbTabContent>
         <app-custdet [parentid]="pkid"></app-custdet>
       </ng-template>
