@@ -165,9 +165,10 @@ export class AmsEdiComponent {
     this.mainService.ImportData(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
-        alert(this.InfoMessage);
-        this.List();
+        // this.InfoMessage = "Save Complete";
+        // alert(this.InfoMessage);
+        // this.List();
+        this.GenerateXml('CHECK-LIST');
       },
         error => {
           this.loading = false;
@@ -248,7 +249,10 @@ export class AmsEdiComponent {
       .subscribe(response => {
         this.EdiErrorList = response.list;
         if (response.list.length > 0)
+        {
+          this.tabset.select('taberr');
           alert('pls check the Error List tab to see the Missing Data');
+        }
         else
           alert('No Missing Data Found');
       },
