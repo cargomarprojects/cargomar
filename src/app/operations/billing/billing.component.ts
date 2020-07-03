@@ -533,11 +533,14 @@ export class BillingComponent {
       .subscribe(response => {
         this.loading = false;
 
-        this.narration = response.narration;
-        this.narration_shipper = response.shipper;
+        // this.narration = response.narration;
+        // this.narration_shipper = response.shipper;
+        // this.Record.jvh_narration = "ON A/C OF " + response.shipper + " " + response.narration;
 
-        this.Record.jvh_narration = "ON A/C OF " + response.shipper + " " + response.narration;
         this.LoadPendingList(response.record);
+
+        this.getNarration();
+
       },
         error => {
           this.loading = false;
@@ -573,6 +576,25 @@ export class BillingComponent {
 
   }
 
+  getNarration() {
+    let SearchData = {
+      table: 'narrationhouse',
+      id: this.parentid
+    };
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.narration_shipper = response.shipper;
+        this.narration = response.narrationhouse;
+        this.SetNarration();
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
   SetNarration() {
 
     if (this.narration_shipper == this.Record.jvh_acc_name)
@@ -597,7 +619,7 @@ export class BillingComponent {
     this.mainService.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.narration = response.narration;
+        // this.narration = response.narration;
         this.LockErrorMessage = response.lockedmsg;
 
         this.LoadData(response.record);
