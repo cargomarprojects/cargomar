@@ -460,7 +460,6 @@ export class CustomerComponent {
 
     this.COMPRECORD.code = this.Record.cust_branch_code;
 
-
   }
 
 
@@ -476,7 +475,6 @@ export class CustomerComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.mainService.Save(this.Record)
