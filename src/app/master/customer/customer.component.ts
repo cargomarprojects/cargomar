@@ -33,7 +33,7 @@ export class CustomerComponent {
   bCreditLimit: boolean = false;
   showalert = false;
   CrList: any[];
- 
+
   bDocs = false;
   bDocsUpload = false;
   canadd = true;
@@ -368,6 +368,8 @@ export class CustomerComponent {
     this.Record.cust_is_creditor = false;
     this.Record.cust_is_others = false;
     this.Record.rec_locked = true;
+    this.Record.cust_is_editable = true;
+
 
     this.Record.cust_crdays = 1;
     this.Record.cust_crlimit = 1;
@@ -442,6 +444,9 @@ export class CustomerComponent {
 
   LoadData(_Record: Customerm) {
     this.Record = _Record;
+
+    if (this.bAdmin2)
+      this.Record.cust_is_editable = true;
 
     this.cust_linked = this.Record.cust_linked;
     this.Record.AddressList = _Record.AddressList;

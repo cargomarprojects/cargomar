@@ -147,21 +147,21 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Code</label>
                 <div class="col-4">
-                  <input [disabled]="!Record.cust_is_incomplete" type="text" class="form-control form-control-sm"
+                  <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_code" required maxlength="15" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Name</label>
                 <div class="col-10">
-                  <input type="text" [disabled]="!Record.cust_is_incomplete" class="form-control form-control-sm"
+                  <input type="text" [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_name" required maxlength="60" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">IE-Code</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_iecode" required
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_iecode" required
                     maxlength="10" />
                 </div>
               </div>
@@ -170,7 +170,7 @@
                 <div class="col-4">
                   <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_panno" required
                     maxlength="15" [disabled]="!bAdmin2" /> -->
-                  <input type="text" class="form-control form-control-sm"  [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_panno" required
+                  <input type="text" class="form-control form-control-sm"  [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_panno" required
                     maxlength="15" />
                 </div>
               </div>
@@ -182,13 +182,13 @@
                 <div class="col-4">
                   <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_tanno" required
                     maxlength="15" [disabled]="!bAdmin2" /> -->
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_incomplete"  [(ngModel)]="Record.cust_tanno" required
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"  [(ngModel)]="Record.cust_tanno" required
                     maxlength="15" />
                 </div>
 
                 <label class="col-2 col-form-label col-form-label-sm">Type</label>
                 <div class="col-4">
-                  <select class="form-control form-control-sm"  [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_type">
+                  <select class="form-control form-control-sm"  [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_type">
                     <option [value]="'N'">NA</option>
                     <option [value]="'R'">Merchant</option>
                     <option [value]="'F'">Manufacturer</option>
@@ -199,7 +199,7 @@
               <div class=" form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Class</label>
                 <div class="col-4">
-                  <select class="form-control form-control-sm" [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_class">
+                  <select class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_class">
                     <option [value]="'N'">NA</option>
                     <option [value]="'P'">Private</option>
                     <option [value]="'G'">Government</option>
@@ -210,7 +210,7 @@
 
                 <label class="col-2 col-form-label col-form-label-sm"></label>
                 <div class="col-4">
-                  <input type="checkbox" [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_sepz_unit" />
+                  <input type="checkbox" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_sepz_unit" />
                   <span>Sez Unit</span>
                 </div>
 
@@ -220,23 +220,33 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">This Branch Only</label>
                 <div class="col-sm-4">
-                  <app-autocomplete [disabled]="!Record.cust_is_incomplete" #LinerLov [inputdata]="COMPRECORD"
+                  <app-autocomplete [disabled]="!Record.cust_is_editable" #LinerLov [inputdata]="COMPRECORD"
                     (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
+                  <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
+                  <div class="col-4">
+                    <select [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
+                      [(ngModel)]="Record.cust_nomination">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NOMINATION'">NOMINATION</option>
+                      <option [value]="'MUTUAL'">MUTUAL</option>
+                      <option [value]="'FREEHAND'">FREEHAND</option>
+                    </select>
+                  </div>
               </div>
             </div>
             <div class="col-sm-3">
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Days</label>
                 <div class="col-8">
-                  <input [disabled]="!Record.cust_is_incomplete" type="text" class="form-control form-control-sm"
+                  <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Limit</label>
                 <div class="col-8">
-                  <input [disabled]="!Record.cust_is_incomplete" type="text" class="form-control form-control-sm"
+                  <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_crlimit" (blur)="OnBlur('cust_crlimit')" required maxlength="15" />
                 </div>
               </div>
@@ -245,14 +255,14 @@
                 <label class="col-4 col-form-label col-form-label-sm">Credit-Date</label>
 
                 <div class="col-8">
-                  <app-date [disabled]="!Record.cust_is_incomplete" [inputdate]="Record.cust_crdate"
+                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_crdate"
                     (ValueChanged)="Record.cust_crdate=$event"></app-date>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Salesman</label>
                 <div class="col-8">
-                  <app-autocomplete2 #sman [disabled]="!Record.cust_is_incomplete" [inputdata]="SMANREC"
+                  <app-autocomplete2 #sman [disabled]="!Record.cust_is_editable" [inputdata]="SMANREC"
                     (ValueChanged)="LovSelected($event)"></app-autocomplete2>
                 </div>
               </div>
@@ -260,7 +270,7 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">CSD</label>
                 <div class="col-8">
-                  <app-autocomplete2 #csd [disabled]="!Record.cust_is_incomplete" [inputdata]="CSDREC"
+                  <app-autocomplete2 #csd [disabled]="!Record.cust_is_editable" [inputdata]="CSDREC"
                     (ValueChanged)="LovSelected($event)"></app-autocomplete2>
                 </div>
               </div>
@@ -268,7 +278,7 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Refer By</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_referdby"
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_referdby"
                     (blur)="OnBlur('cust_referdby')" maxlength="60" />
                 </div>
               </div>
@@ -276,7 +286,7 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Remarks</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_incomplete" [(ngModel)]="Record.cust_remarks"
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_remarks"
                     (blur)="OnBlur('cust_remarks')" maxlength="100" />
                 </div>
               </div>
@@ -289,42 +299,42 @@
                 <!-- <input [disabled]="!canadd" type="checkbox" [(ngModel)]="Record.cust_is_shipper" /> 
                 <span>Shipper</span> -->
                 <div class="form-check form-check-inline">
-                  <input [disabled]="!canadd||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_shipper" />
+                  <input [disabled]="!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_shipper" />
                   <span>Shipper</span>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input [disabled]="!canadd||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_ungst" />
+                  <input [disabled]="!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_ungst" />
                   <span>Unregistered</span>
                 </div>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_foreigner" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_foreigner" />
                 <span>Foreign Shipper</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_consignee" />
+                <input [disabled]="!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_consignee" />
                 <span>Consignee</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_agent" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_agent" />
                 <span>Agent</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_cha" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_cha" />
                 <span>Cha/Forwarder</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_creditor" />
+                <input [disabled]="!canadd||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_creditor" />
                 <span>Creditor</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_incomplete" type="checkbox" [(ngModel)]="Record.cust_is_others" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_others" />
                 <span>Others</span>
               </div>
             </div>
@@ -334,18 +344,7 @@
         <div class="page-box">
           <div class="row">
             <div class="col-sm-6">
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
-                <div class="col-4">
-                  <select [disabled]="!canadd||!Record.cust_is_incomplete" class="form-control form-control-sm"
-                    [(ngModel)]="Record.cust_nomination">
-                    <option [value]="'NA'">NA</option>
-                    <option [value]="'NOMINATION'">NOMINATION</option>
-                    <option [value]="'MUTUAL'">MUTUAL</option>
-                    <option [value]="'FREEHAND'">FREEHAND</option>
-                  </select>
-                </div>
-              </div>
+              
 
               <div class="form-group row">
                 <div class="offset-2 col-4">
@@ -357,7 +356,7 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Comments</label>
                 <div class="col-sm-10">
-                  <textarea rows="2" [disabled]="!bAdmin2" class="form-control form-control-sm"
+                  <textarea rows="4" [disabled]="!bAdmin2" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_incomplete_remarks" (blur)="OnBlur('cust_incomplete_remarks')" required
                     maxlength="250"></textarea>
                 </div>
@@ -420,14 +419,7 @@
                 </div>
 
               </div>
-
-
-
-
-
-
             </div>
-
           </div>
         </div>
 

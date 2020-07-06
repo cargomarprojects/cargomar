@@ -64,6 +64,7 @@ export class Customerm {
     cust_is_incomplete: boolean;
     cust_incomplete_remarks:string;
     cust_is_complete: string;
+    cust_is_editable: boolean;
 
     rec_mode: string;
 
