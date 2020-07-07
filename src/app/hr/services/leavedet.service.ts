@@ -17,7 +17,6 @@ export class LeaveDetService {
   }
 
   GetRecord(SearchData: any) {
-
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveDet/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
@@ -29,5 +28,8 @@ export class LeaveDetService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveDet/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  IsJoinRelieve(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveDet/IsJoinRelieve', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
