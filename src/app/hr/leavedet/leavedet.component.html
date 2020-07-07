@@ -180,7 +180,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Days Worked</label>
           <div class="col-sm-3">
-            <input type="number" disabled  class="form-control form-control-sm" [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
+            <input type="number" [disabled]="!bJoinRelieve"  class="form-control form-control-sm" [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
           </div>
         </div>
       </div>

@@ -37,6 +37,7 @@ export class LeaveDetComponent {
   bChanged: boolean = false;
   sub: any;
   urlid: string;
+  bJoinRelieve: boolean = false;
 
   porttype = 'PORT';
 
@@ -140,7 +141,7 @@ export class LeaveDetComponent {
       this.Record.lev_emp_id = _Record.id;
       this.Record.lev_emp_code = _Record.code;
       this.Record.lev_emp_name = _Record.name;
-      this.Record.rec_category=_Record.col1;
+      this.Record.rec_category = _Record.col1;
       // this.emp_status = _Record.col1;
       if (this.Record.rec_category == 'CONFIRMED' || this.Record.rec_category == 'TRANSFER') {
         if (this.Record.lev_year > 0 && this.Record.lev_month > 0) {
@@ -149,6 +150,7 @@ export class LeaveDetComponent {
           this.Record.lev_lp = 0;
         }
       }
+      this.IsJoinRelieve();
     }
   }
 
@@ -244,7 +246,7 @@ export class LeaveDetComponent {
     this.Record.lev_days_worked = 0;
     this.Record.lev_pl_carry = 0;
     this.Record.lev_fin_year = 0;
-    this.Record.rec_category='CONFIRMED';
+    this.Record.rec_category = 'CONFIRMED';
     this.lock_record = false;
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
@@ -287,7 +289,7 @@ export class LeaveDetComponent {
 
     this.lock_record = true;
     if (this.Record.lev_edit_code.indexOf("{S}") >= 0)
-    this.lock_record = false;
+      this.lock_record = false;
   }
 
   // Save Data
@@ -387,6 +389,8 @@ export class LeaveDetComponent {
     }
   }
   FindDaysWorked() {
+    if (this.bJoinRelieve)
+      return;
     if (this.Record.lev_year > 0 && this.Record.lev_month > 0) {
       var nDate = new Date(this.Record.lev_year, this.Record.lev_month, 0);
       this.Record.lev_days_worked = nDate.getDate();
@@ -394,6 +398,8 @@ export class LeaveDetComponent {
     }
   }
   FindLpDays() {
+    if (this.bJoinRelieve)
+    return;
     if (this.Record.lev_year > 0 && this.Record.lev_month > 0) {
       var nDate = new Date(this.Record.lev_year, this.Record.lev_month, 0);
       this.Record.lev_lp = nDate.getDate();
@@ -439,5 +445,26 @@ export class LeaveDetComponent {
     }
 
     return AddressSplit;
+  }
+
+  IsJoinRelieve() {
+    this.loading = true;
+    let SearchData = {
+      levempid: this.Record.lev_emp_id,
+      levmonth: this.Record.lev_month,
+      levyear: this.Record.lev_year
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.IsJoinRelieve(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.bJoinRelieve = response.joinrelieve;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
