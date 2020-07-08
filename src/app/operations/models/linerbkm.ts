@@ -140,6 +140,9 @@ export class LinerBkm {
   book_pol_eta:string;
   book_pol_eta_confirm:boolean;
   
+  book_inland_haulage_status:string;
+  book_dest_charges_status:string;
+
   rec_category: string;
   rec_mode: string;
   _globalvariables: GlobalVariables;

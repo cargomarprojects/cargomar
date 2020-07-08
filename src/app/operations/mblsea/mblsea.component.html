@@ -440,6 +440,7 @@
           </div>
           <div class="page-box">
             <div class="row">
+
               <div class="col-sm-4">
                 <div class="form-group row">
                   <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Move Type</label>
@@ -452,15 +453,13 @@
                     </select>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-4">
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label  col-form-label-sm">Place.Carrier.Receipt</label>
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">Place.Carr.Receipt</label>
                   <div class="col-sm-4">
                     <app-autocomplete #PORLov [inputdata]="PORRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <label class="col-sm-2 col-form-label col-form-label-sm">ETD</label>
+                  <label class="col-sm-1 col-form-label col-form-label-sm">ETD</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.book_por_etd" (ValueChanged)="Record.book_por_etd=$event"></app-date>
                   </div>
@@ -469,31 +468,49 @@
               <div class="col-sm-4">
                 <div class="form-group row">
                   <label style="padding-right:0"
-                    class="col-sm-3 col-form-label  col-form-label-sm">Place.Carrier.Delivery</label>
+                    class="col-sm-2 col-form-label  col-form-label-sm">Place.Carr.Delivery</label>
                   <div class="col-sm-4">
                     <app-autocomplete #LinerLov [inputdata]="POFDCRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">ETA</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.book_pofdc_eta" (ValueChanged)="Record.book_pofdc_eta=$event">
                     </app-date>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
                 <div class="form-group row">
-                  <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">Port.Cut.Off</label>
+                  <label style="padding-right:0" class="col-sm-2 col-form-label col-form-label-sm">Port.Cut.Off</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
                     </app-date>
                   </div>
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">ETA</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
                     </app-date>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group row">
+                  <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Inland.Charges</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_inland_haulage_status">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'PREPAID'">PREPAID</option>
+                      <option [value]="'COLLECT'">COLLECT</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Destination.Charges</label>
+                  <div class="col-sm-4">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.book_dest_charges_status">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'PREPAID'">PREPAID</option>
+                      <option [value]="'COLLECT'">COLLECT</option>
+                    </select>
                   </div>
                 </div>
               </div>
