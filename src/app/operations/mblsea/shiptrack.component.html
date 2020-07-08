@@ -1,0 +1,60 @@
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <font color="black">
+                        <strong>
+                            SHIPMENT TRACKING
+                        </strong>
+                    </font>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Booking Confirmation Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.mbook_confirmed_date" (ValueChanged)="Record.mbook_confirmed_date=$event">
+                    </app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading" (click)="Save('mbook_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Stuffing Confirmation Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.mstuff_confirmed_date" (ValueChanged)="Record.mstuff_confirmed_date=$event">
+                    </app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading" (click)="Save('mstuff_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Gate-In Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.mgate_in_date" (ValueChanged)="Record.mgate_in_date=$event"></app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading" (click)="Save('mgate_in_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">VGM Updated On</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event"></app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading" (click)="Save('mvgm_updated_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+        </div>
+
+    </div>

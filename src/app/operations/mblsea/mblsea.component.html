@@ -27,7 +27,7 @@
               </app-date>
             </div>
             <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
-            <div class="col-sm-2" style="padding-right:0px" >
+            <div class="col-sm-2" style="padding-right:0px">
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'MBLBK'">MBLBK#</option>
@@ -45,7 +45,8 @@
               </select>
             </div>
             <div class="col-sm-4">
-              <input type="text" [disabled]="searchby=='FOLDERSENT'" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"  />
+              <input type="text" [disabled]="searchby=='FOLDERSENT'" class="col form-control form-control-sm"
+                name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -100,7 +101,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr >
+          <tr>
             <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
@@ -155,7 +156,6 @@
   </div>
 
   <div *ngIf="currentTab=='DETAILS'" class="page-details">
-
     <ngb-tabset>
       <ngb-tab title="Basic Details">
         <ng-template ngbTabContent>
@@ -494,7 +494,8 @@
               </div>
               <div class="col-sm-4">
                 <div class="form-group row">
-                  <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Inland.Charges</label>
+                  <label style="padding-right:0"
+                    class="col-sm-3 col-form-label  col-form-label-sm">Inland.Charges</label>
                   <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.book_inland_haulage_status">
                       <option [value]="'NA'">NA</option>
@@ -504,7 +505,8 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label style="padding-right:0" class="col-sm-3 col-form-label  col-form-label-sm">Destination.Charges</label>
+                  <label style="padding-right:0"
+                    class="col-sm-3 col-form-label  col-form-label-sm">Destination.Charges</label>
                   <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.book_dest_charges_status">
                       <option [value]="'NA'">NA</option>
@@ -531,9 +533,9 @@
                     </app-date>
                   </div> -->
                   <label style="background-color:lightgray;"
-                  class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
+                    class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
                   <label style="background-color:lightgray;"
-                  class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
+                    class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
                   <label style="background-color:lightgray;"
@@ -597,7 +599,7 @@
                   <div class="col-sm-2">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input"  type="checkbox" [(ngModel)]="Record.book_pol_eta_confirm">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pol_eta_confirm">
                       </label>
                     </div>
                   </div>
@@ -671,9 +673,9 @@
                   <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label> -->
                   <div class="col-sm-3 input-group input-group-sm">
                     <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
-                      class="btn btn-success btn-sm mr-1">Tracking</button>
-                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading" (click)="UpdateTracking()"
-                      class="btn btn-success btn-sm">Update</button>
+                      class="btn btn-success btn-sm mr-1">Container Tracking</button>
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update</button>
                   </div>
                 </div>
               </div>
@@ -913,6 +915,14 @@
       </ngb-tab>
     </ngb-tabset>
   </div>
+  <!-- <br /> -->
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
+    <div *ngIf="mode == 'EDIT'" class="page-box" >
+      <app-shiptrack [pkid]="pkid" [menuid]="menuid" [type]="'MBL-SE'" (ModifiedRecords)="ModifiedRecords($event)">
+      </app-shiptrack>
+    </div>
+  </div>
+  <br />
   <ng-template #ftpsent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">{{title}}</h4>
@@ -923,8 +933,9 @@
     <div class="modal-body">
       <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder"
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
-        [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList" [PoFtpAttachList]="PoFtpAttachList"
-        [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code" [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+        [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
+        [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
+        [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
   <ng-template #ftphistory let-c="close" let-d="dismiss">
