@@ -916,13 +916,14 @@
     </ngb-tabset>
   </div>
   <!-- <br /> -->
-  <div *ngIf="currentTab=='DETAILS'" class="page-details">
-    <div *ngIf="mode == 'EDIT'" class="page-box" >
-      <app-shiptrack [pkid]="pkid" [menuid]="menuid" [type]="'MBL-SE'" (ModifiedRecords)="ModifiedRecords($event)">
+  <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'" class="page-details">
+    <div class="page-box">
+      <app-shiptrack [pkid]="pkid" [menuid]="'MBLSHIPTRACKING'" [type]="'MBL-SE'"
+        (ModifiedRecords)="ModifiedRecords($event)">
       </app-shiptrack>
     </div>
+    <br />
   </div>
-  <br />
   <ng-template #ftpsent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">{{title}}</h4>

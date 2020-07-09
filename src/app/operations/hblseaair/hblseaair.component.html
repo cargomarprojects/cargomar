@@ -627,10 +627,10 @@
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
-
+    
+    <br />
   </div>
-
-  <br />
+  
   <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
   <div *ngIf="InfoMessage" class="alert alert-success">
@@ -639,6 +639,16 @@
   <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
   </div>
+
+  <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT' && type=='SEA EXPORT'" class="page-details">
+    <div class="page-box">
+      <app-shiptrack [pkid]="pkid" [menuid]="'HBLSHIPTRACKING'" [type]="'HBL-SE'"
+        (ModifiedRecords)="ModifiedRecords($event)">
+      </app-shiptrack>
+    </div>
+    <br />
+  </div>
+
 
 </div>
 <div *ngIf="currentPage=='BLPAGE'">

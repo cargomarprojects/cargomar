@@ -12,8 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
-
+        <div *ngIf="type == 'MBL-SE'" class="col-sm-6">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Booking Confirmation Date</label>
                 <div class="col-sm-4">
@@ -21,7 +20,7 @@
                     </app-date>
                 </div>
                 <div class="col-sm-4">
-                    <button [disabled]="loading" (click)="Save('mbook_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
+                    <button [disabled]="loading||!canSave" (click)="Save('mbook_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
                 </div>
             </div>
 
@@ -32,7 +31,7 @@
                     </app-date>
                 </div>
                 <div class="col-sm-4">
-                    <button [disabled]="loading" (click)="Save('mstuff_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
+                    <button [disabled]="loading||!canSave" (click)="Save('mstuff_confirmed_date')"  class="btn btn-primary btn-sm">Update</button>
                 </div>
             </div>
 
@@ -42,7 +41,7 @@
                     <app-date [inputdate]="Record.mgate_in_date" (ValueChanged)="Record.mgate_in_date=$event"></app-date>
                 </div>
                 <div class="col-sm-4">
-                    <button [disabled]="loading" (click)="Save('mgate_in_date')"  class="btn btn-primary btn-sm">Update</button>
+                    <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date')"  class="btn btn-primary btn-sm">Update</button>
                 </div>
             </div>
 
@@ -52,9 +51,62 @@
                     <app-date [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event"></app-date>
                 </div>
                 <div class="col-sm-4">
-                    <button [disabled]="loading" (click)="Save('mvgm_updated_date')"  class="btn btn-primary btn-sm">Update</button>
+                    <button [disabled]="loading||!canSave" (click)="Save('mvgm_updated_date')"  class="btn btn-primary btn-sm">Update</button>
                 </div>
             </div>
         </div>
+        <div *ngIf="type == 'HBL-SE'" class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Draft Sent Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hdraft_sent_date" (ValueChanged)="Record.hdraft_sent_date=$event">
+                    </app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading||!canSave" (click)="Save('hdraft_sent_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Invoice Sent Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hinvoice_sent_date" (ValueChanged)="Record.hinvoice_sent_date=$event">
+                    </app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading||!canSave" (click)="Save('hinvoice_sent_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">HBL Approved Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_approved_date" (ValueChanged)="Record.hbl_approved_date=$event"></app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading||!canSave" (click)="Save('hbl_approved_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Payment Received Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hpayment_received_date" (ValueChanged)="Record.hpayment_received_date=$event"></app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading||!canSave" (click)="Save('hpayment_received_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">HBL Released Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event"></app-date>
+                </div>
+                <div class="col-sm-4">
+                    <button [disabled]="loading||!canSave" (click)="Save('hbl_released_date')"  class="btn btn-primary btn-sm">Update</button>
+                </div>
+            </div>
+        </div>
     </div>
+
