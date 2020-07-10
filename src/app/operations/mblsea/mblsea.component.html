@@ -866,7 +866,13 @@
           <div *ngIf="ErrorMessage" class="alert alert-danger">
             {{ErrorMessage}}
           </div>
-
+          <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'" >
+            <div class="page-box">
+              <app-shiptrack [pkid]="pkid" [menuid]="'MBLSHIPTRACKING'" [type]="'MBL-SE'"
+                (ModifiedRecords)="ModifiedRecords($event)">
+              </app-shiptrack>
+            </div>
+          </div>
         </ng-template>
       </ngb-tab>
       <!-- <ngb-tab title="Tracking" *ngIf="mode=='EDIT'">
@@ -915,15 +921,7 @@
       </ngb-tab>
     </ngb-tabset>
   </div>
-  <!-- <br /> -->
-  <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'" class="page-details">
-    <div class="page-box">
-      <app-shiptrack [pkid]="pkid" [menuid]="'MBLSHIPTRACKING'" [type]="'MBL-SE'"
-        (ModifiedRecords)="ModifiedRecords($event)">
-      </app-shiptrack>
-    </div>
-    <br />
-  </div>
+  
   <ng-template #ftpsent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">{{title}}</h4>
