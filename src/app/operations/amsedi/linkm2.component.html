@@ -11,7 +11,7 @@
     <div class="page-search">
       <div class="row">
   
-        <div class="col-sm-4">
+        <div class="col-sm-3">
   
           <div class="form-group row">
             <label class="col-3 col-form-label col-form-label-sm">Partner</label>
@@ -31,8 +31,8 @@
               </select>
             </div>
           </div>
-  
-  
+          </div>
+        <div class="col-sm-3">
           <div class="form-group row">
             <label class="col-3 col-form-label  col-form-label-sm">Category</label>
             <div class="col-9">
@@ -48,8 +48,6 @@
               </select>
             </div>
           </div>
-  
-  
           <div class="form-group row">
             <label class="col-3 col-form-label  col-form-label-sm">SubCategory</label>
             <div class="col-9">
@@ -66,14 +64,10 @@
               </select>
             </div>
           </div>
-  
-  
         </div>
-  
-        <div class="col-sm-4">
-  
+        <div class="col-sm-3">
           <div class="form-group row">
-            <label class="col-3 col-form-label  col-form-label-sm">Link Status</label>
+            <label class="col-3 col-form-label  col-form-label-sm">LinkStatus</label>
             <div class="col-9">
               <select class="form-control form-control-sm" [(ngModel)]="link_status">
                 <option value="">ALL</option>
@@ -82,31 +76,22 @@
               </select>
             </div>
           </div>
-  
-  
           <div class="form-group row">
             <label class="col-3">Search</label>
             <div class="col-9">
               <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
             </div>
           </div>
-  
-  
         </div>
-  
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group row">
             <div class="col-9 offset-3">
               <button (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             </div>
           </div>
         </div>
-  
-  
-  
       </div>
     </div>
-  
   
     <div class="page-body table-responsive">
       <table class="table  table-hover table-sm">
@@ -180,6 +165,63 @@
             </div>
           </div>
   
+          <!-- <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Source</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_source_name" />
+            </div>
+          </div>
+   -->
+  
+          <!-- <div *ngIf="Record.link_mode == 'ID' ">
+            <div class="form-group row" style="color:black">
+  
+              <label class="col-2 col-form-label col-form-label-sm">Target</label>
+              <div class="col-10">
+               <app-autocomplete3 [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'"
+                [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
+              </app-autocomplete3>
+              </div>
+            </div>
+          </div> -->
+  
+  
+          <!-- <div *ngIf="Record.link_mode == 'VALUE' ">
+  
+            <div class="form-group row">
+              <label class="col-2 col-form-label  col-form-label-sm">Value</label>
+              <div class="col-10">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.link_target_name"
+                  (blur)="OnBlur('link_target_name')" required maxlength="200" />
+              </div>
+            </div>
+          </div> -->
+  
+        </div>
+  
+        <div class="col-sm-6">
+  
+          <!-- <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm" >Group</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_messagesender" />
+            </div>
+          </div> -->
+  
+          <!-- <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_category" />
+            </div>
+          </div> -->
+  
+          <!-- <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Sub Type</label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.link_subcategory" />
+            </div>
+          </div> -->
+  
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Source</label>
             <div class="col-10">
@@ -213,7 +255,7 @@
           </div>
   
         </div>
-  
+
       </div>
   
     </div>
