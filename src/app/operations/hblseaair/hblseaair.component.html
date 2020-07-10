@@ -609,7 +609,7 @@
           </div>
 
           <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT' && type=='SEA EXPORT'">
-            <div class="page-box mt-4">
+            <div class="page-box mt-3">
               <app-shiptrack [pkid]="pkid" [menuid]="'HBLSHIPTRACKING'" [type]="'HBL-SE'"
                 (ModifiedRecords)="ModifiedRecords($event)">
               </app-shiptrack>
