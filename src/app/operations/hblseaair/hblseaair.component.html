@@ -29,8 +29,10 @@
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'SINO'">SI#</option>
-                <option [value]="'MBLNO'"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></option>
-                <option [value]="'HBLNO'"><span *ngIf="type=='SEA EXPORT'">HBL#</span><span *ngIf="type=='AIR EXPORT'">HAWB#</span></option>
+                <option [value]="'MBLNO'"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span
+                    *ngIf="type=='AIR EXPORT'">MAWB#</span></option>
+                <option [value]="'HBLNO'"><span *ngIf="type=='SEA EXPORT'">HBL#</span><span
+                    *ngIf="type=='AIR EXPORT'">HAWB#</span></option>
                 <option [value]="'AGENT'">AGENT</option>
                 <option [value]="'SHIPPER'">SHIPPER</option>
                 <option [value]="'CONSIGNEE'">CONSIGNEE</option>
@@ -39,7 +41,8 @@
               </select>
             </div>
             <div class="col-sm-3">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col-sm-3">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -96,7 +99,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr >
+          <tr>
             <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
             <td>{{rec.hbl_sidate}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
@@ -597,7 +600,7 @@
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()"
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-success btn-sm">History</button>
@@ -605,6 +608,14 @@
             </div>
           </div>
 
+          <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT' && type=='SEA EXPORT'">
+            <div class="page-box mt-4">
+              <app-shiptrack [pkid]="pkid" [menuid]="'HBLSHIPTRACKING'" [type]="'HBL-SE'"
+                (ModifiedRecords)="ModifiedRecords($event)">
+              </app-shiptrack>
+            </div>
+            <br />
+          </div>
 
         </ng-template>
       </ngb-tab>
@@ -627,10 +638,10 @@
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
-    
+
     <br />
   </div>
-  
+
   <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
   <div *ngIf="InfoMessage" class="alert alert-success">
@@ -639,17 +650,6 @@
   <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
   </div>
-
-  <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT' && type=='SEA EXPORT'" class="page-details">
-    <div class="page-box">
-      <app-shiptrack [pkid]="pkid" [menuid]="'HBLSHIPTRACKING'" [type]="'HBL-SE'"
-        (ModifiedRecords)="ModifiedRecords($event)">
-      </app-shiptrack>
-    </div>
-    <br />
-  </div>
-
-
 </div>
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">
@@ -693,8 +693,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-amsedi [type]="type" [menuid]="menuid" [mblid]="''" [hblid]="Record.hbl_pkid" ></app-amsedi>
+    <app-amsedi [type]="type" [menuid]="menuid" [mblid]="''" [hblid]="Record.hbl_pkid"></app-amsedi>
   </div>
 </ng-template>
 
-<app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" (hidealert)="showalert=$event">
+</app-crlimit>
