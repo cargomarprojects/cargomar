@@ -605,12 +605,11 @@
             </div>
           </div>
 
-
         </ng-template>
       </ngb-tab>
       <ngb-tab title="Income/Booking" *ngIf="mode == 'EDIT' && bJobIncome">
         <ng-template ngbTabContent>
-          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'INCOME'"></app-jobincome>
+          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'INCOME'" [menuid]="menuid" ></app-jobincome>
         </ng-template>
       </ngb-tab>
 

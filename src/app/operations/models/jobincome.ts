@@ -27,7 +27,7 @@ export class JobIncome {
     inv_qty: number;
     inv_rate: number;
     inv_ftotal: number;
-    inv_rebate_amt: number;
+    
 
     inv_curr_id: string;
     inv_curr_code: string;
@@ -38,10 +38,17 @@ export class JobIncome {
     inv_remarks: string;
 
     inv_ctr: number;
-
+    
+    inv_rebate_amt: number;
     inv_rebate_curr_code: string;
     inv_rebate_exrate: number;
     inv_rebate_amt_inr: number;
+
+    inv_is_rebate2 : boolean;
+    inv_rebate2_amt: number;
+    inv_rebate2_curr_code: string;
+    inv_rebate2_exrate: number;
+    inv_rebate2_amt_inr: number;
 
     rec_mode: string;
     rec_category: string;

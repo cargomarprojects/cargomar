@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -42,12 +42,13 @@ export class JobIncomeComponent {
 
   income_type = 'ALL';
 
-  
+
 
   pp_amt: number = 0;
   cc_amt: number = 0;
   total_amt: number = 0;
   rebate_amt: number = 0;
+  rebate2_amt: number = 0;
 
   loading = false;
   currentTab = 'LIST';
@@ -55,7 +56,7 @@ export class JobIncomeComponent {
   search_inv_pkid: string = '';
 
 
-  CntrTypes : string = "";
+  CntrTypes: string = "";
 
   ncbm: string = '';
   nntwt: string = '';
@@ -63,8 +64,8 @@ export class JobIncomeComponent {
   nchwt: string = '';
 
 
-  old_inv_curr_id : string = '';
-  old_inv_curr_code: string  = '';
+  old_inv_curr_id: string = '';
+  old_inv_curr_code: string = '';
   old_inv_cntr_type_id: string = '';
   old_inv_cntr_type: string = '';
   old_inv_exrate: number = 1;
@@ -95,6 +96,8 @@ export class JobIncomeComponent {
   CURRECORD: SearchTable = new SearchTable();
   CNTRTYPERECORD: SearchTable = new SearchTable();
   REBTCURRECORD: SearchTable = new SearchTable();
+  REBTCURRECORD2: SearchTable = new SearchTable();
+
   constructor(
     private mainService: JobIncomeService,
     private route: ActivatedRoute,
@@ -117,7 +120,7 @@ export class JobIncomeComponent {
     else if (this.type == 'GENERAL JOB')
       this.inv_category = 'GN-' + this.subtype;
 
-    
+
 
     this.cntr_type_visible = false;
     if (this.type == "SEA EXPORT" || this.type == "SEA IMPORT") {
@@ -147,10 +150,10 @@ export class JobIncomeComponent {
       .subscribe(response => {
         this.loading = false;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 
@@ -191,6 +194,15 @@ export class JobIncomeComponent {
     this.REBTCURRECORD.id = "";
     this.REBTCURRECORD.code = "";
     this.REBTCURRECORD.name = "";
+
+    this.REBTCURRECORD2 = new SearchTable();
+    this.REBTCURRECORD2.controlname = "REBATE2-CURRENCY";
+    this.REBTCURRECORD2.displaycolumn = "CODE";
+    this.REBTCURRECORD2.type = "CURRENCY";
+    this.REBTCURRECORD2.id = "";
+    this.REBTCURRECORD2.code = "";
+    this.REBTCURRECORD2.name = "";
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -214,6 +226,12 @@ export class JobIncomeComponent {
       this.Record.inv_rebate_curr_code = _Record.code;
       this.Record.inv_rebate_exrate = _Record.rate;
     }
+
+    if (_Record.controlname == "REBATE2-CURRENCY") {
+      this.Record.inv_rebate2_curr_code = _Record.code;
+      this.Record.inv_rebate2_exrate = _Record.rate;
+    }
+
   }
 
 
@@ -257,7 +275,7 @@ export class JobIncomeComponent {
   }
 
   ResetControls() {
-    
+
   }
 
   List(_type: string) {
@@ -292,10 +310,10 @@ export class JobIncomeComponent {
         this.FindListTotal();
         this.ActionHandler("ADD", null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -329,15 +347,15 @@ export class JobIncomeComponent {
       this.Record.inv_exrate = this.old_inv_exrate;
       this.Record.inv_type = this.old_inv_type;
     }
-    
-    
+
+
     this.Record.inv_qty = 1;
     this.Record.inv_rate = 0;
-    this.Record.inv_rebate_amt = 0;
+
     this.Record.inv_ftotal = 0;
-    
+
     this.Record.inv_total = 0;
-    
+
     this.Record.inv_drcr = 'CR';
     if (this.subtype == 'EXPENSE') {
       this.Record.inv_type = 'COLLECT';
@@ -349,9 +367,16 @@ export class JobIncomeComponent {
     this.Record.inv_calcon = '';
     this.Record.inv_remarks = '';
 
+    this.Record.inv_rebate_amt = 0;
     this.Record.inv_rebate_curr_code = '';
     this.Record.inv_rebate_exrate = 0;
     this.Record.inv_rebate_amt_inr = 0;
+
+    this.Record.inv_is_rebate2 =false;
+    this.Record.inv_rebate2_amt = 0;
+    this.Record.inv_rebate2_curr_code = '';
+    this.Record.inv_rebate2_exrate = 0;
+    this.Record.inv_rebate2_amt_inr = 0;
 
     this.Record.inv_category = this.inv_category;
 
@@ -360,14 +385,11 @@ export class JobIncomeComponent {
 
     this.ChangeAccList();
 
-
     if (this.old_inv_curr_id != '') {
       this.CURRECORD.code = this.old_inv_curr_code;
       this.CNTRTYPERECORD.id = this.old_inv_cntr_type_id;
       this.CNTRTYPERECORD.code = this.old_inv_cntr_type;
     }
-
-    
 
     //this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;
   }
@@ -377,7 +399,10 @@ export class JobIncomeComponent {
     this.loading = true;
 
     let SearchData = {
-      pkid: Id
+      pkid: Id,
+      branchid : this.gs.globalVariables.branch_pkid,
+      menuid : this.menuid,
+      userid : this.gs.globalVariables.user_pkid
     };
 
     this.ErrorMessage = '';
@@ -387,10 +412,10 @@ export class JobIncomeComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: JobIncome) {
@@ -407,6 +432,7 @@ export class JobIncomeComponent {
     this.CNTRTYPERECORD.code = this.Record.inv_cntr_type;
 
     this.REBTCURRECORD.code = this.Record.inv_rebate_curr_code;
+    this.REBTCURRECORD2.code = this.Record.inv_rebate2_curr_code;
 
     this.lastcategory = this.Record.inv_source;
 
@@ -418,7 +444,7 @@ export class JobIncomeComponent {
   }
   // Save Data
   Save() {
-    
+
     if (!this.allvalid())
       return;
     this.loading = true;
@@ -447,11 +473,11 @@ export class JobIncomeComponent {
         alert("Save Complete");
         this.AcLovCmp.Focus();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -469,9 +495,9 @@ export class JobIncomeComponent {
       sError += "| A/c Name Cannot Be Blank";
     }
 
-    if (this.Record.inv_curr_code.length <=0 ) {
-        bret = false;
-        sError += "| Currency Cannot Be Blank";
+    if (this.Record.inv_curr_code.length <= 0) {
+      bret = false;
+      sError += "| Currency Cannot Be Blank";
     }
 
     if (this.type == "SEA EXPORT" || this.type == "SEA IMPORT") {
@@ -484,7 +510,7 @@ export class JobIncomeComponent {
     }
 
 
-    if (this.Record.inv_qty <=0 ) {
+    if (this.Record.inv_qty <= 0) {
       bret = false;
       sError += "| Qty Cannot Be Blank";
     }
@@ -505,7 +531,7 @@ export class JobIncomeComponent {
 
     if (this.Record.inv_rebate_amt > 0) {
 
-      if (this.Record.inv_rebate_curr_code.length <=0) {
+      if (this.Record.inv_rebate_curr_code.length <= 0) {
         bret = false;
         sError += "| Pls Input Rebate Currency";
       }
@@ -522,10 +548,10 @@ export class JobIncomeComponent {
     }
 
 
-    
+
     if (bret === false)
-        this.ErrorMessage = sError;
-    
+      this.ErrorMessage = sError;
+
     return bret;
   }
 
@@ -554,6 +580,9 @@ export class JobIncomeComponent {
     this.FindListTotal();
   }
 
+
+
+
   RemoveRecord(Id: string) {
     this.loading = true;
     let SearchData = {
@@ -570,10 +599,10 @@ export class JobIncomeComponent {
         this.ActionHandler('ADD', null);
         this.FindListTotal();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -604,7 +633,7 @@ export class JobIncomeComponent {
 
 
       this.ChangeAccList();
-      
+
     }
   }
 
@@ -659,7 +688,7 @@ export class JobIncomeComponent {
     }
     this.ACCRECORD.where = sWhere;
   }
-  
+
   // SEA EXP FRT MEMO  " (acc_main_code in ('1104','1105','1108', '4501') or acc_code ='1106002') ";
   // SEA EXP JOB sWhere = " (acc_main_code in ('1101','1102','1103','1107','4501') or acc_code ='1106001') ";
 
@@ -710,6 +739,12 @@ export class JobIncomeComponent {
         }
         break;
       }
+      case 'inv_rebate2': {
+        if (this.bChanged) {
+          this.Record.inv_rebate2_amt = this.gs.roundNumber(this.Record.inv_rebate2_amt, 2);
+        }
+        break;
+      }
       case 'inv_exrate': {
         if (this.bChanged) {
           this.Record.inv_exrate = this.gs.roundNumber(this.Record.inv_exrate, 3);
@@ -721,6 +756,10 @@ export class JobIncomeComponent {
       }
       case 'inv_rebate_exrate': {
         this.Record.inv_rebate_exrate = this.gs.roundNumber(this.Record.inv_rebate_exrate, 3);
+        break;
+      }
+      case 'inv_rebate2_exrate': {
+        this.Record.inv_rebate2_exrate = this.gs.roundNumber(this.Record.inv_rebate2_exrate, 3);
         break;
       }
     }
@@ -752,8 +791,6 @@ export class JobIncomeComponent {
     this.cc_amt = this.gs.roundNumber(this.cc_amt, 2);
     this.total_amt = this.gs.roundNumber(this.total_amt, 2);
     this.rebate_amt = this.gs.roundNumber(this.rebate_amt, 2);
-
-
   }
 
   folder_id: string;
@@ -769,7 +806,7 @@ export class JobIncomeComponent {
       report_caption: '',
       parentid: '',
       comp_code: '',
-      incometype:''
+      incometype: ''
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;
@@ -788,10 +825,10 @@ export class JobIncomeComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -807,7 +844,7 @@ export class JobIncomeComponent {
     }
   }
 
-  QtnClosed(qtnid : string = '') {
+  QtnClosed(qtnid: string = '') {
     if (qtnid != '') {
       this.bShowQtnList = false;
       this.saveQuotation(qtnid);
@@ -815,7 +852,7 @@ export class JobIncomeComponent {
     this.bShowQtnList = false;
   }
 
-  
+
   saveQuotation(qtnid: string = '') {
 
     this.loading = true;
@@ -842,12 +879,45 @@ export class JobIncomeComponent {
         this.InfoMessage = "Save Complete";
         this.List('NEW');
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
+  // Save Rebate
+  SaveRebate() {
+
+
+    if (this.Record.inv_rebate_amt <= 0) {
+      alert(" Pls Enter Rebate Amount");
+      return;
+    }
+    if (this.Record.inv_rebate_curr_code.length <= 0) {
+      alert(" Pls Enter Rebate Currency");
+      return;
+    }
+    if (this.Record.inv_rebate_exrate <= 0) {
+      alert("Pls Enter Rebate Ex.Rate");
+      return;
+    }
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record.inv_parent_id = this.parentid;
+    this.Record.rec_category = this.type;
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.Save(this.Record)
+    .subscribe(response => {
+       alert("Save Complete");
+    },error => {
+      this.ErrorMessage = this.gs.getError(error);
+      alert(this.ErrorMessage);
+    });
+  }
+
 }
+
+
+
