@@ -45,9 +45,15 @@ export class ShipTrackComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_add || this.menu_record.rights_edit)
+      // if (this.menu_record.rights_add || this.menu_record.rights_edit)
+      //   this.canSave = true;
+      if (this.menu_record.rights_approval.includes("TRACK"))
         this.canSave = true;
+
     }
+    if (this.gs.globalVariables.user_code == "ADMIN")
+      this.canSave = true;
+
     this.LoadCombo();
     this.InitLov();
     this.GetRecord();
@@ -70,7 +76,7 @@ export class ShipTrackComponent {
 
   }
 
-   
+
   GetRecord() {
     this.loading = true;
     let SearchData = {

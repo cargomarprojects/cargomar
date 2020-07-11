@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { MailList } from '../models/maillist';
 import { MailListService } from '../services/maillist.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { Param } from '../../master/models/param';
 
 @Component({
     selector: 'app-maillist',
@@ -54,6 +55,7 @@ export class MailListComponent {
     RecordList: MailList[] = [];
     // Single Record for add/edit/view details
     Record: MailList = new MailList;
+    MailingList: Param[] = [];
 
     constructor(
         private mainService: MailListService,
@@ -105,27 +107,26 @@ export class MailListComponent {
 
     LoadCombo() {
 
-        //this.loading = true;
-        //let SearchData = {
-        //  type: 'type',
-        //  comp_code: this.gs.globalVariables.comp_code,
-        //  branch_code: this.gs.globalVariables.branch_code
-        //};
+        this.loading = true;
+        let SearchData = {
+         type: 'type',
+         comp_code: this.gs.globalVariables.comp_code,
+         branch_code: this.gs.globalVariables.branch_code
+        };
 
-        //this.ErrorMessage = '';
-        //this.InfoMessage = '';
-        //this.mainService.LoadDefault(SearchData)
-        //  .subscribe(response => {
-        //    this.loading = false;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+         .subscribe(response => {
+           this.loading = false;
+           this.MailingList = response.mailinglist;
+           this.List("NEW");
+         },
+         error => {
+           this.loading = false;
+           this.ErrorMessage = JSON.parse(error._body).Message;
+         });
 
-        //    this.List("NEW");
-        //  },
-        //  error => {
-        //    this.loading = false;
-        //    this.ErrorMessage = JSON.parse(error._body).Message;
-        //  });
-
-        this.List("NEW");
     }
 
 

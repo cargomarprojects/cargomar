@@ -868,7 +868,7 @@
           </div>
           <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'" >
             <div class="page-box">
-              <app-shiptrack [pkid]="pkid" [menuid]="'MBLSHIPTRACKING'" [type]="'MBL-SE'"
+              <app-shiptrack [pkid]="pkid" [menuid]="menuid" [type]="'MBL-SE'"
                 (ModifiedRecords)="ModifiedRecords($event)">
               </app-shiptrack>
             </div>
