@@ -2,6 +2,8 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } 
 
 import { ActivatedRoute } from '@angular/router';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 import { GlobalService } from '../../core/services/global.service';
 
 import { JobIncome } from '../models/jobincome';
@@ -26,6 +28,7 @@ export class JobIncomeComponent {
   @Input() subtype: string = '';
   @Input() parentid: string = '';
 
+  modal: any;
 
   @ViewChild('AcLov') private AcLovCmp: AutoCompleteComponent;
 
@@ -101,7 +104,8 @@ export class JobIncomeComponent {
   constructor(
     private mainService: JobIncomeService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -289,6 +293,7 @@ export class JobIncomeComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      hide_ho_entries : this.gs.globalVariables.hide_ho_entries      
     };
 
     this.ChangeAccList();
@@ -367,6 +372,11 @@ export class JobIncomeComponent {
     this.Record.inv_calcon = '';
     this.Record.inv_remarks = '';
 
+    this.Record.inv_posted = false;
+    this.Record.inv_rebate_posted = false;
+    this.Record.inv_rebate2_posted = false;
+
+
     this.Record.inv_rebate_amt = 0;
     this.Record.inv_rebate_curr_code = '';
     this.Record.inv_rebate_exrate = 0;
@@ -402,7 +412,9 @@ export class JobIncomeComponent {
       pkid: Id,
       branchid : this.gs.globalVariables.branch_pkid,
       menuid : this.menuid,
-      userid : this.gs.globalVariables.user_pkid
+      userid : this.gs.globalVariables.user_pkid,
+      usercode : this.gs.globalVariables.user_code,
+      hide_ho_entries : this.gs.globalVariables.hide_ho_entries
     };
 
     this.ErrorMessage = '';
@@ -888,18 +900,18 @@ export class JobIncomeComponent {
 
 
   // Save Rebate
-  SaveRebate() {
+  SaveSpecialRebate() {
 
 
-    if (this.Record.inv_rebate_amt <= 0) {
+    if (this.Record.inv_rebate2_amt <= 0) {
       alert(" Pls Enter Rebate Amount");
       return;
     }
-    if (this.Record.inv_rebate_curr_code.length <= 0) {
+    if (this.Record.inv_rebate2_curr_code.length <= 0) {
       alert(" Pls Enter Rebate Currency");
       return;
     }
-    if (this.Record.inv_rebate_exrate <= 0) {
+    if (this.Record.inv_rebate2_exrate <= 0) {
       alert("Pls Enter Rebate Ex.Rate");
       return;
     }
@@ -908,7 +920,7 @@ export class JobIncomeComponent {
     this.Record.inv_parent_id = this.parentid;
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
-    this.mainService.Save(this.Record)
+    this.mainService.SaveSpecialRebate(this.Record)
     .subscribe(response => {
        alert("Save Complete");
     },error => {
@@ -916,6 +928,12 @@ export class JobIncomeComponent {
       alert(this.ErrorMessage);
     });
   }
+
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.modal = this.modalService.open(history);
+    
+}
 
 }
 
