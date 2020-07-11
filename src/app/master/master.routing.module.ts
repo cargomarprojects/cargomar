@@ -27,6 +27,7 @@ import { SearchShipmentComponent } from './searchshipment/searchshipment.compone
 import { BankInfoComponent } from './bankinfo/bankinfo.component';
 import { EsanchitComponent } from './esanchit/esanchit.component';
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
+import { MailListComponent } from './maillist/maillist.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
     { path: 'bankinfo', component: BankInfoComponent },
     { path: 'esanchit', component: EsanchitComponent },
     { path: 'jobtransfer', component: JobTransferComponent },
+    { path: 'maillist', component: MailListComponent },
 ];
 
 @NgModule({
