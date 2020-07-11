@@ -37,6 +37,7 @@ import { EsanchitDownloadComponent } from './esanchit/esanchitdownload.component
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { AddbookdelComponent  } from './customer/addbookdel.component';
 import { BenfComponent   } from './customer/benf.component';
+import { MailListComponent } from './maillist/maillist.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { BenfComponent   } from './customer/benf.component';
     EsanchitDownloadComponent,
     JobTransferComponent,
     AddbookdelComponent,
-    BenfComponent
+    BenfComponent,
+    MailListComponent
   ],
   providers: [
   ],
