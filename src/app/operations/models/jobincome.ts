@@ -38,6 +38,11 @@ export class JobIncome {
     inv_remarks: string;
 
     inv_ctr: number;
+
+    inv_posted : boolean;
+    inv_rebate_posted : boolean;
+    inv_rebate2_posted : boolean;
+
     
     inv_rebate_amt: number;
     inv_rebate_curr_code: string;

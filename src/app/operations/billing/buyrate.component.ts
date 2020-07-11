@@ -179,7 +179,7 @@ export class BuyRateComponent {
 
     let SearchData = {
       type: _type,
-      rowtype: "'PN','CI'",
+      rowtype: "'PN','CI', 'DI'",
       cc_category: this.cc_category,
       cc_id: this.parentid,
       company_code: this.gs.globalVariables.comp_code,

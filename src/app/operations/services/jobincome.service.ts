@@ -28,6 +28,10 @@ export class JobIncomeService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/JobIncome/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    SaveSpecialRebate(Record: JobIncome) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/JobIncome/SaveSpecialRebate', Record, this.gs.headerparam2('authorized'));
+    }
+
 
     SaveQuotation(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/JobIncome/SaveQuotation', SearchData, this.gs.headerparam2('authorized'));

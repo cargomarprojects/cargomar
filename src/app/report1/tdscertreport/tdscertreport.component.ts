@@ -245,6 +245,9 @@ export class TdsCertReportComponent {
     this.Record.tds_gross = 0;
     this.Record.tds_amt = 0;
 
+    this.TotTdsAmt = 0;
+    this.TotTdsCertAmt =0;
+
     this.InitLov();
     this.Record.rec_mode = this.mode;
 
