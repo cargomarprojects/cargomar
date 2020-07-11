@@ -29,6 +29,7 @@ export class MailListComponent {
     currentTab = 'LIST';
 
     searchstring = '';
+    searchtype = 'SHIPMENT-TRACKING';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -184,6 +185,7 @@ export class MailListComponent {
             type: _type,
             rowtype: this.type,
             searchstring: this.searchstring.toUpperCase(),
+            searchtype: this.searchtype,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             page_count: this.page_count,
@@ -254,6 +256,11 @@ export class MailListComponent {
     LoadData(_Record: MailList) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
+        this.controlname = this.Record.ml_cust_type;
+        this.tabletype = this.Record.ml_cust_type;
+        this.subtype = "";
+        this.displaydata = this.Record.ml_cust_code;
+        this.where = "";
     }
 
 
@@ -322,9 +329,10 @@ export class MailListComponent {
         if (field == 'ml_cust_name') {
             this.Record.ml_cust_name = this.Record.ml_cust_name.toUpperCase();
         }
-        // if (field == 'ritc_unit') {
-        //   this.Record.ritc_unit = this.Record.ritc_unit.toUpperCase();
-        // }
+
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.toUpperCase();
+        }
 
     }
     OnChange(field: string) {
@@ -332,22 +340,11 @@ export class MailListComponent {
             this.Record.ml_cust_id = '';
             this.Record.ml_cust_code = '';
             this.Record.ml_cust_name = '';
+            this.controlname = this.Record.ml_cust_type;
+            this.tabletype = this.Record.ml_cust_type;
             this.subtype = "";
             this.displaydata = "";
             this.where = "";
-            if (this.Record.ml_cust_type == "CUSTOMER") {
-                this.controlname = "CUSTOMER";
-                this.tabletype = "CUSTOMER";
-                this.subtype = "";
-                this.displaydata = "";
-                this.where = "";
-            } else if (this.Record.ml_cust_type == "EMPLOYEE") {
-                this.controlname = "EMPLOYEE";
-                this.tabletype = "EMPLOYEE";
-                this.subtype = "";
-                this.displaydata = "";
-                this.where = "";
-            }
         }
     }
     GetSpaceTrim(str: string) {

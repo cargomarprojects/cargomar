@@ -205,6 +205,9 @@ export class ParamComponent {
       this.id5 = "Control Type";
       this.id5_lovtype="CTRL-TYPE";
     }
+    if (this.type == 'MAILING TYPE') {
+      this.code_length = 50;
+    }
 
   }
 

@@ -12,14 +12,25 @@
 
     <div class="page-search">
         <div class="row">
-            <label class="col-2">Search</label>
-            <div class="col">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <div class="col-sm-12">
+              <div class="form-group row">
+                <label class="col-sm-1 col-form-label col-form-label-sm">Category</label>
+                <div class="col-sm-2">
+                  <select class="form-control form-control-sm" name="sstype" [(ngModel)]="searchtype">
+                    <option [value]="'SHIPMENT-TRACKING'">SHIPMENT TRACKING</option>
+                  </select>
+                </div>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+                <div class="col-sm-2">
+                  <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')" name="Search"
+                    [(ngModel)]="searchstring" />
+                </div>
+                <div class="col-sm-2">
+                  <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                </div>
+              </div>
             </div>
-            <div class="col">
-                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            </div>
-        </div>
+          </div>
     </div>
 
     <div class="page-pager">
@@ -46,17 +57,19 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>NAME</th>
                     <th>CATEGORY</th>
+                    <th>TYPE</th>
+                    <th>NAME</th>
                     <th>TO</th>
                     <th>CC</th>
                     <th>BCC</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr (click)="ActionHandler('EDIT',rec.ritc_pkid)">
-                    <td>{{rec.ml_cust_name}}</td>
+                <tr (click)="ActionHandler('EDIT',rec.ml_pkid)">
                     <td>{{rec.ml_type}}</td>
+                    <td>{{rec.ml_cust_type}}</td>
+                    <td>{{rec.ml_cust_name}}</td>
                     <td>{{rec.ml_to_ids}}</td>
                     <td>{{rec.ml_cc_ids}}</td>
                     <td>{{rec.ml_bcc_ids}}</td>
@@ -93,7 +106,7 @@
     <div class="page-box">
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Category</label>
                     <div class="col-10">
@@ -109,6 +122,7 @@
                         <select class="form-control form-control-sm" [(ngModel)]="Record.ml_cust_type" (change)="OnChange('ml_cust_type')">
                             <option [value]="'CUSTOMER'">CUSTOMER</option>
                             <option [value]="'EMPLOYEE'">EMPLOYEE</option>
+                            <option [value]="'OTHERS'">OTHERS</option>
                         </select>
                     </div>
                 </div>
@@ -121,7 +135,7 @@
                       [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
                     </app-autocomplete3>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" style="padding-left:0">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ml_cust_name"
                           (blur)="OnBlur('ml_cust_name')" required maxlength="60" />
                       </div>
