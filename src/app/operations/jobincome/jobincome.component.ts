@@ -424,11 +424,13 @@ export class JobIncomeComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
-
+        
         if (this.gs.globalVariables.user_code == "ADMIN") {
           this.lock_record = false;
           this.Record.inv_rebate2_posted = false;
         }
+
+
 
       },
         error => {
