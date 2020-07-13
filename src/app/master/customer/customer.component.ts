@@ -70,6 +70,7 @@ export class CustomerComponent {
   Is_Others: boolean = false;
   Last_Bill_date: boolean = false;
   Is_Incomplete: boolean = false;
+  Is_Locked: boolean = false;
 
   rec_category: string;
   // Array For Displaying List
@@ -312,6 +313,7 @@ export class CustomerComponent {
       Is_Others: this.Is_Others,
       Is_Incomplete: this.Is_Incomplete,
       Last_Bill_date: this.Last_Bill_date,
+      Is_Locked:this.Is_Locked,
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
     };
