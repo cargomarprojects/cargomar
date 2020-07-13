@@ -41,6 +41,7 @@ export class GstComponent {
   currentTab = 'LIST';
 
   all: boolean = false;
+  gst_only: boolean = true;
 
   SearchData = {
     type: '',
@@ -53,7 +54,8 @@ export class GstComponent {
     from_date: '',
     to_date: '',
     format_type: '',
-    all: false
+    all: false,
+    gst_only:true
   };
 
   // Array For Displaying List
@@ -209,7 +211,7 @@ export class GstComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.format_type = this.format_type;
     this.SearchData.all = this.all;
-
+    this.SearchData.gst_only = this.gst_only;
 
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
