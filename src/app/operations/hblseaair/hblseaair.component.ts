@@ -52,6 +52,10 @@ export class HblSeaAirComponent {
     page_rows = 0;
     page_rowcount = 0;
 
+    mSubject: string = '';
+    mMsg: string = '';
+    sHtml: string = '';
+    AttachList: any[] = [];
 
     old_shipper_id = '';
     old_billto_id = '';
@@ -73,6 +77,7 @@ export class HblSeaAirComponent {
 
     mode = '';
     pkid = '';
+
 
     // Array For Displaying List
     RecordList: Hblm[] = [];
@@ -489,7 +494,7 @@ export class HblSeaAirComponent {
             from_date: this.gs.globalData.hbl_fromdate,
             to_date: this.gs.globalData.hbl_todate,
             showbuysell: this.bbuysellrate ? "Y" : "N",
-            hide_ho_entries : this.gs.globalVariables.hide_ho_entries      
+            hide_ho_entries: this.gs.globalVariables.hide_ho_entries
         };
 
         this.ErrorMessage = '';
@@ -1049,4 +1054,45 @@ export class HblSeaAirComponent {
     ModifiedRecords(params: any) {
         //shiptracking call back
     }
+
+
+    ISFReport(mailsent: any) {
+
+        this.loading = true;
+        let SearchData = {
+            type: '',
+            pkid: '',
+            report_folder: '',
+            comp_code: '',
+            branch_code: ''
+        };
+
+        SearchData.type = this.type;
+        SearchData.pkid = this.pkid;
+        SearchData.report_folder = this.gs.globalVariables.report_folder;
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.ISFReport(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.mSubject = response.subject;
+                this.mMsg = response.message;
+                this.AttachList = new Array<any>();
+                this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize});
+                this.open(mailsent);
+
+                // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
+
 }

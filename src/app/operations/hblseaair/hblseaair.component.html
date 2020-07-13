@@ -602,6 +602,8 @@
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>
+                <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"
+                class="btn btn-success btn-sm">ISF</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-success btn-sm">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -697,7 +699,17 @@
     <app-amsedi [type]="type" [menuid]="menuid" [mblid]="''" [hblid]="Record.hbl_pkid"></app-amsedi>
   </div>
 </ng-template>
-
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [type]="'ISF'" [sHtml]="sHtml" [defaultto_ids]="" [defaultmessage]="mMsg" [defaultsubject]="mSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
 
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" (hidealert)="showalert=$event">
 </app-crlimit>

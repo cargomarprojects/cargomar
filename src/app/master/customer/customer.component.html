@@ -23,7 +23,7 @@
         <span>Consignee</span>
       </div>
 
-      <div class="col-2">
+      <div class="col-1">
         <input type="checkbox" [(ngModel)]="Is_Agent" />
         <span>Agent</span>
       </div>
@@ -47,7 +47,10 @@
         <input type="checkbox" [(ngModel)]="Is_Incomplete" />
         <span>Incomplete</span>
       </div>
-
+      <div class="col-1">
+        <input type="checkbox" [(ngModel)]="Is_Locked" />
+        <span>Locked</span>
+      </div>
       <div *ngIf="bAdmin2" class="col-2">
         <input type="checkbox" [(ngModel)]="Last_Bill_date" />
         <span>Last Billed Date</span>
