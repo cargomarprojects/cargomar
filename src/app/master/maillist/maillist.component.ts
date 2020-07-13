@@ -228,6 +228,12 @@ export class MailListComponent {
         this.Record.ml_bcc_ids = '';
         this.Record.rec_mode = this.mode;
 
+        this.controlname = "CUSTOMER";
+        this.tabletype = "CUSTOMER";
+        this.subtype = "";
+        this.displaydata = this.Record.ml_cust_code;
+        this.where = "";
+
     }
 
 

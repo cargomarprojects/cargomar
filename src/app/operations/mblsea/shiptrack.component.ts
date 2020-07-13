@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, 
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { HblTracking } from '../models/hbltracking';
+import { MailList } from '../../master/models/maillist';
 import { ShipTrackingService } from '../services/shiptrack.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -21,7 +22,7 @@ export class ShipTrackComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   Record: HblTracking = new HblTracking;
-
+  MailRecords: MailList[] = [];
   canSave = false;
 
   loading = false;
@@ -89,6 +90,7 @@ export class ShipTrackComponent {
       .subscribe(response => {
         this.loading = false;
         this.Record = response.record;
+        this.MailRecords=response.list;
       },
         error => {
           this.loading = false;
