@@ -1475,7 +1475,7 @@ export class BillingComponent {
         this.loading = false;
         if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
           this.open(mailsent);
         } else
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);

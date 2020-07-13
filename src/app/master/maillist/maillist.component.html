@@ -68,8 +68,8 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr (click)="ActionHandler('EDIT',rec.ml_pkid)">
-                    <td>{{rec.ml_type}}</td>
+                <tr >
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ml_pkid)" >{{rec.ml_type}}</td>
                     <td>{{rec.ml_cust_type}}</td>
                     <td>{{rec.ml_cust_name}}</td>
                     <td>{{rec.ml_to_ids}}</td>

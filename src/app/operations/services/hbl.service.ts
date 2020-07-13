@@ -41,7 +41,9 @@ export class HblService {
     }
   
 
-
+    ISFReport(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/SeaReport/ISFReport', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 
