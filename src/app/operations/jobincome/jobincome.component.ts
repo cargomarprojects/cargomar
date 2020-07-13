@@ -13,6 +13,7 @@ import { AutoCompleteComponent } from '../../shared/autocomplete/autocomplete.co
 import { JobIncomeService } from '../services/jobincome.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
+import { env } from 'process';
 
 @Component({
   selector: 'app-jobincome',
@@ -293,7 +294,7 @@ export class JobIncomeComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      hide_ho_entries : this.gs.globalVariables.hide_ho_entries      
+      hide_ho_entries: this.gs.globalVariables.hide_ho_entries
     };
 
     this.ChangeAccList();
@@ -382,7 +383,7 @@ export class JobIncomeComponent {
     this.Record.inv_rebate_exrate = 0;
     this.Record.inv_rebate_amt_inr = 0;
 
-    this.Record.inv_is_rebate2 =false;
+    this.Record.inv_is_rebate2 = false;
     this.Record.inv_rebate2_amt = 0;
     this.Record.inv_rebate2_curr_code = '';
     this.Record.inv_rebate2_exrate = 0;
@@ -410,11 +411,11 @@ export class JobIncomeComponent {
 
     let SearchData = {
       pkid: Id,
-      branchid : this.gs.globalVariables.branch_pkid,
-      menuid : this.menuid,
-      userid : this.gs.globalVariables.user_pkid,
-      usercode : this.gs.globalVariables.user_code,
-      hide_ho_entries : this.gs.globalVariables.hide_ho_entries
+      branchid: this.gs.globalVariables.branch_pkid,
+      menuid: this.menuid,
+      userid: this.gs.globalVariables.user_pkid,
+      usercode: this.gs.globalVariables.user_code,
+      hide_ho_entries: this.gs.globalVariables.hide_ho_entries
     };
 
     this.ErrorMessage = '';
@@ -423,6 +424,14 @@ export class JobIncomeComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+        
+        if (this.gs.globalVariables.user_code == "ADMIN") {
+          this.lock_record = false;
+          this.Record.inv_rebate2_posted = false;
+        }
+
+
+
       },
         error => {
           this.loading = false;
@@ -903,17 +912,15 @@ export class JobIncomeComponent {
   SaveSpecialRebate() {
 
 
-    if (this.Record.inv_rebate2_amt <= 0) {
-      alert(" Pls Enter Rebate Amount");
-      return;
-    }
-    if (this.Record.inv_rebate2_curr_code.length <= 0) {
-      alert(" Pls Enter Rebate Currency");
-      return;
-    }
-    if (this.Record.inv_rebate2_exrate <= 0) {
-      alert("Pls Enter Rebate Ex.Rate");
-      return;
+    if (this.Record.inv_rebate2_amt > 0) {
+      if (this.Record.inv_rebate2_curr_code.length <= 0) {
+        alert(" Pls Enter Rebate Currency");
+        return;
+      }
+      if (this.Record.inv_rebate2_exrate <= 0) {
+        alert("Pls Enter Rebate Ex.Rate");
+        return;
+      }
     }
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -921,19 +928,19 @@ export class JobIncomeComponent {
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.SaveSpecialRebate(this.Record)
-    .subscribe(response => {
-       alert("Save Complete");
-    },error => {
-      this.ErrorMessage = this.gs.getError(error);
-      alert(this.ErrorMessage);
-    });
+      .subscribe(response => {
+        alert("Save Complete");
+      }, error => {
+        this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
+      });
   }
 
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.modal = this.modalService.open(history);
-    
-}
+
+  }
 
 }
 

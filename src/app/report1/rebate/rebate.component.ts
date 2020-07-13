@@ -58,6 +58,7 @@ export class RebateComponent {
 
   SearchData = {
     type: '',
+    rebate_type  :'',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -96,6 +97,7 @@ export class RebateComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        this.RecordList = [];
         this.InitComponent();
       }
     });
@@ -231,6 +233,8 @@ export class RebateComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.all = this.all;
     this.SearchData.showpaid = this.showpaid;
+
+    this.SearchData.rebate_type = this.type;
 
     this.ErrorMessage = '';
     this.mainService.RebateReport(this.SearchData)

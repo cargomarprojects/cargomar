@@ -43,6 +43,7 @@ export class JobIncome {
     inv_rebate_posted : boolean;
     inv_rebate2_posted : boolean;
 
+    inv_rebate_type : string ;
     
     inv_rebate_amt: number;
     inv_rebate_curr_code: string;
