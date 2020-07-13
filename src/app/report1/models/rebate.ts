@@ -10,6 +10,7 @@ export class Rebatem {
   jvh_cc_id: string;
   jvh_amount: number;
   rec_mode: string;
+  rebate_type: string;
   RebateList: Rebate[] = [];
   _globalvariables: GlobalVariables;
 }

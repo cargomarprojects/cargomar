@@ -154,6 +154,11 @@ export class PostRebateComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    this.Record.rebate_type = this.type;
+
+    alert(this.Record.rebate_type);
+
+    return ;
     this.Record.rec_mode = "ADD";
     this.Record.jvhid = '';
 
