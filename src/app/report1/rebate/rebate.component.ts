@@ -97,6 +97,7 @@ export class RebateComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        this.RecordList = [];
         this.InitComponent();
       }
     });
