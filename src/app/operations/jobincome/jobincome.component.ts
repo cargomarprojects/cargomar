@@ -13,6 +13,7 @@ import { AutoCompleteComponent } from '../../shared/autocomplete/autocomplete.co
 import { JobIncomeService } from '../services/jobincome.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
+import { env } from 'process';
 
 @Component({
   selector: 'app-jobincome',
@@ -423,6 +424,13 @@ export class JobIncomeComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+
+        if ( this.gs.globalVariables.user_code == "ADMIN") {
+          this.lock_record  = false;
+          this.Record.inv_rebate2_posted =false;
+        }
+
+
       },
         error => {
           this.loading = false;
