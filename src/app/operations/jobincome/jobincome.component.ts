@@ -430,7 +430,6 @@ export class JobIncomeComponent {
           this.Record.inv_rebate2_posted =false;
         }
 
-
       },
         error => {
           this.loading = false;
