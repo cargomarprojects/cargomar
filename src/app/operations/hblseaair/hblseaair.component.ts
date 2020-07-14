@@ -52,6 +52,7 @@ export class HblSeaAirComponent {
     page_rows = 0;
     page_rowcount = 0;
 
+    To_ids:string='';
     mSubject: string = '';
     mMsg: string = '';
     sHtml: string = '';
@@ -1078,6 +1079,7 @@ export class HblSeaAirComponent {
         this.mainService.ISFReport(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.To_ids = response.mailto_ids;
                 this.mSubject = response.subject;
                 this.mMsg = response.message;
                 this.AttachList = new Array<any>();
