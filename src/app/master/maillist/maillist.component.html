@@ -135,10 +135,12 @@
 
                     <label class="col-2 col-form-label col-form-label-sm">Name</label>
                     <div class="col-10">
-                        <app-autocomplete3 [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype"
+                        <!-- <app-autocomplete3 [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype"
                             [where]="where" [displaycolumn]="'CODE'" [displaydata]="displaydata"
                             (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
+                        </app-autocomplete3> -->
+                        <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
                     </div>
                 </div>
 

@@ -41,9 +41,9 @@ export class MailListComponent {
 
     controlname = "CUSTOMER";
     tabletype = "CUSTOMER";
-    subtype = "";
-    displaydata = "";
-    where = "";
+    // subtype = "";
+    // displaydata = "";
+    // where = "";
 
     ErrorMessage = "";
     InfoMessage = "";
@@ -51,6 +51,7 @@ export class MailListComponent {
     mode = '';
     pkid = '';
 
+    CUSTRECORD: SearchTable = new SearchTable();
     // Array For Displaying List
     RecordList: MailList[] = [];
     // Single Record for add/edit/view details
@@ -93,7 +94,7 @@ export class MailListComponent {
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record)
             this.title = this.menu_record.menu_name;
-
+        this.InitLov();
         this.LoadCombo();
 
     }
@@ -109,26 +110,35 @@ export class MailListComponent {
 
         this.loading = true;
         let SearchData = {
-         type: 'type',
-         comp_code: this.gs.globalVariables.comp_code,
-         branch_code: this.gs.globalVariables.branch_code
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
         };
 
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.LoadDefault(SearchData)
-         .subscribe(response => {
-           this.loading = false;
-           this.MailingList = response.mailinglist;
-           this.List("NEW");
-         },
-         error => {
-           this.loading = false;
-           this.ErrorMessage = JSON.parse(error._body).Message;
-         });
+            .subscribe(response => {
+                this.loading = false;
+                this.MailingList = response.mailinglist;
+                this.List("NEW");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = JSON.parse(error._body).Message;
+                });
 
     }
+    InitLov() {
 
+        this.CUSTRECORD = new SearchTable();
+        this.CUSTRECORD.controlname = this.controlname;
+        this.CUSTRECORD.displaycolumn = "CODE";
+        this.CUSTRECORD.type = this.tabletype;
+        this.CUSTRECORD.id = "";
+        this.CUSTRECORD.code = "";
+        this.CUSTRECORD.name = "";
+    }
 
     LovSelected(_Record: any) {
         this.Record.ml_cust_id = _Record.id;
@@ -230,10 +240,7 @@ export class MailListComponent {
 
         this.controlname = "CUSTOMER";
         this.tabletype = "CUSTOMER";
-        this.subtype = "";
-        this.displaydata = this.Record.ml_cust_code;
-        this.where = "";
-
+        this.InitLov();
     }
 
 
@@ -265,9 +272,10 @@ export class MailListComponent {
         this.Record.rec_mode = this.mode;
         this.controlname = this.Record.ml_cust_type;
         this.tabletype = this.Record.ml_cust_type;
-        this.subtype = "";
-        this.displaydata = this.Record.ml_cust_code;
-        this.where = "";
+        this.InitLov();
+        this.CUSTRECORD.id = this.Record.ml_cust_id;
+        this.CUSTRECORD.code = this.Record.ml_cust_code;
+        this.CUSTRECORD.name = this.Record.ml_cust_name;
     }
 
 
@@ -349,9 +357,7 @@ export class MailListComponent {
             this.Record.ml_cust_name = '';
             this.controlname = this.Record.ml_cust_type;
             this.tabletype = this.Record.ml_cust_type;
-            this.subtype = "";
-            this.displaydata = "";
-            this.where = "";
+           this.InitLov();
         }
     }
     GetSpaceTrim(str: string) {

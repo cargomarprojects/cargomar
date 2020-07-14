@@ -46,8 +46,8 @@ export class ParamComponent {
   id3: string = '';
   id4: string = '';
   id5: string = '';
-  id5_lovtype='';
-  
+  id5_lovtype = '';
+
   email: string = '';
 
 
@@ -190,20 +190,20 @@ export class ParamComponent {
     }
 
     if (this.type == 'INFO-QLFR') {
-      this.id1="Next Indicator"
+      this.id1 = "Next Indicator"
       this.id5 = "Info Type";
-      this.id5_lovtype="INFO-TYPE";
+      this.id5_lovtype = "INFO-TYPE";
     }
 
     if (this.type == 'INFO-CODE') {
-      this.id1="PGA UQC"
+      this.id1 = "PGA UQC"
       this.id5 = "Info Qualifier";
-      this.id5_lovtype="INFO-QLFR";
+      this.id5_lovtype = "INFO-QLFR";
     }
 
     if (this.type == 'CTRL-RESULT') {
       this.id5 = "Control Type";
-      this.id5_lovtype="CTRL-TYPE";
+      this.id5_lovtype = "CTRL-TYPE";
     }
     if (this.type == 'MAILING TYPE') {
       this.code_length = 50;
@@ -498,9 +498,11 @@ export class ParamComponent {
     //}
 
     if (bret) {
-      this.Record.param_code = this.Record.param_code.toUpperCase().replace(' ', '');
+      if (this.type == 'MAILING TYPE')
+        this.Record.param_code = this.Record.param_code.toUpperCase();
+      else
+        this.Record.param_code = this.Record.param_code.toUpperCase().replace(' ', '');
       this.Record.param_name = this.Record.param_name.toUpperCase().trim();
-
       this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
       this.Record.param_id3 = this.Record.param_id3.toUpperCase().trim();
@@ -542,7 +544,7 @@ export class ParamComponent {
       REC.param_id4 = this.Record.param_id4;
       REC.param_email = this.Record.param_email;
       REC.param_rate = this.Record.param_rate;
-      REC.param_id5_code=this.Record.param_id5_code;
+      REC.param_id5_code = this.Record.param_id5_code;
 
     }
   }
