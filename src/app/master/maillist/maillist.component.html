@@ -59,9 +59,9 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>CATEGORY</th>
-                    <th>TYPE</th>
                     <th>NAME</th>
+                    <th>TYPE</th>
+                    <th>CATEGORY</th>
                     <th>TO</th>
                     <th>CC</th>
                     <th>BCC</th>
@@ -69,9 +69,9 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr >
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ml_pkid)" >{{rec.ml_type}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ml_pkid)" >{{rec.ml_cust_name}}</td>
                     <td>{{rec.ml_cust_type}}</td>
-                    <td>{{rec.ml_cust_name}}</td>
+                    <td>{{rec.ml_type}}</td>
                     <td>{{rec.ml_to_ids}}</td>
                     <td>{{rec.ml_cc_ids}}</td>
                     <td>{{rec.ml_bcc_ids}}</td>
