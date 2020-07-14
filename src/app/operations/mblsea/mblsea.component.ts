@@ -1122,7 +1122,8 @@ export class MblSeaComponent {
       report_folder: '',
       folderid: '',
       branch_code: '',
-      comp_code: ''
+      comp_code: '',
+      hide_ho_entries : ''
     };
     SearchData.category = category;
     SearchData.type = _type;
@@ -1131,6 +1132,7 @@ export class MblSeaComponent {
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
