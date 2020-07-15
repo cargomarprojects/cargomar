@@ -60,6 +60,9 @@ export class BlComponent {
   NFYRECORD: SearchTable = new SearchTable();
   NFYADDRECORD: SearchTable = new SearchTable();
 
+  LOCRECORD: SearchTable = new SearchTable();
+  LOCADDRECORD: SearchTable = new SearchTable();
+
   constructor(
     private modalService: NgbModal,
     private mainService: BlService,
@@ -138,6 +141,24 @@ export class BlComponent {
     this.NFYADDRECORD.code = "";
     this.NFYADDRECORD.name = "";
     this.NFYADDRECORD.parentid = "";
+
+    this.LOCRECORD = new SearchTable();
+    this.LOCRECORD.controlname = "STUFFLOCATION";
+    this.LOCRECORD.displaycolumn = "CODE";
+    this.LOCRECORD.type = "CUSTOMER";
+    this.LOCRECORD.where = " CUST_IS_SHIPPER = 'Y' or CUST_IS_OTHERS = 'Y' ";
+    this.LOCRECORD.id = "";
+    this.LOCRECORD.code = "";
+    this.LOCRECORD.name = "";
+
+    this.LOCADDRECORD = new SearchTable();
+    this.LOCADDRECORD.controlname = "STUFFLOCATIONADDRESS";
+    this.LOCADDRECORD.displaycolumn = "CODE";
+    this.LOCADDRECORD.type = "CUSTOMERADDRESS";
+    this.LOCADDRECORD.id = "";
+    this.LOCADDRECORD.code = "";
+    this.LOCADDRECORD.name = "";
+    this.LOCADDRECORD.parentid = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -219,6 +240,32 @@ export class BlComponent {
       this.Record.bl_notify_br_id = _Record.id;
       this.SearchRecord("NOTIFYADDRESS", this.Record.bl_notify_br_id, this.Record.bl_notify_id);
     }
+    else if (_Record.controlname == "STUFFLOCATION") {
+
+      if (this.Record.bl_loc_id != _Record.id) {
+        this.Record.bl_loc_id = _Record.id;
+        this.Record.bl_loc_code = _Record.code;
+        this.Record.bl_loc_name = _Record.name;
+        this.Record.bl_loc_add1 = '';
+        this.Record.bl_loc_add2 = '';
+        this.Record.bl_loc_add3 = '';
+        this.Record.bl_loc_add4 = '';
+
+        this.LOCADDRECORD = new SearchTable();
+        this.LOCADDRECORD.controlname = "STUFFLOCATIONADDRESS";
+        this.LOCADDRECORD.displaycolumn = "CODE";
+        this.LOCADDRECORD.type = "CUSTOMERADDRESS";
+        this.LOCADDRECORD.id = "";
+        this.LOCADDRECORD.code = "";
+        this.LOCADDRECORD.name = "";
+        this.LOCADDRECORD.parentid = this.Record.bl_loc_id;
+      }
+    }
+    else if (_Record.controlname == "STUFFLOCATIONADDRESS") {
+      this.Record.bl_loc_br_id = _Record.id;
+      this.SearchRecord("STUFFLOCATIONADDRESS", this.Record.bl_loc_br_id, this.Record.bl_loc_id);
+    }
+
   }
 
 
@@ -368,6 +415,14 @@ export class BlComponent {
     this.NFYADDRECORD.id = this.Record.bl_notify_br_id;
     this.NFYADDRECORD.code = this.Record.bl_notify_br_no;
     this.NFYADDRECORD.parentid = this.Record.bl_notify_id;
+
+    this.LOCRECORD.id = this.Record.bl_loc_id;
+    this.LOCRECORD.code = this.Record.bl_loc_code;
+
+    this.LOCADDRECORD.id = this.Record.bl_loc_br_id;
+    this.LOCADDRECORD.code = this.Record.bl_loc_br_no;
+    this.LOCADDRECORD.parentid = this.Record.bl_loc_id;
+
   }
 
   // Save Data
@@ -1025,6 +1080,31 @@ export class BlComponent {
           this.Record.bl_itm_desc = this.Record.bl_itm_desc.toUpperCase();
           break;
         }
+      case 'bl_loc_name':
+        {
+          this.Record.bl_loc_name = this.Record.bl_loc_name.toUpperCase();
+          break;
+        }
+      case 'bl_loc_add1':
+        {
+          this.Record.bl_loc_add1 = this.Record.bl_loc_add1.toUpperCase();
+          break;
+        }
+      case 'bl_loc_add2':
+        {
+          this.Record.bl_loc_add2 = this.Record.bl_loc_add2.toUpperCase();
+          break;
+        }
+      case 'bl_loc_add3':
+        {
+          this.Record.bl_loc_add3 = this.Record.bl_loc_add3.toUpperCase();
+          break;
+        }
+      case 'bl_loc_add4':
+        {
+          this.Record.bl_loc_add4 = this.Record.bl_loc_add4.toUpperCase();
+          break;
+        }
     }
   }
 
@@ -1097,6 +1177,11 @@ export class BlComponent {
           this.Record.bl_notify_add4 = '';
           this.Record.bl_notify_state = '';
           this.Record.bl_notify_country = '';
+        } else if (controlname == 'STUFFLOCATIONADDRESS') {
+          this.Record.bl_loc_add1 = '';
+          this.Record.bl_loc_add2 = '';
+          this.Record.bl_loc_add3 = '';
+          this.Record.bl_loc_add4 = '';
         }
 
         if (response.customeraddress.length > 0) {
@@ -1122,6 +1207,11 @@ export class BlComponent {
             this.Record.bl_notify_add4 = response.customeraddress[0].add_line4;
             this.Record.bl_notify_state = response.customeraddress[0].add_fstate_name;
             this.Record.bl_notify_country = response.customeraddress[0].add_country_name;
+          } else if (controlname == 'STUFFLOCATIONADDRESS') {
+            this.Record.bl_loc_add1 = response.customeraddress[0].add_line1;
+            this.Record.bl_loc_add2 = response.customeraddress[0].add_line2;
+            this.Record.bl_loc_add3 = response.customeraddress[0].add_line3;
+            this.Record.bl_loc_add4 = response.customeraddress[0].add_line4;
           }
 
         }

@@ -253,5 +253,16 @@ export class Bl {
   bl_consignee_country: string;
   bl_notify_state: string;
   bl_notify_country: string;
+
+  bl_loc_id: string;
+  bl_loc_br_id: string;
+  bl_loc_br_no: string;
+  bl_loc_code: string;
+  bl_loc_name: string;
+  bl_loc_add1: string;
+  bl_loc_add2: string;
+  bl_loc_add3: string;
+  bl_loc_add4: string;
+  
 }
 
