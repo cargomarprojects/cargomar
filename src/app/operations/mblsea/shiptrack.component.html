@@ -16,7 +16,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Booking Confirmation Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.mbook_confirmed_date" (ValueChanged)="Record.mbook_confirmed_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mbook_confirmed_date" (ValueChanged)="Record.mbook_confirmed_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -28,7 +28,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Stuffing Confirmation Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.mstuff_confirmed_date"
+                <app-date [disabled]="!canSave" [inputdate]="Record.mstuff_confirmed_date"
                     (ValueChanged)="Record.mstuff_confirmed_date=$event">
                 </app-date>
             </div>
@@ -41,7 +41,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Gate-In Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.mgate_in_date" (ValueChanged)="Record.mgate_in_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mgate_in_date" (ValueChanged)="Record.mgate_in_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -53,7 +53,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">VGM Updated On</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -100,7 +100,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Draft Sent Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.hdraft_sent_date" (ValueChanged)="Record.hdraft_sent_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hdraft_sent_date" (ValueChanged)="Record.hdraft_sent_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -112,7 +112,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Invoice Sent Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.hinvoice_sent_date" (ValueChanged)="Record.hinvoice_sent_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hinvoice_sent_date" (ValueChanged)="Record.hinvoice_sent_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -124,7 +124,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">HBL Approved Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.hbl_approved_date" (ValueChanged)="Record.hbl_approved_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hbl_approved_date" (ValueChanged)="Record.hbl_approved_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
@@ -136,7 +136,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Payment Received Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.hpayment_received_date"
+                <app-date [disabled]="!canSave" [inputdate]="Record.hpayment_received_date"
                     (ValueChanged)="Record.hpayment_received_date=$event">
                 </app-date>
             </div>
@@ -149,7 +149,7 @@
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">HBL Released Date</label>
             <div class="col-sm-4">
-                <app-date [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
