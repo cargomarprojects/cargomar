@@ -102,6 +102,8 @@
           <th>COMMENTS</th>
           <th>CREATED.BY</th>
           <th>CREATED.DATE</th>
+          <th>APPROVED.BY</th>
+          <th>APPROVED.DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -117,6 +119,8 @@
           <td>{{rec.cust_incomplete_remarks}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
+          <td>{{rec.rec_aprvd_by}}</td>
+          <td>{{rec.rec_aprvd_date}}</td>
         </tr>
       </tbody>
     </table>

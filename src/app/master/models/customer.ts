@@ -71,6 +71,8 @@ export class Customerm {
     rec_locked: boolean = false;
     rec_created_by: string;
     rec_created_date: string;
+    rec_aprvd_by: string;
+    rec_aprvd_date: string;
 
     _globalvariables: GlobalVariables;
 
