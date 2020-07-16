@@ -57,7 +57,7 @@ export class ParamComponent {
   pkid = '';
 
   code_length: number = 10;
-
+  name_length: number = 60;
 
   ID5RECORD: SearchTable = new SearchTable();
 
@@ -208,7 +208,9 @@ export class ParamComponent {
     if (this.type == 'MAILING TYPE') {
       this.code_length = 50;
     }
-
+    if (this.type == 'GOOGLE CUSTOMS SCRIPT') {
+      this.name_length = 200;
+    }
   }
 
   InitLov() {
@@ -502,7 +504,8 @@ export class ParamComponent {
         this.Record.param_code = this.Record.param_code.toUpperCase();
       else
         this.Record.param_code = this.Record.param_code.toUpperCase().replace(' ', '');
-      this.Record.param_name = this.Record.param_name.toUpperCase().trim();
+      if (this.type != 'GOOGLE CUSTOMS SCRIPT')
+        this.Record.param_name = this.Record.param_name.toUpperCase().trim();
       this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
       this.Record.param_id3 = this.Record.param_id3.toUpperCase().trim();
