@@ -213,6 +213,7 @@ export class FileUploadComponent {
     frmData.append("ROOT-FOLDER", this.gs.defaultValues.root_folder);
     frmData.append("SUB-FOLDER", this.gs.defaultValues.sub_folder);
 
+    frmData.append("APP_NAME", 'WEB');
 
 
     for (var i = 0; i < this.myFiles.length; i++) {
