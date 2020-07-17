@@ -122,7 +122,8 @@ export class EsanchitDownloadComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      from_date: this.from_date
+      from_date: this.from_date,
+      branch_locations: this.BR_ESANCHIT_LOCATIONS
     };
 
     this.ErrorMessage = '';
