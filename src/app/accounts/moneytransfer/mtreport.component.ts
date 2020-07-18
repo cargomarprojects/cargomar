@@ -317,6 +317,7 @@ export class MtReportComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       user_code: this.gs.globalVariables.user_code,
+      user_pkid: this.gs.globalVariables.user_pkid,
       pkid: this.jv_id,
       rowtype: _type
     };
@@ -325,6 +326,7 @@ export class MtReportComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.pkid = this.jv_id;
     SearchData.rowtype = _type;
 
