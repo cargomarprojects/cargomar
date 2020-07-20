@@ -34,6 +34,10 @@
         <div><h5>Version : {{software_version_string}}</h5></div>
         <div><h5>{{errorMessage}}</h5></div>
 
+        <div *ngIf="!showloginbutton">
+          <h5> <a (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
+        </div>
+
       </div>
     </div>
   </div>

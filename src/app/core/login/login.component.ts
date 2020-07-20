@@ -16,7 +16,7 @@ export class LoginComponent {
   software_version_string: string = '1.375';
   
   username: string = 'ADMIN';
-  password: string = 'ADMIN';
+  password: string = 'cpl2001*';
   
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
@@ -71,6 +71,10 @@ export class LoginComponent {
       });
   }
 
+
+  reload(){
+    window.location.reload();
+  }
 
   Login() {
     if (!this.username) {
