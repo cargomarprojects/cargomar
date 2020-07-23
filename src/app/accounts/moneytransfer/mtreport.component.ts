@@ -24,7 +24,7 @@ export class MtReportComponent {
   menu_record: any;
   sub: any;
   urlid: string;
-  generatedtype: string = 'PENDING';
+  generatedtype: string = 'ALL';
   fromdate: string = '';
   todate: string = '';
   tot_amt: number = 0;
@@ -285,7 +285,6 @@ export class MtReportComponent {
     }
 
     if (this.gs.globalVariables.user_code != 'ADMIN') {
-     
       if (Multiple_Bank_Found) {
         this.ErrorMessage = "Different Bank Found in Selected List....";
         alert(this.ErrorMessage);
@@ -304,7 +303,7 @@ export class MtReportComponent {
         return;
       }
     }
-    
+
     if (_type != 'CHECK-LIST')
       if (!confirm("Do you want to Generate")) {
         return;
@@ -372,13 +371,23 @@ export class MtReportComponent {
     this.mainService.Process(SearchData)
       .subscribe(response => {
         this.loading = false;
-          this.List('NEW');
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
+        this.List('NEW');
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
-      }
+  }
+  
+  ShowHistory(history: any, _jvid: string = "") {
+    this.ErrorMessage = '';
+    this.jv_id = _jvid;
+    this.open(history);
+  }
 
-    }
+}

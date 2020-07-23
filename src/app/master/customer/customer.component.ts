@@ -313,7 +313,7 @@ export class CustomerComponent {
       Is_Others: this.Is_Others,
       Is_Incomplete: this.Is_Incomplete,
       Last_Bill_date: this.Last_Bill_date,
-      Is_Locked:this.Is_Locked,
+      Is_Locked: this.Is_Locked,
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
     };
@@ -817,15 +817,20 @@ export class CustomerComponent {
     this.mainService.UnlockCustomer(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (locktype == 'UNLOCKED') {
-          this.Record.rec_locked = false;
-          this.InfoMessage = " Unlocked Successfully, " + response.mailerror;
+        if (response.error.length > 0) {
+          alert(response.error);
+        } else {
+
+          if (locktype == 'UNLOCKED') {
+            this.Record.rec_locked = false;
+            this.InfoMessage = " Unlocked Successfully, " + response.mailerror;
+          }
+          else {
+            this.Record.rec_locked = true;
+            this.InfoMessage = " Locked Successfully ";
+          }
+          alert(this.InfoMessage);
         }
-        else {
-          this.Record.rec_locked = true;
-          this.InfoMessage = " Locked Successfully ";
-        }
-        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
