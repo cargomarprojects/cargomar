@@ -95,8 +95,12 @@
           <th>CURR</th>
           <th class="text-right">EXRATE</th>
           <th class="text-right">INR</th>
+          
           <th>JV-NO</th>
           <th>JV-DATE</th>
+
+          <th *ngIf="type=='SREBATE'">JVHO-NO</th>
+
           <th>CONSIGNEE</th>
           <th>SALESMAN</th>
 
@@ -129,6 +133,7 @@
           <td align='right'>{{rec.inv_rebate_amt_inr | number : '1.2-2'}}</td>
           <td (click)="EditDlg(rec,postrebate)" style="cursor: pointer">{{rec.inv_rebate_jvno}}</td>
           <td>{{rec.inv_rebate_jvdate}}</td>
+          <td *ngIf="type=='SREBATE'">{{rec.inv_rebate_jvno_ho}}</td>
           <td>{{rec.consignee_name}}</td>
           <td>{{rec.salesman}}</td>
           <td *ngIf="showpaid">{{rec.paid_vrno}}</td>
@@ -157,7 +162,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-PostRebate [jvid]="jvid" [jvdate]="jvdate" [jvno]="jvno" [visible]="bShowDlg" [RecordList]="SelectedList" [menuid]="menuid" [type]="type" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
+    <App-PostRebate [jvid]="jvid" [jvno]="jvno" [jvdate]="jvdate" [jvid_ho]="jvid_ho" [jvno]="jvno_ho"  [visible]="bShowDlg" [RecordList]="SelectedList" [menuid]="menuid" [type]="type" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
   </div>
 </ng-template>
 
