@@ -15,6 +15,7 @@
         <tr>
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
+          <th>UPLOAD-FROM</th>
           <th>TYPE</th>
           <th>DESC</th>
           <th>NAME</th>
@@ -29,6 +30,7 @@
         <tr>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
+          <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_catg_name}}</td>
           <td (click)="ShowFile(rec.doc_desc,rec.doc_desc)">{{rec.doc_desc}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>

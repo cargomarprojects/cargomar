@@ -13,5 +13,7 @@ export class documentm {
   rec_created_date: string;
   row_displayed:boolean;
   doc_selected : boolean;
-  
+  doc_parent_id: string;
+  doc_type: string;
+  doc_app_name:string;
 }
