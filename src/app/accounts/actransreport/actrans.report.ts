@@ -85,7 +85,7 @@ export class AcTransComponent {
     BRRECORD: SearchTable = new SearchTable();
 
 
-    items: string[] = ['ALL', 'BP', 'BR', 'CI', 'CN', 'CP', 'CR', 'DI', 'DN', 'HO', 'IN', 'IN-ES', 'JV', 'OB', 'OC', 'OI', 'OP', 'PN'];
+    items: string[] = ['ALL', 'BP', 'BR', 'CI', 'CN', 'CP', 'CR', 'DI', 'DN', 'HO', 'IN', 'IN-ES', 'JV', 'OB', 'OC', 'OI', 'OP', 'PN', 'RB'];
 
     myitems : string [] = [];
 
