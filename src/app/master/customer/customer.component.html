@@ -241,6 +241,17 @@
                     </select>
                   </div>
               </div>
+              <div *ngIf="Record.cust_is_shipper" class="form-group row">
+                <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">For shipper IE-Code,PAN are mandatory, Also KYC documents must be uploaded </label>
+              </div>
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Branch Comments</label>
+                <div class="col-10">
+                  <input type="text" [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_branch_remarks" (blur)="OnBlur('cust_branch_remarks')" required maxlength="250" />
+                </div>
+              </div>
+
             </div>
             <div class="col-sm-3">
               <div class="form-group row">

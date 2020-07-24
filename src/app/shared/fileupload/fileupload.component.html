@@ -169,7 +169,7 @@
           </tr>
           <tr *ngIf="rec.row_displayed">
             <td colspan="5">
-              <app-fileedit [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
+              <app-fileedit [type]="this.type" [parentid]="this.pkid" [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
             </td>
           </tr>
         </tbody>
