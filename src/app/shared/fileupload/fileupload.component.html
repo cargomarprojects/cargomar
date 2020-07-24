@@ -143,6 +143,7 @@
             <th>SELECT</th>
             <th>UPLOAD-BY</th>
             <th>UPLOAD-DATE</th>
+            <th>UPLOAD-FROM</th>
             <th>TYPE</th>
             <th>NAME</th>
             <th>SIZE</th>
@@ -159,6 +160,7 @@
             </td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
+            <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_catg_name}}</td>
             <td (click)="ShowFile(rec.doc_desc,rec.doc_desc)">{{rec.doc_desc}}</td>
             <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
@@ -169,7 +171,7 @@
           </tr>
           <tr *ngIf="rec.row_displayed">
             <td colspan="5">
-              <app-fileedit [type]="this.type" [parentid]="this.pkid" [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
+              <app-fileedit [DocTypeList]="DocTypeList" [record]="rec"></app-fileedit>
             </td>
           </tr>
         </tbody>

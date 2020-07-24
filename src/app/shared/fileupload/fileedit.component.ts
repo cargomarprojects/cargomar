@@ -16,8 +16,6 @@ export class FileEditComponent {
 
   @Input() record: documentm;
   @Input() DocTypeList: any[] = [];
-  @Input() public type: string = '';
-  @Input() public parentid: string = '';
   
   pkid: string = '';
 
@@ -110,8 +108,8 @@ export class FileEditComponent {
       table: 'documentupdate',
       type: _type,
       root_folder: '',
-     parenttype:this.type,
-     parentid:this.parentid
+     parenttype:this.record.doc_type,
+     parentid:this.record.doc_parent_id,
     };
 
     SearchData.pkid = this.record.doc_pkid;
@@ -120,8 +118,8 @@ export class FileEditComponent {
     SearchData.filename = this.record.doc_file_name;
     SearchData.table = 'documentupdate';
     SearchData.root_folder = this.gs.defaultValues.root_folder;
-    SearchData.parenttype = this.type;
-    SearchData.parentid = this.parentid;
+    SearchData.parenttype = this.record.doc_type;
+    SearchData.parentid = this.record.doc_parent_id;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {

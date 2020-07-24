@@ -168,8 +168,8 @@
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">IE-Code</label>
                 <div class="col-4">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_iecode" required
-                    maxlength="10" />
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_iecode" required maxlength="10" />
                 </div>
               </div>
               <div class="form-group row">
@@ -177,8 +177,8 @@
                 <div class="col-4">
                   <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_panno" required
                     maxlength="15" [disabled]="!bAdmin2" /> -->
-                  <input type="text" class="form-control form-control-sm"  [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_panno" required
-                    maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_panno" required maxlength="15" />
                 </div>
               </div>
 
@@ -189,13 +189,14 @@
                 <div class="col-4">
                   <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_tanno" required
                     maxlength="15" [disabled]="!bAdmin2" /> -->
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"  [(ngModel)]="Record.cust_tanno" required
-                    maxlength="15" />
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_tanno" required maxlength="15" />
                 </div>
 
                 <label class="col-2 col-form-label col-form-label-sm">Type</label>
                 <div class="col-4">
-                  <select class="form-control form-control-sm"  [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_type">
+                  <select class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_type">
                     <option [value]="'N'">NA</option>
                     <option [value]="'R'">Merchant</option>
                     <option [value]="'F'">Manufacturer</option>
@@ -206,7 +207,8 @@
               <div class=" form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Class</label>
                 <div class="col-4">
-                  <select class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_class">
+                  <select class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_class">
                     <option [value]="'N'">NA</option>
                     <option [value]="'P'">Private</option>
                     <option [value]="'G'">Government</option>
@@ -230,28 +232,29 @@
                   <app-autocomplete [disabled]="!Record.cust_is_editable" #LinerLov [inputdata]="COMPRECORD"
                     (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
-                  <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
-                  <div class="col-4">
-                    <select [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
-                      [(ngModel)]="Record.cust_nomination">
-                      <option [value]="'NA'">NA</option>
-                      <option [value]="'NOMINATION'">NOMINATION</option>
-                      <option [value]="'MUTUAL'">MUTUAL</option>
-                      <option [value]="'FREEHAND'">FREEHAND</option>
-                    </select>
-                  </div>
-              </div>
-              <div *ngIf="Record.cust_is_shipper" class="form-group row">
-                <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">For shipper IE-Code,PAN are mandatory, Also KYC documents must be uploaded </label>
-              </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label  col-form-label-sm">Branch Comments</label>
-                <div class="col-10">
-                  <input type="text" [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
-                    [(ngModel)]="Record.cust_branch_remarks" (blur)="OnBlur('cust_branch_remarks')" required maxlength="250" />
+                <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
+                <div class="col-4">
+                  <select [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
+                    [(ngModel)]="Record.cust_nomination">
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'NOMINATION'">NOMINATION</option>
+                    <option [value]="'MUTUAL'">MUTUAL</option>
+                    <option [value]="'FREEHAND'">FREEHAND</option>
+                  </select>
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Branch Comments</label>
+                <div class="col-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cust_branch_remarks"
+                    (blur)="OnBlur('cust_branch_remarks')" required maxlength="250" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-12 col-form-label col-form-label-sm"
+                  style="color:red;font-size: 12px">IEC,PAN,TAN,GST,AUTHORISATION LETTER MUST BE UPLOADED FOR SHIPPER</label>
+              </div>
             </div>
             <div class="col-sm-3">
               <div class="form-group row">
@@ -296,19 +299,19 @@
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Refer By</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_referdby"
-                    (blur)="OnBlur('cust_referdby')" maxlength="60" />
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_referdby" (blur)="OnBlur('cust_referdby')" maxlength="60" />
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Remarks</label>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_remarks"
-                    (blur)="OnBlur('cust_remarks')" maxlength="100" />
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_remarks" (blur)="OnBlur('cust_remarks')" maxlength="100" />
                 </div>
               </div>
-
+              
             </div>
 
 
@@ -327,7 +330,8 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_foreigner" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox"
+                  [(ngModel)]="Record.cust_is_foreigner" />
                 <span>Foreign Shipper</span>
               </div>
 
@@ -337,22 +341,26 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_agent" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox"
+                  [(ngModel)]="Record.cust_is_agent" />
                 <span>Agent</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_cha" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox"
+                  [(ngModel)]="Record.cust_is_cha" />
                 <span>Cha/Forwarder</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!canadd||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_creditor" />
+                <input [disabled]="!canadd||!Record.cust_is_editable" type="checkbox"
+                  [(ngModel)]="Record.cust_is_creditor" />
                 <span>Creditor</span>
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox" [(ngModel)]="Record.cust_is_others" />
+                <input [disabled]="!bAdmin2||!Record.cust_is_editable" type="checkbox"
+                  [(ngModel)]="Record.cust_is_others" />
                 <span>Others</span>
               </div>
             </div>
@@ -362,7 +370,7 @@
         <div class="page-box">
           <div class="row">
             <div class="col-sm-6">
-              
+
 
               <div class="form-group row">
                 <div class="offset-2 col-4">
@@ -372,7 +380,7 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Comments</label>
+                <label class="col-2 col-form-label col-form-label-sm">Approval Comments</label>
                 <div class="col-sm-10">
                   <textarea rows="4" [disabled]="!bAdmin2" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_incomplete_remarks" (blur)="OnBlur('cust_incomplete_remarks')" required
