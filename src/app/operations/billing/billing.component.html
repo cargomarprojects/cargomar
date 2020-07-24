@@ -326,6 +326,7 @@
   <div *ngIf="DetailTab=='LIST'" class="page-box">
     <div class="col">
       <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('SUMMARY','PDF','')" class="btn btn-success btn-sm">Print Summary</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('DETAIL','PDF','')" class="btn btn-success btn-sm">Print Detail</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('FC','PDF','')" class="btn btn-success btn-sm">Print Foreign Currency</button>
