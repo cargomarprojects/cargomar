@@ -573,9 +573,6 @@
   <div *ngIf="DetailTab=='LIST'" class="page-box">
     <div class="col">
       <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-
-      <button  (click)="Save()" class="btn btn-success btn-sm">Save</button>
-
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'DI' || type == 'CI')" (click)="PrintInvoice('SUMMARY','PDF')"
         class="btn btn-success btn-sm">Print Summary</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'DI' || type == 'CI')" (click)="PrintInvoice('DETAIL','PDF')"
