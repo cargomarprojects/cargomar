@@ -11,6 +11,7 @@ export class Rebatem {
   jvh_amount: number;
 
   jvhid_ho: string;
+  jvh_vrno_ho: string;
 
   rec_mode: string;
   rebate_type: string;

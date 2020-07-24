@@ -375,6 +375,7 @@ export class RebateComponent {
         if (rec.selected) {
           rec.inv_rebate_jvid = irec.jvid;
           rec.inv_rebate_jvno = irec.jvno;
+          rec.inv_rebate_jvid_ho = irec.jvid_ho;
           rec.inv_rebate_jvno_ho = irec.jvno_ho;
         }
       });

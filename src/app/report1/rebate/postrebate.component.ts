@@ -171,6 +171,7 @@ export class PostRebateComponent {
       this.Record.jvh_vrno = this.jvno;
 
       this.Record.jvhid_ho = this.jvid_ho;
+      this.Record.jvh_vrno_ho = this.jvno_ho;
 
     }
 
