@@ -9,6 +9,10 @@ export class Rebatem {
   jvh_cc_category: string;
   jvh_cc_id: string;
   jvh_amount: number;
+
+  jvhid_ho: string;
+  jvh_vrno_ho: string;
+
   rec_mode: string;
   rebate_type: string;
   RebateList: Rebate[] = [];
@@ -46,6 +50,10 @@ export class Rebate {
 
   inv_rebate_jvid: string;
   inv_rebate_jvno: string;
+
+  inv_rebate_jvid_ho: string;
+  inv_rebate_jvno_ho: string;
+
   posted: string;
   selected: boolean;
 

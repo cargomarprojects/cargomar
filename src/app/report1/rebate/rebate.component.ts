@@ -35,6 +35,10 @@ export class RebateComponent {
   jvdate: string = '';
 
 
+  jvno_ho: string = '';
+  jvid_ho: string = '';
+
+
   bShowDlg: boolean = false;
 
   hbl_type: string = 'SEA EXPORT';
@@ -270,6 +274,10 @@ export class RebateComponent {
     this.jvid = "";
     this.jvno = "0";
 
+    this.jvid_ho = "";
+    this.jvno_ho = "0";
+
+
     this.SelectedList = new Array<Rebate>();
     this.RecordList.forEach(rec => {
       if (rec.selected) {
@@ -328,6 +336,10 @@ export class RebateComponent {
     this.jvdate = _record.inv_rebate_jvdate_original;
     this.jvno = _record.inv_rebate_jvno;
 
+    this.jvid_ho = _record.inv_rebate_jvid_ho;
+    this.jvno_ho = _record.inv_rebate_jvno_ho;
+
+
 
     let _selected_id = _record.inv_rebate_jvid;
     this.SelectedList = new Array<Rebate>();
@@ -363,6 +375,8 @@ export class RebateComponent {
         if (rec.selected) {
           rec.inv_rebate_jvid = irec.jvid;
           rec.inv_rebate_jvno = irec.jvno;
+          rec.inv_rebate_jvid_ho = irec.jvid_ho;
+          rec.inv_rebate_jvno_ho = irec.jvno_ho;
         }
       });
       alert("Posting Completed JV# " + irec.jvno);

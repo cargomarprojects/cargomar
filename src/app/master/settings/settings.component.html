@@ -480,6 +480,7 @@
     </font>
   </label>
   <div class="row">
+    
     <div class="col-sm-4">
       <div class="form-group row">
         <label class="col-6 col-form-label col-form-label-sm">Invoice</label>
@@ -524,7 +525,7 @@
       </div>
 
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
 
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Cash Receipt</label>
@@ -570,6 +571,18 @@
       </div>
 
     </div>
+
+    <div class="col-sm-4">
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Specila Rebate/Opening</label>
+        <div class="col-3">
+          <app-date [inputdate]="LockRecord.lock_rb" (ValueChanged)="LockRecord.lock_rb=$event"></app-date>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
 </div>

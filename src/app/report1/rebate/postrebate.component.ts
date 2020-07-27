@@ -25,6 +25,9 @@ export class PostRebateComponent {
   @Input() jvid: string = '';
   @Input() jvno: string = '';
 
+  @Input() jvid_ho: string = '';
+  @Input() jvno_ho: string = '';
+
 
   @Input() jvdate: string = '';
 
@@ -128,7 +131,7 @@ export class PostRebateComponent {
       this.displayed = false;
    //   this.modalref.close();
       if (this.CloseClicked != null)
-        this.CloseClicked.emit({ status: 'CANCEL', jvid: '', jvno: ''});
+        this.CloseClicked.emit({ status: 'CANCEL', jvid: '', jvno: '', jvid_ho: '', jvno_ho : ''});
     }
   }
 
@@ -138,6 +141,8 @@ export class PostRebateComponent {
 
     let jvid: string = '';
     let jvno: string = '';
+    let jvid_ho: string = '';
+    let jvno_ho: string = '';
 
     if (!this.isRebateok) {
       alert('One or more selected row is invalid');
@@ -164,6 +169,10 @@ export class PostRebateComponent {
 
       this.Record.jvhid = this.jvid;
       this.Record.jvh_vrno = this.jvno;
+
+      this.Record.jvhid_ho = this.jvid_ho;
+      this.Record.jvh_vrno_ho = this.jvno_ho;
+
     }
 
     this.Record.jvh_amount = this.total_amt;
@@ -177,9 +186,13 @@ export class PostRebateComponent {
         this.loading = false;
         jvid = response.jvid;
         jvno = response.jvno;
+
+        jvid_ho = response.jvid_ho;
+        jvno_ho = response.jvno_ho;
+
         this.InfoMessage = "Save Complete";
         if (this.CloseClicked != null)
-          this.CloseClicked.emit({status :'OK', jvid: jvid, jvno: jvno });
+          this.CloseClicked.emit({status :'OK', jvid: jvid, jvno: jvno, jvid_ho: jvid_ho,jvno_ho: jvno_ho });
       },
       error => {
         this.loading = false;

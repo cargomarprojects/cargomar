@@ -32,6 +32,7 @@ export class Lockingm {
   lock_bp: string;
   lock_jv: string;
   lock_cjv: string;
+  lock_rb: string;
 
   _globalvariables: GlobalVariables;
 }

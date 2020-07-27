@@ -205,24 +205,7 @@ export class SettingsComponent {
   }
 
 
-  //NewLockRecord() {
-  //  this.pkid = this.gs.getGuid();
-  //  this.LockRecord = new Lockingm();
-  //  this.LockRecord.lock_pkid = this.pkid;
-  //  this.LockRecord.lock_year = 0;
-  //  this.LockRecord.lock_ar = '';
-  //  this.LockRecord.lock_ap = '';
-  //  this.LockRecord.lock_drn = '';
-  //  this.LockRecord.lock_crn = '';
-  //  this.LockRecord.lock_dri = '';
-  //  this.LockRecord.lock_cri = '';
-  //  this.LockRecord.lock_cr = '';
-  //  this.LockRecord.lock_cp = '';
-  //  this.LockRecord.lock_br = '';
-  //  this.LockRecord.lock_bp = '';
-  //  this.LockRecord.lock_jv = '';
-  //  this.LockRecord.lock_cjv = '';         
-  //}
+
 
   InitComponent() {
     this.menu_record = this.gs.getMenu(this.menuid);
