@@ -13,6 +13,9 @@ export class GlobalVariables {
 
     ipaddress : string;
     tokenid : string;
+
+    tp_code : string;
+    tp_name : string;
     
     comp_pkid: string;
     comp_code: string;

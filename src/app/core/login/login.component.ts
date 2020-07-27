@@ -118,10 +118,15 @@ export class LoginComponent {
           this.gs.globalVariables.user_branch_id = user.userbranchid;
           this.gs.globalVariables.sman_id = user.usersmanid;
           this.gs.globalVariables.sman_name = user.usersmanname;
+
+          this.gs.globalVariables.tp_code = user.usertpcode;
+          this.gs.globalVariables.tp_name = user.usertpname;
+
           this.gs.baseLocalServerUrl = user.userlocalserver;
           this.gs.globalVariables.ipaddress = user.useripaddress;
           this.gs.globalVariables.tokenid = user.usertokenid;
           this.gs.globalVariables.user_branch_user = user.user_branch_user;
+
           // If a branch user hide ho entries
           if (user.user_branch_user == "Y")
             this.gs.globalVariables.hide_ho_entries = "Y";

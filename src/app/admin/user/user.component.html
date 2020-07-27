@@ -138,9 +138,16 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Trading Partner</label>
+        <label class="col-2 col-form-label col-form-label-sm">TP Code</label>
         <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.user_tp_code" required maxlength="25" />          
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.user_tp_code" required maxlength="50" />          
+        </div>
+      </div>      
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">TP Name</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.user_tp_name" required maxlength="50" />          
         </div>
       </div>      
 

@@ -160,6 +160,7 @@ export class UserComponent {
         this.Record.user_email_pwd = '';
         this.Record.user_local_server= '';
         this.Record.user_tp_code = '';
+        this.Record.user_tp_name = '';
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
 
