@@ -121,7 +121,9 @@ export class LoginComponent {
 
           this.gs.globalVariables.tp_code = user.usertpcode;
           this.gs.globalVariables.tp_name = user.usertpname;
-
+          this.gs.globalVariables.istp = false;
+          if ( user.usertpcode != '')
+            this.gs.globalVariables.istp = true;
           this.gs.baseLocalServerUrl = user.userlocalserver;
           this.gs.globalVariables.ipaddress = user.useripaddress;
           this.gs.globalVariables.tokenid = user.usertokenid;

@@ -16,6 +16,8 @@ export class GlobalVariables {
 
     tp_code : string;
     tp_name : string;
+
+    istp : boolean;
     
     comp_pkid: string;
     comp_code: string;
