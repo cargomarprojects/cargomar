@@ -14,15 +14,15 @@ export class LoginComponent {
 
   errorMessageVersion: string = '1.377';
   software_version_string: string = '1.377';
-  
+
   username: string = 'ADMIN';
   password: string = 'ADMIN';
-  
+
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
 
   company_code: string = '';
-  
+
   loading = false;
   showlogin = false;
 
@@ -64,15 +64,15 @@ export class LoginComponent {
         this.loading = false;
         this.showlogin = true;
       },
-      error => {
-        this.loading = false;
-        this.showlogin = false;
-        this.errorMessage = error.error.error_description;
-      });
+        error => {
+          this.loading = false;
+          this.showlogin = false;
+          this.errorMessage = error.error.error_description;
+        });
   }
 
 
-  reload(){
+  reload() {
     window.location.reload();
   }
 
@@ -118,11 +118,10 @@ export class LoginComponent {
           this.gs.globalVariables.user_branch_id = user.userbranchid;
           this.gs.globalVariables.sman_id = user.usersmanid;
           this.gs.globalVariables.sman_name = user.usersmanname;
-
           this.gs.globalVariables.tp_code = user.usertpcode;
           this.gs.globalVariables.tp_name = user.usertpname;
           this.gs.globalVariables.istp = false;
-          if ( user.usertpcode != '')
+          if (user.usertpcode != '')
             this.gs.globalVariables.istp = true;
           this.gs.baseLocalServerUrl = user.userlocalserver;
           this.gs.globalVariables.ipaddress = user.useripaddress;
@@ -137,7 +136,7 @@ export class LoginComponent {
         }
 
         if (this.gs.IsLoginSuccess) {
-          
+
           if (this.gs.baseLocalServerUrl != "") {
             this.checkLocalServer();
           }
@@ -150,10 +149,10 @@ export class LoginComponent {
           this.errorMessage = "Login Failed";
         }
       },
-      error => {
-        this.loading = false;
-        this.errorMessage = error.error.error_description;
-      });
+        error => {
+          this.loading = false;
+          this.errorMessage = error.error.error_description;
+        });
 
   }
 
@@ -180,10 +179,10 @@ export class LoginComponent {
           this.ErrorExternalLogin = 'External Login Not Allowed';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorExternalLogin = 'External Login Not Allowed';
-      });
+        error => {
+          this.loading = false;
+          this.ErrorExternalLogin = 'External Login Not Allowed';
+        });
 
   }
 

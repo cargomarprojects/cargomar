@@ -206,6 +206,7 @@ export class JobOrderComponent {
     this.Record.ord_contractno = '';
     this.Record.ord_source = '';
     this.Record.ord_deliv_place = '';
+    this.Record.ord_pkg_unit='';
     this.Record.rec_mode = this.mode;
     this.InitLov();
 
@@ -466,6 +467,12 @@ export class JobOrderComponent {
           this.po_nos = this.po_nos.toUpperCase();
           break;
         }
+        case 'ord_pkg_unit':
+        {
+          this.Record.ord_pkg_unit = this.Record.ord_pkg_unit.toUpperCase();
+          break;
+        }
+        
     }
   }
 

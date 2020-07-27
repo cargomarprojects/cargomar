@@ -475,7 +475,7 @@ export class OrderListComponent {
     // this.AGENTRECORD.id = '';
     // this.AGENTRECORD.name = '';
     this.Record.ord_agent_code = '';
-
+   this.Record.ord_pkg_unit='';
     this.Record.rec_mode = this.mode;
     // this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -746,6 +746,10 @@ export class OrderListComponent {
         case 'ord_deliv_place':
         {
           this.Record.ord_deliv_place = this.Record.ord_deliv_place.toUpperCase();
+          break;
+        }case 'ord_pkg_unit':
+        {
+          this.Record.ord_pkg_unit = this.Record.ord_pkg_unit.toUpperCase();
           break;
         }
     }

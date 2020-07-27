@@ -131,6 +131,8 @@ export class OnlineTrackComponent {
   }
 
   InitComponent() {
+    // this.from_date = this.gs.defaultValues.monthbegindate;
+    // this.to_date = this.gs.defaultValues.today;
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -404,7 +406,8 @@ export class OnlineTrackComponent {
       file_pkid: this.gs.getGuid(),
       ord_status: this.ord_status,
       sort_colname: this.sort_colname,
-      // consignee_code:this.gs.globalVariables.tp_
+      tp_code:this.gs.globalVariables.tp_code,
+      tp_name:this.gs.globalVariables.tp_name
     };
 
     this.ErrorMessage = '';

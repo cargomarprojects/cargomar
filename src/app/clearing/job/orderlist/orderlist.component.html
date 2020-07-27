@@ -367,11 +367,16 @@
                     </div>
                     <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Pkgs</label>
-                      <div class="col-4">
+                      <div class="col-2">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_pkg"
                           (blur)="OnBlur('ord_pkg')" required maxlength="10" />
                       </div>
-                      <label class="col-2 col-form-label col-form-label-sm">Pcs</label>
+                      <label class="col-1 col-form-label col-form-label-sm">Unit</label>
+                      <div class="col-2">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_pkg_unit"
+                        (blur)="OnBlur('ord_pkg_unit')" required maxlength="50" />
+                      </div>
+                      <label class="col-1 col-form-label col-form-label-sm">Pcs</label>
                       <div class="col-4">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_pcs"
                           (blur)="OnBlur('ord_pcs')" required maxlength="14" />
@@ -379,11 +384,11 @@
                     </div>
                     <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Nt.Wt</label>
-                      <div class="col-4">
+                      <div class="col-5">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_ntwt"
                           (blur)="OnBlur('ord_ntwt')" required maxlength="14" />
                       </div>
-                      <label class="col-2 col-form-label col-form-label-sm">Gr.Wt</label>
+                      <label class="col-1 col-form-label col-form-label-sm">Gr.Wt</label>
                       <div class="col-4">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_grwt"
                           (blur)="OnBlur('ord_grwt')" required maxlength="14" />
@@ -391,12 +396,12 @@
                     </div>
                     <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Cbm</label>
-                      <div class="col-4">
+                      <div class="col-5">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_cbm"
                           (blur)="OnBlur('ord_cbm')" required maxlength="14" />
                       </div>
 
-                      <label class="col-2 col-form-label  col-form-label-sm">HS.Code</label>
+                      <label class="col-1 col-form-label  col-form-label-sm">HS.Code</label>
                       <div class="col-4">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_hs_code"
                           (blur)="OnBlur('ord_hs_code')" required maxlength="15" />
