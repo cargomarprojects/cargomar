@@ -120,6 +120,8 @@ export class Mblm {
   mbl_cntr: string;
   mbl_docs: number;
 
+  mbl_deliv_date: string;
+
   lock_record: boolean;
 
   rec_mode: string;

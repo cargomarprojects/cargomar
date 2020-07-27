@@ -533,7 +533,8 @@ export class MblAirComponent {
     this.Record.mbl_imp_br_addr = '';
     this.Record.lock_record = false;
     this.Record.mbl_released_date = '';
-
+    this.Record.mbl_deliv_date='';
+    
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }

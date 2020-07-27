@@ -126,6 +126,12 @@
                 <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ord_desc" (blur)="OnBlur('ord_desc')" required maxlength="100"></textarea>
               </div>
             </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label  col-form-label-sm">Delivery Place</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_deliv_place" (blur)="OnBlur('ord_deliv_place')" required maxlength="60" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
