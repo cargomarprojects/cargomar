@@ -63,6 +63,7 @@ export class MoneyTransfer {
     mt_utr:string;
 
     rec_mode: string;
+    rec_created_by: string;
 
     _globalvariables: GlobalVariables;
 }

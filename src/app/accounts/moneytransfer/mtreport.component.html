@@ -101,6 +101,7 @@
           <th>DESCRIPTION</th>
           <th>UTR</th>
           <th>BANK.REF#</th>
+          <th>CREATED/GENERATED</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -131,6 +132,7 @@
           <td>{{rec.mt_status_desc}}</td>
           <td>{{rec.mt_utr}}</td>
           <td>{{rec.mt_bank_refno}}</td>
+          <td>{{rec.rec_created_by}}</td>
         </tr>
       </tbody>
     </table>

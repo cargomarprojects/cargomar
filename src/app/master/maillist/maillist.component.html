@@ -112,7 +112,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Category</label>
                     <div class="col-10">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.ml_type">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.ml_type" [disabled]="mode=='EDIT'">
                             <!-- <option [value]="'SHIPMENT-TRACKING'">SHIPMENT TRACKING</option> -->
                             <option *ngFor="let rec of MailingList" [value]="rec.param_code">{{rec.param_name}}</option>
                         </select>
