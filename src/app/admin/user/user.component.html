@@ -113,6 +113,7 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.user_email_pwd" required maxlength="50" />
         </div>
       </div>
+
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Salesman</label>
         <div class="col-10">
@@ -135,6 +136,14 @@
 
         </div>
       </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Trading Partner</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.user_tp_code" required maxlength="25" />          
+        </div>
+      </div>      
+
 
     </div>
 

@@ -17,6 +17,7 @@ export class User {
     user_sman_name: string;
     user_email_pwd: string;
     user_local_server: string;
+    user_tp_code: string;
 
     rec_mode: string;
 
