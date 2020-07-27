@@ -28,12 +28,12 @@
             </div>
             <!-- <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Search</label> -->
 
-            <div class="col-sm-2" style="padding-right:0px" >
+            <div class="col-sm-2" style="padding-right:0px">
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'MAWBK'">MAWBK#</option>
                 <option [value]="'MAWBNO'">MAWB#</option>
-                <option [value]="'FOLDER'">FOLDER</option>               
+                <option [value]="'FOLDER'">FOLDER</option>
                 <option [value]="'AGENT'">AGENT</option>
                 <option [value]="'CARRIER'">CARRIER</option>
                 <option [value]="'POL'">POL</option>
@@ -42,7 +42,8 @@
               </select>
             </div>
             <div class="col-sm-4">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"/>
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -471,6 +472,14 @@
                     <app-date [inputdate]="Record.mbl_released_date" (ValueChanged)="Record.mbl_released_date=$event"></app-date>
                   </div>
                 </div>-->
+                <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">DeliveryDate</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.mbl_deliv_date" (ValueChanged)="Record.mbl_deliv_date=$event">
+                    </app-date>
+                  </div>
+                </div>
 
               </div>
             </div>

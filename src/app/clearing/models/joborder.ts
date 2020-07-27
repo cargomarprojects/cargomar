@@ -64,6 +64,11 @@ export class Joborderm {
   ord_instock1:string;
   ord_instock2:string;
 
+  ord_hbl_no:string;
+  ord_mbl_no:string;
+  ord_branch_name:string;
+  ord_deliv_place:string;
+  
   job_docno: string;
   rec_mode: string;
   rec_category: string;

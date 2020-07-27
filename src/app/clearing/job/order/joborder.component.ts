@@ -28,7 +28,7 @@ export class JobOrderComponent {
 
   Total_Amount: number = 0;
 
-  modal :  any;
+  modal: any;
 
   loading = false;
   currentTab = 'LIST';
@@ -60,7 +60,7 @@ export class JobOrderComponent {
     private mainService: JobOrderService,
     private route: ActivatedRoute,
     private gs: GlobalService,
-    private modalService: NgbModal,        
+    private modalService: NgbModal,
   ) {
 
     this.InitLov();
@@ -205,6 +205,7 @@ export class JobOrderComponent {
     this.Record.ord_color = '';
     this.Record.ord_contractno = '';
     this.Record.ord_source = '';
+    this.Record.ord_deliv_place = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
 
@@ -409,7 +410,11 @@ export class JobOrderComponent {
           this.Record.ord_desc = this.Record.ord_desc.toUpperCase();
           break;
         }
-
+      case 'ord_deliv_place':
+        {
+          this.Record.ord_deliv_place = this.Record.ord_deliv_place.toUpperCase();
+          break;
+        }
       case 'ord_cbm':
         {
           this.Record.ord_cbm = this.gs.roundWeight(this.Record.ord_cbm, "CBM");
@@ -527,11 +532,11 @@ export class JobOrderComponent {
         });
   }
 
-  PasteData(content : any) {
+  PasteData(content: any) {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.modal = this.modalService.open(content);    
+    this.modal = this.modalService.open(content);
   }
 
   PasteDataClosed(cbdata: string) {
@@ -576,7 +581,7 @@ export class JobOrderComponent {
             col_inv = this.GetColIndex(ar2[i].toUpperCase().trim(), "INVOICE-NO", i)
           if (col_desc < 0)
             col_desc = this.GetColIndex(ar2[i].toUpperCase().trim(), "DESCRIPTION", i)
-            if (col_uneco < 0)
+          if (col_uneco < 0)
             col_uneco = this.GetColIndex(ar2[i].toUpperCase().trim(), "UNECO", i)
           if (col_po < 0)
             col_po = this.GetColIndex(ar2[i].toUpperCase().trim(), "PURCHASE-ORDER", i)
@@ -743,7 +748,7 @@ export class JobOrderComponent {
             mRec.ord_invno = ar2[col_inv].toUpperCase();
           if (col_desc > -1)
             mRec.ord_desc = ar2[col_desc].toUpperCase();
-            if (col_uneco > -1)
+          if (col_uneco > -1)
             mRec.ord_uneco = ar2[col_uneco].toUpperCase();
           if (col_po > -1)
             mRec.ord_po = ar2[col_po].toUpperCase();
@@ -930,7 +935,7 @@ export class JobOrderComponent {
 
   closeModal() {
     this.modal.close();
- 
+
   }
 
 }

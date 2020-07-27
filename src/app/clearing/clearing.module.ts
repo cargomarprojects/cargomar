@@ -26,6 +26,7 @@ import { InfoTypeComponent } from './job/singlewindow/infotype.component';
 import { ConstComponent } from './job/singlewindow/const.component';
 import { ProdComponent } from './job/singlewindow/prod.component';
 import { CtrlComponent } from './job/singlewindow/ctrl.component';
+import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { CtrlComponent } from './job/singlewindow/ctrl.component';
     InfoTypeComponent,
     ConstComponent,
     ProdComponent,
-    CtrlComponent
+    CtrlComponent,
+    OnlineTrackComponent
   ],
   providers: [
   ],
