@@ -68,7 +68,10 @@ export class Joborderm {
   ord_mbl_no:string;
   ord_branch_name:string;
   ord_deliv_place:string;
-  
+  ord_deliv_date:string;
+  ord_pickup_date:string;
+
+  job_date:string;
   job_docno: string;
   rec_mode: string;
   rec_category: string;

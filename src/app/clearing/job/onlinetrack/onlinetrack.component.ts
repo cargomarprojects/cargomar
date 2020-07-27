@@ -44,6 +44,8 @@ export class OnlineTrackComponent {
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
+  master_no: string = "";
+  house_no: string = "";
   ord_po: string = "";
   ord_invoice: string = "";
   from_date: string = '';
@@ -388,6 +390,8 @@ export class OnlineTrackComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       job_docno: this.job_docno,
+      house_no: this.house_no,
+      master_no: this.master_no,
       ord_po: this.ord_po,
       ord_invoice: this.ord_invoice,
       from_date: this.from_date,
@@ -399,7 +403,8 @@ export class OnlineTrackComponent {
       report_folder: this.gs.globalVariables.report_folder,
       file_pkid: this.gs.getGuid(),
       ord_status: this.ord_status,
-      sort_colname: this.sort_colname
+      sort_colname: this.sort_colname,
+      // consignee_code:this.gs.globalVariables.tp_
     };
 
     this.ErrorMessage = '';
@@ -739,6 +744,16 @@ export class OnlineTrackComponent {
       case 'ord_pod':
         {
           this.Record.ord_pod = this.Record.ord_pod.toUpperCase();
+          break;
+        }
+        case 'master_no':
+        {
+          this.master_no = this.master_no.toUpperCase();
+          break;
+        }
+        case 'house_no': 
+        {
+          this.house_no = this.house_no.toUpperCase();
           break;
         }
     }

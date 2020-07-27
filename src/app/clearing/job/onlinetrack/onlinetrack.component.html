@@ -26,27 +26,41 @@
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label class="col-2 col-form-label col-form-label-sm">HOUSE#</label>
+                      <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no"
+                          (blur)="OnBlur('house_no')" required maxlength="60" />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-2 col-form-label col-form-label-sm">MASTER#</label>
+                      <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no"
+                          (blur)="OnBlur('master_no')" required maxlength="60" />
+                      </div>
+                    </div>
+                    <!-- <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Agent</label>
                       <div class="col-10">
                         <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD"
                           (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                       </div>
-                    </div>
-                    <div class="form-group row">
+                    </div> -->
+                    <!-- <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
                       <div class="col-10">
                         <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                       </div>
-                    </div>
-                    <div class="form-group row">
+                    </div> -->
+                    <!-- <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
                       <div class="col-10">
                         <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="col-6">
                     <div class="form-group row">
@@ -63,15 +77,15 @@
                           (blur)="OnBlur('ord_invoice')" required maxlength="30" />
                       </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Sort By</label>
                       <div class="col-10">
                         <select class="form-control form-control-sm" [(ngModel)]="sort_colname">
                           <option *ngFor="let rec of SortList" [value]="rec.colname">{{rec.colheadername}}</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="form-group row">
+                    </div> -->
+                    <!-- <div class="form-group row">
                       <div class="offset-2 col-5">
                         <input type="checkbox" [(ngModel)]="ord_showpending">
                         <span>Show Pending Only</span>
@@ -86,7 +100,7 @@
                           <option [value]="'ON HOLD'">ON HOLD</option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="row">
@@ -158,36 +172,47 @@
                   <!-- <th><input type="checkbox" [(ngModel)]="selectcheck" (click)="SelectCheckbox()"></th> -->
                   <!-- <th>REF#</th> -->
                   <th>BRANCH</th>
+                  <th>JOB#</th>
+                  <th>DATE</th>
                   <th>AGENT</th>
                   <th>SHIPPER</th>
-                  <th>CONSIGNEE</th>
+                  <!-- <th>CONSIGNEE</th> -->
                   <!-- <th>PO.ID</th> -->
+                  <th>INVOICE#</th>
                   <th>PO#</th>
-                  <th>STYLE</th>
-                  <th>COLOR</th>
+                  <th>PICKED.UP.ON</th>
+                  <th>HOUSE#</th>
+                  <th>MASTER#</th>
+                  <th class="text-right">PKGS</th>
+                  <th class="text-right">GRWT</th>
+                  <th class="text-right">CBM</th>
+
+                  <!-- <th>STYLE</th> -->
+                  <!-- <th>COLOR</th> -->
                   <!-- <th>EDI</th>
                   <th>OUR.BK#</th>
                   <th>AGENT.BK#</th>
                   <th>ORD.SELECTED</th>
                   <th>PLANNING#</th>
                   <th>WEEK#</th> -->
-                  <th>JOB#</th>
-                  <th>HOUSE#</th>
-                  <th>MASTER#</th>
+                
+                  
                   <!-- <th>STATUS</th> -->
-                  <th class="text-right">PKGS</th>
-                  <th class="text-right">PCS</th>
-                  <th class="text-right">NTWT</th>
-                  <th class="text-right">GRWT</th>
-                  <th class="text-right">CBM</th>
-                  <th>DESCRIPTION</th>
+                  
+                  <!-- <th class="text-right">PCS</th> -->
+                  <!-- <th class="text-right">NTWT</th> -->
+                  <th>POD</th>
+                  <th>DELIVERY</th>
+                  <th>DELIVERED.ON</th>
+                  <th>CARGO.STATUS</th>
+
+                  <!-- <th>DESCRIPTION</th> -->
                   <!-- <th>UNECO</th>
                   <th>HS.CODE</th> -->
-                  <th>INVOICE#</th>
-                  <th>POL</th>
-                  <th>POD</th>
-                  <!-- <th>CARGO.STATUS</th>
-                  <th>TRACK.STATUS</th> -->
+                 
+                  <!-- <th>POL</th> -->
+                
+                  <!-- <th>TRACK.STATUS</th> -->
                   <!-- <th>CREATED</th>
                   <th>WINDOW1</th>
                   <th>WINDOW2</th>
@@ -201,36 +226,48 @@
                   <!-- <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
                   <td>{{rec.ord_agentref_id}}</td> -->
                   <td >{{rec.ord_branch_name}}</td>
+                  <td>{{rec.job_docno}}</td>
+                  <td>{{rec.job_date}}</td>
                   <td >{{rec.ord_agent_name}}</td>
                   <td >{{rec.ord_exp_name}}</td>
-                  <td>{{rec.ord_imp_name}}</td>
+                  <!-- <td>{{rec.ord_imp_name}}</td> -->
                   <!-- <td>{{rec.ord_uid}}</td> -->
                   <td>{{rec.ord_po}}</td>
-                  <td>{{rec.ord_style}}</td>
-                  <td>{{rec.ord_color}}</td>
+                  <td>{{rec.ord_cargo_ready_date}}</td>
+                  <td>{{rec.ord_invno}}</td>
+                  <td>{{rec.ord_hbl_no}}</td>
+                  <td>{{rec.ord_mbl_no}}</td>
+                  <!-- <td>{{rec.ord_style}}</td> -->
+                  <!-- <td>{{rec.ord_color}}</td> -->
                   <!-- <td>{{rec.ord_ftp_status}}</td>
                   <td>{{rec.ord_ourbooking_no}}</td>
                   <td>{{rec.ord_booking_no}}</td>
                   <td>{{rec.ord_approved ? 'YES' : 'NO'}}</td>
                   <td>{{rec.ord_plan_no}}</td>
                   <td>{{rec.ord_week_no}}</td> -->
-                  <td>{{rec.job_docno}}</td>
-                  <td>{{rec.ord_hbl_no}}</td>
-                  <td>{{rec.ord_mbl_no}}</td>
-                  <!-- <td>{{rec.ord_status}}</td> -->
+
                   <td align='right'>{{rec.ord_pkg | number : '1.2-2'}}</td>
-                  <td align='right'>{{rec.ord_pcs | number : '1.2-2'}}</td>
-                  <td align='right'>{{rec.ord_ntwt | number : '1.3-3'}}</td>
                   <td align='right'>{{rec.ord_grwt | number : '1.3-3'}}</td>
                   <td align='right'>{{rec.ord_cbm | number : '1.3-3'}}</td>
-                  <td height="5">{{rec.ord_desc}}</td>
+                  <td>{{rec.ord_pod}}</td>
+                  <td>{{rec.ord_deliv_place}}</td>
+                  <td>{{rec.ord_deliv_date}}</td>
+                  <td>{{rec.ord_cargo_status}}</td>
+
+                  
+                  
+                  <!-- <td>{{rec.ord_status}}</td> -->
+                  
+                  <!-- <td align='right'>{{rec.ord_pcs | number : '1.2-2'}}</td> -->
+                  <!-- <td align='right'>{{rec.ord_ntwt | number : '1.3-3'}}</td> -->
+                  
+                  <!-- <td height="5">{{rec.ord_desc}}</td> -->
                   <!-- <td>{{rec.ord_uneco}}</td>
                   <td>{{rec.ord_hs_code}}</td> -->
-                  <td>{{rec.ord_invno}}</td>
-                  <td>{{rec.ord_pol}}</td>
-                  <td>{{rec.ord_pod}}</td>
-                  <!-- <td>{{rec.ord_cargo_status}}</td>
-                  <td>{{rec.ord_track_status}}</td> -->
+                 
+                  <!-- <td>{{rec.ord_pol}}</td> -->
+                  
+                  <!-- <td>{{rec.ord_track_status}}</td> -->
                   <!-- <td>{{rec.rec_created_dte}}</td>
                   <td>{{rec.ord_window1}}</td>
                   <td>{{rec.ord_window2}}</td>

@@ -462,7 +462,7 @@ export class OrderListComponent {
     this.Record.ord_pol_code = '';
     this.Record.ord_pod_code = '';
     this.Record.rec_category = 'SEA EXPORT';
-
+    this.Record.ord_deliv_place='';
     this.initLov();
     // this.EXPRECORD.id = '';
     // this.EXPRECORD.name = '';
@@ -741,6 +741,11 @@ export class OrderListComponent {
       case 'ord_pod':
         {
           this.Record.ord_pod = this.Record.ord_pod.toUpperCase();
+          break;
+        }
+        case 'ord_deliv_place':
+        {
+          this.Record.ord_deliv_place = this.Record.ord_deliv_place.toUpperCase();
           break;
         }
     }
