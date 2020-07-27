@@ -70,6 +70,10 @@ export class LoginBranchComponent {
 
                 this.loading = false;
                 this.showlogin = true;
+
+                if ( this.gs.globalVariables.tp_code != '')
+                    this.LoadMenu();
+
             },
             error => {
                 this.loading = false;

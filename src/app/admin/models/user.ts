@@ -17,7 +17,9 @@ export class User {
     user_sman_name: string;
     user_email_pwd: string;
     user_local_server: string;
-
+    user_tp_code: string;
+    user_tp_name: string;
+    
     rec_mode: string;
 
     _globalvariables: GlobalVariables;

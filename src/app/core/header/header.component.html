@@ -1,7 +1,10 @@
 <div *ngIf="gs.IsAuthenticated">
   <nav class="navbar navbar-expand-lg navbar-light bg-info text-white">
     <a class="navbar-brand">
-      <h5>{{gs.Company_Name}}[{{gs.globalVariables.year_name}}]</h5>
+
+      <h5 *ngIf="gs.globalVariables.istp" >{{gs.Company_Name}}</h5>
+      <h5 *ngIf="!gs.globalVariables.istp" >{{gs.Company_Name}}[{{gs.globalVariables.year_name}}]</h5>
+
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,12 +30,10 @@
 
       <form class="form-inline my-2 my-lg-0">
         <label>{{gs.globalVariables.user_name}}</label>
-        <label>|</label>
-        <label>{{gs.globalVariables.branch_name}}</label>
-        <label>|</label>
-        <!-- <label>{{gs.globalVariables.year_name}}</label>
-          <label>|</label> -->
-        <a (click)="Logout()">Logout</a>
+        <label class="ml-1" >|</label>
+        <label class="ml-1"  *ngIf="!gs.globalVariables.istp">{{gs.globalVariables.branch_name}}</label>
+        <label class="ml-1" *ngIf="!gs.globalVariables.istp" >|</label>
+        <a class="ml-1" (click)="Logout()">Logout</a>
       </form>
     </div>
   </nav>

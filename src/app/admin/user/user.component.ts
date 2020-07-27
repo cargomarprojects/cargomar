@@ -82,6 +82,7 @@ export class UserComponent {
       this.SALESMANRECORD.code = "";
       this.SALESMANRECORD.name = "";
 
+
     }
 
     LovSelected(_Record: SearchTable) {
@@ -158,6 +159,8 @@ export class UserComponent {
         this.Record.user_sman_name = '';
         this.Record.user_email_pwd = '';
         this.Record.user_local_server= '';
+        this.Record.user_tp_code = '';
+        this.Record.user_tp_name = '';
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
 
@@ -243,6 +246,7 @@ export class UserComponent {
             this.Record.user_code = this.Record.user_code.toUpperCase().replace(' ', '');
             this.Record.user_name = this.Record.user_name.toUpperCase().trim();
             this.Record.user_password = this.Record.user_password.toUpperCase().trim();
+            this.Record.user_tp_code = this.Record.user_tp_code.toUpperCase().trim();
         }
 
         if (bret === false)
