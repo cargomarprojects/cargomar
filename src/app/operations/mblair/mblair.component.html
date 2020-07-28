@@ -367,6 +367,182 @@
 
               </div>
             </div>
+
+            <!-- <div class="page-box">
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group row mx-0">
+
+                    <label style="background-color:lightgray;"
+                      class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-2 col-form-label col-form-label-sm pl-4">VOYAGE</label>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
+                    <div class="col-sm-2 pr-2">
+                      <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                    <div class="col-sm-2 pl-0">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.book_pol_name" />
+                    </div>
+                    <div class="col-sm-2 pr-2">
+                      <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                    <div class="col-sm-3 pl-0">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.book_vessel_name" />
+                    </div>
+                    <div class="col-sm-2 ">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_no"
+                        (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row mx-0">
+                    <label style="background-color:lightgray;"
+                      class="col-sm-3 col-form-label col-form-label-sm pl-0">ETD-[POL]</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
+                    <label style="background-color:lightgray;"
+                      class="col-sm-4 col-form-label col-form-label-sm">CONFM</label>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <app-date [inputdate]="Record.book_pol_eta" (ValueChanged)="Record.book_pol_eta=$event">
+                      </app-date>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pol_eta_confirm">
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div *ngFor="let rec of Record.TransitList">
+                <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+                </app-transit>
+                <hr>
+              </div>
+
+
+              <hr>
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">POD</label>
+                    <div class="col-sm-2 pr-2">
+                      <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                    <div class="col-sm-2 pl-0">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.book_pod_name" />
+                    </div>
+
+                    <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                    <div class="col-sm-2 pr-2">
+                      <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
+                    </div>
+                    <div class="col-sm-2 pl-0">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">Confm
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">POFD</label>
+                    <div class="col-sm-2 pr-2">
+                      <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                    <div class="col-sm-2 pl-0">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.book_pofd_name" />
+                    </div>
+                    <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                    <div class="col-sm-2 pr-2">
+                      <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event">
+                      </app-date>
+                    </div>
+                    <div class="col-sm-1 pl-0 Pr-0">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox"
+                            [(ngModel)]="Record.book_pofd_eta_confirm">Confm
+                        </label>
+                      </div>
+                      
+                    </div>
+                  
+                    <div class="col-sm-3 input-group input-group-sm">
+                      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
+                        class="btn btn-success btn-sm mr-1">Container Tracking</button>
+                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                        (click)="UpdateTracking()" class="btn btn-success btn-sm">Update</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-3 col-form-label col-form-label-sm">*Customer.Comments</label>
+                    <div class="col-9">
+                      <textarea rows="1" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
+                        maxlength="100"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-3 col-form-label col-form-label-sm">Partner Email</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_partner_email"
+                        required maxlength="100" />
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div> -->
+
+
+
             <hr />
             <div class="row">
               <div class="col-sm-4">
