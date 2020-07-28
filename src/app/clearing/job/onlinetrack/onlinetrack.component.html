@@ -27,57 +27,34 @@
             </div>
             <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">MASTER#</label>
-              <div class="col-10">
+              <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no"
                   (blur)="OnBlur('master_no')" required maxlength="60" />
               </div>
-            </div>
-            <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">HOUSE#</label>
-              <div class="col-10">
+              <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no"
                   (blur)="OnBlur('house_no')" required maxlength="60" />
               </div>
             </div>
-
-            <!-- <div class="form-group row">
-                      <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-                      <div class="col-10">
-                        <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD"
-                          (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                      </div>
-                    </div> -->
-            <!-- <div class="form-group row">
-                      <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-                      <div class="col-10">
-                        <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                      </div>
-                    </div> -->
-            <!-- <div class="form-group row">
-                      <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
-                      <div class="col-10">
-                        <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                      </div>
-                    </div> -->
-          </div>
-          <div class="col-6">
             <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">JOB#</label>
-              <div class="col-10">
+              <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="job_docno"
                   (blur)="OnBlur('job_docno')" required maxlength="30" />
               </div>
-            </div>
-            <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">INVOICE#</label>
-              <div class="col-10">
+              <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_invoice"
                   (blur)="OnBlur('ord_invoice')" required maxlength="30" />
               </div>
+
             </div>
+
+
+
+          </div>
+          <div class="col-6">
             <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">PO#</label>
               <div class="col-10">
@@ -85,6 +62,21 @@
                   required maxlength="1000" />
               </div>
             </div>
+            <div *ngIf="!gs.globalVariables.istp" class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+              <div class="col-10">
+                <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+              </div>
+            </div>
+            <div *ngIf="!gs.globalVariables.istp" class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
+              <div class="col-10">
+                <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+              </div>
+            </div>
+
             <!-- <div class="form-group row">
                       <label class="col-2 col-form-label col-form-label-sm">Sort By</label>
                       <div class="col-10">
@@ -124,8 +116,15 @@
         </div> -->
       </div>
       <div class="col-4">
+        <div *ngIf="!gs.globalVariables.istp" class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
+          <div class="col-10">
+            <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
         <div class="form-group row">
-          <div class="col-12">
+          <div class="offset-2 col-10">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             <!-- <button [disabled]="loading" (click)="TrackOrders(trackorder)"
@@ -179,9 +178,9 @@
           <!-- <th>BRANCH</th> -->
           <th>JOB#</th>
           <th>DATE</th>
-          <!-- <th>AGENT</th> -->
+          <th *ngIf="!gs.globalVariables.istp">AGENT</th>
           <th>SHIPPER</th>
-          <!-- <th>CONSIGNEE</th> -->
+          <th *ngIf="!gs.globalVariables.istp">CONSIGNEE</th>
           <!-- <th>PO.ID</th> -->
           <th>INVOICE#</th>
           <th>PO#</th>
@@ -236,14 +235,14 @@
           <!-- <td >{{rec.ord_branch_name}}</td> -->
           <td>{{rec.job_docno}}</td>
           <td>{{rec.rec_created_dte}}</td>
-          <!-- <td>{{rec.ord_agent_name}}</td> -->
+          <td *ngIf="!gs.globalVariables.istp">{{rec.ord_agent_name}}</td>
           <td>{{rec.ord_exp_name}}</td>
-          <!-- <td>{{rec.ord_imp_name}}</td> -->
+          <td *ngIf="!gs.globalVariables.istp">{{rec.ord_imp_name}}</td>
           <!-- <td>{{rec.ord_uid}}</td> -->
           <td>{{rec.ord_invno}}</td>
           <td>{{rec.ord_po}}</td>
           <td>{{rec.ord_cargo_ready_date}}</td>
-        
+
           <td>{{rec.ord_mbl_no}}</td>
           <td>{{rec.ord_hbl_no}}</td>
           <!-- <td>{{rec.ord_style}}</td> -->

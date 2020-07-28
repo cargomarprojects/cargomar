@@ -407,10 +407,11 @@ export class OnlineTrackComponent {
       ord_status: this.ord_status,
       sort_colname: this.sort_colname,
       tp_code:this.gs.globalVariables.tp_code,
-      tp_name:this.gs.globalVariables.tp_name
+      tp_name:this.gs.globalVariables.tp_name,
+      istp:this.gs.globalVariables.istp
     };
 
-    this.ErrorMessage = '';
+    this.ErrorMessage = ''; 
     this.InfoMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
