@@ -107,7 +107,7 @@ export class OnlineTrackComponent {
 
   ) {
     this.page_count = 0;
-    this.page_rows = 30;
+    this.page_rows = 15;
     this.page_current = 0;
 
     // URL Query Parameter 

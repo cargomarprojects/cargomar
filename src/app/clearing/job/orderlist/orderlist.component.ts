@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';//NgbModalConfig
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Joborderm } from '../../models/joborder';
@@ -109,7 +109,7 @@ export class OrderListComponent {
     this.page_count = 0;
     this.page_rows = 30;
     this.page_current = 0;
-
+     
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
