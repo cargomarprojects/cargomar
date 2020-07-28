@@ -41,6 +41,10 @@ export class OrderListService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OrderList/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
   
+  UpdateUid(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OrderList/UpdateUid', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 
 

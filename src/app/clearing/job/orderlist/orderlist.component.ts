@@ -42,7 +42,7 @@ export class OrderListComponent {
 
   sub: any;
   urlid: string;
-
+  ord_uid_prevalue = 0;
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
@@ -109,7 +109,7 @@ export class OrderListComponent {
     this.page_count = 0;
     this.page_rows = 30;
     this.page_current = 0;
-     
+
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -462,7 +462,7 @@ export class OrderListComponent {
     this.Record.ord_pol_code = '';
     this.Record.ord_pod_code = '';
     this.Record.rec_category = 'SEA EXPORT';
-    this.Record.ord_deliv_place='';
+    this.Record.ord_deliv_place = '';
     this.initLov();
     // this.EXPRECORD.id = '';
     // this.EXPRECORD.name = '';
@@ -475,7 +475,7 @@ export class OrderListComponent {
     // this.AGENTRECORD.id = '';
     // this.AGENTRECORD.name = '';
     this.Record.ord_agent_code = '';
-   this.Record.ord_pkg_unit='';
+    this.Record.ord_pkg_unit = '';
     this.Record.rec_mode = this.mode;
     // this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -743,11 +743,11 @@ export class OrderListComponent {
           this.Record.ord_pod = this.Record.ord_pod.toUpperCase();
           break;
         }
-        case 'ord_deliv_place':
+      case 'ord_deliv_place':
         {
           this.Record.ord_deliv_place = this.Record.ord_deliv_place.toUpperCase();
           break;
-        }case 'ord_pkg_unit':
+        } case 'ord_pkg_unit':
         {
           this.Record.ord_pkg_unit = this.Record.ord_pkg_unit.toUpperCase();
           break;
@@ -1255,7 +1255,7 @@ export class OrderListComponent {
           ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
 
           if (this.ftpTransfertype == 'TRACKING')
-            if (rec.ord_uid == 0 && rec.ord_agent_code=="TRANSPORTE-MX")
+            if (rec.ord_uid == 0 && rec.ord_agent_code == "TRANSPORTE-MX")
               POID_Is_Blank = true;
 
           this.ftp_agent_code = rec.ord_agent_code;
@@ -1303,7 +1303,7 @@ export class OrderListComponent {
       type: '',
       pkid: '',
       filedisplayname: '',
-      agent_code:''
+      agent_code: ''
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1328,7 +1328,7 @@ export class OrderListComponent {
           if (this.ftpTransfertype == 'ORDERLIST') {
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
             if (response.filenameack)
-            this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
+              this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
           } else //TRACKING CARGO PROCESS
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
           this.open(ftpsent);
@@ -1406,9 +1406,44 @@ export class OrderListComponent {
 
   ModifiedRecords(params: any) {
     if (params.type == "MAIL-PO-CHECKLIST") {
-      this.MailOrders('','MULTIPLE','CHECK-LIST');
+      this.MailOrders('', 'MULTIPLE', 'CHECK-LIST');
     }
   }
 
+  ShowPage(_rec: Joborderm) {
+    this.ord_uid_prevalue = _rec.ord_uid;
+    _rec.row_displayed = !_rec.row_displayed;
+  }
+  ClosePage(_rec: Joborderm) {
+    _rec.ord_uid = this.ord_uid_prevalue;
+    _rec.row_displayed = false;
+  }
 
+  UpdateUID(_rec: Joborderm) {
+    this.loading = true;
+    this.bShowList = false;
+    let SearchData = {
+      pkid: _rec.ord_pkid,
+      id_po: _rec.ord_uid,
+      company_code: this.gs.globalVariables.comp_code
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateUid(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        } else
+          _rec.row_displayed = false;
+        if (response.approved)
+          _rec.ord_status = 'APPROVED';
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
+  }
 }

@@ -163,6 +163,7 @@
                 <th>AGENT</th>
                 <th>SHIPPER</th>
                 <th>CONSIGNEE</th>
+                <th>INVOICE#</th>
                 <th>PO.ID</th>
                 <th>PO#</th>
                 <th>STYLE</th>
@@ -183,7 +184,6 @@
                 <th>DESCRIPTION</th>
                 <th>UNECO</th>
                 <th>HS.CODE</th>
-                <th>INVOICE#</th>
                 <th>POL</th>
                 <th>POD</th>
                 <th>CARGO.STATUS</th>
@@ -200,10 +200,11 @@
               <tr>
                 <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
                 <td>{{rec.ord_agentref_id}}</td>
-                <td (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_agent_name}}</td>
+                <td class="hlink" (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_agent_name}}</td>
                 <td (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_exp_name}}</td>
                 <td>{{rec.ord_imp_name}}</td>
-                <td>{{rec.ord_uid}}</td>
+                <td>{{rec.ord_invno}}</td>
+                <td class="hlink" (click)="ShowPage(rec)">{{rec.ord_uid}}</td>
                 <td>{{rec.ord_po}}</td>
                 <td>{{rec.ord_style}}</td>
                 <td>{{rec.ord_color}}</td>
@@ -223,7 +224,6 @@
                 <td height="5">{{rec.ord_desc}}</td>
                 <td>{{rec.ord_uneco}}</td>
                 <td>{{rec.ord_hs_code}}</td>
-                <td>{{rec.ord_invno}}</td>
                 <td>{{rec.ord_pol}}</td>
                 <td>{{rec.ord_pod}}</td>
                 <td>{{rec.ord_cargo_status}}</td>
@@ -234,6 +234,33 @@
                 <td>{{rec.ord_instock1}}</td>
                 <td>{{rec.ord_instock2}}</td>
                 <!-- <td>{{rec.ord_contractno}}</td> -->
+              </tr>
+              <tr *ngIf="rec.row_displayed">
+                <td colspan="35">
+                  <div class="page-details">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label col-form-label-sm">PO#</label>
+                          <label style="color:blue"
+                            class="col-sm-8 col-form-label col-form-label-sm">{{rec.ord_po}}</label>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label col-form-label-sm">PO.ID</label>
+                          <div class="col-sm-4">
+                            <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.ord_uid" />
+                          </div>
+                          <div class="col-sm-4">
+                            <button [disabled]="loading" (click)="UpdateUID(rec)"
+                              class="btn btn-primary btn-sm">Update</button>
+                            <button [disabled]="loading" (click)="ClosePage(rec)"
+                              class="btn btn-primary btn-sm">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -374,7 +401,7 @@
                       <label class="col-1 col-form-label col-form-label-sm">Unit</label>
                       <div class="col-2">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_pkg_unit"
-                        (blur)="OnBlur('ord_pkg_unit')" required maxlength="50" />
+                          (blur)="OnBlur('ord_pkg_unit')" required maxlength="50" />
                       </div>
                       <label class="col-1 col-form-label col-form-label-sm">Pcs</label>
                       <div class="col-4">
@@ -451,7 +478,8 @@
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label  col-form-label-sm">DeliveryPlace</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_deliv_place" (blur)="OnBlur('ord_deliv_place')" required maxlength="60" />
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_deliv_place"
+                          (blur)="OnBlur('ord_deliv_place')" required maxlength="60" />
                       </div>
                     </div>
                   </div>
@@ -629,7 +657,8 @@
         <div class="modal-body">
           <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"
             [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true
-            [PoFtpAttachList]="AttachList" [updatesql]="ftpUpdtSql" [rootpage]="'PO-FTPPAGE'" [disableBLftp]=true (ModifiedRecords)="ModifiedRecords($event)">
+            [PoFtpAttachList]="AttachList" [updatesql]="ftpUpdtSql" [rootpage]="'PO-FTPPAGE'" [disableBLftp]=true
+            (ModifiedRecords)="ModifiedRecords($event)">
           </app-mail>
         </div>
       </ng-template>

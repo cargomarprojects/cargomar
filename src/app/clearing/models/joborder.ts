@@ -73,10 +73,12 @@ export class Joborderm {
   flight_schedule:string;
   ord_pkg_unit:string;
   
+
   job_date:string;
   job_docno: string;
   rec_mode: string;
   rec_category: string;
+  row_displayed:boolean;
   _globalvariables: GlobalVariables;
 }
 
