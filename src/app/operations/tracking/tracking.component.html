@@ -40,7 +40,7 @@
     </table>
   </div>
 </div>
-<div  *ngIf="type=='AIR EXPORT'" class="page-details">
+<!-- <div  *ngIf="type=='AIR EXPORT'" class="page-details">
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group row">
@@ -117,13 +117,13 @@
       </div>
     </div>
   </div>
-</div>
-<div  *ngIf="type=='AIR EXPORT'" class="page-box">
+</div> -->
+<!-- <div  *ngIf="type=='AIR EXPORT'" class="page-box">
   <div class="col">
     <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
   </div>
-</div>
+</div> -->
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">

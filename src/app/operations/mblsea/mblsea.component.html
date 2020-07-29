@@ -514,6 +514,12 @@
                       <option [value]="'COLLECT'">COLLECT</option>
                     </select>
                   </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm"
+                    style="padding-left:0;padding-right:0">FreeDays</label>
+                  <div style="padding-left:0" class="col-sm-3">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_free_days"
+                      (blur)="OnBlur('book_free_days')" required maxlength="10" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -866,7 +872,7 @@
           <div *ngIf="ErrorMessage" class="alert alert-danger">
             {{ErrorMessage}}
           </div>
-          <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'" >
+          <div *ngIf="currentTab=='DETAILS' && mode == 'EDIT'">
             <div class="page-box">
               <app-shiptrack [pkid]="pkid" [menuid]="menuid" [type]="'MBL-SE'"
                 (ModifiedRecords)="ModifiedRecords($event)">
@@ -921,7 +927,7 @@
       </ngb-tab>
     </ngb-tabset>
   </div>
-  
+
   <ng-template #ftpsent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">{{title}}</h4>

@@ -142,7 +142,8 @@ export class LinerBkm {
   
   book_inland_haulage_status:string;
   book_dest_charges_status:string;
-
+  book_free_days:number;
+  
   rec_category: string;
   rec_mode: string;
   _globalvariables: GlobalVariables;
