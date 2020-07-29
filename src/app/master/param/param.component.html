@@ -64,6 +64,11 @@
           <th *ngIf="type == 'AIR CARRIER'">3DIGITCODE</th>
           <th *ngIf="type == 'AIR CARRIER'">TYPE</th>
           <th *ngIf="type == 'AIR CARRIER'">SCAC</th>
+
+          <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">TYPE</td>
+          <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">COLUMN</td>
+          <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">ORDER</td>
+
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
@@ -88,6 +93,11 @@
           <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'AIR CARRIER'">{{rec.param_id3}}</td>
+
+          <td *ngIf="type == 'SEA TRACKING EVETNS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id2}}</td>
+          <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id3}}</td>
+
         </tr>
       </tbody>
     </table>
