@@ -14,7 +14,8 @@
                 <th>CONTRACT#</th>
                 <th>STATUS</th>
                 <th>DESCRIPTION</th>
-                <th>DELETE</th>
+                <th class="text-center">TRACKING</th>
+                <th class="text-center">DELETE</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -27,7 +28,8 @@
                 <td>{{rec.ord_contractno}}</td>
                 <td>{{rec.ord_cargo_status}}</td>
                 <td>{{rec.ord_desc}}</td>
-                <td>
+                <td class="text-center"><i class="fa fa-truck fa-lg pointer" aria-hidden="true" (click)="TrackOrders(trackorder,rec.ord_pkid,rec.ord_po)"></i></td>
+                <td  class="text-center">
                   <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ord_pkid,name:rec.ord_po}"
                     (result)="RemoveList($event)"></App-Dialog>
                 </td>
@@ -181,6 +183,7 @@
           <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
           <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
           <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-default btn-sm">PASTE DATA</button>
+          <button [disabled]="loading" (click)="TrackOrders(trackorder,'','')" class="btn btn-default btn-sm">TRACKING</button>
           <!--<button [disabled]="loading" (click)="ActionHandler('REMOVE',Record.ord_pkid)" class="btn btn-default btn-sm">REMOVE</button>-->
         </div>
       </div>
@@ -338,7 +341,17 @@
       (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   </div>
 </ng-template>
-
+<ng-template #trackorder let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Tracking</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-trackorder [pkid]="ord_trkids" [refno]="ord_trkpos" [type]="'ORDLIST'"></app-trackorder>
+  </div>
+</ng-template>
 
 
 

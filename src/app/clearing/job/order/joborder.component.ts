@@ -41,7 +41,8 @@ export class JobOrderComponent {
   pkid = '';
   po_nos = '';
   style_nos = '';
-
+  ord_trkids: string = "";
+  ord_trkpos: string = "";
   ctr: number;
 
   bShowPasteData: boolean = false;
@@ -206,7 +207,7 @@ export class JobOrderComponent {
     this.Record.ord_contractno = '';
     this.Record.ord_source = '';
     this.Record.ord_deliv_place = '';
-    this.Record.ord_pkg_unit='';
+    this.Record.ord_pkg_unit = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
 
@@ -467,12 +468,12 @@ export class JobOrderComponent {
           this.po_nos = this.po_nos.toUpperCase();
           break;
         }
-        case 'ord_pkg_unit':
+      case 'ord_pkg_unit':
         {
           this.Record.ord_pkg_unit = this.Record.ord_pkg_unit.toUpperCase();
           break;
         }
-        
+
     }
   }
 
@@ -943,6 +944,31 @@ export class JobOrderComponent {
   closeModal() {
     this.modal.close();
 
+  }
+
+  TrackOrders(trkorder: any, _ord_id: string, _ord_po: string) {
+    this.ErrorMessage = "";
+    this.ord_trkids = "";
+    this.ord_trkpos = "";
+    if (_ord_id.length > 0) {
+      this.ord_trkids = _ord_id;
+      this.ord_trkpos = _ord_po;
+    } else {
+      for (let rec of this.RecordList) {
+        if (this.ord_trkids != "")
+          this.ord_trkids += ",";
+        this.ord_trkids += rec.ord_pkid;
+        if (this.ord_trkpos != "")
+          this.ord_trkpos += ", ";
+        this.ord_trkpos += rec.ord_po;
+      }
+    }
+    if (this.ord_trkids == "") {
+      this.ErrorMessage = "PO Not Found";
+      alert(this.ErrorMessage);
+      return;
+    }
+    this.modalService.open(trkorder);
   }
 
 }
