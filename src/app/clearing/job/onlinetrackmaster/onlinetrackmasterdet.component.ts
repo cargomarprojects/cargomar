@@ -91,7 +91,7 @@ export class OnlineTrackMasterDetComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.tracklist;
-        this.RecordList2 = response.ordlist;
+       // this.RecordList2 = response.ordlist;
       },
         error => {
           this.loading = false;
