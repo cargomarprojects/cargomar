@@ -97,7 +97,7 @@ export class OnlineTrackMasterComponent {
 
   ) {
     this.page_count = 0;
-    this.page_rows = 15;
+    this.page_rows = 30;
     this.page_current = 0;
 
     // URL Query Parameter 
@@ -121,8 +121,8 @@ export class OnlineTrackMasterComponent {
   }
 
   InitComponent() {
-    // this.from_date = this.gs.defaultValues.monthbegindate;
-    // this.to_date = this.gs.defaultValues.today;
+    this.from_date = this.gs.getNewdate(15);
+    this.to_date = this.gs.defaultValues.today;
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {

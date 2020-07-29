@@ -76,6 +76,11 @@ export class Joborderm {
 
   job_date:string;
   job_docno: string;
+  ord_mbl_id:string;
+  ord_hbl_id:string;
+  ord_etd:string;
+  ord_eta:string;
+  
   rec_mode: string;
   rec_category: string;
   row_displayed:boolean;
