@@ -26,6 +26,8 @@ export class JobComponent {
 
   modal: any;
 
+  bPrint = false;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -145,6 +147,7 @@ export class JobComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      this.bPrint = this.menu_record.rights_print;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -699,7 +702,8 @@ export class JobComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.job_fromdate,
-      to_date: this.gs.globalData.job_todate
+      to_date: this.gs.globalData.job_todate,
+      report_folder: this.gs.globalVariables.report_folder,
     };
 
     this.ErrorMessage = '';
@@ -707,16 +711,19 @@ export class JobComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
-        });
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
+      }, error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
+      });
   }
 
   NewRecord() {
