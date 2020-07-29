@@ -1,0 +1,114 @@
+<div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">FROM.DATE</label>
+                <div class="col-4">
+                  <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                </div>
+                <label class="col-2 col-form-label col-form-label-sm">TO.DATE</label>
+                <div class="col-4">
+                  <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">MAWB#</label>
+                    <div class="col-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no"
+                        (blur)="OnBlur('master_no')" required maxlength="60" />
+                    </div>
+                    <label class="col-2 col-form-label col-form-label-sm">HAWB#</label>
+                    <div class="col-4">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no"
+                        (blur)="OnBlur('house_no')" required maxlength="60" />
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group row">
+            <div class="offset-2 col-10">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+              <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>MAWB#</th>
+            <th>ETD</th>
+            <th>HAWB#</th>
+            <th>POL</th>
+            <th>POD</th>
+            <th>ETA</th>
+            <th>SHIPPER</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr>
+            <td>{{rec.ord_mbl_no}}</td>
+            <td>{{rec.rec_created_dte}}</td>
+            <td>{{rec.ord_hbl_no}}</td>
+            <td>{{rec.ord_pol}}</td>
+            <td>{{rec.ord_pod}}</td>
+            <td>{{rec.rec_created_dte}}</td>
+            <td>{{rec.ord_exp_name}}</td>
+         </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="page-pager">
+      <div *ngIf="page_count">
+        <ul class="pagination pagination-sm">
+          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+              (Records-{{page_rowcount}})</a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+          </li>
+          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+  </div>
+  
