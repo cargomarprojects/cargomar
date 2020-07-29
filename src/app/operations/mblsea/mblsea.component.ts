@@ -38,6 +38,7 @@ export class MblSeaComponent {
 
   bAdmin = false;
   bDocs = false;
+  bPrint = false;
 
   mMsg: string = '';
   sSubject: string = '';
@@ -138,6 +139,7 @@ export class MblSeaComponent {
     this.folder_chk = false;
     this.bAdmin = false;
     this.bDocs = false;
+    this.bPrint =false;
     this.AttachList = new Array<any>();
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -147,6 +149,8 @@ export class MblSeaComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      this.bPrint = this.menu_record.rights_print
+
     }
     this.InitLov();
     this.LoadCombo();
@@ -518,7 +522,8 @@ export class MblSeaComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.mbl_fromdate,
-      to_date: this.gs.globalData.mbl_todate
+      to_date: this.gs.globalData.mbl_todate,
+      report_folder: this.gs.globalVariables.report_folder,
     };
 
     this.ErrorMessage = '';
@@ -526,10 +531,14 @@ export class MblSeaComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
@@ -1124,7 +1133,7 @@ export class MblSeaComponent {
       folderid: '',
       branch_code: '',
       comp_code: '',
-      hide_ho_entries : ''
+      hide_ho_entries: ''
     };
     SearchData.category = category;
     SearchData.type = _type;

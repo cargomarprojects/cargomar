@@ -4,6 +4,7 @@
       <label>{{title}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      
       <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -50,6 +51,7 @@
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>                    
             </div>
           </div>
         </div>
@@ -85,6 +87,7 @@
             <th>FOLDER</th>
             <th>SENT.ON</th>
             <th>SHIPPER</th>
+            <th>CONSIGNEE</th>
             <th>AGENT</th>
             <th>CARRIER</th>
             <th>POL</th>
@@ -109,6 +112,7 @@
             <td>{{rec.book_folder_no}}</td>
             <td>{{rec.book_folder_sent_date}}</td>
             <td>{{rec.book_shipper_name}}</td>
+            <td>{{rec.book_consignee_name}}</td>
             <td>{{rec.book_agent_name}}</td>
             <td>{{rec.book_liner_name}}</td>
             <td>{{rec.book_pol_name}}</td>
