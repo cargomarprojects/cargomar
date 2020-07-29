@@ -15,7 +15,9 @@ export class OnlineTrackMasterService {
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OnlineTrackMaster/List', SearchData, this.gs.headerparam2('authorized'));
   }
-
+  TrackingList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OnlineTrackMaster/TrackingList', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
 

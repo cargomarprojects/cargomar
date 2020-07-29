@@ -81,7 +81,7 @@
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr>
-            <td>{{rec.ord_mbl_no}}</td>
+            <td class="hlink" (click)="ShowPage(rec)">{{rec.ord_mbl_no}}</td>
             <td>{{rec.ord_etd}}</td>
             <td>{{rec.ord_hbl_no}}</td>
             <td>{{rec.ord_pol}}</td>
@@ -89,6 +89,17 @@
             <td>{{rec.ord_eta}}</td>
             <td>{{rec.ord_exp_name}}</td>
          </tr>
+         <tr *ngIf="rec.row_displayed">
+          <td colspan="7">
+            <div class="page-details">
+              <div class="row">
+                <div class="col-sm-12">               
+                  <app-onlinetrackmasterdet [type]="'AIR EXPORT'"  [record]="rec" (ModifiedRecords)="ModifiedRecords($event)"></app-onlinetrackmasterdet>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>

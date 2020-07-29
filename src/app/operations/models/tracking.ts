@@ -19,7 +19,7 @@ export class Trackingm {
   trk_pod_eta: string;
   trk_pod_eta_confirm: boolean ;
   trk_order: number;
-  
+  trk_desc:string;
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;

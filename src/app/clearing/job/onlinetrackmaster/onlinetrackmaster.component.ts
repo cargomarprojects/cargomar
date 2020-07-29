@@ -329,7 +329,9 @@ export class OnlineTrackMasterComponent {
   }
 
   
-
+  ShowPage(_rec: Joborderm) {  
+    _rec.row_displayed = !_rec.row_displayed;
+  }
 
    
 
