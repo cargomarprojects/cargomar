@@ -25,6 +25,7 @@ export class HblSeaAirComponent {
     modal: any;
     buysell_record: any;
     bAdmin = false;
+    bPrint = false;
 
     bDocs = false;
     bBilling = false;
@@ -52,7 +53,7 @@ export class HblSeaAirComponent {
     page_rows = 0;
     page_rowcount = 0;
 
-    To_ids:string='';
+    To_ids: string = '';
     mSubject: string = '';
     mMsg: string = '';
     sHtml: string = '';
@@ -174,6 +175,8 @@ export class HblSeaAirComponent {
                 this.bAdmin = true;
             if (this.menu_record.rights_docs)
                 this.bDocs = true;
+
+            this.bPrint = this.menu_record.rights_print;
         }
 
 
@@ -495,7 +498,8 @@ export class HblSeaAirComponent {
             from_date: this.gs.globalData.hbl_fromdate,
             to_date: this.gs.globalData.hbl_todate,
             showbuysell: this.bbuysellrate ? "Y" : "N",
-            hide_ho_entries: this.gs.globalVariables.hide_ho_entries
+            hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
+            report_folder: this.gs.globalVariables.report_folder,
         };
 
         this.ErrorMessage = '';
@@ -503,15 +507,18 @@ export class HblSeaAirComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
+            }, error => {
+                this.loading = false;
+                this.ErrorMessage = this.gs.getError(error);
+            });
     }
 
     NewRecord() {
@@ -1083,7 +1090,7 @@ export class HblSeaAirComponent {
                 this.mSubject = response.subject;
                 this.mMsg = response.message;
                 this.AttachList = new Array<any>();
-                this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize});
+                this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
                 this.open(mailsent);
 
                 // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
