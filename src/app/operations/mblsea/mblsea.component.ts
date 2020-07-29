@@ -651,6 +651,7 @@ export class MblSeaComponent {
     this.Record.book_pol_eta_confirm = false;
     this.Record.book_inland_haulage_status = 'NA';
     this.Record.book_dest_charges_status = 'NA';
+    this.Record.book_free_days = 0;
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();

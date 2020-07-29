@@ -1,5 +1,6 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 import { Hblm } from '../../operations/models/hbl';
+import { Trackingm } from './tracking';
 
 export class Mblm {
 
@@ -121,6 +122,8 @@ export class Mblm {
   mbl_docs: number;
 
   mbl_deliv_date: string;
+  mbl_pol_eta:string;
+  mbl_pol_eta_confirm:boolean;
 
   lock_record: boolean;
 
@@ -130,5 +133,6 @@ export class Mblm {
 
   _globalvariables: GlobalVariables;
   HblList: Hblm[] = [];
+  TransitList:Trackingm[] = [];
 }
 

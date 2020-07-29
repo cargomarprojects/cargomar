@@ -13,7 +13,7 @@ export class TransitComponent {
   title = 'Transit Details';
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
-  @Input() public pkid: string='';
+  @Input() public pkid: string = '';
   @Input() public type: string = '';
   @Input() mRecord: Trackingm = new Trackingm;
 
@@ -79,10 +79,13 @@ export class TransitComponent {
     this.POLRECORD = new SearchTable();
     this.POLRECORD.controlname = "POL";
     this.POLRECORD.displaycolumn = "CODE";
-    this.POLRECORD.type = 'SEA PORT';
+    if (this.type === "SEA EXPORT")
+      this.POLRECORD.type = 'SEA PORT';
+    else
+      this.POLRECORD.type = 'AIR PORT';
     this.POLRECORD.id = this.mRecord.trk_pol_id;
     this.POLRECORD.code = this.mRecord.trk_pol_code;
-    this.POLRECORD.name =this.mRecord.trk_pol_name;
+    this.POLRECORD.name = this.mRecord.trk_pol_name;
 
     // this.PODRECORD = new SearchTable();
     // this.PODRECORD.controlname = "POD";
@@ -95,30 +98,33 @@ export class TransitComponent {
     this.VESSELRECORD = new SearchTable();
     this.VESSELRECORD.controlname = "VSL";
     this.VESSELRECORD.displaycolumn = "CODE";
-    this.VESSELRECORD.type = 'VESSEL';
+    if (this.type === "SEA EXPORT")
+      this.VESSELRECORD.type = 'VESSEL';
+    else
+      this.VESSELRECORD.type = 'AIR CARRIER';
     this.VESSELRECORD.id = this.mRecord.trk_vsl_id;
-    this.VESSELRECORD.code =  this.mRecord.trk_vsl_code;
-    this.VESSELRECORD.name =  this.mRecord.trk_vsl_name;
+    this.VESSELRECORD.code = this.mRecord.trk_vsl_code;
+    this.VESSELRECORD.name = this.mRecord.trk_vsl_name;
   }
 
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "POL") {
-        this.mRecord.trk_pol_id = _Record.id;
-        this.mRecord.trk_pol_code = _Record.code;
-        this.mRecord.trk_pol_name = _Record.name;
-      }
-  
-      // if (_Record.controlname == "POD") {
-      //   this.mRecord.trk_pod_id = _Record.id;
-      //   this.mRecord.trk_pod_code = _Record.code;
-      //   this.mRecord.trk_pod_name = _Record.name;
-      // }
-  
-      if (_Record.controlname == "VSL") {
-        this.mRecord.trk_vsl_id = _Record.id;
-        this.mRecord.trk_vsl_code = _Record.code;
-        this.mRecord.trk_vsl_name = _Record.name;
-      }
+      this.mRecord.trk_pol_id = _Record.id;
+      this.mRecord.trk_pol_code = _Record.code;
+      this.mRecord.trk_pol_name = _Record.name;
+    }
+
+    // if (_Record.controlname == "POD") {
+    //   this.mRecord.trk_pod_id = _Record.id;
+    //   this.mRecord.trk_pod_code = _Record.code;
+    //   this.mRecord.trk_pod_name = _Record.name;
+    // }
+
+    if (_Record.controlname == "VSL") {
+      this.mRecord.trk_vsl_id = _Record.id;
+      this.mRecord.trk_vsl_code = _Record.code;
+      this.mRecord.trk_vsl_name = _Record.name;
+    }
   }
 
   AddRow() {

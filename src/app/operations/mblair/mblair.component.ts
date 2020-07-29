@@ -7,7 +7,7 @@ import { Mblm } from '../models/mbl';
 import { MblService } from '../services/mbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
-
+import { Trackingm } from '../models/tracking';
 
 @Component({
   selector: 'app-mblm',
@@ -534,9 +534,13 @@ export class MblAirComponent {
     this.Record.lock_record = false;
     this.Record.mbl_released_date = '';
     this.Record.mbl_deliv_date='';
-    
+    this.Record.mbl_pol_eta = '';
+    this.Record.mbl_pol_eta_confirm = false;
+
     this.InitLov();
     this.Record.rec_mode = this.mode;
+    this.Record.TransitList = new Array<Trackingm>();
+    this.NewTransitRecord();
   }
 
   // Load a single Record for VIEW/EDIT
@@ -626,6 +630,8 @@ export class MblAirComponent {
     this.SALESMANRECORD.name = this.Record.mbl_salesman_name;
 
     this.Record.rec_mode = this.mode;
+    if (this.Record.TransitList.length == 0)
+      this.NewTransitRecord();
   }
 
   // Save Data
@@ -932,5 +938,38 @@ export class MblAirComponent {
   }
   open(content: any) {
     this.modal = this.modalService.open(content);
+  }
+
+  NewTransitRecord() {
+    let Rec: Trackingm = new Trackingm;
+    Rec.trk_pkid = this.gs.getGuid();
+    Rec.trk_parent_id = this.Record.mbl_pkid;
+    Rec.rec_category = this.type;
+    Rec.trk_vsl_id = '';
+    Rec.trk_vsl_code = '';
+    Rec.trk_vsl_name = '';
+    Rec.trk_voyage = '';
+    Rec.trk_pol_id = '';
+    Rec.trk_pol_code = '';
+    Rec.trk_pol_name = '';
+    Rec.trk_pol_etd = '';
+    Rec.trk_pol_etd_confirm = false;
+    Rec.trk_pod_id = '';
+    Rec.trk_pod_code = '';
+    Rec.trk_pod_name = '';
+    Rec.trk_pod_eta = '';
+    Rec.trk_pod_eta_confirm = false;
+    this.Record.TransitList.push(Rec);
+  }
+  ModifiedRecords(params: any) {
+    if (params.type == "TRANSIT") {
+      if (params.saction == "ADD")
+        this.NewTransitRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.TransitList.splice(this.Record.TransitList.findIndex(rec => rec.trk_pkid == params.sid), 1);
+        if (this.Record.TransitList.length == 0)
+          this.NewTransitRecord();
+      }
+    }
   }
 }
