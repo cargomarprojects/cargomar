@@ -205,6 +205,14 @@ export class ParamComponent {
       this.id5 = "Control Type";
       this.id5_lovtype = "CTRL-TYPE";
     }
+
+    if (this.type == 'AIR TRACKING EVENTS' || this.type == 'SEA TRACKING EVENTS') {
+      this.id1 = "Type(DATE/TEXT)"
+      this.id2 = "Update Column";
+      this.id3 = "Order";
+    }
+
+
     if (this.type == 'MAILING TYPE') {
       this.code_length = 50;
     }
@@ -412,6 +420,12 @@ export class ParamComponent {
     if (this.Record.param_name.trim().length <= 0) {
       bret = false;
       sError += "\n\rName Cannot Be Blank";
+    }
+    if (this.type == 'SEA TRACKING EVENTS' || this.type == 'AIR TRACKING EVENTS') {
+        if ( this.Record.param_id1 != 'DATE' && this.Record.param_id1 != 'TEXT') {
+          bret = false;
+          sError += "\n\rTYPE CAN BE DATE OR TEXT";
+        }
     }
 
     if (this.type == 'CONTAINER TYPE') {
