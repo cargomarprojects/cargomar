@@ -27,6 +27,7 @@ import { ConstComponent } from './job/singlewindow/const.component';
 import { ProdComponent } from './job/singlewindow/prod.component';
 import { CtrlComponent } from './job/singlewindow/ctrl.component';
 import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
+import { OnlineTrackMasterComponent } from './job/onlinetrackmaster/onlinetrackmaster.component';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
     ConstComponent,
     ProdComponent,
     CtrlComponent,
-    OnlineTrackComponent
+    OnlineTrackComponent,
+    OnlineTrackMasterComponent
   ],
   providers: [
   ],
