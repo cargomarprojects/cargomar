@@ -124,6 +124,7 @@ export class Mblm {
   mbl_deliv_date: string;
   mbl_pol_eta:string;
   mbl_pol_eta_confirm:boolean;
+  mbl_deliv_date_confirm:boolean;
 
   lock_record: boolean;
 

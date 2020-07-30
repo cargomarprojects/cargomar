@@ -488,6 +488,13 @@
             (blur)="OnBlur('bl_commodity')" required maxlength="50" />
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Place of Delivery</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_place_delivery"
+            (blur)="OnBlur('bl_place_delivery')" required maxlength="60" />
+        </div>
+      </div>
     </div>
   </div>
 

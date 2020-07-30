@@ -265,10 +265,10 @@ export class AirBlComponent {
         this.BLPrintFormatList = response.blprintformatlist;
         this.GetRecord("LIST", "");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   GetRecord(_type: string, _formattype: string) {
@@ -325,10 +325,10 @@ export class AirBlComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -447,10 +447,10 @@ export class AirBlComponent {
         this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   GetAgentCharges(_num: number) {
@@ -535,12 +535,12 @@ export class AirBlComponent {
           this.Record.bl_shipper_add4 = this.Record.bl_shipper_add4.toUpperCase();
           break;
         }
-        case 'bl_shipper_state':
+      case 'bl_shipper_state':
         {
           this.Record.bl_shipper_state = this.Record.bl_shipper_state.toUpperCase();
           break;
         }
-        case 'bl_shipper_country':
+      case 'bl_shipper_country':
         {
           this.Record.bl_shipper_country = this.Record.bl_shipper_country.toUpperCase();
           break;
@@ -570,12 +570,12 @@ export class AirBlComponent {
           this.Record.bl_consignee_add4 = this.Record.bl_consignee_add4.toUpperCase();
           break;
         }
-        case 'bl_consignee_state':
+      case 'bl_consignee_state':
         {
           this.Record.bl_consignee_state = this.Record.bl_consignee_state.toUpperCase();
           break;
         }
-        case 'bl_consignee_country':
+      case 'bl_consignee_country':
         {
           this.Record.bl_consignee_country = this.Record.bl_consignee_country.toUpperCase();
           break;
@@ -605,12 +605,12 @@ export class AirBlComponent {
           this.Record.bl_notify_add4 = this.Record.bl_notify_add4.toUpperCase();
           break;
         }
-        case 'bl_notify_state':
+      case 'bl_notify_state':
         {
           this.Record.bl_notify_state = this.Record.bl_notify_state.toUpperCase();
           break;
         }
-        case 'bl_notify_country':
+      case 'bl_notify_country':
         {
           this.Record.bl_notify_country = this.Record.bl_notify_country.toUpperCase();
           break;
@@ -1321,7 +1321,7 @@ export class AirBlComponent {
           this.Record.hbl_bl_no = this.Record.hbl_bl_no.replace(oldChar2, '').toUpperCase();
           break;
         }
-        case 'hbl_fcr_no':
+      case 'hbl_fcr_no':
         {
           this.Record.hbl_fcr_no = this.Record.hbl_fcr_no.toUpperCase();
           break;
@@ -1342,6 +1342,11 @@ export class AirBlComponent {
       case 'bl_fcr_doc3':
         {
           this.Record.bl_fcr_doc3 = this.Record.bl_fcr_doc3.toUpperCase();
+          break;
+        } 
+        case 'bl_place_delivery':
+        {
+          this.Record.bl_place_delivery = this.Record.bl_place_delivery.toUpperCase();
           break;
         }
     }
@@ -1457,10 +1462,10 @@ export class AirBlComponent {
           this.ErrorMessage = 'Invalid Address';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -1557,14 +1562,14 @@ export class AirBlComponent {
           this.Record.hbl_bl_no = response.newno;
           if (this.Record.hbl_bl_no.trim().length > 0)
             this.Record.hbl_blno_generated = "G";
-        }else if (_type == "FCR")
-        this.Record.hbl_fcr_no = response.newno;
+        } else if (_type == "FCR")
+          this.Record.hbl_fcr_no = response.newno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   UnlockBLNo(_type: string) {
@@ -1590,10 +1595,10 @@ export class AirBlComponent {
         this.loading = false;
         this.InfoMessage = "Successfully Unlocked";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 

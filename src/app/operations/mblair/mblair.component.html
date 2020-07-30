@@ -496,28 +496,28 @@
                       <input type="text" disabled class="form-control form-control-sm"
                         [(ngModel)]="Record.mbl_pofd_name" />
                     </div>
-                    <!-- <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                    <!-- <label class="col-sm-1 col-form-label col-form-label-sm">DeliveryDate</label>
                     <div class="col-sm-2 pr-2">
-                      <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event">
+                      <app-date [inputdate]="Record.mbl_deliv_date" (ValueChanged)="Record.mbl_deliv_date=$event">
                       </app-date>
-                    </div> -->
-                    <!-- <div class="col-sm-1 pl-0 Pr-0">
+                    </div>
+                    <div class="col-sm-2 pl-0 Pr-0">
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox"
-                            [(ngModel)]="Record.book_pofd_eta_confirm">Confm
+                            [(ngModel)]="Record.mbl_deliv_date_confirm">Confm
                         </label>
                       </div>
                     </div> -->
                   
-                    <div class="col-sm-3 input-group input-group-sm">
+                    <div class="col-sm-2 input-group input-group-sm">
                       <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
                         class="btn btn-success btn-sm mr-1">Tracking</button>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">DeliveryDate</label>
                     <div class="col-sm-4">
@@ -525,7 +525,7 @@
                       </app-date>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 

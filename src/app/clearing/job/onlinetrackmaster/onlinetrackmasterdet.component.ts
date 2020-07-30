@@ -82,7 +82,8 @@ export class OnlineTrackMasterDetComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-     mblid:this.record.ord_mbl_id
+     mblid:this.record.ord_mbl_id,
+     hblid:this.record.ord_hbl_id
     };
 
     this.ErrorMessage = '';

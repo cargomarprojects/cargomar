@@ -132,7 +132,7 @@ export class OnlineTrackMasterComponent {
     }
     this.LoadCombo();
     this.initLov();
-    // this.List("NEW");
+    this.List("NEW");
   }
 
   //// Destroy Will be called when this component is closed

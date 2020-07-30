@@ -536,7 +536,7 @@ export class MblAirComponent {
     this.Record.mbl_deliv_date='';
     this.Record.mbl_pol_eta = '';
     this.Record.mbl_pol_eta_confirm = false;
-
+    this.Record.mbl_deliv_date_confirm = false;
     this.InitLov();
     this.Record.rec_mode = this.mode;
     this.Record.TransitList = new Array<Trackingm>();

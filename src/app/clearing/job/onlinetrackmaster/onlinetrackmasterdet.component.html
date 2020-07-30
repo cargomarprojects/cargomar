@@ -1,11 +1,31 @@
 <div class="col-sm-12 m-0 p-0">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <div class="form-group row">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <font color="black">
                         <strong>
-                            TRACKING
+                            TRACKING&nbsp;
+                        </strong>
+                    </font>
+                    <font color="black">
+                        <strong>
+                            MAWB#&nbsp;
+                        </strong>
+                    </font>
+                    <font color="blue">
+                        <strong>
+                            {{record.ord_mbl_no}}&nbsp;
+                        </strong>
+                    </font>
+                    <font color="black">
+                        <strong>
+                            HAWB#&nbsp;
+                        </strong>
+                    </font>
+                    <font color="blue">
+                        <strong>
+                            {{record.ord_hbl_no}}
                         </strong>
                     </font>
                 </div>
@@ -17,25 +37,44 @@
             <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                     <tr>
-                        <th>DESCRIPTION</th>
-                        <th>PORT</th>
+                        <th>SL#</th>
                         <th>AIRLINE</th>
                         <th>FLIGHT#</th>
+                        <th>POL</th>
                         <th>ETD</th>
+                        <th class="text-center">CONFIRM</th>
+                        <th>POD</th>
                         <th>ETA</th>
+                        <th class="text-center">CONFIRM</th>
                     </tr>
                 </thead>
-                <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                    <tr>
-                        <td>{{rec.trk_desc}}</td>
-                        <td>{{rec.trk_pol_name}}</td>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+                        <td>{{i+1}}</td>
                         <td>{{rec.trk_vsl_name}}</td>
                         <td>{{rec.trk_voyage}}</td>
+                        <td>{{rec.trk_pol_name}}</td>
                         <td>{{rec.trk_pol_etd}}</td>
+                        <td class="text-center">{{rec.trk_pol_etd_confirm ? 'Y' : '-'}}</td>
+                        <td>{{rec.trk_pod_name}}</td>
                         <td>{{rec.trk_pod_eta}}</td>
+                        <td class="text-center">{{rec.trk_pod_eta_confirm ? 'Y' : '-'}}</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <font color="black">
+                        <strong>
+                            PO NOS
+                        </strong>
+                    </font>
+                </div>
+            </div>
         </div>
     </div>
     <div class="page-box">
@@ -43,7 +82,6 @@
             <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                     <tr>
-                        <th>HAWB#</th>
                         <th>INVOICE#</th>
                         <th>PO#</th>
                         <th>PICKED.ON</th>
@@ -55,7 +93,6 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
                     <tr>
-                        <td>{{rec.ord_hbl_no}}</td>
                         <td>{{rec.ord_invno}}</td>
                         <td>{{rec.ord_po}}</td>
                         <td>{{rec.ord_cargo_ready_date}}</td>
