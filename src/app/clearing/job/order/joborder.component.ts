@@ -208,6 +208,7 @@ export class JobOrderComponent {
     this.Record.ord_source = '';
     this.Record.ord_deliv_place = '';
     this.Record.ord_pkg_unit = '';
+    this.Record.ord_uid =0;
     this.Record.rec_mode = this.mode;
     this.InitLov();
 

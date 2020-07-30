@@ -463,6 +463,7 @@ export class OrderListComponent {
     this.Record.ord_pod_code = '';
     this.Record.rec_category = 'SEA EXPORT';
     this.Record.ord_deliv_place = '';
+    this.Record.ord_uid = 0;
     this.initLov();
     // this.EXPRECORD.id = '';
     // this.EXPRECORD.name = '';
@@ -549,6 +550,10 @@ export class OrderListComponent {
         this.loading = false;
         if (this.mode == 'ADD')
           this.Record.ord_uid = response.uidno;
+        if (response.uidstatus.length > 0)
+          this.Record.ord_status = response.uidstatus;
+        else
+          this.Record.ord_status = "REPORTED";
         this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
@@ -623,6 +628,7 @@ export class OrderListComponent {
       REC.ord_pol = this.Record.ord_pol;
       REC.ord_pod = this.Record.ord_pod;
       REC.ord_uid = this.Record.ord_uid;
+      REC.ord_status = this.Record.ord_status;
     }
   }
 
