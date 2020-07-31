@@ -1343,8 +1343,8 @@ export class AirBlComponent {
         {
           this.Record.bl_fcr_doc3 = this.Record.bl_fcr_doc3.toUpperCase();
           break;
-        } 
-        case 'bl_place_delivery':
+        }
+      case 'bl_place_delivery':
         {
           this.Record.bl_place_delivery = this.Record.bl_place_delivery.toUpperCase();
           break;
@@ -1614,4 +1614,41 @@ export class AirBlComponent {
   //  return this.gs.roundNumber(nAmt, 2);
   //}
 
+  UpdateDeliveryDet() {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: this.parentid,
+      type: 'UPDATE-DELIVERY',
+      itm_po: '',
+      itm_desc: '',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      deliv_place:'',
+      deliv_date:'',
+      deliv_date_confirm:false
+    }
+
+    SearchData.pkid = this.parentid;
+    SearchData.type = 'UPDATE-DELIVERY';
+    SearchData.itm_po = '';
+    SearchData.itm_desc = '';
+    SearchData.deliv_place = this.Record.bl_place_delivery;
+    SearchData.deliv_date = this.Record.hbl_deliv_date;
+    SearchData.deliv_date_confirm = this.Record.hbl_deliv_date_confirm;
+
+    this.mainService.UpdateBL(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Successfully Updated";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
+  }
 }
