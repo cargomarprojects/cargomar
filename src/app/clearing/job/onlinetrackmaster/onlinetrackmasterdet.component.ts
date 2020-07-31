@@ -22,6 +22,8 @@ export class OnlineTrackMasterDetComponent {
   pkid: string = '';
   remarks: string = '';
 
+  invdestfile_name: string = '';
+  invdestfile_displayname: string = '';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -86,7 +88,8 @@ export class OnlineTrackMasterDetComponent {
       hblid: this.record.ord_hbl_id,
       tp_code: this.gs.globalVariables.tp_code,
       tp_name: this.gs.globalVariables.tp_name,
-      istp: this.gs.globalVariables.istp
+      istp: this.gs.globalVariables.istp,
+      root_folder: this.gs.defaultValues.root_folder
     };
 
     this.ErrorMessage = '';
@@ -96,6 +99,8 @@ export class OnlineTrackMasterDetComponent {
         this.loading = false;
         this.RecordList = response.tracklist;
         this.RecordList2 = response.ordlist;
+        this.invdestfile_displayname = response.invdestfile_displayname;
+        this.invdestfile_name = response.invdestfile_name;
       },
         error => {
           this.loading = false;
@@ -105,5 +110,11 @@ export class OnlineTrackMasterDetComponent {
   Close() {
     this.record.row_displayed = false;
   }
-
+  ShowInvoice() {
+    if (this.invdestfile_displayname.length > 0)
+      this.Downloadfile(this.invdestfile_name, "", this.invdestfile_displayname);
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 }

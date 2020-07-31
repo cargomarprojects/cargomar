@@ -74,14 +74,14 @@
           <th>HAWB#</th>
           <th>POL</th>
           <th>POD</th>
-          <th>DELIVERY.PLACE</th>
           <th>ETD</th>
           <th>ETA</th>
+          <th>DELIVERY.PLACE</th>
           <th>DELIVERY.DATE</th>
           <th>CONFIRM</th>
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
-          <th>STATUS</th>
+          <th>DOC.PROOF</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -90,17 +90,17 @@
           <td>{{rec.ord_hbl_no}}</td>
           <td>{{rec.ord_pol}}</td>
           <td>{{rec.ord_pod}}</td>
-          <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_etd}}</td>
           <td>{{rec.ord_eta}}</td>
+          <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_deliv_date}}</td>
           <td>{{rec.ord_deliv_confirm==true?'Y':'-'}}</td>
           <td>{{rec.ord_exp_name}}</td>
           <td>{{rec.ord_imp_name}}</td>
-          <td class="hlink" (click)="ShowFile(rec.ord_deliv_prooffile,rec.ord_deliv_prooffile_name)">{{rec.ord_deliv_prooffile_status==true?'AVAILABLE':''}}</td>
+          <td class="hlink" (click)="ShowFile(rec.ord_deliv_prooffile,rec.ord_deliv_prooffile_name,rec.ord_deliv_prooffile_status)">{{rec.ord_deliv_prooffile_status==true?'AVAILABLE':''}}</td>
         </tr>
         <tr *ngIf="rec.row_displayed">
-          <td colspan="11">
+          <td colspan="12">
             <div style="border-style:solid;border-color:green" class="page-details">
               <div class="row">
                 <div class="col-sm-12">

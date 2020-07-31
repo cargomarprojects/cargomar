@@ -72,7 +72,7 @@ export class OnlineTrackMasterComponent {
   bDisabledControl: boolean = false;
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
- 
+
 
   LIST_EXPRECORD: SearchTable = new SearchTable();
   LIST_IMPRECORD: SearchTable = new SearchTable();
@@ -141,7 +141,7 @@ export class OnlineTrackMasterComponent {
   }
 
   initLov(caption: string = '') {
- 
+
     this.LIST_EXPRECORD = new SearchTable();
     this.LIST_EXPRECORD.controlname = "LIST_SHIPPER";
     this.LIST_EXPRECORD.displaycolumn = "NAME";
@@ -178,7 +178,7 @@ export class OnlineTrackMasterComponent {
   LovSelected(_Record: SearchTable) {
     // Company Settings
 
-    
+
     if (_Record.controlname == "LIST_SHIPPER") {
       this.list_exp_id = _Record.id;
       this.list_exp_name = _Record.name;
@@ -198,7 +198,7 @@ export class OnlineTrackMasterComponent {
 
     }
 
-     
+
 
   }
 
@@ -249,7 +249,7 @@ export class OnlineTrackMasterComponent {
   }
 
 
-   
+
 
   //// Query List Data
   List(_type: string) {
@@ -283,13 +283,13 @@ export class OnlineTrackMasterComponent {
       file_pkid: this.gs.getGuid(),
       ord_status: this.ord_status,
       sort_colname: this.sort_colname,
-      tp_code:this.gs.globalVariables.tp_code,
-      tp_name:this.gs.globalVariables.tp_name,
-      istp:this.gs.globalVariables.istp,
-      root_folder:this.gs.defaultValues.root_folder
+      tp_code: this.gs.globalVariables.tp_code,
+      tp_name: this.gs.globalVariables.tp_name,
+      istp: this.gs.globalVariables.istp,
+      root_folder: this.gs.defaultValues.root_folder
     };
 
-    this.ErrorMessage = ''; 
+    this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
@@ -312,16 +312,16 @@ export class OnlineTrackMasterComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-  
+
 
   OnBlur(field: string) {
     switch (field) {
-        case 'master_no':
+      case 'master_no':
         {
           this.master_no = this.master_no.toUpperCase();
           break;
         }
-        case 'house_no': 
+      case 'house_no':
         {
           this.house_no = this.house_no.toUpperCase();
           break;
@@ -329,28 +329,30 @@ export class OnlineTrackMasterComponent {
     }
   }
 
-  
-  ShowPage(_rec: Joborderm) {  
+
+  ShowPage(_rec: Joborderm) {
     _rec.row_displayed = !_rec.row_displayed;
   }
 
-   
+
 
   Close() {
     this.gs.ClosePage('home');
   }
 
-   
+
 
   ModifiedRecords(params: any) {
     // if (params.type == "MAIL-PO-CHECKLIST") {
     //   this.MailOrders('','MULTIPLE','CHECK-LIST');
     // }
   }
-  ShowFile(filename: string, filedisplayname: string = '') {
-    if (filedisplayname == undefined || filedisplayname == '')
-      filedisplayname = filename;
-    this.Downloadfile(filename, "", filedisplayname);
+  ShowFile(filename: string, filedisplayname: string = '', _fileExist: boolean = false) {
+    if (_fileExist) {
+      if (filedisplayname == undefined || filedisplayname == '')
+        filedisplayname = filename;
+      this.Downloadfile(filename, "", filedisplayname);
+    }
   }
 
 
