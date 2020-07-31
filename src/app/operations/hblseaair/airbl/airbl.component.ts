@@ -1628,7 +1628,9 @@ export class AirBlComponent {
       year_code: this.gs.globalVariables.year_code,
       deliv_place:'',
       deliv_date:'',
-      deliv_date_confirm:false
+      deliv_date_confirm:false,
+      user_code:this.gs.globalVariables.user_code,
+      blno:this.Record.hbl_bl_no
     }
 
     SearchData.pkid = this.parentid;
