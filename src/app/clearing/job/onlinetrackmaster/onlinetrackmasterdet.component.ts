@@ -14,15 +14,15 @@ import { Trackingm } from '../../../operations/models/tracking';
 export class OnlineTrackMasterDetComponent {
   // Local Variables 
   title = '';
- 
+
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() record: Joborderm;
   @Input() type: '';
 
   pkid: string = '';
   remarks: string = '';
-      
-  
+
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -37,17 +37,17 @@ export class OnlineTrackMasterDetComponent {
 
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
   InfoMessage = "";
 
   mode = '';
-  
+
   SearchData = {
     pkid: '',
     remarks: ''
   }
-  
+
   // Array For Displaying List
   RecordList: Trackingm[] = [];
   RecordList2: Joborderm[] = [];
@@ -71,19 +71,22 @@ export class OnlineTrackMasterDetComponent {
   }
 
   InitComponent() {
-    
+
   }
 
   List(_type: string) {
     this.loading = true;
     let SearchData = {
       type: _type,
-      rowtype: this.type,   
+      rowtype: this.type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-     mblid:this.record.ord_mbl_id,
-     hblid:this.record.ord_hbl_id
+      mblid: this.record.ord_mbl_id,
+      hblid: this.record.ord_hbl_id,
+      tp_code: this.gs.globalVariables.tp_code,
+      tp_name: this.gs.globalVariables.tp_name,
+      istp: this.gs.globalVariables.istp
     };
 
     this.ErrorMessage = '';
@@ -100,7 +103,7 @@ export class OnlineTrackMasterDetComponent {
         });
   }
   Close() {
-    this.record.row_displayed=false;
+    this.record.row_displayed = false;
   }
 
 }
