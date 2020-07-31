@@ -944,7 +944,7 @@
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
         [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
         [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
-        [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+        [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" [default_ftptype]="'BL-FTP'" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
   <ng-template #ftphistory let-c="close" let-d="dismiss">

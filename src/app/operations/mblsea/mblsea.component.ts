@@ -139,7 +139,7 @@ export class MblSeaComponent {
     this.folder_chk = false;
     this.bAdmin = false;
     this.bDocs = false;
-    this.bPrint =false;
+    this.bPrint = false;
     this.AttachList = new Array<any>();
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -1493,7 +1493,7 @@ export class MblSeaComponent {
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize });
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
         }
         if (response.poftpexist)
           this.GenerateXmlPO('FTP', ftpsent);
@@ -1541,10 +1541,15 @@ export class MblSeaComponent {
 
         if (_type == 'FTP') {
           this.PoFtpAttachList = new Array<any>();
+          if (this.FtpAttachList == null || this.FtpAttachList == undefined)
+            this.FtpAttachList = new Array<any>();
+
           if (response.errormsg.length > 0)
             this.PoFtpError = response.errormsg;
-          else
+          else {
+            this.FtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize, fileftptype: 'PO-FTP' });
             this.PoFtpAttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'BLINFO', fileftpfolder: 'FTP-FOLDER-VSL-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+          }
           this.open(ftpsent);
         } else {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);

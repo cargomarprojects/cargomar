@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { stringify } from '@angular/core/src/render3/util';
 import { concat } from 'rxjs/operator/concat';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-mail',
@@ -35,6 +36,7 @@ export class MailComponent {
   @Input() public PoFtpAttachList = new Array<any>();
   @Input() public disableBLftp: boolean = false;
   @Input() public PoFtpError: string = '';
+  @Input() public default_ftptype: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -62,8 +64,12 @@ export class MailComponent {
   message: string = '';
   ftpsubject: string = '';
 
+  ftptype: string = 'BL-FTP';
   ftptype_id: string = '';
   FtpTypeList: any[] = [];
+  FtpTypeListMaster: any[] = [];
+  FtpAttachListMaster = new Array<any>();
+
   poftptype_id: string = '';
   PoFtpTypeList: any[] = [];
 
@@ -94,6 +100,7 @@ export class MailComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ftptype = this.default_ftptype;
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
     this.ftpsubject = this.defaultsubject;
@@ -157,6 +164,10 @@ export class MailComponent {
 
   LoadCombo() {
     this.ErrorMessage = '';
+    this.FtpAttachListMaster = new Array<any>();
+    for (let rec of this.FtpAttachList) {
+      this.FtpAttachListMaster.push(rec);
+    }
     this.SearchRecord('maillist', 'LIST');
   }
 
@@ -196,6 +207,31 @@ export class MailComponent {
   }
   OnBlur(field: string) {
 
+  }
+
+  OnChange(field: string) {
+    if (field == 'ftptype') {
+
+      this.FtpTypeList = new Array<any>();
+      for (let rec of this.FtpTypeListMaster) {
+        if (rec.param_id2 == this.ftptype)
+          this.FtpTypeList.push(rec);
+      }
+
+      if (this.FtpTypeList != null) {
+        var REC = this.FtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == this.ftptype);
+        if (REC != null) {
+          this.ftptype_id = REC.param_pkid;
+        }
+      }
+
+      this.FtpAttachList = new Array<any>();
+      for (let rec of this.FtpAttachListMaster) {
+        if (rec.fileftptype === this.ftptype)
+          this.FtpAttachList.push(rec);
+      }
+
+    }
   }
   Close() {
 
@@ -297,31 +333,49 @@ export class MailComponent {
             this.bcc_ids = response.bcc_ids;
           this.message += response.mailsignature;
 
-          // this.FtpTypeList = response.ftplist;
+          //Ftp Dropdown 
+          this.FtpTypeListMaster = new Array<any>();
+          this.FtpTypeListMaster = response.ftplist;
+          this.OnChange('ftptype');
 
-          this.FtpTypeList = new Array<any>();
-          this.PoFtpTypeList = new Array<any>();
-          for (let rec of response.ftplist) {
-            if (rec.param_id2 == 'BL-FTP')
-              this.FtpTypeList.push(rec);
-            else
-              this.PoFtpTypeList.push(rec);
-          }
+          // this.FtpTypeList = new Array<any>();
+          // for (let rec of this.FtpTypeListMaster) {
+          //   if (rec.param_id2 == this.ftptype)
+          //     this.FtpTypeList.push(rec);
+          // }
 
-          if (this.FtpTypeList != null) {
-            var REC = this.FtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == 'BL-FTP');
-            if (REC != null) {
-              this.ftptype_id = REC.param_pkid;
-            }
-          }
+          // if (this.FtpTypeList != null) {
+          //   var REC = this.FtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == this.ftptype);
+          //   if (REC != null) {
+          //     this.ftptype_id = REC.param_pkid;
+          //   }
+          // }
 
-          if (this.PoFtpTypeList != null) {
-            var REC = this.PoFtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == 'PO-FTP');
-            if (REC != null) {
-              this.poftptype_id = REC.param_pkid;
-            }
-          }
 
+          /*
+                    this.FtpTypeList = new Array<any>();
+                    this.PoFtpTypeList = new Array<any>();
+                    for (let rec of response.ftplist) {
+                      if (rec.param_id2 == 'BL-FTP')
+                        this.FtpTypeList.push(rec);
+                      else
+                        this.PoFtpTypeList.push(rec);
+                    }
+          
+                    if (this.FtpTypeList != null) {
+                      var REC = this.FtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == 'BL-FTP');
+                      if (REC != null) {
+                        this.ftptype_id = REC.param_pkid;
+                      }
+                    }
+          
+                    if (this.PoFtpTypeList != null) {
+                      var REC = this.PoFtpTypeList.find(rec => rec.param_id1 == this.agentcode && rec.param_id2 == 'PO-FTP');
+                      if (REC != null) {
+                        this.poftptype_id = REC.param_pkid;
+                      }
+                    }
+          */
 
         }
         else if (_type == "SAVE") {
@@ -537,23 +591,26 @@ export class MailComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
-          if (this.rootpage == "PO-FTPPAGE") {
-            if (this.PoFtpAttachList == null)
-              this.PoFtpAttachList = new Array<any>();
-            ftpFilePrefix = this.GetAttachFtpFilePreFix();
-            ftpFolder = this.GetAttachFtpFolder();
-            this.PoFtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize });
-          } else if (this.rootpage == "BL-FTPPAGE") {
+          // if (this.rootpage == "PO-FTPPAGE") {
+          //   if (this.PoFtpAttachList == null)
+          //     this.PoFtpAttachList = new Array<any>();
+          //   ftpFilePrefix = this.GetAttachFtpFilePreFix();
+          //   ftpFolder = this.GetAttachFtpFolder();
+          //   this.PoFtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize });
+          // } else 
+          if (this.rootpage == "FTPPAGE") {
             if (this.FtpAttachList == null)
               this.FtpAttachList = new Array<any>();
             ftpFolder = this.GetAttachFtpFolder();
-            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize });
+            ftpFilePrefix ='';
+            if (this.ftptype === 'PO-FTP')
+              ftpFilePrefix = this.GetAttachFtpFilePreFix();
+            this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize, fileftptype: this.ftptype });
           } else {
             if (this.AttachList == null)
               this.AttachList = new Array<any>();
             this.AttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: data.filedisplayname, filecategory: data.category, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: data.filesize });
           }
-
           this.GetTotfilesize();
         },
         error => {
@@ -569,18 +626,19 @@ export class MailComponent {
     try {
       if (this.FtpAttachList != null) {
         for (let rec of this.FtpAttachList) {
-          this.attach_totfilesize += rec.filesize;
+          if (rec.fileftptype === this.ftptype)
+            this.attach_totfilesize += rec.filesize;
         }
       }
       this.lbl_ftpattachfz = this.GetFileSize(this.attach_totfilesize);
 
-      this.attach_totfilesize = 0;
-      if (this.PoFtpAttachList != null) {
-        for (let rec of this.PoFtpAttachList) {
-          this.attach_totfilesize += rec.filesize;
-        }
-      }
-      this.lbl_poftpattachfz = this.GetFileSize(this.attach_totfilesize);
+      // this.attach_totfilesize = 0;
+      // if (this.PoFtpAttachList != null) {
+      //   for (let rec of this.PoFtpAttachList) {
+      //     this.attach_totfilesize += rec.filesize;
+      //   }
+      // }
+      // this.lbl_poftpattachfz = this.GetFileSize(this.attach_totfilesize);
 
       this.attach_totfilesize = 0;
       if (this.AttachList != null) {
@@ -631,18 +689,19 @@ export class MailComponent {
     //   this.rootpage = "MAILPAGE";
     // else
     //   this.rootpage = "FTPPAGE";
-    if (_type == "FTPPAGE" || _type == "PO-FTPPAGE")
+    if (_type == "FTPPAGE")
       this.canftp = true;
   }
 
   RemoveAttachment(Id: string, _type: string) {
     if (_type == "MAIL") {
       this.AttachList.splice(this.AttachList.findIndex(rec => rec.filename == Id), 1);
-    } else if (_type == "BL-FTP") {
+    } else if (_type == this.ftptype) {
       this.FtpAttachList.splice(this.FtpAttachList.findIndex(rec => rec.filename == Id), 1);
-    } else {
-      this.PoFtpAttachList.splice(this.PoFtpAttachList.findIndex(rec => rec.filename == Id), 1);
     }
+    // else {
+    //   this.PoFtpAttachList.splice(this.PoFtpAttachList.findIndex(rec => rec.filename == Id), 1);
+    // }
     this.GetTotfilesize();
   }
 

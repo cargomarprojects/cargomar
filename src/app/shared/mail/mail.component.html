@@ -1,18 +1,19 @@
 <div class="page-header">
   <div style="padding:5px" class="row">
-    <div style="padding-right:4px" class="col-sm-4">
+    <div style="padding-right:4px" class="col-sm-6">
       <button [disabled]="loading" (click)="ShowPage('MAILPAGE')" [ngClass]="{'active':rootpage=='MAILPAGE'}"
         class="btn btn-outline-success btn-block">MAIL</button>
     </div>
-    <div style="padding-left:4px" class="col-sm-4">
-      <button [disabled]="loading||ftptype_id==''||disableBLftp" (click)="ShowPage('FTPPAGE')" [ngClass]="{'active':rootpage=='FTPPAGE'}"
-        class="btn btn-outline-success btn-block">BL-FTP</button>
+    <div style="padding-left:4px" class="col-sm-6">
+      <button [disabled]="loading||ftptype_id==''" (click)="ShowPage('FTPPAGE')"
+        [ngClass]="{'active':rootpage=='FTPPAGE'}" class="btn btn-outline-success btn-block">FTP</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
-    <div style="padding-left:4px" class="col-sm-4">
-      <button [disabled]="loading||poftptype_id==''" (click)="ShowPage('PO-FTPPAGE')" [ngClass]="{'active':rootpage=='PO-FTPPAGE'}"
-        class="btn btn-outline-success btn-block">PO-FTP</button>
+    <!-- <div style="padding-left:4px" class="col-sm-4">
+      <button [disabled]="loading||poftptype_id==''" (click)="ShowPage('PO-FTPPAGE')"
+        [ngClass]="{'active':rootpage=='PO-FTPPAGE'}" class="btn btn-outline-success btn-block">PO-FTP</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+    </div> -->
   </div>
 </div>
 <div *ngIf="rootpage=='MAILPAGE'">
@@ -144,19 +145,19 @@
     </div>
   </div>
 
-<div class="page-box">
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group row">
-          <div class="offset-sm-2 col-sm-10">
-            <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
-            <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
+  <div class="page-box">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
+              <button [disabled]="loading" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
           <div *ngIf="canftp" class="form-group row">
             <label class="col-1 col-form-label col-form-label-sm">FTP</label>
             <div class="col-7">
@@ -170,117 +171,19 @@
             </div>
           </div>
         </div> -->
-    </div>
-  </div>
-</div>
-<br />
-</div>
-<div *ngIf="rootpage=='FTPPAGE'">
-    <div class="page-box">
-        <div style="padding: 0" align="center">
-          <label style="padding: 0">
-            SELECTED OPTION - <strong>BL-FTP</strong> 
-          </label>
-        </div>
-      </div>
-    <div class="page-details">
-      <div *ngIf="canftp" class="row">
-        <div class="col-sm-12">
-          <div style="height: 250px; overflow-y: scroll;">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group row">
-                  <label class="col-1 col-form-label col-form-label-sm">Ftp To</label>
-                  <div class="col-11">
-                    <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
-                      <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                    </select>
-                  </div>
-                  <!-- <div class="col-sm-2">
-                    <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
-                      FTP</button>
-                  </div> -->
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-1 col-form-label col-form-label-sm">Subject</label>
-              <div class="col-sm-11">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="ftpsubject" (blur)="OnBlur('ftpsubject')"
-                  maxlength="500" />
-              </div>
-            </div>
-            <div *ngIf="FtpAttachList.length > 0" class="form-group row">
-              <label class="col-sm-1 col-form-label col-form-label-sm">Attachments{{lbl_ftpattachfz}}</label>
-              <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label> -->
-              <div class="col-sm-11">
-                <div style="padding: 0" class="page-details">
-                  <label style="padding: 0,0,0,0" *ngFor="let rec of FtpAttachList">
-                    <button style="padding-right:2px;padding-top:0px;padding-bottom:0px" [disabled]="loading"
-                      (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
-                      class="btn btn-link pointer">{{rec.filedisplayname}}</button>
-                    <i class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveAttachment(rec.filename,'BL-FTP')"></i>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
-              <div style="padding-left: 2px" class="col-sm-1">
-                <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
-              </div>
-              <div *ngIf="showattach" class="col-sm-11">
-                <div class="page-details">
-                  <div class="form-group row">
-                    <div class="col-7">
-                      <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
-                    </div>
-                    <label class="col-1 col-form-label col-form-label-sm">Type</label>
-                    <div Class="col-3">
-                      <select class="form-control form-control-sm" [(ngModel)]="catg_id">
-                        <option [value]="'HBL'">HBL</option>
-                        <option [value]="'MBL'">MBL</option>
-                        <option [value]="'INVOICE'">Invoice</option>
-                        <option [value]="'PACKINGLIST'">Packing List</option>
-                        <option [value]="'OTHERS'">Others</option>
-                      </select>
-                    </div>
-                    <div class="col-1">
-                      <button (click)="uploadFiles()">Attach</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <div class="page-box">
-    <div class="col-sm-12">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group row">
-            <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading||ftpcompleted" (click)="SendFtp('','BL-FTP')" class="btn btn-primary btn-sm">Upload To
-                BL-FTP</button>
-              <i *ngIf="loading" class="fa fa-spinner"></i>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
   <br />
 </div>
-<div *ngIf="rootpage=='PO-FTPPAGE'">
+<div *ngIf="rootpage=='FTPPAGE'">
   <div class="page-box">
-      <div style="padding: 0" align="center">
-        <label style="padding: 0">
-          SELECTED OPTION - <strong>PO-FTP</strong> 
-        </label>
-      </div>
+    <div style="padding: 0" align="center">
+      <label style="padding: 0">
+        SELECTED OPTION - <strong>FTP</strong>
+      </label>
     </div>
+  </div>
   <div class="page-details">
     <div *ngIf="canftp" class="row">
       <div class="col-sm-12">
@@ -288,36 +191,43 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group row">
+                <label class="col-1 col-form-label col-form-label-sm">Type</label>
+                  <div class="col-11">
+                    <select class="form-control form-control-sm" [(ngModel)]="ftptype" (change)="OnChange('ftptype')">
+                      <option [value]="'BL-FTP'">BL-FTP</option>
+                      <option [value]="'PO-FTP'">PO-FTP</option>
+                      <option [value]="'COSTING-FTP'">COSTING-FTP</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-1 col-form-label col-form-label-sm">Ftp To</label>
                 <div class="col-11">
-                  <select class="form-control form-control-sm" [(ngModel)]="poftptype_id">
-                    <option *ngFor="let rec of PoFtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                  <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
+                    <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                   </select>
                 </div>
-                <!-- <div class="col-sm-2">
-                  <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
-                    FTP</button>
-                </div> -->
               </div>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-1 col-form-label col-form-label-sm">Subject</label>
             <div class="col-sm-11">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="ftpsubject" (blur)="OnBlur('ftpsubject')"
-                maxlength="500" />
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="ftpsubject"
+                (blur)="OnBlur('ftpsubject')" maxlength="500" />
             </div>
           </div>
-          <div *ngIf="PoFtpAttachList.length > 0" class="form-group row">
-            <label class="col-sm-1 col-form-label col-form-label-sm">Attachments{{lbl_poftpattachfz}}</label>
+          <div *ngIf="FtpAttachList.length > 0" class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Attachments{{lbl_ftpattachfz}}</label>
             <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Attachments</label> -->
             <div class="col-sm-11">
               <div style="padding: 0" class="page-details">
-                <label style="padding: 0,0,0,0" *ngFor="let rec of PoFtpAttachList">
+                <label style="padding: 0,0,0,0" *ngFor="let rec of FtpAttachList">
                   <button style="padding-right:2px;padding-top:0px;padding-bottom:0px" [disabled]="loading"
                     (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
                     class="btn btn-link pointer">{{rec.filedisplayname}}</button>
-                  <i class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveAttachment(rec.filename,'PO-FTP')"></i>
+                  <i class="fa fa-trash pointer" aria-hidden="true"
+                    (click)="RemoveAttachment(rec.filename,rec.fileftptype)"></i>
                 </label>
               </div>
             </div>
@@ -354,24 +264,26 @@
       </div>
     </div>
   </div>
-<div class="page-box">
-  <div class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group row">
-          <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
-            <button [disabled]="loading" (click)="CheckList()" class="btn btn-primary btn-sm">Check List</button>
-            <button [disabled]="loading||ftpcompleted" (click)="SendFtp('','PO-FTP')" class="btn btn-primary btn-sm">Upload To
-              PO-FTP</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
+  <div class="page-box">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
+              <button *ngIf="ftptype=='PO-FTP'" [disabled]="loading" (click)="CheckList()" class="btn btn-primary btn-sm">Check List</button>
+              <button [disabled]="loading||ftpcompleted" (click)="SendFtp('',ftptype)"
+                class="btn btn-primary btn-sm">Upload To&nbsp;
+                {{ftptype}}</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <br />
 </div>
-<br />
-</div>
+
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
