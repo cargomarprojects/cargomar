@@ -69,6 +69,10 @@ export class Joborderm {
   ord_branch_name:string;
   ord_deliv_place:string;
   ord_deliv_date:string;
+  ord_deliv_confirm:boolean;
+  ord_deliv_prooffile:string;
+  ord_deliv_prooffile_name:string;
+  ord_deliv_prooffile_status:boolean;
   ord_pickup_date:string;
   flight_schedule:string;
   ord_pkg_unit:string;

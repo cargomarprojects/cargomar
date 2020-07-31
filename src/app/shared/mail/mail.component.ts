@@ -401,7 +401,7 @@ export class MailComponent {
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
 
-    if (_ftp_type == 'BL-FTP') {
+    if (_ftp_type == 'BL-FTP'||_ftp_type == 'PO-FTP') {
       if (this.ftptype_id.trim().length <= 0) {
         this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
         alert(this.ErrorMessage);
@@ -415,21 +415,13 @@ export class MailComponent {
     }
 
     if (_ftp_type == 'PO-FTP') {
-      if (this.poftptype_id.trim().length <= 0) {
-        this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
-        alert(this.ErrorMessage);
-        return;
-      }
+      
       if (this.PoFtpError.trim().length > 0) {
         this.ErrorMessage += "\n\r " + this.PoFtpError;
         alert(this.ErrorMessage);
         return;
       }
-      if (this.PoFtpAttachList == null || this.PoFtpAttachList.length <= 0) {
-        this.ErrorMessage += "\n\r | Attachment Not Found ";
-        alert(this.ErrorMessage);
-        return
-      }
+       
     }
     if (this.FtpTypeList != null) {
       var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
@@ -468,8 +460,8 @@ export class MailComponent {
         }
       }
     }
-    if (this.PoFtpAttachList != null && _ftp_type == 'PO-FTP') {
-      for (let rec of this.PoFtpAttachList) {
+    if (this.FtpAttachList != null && _ftp_type == 'PO-FTP') {
+      for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")
             filename = filename.concat(",");
@@ -503,7 +495,8 @@ export class MailComponent {
 
     SearchData.table = 'ftp';
     SearchData.pkid = this.pkid;
-    SearchData.ftptypeid = _ftp_type == 'BL-FTP' ? this.ftptype_id : this.poftptype_id;
+    // SearchData.ftptypeid = _ftp_type == 'BL-FTP' ? this.ftptype_id : this.poftptype_id;
+    SearchData.ftptypeid =this.ftptype_id ;
     SearchData.filename = filename;
     SearchData.filenameack = filenameack;
     SearchData.rowtype = this.type;

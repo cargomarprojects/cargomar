@@ -285,7 +285,8 @@ export class OnlineTrackMasterComponent {
       sort_colname: this.sort_colname,
       tp_code:this.gs.globalVariables.tp_code,
       tp_name:this.gs.globalVariables.tp_name,
-      istp:this.gs.globalVariables.istp
+      istp:this.gs.globalVariables.istp,
+      root_folder:this.gs.defaultValues.root_folder
     };
 
     this.ErrorMessage = ''; 
@@ -345,6 +346,11 @@ export class OnlineTrackMasterComponent {
     // if (params.type == "MAIL-PO-CHECKLIST") {
     //   this.MailOrders('','MULTIPLE','CHECK-LIST');
     // }
+  }
+  ShowFile(filename: string, filedisplayname: string = '') {
+    if (filedisplayname == undefined || filedisplayname == '')
+      filedisplayname = filename;
+    this.Downloadfile(filename, "", filedisplayname);
   }
 
 
