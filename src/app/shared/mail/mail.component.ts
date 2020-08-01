@@ -401,7 +401,7 @@ export class MailComponent {
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
 
-    if (_ftp_type == 'BL-FTP'||_ftp_type == 'PO-FTP') {
+    if (_ftp_type == 'BL-FTP'||_ftp_type == 'PO-FTP'||_ftp_type == 'COSTING-FTP') {
       if (this.ftptype_id.trim().length <= 0) {
         this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
         alert(this.ErrorMessage);
@@ -427,14 +427,14 @@ export class MailComponent {
       var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
       if (REC != null) {
         if (this.agentname.indexOf("RITRA") >= 0) {
-          if (REC.param_name != 'RITRA') {
+          if (REC.param_name.indexOf("RITRA") < 0) {
             this.ErrorMessage += "\n\r | Please Select RITRA FTP and Continue.....";
             alert(this.ErrorMessage);
             return;
           }
         }
         if (this.agentname.indexOf("RITRA") < 0) {
-          if (REC.param_name == 'RITRA') {
+          if (REC.param_name.indexOf("RITRA") >= 0) {
             this.ErrorMessage += "\n\r | Invalid FTP Details.....";
             alert(this.ErrorMessage);
             return;
@@ -446,7 +446,7 @@ export class MailComponent {
     let filename: string = "";
     let filenameack: string = "";
 
-    if (this.FtpAttachList != null && _ftp_type == 'BL-FTP') {
+    if (this.FtpAttachList != null &&( _ftp_type == 'BL-FTP'||_ftp_type == 'PO-FTP'||_ftp_type == 'COSTING-FTP')) {
       for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")
@@ -460,21 +460,7 @@ export class MailComponent {
         }
       }
     }
-    if (this.FtpAttachList != null && _ftp_type == 'PO-FTP') {
-      for (let rec of this.FtpAttachList) {
-        if (rec.filecategory != 'OTHERS') {
-          if (filename != "")
-            filename = filename.concat(",");
-          if (filenameack != "")
-            filenameack = filenameack.concat(",");
-          if (rec.fileisack == 'Y')
-            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
-          else
-            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
-        }
-      }
-    }
-
+    
 
     this.loading = true;
     let SearchData = {

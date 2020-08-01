@@ -203,7 +203,7 @@
               <div class="form-group row">
                 <label class="col-1 col-form-label col-form-label-sm">Ftp To</label>
                 <div class="col-11">
-                  <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
+                  <select class="form-control form-control-sm" disabled [(ngModel)]="ftptype_id">
                     <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                   </select>
                 </div>
