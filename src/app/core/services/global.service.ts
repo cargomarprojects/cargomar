@@ -162,6 +162,27 @@ export class GlobalService {
     window.open(this.baseUrl + '/api/Admin/User/DownloadFile?' + body, "_blank");
   }
 
+  public DownloadFileDirect(pkid : string ){
+    //this.gs.globalVariables.report_folder, 
+    //filename, 
+    //filetype, 
+    //filedisplayname
+    let SearchData = {
+      pkid : pkid,
+      'root_folder' :this.defaultValues.root_folder,
+      'sub_folder' :this.defaultValues.sub_folder
+    };
+    
+    this.http2.post<any>(this.baseUrl + "/api/General/GetFileName", SearchData, this.headerparam2('authorized')).subscribe(
+        resp =>{
+          this.DownloadFile(this.globalVariables.report_folder, resp.record.doc_full_name , '', resp.record.doc_file_name);
+        }, error =>{
+            alert(error);
+        }
+    )
+
+  }
+
 
   public DownloadFileFromLocalhost(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;

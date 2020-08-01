@@ -76,12 +76,13 @@
           <th>POD</th>
           <th>ETD</th>
           <th>ETA</th>
-          <th>DELIVERY.PLACE</th>
-          <th>DELIVERY.DATE</th>
+          <th>DELV.PLACE</th>
+          <th>DELV.DATE</th>
           <th>CONFIRM</th>
+          <th>DELV.PROOF</th>
+          <th>INVOICE</th>          
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
-          <th>DOC.PROOF</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -95,9 +96,11 @@
           <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_deliv_date}}</td>
           <td>{{rec.ord_deliv_confirm==true?'Y':'-'}}</td>
+          <td class="hlink" (click)="ShowFile(rec.hbl_pod_proof_doc_id)">{{rec.hbl_pod_proof_doc_id?'YES':''}}</td>
+          <td class="hlink" (click)="ShowFile(rec.hbl_pod_inv_doc_id)">{{rec.hbl_pod_inv_doc_id?'YES':''}}</td>
+
           <td>{{rec.ord_exp_name}}</td>
           <td>{{rec.ord_imp_name}}</td>
-          <td class="hlink" (click)="ShowFile(rec.ord_deliv_prooffile,rec.ord_deliv_prooffile_name,rec.ord_deliv_prooffile_status)">{{rec.ord_deliv_prooffile_status==true?'AVAILABLE':''}}</td>
         </tr>
         <tr *ngIf="rec.row_displayed">
           <td colspan="12">

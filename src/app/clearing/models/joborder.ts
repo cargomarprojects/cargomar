@@ -70,9 +70,11 @@ export class Joborderm {
   ord_deliv_place:string;
   ord_deliv_date:string;
   ord_deliv_confirm:boolean;
-  ord_deliv_prooffile:string;
-  ord_deliv_prooffile_name:string;
-  ord_deliv_prooffile_status:boolean;
+  
+
+  hbl_pod_proof_doc_id : string ;
+  hbl_pod_inv_doc_id : string ;
+
   ord_pickup_date:string;
   flight_schedule:string;
   ord_pkg_unit:string;

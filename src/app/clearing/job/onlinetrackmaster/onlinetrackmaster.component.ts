@@ -347,12 +347,9 @@ export class OnlineTrackMasterComponent {
     //   this.MailOrders('','MULTIPLE','CHECK-LIST');
     // }
   }
-  ShowFile(filename: string, filedisplayname: string = '', _fileExist: boolean = false) {
-    if (_fileExist) {
-      if (filedisplayname == undefined || filedisplayname == '')
-        filedisplayname = filename;
-      this.Downloadfile(filename, "", filedisplayname);
-    }
+  
+  ShowFile(id : string) {
+    this.gs.DownloadFileDirect(id);
   }
 
 
