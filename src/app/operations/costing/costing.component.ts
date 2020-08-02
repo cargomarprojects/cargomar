@@ -48,7 +48,7 @@ export class CostingComponent {
 
   sSubject: string = '';
   ftpUpdtSql: string = '';
-  ftpTransfertype: string = 'AIR EXPORT COSTING';
+  ftpTransfertype: string = 'SEA EXPORT COSTING';
   FtpAttachList: any[] = [];
   FileList: FileDetails[] = [];
   ftp_agent_name: string = "";
@@ -988,7 +988,7 @@ export class CostingComponent {
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'COSTING-FTP' });
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER-COSTING', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
         }
         this.open(ftpsent);
       },
