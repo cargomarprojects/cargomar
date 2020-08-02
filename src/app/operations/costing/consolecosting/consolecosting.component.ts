@@ -9,7 +9,7 @@ import { Costingm } from '../../models/costing';
 import { Costingd } from '../../models/costing';
 import { ConsoleCostingService } from '../../services/consolecosting.service';
 import { SearchTable } from '../../../shared/models/searchtable';
-
+import { FileDetails } from '../../models/filedetails';
 
 @Component({
   selector: 'app-consolecosting',
@@ -43,6 +43,13 @@ export class ConsoleCostingComponent {
   lock_date: boolean = false;
   bAdmin = false;
 
+  sSubject: string = '';
+  ftpUpdtSql: string = '';
+  ftpTransfertype: string = 'SE CONSOLE COSTING';
+  FtpAttachList: any[] = [];
+  FileList: FileDetails[] = [];
+  ftp_agent_name: string = "";
+  ftp_agent_code: string = "";
   sub: any;
   urlid: string;
 
@@ -893,7 +900,7 @@ export class ConsoleCostingComponent {
     this.tot_acc_amt = this.gs.roundNumber(this.tot_acc_amt, 2);
   }
 
-  GenerateXml() {
+  GenerateXml(ftpsent: any) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.pkid.trim().length <= 0) {
@@ -918,7 +925,16 @@ export class ConsoleCostingComponent {
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = response.savemsg;
+        // this.InfoMessage = response.savemsg;
+        this.sSubject ="REF#-" + this.Record.cost_refno;
+        this.ftp_agent_code=this.Record.cost_jv_agent_code;
+        this.ftp_agent_name=this.Record.cost_jv_agent_name;
+        this.FtpAttachList = new Array<any>();
+        this.FileList = response.filelist;
+        for (let rec of this.FileList) {
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER-COSTING', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
+        }
+        this.open(ftpsent);
       },
         error => {
           this.loading = false;
