@@ -870,6 +870,8 @@ export class DrCrComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      agent_code: this.Record.cost_jv_agent_code,
+      agent_name: this.Record.cost_jv_agent_name,
       cost_pkid: this.pkid
     };
 
@@ -877,6 +879,8 @@ export class DrCrComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.cost_pkid = this.pkid;
+    SearchData.agent_code =  this.Record.cost_jv_agent_code;
+    SearchData.agent_name =  this.Record.cost_jv_agent_name;
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
@@ -895,6 +899,7 @@ export class DrCrComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
