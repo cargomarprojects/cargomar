@@ -41,6 +41,10 @@ export class CustomerService {
     UnlockCustomer(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/UnlockCustomer', SearchData, this.gs.headerparam2('authorized'));
     }
+    
+    MailApproval(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/MailApproval', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 

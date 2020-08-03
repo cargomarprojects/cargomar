@@ -472,7 +472,8 @@
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>
-
+              <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
+              (click)="MailApproval(Record.cust_pkid)">Approval Request Mail</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
