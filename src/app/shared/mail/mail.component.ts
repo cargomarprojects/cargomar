@@ -65,6 +65,7 @@ export class MailComponent {
   ftpsubject: string = '';
 
   ftptype: string = 'BL-FTP';
+  ftptypecaption: string = 'BL-FTP';
   ftptype_id: string = '';
   FtpTypeList: any[] = [];
   FtpTypeListMaster: any[] = [];
@@ -100,6 +101,10 @@ export class MailComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    if (this.type == 'AIR EXPORT COSTING' || this.type == 'SEA EXPORT COSTING' || this.type == 'AGENT INVOICE' || this.type == 'DRCR ISSUE' || this.type == 'SE CONSOLE COSTING')
+      this.ftptypecaption = 'COSTING-FTP';
+    else
+      this.ftptypecaption = 'BL-FTP';
     this.ftptype = this.default_ftptype;
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
@@ -401,9 +406,9 @@ export class MailComponent {
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
 
-    if (_ftp_type == 'BL-FTP'||_ftp_type == 'PO-FTP') {
+    if (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP') {
       if (this.ftptype_id.trim().length <= 0) {
-        this.ErrorMessage += "\n\r | FTP Type Cannot Be Blank";
+        this.ErrorMessage += "\n\r | FTP To Cannot Be Blank";
         alert(this.ErrorMessage);
         return;
       }
@@ -415,26 +420,26 @@ export class MailComponent {
     }
 
     if (_ftp_type == 'PO-FTP') {
-      
+
       if (this.PoFtpError.trim().length > 0) {
         this.ErrorMessage += "\n\r " + this.PoFtpError;
         alert(this.ErrorMessage);
         return;
       }
-       
+
     }
     if (this.FtpTypeList != null) {
       var REC = this.FtpTypeList.find(rec => rec.param_pkid == this.ftptype_id);
       if (REC != null) {
         if (this.agentname.indexOf("RITRA") >= 0) {
-          if (REC.param_name != 'RITRA') {
+          if (REC.param_name.indexOf("RITRA") < 0) {
             this.ErrorMessage += "\n\r | Please Select RITRA FTP and Continue.....";
             alert(this.ErrorMessage);
             return;
           }
         }
         if (this.agentname.indexOf("RITRA") < 0) {
-          if (REC.param_name == 'RITRA') {
+          if (REC.param_name.indexOf("RITRA") >= 0) {
             this.ErrorMessage += "\n\r | Invalid FTP Details.....";
             alert(this.ErrorMessage);
             return;
@@ -446,21 +451,7 @@ export class MailComponent {
     let filename: string = "";
     let filenameack: string = "";
 
-    if (this.FtpAttachList != null && _ftp_type == 'BL-FTP') {
-      for (let rec of this.FtpAttachList) {
-        if (rec.filecategory != 'OTHERS') {
-          if (filename != "")
-            filename = filename.concat(",");
-          if (filenameack != "")
-            filenameack = filenameack.concat(",");
-          if (rec.fileisack == 'Y')
-            filenameack = filenameack.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
-          else
-            filename = filename.concat(rec.filename, "~", rec.filecategory, "~", rec.fileftpfolder, "~", rec.fileprocessid);
-        }
-      }
-    }
-    if (this.FtpAttachList != null && _ftp_type == 'PO-FTP') {
+    if (this.FtpAttachList != null && (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP')) {
       for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")
@@ -496,7 +487,7 @@ export class MailComponent {
     SearchData.table = 'ftp';
     SearchData.pkid = this.pkid;
     // SearchData.ftptypeid = _ftp_type == 'BL-FTP' ? this.ftptype_id : this.poftptype_id;
-    SearchData.ftptypeid =this.ftptype_id ;
+    SearchData.ftptypeid = this.ftptype_id;
     SearchData.filename = filename;
     SearchData.filenameack = filenameack;
     SearchData.rowtype = this.type;
@@ -595,7 +586,7 @@ export class MailComponent {
             if (this.FtpAttachList == null)
               this.FtpAttachList = new Array<any>();
             ftpFolder = this.GetAttachFtpFolder();
-            ftpFilePrefix ='';
+            ftpFilePrefix = '';
             if (this.ftptype === 'PO-FTP')
               ftpFilePrefix = this.GetAttachFtpFilePreFix();
             this.FtpAttachList.push({ filename: data.filename, filetype: data.filetype, filedisplayname: ftpFilePrefix + data.filedisplayname, filecategory: data.category, fileftpfolder: ftpFolder, fileisack: 'N', fileprocessid: '', filesize: data.filesize, fileftptype: this.ftptype });

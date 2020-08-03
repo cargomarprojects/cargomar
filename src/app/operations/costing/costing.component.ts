@@ -10,6 +10,7 @@ import { Costingd } from '../models/costing';
 
 import { CostingService } from '../services/costing.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { FileDetails } from '../models/filedetails';
 
 @Component({
   selector: 'app-costing',
@@ -45,6 +46,13 @@ export class CostingComponent {
   lock_date: boolean = false;
   bAdmin = false;
 
+  sSubject: string = '';
+  ftpUpdtSql: string = '';
+  ftpTransfertype: string = 'SEA EXPORT COSTING';
+  FtpAttachList: any[] = [];
+  FileList: FileDetails[] = [];
+  ftp_agent_name: string = "";
+  ftp_agent_code: string = "";
 
   sub: any;
   urlid: string;
@@ -948,7 +956,7 @@ export class CostingComponent {
     }
   }
 
-  GenerateXml() {
+  GenerateXml(ftpsent: any) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.pkid.trim().length <= 0) {
@@ -962,6 +970,8 @@ export class CostingComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      agent_code: this.Record.cost_jv_agent_code,
+      agent_name: this.Record.cost_jv_agent_name,
       cost_pkid: this.pkid
     };
 
@@ -969,15 +979,28 @@ export class CostingComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.cost_pkid = this.pkid;
+    SearchData.agent_code =  this.Record.cost_jv_agent_code;
+    SearchData.agent_name =  this.Record.cost_jv_agent_name;
+
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = response.savemsg;
+        //this.InfoMessage = response.savemsg;
+        this.sSubject ="REF#-" + this.Record.cost_refno;
+        this.ftp_agent_code=this.Record.cost_jv_agent_code;
+        this.ftp_agent_name=this.Record.cost_jv_agent_name;
+        this.FtpAttachList = new Array<any>();
+        this.FileList = response.filelist;
+        for (let rec of this.FileList) {
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER-COSTING', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
+        }
+        this.open(ftpsent);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
