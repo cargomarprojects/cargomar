@@ -484,7 +484,7 @@ export class CustomerComponent {
       .subscribe(response => {
         this.loading = false;
         if (this.mode == "ADD") {
-          this.InfoMessage = "Save Complete, Please sent Approval Mail after Uploading Documents if any " + response.mailerror;
+          this.InfoMessage = "Save Complete, Please Sent Approval Request Mail after Uploading Documents if any " + response.mailerror;
           alert(this.InfoMessage);
         } else
           this.InfoMessage = "Save Complete";
