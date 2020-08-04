@@ -843,11 +843,11 @@ export class CustomerComponent {
   }
 
   MailApproval(_id: string) {
-    
-      if (!confirm("Do you want to Sent for Approval")) {
-        return;
-      }
-    
+
+    if (!confirm("Do you want to Sent for Approval")) {
+      return;
+    }
+
     this.loading = true;
     let SearchData = {
       pkid: _id,
@@ -857,6 +857,36 @@ export class CustomerComponent {
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.MailApproval(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = response.mailerror;
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  MailIncomplete() {
+
+    if (!confirm("Do you want to Sent Mail")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      mailtype: 'INCOMPLETE'
     };
 
     this.ErrorMessage = '';
