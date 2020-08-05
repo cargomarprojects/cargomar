@@ -91,7 +91,8 @@ export class LoginBranchComponent {
             branchid: this.branchid,
             yearid: this.yearid,
             ipaddress : this.gs.globalVariables.ipaddress,
-            tokenid  : this.gs.globalVariables.tokenid           
+            tokenid  : this.gs.globalVariables.tokenid  ,
+            istp:this.gs.globalVariables.istp         
         };
 
         if (this.branchid == '') {
