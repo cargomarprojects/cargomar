@@ -509,6 +509,10 @@ export class MailComponent {
           this.InfoMessage += "\n\r | " + response.ftp;
           alert(this.InfoMessage);
         }
+        if (this.ftptypecaption == "COSTING-FTP" && this.InfoMessage.indexOf("Successfully")>=0) {
+          if (this.ModifiedRecords != null)
+            this.ModifiedRecords.emit({ saction: 'SENT-ON', sid: this.pkid, sdate: response.sentondate });
+        }
       },
         error => {
           this.loading = false;
