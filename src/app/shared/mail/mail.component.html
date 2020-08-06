@@ -7,7 +7,7 @@
     <div style="padding-left:4px" class="col-sm-6">
       <button [disabled]="loading||ftptype_id==''" (click)="ShowPage('FTPPAGE')"
         [ngClass]="{'active':rootpage=='FTPPAGE'}" class="btn btn-outline-success btn-block">FTP</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
     <!-- <div style="padding-left:4px" class="col-sm-4">
       <button [disabled]="loading||poftptype_id==''" (click)="ShowPage('PO-FTPPAGE')"
@@ -192,13 +192,13 @@
             <div class="col-sm-12">
               <div class="form-group row">
                 <label class="col-1 col-form-label col-form-label-sm">Type</label>
-                  <div class="col-11">
-                    <select class="form-control form-control-sm" [(ngModel)]="ftptype" (change)="OnChange('ftptype')">
-                      <option [value]="'BL-FTP'">{{ftptypecaption}}</option>
-                      <option [value]="'PO-FTP'">PO-FTP</option>
-                      <!-- <option [value]="'COSTING-FTP'">COSTING-FTP</option> -->
-                    </select>
-                  </div>
+                <div class="col-11">
+                  <select class="form-control form-control-sm" [(ngModel)]="ftptype" (change)="OnChange('ftptype')">
+                    <option [value]="'BL-FTP'">{{ftptypecaption}}</option>
+                    <option [value]="'PO-FTP'">PO-FTP</option>
+                    <!-- <option [value]="'COSTING-FTP'">COSTING-FTP</option> -->
+                  </select>
+                </div>
               </div>
               <div class="form-group row">
                 <label class="col-1 col-form-label col-form-label-sm">Ftp To</label>
@@ -270,10 +270,11 @@
         <div class="col-sm-6">
           <div class="form-group row">
             <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
-              <button *ngIf="ftptype=='PO-FTP'" [disabled]="loading" (click)="CheckList()" class="btn btn-primary btn-sm">Check List</button>
+              <button *ngIf="ftptype=='PO-FTP'" [disabled]="loading" (click)="CheckList()"
+                class="btn btn-primary btn-sm">Check List</button>
               <button [disabled]="loading||ftpcompleted" (click)="SendFtp('',ftptype)"
                 class="btn btn-primary btn-sm">Upload To&nbsp;
-                {{ftptype}}</button>
+                {{ftptype=='BL-FTP' && ftptypecaption == 'COSTING-FTP'?'COSTING-FTP':ftptype}}</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
