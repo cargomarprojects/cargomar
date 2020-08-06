@@ -520,6 +520,7 @@ export class AirCostingComponent {
       }
       if (_num != 0) {
         _num = this.gs.roundNumber(_num, 2);
+
         if (_num != this.Record.cost_drcr_amount) {
           bret = false;
           sError += "| DrCr Amount Mismatch with Details Amount";
