@@ -104,6 +104,11 @@
           <th>CONSIGNEE</th>
           <th>SALESMAN</th>
 
+          <th *ngIf="showpaid">INV-PAID-VRNO</th>
+          <th *ngIf="showpaid">INV-PAID-DATE</th>
+          <th *ngIf="showpaid">INV-AMT</th>
+
+
           <th *ngIf="showpaid">PAID-VRNO</th>
           <th *ngIf="showpaid">DATE</th>
           <th *ngIf="showpaid">AMT</th>
@@ -136,6 +141,11 @@
           <td *ngIf="type=='SREBATE'">{{rec.inv_rebate_jvno_ho}}</td>
           <td>{{rec.consignee_name}}</td>
           <td>{{rec.salesman}}</td>
+
+          <td *ngIf="showpaid">{{rec.inv_paid_docno}}</td>
+          <td *ngIf="showpaid">{{rec.inv_paid_date}}</td>
+          <td *ngIf="showpaid">{{rec.inv_paid_amt | number : '1.2-2'}}</td>
+          
           <td *ngIf="showpaid">{{rec.paid_vrno}}</td>
           <td *ngIf="showpaid">{{rec.paid_date}}</td>
           <td *ngIf="showpaid">{{rec.paid_amt | number : '1.2-2'}}</td>
