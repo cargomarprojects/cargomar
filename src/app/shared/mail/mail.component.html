@@ -274,7 +274,7 @@
                 class="btn btn-primary btn-sm">Check List</button>
               <button [disabled]="loading||ftpcompleted" (click)="SendFtp('',ftptype)"
                 class="btn btn-primary btn-sm">Upload To&nbsp;
-                {{ftptypecaption == 'COSTING-FTP'?'COSTING-FTP':ftptype}}</button>
+                {{ftptype=='BL-FTP' && ftptypecaption == 'COSTING-FTP'?'COSTING-FTP':ftptype}}</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
