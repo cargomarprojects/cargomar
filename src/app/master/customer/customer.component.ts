@@ -55,6 +55,7 @@ export class CustomerComponent {
   sub: any;
   urlid: string;
 
+  
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -408,7 +409,8 @@ export class CustomerComponent {
     this.Record.cust_is_incomplete = true;
     this.Record.cust_incomplete_remarks = '';
     this.Record.cust_branch_remarks = '';
-
+    this.Record.cust_uploaded_docs='';
+    
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
 
@@ -426,8 +428,8 @@ export class CustomerComponent {
 
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
+    
     this.loading = true;
-
     let SearchData = {
       pkid: Id,
     };

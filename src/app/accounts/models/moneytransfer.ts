@@ -61,7 +61,8 @@ export class MoneyTransfer {
     mt_status_code:string;
     mt_status_desc:string;
     mt_utr:string;
-
+    mt_jv_drcr:string;
+    
     rec_mode: string;
     rec_created_by: string;
 

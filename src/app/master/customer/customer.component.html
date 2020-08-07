@@ -68,8 +68,8 @@
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">EXCEL</button>
-          <button *ngIf="bAdmin2" [disabled]="loading" (click)="MailIncomplete()"
-          class="btn btn-primary btn-sm">Mail Incomplete</button>
+        <button *ngIf="bAdmin2" [disabled]="loading" (click)="MailIncomplete()" class="btn btn-primary btn-sm">Mail
+          Incomplete</button>
       </div>
     </div>
   </div>
@@ -97,15 +97,20 @@
           <th>NAME</th>
           <th>TYPE</th>
           <th>KYC</th>
+          <th>PAN</th>
+          <th>TAN</th>
+          <th>AUTH</th>
+          <th>GST</th>
+          <th>IEC</th>
           <th>SALESMAN</th>
           <th>DOCS</th>
           <th>STATUS</th>
           <th>COMPLETED</th>
           <th>COMMENTS</th>
-          <th>CREATED.BY</th>
-          <th>CREATED.DATE</th>
           <th>APPROVED.BY</th>
           <th>APPROVED.DATE</th>
+          <th>CREATED.BY</th>
+          <th>CREATED.DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -114,15 +119,20 @@
           <td>{{rec.cust_name}}</td>
           <td>{{rec.cust_group}}</td>
           <td>{{rec.cust_kyc_status}}</td>
+          <td>{{rec.cust_pan_status}}</td>
+          <td>{{rec.cust_tan_status}}</td>
+          <td>{{rec.cust_auth_status}}</td>
+          <td>{{rec.cust_gst_status}}</td>
+          <td>{{rec.cust_iec_status}}</td>
           <td>{{rec.cust_sman_name}}</td>
           <td>{{rec.cust_docs}}</td>
           <td>{{rec.rec_locked==true?'LOCKED':'UNLOCKED'}}</td>
           <td>{{rec.cust_is_complete}}</td>
           <td>{{rec.cust_incomplete_remarks}}</td>
-          <td>{{rec.rec_created_by}}</td>
-          <td>{{rec.rec_created_date}}</td>
           <td>{{rec.rec_aprvd_by}}</td>
           <td>{{rec.rec_aprvd_date}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
         </tr>
       </tbody>
     </table>
@@ -255,7 +265,8 @@
               </div>
               <div class="form-group row">
                 <label class="col-12 col-form-label col-form-label-sm"
-                  style="color:red;font-size: 12px">IEC,PAN,TAN,GST,KYC,AUTHORISATION LETTER MUST BE UPLOADED FOR SHIPPER</label>
+                  style="color:red;font-size: 12px">IEC,PAN,TAN,GST,KYC,AUTHORISATION LETTER MUST BE UPLOADED FOR
+                  SHIPPER</label>
               </div>
             </div>
             <div class="col-sm-3">
@@ -313,7 +324,14 @@
                     [(ngModel)]="Record.cust_remarks" (blur)="OnBlur('cust_remarks')" maxlength="100" />
                 </div>
               </div>
-              
+              <div *ngIf="mode == 'EDIT'" class="form-group row">
+                <label class="col-4 col-form-label col-form-label-sm">Documents</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" disabled
+                    [(ngModel)]="Record.cust_uploaded_docs" maxlength="500" />
+                </div>
+              </div>
+
             </div>
 
 
@@ -474,9 +492,9 @@
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>
-              <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
+            <button [disabled]="loading||!Record.cust_is_editable" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
               (click)="MailApproval(Record.cust_pkid)">Approval Request Mail</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
+            <i *ngIf="loading" class="fa fa-spinner"></i> 
           </div>
         </div>
 

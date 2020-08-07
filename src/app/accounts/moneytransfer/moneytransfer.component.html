@@ -220,7 +220,7 @@
         <div class="form-group row">
           <label class="col-4 col-form-label  col-form-label-sm">Debit.A/c.No</label>
           <div class="col-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_acc_no"
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mt_corp_acc_no"
               (blur)="OnBlur('mt_corp_acc_no')" required maxlength="60" />
           </div>
         </div>
@@ -247,7 +247,7 @@
   <div class="page-box">
     <div class="col-sm-4">
       <div class="col-10">
-        <button [disabled]="loading || Record.mt_lock == 'G'" (click)="Save()"
+        <button [disabled]="loading || Record.mt_lock == 'G' || Record.mt_jv_drcr=='DR'" (click)="Save()"
           class="btn btn-success btn-sm">Save</button>
         <!-- <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
           class="btn btn-success btn-sm">Generate</button> -->

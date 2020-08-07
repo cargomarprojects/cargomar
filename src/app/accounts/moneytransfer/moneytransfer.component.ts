@@ -230,6 +230,13 @@ export class MoneyTransferComponent {
         this.loading = false;
         this.mode = response.recmode;
         this.LoadData(response.record);
+
+        if (this.Record.mt_jv_drcr == "DR") {
+          this.ErrorMessage = "Fund Transfer is possible only for credit accounts";
+          alert(this.ErrorMessage);
+          // if (this.ModifiedRecords != null)
+          //   this.ModifiedRecords.emit({ stype: 'CLOSE', sid: '' });
+        }
       },
         error => {
           this.loading = false;
@@ -240,8 +247,9 @@ export class MoneyTransferComponent {
   LoadData(_Record: MoneyTransfer) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
-    if (this.mode == "ADD")
+    if (this.mode == "ADD") {
       this.RefNo = "";
+    }
     else
       this.RefNo = this.Record.mt_cust_cfno.toString();
     this.InitLov();
@@ -253,8 +261,6 @@ export class MoneyTransferComponent {
     this.BENFRECORD.code = this.Record.mt_ben_code;
     this.BENFRECORD.name = this.Record.mt_ben_name;
     this.BENFRECORD.parentid = this.Record.mt_party_id;
-
-    
 
   }
 
@@ -273,14 +279,14 @@ export class MoneyTransferComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD')
-        {
+        if (this.mode == 'ADD') {
           this.Record.mt_cust_cfno = response.refno;
-          this.RefNo=this.Record.mt_cust_cfno.toString();
+          this.RefNo = this.Record.mt_cust_cfno.toString();
         }
-        this.mode =  "EDIT";
+        this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
         this.Record.mt_txn_amt = response.txnamt;
+        this.Record.mt_corp_acc_no = response.corpaccno;
         this.InfoMessage = "Save Complete";
       },
         error => {
@@ -487,7 +493,7 @@ export class MoneyTransferComponent {
         if (this.ModifiedRecords != null)
           this.ModifiedRecords.emit({ saction: 'GENERATE', sid: this.Record.mt_jv_id, mlock: this.Record.mt_lock, custrefno: this.Record.mt_cust_uniq_ref });
 
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;

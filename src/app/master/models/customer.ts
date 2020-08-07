@@ -60,12 +60,12 @@ export class Customerm {
     acc_against_invoice: string;
 
     cust_remarks: string;
-    cust_country:string;
+    cust_country: string;
     cust_is_incomplete: boolean;
-    cust_incomplete_remarks:string;
+    cust_incomplete_remarks: string;
     cust_is_complete: string;
     cust_is_editable: boolean;
-    cust_branch_remarks:string;
+    cust_branch_remarks: string;
 
     rec_mode: string;
 
@@ -75,9 +75,15 @@ export class Customerm {
     rec_aprvd_by: string;
     rec_aprvd_date: string;
 
+    cust_pan_status: string;
+    cust_tan_status: string;
+    cust_auth_status: string;
+    cust_gst_status: string;
+    cust_iec_status: string;
+    cust_uploaded_docs: string;
     _globalvariables: GlobalVariables;
 
-    AddressList : Addressm[] = [];
+    AddressList: Addressm[] = [];
 
 }
 
