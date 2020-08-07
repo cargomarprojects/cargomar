@@ -888,7 +888,16 @@ export class CustomerComponent {
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid,
-      mailtype: 'INCOMPLETE'
+      mailtype: 'INCOMPLETE',
+      Is_Shipper: this.Is_Shipper,
+      Is_Consignee: this.Is_Consignee,
+      Is_Agent: this.Is_Agent,
+      Is_Cha_Forwarder: this.Is_Cha_Forwarder,
+      Is_Creditor: this.Is_Creditor,
+      Is_Others: this.Is_Others,
+      Is_Incomplete: this.Is_Incomplete,
+      Last_Bill_date: this.Last_Bill_date,
+      Is_Locked: this.Is_Locked
     };
 
     this.ErrorMessage = '';
