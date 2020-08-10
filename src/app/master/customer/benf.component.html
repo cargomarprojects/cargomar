@@ -138,7 +138,7 @@
           <div class="form-group row">
               <label class="col-sm-4 col-form-label  col-form-label-sm">Email1</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_email1"
+                <input type="text" [disabled]="Record.ben_email1.length>0 && gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.ben_email1"
                   (blur)="OnBlur('ben_email1')" required maxlength="250" />
               </div>
             </div>

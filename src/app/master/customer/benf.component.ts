@@ -168,7 +168,7 @@ export class BenfComponent {
         this.Record.ben_pin = '';
         this.Record.ben_ifsc = '';
         this.Record.ben_bank_name = '';
-        this.Record.ben_email1 = '';
+        this.Record.ben_email1 = this.getBrAccEmail();
         this.Record.ben_email2 = '';
         this.Record.ben_mob = '';
         this.Record.ben_branch_code = this.gs.globalVariables.branch_code;
@@ -177,6 +177,36 @@ export class BenfComponent {
         this.ben_code.nativeElement.focus();
     }
 
+    getBrAccEmail() {
+        let str: string = "";
+
+        if (this.gs.globalVariables.branch_code == "DELAF")
+            str = "delacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "DELSF")
+            str = "delseaacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "MBYAF")
+            str = "mbiairacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "MBISF")
+            str = "mbiacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "BLRAF")
+            str = "blracc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "COKAF")
+            str = "kochiairacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "CHNSF" || this.gs.globalVariables.branch_code == "CHNAF")
+            str = "chennaiacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "HOCPL")
+            str = "hoacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "ABDSF")
+            str = "ahmgen@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "COKSF")
+            str = "kochiacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "TUTSF")
+            str = "tutiacc@cargomar.in";
+        else if (this.gs.globalVariables.branch_code == "SEZSF")
+            str = "csezgen@cargomar.in";
+
+        return str;
+    }
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
         this.loading = true;
@@ -242,24 +272,24 @@ export class BenfComponent {
             bret = false;
             sError += "| Beneficiary / Vendor Code Cannot Be Blank";
         }
-        if (this.Record.ben_name.trim().length <= 0){
+        if (this.Record.ben_name.trim().length <= 0) {
             bret = false;
             sError += "| Beneficiary Name Cannot Be Blank";
         }
-        if (this.Record.ben_acc_type.trim().length <= 0){
+        if (this.Record.ben_acc_type.trim().length <= 0) {
             bret = false;
             sError += "| Beneficiary Account Type Cannot Be Blank";
         }
-        if (this.Record.ben_acc_no.trim().length <= 0){
+        if (this.Record.ben_acc_no.trim().length <= 0) {
             bret = false;
             sError += "| Beneficiary Account Number Cannot Be Blank";
         }
-        if (this.Record.ben_ifsc.trim().length <= 0){
+        if (this.Record.ben_ifsc.trim().length <= 0) {
             bret = false;
             sError += "| IFSC Cannot Be Blank";
         }
 
-        if (this.Record.ben_city.trim().length <= 0){
+        if (this.Record.ben_city.trim().length <= 0) {
             bret = false;
             sError += "| Beneficiary City Cannot Be Blank";
         }
