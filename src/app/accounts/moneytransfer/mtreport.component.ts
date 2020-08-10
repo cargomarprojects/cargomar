@@ -338,14 +338,21 @@ export class MtReportComponent {
             rec.mt_lock = response.mtlock;
           }
         }
+        this.InfoMessage = response.savemsg;
+        alert(this.InfoMessage);
+
         // if (response.bank === 'IOB') {
         //   this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        // } else {
+        // } 
+        // else {
         //   this.InfoMessage = response.savemsg;
         //   alert(this.InfoMessage);
         // }
-        for (let rec of response.filelist) {
-          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        
+        if (response.bank === 'IOB') {
+          for (let rec of response.filelist) {
+            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+          }
         }
         this.List('NEW');
       },
@@ -383,7 +390,7 @@ export class MtReportComponent {
           alert(this.ErrorMessage);
         });
   }
-  
+
   ShowHistory(history: any, _jvid: string = "") {
     this.ErrorMessage = '';
     this.jv_id = _jvid;
