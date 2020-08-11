@@ -163,6 +163,7 @@ export class SettingsComponent {
   BR_FLDR_SE_PREFIX: string = '';
   BR_FLDR_SI_PREFIX: string = '';
   BR_SMAN_EMAIL: string = '';
+  BR_ACC_EMAIL: string = '';
   BR_CRLIMIT_ENABLED: boolean = false;
   BR_CRLIMIT_ENABLED_SI: boolean = false;
 
@@ -827,6 +828,8 @@ export class SettingsComponent {
         this.BR_FLDR_SI_PREFIX = rec.name;
       if (rec.caption == "BR-SMAN-EMAIL")
         this.BR_SMAN_EMAIL = rec.name;
+      if (rec.caption == "BR-ACC-EMAIL")
+        this.BR_ACC_EMAIL = rec.name;
     })
   }
 
@@ -987,7 +990,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SE-PREFIX', '', '', this.BR_FLDR_SE_PREFIX.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SI-PREFIX', '', '', this.BR_FLDR_SI_PREFIX.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR-SMAN-EMAIL', '', '', this.BR_SMAN_EMAIL.toString().toUpperCase()));
-
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR-ACC-EMAIL', '', '', this.BR_ACC_EMAIL.toString().toUpperCase()));
   }
   allvalidBranch() {
     let sError: string = "";
@@ -1225,7 +1228,7 @@ export class SettingsComponent {
           this.PayrollRecord.ps_pf_col_excluded = this.PayrollRecord.ps_pf_col_excluded.toUpperCase();
           break;
         }
-        case 'ps_sal_calc_days':
+      case 'ps_sal_calc_days':
         {
           this.PayrollRecord.ps_sal_calc_days = this.gs.roundNumber(this.PayrollRecord.ps_sal_calc_days, 0);
           break;

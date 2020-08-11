@@ -3,7 +3,7 @@ export class DefaultValues {
     today: string;
     monthbegindate: string;
     lastmonthdate: string;
-    
+    branch_accounts_email: string;
    
     gstin: string;
     gstin_state_code: string;
