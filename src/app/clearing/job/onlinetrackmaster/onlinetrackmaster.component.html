@@ -75,10 +75,12 @@
           <th>POL</th>
           <th>POD</th>
           <th>ETD</th>
+          <th>CONFM</th>
           <th>ETA</th>
+          <th>CONFM</th>
           <th>DELV.PLACE</th>
           <th>DELV.DATE</th>
-          <th>CONFIRM</th>
+          <th>CONFM</th>
           <th>DELV.PROOF</th>
           <!-- <th>INVOICE</th>           -->
           <th>SHIPPER</th>
@@ -92,7 +94,9 @@
           <td>{{rec.ord_pol}}</td>
           <td>{{rec.ord_pod}}</td>
           <td>{{rec.ord_etd}}</td>
+          <td>{{rec.ord_etd_confirm==true?'Y':'-'}}</td>
           <td>{{rec.ord_eta}}</td>
+          <td>{{rec.ord_eta_confirm==true?'Y':'-'}}</td>
           <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_deliv_date}}</td>
           <td>{{rec.ord_deliv_confirm==true?'Y':'-'}}</td>
@@ -103,7 +107,7 @@
           <td>{{rec.ord_imp_name}}</td>
         </tr>
         <tr *ngIf="rec.row_displayed">
-          <td colspan="12">
+          <td colspan="14">
             <div style="border-style:solid;border-color:green" class="page-details">
               <div class="row">
                 <div class="col-sm-12">
