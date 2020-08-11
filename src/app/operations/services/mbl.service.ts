@@ -38,6 +38,9 @@ export class MblService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/PrintCheckList', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    UpdateTracking(Record: Mblm) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Mbl/UpdateTracking', Record, this.gs.headerparam2('authorized'));
+    }
 
 }
 

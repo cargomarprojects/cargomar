@@ -510,9 +510,11 @@
                       </div>
                     </div> -->
                   
-                    <div class="col-sm-2 input-group input-group-sm">
+                    <div class="col-sm-4 input-group input-group-sm">
                       <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
                         class="btn btn-success btn-sm mr-1">Tracking</button>
+                        <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update</button>
                     </div>
                   </div>
                 </div>
