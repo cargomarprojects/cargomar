@@ -332,6 +332,14 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-4 col-form-label col-form-label-sm">Case Number</label>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
+                    [(ngModel)]="Record.cust_caseno" (blur)="OnBlur('cust_caseno')" maxlength="100" />
+                </div>
+              </div>
+
             </div>
 
 

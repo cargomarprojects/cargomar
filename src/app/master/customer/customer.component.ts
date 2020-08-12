@@ -417,7 +417,7 @@ export class CustomerComponent {
     this.Record.cust_incomplete_remarks = '';
     this.Record.cust_branch_remarks = '';
     this.Record.cust_uploaded_docs = '';
-
+    this.Record.cust_caseno = '';
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
 
@@ -657,7 +657,7 @@ export class CustomerComponent {
       this.Record.cust_code = this.Record.cust_code.toUpperCase().replace(' ', '');
       this.Record.cust_name = this.Record.cust_name.toUpperCase().trim();
       this.Record.cust_iecode = this.Record.cust_iecode.toUpperCase().trim();
-
+      this.Record.cust_caseno = this.Record.cust_caseno.toUpperCase().trim();
     }
 
     if (bret === false)
