@@ -494,7 +494,7 @@
               CR-Limit</button>
             <button [disabled]="loading||!Record.cust_is_editable" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
               (click)="MailApproval(Record.cust_pkid)">Approval Request Mail</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i> 
+            <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
 
@@ -625,6 +625,11 @@
             </app-benf>
           </div>
         </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Legal Documents" *ngIf="mode == 'EDIT' && bLegalDocs">
+      <ng-template ngbTabContent>
+        <app-upload [pkid]="pkid" [type]="'LEGAL-CUSTOMER'" [canupload]="true"></app-upload>
       </ng-template>
     </ngb-tab>
 

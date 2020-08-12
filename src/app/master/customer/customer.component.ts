@@ -34,6 +34,7 @@ export class CustomerComponent {
   showalert = false;
   CrList: any[];
 
+  bLegalDocs = false;
   bDocs = false;
   bDocsUpload = false;
   canadd = true;
@@ -55,7 +56,7 @@ export class CustomerComponent {
   sub: any;
   urlid: string;
 
-  
+
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -255,7 +256,7 @@ export class CustomerComponent {
 
     this.canadd = true;
     // this.bAdmin = true;
-
+    this.bLegalDocs = false;
     this.bDocs = true;
     this.bDocsUpload = true;
 
@@ -274,6 +275,12 @@ export class CustomerComponent {
     // this.bAdmin = false;
     // if (this.mode == "EDIT" && this.menu_record.rights_admin)
     //   this.bAdmin = true;
+
+    this.bLegalDocs = false;
+    if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LEGAL"))
+      this.bLegalDocs = true;
+    if (this.mode == "EDIT" && this.gs.globalVariables.user_code == "ADMIN")
+      this.bLegalDocs = true;
 
     this.bDocs = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
@@ -409,8 +416,8 @@ export class CustomerComponent {
     this.Record.cust_is_incomplete = true;
     this.Record.cust_incomplete_remarks = '';
     this.Record.cust_branch_remarks = '';
-    this.Record.cust_uploaded_docs='';
-    
+    this.Record.cust_uploaded_docs = '';
+
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
 
@@ -428,7 +435,7 @@ export class CustomerComponent {
 
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
-    
+
     this.loading = true;
     let SearchData = {
       pkid: Id,
