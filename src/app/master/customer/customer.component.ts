@@ -882,13 +882,13 @@ export class CustomerComponent {
 
     this.loading = true;
     let SearchData = {
+      mailtype: 'INCOMPLETE',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid,
-      mailtype: 'INCOMPLETE',
       Is_Shipper: this.Is_Shipper,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
@@ -896,8 +896,7 @@ export class CustomerComponent {
       Is_Creditor: this.Is_Creditor,
       Is_Others: this.Is_Others,
       Is_Incomplete: this.Is_Incomplete,
-      Last_Bill_date: this.Last_Bill_date,
-      Is_Locked: this.Is_Locked
+      Last_Bill_date: this.Last_Bill_date
     };
 
     this.ErrorMessage = '';
