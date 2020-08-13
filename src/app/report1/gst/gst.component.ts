@@ -55,7 +55,7 @@ export class GstComponent {
     to_date: '',
     format_type: '',
     all: false,
-    gst_only:true
+    gst_only: true
   };
 
   // Array For Displaying List
@@ -166,21 +166,25 @@ export class GstComponent {
     this.ErrorMessage = '';
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = "From Date Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = "To Date Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.branch_code.trim().length <= 0) {
       this.ErrorMessage = "Branch Code Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B-RATE WISE") {
       if (this.all == true) {
         this.ErrorMessage = "Cannot Process Report With All Option";
+        alert(this.ErrorMessage);
         return;
       }
     }
