@@ -168,8 +168,8 @@ export class BenfComponent {
         this.Record.ben_pin = '';
         this.Record.ben_ifsc = '';
         this.Record.ben_bank_name = '';
-        this.Record.ben_email1 = this.getBrAccEmail();
-       // this.Record.ben_email1 = this.gs.defaultValues.branch_accounts_email;
+       // this.Record.ben_email1 = this.getBrAccEmail();
+        this.Record.ben_email1 = this.gs.defaultValues.branch_accounts_email;
         this.Record.ben_email2 = '';
         this.Record.ben_mob = '';
         this.Record.ben_branch_code = this.gs.globalVariables.branch_code;
