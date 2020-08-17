@@ -15,7 +15,7 @@ import { Settings } from '../../../master/models/settings';
 export class CheckSbComponent {
   // Local Variables 
   title = 'SB List';
-    
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
@@ -27,7 +27,7 @@ export class CheckSbComponent {
   BR_ICEGATE_EMAIL_PWD: string = '';
   BR_CUSTOM_LOCATIONS: string = '';
   BR_START_INDEX: number = 0;
-   
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -54,7 +54,7 @@ export class CheckSbComponent {
   RecordList: MailSB[] = [];
   // Single Record for add/edit/view details
   Record: MailSB = new MailSB;
-   
+
 
   constructor(
     private mainService: MailSbService,
@@ -135,7 +135,7 @@ export class CheckSbComponent {
     }
    */
 
-    
+
   }
 
   ResetControls() {
@@ -165,7 +165,7 @@ export class CheckSbComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-         
+
         this.RecordList = response.list;
         this.page_count = response.page_count;
         this.page_current = response.page_current;
@@ -174,12 +174,12 @@ export class CheckSbComponent {
         this.BR_ICEGATE_EMAIL = response.email;
         this.BR_ICEGATE_EMAIL_PWD = response.emailpwd;
         this.BR_CUSTOM_LOCATIONS = response.locations;
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -256,14 +256,17 @@ export class CheckSbComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      pkid:_id,
+      pkid: _id,
       br_icegate_email: '',
       br_icegate_email_pwd: '',
       br_custom_locations: '',
       br_start_index: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder
     };
 
     SearchData.type = _type;
@@ -286,31 +289,31 @@ export class CheckSbComponent {
           this.InfoMessage = "Download Complete";
           alert(this.InfoMessage);
           this.List("NEW");
-         } if (_type == "UPDATESB") {
-           if (response.sbreason.length > 0) {
-             if (this.RecordList == null)
-               return;
-             var REC = this.RecordList.find(rec => rec.sb_pkid == _id);
-             if (REC != null) {
-               REC.sb_reason = response.sbreason;
-             }
-           }
+        } if (_type == "UPDATESB") {
+          if (response.sbreason.length > 0) {
+            if (this.RecordList == null)
+              return;
+            var REC = this.RecordList.find(rec => rec.sb_pkid == _id);
+            if (REC != null) {
+              REC.sb_reason = response.sbreason;
+            }
+          }
           this.InfoMessage = response.savemsg;
           alert(this.InfoMessage);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  allvalid(_type:string) {
+  allvalid(_type: string) {
     let sError: string = "";
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     /*
       if (this.Record.ord_desc.trim().length <= 0) {
         bret = false;
@@ -369,5 +372,5 @@ export class CheckSbComponent {
   Settings() {
     this.user_admin = !this.user_admin;
   }
-  
+
 }
