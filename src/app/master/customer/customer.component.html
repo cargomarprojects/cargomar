@@ -421,7 +421,7 @@
               <div class="form-group row">
                 <!-- <label class="col-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-2">
-                  <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                  <button *ngIf="mode == 'EDIT' && bCanUnLink" [disabled]="loading"
                     (click)="Unlink(Record.cust_pkid)" class="btn btn-success btn-sm">Unlink</button>
                 </div>
                 <div class="col-4">
@@ -492,9 +492,9 @@
               class="btn btn-success btn-sm">Return</button>
             <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
               class="btn btn-success btn-sm">History</button>
-            <button *ngIf="mode == 'EDIT' && bAdmin2 && Record.rec_locked" [disabled]="loading"
+            <button *ngIf="mode == 'EDIT' && bCanLock && Record.rec_locked" [disabled]="loading"
               (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm">Unlock</button>
-            <button *ngIf="mode == 'EDIT' && bAdmin2 && !Record.rec_locked" [disabled]="loading"
+            <button *ngIf="mode == 'EDIT' && bCanLock && !Record.rec_locked" [disabled]="loading"
               (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm">Lock</button>
 
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"

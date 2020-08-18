@@ -35,6 +35,8 @@ export class CustomerComponent {
   CrList: any[];
 
   bLegalDocs = false;
+  bCanLock = false;
+  bCanUnLink = false;
   bDocs = false;
   bDocsUpload = false;
   canadd = true;
@@ -257,6 +259,8 @@ export class CustomerComponent {
     this.canadd = true;
     // this.bAdmin = true;
     this.bLegalDocs = false;
+    this.bCanLock = false;
+    this.bCanUnLink = false;
     this.bDocs = true;
     this.bDocsUpload = true;
 
@@ -276,11 +280,18 @@ export class CustomerComponent {
     // if (this.mode == "EDIT" && this.menu_record.rights_admin)
     //   this.bAdmin = true;
 
-    this.bLegalDocs = false;
+    this.bLegalDocs = false; this.bCanLock = false; this.bCanUnLink = false;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LEGAL"))
       this.bLegalDocs = true;
-    if (this.mode == "EDIT" && this.gs.globalVariables.user_code == "ADMIN")
+    if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LOCK"))
+      this.bCanLock = true;
+    if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("UNLINK"))
+      this.bCanUnLink = true;
+    if (this.mode == "EDIT" && this.gs.globalVariables.user_code == "ADMIN") {
       this.bLegalDocs = true;
+      this.bCanLock = true;
+      this.bCanUnLink = true;
+    }
 
     this.bDocs = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
