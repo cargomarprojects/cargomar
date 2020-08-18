@@ -185,7 +185,7 @@
 
         <label class="col-2 col-form-label col-form-label-sm">Location</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_location" required
+          <input type="text" [disabled]="Record.add_location.length>0 && gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.add_location" required
             maxlength="60" />
         </div>
         <label class="col-2 col-form-label col-form-label-sm">ForeignState</label>

@@ -26,7 +26,8 @@ export class GlobalVariables {
     branch_pkid: string;
     branch_code: string;
     branch_name: string;
-
+    branch_location:string;
+    
     branch_type: string;
 
     sman_id: string;

@@ -155,7 +155,7 @@ export class AddressmComponent {
         this.Record.add_fax = '';
         this.Record.add_email = '';
         this.Record.add_web = '';
-        this.Record.add_location = '';
+        this.Record.add_location = this.gs.globalVariables.branch_code;
 
         this.Record.add_sepz_unit = false;
 

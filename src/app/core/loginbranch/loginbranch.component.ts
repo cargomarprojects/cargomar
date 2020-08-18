@@ -131,6 +131,7 @@ export class LoginBranchComponent {
         this.gs.globalVariables.branch_pkid = data.branch_pkid;
         this.gs.globalVariables.branch_code = data.branch_code;
         this.gs.globalVariables.branch_name = data.branch_name;
+        this.gs.globalVariables.branch_location = data.branch_location;
 
         this.gs.globalVariables.branch_type = data.branch_type;
 
