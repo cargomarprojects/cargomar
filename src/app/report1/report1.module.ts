@@ -52,6 +52,7 @@ import { TdsosDetComponent} from './tdsos/tdsosdet.component';
 import { AuditLogComponent} from './auditlog/auditlog.component';
 import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
+import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component'
     TdsosDetComponent,
     AuditLogComponent,
     MonRepUpdtComponent,
-    ArrivalNoticeComponent
+    ArrivalNoticeComponent,
+    ShipTrackComponent
   ],
   providers: [
   ],

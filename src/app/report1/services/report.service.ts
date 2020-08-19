@@ -112,5 +112,9 @@ export class RepService {
   GenerateXmlCostingInvoice(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlCostingInvoice', SearchData, this.gs.headerparam2('authorized'));
   }
+  
+  ShipTrackList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ShipTrackList', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
