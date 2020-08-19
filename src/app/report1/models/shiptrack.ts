@@ -7,6 +7,7 @@ export class ShipTrack {
     mbl_carrier_name: string;
     mbl_exp_name: string;
     mbl_imp_name: string;
+    mbl_book_no: string;
     mbl_no: string;
     mbl_date: string;
     mbl_pol_name: string;

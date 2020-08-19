@@ -148,7 +148,7 @@ export class ShipTrackComponent {
         this.type_date = "SOB";
         this.branch_code = this.gs.globalVariables.branch_code;
         this.branch_name = this.gs.globalVariables.branch_name;
-        this.from_date = this.gs.defaultValues.monthbegindate;
+        this.from_date = this.gs.defaultValues.lastmonthdate;
         this.to_date = this.gs.defaultValues.today;
         this.shipper_id = '';
         this.consignee_id = '';

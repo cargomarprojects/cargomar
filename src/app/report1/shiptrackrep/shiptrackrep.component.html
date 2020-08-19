@@ -11,7 +11,7 @@
     <div class="page-list">
       <div class="page-search">
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">From Date</label>
               <div class="col-8">
@@ -24,6 +24,8 @@
                 <app-date #todate [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
               </div>
             </div>
+          </div>
+          <div class="col-3">
             <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
               <div class="col-8">
@@ -36,11 +38,8 @@
                 <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
               </div>
             </div>
-  
-  
           </div>
-          <div class="col-4">
-  
+          <div class="col-3">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
               <div class="col-8">
@@ -54,7 +53,7 @@
               </div>
             </div>
   
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
               <div class="col-8">
                 <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
@@ -65,10 +64,12 @@
               <div class="col-8">
                 <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
               </div>
-            </div>
+            </div> -->
     
           </div>
-          <div class="col-4">
+
+
+          <div class="col-3">
   
             <!-- <div class="form-group row">
               <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
@@ -116,6 +117,7 @@
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
+            <th>BOOK#</th>
             <th>MBL#</th>
             <th>DATE</th>
             <th>SHIPPER</th>
@@ -124,14 +126,15 @@
             <th>AGENT</th>
             <th>POL</th>
             <th>POD</th>
-            <th>BOOK.CONFM.DT</th>
-            <th>STUFF.CONFM.DT</th>
+            <th>BOOK.CONF.DT</th>
+            <th>STUFF.CONF.DT</th>
             <th>GATE.IN.DT</th>
-            <th>VGM.UPDT.DT</th>
+            <th>VGM.DT</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr [style.color]="rec.row_colour">
+            <td>{{rec.mbl_book_no}}</td>
             <td>{{rec.mbl_no}}</td>
             <td>{{rec.mbl_date}}</td>
             <td>{{rec.mbl_exp_name}}</td>
