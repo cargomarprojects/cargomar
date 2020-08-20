@@ -12,7 +12,9 @@ export class HblTracking {
     hbl_approved_date: string;
     hpayment_received_date: string;
     hbl_released_date: string;
-
+    delivered_date: string;
+    pre_position_date:string;
+    
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

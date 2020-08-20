@@ -90,7 +90,7 @@ export class ShipTrackComponent {
       .subscribe(response => {
         this.loading = false;
         this.Record = response.record;
-        this.MailRecords=response.list;
+        this.MailRecords = response.list;
       },
         error => {
           this.loading = false;
@@ -110,7 +110,7 @@ export class ShipTrackComponent {
     }
   }
 
-  Save(_category: string) {
+  Save(_category: string, _pre_position_date: string) {
     if (!this.allvalid())
       return;
 
@@ -118,6 +118,7 @@ export class ShipTrackComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.Record.rec_category = _category;
+    this.Record.pre_position_date = _pre_position_date;
     this.Record.parent_type = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
 

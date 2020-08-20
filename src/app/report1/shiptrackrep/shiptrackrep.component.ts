@@ -30,6 +30,10 @@ export class ShipTrackComponent {
     mode = '';
     pkid = '';
 
+    page_count = 0;
+    page_current = 0;
+    page_rows = 0;
+    page_rowcount = 0;
 
     type_date: string = 'SOB';
     from_date: string = '';
@@ -53,10 +57,15 @@ export class ShipTrackComponent {
     loading = false;
     currentTab = 'LIST';
     searchstring = '';
+    showpending: boolean = true;
 
     SearchData = {
         type: '',
         pkid: '',
+        page_count: this.page_count,
+        page_current: this.page_current,
+        page_rows: this.page_rows,
+        page_rowcount: this.page_rowcount,
         report_folder: '',
         company_code: '',
         branch_code: '',
@@ -73,7 +82,7 @@ export class ShipTrackComponent {
         pol_id: '',
         pod_id: '',
         all: false,
-
+        showpending: this.showpending
     };
 
     sSubject: string = '';
@@ -100,6 +109,9 @@ export class ShipTrackComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
+        this.page_count = 0;
+    this.page_rows = 15;
+    this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -341,6 +353,12 @@ export class ShipTrackComponent {
         this.SearchData.pol_id = this.pol_id;
         this.SearchData.pod_id = this.pod_id;
         this.SearchData.all = this.all;
+        this.SearchData.showpending = this.showpending;
+
+        this.SearchData.page_count = this.page_count;
+        this.SearchData.page_current= this.page_current;
+        this.SearchData.page_rows= this.page_rows;
+        this.SearchData.page_rowcount= this.page_rowcount;
 
         this.ErrorMessage = '';
         this.mainService.ShipTrackList(this.SearchData)
@@ -359,6 +377,9 @@ export class ShipTrackComponent {
                 //     this.RecordList = response.list;
                 // }
                 this.RecordList = response.list;
+                this.page_count = response.page_count;
+                this.page_current = response.page_current;
+                this.page_rowcount = response.page_rowcount;
             },
                 error => {
                     this.loading = false;
@@ -385,7 +406,7 @@ export class ShipTrackComponent {
     }
 
     OnChange(field: string) {
-        this.RecordList = null;
+        // this.RecordList = null;
 
     }
 

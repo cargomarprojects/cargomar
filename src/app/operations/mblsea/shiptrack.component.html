@@ -20,7 +20,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mbook_confirmed_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mbook_confirmed_date','')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mstuff_confirmed_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mstuff_confirmed_date','mbook_confirmed_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date','mstuff_confirmed_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -57,7 +57,18 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mvgm_updated_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mvgm_updated_date','mgate_in_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Delivered Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.delivered_date" (ValueChanged)="Record.delivered_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('delivered_date','mvgm_updated_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -104,7 +115,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hdraft_sent_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hdraft_sent_date','')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -116,7 +127,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hinvoice_sent_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hinvoice_sent_date','hdraft_sent_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -128,7 +139,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hbl_approved_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hbl_approved_date','hinvoice_sent_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -141,7 +152,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hpayment_received_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hpayment_received_date','hbl_approved_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -153,7 +164,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hbl_released_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hbl_released_date','hpayment_received_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
