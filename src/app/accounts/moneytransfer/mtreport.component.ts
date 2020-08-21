@@ -348,7 +348,7 @@ export class MtReportComponent {
         //   this.InfoMessage = response.savemsg;
         //   alert(this.InfoMessage);
         // }
-        
+
         if (response.bank === 'IOB') {
           for (let rec of response.filelist) {
             this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
@@ -359,6 +359,7 @@ export class MtReportComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
