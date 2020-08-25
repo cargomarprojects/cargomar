@@ -5,7 +5,6 @@ import { SearchTable } from '../../../shared/models/searchtable';
 import { Costingm } from '../../models/costing';
 import { Costingd } from '../../models/costing';
 
-
 @Component({
   selector: 'app-costinvoice',
   templateUrl: './costinvoice.component.html'
@@ -173,4 +172,5 @@ export class CostInvoiceComponent {
     this.FindTotal();
   }
 
+  
 }
