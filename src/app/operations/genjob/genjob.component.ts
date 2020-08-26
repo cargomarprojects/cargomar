@@ -358,6 +358,8 @@ export class GenJobComponent {
     this.Record.gj_pack_list_no = '';
     this.Record.gj_refno = ''
     this.Record.gj_driver_name = '';
+    this.Record.hbl_beno='';
+    this.Record.hbl_bedate='';
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -589,6 +591,9 @@ export class GenJobComponent {
     }
     if (field == 'gj_driver_name') {
       this.Record.gj_driver_name = this.Record.gj_driver_name.toUpperCase();
+    }
+    if (field == 'hbl_beno') {
+      this.Record.hbl_beno = this.Record.hbl_beno.toUpperCase();
     }
 
   }

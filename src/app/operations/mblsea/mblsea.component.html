@@ -384,7 +384,7 @@
                     <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                   </label>
                   <div style="padding-left:0" class="col-3">
-                    <app-date disabled [inputdate]="Record.book_folder_sent_date"
+                    <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'" [inputdate]="Record.book_folder_sent_date"
                       (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
                   </div>
                 </div>

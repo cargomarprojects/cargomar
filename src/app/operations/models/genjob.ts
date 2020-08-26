@@ -78,5 +78,8 @@ export class GenJobm {
   rec_category: string;
 
   hbl_ar_invamt: number;
+  hbl_beno: string;
+  hbl_bedate: string;
+
   _globalvariables: GlobalVariables;
 }

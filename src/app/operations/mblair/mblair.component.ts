@@ -27,7 +27,7 @@ export class MblAirComponent {
   bAdmin = false;
   bDocs = false;
 
-  modal:any;
+  modal: any;
   folder_id: string;
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
@@ -154,10 +154,10 @@ export class MblAirComponent {
 
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 
@@ -194,7 +194,7 @@ export class MblAirComponent {
     this.EXPRECORD.controlname = "SHIPPER";
     this.EXPRECORD.displaycolumn = "CODE";
     this.EXPRECORD.type = "CUSTOMER";
-   // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
     this.EXPRECORD.id = "";
     this.EXPRECORD.code = "";
     this.EXPRECORD.name = "";
@@ -212,7 +212,7 @@ export class MblAirComponent {
     this.IMPRECORD.controlname = "CONSIGNEE";
     this.IMPRECORD.displaycolumn = "CODE";
     this.IMPRECORD.type = "CUSTOMER";
-   // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
     this.IMPRECORD.id = "";
     this.IMPRECORD.code = "";
     this.IMPRECORD.name = "";
@@ -226,7 +226,7 @@ export class MblAirComponent {
     this.IMPADDRECORD.code = "";
     this.IMPADDRECORD.name = "";
     this.IMPADDRECORD.parentid = "";
-    
+
     this.FACTORYLOCRECORD = new SearchTable();
     this.FACTORYLOCRECORD.controlname = "FACTORYLOCATION";
     this.FACTORYLOCRECORD.displaycolumn = "CODE";
@@ -234,7 +234,7 @@ export class MblAirComponent {
     this.FACTORYLOCRECORD.id = "";
     this.FACTORYLOCRECORD.code = "";
     this.FACTORYLOCRECORD.name = "";
-    
+
     this.COMMODITYRECORD = new SearchTable();
     this.COMMODITYRECORD.controlname = "COMMODITY";
     this.COMMODITYRECORD.displaycolumn = "CODE";
@@ -266,7 +266,7 @@ export class MblAirComponent {
     this.POFDRECORD.id = "";
     this.POFDRECORD.code = "";
     this.POFDRECORD.name = "";
-    
+
     this.SALESMANRECORD = new SearchTable();
     this.SALESMANRECORD.controlname = "SALESMAN";
     this.SALESMANRECORD.displaycolumn = "CODE";
@@ -307,7 +307,7 @@ export class MblAirComponent {
       this.Record.mbl_agent_br_no = _Record.code;
       this.Record.mbl_agent_br_addr = this.GetBrAddress(_Record.name).address;
     }
-     
+
     else if (_Record.controlname == "SEACARRIER") {
       this.Record.mbl_carrier_id = _Record.id;
       this.Record.mbl_carrier_code = _Record.code;
@@ -382,7 +382,7 @@ export class MblAirComponent {
       this.Record.mbl_pod_id = _Record.id;
       this.Record.mbl_pod_code = _Record.code;
       this.Record.mbl_pod_name = _Record.name;
-    }else if (_Record.controlname == "POFD") {
+    } else if (_Record.controlname == "POFD") {
       this.Record.mbl_pofd_id = _Record.id;
       this.Record.mbl_pofd_code = _Record.code;
       this.Record.mbl_pofd_name = _Record.name;
@@ -461,10 +461,10 @@ export class MblAirComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -533,7 +533,7 @@ export class MblAirComponent {
     this.Record.mbl_imp_br_addr = '';
     this.Record.lock_record = false;
     this.Record.mbl_released_date = '';
-    this.Record.mbl_deliv_date='';
+    this.Record.mbl_deliv_date = '';
     this.Record.mbl_pol_eta = '';
     this.Record.mbl_pol_eta_confirm = false;
     this.Record.mbl_deliv_date_confirm = false;
@@ -558,10 +558,10 @@ export class MblAirComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Mblm) {
@@ -608,7 +608,7 @@ export class MblAirComponent {
     this.FACTORYLOCRECORD.id = this.Record.mbl_factloc_id;
     this.FACTORYLOCRECORD.code = this.Record.mbl_factloc_code;
     this.FACTORYLOCRECORD.name = this.Record.mbl_factloc_name;
-    
+
     this.COMMODITYRECORD.id = this.Record.mbl_commodity_id;
     this.COMMODITYRECORD.code = this.Record.mbl_commodity_code;
     this.COMMODITYRECORD.name = this.Record.mbl_commodity_name;
@@ -624,7 +624,7 @@ export class MblAirComponent {
     this.POFDRECORD.id = this.Record.mbl_pofd_id;
     this.POFDRECORD.code = this.Record.mbl_pofd_code;
     this.POFDRECORD.name = this.Record.mbl_pofd_name;
-    
+
     this.SALESMANRECORD.id = this.Record.mbl_salesman_id;
     this.SALESMANRECORD.code = this.Record.mbl_salesman_code;
     this.SALESMANRECORD.name = this.Record.mbl_salesman_name;
@@ -657,11 +657,11 @@ export class MblAirComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -761,12 +761,12 @@ export class MblAirComponent {
           this.Record.mbl_flight_no = this.Record.mbl_flight_no.toUpperCase();
           break;
         }
-        case 'searchstring':
+      case 'searchstring':
         {
           this.searchstring = this.searchstring.toUpperCase();
           break;
         }
-        
+
     }
   }
 
@@ -804,7 +804,7 @@ export class MblAirComponent {
     if (this.ErrorMessage.length > 0)
       return;
 
-    this.sAgent_ID = _Record.mbl_agent_id;  
+    this.sAgent_ID = _Record.mbl_agent_id;
     this.sCarrier_ID = _Record.mbl_carrier_id;
 
     this.loading = true;
@@ -826,10 +826,10 @@ export class MblAirComponent {
         this.loading = false;
         _Record.HblList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   ShowBL() {
@@ -868,10 +868,10 @@ export class MblAirComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -889,10 +889,10 @@ export class MblAirComponent {
       hbl_folder_no: '',
       hbl_folder_sent_date: '',
       hbl_prealert_date: '',
-      company_code:'',
-      branch_code:'',
-      rec_category:'',
-      hbl_type:''
+      company_code: '',
+      branch_code: '',
+      rec_category: '',
+      hbl_type: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -901,8 +901,8 @@ export class MblAirComponent {
       SearchData.hbl_folder_no = this.Record.mbl_folder_no;
       SearchData.hbl_folder_sent_date = this.Record.mbl_folder_sent_date;
       SearchData.hbl_prealert_date = "";
-      SearchData.company_code = this.gs.globalVariables.comp_code,
-      SearchData.branch_code = this.gs.globalVariables.branch_code,
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
       SearchData.rec_category = this.type;
       SearchData.hbl_type = 'MBL-AE';
     }
@@ -919,10 +919,10 @@ export class MblAirComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   FolderSent() {
     this.folder_chk = !this.folder_chk;
@@ -991,4 +991,5 @@ export class MblAirComponent {
           alert(this.ErrorMessage);
         });
   }
+
 }
