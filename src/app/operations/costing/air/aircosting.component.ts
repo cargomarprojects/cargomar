@@ -446,6 +446,7 @@ export class AirCostingComponent {
       this.lock_date = false;
 
     this.Record.rec_mode = this.mode;
+    this.Record.cost_drcr_amount = this.Record.cost_drcr_amount_inr;
   }
 
 
@@ -520,8 +521,7 @@ export class AirCostingComponent {
       }
       if (_num != 0) {
         _num = this.gs.roundNumber(_num, 2);
-        // num != this.Record.cost_drcr_amount
-        if (_num != this.Record.cost_drcr_amount_inr) {
+        if (_num != this.Record.cost_drcr_amount) {
           bret = false;
           sError += "| DrCr Amount Mismatch with Details Amount";
         }
