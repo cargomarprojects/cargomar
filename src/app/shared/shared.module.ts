@@ -16,6 +16,7 @@ import { AutoCompleteComponent } from './autocomplete/autocomplete.component';
 
 import { AutoComplete2Component } from './autocomplete2/autocomplete2.component';
 import { AutoComplete3Component } from './autocomplete3/autocomplete3.component';
+import { AutoCompleteMultiComponent } from './autocompletemulti/autocompletemulti.component';
 
 import { OsRemSharedComponent } from './osrem/osremshared.component';
 
@@ -63,6 +64,7 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
     AutoCompleteComponent,
     AutoComplete2Component,
     AutoComplete3Component,
+    AutoCompleteMultiComponent,
     DateComponent,
     ErrorMessageComponent,
     DialogComponent,
@@ -93,6 +95,7 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
     AutoCompleteComponent,
     AutoComplete2Component,
     AutoComplete3Component,
+    AutoCompleteMultiComponent,
     DateComponent,
     ErrorMessageComponent,
     DialogComponent,
