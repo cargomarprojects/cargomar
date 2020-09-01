@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { GstReport } from '../models/gstreport';
-
+import { Companym } from '../../core/models/company';
 
 import { RepService } from '../services/report.service';
 
@@ -39,7 +39,7 @@ export class GstComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  BranchList: Companym[] = [];
   all: boolean = false;
   gst_only: boolean = true;
 
@@ -132,6 +132,26 @@ export class GstComponent {
     }
   }
   LoadCombo() {
+
+    // this.loading = true;
+    // let SearchData = {
+    //   type: 'type',
+    //   comp_code: this.gs.globalVariables.comp_code,
+    //   branch_code: this.gs.globalVariables.branch_code
+    // };
+    // SearchData.comp_code = this.gs.globalVariables.comp_code;
+    // SearchData.branch_code = this.gs.globalVariables.branch_code;
+    // this.ErrorMessage = '';
+    // this.mainService.LoadDefault(SearchData)
+    //   .subscribe(response => {
+    //     this.loading = false;
+    //     this.BranchList = response.branchlist;
+    //   },
+    //     error => {
+    //       this.loading = false;
+    //       this.ErrorMessage = this.gs.getError(error);
+    //     });
+
   }
 
 
@@ -190,8 +210,6 @@ export class GstComponent {
     }
 
 
-
-
     if (_type == "GSTR1" || _type == "NEW-GSTR1") {
 
       if (this.format_type != "GSTR1") {
@@ -199,6 +217,23 @@ export class GstComponent {
         return;
       }
     }
+
+    // if (this.bCompany) {
+    //   let Br_Codes: string = "";
+    //   this.BranchList.forEach(Rec => {
+    //     if (Rec.comp_checked) {
+    //       if (Br_Codes.trim() != "")
+    //         Br_Codes += ",";
+    //       Br_Codes += Rec.comp_code.trim();
+    //     }
+    //   })
+    //   if (Br_Codes.trim() == "") {
+    //     this.ErrorMessage = "No branchs selected";
+    //     alert(this.ErrorMessage);
+    //     return;
+    //   }
+    //   this.branch_code = Br_Codes;
+    // }
 
     this.display_format_type = this.format_type;
 
@@ -245,6 +280,10 @@ export class GstComponent {
   }
   Close() {
     this.gs.ClosePage('home');
+  }
+
+  SelectBank(_rec: Companym) {
+    // _rec.comp_checked = true;
   }
 
 }

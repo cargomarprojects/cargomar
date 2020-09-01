@@ -7,6 +7,5 @@ export class Companym {
 
     comp_parent_id: string;
     comp_parent_name: string;
-
     rec_mode: string;
 }

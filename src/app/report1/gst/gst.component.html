@@ -27,7 +27,7 @@
       <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
-          <div class="col-10">
+          <div class="col-10 input-group input-group-sm">
             <select class="form-control form-control-sm" [(ngModel)]="format_type" (change)="OnChange('format_type')">
               <option [value]="'GSTR1'">GSTR1</option>
               <option [value]="'INVOICE'">INVOICE</option>
@@ -37,6 +37,10 @@
               <option [value]="'FORM 3B'">FORM 3B</option>
               <option [value]="'FORM 3B-RATE WISE'">FORM 3B-RATE WISE</option>
             </select>
+            <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'" class="form-check">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="gst_only">
+              <span> GST Only</span>
+            </div>
           </div>
         </div>
         <div class="form-group row">
@@ -45,40 +49,50 @@
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
         </div>
-
       </div>
-      <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'" class="col-sm-2">
+      <div class="col-sm-3">
         <div class="form-group row">
-          <div class="col-10">
-            <input type="checkbox" [(ngModel)]="gst_only">
-            <span> GST Only</span>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-          <div class="col-sm-4">
-            <app-autocomplete [disabled]="!bCompany" #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Branch
+            <div *ngIf="bCompany">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
+          </label>
+          <div class="col-sm-10">
+            <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <div class="col-6">
+          <!-- <div *ngIf="bCompany" class="col-sm-10">
+            <div style="height: 80px; overflow-y: scroll;">
+              <div class="page-body table-responsive">
+                <table class="table table-hover table-sm table-bordered">
+                  <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of BranchList">
+                      <td (click)="SelectBranch(rec)">
+                        <div class="form-check"> <input type="checkbox" class="form-check-input"
+                            [(ngModel)]="rec.comp_checked"><span>{{rec.comp_name}}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <div class="col-12">
             <button [disabled]="loading" (click)="List('GSTR1')" class="btn btn-primary btn-sm mr-1">Generate
               GSTR1</button>
             <button [disabled]="loading" (click)="List('NEW-GSTR1')" class="btn btn-primary btn-sm">New GSTR1</button>
           </div>
         </div>
         <div class="form-group row">
-          <!--<label class="col-2 col-form-label col-form-label-sm"></label>-->
-          <div *ngIf="bCompany" class="col-2">
-            <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-            <span> All</span>
-          </div>
-          <div class="col-4">
-            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
-          </div>
-          <div class="col-6">
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Process
+              Report</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
           </div>
         </div>
