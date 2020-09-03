@@ -81,7 +81,8 @@ export class Customerm {
     cust_gst_status: string;
     cust_iec_status: string;
     cust_uploaded_docs: string;
-    cust_caseno:string;
+    cust_caseno: string;
+    cust_alert: boolean;
     
     _globalvariables: GlobalVariables;
 

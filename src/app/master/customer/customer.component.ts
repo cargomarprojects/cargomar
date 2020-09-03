@@ -420,7 +420,7 @@ export class CustomerComponent {
     this.Record.cust_branch_code = '';
 
     this.Record.cust_linked = false;
-
+    this.Record.cust_alert = false;
     this.cust_linked = false;
 
     this.Record.cust_nomination = 'NA';
