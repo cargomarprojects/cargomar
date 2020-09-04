@@ -43,6 +43,12 @@ export class GstComponent {
   all: boolean = false;
   gst_only: boolean = true;
 
+  controlname = '';
+  tabletype = '';
+  subtype = '';
+  displaydata = '';
+  where = "";
+
   SearchData = {
     type: '',
     pkid: '',
@@ -124,6 +130,13 @@ export class GstComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
+
+    this.controlname = "BRANCH";
+    this.tabletype = "BRANCH";
+    this.subtype = "";
+    this.displaydata = "";
+    if (this.displaydata == null || this.displaydata == undefined || this.displaydata == '')
+      this.displaydata = "";
   }
 
   LovSelected(_Record: SearchTable) {
