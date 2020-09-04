@@ -128,9 +128,15 @@
             <th class="text-left">TYPE</th>
             <th class="text-left">NARRATION</th>
 
+
+            <th *ngIf='showtotaldrcr' class="text-right">TOT-DR</th>
+            <th *ngIf='showtotaldrcr' class="text-right">TOT-CR</th>
+            <th *ngIf='showtotaldrcr' class="text-right">BAL</th>
+            
+
             <th *ngIf='transdet' class="text-left">A/C NAME</th>
-            <th *ngIf='transdet' class="text-left">DR</th>
-            <th *ngIf='transdet' class="text-left">CR</th>
+            <th *ngIf='transdet' class="text-right">DR</th>
+            <th *ngIf='transdet' class="text-right">CR</th>
 
           </tr>
         </thead>
@@ -145,6 +151,10 @@
             <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
             <td align='left'>{{ rec.jv_drcr}}</td>
             <td align='left'>{{ rec.jv_narration}}</td>
+
+            <td *ngIf='showtotaldrcr' align='right'>{{ rec.row_debit | number : '1.2-2' }}</td>
+            <td *ngIf='showtotaldrcr' align='right'>{{ rec.row_credit | number : '1.2-2' }}</td>
+            <td *ngIf='showtotaldrcr' align='right'>{{ rec.row_bal | number : '1.2-2' }}</td>
 
             <td *ngIf='transdet' align='left'>{{ rec.cb_desc}}</td>
             <td *ngIf='transdet' align='right'>{{ rec.cb_dr | number : '1.2-2' }}</td>

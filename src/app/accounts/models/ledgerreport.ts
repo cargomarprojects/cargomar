@@ -37,6 +37,12 @@ export class LedgerReport {
   crbal: number;
   advance: number;
 
+
+  row_debit: number;
+  row_credit: number;
+  row_bal: number;
+
+
   crdays: number;
   crlimit: number;
   osdays: number;
