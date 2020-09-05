@@ -59,11 +59,11 @@
             </div>
           </label>
           <div class="col-sm-10">
-            <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete>
-             <!-- <app-autocompletemulti [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'"
+            <!-- <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete> -->
+             <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'"
                 [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
-              </app-autocompletemulti> -->
+              </app-autocompletemulti>
           </div>
           <!-- <div *ngIf="bCompany" class="col-sm-10">
             <div style="height: 80px; overflow-y: scroll;">

@@ -46,7 +46,7 @@ export class GstComponent {
   controlname = '';
   tabletype = '';
   subtype = '';
-  displaydata = '';
+  displaydata = this.gs.globalVariables.branch_code;
   where = "";
 
   SearchData = {
@@ -124,19 +124,17 @@ export class GstComponent {
 
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
+    this.BRRECORD = new SearchTable(); //OLD SINGLE select
     this.BRRECORD.controlname = "BRANCH";
     this.BRRECORD.displaycolumn = "CODE";
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
-    this.controlname = "BRANCH";
+    this.controlname = "BRANCH"; //New multi select
     this.tabletype = "BRANCH";
     this.subtype = "";
-    this.displaydata = "";
-    if (this.displaydata == null || this.displaydata == undefined || this.displaydata == '')
-      this.displaydata = "";
+    this.displaydata = this.gs.globalVariables.branch_code;
   }
 
   LovSelected(_Record: SearchTable) {

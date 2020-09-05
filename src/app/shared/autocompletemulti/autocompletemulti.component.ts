@@ -170,7 +170,7 @@ export class AutoCompleteMultiComponent {
     this.loading = true;
 
     if (_action == "NEW") {
-      this.rows_to_display = 10;
+      this.rows_to_display = 50;
       this.rows_starting_number = 1;
       this.rows_ending_number = this.rows_to_display;
       this.bShowMore = true;
@@ -184,7 +184,7 @@ export class AutoCompleteMultiComponent {
       type: this._tabletype,
       subtype: this._subtype,
       parentid: this._parentid,
-      searchstring: this._displaydata,
+      searchstring: '', // this._displaydata.includes(',') ? '' : this._displaydata
       where: this._where,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this._branchcode
@@ -192,30 +192,34 @@ export class AutoCompleteMultiComponent {
 
     this.loginservice.List(SearchData)
       .subscribe(response => {
-        //this.RecList = response.list;
-        //this.rows_total = response.rows_total;
-
-        // if (this.rows_ending_number >= this.rows_total)
-        //     this.bShowMore = false;
+        this.loading = false;
 
         if (response.list == null)
           this.bShowMore = false;
 
         this.RecList.push(...response.list);
+        if (this.RecList != null && this.RecList != undefined) {
+          this.RecList.forEach(Rec => {
+            if (this._displaydata != null && this._displaydata != undefined)
+              if (this._displaydata.includes(Rec.code)) {
+                Rec.colchecked = true;
+              }
+          })
+        }
 
-        this.loading = false;
+        // if (this.RecList.length === 0) {
+        //   this.SelectedItem('', null);
+        //   this.showDiv = false;
+        // }
+        // else if (this.RecList.length === 1) {
+        //   this.SelectedItem('', this.RecList[0]);
+        //   this.showDiv = false;
+        // }
+        // else {
+        //   this.showDiv = true;
+        // }
 
-        if (this.RecList.length === 0) {
-          this.SelectedItem('', null);
-          this.showDiv = false;
-        }
-        else if (this.RecList.length === 1) {
-          this.SelectedItem('', this.RecList[0]);
-          this.showDiv = false;
-        }
-        else {
-          this.showDiv = true;
-        }
+        this.showDiv = true;
       },
         error => {
           this.loading = false;
@@ -247,7 +251,6 @@ export class AutoCompleteMultiComponent {
 
     //   this.displaydata = '';
     //   this.parentid = '';
-
 
 
     // }
@@ -284,75 +287,48 @@ export class AutoCompleteMultiComponent {
     // this.RecList = [];
 
     let itms: string = "";
-    this.RecList.forEach(Rec => {
-      if (Rec.colchecked) {
-        if (itms.trim() != "")
-          itms += ",";
-        if (this._displaycolumn == "CODE")
-          itms += _Record.code;
-        if (this._displaycolumn == "NAME")
-          itms += _Record.name;
-      }
-    })
-
-     this.inputdata.controlname = this._controlname;
-      this.inputdata.uid = this._uid;
-      this.inputdata.id = "";
-     
-      this.inputdata.code = "";
-      this.inputdata.name = "";
-    
-    
-      this.inputdata.rate = 0;
-
-      this.inputdata.col1 = '';
-      this.inputdata.col2 = '';
-      this.inputdata.col3 = '';
-      this.inputdata.col4 = '';
-      this.inputdata.col5 = '';
-      this.inputdata.col6 = '';
-
-      this.inputdata.col7 = '';
-
-      if (this._displaycolumn == "CODE")
-      this._displaydata =itms;
-    if (this._displaycolumn == "NAME")
-      this._displaydata =itms;
-
-      this.parentid = '';
-
-   this.showDiv = false;
-    this.ValueChanged.emit(this.inputdata);
-    this.RecList = [];
-
-
-     
-
+    if (this.RecList != null && this.RecList != undefined) {
+      this.RecList.forEach(Rec => {
+        if (Rec.colchecked) {
+          if (itms.trim() != "")
+            itms += ",";
+          itms += Rec.code;
+          // if (this._displaycolumn == "CODE")
+          //   itms += Rec.code;
+          // if (this._displaycolumn == "NAME")
+          //   itms += Rec.name;
+        }
+      })
+    }
+    this._displaydata = itms;
   }
 
   onfocus() {
-    if (this.showDiv) {
-      if (this.old_data != this._displaydata)
-        this._displaydata = "";
-    }
-    this.old_data = this._displaydata;
-    this.RecList = [];
-    this.showDiv = false;
+    // if (this.showDiv) {
+    //   if (this.old_data != this._displaydata)
+    //     this._displaydata = "";
+    // }
+    // this.old_data = this._displaydata;
+    // this.RecList = [];
+    // this.showDiv = false;
+
+    if (this.showDiv)
+      this.Cancel();
   }
 
   onBlur() {
-    let localdata: string = "";
-    if (this._displaydata === null)
-      localdata = '';
-    else
-      localdata = this._displaydata;
+    // let localdata: string = "";
+    // if (this._displaydata === null)
+    //   localdata = '';
+    // else
+    //   localdata = this._displaydata;
 
-    if (this.old_data != localdata) {
-      if (localdata == '')
-        this.SelectedItem('', null);
-      else
-        this.List();
-    }
+    // if (this.old_data != localdata) {
+    //   if (localdata == '')
+    //     this.SelectedItem('', null);
+    //   else
+    //     this.List();
+    // }
   }
 
   Cancel() {
@@ -362,10 +338,30 @@ export class AutoCompleteMultiComponent {
     else
       localdata = this._displaydata;
 
-    if (this.old_data != localdata) {
-      this.SelectedItem('', null);
-    }
+    // if (this.old_data != localdata) {
+    //   this.SelectedItem('', null);
+    // }
+
+
+    this.SelectedItem('', null);
+
+    this.inputdata.controlname = this._controlname;
+    this.inputdata.uid = this._uid;
+    this.inputdata.id = "";
+    this.inputdata.code = this._displaydata;
+    this.inputdata.name = this._displaydata;
+    this.inputdata.rate = 0;
+    this.inputdata.col1 = '';
+    this.inputdata.col2 = '';
+    this.inputdata.col3 = '';
+    this.inputdata.col4 = '';
+    this.inputdata.col5 = '';
+    this.inputdata.col6 = '';
+    this.inputdata.col7 = '';
+    this.parentid = '';
     this.showDiv = false;
+    this.ValueChanged.emit(this.inputdata);
+    this.RecList = [];
   }
 
 
@@ -377,10 +373,11 @@ export class AutoCompleteMultiComponent {
     };
     return styles;
   }
+
   SelectItem(_rec: SearchTable) {
     _rec.colchecked = true;
+    this.SelectedItem('', null);
   }
-
 
 }
 
