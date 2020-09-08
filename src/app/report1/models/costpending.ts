@@ -17,6 +17,7 @@ export class CostPending {
   cost_agent_name: string;
   cost_folderno: string;
   cost_jv_posted: string;
-
+  rec_category: string;
+  
   _globalvariables: GlobalVariables;
 }

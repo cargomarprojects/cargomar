@@ -405,8 +405,8 @@
                   <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_incomplete" />
                   <span>Incomplete</span>
                 </div>
-                <div class="col-6">
-                  <input *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox" [(ngModel)]="Record.cust_alert" />
+                <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-6">
+                  <input type="checkbox" [(ngModel)]="Record.cust_alert" />
                   <span>Job Alert</span>
                 </div>
               </div>

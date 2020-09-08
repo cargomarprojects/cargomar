@@ -15,7 +15,7 @@ import { RepService } from '../services/report.service';
 
 export class CostPendingComponent {
   title = 'CostPending Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -30,23 +30,25 @@ export class CostPendingComponent {
 
   branch_code: string = '';
   sort_colname: string = 'mbl.rec_created_date';
-  type_date: string ='';
+  type_date: string = '';
   from_date: string = '';
   to_date: string = '';
   category: string = 'MBL-SE';
 
   bCompany = false;
+  bAdmin = false;
   disableSave = true;
   loading = false;
   all: boolean = false;
   currentTab = 'LIST';
   searchstring = '';
-  
+
   SearchData = {
     type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
+    company_name: '',
     branch_code: '',
     year_code: '',
     searchstring: '',
@@ -55,7 +57,8 @@ export class CostPendingComponent {
     type_date: '',
     category: 'MBL-SE',
     sort_colname: '',
-    all: false
+    all: false,
+    user_name: ''
   };
 
   SortList: any[] = [];
@@ -81,7 +84,7 @@ export class CostPendingComponent {
         this.InitComponent();
       }
     });
-    
+
   }
 
   // Init Will be called After executing Constructor
@@ -93,11 +96,14 @@ export class CostPendingComponent {
 
   InitComponent() {
     this.bCompany = false;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -131,7 +137,7 @@ export class CostPendingComponent {
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
     }
-    
+
   }
   LoadCombo() {
 
@@ -142,9 +148,9 @@ export class CostPendingComponent {
       { "colheadername": "NO COSTING", "colname": "mbl.hbl_nocosting" },
       { "colheadername": "COST-DATE", "colname": "cost_date" },
       { "colheadername": "SENT-ON", "colname": "mbl.hbl_folder_sent_date" }
-      ];
+    ];
   }
-  
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -188,9 +194,14 @@ export class CostPendingComponent {
       this.ErrorMessage = "Branch Code Cannot Be Blank";
       return;
     }
-    if (_type != "EXCEL" && this.all == true) {
+    if (_type == "SCREEN" && this.all == true) {
       this.ErrorMessage = "Cannot Process Report With All Option";
       return;
+    }
+    if (_type == "MAIL") {
+      if (!confirm("Do you want to Sent Pending List")) {
+        return;
+      }
     }
 
     this.loading = true;
@@ -198,6 +209,7 @@ export class CostPendingComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.company_name = this.gs.globalVariables.comp_name;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
@@ -208,6 +220,7 @@ export class CostPendingComponent {
     this.SearchData.category = this.category;
     this.SearchData.sort_colname = this.sort_colname;
     this.SearchData.all = this.all;
+    this.SearchData.user_name = this.gs.globalVariables.user_name;
 
     this.ErrorMessage = '';
     this.mainService.PendingList(this.SearchData)
@@ -215,15 +228,20 @@ export class CostPendingComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          if (response.msg.length > 0) {
+            alert(response.msg);
+          }
+        }
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -290,9 +308,10 @@ export class CostPendingComponent {
           this.InfoMessage = "Save Complete";
         }
       },
-      error => {
-        this.loading = false;
-        this.InfoMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.InfoMessage = this.gs.getError(error);
+        });
   }
 }
+
