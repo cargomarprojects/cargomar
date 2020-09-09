@@ -58,7 +58,8 @@ export class CostPendingComponent {
     category: 'MBL-SE',
     sort_colname: '',
     all: false,
-    user_name: ''
+    user_name: '',
+    user_code:''
   };
 
   SortList: any[] = [];
@@ -221,6 +222,7 @@ export class CostPendingComponent {
     this.SearchData.sort_colname = this.sort_colname;
     this.SearchData.all = this.all;
     this.SearchData.user_name = this.gs.globalVariables.user_name;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
 
     this.ErrorMessage = '';
     this.mainService.PendingList(this.SearchData)

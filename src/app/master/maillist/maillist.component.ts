@@ -237,7 +237,8 @@ export class MailListComponent {
         this.Record.ml_cc_ids = '';
         this.Record.ml_bcc_ids = '';
         this.Record.rec_mode = this.mode;
-
+        this.Record.rec_locked = false;
+        
         this.controlname = "CUSTOMER";
         this.tabletype = "CUSTOMER";
         this.InitLov();
@@ -357,7 +358,7 @@ export class MailListComponent {
             this.Record.ml_cust_name = '';
             this.controlname = this.Record.ml_cust_type;
             this.tabletype = this.Record.ml_cust_type;
-           this.InitLov();
+            this.InitLov();
         }
     }
     GetSpaceTrim(str: string) {

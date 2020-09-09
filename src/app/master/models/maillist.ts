@@ -14,7 +14,8 @@ export class MailList {
   ml_cust_type: string;
 
   rec_mode: string;
-
+  rec_locked:boolean;
+  
   _globalvariables: GlobalVariables;
 
 }

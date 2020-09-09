@@ -68,8 +68,8 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr >
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ml_pkid)" >{{rec.ml_cust_name}}</td>
+                <tr>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ml_pkid)">{{rec.ml_cust_name}}</td>
                     <td>{{rec.ml_cust_type}}</td>
                     <td>{{rec.ml_type}}</td>
                     <td>{{rec.ml_to_ids}}</td>
@@ -112,7 +112,8 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Category</label>
                     <div class="col-10">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.ml_type" [disabled]="mode=='EDIT'">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.ml_type"
+                            [disabled]="mode=='EDIT'">
                             <!-- <option [value]="'SHIPMENT-TRACKING'">SHIPMENT TRACKING</option> -->
                             <option *ngFor="let rec of MailingList" [value]="rec.param_code">{{rec.param_name}}</option>
                         </select>
@@ -173,21 +174,25 @@
                             (blur)="OnBlur('ml_bcc_ids')" required maxlength="500"></textarea>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-4">
+                        <input type="checkbox" [(ngModel)]="Record.rec_locked" />
+                        <span>Disable</span>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
     <div class="page-box">
         <div class="col-sm-4 mt-0 p-0">
             <div class="form-group row">
                 <div class="offset-2 col-10">
-                <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-                <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                    class="btn btn-success btn-sm">Return</button>
-                <i *ngIf="loading" class="fa fa-spinner"></i>
-            </div>
+                    <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+                    <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                        class="btn btn-success btn-sm">Return</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
             </div>
         </div>
     </div>
