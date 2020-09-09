@@ -171,6 +171,7 @@ export class CostInvoiceComponent {
     this.mRecord.DetailList.splice(this.mRecord.DetailList.findIndex(rec => rec.costd_pkid == Id), 1);
     this.FindTotal();
   }
+  
   LoadInvoiceRecord()
   {
     

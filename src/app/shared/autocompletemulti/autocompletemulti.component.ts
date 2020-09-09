@@ -375,7 +375,7 @@ export class AutoCompleteMultiComponent {
   }
 
   SelectItem(_rec: SearchTable) {
-    _rec.colchecked = true;
+    _rec.colchecked = !_rec.colchecked;
     this.SelectedItem('', null);
   }
 
