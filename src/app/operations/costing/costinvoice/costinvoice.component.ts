@@ -4,10 +4,12 @@ import { GlobalService } from '../../../core/services/global.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { Costingm } from '../../models/costing';
 import { Costingd } from '../../models/costing';
+import { CostingService } from '../../services/costing.service';
 
 @Component({
   selector: 'app-costinvoice',
-  templateUrl: './costinvoice.component.html'
+  templateUrl: './costinvoice.component.html',
+  providers: [CostingService]
 })
 export class CostInvoiceComponent {
   // Local Variables 
@@ -32,6 +34,7 @@ export class CostInvoiceComponent {
   @Input() mRecord: Costingm = new Costingm;
   Record: Costingd = new Costingd;
   constructor(
+    private mainService: CostingService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -172,9 +175,32 @@ export class CostInvoiceComponent {
     this.FindTotal();
   }
   
-  LoadInvoiceRecord()
+  LoadInvoiceDesc()
   {
-    
+    this.loading = true;
+    let SearchData = {
+      type: this.type,
+      pkid: this.mRecord.cost_pkid,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.mRecord.DetailList = response.list;
+        this.FindTotal();
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
   
 }
