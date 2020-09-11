@@ -53,6 +53,8 @@ export class CostingComponent {
   FileList: FileDetails[] = [];
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
+  AttachList: any[] = [];
+  mMsg:string ="";
 
   sub: any;
   urlid: string;
@@ -105,6 +107,7 @@ export class CostingComponent {
   }
 
   InitComponent() {
+    this.AttachList = new Array<any>();
     this.bAdmin = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -979,22 +982,27 @@ export class CostingComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.cost_pkid = this.pkid;
-    SearchData.agent_code =  this.Record.cost_jv_agent_code;
-    SearchData.agent_name =  this.Record.cost_jv_agent_name;
+    SearchData.agent_code = this.Record.cost_jv_agent_code;
+    SearchData.agent_name = this.Record.cost_jv_agent_name;
 
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
         this.loading = false;
         //this.InfoMessage = response.savemsg;
-        this.sSubject ="REF#-" + this.Record.cost_refno;
-        this.ftp_agent_code=this.Record.cost_jv_agent_code;
-        this.ftp_agent_name=this.Record.cost_jv_agent_name;
+        this.sSubject = "REF#-" + this.Record.cost_refno;
+        this.mMsg = response.mailmsg;
+        this.ftp_agent_code = this.Record.cost_jv_agent_code;
+        this.ftp_agent_name = this.Record.cost_jv_agent_name;
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
+        this.AttachList = new Array<any>();
         for (let rec of this.FileList) {
           this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER-COSTING', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
+          if (rec.filetype === "PDF")
+            this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
+
         this.open(ftpsent);
       },
         error => {

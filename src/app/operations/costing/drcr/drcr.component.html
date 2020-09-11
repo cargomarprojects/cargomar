@@ -369,7 +369,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"
+    <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="mMsg"
       [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true
       [FtpAttachList]="FtpAttachList" [updatesql]="ftpUpdtSql" [rootpage]="'FTPPAGE'" [disableBLftp]=true [default_ftptype]="'BL-FTP'"
       (ModifiedRecords)="ModifiedRecords($event)">

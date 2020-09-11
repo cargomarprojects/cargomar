@@ -50,6 +50,8 @@ export class AirCostingComponent {
   FileList: FileDetails[] = [];
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
+  AttachList: any[] = [];
+  mMsg: string = "";
 
   sub: any;
   urlid: string;
@@ -105,6 +107,7 @@ export class AirCostingComponent {
   }
 
   InitComponent() {
+    this.AttachList = new Array<any>();
     this.bAdmin = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -1113,12 +1116,16 @@ export class AirCostingComponent {
           this.ErrorMessage = response.savemsg;
           alert(this.ErrorMessage);
         } else {
+          this.mMsg = response.mailmsg;
           this.sSubject = "REF#-" + this.Record.cost_refno;
           this.ftp_agent_code = this.Record.cost_jv_agent_code;
           this.ftp_agent_name = this.Record.cost_jv_agent_name;
           this.FtpAttachList = new Array<any>();
           this.FileList = response.filelist;
+          this.AttachList = new Array<any>();
           for (let rec of this.FileList) {
+            if (rec.filetype === "PDF")
+              this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
             this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER-COSTING', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BL-FTP' });
           }
           this.open(ftpsent);
