@@ -316,7 +316,7 @@ export class AutoCompleteMultiComponent {
       this.Cancel();
   }
 
-  onBlur() {
+  onBlur(_feild: string = "") {
     // let localdata: string = "";
     // if (this._displaydata === null)
     //   localdata = '';

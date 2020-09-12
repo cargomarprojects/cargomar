@@ -1,5 +1,5 @@
 <div class="input-group input-group-sm">
-  <input [disabled]="disabled" type="text" class="form-control form-control-sm" (focus)="onfocus()" (blur)="onBlur()"
+  <input [disabled]="disabled" type="text" class="form-control form-control-sm" (focus)="onfocus()" (blur)="onBlur('')"
     [(ngModel)]="_displaydata" #inputbox />
   <button [disabled]="showDiv || disabled" [ngStyle]="setMyStyles()" class="btn btn-default btn-sm"
     (click)="List()">...</button>
