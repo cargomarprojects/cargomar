@@ -57,8 +57,8 @@
                 [(ngModel)]="searchstring" />
             </div>
             <div class="col-sm-2">
-              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>                                                
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
               <button [disabled]="loading" (click)="CheckSB(checksb)" class="btn btn-primary btn-sm">Check SB</button>
             </div>
           </div>

@@ -80,6 +80,7 @@ export class ArApComponent {
   mode = '';
   pkid = '';
 
+  bPrint = false;
   modeDetail = '';
 
   diff: number = 0;
@@ -163,6 +164,7 @@ export class ArApComponent {
     this.bapprovalstatus = "";
     this.bDocs = false
     this.bAdmin = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -172,6 +174,7 @@ export class ArApComponent {
         this.bAdmin = true;
       (this.menu_record.rights_approval.length > 0)
       this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      this.bPrint = this.menu_record.rights_print;
     }
     this.InitLov();
     this.LoadCombo();
@@ -328,9 +331,9 @@ export class ArApComponent {
       if (_Record.col5 == "Y")
         this.Record.jvh_sez = true;
 
-        this.Record.jvh_is_export = false;
-        if (_Record.col7 == "Y")
-          this.Record.jvh_is_export = true;
+      this.Record.jvh_is_export = false;
+      if (_Record.col7 == "Y")
+        this.Record.jvh_is_export = true;
 
       this.InitLov('GSTSTATE');
 
@@ -462,6 +465,7 @@ export class ArApComponent {
       rowtype: this.type,
       cc_category: '',
       cc_id: '',
+      report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -478,10 +482,14 @@ export class ArApComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
@@ -516,8 +524,8 @@ export class ArApComponent {
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
 
-    this.Record.jvh_igst_exception =false;
-    
+    this.Record.jvh_igst_exception = false;
+
 
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
@@ -900,7 +908,7 @@ export class ArApComponent {
         sError += " |Only one row can be entered";
       }
     }
-    
+
 
 
 
@@ -946,7 +954,7 @@ export class ArApComponent {
       //SPECIAL ECONOMIC ZONE
       // Zero Rated Invoice Only for Sez Units
       if (this.subtype == 'AR') {
-        
+
         if (this.gs.globalVariables.comp_code == "CPL") {
 
           if (this.Record.jvh_gst_amt <= 0 && !this.Record.jvh_sez && !this.Record.jvh_is_export) {
@@ -2069,7 +2077,7 @@ export class ArApComponent {
     this.ACCRECORD.where = "1=2";
     if (this.Record.jvh_cc_category == "SI SEA EXPORT" || this.Record.jvh_cc_category == "MBL SEA EXPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1104','1105','1106','1107')";
-      if ( this.Record.jvh_cc_category == "SI SEA EXPORT"){
+      if (this.Record.jvh_cc_category == "SI SEA EXPORT") {
         this.ACCRECORD.where = "acc_main_code in ('1101','1102','1103','1104','1105','1106','1107')";
       }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
@@ -2077,7 +2085,7 @@ export class ArApComponent {
     }
     if (this.Record.jvh_cc_category == "SI AIR EXPORT" || this.Record.jvh_cc_category == "MAWB AIR EXPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1204','1205')";
-      if ( this.Record.jvh_cc_category == "SI AIR EXPORT"){
+      if (this.Record.jvh_cc_category == "SI AIR EXPORT") {
         this.ACCRECORD.where = "acc_main_code in ('1201','1202','1203','1204', '1205')";
       }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
@@ -2085,7 +2093,7 @@ export class ArApComponent {
     }
     if (this.Record.jvh_cc_category == "SI SEA IMPORT" || this.Record.jvh_cc_category == "MBL SEA IMPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1304','1305', '1306','1307')";
-      if (this.Record.jvh_cc_category == "SI SEA IMPORT"){
+      if (this.Record.jvh_cc_category == "SI SEA IMPORT") {
         this.ACCRECORD.where = "acc_main_code in ('1301','1302','1303','1304', '1305','1306','1307')";
       }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
@@ -2093,7 +2101,7 @@ export class ArApComponent {
     }
     if (this.Record.jvh_cc_category == "SI AIR IMPORT" || this.Record.jvh_cc_category == "MAWB AIR IMPORT") {
       this.ACCRECORD.where = "acc_main_code in ('1404','1405')";
-      if (this.Record.jvh_cc_category == "SI AIR IMPORT"){
+      if (this.Record.jvh_cc_category == "SI AIR IMPORT") {
         this.ACCRECORD.where = "acc_main_code in ('1401','1402','1403','1404', '1405')";
       }
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
