@@ -48,7 +48,6 @@ export class CostPendingComponent {
     pkid: '',
     report_folder: '',
     company_code: '',
-    company_name: '',
     branch_code: '',
     year_code: '',
     searchstring: '',
@@ -58,7 +57,6 @@ export class CostPendingComponent {
     category: 'MBL-SE',
     sort_colname: '',
     all: false,
-    user_name: '',
     user_code:''
   };
 
@@ -210,7 +208,6 @@ export class CostPendingComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.company_name = this.gs.globalVariables.comp_name;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
@@ -221,7 +218,6 @@ export class CostPendingComponent {
     this.SearchData.category = this.category;
     this.SearchData.sort_colname = this.sort_colname;
     this.SearchData.all = this.all;
-    this.SearchData.user_name = this.gs.globalVariables.user_name;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
 
     this.ErrorMessage = '';
