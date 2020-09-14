@@ -36,6 +36,10 @@
               <option [value]="'PURCHASE-DETAILS'">PURCHASE-DETAILS</option>
               <option [value]="'FORM 3B'">FORM 3B</option>
               <option [value]="'FORM 3B-RATE WISE'">FORM 3B-RATE WISE</option>
+              <option [value]="'DN'">DEBIT NOTE</option>
+              <option [value]="'CN'">CREDIT NOTE</option>
+              <option [value]="'DI'">INWARD DEBIT NOTE</option>
+              <option [value]="'CI'">INWARD CREDIT NOTE</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'" class="form-check">
               <input type="checkbox" class="form-check-input" [(ngModel)]="gst_only">
@@ -446,6 +450,68 @@
           <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="all">BRANCH</th>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>GSTIN</th>
+          <th>CUSTOMER</th>
+          <th>TYPE</th>
+          <th>SEZ</th>
+          <th>PLACE</th>
+          <th>GST-TYPE</th>
+          <th>GST[Y/N]</th>
+          <th>RC</th>
+          <!-- <th>INV-TYPE</th> -->
+          <th>SAC-CODE</th>
+          <th>ACC-CODE</th>
+          <th>ACC-NAME</th>
+          <th class="text-right">AMT</th>
+          <th class="text-right">TAXABLE-AMT</th>
+          <th class="text-right">CGST%</th>
+          <th class="text-right">CGST-AMT</th>
+          <th class="text-right">SGST%</th>
+          <th class="text-right">SGST-AMT</th>
+          <th class="text-right">IGST%</th>
+          <th class="text-right">IGST-AMT</th>
+          <th class="text-right">GST%</th>
+          <th class="text-right">GST-AMT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_gstin}}</td>
+          <td>{{rec.jvh_party_name}}</td>
+          <td>{{rec.jvh_cc_category}}</td>
+          <td>{{rec.jvh_sez}}</td>
+          <td>{{rec.jvh_state_name}}</td>
+          <td>{{rec.jvh_gst_type}}</td>
+          <td>{{rec.jvh_gst}}</td>
+          <td>{{rec.rc}}</td>
+          <!-- <td>{{rec.jvh_invoice_type}}</td> -->
+          <td>{{rec.jv_sac_code}}</td>
+          <td>{{rec.jv_acc_code}}</td>
+          <td>{{rec.jv_acc_name}}</td>
+          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
         </tr>
       </tbody>
