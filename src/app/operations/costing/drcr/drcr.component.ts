@@ -48,6 +48,7 @@ export class DrCrComponent {
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
   AttachList: any[] = [];
+  canftp: boolean = false;
   mMsg: string = "";
 
   sub: any;
@@ -891,6 +892,7 @@ export class DrCrComponent {
         // this.InfoMessage = response.savemsg;
         this.sSubject = "REF#-" + this.Record.cost_refno;
         this.mMsg = response.mailmsg;
+        this.canftp = response.canftp;
         this.ftp_agent_code = this.Record.cost_jv_agent_code;
         this.ftp_agent_name = this.Record.cost_jv_agent_name;
         this.FtpAttachList = new Array<any>();

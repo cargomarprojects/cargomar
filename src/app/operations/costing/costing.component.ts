@@ -54,7 +54,8 @@ export class CostingComponent {
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
   AttachList: any[] = [];
-  mMsg:string ="";
+  canftp: boolean = false;
+  mMsg: string = "";
 
   sub: any;
   urlid: string;
@@ -992,6 +993,7 @@ export class CostingComponent {
         //this.InfoMessage = response.savemsg;
         this.sSubject = "REF#-" + this.Record.cost_refno;
         this.mMsg = response.mailmsg;
+        this.canftp = response.canftp;
         this.ftp_agent_code = this.Record.cost_jv_agent_code;
         this.ftp_agent_name = this.Record.cost_jv_agent_name;
         this.FtpAttachList = new Array<any>();

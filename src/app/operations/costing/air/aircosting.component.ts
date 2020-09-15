@@ -51,6 +51,7 @@ export class AirCostingComponent {
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
   AttachList: any[] = [];
+  canftp: boolean = false;
   mMsg: string = "";
 
   sub: any;
@@ -1117,6 +1118,7 @@ export class AirCostingComponent {
           alert(this.ErrorMessage);
         } else {
           this.mMsg = response.mailmsg;
+          this.canftp = response.canftp;
           this.sSubject = "REF#-" + this.Record.cost_refno;
           this.ftp_agent_code = this.Record.cost_jv_agent_code;
           this.ftp_agent_name = this.Record.cost_jv_agent_name;
