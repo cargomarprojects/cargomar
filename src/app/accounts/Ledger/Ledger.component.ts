@@ -1508,6 +1508,16 @@ export class LedgerComponent {
       }
     }
 
+
+    if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE' || this.Recorddet.jv_acc_type_name == 'INDIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'INDIRECT EXPENSE') {
+      if (this.Recorddet.jv_paid_to.toString().trim().length <=0 ) {
+        this.ErrorMessage = 'Paid to cannot be blank';
+        alert(this.ErrorMessage);
+      return;
+      }
+    }
+
+
     if (this.type == "CP") {
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "DR") {
         this.ErrorMessage = 'Cannot Debit Cash';
