@@ -149,7 +149,7 @@ export class CostInvoiceComponent {
       this.Record.costd_acc_name = "";
     this.Record.costd_remarks = "";
     this.Record.costd_acc_qty = 1;
-    this.Record.costd_acc_rate = 1;
+    this.Record.costd_acc_rate = 0;
     this.Record.costd_acc_amt = 0;
     this.Record.costd_srate = 0;
     this.Record.costd_brate = 0;
