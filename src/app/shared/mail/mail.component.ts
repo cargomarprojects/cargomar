@@ -37,6 +37,7 @@ export class MailComponent {
   @Input() public disableBLftp: boolean = false;
   @Input() public PoFtpError: string = '';
   @Input() public default_ftptype: string = '';
+  @Input() public updatetype: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -292,7 +293,8 @@ export class MailComponent {
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
       update_toids: '',
-      canftp: 'N'
+      canftp: 'N',
+      updatetype:''
     };
 
     SearchData.table = controlname;
@@ -313,6 +315,7 @@ export class MailComponent {
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.update_toids = (this.updateto_ids == true) ? "Y" : "N";
     SearchData.canftp = (this.canftp == true) ? "Y" : "N";
+    SearchData.updatetype = this.updatetype;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
