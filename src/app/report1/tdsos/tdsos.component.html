@@ -77,7 +77,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td (click)="drilldown(rec)" style="cursor:pointer">{{format_type=='BRANCH-WISE'?rec.branch:rec.sman_name}}
+          <td (click)="drilldown(rec)" class="hlink">{{format_type=='BRANCH-WISE'?rec.branch:rec.sman_name}}
           </td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
