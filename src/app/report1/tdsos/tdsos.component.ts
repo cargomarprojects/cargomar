@@ -112,10 +112,11 @@ Ajith 06/06/2019 Excel print for branch wise implemented
       if (this.menu_record.rights_print)
         this.bPrint = true;
     }
+    this.format_type=this.gs.defaultValues.tdsos_list_format;
     this.initLov();
     this.LoadCombo();
     this.Init();
-    this.List('SCREEN');
+    this.List('SCREEN',this.format_type);
   }
 
   Init() {
@@ -167,8 +168,8 @@ Ajith 06/06/2019 Excel print for branch wise implemented
 
   // // Query List Data
   List(_type: string, _format: string = "BRANCH-WISE") {
-
-    this.format_type = _format;
+    this.gs.defaultValues.tdsos_list_format=_format
+    this.format_type = this.gs.defaultValues.tdsos_list_format;
     this.ErrorMessage = '';
     this.loading = true;
     this.pkid = this.gs.getGuid();
