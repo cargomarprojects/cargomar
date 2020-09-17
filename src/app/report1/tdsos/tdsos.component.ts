@@ -166,8 +166,9 @@ Ajith 06/06/2019 Excel print for branch wise implemented
   }
 
   // // Query List Data
-  List(_type: string) {
+  List(_type: string, _format: string = "BRANCH-WISE") {
 
+    this.format_type = _format;
     this.ErrorMessage = '';
     this.loading = true;
     this.pkid = this.gs.getGuid();
@@ -224,12 +225,28 @@ Ajith 06/06/2019 Excel print for branch wise implemented
     if (rec.row_type == "TOTAL")
       return;
 
-    let param = {
-      menuid: 'TDSOSPARTYRPT',
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: rec.branch,
-      isdrildown: true
+    if (this.format_type == "BRANCH-WISE") {
+      let param = {
+        menuid: 'TDSOSPARTYRPT',
+        company_code: this.gs.globalVariables.comp_code,
+        branch_code: rec.branch,
+        isdrildown: true
+      }
+      this.gs.Naviagete("report1/tdsosparty", JSON.stringify(param));
     }
-    this.gs.Naviagete("report1/tdsosparty", JSON.stringify(param));
+
+    if (this.format_type == "SALESMAN-WISE") {
+      let param = {
+        menuid: 'TDSOSDETRPT',
+        company_code: this.gs.globalVariables.comp_code,
+        branch_code: '',
+        party_name: '',
+        sman_name: rec.sman_name,
+        cust_type:'SMAN',
+        isdrildown: true
+      }
+      this.gs.Naviagete("report1/tdsosdet", JSON.stringify(param));
+    }
+
   }
 }

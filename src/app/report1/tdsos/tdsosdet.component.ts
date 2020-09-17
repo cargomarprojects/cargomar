@@ -52,7 +52,9 @@ export class TdsosDetComponent {
     branch_code: '',
     year_code: '',
     format_type: '',
-    party_name: ''
+    party_name: '',
+    sman_name:'',
+    cust_type:''
   };
 
   // Array For Displaying List
@@ -73,6 +75,8 @@ export class TdsosDetComponent {
         this.SearchData.company_code = options.company_code;
         this.SearchData.branch_code = options.branch_code;
         this.SearchData.party_name = options.party_name;
+        this.SearchData.sman_name = options.sman_name;
+        this.SearchData.cust_type = options.cust_type;
         this.InitComponent();
         this.List('NEW');
       }

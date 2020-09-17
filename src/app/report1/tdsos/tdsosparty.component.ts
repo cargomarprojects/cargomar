@@ -15,7 +15,6 @@ import { RepService } from '../services/report.service';
 export class TdsosPartyComponent {
   /* Ajith 29/05/2019 excel print implemented
   
-  
   */
   
   title = 'Tds OS Report'
@@ -210,6 +209,8 @@ export class TdsosPartyComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: rec.branch,
       party_name: rec.party_name,
+      sman_name:'',
+      cust_type:'PARTY',
       isdrildown: true
     }
     this.gs.Naviagete("report1/tdsosdet", JSON.stringify(param));

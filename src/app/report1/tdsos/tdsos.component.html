@@ -9,24 +9,28 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <div class="col-6">
-            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Branch Wise</button>
-            <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('SCREEN','BRANCH-WISE')" class="btn btn-primary btn-sm mr-1">Branch
+              Wise</button>
+            <button [disabled]="loading" (click)="List('SCREEN','SALESMAN-WISE')" class="btn btn-primary btn-sm mr-1">Salesman
+              Wise</button>
+            <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL',format_type)"
+              class="btn btn-primary btn-sm">Excel</button>
           </div>
         </div>
       </div>
       <div class="col-sm-2">
-          <div *ngIf="this.cert_amt != 0" class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">CERT.AMT</label>
-              <div class="col-sm-8">
-                <label class="col-form-label  col-form-label-sm">
-                  <font color="red">{{cert_amt}} </font>
-                </label>
-              </div>
-            </div>
+        <div *ngIf="this.cert_amt != 0" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">CERT.AMT</label>
+          <div class="col-sm-8">
+            <label class="col-form-label  col-form-label-sm">
+              <font color="red">{{cert_amt}} </font>
+            </label>
+          </div>
         </div>
+      </div>
       <!-- <div class="col-sm-4">
         <div *ngIf="tds_paid>0" class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">TDS PAID</label>
@@ -60,7 +64,8 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th>BRANCH</th>
+          <th><span *ngIf="format_type=='BRANCH-WISE'">BRANCH</span><span
+              *ngIf="format_type=='SALESMAN-WISE'">SALESMAN</span></th>
           <th class="text-right">TDS-PAID</th>
           <th class="text-right">ALLOCATED</th>
           <th class="text-right">PENDING</th>
@@ -72,7 +77,8 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td (click)="drilldown(rec)" style="cursor:pointer">{{rec.branch}}</td>
+          <td (click)="drilldown(rec)" style="cursor:pointer">{{format_type=='BRANCH-WISE'?rec.branch:rec.sman_name}}
+          </td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.collected_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.pending_amt | number : '1.2-2' }}</td>
