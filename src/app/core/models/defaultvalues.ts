@@ -4,7 +4,8 @@ export class DefaultValues {
     monthbegindate: string;
     lastmonthdate: string;
     branch_accounts_email: string;
-   
+    tdsos_list_format: string;
+
     gstin: string;
     gstin_state_code: string;
     print_cheque_only_after_ho_approved: string;
@@ -80,7 +81,7 @@ export class DefaultValues {
     sea_job_origin_country_code: string;
     sea_job_origin_country_name: string;
     sea_jobcntr_sealtype: string;
-  
+
     air_job_place_receipt_id: string;
     air_job_place_receipt_code: string;
     air_job_place_receipt_name: string;
