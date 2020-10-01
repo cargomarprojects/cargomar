@@ -50,6 +50,7 @@ export class DrCrComponent {
   AttachList: any[] = [];
   canftp: boolean = false;
   mMsg: string = "";
+  mail_update_type: string = "";
 
   sub: any;
   urlid: string;
@@ -895,6 +896,7 @@ export class DrCrComponent {
         this.canftp = response.canftp;
         this.ftp_agent_code = this.Record.cost_jv_agent_code;
         this.ftp_agent_name = this.Record.cost_jv_agent_name;
+        this.mail_update_type = "COSTING-" + this.Record.cost_jv_agent_code;
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         this.AttachList = new Array<any>();
