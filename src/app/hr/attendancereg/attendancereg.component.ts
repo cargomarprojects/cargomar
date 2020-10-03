@@ -2,15 +2,14 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Salarym} from '../models/salarym';
-import { SalDet } from '../models/salarym';
-import { WageRegisterService } from '../services/wageregister.service';
-  
+import { Auditlog } from '../../report1/models/auditlog';
+import { AttendanceRegService } from '../services/attendancereg.service';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-attendancereg',
   templateUrl: './attendancereg.component.html',
-  providers: [WageRegisterService]
+  providers: [AttendanceRegService]
 })
 export class AttendanceRegComponent {
   // Local Variables 
@@ -20,45 +19,38 @@ export class AttendanceRegComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
+  bPrint: boolean = false;
   bAdmin: boolean = false;
-  bRemove: boolean = false;
-  bChanged: boolean;
+  bCompany: boolean = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
 
   searchstring = '';
+  attendancedate = '';
 
   page_count = 0;
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
-
+  branch_code: string;
   modal: any;
   sub: any;
   urlid: string;
 
-  salyear = 0;
-  salmonth = 0;
-  
-  reporttype="FORMAT1";
-  empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
-
+  BRRECORD: SearchTable = new SearchTable();
   mode = '';
   pkid = '';
   // Array For Displaying List
-  RecordList: Salarym[] = [];
-
+  RecordList: Auditlog[] = [];
   // Single Record for add/edit/view details
-  Record: Salarym = new Salarym;
-  Recorddet: SalDet = new SalDet;
+  Record: Auditlog = new Auditlog;
 
   constructor(
     private modalService: NgbModal,
-    private mainService: WageRegisterService,
+    private mainService: AttendanceRegService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -85,23 +77,22 @@ export class AttendanceRegComponent {
   }
 
   InitComponent() {
-    this.reporttype = 'FORMAT1';
-    this.empstatus = 'BOTH';
-    this.bRemove = true;
-    this.bAdmin=false;
+    this.bPrint = false;
+    this.bAdmin = false;
+    this.bCompany = false;
+    this.branch_code = this.gs.globalVariables.branch_code;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_company)
+        this.bCompany = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.InitLov();
-    if (this.gs.defaultValues.today.trim() != "") {
-      var tempdt = this.gs.defaultValues.today.split('-');
-      this.salyear = +tempdt[0];
-      this.salmonth = +tempdt[1];
-    }
+    this.attendancedate = this.gs.defaultValues.today.trim();
   }
 
   // Destroy Will be called when this component is closed
@@ -110,21 +101,27 @@ export class AttendanceRegComponent {
   }
 
   InitLov() {
-
+    this.BRRECORD = new SearchTable();
+    this.BRRECORD.controlname = "BRANCH";
+    this.BRRECORD.displaycolumn = "CODE";
+    this.BRRECORD.type = "BRANCH";
+    this.BRRECORD.id = "";
+    this.BRRECORD.code = this.gs.globalVariables.branch_code;
   }
 
+  LovSelected(_Record: SearchTable) {
+    // Company Settings
+    if (_Record.controlname == "BRANCH") {
+      this.branch_code = _Record.code;
+    }
+  }
 
   // Query List Data
   List(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.salyear <= 0) {
-      this.ErrorMessage += " | Invalid Year";
-    } else if (this.salyear < 100) {
-      this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
-    }
-    if (this.salmonth <= 0 || this.salmonth > 12) { 
-      this.ErrorMessage += " | Invalid Month";
+    if (this.attendancedate.trim().length <= 0) {
+      this.ErrorMessage += " | Date Cannot be Blank";
     }
     if (this.ErrorMessage.length > 0)
       return;
@@ -134,21 +131,22 @@ export class AttendanceRegComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      salmonth: this.salmonth,
-      salyear: this.salyear,
-      reporttype:this.reporttype,
-      empstatus:this.empstatus,
+      attendancedate: this.attendancedate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      branch_region:this.gs.defaultValues.pf_br_region,
-      folderid:this.gs.getGuid(),
+      branch_region: this.gs.defaultValues.pf_br_region,
+      folderid: this.gs.getGuid(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount
     };
+
+    if (this.bCompany) {
+      SearchData.branch_code = this.branch_code;
+    }
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -156,22 +154,20 @@ export class AttendanceRegComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else 
-        {
-          this.Recorddet = response.record;
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
           this.RecordList = response.list;
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
-  
+
+
 
   allvalid() {
     let sError: string = "";
@@ -201,7 +197,7 @@ export class AttendanceRegComponent {
 
     //if (bret === false)
     //  this.ErrorMessage = sError;
-    
+
     return bret;
   }
 
