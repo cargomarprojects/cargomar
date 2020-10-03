@@ -16,6 +16,7 @@ import { BonusComponent } from './bonus/bonus.component';
 import { ArrearsComponent } from './arrears/arrears.component';
 import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
 import { IncLetterComponent } from './incletter/incletter.component';
+import { AttendanceRegComponent } from './attendancereg/attendancereg.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { IncLetterComponent } from './incletter/incletter.component';
     BonusComponent,
     ArrearsComponent,
     ConsolPayrollComponent,
-    IncLetterComponent
+    IncLetterComponent,
+    AttendanceRegComponent
   ],
   providers: [
   ],
