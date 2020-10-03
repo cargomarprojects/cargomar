@@ -211,7 +211,13 @@ export class AttendanceRegComponent {
     // }
     //if (field == 'sal_head') {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
+
     //}
+
+    if (field == 'searchstring') {
+       this.searchstring = this.searchstring.toUpperCase();
+      }
+    
   }
   OnChange(field: string) {
     this.RecordList = null;
