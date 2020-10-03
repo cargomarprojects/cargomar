@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Menum } from '../models/menum';
@@ -40,10 +40,31 @@ export class HeaderComponent {
             this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true });
     }
 
+
+
     Logout() {
-        this.loginservice.Logout();
+
+        let SearchData = {
+            usercode: this.gs.globalVariables.user_code,
+            companycode: this.gs.globalVariables.comp_code,
+            branchcode: this.gs.globalVariables.branch_code
+        };
+
+        this.loginservice.Logout(SearchData).subscribe (
+            success =>{
+
+            },
+            error =>{
+            }
+        )
+
+        this.gs.IsLoginSuccess = false;
+        this.gs.IsAuthenticated = false;
+        this.gs.Access_Token = '';
+
         this.title = 'Pls Login';
         this.router.navigate(['login'], { replaceUrl: true }); 
+
     }
 
     getUrlID() {

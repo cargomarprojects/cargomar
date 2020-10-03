@@ -188,8 +188,8 @@ export class LoginComponent {
 
 
 
-  Logout() {
-    this.loginservice.Logout();
+  Logout1() {
+    //this.loginservice.Logout();
     this.errorMessage = 'Pls Login';
   }
 
