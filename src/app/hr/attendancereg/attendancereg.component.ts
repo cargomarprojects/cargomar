@@ -26,6 +26,7 @@ export class AttendanceRegComponent {
   loading = false;
   currentTab = 'LIST';
 
+  sort_colname: string = 'log_date';
   searchstring = '';
   attendancedate = '';
 
@@ -93,6 +94,7 @@ export class AttendanceRegComponent {
     }
     this.InitLov();
     this.attendancedate = this.gs.defaultValues.today.trim();
+    this.sort_colname = "log_date";
   }
 
   // Destroy Will be called when this component is closed
@@ -131,6 +133,7 @@ export class AttendanceRegComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
+      sort_colname : this.sort_colname,
       attendancedate: this.attendancedate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
