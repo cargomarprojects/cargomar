@@ -27,6 +27,9 @@ export class OsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+
+  legal = false;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -72,6 +75,7 @@ export class OsComponent {
     isoverdue: false,
     all: false,
     do_not_use_credit_date: false,
+    legalonly: false,
   };
 
   
@@ -240,6 +244,8 @@ export class OsComponent {
     this.SearchData.acc_id = this.ACCRECORD.id;
     this.SearchData.acc_name = this.ACCRECORD.name;
     this.SearchData.do_not_use_credit_date = this.do_not_use_credit_date;
+
+    this.SearchData.legalonly = this.legal;
 
     this.ErrorMessage = '';
     this.mainService.OsReport(this.SearchData)

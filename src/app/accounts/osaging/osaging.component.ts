@@ -42,6 +42,7 @@ export class OsAgingComponent {
   bCompany = false;
   all: boolean = false;
   do_not_use_credit_date: boolean = false;
+  legalonly: boolean = false;
 
   to_date: string;
 
@@ -70,6 +71,7 @@ export class OsAgingComponent {
     all: false,
     user_name:'',
     do_not_use_credit_date: false,    
+    legalonly :false,
   };
 
   
@@ -239,6 +241,8 @@ export class OsAgingComponent {
     this.SearchData.to_date = this.to_date;
   
     this.SearchData.do_not_use_credit_date = this.do_not_use_credit_date;
+
+    this.SearchData.legalonly = this.legalonly;
 
    
     this.ErrorMessage = '';
