@@ -151,11 +151,20 @@
             <th>LINER</th>
             <th>AGENT</th>
             <th>POL</th>
+            <th>ETD</th>
             <th>POD</th>
+            <th>ETA</th>
             <th>BOOK.CONF.DT</th>
             <th>STUFF.CONF.DT</th>
             <th>GATE.IN.DT</th>
             <th>VGM.DT</th>
+
+            <th>DRAFT.DT</th>
+            <th>INV.DT</th>
+            <th>HBL.APRVD.DT</th>
+            <th>HBL.PAY.REVD.DT</th>
+            <th>HBL.RLSD.DT</th>
+
             <th>DELIVERED.DT</th>
           </tr>
         </thead>
@@ -170,11 +179,20 @@
             <td>{{rec.mbl_carrier_name}}</td>
             <td>{{rec.mbl_agent_name}}</td>
             <td>{{rec.mbl_pol_name}}</td>
+            <td>{{rec.mbl_pol_etd}}</td>
             <td>{{rec.mbl_pod_name}}</td>
+            <td>{{rec.mbl_pod_eta}}</td>
             <td>{{rec.mbook_confirmed_date}}</td>
             <td>{{rec.mstuff_confirmed_date}}</td>
             <td>{{rec.mgate_in_date}}</td>
             <td>{{rec.mvgm_updated_date}}</td>
+
+            <td>{{rec.hdraft_sent_date}}</td>
+            <td>{{rec.hinvoice_sent_date}}</td>
+            <td>{{rec.hbl_approved_date}}</td>
+            <td>{{rec.hpayment_received_date}}</td>
+            <td>{{rec.hbl_released_date}}</td>
+
             <td>{{rec.delivered_date}}</td>
           </tr>
         </tbody>
