@@ -24,6 +24,11 @@ export class ShipTrack {
     hbl_approved_date:string;
     hpayment_received_date:string;
     hbl_released_date:string;
+    msi_filing_date:string;
+	mbl_approved_date:string;
+	mbl_payment_date:string;
+	mbl_released_date:string;
+	mbl_empty_pickup_date:string;
 
     _globalvariables: GlobalVariables;
 }
