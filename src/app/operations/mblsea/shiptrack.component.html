@@ -24,6 +24,29 @@
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Empty Pickup Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mbl_empty_pickup_date" (ValueChanged)="Record.mbl_empty_pickup_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('mbl_empty_pickup_date','mbook_confirmed_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">SI Filing Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.msi_filing_date" (ValueChanged)="Record.msi_filing_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('msi_filing_date','mbl_empty_pickup_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
 
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Stuffing Confirmation Date</label>
@@ -33,7 +56,18 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mstuff_confirmed_date','mbook_confirmed_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mstuff_confirmed_date','msi_filing_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">VGM Updated On</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('mvgm_updated_date','mstuff_confirmed_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -45,22 +79,47 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date','mstuff_confirmed_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date','mvgm_updated_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
 
         <div class="form-group row mt-1">
-            <label class="col-sm-4 col-form-label col-form-label-sm">VGM Updated On</label>
+            <label class="col-sm-4 col-form-label col-form-label-sm">MBL Approved Date</label>
             <div class="col-sm-4">
-                <app-date [disabled]="!canSave" [inputdate]="Record.mvgm_updated_date" (ValueChanged)="Record.mvgm_updated_date=$event">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mbl_approved_date" (ValueChanged)="Record.mbl_approved_date=$event">
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mvgm_updated_date','mgate_in_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mbl_approved_date','mgate_in_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">MBL Payment Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mbl_payment_date" (ValueChanged)="Record.mbl_payment_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('mbl_payment_date','mbl_approved_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">MBL Released Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mbl_released_date" (ValueChanged)="Record.mbl_released_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('mbl_released_date','mbl_payment_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Delivered Date</label>
             <div class="col-sm-4">
@@ -68,7 +127,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('delivered_date','mvgm_updated_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('delivered_date','mbl_released_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -120,17 +179,7 @@
             </div>
         </div>
 
-        <div class="form-group row mt-1">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Invoice Sent Date</label>
-            <div class="col-sm-4">
-                <app-date [disabled]="!canSave" [inputdate]="Record.hinvoice_sent_date" (ValueChanged)="Record.hinvoice_sent_date=$event">
-                </app-date>
-            </div>
-            <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hinvoice_sent_date','hdraft_sent_date')"
-                    class="btn btn-primary btn-sm">Update</button>
-            </div>
-        </div>
+        
 
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">HBL Approved Date</label>
@@ -139,10 +188,23 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hbl_approved_date','hinvoice_sent_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hbl_approved_date','hdraft_sent_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Invoice Sent Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hinvoice_sent_date" (ValueChanged)="Record.hinvoice_sent_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('hinvoice_sent_date','hbl_approved_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
 
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Payment Received Date</label>
@@ -152,7 +214,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hpayment_received_date','hbl_approved_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('hpayment_received_date','hinvoice_sent_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
