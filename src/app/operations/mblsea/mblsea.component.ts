@@ -1437,6 +1437,10 @@ export class MblSeaComponent {
     if (params.type == "MAIL-PO-CHECKLIST") {
       this.GenerateXmlPO('CHECK-LIST', '');
     }
+
+    if (params.type == "SHIP-TRACK-MBL-RLEASE-UPDT") {
+      this.Record.book_released_date = params.mblreleasedate;
+    }
   }
 
   open(content: any) {

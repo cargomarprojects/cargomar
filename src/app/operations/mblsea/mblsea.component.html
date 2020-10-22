@@ -188,7 +188,7 @@
                   <label class="col-sm-3 col-form-label  col-form-label-sm">Booking No</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no"
-                      (blur)="OnBlur('book_no')" required maxlength="30" />
+                      (blur)="OnBlur('book_no')" required maxlength="100" />
                   </div>
                   <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                   <div class="col-sm-4">
@@ -201,7 +201,7 @@
                   <label class="col-sm-3 col-form-label  col-form-label-sm">MBL No</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
-                      (blur)="OnBlur('book_mblno')" required maxlength="30" />
+                      (blur)="OnBlur('book_mblno')" required maxlength="100" />
                   </div>
                 </div>
 
@@ -363,7 +363,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
                   <div class="col-sm-4">
-                    <app-date [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
+                    <app-date disabled [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
                     </app-date>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm"
