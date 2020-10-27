@@ -18,8 +18,12 @@ export class HblTracking {
     mbl_approved_date: string;
     mbl_payment_date: string;
     mbl_released_date: string;
-    mbl_empty_pickup_date:string;
-    
+    mbl_empty_pickup_date: string;
+    mform13_filing_date: string;
+    hisf_date: string;
+    hams_date: string;
+
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

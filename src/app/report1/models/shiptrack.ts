@@ -29,6 +29,9 @@ export class ShipTrack {
 	mbl_payment_date:string;
 	mbl_released_date:string;
 	mbl_empty_pickup_date:string;
-
+    mform13_filing_date: string;
+    hisf_date: string;
+    hams_date: string;
+    
     _globalvariables: GlobalVariables;
 }

@@ -71,7 +71,17 @@
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
-
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">FORM-13 Filing Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.mform13_filing_date" (ValueChanged)="Record.mform13_filing_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('mform13_filing_date','mvgm_updated_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Gate-In Date</label>
             <div class="col-sm-4">
@@ -79,7 +89,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date','mvgm_updated_date')"
+                <button [disabled]="loading||!canSave" (click)="Save('mgate_in_date','mform13_filing_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
@@ -167,6 +177,31 @@
 </div>
 <div *ngIf="type == 'HBL-SE'" class="row">
     <div class="col-sm-6">
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">ISF Sent Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hisf_date" (ValueChanged)="Record.hisf_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('hisf_date','')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
+        <div class="form-group row mt-1">
+            <label class="col-sm-4 col-form-label col-form-label-sm">AMS Sent Date</label>
+            <div class="col-sm-4">
+                <app-date [disabled]="!canSave" [inputdate]="Record.hams_date" (ValueChanged)="Record.hams_date=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading||!canSave" (click)="Save('hams_date','hisf_date')"
+                    class="btn btn-primary btn-sm">Update</button>
+            </div>
+        </div>
+
         <div class="form-group row mt-1">
             <label class="col-sm-4 col-form-label col-form-label-sm">Draft Sent Date</label>
             <div class="col-sm-4">
@@ -174,7 +209,7 @@
                 </app-date>
             </div>
             <div class="col-sm-4">
-                <button [disabled]="loading||!canSave" (click)="Save('hdraft_sent_date','')"
+                <button [disabled]="loading||!canSave" (click)="Save('hdraft_sent_date','hams_date')"
                     class="btn btn-primary btn-sm">Update</button>
             </div>
         </div>
