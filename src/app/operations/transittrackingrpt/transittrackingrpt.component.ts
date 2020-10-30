@@ -40,13 +40,16 @@ export class TransitTrackingRptComponent {
     vesseltype = 'AIR CARRIER';
     porttype = 'SEA PORT';
     bChanged: boolean;
-
+    trk_confirm:boolean = false;
     ErrorMessage = "";
     InfoMessage = "";
     mode = 'ADD';
     pkid = '';
     ctr: number;
-
+    page_count = 0;
+    page_current = 0;
+    page_rows = 0;
+    page_rowcount = 0;
     // Array For Displaying List
     RecordList: Trackingm[] = [];
     // Single Record for add/edit/view details
@@ -57,6 +60,9 @@ export class TransitTrackingRptComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
+        this.page_count = 0;
+        this.page_rows = 15;
+        this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -72,7 +78,7 @@ export class TransitTrackingRptComponent {
 
 
     InitComponent() {
-        this.from_date = this.gs.defaultValues.lastmonthdate ;
+        this.from_date = this.gs.defaultValues.lastmonthdate;
         this.to_date = this.gs.defaultValues.today;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record)
@@ -126,8 +132,13 @@ export class TransitTrackingRptComponent {
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
             user_code: this.gs.globalVariables.user_code,
+            page_count: this.page_count,
+            page_current: this.page_current,
+            page_rows: this.page_rows,
+            page_rowcount: this.page_rowcount,
             from_date: this.from_date,
-            to_date: this.to_date
+            to_date: this.to_date,
+            trk_confirm:this.trk_confirm
         };
 
         this.ErrorMessage = '';
@@ -136,6 +147,9 @@ export class TransitTrackingRptComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                this.page_count = response.page_count;
+                this.page_current = response.page_current;
+                this.page_rowcount = response.page_rowcount;
             },
                 error => {
                     this.loading = false;

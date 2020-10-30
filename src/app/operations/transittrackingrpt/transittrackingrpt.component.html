@@ -19,12 +19,35 @@
             <div class="col-2">
                 <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
-
-            <div class="col">
+            <div class="col-2">
+                <input type="checkbox" [(ngModel)]="trk_confirm" >
+                <span>Confirm</span>
+            </div>
+            <div class="col-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
                 <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
             </div>
 
+        </div>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="page-body table-responsive">
@@ -76,6 +99,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <br />
