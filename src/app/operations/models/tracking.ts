@@ -17,11 +17,20 @@ export class Trackingm {
   trk_pod_code: string;
   trk_pod_name: string;
   trk_pod_eta: string;
-  trk_pod_eta_confirm: boolean ;
+  trk_pod_eta_confirm: boolean;
   trk_order: number;
-  trk_desc:string;
+  trk_desc: string;
   rec_mode: string;
   rec_category: string;
+  mbl_slno:number;
+  mbl_book_no: string;
+  mbl_no: string;
+  mbl_cntrs: string;
+  mbl_agent_name: string;
+  mbl_liner_name: string;
+  mbl_shipper_name: string;
+  mbl_consignee_name: string;
+
   _globalvariables: GlobalVariables;
 }
 

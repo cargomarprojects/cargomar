@@ -9,29 +9,36 @@
 <div class="page-list">
     <div class="page-search">
         <div class="row">
-    
-          <label class="col-1 col-form-label col-form-label-sm">From Date</label>
-          <div class="col-2">
-            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
-          </div>
-    
-          <label class="col-1 col-form-label col-form-label-sm">To Date</label>
-          <div class="col-2">
-            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
-          </div>
-          
-          <div class="col">
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
-          </div>
-    
+
+            <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-2">
+                <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+
+            <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-2">
+                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+
+            <div class="col">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+            </div>
+
         </div>
-      </div>
+    </div>
     <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>SL#</th>
+                    <th>MBLBK#</th>
+                    <th>BOOK#</th>
+                    <th>MBL#</th>
+                    <th>SHIPPER</th>
+                    <th>CONSIGNEE</th>
+                    <th>AGENT</th>
+                    <th>CARRIER</th>
+                    <th>CONTAINER</th>
                     <th><span *ngIf="type=='SEA EXPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'">AIRLINE</span>
                     </th>
                     <th><span *ngIf="type=='SEA EXPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'">FLIGHT#</span>
@@ -47,9 +54,15 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    (click)="ActionHandler('EDIT', rec.trk_pkid,i)">
-                    <td>{{i+1}}</td>
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+                    <td>{{rec.mbl_slno}}</td>
+                    <td>{{rec.mbl_book_no}}</td>
+                    <td>{{rec.mbl_no}}</td>
+                    <td>{{rec.mbl_shipper_name}}</td>
+                    <td>{{rec.mbl_consignee_name}}</td>
+                    <td>{{rec.mbl_agent_name}}</td>
+                    <td>{{rec.mbl_liner_name}}</td>
+                    <td>{{rec.mbl_cntrs}}</td>
                     <td>{{rec.trk_vsl_name}}</td>
                     <td>{{rec.trk_voyage}}</td>
                     <td>{{rec.trk_pol_code}}</td>

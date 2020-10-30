@@ -72,7 +72,7 @@ export class TransitTrackingRptComponent {
 
 
     InitComponent() {
-        this.from_date = this.gs.defaultValues.monthbegindate;
+        this.from_date = this.gs.defaultValues.lastmonthdate ;
         this.to_date = this.gs.defaultValues.today;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record)
@@ -85,7 +85,6 @@ export class TransitTrackingRptComponent {
             this.porttype = 'SEA PORT';
         }
         this.InitLov();
-        this.List("");
     }
 
     // Destroy Will be called when this component is closed
