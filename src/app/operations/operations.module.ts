@@ -48,6 +48,7 @@ import { AmsEdiComponent } from './amsedi/amsedi.component';
 import { EdiErrorComponent } from './amsedi/edi-error.component';
 import { Linkm2Component } from './amsedi/linkm2.component';
 import { ShipTrackComponent } from './mblsea/shiptrack.component';
+import {  TransitTrackingRptComponent } from './transittrackingrpt/transittrackingrpt.component';
 
 @NgModule({
   imports: [
@@ -95,7 +96,8 @@ import { ShipTrackComponent } from './mblsea/shiptrack.component';
     AmsEdiComponent,
     EdiErrorComponent,
     Linkm2Component,
-    ShipTrackComponent
+    ShipTrackComponent,
+    TransitTrackingRptComponent
   ],
   providers: [
   ],

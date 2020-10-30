@@ -1,0 +1,75 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div class="page-list">
+    <div class="page-search">
+        <div class="row">
+    
+          <label class="col-1 col-form-label col-form-label-sm">From Date</label>
+          <div class="col-2">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+    
+          <label class="col-1 col-form-label col-form-label-sm">To Date</label>
+          <div class="col-2">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+          
+          <div class="col">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+          </div>
+    
+        </div>
+      </div>
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SL#</th>
+                    <th><span *ngIf="type=='SEA EXPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'">AIRLINE</span>
+                    </th>
+                    <th><span *ngIf="type=='SEA EXPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'">FLIGHT#</span>
+                    </th>
+                    <th>POL.CODE</th>
+                    <th>POL.NAME</th>
+                    <th>ETD</th>
+                    <th>CONFIRM</th>
+                    <th>POD.CODE</th>
+                    <th>POD.NAME</th>
+                    <th>ETA</th>
+                    <th>CONFIRM</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (click)="ActionHandler('EDIT', rec.trk_pkid,i)">
+                    <td>{{i+1}}</td>
+                    <td>{{rec.trk_vsl_name}}</td>
+                    <td>{{rec.trk_voyage}}</td>
+                    <td>{{rec.trk_pol_code}}</td>
+                    <td>{{rec.trk_pol_name}}</td>
+                    <td>{{rec.trk_pol_etd}}</td>
+                    <td>{{rec.trk_pol_etd_confirm ? 'YES' : 'NO'}}</td>
+                    <td>{{rec.trk_pod_code}}</td>
+                    <td>{{rec.trk_pod_name}}</td>
+                    <td>{{rec.trk_pod_eta}}</td>
+                    <td>{{rec.trk_pod_eta_confirm ? 'YES' : 'NO'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

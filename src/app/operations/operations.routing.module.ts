@@ -20,6 +20,7 @@ import { AirCostingComponent } from './costing/air/aircosting.component';
 import { BlComponent } from './hblseaair/seabl/seabl.component';
 import { ConsolerateComponent } from './costing/consolerate/consolerate.component';
 import { ConsoleCostingComponent } from './costing/consolecosting/consolecosting.component';
+import {  TransitTrackingRptComponent } from './transittrackingrpt/transittrackingrpt.component';
 
 const routes: Routes = [
     { path: 'operations', component: OperationsComponent },
@@ -41,7 +42,8 @@ const routes: Routes = [
     { path: 'aircosting', component: AirCostingComponent },
     { path: 'seabl', component: BlComponent },
     { path: 'consolerate', component: ConsolerateComponent },
-    { path: 'consolecosting', component: ConsoleCostingComponent }
+    { path: 'consolecosting', component: ConsoleCostingComponent },
+    { path: 'transittrackingrpt', component: TransitTrackingRptComponent }
 ];
 
 @NgModule({

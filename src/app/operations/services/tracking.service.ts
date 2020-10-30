@@ -37,7 +37,9 @@ export class TrackingService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Tracking/DeleteRecord', SearchData, this.gs.headerparam2('authorized'))
     }
 
-
+    TransitTrackingList(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Tracking/TransitTrackingList', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 
