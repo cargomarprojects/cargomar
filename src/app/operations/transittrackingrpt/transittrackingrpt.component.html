@@ -20,12 +20,12 @@
                 <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
             <div class="col-2">
-                <input type="checkbox" [(ngModel)]="trk_confirm" >
-                <span>Confirm</span>
+                <!-- <input type="checkbox" [(ngModel)]="trk_confirm" >
+                <span>Confirm</span> -->
             </div>
             <div class="col-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+                <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
 
         </div>

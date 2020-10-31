@@ -35,12 +35,13 @@ export class TransitTrackingRptComponent {
     sub: any;
     urlid: string;
 
+    bPrint = false;
     loading = false;
     currentTab = 'LIST';
     vesseltype = 'AIR CARRIER';
     porttype = 'SEA PORT';
     bChanged: boolean;
-    trk_confirm:boolean = false;
+    trk_confirm: boolean = false;
     ErrorMessage = "";
     InfoMessage = "";
     mode = 'ADD';
@@ -80,9 +81,13 @@ export class TransitTrackingRptComponent {
     InitComponent() {
         this.from_date = this.gs.defaultValues.lastmonthdate;
         this.to_date = this.gs.defaultValues.today;
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
+        }
         if (this.type == "AIR EXPORT") {
             this.vesseltype = 'AIR CARRIER';
             this.porttype = 'AIR PORT';
@@ -109,20 +114,20 @@ export class TransitTrackingRptComponent {
 
     List(_type: string) {
 
-        if (this.from_date.trim().length <= 0) {
-            this.ErrorMessage = 'From Date Cannot Be Blank';
-            return;
-        }
-        if (this.to_date.trim().length <= 0) {
-            this.ErrorMessage = 'To Date Cannot Be Blank';
-            return;
-        }
-        if (_type == 'EXCEL') {
-            if (this.RecordList.length <= 0) {
-                this.ErrorMessage = 'List Not Found.';
-                return;
-            }
-        }
+        // if (this.from_date.trim().length <= 0) {
+        //     this.ErrorMessage = 'From Date Cannot Be Blank';
+        //     return;
+        // }
+        // if (this.to_date.trim().length <= 0) {
+        //     this.ErrorMessage = 'To Date Cannot Be Blank';
+        //     return;
+        // }
+        // if (_type == 'EXCEL') {
+        //     if (this.RecordList.length <= 0) {
+        //         this.ErrorMessage = 'List Not Found.';
+        //         return;
+        //     }
+        // }
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -138,7 +143,8 @@ export class TransitTrackingRptComponent {
             page_rowcount: this.page_rowcount,
             from_date: this.from_date,
             to_date: this.to_date,
-            trk_confirm:this.trk_confirm
+            trk_confirm: this.trk_confirm,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -146,10 +152,14 @@ export class TransitTrackingRptComponent {
         this.mainService.TransitTrackingList(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
@@ -158,7 +168,9 @@ export class TransitTrackingRptComponent {
                 });
     }
 
-
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
     Close() {
         this.gs.ClosePage('home');
     }
