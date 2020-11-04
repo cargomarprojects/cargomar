@@ -238,7 +238,7 @@ export class BankInfoComponent {
         }
         case 'bank_addresslin3':
         {
-          this.bank_addresslin3 = this.bank_addresslin3.toUpperCase();
+          this.bank_addresslin3 = this.bank_addresslin3.toUpperCase(); 
           break;
         }
     }
