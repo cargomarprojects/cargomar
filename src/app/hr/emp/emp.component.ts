@@ -410,6 +410,7 @@ export class EmpComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -512,7 +513,10 @@ export class EmpComponent {
     //}
 
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
