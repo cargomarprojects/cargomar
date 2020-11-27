@@ -4,6 +4,11 @@ export class OsAgentReport {
   rowcolor: string;
  
   reccategory: string;
+
+  jvh_docno : string; 
+  jvh_date : string ;
+  jvh_reference : string ;
+
   acc_code: string;
   acc_name: string;
   curr_code: string;

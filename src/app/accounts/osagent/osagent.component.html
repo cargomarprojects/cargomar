@@ -56,6 +56,7 @@
               <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
 
                 <option [value]="'DETAIL'">DETAIL</option>
+                <option [value]="'INVOICE'">INVOICE</option>
                 <option [value]="'SUMMERY'">SUMMARY</option>
 
               </select>
@@ -121,6 +122,62 @@
       </tbody>
     </table>
   </div>
+
+
+  <div *ngIf="category_type=='INVOICE'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+
+          <th>DOCNO</th>
+          <th>DATE</th>
+          <th>REF.NO</th>
+
+          <th>A/C CODE</th>
+          <th>A/C NAME</th>
+          <th>CATEGORY</th>
+          <th>CURR-CODE</th>
+          <th class="text-right">0-30</th>
+          <th class="text-right">31-60</th>
+          <th class="text-right">61-90</th>
+          <th class="text-right">91-180</th>
+          <th class="text-right">180+</th>
+          <th class="text-right">365+</th>
+          <th class="text-right">BALANCE</th>
+          <th class="text-right">ADVANCE</th>
+          <th class="text-right">BALANCE-INR</th>
+          <th class="text-right">ADVANCE-INR</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_reference}}</td>
+
+          <td>{{rec.acc_code}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td>{{rec.reccategory}}</td>
+          <td>{{rec.curr_code}}</td>
+          <td align='right'>{{ rec.G1 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G2 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G3 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.balance_inr | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance_inr | number : '1.2-2'  }}</td>          
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
 
 
 
