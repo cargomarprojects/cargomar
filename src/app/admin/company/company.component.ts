@@ -193,6 +193,8 @@ export class CompanyComponent {
     this.Record.comp_panno = '';
     this.Record.comp_cinno = '';
     this.Record.comp_gstin = '';
+    this.Record.comp_gstin_pin = '';
+    this.Record.comp_gstin_tel = '';
     this.Record.comp_reg_address = '';
     this.Record.comp_iata_code = '';
     this.Record.comp_location = '';

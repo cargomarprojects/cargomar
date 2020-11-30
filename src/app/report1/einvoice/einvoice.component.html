@@ -1,0 +1,161 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+
+    <div class="row">
+
+      <div class="col-md-3">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">FromDate</label>
+          <div class="col-10">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">ToDate</label>
+          <div class="col-10">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Search</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-10">
+            <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
+              [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
+              (ValueChanged)="LovSelected($event)">
+            </app-autocompletemulti>
+          </div>
+        </div>
+        <div class="form-group row pt-1">
+          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-10">
+            <input type="checkbox" [(ngModel)]="invoice">
+            <span>INVOICE</span>
+            <input type="checkbox" class="ml-1" [(ngModel)]="exportinvoice">
+            <span>EXPORT INVOICE</span>
+          </div>
+          
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <input type="checkbox" [(ngModel)]="dn">
+            <span> DN </span>
+            <input type="checkbox" [(ngModel)]="cn">
+            <span> CN </span>
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group row">
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Excel</button>            
+            <button [disabled]="loading" (click)="List('GENERATE')" class="btn btn-primary btn-sm mr-1">Generate</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th>INVOICE#</th>
+          <th>DATE</th>
+          <th>GSTIN</th>
+          <th>CUSTOMER</th>
+          <th>STATE</th>
+          <th>SEZ</th>
+          <th>GST-TYPE</th>
+          <th>GST</th>
+          <th class="text-right">INV-AMT</th>
+          <th class="text-right">GST-AMT</th>
+          <th class="text-right">TOTAL</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.branch}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_gstin}}</td>
+          <td>{{rec.jvh_party_name}}</td>
+          <td>{{rec.jvh_state_name}}</td>
+          <td>{{rec.jvh_sez}}</td>
+          <td>{{rec.jvh_gst_type}}</td>
+          <td>{{rec.jvh_gst}}</td>
+          <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jvh_gst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jvh_net_amt | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+<br />
+
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

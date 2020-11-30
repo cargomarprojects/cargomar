@@ -28,6 +28,7 @@ export class GstReport {
   jv_sgst_rate: number;
   jv_igst_rate: number;
   jvh_sez: string;
+  jvh_state_code: string;
   jvh_state_name: string;
   rc: string;
   jvh_invoice_type: string;

@@ -29,6 +29,7 @@ import { AuditLogComponent} from './auditlog/auditlog.component';
 
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
+import { EinvoiceComponent } from './einvoice/einvoice.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -56,7 +57,8 @@ const routes: Routes = [
   { path: 'tdsosdet', component: TdsosDetComponent},
   { path: 'auditlog', component: AuditLogComponent},
   { path: 'arrivalnotice', component: ArrivalNoticeComponent},
-  { path: 'shiptrack', component: ShipTrackComponent}
+  { path: 'shiptrack', component: ShipTrackComponent},
+  { path: 'einvoice', component: EinvoiceComponent },
 ];
 
 @NgModule({

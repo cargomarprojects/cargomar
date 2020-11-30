@@ -53,6 +53,7 @@ import { AuditLogComponent} from './auditlog/auditlog.component';
 import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
+import { EinvoiceComponent } from './einvoice/einvoice.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,8 @@ import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
     AuditLogComponent,
     MonRepUpdtComponent,
     ArrivalNoticeComponent,
-    ShipTrackComponent
+    ShipTrackComponent,
+    EinvoiceComponent
   ],
   providers: [
   ],

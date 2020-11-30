@@ -22,6 +22,10 @@ export class Companym {
     comp_panno: string;
     comp_cinno: string;
     comp_gstin: string;
+
+    comp_gstin_pin: string;
+    comp_gstin_tel: string;
+
     comp_reg_address: string;
     comp_iata_code: string;
     comp_location: string;
