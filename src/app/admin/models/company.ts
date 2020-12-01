@@ -25,6 +25,7 @@ export class Companym {
 
     comp_gstin_pin: string;
     comp_gstin_tel: string;
+    comp_gstin_email: string;
 
     comp_gstin_state_code: string;
     comp_gstin_state_name: string;

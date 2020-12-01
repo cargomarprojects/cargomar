@@ -45,9 +45,12 @@
           <th>NAME</th>
           <th *ngIf="type == 'B'">PARENT COMPANY</th>
           <th>PTC</th>
-          <th>EMAIL</th>
-          <th>TEL</th>
-          <th>FAX</th>
+          <th>GST#</th>
+          <th>GST-PIN</th>
+          <th>GST-TEL</th>
+          <th>GST-EMAIL</th>
+          <th>GST-ST-CODE</th>
+          <th>GST-STATE-NAME</th>
           <th>TYPE</th>
           <th>ORDER</th>
         </tr>
@@ -58,9 +61,13 @@
           <td>{{rec.comp_name}}</td>
           <td *ngIf="type == 'B'">{{rec.comp_parent_name}}</td>
           <td>{{rec.comp_ptc}}</td>
-          <td>{{rec.comp_email}}</td>
-          <td>{{rec.comp_tel}}</td>
-          <td>{{rec.comp_fax}}</td>
+          <td>{{rec.comp_gstin}}</td>
+          <td>{{rec.comp_gstin_pin}}</td>
+          <td>{{rec.comp_gstin_tel}}</td>
+          <td>{{rec.comp_gstin_email}}</td>          
+          <td>{{rec.comp_gstin_state_code}}</td>          
+          <td>{{rec.comp_gstin_state_name}}</td>          
+
           <td>{{rec.comp_branch_type}}</td>
           <td>{{rec.comp_order}}</td>
         </tr>
@@ -193,16 +200,16 @@
 
     <div class="col-sm-4">
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">PAN#</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label col-form-label-sm">PAN#</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_panno"
             (blur)="OnBlur('comp_panno')" required maxlength="50" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">CIN#</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">CIN#</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_cinno"
             (blur)="OnBlur('comp_cinno')" required maxlength="100" />
         </div>
@@ -210,40 +217,48 @@
 
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">GSTIN</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">GSTIN</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin"
             (blur)="OnBlur('comp_gstin')" required maxlength="20" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Gst-PinCode</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Gst-PinCode</label>
+        <div class="col-9">
           <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin_pin"
             (blur)="OnBlur('comp_gstin_pin')" required maxlength="6" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Gst-Tel</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Gst-Tel</label>
+        <div class="col-9">
           <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin_tel"
             (blur)="OnBlur('comp_gstin_tel')" required maxlength="12" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Gst-State-Code</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Gst-Email</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin_email"
+            (blur)="OnBlur('comp_gstin_email')" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label  col-form-label-sm">Gst-State-Code</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin_state_code"
             (blur)="OnBlur('comp_gstin_state_code')" required maxlength="2" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Gst-State-Name</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Gst-State-Name</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gstin_state_name"
             (blur)="OnBlur('comp_gstin_state_name')" required maxlength="100" />
         </div>
@@ -253,47 +268,47 @@
 
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">UAM#</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">UAM#</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_uamno"
             (blur)="OnBlur('comp_uamno')" required maxlength="50" />
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">IATA.Code</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">IATA.Code</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_iata_code"
             (blur)="OnBlur('comp_iata_code')" required maxlength="30" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Location</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Location</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_location"
             (blur)="OnBlur('comp_location')" required maxlength="30" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Prefix</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Prefix</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_prefix"
             (blur)="OnBlur('comp_prefix')" required maxlength="10" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Branch Type</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Branch Type</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_branch_type"
             (blur)="OnBlur('comp_branch_type')" required maxlength="10" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Country Code</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Country Code</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_country_code"
             (blur)="OnBlur('comp_country_code')" required maxlength="2" />
         </div>
@@ -304,8 +319,8 @@
 
     <div class="col-sm-4">
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Port Code</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Port Code</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_pol_code"
             (blur)="OnBlur('comp_pol_code')" required maxlength="6" />
         </div>
@@ -313,8 +328,8 @@
 
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Order</label>
-        <div class="col-10">
+        <label class="col-3 col-form-label  col-form-label-sm">Order</label>
+        <div class="col-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_order" required
             maxlength="2" />
         </div>

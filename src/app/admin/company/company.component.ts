@@ -195,6 +195,7 @@ export class CompanyComponent {
     this.Record.comp_gstin = '';
     this.Record.comp_gstin_pin = '';
     this.Record.comp_gstin_tel = '';
+    this.Record.comp_gstin_email = '';
 
     this.Record.comp_gstin_state_code = '';
     this.Record.comp_gstin_state_name = '';
