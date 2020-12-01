@@ -24,6 +24,8 @@ export class EinvoiceComponent {
   sub: any;
   urlid: string;
 
+  file_name : File;
+
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -46,6 +48,11 @@ export class EinvoiceComponent {
   dn: boolean = false;
   cn: boolean = false;
 
+  binvoice: boolean = false;
+  bexportinvoice: boolean = false;
+  bdn: boolean = false;
+  bcn: boolean = false;
+
   gst_only: boolean = true;
 
   controlname = '';
@@ -59,6 +66,7 @@ export class EinvoiceComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  
 
   SearchData = {
     type: '',
@@ -123,13 +131,37 @@ export class EinvoiceComponent {
   }
 
   InitComponent() {
+    var apr = '';
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
+
+    if (this.gs.globalVariables.user_code == "ADMIN"){
+      this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;
+    }
+
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+      apr = this.menu_record.rights_approval;
+      
+      if (this.menu_record.rights_admin){
+        this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;
+      }
+      else  {
+        this.binvoice =false; this.bexportinvoice =false;this.bdn =false;this.bcn=false;
+      }
+
+      if (apr.toString().indexOf('{IN}') >=0 )
+        this.binvoice =true;
+      if (apr.toString().indexOf('{IN-ES}') >=0 )
+        this.bexportinvoice =true;
+      if (apr.toString().indexOf('{DN}') >= 0)
+        this.bdn =true;
+      if (apr.toString().indexOf('{CN}') >= 0)
+        this.bcn =true;
     }
+
     this.initLov();
     this.Init();
   }
@@ -266,6 +298,40 @@ export class EinvoiceComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+
+
+  getFileDetails(e: any) {
+    for (var i = 0; i < e.target.files.length; i++) {
+      this.file_name = e.target.files[i];
+    }
+  }
+
+
+  upload(){
+    
+    if ( this.file_name == null) {
+      alert('No File Selected');
+      return;
+    }
+
+    let frmData: FormData = new FormData();
+    frmData.append("report_folder", this.gs.globalVariables.report_folder);
+    frmData.append("comp_code", this.gs.globalVariables.comp_code );
+    frmData.append("user_code", this.gs.globalVariables.user_code );
+    frmData.append("fileUpload", this.file_name);
+    this.mainService.EInvoiceUpload(frmData).subscribe(
+      response => {
+        alert( response.rows +  ' Rows Processed');
+        this.file_name = null;
+      },
+      error => {
+        alert(this.gs.getError(error));
+      }
+    );
+
+
+  }
+
 
   OnChange(field: string) {
     this.RecordList = null;
