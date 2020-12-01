@@ -26,6 +26,10 @@ export class Companym {
     comp_gstin_pin: string;
     comp_gstin_tel: string;
 
+    comp_gstin_state_code: string;
+    comp_gstin_state_name: string;
+
+
     comp_reg_address: string;
     comp_iata_code: string;
     comp_location: string;
