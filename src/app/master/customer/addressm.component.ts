@@ -296,12 +296,17 @@ export class AddressmComponent {
             sError += "| Contact Name Cannot Be Blank";
         }
 
-        if (this.Record.add_line1.trim().length <= 0) {
+        if (this.Record.add_line1.trim().length <= 3) {
             bret = false;
             sError += "| Address Line1  Cannot Be Blank";
         }
 
-        if (this.Record.add_city.trim().length <= 0) {
+        if (this.Record.add_line2.trim().length <= 3) {
+            bret = false;
+            sError += "| Address Line2  Cannot Be Blank";
+        }
+
+        if (this.Record.add_city.trim().length <= 3) {
             bret = false;
             sError += "| City  Cannot Be Blank";
         }
@@ -349,6 +354,48 @@ export class AddressmComponent {
 
         }
 
+        if (this.bShipper) {
+            if (!(+this.Record.add_pin >= 100000 && +this.Record.add_pin <= 999999)) {
+                bret = false;
+                sError += "| Invalid Pin Code";
+            }
+        }
+
+        if (this.Record.add_tel.includes(",")) {
+            var pharr = this.Record.add_tel.split(',');
+            for (let ph of pharr) {
+                if (!this.gs.IsValidTelephone(ph)) {
+                    bret = false;
+                    sError += "| Invalid Telephone Number " + ph;
+                }
+            }
+        } else {
+            if (!this.gs.IsValidTelephone(this.Record.add_tel)) {
+                bret = false;
+                sError += "| Invalid Telephone Number " + this.Record.add_tel;
+            }
+        }
+
+        if (this.Record.add_email.includes(",")) {
+            var emailarr = this.Record.add_email.split(',');
+            for (let em of emailarr) {
+                if (!this.gs.IsValidEmail(em)) {
+                    bret = false;
+                    sError += "| Invalid Email " + em;
+                }
+            }
+        } else {
+            if (!this.gs.IsValidEmail(this.Record.add_email)) {
+                bret = false;
+                sError += "| Invalid Email " + this.Record.add_email;
+            }
+        }
+
+        var regexp = new RegExp('^([^\\\"])*$');
+        if (!regexp.test(this.Record.add_city)) {
+            bret = false;
+            sError += "| Invalid City " + this.Record.add_city;
+        }
 
         if (bret) {
             this.Record.add_contact = this.Record.add_contact.toUpperCase().trim();
