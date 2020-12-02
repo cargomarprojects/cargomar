@@ -51,6 +51,7 @@ export class ArApComponent {
   lock_date: boolean = false;
   lock_cc: boolean = false;
 
+  
 
   modal: any;
 
@@ -2008,7 +2009,8 @@ export class ArApComponent {
       branch_code: '',
       report_caption: '',
       report_format: '',
-      menuadmin: ''
+      menuadmin: '',
+      user_code : '',
     }
 
     SearchData.pkid = this.pkid;
@@ -2019,6 +2021,7 @@ export class ArApComponent {
     SearchData.folderid = this.folder_id;
     SearchData.report_caption = this.title;
     SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
+    SearchData.user_code = this.gs.globalVariables.user_code;
     this.ErrorMessage = '';
     this.mainService.GenerateInvoice(SearchData)
       .subscribe(response => {
