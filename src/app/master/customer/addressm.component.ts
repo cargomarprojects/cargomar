@@ -296,17 +296,17 @@ export class AddressmComponent {
             sError += "| Contact Name Cannot Be Blank";
         }
 
-        if (this.Record.add_line1.trim().length <= 3) {
+        if (this.Record.add_line1.trim().length < 3) {
             bret = false;
             sError += "| Address Line1  Cannot Be Blank";
         }
 
-        if (this.Record.add_line2.trim().length <= 3) {
+        if (this.Record.add_line2.trim().length < 3) {
             bret = false;
             sError += "| Address Line2  Cannot Be Blank";
         }
 
-        if (this.Record.add_city.trim().length <= 3) {
+        if (this.Record.add_city.trim().length < 3) {
             bret = false;
             sError += "| City  Cannot Be Blank";
         }
