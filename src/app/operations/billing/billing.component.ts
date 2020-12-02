@@ -1457,7 +1457,7 @@ export class BillingComponent {
       branch_code: '',
       report_caption: '',
       report_format: '',
-      menuadmin: ''
+      menuadmin: '',
     }
 
     SearchData.pkid = this.pkid;

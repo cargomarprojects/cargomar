@@ -105,8 +105,6 @@
     </div>
   </div>
 
-
-
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
@@ -123,10 +121,14 @@
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST-AMT</th>
           <th class="text-right">TOTAL</th>
+          <th>EINV-STATUS</th>
+          <th>ACK-NO</th>
+          <th>ACK-DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
+          
           <td>{{rec.branch}}</td>
           <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
@@ -139,6 +141,9 @@
           <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_gst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_net_amt | number : '1.2-2' }}</td>
+          <td>{{rec.jvh_einv_status}}</td>
+          <td>{{rec.ack_no}}</td>
+          <td>{{rec.ack_date}}</td>
         </tr>
       </tbody>
     </table>

@@ -172,8 +172,8 @@ export class ArApComponent {
         this.bDocs = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
-      (this.menu_record.rights_approval.length > 0)
-      this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalstatus = this.menu_record.rights_approval.toString();
       this.bPrint = this.menu_record.rights_print;
     }
     this.InitLov();

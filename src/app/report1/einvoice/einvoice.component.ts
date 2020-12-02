@@ -321,8 +321,7 @@ export class EinvoiceComponent {
     frmData.append("fileUpload", this.file_name);
     this.mainService.EInvoiceUpload(frmData).subscribe(
       response => {
-        alert( response.rows +  ' Rows Processed');
-        this.file_name = null;
+        alert( response.msg);
       },
       error => {
         alert(this.gs.getError(error));

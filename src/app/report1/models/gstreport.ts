@@ -43,5 +43,13 @@ export class GstReport {
   inv_amt: number;
   taxable_amt: number;
   branch: string;
+
+
+  ack_no: string;
+  ack_date: string;
+  jvh_einv_status: string;
+  jvh_beinv_status: boolean;  
+
+
   _globalvariables: GlobalVariables;
 }
