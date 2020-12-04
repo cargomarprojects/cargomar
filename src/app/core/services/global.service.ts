@@ -321,9 +321,10 @@ export class GlobalService {
 
   }
 
-  public IsValidTelephone(_tel: string): Boolean {
+  public IsValidTelephone(_tel: string, _maxval: number = 12): Boolean {
     let bRet: boolean = false;
-    var regexp = new RegExp('^([0-9]{6,12})$');
+    let pattrn: string = "^([0-9]{6," + _maxval.toString() + "})$";
+    var regexp = new RegExp(pattrn);
     bRet = regexp.test(_tel.trim());
     return bRet;
   }

@@ -361,36 +361,41 @@ export class AddressmComponent {
             }
         }
 
+        let maxval: number = 15;
+        if (this.bShipper)
+            maxval = 12;
+
         if (this.Record.add_tel.includes(",")) {
             var pharr = this.Record.add_tel.split(',');
             for (let ph of pharr) {
-                if (!this.gs.IsValidTelephone(ph)) {
+                if (!this.gs.IsValidTelephone(ph, maxval)) {
                     bret = false;
                     sError += "| Invalid Telephone Number " + ph;
                 }
             }
         } else {
-            if (!this.gs.IsValidTelephone(this.Record.add_tel)) {
+            if (!this.gs.IsValidTelephone(this.Record.add_tel, maxval)) {
                 bret = false;
                 sError += "| Invalid Telephone Number " + this.Record.add_tel;
             }
         }
 
-        if (this.Record.add_email.includes(",")) {
-            var emailarr = this.Record.add_email.split(',');
-            for (let em of emailarr) {
-                if (!this.gs.IsValidEmail(em)) {
+        if (this.bShipper) {
+            if (this.Record.add_email.includes(",")) {
+                var emailarr = this.Record.add_email.split(',');
+                for (let em of emailarr) {
+                    if (!this.gs.IsValidEmail(em)) {
+                        bret = false;
+                        sError += "| Invalid Email " + em;
+                    }
+                }
+            } else {
+                if (!this.gs.IsValidEmail(this.Record.add_email)) {
                     bret = false;
-                    sError += "| Invalid Email " + em;
+                    sError += "| Invalid Email " + this.Record.add_email;
                 }
             }
-        } else {
-            if (!this.gs.IsValidEmail(this.Record.add_email)) {
-                bret = false;
-                sError += "| Invalid Email " + this.Record.add_email;
-            }
         }
-
         var regexp = new RegExp('^([^\\\"])*$');
         if (!regexp.test(this.Record.add_city)) {
             bret = false;
