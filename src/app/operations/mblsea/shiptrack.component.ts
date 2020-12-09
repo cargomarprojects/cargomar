@@ -127,7 +127,7 @@ export class ShipTrackComponent {
         this.loading = false;
         this.InfoMessage = "Save Complete";
 
-        if (this.ModifiedRecords != null && _category == "mbl_released_date")
+        if (this.ModifiedRecords != null && this.type == "MBL-SE")
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
       },
         error => {
