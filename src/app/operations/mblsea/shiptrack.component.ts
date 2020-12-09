@@ -129,6 +129,8 @@ export class ShipTrackComponent {
 
         if (this.ModifiedRecords != null && this.type == "MBL-SE")
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
+
+          this.MailTrackShipment();
       },
         error => {
           this.loading = false;
@@ -155,6 +157,43 @@ export class ShipTrackComponent {
     return bret;
   }
 
+
+  MailTrackShipment() {
+
+    if (!confirm("Do you want to Sent Mail")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      parent_type: this.type,
+      to_ids:'',
+      cc_ids:'',
+      bcc_ids:'',
+      subject:'',
+      message:'',
+      filename:'',
+      filedisplayname:''
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.MailTrackShipment(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = response.mailerror;
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
-
-

@@ -20,6 +20,9 @@ export class ShipTrackingService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/ShipmentTracking/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    MailTrackShipment(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/ShipmentTracking/MailTrackShipment', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 
