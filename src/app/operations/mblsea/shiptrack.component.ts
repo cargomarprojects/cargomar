@@ -130,7 +130,7 @@ export class ShipTrackComponent {
         if (this.ModifiedRecords != null && this.type == "MBL-SE")
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
 
-          this.MailTrackShipment();
+        this.MailTrackShipment();
       },
         error => {
           this.loading = false;
@@ -163,6 +163,21 @@ export class ShipTrackComponent {
     if (!confirm("Do you want to Sent Mail")) {
       return;
     }
+    let toids: string = "";
+    let ccids: string = "";
+    let bccids: string = "";
+
+    for (let rec of this.MailRecords) {
+      if (toids != "")
+        toids += ",";
+      toids += rec.ml_to_ids;
+      if (ccids != "")
+        ccids += ",";
+      ccids += rec.ml_cc_ids;
+      if (bccids != "")
+        bccids += ",";
+      bccids += rec.ml_bcc_ids;
+    }
 
     this.loading = true;
     let SearchData = {
@@ -173,13 +188,15 @@ export class ShipTrackComponent {
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid,
       parent_type: this.type,
-      to_ids:'',
-      cc_ids:'',
-      bcc_ids:'',
-      subject:'',
-      message:'',
-      filename:'',
-      filedisplayname:''
+      to_ids: toids,
+      cc_ids: ccids,
+      bcc_ids: bccids,
+      subject: '',
+      message: '',
+      filename: '',
+      filedisplayname: '',
+      canftp: 'N',
+      email_display_name: ''
     };
 
     this.ErrorMessage = '';
