@@ -82,6 +82,8 @@ export class ShipTrackComponent {
     this.loading = true;
     let SearchData = {
       pkid: this.pkid,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
     };
 
     this.ErrorMessage = '';
@@ -129,8 +131,9 @@ export class ShipTrackComponent {
 
         if (this.ModifiedRecords != null && this.type == "MBL-SE")
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
-
-        this.MailTrackShipment();
+       
+          if (this.type == "MBL-SE")
+          this.MailTrackShipment();
       },
         error => {
           this.loading = false;
