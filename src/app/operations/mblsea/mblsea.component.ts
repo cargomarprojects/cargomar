@@ -1225,7 +1225,8 @@ export class MblSeaComponent {
       hbl_buy_remarks: '',
       year_code: '',
       rowtype: '',
-      book_slno: ''
+      book_slno: '',
+      book_free_days:0
     };
 
     if (controlname == 'updatemaster') {
@@ -1241,6 +1242,7 @@ export class MblSeaComponent {
       SearchData.hbl_book_cntr_mdesc = this.Record.book_mdesc;
       SearchData.hbl_released_date = this.Record.book_released_date;
       SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
+      SearchData.book_free_days = this.Record.book_free_days;
     }
 
     if (controlname == 'bookno') {
