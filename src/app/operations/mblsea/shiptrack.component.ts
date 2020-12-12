@@ -170,17 +170,17 @@ export class ShipTrackComponent {
     let ccids: string = "";
     let bccids: string = "";
 
-    for (let rec of this.MailRecords) {
-      if (toids != "")
-        toids += ",";
-      toids += rec.ml_to_ids;
-      if (ccids != "")
-        ccids += ",";
-      ccids += rec.ml_cc_ids;
-      if (bccids != "")
-        bccids += ",";
-      bccids += rec.ml_bcc_ids;
-    }
+    // for (let rec of this.MailRecords) {
+    //   if (toids != "")
+    //     toids += ",";
+    //   toids += rec.ml_to_ids;
+    //   if (ccids != "")
+    //     ccids += ",";
+    //   ccids += rec.ml_cc_ids;
+    //   if (bccids != "")
+    //     bccids += ",";
+    //   bccids += rec.ml_bcc_ids;
+    // }
 
     this.loading = true;
     let SearchData = {
