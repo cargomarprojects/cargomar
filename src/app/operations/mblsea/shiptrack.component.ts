@@ -5,7 +5,6 @@ import { HblTracking } from '../models/hbltracking';
 import { MailList } from '../../master/models/maillist';
 import { ShipTrackingService } from '../services/shiptrack.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { SSL_OP_MSIE_SSLV2_RSA_PADDING } from 'constants';
 
 @Component({
   selector: 'app-shiptrack',
