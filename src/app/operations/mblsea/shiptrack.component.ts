@@ -5,6 +5,7 @@ import { HblTracking } from '../models/hbltracking';
 import { MailList } from '../../master/models/maillist';
 import { ShipTrackingService } from '../services/shiptrack.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { SSL_OP_MSIE_SSLV2_RSA_PADDING } from 'constants';
 
 @Component({
   selector: 'app-shiptrack',
@@ -133,7 +134,7 @@ export class ShipTrackComponent {
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
 
         if (this.type == "MBL-SE")
-          this.MailTrackShipment();
+          this.MailTrackShipment(this.InfoMessage);
       },
         error => {
           this.loading = false;
@@ -161,7 +162,7 @@ export class ShipTrackComponent {
   }
 
 
-  MailTrackShipment() {
+  MailTrackShipment(_sMsg: string = "") {
 
     if (!confirm("Do you want to Sent Mail")) {
       return;
@@ -208,7 +209,7 @@ export class ShipTrackComponent {
     this.mainService.MailTrackShipment(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = response.mailerror;
+        this.InfoMessage = _sMsg + ', ' + response.mailerror;
         alert(this.InfoMessage);
       },
         error => {
