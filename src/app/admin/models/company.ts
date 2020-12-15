@@ -40,6 +40,17 @@ export class Companym {
     comp_order: number;
     comp_uamno: string;
 
+
+    comp_gsp_client_id : string;
+    comp_gsp_client_secret : string;
+    comp_gsp_token : string;
+    comp_gsp_token_expiry: number;
+
+    comp_gsp_trial : boolean;
+    comp_gsp_gstin : string;
+    comp_gsp_user : string;
+    comp_gsp_pwd : string;
+
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

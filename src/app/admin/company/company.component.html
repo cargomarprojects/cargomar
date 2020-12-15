@@ -51,6 +51,12 @@
           <th>GST-EMAIL</th>
           <th>GST-ST-CODE</th>
           <th>GST-STATE-NAME</th>
+
+          <th *ngIf="type == 'B'">GSP-TRIAL</th>
+          <th *ngIf="type == 'B'">GSP-ID</th>
+          <th *ngIf="type == 'B'">GSP-USER</th>
+          <th *ngIf="type == 'B'">GSP-PWD</th>
+
           <th>TYPE</th>
           <th>ORDER</th>
         </tr>
@@ -64,9 +70,14 @@
           <td>{{rec.comp_gstin}}</td>
           <td>{{rec.comp_gstin_pin}}</td>
           <td>{{rec.comp_gstin_tel}}</td>
-          <td>{{rec.comp_gstin_email}}</td>          
-          <td>{{rec.comp_gstin_state_code}}</td>          
-          <td>{{rec.comp_gstin_state_name}}</td>          
+          <td>{{rec.comp_gstin_email}}</td>
+          <td>{{rec.comp_gstin_state_code}}</td>
+          <td>{{rec.comp_gstin_state_name}}</td>
+          
+          <td *ngIf="type == 'B'">{{rec.comp_gsp_trial ? 'Y' : 'N'}}</td>
+          <td *ngIf="type == 'B'">{{rec.comp_gsp_gstin}}</td>
+          <td *ngIf="type == 'B'">{{rec.comp_gsp_user}}</td>
+          <td *ngIf="type == 'B'">{{rec.comp_gsp_pwd}}</td>
 
           <td>{{rec.comp_branch_type}}</td>
           <td>{{rec.comp_order}}</td>
@@ -320,7 +331,7 @@
             (blur)="OnBlur('comp_country_code')" required maxlength="2" />
         </div>
       </div>
-      
+
 
       <div class="form-group row">
         <label class="col-3 col-form-label  col-form-label-sm">Port Code</label>
@@ -329,6 +340,61 @@
             (blur)="OnBlur('comp_pol_code')" required maxlength="6" />
         </div>
       </div>
+
+
+      <div *ngIf="type =='C'">
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">GSP Client ID</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_client_id"
+              (blur)="OnBlur('comp_gsp_client_id')" maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">GSP Client Secret</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_client_secret"
+              (blur)="OnBlur('comp_gsp_client_secret')" maxlength="50" />
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="type =='B'">
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm"></label>
+          <div class="col-9">
+            <input type="checkbox" [(ngModel)]="Record.comp_gsp_trial" />
+            <span>GSP Trial</span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">GSP ID</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_gstin"
+              (blur)="OnBlur('comp_gsp_gstin')" maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">GSP User</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_user"
+              (blur)="OnBlur('comp_gsp_user')" maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">GSP Pwd</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_pwd"
+              (blur)="OnBlur('comp_gsp_pwd')" maxlength="50" />
+          </div>
+        </div>
+      </div>
+
+
 
 
       <div class="form-group row">

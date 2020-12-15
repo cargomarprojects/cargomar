@@ -212,6 +212,15 @@ export class CompanyComponent {
     this.Record.comp_branch_type = 'BOTH';
     this.Record.comp_uamno= '';
 
+    this.Record.comp_gsp_client_id = '';
+    this.Record.comp_gsp_client_secret = '';
+
+    this.Record.comp_gsp_trial = false;
+
+    this.Record.comp_gsp_gstin = '';
+    this.Record.comp_gsp_user = '';
+    this.Record.comp_gsp_pwd = '';
+
     this.Record.rec_mode = this.mode;
   }
 
