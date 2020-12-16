@@ -1226,7 +1226,7 @@ export class MblSeaComponent {
       year_code: '',
       rowtype: '',
       book_slno: '',
-      book_free_days:0
+      book_free_days: 0
     };
 
     if (controlname == 'updatemaster') {
@@ -1696,6 +1696,8 @@ export class MblSeaComponent {
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = "Save Complete";
+        if (response.mailmsg.length > 0)
+          this.InfoMessage += ", " + response.mailmsg;
         alert(this.InfoMessage);
       },
         error => {
