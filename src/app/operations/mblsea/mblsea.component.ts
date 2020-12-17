@@ -863,8 +863,11 @@ export class MblSeaComponent {
         if (this.mode == 'ADD') {
           this.Record.book_slno = response.bookslno;
           this.InfoMessage = "New Record " + this.Record.book_slno + " Generated Successfully";
-        } else
+        } else {
           this.InfoMessage = "Save Complete";
+          if (response.mailmsg.length > 0)
+            this.InfoMessage += ", " + response.mailmsg;
+        }
         this.mode = 'EDIT';
         this.foldersent = response.foldersent;
         this.Record.rec_mode = this.mode;
@@ -1405,6 +1408,8 @@ export class MblSeaComponent {
     Rec.trk_pod_name = '';
     Rec.trk_pod_eta = '';
     Rec.trk_pod_eta_confirm = false;
+    Rec.trk_vsl_count = 0;
+    Rec.row_colour = 'darkslategray';
     this.Record.TransitList.push(Rec);
   }
   ModifiedRecords(params: any) {
