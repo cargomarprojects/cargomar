@@ -22,7 +22,7 @@ export class Trackingm {
   trk_desc: string;
   rec_mode: string;
   rec_category: string;
-  mbl_slno:number;
+  mbl_slno: number;
   mbl_book_no: string;
   mbl_no: string;
   mbl_cntrs: string;
@@ -30,7 +30,9 @@ export class Trackingm {
   mbl_liner_name: string;
   mbl_shipper_name: string;
   mbl_consignee_name: string;
-
+  trk_vsl_count: number;
+  row_colour:string;
+  
   _globalvariables: GlobalVariables;
 }
 

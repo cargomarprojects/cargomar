@@ -1408,6 +1408,8 @@ export class MblSeaComponent {
     Rec.trk_pod_name = '';
     Rec.trk_pod_eta = '';
     Rec.trk_pod_eta_confirm = false;
+    Rec.trk_vsl_count = 0;
+    Rec.row_colour = 'darkslategray';
     this.Record.TransitList.push(Rec);
   }
   ModifiedRecords(params: any) {
