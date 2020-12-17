@@ -12,8 +12,8 @@ export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
 
-  errorMessageVersion: string = '1.409';
-  software_version_string: string = '1.409';
+  errorMessageVersion: string = '1.410';
+  software_version_string: string = '1.410';
 
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
