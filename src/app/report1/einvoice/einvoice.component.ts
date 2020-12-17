@@ -74,6 +74,7 @@ export class EinvoiceComponent {
     report_folder: '',
     company_code: '',
     branch_code: '',
+    user_code : '',
     year_code: '',
     searchstring: '',
     from_date: '',
@@ -255,6 +256,7 @@ export class EinvoiceComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
