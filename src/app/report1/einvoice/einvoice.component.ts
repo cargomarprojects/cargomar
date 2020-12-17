@@ -278,8 +278,10 @@ export class EinvoiceComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        if (_type == 'GENERATE')
+        else if (_type == 'GENERATE')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);          
+        else if (_type == 'GSP')
+          alert(response.status);
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
