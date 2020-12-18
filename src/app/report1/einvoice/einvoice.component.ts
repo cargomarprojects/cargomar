@@ -282,8 +282,10 @@ export class EinvoiceComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'GENERATE')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);          
-        else if (_type == 'GSP')
+        else if (_type == 'GSP') {
           alert(response.status);
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);     
+        }
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
