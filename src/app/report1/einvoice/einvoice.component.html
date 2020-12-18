@@ -112,7 +112,12 @@
         <tr>
           <th>BRANCH</th>
           <th>INVOICE#</th>
+
           <th>DATE</th>
+          <th>IRN-STATUS</th>
+          <th>ACK-NO</th>
+          <th>ACK-DATE</th>
+
           <th>GSTIN</th>
           <th>CUSTOMER</th>
           <th>STATE</th>
@@ -122,9 +127,7 @@
           <th class="text-right">INV-AMT</th>
           <th class="text-right">GST-AMT</th>
           <th class="text-right">TOTAL</th>
-          <th>EINV-STATUS</th>
-          <th>ACK-NO</th>
-          <th>ACK-DATE</th>
+
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -133,6 +136,12 @@
           <td>{{rec.branch}}</td>
           <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
+
+          <td>{{rec.jvh_einv_status}}</td>
+          <td>{{rec.ack_no}}</td>
+          <td>{{rec.ack_date}}</td>
+
+
           <td>{{rec.jvh_gstin}}</td>
           <td>{{rec.jvh_party_name}}</td>
           <td>{{rec.jvh_state_name}}</td>
@@ -142,9 +151,7 @@
           <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_gst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_net_amt | number : '1.2-2' }}</td>
-          <td>{{rec.jvh_einv_status}}</td>
-          <td>{{rec.ack_no}}</td>
-          <td>{{rec.ack_date}}</td>
+
         </tr>
       </tbody>
     </table>
