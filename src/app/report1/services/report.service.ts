@@ -121,6 +121,11 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/EInvoiceList', SearchData, this.gs.headerparam2('authorized'));
   }
 
+
+  SaveEinvStatus(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SaveEinvStatus', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   EInvoiceUpload(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/EInvoiceUpload', SearchData, this.gs.headerparam2('authorized-fileupload'));
   }

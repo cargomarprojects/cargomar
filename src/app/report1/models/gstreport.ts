@@ -5,6 +5,7 @@ export class GstReport {
 
   row_type: string;
   row_colour: string;
+  jvh_pkid: string;
   jvh_docno: string;
   jvh_cc_category: string;
   jvh_date: string;

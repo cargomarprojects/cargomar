@@ -112,9 +112,8 @@
         <tr>
           <th>BRANCH</th>
           <th>INVOICE#</th>
-
           <th>DATE</th>
-          <th>IRN-STATUS</th>
+          <th>EINV-STATUS</th>
           <th>ACK-NO</th>
           <th>ACK-DATE</th>
 
@@ -136,8 +135,13 @@
           <td>{{rec.branch}}</td>
           <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
-
-          <td>{{rec.jvh_einv_status}}</td>
+          <td *ngIf="rec.jvh_einv_status != 'G'" >
+            <input class="pointer" type="checkbox" [(ngModel)]="rec.jvh_beinv_status" (change)="OnStatusChange($event, rec)">
+          </td>
+          <td *ngIf="rec.jvh_einv_status == 'G'" >
+            {{rec.jvh_einv_status}}
+          </td>
+          
           <td>{{rec.ack_no}}</td>
           <td>{{rec.ack_date}}</td>
 

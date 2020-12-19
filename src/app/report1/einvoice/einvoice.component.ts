@@ -337,6 +337,24 @@ export class EinvoiceComponent {
 
   }
 
+  OnStatusChange(evt : any, rec : GstReport){
+
+    let SaveData = {
+      "jvh_einv_status" : ( rec.jvh_beinv_status) ? "Y" : "N",
+      "jvh_pkid" : rec.jvh_pkid
+    }
+
+
+    this.ErrorMessage = '';
+    this.mainService.SaveEinvStatus(SaveData)
+      .subscribe(response => {
+           response.jvh_einv_status = response.status;
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          alert( this.ErrorMessage);
+        });
+  }
 
   OnChange(field: string) {
     this.RecordList = null;
