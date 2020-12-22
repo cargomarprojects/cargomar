@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -51,6 +51,10 @@ export class PayRollComponent {
 
   salyear = 0;
   salmonth = 0;
+  payment_date: string = '';
+  payment_date_pkid: string = '';
+  payment_date_remark: string = '';
+  payment_date_all: boolean = false;
 
   empstatus = "BOTH";
   ErrorMessage = "";
@@ -404,6 +408,7 @@ export class PayRollComponent {
       REC.sal_gross_earn = this.Record.sal_gross_earn;
       REC.sal_gross_deduct = this.Record.sal_gross_deduct;
       REC.sal_net = this.Record.sal_net;
+      REC.sal_pay_date = this.Record.sal_pay_date;
     }
   }
 
@@ -876,4 +881,59 @@ export class PayRollComponent {
     this.RemoveRecord(_salid, "PAYROLL");
   }
 
+  ShowPayDate(_salid: string, paydate: any) {
+    this.payment_date_all = false;
+    this.payment_date_pkid = _salid;
+    var REC = this.RecordList.find(rec => rec.sal_pkid == this.payment_date_pkid);
+    if (REC != null) {
+      this.payment_date_remark = REC.sal_emp_name;
+    }
+    this.open(paydate);
+  }
+
+  UpdatePayDate() {
+
+    this.loading = true;
+
+    let SearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      sal_year: this.salyear,
+      sal_month: this.salmonth,
+      payment_date: this.payment_date,
+      sal_pkid: this.payment_date_pkid,
+      payment_date_all: this.payment_date_all
+    };
+
+
+    this.ErrorMessage = '';
+    this.mainService.UpdatePaymentDate(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retval == true) {
+          if (this.payment_date_all) {
+            for (let rec of this.RecordList) {
+              rec.sal_pay_date = response.paydate;
+            }
+          } else {
+            var REC = this.RecordList.find(rec => rec.sal_pkid == this.payment_date_pkid);
+            if (REC != null) {
+              REC.sal_pay_date = response.paydate;
+            }
+          }
+          this.modal.close();
+        }
+        //alert('Save Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
 }

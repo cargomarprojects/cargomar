@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -15,14 +14,17 @@
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-2">
-            <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')" [(ngModel)]="salyear" />
+            <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
+              [(ngModel)]="salyear" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
           <div style="padding-right:0px;padding-left:5px" class="col-sm-2">
-            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')" [(ngModel)]="salmonth" />
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
+              [(ngModel)]="salmonth" />
           </div>
           <div class="col-sm-4">
-            <button [disabled]="loading" (click)="Generate('LIST',salgenerate)" class="btn btn-primary btn-sm">Generate</button>
+            <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
+              class="btn btn-primary btn-sm">Generate</button>
           </div>
         </div>
       </div>
@@ -30,7 +32,8 @@
         <div class="form-group row">
           <label style="padding-left:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-6">
-            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+              [(ngModel)]="searchstring" />
           </div>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
@@ -47,11 +50,17 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <div class="col-sm-12">
-            <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','PDF')" class="btn btn-primary btn-sm">SalarySheet</button>
-            <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-            <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')" class="btn btn-primary btn-sm">PaySlip</button>
-            <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')" class="btn btn-primary btn-sm">Mail/Payslip</button>
-            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm">Post JV</button>
+            <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','PDF')"
+              class="btn btn-primary btn-sm">SalarySheet</button>
+            <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
+              [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')"
+              class="btn btn-primary btn-sm">Excel</button>
+            <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')"
+              class="btn btn-primary btn-sm">PaySlip</button>
+            <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')"
+              class="btn btn-primary btn-sm">Mail/Payslip</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm">Post
+              JV</button>
             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
               <font color="red">{{salh_jvno}} </font>
             </label>
@@ -63,10 +72,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -76,7 +88,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected" ></th>
+          <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
           <th>CODE</th>
           <th>NAME</th>
           <th>DOJ</th>
@@ -137,13 +149,14 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th>PAY.DATE</th>
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
           <td><input type="checkbox" [(ngModel)]="rec.sal_selected"></td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_do_joining}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_grade}}</td>
@@ -203,7 +216,9 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="Removepayroll(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"></i></td>
+          <td class="hlink" (click)="ShowPayDate(rec.sal_pkid,paydate)">{{rec.sal_pay_date}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+              (click)="Removepayroll(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -212,10 +227,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -295,19 +313,24 @@
         </div>
         <div class="form-group row">
           <div style="padding-right:0" class="col-3">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_pl" (blur)="OnBlur('sal_pl')" required maxlength="10" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_pl"
+              (blur)="OnBlur('sal_pl')" required maxlength="10" />
           </div>
           <div style="padding-right:0;padding-left:1px" class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_cl" (blur)="OnBlur('sal_cl')" required maxlength="10" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_cl"
+              (blur)="OnBlur('sal_cl')" required maxlength="10" />
           </div>
           <div style="padding-right:0;padding-left:1px" class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_sl" (blur)="OnBlur('sal_sl')" required maxlength="10" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_sl"
+              (blur)="OnBlur('sal_sl')" required maxlength="10" />
           </div>
           <div style="padding-right:0;padding-left:1px" class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_ot" (blur)="OnBlur('sal_ot')" required maxlength="10" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_ot"
+              (blur)="OnBlur('sal_ot')" required maxlength="10" />
           </div>
           <div style="padding-left:1px" class="col-3">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_lp" (blur)="OnBlur('sal_lp')" required maxlength="10" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sal_lp"
+              (blur)="OnBlur('sal_lp')" required maxlength="10" />
           </div>
 
         </div>
@@ -329,9 +352,17 @@
               <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
                 <tr>
                   <td style="padding:0">{{rec.e_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible1" disabled type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt1" (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)" (change)="OnChangeTableCell('EARN', rec.e_code1, 1)" (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible1" disabled type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.e_amt1"
+                      (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)"
+                      (change)="OnChangeTableCell('EARN', rec.e_code1, 1)"
+                      (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.e_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible2" disabled type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt2" (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)" (change)="OnChangeTableCell('EARN', rec.e_code2, 2)" (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible2" disabled type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.e_amt2"
+                      (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)"
+                      (change)="OnChangeTableCell('EARN', rec.e_code2, 2)"
+                      (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
                 </tr>
               </tbody>
             </table>
@@ -353,9 +384,19 @@
               <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
                 <tr>
                   <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible1" [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt1" (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)" (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible1"
+                      [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.d_amt1"
+                      (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)"
+                      (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)"
+                      (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible2" [disabled]="rec.d_code2=='D14' || rec.d_code2=='D16'" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2" (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)" (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible2"
+                      [disabled]="rec.d_code2=='D14' || rec.d_code2=='D16'" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.d_amt2"
+                      (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)"
+                      (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)"
+                      (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
                 </tr>
               </tbody>
             </table>
@@ -370,10 +411,11 @@
         <div class="form-group row">
           <div class="offset-3 col-sm-9">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
+              class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                  {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -429,7 +471,9 @@
                     <td>{{rec.sal_gross_deduct}}</td>
                     <td>{{rec.sal_net}}</td>
                     <td *ngIf="bRemove">
-                      <App-Dialog [id]="{msg:'REMOVE FROM SALARY MASTER Y/N', buttons:'yn', selected :false,id:rec.sal_emp_id,name:rec.sal_emp_name}" (result)="RemoveList($event)"></App-Dialog>
+                      <App-Dialog
+                        [id]="{msg:'REMOVE FROM SALARY MASTER Y/N', buttons:'yn', selected :false,id:rec.sal_emp_id,name:rec.sal_emp_name}"
+                        (result)="RemoveList($event)"></App-Dialog>
                     </td>
                   </tr>
                 </tbody>
@@ -444,7 +488,8 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="Generate('SAVE',salgenerate)" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="Generate('SAVE',salgenerate)"
+                class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
@@ -452,5 +497,42 @@
         </div>
       </div>
     </div>
+  </div>
+</ng-template>
+<ng-template #paydate let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Payment Date</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="page-details">
+      <div class="col-sm-10">
+        <div class="form-group row" style="color:black">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-sm-10" style="color:green">
+           <b> {{payment_date_remark}} </b>
+          </div>
+        </div>
+        <div class="form-group row" style="color:black">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-3">
+            <app-date [inputdate]="payment_date" (ValueChanged)="payment_date=$event"></app-date>
+          </div>
+          <div class="col-sm-3">
+            <input type="checkbox" [(ngModel)]="payment_date_all">&nbsp;Same For ALL
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-sm-2 col-sm-10">
+            <button [disabled]="loading" (click)="UpdatePayDate()" class="btn btn-primary btn-sm mr-1">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
