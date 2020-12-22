@@ -882,6 +882,7 @@ export class PayRollComponent {
   }
 
   ShowPayDate(_salid: string, paydate: any) {
+    this.payment_date_all = false;
     this.payment_date_pkid = _salid;
     var REC = this.RecordList.find(rec => rec.sal_pkid == this.payment_date_pkid);
     if (REC != null) {
