@@ -43,7 +43,7 @@ export class GlobalVariables {
     year_closed: string;
 
     report_folder: string;
-
+    gstin : string ;
     
     
 }

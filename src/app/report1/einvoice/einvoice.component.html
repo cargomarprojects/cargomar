@@ -135,10 +135,10 @@
           <td>{{rec.branch}}</td>
           <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
-          <td *ngIf="rec.jvh_einv_status != 'G'" >
+          <td *ngIf="rec.jvh_einv_status != 'G' && rec.jvh_einv_status != 'B'" >
             <input class="pointer" type="checkbox" [(ngModel)]="rec.jvh_beinv_status" (change)="OnStatusChange($event, rec)">
           </td>
-          <td *ngIf="rec.jvh_einv_status == 'G'" >
+          <td *ngIf="rec.jvh_einv_status == 'G' || rec.jvh_einv_status == 'B'" >
             {{rec.jvh_einv_status}}
           </td>
           

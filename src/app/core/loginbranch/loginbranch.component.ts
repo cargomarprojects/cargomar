@@ -148,6 +148,7 @@ export class LoginBranchComponent {
 
         this.gs.globalVariables.report_folder = data.report_folder;
 
+
         this.gs.InitdefaultValues();
         this.initDefaults(response.settings);
 
@@ -318,8 +319,10 @@ export class LoginBranchComponent {
 
       }
       if (rec.parentid == this.gs.globalVariables.branch_code) {
-        if (rec.caption == 'GSTIN')
+        if (rec.caption == 'GSTIN') {
           this.gs.defaultValues.gstin = rec.name;
+          this.gs.globalVariables.gstin = rec.name ;          
+        }
         if (rec.caption == 'GST-STATE')
           this.gs.defaultValues.gstin_state_code = rec.code;
         if (rec.caption == 'BL-ISSUED-PLACE')

@@ -278,11 +278,16 @@ export class EinvoiceComponent {
     this.mainService.EInvoiceReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL') 
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'GENERATE')
+        else if (_type == 'GENERATE') {
+          if ( response.status != "")
+            alert(response.status);
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);          
+        }
         else if (_type == 'GSP') {
+          if ( response.status != "")
+            alert(response.status);          
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);     
         }
         else {
