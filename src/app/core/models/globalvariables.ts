@@ -42,6 +42,8 @@ export class GlobalVariables {
     year_end_date: string;
     year_closed: string;
 
+    year_einv_start_date: string;
+
     report_folder: string;
     gstin : string ;
     

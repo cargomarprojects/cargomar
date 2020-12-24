@@ -146,6 +146,8 @@ export class LoginBranchComponent {
         this.gs.globalVariables.year_end_date = data.year_end_date;
         this.gs.globalVariables.year_closed = data.year_closed;
 
+        this.gs.globalVariables.year_einv_start_date = data.year_einv_start_date;
+
         this.gs.globalVariables.report_folder = data.report_folder;
 
 
