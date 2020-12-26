@@ -107,6 +107,12 @@ export class Ledgerh {
   rec_mode: string;
   rec_category: string = '';
 
+
+  
+   jvh_is_einv : string = '';
+   jvh_einv_status : string = '';
+   jvh_irn : string = '';
+
   jvh_allocation_found: boolean;
 
   _globalvariables: GlobalVariables;

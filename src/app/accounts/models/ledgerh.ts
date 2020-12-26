@@ -122,6 +122,11 @@ export class Ledgerh {
 
     jvh_not_over_chq: boolean;
     jvh_update_chq:boolean;
+
+    jvh_is_einv: string;
+    jvh_einv_status: string;
+    jvh_irn: string;
+
     
     _globalvariables: GlobalVariables;
 

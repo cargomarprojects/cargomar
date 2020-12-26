@@ -491,6 +491,11 @@ export class BillingComponent {
 
     this.Record.jvh_diff = 0;
 
+    this.Record.jvh_is_einv = "N";
+    this.Record.jvh_einv_status = "";
+    this.Record.jvh_irn = "";
+
+
     if (this.cc_category.indexOf("AIR EXPORT") >= 0)
       this.Record.jvh_banktype = 'AE';
     else if (this.cc_category.indexOf("AIR IMPORT") >= 0)
@@ -847,6 +852,13 @@ export class BillingComponent {
     if (rowCount <= 0) {
       bret = false;
       sError += " |No Rows Selected";
+    }
+
+
+    if (this.Record.jvh_einv_status == 'G')
+    {
+      bret = false;
+      sError += " | IRN Generated";
     }
 
 
