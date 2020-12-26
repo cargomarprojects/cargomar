@@ -28,6 +28,7 @@ import { BankInfoComponent } from './bankinfo/bankinfo.component';
 import { EsanchitComponent } from './esanchit/esanchit.component';
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { MailListComponent } from './maillist/maillist.component';
+import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -50,6 +51,7 @@ const routes: Routes = [
     { path: 'esanchit', component: EsanchitComponent },
     { path: 'jobtransfer', component: JobTransferComponent },
     { path: 'maillist', component: MailListComponent },
+    { path: 'seabuyrate', component: SeaBuyRateComponent },
 ];
 
 @NgModule({
