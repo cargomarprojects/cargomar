@@ -15,7 +15,7 @@ export class SeaBuyRateComponent  {
   // Local Variables 
   title = 'Sea Buyrate Details';
 
-  @ViewChild('addressComponent') addressComponent: any;
+  // @ViewChild('addressComponent') addressComponent: any;
 
 
   mdate: string;
@@ -357,73 +357,73 @@ export class SeaBuyRateComponent  {
   }
 
 
-  SearchRecord(controlname: string) {
-    this.InfoMessage = '';
-    this.loading = true;
-    let SearchData = {
-      pkid: '',
-      parentid:'',
-      table: 'DBK-UPDATE-FILE'
-    };
+  // SearchRecord(controlname: string) {
+  //   this.InfoMessage = '';
+  //   this.loading = true;
+  //   let SearchData = {
+  //     pkid: '',
+  //     parentid:'',
+  //     table: 'DBK-UPDATE-FILE'
+  //   };
 
-    if (controlname == 'DBK-UPDATE-FILE') {
-      SearchData.pkid = '';
-      SearchData.parentid = '';
-      SearchData.table = 'dbk-update-file';
-    }
+  //   if (controlname == 'DBK-UPDATE-FILE') {
+  //     SearchData.pkid = '';
+  //     SearchData.parentid = '';
+  //     SearchData.table = 'dbk-update-file';
+  //   }
 
-    this.gs.SearchRecord(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        if(response.serror.length>0)
-        this.ErrorMessage = response.serror;
-        else 
-        {
-          let strmsg: string = "";
-          strmsg = "PROCESS DBK RATES  \n\n FILE NAME : " + response.filename +" \n\n UPLOADED ON : " + response.uploaddate;
-          if (confirm(strmsg)) {
-            this.ProcessDbkRates();
-          }
-        }
-      },
-      error => {
-        this.loading = false;
-        this.InfoMessage = this.gs.getError(error);
-      });
-    }
+  //   this.gs.SearchRecord(SearchData)
+  //     .subscribe(response => {
+  //       this.loading = false;
+  //       if(response.serror.length>0)
+  //       this.ErrorMessage = response.serror;
+  //       else 
+  //       {
+  //         let strmsg: string = "";
+  //         strmsg = "PROCESS DBK RATES  \n\n FILE NAME : " + response.filename +" \n\n UPLOADED ON : " + response.uploaddate;
+  //         if (confirm(strmsg)) {
+  //           this.ProcessDbkRates();
+  //         }
+  //       }
+  //     },
+  //     error => {
+  //       this.loading = false;
+  //       this.InfoMessage = this.gs.getError(error);
+  //     });
+  //   }
 
-  ProcessDbkRates(){
-    this.loading = true;
-    let SearchData = {
-      pkid: '',
-      dbkmode:'',
-      comp_code:'',
-      user_code:'',
-      ispercent:'N',
-      root_folder:''
-    };
+  // ProcessDbkRates(){
+  //   this.loading = true;
+  //   let SearchData = {
+  //     pkid: '',
+  //     dbkmode:'',
+  //     comp_code:'',
+  //     user_code:'',
+  //     ispercent:'N',
+  //     root_folder:''
+  //   };
 
-    SearchData.dbkmode=this.dbkmode;
-    SearchData.comp_code=this.gs.globalVariables.comp_code;
-    SearchData.user_code=this.gs.globalVariables.user_code;
-    SearchData.ispercent= this.ispercent == true?'Y':'N';
-    SearchData.root_folder=this.gs.defaultValues.root_folder;
+  //   SearchData.dbkmode=this.dbkmode;
+  //   SearchData.comp_code=this.gs.globalVariables.comp_code;
+  //   SearchData.user_code=this.gs.globalVariables.user_code;
+  //   SearchData.ispercent= this.ispercent == true?'Y':'N';
+  //   SearchData.root_folder=this.gs.defaultValues.root_folder;
     
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.ProcessDrawbackRates(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        this.InfoMessage = "Process Complete";
-        alert(this.InfoMessage);
-      },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+  //   this.ErrorMessage = '';
+  //   this.InfoMessage = '';
+  //   this.mainService.ProcessDrawbackRates(SearchData)
+  //     .subscribe(response => {
+  //       this.loading = false;
+  //       this.InfoMessage = "Process Complete";
+  //       alert(this.InfoMessage);
+  //     },
+  //     error => {
+  //       this.loading = false;
+  //       this.ErrorMessage = this.gs.getError(error);
+  //     });
 
-  }
+  // }
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
     this.open(doc);

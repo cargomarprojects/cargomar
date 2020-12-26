@@ -15,23 +15,20 @@ export class SeaBuyRateService {
     }
 
     List(SearchData : any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/List', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/SeaBuyRate/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
     GetRecord(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/SeaBuyRate/GetRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
     Save(Record: SeaBuyRate) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/Save', Record, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/SeaBuyRate/Save', Record, this.gs.headerparam2('authorized'));
     }
 
     LoadDefault(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/SeaBuyRate/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    ProcessDrawbackRates(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/ProcessDrawbackRates', SearchData, this.gs.headerparam2('authorized'));
-    }
 }
 
