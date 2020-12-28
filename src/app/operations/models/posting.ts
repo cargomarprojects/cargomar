@@ -61,6 +61,8 @@ export class Posting {
   jvh_is_einv: string;
   jvh_irn: string;
 
+  jvh_docno: string;
+
   rec_mode: string;
   rec_category: string;
 

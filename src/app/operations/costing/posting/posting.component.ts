@@ -292,7 +292,7 @@ export class PostingComponent {
       sError += "| Cannot Save, It is Posted / Allocated ";
     }
 
-    if (this.Record.jv_posted == "G") {
+    if (this.Record.jvh_einv_status == "G") {
       bret = false;
       sError += "| Cannot Save, Einvoice Already Generated ";
     }
