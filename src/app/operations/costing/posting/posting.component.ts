@@ -37,6 +37,8 @@ export class PostingComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  einvstatus = '';
+
   sub: any;
   urlid: string;
 
@@ -205,6 +207,8 @@ export class PostingComponent {
   GetRecord(Id: string) {
     this.loading = true;
 
+    this.einvstatus  ='';
+
     let SearchData = {
       pkid: Id,
     };
@@ -225,6 +229,11 @@ export class PostingComponent {
 
   LoadData(_Record: Posting) {
     this.Record = _Record;
+
+    if ( this.Record.jvh_einv_status == 'G')
+      this.einvstatus = 'EINVOICE STATUS : GENERATED';
+    if ( this.Record.jvh_einv_status == 'B')
+      this.einvstatus = 'EINVOICE STATUS : B2B';
 
     this.InitLov();
     
@@ -281,6 +290,11 @@ export class PostingComponent {
     if (this.Record.jv_posted == "Y") {
       bret = false;
       sError += "| Cannot Save, It is Posted / Allocated ";
+    }
+
+    if (this.Record.jv_posted == "G") {
+      bret = false;
+      sError += "| Cannot Save, Einvoice Already Generated ";
     }
 
     if (this.LockErrorMessage.length > 0) {

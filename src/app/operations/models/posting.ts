@@ -56,9 +56,13 @@ export class Posting {
   jv_posted: string;
   jv_posted_details: string;
 
+
+  jvh_einv_status: string;
+  jvh_is_einv: string;
+  jvh_irn: string;
+
   rec_mode: string;
   rec_category: string;
-
 
 
   _globalvariables: GlobalVariables;
