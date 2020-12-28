@@ -38,6 +38,7 @@ import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { AddbookdelComponent  } from './customer/addbookdel.component';
 import { BenfComponent   } from './customer/benf.component';
 import { MailListComponent } from './maillist/maillist.component';
+import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { MailListComponent } from './maillist/maillist.component';
     JobTransferComponent,
     AddbookdelComponent,
     BenfComponent,
-    MailListComponent
+    MailListComponent,
+    SeaBuyRateComponent
   ],
   providers: [
   ],
