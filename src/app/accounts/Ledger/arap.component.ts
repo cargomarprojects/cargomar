@@ -518,6 +518,10 @@ export class ArApComponent {
 
     this.Record.jvh_rec_source = 'JV';
 
+    this.Record.jvh_is_einv ='N';
+    this.Record.jvh_einv_status ='';
+    this.Record.jvh_irn ='';
+
     this.Record.jvh_acc_id = '';
     this.Record.jvh_acc_code = '';
     this.Record.jvh_acc_name = '';
@@ -583,7 +587,6 @@ export class ArApComponent {
     this.INVCURRECORD.name = this.Record.jvh_curr_code;
 
     this.Record.rec_mode = this.mode;
-
 
 
   }
@@ -803,9 +806,14 @@ export class ArApComponent {
           sError += " | Org.Inv Date Cannot Be Blank";
         }
       }
-
-
     }
+
+    if (this.Record.jvh_einv_status == 'G')
+    {
+      bret = false;
+      sError += " | IRN Generated";
+    }
+
 
     if (this.Record.jvh_acc_id == '') {
       bret = false;
