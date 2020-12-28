@@ -11,7 +11,7 @@ import { SearchTable } from '../../shared/models/searchtable';
   templateUrl: './seabuyrate.component.html',
   providers: [SeaBuyRateService]
 })
-export class SeaBuyRateComponent  {
+export class SeaBuyRateComponent {
   // Local Variables 
   title = 'Sea Buyrate Details';
 
@@ -25,7 +25,7 @@ export class SeaBuyRateComponent  {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  ispercent=false;
+  ispercent = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -49,6 +49,9 @@ export class SeaBuyRateComponent  {
 
   POLRECORD: any = {};
   PODRECORD: any = {};
+  LINERRECORD: any = {};
+  TRADELANERECORD: any = {};
+
   // Array For Displaying List
   RecordList: SeaBuyRate[] = [];
   // Single Record for add/edit/view details
@@ -87,7 +90,7 @@ export class SeaBuyRateComponent  {
   }
 
   InitComponent() {
-    this.dbkmode='A';
+    this.dbkmode = 'A';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
@@ -99,11 +102,11 @@ export class SeaBuyRateComponent  {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 
 
   LoadCombo() {
-    
+
     //this.loading = true;
     //let SearchData = {
     //  type: 'type',
@@ -116,7 +119,7 @@ export class SeaBuyRateComponent  {
     //this.mainService.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
-       
+
     //    this.List("NEW");
     //  },
     //  error => {
@@ -126,7 +129,7 @@ export class SeaBuyRateComponent  {
 
     this.List("NEW");
   }
-  
+
 
   LovSelected(_Record: any) {
 
@@ -134,6 +137,21 @@ export class SeaBuyRateComponent  {
       this.Record.sbr_pol_id = _Record.id;
       this.Record.sbr_pol_code = _Record.code;
       this.Record.sbr_pol_name = _Record.name;
+    }
+    if (_Record.controlname == "POD") {
+      this.Record.sbr_pod_id = _Record.id;
+      this.Record.sbr_pod_code = _Record.code;
+      this.Record.sbr_pod_name = _Record.name;
+    }
+    if (_Record.controlname == "LINER") {
+      this.Record.sbr_carrier_id = _Record.id;
+      this.Record.sbr_carrier_code = _Record.code;
+      this.Record.sbr_carrier_name = _Record.name;
+    }
+    if (_Record.controlname == "TRADELANE") {
+      this.Record.sbr_tradelane_id = _Record.id;
+      this.Record.sbr_tradelane_code = _Record.code;
+      this.Record.sbr_tradelane_name = _Record.name;
     }
   }
 
@@ -205,10 +223,10 @@ export class SeaBuyRateComponent  {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -217,22 +235,66 @@ export class SeaBuyRateComponent  {
     this.pkid = this.gs.getGuid();
 
     this.Record = new SeaBuyRate();
-    this.Record.sbr_pkid = this.pkid;     
-    // this.Record.dbk_slno = '';
-    // this.Record.dbk_name = '';
-    // this.Record.dbk_unit = '';
-    // this.Record.dbk_rate_excise = 0;
-    // this.Record.dbk_rate_custom = 0;
-    // this.Record.dbk_valuecap = 0;
-    // this.Record.dbk_state_rt = 0;
-    // this.Record.dbk_state_valuecap = 0;
-    // this.Record.dbk_ctl_rt = 0;
-    // this.Record.dbk_ctl_valuecap = 0;
-    this.Record.rec_mode = this.mode;
+    this.Record.sbr_pkid = this.pkid;
+    this.Record.sbr_transit = '';
 
+
+    this.Record.sbr_20 = 0;
+    this.Record.sbr_40 = 0;
+    this.Record.sbr_40hc = 0;
+
+    this.Record.sbr_20_baf = 0;
+    this.Record.sbr_20_caf = 0;
+    this.Record.sbr_20_ddc = 0;
+    this.Record.sbr_20_pss = 0;
+    this.Record.sbr_20_ebf = 0;
+    this.Record.sbr_20_chassis = 0;
+    this.Record.sbr_20_suez = 0;
+    this.Record.sbr_20_piracy = 0;
+    this.Record.sbr_20_ihc = 0;
+    this.Record.sbr_20_ifs = 0;
+    this.Record.sbr_20_other = 0;
+    this.Record.sbr_20_acd = 0;
+    this.Record.sbr_20_isps = 0;
+    this.Record.sbr_40_baf = 0;
+    this.Record.sbr_40_caf = 0;
+    this.Record.sbr_40_ddc = 0;
+    this.Record.sbr_40_pss = 0;
+    this.Record.sbr_40_ebf = 0;
+    this.Record.sbr_40_chassis = 0;
+    this.Record.sbr_40_suez = 0;
+    this.Record.sbr_40_piracy = 0;
+    this.Record.sbr_40_ihc = 0;
+    this.Record.sbr_40_ifs = 0;
+    this.Record.sbr_40_other = 0;
+    this.Record.sbr_40_acd = 0;
+    this.Record.sbr_40_isps = 0;
+    this.Record.sbr_40hc_baf = 0;
+    this.Record.sbr_40hc_caf = 0;
+    this.Record.sbr_40hc_ddc = 0;
+    this.Record.sbr_40hc_pss = 0;
+    this.Record.sbr_40hc_ebf = 0;
+    this.Record.sbr_40hc_chassis = 0;
+    this.Record.sbr_40hc_suez = 0;
+    this.Record.sbr_40hc_piracy = 0;
+    this.Record.sbr_40hc_ihc = 0;
+    this.Record.sbr_40hc_ifs = 0;
+    this.Record.sbr_40hc_other = 0;
+    this.Record.sbr_40hc_acd = 0;
+    this.Record.sbr_40hc_isps = 0;
+
+    // Lbl_Predata.Text = "";
+
+    this.Record.sbr_frequency = 'ONCE IN A WEEK';
+    this.Record.sbr_vsl_cutoff = '';
+    this.Record.sbr_sail_day = '';
+    this.Record.sbr_routing = '';
+    this.Record.sbr_remarks = '';
+    this.Record.rec_mode = this.mode;
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
-  
+    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
   }
 
 
@@ -253,10 +315,10 @@ export class SeaBuyRateComponent  {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: SeaBuyRate) {
@@ -265,9 +327,12 @@ export class SeaBuyRateComponent  {
 
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pol_id, code: this.Record.sbr_pol_code, name: this.Record.sbr_pol_name };
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pod_id, code: this.Record.sbr_pod_code, name: this.Record.sbr_pod_name };
+    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.sbr_carrier_id, code: this.Record.sbr_carrier_code, name: this.Record.sbr_carrier_name };
+    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: this.Record.sbr_tradelane_id, code: this.Record.sbr_tradelane_code, name: this.Record.sbr_tradelane_name };
+
   }
 
-  
+
   // Save Data
   Save() {
 
@@ -288,11 +353,11 @@ export class SeaBuyRateComponent  {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -304,7 +369,7 @@ export class SeaBuyRateComponent  {
     //   bret = false;
     //   sError = " | Drawback Code Cannot Be Blank";
     // }
-       
+
     // if (bret === false)
     //   this.ErrorMessage = sError;
     return bret;
@@ -334,36 +399,201 @@ export class SeaBuyRateComponent  {
 
 
   OnBlur(field: string) {
-    // if (field == 'dbk_slno') {
-    //   this.Record.dbk_slno = this.Record.dbk_slno.toUpperCase();
-    // }
-    // if (field == 'dbk_name') {
-    //   this.Record.dbk_name = this.Record.dbk_name.toUpperCase();
-    // }
-    // if (field == 'dbk_unit') {
-    //   this.Record.dbk_unit = this.Record.dbk_unit.toUpperCase();
-    // }
-    // if (field == 'dbk_rate_excise') {
-    //   this.Record.dbk_rate_excise = this.gs.roundWeight(this.Record.dbk_rate_excise, "RATE");
-    // }
-    // if (field == 'dbk_rate_custom') {
-    //   this.Record.dbk_rate_custom = this.gs.roundWeight(this.Record.dbk_rate_custom, "RATE");
-    // }
-    // if (field == 'dbk_valuecap') {
-    //   this.Record.dbk_valuecap = this.gs.roundWeight(this.Record.dbk_valuecap, "RATE");
-    // }
-    // if (field == 'dbk_state_rt') {
-    //   this.Record.dbk_state_rt = this.gs.roundWeight(this.Record.dbk_state_rt, "RATE");
-    // }
-    // if (field == 'dbk_state_valuecap') {
-    //   this.Record.dbk_state_valuecap = this.gs.roundWeight(this.Record.dbk_state_valuecap, "RATE");
-    // }
-    // if (field == 'dbk_ctl_rt') {
-    //   this.Record.dbk_ctl_rt = this.gs.roundWeight(this.Record.dbk_ctl_rt, "RATE");
-    // }
-    // if (field == 'dbk_ctl_valuecap') {
-    //   this.Record.dbk_ctl_valuecap = this.gs.roundWeight(this.Record.dbk_ctl_valuecap, "RATE");
-    // }
+
+    if (field == 'sbr_pol_name') {
+      this.Record.sbr_pol_name = this.Record.sbr_pol_name.toUpperCase();
+    }
+    if (field == 'sbr_pod_name') {
+      this.Record.sbr_pod_name = this.Record.sbr_pod_name.toUpperCase();
+    }
+    if (field == 'sbr_carrier_name') {
+      this.Record.sbr_carrier_name = this.Record.sbr_carrier_name.toUpperCase();
+    }
+    if (field == 'sbr_tradelane_name') {
+      this.Record.sbr_tradelane_name = this.Record.sbr_tradelane_name.toUpperCase();
+    }
+    if (field == 'sbr_transit') {
+      this.Record.sbr_transit = this.Record.sbr_transit.toUpperCase();
+    }
+
+    if (field == 'sbr_routing') {
+      this.Record.sbr_routing = this.Record.sbr_routing.toUpperCase();
+    }
+
+    if (field == 'sbr_remarks') {
+      this.Record.sbr_remarks = this.Record.sbr_remarks.toUpperCase();
+    }
+
+    if (field == 'sbr_20') {
+      this.Record.sbr_20 = this.gs.roundNumber(this.Record.sbr_20, 2);
+    }
+
+
+
+    if (field == 'sbr_40') {
+      this.Record.sbr_40 = this.gs.roundNumber(this.Record.sbr_40, 2);
+    }
+
+    if (field == 'sbr_40hc') {
+      this.Record.sbr_40hc = this.gs.roundNumber(this.Record.sbr_40hc, 2);
+    }
+
+    if (field == 'sbr_20_baf') {
+      this.Record.sbr_20_baf = this.gs.roundNumber(this.Record.sbr_20_baf, 2);
+    }
+
+    if (field == 'sbr_20_caf') {
+      this.Record.sbr_20_caf = this.gs.roundNumber(this.Record.sbr_20_caf, 2);
+    }
+
+    if (field == 'sbr_20_ddc') {
+      this.Record.sbr_20_ddc = this.gs.roundNumber(this.Record.sbr_20_ddc, 2);
+    }
+
+    if (field == 'sbr_20_pss') {
+      this.Record.sbr_20_pss = this.gs.roundNumber(this.Record.sbr_20_pss, 2);
+    }
+
+    if (field == 'sbr_20_ebf') {
+      this.Record.sbr_20_ebf = this.gs.roundNumber(this.Record.sbr_20_ebf, 2);
+    }
+
+    if (field == 'sbr_20_chassis') {
+      this.Record.sbr_20_chassis = this.gs.roundNumber(this.Record.sbr_20_chassis, 2);
+    }
+
+    if (field == 'sbr_20_suez') {
+      this.Record.sbr_20_suez = this.gs.roundNumber(this.Record.sbr_20_suez, 2);
+    }
+
+    if (field == 'sbr_20_piracy') {
+      this.Record.sbr_20_piracy = this.gs.roundNumber(this.Record.sbr_20_piracy, 2);
+    }
+
+    if (field == 'sbr_20_ihc') {
+      this.Record.sbr_20_ihc = this.gs.roundNumber(this.Record.sbr_20_ihc, 2);
+    }
+
+    if (field == 'sbr_20_ifs') {
+      this.Record.sbr_20_ifs = this.gs.roundNumber(this.Record.sbr_20_ifs, 2);
+    }
+
+    if (field == 'sbr_20_other') {
+      this.Record.sbr_20_other = this.gs.roundNumber(this.Record.sbr_20_other, 2);
+    }
+
+    if (field == 'sbr_20_acd') {
+      this.Record.sbr_20_acd = this.gs.roundNumber(this.Record.sbr_20_acd, 2);
+    }
+
+    if (field == 'sbr_20_isps') {
+      this.Record.sbr_20_isps = this.gs.roundNumber(this.Record.sbr_20_isps, 2);
+    }
+
+    if (field == 'sbr_40_baf') {
+      this.Record.sbr_40_baf = this.gs.roundNumber(this.Record.sbr_40_baf, 2);
+    }
+
+    if (field == 'sbr_40_caf') {
+      this.Record.sbr_40_caf = this.gs.roundNumber(this.Record.sbr_40_caf, 2);
+    }
+
+    if (field == 'sbr_40_ddc') {
+      this.Record.sbr_40_ddc = this.gs.roundNumber(this.Record.sbr_40_ddc, 2);
+    }
+
+    if (field == 'sbr_40_pss') {
+      this.Record.sbr_40_pss = this.gs.roundNumber(this.Record.sbr_40_pss, 2);
+    }
+
+    if (field == 'sbr_40_ebf') {
+      this.Record.sbr_40_ebf = this.gs.roundNumber(this.Record.sbr_40_ebf, 2);
+    }
+
+    if (field == 'sbr_40_chassis') {
+      this.Record.sbr_40_chassis = this.gs.roundNumber(this.Record.sbr_40_chassis, 2);
+    }
+
+    if (field == 'sbr_40_suez') {
+      this.Record.sbr_40_suez = this.gs.roundNumber(this.Record.sbr_40_suez, 2);
+    }
+
+    if (field == 'sbr_40_piracy') {
+      this.Record.sbr_40_piracy = this.gs.roundNumber(this.Record.sbr_40_piracy, 2);
+    }
+
+    if (field == 'sbr_40_ihc') {
+      this.Record.sbr_40_ihc = this.gs.roundNumber(this.Record.sbr_40_ihc, 2);
+    }
+
+    if (field == 'sbr_40_ifs') {
+      this.Record.sbr_40_ifs = this.gs.roundNumber(this.Record.sbr_40_ifs, 2);
+    }
+
+    if (field == 'sbr_40_other') {
+      this.Record.sbr_40_other = this.gs.roundNumber(this.Record.sbr_40_other, 2);
+    }
+
+    if (field == 'sbr_40_acd') {
+      this.Record.sbr_40_acd = this.gs.roundNumber(this.Record.sbr_40_acd, 2);
+    }
+
+    if (field == 'sbr_40_isps') {
+      this.Record.sbr_40_isps = this.gs.roundNumber(this.Record.sbr_40_isps, 2);
+    }
+
+    if (field == 'sbr_40hc_baf') {
+      this.Record.sbr_40hc_baf = this.gs.roundNumber(this.Record.sbr_40hc_baf, 2);
+    }
+
+    if (field == 'sbr_40hc_caf') {
+      this.Record.sbr_40hc_caf = this.gs.roundNumber(this.Record.sbr_40hc_caf, 2);
+    }
+
+    if (field == 'sbr_40hc_ddc') {
+      this.Record.sbr_40hc_ddc = this.gs.roundNumber(this.Record.sbr_40hc_ddc, 2);
+    }
+
+    if (field == 'sbr_40hc_pss') {
+      this.Record.sbr_40hc_pss = this.gs.roundNumber(this.Record.sbr_40hc_pss, 2);
+    }
+
+    if (field == 'sbr_40hc_ebf') {
+      this.Record.sbr_40hc_ebf = this.gs.roundNumber(this.Record.sbr_40hc_ebf, 2);
+    }
+
+    if (field == 'sbr_40hc_chassis') {
+      this.Record.sbr_40hc_chassis = this.gs.roundNumber(this.Record.sbr_40hc_chassis, 2);
+    }
+
+    if (field == 'sbr_40hc_suez') {
+      this.Record.sbr_40hc_suez = this.gs.roundNumber(this.Record.sbr_40hc_suez, 2);
+    }
+
+    if (field == 'sbr_40hc_piracy') {
+      this.Record.sbr_40hc_piracy = this.gs.roundNumber(this.Record.sbr_40hc_piracy, 2);
+    }
+
+    if (field == 'sbr_40hc_ihc') {
+      this.Record.sbr_40hc_ihc = this.gs.roundNumber(this.Record.sbr_40hc_ihc, 2);
+    }
+
+    if (field == 'sbr_40hc_ifs') {
+      this.Record.sbr_40hc_ifs = this.gs.roundNumber(this.Record.sbr_40hc_ifs, 2);
+    }
+
+    if (field == 'sbr_40hc_other') {
+      this.Record.sbr_40hc_other = this.gs.roundNumber(this.Record.sbr_40hc_other, 2);
+    }
+
+    if (field == 'sbr_40hc_acd') {
+      this.Record.sbr_40hc_acd = this.gs.roundNumber(this.Record.sbr_40hc_acd, 2);
+    }
+
+    if (field == 'sbr_40hc_isps') {
+      this.Record.sbr_40hc_isps = this.gs.roundNumber(this.Record.sbr_40hc_isps, 2);
+    }
+
   }
 
   Close() {
@@ -422,7 +652,7 @@ export class SeaBuyRateComponent  {
   //   SearchData.user_code=this.gs.globalVariables.user_code;
   //   SearchData.ispercent= this.ispercent == true?'Y':'N';
   //   SearchData.root_folder=this.gs.defaultValues.root_folder;
-    
+
 
   //   this.ErrorMessage = '';
   //   this.InfoMessage = '';
