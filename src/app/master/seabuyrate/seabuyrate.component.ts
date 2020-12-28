@@ -47,6 +47,8 @@ export class SeaBuyRateComponent  {
   mode = '';
   pkid = '';
 
+  POLRECORD: any = {};
+  PODRECORD: any = {};
   // Array For Displaying List
   RecordList: SeaBuyRate[] = [];
   // Single Record for add/edit/view details
@@ -127,6 +129,12 @@ export class SeaBuyRateComponent  {
   
 
   LovSelected(_Record: any) {
+
+    if (_Record.controlname == "POL") {
+      this.Record.sbr_pol_id = _Record.id;
+      this.Record.sbr_pol_code = _Record.code;
+      this.Record.sbr_pol_name = _Record.name;
+    }
   }
 
 
@@ -209,18 +217,21 @@ export class SeaBuyRateComponent  {
     this.pkid = this.gs.getGuid();
 
     this.Record = new SeaBuyRate();
-    this.Record.dbk_id = this.pkid;     
-    this.Record.dbk_slno = '';
-    this.Record.dbk_name = '';
-    this.Record.dbk_unit = '';
-    this.Record.dbk_rate_excise = 0;
-    this.Record.dbk_rate_custom = 0;
-    this.Record.dbk_valuecap = 0;
-    this.Record.dbk_state_rt = 0;
-    this.Record.dbk_state_valuecap = 0;
-    this.Record.dbk_ctl_rt = 0;
-    this.Record.dbk_ctl_valuecap = 0;
+    this.Record.sbr_pkid = this.pkid;     
+    // this.Record.dbk_slno = '';
+    // this.Record.dbk_name = '';
+    // this.Record.dbk_unit = '';
+    // this.Record.dbk_rate_excise = 0;
+    // this.Record.dbk_rate_custom = 0;
+    // this.Record.dbk_valuecap = 0;
+    // this.Record.dbk_state_rt = 0;
+    // this.Record.dbk_state_valuecap = 0;
+    // this.Record.dbk_ctl_rt = 0;
+    // this.Record.dbk_ctl_valuecap = 0;
     this.Record.rec_mode = this.mode;
+
+    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
   
   }
 
@@ -251,6 +262,9 @@ export class SeaBuyRateComponent  {
   LoadData(_Record: SeaBuyRate) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
+
+    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pol_id, code: this.Record.sbr_pol_code, name: this.Record.sbr_pol_name };
+    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pod_id, code: this.Record.sbr_pod_code, name: this.Record.sbr_pod_name };
   }
 
   
@@ -286,13 +300,13 @@ export class SeaBuyRateComponent  {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.Record.dbk_slno.trim().length <= 0) {
-      bret = false;
-      sError = " | Drawback Code Cannot Be Blank";
-    }
+    // if (this.Record.dbk_slno.trim().length <= 0) {
+    //   bret = false;
+    //   sError = " | Drawback Code Cannot Be Blank";
+    // }
        
-    if (bret === false)
-      this.ErrorMessage = sError;
+    // if (bret === false)
+    //   this.ErrorMessage = sError;
     return bret;
   }
 
@@ -300,56 +314,56 @@ export class SeaBuyRateComponent  {
 
     if (this.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.dbk_id == this.Record. dbk_id);
-    if (REC == null) {
-      this.RecordList.push(this.Record);
-    }
-    else {
-      REC.dbk_slno = this.Record.dbk_slno;
-      REC.dbk_name = this.Record.dbk_name;
-      REC.dbk_unit = this.Record.dbk_unit;
-      REC.dbk_rate_excise = this.Record.dbk_rate_excise;
-      REC.dbk_rate_custom = this.Record.dbk_rate_custom;
-      REC.dbk_valuecap = this.Record.dbk_valuecap;
-      REC.dbk_state_rt = this.Record.dbk_state_rt;
-      REC.dbk_state_valuecap = this.Record.dbk_state_valuecap;
-      REC.dbk_ctl_rt = this.Record.dbk_ctl_rt;
-      REC.dbk_ctl_valuecap = this.Record.dbk_ctl_valuecap;
-    }
+    // var REC = this.RecordList.find(rec => rec.dbk_id == this.Record. dbk_id);
+    // if (REC == null) {
+    //   this.RecordList.push(this.Record);
+    // }
+    // else {
+    //   REC.dbk_slno = this.Record.dbk_slno;
+    //   REC.dbk_name = this.Record.dbk_name;
+    //   REC.dbk_unit = this.Record.dbk_unit;
+    //   REC.dbk_rate_excise = this.Record.dbk_rate_excise;
+    //   REC.dbk_rate_custom = this.Record.dbk_rate_custom;
+    //   REC.dbk_valuecap = this.Record.dbk_valuecap;
+    //   REC.dbk_state_rt = this.Record.dbk_state_rt;
+    //   REC.dbk_state_valuecap = this.Record.dbk_state_valuecap;
+    //   REC.dbk_ctl_rt = this.Record.dbk_ctl_rt;
+    //   REC.dbk_ctl_valuecap = this.Record.dbk_ctl_valuecap;
+    // }
   }
 
 
   OnBlur(field: string) {
-    if (field == 'dbk_slno') {
-      this.Record.dbk_slno = this.Record.dbk_slno.toUpperCase();
-    }
-    if (field == 'dbk_name') {
-      this.Record.dbk_name = this.Record.dbk_name.toUpperCase();
-    }
-    if (field == 'dbk_unit') {
-      this.Record.dbk_unit = this.Record.dbk_unit.toUpperCase();
-    }
-    if (field == 'dbk_rate_excise') {
-      this.Record.dbk_rate_excise = this.gs.roundWeight(this.Record.dbk_rate_excise, "RATE");
-    }
-    if (field == 'dbk_rate_custom') {
-      this.Record.dbk_rate_custom = this.gs.roundWeight(this.Record.dbk_rate_custom, "RATE");
-    }
-    if (field == 'dbk_valuecap') {
-      this.Record.dbk_valuecap = this.gs.roundWeight(this.Record.dbk_valuecap, "RATE");
-    }
-    if (field == 'dbk_state_rt') {
-      this.Record.dbk_state_rt = this.gs.roundWeight(this.Record.dbk_state_rt, "RATE");
-    }
-    if (field == 'dbk_state_valuecap') {
-      this.Record.dbk_state_valuecap = this.gs.roundWeight(this.Record.dbk_state_valuecap, "RATE");
-    }
-    if (field == 'dbk_ctl_rt') {
-      this.Record.dbk_ctl_rt = this.gs.roundWeight(this.Record.dbk_ctl_rt, "RATE");
-    }
-    if (field == 'dbk_ctl_valuecap') {
-      this.Record.dbk_ctl_valuecap = this.gs.roundWeight(this.Record.dbk_ctl_valuecap, "RATE");
-    }
+    // if (field == 'dbk_slno') {
+    //   this.Record.dbk_slno = this.Record.dbk_slno.toUpperCase();
+    // }
+    // if (field == 'dbk_name') {
+    //   this.Record.dbk_name = this.Record.dbk_name.toUpperCase();
+    // }
+    // if (field == 'dbk_unit') {
+    //   this.Record.dbk_unit = this.Record.dbk_unit.toUpperCase();
+    // }
+    // if (field == 'dbk_rate_excise') {
+    //   this.Record.dbk_rate_excise = this.gs.roundWeight(this.Record.dbk_rate_excise, "RATE");
+    // }
+    // if (field == 'dbk_rate_custom') {
+    //   this.Record.dbk_rate_custom = this.gs.roundWeight(this.Record.dbk_rate_custom, "RATE");
+    // }
+    // if (field == 'dbk_valuecap') {
+    //   this.Record.dbk_valuecap = this.gs.roundWeight(this.Record.dbk_valuecap, "RATE");
+    // }
+    // if (field == 'dbk_state_rt') {
+    //   this.Record.dbk_state_rt = this.gs.roundWeight(this.Record.dbk_state_rt, "RATE");
+    // }
+    // if (field == 'dbk_state_valuecap') {
+    //   this.Record.dbk_state_valuecap = this.gs.roundWeight(this.Record.dbk_state_valuecap, "RATE");
+    // }
+    // if (field == 'dbk_ctl_rt') {
+    //   this.Record.dbk_ctl_rt = this.gs.roundWeight(this.Record.dbk_ctl_rt, "RATE");
+    // }
+    // if (field == 'dbk_ctl_valuecap') {
+    //   this.Record.dbk_ctl_valuecap = this.gs.roundWeight(this.Record.dbk_ctl_valuecap, "RATE");
+    // }
   }
 
   Close() {
