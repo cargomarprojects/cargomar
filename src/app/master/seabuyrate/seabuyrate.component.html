@@ -31,13 +31,6 @@
           </div>
         </div>
       </div>
-      <!-- <label class="col-2">Search</label>
-      <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
-      </div>
-      <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-      </div> -->
     </div>
   </div>
 
@@ -64,7 +57,7 @@
           <th>ENTRY-DATE</th>
           <th>TRADELANE</th>
           <th>POL</th>
-          <th>COUNTRY</th>
+          <!-- <th>COUNTRY</th> -->
           <th>POD</th>
           <th>LINER</th>
           <th>FREQUENCY</th>
@@ -88,7 +81,7 @@
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.sbr_tradelane_name}}</td>
           <td>{{rec.sbr_pol_name}}</td>
-          <td>{{rec.sbr_country_name}}</td>
+          <!-- <td>{{rec.sbr_country_name}}</td> -->
           <td>{{rec.sbr_pod_name}}</td>
           <td>{{rec.sbr_carrier_name}}</td>
           <td>{{rec.sbr_frequency}}</td>
@@ -141,7 +134,7 @@
           </div>
           <div class="col-6" style="padding-left:0">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
-              (blur)="OnBlur('sbr_pol_name')" required maxlength="20" />
+              (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
           </div>
         </div>
 
@@ -153,7 +146,7 @@
           </div>
           <div class="col-6" style="padding-left:0">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
-              (blur)="OnBlur('sbr_pod_name')" required maxlength="20" />
+              (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
           </div>
         </div>
         <div class="form-group row">
