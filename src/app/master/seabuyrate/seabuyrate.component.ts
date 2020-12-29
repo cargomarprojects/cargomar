@@ -29,6 +29,8 @@ export class SeaBuyRateComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  bPrint = false;
+  bDelete = false;
 
   dbkmode = '';
   searchstring = '';
@@ -40,7 +42,8 @@ export class SeaBuyRateComponent {
   sub: any;
   urlid: string;
   modal: any;
-
+  fromdate: string = "";
+  todate: string = "";
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -90,12 +93,15 @@ export class SeaBuyRateComponent {
   }
 
   InitComponent() {
-    this.dbkmode = 'A';
+    this.fromdate = this.gs.defaultValues.monthbegindate;
+    this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      this.bPrint = this.menu_record.rights_print;
+      this.bDelete = this.menu_record.rights_delete;
+    }
     this.LoadCombo();
-
   }
 
   // Destroy Will be called when this component is closed
@@ -210,7 +216,10 @@ export class SeaBuyRateComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      from_date: this.fromdate,
+      to_date: this.todate,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.ErrorMessage = '';
@@ -218,15 +227,23 @@ export class SeaBuyRateComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
 
@@ -236,13 +253,46 @@ export class SeaBuyRateComponent {
 
     this.Record = new SeaBuyRate();
     this.Record.sbr_pkid = this.pkid;
+    this.Record.rec_mode = this.mode;
+    this.Init();
+    // this.ClearRates();
+
+    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
+  }
+
+  Init() {
+    // lblStatus.Text = "";
+    this.Record.sbr_pol_id = "";
+    this.Record.sbr_pol_code = "";
+    this.Record.sbr_pol_name = "";
+    this.Record.sbr_pod_id = "";
+    this.Record.sbr_pod_code = "";
+    this.Record.sbr_pod_name = "";
+    this.Record.sbr_tradelane_id = "";
+    this.Record.sbr_tradelane_code = "";
+    this.Record.sbr_tradelane_name = "";
+    this.Record.sbr_carrier_id = "";
+    this.Record.sbr_carrier_code = "";
+    this.Record.sbr_carrier_name = "";
+    this.Record.sbr_routing = '';
+    this.Record.sbr_remarks = '';
+    this.Record.sbr_valid_from = '';
+    this.Record.sbr_valid_to = '';
+
+    this.ClearRates();
+  }
+
+  ClearRates() {
     this.Record.sbr_transit = '';
-
-
+    this.Record.sbr_20_allin = 0;
+    this.Record.sbr_40_allin = 0;
+    this.Record.sbr_40hc_allin = 0;
     this.Record.sbr_20 = 0;
     this.Record.sbr_40 = 0;
     this.Record.sbr_40hc = 0;
-
     this.Record.sbr_20_baf = 0;
     this.Record.sbr_20_caf = 0;
     this.Record.sbr_20_ddc = 0;
@@ -290,14 +340,7 @@ export class SeaBuyRateComponent {
     this.Record.sbr_sail_day = '';
     this.Record.sbr_routing = '';
     this.Record.sbr_remarks = '';
-    this.Record.rec_mode = this.mode;
-    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
   }
-
-
 
 
   // Load a single Record for VIEW/EDIT
@@ -332,7 +375,6 @@ export class SeaBuyRateComponent {
 
   }
 
-
   // Save Data
   Save() {
 
@@ -342,7 +384,32 @@ export class SeaBuyRateComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record._globalvariables = this.gs.globalVariables;
 
+    this.mainService.CanSave(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.warningmsg.length > 0) {
+          if (confirm(response.warningmsg)) {
+            this.Save2();
+          }
+        } else
+          this.Save2();
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+
+        });
+  }
+
+  Save2() {
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.mainService.Save(this.Record)
@@ -356,7 +423,7 @@ export class SeaBuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -379,24 +446,56 @@ export class SeaBuyRateComponent {
 
     if (this.RecordList == null)
       return;
-    // var REC = this.RecordList.find(rec => rec.dbk_id == this.Record. dbk_id);
-    // if (REC == null) {
-    //   this.RecordList.push(this.Record);
-    // }
-    // else {
-    //   REC.dbk_slno = this.Record.dbk_slno;
-    //   REC.dbk_name = this.Record.dbk_name;
-    //   REC.dbk_unit = this.Record.dbk_unit;
-    //   REC.dbk_rate_excise = this.Record.dbk_rate_excise;
-    //   REC.dbk_rate_custom = this.Record.dbk_rate_custom;
-    //   REC.dbk_valuecap = this.Record.dbk_valuecap;
-    //   REC.dbk_state_rt = this.Record.dbk_state_rt;
-    //   REC.dbk_state_valuecap = this.Record.dbk_state_valuecap;
-    //   REC.dbk_ctl_rt = this.Record.dbk_ctl_rt;
-    //   REC.dbk_ctl_valuecap = this.Record.dbk_ctl_valuecap;
-    // }
+    var REC = this.RecordList.find(rec => rec.sbr_pkid == this.Record.sbr_pkid);
+    if (REC == null) {
+      this.RecordList.push(this.Record);
+    }
+    else {
+      REC.sbr_tradelane_name = this.Record.sbr_tradelane_name;
+      REC.sbr_pol_name = this.Record.sbr_pol_name;
+      REC.sbr_pod_name = this.Record.sbr_pod_name;
+      REC.sbr_carrier_name = this.Record.sbr_carrier_name;
+      REC.sbr_frequency = this.Record.sbr_frequency;
+      REC.sbr_routing = this.Record.sbr_routing;
+      if (this.Record.sbr_vsl_cutoff.length > 0)
+        REC.sbr_vsl_cutoff = "DAY " + this.Record.sbr_vsl_cutoff;
+      if (this.Record.sbr_sail_day.length > 0)
+        REC.sbr_sail_day = "DAY " + this.Record.sbr_sail_day;
+      REC.sbr_transit = this.Record.sbr_transit;
+      REC.sbr_20_allin = this.Record.sbr_20_allin;
+      REC.sbr_40_allin = this.Record.sbr_40_allin;
+      REC.sbr_40hc_allin = this.Record.sbr_40hc_allin;
+      REC.sbr_20_acd = this.Record.sbr_20_acd;
+      REC.sbr_40_acd = this.Record.sbr_40_acd;
+      REC.sbr_40hc_acd = this.Record.sbr_40hc_acd;
+      REC.sbr_valid_from = this.Record.sbr_valid_from;
+      REC.sbr_valid_to = this.Record.sbr_valid_to;
+    }
   }
 
+  RemoveRecord(Id: string) {
+
+    if (!confirm("DELETE RECORD")) {
+      return;
+    }
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: Id
+    };
+
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.sbr_pkid == Id), 1);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
   OnBlur(field: string) {
 
@@ -423,6 +522,15 @@ export class SeaBuyRateComponent {
     if (field == 'sbr_remarks') {
       this.Record.sbr_remarks = this.Record.sbr_remarks.toUpperCase();
     }
+
+    if (field == 'sbr_vsl_cutoff') {
+      this.Record.sbr_vsl_cutoff = this.Record.sbr_vsl_cutoff.toUpperCase();
+    }
+
+    if (field == 'sbr_sail_day') {
+      this.Record.sbr_sail_day = this.Record.sbr_sail_day.toUpperCase();
+    }
+
 
     if (field == 'sbr_20') {
       this.Record.sbr_20 = this.gs.roundNumber(this.Record.sbr_20, 2);
