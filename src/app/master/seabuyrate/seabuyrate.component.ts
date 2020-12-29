@@ -40,7 +40,8 @@ export class SeaBuyRateComponent {
   sub: any;
   urlid: string;
   modal: any;
-
+  fromdate: string = "";
+  todate: string = "";
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -90,7 +91,8 @@ export class SeaBuyRateComponent {
   }
 
   InitComponent() {
-    this.dbkmode = 'A';
+    this.fromdate = this.gs.defaultValues.today;
+    this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
@@ -210,7 +212,9 @@ export class SeaBuyRateComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      from_date: this.fromdate,
+      to_date: this.todate
     };
 
     this.ErrorMessage = '';
@@ -358,12 +362,36 @@ export class SeaBuyRateComponent {
 
   }
 
-
   // Save Data
   Save() {
 
     if (!this.allvalid())
       return;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record._globalvariables = this.gs.globalVariables;
+
+    this.mainService.CanSave(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.warningmsg.length > 0) {
+          if (confirm(response.warningmsg)) {
+            this.Save2();
+          }
+        } else
+          this.Save2();
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
+  }
+
+  Save2() {
 
     this.loading = true;
     this.ErrorMessage = '';
@@ -448,6 +476,15 @@ export class SeaBuyRateComponent {
     if (field == 'sbr_remarks') {
       this.Record.sbr_remarks = this.Record.sbr_remarks.toUpperCase();
     }
+
+    if (field == 'sbr_vsl_cutoff') {
+      this.Record.sbr_vsl_cutoff = this.Record.sbr_vsl_cutoff.toUpperCase();
+    }
+
+    if (field == 'sbr_sail_day') {
+      this.Record.sbr_sail_day = this.Record.sbr_sail_day.toUpperCase();
+    }
+
 
     if (field == 'sbr_20') {
       this.Record.sbr_20 = this.gs.roundNumber(this.Record.sbr_20, 2);
