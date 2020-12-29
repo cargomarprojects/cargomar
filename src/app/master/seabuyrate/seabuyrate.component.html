@@ -73,6 +73,7 @@
           <th>ACD/ENS-40HC</th>
           <th>VALID-FROM</th>
           <th>VALID-TO</th>
+          <th *ngIf='bDelete' align="center">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -97,6 +98,8 @@
           <td>{{rec.sbr_40hc_acd}}</td>
           <td>{{rec.sbr_valid_from}}</td>
           <td>{{rec.sbr_valid_to}}</td>
+          <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+            (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
         </tr>
       </tbody>
     </table>

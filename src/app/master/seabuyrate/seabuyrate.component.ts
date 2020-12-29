@@ -30,6 +30,7 @@ export class SeaBuyRateComponent {
   loading = false;
   currentTab = 'LIST';
   bPrint = false;
+  bDelete = false;
 
   dbkmode = '';
   searchstring = '';
@@ -92,15 +93,15 @@ export class SeaBuyRateComponent {
   }
 
   InitComponent() {
-    this.fromdate = this.gs.defaultValues.today;
+    this.fromdate = this.gs.defaultValues.monthbegindate;
     this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
+      this.bDelete = this.menu_record.rights_delete;
     }
     this.LoadCombo();
-
   }
 
   // Destroy Will be called when this component is closed
@@ -445,24 +446,56 @@ export class SeaBuyRateComponent {
 
     if (this.RecordList == null)
       return;
-    // var REC = this.RecordList.find(rec => rec.dbk_id == this.Record. dbk_id);
-    // if (REC == null) {
-    //   this.RecordList.push(this.Record);
-    // }
-    // else {
-    //   REC.dbk_slno = this.Record.dbk_slno;
-    //   REC.dbk_name = this.Record.dbk_name;
-    //   REC.dbk_unit = this.Record.dbk_unit;
-    //   REC.dbk_rate_excise = this.Record.dbk_rate_excise;
-    //   REC.dbk_rate_custom = this.Record.dbk_rate_custom;
-    //   REC.dbk_valuecap = this.Record.dbk_valuecap;
-    //   REC.dbk_state_rt = this.Record.dbk_state_rt;
-    //   REC.dbk_state_valuecap = this.Record.dbk_state_valuecap;
-    //   REC.dbk_ctl_rt = this.Record.dbk_ctl_rt;
-    //   REC.dbk_ctl_valuecap = this.Record.dbk_ctl_valuecap;
-    // }
+    var REC = this.RecordList.find(rec => rec.sbr_pkid == this.Record.sbr_pkid);
+    if (REC == null) {
+      this.RecordList.push(this.Record);
+    }
+    else {
+      REC.sbr_tradelane_name = this.Record.sbr_tradelane_name;
+      REC.sbr_pol_name = this.Record.sbr_pol_name;
+      REC.sbr_pod_name = this.Record.sbr_pod_name;
+      REC.sbr_carrier_name = this.Record.sbr_carrier_name;
+      REC.sbr_frequency = this.Record.sbr_frequency;
+      REC.sbr_routing = this.Record.sbr_routing;
+      if (this.Record.sbr_vsl_cutoff.length > 0)
+        REC.sbr_vsl_cutoff = "DAY " + this.Record.sbr_vsl_cutoff;
+      if (this.Record.sbr_sail_day.length > 0)
+        REC.sbr_sail_day = "DAY " + this.Record.sbr_sail_day;
+      REC.sbr_transit = this.Record.sbr_transit;
+      REC.sbr_20_allin = this.Record.sbr_20_allin;
+      REC.sbr_40_allin = this.Record.sbr_40_allin;
+      REC.sbr_40hc_allin = this.Record.sbr_40hc_allin;
+      REC.sbr_20_acd = this.Record.sbr_20_acd;
+      REC.sbr_40_acd = this.Record.sbr_40_acd;
+      REC.sbr_40hc_acd = this.Record.sbr_40hc_acd;
+      REC.sbr_valid_from = this.Record.sbr_valid_from;
+      REC.sbr_valid_to = this.Record.sbr_valid_to;
+    }
   }
 
+  RemoveRecord(Id: string) {
+
+    if (!confirm("DELETE RECORD")) {
+      return;
+    }
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: Id
+    };
+
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.sbr_pkid == Id), 1);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
   OnBlur(field: string) {
 
