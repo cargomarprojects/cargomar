@@ -236,13 +236,46 @@ export class SeaBuyRateComponent {
 
     this.Record = new SeaBuyRate();
     this.Record.sbr_pkid = this.pkid;
+    this.Record.rec_mode = this.mode;
+    this.Init();
+    // this.ClearRates();
+
+    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
+  }
+
+  Init() {
+    // lblStatus.Text = "";
+    this.Record.sbr_pol_id = "";
+    this.Record.sbr_pol_code = "";
+    this.Record.sbr_pol_name = "";
+    this.Record.sbr_pod_id = "";
+    this.Record.sbr_pod_code = "";
+    this.Record.sbr_pod_name = "";
+    this.Record.sbr_tradelane_id = "";
+    this.Record.sbr_tradelane_code = "";
+    this.Record.sbr_tradelane_name = "";
+    this.Record.sbr_carrier_id = "";
+    this.Record.sbr_carrier_code = "";
+    this.Record.sbr_carrier_name = "";
+    this.Record.sbr_routing = '';
+    this.Record.sbr_remarks = '';
+    this.Record.sbr_valid_from = '';
+    this.Record.sbr_valid_to = '';
+
+    this.ClearRates();
+  }
+
+  ClearRates() {
     this.Record.sbr_transit = '';
-
-
+    this.Record.sbr_20_allin = 0;
+    this.Record.sbr_40_allin = 0;
+    this.Record.sbr_40hc_allin = 0;
     this.Record.sbr_20 = 0;
     this.Record.sbr_40 = 0;
     this.Record.sbr_40hc = 0;
-
     this.Record.sbr_20_baf = 0;
     this.Record.sbr_20_caf = 0;
     this.Record.sbr_20_ddc = 0;
@@ -290,14 +323,7 @@ export class SeaBuyRateComponent {
     this.Record.sbr_sail_day = '';
     this.Record.sbr_routing = '';
     this.Record.sbr_remarks = '';
-    this.Record.rec_mode = this.mode;
-    this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
-    this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
   }
-
-
 
 
   // Load a single Record for VIEW/EDIT
@@ -342,7 +368,6 @@ export class SeaBuyRateComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.mainService.Save(this.Record)

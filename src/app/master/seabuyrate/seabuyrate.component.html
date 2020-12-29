@@ -64,8 +64,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.sbr_pkid)">
-          <td>{{rec.rec_created_by}}</td>
+        <tr >
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.sbr_tradelane_name}}</td>
           <td>{{rec.sbr_pol_name}}</td>
@@ -235,7 +235,7 @@
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_20_caf" (blur)="OnBlur('sbr_20_caf')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.sbr_20_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_20_pss" (blur)="OnBlur('sbr_20_pss')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
@@ -270,7 +270,7 @@
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_40_caf" (blur)="OnBlur('sbr_40_caf')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.sbr_40_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_40_pss" (blur)="OnBlur('sbr_40_pss')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
@@ -305,7 +305,7 @@
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_40hc_caf" (blur)="OnBlur('sbr_40hc_caf')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_ddc" (blur)="OnBlur('sbr_40hc_ddc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.sbr_40hc_ddc" (blur)="OnBlur('sbr_40hc_ddc')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                 [(ngModel)]="Record.sbr_40hc_pss" (blur)="OnBlur('sbr_40hc_pss')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
