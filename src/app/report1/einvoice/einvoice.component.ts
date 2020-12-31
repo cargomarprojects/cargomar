@@ -48,6 +48,7 @@ export class EinvoiceComponent {
   dn: boolean = false;
   cn: boolean = false;
 
+  bmanual: boolean = false;
   binvoice: boolean = false;
   bexportinvoice: boolean = false;
   bdn: boolean = false;
@@ -147,10 +148,10 @@ export class EinvoiceComponent {
       apr = this.menu_record.rights_approval;
       
       if (this.menu_record.rights_admin){
-        this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;
+        this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;this.bmanual = true;
       }
       else  {
-        this.binvoice =false; this.bexportinvoice =false;this.bdn =false;this.bcn=false;
+        this.binvoice =false; this.bexportinvoice =false;this.bdn =false;this.bcn=false; this.bmanual =false;
       }
 
       if (apr.toString().indexOf('{IN}') >=0 )
@@ -161,6 +162,8 @@ export class EinvoiceComponent {
         this.bdn =true;
       if (apr.toString().indexOf('{CN}') >= 0)
         this.bcn =true;
+      if (apr.toString().indexOf('{MANUAL}') >= 0)
+        this.bmanual =true;
     }
 
     this.initLov();

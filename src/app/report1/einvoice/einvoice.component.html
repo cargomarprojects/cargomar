@@ -65,7 +65,7 @@
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-            <button [disabled]="loading" (click)="List('GENERATE')" class="btn btn-primary btn-sm mr-1">Generate JSON</button>
+            <button [disabled]="loading" (click)="List('GENERATE')" class="btn btn-primary btn-sm mr-1" *ngIf="bmanual">Generate JSON</button>
             <button [disabled]="loading" (click)="List('GSP')" class="btn btn-primary btn-sm mr-1">GENERATE IRN</button>
           </div>              
         </div>
@@ -73,12 +73,12 @@
 
       <div class="col-md-3">
         
-        <div class="form-group row">
+        <div class="form-group row" *ngIf="bmanual">
           <div class="col-12">
             <input type="file" class="form-control-file" id="exampleFormControlFile1" (change)="getFileDetails($event)">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" *ngIf="bmanual">
           <div class="col-12">
             <button [disabled]="loading" (click)="upload()" class="btn btn-primary btn-sm mr-1">Upload</button>
           </div>
