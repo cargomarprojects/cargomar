@@ -383,11 +383,11 @@ export class InfoTypeComponent {
     OnBlur(field: string) {
         switch (field) {
 
-            case 'sw_info_text':
-                {
-                    this.Record.sw_info_text = this.Record.sw_info_text.toUpperCase();
-                    break;
-                }
+            // case 'sw_info_text':
+            //     {
+            //         this.Record.sw_info_text = this.Record.sw_info_text.toUpperCase();
+            //         break;
+            //     }
             case 'sw_info_msr':
                 {
                     this.Record.sw_info_msr = this.gs.roundNumber(this.Record.sw_info_msr, 3);
