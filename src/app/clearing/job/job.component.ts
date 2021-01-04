@@ -1502,7 +1502,7 @@ export class JobComponent {
       .subscribe(response => {
         this.loading = false;
         if (edifiletype == 'CHECKLIST') {
-          if (response.serror.toString().indexOf("ESANCHIT") >= 0) {
+          if (response.serror.toString().indexOf("ESANCHIT") >= 0 || response.serror.toString().indexOf("RoDTEP") >= 0) {
             alert(response.serror.toString());
           }
         }
