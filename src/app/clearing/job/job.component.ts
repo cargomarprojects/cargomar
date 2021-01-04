@@ -1502,7 +1502,7 @@ export class JobComponent {
       .subscribe(response => {
         this.loading = false;
         if (edifiletype == 'CHECKLIST') {
-          if (response.serror.toString().indexOf("ESANCHIT") >= 0) {
+          if (response.serror.toString().indexOf("ESANCHIT") >= 0 || response.serror.toString().indexOf("RoDTEP") >= 0) {
             alert(response.serror.toString());
           }
         }
@@ -1536,9 +1536,11 @@ export class JobComponent {
   SetMarksNos() {
     let str: string = "";
 
-    str = "I/WE UNDERTAKE TO ABIDE BY THE PROVISIONS OF FOREIGN EXCHANGE MANAGEMENT ACT, 1999, ";
-    str += "AS AMENDED FROM TIME TO TIME, INCLUDING REALISATION OR REPATRIATION OF FOREIGN EXCHANGE TO";
-    str += " OR FROM INDIA.(WE INTEND TO CLAIM REWARDS UNDER MEIS & ROSCTL)";
+    // str = "I/WE UNDERTAKE TO ABIDE BY THE PROVISIONS OF FOREIGN EXCHANGE MANAGEMENT ACT, 1999, ";
+    // str += "AS AMENDED FROM TIME TO TIME, INCLUDING REALISATION OR REPATRIATION OF FOREIGN EXCHANGE TO";
+    // str += " OR FROM INDIA.(WE INTEND TO CLAIM REWARDS UNDER MEIS & ROSCTL)";
+
+    str = "WE INTEND TO CLAIM REWARDS MERCHANDISE EXPORTS FROM INDIA SCHEME(MEIS/RODTEP)";
 
     this.Record.job_marks = str.toUpperCase();
   }
