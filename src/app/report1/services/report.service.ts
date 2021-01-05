@@ -131,6 +131,12 @@ export class RepService {
   }
 
 
+  CheckIRN(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/CheckIRN', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
+
 
 }
 

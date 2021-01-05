@@ -374,4 +374,37 @@ export class EinvoiceComponent {
     // _rec.comp_checked = true;
   }
 
+  getIRN(rec : GstReport){
+    this.ErrorMessage = '';
+
+    if (rec.jvh_pkid.trim().length <= 0) {
+      this.ErrorMessage = "No Valid Record";
+      alert(this.ErrorMessage);
+      return;
+    }
+   
+
+    this.loading = true;
+    this.SearchData.pkid = rec.jvh_pkid;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    
+    this.ErrorMessage = '';
+    this.mainService.CheckIRN(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert(response.message);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert( this.ErrorMessage);
+        });
+  }
+
+
+
 }
