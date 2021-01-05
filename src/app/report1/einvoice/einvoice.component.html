@@ -37,10 +37,10 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Branch</label>
           <div class="col-10">
-            <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
+            <app-autocomplete3 [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
               [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
               (ValueChanged)="LovSelected($event)">
-            </app-autocompletemulti>
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
