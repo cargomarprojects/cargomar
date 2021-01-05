@@ -127,7 +127,7 @@
           <th class="text-right">GST-AMT</th>
           <th class="text-right">TOTAL</th>
 
-          <th>CHECK IRN</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">CHECK IRN</th>
 
         </tr>
       </thead>
@@ -157,7 +157,7 @@
           <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_gst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jvh_net_amt | number : '1.2-2' }}</td>
-          <td class="hlink" (click)="getIRN(rec)">CHECK IRN</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="getIRN(rec)">CHECK IRN</td>
         </tr>
       </tbody>
     </table>

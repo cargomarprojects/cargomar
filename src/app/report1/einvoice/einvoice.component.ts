@@ -396,7 +396,7 @@ export class EinvoiceComponent {
     this.mainService.CheckIRN(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        alert(response.message);
+        alert(response.status);
       },
         error => {
           this.loading = false;
