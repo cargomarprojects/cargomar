@@ -158,178 +158,55 @@
         </div>
       </div>
     </div>
-    <!-- <div class="page-box">
+    <div class="page-box">
       <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
-          <thead class="page-body-thead">
+          <thead class="page-body-thead" >
             <tr>
-              <th></th>
-              <th>ALL.IN</th>
-              <th>FRT</th>
-              <th>BAF</th>
-              <th>CAF</th>
-              <th>DDC</th>
-              <th>PSS</th>
-              <th>EBF</th>
-              <th>CHASSIS</th>
-              <th>SUEZ</th>
-              <th>PIRACY</th>
-              <th>IHC</th>
-              <th>IFS</th>
-              <th>OTHER</th>
-              <th>ISPS</th>
-              <th>ACD/ENS</th>
+              <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">DRY</th>
+              <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">REEFER</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">MUC (INR)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL (INR)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">BL (INR)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD (USD)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS (USD)</th>
             </tr>
+            <tr>
+              <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
+              <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
+              <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
+              <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
+            </tr>
+            <!-- <tr>
+              <th colspan="7" style="border: 1px solid whitesmoke;text-align: center;">INR</th>
+              <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;" >USD</th>
+            </tr> -->
           </thead>
           <tbody class="page-body-tbody">
             <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>20&nbsp;&nbsp;</strong></span>
-              </td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_allin" (blur)="OnBlur('sbr_20_allin')" required maxlength="14" /> </td>
+                  [(ngModel)]="Record.lc_dry_20_thc" (blur)="OnBlur('lc_dry_20_thc')" required maxlength="14" /> </td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20" (blur)="OnBlur('sbr_20')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_dry_40_thc" (blur)="OnBlur('lc_dry_40_thc')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_baf" (blur)="OnBlur('sbr_20_baf')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_reefer_20_thc" (blur)="OnBlur('lc_reefer_20_thc')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_caf" (blur)="OnBlur('sbr_20_caf')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_reefer_40_thc" (blur)="OnBlur('lc_reefer_40_thc')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_muc" (blur)="OnBlur('lc_muc')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_pss" (blur)="OnBlur('sbr_20_pss')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_seal" (blur)="OnBlur('lc_seal')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ebf" (blur)="OnBlur('sbr_20_ebf')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_bl" (blur)="OnBlur('lc_bl')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_chassis" (blur)="OnBlur('sbr_20_chassis')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_acd" (blur)="OnBlur('lc_acd')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_suez" (blur)="OnBlur('sbr_20_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_piracy" (blur)="OnBlur('sbr_20_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ihc" (blur)="OnBlur('sbr_20_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ifs" (blur)="OnBlur('sbr_20_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_other" (blur)="OnBlur('sbr_20_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_isps" (blur)="OnBlur('sbr_20_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_acd" (blur)="OnBlur('sbr_20_acd')" required maxlength="14" /></td>
-            </tr>
-            <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>40&nbsp;&nbsp;</strong></span>
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_allin" (blur)="OnBlur('sbr_40_allin')" required maxlength="14" /> </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40" (blur)="OnBlur('sbr_40')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_baf" (blur)="OnBlur('sbr_40_baf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_caf" (blur)="OnBlur('sbr_40_caf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_pss" (blur)="OnBlur('sbr_40_pss')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ebf" (blur)="OnBlur('sbr_40_ebf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_chassis" (blur)="OnBlur('sbr_40_chassis')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_suez" (blur)="OnBlur('sbr_40_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_piracy" (blur)="OnBlur('sbr_40_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ihc" (blur)="OnBlur('sbr_40_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ifs" (blur)="OnBlur('sbr_40_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_other" (blur)="OnBlur('sbr_40_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_isps" (blur)="OnBlur('sbr_40_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_acd" (blur)="OnBlur('sbr_40_acd')" required maxlength="14" /></td>
-            </tr>
-            <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>40HC&nbsp;&nbsp;</strong></span>
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_allin" (blur)="OnBlur('sbr_40hc_allin')" required maxlength="14" /> </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc" (blur)="OnBlur('sbr_40hc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_baf" (blur)="OnBlur('sbr_40hc_baf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_caf" (blur)="OnBlur('sbr_40hc_caf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ddc" (blur)="OnBlur('sbr_40hc_ddc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_pss" (blur)="OnBlur('sbr_40hc_pss')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ebf" (blur)="OnBlur('sbr_40hc_ebf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_chassis" (blur)="OnBlur('sbr_40hc_chassis')" required maxlength="14" />
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_suez" (blur)="OnBlur('sbr_40hc_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_piracy" (blur)="OnBlur('sbr_40hc_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ihc" (blur)="OnBlur('sbr_40hc_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ifs" (blur)="OnBlur('sbr_40hc_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_other" (blur)="OnBlur('sbr_40hc_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_isps" (blur)="OnBlur('sbr_40hc_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_acd" (blur)="OnBlur('sbr_40hc_acd')" required maxlength="14" /></td>
+                  [(ngModel)]="Record.lc_ens" (blur)="OnBlur('lc_ens')" required maxlength="14" /></td>
             </tr>
           </tbody>
         </table>
-        <div class="row mx-0 px-0">
-          <div class="col-sm-6  mx-0 px-0">
-            <div class="form-group row">
-              <label class="col-6 col-form-label col-form-label-sm">Frequency</label>
-              <div class="col-4">
-                <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_frequency">
-                  <option [value]="'ONCE IN A WEEK'">ONCE IN A WEEK</option>
-                  <option [value]="'TWICE IN A WEEK'">TWICE IN A WEEK</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-6 col-form-label col-form-label-sm">Day of Vessel Cut Off</label>
-              <div class="col-4">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_vsl_cutoff"
-                  (blur)="OnBlur('sbr_vsl_cutoff')" required maxlength="10" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-6 col-form-label col-form-label-sm">Day of Sailing from transshipment Port</label>
-              <div class="col-4">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_sail_day"
-                  (blur)="OnBlur('sbr_sail_day')" required maxlength="10" />
-              </div>
-            </div>
-          </div>
-  
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">
-                Eg: If day of week is Monday then put "DAY" as 1 <br>
-                If multiple days say Monday and Friday then put "DAY" as 1 & 5
-                </label>
-            </div>
-          </div>
-        </div>
-  
-  
       </div>
-    </div> -->
+    </div>
     <div class="page-box">
       <div class="col-sm-6">
         <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
