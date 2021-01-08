@@ -39,6 +39,7 @@ import { AddbookdelComponent  } from './customer/addbookdel.component';
 import { BenfComponent   } from './customer/benf.component';
 import { MailListComponent } from './maillist/maillist.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
+import { LocalChargeComponent } from './localcharge/localcharge.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
     AddbookdelComponent,
     BenfComponent,
     MailListComponent,
-    SeaBuyRateComponent
+    SeaBuyRateComponent,
+    LocalChargeComponent
   ],
   providers: [
   ],
