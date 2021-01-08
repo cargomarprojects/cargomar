@@ -52,6 +52,7 @@
           <th>GST</th>
           <th>RC</th>
           <th>NET</th>
+          <th>EINV</th>
           <th>NARRATION</th>
           <th *ngIf="type=='PN'">APPROVED.BY</th>
         </tr>
@@ -70,7 +71,9 @@
           <td>{{rec.jvh_gst_amt}}</td>
           <td>{{(rec.jvh_rc) ? 'Y' : 'N'}}</td>
           <td>{{rec.jvh_net_amt}}</td>
+          <td>{{rec.jvh_einv_status}}</td>
           <td>{{rec.jvh_narration}}</td>
+          
           <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='PN'">{{rec.rec_aprvd_by}}</td>
         </tr>
       </tbody>
