@@ -419,6 +419,9 @@ export class LocalChargeComponent {
     if (field == 'lc_carrier_name') {
       this.Record.lc_carrier_name = this.Record.lc_carrier_name.toUpperCase();
     }
+    if (field == 'Search') {
+      this.searchstring = this.searchstring.toUpperCase();
+    }
     
     if (field == 'lc_dry_20_thc') {
       this.Record.lc_dry_20_thc  = this.gs.roundNumber(this.Record.lc_dry_20_thc, 2);

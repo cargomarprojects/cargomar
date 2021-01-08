@@ -24,6 +24,11 @@
               <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
               </app-date>
             </div>
+            <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+            <div class="col-sm-2">
+              <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+                [(ngModel)]="searchstring" />
+            </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
               <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
@@ -57,6 +62,8 @@
             <th>ENTRY-DATE</th>
             <th>POL</th>
             <th>LINER</th>
+            <th>VALID-FROM</th>
+            <th>VALID-TO</th>
             <th>THC/DRY-20</th>
             <th>THC/DRY-40</th>
             <th>THC/REFR-20</th>
@@ -64,10 +71,8 @@
             <th>MUC</th>
             <th>SEAL</th>
             <th>BL</th>
-            <th>ACD</th>
-            <th>ENS</th>
-            <th>VALID-FROM</th>
-            <th>VALID-TO</th>
+            <th>ACD-US/CA</th>
+            <th>ENS-EU</th>
             <th *ngIf='bDelete' align="center">DELETE</th>
           </tr>
         </thead>
@@ -77,6 +82,8 @@
             <td>{{rec.rec_created_date}}</td>
             <td>{{rec.lc_pol_name}}</td>
             <td>{{rec.lc_carrier_name}}</td>
+            <td>{{rec.lc_valid_from}}</td>
+            <td>{{rec.lc_valid_to}}</td>
             <td>{{rec.lc_dry_20_thc}}</td>
             <td>{{rec.lc_dry_40_thc}}</td>
             <td>{{rec.lc_reefer_20_thc}}</td>
@@ -86,8 +93,6 @@
             <td>{{rec.lc_bl}}</td>
             <td>{{rec.lc_acd}}</td>
             <td>{{rec.lc_ens}}</td>
-            <td>{{rec.lc_valid_from}}</td>
-            <td>{{rec.lc_valid_to}}</td>
             <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
               (click)="RemoveRecord(rec.lc_pkid)"></i></td>
           </tr>
@@ -168,8 +173,8 @@
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">MUC (INR)</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL (INR)</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">BL (INR)</th>
-              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD (USD)</th>
-              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS (USD)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD US/CA (USD)</th>
+              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS EU (USD)</th>
             </tr>
             <tr>
               <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
