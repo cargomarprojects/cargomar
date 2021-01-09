@@ -1,8 +1,8 @@
 <div class="page-header">
     <div class="col">
       <label>{{title}}</label>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-primary btn-sm">List</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','','')" class="btn btn-primary btn-sm">New</button>
       <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -58,6 +58,7 @@
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
+            <th>BRANCH</th>
             <th>USER</th>
             <th>ENTRY-DATE</th>
             <th>POL</th>
@@ -69,7 +70,7 @@
             <th>THC/REFR-20</th>
             <th>THC/REFR-40</th>
             <th>MUC</th>
-            <th>SEAL</th>
+            <th>SEAL/CURR</th>
             <th>BL</th>
             <th>ACD-US/CA</th>
             <th>ENS-EU</th>
@@ -78,7 +79,8 @@
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr>
-            <td class="hlink" (click)="ActionHandler('EDIT',rec.lc_pkid)">{{rec.rec_created_by}}</td>
+            <td class="hlink" (click)="ActionHandler('EDIT',rec.lc_pkid,rec.rec_branch_code)">{{rec.rec_branch_code}}</td>
+            <td>{{rec.rec_created_by}}</td>
             <td>{{rec.rec_created_date}}</td>
             <td>{{rec.lc_pol_name}}</td>
             <td>{{rec.lc_carrier_name}}</td>
@@ -89,7 +91,7 @@
             <td>{{rec.lc_reefer_20_thc}}</td>
             <td>{{rec.lc_reefer_40_thc}}</td>
             <td>{{rec.lc_muc}}</td>
-            <td>{{rec.lc_seal}}</td>
+            <td>{{rec.lc_seal}} &nbsp;{{rec.lc_seal_curr}}</td>
             <td>{{rec.lc_bl}}</td>
             <td>{{rec.lc_acd}}</td>
             <td>{{rec.lc_ens}}</td>
@@ -171,7 +173,7 @@
               <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">DRY</th>
               <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">REEFER</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">MUC (INR)</th>
-              <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL (INR)</th>
+              <th colspan="2" rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL (CURR)</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">BL (INR)</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD US/CA (USD)</th>
               <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS EU (USD)</th>
@@ -199,8 +201,11 @@
                   [(ngModel)]="Record.lc_reefer_40_thc" (blur)="OnBlur('lc_reefer_40_thc')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                   [(ngModel)]="Record.lc_muc" (blur)="OnBlur('lc_muc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.lc_seal" (blur)="OnBlur('lc_seal')" required maxlength="14" /></td>
+              <td style="padding:0px"> <input type="number" class="form-control form-control-sm"
+                  [(ngModel)]="Record.lc_seal" (blur)="OnBlur('lc_seal')" required maxlength="14" /> </td>
+                <td style="padding:0px">
+                      <app-autocomplete2 #sealcurrLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete2>
+                  </td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
                   [(ngModel)]="Record.lc_bl" (blur)="OnBlur('lc_bl')" required maxlength="14" /></td>
               <td style="padding:0px"><input type="number" class="form-control form-control-sm"
@@ -214,8 +219,8 @@
     </div>
     <div class="page-box">
       <div class="col-sm-6">
-        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+        <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
       </div>
     </div>

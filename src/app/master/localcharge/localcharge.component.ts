@@ -55,7 +55,7 @@ export class LocalChargeComponent {
   PODRECORD: any = {};
   LINERRECORD: any = {};
   TRADELANERECORD: any = {};
-
+  CURRECORD: any = {};
   // Array For Displaying List
   RecordList: LocalCharge[] = [];
   // Single Record for add/edit/view details
@@ -147,12 +147,15 @@ export class LocalChargeComponent {
       this.Record.lc_carrier_code = _Record.code;
       this.Record.lc_carrier_name = _Record.name;
     }
+    if (_Record.controlname == "SEALCURR") {
+      this.Record.lc_seal_curr = _Record.code;
+    }
   }
 
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
+  ActionHandler(action: string, id: string, _brcode: string = '') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -167,6 +170,10 @@ export class LocalChargeComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
+      if (_brcode != this.gs.globalVariables.branch_code) {
+        alert('Cannot Edit from another Branch')
+        return;
+      }
       this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
@@ -243,6 +250,7 @@ export class LocalChargeComponent {
     this.Init();
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.CURRECORD = { 'controlname': 'SEALCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: 'INR', name: 'INR' };
   }
 
   Init() {
@@ -264,6 +272,7 @@ export class LocalChargeComponent {
     this.Record.lc_reefer_40_thc = 0;
     this.Record.lc_muc = 0;
     this.Record.lc_seal = 0;
+    this.Record.lc_seal_curr = 'INR';
     this.Record.lc_bl = 0;
     this.Record.lc_acd = 0;
     this.Record.lc_ens = 0;
@@ -295,6 +304,7 @@ export class LocalChargeComponent {
     this.Record.rec_mode = this.mode;
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.lc_pol_id, code: this.Record.lc_pol_code, name: this.Record.lc_pol_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.lc_carrier_id, code: this.Record.lc_carrier_code, name: this.Record.lc_carrier_name };
+    this.CURRECORD = { 'controlname': 'SEALCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: this.Record.lc_seal_curr, name: this.Record.lc_seal_curr };
   }
 
   // Save Data
@@ -375,12 +385,13 @@ export class LocalChargeComponent {
     else {
       REC.lc_pol_name = this.Record.lc_pol_name;
       REC.lc_carrier_name = this.Record.lc_carrier_name;
-      REC.lc_dry_20_thc  = this.Record.lc_dry_20_thc;
+      REC.lc_dry_20_thc = this.Record.lc_dry_20_thc;
       REC.lc_dry_40_thc = this.Record.lc_dry_40_thc;
       REC.lc_reefer_20_thc = this.Record.lc_reefer_20_thc;
       REC.lc_reefer_40_thc = this.Record.lc_reefer_40_thc;
       REC.lc_muc = this.Record.lc_muc;
       REC.lc_seal = this.Record.lc_seal;
+      REC.lc_seal_curr = this.Record.lc_seal_curr;
       REC.lc_bl = this.Record.lc_bl;
       REC.lc_valid_from = this.Record.lc_valid_from;
       REC.lc_valid_to = this.Record.lc_valid_to;
@@ -422,9 +433,9 @@ export class LocalChargeComponent {
     if (field == 'Search') {
       this.searchstring = this.searchstring.toUpperCase();
     }
-    
+
     if (field == 'lc_dry_20_thc') {
-      this.Record.lc_dry_20_thc  = this.gs.roundNumber(this.Record.lc_dry_20_thc, 2);
+      this.Record.lc_dry_20_thc = this.gs.roundNumber(this.Record.lc_dry_20_thc, 2);
     }
 
     if (field == 'lc_dry_40_thc') {
@@ -456,7 +467,7 @@ export class LocalChargeComponent {
   Close() {
     this.gs.ClosePage('home');
   }
- 
+
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
     this.open(doc);

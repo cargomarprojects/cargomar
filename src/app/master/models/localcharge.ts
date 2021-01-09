@@ -17,11 +17,13 @@ export class LocalCharge {
     lc_reefer_40_thc: number;
     lc_muc: number;
     lc_seal: number;
+    lc_seal_curr: string;
     lc_bl: number;
     lc_acd: number;
     lc_ens: number;
 
     rec_mode: string;
+    rec_branch_code:string;
     _globalvariables: GlobalVariables;
 }
 

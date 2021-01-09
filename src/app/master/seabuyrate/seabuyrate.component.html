@@ -387,7 +387,7 @@
   </div>
   <div class="page-box">
     <div class="col-sm-6">
-      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button  [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
