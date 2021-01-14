@@ -94,6 +94,7 @@ export class Itemm {
     itm_gst_cess:number;
     
     itm_sw: boolean;
+    itm_rodtep: string;
 
     rec_mode: string;
     rec_category: string;

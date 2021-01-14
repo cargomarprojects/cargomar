@@ -26,12 +26,15 @@ export class LocalChargeComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  bDocs: boolean = false;
   ispercent = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
   bPrint = false;
   bDelete = false;
+
+
 
   dbkmode = '';
   searchstring = '';
@@ -94,6 +97,7 @@ export class LocalChargeComponent {
   }
 
   InitComponent() {
+    this.bDocs = false;
     this.fromdate = this.gs.defaultValues.monthbegindate;
     this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -101,6 +105,8 @@ export class LocalChargeComponent {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
       this.bDelete = this.menu_record.rights_delete;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.LoadCombo();
   }
