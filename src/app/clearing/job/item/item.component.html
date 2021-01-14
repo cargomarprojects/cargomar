@@ -20,7 +20,7 @@
               class="btn btn-primary btn-sm  mr-1">Find</button>
           </div>
 
-          <div class="col-sm-2" >
+          <div class="col-sm-2">
             <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm mr-1">Paste
               Data</button>
           </div>
@@ -417,7 +417,16 @@
                     (blur)="OnBlur('itm_gst_cess')" required maxlength="15" />
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">RODTEP</label>
+                <div class="col-sm-8">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.itm_rodtep">
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'Y'">YES</option>
+                    <option [value]="'N'">NO</option>
+                  </select>
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Stmt Type</label>
                 <div class="col-sm-8">
@@ -429,7 +438,7 @@
                   </select>
                 </div>
               </div>
-
+              
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Stmt Code</label>
                 <div style="padding-right:0" class="col-sm-8">
@@ -439,16 +448,7 @@
                   <input type="checkbox" [(ngModel)]="Record.itm_stmt_codeR"> RD001
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-sm-4 col-form-label col-form-label-sm">RODTEP</label>
-                <div class="col-sm-8">
-                  <select class="form-control form-control-sm" [(ngModel)]="Record.itm_rodtep">
-                    <option [value]="'NA'">NA</option>
-                    <option [value]="'Y'">YES</option>
-                    <option [value]="'N'">NO</option>
-                  </select>
-                </div>
-              </div>
+
             </div>
 
             <div class="col-sm-4">
