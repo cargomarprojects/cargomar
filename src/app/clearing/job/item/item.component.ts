@@ -594,11 +594,12 @@ export class ItemComponent {
     this.Record.itm_taxable_value = 0;
     this.Record.itm_igst_amt = 0;
     this.Record.itm_igst_rate = 0;
-    this.Record.itm_stmt_type = 'NA';
+    //this.Record.itm_stmt_type = 'NA';
+    this.Record.itm_stmt_type = 'DEC';
     this.Record.itm_stmt_code1 = false;
     this.Record.itm_stmt_code2 = false;
     this.Record.itm_stmt_code3 = false;
-    this.Record.itm_stmt_codeR = false;
+    this.Record.itm_stmt_codeR = true;
 
     this.Record.itm_third_party_id = '';
     this.Record.itm_third_party_code = '';
@@ -629,6 +630,7 @@ export class ItemComponent {
     this.Record.itm_ritc_qty = 0;
 
     this.Record.itm_sw = false;
+    this.Record.itm_rodtep = 'Y';
     this.Record.rec_mode = this.mode;
 
     this.InitLov();

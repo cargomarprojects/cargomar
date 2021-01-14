@@ -3,7 +3,7 @@
   <div class="page-search">
 
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-6">
 
         <div class="form-group row">
 
@@ -20,7 +20,7 @@
               class="btn btn-primary btn-sm  mr-1">Find</button>
           </div>
 
-          <div class="col-sm-2" *ngIf="true">
+          <div class="col-sm-2" >
             <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm mr-1">Paste
               Data</button>
           </div>
@@ -439,7 +439,16 @@
                   <input type="checkbox" [(ngModel)]="Record.itm_stmt_codeR"> RD001
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">RODTEP</label>
+                <div class="col-sm-8">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.itm_rodtep">
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'Y'">YES</option>
+                    <option [value]="'N'">NO</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div class="col-sm-4">
