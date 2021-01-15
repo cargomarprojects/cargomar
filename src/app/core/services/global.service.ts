@@ -186,7 +186,10 @@ export class GlobalService {
 
   public DownloadFileFromLocalhost(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
-    window.open('http://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
+    if ( window.location.toString().toLowerCase().indexOf('https') >= 0)
+      window.open('https://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
+    else 
+      window.open('http://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
   }
 
 
