@@ -78,6 +78,7 @@
         <tr>
           <th>BANK</th>
           <th>VRNO</th>
+          <th>DATE</th>
           <th>APRVD</th>
           <th>REF#</th>
           <th>TYPE</th>
@@ -109,6 +110,7 @@
           <!-- *ngIf="rec.mt_lock!='G'" -->
           <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td>
           <td class="hlink" (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_jvh_docno}}</td>
+          <td >{{rec.mt_jvh_date}}</td>
           <td >{{rec.mt_aprvd}}</td>
           <td  class="hlink" (click)="ShowHistory(history,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
           <td >{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
