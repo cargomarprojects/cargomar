@@ -4,6 +4,7 @@ export class MoneyTransfer {
     mt_jvh_id: string;
     mt_jv_id: string;
     mt_jvh_docno: string;
+    mt_jvh_date: string;
     mt_type: string;
     mt_txn_mode: string;
     mt_corp_code: string;

@@ -145,12 +145,14 @@ export class FileUploadComponent {
         isValidFile = false;
       if (fname.indexOf('#') >= 0)
         isValidFile = false;
+      if (fname.indexOf(',') >= 0)
+        isValidFile = false;
       this.myFiles.push(e.target.files[i]);
     }
 
     if (!isValidFile) {
       this.filesSelected = false;
-      alert('Invalid File Name - &%#');
+      alert('Invalid File Name - &%,#');
     }
   }
 
