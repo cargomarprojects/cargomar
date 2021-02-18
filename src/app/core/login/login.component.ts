@@ -136,8 +136,8 @@ export class LoginComponent {
         }
 
         if (this.gs.IsLoginSuccess) {
-
           if (this.gs.baseLocalServerUrl != "") {
+            console.log( this.gs.baseLocalServerUrl);
             this.checkLocalServer();
           }
           else {
