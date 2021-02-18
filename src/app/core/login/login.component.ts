@@ -176,7 +176,7 @@ export class LoginComponent {
           this.router.navigate(['loginbranch'], { replaceUrl: true });
         }
         else {
-          this.ErrorExternalLogin = 'External Login Not Allowed';
+          this.ErrorExternalLogin = 'External Login Not Allowed ' + this.gs.baseLocalServerUrl;
         }
       },
         error => {
