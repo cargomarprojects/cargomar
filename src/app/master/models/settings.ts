@@ -9,7 +9,7 @@ export class Settings {
   code: string;
   name: string;
   tabletype: string;
-  
+
 }
 
 export class Settings_VM {
@@ -33,6 +33,7 @@ export class Lockingm {
   lock_jv: string;
   lock_cjv: string;
   lock_rb: string;
+  lock_einvoice: string;
 
   _globalvariables: GlobalVariables;
 }

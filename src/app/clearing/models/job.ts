@@ -138,7 +138,7 @@ export class Jobm {
   job_billtype_name: string;
   job_docs: number;
   job_order: boolean;
-  
+  job_cust_type: string;
 
   rec_mode: string;
   rec_category: string;

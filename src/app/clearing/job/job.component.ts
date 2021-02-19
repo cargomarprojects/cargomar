@@ -871,6 +871,7 @@ export class JobComponent {
     this.Record.job_ntwt_unit_code = this.gs.defaultValues.param_unit_kgs_code;
     this.Record.job_grwt_unit_id = this.gs.defaultValues.param_unit_kgs_id;
     this.Record.job_grwt_unit_code = this.gs.defaultValues.param_unit_kgs_code;
+    this.Record.job_cust_type = 'N';
 
     if (this.type == "SEA EXPORT") {
       this.Record.job_origin_country_id = this.gs.defaultValues.sea_job_origin_country_id;
