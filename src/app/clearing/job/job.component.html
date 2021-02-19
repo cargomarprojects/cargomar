@@ -58,7 +58,8 @@
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm mr-1">Print</button>
               <button [disabled]="loading" (click)="CheckSB(checksb)" class="btn btn-primary btn-sm">Check SB</button>
             </div>
           </div>
@@ -128,7 +129,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" >
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid,i)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
@@ -908,6 +909,16 @@
                           <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_agency_name"
                               (blur)="OnBlur('job_agency_name')" required maxlength="60" />
+                          </div>
+                        </div>
+                        <div class=" form-group row">
+                          <label class="col-3 col-form-label col-form-label-sm">Exporter.Type</label>
+                          <div class="col-9">
+                            <select class="form-control form-control-sm"  [(ngModel)]="Record.job_cust_type">
+                              <option [value]="'N'">NA</option>
+                              <option [value]="'R'">Merchant</option>
+                              <option [value]="'F'">Manufacturer</option>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group row">
