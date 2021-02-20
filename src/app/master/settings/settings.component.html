@@ -388,6 +388,16 @@
         </div>
       </div>
 
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">HO-BANK-CODE</label>
+        <div class="col-8">
+          <app-autocomplete2 #CsdLov [inputdata]="HOBANKRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete2>
+        </div>
+      </div>
+
+
+
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Default Job Sea</label>
         <div class="col-8">

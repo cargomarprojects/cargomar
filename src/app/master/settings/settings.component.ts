@@ -150,6 +150,10 @@ export class SettingsComponent {
   BRACREC: any = { id: '', code: '', name: '' };
 
 
+  HOBANKRECORD: any;
+  HOBANKREC: any = { id: '', code: '', name: '' };
+
+
   // BRANCH SETTINGS
   BR_BL_ISSUED_PLACE: string = '';
   BR_GSTIN: string = '';
@@ -354,6 +358,13 @@ export class SettingsComponent {
       };
 
 
+    if (caption == '' || caption == 'HOBANKACCODE')
+      this.HOBANKRECORD = {
+        controlname: 'HOBANKACCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.HOBANKREC.id, code: this.HOBANKREC.code, name: this.HOBANKREC.name
+      };
+
+
 
     // BRANCH SETTINGS
 
@@ -497,6 +508,12 @@ export class SettingsComponent {
       this.BRACREC.id = _Record.id;
       this.BRACREC.code = _Record.code;
       this.BRACREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'HOBANKACCODE') {
+      this.HOBANKREC.id = _Record.id;
+      this.HOBANKREC.code = _Record.code;
+      this.HOBANKREC.name = _Record.name;
     }
 
 
@@ -798,6 +815,13 @@ export class SettingsComponent {
         this.initLov(rec.caption);
       }
 
+      if (rec.caption == "HOBANKACCODE") {
+        this.HOBANKREC.id = rec.id;
+        this.HOBANKREC.code = rec.code;
+        this.HOBANKREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
 
       if (rec.caption == "LR-PREFIX")
         this.BR_LR_PREFIX = rec.name;
@@ -984,6 +1008,9 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SEA-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_SEA.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'AIR-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_AIR.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
+    
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'HOBANKACCODE', this.HOBANKREC.id, this.HOBANKREC.code, this.HOBANKREC.name));
+
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED_SI', '', '', this.BR_CRLIMIT_ENABLED_SI == true ? "Y" : "N"));
