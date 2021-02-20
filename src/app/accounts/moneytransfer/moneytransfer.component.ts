@@ -218,7 +218,9 @@ export class MoneyTransferComponent {
     this.loading = true;
     let SearchData = {
       jvhid: '',
-      jvid: ''
+      jvid: '',
+      rowtype: this.type,
+      branch_code: this.gs.globalVariables.branch_code
     }
 
     SearchData.jvid = this.jvid;
@@ -271,11 +273,11 @@ export class MoneyTransferComponent {
     if (!this.allvalid())
       return;
 
-
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
+    this.Record.mt_category = this.type;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;

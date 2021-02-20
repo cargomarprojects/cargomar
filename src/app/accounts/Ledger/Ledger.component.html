@@ -79,8 +79,8 @@
           <th width="8%">DT</th>
           <th width="4%" align='center'>DOCS</th>
 
-          <th *ngIf="type=='BP'||type=='CP'" width="4%">APPROVED</th>
-          <th *ngIf="type=='BP'||type=='CP'" width="3%">BY</th>
+          <th *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" width="4%">APPROVED</th>
+          <th *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" width="3%">BY</th>
           <th *ngIf="type=='BP'" width="3%">CHQ.PRINT</th>
         </tr>
       </thead>
@@ -96,8 +96,8 @@
           <td>{{rec.rec_created_date}}</td>
           <td align='center'>{{rec.jvh_docs}}</td>
 
-          <td *ngIf="type=='BP'||type=='CP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_status}}</td>
-          <td *ngIf="type=='BP'||type=='CP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_by}}</td>
+          <td *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_status}}</td>
+          <td *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">{{rec.rec_aprvd_by}}</td>
           <td *ngIf="type=='BP'" align='center'>{{rec.jvh_chq_printed}}</td>
         </tr>
       </tbody>
@@ -678,7 +678,7 @@
                 class="btn btn-default btn-sm">Allocation</button>
               <button *ngIf="modeDetail == 'EDIT' && Record.jvh_type=='BP' && bChqprint" [disabled]="loading"
                 (click)="ChequePrint()" class="btn btn-default btn-sm">Cheque Print</button>
-                <button *ngIf="modeDetail == 'EDIT' && mode == 'EDIT' && Record.jvh_type=='BP'" [disabled]="loading"
+                <button *ngIf="modeDetail == 'EDIT' && mode == 'EDIT' && (Record.jvh_type=='BP'||Record.jvh_type=='JV-BP')" [disabled]="loading"
                 (click)="ShowMoneyTransfer(moneytransfer)" class="btn btn-default btn-sm">Fund Transfer</button>
             </div>
           </div>
@@ -774,7 +774,7 @@
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bapprovalstatus !='' && (type=='BP'||type=='CP')"
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bapprovalstatus !='' && (type=='BP'||type=='CP'||type=='JV-BP')"
         (click)="ShowApproval(approval,Record.jvh_pkid)" class="btn btn-success btn-sm">Approval</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">

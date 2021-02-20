@@ -53,17 +53,18 @@ export class MoneyTransfer {
     mt_user_dept: string;
     mt_lock: string;
     mt_slno: number;
-    mt_format:string;
-    mt_selected:boolean;
-    mt_remarks:string;
-    mt_aprvd:string;
-    
-    mt_bank_refno:string;
-    mt_status_code:string;
-    mt_status_desc:string;
-    mt_utr:string;
-    mt_jv_drcr:string;
-    
+    mt_format: string;
+    mt_selected: boolean;
+    mt_remarks: string;
+    mt_aprvd: string;
+
+    mt_bank_refno: string;
+    mt_status_code: string;
+    mt_status_desc: string;
+    mt_utr: string;
+    mt_jv_drcr: string;
+    mt_category: string;
+
     rec_mode: string;
     rec_created_by: string;
 

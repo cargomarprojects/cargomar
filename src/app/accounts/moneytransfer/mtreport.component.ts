@@ -49,6 +49,7 @@ export class MtReportComponent {
 
   SearchData = {
     type: '',
+    rowtype: this.type,
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -179,6 +180,7 @@ export class MtReportComponent {
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
+    this.SearchData.rowtype = this.type;
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
     this.SearchData.page_rows = this.page_rows;
