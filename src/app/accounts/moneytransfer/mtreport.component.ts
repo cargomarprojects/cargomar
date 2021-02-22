@@ -286,25 +286,28 @@ export class MtReportComponent {
       return;
     }
 
-    if (this.gs.globalVariables.user_code != 'ADMIN') {
-      if (Multiple_Bank_Found) {
-        this.ErrorMessage = "Different Bank Found in Selected List....";
-        alert(this.ErrorMessage);
-        return;
-      }
 
-      if (Not_Aprvd_Found) {
-        this.ErrorMessage = "Only Approved Bank Entries Can be Transfered.";
-        alert(this.ErrorMessage);
+    if (Multiple_Bank_Found) {
+      this.ErrorMessage = "Different Bank Found in Selected List....";
+      alert(this.ErrorMessage);
+      if (this.gs.globalVariables.user_code != 'ADMIN')
         return;
-      }
-
-      if (Generated_Bank_Found) {
-        this.ErrorMessage = "One or More Records Already Generated.....";
-        alert(this.ErrorMessage);
-        return;
-      }
     }
+
+    if (Not_Aprvd_Found) {
+      this.ErrorMessage = "Only Approved Bank Entries Can be Transfered.";
+      alert(this.ErrorMessage);
+      if (this.gs.globalVariables.user_code != 'ADMIN')
+        return;
+    }
+
+    if (Generated_Bank_Found) {
+      this.ErrorMessage = "One or More Records Already Generated.....";
+      alert(this.ErrorMessage);
+      if (this.gs.globalVariables.user_code != 'ADMIN')
+        return;
+    }
+
 
     if (_type != 'CHECK-LIST')
       if (!confirm("Do you want to Generate")) {
