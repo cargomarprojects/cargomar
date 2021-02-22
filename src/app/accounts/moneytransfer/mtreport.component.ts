@@ -323,7 +323,10 @@ export class MtReportComponent {
       user_code: this.gs.globalVariables.user_code,
       user_pkid: this.gs.globalVariables.user_pkid,
       pkid: this.jv_id,
-      rowtype: _type
+      rowtype: _type,
+      year_start_date : this.gs.globalVariables.year_start_date,
+      year_end_date : this.gs.globalVariables.year_end_date,
+      year_prefix : this.gs.globalVariables.year_prefix
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
