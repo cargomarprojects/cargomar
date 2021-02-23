@@ -86,7 +86,7 @@
           <th>PAY.DATE</th>
           <th>PAY.MODE</th>
           <th>DEBIT A/C#</th>
-          
+          <th>HO-BP</th>
          <th class="text-right">AMOUNT</th>
          <th>BENEF.A/C#</th>
          <th>BENEF.A/C.TYPE</th>
@@ -118,7 +118,7 @@
           <td >{{rec.mt_value_date}}</td>
           <td >{{rec.mt_txn_mode}}</td>
           <td >{{rec.mt_corp_acc_no}}</td>
-         
+          <td >{{rec.mt_ho_jvh_docno}}</td>
           <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
           <td>{{rec.mt_ben_acc_no}}</td>
           <td>{{rec.mt_ben_acc_type}}</td>
