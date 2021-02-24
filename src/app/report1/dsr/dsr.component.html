@@ -134,6 +134,7 @@
               <select class="form-control form-control-sm" [(ngModel)]="format_type" (change)="OnChange('format')">
                 <option [value]="'GENERAL'">GENERAL</option>
                 <option [value]="'STATUS'">STATUS</option>
+                <option [value]="'PENDING'">PENDING</option>
                 <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
               </select>
             </div>
@@ -157,7 +158,7 @@
   <div *ngIf="rec_category=='SEA EXPORT'" class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
-        <tr *ngIf="format_type=='GENERAL'">
+        <tr *ngIf="format_type=='GENERAL'||format_type=='PENDING'">
           <th *ngIf="all">BRANCH</th>
           <th>JOB#</th>
           <th>DATE</th>
@@ -253,7 +254,7 @@
 
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr *ngIf="format_type=='GENERAL'" [style.color]="rec.row_colour">
+        <tr *ngIf="format_type=='GENERAL'||format_type=='PENDING'" [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.job_docno}}</td>
           <td>{{rec.job_date}}</td>
