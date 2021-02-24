@@ -148,6 +148,7 @@
             <div class="col-sm-10">
               <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('MAIL')" class="btn btn-primary btn-sm">Mail</button>
             </div>
           </div>
         </div>

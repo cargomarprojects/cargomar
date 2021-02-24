@@ -377,6 +377,10 @@ export class DsrComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else  if (_type == 'MAIL')
+        {
+          
+        }
         else {
           this.RecordList = response.list;
         }
