@@ -15,10 +15,10 @@ import { RepService } from '../services/report.service';
 export class DsrComponent {
   title = 'Dsr Report'
 
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
- 
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -30,7 +30,7 @@ export class DsrComponent {
 
   format_type: string = "";
   rec_category: string = "";
-  type_date: string ='';
+  type_date: string = '';
   from_date: string = '';
   to_date: string = '';
   branch_name: string;
@@ -43,7 +43,7 @@ export class DsrComponent {
   agent_id: string;
   agent_code: string;
   agent_name: string;
- 
+
   carrier_id: string;
   carriertype: string;
   pol_id: string;
@@ -61,7 +61,7 @@ export class DsrComponent {
 
   SearchData = {
     type: '',
-    rec_category:'',
+    rec_category: '',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -84,7 +84,7 @@ export class DsrComponent {
     pol_id: '',
     pod_id: '',
     all: false,
-    format_type:''
+    format_type: ''
   };
 
   // Array For Displaying List
@@ -157,7 +157,7 @@ export class DsrComponent {
   }
 
   Init() {
-   
+
     this.type_date = "DATE";
     this.job_type = "ALL";
     this.RecordList = null;
@@ -342,7 +342,7 @@ export class DsrComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-  
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
       this.SearchData.branch_name = this.branch_name;
@@ -377,19 +377,19 @@ export class DsrComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else  if (_type == 'MAIL')
-        {
-          
+        else if (_type == 'MAIL') {
+          if (response.mailmsg.lenth > 0)
+            alert(response.mailmsg);
         }
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -412,6 +412,6 @@ export class DsrComponent {
     this.gs.ClosePage('home');
   }
 
-   
-  
+
+
 }
