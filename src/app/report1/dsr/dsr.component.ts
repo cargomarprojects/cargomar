@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -27,7 +28,7 @@ export class DsrComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  modal: any;
   format_type: string = "";
   rec_category: string = "";
   type_date: string = '';
@@ -101,6 +102,7 @@ export class DsrComponent {
   PODRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -400,11 +402,17 @@ export class DsrComponent {
 
   }
 
-  showRemarks(rec: Dsr) {
-    if (rec.job_pkid == null)
-      return;
-    if (rec.job_pkid !== '') {
-      rec.displayed = !rec.displayed;
+  showRemarks(rec: Dsr, _hblupdt: any) {
+    if (this.format_type == "PENDING") {
+      this.Record = rec;
+      this.open(_hblupdt);
+
+    } else {
+      if (rec.job_pkid == null)
+        return;
+      if (rec.job_pkid !== '') {
+        rec.displayed = !rec.displayed;
+      }
     }
   }
 
@@ -412,6 +420,8 @@ export class DsrComponent {
     this.gs.ClosePage('home');
   }
 
-
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 
 }

@@ -70,13 +70,15 @@ export class DsrRemComponent {
   ngOnInit() {
     this.pkid = this.record.job_pkid;
     this.remarks = this.record.job_remarks;
+    if (this.format_type == "PENDING")
+      this.GetHouseList(this.record.mbl_pkid);
   }
 
   InitComponent() {
 
   }
 
-  GetHouseRecord(MblId: string) {
+  GetHouseList(MblId: string) {
     this.loading = true;
 
     let SearchData = {
@@ -160,6 +162,10 @@ export class DsrRemComponent {
   Close() {
     this.record.displayed = false;
 
+  }
+  SaveHouse()
+  {
+    
   }
 
 }

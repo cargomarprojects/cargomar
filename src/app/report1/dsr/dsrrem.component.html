@@ -1,5 +1,3 @@
-
-
 <div *ngIf="format_type=='REMARK'" class="page-details">
   <div class="col-sm-12">
     <div class="page-details">
@@ -56,30 +54,44 @@
   </div>
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="page-list">
-      Order List
+      House List
       <div class="row">
-        <div class="col-sm-6">
-          <div style="height: 300px; overflow-y: scroll;">
-            <div class="page-body table-responsive">
-              <table class="table  table-hover table-sm">
-                <thead class="page-body-thead">
-                  <tr>
-                    <th>HOUSE#</th>
-                    <th>SHIPPER</th>
-                    <th>INVNOS</th>
-                    <th>INVAMT</th>
-                  </tr>
-                </thead>
-                <tbody class="page-body-tbody">
-                  <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"> 
-                    <td>{{rec.hbl_bl_no}}</td>
-                    <td>{{rec.hbl_exporter_name}}</td>
-                    <td>{{rec.hbl_ar_invnos}}</td>
-                    <td>{{rec.hbl_ar_invamt}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <div class="col-sm-12">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>HOUSE#</th>
+                  <th>SHIPPER</th>
+                  <th>INVNOS</th>
+                  <th>INVAMT</th>
+                  <th>STATUS</th>
+                  <th>REMARKS</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+                  <td>{{rec.hbl_bl_no}}</td>
+                  <td>{{rec.hbl_exporter_name}}</td>
+                  <td>{{rec.hbl_ar_invnos}}</td>
+                  <td>{{rec.hbl_ar_invamt}}</td>
+                  <td>
+                      <select class="form-control form-control-sm"  [(ngModel)]="rec.job_commodity">
+                        <option [value]="'C'">COMPLETED</option>
+                        <option [value]="'P'">PENDING</option>
+                        <option [value]="'NA'">NOT REQUIRED</option>
+                      </select>
+                  </td>
+                  <td style="padding:0"><input type="text" class="form-control form-control-sm"
+                    [(ngModel)]="rec.hbl_ar_invnos" required maxlength="50" />
+                 </td>
+                  <td style="padding:0">
+                    <button [disabled]="loading" (click)="SaveHouse()" class="btn btn-default btn-sm">Save</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -114,4 +126,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

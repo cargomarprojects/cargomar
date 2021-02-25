@@ -39,7 +39,7 @@ export class Dsr {
   job_pofd_name: string;
   salesman: string;
   opr_cleared_date: string;
-  
+
   job_chwt: number;
   hbl_date: string;
   hbl_invoice_nos: string;
@@ -113,9 +113,10 @@ export class Dsr {
   mbl_vessel2_name: string;
 
   displayed: boolean;
-  
+
   mbl_ap_invnos: string;
   mbl_ap_invamt: number;
+  mbl_pkid: string;
 
   _globalvariables: GlobalVariables;
 }
