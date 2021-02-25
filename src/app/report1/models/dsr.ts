@@ -113,6 +113,9 @@ export class Dsr {
   mbl_vessel2_name: string;
 
   displayed: boolean;
+  
+  mbl_ap_invnos: string;
+  mbl_ap_invamt: number;
 
   _globalvariables: GlobalVariables;
 }
