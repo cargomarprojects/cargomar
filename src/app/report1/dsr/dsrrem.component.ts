@@ -15,13 +15,16 @@ import { Dsr } from '../models/dsr';
 export class DsrRemComponent {
   // Local Variables 
   title = '';
- 
+
   @Input() record: Dsr;
+  @Input() format_type: string = 'REMARK';
 
   pkid: string = '';
   remarks: string = '';
-      
-  
+  mbl_no: string = '';
+  mbl_invno: string = '';
+  mbl_invamt: number = 0;
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -36,19 +39,19 @@ export class DsrRemComponent {
 
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
   InfoMessage = "";
 
   mode = '';
-  
+
   SearchData = {
     pkid: '',
     remarks: ''
   }
-  
-  // Array For Displaying List
 
+  // Array For Displaying List
+  RecordList: Dsr[] = [];
   // Single Record for add/edit/view details
 
 
@@ -70,9 +73,36 @@ export class DsrRemComponent {
   }
 
   InitComponent() {
-    
+
   }
 
+  GetHouseRecord(MblId: string) {
+    this.loading = true;
+
+    let SearchData = {
+      MBLID: MblId,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetHouseList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList = response.list;
+        if (this.RecordList != null)
+          this.RecordList.length > 0
+        {
+          this.mbl_no = this.RecordList[0].mbl_bl_no;
+          this.mbl_invno = this.RecordList[0].mbl_ap_invnos;
+          this.mbl_invamt = this.RecordList[0].mbl_ap_invamt;
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
   // Save Data
   Save() {
@@ -103,11 +133,11 @@ export class DsrRemComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -115,7 +145,7 @@ export class DsrRemComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     if (this.remarks.toString().length <= 0) {
       bret = false;
       sError = " | Remarks Cannot Be Blank";
