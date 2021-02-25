@@ -59,6 +59,7 @@
           <th>HO-VRNO</th>
           <th>BR-VRNO</th>
           <th>BR-INVNO</th>          
+          <th>EINV-STATUS</th>
           <th>POSTED</th>
           <th>CURR</th>
           <th align='right'>DRCR-FC</th>
@@ -82,7 +83,9 @@
           <td>{{rec.cost_jv_ho_vrno}}</td>
           <td>{{rec.cost_jv_br_vrno}}</td>
           <td>{{rec.cost_jv_br_invno}}</td>          
+          <td>{{rec.cost_einv_status}}</td>          
           <td>{{rec.cost_jv_posted ? 'Y' : 'N'}}</td>
+          
           <td>{{rec.cost_currency_code}}</td>
           <td align='right'>{{rec.cost_drcr_amount | number : '1.2-2'}}</td>
           <td align='right'>{{rec.cost_exrate | number : '1.2-2'}}</td>
