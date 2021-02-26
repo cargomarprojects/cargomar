@@ -256,7 +256,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.sino}}</td>
+          <td (click)="showMonRepUpdt(rec,'PENDING')" [style.cursor] = "bEdit?'pointer':''">{{rec.sino}}</td>
           <td>{{rec.created_date}}</td>
           <td>{{rec.folder_no}}</td>
           <td>{{rec.folder_sent}}</td>
@@ -291,6 +291,11 @@
           <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
+        </tr>
+        <tr *ngIf="bEdit && rec.displayed">
+          <td colspan="30">
+            <app-monrepupdt [record]="rec" [format_type]="format_type" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -346,7 +351,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.sino}}</td>
+          <td (click)="showMonRepUpdt(rec,'PENDING')" [style.cursor] = "bEdit?'pointer':''">{{rec.sino}}</td>
           <td>{{rec.created_date}}</td>
           <td>{{rec.folder_no}}</td>
           <td>{{rec.folder_sent}}</td>
@@ -360,13 +365,13 @@
           <td>{{rec.consignee_name}}</td>
           <td>{{rec.agent_name}}</td>
           <td>{{rec.agent_created_date}}</td>
-          <td (click)="showMonRepUpdt(rec)" [style.cursor] = "bEdit?'pointer':''">{{rec.hbl_nomination}}</td>
+          <td (click)="showMonRepUpdt(rec,'NOM')" [style.cursor] = "bEdit?'pointer':''">{{rec.hbl_nomination}}</td>
           <td>{{rec.carrier_name}}</td>
           <td>{{rec.pol_name}}</td>
           <td>{{rec.pod_name}}</td>
           <td>{{rec.pofd_name}}</td>
           <td>{{rec.pol_etd}}</td>
-          <td (click)="showMonRepUpdt(rec)" [style.cursor] = "bEdit?'pointer':''">{{rec.sman_name}}</td>
+          <td (click)="showMonRepUpdt(rec,'NOM')" [style.cursor] = "bEdit?'pointer':''">{{rec.sman_name}}</td>
           <td align='right'>{{rec.hbl_grwt | number : '1.3-3'}}</td>
           <td align='right'>{{rec.hbl_chwt | number : '1.3-3'}}</td>
           <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
@@ -437,7 +442,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.sino}}</td>
+          <td (click)="showMonRepUpdt(rec,'PENDING')" [style.cursor] = "bEdit?'pointer':''">{{rec.sino}}</td>
           <td>{{rec.created_date}}</td>
           <td>{{rec.folder_no}}</td>
           <td>{{rec.folder_sent}}</td>
@@ -470,6 +475,11 @@
           <td align='right'>{{rec.hbl_sell_rate_cc | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_buy_rate_pp | number : '1.2-2'}}</td>
           <td align='right'>{{rec.hbl_buy_rate_cc | number : '1.2-2'}}</td>
+        </tr>
+        <tr *ngIf="bEdit && rec.displayed">
+          <td colspan="30">
+            <app-monrepupdt [record]="rec" [format_type]="format_type" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
+          </td>
         </tr>
       </tbody>
     </table>

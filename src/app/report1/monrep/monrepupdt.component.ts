@@ -99,8 +99,8 @@ export class MonRepUpdtComponent {
         this.hblno = this.record.sino;
         this.hbl_inv_remarks = this.record.hbl_inv_remarks;
         this.hbl_inv_status = this.record.hbl_inv_status;
-        if (this.hbl_inv_status == null || this.hbl_inv_status == undefined || this.hbl_inv_status == '')
-            this.hbl_inv_status = 'P';
+        if (this.hbl_inv_status == null || this.hbl_inv_status == undefined)
+            this.hbl_inv_status = '';
         this.InitLov();
         this.SALESMANRECORD.id = this.record.sman_id;
         this.SALESMANRECORD.name = this.record.sman_name;
@@ -133,6 +133,13 @@ export class MonRepUpdtComponent {
           return;
         */
         this.ErrorMessage = '';
+        if (_type === "PENDING-INVOICE") {
+            if (this.hbl_inv_remarks == null || this.hbl_inv_remarks == undefined || this.hbl_inv_remarks == '') {
+                this.ErrorMessage = 'Remarks Cannot be Blank.'
+                alert(this.ErrorMessage);
+                return;
+            }
+        }
 
         this.SearchData.type = _type;
         this.SearchData.pkid = this.pkid;
