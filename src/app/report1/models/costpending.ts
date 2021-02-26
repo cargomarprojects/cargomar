@@ -18,6 +18,9 @@ export class CostPending {
   cost_folderno: string;
   cost_jv_posted: string;
   rec_category: string;
-  
+  mbl_pol_etd_confirm: string;
+  mbl_vessel_name: string;
+  mbl_voyage_no: string;
+
   _globalvariables: GlobalVariables;
 }
