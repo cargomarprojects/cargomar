@@ -86,7 +86,9 @@ export class MonrepComponent {
     pod_id: '',
     all: false,
     badmin: false,
-    pendingInvoice: false
+    pendingInvoice: false,
+    user_code:'',
+    user_name:''
   };
 
   // Array For Displaying List
@@ -361,6 +363,8 @@ export class MonrepComponent {
     this.SearchData.pol_id = this.pol_id;
     this.SearchData.pod_id = this.pod_id;
     this.SearchData.pendingInvoice = this.pendingInvoice;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.user_name = this.gs.globalVariables.user_name;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
