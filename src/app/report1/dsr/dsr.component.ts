@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -27,7 +28,7 @@ export class DsrComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  modal: any;
   format_type: string = "";
   rec_category: string = "";
   type_date: string = '';
@@ -101,6 +102,7 @@ export class DsrComponent {
   PODRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -377,10 +379,6 @@ export class DsrComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'MAIL') {
-          if (response.mailmsg.lenth > 0)
-            alert(response.mailmsg);
-        }
         else {
           this.RecordList = response.list;
         }
@@ -412,6 +410,8 @@ export class DsrComponent {
     this.gs.ClosePage('home');
   }
 
-
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 
 }

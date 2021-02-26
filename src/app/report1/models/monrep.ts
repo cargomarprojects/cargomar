@@ -41,7 +41,7 @@ export class MonRep {
   hbl_job_nos: string;
   hbl_ntwt: string;
 
-  mbl_nature: string; 
+  mbl_nature: string;
   shipment_type: string;
 
   hbl_ar_invnos: string;
@@ -50,17 +50,19 @@ export class MonRep {
 
   branch: string;
   agent_created_date: string;
-  
-  hbl_sell_rate_pp:number;
-  hbl_sell_rate_cc:number;
-  hbl_buy_rate_pp:number;
-  hbl_buy_rate_cc:number;
 
-  hbl_pkid: string; 
+  hbl_sell_rate_pp: number;
+  hbl_sell_rate_cc: number;
+  hbl_buy_rate_pp: number;
+  hbl_buy_rate_cc: number;
+  hbl_inv_status: string;
+  hbl_inv_remarks: string;
+
+  hbl_pkid: string;
   sman_id: string;
   displayed: boolean;
 
   created_date: string;
-  
-    _globalvariables: GlobalVariables;
+
+  _globalvariables: GlobalVariables;
 }
