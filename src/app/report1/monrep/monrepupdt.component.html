@@ -1,7 +1,7 @@
 <div class="page-details">
     <div class="col-sm-12">
-        <div class="page-details">
-            <div class="row">
+        <div *ngIf="format_type=='NOM'" class="page-details">
+            <div  class="row">
                 <div class="col-sm-4">
                     <div class="form-group row">
                         <label class="col-2 col-form-label col-form-label-sm">Salesman</label>
@@ -42,6 +42,33 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="format_type=='PENDING'" class="page-details">
+            <div  class="row">
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label class="col-1 col-form-label col-form-label-sm">Status</label>
+                        <div class="col-3">
+                            <select class="form-control form-control-sm"  [(ngModel)]="hbl_inv_status">
+                                <option [value]="'P'">PENDING</option>
+                                <option [value]="'NA'">NOT REQUIRED</option>
+                              </select>
+                        </div>
+                        <label class="col-1 col-form-label col-form-label-sm">Remarks</label>
+                        <div class="col-7">
+                            <input type="text" class="form-control form-control-sm"
+                            [(ngModel)]="hbl_inv_remarks" (blur)="OnBlur('hbl_inv_remarks')" required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-1 col-sm-11">
+                            <button [disabled]="loading" (click)="Save('PENDING-INVOICE')" class="btn btn-primary btn-sm">Update</button>
+                            <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+                            <i *ngIf="loading" class="fa fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
 </div>
 <br />

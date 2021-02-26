@@ -18,6 +18,7 @@ export class MonRepUpdtComponent {
     @Input() bAdmin: boolean = false;
     @Input() record: MonRep;
     @Output() ModifiedRecords = new EventEmitter<any>();
+    @Input() format_type: string = 'NOM';
 
     pkid: string = '';
     nomination: string = '';
@@ -27,6 +28,8 @@ export class MonRepUpdtComponent {
     old_smanname: string = '';
     hbltype: string = '';
     hblno: string = '';
+    hbl_inv_status: string = '';
+    hbl_inv_remarks: string = '';
 
     InitCompleted: boolean = false;
     menu_record: any;
@@ -62,8 +65,10 @@ export class MonRepUpdtComponent {
         hblno: '',
         rowtype: '',
         type: '',
-        periods:'',
-        shipper:''
+        periods: '',
+        shipper: '',
+        hbl_inv_status: '',
+        hbl_inv_remarks: ''
     }
     SALESMANRECORD: SearchTable = new SearchTable();
 
@@ -92,6 +97,10 @@ export class MonRepUpdtComponent {
         this.old_smanname = this.record.sman_name;
         this.hbltype = this.record.hbl_type;
         this.hblno = this.record.sino;
+        this.hbl_inv_remarks = this.record.hbl_inv_remarks;
+        this.hbl_inv_status = this.record.hbl_inv_status;
+        if (this.hbl_inv_status == null || this.hbl_inv_status == undefined || this.hbl_inv_status == '')
+            this.hbl_inv_status = 'P';
         this.InitLov();
         this.SALESMANRECORD.id = this.record.sman_id;
         this.SALESMANRECORD.name = this.record.sman_name;
@@ -139,7 +148,9 @@ export class MonRepUpdtComponent {
         this.SearchData.user_code = this.gs.globalVariables.user_code;
         this.SearchData.periods = '';
         this.SearchData.shipper = '';
-        
+        this.SearchData.hbl_inv_status = this.hbl_inv_status;
+        this.SearchData.hbl_inv_remarks = this.hbl_inv_remarks;
+
         if (_type === "SALESMAN-ALL") {
             if (this.ModifiedRecords != null)
                 this.ModifiedRecords.emit({ saction: _type, smanid: this.smanid, smanname: this.smanname, SearchData: this.SearchData });
@@ -158,6 +169,10 @@ export class MonRepUpdtComponent {
                         if (_type === "SALESMAN") {
                             this.record.sman_id = this.smanid;
                             this.record.sman_name = this.smanname;
+                        }
+                        if (_type === "PENDING-INVOICE") {
+                            this.record.hbl_inv_remarks = this.hbl_inv_remarks;
+                            this.record.hbl_inv_status = this.hbl_inv_status;
                         }
                         this.record.displayed = false;
                     }
@@ -191,6 +206,16 @@ export class MonRepUpdtComponent {
     Close() {
         this.record.displayed = false;
 
+    }
+
+    OnBlur(field: string) {
+        switch (field) {
+            case 'hbl_inv_remarks':
+                {
+                    this.hbl_inv_remarks = this.hbl_inv_remarks.toUpperCase();
+                    break;
+                }
+        }
     }
 
 }

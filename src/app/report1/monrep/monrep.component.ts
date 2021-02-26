@@ -47,9 +47,11 @@ export class MonrepComponent {
   pol_id: string;
   pod_id: string;
   porttype: string;
+  format_type: string = '';
 
   disableSave = true;
   all: boolean = false;
+  pendingInvoice: boolean = false;
 
   bExcel = false;
   bCompany = false;
@@ -82,7 +84,8 @@ export class MonrepComponent {
     pol_id: '',
     pod_id: '',
     all: false,
-    badmin: false
+    badmin: false,
+    pendingInvoice: false
   };
 
   // Array For Displaying List
@@ -353,7 +356,7 @@ export class MonrepComponent {
     this.SearchData.carrier_id = this.carrier_id;
     this.SearchData.pol_id = this.pol_id;
     this.SearchData.pod_id = this.pod_id;
-
+    this.SearchData.pendingInvoice = this.pendingInvoice;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -383,7 +386,13 @@ export class MonrepComponent {
     this.gs.ClosePage('home');
   }
 
-  showMonRepUpdt(rec: MonRep) {
+  showMonRepUpdt(rec: MonRep, _type: string = '') {
+    // if (_type == 'PENDING')
+    //   if (!this.pendingInvoice)
+    //     return;
+    // this.format_type = this.pendingInvoice == true ? 'PENDING' : 'NOM';
+    this.format_type = _type;
+
     if (rec.hbl_pkid == null)
       return;
     if (rec.hbl_pkid != '') {
@@ -415,7 +424,7 @@ export class MonrepComponent {
       let shpr: string = "";
       for (let rec of this.RecordList) {
         if (rec.hbl_pkid != null) {
-          shpr=rec.shipper_name;
+          shpr = rec.shipper_name;
           if (hbl_ids != "") {
             hbl_ids += ",";
             old_sman_names += ",";
@@ -450,6 +459,7 @@ export class MonrepComponent {
 
           });
     }
+    
   }
 
 }
