@@ -379,10 +379,6 @@ export class DsrComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'MAIL') {
-          if (response.mailmsg.lenth > 0)
-            alert(response.mailmsg);
-        }
         else {
           this.RecordList = response.list;
         }
@@ -402,17 +398,11 @@ export class DsrComponent {
 
   }
 
-  showRemarks(rec: Dsr, _hblupdt: any) {
-    if (this.format_type == "PENDING") {
-      this.Record = rec;
-      this.open(_hblupdt);
-
-    } else {
-      if (rec.job_pkid == null)
-        return;
-      if (rec.job_pkid !== '') {
-        rec.displayed = !rec.displayed;
-      }
+  showRemarks(rec: Dsr) {
+    if (rec.job_pkid == null)
+      return;
+    if (rec.job_pkid !== '') {
+      rec.displayed = !rec.displayed;
     }
   }
 

@@ -17,8 +17,7 @@ export class DsrRemComponent {
   title = '';
 
   @Input() record: Dsr;
-  @Input() format_type: string = 'REMARK';
-
+  
   pkid: string = '';
   remarks: string = '';
   mbl_no: string = '';
@@ -70,41 +69,39 @@ export class DsrRemComponent {
   ngOnInit() {
     this.pkid = this.record.job_pkid;
     this.remarks = this.record.job_remarks;
-    if (this.format_type == "PENDING")
-      this.GetHouseList(this.record.mbl_pkid);
   }
 
   InitComponent() {
 
   }
 
-  GetHouseList(MblId: string) {
-    this.loading = true;
+  // GetHouseList(MblId: string) {
+  //   this.loading = true;
 
-    let SearchData = {
-      MBLID: MblId,
-    };
+  //   let SearchData = {
+  //     MBLID: MblId,
+  //   };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetHouseList(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        this.RecordList = response.list;
-        if (this.RecordList != null)
-          this.RecordList.length > 0
-        {
-          this.mbl_no = this.RecordList[0].mbl_bl_no;
-          this.mbl_invno = this.RecordList[0].mbl_ap_invnos;
-          this.mbl_invamt = this.RecordList[0].mbl_ap_invamt;
-        }
+  //   this.ErrorMessage = '';
+  //   this.InfoMessage = '';
+  //   this.mainService.GetHouseList(SearchData)
+  //     .subscribe(response => {
+  //       this.loading = false;
+  //       this.RecordList = response.list;
+  //       if (this.RecordList != null)
+  //         this.RecordList.length > 0
+  //       {
+  //         this.mbl_no = this.RecordList[0].mbl_bl_no;
+  //         this.mbl_invno = this.RecordList[0].mbl_ap_invnos;
+  //         this.mbl_invamt = this.RecordList[0].mbl_ap_invamt;
+  //       }
 
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
-  }
+  //     },
+  //       error => {
+  //         this.loading = false;
+  //         this.ErrorMessage = this.gs.getError(error);
+  //       });
+  // }
 
   // Save Data
   Save() {
@@ -163,9 +160,6 @@ export class DsrRemComponent {
     this.record.displayed = false;
 
   }
-  SaveHouse()
-  {
-    
-  }
+  
 
 }

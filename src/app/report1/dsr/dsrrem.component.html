@@ -1,4 +1,4 @@
-<div *ngIf="format_type=='REMARK'" class="page-details">
+<div class="page-details">
   <div class="col-sm-12">
     <div class="page-details">
       <div class="col-sm-12">
@@ -21,9 +21,9 @@
     </div>
   </div>
 </div>
-
+<!-- 
 <div *ngIf="format_type=='PENDING'" class="page-details">
-  <!--<label>{{title}}</label>-->
+  
   <div class="col">
     <font color="black">
       <strong>
@@ -49,7 +49,7 @@
     <font color="red">
       {{mbl_invamt}}
     </font>
-    <!-- <button [disabled]="loading" (click)="CreateOrder('VALIDATE')" class="btn btn-primary btn-sm">Validate</button> -->
+   
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
   <div class="col-sm-12 col-md-12 col-lg-12">
@@ -96,24 +96,10 @@
         </div>
       </div>
     </div>
-    <!-- <div class="page-details">
-      <div class="col-sm-6">
-        <div class="form-group row" style="color:black">
-          <label class="col-sm-1 col-form-label col-form-label-sm">REF#</label>
-          <div class="col-sm-3">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_agentref_id"
-              (blur)="OnBlur('ord_agentref_id')" required maxlength="30" />
-          </div>
-          <div class="col-sm-8">
-            <button [disabled]="loading" (click)="Save('SAVE')" class="btn btn-primary btn-sm">Save</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
-      </div>
-    </div> -->
+   
 
   </div>
-</div>
+</div> -->
 
 <br />
 
