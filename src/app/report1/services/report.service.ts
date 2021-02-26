@@ -35,11 +35,6 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/DsrList', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  GetHouseList(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GetHouseList', SearchData, this.gs.headerparam2('authorized'));
-  }
-  
-
   OsReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/OsList', SearchData, this.gs.headerparam2('authorized'));
   }

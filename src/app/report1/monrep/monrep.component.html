@@ -107,6 +107,7 @@
             <div class="col-sm-10">
               <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button *ngIf="bEmail" [disabled]="loading" (click)="List('MAIL')" class="btn btn-primary btn-sm">Mail</button>
             </div>
           </div>
         </div>
@@ -393,7 +394,7 @@
         </tr>
         <tr *ngIf="bEdit && rec.displayed">
           <td colspan="30">
-            <app-monrepupdt [record]="rec" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
+            <app-monrepupdt [record]="rec" [format_type]="format_type"  [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-monrepupdt>
           </td>
         </tr>
       </tbody>

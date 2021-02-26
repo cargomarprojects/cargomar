@@ -57,6 +57,7 @@ export class MonrepComponent {
   bCompany = false;
   bAdmin = false;
   bEdit = false;
+  bEmail = false;
 
   loading = false;
   currentTab = 'LIST';
@@ -134,6 +135,7 @@ export class MonrepComponent {
     this.bAdmin = false;
     this.bExcel = false;
     this.bEdit = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -145,6 +147,8 @@ export class MonrepComponent {
         this.bExcel = true;
       if (this.menu_record.rights_edit)
         this.bEdit = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
     if (this.type.toString() == "HBL-SE" || this.type.toString() == "HBL-SI") {
       this.porttype = "SEA PORT";
@@ -363,6 +367,10 @@ export class MonrepComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          if (response.mailmsg.length > 0)
+            alert(response.mailmsg);
+        }
         else {
           this.RecordList = response.list;
         }
@@ -459,7 +467,7 @@ export class MonrepComponent {
 
           });
     }
-    
+
   }
 
 }
