@@ -51,6 +51,7 @@
                             <select class="form-control form-control-sm"  [(ngModel)]="hbl_inv_status">
                                 <option [value]="''">PENDING</option>
                                 <option [value]="'N'">NOT REQUIRED</option>
+                                <option *ngIf="bAdmin" [value]="'C'">NOT REQUIRED - CONFIRM</option>
                               </select>
                         </div>
                         <label class="col-1 col-form-label col-form-label-sm">Remarks</label>

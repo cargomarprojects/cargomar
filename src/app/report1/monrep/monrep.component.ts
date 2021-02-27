@@ -87,8 +87,8 @@ export class MonrepComponent {
     all: false,
     badmin: false,
     pendingInvoice: false,
-    user_code:'',
-    user_name:''
+    user_code: '',
+    user_name: ''
   };
 
   // Array For Displaying List
@@ -328,6 +328,12 @@ export class MonrepComponent {
     //  return;
     //}
 
+    if (this.pendingInvoice && this.type_date != 'CREATED') {
+      this.ErrorMessage = " Please Select CREATED Date for Pending Invoice and Continue....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -383,6 +389,7 @@ export class MonrepComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
