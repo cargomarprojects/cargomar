@@ -474,6 +474,9 @@
           <th *ngIf="all">BRANCH</th>
           <th>VRNO</th>
           <th>DATE</th>
+          <th>EINV-STATUS</th>
+          <th>ACK-NO</th>
+          <th>ACK-DATE</th>          
           <th>GSTIN</th>
           <th>CUSTOMER</th>
           <th>TYPE</th>
@@ -503,6 +506,9 @@
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
+          <td>{{rec.jvh_einv_status}}</td>
+          <td>{{rec.ack_no}}</td>
+          <td>{{rec.ack_date}}</td>          
           <td>{{rec.jvh_gstin}}</td>
           <td>{{rec.jvh_party_name}}</td>
           <td>{{rec.jvh_cc_category}}</td>

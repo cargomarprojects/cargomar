@@ -406,10 +406,6 @@ export class MonrepComponent {
   }
 
   showMonRepUpdt(rec: MonRep, _type: string = '') {
-    // if (_type == 'PENDING')
-    //   if (!this.pendingInvoice)
-    //     return;
-    // this.format_type = this.pendingInvoice == true ? 'PENDING' : 'NOM';
     this.format_type = _type;
 
     if (rec.hbl_pkid == null)
