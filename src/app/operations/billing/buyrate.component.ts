@@ -903,7 +903,7 @@ export class BuyRateComponent {
 
       if (rowCount != 1) {
         bret = false;
-        sError += " |Only one code 1205030/1105033 can be used";
+        sError += " |Only code 1205030/1105033/1105040 can be used";
       }
 
     }
