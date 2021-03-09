@@ -23,6 +23,8 @@ export class LoginComponent {
 
   company_code: string = '';
 
+  
+
   loading = false;
   showlogin = false;
 
