@@ -181,6 +181,7 @@
           <th>GST[Y/N]</th>
           <th>RC</th>
           <th>INV-TYPE</th>
+          <th>EXP-INV</th>
           <th class="text-right">INV-AMT</th>
           <th class="text-right">TAXABLE-AMT</th>
           <th class="text-right">CGST-AMT</th>
@@ -206,6 +207,7 @@
           <td>{{rec.jvh_gst}}</td>
           <td>{{rec.rc}}</td>
           <td>{{rec.jvh_invoice_type}}</td>
+          <td>{{rec.jvh_is_export}}</td>
           <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
@@ -235,6 +237,7 @@
           <th>GST[Y/N]</th>
           <th>RC</th>
           <th>INV-TYPE</th>
+          <th>EXP-INV</th>
           <th>SAC-CODE</th>
           <th>ACC-CODE</th>
           <th>ACC-NAME</th>
@@ -267,6 +270,7 @@
           <td>{{rec.jvh_gst}}</td>
           <td>{{rec.rc}}</td>
           <td>{{rec.jvh_invoice_type}}</td>
+          <td>{{rec.jvh_is_export}}</td>
           <td>{{rec.jv_sac_code}}</td>
           <td>{{rec.jv_acc_code}}</td>
           <td>{{rec.jv_acc_name}}</td>
