@@ -83,26 +83,27 @@
           <th>REF#</th>
           <th *ngIf="type=='JV-BP'">BR.REF#</th>
           <th>TYPE</th>
-          <th>CUST.REF#</th>
+          <!-- <th>CUST.REF#</th> -->
           <th>PAY.DATE</th>
           <th>PAY.MODE</th>
           <th>DEBIT A/C#</th>
           <th>HO-BP</th>
          <th class="text-right">AMOUNT</th>
          <th>BENEF.A/C#</th>
-         <th>BENEF.A/C.TYPE</th>
+         <!-- <th>BENEF.A/C.TYPE</th> -->
           <th>BENEF.NAME</th>
-          <th>BENEF.CITY</th>
+          <!-- <th>BENEF.CITY</th> -->
           <th>BENEF.BANK.NAME</th>
           <th>BENEF.IFSC.CODE</th>
          
-          <th>BENEF.EMAIL1</th>
-          <th>BENEF.MOB</th>
-          <th>SENDER.INFO</th>
-          <th>STATUS</th>
-          <th>DESCRIPTION</th>
-          <th>UTR</th>
-          <th>BANK.REF#</th>
+          <!-- <th>BENEF.EMAIL1</th> -->
+          <!-- <th>BENEF.MOB</th> -->
+          <!-- <th>SENDER.INFO</th> -->
+          <th *ngIf="type=='BP'">STATUS</th>
+          <th *ngIf="type=='BP'">DESCRIPTION</th>
+          <th *ngIf="type=='BP'">UTR</th>
+          <th *ngIf="type=='BP'">BANK.REF#</th>
+
           <th>CREATED/GENERATED</th>
         </tr>
       </thead>
@@ -116,26 +117,26 @@
           <td  class="hlink" (click)="ShowHistory(history,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
           <td *ngIf="type=='JV-BP'" >{{rec.mt_parent_docno}}</td>
           <td >{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
-          <td >{{rec.mt_cust_uniq_ref}}</td>
+          <!-- <td >{{rec.mt_cust_uniq_ref}}</td> -->
           <td >{{rec.mt_value_date}}</td>
           <td >{{rec.mt_txn_mode}}</td>
           <td >{{rec.mt_corp_acc_no}}</td>
           <td >{{rec.mt_ho_jvh_docno}}</td>
           <td align='right'>{{ rec.mt_txn_amt | number : '1.2-2' }}</td>
           <td>{{rec.mt_ben_acc_no}}</td>
-          <td>{{rec.mt_ben_acc_type}}</td>
+          <!-- <td>{{rec.mt_ben_acc_type}}</td> -->
           <td>{{rec.mt_ben_name}}</td>
-          <td>{{rec.mt_ben_city}}</td>
+          <!-- <td>{{rec.mt_ben_city}}</td> -->
           <td>{{rec.mt_ben_bank_name}}</td>
           <td>{{rec.mt_ben_ifsc}}</td>
          
-          <td>{{rec.mt_ben_email1}}</td>
-          <td>{{rec.mt_ben_mob}}</td>
-          <td>{{rec.mt_remarks}}</td>
-          <td>{{rec.mt_status_code}}</td>
-          <td>{{rec.mt_status_desc}}</td>
-          <td>{{rec.mt_utr}}</td>
-          <td>{{rec.mt_bank_refno}}</td>
+          <!-- <td>{{rec.mt_ben_email1}}</td> -->
+          <!-- <td>{{rec.mt_ben_mob}}</td> -->
+          <!-- <td>{{rec.mt_remarks}}</td> -->
+          <td *ngIf="type=='BP'">{{rec.mt_status_code}}</td>
+          <td *ngIf="type=='BP'">{{rec.mt_status_desc}}</td>
+          <td *ngIf="type=='BP'">{{rec.mt_utr}}</td>
+          <td *ngIf="type=='BP'">{{rec.mt_bank_refno}}</td>
           <td>{{rec.rec_created_by}}</td>
         </tr>
       </tbody>
