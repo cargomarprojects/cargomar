@@ -81,6 +81,7 @@
           <th>DATE</th>
           <th>APRVD</th>
           <th>REF#</th>
+          <th *ngIf="type=='JV-BP'">BR.REF#</th>
           <th>TYPE</th>
           <th>CUST.REF#</th>
           <th>PAY.DATE</th>
@@ -113,6 +114,7 @@
           <td >{{rec.mt_jvh_date}}</td>
           <td >{{rec.mt_aprvd}}</td>
           <td  class="hlink" (click)="ShowHistory(history,rec.mt_jv_id)">{{rec.mt_cust_cfno}}</td>
+          <td *ngIf="type=='JV-BP'" >{{rec.mt_parent_docno}}</td>
           <td >{{rec.mt_lock=='G'?'GENERATED':'PENDING'}}</td>
           <td >{{rec.mt_cust_uniq_ref}}</td>
           <td >{{rec.mt_value_date}}</td>

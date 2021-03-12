@@ -68,7 +68,8 @@ export class MoneyTransfer {
     mt_ho_jvh_pkid : string ;
     mt_ho_jvh_docno : string ;
     mt_ho_jv_pkid : string ;
-
+    mt_parent_docno: string ;
+    
     rec_mode: string;
     rec_created_by: string;
 
