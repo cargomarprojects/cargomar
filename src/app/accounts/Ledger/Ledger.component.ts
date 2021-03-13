@@ -235,6 +235,8 @@ export class LedgerComponent {
       this.ACCRECORD.where = "";
       if (this.type == "JV")
         this.ACCRECORD.where = " acc_type_id not in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('CASH','BANK'))";
+      if ( this.gs.globalVariables.branch_code != "HOCPL" && this.type == "JV-BP")
+        this.ACCRECORD.where = " acc_type_id not in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('CASH','BANK'))";        
     }
     if (saction == 'CURRENCY' || saction == 'DETAIL' || saction == '') {
       this.CURRECORD = new SearchTable();
