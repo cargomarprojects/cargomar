@@ -127,6 +127,8 @@ export class Ledgerh {
     jvh_einv_status: string;
     jvh_irn: string;
 
+    jvh_source_id : string;
+    
     
     _globalvariables: GlobalVariables;
 
