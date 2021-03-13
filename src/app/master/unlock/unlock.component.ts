@@ -106,6 +106,7 @@ export class UnLockComponent {
   LoadCombo() {
     this.ModuleList = [
       { "code": "BP", "name": "Bank Payment" },
+      { "code": "JV-BP", "name": "Bank Payment HO" },
       { "code": "BR", "name": "Bank Receipt" },
       { "code": "CP", "name": "Cash Payment" },
       { "code": "CR", "name": "Cash Receipt" },
@@ -188,7 +189,7 @@ export class UnLockComponent {
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
-        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI") {
+        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI"|| this.moduletype == "JV-BP") {
         this.refnotitle = "Vr.No";
       } else if (this.moduletype == "MBL-AE" || this.moduletype == "MBL-AI" ||
         this.moduletype == "MBL-SE" || this.moduletype == "MBL-SI") {
