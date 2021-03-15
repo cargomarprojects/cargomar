@@ -76,7 +76,8 @@
             <button [disabled]="loading" (click)="ShowPending('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
           </div>
           <div class="col-3">
-            <button [disabled]="loading" (click)="GenerateXml()"  class="btn btn-primary btn-sm">Generate Invoice</button>
+            <button [disabled]="loading" (click)="GenerateXml()" class="btn btn-primary btn-sm">Generate
+              Invoice</button>
           </div>
         </div>
 
@@ -107,6 +108,8 @@
             <th width="100px;" class="text-right">DR-INR</th>
             <th width="100px;" class="text-right">CR-INR</th>
             <th width="100px;" class="text-right">FOLDER#</th>
+            <th width="100px;" class="text-right">MASTER#</th>
+            <th width="100px;" class="text-right">HOUSE#</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -121,6 +124,8 @@
             <td width="100px;" align='right'>{{ rec.jv_debit | number : '1.2-2' }}</td>
             <td width="100px;" align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
             <td width="100px;" align='left'>{{rec.folderno}}</td>
+            <td width="100px;" align='left'>{{rec.master_no}}</td>
+            <td width="100px;" align='left'>{{rec.house_nos}}</td>
           </tr>
         </tbody>
       </table>

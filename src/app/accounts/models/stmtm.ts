@@ -77,5 +77,7 @@ export class Stmtd {
   jv_selected: boolean;
   rec_category: string;
   folderno: string;
+  master_no:string;
+  house_nos:string;
 }
 
