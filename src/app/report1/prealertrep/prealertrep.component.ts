@@ -54,6 +54,7 @@ export class PreAlertRepComponent {
     bCompany = false;
     all: boolean = false;
     bAdmin = false;
+    bEmail = false;
     loading = false;
     currentTab = 'LIST';
     searchstring = '';
@@ -137,6 +138,7 @@ export class PreAlertRepComponent {
         this.bExcel = false;
         this.bCompany = false;
         this.bAdmin = false;
+        this.bEmail =false  ;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -146,6 +148,8 @@ export class PreAlertRepComponent {
                 this.bAdmin = true;
             if (this.menu_record.rights_print)
                 this.bExcel = true;
+                if (this.menu_record.rights_email)
+                this.bEmail = true;
         }
 
         this.porttype = "SEA PORT";
@@ -309,7 +313,7 @@ export class PreAlertRepComponent {
     }
 
     // // Query List Data
-    List(_type: string, mailsent: any) {
+    List(_type: string) {
 
         this.ErrorMessage = '';
         //if (this.from_date.trim().length <= 0) {
@@ -362,20 +366,19 @@ export class PreAlertRepComponent {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-                // else if (_type == 'MAIL') {
-                //     this.AttachList = new Array<any>();
-                //     this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
-                //     this.setMailBody(response.totteu, response.totteuday, response.tomonth);
-
-                //     this.open(mailsent);
-                // }
+                else if (_type == 'MAIL') {
+                    // this.AttachList = new Array<any>();
+                    // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+                    // this.setMailBody(response.totteu, response.totteuday, response.tomonth);
+                    // this.open(mailsent);
+                    alert(response.mailmsg);
+                }
                 else {
                     this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
                 }
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
             },
                 error => {
                     this.loading = false;
@@ -383,7 +386,7 @@ export class PreAlertRepComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-    
+
     setMailBody(totteu: number, totteuday: number, tomonth: string) {
 
         // this.sSubject = "LINER BOOKING REPORT";
