@@ -54,6 +54,7 @@ import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
 import { EinvoiceComponent } from './einvoice/einvoice.component';
+import { PreAlertRepComponent } from './prealertrep/prealertrep.component';
 
 @NgModule({
   imports: [
@@ -95,7 +96,8 @@ import { EinvoiceComponent } from './einvoice/einvoice.component';
     MonRepUpdtComponent,
     ArrivalNoticeComponent,
     ShipTrackComponent,
-    EinvoiceComponent
+    EinvoiceComponent,
+    PreAlertRepComponent
   ],
   providers: [
   ],
