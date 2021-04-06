@@ -338,10 +338,7 @@ export class PreAlertRepComponent {
         }
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.searchstring.toUpperCase();
-        if (_type == "MAIL")
-            this.SearchData.type = "EXCEL";
-        else
-            this.SearchData.type = _type;
+        this.SearchData.type = _type;
         this.SearchData.type_date = this.type_date;
         this.SearchData.from_date = this.from_date;
         this.SearchData.to_date = this.to_date;
@@ -363,8 +360,8 @@ export class PreAlertRepComponent {
         this.mainService.List(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-                // if (_type == 'EXCEL')
-                //     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 // else if (_type == 'MAIL') {
                 //     this.AttachList = new Array<any>();
                 //     this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
@@ -372,9 +369,9 @@ export class PreAlertRepComponent {
 
                 //     this.open(mailsent);
                 // }
-                // else {
-                //     this.RecordList = response.list;
-                // }
+                else {
+                    this.RecordList = response.list;
+                }
                 this.RecordList = response.list;
                 this.page_count = response.page_count;
                 this.page_current = response.page_current;

@@ -3,6 +3,7 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class PreAlert {
     mbl_bkno: string;
+    mbl_date: string;
     mbl_book_no: string;
     mbl_folder_no: string;
     mbl_no: string;
