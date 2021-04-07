@@ -59,6 +59,7 @@ export class LocalChargeComponent {
   LINERRECORD: any = {};
   TRADELANERECORD: any = {};
   CURRECORD: any = {};
+  CUROTHRECORD: any = {};
   // Array For Displaying List
   RecordList: LocalCharge[] = [];
   // Single Record for add/edit/view details
@@ -155,6 +156,9 @@ export class LocalChargeComponent {
     }
     if (_Record.controlname == "SEALCURR") {
       this.Record.lc_seal_curr = _Record.code;
+    }
+    if (_Record.controlname == "OTHCURR") {
+      this.Record.lc_oth_curr = _Record.code;
     }
   }
 
@@ -257,6 +261,7 @@ export class LocalChargeComponent {
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.CURRECORD = { 'controlname': 'SEALCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: 'INR', name: 'INR' };
+    this.CUROTHRECORD = { 'controlname': 'OTHCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: 'INR', name: 'INR' };
   }
 
   Init() {
@@ -282,6 +287,8 @@ export class LocalChargeComponent {
     this.Record.lc_bl = 0;
     this.Record.lc_acd = 0;
     this.Record.lc_ens = 0;
+    this.Record.lc_oth = 0;
+    this.Record.lc_oth_curr = 'INR';
   }
 
 
@@ -311,6 +318,7 @@ export class LocalChargeComponent {
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.lc_pol_id, code: this.Record.lc_pol_code, name: this.Record.lc_pol_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.lc_carrier_id, code: this.Record.lc_carrier_code, name: this.Record.lc_carrier_name };
     this.CURRECORD = { 'controlname': 'SEALCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: this.Record.lc_seal_curr, name: this.Record.lc_seal_curr };
+    this.CUROTHRECORD = { 'controlname': 'OTHCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: this.Record.lc_oth_curr, name: this.Record.lc_oth_curr };
   }
 
   // Save Data
@@ -401,6 +409,8 @@ export class LocalChargeComponent {
       REC.lc_bl = this.Record.lc_bl;
       REC.lc_valid_from = this.Record.lc_valid_from;
       REC.lc_valid_to = this.Record.lc_valid_to;
+      REC.lc_oth = this.Record.lc_oth;
+      REC.lc_oth_curr = this.Record.lc_oth_curr;
     }
   }
 
@@ -468,6 +478,9 @@ export class LocalChargeComponent {
       this.Record.lc_bl = this.gs.roundNumber(this.Record.lc_bl, 2);
     }
 
+    if (field == 'lc_oth') {
+      this.Record.lc_oth = this.gs.roundNumber(this.Record.lc_oth, 2);
+    }
   }
 
   Close() {

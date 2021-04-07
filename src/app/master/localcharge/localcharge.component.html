@@ -121,125 +121,132 @@
 
 
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
-   
-        <div class="page-box">
 
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">POL</label>
-                <div class="col-4">
-                  <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete2>
-                </div>
-                <div class="col-6" style="padding-left:0">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lc_pol_name"
-                    (blur)="OnBlur('lc_pol_name')" required maxlength="60" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Liner</label>
-                <div class="col-4">
-                  <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete2>
-                </div>
-                <div class="col-6" style="padding-left:0">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lc_carrier_name"
-                    (blur)="OnBlur('lc_carrier_name')" required maxlength="60" />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">Valid-From</label>
-                <div class="col-4">
-                  <app-date #_lc_valid_from [inputdate]="Record.lc_valid_from"
-                    (ValueChanged)="Record.lc_valid_from=$event"></app-date>
-                </div>
-                <label class="col-2 col-form-label col-form-label-sm">Valid-To</label>
-                <div class="col-4">
-                  <app-date #_lc_valid_to [inputdate]="Record.lc_valid_to" (ValueChanged)="Record.lc_valid_to=$event">
-                  </app-date>
-                </div>
-              </div>
-            </div>
+  <div class="page-box">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">POL</label>
+          <div class="col-4">
+            <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
+          </div>
+          <div class="col-6" style="padding-left:0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lc_pol_name"
+              (blur)="OnBlur('lc_pol_name')" required maxlength="60" />
           </div>
         </div>
-        <div class="page-box">
-          <div class="page-body table-responsive">
-            <table class="table  table-hover table-sm">
-              <thead class="page-body-thead">
-                <tr>
-                  <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">DRY</th>
-                  <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">REEFER</th>
-                  <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">MUC
-                    (INR)</th>
-                  <th colspan="2" rowspan="2"
-                    style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL
-                    ({{Record.lc_seal_curr}})</th>
-                  <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">BL
-                    (INR)</th>
-                  <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD
-                    US/CA (USD)</th>
-                  <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS
-                    EU (USD)</th>
-                </tr>
-                <tr>
-                  <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
-                  <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
-                  <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
-                  <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
-                </tr>
-                <!-- <tr>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Liner</label>
+          <div class="col-4">
+            <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
+          </div>
+          <div class="col-6" style="padding-left:0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lc_carrier_name"
+              (blur)="OnBlur('lc_carrier_name')" required maxlength="60" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Valid-From</label>
+          <div class="col-4">
+            <app-date #_lc_valid_from [inputdate]="Record.lc_valid_from" (ValueChanged)="Record.lc_valid_from=$event">
+            </app-date>
+          </div>
+          <label class="col-2 col-form-label col-form-label-sm">Valid-To</label>
+          <div class="col-4">
+            <app-date #_lc_valid_to [inputdate]="Record.lc_valid_to" (ValueChanged)="Record.lc_valid_to=$event">
+            </app-date>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">DRY</th>
+            <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;">REEFER</th>
+            <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">MUC
+              (INR)</th>
+            <th colspan="2" rowspan="2"
+              style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">SEAL
+              ({{Record.lc_seal_curr}})</th>
+            <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">BL
+              (INR)</th>
+            <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ACD
+              US/CA (USD)</th>
+            <th rowspan="2" style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">ENS
+              EU (USD)</th>
+            <th colspan="2" rowspan="2"
+              style="border: 1px solid whitesmoke;vertical-align : middle;text-align: center;">OTHER
+              ({{Record.lc_oth_curr}})</th>
+          </tr>
+          <tr>
+            <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
+            <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
+            <th style="border: 1px solid whitesmoke;text-align: center;">THC.20 (INR)</th>
+            <th style="border: 1px solid whitesmoke;text-align: center;">THC.40 (INR)</th>
+          </tr>
+          <!-- <tr>
               <th colspan="7" style="border: 1px solid whitesmoke;text-align: center;">INR</th>
               <th colspan="2" style="border: 1px solid whitesmoke;text-align: center;" >USD</th>
             </tr> -->
-              </thead>
-              <tbody class="page-body-tbody">
-                <tr>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_dry_20_thc" (blur)="OnBlur('lc_dry_20_thc')" required maxlength="14" />
-                  </td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_dry_40_thc" (blur)="OnBlur('lc_dry_40_thc')" required maxlength="14" />
-                  </td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_reefer_20_thc" (blur)="OnBlur('lc_reefer_20_thc')" required
-                      maxlength="14" /></td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_reefer_40_thc" (blur)="OnBlur('lc_reefer_40_thc')" required
-                      maxlength="14" /></td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_muc" (blur)="OnBlur('lc_muc')" required maxlength="14" /></td>
-                  <td style="padding:0px"> <input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_seal" (blur)="OnBlur('lc_seal')" required maxlength="14" /> </td>
-                  <td style="padding:0px">
-                    <app-autocomplete2 #sealcurrLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete2>
-                  </td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_bl" (blur)="OnBlur('lc_bl')" required maxlength="14" /></td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_acd" (blur)="OnBlur('lc_acd')" required maxlength="14" /></td>
-                  <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                      [(ngModel)]="Record.lc_ens" (blur)="OnBlur('lc_ens')" required maxlength="14" /></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="page-box">
-          <div class="col-sm-6">
-            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
-              class="btn btn-success btn-sm">Save</button>
-              <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
-              class="btn btn-success btn-sm">Documents</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
-              class="btn btn-success btn-sm">Return</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
- 
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_dry_20_thc" (blur)="OnBlur('lc_dry_20_thc')" required maxlength="14" />
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_dry_40_thc" (blur)="OnBlur('lc_dry_40_thc')" required maxlength="14" />
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_reefer_20_thc" (blur)="OnBlur('lc_reefer_20_thc')" required maxlength="14" />
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_reefer_40_thc" (blur)="OnBlur('lc_reefer_40_thc')" required maxlength="14" />
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_muc" (blur)="OnBlur('lc_muc')" required maxlength="14" /></td>
+            <td style="padding:0px"> <input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_seal" (blur)="OnBlur('lc_seal')" required maxlength="14" /> </td>
+            <td style="padding:0px">
+              <app-autocomplete2 #sealcurrLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete2>
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lc_bl"
+                (blur)="OnBlur('lc_bl')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_acd" (blur)="OnBlur('lc_acd')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_ens" (blur)="OnBlur('lc_ens')" required maxlength="14" /></td>
+            <td style="padding:0px"> <input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.lc_oth" (blur)="OnBlur('lc_oth')" required maxlength="14" /> </td>
+            <td style="padding:0px">
+              <app-autocomplete2 #othcurrLov [inputdata]="CUROTHRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete2>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col-sm-6">
+      <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+        class="btn btn-success btn-sm">Documents</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+
 </div>
 <br />
 

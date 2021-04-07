@@ -21,6 +21,8 @@ export class LocalCharge {
     lc_bl: number;
     lc_acd: number;
     lc_ens: number;
+    lc_oth: number;
+    lc_oth_curr: string;
 
     rec_mode: string;
     rec_branch_code:string;
