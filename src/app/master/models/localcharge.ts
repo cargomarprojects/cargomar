@@ -24,6 +24,8 @@ export class LocalCharge {
     lc_oth: number;
     lc_oth_curr: string;
 
+    rec_created_date:string;    
+    rec_created_by:string;    
     rec_mode: string;
     rec_branch_code:string;
     _globalvariables: GlobalVariables;

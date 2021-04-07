@@ -265,6 +265,9 @@ export class LocalChargeComponent {
   }
 
   Init() {
+    this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
+    this.Record.rec_created_by = this.gs.globalVariables.user_code;
+    this.Record.rec_created_date = this.getTodaysdate();
     this.Record.lc_pol_id = "";
     this.Record.lc_pol_code = "";
     this.Record.lc_pol_name = "";
@@ -274,6 +277,11 @@ export class LocalChargeComponent {
     this.Record.lc_valid_from = "";
     this.Record.lc_valid_to = "";
     this.ClearRates();
+  }
+
+  getTodaysdate() {
+    var tempdt = this.gs.defaultValues.today.split('-');
+    return tempdt[2] + '/' + tempdt[1] + '/' + tempdt[0];
   }
 
   ClearRates() {
