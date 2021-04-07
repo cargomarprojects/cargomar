@@ -139,7 +139,8 @@ export class Jobm {
   job_docs: number;
   job_order: boolean;
   job_cust_type: string;
-
+  job_feeder_vessel:string;
+  
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;

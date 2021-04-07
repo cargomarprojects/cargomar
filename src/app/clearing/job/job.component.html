@@ -126,6 +126,7 @@
             <th align='center'>DOCS</th>
             <th>REMARK</th>
             <th *ngIf="type=='SEA EXPORT'">CONTAINER</th>
+            <th *ngIf="type=='SEA EXPORT'">VESSEL</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -157,6 +158,7 @@
             <td align='center'>{{rec.job_docs}}</td>
             <td>{{rec.job_remarks}}</td>
             <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr}}</td>
+            <td *ngIf="type=='SEA EXPORT'">{{rec.job_feeder_vessel}}</td>
           </tr>
         </tbody>
       </table>
