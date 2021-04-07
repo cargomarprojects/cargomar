@@ -52,7 +52,7 @@ export class PreAlertRepComponent {
     bExcel = false;
     disableSave = true;
     bCompany = false;
-    all: boolean = false;
+    allBranch: boolean = false;
     bAdmin = false;
     bEmail = false;
     loading = false;
@@ -72,6 +72,7 @@ export class PreAlertRepComponent {
         branch_code: '',
         branch_name: '',
         year_code: '',
+        user_name: '',
         searchstring: '',
         from_date: '',
         to_date: '',
@@ -82,7 +83,7 @@ export class PreAlertRepComponent {
         carrier_id: '',
         pol_id: '',
         pod_id: '',
-        all: false,
+        allbranch: false,
         showpending: this.showpending
     };
 
@@ -138,7 +139,7 @@ export class PreAlertRepComponent {
         this.bExcel = false;
         this.bCompany = false;
         this.bAdmin = false;
-        this.bEmail =false  ;
+        this.bEmail = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -148,7 +149,7 @@ export class PreAlertRepComponent {
                 this.bAdmin = true;
             if (this.menu_record.rights_print)
                 this.bExcel = true;
-                if (this.menu_record.rights_email)
+            if (this.menu_record.rights_email)
                 this.bEmail = true;
         }
 
@@ -316,6 +317,18 @@ export class PreAlertRepComponent {
     List(_type: string) {
 
         this.ErrorMessage = '';
+        if (_type == "MAIL") {
+
+            if (!this.showpending) {
+                this.ErrorMessage = "Please Select Show Pending and Continue...";
+                return;
+            }
+
+            if (!confirm("Do you want to Sent Pending List")) {
+                return;
+            }
+        }
+
         //if (this.from_date.trim().length <= 0) {
         //  this.ErrorMessage = "From Date Cannot Be Blank";
         //  return;
@@ -346,13 +359,14 @@ export class PreAlertRepComponent {
         this.SearchData.type_date = this.type_date;
         this.SearchData.from_date = this.from_date;
         this.SearchData.to_date = this.to_date;
+        this.SearchData.user_name = this.gs.globalVariables.user_name;
         this.SearchData.shipper_id = this.shipper_id;
         this.SearchData.consignee_id = this.consignee_id;
         this.SearchData.agent_id = this.agent_id;
         this.SearchData.carrier_id = this.carrier_id;
         this.SearchData.pol_id = this.pol_id;
         this.SearchData.pod_id = this.pod_id;
-        this.SearchData.all = this.all;
+        this.SearchData.allbranch = this.allBranch;
         this.SearchData.showpending = this.showpending;
 
         this.SearchData.page_count = this.page_count;
