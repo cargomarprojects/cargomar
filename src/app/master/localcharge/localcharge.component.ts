@@ -6,6 +6,7 @@ import { LocalCharge } from '../models/localcharge';
 import { LocalChargeService } from '../services/localcharge.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Local } from 'protractor/built/driverProviders';
+import { DateComponent } from '../../shared/date/date.component';
 
 @Component({
   selector: 'app-localcharge',
@@ -17,7 +18,8 @@ export class LocalChargeComponent {
   title = 'Local Charges';
 
   // @ViewChild('addressComponent') addressComponent: any;
-
+  @ViewChild('_lc_valid_from') private lc_valid_from_ctrl: DateComponent;
+  @ViewChild('_lc_valid_to') private lc_valid_to_ctrl: DateComponent;
 
   mdate: string;
 
@@ -403,6 +405,9 @@ export class LocalChargeComponent {
     var REC = this.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
     if (REC == null) {
       this.RecordList.push(this.Record);
+      REC = this.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
+      REC.lc_valid_from = this.lc_valid_from_ctrl.GetDisplayDate();
+      REC.lc_valid_to = this.lc_valid_to_ctrl.GetDisplayDate();
     }
     else {
       REC.lc_pol_name = this.Record.lc_pol_name;
@@ -415,8 +420,8 @@ export class LocalChargeComponent {
       REC.lc_seal = this.Record.lc_seal;
       REC.lc_seal_curr = this.Record.lc_seal_curr;
       REC.lc_bl = this.Record.lc_bl;
-      REC.lc_valid_from = this.Record.lc_valid_from;
-      REC.lc_valid_to = this.Record.lc_valid_to;
+      REC.lc_valid_from = this.lc_valid_from_ctrl.GetDisplayDate();
+      REC.lc_valid_to = this.lc_valid_to_ctrl.GetDisplayDate();
       REC.lc_oth = this.Record.lc_oth;
       REC.lc_oth_curr = this.Record.lc_oth_curr;
     }
