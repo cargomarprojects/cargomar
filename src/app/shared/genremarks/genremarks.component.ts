@@ -38,7 +38,7 @@ export class GenRemarksComponent implements OnInit {
         this._btntype = value;
     }
 
-    private _mremarks: string;
+    public _mremarks: string;
     @Input() set mremarks(value: string) {
         this._mremarks = value;
     }
