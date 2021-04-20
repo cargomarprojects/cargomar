@@ -9,6 +9,7 @@ import { AlertService } from './services/alert.service';
 import { LovService } from './services/lov.service';
 import { GenerateDocService } from './services/generatedoc.service';
 import { GenService } from './services/gen.services';
+import { GenRemarksService } from './services/genremarks.service';
 
 
 import { AlertComponent } from './alert/alert.component';
@@ -51,6 +52,7 @@ import { AllReportComponent } from './allreport/allreport.component';
 import { FtpReportComponent } from './ftpreport/ftpreport.component';
 import { FileEditComponent } from './fileupload/fileedit.component';
 import { CrLimitComponent } from './crlimit/crlimit.component';
+import { GenRemarksComponent } from './genremarks/genremarks.component';
 
 @NgModule({
   imports: [
@@ -85,7 +87,8 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
     AllReportComponent,
     FtpReportComponent,
     FileEditComponent,
-    CrLimitComponent
+    CrLimitComponent,
+    GenRemarksComponent
   ],
   exports: [
     CommonModule,
@@ -116,12 +119,14 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
     AllReportComponent,
     FtpReportComponent,
     FileEditComponent,
-    CrLimitComponent
+    CrLimitComponent,
+    GenRemarksComponent
   ],
   providers: [
     AlertService,
     LovService,
-    GenerateDocService
+    GenerateDocService,
+    GenRemarksService
   ]
 })
 export class SharedModule { }
