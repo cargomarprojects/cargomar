@@ -19,6 +19,8 @@ export class PreAlert {
     mbl_eta: string;
     mbl_prealert_date: string;
     mbl_remarks: string;
-
+    mbl_pkid: string;
+    row_displayed:boolean;
+    
     _globalvariables: GlobalVariables;
 }

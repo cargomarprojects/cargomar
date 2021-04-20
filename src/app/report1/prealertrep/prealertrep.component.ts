@@ -55,6 +55,7 @@ export class PreAlertRepComponent {
     allBranch: boolean = false;
     bAdmin = false;
     bEmail = false;
+    bEdit = false;
     loading = false;
     currentTab = 'LIST';
     searchstring = '';
@@ -140,6 +141,7 @@ export class PreAlertRepComponent {
         this.bCompany = false;
         this.bAdmin = false;
         this.bEmail = false;
+        this.bEdit = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -151,6 +153,8 @@ export class PreAlertRepComponent {
                 this.bExcel = true;
             if (this.menu_record.rights_email)
                 this.bEmail = true;
+            if (this.menu_record.rights_edit)
+                this.bEdit = true;
         }
 
         this.porttype = "SEA PORT";
@@ -432,4 +436,14 @@ export class PreAlertRepComponent {
         this.modal = this.modalService.open(content);
     }
 
+    showUpdt(rec: PreAlert) {
+        if (rec.mbl_pkid == null)
+            return;
+        if (rec.mbl_pkid != '') {
+            rec.row_displayed = !rec.row_displayed;
+        }
+    }
+    ModifiedRecords(params: any) {
+
+    }
 }

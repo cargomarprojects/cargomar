@@ -178,8 +178,13 @@
             <td>{{rec.mbl_pofd_name}}</td>
             <td>{{rec.mbl_etd}}</td>
             <td>{{rec.mbl_eta}}</td>
-            <td>{{rec.mbl_prealert_date}}</td>
+            <td class="hlink" (click)="showUpdt(rec)" >{{rec.mbl_prealert_date}}</td>
             <td>{{rec.mbl_remarks}}</td>
+          </tr>
+          <tr *ngIf="bEdit && rec.row_displayed">
+            <td colspan="17">
+              <app-prealertupdt [record]="rec" [bAdmin]="bAdmin" (ModifiedRecords)="ModifiedRecords($event)"></app-prealertupdt>
+            </td>
           </tr>
         </tbody>
       </table>
