@@ -173,15 +173,21 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Gst</label>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <input type="checkbox" (click)="GstCheckBox()" [(ngModel)]="Record.jvh_gst">
             <span>GST</span>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <input type="checkbox" disabled (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
             <span>RC</span>
           </div>
-          <div class="col-sm-4" *ngIf="Record.jvh_einv_status == 'G'">  
+
+          <div class="col-sm-3">
+            <input type="checkbox" disabled  [(ngModel)]="Record.jvh_exwork">
+            <span>ExWork</span>
+          </div>
+
+          <div class="col-sm-3" *ngIf="Record.jvh_einv_status == 'G'">  
             <label class="col-form-label col-form-label-sm text-danger font-weight-bold" >IRN ISSUED</label>
           </div>
 
