@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { PreAlertRepService } from '../services/prealertrep.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { PreAlert } from '../models/prealert';
+import { DateComponent } from '../../shared/date/date.component';
 
 @Component({
     selector: 'app-prealertupdt',
@@ -14,6 +15,7 @@ import { PreAlert } from '../models/prealert';
 export class PrealertUpdtComponent {
     // Local Variables 
     title = '';
+    @ViewChild('_prealert_date') private prealert_date_ctrl: DateComponent;
 
     @Input() bAdmin: boolean = false;
     @Input() record: PreAlert;
@@ -67,8 +69,16 @@ export class PrealertUpdtComponent {
     ngOnInit() {
 
         this.pkid = this.record.mbl_pkid;
-        this.mbl_prealert_date = this.record.mbl_prealert_date;
+        this.mbl_prealert_date = this.GetFormatDate(this.record.mbl_prealert_date);
         this.InitLov();
+    }
+
+    GetFormatDate(_sDate: string) {
+        if (_sDate != '') {
+            var tempdt = _sDate.split('/');
+            _sDate = tempdt[2] + '-' + tempdt[1] + '-' + tempdt[0];
+        }
+        return _sDate;
     }
 
     InitComponent() {
@@ -87,11 +97,11 @@ export class PrealertUpdtComponent {
           return;
         */
         this.ErrorMessage = '';
-        if (this.mbl_prealert_date == null || this.mbl_prealert_date == undefined || this.mbl_prealert_date == '') {
-            this.ErrorMessage = 'Date Cannot be Blank.'
-            alert(this.ErrorMessage);
-            return;
-        }
+        // if (this.mbl_prealert_date == null || this.mbl_prealert_date == undefined || this.mbl_prealert_date == '') {
+        //     this.ErrorMessage = 'Date Cannot be Blank.'
+        //     alert(this.ErrorMessage);
+        //     return;
+        // }
 
         this.SearchData.pkid = this.pkid;
         this.SearchData.mbl_prealert_date = this.mbl_prealert_date;
@@ -105,7 +115,7 @@ export class PrealertUpdtComponent {
                 this.loading = false;
 
                 if (response.status == "OK") {
-                    this.record.mbl_prealert_date = this.mbl_prealert_date;
+                    this.record.mbl_prealert_date = this.prealert_date_ctrl.GetDisplayDate();
                     this.record.row_displayed = false;
                 }
 
