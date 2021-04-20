@@ -529,6 +529,8 @@ export class ArApComponent {
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
 
+    this.Record.jvh_exwork =false;
+
     this.Record.jvh_igst_exception = false;
 
 
@@ -756,7 +758,7 @@ export class ArApComponent {
 
 
     if (this.Record.jvh_acc_code == "1105001" || this.Record.jvh_acc_code == "1205001" || this.Record.jvh_acc_code == "1305001" || this.Record.jvh_acc_code == "1405001") {
-      if (this.type == 'IN' && this.Record.jvh_cc_category == "GENERAL JOB") {
+      if ( (this.type == 'IN' && this.Record.jvh_cc_category == "GENERAL JOB") || this.type == 'CN' ) {
         sError += "";
       }
       else {
