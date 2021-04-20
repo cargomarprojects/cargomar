@@ -21,6 +21,6 @@ export class PreAlert {
     mbl_remarks: string;
     mbl_pkid: string;
     row_displayed:boolean;
-    
+    mbl_ref:string;
     _globalvariables: GlobalVariables;
 }

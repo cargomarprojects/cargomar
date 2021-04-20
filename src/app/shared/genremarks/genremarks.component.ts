@@ -46,6 +46,7 @@ export class GenRemarksComponent implements OnInit {
     @Output() callbackevent = new EventEmitter<any>();
 
     private _remarks: string;
+  
     modal: any;
 
     constructor(
