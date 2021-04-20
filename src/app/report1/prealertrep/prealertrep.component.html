@@ -179,7 +179,7 @@
             <td>{{rec.mbl_etd}}</td>
             <td>{{rec.mbl_eta}}</td>
             <td class="hlink" (click)="showUpdt(rec)" >{{rec.mbl_prealert_date}}</td>
-            <td>{{rec.mbl_remarks}}</td>
+            <td><app-genremarks [pkid]="rec.mbl_pkid" [mremarks]="rec.mbl_remarks" [type]="'MBL-SE'" [subtype]="'PREALERT-SENT-STATUS'" [refno]="rec.mbl_bkno" [btntype]="'LINKBUTTTON'" (callbackevent)="callbackeventremarks($event)" ></app-genremarks></td>
           </tr>
           <tr *ngIf="bEdit && rec.row_displayed">
             <td colspan="17">

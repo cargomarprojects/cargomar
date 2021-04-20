@@ -446,4 +446,16 @@ export class PreAlertRepComponent {
     ModifiedRecords(params: any) {
 
     }
+
+    callbackeventremarks(params: any) {
+
+        if (params.action == "SAVE") {
+            if (this.RecordList != null) {
+                var REC = this.RecordList.find(rec => rec.mbl_pkid == params.id);
+                if (REC != null) {
+                    REC.mbl_remarks = params.remarks;
+                }
+            }
+        }
+    }
 }
