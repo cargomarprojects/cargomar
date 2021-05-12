@@ -785,9 +785,9 @@ export class ArApComponent {
       sError += " | Date Cannot Be Blank";
     }
 
-    if (this.type == 'DN' || this.type == 'CN' || this.type == 'DI' || this.type == 'CI') {
+    if ( this.type =='PN' || this.type == 'DN' || this.type == 'CN' || this.type == 'DI' || this.type == 'CI') {
 
-      if (this.type == 'DI' || this.type == 'CI') {
+      if (this.type == 'PN' ||  this.type == 'DI' || this.type == 'CI') {
         if (this.Record.jvh_reference.trim().length <= 0) {
           bret = false;
           sError += " | Reference Number Cannot Be Blank (Inward DN/CN Number)";
