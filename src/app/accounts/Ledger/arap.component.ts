@@ -891,7 +891,7 @@ export class ArApComponent {
         isGstBlank = true;
       }
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040') {
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
         Courier_Code_Found = true;
       }
 
