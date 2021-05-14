@@ -758,7 +758,7 @@ export class ArApComponent {
 
 
     if (this.Record.jvh_acc_code == "1105001" || this.Record.jvh_acc_code == "1205001" || this.Record.jvh_acc_code == "1305001" || this.Record.jvh_acc_code == "1405001") {
-      if ( (this.type == 'IN' && this.Record.jvh_cc_category == "GENERAL JOB") || this.type == 'CN' ) {
+      if ( (this.type == 'IN' ) || this.type == 'CN' ) {
         sError += "";
       }
       else {
