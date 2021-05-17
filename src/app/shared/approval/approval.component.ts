@@ -155,10 +155,10 @@ export class ApprovalComponent {
         else
           this.activePanelId = "panel3";
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Save() {
@@ -180,7 +180,7 @@ export class ApprovalComponent {
       bret = false;
     }
 
-    if ( this.type=='BP' && this.chk_approval == true && this.chk_verified == false) {
+    if ((this.type == 'BP' || this.type == 'JV-BP') && this.chk_approval == true && this.chk_verified == false) {
       sError = "Please Verify above Responsibility.";
       // sError = "Please select " + this.chk_caption + " and continue...";
       bret = false;

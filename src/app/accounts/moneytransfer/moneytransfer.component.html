@@ -247,7 +247,7 @@
   <div class="page-box">
     <div class="col-sm-4">
       <div class="col-10">
-        <button [disabled]="loading || Record.mt_lock == 'G' || Record.mt_jv_drcr=='DR'" (click)="Save()"
+        <button [disabled]="loading || Record.mt_lock == 'L' || Record.mt_lock == 'G' || Record.mt_jv_drcr=='DR'" (click)="Save()"
           class="btn btn-success btn-sm">Save</button>
         <!-- <button [disabled]="loading || Record.mt_lock == 'G'" *ngIf="mode == 'EDIT'" (click)="Generate()"
           class="btn btn-success btn-sm">Generate</button> -->

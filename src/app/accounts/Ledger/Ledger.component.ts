@@ -235,8 +235,8 @@ export class LedgerComponent {
       this.ACCRECORD.where = "";
       if (this.type == "JV")
         this.ACCRECORD.where = " acc_type_id not in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('CASH','BANK'))";
-      if ( this.gs.globalVariables.branch_code != "HOCPL" && this.type == "JV-BP")
-        this.ACCRECORD.where = " acc_type_id not in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('CASH','BANK'))";        
+      if (this.gs.globalVariables.branch_code != "HOCPL" && this.type == "JV-BP")
+        this.ACCRECORD.where = " acc_type_id not in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('CASH','BANK'))";
     }
     if (saction == 'CURRENCY' || saction == 'DETAIL' || saction == '') {
       this.CURRECORD = new SearchTable();
@@ -550,7 +550,7 @@ export class LedgerComponent {
     this.Record.jvh_acc_br_id = '';
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
-    this.Record.jvh_igst_exception =false;    
+    this.Record.jvh_igst_exception = false;
 
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
@@ -795,8 +795,8 @@ export class LedgerComponent {
       sError += " | Date Cannot Be Blank";
     }
 
-    if (this.Record.jvh_gst) { 
-      if (this.type == 'PN' ||  this.type == 'DI' || this.type == 'CI') {
+    if (this.Record.jvh_gst) {
+      if (this.type == 'PN' || this.type == 'DI' || this.type == 'CI') {
         if (this.Record.jvh_reference.trim().length <= 0) {
           bret = false;
           sError += " | Reference Number Cannot Be Blank (Inward DN/CN Number)";
@@ -924,7 +924,7 @@ export class LedgerComponent {
         sError += " |Only two rows can be entered";
       }
     }
-    
+
 
 
 
@@ -1522,9 +1522,9 @@ export class LedgerComponent {
       }
     }
 
-    if ( this.Recorddet.jv_drcr == "DR") {
+    if (this.Recorddet.jv_drcr == "DR") {
       if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE' || this.Recorddet.jv_acc_type_name == 'INDIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'INDIRECT EXPENSE') {
-        if (this.Recorddet.jv_paid_to.toString().trim().length <=0 ) {
+        if (this.Recorddet.jv_paid_to.toString().trim().length <= 0) {
           this.ErrorMessage = 'Paid to cannot be blank';
           alert(this.ErrorMessage);
           return;
@@ -2458,7 +2458,7 @@ export class LedgerComponent {
   ModifiedRecords(params: any) {
     var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
     if (REC != null) {
-      if (params.stype == "BP"||params.stype == "CP") {
+      if (params.stype == "BP" || params.stype == "JV-BP" || params.stype == "CP") {
         if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
           REC.rec_aprvd_status = params.mstatus;
           REC.rec_aprvd_remark = params.mremarks;
