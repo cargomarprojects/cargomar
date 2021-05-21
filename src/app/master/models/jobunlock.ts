@@ -4,7 +4,7 @@ export class JobUnlock {
     ul_pkid: string;
     ul_parent_id: string;
     ul_type: string;
-    ben_ctr: number;
+    ul_ctr: number;
     ul_remarks: string;
     
     rec_mode: string;

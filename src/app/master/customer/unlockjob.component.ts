@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { JobUnlock } from '../models/jobunlock';
 import { JobUnlockService } from '../services/jobunlock.service';
 import { SearchTable } from '../../shared/models/searchtable';
+
 @Component({
     selector: 'app-unlockjob',
     templateUrl: './unlockjob.component.html',
@@ -16,8 +17,6 @@ export class UnlockJobComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
-    @Input() cust_code: string = '';
-    @Input() cust_name: string = '';
 
     Total_Amount: number = 0;
     selectedRowIndex: number = -1;
@@ -140,6 +139,7 @@ export class UnlockJobComponent {
         this.Record = new JobUnlock();
         this.Record.ul_pkid = this.pkid;
         this.Record.ul_type = 'JOB SEA EXPORT';
+        this.Record.ul_remarks = '';
         this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
         this.Record.rec_mode = this.mode;
         this.InitLov();
@@ -188,6 +188,8 @@ export class UnlockJobComponent {
                 this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
+                this.Record.ul_ctr = response.ul_ctr;
+                this.Record.rec_created_by = response.rec_created_by;
                 this.RefreshList();
                 this.ActionHandler('ADD', null);
             },

@@ -32,7 +32,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.ul_type"
+            <select class="form-control form-control-sm" [(ngModel)]="Record.ul_type">
               <option [value]="'JOB SEA EXPORT'">JOB SEA EXPORT</option>
               <option [value]="'SI SEA EXPORT'">SI SEA EXPORT</option>
               <option [value]="'JOB AIR EXPORT'">JOB AIR EXPORT</option>
@@ -45,7 +45,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label  col-form-label-sm">Branch</label>
           <div class="col-sm-8">
-            <app-autocomplete #BrLov [inputdata]="BRRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+            <app-autocomplete #BrLov [inputdata]="BRRECORD"
               (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
         </div>

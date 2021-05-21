@@ -639,6 +639,14 @@
         </div>
       </ng-template>
     </ngb-tab>
+
+    <ngb-tab title="Unlock Job" *ngIf="mode == 'EDIT' && bAdmin2">
+      <ng-template ngbTabContent>
+        <app-unlockjob [parentid]="pkid"></app-unlockjob>
+      </ng-template>
+    </ngb-tab>
+
+
     <ngb-tab title="Legal Documents" *ngIf="mode == 'EDIT' && bLegalDocs">
       <ng-template ngbTabContent>
         <app-upload [pkid]="pkid" [type]="'LEGAL-CUSTOMER'" [canupload]="true"></app-upload>
