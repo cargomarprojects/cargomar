@@ -1,0 +1,69 @@
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>TYPE</th>
+          <th>BRANCH</th>
+          <th>CREATED-BY</th>
+          <th>DATE</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (click)="ActionHandler('EDIT', rec.ul_pkid,i)">
+          <td>{{rec.ul_ctr}}</td>
+          <td>{{rec.ul_type}}</td>
+          <td>{{rec.rec_branch_code}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
+          <td>{{rec.ul_remarks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="page-details">
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.ul_type"
+              <option [value]="'JOB SEA EXPORT'">JOB SEA EXPORT</option>
+              <option [value]="'SI SEA EXPORT'">SI SEA EXPORT</option>
+              <option [value]="'JOB AIR EXPORT'">JOB AIR EXPORT</option>
+              <option [value]="'SI AIR EXPORT'">SI AIR EXPORT</option>
+              <option [value]="'SI SEA IMPORT'">SI SEA IMPORT</option>
+              <option [value]="'SI AIR IMPORT'">SI AIR IMPORT</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Branch</label>
+          <div class="col-sm-8">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col">
+      <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

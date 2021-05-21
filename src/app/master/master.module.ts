@@ -40,6 +40,7 @@ import { BenfComponent   } from './customer/benf.component';
 import { MailListComponent } from './maillist/maillist.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { LocalChargeComponent } from './localcharge/localcharge.component';
+import { UnlockJobComponent } from './customer/unlockjob.component';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { LocalChargeComponent } from './localcharge/localcharge.component';
     BenfComponent,
     MailListComponent,
     SeaBuyRateComponent,
-    LocalChargeComponent
+    LocalChargeComponent,
+    UnlockJobComponent
   ],
   providers: [
   ],
