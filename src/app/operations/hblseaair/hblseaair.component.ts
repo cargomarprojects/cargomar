@@ -798,7 +798,7 @@ export class HblSeaAirComponent {
 
         this.loading = true;
         let SearchData = {
-            type : this.type,
+            type : 'SI ' + this.type,
             searchfrom: 'SI',
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,

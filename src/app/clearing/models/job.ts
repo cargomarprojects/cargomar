@@ -140,6 +140,8 @@ export class Jobm {
   job_order: boolean;
   job_cust_type: string;
   job_feeder_vessel:string;
+
+  job_unlockid : string ;
   
   rec_mode: string;
   rec_category: string;

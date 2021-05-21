@@ -759,6 +759,9 @@ export class JobComponent {
     this.Record.job_billto_id = '';
     this.Record.job_billto_code = '';
     this.Record.job_billto_name = '';
+
+    this.Record.job_unlockid = '';
+
     //this.Record.job_origin_country_id = '';
     //this.Record.job_origin_country_code = '';
     //this.Record.job_origin_country_name = '';
@@ -1600,7 +1603,7 @@ export class JobComponent {
 
     this.loading = true;
     let SearchData = {
-      type : this.type,
+      type : 'JOB ' + this.type,
       searchfrom: 'JOB',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -1624,6 +1627,9 @@ export class JobComponent {
 
         }
         if (this.bCreditLimit && bCallSave) {
+          if (response.unlockid != '') {
+            this.Record.job_unlockid = response.unlockid;
+          }
           this.SaveFinal();
         }
       },
