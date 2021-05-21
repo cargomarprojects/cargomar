@@ -794,13 +794,14 @@ export class ImpHblSeaAirComponent {
 
   CheckCrLimit(bCallSave: boolean = false) {
 
-    if (this.Record.hbl_exp_id == "") {
-      alert('Shipper cannot be blank');
+    if (this.Record.hbl_imp_id == "") {
+      alert('Importer cannot be blank');
       return;
     }
 
     this.loading = true;
     let SearchData = {
+      type : this.type,      
       searchfrom: 'SI-IMPORT',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,

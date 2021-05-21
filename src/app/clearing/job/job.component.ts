@@ -1600,6 +1600,7 @@ export class JobComponent {
 
     this.loading = true;
     let SearchData = {
+      type : this.type,
       searchfrom: 'JOB',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
