@@ -583,6 +583,8 @@ export class HblSeaAirComponent {
 
         this.Record.hbl_nomination = '';
 
+        this.Record.hbl_unlockid = '';
+
         this.Record.hbl_location_id = '';
         this.Record.hbl_location_code = '';
         this.Record.hbl_location_name = '';
@@ -817,6 +819,9 @@ export class HblSeaAirComponent {
                     this.showalert = true;
                 }
                 if (this.bCreditLimit && bCallSave) {
+                    if (response.unlockid != '') {
+                        this.Record.hbl_unlockid = response.unlockid;
+                    }
                     this.SaveFinal();
                 }
             },

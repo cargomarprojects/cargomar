@@ -542,7 +542,8 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_billto_id = '';
     this.Record.hbl_billto_code = '';
     this.Record.hbl_billto_name = '';
-
+    
+    this.Record.hbl_unlockid = '';
 
     if (this.type == "SEA IMPORT")
       this.Record.hbl_nature = 'FCL/FCL';
@@ -821,6 +822,9 @@ export class ImpHblSeaAirComponent {
           //alert(response.message);
         }
         if (this.bCreditLimit && bCallSave) {
+          if (response.unlockid != '') {
+            this.Record.hbl_unlockid = response.unlockid;
+          }
           this.SaveFinal();
         }
       },
