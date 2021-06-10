@@ -4,7 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { SalaryMasterService } from '../services/salarymaster.service';
-  
+
 
 @Component({
   selector: 'app-salarymaster',
@@ -24,7 +24,7 @@ export class SalaryMasterComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  bPrint: boolean = false;
   searchstring = '';
 
   page_count = 0;
@@ -77,9 +77,13 @@ export class SalaryMasterComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
+    }
     this.InitLov();
     this.List("NEW");
   }
@@ -144,6 +148,7 @@ export class SalaryMasterComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -155,26 +160,32 @@ export class SalaryMasterComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
-        this.Recorddet = response.record;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+          this.Recorddet = response.record;
+        }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-  
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
       empid: Id,
     };
-     
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.GetRecord(SearchData)
@@ -183,10 +194,10 @@ export class SalaryMasterComponent {
         this.mode = response.mode;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Salarym) {
@@ -196,7 +207,7 @@ export class SalaryMasterComponent {
 
     this.lock_record = true;
     if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
-    this.lock_record = false;
+      this.lock_record = false;
   }
 
   // Save Data
@@ -216,11 +227,11 @@ export class SalaryMasterComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -496,10 +507,9 @@ export class SalaryMasterComponent {
     PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
     ESI_Amt = 0
-    if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi)
-    { 
+    if (TotEarning <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
       ESI_Amt = TotEarning * (this.gs.defaultValues.esi_emply_percent / 100);
-      ESI_Amt= this.gs.roundNumber(ESI_Amt,2);
+      ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);
       ESI_Amt = Math.ceil(ESI_Amt);
     }
     for (let rec of this.Record.DetList) {
