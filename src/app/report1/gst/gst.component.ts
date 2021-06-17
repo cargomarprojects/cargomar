@@ -64,6 +64,21 @@ export class GstComponent {
     gst_only: true
   };
 
+  SearchData2 = {
+    type: '',
+    pkid: '',
+    report_folder: '',
+    company_code: '',
+    branch_code: '',
+    year_code: '',
+    searchstring: '',
+    state_code :'',
+    return_period : '',
+    user_code : ''
+
+  };
+
+
   // Array For Displaying List
   RecordList: GstReport[] = [];
   //  Single Record for add/edit/view details
@@ -296,5 +311,65 @@ export class GstComponent {
   SelectBank(_rec: Companym) {
     // _rec.comp_checked = true;
   }
+
+
+  // GSTR2A
+  state_code = '32';
+  state_name = 'KERALA';
+  retn_period = '012021';
+  LovSelected2(_Record: SearchTable) {
+    if (_Record.controlname == "STATE") {
+      this.state_code = _Record.code;
+      this.state_name = _Record.name;
+    }
+  }
+
+  ProcessGstr2A(_type: string) {
+
+    this.ErrorMessage = '';
+    if (this.state_code.trim().length <= 0) {
+      this.ErrorMessage = "State Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+    if (this.retn_period.trim().length <= 0) {
+      this.ErrorMessage = "Return Period Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    this.loading = true;
+    this.SearchData2.pkid = this.gs.getGuid();
+    this.SearchData2.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData2.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData2.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData2.year_code = this.gs.globalVariables.year_code;
+    this.SearchData2.state_code = this.state_code;
+    this.SearchData2.return_period = this.retn_period;
+    this.SearchData2.searchstring = '';
+    this.SearchData2.type = _type;
+    this.SearchData2.user_code = this.gs.globalVariables.user_code;
+
+    this.ErrorMessage = '';
+    this.mainService.ProcessGSTRApi(this.SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL') 
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'GSTR2A') {
+          if ( response.status != "")
+            alert(response.status);  
+          //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);     
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert( this.ErrorMessage);
+        });
+  }
+
+
+
 
 }
