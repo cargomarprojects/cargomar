@@ -74,8 +74,8 @@ export class GstComponent {
     searchstring: '',
     state_code :'',
     return_period : '',
-    user_code : ''
-
+    user_code : '',
+    otp : ''
   };
 
 
@@ -317,6 +317,7 @@ export class GstComponent {
   state_code = '32';
   state_name = 'KERALA';
   retn_period = '012021';
+  otp = "";
   LovSelected2(_Record: SearchTable) {
     if (_Record.controlname == "STATE") {
       this.state_code = _Record.code;
@@ -349,6 +350,7 @@ export class GstComponent {
     this.SearchData2.searchstring = '';
     this.SearchData2.type = _type;
     this.SearchData2.user_code = this.gs.globalVariables.user_code;
+    this.SearchData2.otp = this.otp;
 
     this.ErrorMessage = '';
     this.mainService.ProcessGSTRApi(this.SearchData2)
