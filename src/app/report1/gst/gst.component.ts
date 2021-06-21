@@ -313,7 +313,7 @@ export class GstComponent {
   }
 
 
-  // GSTR2A
+  // GSTR2B
   state_code = '32';
   state_name = 'KERALA';
   retn_period = '012021';
@@ -325,7 +325,7 @@ export class GstComponent {
     }
   }
 
-  ProcessGstr2A(_type: string) {
+  ProcessGstr2B(_type: string) {
 
     this.ErrorMessage = '';
     if (this.state_code.trim().length <= 0) {
@@ -339,9 +339,11 @@ export class GstComponent {
       return;
     }
     if (_type == "GSTR2B"){
-      this.ErrorMessage = "Token Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
+      if (this.otp.trim().length <= 0) {
+        this.ErrorMessage = "OTP Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     this.loading = true;
