@@ -9,7 +9,7 @@
 <div class="page-header">
   <div class="col">
     <button [disabled]="loading" (click)="currentTab='LIST'" class="btn btn-success btn-sm">GST Reports</button>
-    <button [disabled]="loading" (click)="currentTab='GSTR2B'" class="btn btn-success btn-sm">GSTR2B Processing</button>
+    <button [disabled]="loading" (click)="currentTab='GSTR2B'" class="btn btn-success btn-sm">GSTR2B</button>
   </div>
 </div>
 
@@ -552,7 +552,7 @@
   <h5>GSTR2B Processing</h5>
   
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">State</label>
@@ -584,10 +584,10 @@
         <div class="form-group row mt-1">
           <label class="col-6 col-form-label col-form-label-sm"></label>
           <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate OTP</button>
+            <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')" class="btn btn-primary btn-sm">Process</button>
           </div>
           <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')" class="btn btn-primary btn-sm">Process</button>
+            <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate OTP</button>
           </div>
         </div>
 
