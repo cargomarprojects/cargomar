@@ -338,6 +338,11 @@ export class GstComponent {
       alert(this.ErrorMessage);
       return;
     }
+    if (_type == "GSTR2B"){
+      this.ErrorMessage = "Token Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
 
     this.loading = true;
     this.SearchData2.pkid = this.gs.getGuid();
@@ -358,10 +363,9 @@ export class GstComponent {
         this.loading = false;
         if (_type == 'EXCEL') 
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'GSTR2A') {
+        else if (_type == 'OTP' || _type == 'GSTR2B') {
           if ( response.status != "")
             alert(response.status);  
-          //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);     
         }
       },
         error => {
