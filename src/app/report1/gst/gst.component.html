@@ -556,11 +556,11 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th>TYPE</th>
           <th>GSTIN</th>
           <th>CGSTIN</th>
           <th>CUSTOMER</th>
           <th>POS</th>
-          <th>TYPE</th>
           <th>INV#</th>
           <th>DATE</th>
           <th class="text-right">INV-AMT</th>
@@ -574,20 +574,20 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td>{{gstin}}</td>
-          <td>{{ctin}}</td>
-          <td>{{trdnm}}</td>
-          <td>{{pos}}</td>
-          <td>{{doctyp}}</td>
-          <td>{{inum}}</td>
-          <td>{{dt}}</td>
-          <td align='right'>{{ rec.val | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.txval | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.cgst | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.sgst | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.igst | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.cess | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.tot | number : '1.2-2' }}</td>
+          <td>{{rec.jvh_type}}</td>
+          <td>{{rec.jvh_gstin}}</td>
+          <td>{{rec.jvh_reference}}</td>
+          <td>{{rec.jvh_party_name}}</td>
+          <td>{{rec.jvh_state_code}}</td>
+          <td>{{rec.jvh_docno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_cess_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_gst_amt  | number : '1.2-2' }}</td>
         </tr>
       </tbody>
     </table>

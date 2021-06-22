@@ -339,7 +339,7 @@ export class GstComponent {
       return;
     }
 
-    if (_type == "OTP"){
+    if (_type == "GSTR2B"){
       if (this.otp.trim().length <= 0) {
         this.ErrorMessage = "OTP Cannot Be Blank";
         alert(this.ErrorMessage);
