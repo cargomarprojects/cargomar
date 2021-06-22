@@ -46,6 +46,7 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
+          <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
           <th *ngIf="type == 'COUNTRY'">REGION</th>
@@ -75,6 +76,7 @@
         <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.param_pkid, i)" [class.active]="i == selectedRowIndex">
           <td>{{rec.param_code}}</td>
           <td>{{rec.param_name}}</td>
+          <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
           <td *ngIf="type == 'COUNTRY'">{{rec.param_id1}}</td>

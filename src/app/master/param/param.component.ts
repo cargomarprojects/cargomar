@@ -126,6 +126,11 @@ export class ParamComponent {
 
     this.code_length = 15;
 
+
+    if (this.type == 'SAC') {
+      this.id1 = "SAC Code";
+    }
+
     if (this.type == 'CHALIC') {
       this.id1 = "Branch code";
       this.id2 = "Cha#";
@@ -426,6 +431,12 @@ export class ParamComponent {
           bret = false;
           sError += "\n\rTYPE CAN BE DATE OR TEXT";
         }
+    }
+    if (this.type == 'SAC') {
+      if ( this.Record.param_id1 == ''  ) {
+        bret = false;
+        sError += "\n\rSAC Code cannote be blank";
+      }
     }
 
     if (this.type == 'CONTAINER TYPE') {
