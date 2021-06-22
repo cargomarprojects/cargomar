@@ -24,6 +24,8 @@ export class Benfm {
     ben_edit_code: string;
     ben_ctr: number;
 
+    ben_selected : boolean;
+
     rec_mode: string;
 
     _globalvariables: GlobalVariables;
