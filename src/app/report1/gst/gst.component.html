@@ -47,6 +47,7 @@
               <option [value]="'CN'">CREDIT NOTE</option>
               <option [value]="'DI'">INWARD DEBIT NOTE</option>
               <option [value]="'CI'">INWARD CREDIT NOTE</option>
+              <option [value]="'GSTR2B'">GSTR2B</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'" class="form-check">
               <input type="checkbox" class="form-check-input" [(ngModel)]="gst_only">
@@ -424,6 +425,10 @@
       </tbody>
     </table>
   </div>
+
+
+
+
   <div *ngIf="display_format_type=='FORM 3B'" class="page-body table-responsive">
     <table class="table table-hover table-sm">
       <thead class="page-body-thead">
@@ -546,6 +551,48 @@
       </tbody>
     </table>
   </div>
+
+  <div *ngIf="display_format_type=='GSTR2B'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>GSTIN</th>
+          <th>CGSTIN</th>
+          <th>CUSTOMER</th>
+          <th>POS</th>
+          <th>TYPE</th>
+          <th>INV#</th>
+          <th>DATE</th>
+          <th class="text-right">INV-AMT</th>
+          <th class="text-right">TAXABLE-AMT</th>
+          <th class="text-right">CGST</th>
+          <th class="text-right">SGST</th>
+          <th class="text-right">IGST</th>
+          <th class="text-right">CESS</th>
+          <th class="text-right">TOT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{gstin}}</td>
+          <td>{{ctin}}</td>
+          <td>{{trdnm}}</td>
+          <td>{{pos}}</td>
+          <td>{{doctyp}}</td>
+          <td>{{inum}}</td>
+          <td>{{dt}}</td>
+          <td align='right'>{{ rec.val | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.txval | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.cgst | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.sgst | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.igst | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.cess | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.tot | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
