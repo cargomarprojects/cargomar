@@ -12,6 +12,7 @@ export class pendinglist {
     jv_date: string;
     jv_reference: string;
     jv_total: number;
+    jv_gst_amt: number;
     jv_balance: number;
     jv_allocation: number;
     jv_selected: boolean;
