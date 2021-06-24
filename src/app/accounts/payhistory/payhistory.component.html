@@ -87,22 +87,21 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          
           <th *ngIf="all">BRANCH</th>
           <th>INV.NO</th>
-          <th>TYPE</th>
-          <th>SL.NO</th>
           <th>DATE</th>
-          <th class="text-right">INTEREST%</th>
           <th>NAME</th>
-          <th class="text-right">DEBIT</th>
-
+          <th class="text-right">AMOUNT</th>
           <th>CR-DATE</th>
           <th class="text-right">CR-AMT</th>
-          <th>DAYS</th>
-          <th class="text-right">BALANCE</th>
-          <th>BAL-DAYS</th>
-          <th class="text-right">INT-1</th>
-          <th class="text-right">INT-2</th>
+          <th>STATUS</th>
+          <th>PENDING</th>
+          <th>CR-DAYS</th>
+          <th>OVER-DUE</th>
+          <th class="text-right">CR-LIMIT</th>
+          <th>SALESMAN</th>
+
         </tr>
       </thead>
 
@@ -110,20 +109,17 @@
         <tr [style.color]="rec.rowcolor">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.jvh_vrno}}</td>
-          <td>{{rec.jvh_type}}</td>
-          <td>{{rec.sl_no}}</td>
           <td>{{rec.jvh_date}}</td>
-          <td align='right'>{{ rec.intrest | number : '1.2-2' }}</td>
           <td>{{rec.acc_name}}</td>
           <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
-
-          <td>{{rec.cr_date}}</td>
-          <td align='right'>{{rec.cr_total | number : '1.2-2'}}</td>
-          <td>{{rec.days}}</td>
-          <td align='right'>{{rec.balance | number : '1.2-2'}}</td>
-          <td>{{rec.bal_days}}</td>
-          <td align='right'>{{rec.int1 | number : '1.2-2'}}</td>
-          <td align='right'>{{rec.int2 | number : '1.2-2'}}</td>
+          <td>{{rec.xref_crdate}}</td>
+          <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
+          <td>{{rec.status}}</td>
+          <td align='center'>{{rec.pending}}</td>
+          <td align='center'>{{rec.cust_crdays}}</td>
+          <td align='center'>{{rec.overdue}}</td>
+          <td align='right'>{{rec.cust_crlimit | number : '1.2-2'}}</td>
+          <td>{{rec.sman_name}}</td>
 
         </tr>
       </tbody>
