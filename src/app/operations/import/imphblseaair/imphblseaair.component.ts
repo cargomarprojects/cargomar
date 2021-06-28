@@ -60,7 +60,7 @@ export class ImpHblSeaAirComponent {
   mode = '';
   pkid = '';
 
-  old_shipper_id = '';
+  old_importer_id = '';
   old_billto_id = '';
 
   bCreditLimit: boolean = false;
@@ -508,7 +508,7 @@ export class ImpHblSeaAirComponent {
   NewRecord() {
     // this.disableBookslno = false;
 
-    this.old_shipper_id = '';
+    this.old_importer_id = '';
     this.old_billto_id = '';
 
 
@@ -714,7 +714,10 @@ export class ImpHblSeaAirComponent {
     this.ICURRECORD.id = this.Record.hbl_insu_curr_id;
     this.ICURRECORD.code = this.Record.hbl_insu_curr_code;
 
-    this.old_shipper_id = this.Record.hbl_exp_id;
+    //this.old_shipper_id = this.Record.hbl_exp_id;
+    //this.old_billto_id = this.Record.hbl_billto_id;
+
+    this.old_importer_id = this.Record.hbl_imp_id;
     this.old_billto_id = this.Record.hbl_billto_id;
 
 
@@ -723,7 +726,7 @@ export class ImpHblSeaAirComponent {
 
   Save() {
     try {
-        if (this.old_shipper_id != this.Record.hbl_exp_id || this.old_billto_id != this.Record.hbl_billto_id)
+        if (this.old_importer_id != this.Record.hbl_imp_id || this.old_billto_id != this.Record.hbl_billto_id)
             this.CheckCrLimit(true);
         else
             this.SaveFinal();
