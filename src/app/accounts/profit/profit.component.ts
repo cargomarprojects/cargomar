@@ -267,6 +267,9 @@ export class ProfitComponent {
       this.SearchData.type = this.type_date;
       this.SearchData.all = true;
 
+      if ( this.finyear > 0)
+        this.SearchData.year_code = this.finyear.toString();
+
       this.ErrorMessage = '';
       this.mainService.ProcessProfit(this.SearchData)
         .subscribe(response => {
