@@ -37,6 +37,7 @@ export class EinvoiceComponent {
   searchstring = '';
   display_format_type: string = '';
 
+  bPrint = false;
   bCompany = false;
   disableSave = true;
   loading = false;
@@ -137,6 +138,7 @@ export class EinvoiceComponent {
   InitComponent() {
     var apr = '';
     this.bCompany = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
@@ -166,6 +168,8 @@ export class EinvoiceComponent {
         this.bcn = true;
       if (apr.toString().indexOf('{MANUAL}') >= 0)
         this.bmanual = true;
+
+        this.bPrint = this.menu_record.rights_print;
     }
 
     this.initLov();
