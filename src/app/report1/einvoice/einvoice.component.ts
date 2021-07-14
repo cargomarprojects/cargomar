@@ -24,7 +24,7 @@ export class EinvoiceComponent {
   sub: any;
   urlid: string;
 
-  file_name : File;
+  file_name: File;
 
   ErrorMessage = "";
   mode = '';
@@ -42,12 +42,12 @@ export class EinvoiceComponent {
   loading = false;
   currentTab = 'LIST';
   BranchList: Companym[] = [];
-  
+
   invoice: boolean = false;
   exportinvoice: boolean = false;
   dn: boolean = false;
   cn: boolean = false;
-
+  
   bmanual: boolean = false;
   binvoice: boolean = false;
   bexportinvoice: boolean = false;
@@ -55,6 +55,7 @@ export class EinvoiceComponent {
   bcn: boolean = false;
 
   gst_only: boolean = true;
+  pendinginvoice: boolean = false;
 
   controlname = '';
   tabletype = '';
@@ -67,7 +68,7 @@ export class EinvoiceComponent {
   page_rows = 0;
   page_rowcount = 0;
 
-  
+
 
   SearchData = {
     type: '',
@@ -75,7 +76,7 @@ export class EinvoiceComponent {
     report_folder: '',
     company_code: '',
     branch_code: '',
-    user_code : '',
+    user_code: '',
     year_code: '',
     searchstring: '',
     from_date: '',
@@ -83,15 +84,16 @@ export class EinvoiceComponent {
     format_type: '',
     all: false,
     gst_only: true,
-    invoice : false,
-    exportinvoice : false,
-    dn : false,
-    cn : false,
-    page_count : 0,
-    page_current : 0,
-    page_rows : 0,
-    page_rowcount : 0,
-  
+    invoice: false,
+    exportinvoice: false,
+    dn: false,
+    cn: false,
+    pendinginvoice:false,
+    page_count: 0,
+    page_current: 0,
+    page_rows: 0,
+    page_rowcount: 0,
+
   };
 
   // Array For Displaying List
@@ -137,8 +139,8 @@ export class EinvoiceComponent {
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
 
-    if (this.gs.globalVariables.user_code == "ADMIN"){
-      this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;
+    if (this.gs.globalVariables.user_code == "ADMIN") {
+      this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true;
     }
 
     if (this.menu_record) {
@@ -146,24 +148,24 @@ export class EinvoiceComponent {
       if (this.menu_record.rights_company)
         this.bCompany = true;
       apr = this.menu_record.rights_approval;
-      
-      if (this.menu_record.rights_admin){
-        this.binvoice =true; this.bexportinvoice=true; this.bdn=true; this.bcn=true;this.bmanual = true;
+
+      if (this.menu_record.rights_admin) {
+        this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true; this.bmanual = true;
       }
-      else  {
-        this.binvoice =false; this.bexportinvoice =false;this.bdn =false;this.bcn=false; this.bmanual =false;
+      else {
+        this.binvoice = false; this.bexportinvoice = false; this.bdn = false; this.bcn = false; this.bmanual = false;
       }
 
-      if (apr.toString().indexOf('{IN}') >=0 )
-        this.binvoice =true;
-      if (apr.toString().indexOf('{IN-ES}') >=0 )
-        this.bexportinvoice =true;
+      if (apr.toString().indexOf('{IN}') >= 0)
+        this.binvoice = true;
+      if (apr.toString().indexOf('{IN-ES}') >= 0)
+        this.bexportinvoice = true;
       if (apr.toString().indexOf('{DN}') >= 0)
-        this.bdn =true;
+        this.bdn = true;
       if (apr.toString().indexOf('{CN}') >= 0)
-        this.bcn =true;
+        this.bcn = true;
       if (apr.toString().indexOf('{MANUAL}') >= 0)
-        this.bmanual =true;
+        this.bmanual = true;
     }
 
     this.initLov();
@@ -234,15 +236,17 @@ export class EinvoiceComponent {
   List(_type: string) {
 
     this.ErrorMessage = '';
-    if (this.from_date.trim().length <= 0) {
-      this.ErrorMessage = "From Date Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
-    }
-    if (this.to_date.trim().length <= 0) {
-      this.ErrorMessage = "To Date Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
+    if (!this.pendinginvoice) {
+      if (this.from_date.trim().length <= 0) {
+        this.ErrorMessage = "From Date Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+      if (this.to_date.trim().length <= 0) {
+        this.ErrorMessage = "To Date Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     if (this.branch_code.trim().length <= 0) {
@@ -271,27 +275,29 @@ export class EinvoiceComponent {
     this.SearchData.exportinvoice = this.exportinvoice;
     this.SearchData.dn = this.dn;
     this.SearchData.cn = this.cn;
-
+    this.SearchData.pendinginvoice = this.pendinginvoice;
+ 
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
-    this.SearchData.page_rows =this.page_rows;
+    this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
 
     this.ErrorMessage = '';
+    //BLReport1/GstEInvoiceService/List
     this.mainService.EInvoiceReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL') 
+        if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'GENERATE') {
-          if ( response.status != "")
+          if (response.status != "")
             alert(response.status);
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);          
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else if (_type == 'GSP') {
-          if ( response.status != "")
-            alert(response.status);          
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);     
+          if (response.status != "")
+            alert(response.status);
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
           this.RecordList = response.list;
@@ -304,7 +310,7 @@ export class EinvoiceComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -320,21 +326,21 @@ export class EinvoiceComponent {
   }
 
 
-  upload(){
-    
-    if ( this.file_name == null) {
+  upload() {
+
+    if (this.file_name == null) {
       alert('No File Selected');
       return;
     }
 
     let frmData: FormData = new FormData();
     frmData.append("report_folder", this.gs.globalVariables.report_folder);
-    frmData.append("comp_code", this.gs.globalVariables.comp_code );
-    frmData.append("user_code", this.gs.globalVariables.user_code );
+    frmData.append("comp_code", this.gs.globalVariables.comp_code);
+    frmData.append("user_code", this.gs.globalVariables.user_code);
     frmData.append("fileUpload", this.file_name);
     this.mainService.EInvoiceUpload(frmData).subscribe(
       response => {
-        alert( response.msg);
+        alert(response.msg);
       },
       error => {
         alert(this.gs.getError(error));
@@ -344,22 +350,22 @@ export class EinvoiceComponent {
 
   }
 
-  OnStatusChange(evt : any, rec : GstReport){
+  OnStatusChange(evt: any, rec: GstReport) {
 
     let SaveData = {
-      "jvh_einv_status" : ( rec.jvh_beinv_status) ? "Y" : "N",
-      "jvh_pkid" : rec.jvh_pkid
+      "jvh_einv_status": (rec.jvh_beinv_status) ? "Y" : "N",
+      "jvh_pkid": rec.jvh_pkid
     }
 
 
     this.ErrorMessage = '';
     this.mainService.SaveEinvStatus(SaveData)
       .subscribe(response => {
-           response.jvh_einv_status = response.status;
+        response.jvh_einv_status = response.status;
       },
         error => {
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -374,7 +380,7 @@ export class EinvoiceComponent {
     // _rec.comp_checked = true;
   }
 
-  getIRN(rec : GstReport){
+  getIRN(rec: GstReport) {
     this.ErrorMessage = '';
 
     if (rec.jvh_pkid.trim().length <= 0) {
@@ -382,7 +388,7 @@ export class EinvoiceComponent {
       alert(this.ErrorMessage);
       return;
     }
-   
+
 
     this.loading = true;
     this.SearchData.pkid = rec.jvh_pkid;
@@ -391,7 +397,7 @@ export class EinvoiceComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    
+
     this.ErrorMessage = '';
     this.mainService.CheckIRN(this.SearchData)
       .subscribe(response => {
@@ -401,7 +407,7 @@ export class EinvoiceComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 

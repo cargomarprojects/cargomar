@@ -58,6 +58,8 @@
             <input type="checkbox" [(ngModel)]="cn" *ngIf="bcn">
             <span *ngIf="bcn">CN</span>
 
+            <input type="checkbox" [(ngModel)]="pendinginvoice">
+            <span >PENDING</span>
           </div>
           
         </div>
@@ -65,6 +67,7 @@
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button [disabled]="loading" (click)="List('PRINT')" class="btn btn-primary btn-sm mr-1">Print</button>
             <button [disabled]="loading" (click)="List('GENERATE')" class="btn btn-primary btn-sm mr-1" *ngIf="bmanual">Generate JSON</button>
             <button [disabled]="loading" (click)="List('GSP')" class="btn btn-primary btn-sm mr-1">GENERATE IRN</button>
           </div>              
