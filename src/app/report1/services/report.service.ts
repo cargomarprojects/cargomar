@@ -77,6 +77,11 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/CostStmtList', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  CostBillingList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/CostBillingList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
   TrackList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/TrackList', SearchData, this.gs.headerparam2('anonymous'));
   }

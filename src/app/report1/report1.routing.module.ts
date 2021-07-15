@@ -31,6 +31,7 @@ import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component'
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
 import { EinvoiceComponent } from './einvoice/einvoice.component';
 import { PreAlertRepComponent } from './prealertrep/prealertrep.component';
+import { CostBillingComponent } from './costbilling/costbilling.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'shiptrack', component: ShipTrackComponent},
   { path: 'einvoice', component: EinvoiceComponent },
   { path: 'prealert', component: PreAlertRepComponent},
+  { path: 'costbilling', component: CostBillingComponent },
 ];
 
 @NgModule({

@@ -38,6 +38,8 @@ import { TeuClrComponent } from './teuclr/teuclr.component';
 
 import { CoststmtComponent } from './coststmt/coststmt.component';
 
+
+
 import { TrackComponent } from './track/track.component';
 
 import { DsrRemComponent } from './dsr/dsrrem.component';
@@ -56,6 +58,7 @@ import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
 import { EinvoiceComponent } from './einvoice/einvoice.component';
 import { PreAlertRepComponent } from './prealertrep/prealertrep.component';
 import { PrealertUpdtComponent } from './prealertrep/prealertupdt.component';
+import { CostBillingComponent } from './costbilling/costbilling.component';
 
 @NgModule({
   imports: [
@@ -99,7 +102,8 @@ import { PrealertUpdtComponent } from './prealertrep/prealertupdt.component';
     ShipTrackComponent,
     EinvoiceComponent,
     PreAlertRepComponent,
-    PrealertUpdtComponent
+    PrealertUpdtComponent,
+    CostBillingComponent
   ],
   providers: [
   ],
