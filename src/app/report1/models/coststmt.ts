@@ -14,6 +14,9 @@ export class Coststmt {
   jvh_remarks: string;
   jvh_reference: string;
   rec_category: string;
+  
+  jv_ftotal: number;
+
   jv_debit: number;
   jv_credit: number;
   jv_exrate: number;
@@ -21,6 +24,12 @@ export class Coststmt {
   opening: number;
 
   branch: string;
+
+  acc_code: string;
+  acc_name: string;
+
+  jvh_narration: string;
+
 
   _globalvariables: GlobalVariables;
 }

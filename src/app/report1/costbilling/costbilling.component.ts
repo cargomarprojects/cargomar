@@ -264,6 +264,7 @@ export class CostBillingComponent {
     //this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
+    //BLReport1/CostBillingService/List
     this.mainService.CostBillingList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
