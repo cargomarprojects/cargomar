@@ -255,6 +255,7 @@ export class PayHistoryComponent {
     this.SearchData.detail = this.detail;
 
     this.ErrorMessage = '';
+    //BLAccounts/PayHistoryService/List
     this.mainService.PayHistory(this.SearchData)
       .subscribe(response => {
         this.loading = false;
