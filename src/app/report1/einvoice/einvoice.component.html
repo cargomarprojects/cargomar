@@ -70,7 +70,7 @@
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1" *ngIf='bPrint' >Print</button>
             <button [disabled]="loading" (click)="List('GENERATE')" class="btn btn-primary btn-sm mr-1" *ngIf="bmanual">Generate JSON</button>
             <button [disabled]="loading" (click)="List('GSP')" class="btn btn-primary btn-sm mr-1">GENERATE IRN</button>
-            <button [disabled]="loading" (click)="List('MAIL')" class="btn btn-primary btn-sm mr-1" *ngIf="pendinginvoice">Mail</button>
+            <button [disabled]="loading" (click)="List('MAIL')" class="btn btn-primary btn-sm mr-1" *ngIf="pendinginvoice&&bEmail">Mail</button>
           </div>              
         </div>
       </div>

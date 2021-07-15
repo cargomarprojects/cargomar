@@ -38,6 +38,7 @@ export class EinvoiceComponent {
   display_format_type: string = '';
 
   bPrint = false;
+  bEmail = false;
   bCompany = false;
   disableSave = true;
   loading = false;
@@ -140,6 +141,7 @@ export class EinvoiceComponent {
     var apr = '';
     this.bCompany = false;
     this.bPrint = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
@@ -171,6 +173,7 @@ export class EinvoiceComponent {
         this.bmanual = true;
 
       this.bPrint = this.menu_record.rights_print;
+      this.bEmail = this.menu_record.rights_email;
     }
 
     this.initLov();
