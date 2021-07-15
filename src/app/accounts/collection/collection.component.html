@@ -1,68 +1,120 @@
+
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
 
+<div *ngIf="currentTab=='LIST'" class="page-list">
 
-
-<div class="page-list pb-2">
-  <div class="page-search">
-    <div class="row">
-      <div class="col-3">
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Invoice Date</label>
-          <div class="col-8">
-            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Payment Date</label>
-          <div class="col-8">
-            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+        <div class="col-3">
+          <div class="form-group row">
+            <label class="col-4  col-form-label col-form-label-sm">A/c Code</label>
+            <div class="col-7">
+              <app-autocomplete #CsdLov [inputdata]="ACCRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-12  col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
           </div>
         </div>
-      </div>
 
+        
+        <div class="col-4">
+          <div *ngIf="bCompany" class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-4">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div *ngIf="bCompany" class="col-sm-3">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
 
-      <div class="col-4">
-
-
-        <div class="form-group row">
-          <div class="col-sm-6">
-            <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process
-              Report</button>
-            <button [disabled]="loading" (click)="Downloadfile('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            <div class="col-sm-6">
+              <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-
-<div class="page-list">
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_color">
-          <td>{{rec.desc1}}</td>
-          <td>{{rec.desc2}}</td>
+      <thead class="page-body-thead">
+        <tr>
+          
+          <th *ngIf="all">BRANCH</th>
+          <th>VRNO</th>
+          <th>DATE</th>
+          <th>NAME</th>
+          <th class="text-right">CREDIT</th>
+          <th>INVNO</th>
+          <th>INV-DATE</th>
+          <th class="text-right">ALLOC-AMT</th>
+          <th>SALESMAN</th>
+          <th>NARRATION</th>
+          <th>CR-DAYS</th>
+          <th class="text-right">CR-LIMIT</th>
+        </tr>
+      </thead>
 
-          <td>{{rec.col1}}</td>
-          <td>{{rec.col2}}</td>
-          <td>{{rec.col3}}</td>
-          <td>{{rec.col4}}</td>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.rowcolor">
+          <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.jvh_vrno}}</td>
+          <td>{{rec.jvh_date}}</td>
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{rec.jv_credit | number : '1.2-2'}}</td>
+          <td>{{rec.invno}}</td>
+          <td>{{rec.xref_drdate}}</td>
+          <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
+          
+          <td>{{rec.sman_name}}</td>
+          <td>{{rec.jvh_narration}}</td>
+
+          <td align='center'>{{rec.cust_crdays}}</td>
+          <td align='right'>{{rec.cust_crlimit | number : '1.2-2'}}</td>
+
 
         </tr>
       </tbody>
     </table>
   </div>
+ 
+
 </div>
 
+
 <br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
+
+

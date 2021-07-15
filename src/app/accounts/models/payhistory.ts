@@ -26,11 +26,15 @@ export class payhistoryReport {
   acc_code: string;
   jv_credit: number;
   xref_crdate: string;
+  xref_drdate: string;
   cust_crlimit: number;
   cust_crdays: string;
   sman_name: string;
   pending: number;
   status: string;
   overdue: number;
+
+  invno: string;
+  jvh_narration: string;
 
 }

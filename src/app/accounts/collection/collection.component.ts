@@ -5,10 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
 
-import { collectionreport } from '../models/collection';
-
 import { AccReportService } from '../services/accreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { payhistoryReport } from '../models/payhistory';
 
 
 @Component({
@@ -70,14 +69,21 @@ export class CollectionComponent {
     acc_id: '',
     acc_name: '',
     branch_code: '',
-    branch_name: ''
+    branch_name: '',
+    intrest: '',
+    credit_days:'',
+    isoverdue: false,
+    all: false,
+    detail: false,    
   };
 
 
   // Array For Displaying List
-  RecordList: collectionreport[] = [];
+  
   // Single Record for add/edit/view details
-  Record: collectionreport = new collectionreport;
+  Record: payhistoryReport = new payhistoryReport;
+  
+  RecordList: payhistoryReport[] = [];
 
   constructor(
     private mainService: AccReportService,
@@ -207,14 +213,6 @@ export class CollectionComponent {
   // Query List Data
   List(_type: string) {
 
-    if (this.to_date.trim().length <= 0) {
-      this.ErrorMessage = 'Invoice Date Cannot Be Blank';
-      return;
-    }
-    if (this.from_date.trim().length <= 0) {
-      this.ErrorMessage = 'Payment Date Cannot Be Blank';
-      return;
-    }
 
     this.loading = true;
 
@@ -236,23 +234,33 @@ export class CollectionComponent {
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
 
-
-    this.SearchData.to_date = this.to_date;
     this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    
+    this.SearchData.isoverdue = this.isoverdue;
+    this.SearchData.all = this.all;
 
     this.SearchData.acc_id = this.ACCRECORD.id;
     this.SearchData.acc_name = this.ACCRECORD.name;
+
+    
 
     this.ErrorMessage = '';
     this.mainService.CollectionReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-      },
-        error => {
+        //this.RecordList = response.list;
+        if ( _type == 'EXCEL'){
+          this.Downloadfile(_type);
+        }
+        else {
+          this.RecordList = response.list;
+        }
+
+      }, error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-        });
+      });
   }
 
   
