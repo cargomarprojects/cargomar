@@ -48,7 +48,7 @@ export class EinvoiceComponent {
   exportinvoice: boolean = false;
   dn: boolean = false;
   cn: boolean = false;
-  
+
   bmanual: boolean = false;
   binvoice: boolean = false;
   bexportinvoice: boolean = false;
@@ -78,6 +78,7 @@ export class EinvoiceComponent {
     company_code: '',
     branch_code: '',
     user_code: '',
+    user_name: '',
     year_code: '',
     searchstring: '',
     from_date: '',
@@ -89,7 +90,7 @@ export class EinvoiceComponent {
     exportinvoice: false,
     dn: false,
     cn: false,
-    pendinginvoice:false,
+    pendinginvoice: false,
     page_count: 0,
     page_current: 0,
     page_rows: 0,
@@ -169,7 +170,7 @@ export class EinvoiceComponent {
       if (apr.toString().indexOf('{MANUAL}') >= 0)
         this.bmanual = true;
 
-        this.bPrint = this.menu_record.rights_print;
+      this.bPrint = this.menu_record.rights_print;
     }
 
     this.initLov();
@@ -259,6 +260,11 @@ export class EinvoiceComponent {
       return;
     }
 
+    if (_type == "MAIL") {
+      if (!confirm("Do you want to Send E-Invoice Pending List")) {
+        return;
+      }
+    }
 
     this.display_format_type = this.format_type;
 
@@ -268,6 +274,7 @@ export class EinvoiceComponent {
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.user_name = this.gs.globalVariables.user_name;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
@@ -280,7 +287,7 @@ export class EinvoiceComponent {
     this.SearchData.dn = this.dn;
     this.SearchData.cn = this.cn;
     this.SearchData.pendinginvoice = this.pendinginvoice;
- 
+
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
     this.SearchData.page_rows = this.page_rows;
@@ -302,6 +309,9 @@ export class EinvoiceComponent {
           if (response.status != "")
             alert(response.status);
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        } else if (_type == 'MAIL') {
+          if (response.mailmsg != "")
+            alert(response.mailmsg);
         }
         else {
           this.RecordList = response.list;
