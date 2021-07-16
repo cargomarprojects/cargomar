@@ -93,6 +93,7 @@
           <th>DATE</th>
           <th>NAME</th>
           <th class="text-right">AMOUNT</th>
+          <th>REF#</th>
           <th>CR-DATE</th>
           <th class="text-right">CR-AMT</th>
           <th>STATUS</th>
@@ -101,7 +102,7 @@
           <th>OVER-DUE</th>
           <th class="text-right">CR-LIMIT</th>
           <th>SALESMAN</th>
-
+          <th>NARRATION</th>
         </tr>
       </thead>
 
@@ -112,6 +113,7 @@
           <td>{{rec.jvh_date}}</td>
           <td>{{rec.acc_name}}</td>
           <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
+          <td>{{rec.invno}}</td>
           <td>{{rec.xref_crdate}}</td>
           <td align='right'>{{rec.xref_amt | number : '1.2-2'}}</td>
           <td>{{rec.status}}</td>
@@ -120,7 +122,7 @@
           <td align='center'>{{rec.overdue}}</td>
           <td align='right'>{{rec.cust_crlimit | number : '1.2-2'}}</td>
           <td>{{rec.sman_name}}</td>
-
+          <td>{{rec.jvh_narration}}</td>
         </tr>
       </tbody>
     </table>
@@ -144,7 +146,7 @@
           <th>OVER-DUE</th>
           <th class="text-right">CR-LIMIT</th>
           <th>SALESMAN</th>
-         
+          <th>NARRATION</th>
         </tr>
       </thead>
 
@@ -163,6 +165,7 @@
           <td align='center'>{{rec.overdue}}</td>
           <td align='right'>{{rec.cust_crlimit | number : '1.2-2'}}</td>
           <td>{{rec.sman_name}}</td>
+          <td>{{rec.jvh_narration}}</td>
         </tr>
       </tbody>
     </table>
