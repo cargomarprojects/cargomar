@@ -40,6 +40,7 @@ export class EinvoiceComponent {
   bPrint = false;
   bEmail = false;
   bCompany = false;
+  bAdmin = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -140,12 +141,13 @@ export class EinvoiceComponent {
   InitComponent() {
     var apr = '';
     this.bCompany = false;
+    this.bAdmin = false;
     this.bPrint = false;
     this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
-      this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true;
+      this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true; this.bAdmin = true;
     }
 
     if (this.menu_record) {
@@ -155,10 +157,10 @@ export class EinvoiceComponent {
       apr = this.menu_record.rights_approval;
 
       if (this.menu_record.rights_admin) {
-        this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true; this.bmanual = true;
+        this.binvoice = true; this.bexportinvoice = true; this.bdn = true; this.bcn = true; this.bmanual = true; this.bAdmin = true;
       }
       else {
-        this.binvoice = false; this.bexportinvoice = false; this.bdn = false; this.bcn = false; this.bmanual = false;
+        this.binvoice = false; this.bexportinvoice = false; this.bdn = false; this.bcn = false; this.bmanual = false; this.bAdmin = false;
       }
 
       if (apr.toString().indexOf('{IN}') >= 0)
@@ -257,7 +259,13 @@ export class EinvoiceComponent {
       }
     }
 
-    if (this.branch_code.trim().length <= 0) {
+    if (_type == "MAIL") {
+      if (!this.bAdmin && this.branch_code.trim().length <= 0) {
+        this.ErrorMessage = "Branch Code Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+    } else if (this.branch_code.trim().length <= 0) {
       this.ErrorMessage = "Branch Code Cannot Be Blank";
       alert(this.ErrorMessage);
       return;
@@ -290,7 +298,10 @@ export class EinvoiceComponent {
     this.SearchData.dn = this.dn;
     this.SearchData.cn = this.cn;
     this.SearchData.pendinginvoice = this.pendinginvoice;
-
+    if (this.branch_code == '')
+      this.SearchData.all = true;
+    else
+      this.SearchData.all = false;
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
     this.SearchData.page_rows = this.page_rows;
