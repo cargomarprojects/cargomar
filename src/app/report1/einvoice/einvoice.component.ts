@@ -298,7 +298,7 @@ export class EinvoiceComponent {
     this.SearchData.dn = this.dn;
     this.SearchData.cn = this.cn;
     this.SearchData.pendinginvoice = this.pendinginvoice;
-    if (this.branch_code == null || this.branch_code == undefined || this.branch_code == '')
+    if (this.branch_code == '')
       this.SearchData.all = true;
     else
       this.SearchData.all = false;
