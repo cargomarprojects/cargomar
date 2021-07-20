@@ -1008,7 +1008,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SEA-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_SEA.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'AIR-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_AIR.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
-    
+
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'HOBANKACCODE', this.HOBANKREC.id, this.HOBANKREC.code, this.HOBANKREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
@@ -1260,6 +1260,12 @@ export class SettingsComponent {
           this.PayrollRecord.ps_sal_calc_days = this.gs.roundNumber(this.PayrollRecord.ps_sal_calc_days, 0);
           break;
         }
+      case 'ps_bonus_amt':
+        {
+          this.PayrollRecord.ps_bonus_amt = this.gs.roundNumber(this.PayrollRecord.ps_bonus_amt, 0);
+          break;
+        }
+
     }
   }
 
