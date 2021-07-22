@@ -94,6 +94,9 @@
           <th class="text-right">91-180</th>
           <th class="text-right">180+</th>
 
+          <th class="text-right">PAID-LATER-AMT</th>
+          <th >PAID-LATER-DATE</th>
+
 
           <th>STATUS</th>
           <th>REMARKS</th>
@@ -127,6 +130,8 @@
           <td align='right'>{{ rec.age5 | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.age6 | number : '1.2-2' }}</td>
 
+          <td align='right'>{{ rec.jv_paid_later_amt | number : '1.2-2' }}</td>
+          <td>{{rec.jv_paid_date}}</td>
 
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_type}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks}}</td>
