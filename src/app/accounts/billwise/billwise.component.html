@@ -1,5 +1,3 @@
-
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -71,9 +69,10 @@
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
             </div>
-           
+
             <div class="col-sm-9">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
           </div>
@@ -97,6 +96,9 @@
           <th>GST-TYPE</th>
           <th>CATEGORY</th>
           <th>SI#</th>
+          <th *ngIf="type_date =='INVOICE'">EXPORTER</th>
+          <th *ngIf="type_date =='INVOICE'">IMPORTER</th>
+          <th *ngIf="type_date =='INVOICE'">SMAN</th>
           <th class="text-right">TOTAL</th>
           <th class="text-right">CGST</th>
           <th class="text-right">SGST</th>
@@ -118,6 +120,9 @@
           <td>{{rec.jvh_gst_type}}</td>
           <td>{{rec.jvh_cc_category}}</td>
           <td>{{rec.hbl_no}}</td>
+          <td *ngIf="type_date =='INVOICE'">{{rec.exporter_name}}</td>
+          <td *ngIf="type_date =='INVOICE'">{{rec.importer_name}}</td>
+          <td *ngIf="type_date =='INVOICE'">{{rec.sman_name}}</td>
           <td align='right'>{{rec.jvh_tot_amt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jvh_cgst_amt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jvh_sgst_amt | number : '1.2-2'}}</td>
@@ -202,7 +207,7 @@
           <th *ngIf="all">BRANCH</th>
           <th>SI-NO</th>
           <th>SB#</th>
-          <th>SB-DT</th>          
+          <th>SB-DT</th>
           <th>JOBNOS</th>
           <th>COMM.INVNOS</th>
           <th>CUSTM.INVNOS</th>
@@ -255,17 +260,17 @@
       <thead class="page-body-thead">
         <tr>
           <th width="10%" *ngIf="all">BRANCH</th>
-          <th width="10%" >SI-NO</th>
-          <th width="10%" >SB#</th>
-          <th width="10%" >SB-DT</th>
-          <th width="10%" >JOBNOS</th>
-          <th width="10%" >COMM.INVNOS</th>
-          <th width="10%" >CUSTM.INVNOS</th>
-          <th width="10%" >INVNO</th>
-          <th width="10%" >DATE</th>
-          <th width="10%" >CONSIGNEE</th>
-          <th width="10%" >POD</th>
-          <th width="10%" >VOLUME</th>
+          <th width="10%">SI-NO</th>
+          <th width="10%">SB#</th>
+          <th width="10%">SB-DT</th>
+          <th width="10%">JOBNOS</th>
+          <th width="10%">COMM.INVNOS</th>
+          <th width="10%">CUSTM.INVNOS</th>
+          <th width="10%">INVNO</th>
+          <th width="10%">DATE</th>
+          <th width="10%">CONSIGNEE</th>
+          <th width="10%">POD</th>
+          <th width="10%">VOLUME</th>
           <th class="text-right">NTWT</th>
           <th class="text-right">GRWT</th>
           <th class="text-right">DEST.TRUCK</th>
@@ -285,7 +290,7 @@
           <td>{{rec.hbl_no}}</td>
 
           <td>{{rec.job_sbno}}</td>
-          <td>{{rec.job_sbdt}}</td>          
+          <td>{{rec.job_sbdt}}</td>
 
           <td>{{rec.job_docno}}</td>
           <td>{{rec.jexp_invoice_no}}</td>
@@ -300,10 +305,10 @@
           <td align='right'>{{rec.jv_dest_truck | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_bl_amend | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_bl_surr | number : '1.2-2'}}</td>
-          <td align='right'>{{rec.jv_detn | number : '1.2-2'}}</td>          
+          <td align='right'>{{rec.jv_detn | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_bl_reissue | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_via_change | number : '1.2-2'}}</td>
-          <td align='right'>{{rec.jv_detn2 | number : '1.2-2'}}</td>          
+          <td align='right'>{{rec.jv_detn2 | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_others | number : '1.2-2'}}</td>
           <td align='right'>{{rec.total_gst | number : '1.2-2'}}</td>
         </tr>
@@ -324,5 +329,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
-

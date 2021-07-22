@@ -65,6 +65,10 @@ export class BillWise {
 
   branch: string;
   
+  exporter_name: string;
+  importer_name: string;
+  sman_name: string;
+
   _globalvariables: GlobalVariables;
 
 }
