@@ -718,7 +718,7 @@ export class ArApComponent {
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
     let Courier_Code_Found: Boolean = false;
-
+    let bOk: Boolean = false;
     let rowCount: number = 0;
 
 
@@ -997,6 +997,17 @@ export class ArApComponent {
       }
     }
 
+
+    if (this.Record.jvh_exwork) {
+      bOk = false;
+      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001')
+        bOk = true;
+
+      if (!bOk) {
+        bret = false;
+        sError += " | Invalid Party, Only Freight Charges Allowed for Ex-Works Invoices";
+      }
+    }
 
     if (bret) {
       this.Record.jvh_reference = this.Record.jvh_reference.toUpperCase().replace(' ', '');

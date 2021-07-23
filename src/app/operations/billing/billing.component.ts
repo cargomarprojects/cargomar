@@ -747,7 +747,7 @@ export class BillingComponent {
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
     let rowCount: number = 0;
-
+    let bOk: Boolean = false;
 
     let cgst_dr = 0;
     let sgst_dr = 0;
@@ -855,8 +855,7 @@ export class BillingComponent {
     }
 
 
-    if (this.Record.jvh_einv_status == 'G')
-    {
+    if (this.Record.jvh_einv_status == 'G') {
       bret = false;
       sError += " | IRN Generated";
     }
@@ -949,6 +948,16 @@ export class BillingComponent {
 
     }
 
+    if (this.Record.jvh_exwork) {
+      bOk = false;
+      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001')
+        bOk = true;
+
+      if (!bOk) {
+        bret = false;
+        sError += " | Invalid Party, Only Freight Charges Allowed for Ex-Works Invoices";
+      }
+    }
 
     if (bret) {
       this.Record.jvh_reference = this.Record.jvh_reference.toUpperCase().replace(' ', '');
@@ -1487,7 +1496,7 @@ export class BillingComponent {
         this.loading = false;
         if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
           this.open(mailsent);
         } else
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
