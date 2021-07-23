@@ -109,7 +109,7 @@ export class BillingComponent {
 
   CNTRTYPERECORD: SearchTable = new SearchTable();
 
-
+//general invoice accounts/ledger/arap component
 
   constructor(
     private modalService: NgbModal,
