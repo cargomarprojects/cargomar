@@ -71,5 +71,11 @@ export class ParamService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/Process', SearchData, this.gs.headerparam2('authorized'));
     }
 
+
+    ImportDataFromCpl(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/ImportDataFromCpl', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
 }
 

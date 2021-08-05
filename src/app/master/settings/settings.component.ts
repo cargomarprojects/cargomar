@@ -538,6 +538,10 @@ export class SettingsComponent {
     this.currentTab = 'DATATRANSFER';
   }
 
+  ImportData(){
+    this.currentTab = 'IMPORTDATA';
+  }
+
   UpdateData() {
     this.currentTab = 'UPDATEDATA';
   }
@@ -1337,4 +1341,31 @@ export class SettingsComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+
+  ImportDataFromCPL(table : string, type : string ) {
+    
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      table :  table,
+      type :  type,
+    };
+
+    // ParamService/SaveImportDataFromCpl
+    this.mainService.ImportDataFromCpl(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = response.savemsg;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
+
+  }
+
 }

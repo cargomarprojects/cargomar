@@ -4,6 +4,7 @@
     <button [disabled]="loading" (click)="CompanySettings()" class="btn btn-primary btn-sm">Company Settings</button>
     <button [disabled]="loading" (click)="BranchSettings()" class="btn btn-primary btn-sm">Banch Settings</button>
     <button [disabled]="loading" (click)="DataTransfer()" class="btn btn-primary btn-sm">Data Transfer</button>
+    <button [disabled]="loading" (click)="ImportData()" class="btn btn-primary btn-sm">Import Data</button>
     <button [disabled]="loading" (click)="UpdateData()" class="btn btn-primary btn-sm">Update Data</button>
     <button [disabled]="loading" (click)="PayrollSettings()" class="btn btn-primary btn-sm">Payroll Settings</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -392,7 +393,8 @@
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">HO-BANK-CODE</label>
         <div class="col-8">
-          <app-autocomplete2 #CsdLov [inputdata]="HOBANKRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete2>
+          <app-autocomplete2 #CsdLov [inputdata]="HOBANKRECORD" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete2>
         </div>
       </div>
 
@@ -1017,6 +1019,28 @@
 
     </div>
   </div>
+</div>
+
+
+<div *ngIf="currentTab=='IMPORTDATA'">
+
+  <!-- copy data from cpl to other database -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('RITCM','')" class="btn btn-primary btn-sm">RITCM</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('DBKSCHEDM','')" class="btn btn-primary btn-sm">DBK SCHEDULE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
