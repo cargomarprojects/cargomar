@@ -1025,8 +1025,17 @@
 <div *ngIf="currentTab=='IMPORTDATA'">
 
   <!-- copy data from cpl to other database -->
+
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
+      <div class="form-group row">
+        <h4 class="p-4">this is to copy data from cpl to sgt</h4>
+      </div>
+    </div>
+  </div>  
+
+  <div class="row">
+    <div class="col-sm-12">
       <div class="form-group row">
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('RITCM','')" class="btn btn-primary btn-sm">RITCM</button>
@@ -1037,6 +1046,70 @@
           <button (click)="ImportDataFromCPL('DBKSCHEDM','')" class="btn btn-primary btn-sm">DBK SCHEDULE</button>
         </div>
       </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','DISTRICT')" class="btn btn-primary btn-sm">DISTRICT</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','COMMODITY')" class="btn btn-primary btn-sm">COMMODITY</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','SCHEME CODE')" class="btn btn-primary btn-sm">SCHEME CODE</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','CONTAINER TYPE')" class="btn btn-primary btn-sm">CONTAINER TYPE</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','UNIT')" class="btn btn-primary btn-sm">UNIT</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','END USE')" class="btn btn-primary btn-sm">END USE</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','ESANCHITDOC')" class="btn btn-primary btn-sm">ESANCHIT DOC</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','INFO-TYPE')" class="btn btn-primary btn-sm">SW INFO-TYPE</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','INFO-QLFR')" class="btn btn-primary btn-sm">SW INFO-QLFR</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','INFO-CODE')" class="btn btn-primary btn-sm">SW INFO-CODE</button>
+        </div>
+      </div>            
+      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','CTRL-TYPE')" class="btn btn-primary btn-sm">SW CTRL-TYPE</button>
+        </div>
+      </div>      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button (click)="ImportDataFromCPL('PARAM','CTRL-RESULT')" class="btn btn-primary btn-sm">SW CTRL-RESULT</button>
+        </div>
+      </div>            
+
+
     </div>
   </div>
 
