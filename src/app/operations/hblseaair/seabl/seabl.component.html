@@ -279,7 +279,7 @@
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no"
               (blur)="OnBlur('hbl_bl_no')"
-              [disabled]="Record.hbl_blno_generated == 'G'|| (Record.bl_print == 'Y' && Record.hbl_bl_no != '' ) || Record.hbl_fcr_no != ''"
+              [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y'  || Record.hbl_fcr_no != ''"
               required maxlength="30" />
           </div>
           <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
