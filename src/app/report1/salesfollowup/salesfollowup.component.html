@@ -19,9 +19,8 @@
                                     <label class="col-sm-2 col-form-label col-form-label-sm">ReportDate</label>
                                     <div class="col-8">
                                         <select class="form-control form-control-sm" [(ngModel)]="report_date">
-                                            <option [value]="'SOB'">SOB</option>
-                                            <option [value]="'CREATED'">CREATED DATE</option>
-                                        </select>
+                                            <option *ngFor="let rec of ReportDateList" [value]="rec.report_date">{{rec.report_date}}</option>
+                                          </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">

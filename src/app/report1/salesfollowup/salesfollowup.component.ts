@@ -15,7 +15,7 @@ import { SalesFollowupService } from '../services/salesfollowup.service';
 
 export class SalesFollowupComponent {
   title = 'Sales Followup Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -24,7 +24,7 @@ export class SalesFollowupComponent {
   urlid: string;
   ErrorMessage = "";
 
-  report_date: string ='';
+  report_date: string = '';
   branch_code: string;
   sman_name: string;
   cust_name: string;
@@ -50,14 +50,15 @@ export class SalesFollowupComponent {
     iscompany: false,
     all: false
   };
-   
+
   // Array For Displaying List
   RecordList: SalesFollowup[] = [];
- 
+  ReportDateList: SalesFollowup[] = [];
+
   BRRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
   CUSTRECORD: SearchTable = new SearchTable();
-  
+
 
   constructor(
     private ms: SalesFollowupService,
@@ -74,7 +75,7 @@ export class SalesFollowupComponent {
         this.InitComponent();
       }
     });
-    
+
   }
 
   // Init Will be called After executing Constructor
@@ -93,7 +94,7 @@ export class SalesFollowupComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
-        if (this.menu_record.rights_admin)
+      if (this.menu_record.rights_admin)
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
@@ -160,9 +161,34 @@ export class SalesFollowupComponent {
     if (_Record.controlname == "SALESMAN") {
       this.sman_name = _Record.name;
     }
-    
+
   }
   LoadCombo() {
+    this.loading = true;
+    let SearchData2 = {
+      type: 'type',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData2.comp_code = this.gs.globalVariables.comp_code;
+    SearchData2.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.ms.LoadDefault(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        this.ReportDateList = response.reportdatelist;
+        if (this.ReportDateList != null && this.ReportDateList != undefined) {
+          if (this.ReportDateList.length > 0)
+            this.report_date = this.ReportDateList[0].report_date;
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   // Query List Data
@@ -170,15 +196,15 @@ export class SalesFollowupComponent {
 
     this.ErrorMessage = '';
     if (this.report_date.trim().length <= 0) {
-     this.ErrorMessage = "Date Cannot Be Blank";
-     return;
+      this.ErrorMessage = "Date Cannot Be Blank";
+      return;
     }
-    
+
     this.loading = true;
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
     }
@@ -191,9 +217,9 @@ export class SalesFollowupComponent {
     this.SearchData.sman_name = this.sman_name;
     this.SearchData.cust_name = this.cust_name;
     this.SearchData.isadmin = this.bAdmin;
-    this.SearchData.iscompany = this.bCompany ;
+    this.SearchData.iscompany = this.bCompany;
     this.SearchData.all = this.all;
-    
+
     this.ErrorMessage = '';
     this.ms.List(this.SearchData)
       .subscribe(response => {
@@ -204,11 +230,11 @@ export class SalesFollowupComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

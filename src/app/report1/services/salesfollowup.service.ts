@@ -19,7 +19,7 @@ export class SalesFollowupService {
   }
 
   LoadDefault(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + 'api/Report1/SalesFollowup/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
 }
