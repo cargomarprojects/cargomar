@@ -9,7 +9,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
 export class SalesFollowupService {
- 
+
   title = 'Sales Followup Report'
 
   menuid: string = '';
@@ -60,6 +60,15 @@ export class SalesFollowupService {
     private gs: GlobalService) {
   }
 
+
+  InitPage(params: any) {
+    const options = JSON.parse(params);
+    this.InitCompleted = true;
+    this.menuid = options.menuid;
+    this.type = options.type;
+    this.InitComponent();
+  }
+
   InitComponent() {
     this.bAdmin = false;
     this.bCompany = false;
@@ -74,6 +83,7 @@ export class SalesFollowupService {
       if (this.menu_record.rights_print)
         this.bExcel = true;
     }
+   
     this.Init();
     this.initLov();
     this.LoadCombo();

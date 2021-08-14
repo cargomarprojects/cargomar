@@ -22,13 +22,7 @@ export class SalesFollowupComponent {
     private gs: GlobalService
   ) {
 
-    if (this.route.snapshot.queryParams.parameter != null) {
-      this.ms.InitCompleted = true;
-      this.ms.menuid =  this.route.snapshot.queryParams.menuid;
-      this.ms.type =  this.route.snapshot.queryParams.type;
-      this.ms.InitComponent();
-  } 
-    
+   this.ms.InitPage(this.route.snapshot.queryParams.parameter);
 
   }
 
