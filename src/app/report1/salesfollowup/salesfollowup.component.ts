@@ -31,6 +31,7 @@ export class SalesFollowupComponent {
 
   bExcel = false;
   bCompany = false;
+  bAdmin = false;
   all: boolean = false;
   loading = false;
   currentTab = 'LIST';
@@ -45,6 +46,8 @@ export class SalesFollowupComponent {
     report_date: '',
     sman_name: '',
     cust_name: '',
+    isadmin: false,
+    iscompany: false,
     all: false
   };
    
@@ -82,6 +85,7 @@ export class SalesFollowupComponent {
   }
 
   InitComponent() {
+    this.bAdmin = false;
     this.bCompany = false;
     this.bExcel = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -89,6 +93,8 @@ export class SalesFollowupComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+        if (this.menu_record.rights_admin)
+        this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
     }
@@ -184,6 +190,8 @@ export class SalesFollowupComponent {
     this.SearchData.report_date = this.report_date;
     this.SearchData.sman_name = this.sman_name;
     this.SearchData.cust_name = this.cust_name;
+    this.SearchData.isadmin = this.bAdmin;
+    this.SearchData.iscompany = this.bCompany ;
     this.SearchData.all = this.all;
     
     this.ErrorMessage = '';
