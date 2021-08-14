@@ -83,7 +83,7 @@ export class SalesFollowupService {
       if (this.menu_record.rights_print)
         this.bExcel = true;
     }
-   
+
     this.Init();
     this.initLov();
     this.LoadCombo();
@@ -179,12 +179,15 @@ export class SalesFollowupService {
       this.SearchData.branch_code = this.branch_code;
     }
     else {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+      this.SearchData.branch_code = "";
     }
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
     this.SearchData.report_date = this.report_date;
-    this.SearchData.sman_name = this.sman_name;
+    if (this.bAdmin) {
+      this.SearchData.sman_name = this.sman_name;
+    } else
+      this.SearchData.sman_name = this.gs.globalVariables.sman_name;
     this.SearchData.cust_name = this.cust_name;
     this.SearchData.isadmin = this.bAdmin;
     this.SearchData.iscompany = this.bCompany;
