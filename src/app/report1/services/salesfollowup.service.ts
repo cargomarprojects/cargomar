@@ -92,7 +92,7 @@ export class SalesFollowupService {
   Init() {
     this.branch_code = this.gs.globalVariables.branch_code;
     this.RecordList = null;
-    this.sman_name = '';
+    this.sman_name = this.gs.globalVariables.sman_name;
     this.cust_name = '';
     this.report_date = '';
   }
@@ -128,9 +128,9 @@ export class SalesFollowupService {
     this.SALESMANRECORD.controlname = "SALESMAN";
     this.SALESMANRECORD.displaycolumn = "CODE";
     this.SALESMANRECORD.type = "SALESMAN";
-    this.SALESMANRECORD.id = "";
+    this.SALESMANRECORD.id = this.gs.globalVariables.sman_id;
     this.SALESMANRECORD.code = "";
-    this.SALESMANRECORD.name = "";
+    this.SALESMANRECORD.name = this.gs.globalVariables.sman_name;
 
   }
 
