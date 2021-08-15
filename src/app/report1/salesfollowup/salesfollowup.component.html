@@ -23,23 +23,6 @@
                                           </select>
                                     </div>
                                 </div>
-                                <div *ngIf="ms.bAdmin" class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">SalesMan</label>
-                                    <div class="col-8">
-                                        <app-autocomplete #smanLov [inputdata]="ms.SALESMANRECORD"
-                                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
-                                    <div class="col-8">
-                                        <app-autocomplete #custLov [inputdata]="ms.CUSTRECORD"
-                                            (ValueChanged)="LovSelected($event)">
-                                        </app-autocomplete>
-                                    </div>
-                                </div>
                                 <div *ngIf="ms.bCompany" class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
                                     <div class="col-8">
@@ -48,6 +31,24 @@
                                         </app-autocomplete>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <div *ngIf="ms.bAdmin" class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm">SalesMan</label>
+                                    <div class="col-8">
+                                        <app-autocomplete #smanLov [inputdata]="ms.SALESMANRECORD"
+                                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
+                                    <div class="col-8">
+                                        <app-autocomplete #custLov [inputdata]="ms.CUSTRECORD"
+                                            (ValueChanged)="LovSelected($event)">
+                                        </app-autocomplete>
+                                    </div>
+                                </div>
+                                
 
                             </div>
                             <div class="col-4">
