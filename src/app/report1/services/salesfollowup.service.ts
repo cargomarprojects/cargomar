@@ -28,6 +28,7 @@ export class SalesFollowupService {
   bExcel = false;
   bCompany = false;
   bAdmin = false;
+  bCanAdd = false;
   all: boolean = false;
   loading = false;
   currentTab = 'LIST';
@@ -77,6 +78,7 @@ export class SalesFollowupService {
     this.bAdmin = false;
     this.bCompany = false;
     this.bExcel = false;
+    this.bCanAdd = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -86,6 +88,8 @@ export class SalesFollowupService {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      if (this.menu_record.rights_add)
+        this.bCanAdd = true;
     }
 
     this.Init();

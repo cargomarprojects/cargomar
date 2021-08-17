@@ -74,4 +74,9 @@ export class SalesFollowupComponent {
 
     this.ms.currentTab = _type;
   }
+
+  Generate()
+  {
+    
+  }
 }
