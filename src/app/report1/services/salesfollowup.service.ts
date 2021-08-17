@@ -245,11 +245,13 @@ export class SalesFollowupService {
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.branch_code = "";
 
-
-    if (_category == "SALESMAN")
+    if (_category == "SALESMAN") {
       this.SearchData.sman_name = _rec.sman_name;
+      if (this.bAdmin)
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    }
     else
       this.SearchData.sman_name = "";
 
