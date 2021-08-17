@@ -20,7 +20,8 @@ export class JobComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  selectedRowIndex: number = -1;
+  
+  selectedRowIndex = '';
 
   CrList: any[];
 
@@ -647,7 +648,7 @@ export class JobComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.selectedRowIndex = _selectedRowIndex;
+      this.selectedRowIndex = id;
       this.currentTab = 'DETAILS';
       this.pkid = id;
       this.mode = 'EDIT';
