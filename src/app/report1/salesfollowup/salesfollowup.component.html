@@ -8,70 +8,176 @@
 
 <div *ngIf="ms.currentTab=='LIST'" class="page-list">
 
-    <ngb-tabset>
-        <ngb-tab title="List">
-            <ng-template ngbTabContent>
-                <div class="page-list">
-                    <div class="page-search">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">ReportDate</label>
-                                    <div class="col-8">
-                                        <select class="form-control form-control-sm" [(ngModel)]="ms.report_date">
-                                            <option *ngFor="let rec of ms.ReportDateList" [value]="rec.report_date">{{rec.report_date}}</option>
-                                          </select>
-                                    </div>
-                                </div>
-                                <div *ngIf="ms.bCompany" class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-                                    <div class="col-8">
-                                        <app-autocomplete #BrLov [inputdata]="ms.BRRECORD"
-                                            (ValueChanged)="LovSelected($event)">
-                                        </app-autocomplete>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div *ngIf="ms.bAdmin" class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">SalesMan</label>
-                                    <div class="col-8">
-                                        <app-autocomplete #smanLov [inputdata]="ms.SALESMANRECORD"
-                                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
-                                    <div class="col-8">
-                                        <app-autocomplete #custLov [inputdata]="ms.CUSTRECORD"
-                                            (ValueChanged)="LovSelected($event)">
-                                        </app-autocomplete>
-                                    </div>
-                                </div>
-                                
-
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                                    <div class="col-sm-10">
-                                        <button [disabled]="ms.loading" (click)="ms.ProcessReport('SCREEN')"
-                                            class="btn btn-primary btn-sm">Search</button>
-                                        <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
-                                class="btn btn-primary btn-sm">Excel</button> -->
-                                    </div>
-                                </div>
-                            </div>
+    <!-- <div class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">ReportDate</label>
+                        <div class="col-8">
+                            <select class="form-control form-control-sm" [(ngModel)]="ms.report_date">
+                                <option *ngFor="let rec of ms.ReportDateList" [value]="rec.report_date">
+                                    {{rec.report_date}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngIf="ms.bCompany" class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-8">
+                            <app-autocomplete #BrLov [inputdata]="ms.BRRECORD" (ValueChanged)="LovSelected($event)">
+                            </app-autocomplete>
                         </div>
                     </div>
                 </div>
+                <div class="col-4">
+                    <div *ngIf="ms.bAdmin" class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">SalesMan</label>
+                        <div class="col-8">
+                            <app-autocomplete #smanLov [inputdata]="ms.SALESMANRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
+                        <div class="col-8">
+                            <app-autocomplete #custLov [inputdata]="ms.CUSTRECORD" (ValueChanged)="LovSelected($event)">
+                            </app-autocomplete>
+                        </div>
+                    </div>
 
+
+                </div>
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-10">
+                            <button [disabled]="ms.loading" (click)="ms.ProcessReport('SCREEN')"
+                                class="btn btn-primary btn-sm">Search</button>
+                            <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                                class="btn btn-primary btn-sm">Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>REPORT LIST</th>
+                    <th class="text-right">OP</th>
+                    <th class="text-right">APR</th>
+                    <th class="text-right">MAY</th>
+                    <th class="text-right">JUN</th>
+                    <th class="text-right">JUL</th>
+                    <th class="text-right">AUG</th>
+                    <th class="text-right">SEP</th>
+                    <th class="text-right">OCT</th>
+                    <th class="text-right">NOV</th>
+                    <th class="text-right">DEC</th>
+                    <th class="text-right">JAN</th>
+                    <th class="text-right">FEB</th>
+                    <th class="text-right">MAR</th>
+                    <th class="text-right">BAL</th>
+                    <th class="text-right">ADV</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.ReportDateList">
+                <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'" (click)="ShowDetail(rec)">
+                    <td>{{rec.report_date}}</td>
+                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<div *ngIf="ms.currentTab=='DISTINCTLIST'" class="page-details">
+    <div class="page-header">
+        <div class="col">
+            <button class="btn btn-primary btn-sm"
+                (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
+            <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
+            <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
+            <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
+            <label>{{ms.report_date}}</label>
+            <i *ngIf="loading2" class="fa fa-spinner"></i>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col">
+            <div *ngIf="ms.distinctTab=='SALESMAN'" class="page-list">
                 <div class="page-body table-responsive">
                     <table class="table  table-hover table-sm">
                         <thead class="page-body-thead">
                             <tr>
                                 <th>SALESMAN</th>
-                                <th>PARTY</th>
+                                <th class="text-right">OP</th>
+                                <th class="text-right">APR</th>
+                                <th class="text-right">MAY</th>
+                                <th class="text-right">JUN</th>
+                                <th class="text-right">JUL</th>
+                                <th class="text-right">AUG</th>
+                                <th class="text-right">SEP</th>
+                                <th class="text-right">OCT</th>
+                                <th class="text-right">NOV</th>
+                                <th class="text-right">DEC</th>
+                                <th class="text-right">JAN</th>
+                                <th class="text-right">FEB</th>
+                                <th class="text-right">MAR</th>
+                                <th class="text-right">BAL</th>
+                                <th class="text-right">ADV</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
+                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                                (click)="ms.ShowDetailReport('SCREEN', 'SALESMAN',rec)">
+                                <td>{{rec.sman_name}}</td>
+                                <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div *ngIf="ms.distinctTab=='BRANCH'" class="page-list">
+                <div class="page-body table-responsive">
+                    <table class="table  table-hover table-sm">
+                        <thead class="page-body-thead">
+                            <tr>
                                 <th>BRANCH</th>
                                 <th class="text-right">OP</th>
                                 <th class="text-right">APR</th>
@@ -91,9 +197,8 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
-                            <tr [style.color]="rec.row_colour">
-                                <td>{{rec.sman_name}}</td>
-                                <td>{{rec.party_name}}</td>
+                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                                (click)="ms.ShowDetailReport('SCREEN', 'BRANCH',rec)">
                                 <td>{{rec.branch}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
@@ -114,11 +219,122 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-            </ng-template>
-        </ngb-tab>
-    </ngb-tabset>
+            <div *ngIf="ms.distinctTab=='PARTY'" class="page-list">
+                <div class="page-body table-responsive">
+                    <table class="table  table-hover table-sm">
+                        <thead class="page-body-thead">
+                            <tr>
+                                <th>PARTY</th>
+                                <th class="text-right">OP</th>
+                                <th class="text-right">APR</th>
+                                <th class="text-right">MAY</th>
+                                <th class="text-right">JUN</th>
+                                <th class="text-right">JUL</th>
+                                <th class="text-right">AUG</th>
+                                <th class="text-right">SEP</th>
+                                <th class="text-right">OCT</th>
+                                <th class="text-right">NOV</th>
+                                <th class="text-right">DEC</th>
+                                <th class="text-right">JAN</th>
+                                <th class="text-right">FEB</th>
+                                <th class="text-right">MAR</th>
+                                <th class="text-right">BAL</th>
+                                <th class="text-right">ADV</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
+                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                                (click)="ms.ShowDetailReport('SCREEN', 'PARTY',rec)">
+                                <td>{{rec.party_name}}</td>
+                                <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                                <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
+
+<div *ngIf="ms.currentTab=='DETAILLIST'" class="page-list">
+    <div class="page-header">
+        <div class="col">
+            <label>{{ms.distinctTab}}-WISE</label>
+            <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
+            <i *ngIf="ms.loading" class="fa fa-spinner"></i>
+        </div>
+    </div>
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SALESMAN</th>
+                    <th>PARTY</th>
+                    <th>BRANCH</th>
+                    <th class="text-right">OP</th>
+                    <th class="text-right">APR</th>
+                    <th class="text-right">MAY</th>
+                    <th class="text-right">JUN</th>
+                    <th class="text-right">JUL</th>
+                    <th class="text-right">AUG</th>
+                    <th class="text-right">SEP</th>
+                    <th class="text-right">OCT</th>
+                    <th class="text-right">NOV</th>
+                    <th class="text-right">DEC</th>
+                    <th class="text-right">JAN</th>
+                    <th class="text-right">FEB</th>
+                    <th class="text-right">MAR</th>
+                    <th class="text-right">BAL</th>
+                    <th class="text-right">ADV</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList">
+                <tr [style.color]="rec.row_colour">
+                    <td>{{rec.sman_name}}</td>
+                    <td>{{rec.party_name}}</td>
+                    <td>{{rec.branch}}</td>
+                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
 
 <br />
 

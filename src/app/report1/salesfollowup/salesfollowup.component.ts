@@ -14,7 +14,7 @@ import { SalesFollowupService } from '../services/salesfollowup.service';
 })
 
 export class SalesFollowupComponent {
-  
+
 
   constructor(
     private ms: SalesFollowupService,
@@ -22,7 +22,7 @@ export class SalesFollowupComponent {
     private gs: GlobalService
   ) {
 
-   this.ms.InitPage(this.route.snapshot.queryParams.parameter);
+    this.ms.InitPage(this.route.snapshot.queryParams.parameter);
 
   }
 
@@ -33,7 +33,7 @@ export class SalesFollowupComponent {
     }
   }
 
- 
+
 
   LovSelected(_Record: SearchTable) {
     // Company Settings
@@ -49,15 +49,29 @@ export class SalesFollowupComponent {
     }
 
   }
-  
+
+  ShowDetail(_rec: SalesFollowup) {
+
+    this.ms.report_date = _rec.report_date;
+    this.ms.currentTab = "DISTINCTLIST";
+    this.ms.distinctTab = "SALESMAN";
+    this.ms.RecordList = null;
+    this.ms.RecordDetList = null;
+    this.ms.ShowDistinctReport('SCREEN', 'SALESMAN');
+  }
   // Query List Data
- 
+
 
   OnChange(field: string) {
-    this.ms.RecordList = null;
+    // this.ms.RecordList = null;
   }
 
   Close() {
     this.gs.ClosePage('home');
+  }
+
+  ReturnPage(_type: string) {
+
+    this.ms.currentTab = _type;
   }
 }

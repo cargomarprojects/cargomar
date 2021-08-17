@@ -31,6 +31,7 @@ export class SalesFollowupService {
   all: boolean = false;
   loading = false;
   currentTab = 'LIST';
+  distinctTab = 'SALESMAN';
 
   SearchData = {
     type: '',
@@ -38,6 +39,7 @@ export class SalesFollowupService {
     report_folder: '',
     company_code: '',
     branch_code: '',
+    branch: '',
     year_code: '',
     report_date: '',
     sman_name: '',
@@ -48,8 +50,10 @@ export class SalesFollowupService {
   };
 
   // Array For Displaying List
-  RecordList: SalesFollowup[] = [];
+
   ReportDateList: SalesFollowup[] = [];
+  RecordList: SalesFollowup[] = [];
+  RecordDetList: SalesFollowup[] = [];
 
   BRRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
@@ -87,6 +91,7 @@ export class SalesFollowupService {
     this.Init();
     this.initLov();
     this.LoadCombo();
+    this.ReportList('SCREEN');
   }
 
   Init() {
@@ -135,63 +140,42 @@ export class SalesFollowupService {
   }
 
   LoadCombo() {
-    this.loading = true;
-    let SearchData2 = {
-      type: 'type',
-      comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
-    };
+    // this.loading = true;
+    // let SearchData2 = {
+    //   type: 'type',
+    //   comp_code: this.gs.globalVariables.comp_code,
+    //   branch_code: this.gs.globalVariables.branch_code
+    // };
 
-    SearchData2.comp_code = this.gs.globalVariables.comp_code;
-    SearchData2.branch_code = this.gs.globalVariables.branch_code;
+    // SearchData2.comp_code = this.gs.globalVariables.comp_code;
+    // SearchData2.branch_code = this.gs.globalVariables.branch_code;
 
-    this.ErrorMessage = '';
-    this.LoadDefault(SearchData2)
-      .subscribe(response => {
-        this.loading = false;
-        this.ReportDateList = response.reportdatelist;
-        if (this.ReportDateList != null && this.ReportDateList != undefined) {
-          if (this.ReportDateList.length > 0)
-            this.report_date = this.ReportDateList[0].report_date;
-        }
+    // this.ErrorMessage = '';
+    // this.LoadDefault(SearchData2)
+    //   .subscribe(response => {
+    //     this.loading = false;
+    //     this.ReportDateList = response.reportdatelist;
+    //     if (this.ReportDateList != null && this.ReportDateList != undefined) {
+    //       if (this.ReportDateList.length > 0)
+    //         this.report_date = this.ReportDateList[0].report_date;
+    //     }
 
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
+    //   },
+    //     error => {
+    //       this.loading = false;
+    //       this.ErrorMessage = this.gs.getError(error);
+    //     });
   }
 
-  ProcessReport(_type: string) {
+  ReportList(_type: string) {
 
     this.ErrorMessage = '';
-    if (this.report_date.trim().length <= 0) {
-      this.ErrorMessage = "Date Cannot Be Blank";
-      return;
-    }
-
     this.loading = true;
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-    this.SearchData.company_code = this.gs.globalVariables.comp_code;
-
-    if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-    }
-    else {
-      this.SearchData.branch_code = "";
-    }
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.type = _type;
-    this.SearchData.report_date = this.report_date;
-    if (this.bAdmin) {
-      this.SearchData.sman_name = this.sman_name;
-    } else
-      this.SearchData.sman_name = this.gs.globalVariables.sman_name;
-    this.SearchData.cust_name = this.cust_name;
-    this.SearchData.isadmin = this.bAdmin;
-    this.SearchData.iscompany = this.bCompany;
-    this.SearchData.all = this.all;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
 
     this.ErrorMessage = '';
     this.List(this.SearchData)
@@ -200,8 +184,49 @@ export class SalesFollowupService {
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
+          this.ReportDateList = response.list;
         }
+      },
+        error => {
+          this.loading = false;
+          this.ReportDateList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  ShowDistinctReport(_type: string, _category: string) {
+
+    this.distinctTab = _category;
+
+    this.ErrorMessage = '';
+    this.loading = true;
+    this.SearchData.type = _category;
+
+    this.SearchData.pkid = this.gs.getGuid();
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.report_date = this.report_date;
+    if (this.bCompany) {
+      this.SearchData.branch_code = "";
+      this.SearchData.sman_name = "";
+    } else if (this.bAdmin) {
+      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+      this.SearchData.sman_name = "";
+    } else {
+      this.SearchData.branch_code = "";
+      this.SearchData.sman_name = this.gs.globalVariables.sman_name;
+    }
+
+    this.SearchData.isadmin = this.bAdmin;
+    this.SearchData.iscompany = this.bCompany;
+
+    this.ErrorMessage = '';
+    this.DistinctList(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.RecordList = response.list;
+
       },
         error => {
           this.loading = false;
@@ -210,12 +235,70 @@ export class SalesFollowupService {
         });
   }
 
+  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup) {
+
+    this.currentTab = "DETAILLIST";
+    this.ErrorMessage = '';
+    this.loading = true;
+    this.SearchData.type = _category;
+    this.SearchData.report_date = this.report_date;
+    this.SearchData.pkid = this.gs.getGuid();
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+
+    if (_category == "SALESMAN")
+      this.SearchData.sman_name = _rec.sman_name;
+    else
+      this.SearchData.sman_name = "";
+
+    if (_category == "BRANCH") {
+      this.SearchData.branch = _rec.branch;
+      if (this.bCompany || this.bAdmin) {
+        this.SearchData.sman_name = "";
+      } else {
+        this.SearchData.sman_name = this.gs.globalVariables.sman_name;
+      }
+    }
+    else
+      this.SearchData.branch = "";
+    if (_category == "PARTY")
+      this.SearchData.cust_name = _rec.party_name;
+    else
+      this.SearchData.cust_name = "";
+
+    this.SearchData.isadmin = this.bAdmin;
+    this.SearchData.iscompany = this.bCompany;
+
+    this.ErrorMessage = '';
+    this.DetailList(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.RecordDetList = response.list;
+
+      },
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/List', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  DistinctList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/DistinctList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  DetailList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/DetailList', SearchData, this.gs.headerparam2('authorized'));
   }
 
   LoadDefault(SearchData: any) {
