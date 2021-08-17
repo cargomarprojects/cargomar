@@ -313,5 +313,12 @@ export class SalesFollowupService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  RemarkList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/RemarkList', SearchData, this.gs.headerparam2('authorized'));
+  }
+  
+  RemarkSave(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/RemarkSave', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

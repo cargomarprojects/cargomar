@@ -5,6 +5,7 @@ export class SalesFollowup {
     report_date: string;
     report_created_date: string;
     report_created_by: string;
+    report_remarks:string;
     pkid: string;
     branch: string;
     brcode: string;
@@ -25,6 +26,7 @@ export class SalesFollowup {
     mar: number;
     bal: number;
     adv: number;
-
+   row_displayed:boolean;
+   
     _globalvariables: GlobalVariables;
 }

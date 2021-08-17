@@ -2,7 +2,8 @@
     <div class="col">
         <label>{{ms.title}}</label>
         <!-- <button *ngIf="ms.bCanAdd" class="btn btn-primary btn-sm" (click)="Generate()">New</button> -->
-        <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')" class="btn btn-primary btn-sm">Refresh</button>
+        <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
+            class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="ms.loading" class="fa fa-spinner"></i>
     </div>
@@ -310,9 +311,9 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList">
                 <tr [style.color]="rec.row_colour">
-                    <td>{{rec.sman_name}}</td>
-                    <td>{{rec.party_name}}</td>
-                    <td>{{rec.branch}}</td>
+                    <td (click)="editData(rec)">{{rec.sman_name}}</td>
+                    <td (click)="editData(rec)">{{rec.party_name}}</td>
+                    <td (click)="editData(rec)">{{rec.branch}}</td>
                     <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
@@ -328,6 +329,12 @@
                     <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                </tr>
+                <tr *ngIf="rec.row_displayed">
+                    <td colspan="18">
+                        <app-salesfollowupedit [InputSearchData]="InputSearchData" 
+                            (ModifiedRecords)="ModifiedRecords($event)"></app-salesfollowupedit>
+                    </td>
                 </tr>
             </tbody>
         </table>

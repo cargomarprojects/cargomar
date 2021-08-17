@@ -15,6 +15,10 @@ import { SalesFollowupService } from '../services/salesfollowup.service';
 
 export class SalesFollowupComponent {
 
+  InputSearchData = {
+    type: '',
+    pkid: ''
+  };
 
   constructor(
     private ms: SalesFollowupService,
@@ -75,8 +79,43 @@ export class SalesFollowupComponent {
     this.ms.currentTab = _type;
   }
 
-  Generate()
-  {
-    
+  Generate() {
+
+  }
+
+  editData(_rec: SalesFollowup) {
+    this.InputSearchData.pkid = _rec.pkid;
+    if (_rec.pkid == null)
+      return;
+    if (_rec.pkid != '') {
+      _rec.row_displayed = !_rec.row_displayed;
+    }
+  }
+
+  ModifiedRecords(params: any) {
+    if (params.saction == "CLOSE") {
+      if (this.ms.RecordDetList == null)
+        return;
+      var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
+      REC.row_displayed = false;
+
+    }
+    if (params.saction == "SAVE") {
+      var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
+      REC.row_displayed = false;
+      if (REC == null) {
+
+        let Rec: SalesFollowup = new SalesFollowup;
+        Rec.report_remarks = params.remarks;
+        Rec.report_created_by = this.gs.globalVariables.user_code;
+        Rec.report_created_date = params.sdate;
+        this.ms.RecordDetList.push(Rec);
+      }
+      else {
+        REC.report_remarks = params.remarks;
+        REC.report_created_by = this.gs.globalVariables.user_code;
+        REC.report_created_date = params.sdate;
+      }
+    }
   }
 }
