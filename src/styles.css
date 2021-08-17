@@ -1,5 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --custom-bg-color:rgba(242, 242, 242, 1);
+  --custom-even-color :rgba(0,0,0,.110)    ;
+  --custom-fg-color: #c9c2c2; 
+  --custom-border-color:rgba(0,0,0,.125) ;   
+  --custom-icon-color:rgba(18, 134, 201, 0.918)    ;    
+  --custom-selected-row-color:red;    
+  --custom-selected-row-back-color : rgb(100, 234, 248);    
+}
+
+
+tr:nth-child(even) {
+  background-color: var(--custom-even-color) !important; 
+}
+
+
+
 .main {
   margin-top: 1px; /* Add a Top margin to avoid content overlay */
 }
@@ -76,15 +93,22 @@ p, ul, li, div, nav {
     font-size: 16px;
   }
 
-    .topnav a:hover {
+  .topnav a:hover {
       color: black;
       cursor: pointer;
       text-decoration: none;
-    }
+   }
 
 .table tr.active td {
-  background-color: #F0F0F0 !important;
+  
+  background-color : var(--custom-selected-row-back-color) !important;
 }
+
+tr.selected  {
+  background-color : var(--custom-selected-row-back-color) !important;
+
+}
+
 
 /* Menu */
 
@@ -551,48 +575,17 @@ a {
 }
 
 
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575px) {
-  .modal-dialog {
-    position: relative;
-    overflow-y: auto;
-    overflow-x: auto;
-    width: auto;
-    max-width: auto !important;
-  }
-}
 
-/*Small devices (landscape phones, less than 768px)*/
-@media (max-width: 767px) {
-  .modal-dialog {
-    position: relative;
-    overflow-y: auto;
-    overflow-x: auto;
-    width: auto;
-    max-width: 766 !important;
-  }
-}
 
-/*Medium devices (tablets, less than 992px)*/
-@media (max-width: 991px) {
-  .modal-dialog {
-    position: relative;
-    overflow-y: auto;
-    overflow-x: auto;
-    width: auto;
-    max-width: 990px !important;
-  }
-}
 
-/*Large devices (desktops, less than 1200px)*/
-@media (max-width: 1199px) {
-  .modal-dialog {
-    position: relative;
-    overflow-y: auto;
-    overflow-x: auto;
-    width: auto;
-    max-width: 1198px !important;
-  }
+
+
+
+
+
+.center-content { 
+  display: flex; 
+  justify-content: center; 
 }
 
 
@@ -610,6 +603,9 @@ a {
 .fixed_header thead tr th td {
   width:100%;
 }
+
+
+
 
 
 /* For Loading Screen  */
@@ -660,7 +656,68 @@ a {
 }
 
 
-.center-content { 
-  display: flex; 
-  justify-content: center; 
+.dropdown-menu {
+  height: auto;
+  max-height: calc(100vh - 240px);
+  overflow-x: hidden;
+}  
+
+
+
+
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+  .modal-dialog {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    max-width: auto !important;
+  }
+  .dropdown-menu {
+    height: auto;
+    max-height: calc(100vh - 75vh);
+    overflow-x: hidden;
+ }    
 }
+
+/*Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767px) {
+  .modal-dialog {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    max-width: 766 !important;
+  }
+  .dropdown-menu {
+    height: auto;
+    max-height: calc(100vh - 75vh);
+    overflow-x: hidden;
+ }    
+}
+
+/*Medium devices (tablets, less than 992px)*/
+@media (max-width: 991px) {
+  .modal-dialog {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    max-width: 990px !important;
+  }
+}
+
+/*Large devices (desktops, less than 1200px)*/
+@media (max-width: 1199px) {
+  .modal-dialog {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    max-width: 1198px !important;
+  }
+}
+
+

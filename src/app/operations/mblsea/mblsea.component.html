@@ -104,8 +104,8 @@
             <th>CONTAINER</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr>
+        <tbody class="page-body-tbody" >
+          <tr *ngFor="let rec of RecordList">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
