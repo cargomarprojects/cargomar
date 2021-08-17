@@ -172,7 +172,7 @@ export class SalesFollowupService {
   }
 
   ReportList(_type: string) {
-
+    this.currentTab = "LIST";
     this.ErrorMessage = '';
     this.loading = true;
     this.SearchData.pkid = this.gs.getGuid();

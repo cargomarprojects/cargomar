@@ -1,7 +1,8 @@
 <div class="page-header">
     <div class="col">
         <label>{{ms.title}}</label>
-        <button *ngIf="ms.bCanAdd" class="btn btn-primary btn-sm" (click)="Generate()">New</button>
+        <!-- <button *ngIf="ms.bCanAdd" class="btn btn-primary btn-sm" (click)="Generate()">New</button> -->
+        <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')" class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="ms.loading" class="fa fa-spinner"></i>
     </div>
