@@ -253,7 +253,9 @@ export class SalesFollowupService {
 
     if (_category == "SALESMAN") {
       this.SearchData.sman_name = _rec.sman_name;
-      if (this.bAdmin)
+      if (this.bCompany)
+      this.SearchData.branch_code = "";
+      else if (this.bAdmin)
         this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     }
     else
