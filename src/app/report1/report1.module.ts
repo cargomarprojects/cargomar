@@ -60,6 +60,8 @@ import { PreAlertRepComponent } from './prealertrep/prealertrep.component';
 import { PrealertUpdtComponent } from './prealertrep/prealertupdt.component';
 import { CostBillingComponent } from './costbilling/costbilling.component';
 
+import { SalesFollowupComponent } from './salesfollowup/salesfollowup.component';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -103,7 +105,8 @@ import { CostBillingComponent } from './costbilling/costbilling.component';
     EinvoiceComponent,
     PreAlertRepComponent,
     PrealertUpdtComponent,
-    CostBillingComponent
+    CostBillingComponent,
+    SalesFollowupComponent
   ],
   providers: [
   ],
