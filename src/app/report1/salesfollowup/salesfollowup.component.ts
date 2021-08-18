@@ -16,6 +16,10 @@ import { ReconComponent } from '../../accounts/Recon/recon.component';
 
 export class SalesFollowupComponent {
 
+  index1 = -1;
+  index2 = -1;
+  index3 = -1;
+
   InputSearchData = {
     type: '',
     pkid: '',

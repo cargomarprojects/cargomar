@@ -34,24 +34,24 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of ms.ReportDateList" [style.cursor]="'pointer'">
-                    <td (click)="ShowDetail(rec)">{{rec.report_date}}</td>
-                    <td (click)="ShowDetail(rec)">{{rec.fin_year_name}}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td (click)="ShowDetail(rec)" align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="index1=i" [class.active]="i==index1" [style.cursor]="'pointer'">
+                    <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
+                    <td >{{rec.fin_year_name}}</td>
+                    <td  align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.adv | number : '1.2-2' }}</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
                         <App-Dialog [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
                           (result)="RemoveList($event)"></App-Dialog>
@@ -117,11 +117,11 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'"
-                                (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)">
-                                <td *ngIf="ms.distinctTab=='SALESMAN'">{{rec.sman_name}}</td>
-                                <td *ngIf="ms.distinctTab=='BRANCH'">{{rec.branch}}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'">{{rec.party_name}}</td>
+                            <tr *ngFor="let rec of ms.RecordList;let i=index" (mousedown)="index2=i" [class.active]="i==index2" [style.cursor]="'pointer'"
+                                >
+                                <td *ngIf="ms.distinctTab=='SALESMAN'" (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.sman_name}}</td>
+                                <td *ngIf="ms.distinctTab=='BRANCH'"   (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.branch}}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'"    (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.party_name}}</td>
                                 <td>{{rec.fin_year_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
@@ -183,27 +183,27 @@
                     <th>UPDATED.BY</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList">
-                <tr [style.cursor]="'pointer'">
-                    <td (click)="editData(rec)">{{rec.sman_name}}</td>
-                    <td (click)="editData(rec)">{{rec.party_name}}</td>
-                    <td (click)="editData(rec)">{{rec.branch}}</td>
-                    <td (click)="editData(rec)">{{rec.fin_year_name}}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td (click)="editData(rec)" align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="index3=i" >
+                <tr [style.cursor]="'pointer'" [class.active]="i==index3">
+                    <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
+                    <td >{{rec.party_name}}</td>
+                    <td >{{rec.branch}}</td>
+                    <td >{{rec.fin_year_name}}</td>
+                    <td  align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td  align='right'>{{ rec.adv | number : '1.2-2' }}</td>
                     <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">

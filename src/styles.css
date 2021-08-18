@@ -574,6 +574,12 @@ a {
   cursor:pointer;
 }
 
+.hlink2 {
+  color: green;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
 
 
 
