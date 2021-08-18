@@ -1,7 +1,6 @@
 <div class="page-header">
     <div class="col">
         <label>{{ms.title}}</label>
-        <!-- <button  class="btn btn-primary btn-sm" (click)="Generate()">New</button> -->
         <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
             class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -152,6 +151,8 @@
     <div class="page-header">
         <div class="col">
             <label>{{ms.distinctTab}}-WISE</label>
+            <button *ngIf='ms.bExcel' [disabled]="ms.loading" (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null)" 
+                class="btn btn-primary btn-sm mr-1">Print</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
             <i *ngIf="ms.loading" class="fa fa-spinner"></i>
         </div>

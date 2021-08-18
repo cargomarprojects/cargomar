@@ -19,7 +19,7 @@ export class SalesFollowupService {
   sub: any;
   urlid: string;
   ErrorMessage = "";
-
+  Detail_title = '';
   report_date: string = '';
   branch_code: string;
   sman_name: string;
@@ -38,6 +38,7 @@ export class SalesFollowupService {
 
   SearchData = {
     type: '',
+    row_type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -47,6 +48,7 @@ export class SalesFollowupService {
     report_date: '',
     sman_name: '',
     cust_name: '',
+    login_br_code: '',
     isadmin: false,
     iscompany: false,
     all: false
@@ -249,15 +251,22 @@ export class SalesFollowupService {
     this.currentTab = "DETAILLIST";
     this.ErrorMessage = '';
     this.loading = true;
+    this.SearchData.row_type = _type;
     this.SearchData.type = _category;
     this.SearchData.report_date = this.report_date;
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.login_br_code = this.gs.globalVariables.branch_code;
     this.SearchData.branch_code = "";
 
     if (_category == "SALESMAN") {
-      this.SearchData.sman_name = _rec.sman_name;
+      if (_type == 'EXCEL')
+        this.SearchData.sman_name = this.Detail_title;
+      else {
+        this.SearchData.sman_name = _rec.sman_name;
+        this.Detail_title = _rec.sman_name;
+      }
       if (this.bCompany)
         this.SearchData.branch_code = "";
       else if (this.bAdmin)
@@ -267,7 +276,12 @@ export class SalesFollowupService {
       this.SearchData.sman_name = "";
 
     if (_category == "BRANCH") {
-      this.SearchData.branch = _rec.branch;
+      if (_type == 'EXCEL')
+        this.SearchData.branch = this.Detail_title;
+      else {
+        this.SearchData.branch = _rec.branch;
+        this.Detail_title = _rec.branch;
+      }
       if (this.bCompany || this.bAdmin) {
         this.SearchData.sman_name = "";
       } else {
@@ -276,8 +290,14 @@ export class SalesFollowupService {
     }
     else
       this.SearchData.branch = "";
-    if (_category == "PARTY")
-      this.SearchData.cust_name = _rec.party_name;
+    if (_category == "PARTY") {
+      if (_type == 'EXCEL')
+        this.SearchData.cust_name = this.Detail_title;
+      else {
+        this.SearchData.cust_name = _rec.party_name;
+        this.Detail_title = _rec.party_name;
+      }
+    }
     else
       this.SearchData.cust_name = "";
 
@@ -288,9 +308,11 @@ export class SalesFollowupService {
     this.DetailList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-
-        this.RecordDetList = response.list;
-
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordDetList = response.list;
+        }
       },
         error => {
           this.loading = false;
