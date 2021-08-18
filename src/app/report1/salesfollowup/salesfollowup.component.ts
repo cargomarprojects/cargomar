@@ -18,7 +18,8 @@ export class SalesFollowupComponent {
 
   InputSearchData = {
     type: '',
-    pkid: ''
+    pkid: '',
+    party_name:''
   };
 
   constructor(
@@ -83,6 +84,7 @@ export class SalesFollowupComponent {
 
   editData(_rec: SalesFollowup) {
     this.InputSearchData.pkid = _rec.pkid;
+    this.InputSearchData.party_name=_rec.party_name;
     if (_rec.pkid == null)
       return;
     if (_rec.pkid != '') {

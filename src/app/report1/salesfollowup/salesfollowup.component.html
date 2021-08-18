@@ -36,7 +36,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of ms.ReportDateList" [style.cursor]="'pointer'">
                     <td (click)="ShowDetail(rec)">{{rec.report_date}}</td>
-                    <td (click)="ShowDetail(rec)">{{rec.fin_year}}</td>
+                    <td (click)="ShowDetail(rec)">{{rec.fin_year_name}}</td>
                     <td (click)="ShowDetail(rec)" align='right'>{{ rec.op | number : '1.2-2' }}</td>
                     <td (click)="ShowDetail(rec)" align='right'>{{ rec.apr | number : '1.2-2' }}</td>
                     <td (click)="ShowDetail(rec)" align='right'>{{ rec.may | number : '1.2-2' }}</td>
@@ -122,7 +122,7 @@
                                 <td *ngIf="ms.distinctTab=='SALESMAN'">{{rec.sman_name}}</td>
                                 <td *ngIf="ms.distinctTab=='BRANCH'">{{rec.branch}}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'">{{rec.party_name}}</td>
-                                <td>{{rec.fin_year}}</td>
+                                <td>{{rec.fin_year_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
@@ -188,7 +188,7 @@
                     <td (click)="editData(rec)">{{rec.sman_name}}</td>
                     <td (click)="editData(rec)">{{rec.party_name}}</td>
                     <td (click)="editData(rec)">{{rec.branch}}</td>
-                    <td (click)="editData(rec)">{{rec.fin_year}}</td>
+                    <td (click)="editData(rec)">{{rec.fin_year_name}}</td>
                     <td (click)="editData(rec)" align='right'>{{ rec.op | number : '1.2-2' }}</td>
                     <td (click)="editData(rec)" align='right'>{{ rec.apr | number : '1.2-2' }}</td>
                     <td (click)="editData(rec)" align='right'>{{ rec.may | number : '1.2-2' }}</td>

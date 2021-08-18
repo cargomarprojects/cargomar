@@ -45,6 +45,7 @@ export class SalesFollowupService {
     branch_code: '',
     branch: '',
     year_code: '',
+    year_name: '',
     report_date: '',
     sman_name: '',
     cust_name: '',
@@ -338,6 +339,7 @@ export class SalesFollowupService {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      year_name: this.gs.globalVariables.year_name,
       user_code: this.gs.globalVariables.user_code,
       fin_start_date: this.gs.globalVariables.year_start_date,
       fin_end_date: this.gs.globalVariables.year_end_date
