@@ -16,9 +16,7 @@ import { ReconComponent } from '../../accounts/Recon/recon.component';
 
 export class SalesFollowupComponent {
 
-  index1 = -1;
-  index2 = -1;
-  index3 = -1;
+
 
   InputSearchData = {
     type: '',
@@ -61,6 +59,10 @@ export class SalesFollowupComponent {
   }
 
   ShowDetail(_rec: SalesFollowup) {
+
+    this.ms.index1 = -1;
+    this.ms.index2 = -1;
+    this.ms.index3 = -1;
 
     this.ms.report_date = _rec.report_date;
     this.ms.currentTab = "DISTINCTLIST";

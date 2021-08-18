@@ -12,6 +12,10 @@ export class SalesFollowupService {
 
   title = 'Sales Followup Report'
 
+  index1 = -1;
+  index2 = -1;
+  index3 = -1;
+
   menuid: string = '';
   type: string = '';
   InitCompleted: boolean = false;
@@ -249,6 +253,7 @@ export class SalesFollowupService {
 
   ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup) {
 
+    this.index3 = -1;
     this.currentTab = "DETAILLIST";
     this.ErrorMessage = '';
     this.loading = true;
