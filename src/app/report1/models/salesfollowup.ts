@@ -27,6 +27,7 @@ export class SalesFollowup {
     bal: number;
     adv: number;
    row_displayed:boolean;
+   row_updated:string;
    
     _globalvariables: GlobalVariables;
 }

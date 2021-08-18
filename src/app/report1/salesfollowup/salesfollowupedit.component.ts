@@ -134,8 +134,8 @@ export class SalesFollowupEditComponent {
                     if (this.txtremark_ctrl != null && this.txtremark_ctrl != undefined)
                         this.txtremark_ctrl.nativeElement.focus();
 
-                    // if (this.ModifiedRecords != null)
-                    //     this.ModifiedRecords.emit({ saction: "CLOSE", pkid: this.pkid});
+                    if (this.ModifiedRecords != null)
+                        this.ModifiedRecords.emit({ saction: "SAVE", pkid: this.pkid});
                 }
 
             },

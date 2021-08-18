@@ -98,7 +98,13 @@ export class SalesFollowupComponent {
         return;
       var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
       REC.row_displayed = false;
-
+    }
+    if (params.saction == "SAVE") {
+      if (this.ms.RecordDetList == null)
+        return;
+      var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
+      REC.row_updated = 'Y';
+      // REC.row_displayed = false;
     }
   }
 }
