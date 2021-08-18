@@ -98,14 +98,14 @@ export class SalesFollowupEditComponent {
     }
 
     // Save Data
-    Save(_type: string) {
+    Save() {
 
         if (!this.allvalid())
             return;
 
         this.ErrorMessage = '';
         let SearchData = {
-            type: _type,
+            type: '',
             pkid: this.pkid,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,

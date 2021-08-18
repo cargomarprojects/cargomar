@@ -23,7 +23,7 @@ export class SalesFollowupComponent {
   };
 
   constructor(
-    private ms: SalesFollowupService,
+    public ms: SalesFollowupService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
