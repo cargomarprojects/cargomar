@@ -1,7 +1,7 @@
 <div class="page-header">
     <div class="col">
         <label>{{ms.title}}</label>
-        <!-- <button *ngIf="ms.bCanAdd" class="btn btn-primary btn-sm" (click)="Generate()">New</button> -->
+        <!-- <button  class="btn btn-primary btn-sm" (click)="Generate()">New</button> -->
         <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
             class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -32,8 +32,8 @@
                     <th class="text-right">ADV</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" >
-                <tr *ngFor="let rec of ms.ReportDateList"  [style.cursor]="'pointer'"  (click)="ShowDetail(rec)">
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of ms.ReportDateList" [style.cursor]="'pointer'" (click)="ShowDetail(rec)">
                     <td>{{rec.report_date}}</td>
                     <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
@@ -55,6 +55,19 @@
         </table>
     </div>
 
+    <div *ngIf="ms.bCanAdd" class="page-box">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Date</label>
+                <div class="col-4">
+                    <app-date [inputdate]="ms.generate_date" (ValueChanged)="ms.generate_date=$event"></app-date>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary btn-sm mr-1" (click)="ms.ProcessData()">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <div *ngIf="ms.currentTab=='DISTINCTLIST'" class="page-details">
@@ -96,7 +109,7 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
+                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'"
                                 (click)="ms.ShowDetailReport('SCREEN', 'SALESMAN',rec)">
                                 <td>{{rec.sman_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -145,7 +158,7 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr  *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
+                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'"
                                 (click)="ms.ShowDetailReport('SCREEN', 'BRANCH',rec)">
                                 <td>{{rec.branch}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -193,7 +206,7 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
+                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'"
                                 (click)="ms.ShowDetailReport('SCREEN', 'PARTY',rec)">
                                 <td>{{rec.party_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -256,7 +269,7 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList">
-                <tr  [style.cursor]="'pointer'" >
+                <tr [style.cursor]="'pointer'">
                     <td (click)="editData(rec)">{{rec.sman_name}}</td>
                     <td (click)="editData(rec)">{{rec.party_name}}</td>
                     <td (click)="editData(rec)">{{rec.branch}}</td>
@@ -275,11 +288,11 @@
                     <td (click)="editData(rec)" align='right'>{{ rec.mar | number : '1.2-2' }}</td>
                     <td (click)="editData(rec)" align='right'>{{ rec.bal | number : '1.2-2' }}</td>
                     <td (click)="editData(rec)" align='right'>{{ rec.adv | number : '1.2-2' }}</td>
-                    <td [style.color]="rec.row_updated=='Y'?'red':'black'" >{{rec.row_updated}}</td>
+                    <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
                     <td colspan="19">
-                        <app-salesfollowupedit [InputSearchData]="InputSearchData" 
+                        <app-salesfollowupedit [InputSearchData]="InputSearchData"
                             (ModifiedRecords)="ModifiedRecords($event)"></app-salesfollowupedit>
                     </td>
                 </tr>

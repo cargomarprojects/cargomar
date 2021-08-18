@@ -24,6 +24,7 @@ export class SalesFollowupService {
   branch_code: string;
   sman_name: string;
   cust_name: string;
+  generate_date:string;
 
   bExcel = false;
   bCompany = false;
@@ -293,6 +294,44 @@ export class SalesFollowupService {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+  ProcessData() {
+
+    if (this.generate_date.toString().length <= 0) {
+     this.ErrorMessage = " | Date Cannot Be Blank";
+     alert(this.ErrorMessage);
+     return;
+  }
+  if (!confirm("Generate Records")) {
+    return;
+  }
+
+    this.ErrorMessage = '';
+        let SearchData = {
+           gdate: this.generate_date,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code
+        };
+
+        this.loading = true;
+        this.Generate(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue) {
+                  this.ErrorMessage = "Generate Complete";
+                  alert(this.ErrorMessage);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+
+                });
+  }
+
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
@@ -319,6 +358,10 @@ export class SalesFollowupService {
   
   RemarkSave(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/RemarkSave', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  Generate(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/Generate', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 

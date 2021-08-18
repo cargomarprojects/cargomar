@@ -78,10 +78,7 @@ export class SalesFollowupComponent {
 
     this.ms.currentTab = _type;
   }
-
-  Generate() {
-
-  }
+  
 
   editData(_rec: SalesFollowup) {
     this.InputSearchData.pkid = _rec.pkid;
