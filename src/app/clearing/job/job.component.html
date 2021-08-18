@@ -130,7 +130,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.selected]="rec.job_pkid == selectedRowIndex"
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="rec.job_pkid == selectedRowIndex"
             (mousedown)="selectedRowIndex= rec.job_pkid">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid,i)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
