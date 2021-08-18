@@ -29,7 +29,7 @@
                         <div class="form-group row">
                             <label class="col-2 col-form-label col-form-label-sm">REMARKS </label>
                             <div class="col-10">
-                                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="remarks"
+                                <textarea #_txtremark rows="3" class="form-control form-control-sm" [(ngModel)]="remarks"
                                     (blur)="OnBlur('remarks')" maxlength="300"></textarea>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
     <div class="page-box">
         <div class="row justify-content-center p-1">
             <button class="btn btn-primary btn-sm mr-1" (click)="Save()">Save</button>
-            <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Cancel</button>
+            <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button>
         </div>
     </div>
 </div>

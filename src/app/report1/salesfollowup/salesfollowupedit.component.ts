@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
@@ -16,6 +16,8 @@ export class SalesFollowupEditComponent {
     // Local Variables 
     title = '';
 
+
+    @ViewChild('_txtremark') private txtremark_ctrl: ElementRef;
     @Input() InputSearchData: any;
     @Output() ModifiedRecords = new EventEmitter<any>();
 
@@ -70,8 +72,8 @@ export class SalesFollowupEditComponent {
     }
 
     List(_type: string) {
-        this.loading = true;
 
+        this.loading = true;
         let SearchData = {
             type: _type,
             pkid: this.pkid,
@@ -86,6 +88,8 @@ export class SalesFollowupEditComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                if (this.txtremark_ctrl != null && this.txtremark_ctrl != undefined)
+                    this.txtremark_ctrl.nativeElement.focus();
             },
                 error => {
                     this.loading = false;
@@ -95,10 +99,10 @@ export class SalesFollowupEditComponent {
 
     // Save Data
     Save(_type: string) {
-        /*
+
         if (!this.allvalid())
-          return;
-        */
+            return;
+
         this.ErrorMessage = '';
         let SearchData = {
             type: _type,
@@ -117,8 +121,21 @@ export class SalesFollowupEditComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (response.retvalue) {
-                    if (this.ModifiedRecords != null)
-                    this.ModifiedRecords.emit({ saction: "SAVE", pkid: this.pkid,remarks:this.remarks,sdate:response.sdate });
+
+                    if (this.RecordList == null || this.RecordList == undefined)
+                        this.RecordList = new Array<SalesFollowup>();
+                    let Rec: SalesFollowup = new SalesFollowup;
+                    Rec.report_remarks = this.remarks;
+                    Rec.report_created_by = this.gs.globalVariables.user_code;
+                    Rec.report_created_date = response.sdate;
+                    this.RecordList.push(Rec);
+
+                    this.remarks = '';
+                    if (this.txtremark_ctrl != null && this.txtremark_ctrl != undefined)
+                        this.txtremark_ctrl.nativeElement.focus();
+
+                    // if (this.ModifiedRecords != null)
+                    //     this.ModifiedRecords.emit({ saction: "CLOSE", pkid: this.pkid});
                 }
 
             },
@@ -136,20 +153,22 @@ export class SalesFollowupEditComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        // if (this.nomination.toString().length <= 0) {
-        //     bret = false;
-        //     sError = " | Remarks Cannot Be Blank";
-        // }
+        if (this.remarks.toString().length <= 0) {
+            bret = false;
+            sError = " | Remarks Cannot Be Blank";
+        }
 
-        //if (bret === false)
-        //  this.ErrorMessage = sError;
+        if (bret === false) {
+            this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
 
     Close() {
         if (this.ModifiedRecords != null)
-        this.ModifiedRecords.emit({ saction: "CLOSE", pkid: this.pkid });
+            this.ModifiedRecords.emit({ saction: "CLOSE", pkid: this.pkid });
     }
 
     OnBlur(field: string) {

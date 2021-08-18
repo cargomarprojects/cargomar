@@ -10,61 +10,6 @@
 </div>
 
 <div *ngIf="ms.currentTab=='LIST'" class="page-list">
-
-    <!-- <div class="page-list">
-        <div class="page-search">
-            <div class="row">
-                <div class="col-4">
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm">ReportDate</label>
-                        <div class="col-8">
-                            <select class="form-control form-control-sm" [(ngModel)]="ms.report_date">
-                                <option *ngFor="let rec of ms.ReportDateList" [value]="rec.report_date">
-                                    {{rec.report_date}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div *ngIf="ms.bCompany" class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-                        <div class="col-8">
-                            <app-autocomplete #BrLov [inputdata]="ms.BRRECORD" (ValueChanged)="LovSelected($event)">
-                            </app-autocomplete>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div *ngIf="ms.bAdmin" class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm">SalesMan</label>
-                        <div class="col-8">
-                            <app-autocomplete #smanLov [inputdata]="ms.SALESMANRECORD"
-                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm">Party</label>
-                        <div class="col-8">
-                            <app-autocomplete #custLov [inputdata]="ms.CUSTRECORD" (ValueChanged)="LovSelected($event)">
-                            </app-autocomplete>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="col-4">
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                        <div class="col-sm-10">
-                            <button [disabled]="ms.loading" (click)="ms.ProcessReport('SCREEN')"
-                                class="btn btn-primary btn-sm">Search</button>
-                            <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
-                                class="btn btn-primary btn-sm">Excel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
@@ -87,8 +32,8 @@
                     <th class="text-right">ADV</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of ms.ReportDateList">
-                <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'" (click)="ShowDetail(rec)">
+            <tbody class="page-body-tbody" >
+                <tr *ngFor="let rec of ms.ReportDateList"  [style.cursor]="'pointer'"  (click)="ShowDetail(rec)">
                     <td>{{rec.report_date}}</td>
                     <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
@@ -150,8 +95,8 @@
                                 <th class="text-right">ADV</th>
                             </tr>
                         </thead>
-                        <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
-                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                        <tbody class="page-body-tbody">
+                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
                                 (click)="ms.ShowDetailReport('SCREEN', 'SALESMAN',rec)">
                                 <td>{{rec.sman_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -199,8 +144,8 @@
                                 <th class="text-right">ADV</th>
                             </tr>
                         </thead>
-                        <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
-                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                        <tbody class="page-body-tbody">
+                            <tr  *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
                                 (click)="ms.ShowDetailReport('SCREEN', 'BRANCH',rec)">
                                 <td>{{rec.branch}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -247,8 +192,8 @@
                                 <th class="text-right">ADV</th>
                             </tr>
                         </thead>
-                        <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordList">
-                            <tr [style.color]="rec.row_colour" [style.cursor]="'pointer'"
+                        <tbody class="page-body-tbody">
+                            <tr *ngFor="let rec of ms.RecordList" [style.cursor]="'pointer'" 
                                 (click)="ms.ShowDetailReport('SCREEN', 'PARTY',rec)">
                                 <td>{{rec.party_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
@@ -309,8 +254,8 @@
                     <th class="text-right">ADV</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList">
-                <tr [style.color]="rec.row_colour">
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of ms.RecordDetList" [style.cursor]="'pointer'" >
                     <td (click)="editData(rec)">{{rec.sman_name}}</td>
                     <td (click)="editData(rec)">{{rec.party_name}}</td>
                     <td (click)="editData(rec)">{{rec.branch}}</td>

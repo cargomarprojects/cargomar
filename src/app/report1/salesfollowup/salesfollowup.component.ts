@@ -100,22 +100,5 @@ export class SalesFollowupComponent {
       REC.row_displayed = false;
 
     }
-    if (params.saction == "SAVE") {
-      var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
-      REC.row_displayed = false;
-      if (REC == null) {
-
-        let Rec: SalesFollowup = new SalesFollowup;
-        Rec.report_remarks = params.remarks;
-        Rec.report_created_by = this.gs.globalVariables.user_code;
-        Rec.report_created_date = params.sdate;
-        this.ms.RecordDetList.push(Rec);
-      }
-      else {
-        REC.report_remarks = params.remarks;
-        REC.report_created_by = this.gs.globalVariables.user_code;
-        REC.report_created_date = params.sdate;
-      }
-    }
   }
 }
