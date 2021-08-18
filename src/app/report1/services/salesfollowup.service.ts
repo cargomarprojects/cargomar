@@ -24,12 +24,13 @@ export class SalesFollowupService {
   branch_code: string;
   sman_name: string;
   cust_name: string;
-  generate_date:string;
+  generate_date: string;
 
   bExcel = false;
   bCompany = false;
   bAdmin = false;
   bCanAdd = false;
+  bCanDelete = false;
   all: boolean = false;
   loading = false;
   currentTab = 'LIST';
@@ -80,6 +81,7 @@ export class SalesFollowupService {
     this.bCompany = false;
     this.bExcel = false;
     this.bCanAdd = false;
+    this.bCanDelete = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -91,6 +93,8 @@ export class SalesFollowupService {
         this.bExcel = true;
       if (this.menu_record.rights_add)
         this.bCanAdd = true;
+      if (this.menu_record.rights_delete)
+        this.bCanDelete = true;
     }
 
     this.Init();
@@ -255,7 +259,7 @@ export class SalesFollowupService {
     if (_category == "SALESMAN") {
       this.SearchData.sman_name = _rec.sman_name;
       if (this.bCompany)
-      this.SearchData.branch_code = "";
+        this.SearchData.branch_code = "";
       else if (this.bAdmin)
         this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     }
@@ -290,7 +294,7 @@ export class SalesFollowupService {
       },
         error => {
           this.loading = false;
-          this.RecordList = null;
+          this.RecordDetList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
   }
@@ -298,40 +302,66 @@ export class SalesFollowupService {
   ProcessData() {
 
     if (this.generate_date.toString().length <= 0) {
-     this.ErrorMessage = " | Date Cannot Be Blank";
-     alert(this.ErrorMessage);
-     return;
-  }
-  if (!confirm("Generate Records")) {
-    return;
-  }
+      this.ErrorMessage = " | Date Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+    if (!confirm("Generate Records")) {
+      return;
+    }
 
     this.ErrorMessage = '';
-        let SearchData = {
-            reportdate: this.generate_date,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            fin_start_date:this.gs.globalVariables.year_start_date,
-            fin_end_date:this.gs.globalVariables.year_end_date
-        };
+    let SearchData = {
+      reportdate: this.generate_date,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      fin_start_date: this.gs.globalVariables.year_start_date,
+      fin_end_date: this.gs.globalVariables.year_end_date
+    };
 
-        this.loading = true;
-        this.Generate(SearchData)
-            .subscribe(response => {
-                this.loading = false;
-                if (response.retvalue) {
-                  this.ErrorMessage = "Generate Complete";
-                  alert(this.ErrorMessage);
-                }
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+    this.loading = true;
+    this.Generate(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue) {
+          this.ErrorMessage = "Generate Complete";
+          alert(this.ErrorMessage);
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
 
-                });
+        });
+  }
+
+
+  RemoveRecord(Id: string) {
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      pkid: Id,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+    };
+
+    this.ErrorMessage = '';
+    this.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = "Deleted Successfully";
+        this.ReportDateList.splice(this.ReportDateList.findIndex(rec => rec.report_date == Id), 1);
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -357,13 +387,17 @@ export class SalesFollowupService {
   RemarkList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/RemarkList', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   RemarkSave(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/RemarkSave', SearchData, this.gs.headerparam2('authorized'));
   }
 
   Generate(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/Generate', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 

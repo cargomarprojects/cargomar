@@ -106,4 +106,12 @@ export class SalesFollowupComponent {
       // REC.row_displayed = false;
     }
   }
+
+  RemoveList(event: any) {
+    if (event.selected) {
+      this.ms.RemoveRecord(event.id);
+    }
+  }
+
+  
 }
