@@ -201,7 +201,7 @@
                     <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
-                    <td colspan="19">
+                    <td colspan="20">
                         <app-salesfollowupedit [InputSearchData]="InputSearchData"
                             (ModifiedRecords)="ModifiedRecords($event)"></app-salesfollowupedit>
                     </td>
