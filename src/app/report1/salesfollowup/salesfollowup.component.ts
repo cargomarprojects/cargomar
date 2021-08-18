@@ -6,6 +6,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { SalesFollowup } from '../models/salesfollowup';
 
 import { SalesFollowupService } from '../services/salesfollowup.service';
+import { ReconComponent } from '../../accounts/Recon/recon.component';
 
 @Component({
   selector: 'app-salesfollowup',
@@ -101,6 +102,7 @@ export class SalesFollowupComponent {
         return;
       var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
       REC.row_updated = 'Y';
+      REC.row_updated_by = params.updatename;
       // REC.row_displayed = false;
     }
   }
