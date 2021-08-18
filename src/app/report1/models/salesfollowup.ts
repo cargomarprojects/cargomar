@@ -26,8 +26,10 @@ export class SalesFollowup {
     mar: number;
     bal: number;
     adv: number;
+    fin_year: number;
    row_displayed:boolean;
    row_updated:string;
-   
+   row_updated_by:string;
+
     _globalvariables: GlobalVariables;
 }

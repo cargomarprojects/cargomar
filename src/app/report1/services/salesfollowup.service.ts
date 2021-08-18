@@ -308,11 +308,13 @@ export class SalesFollowupService {
 
     this.ErrorMessage = '';
         let SearchData = {
-           gdate: this.generate_date,
+            reportdate: this.generate_date,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code
+            user_code: this.gs.globalVariables.user_code,
+            fin_start_date:this.gs.globalVariables.year_start_date,
+            fin_end_date:this.gs.globalVariables.year_end_date
         };
 
         this.loading = true;
