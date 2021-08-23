@@ -103,10 +103,12 @@ export class SalesFollowupEditComponent {
         if (!this.allvalid())
             return;
 
+        let uid: string = this.gs.getGuid();
         this.ErrorMessage = '';
         let SearchData = {
             type: '',
             pkid: this.pkid,
+            uid: uid,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -128,6 +130,7 @@ export class SalesFollowupEditComponent {
                     Rec.report_remarks = this.remarks;
                     Rec.report_created_by = this.gs.globalVariables.user_code;
                     Rec.report_created_date = response.sdate;
+                    Rec.uid = uid;
                     this.RecordList.push(Rec);
 
                     this.remarks = '';
@@ -135,7 +138,7 @@ export class SalesFollowupEditComponent {
                         this.txtremark_ctrl.nativeElement.focus();
 
                     if (this.ModifiedRecords != null)
-                        this.ModifiedRecords.emit({ saction: "SAVE", pkid: this.pkid, updatename:response.updatename });
+                        this.ModifiedRecords.emit({ saction: "SAVE", pkid: this.pkid, updatename: response.updatename });
                 }
 
             },
@@ -181,4 +184,34 @@ export class SalesFollowupEditComponent {
         }
     }
 
+    RemoveList(event: any) {
+        if (event.selected) {
+          this.RemoveRemarks(event.id);
+        }
+    }
+
+    RemoveRemarks(Id: string) {
+        this.loading = true;
+        let SearchData = {
+          rowtype: 'REMARKS',
+          pkid: Id,
+          comp_code: this.gs.globalVariables.comp_code,
+          branch_code: this.gs.globalVariables.branch_code,
+          user_code: this.gs.globalVariables.user_code,
+        };
+    
+        this.ErrorMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+          .subscribe(response => {
+            this.loading = false;
+            this.ErrorMessage = "Deleted Successfully";
+            this.RecordList.splice(this.RecordList.findIndex(rec => rec.uid == Id), 1);
+            alert(this.ErrorMessage);
+          },
+            error => {
+              this.loading = false;
+              this.ErrorMessage = this.gs.getError(error);
+              alert(this.ErrorMessage);
+            });
+      }
 }
