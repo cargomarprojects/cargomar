@@ -6,6 +6,7 @@
           <th>DATE</th>
           <th>NAME</th>
           <th>REMARKS</th>
+          <th class="text-center">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -13,6 +14,10 @@
           <td>{{rec.report_created_date}}</td>
           <td>{{rec.report_created_by}}</td>
           <td>{{rec.report_remarks}}</td>
+          <td  class="text-center">
+            <App-Dialog [id]="{msg:'DELETE REMARKS Y/N', buttons:'yn', selected :false,id:rec.uid,name:rec.report_remarks}"
+              (result)="RemoveList($event)"></App-Dialog>
+          </td>
         </tr>
       </tbody>
     </table>

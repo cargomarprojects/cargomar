@@ -30,6 +30,6 @@ export class SalesFollowup {
    row_displayed:boolean;
    row_updated:string;
    row_updated_by:string;
-
+   uid:string;
     _globalvariables: GlobalVariables;
 }
