@@ -20,6 +20,7 @@ export class SalesFollowupService {
   urlid: string;
   ErrorMessage = "";
   Detail_title = '';
+  selected_brcode = '';
   report_date: string = '';
   branch_code: string;
   sman_name: string;
@@ -43,13 +44,14 @@ export class SalesFollowupService {
     report_folder: '',
     company_code: '',
     branch_code: '',
-    branch: '',
     year_code: '',
     year_name: '',
     report_date: '',
     sman_name: '',
-    cust_name: '',
-    login_br_code: '',
+    selected_cust_name: '',
+    selected_branch: '',
+    selected_brcode: '',
+    selected_sman_name: '',
     isadmin: false,
     iscompany: false,
     all: false
@@ -218,17 +220,8 @@ export class SalesFollowupService {
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.report_date = this.report_date;
-    if (this.bCompany) {
-      this.SearchData.branch_code = "";
-      this.SearchData.sman_name = "";
-    } else if (this.bAdmin) {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.sman_name = "";
-    } else {
-      this.SearchData.branch_code = "";
-      this.SearchData.sman_name = this.gs.globalVariables.sman_name;
-    }
-
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.sman_name = this.gs.globalVariables.sman_name;
     this.SearchData.isadmin = this.bAdmin;
     this.SearchData.iscompany = this.bCompany;
 
@@ -258,49 +251,46 @@ export class SalesFollowupService {
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.login_br_code = this.gs.globalVariables.branch_code;
-    this.SearchData.branch_code = "";
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code
+    this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     if (_category == "SALESMAN") {
       if (_type == 'EXCEL')
-        this.SearchData.sman_name = this.Detail_title;
+        this.SearchData.selected_sman_name = this.Detail_title;
       else {
-        this.SearchData.sman_name = _rec.sman_name;
+        this.SearchData.selected_sman_name = _rec.sman_name;
         this.Detail_title = _rec.sman_name;
       }
-      if (this.bCompany)
-        this.SearchData.branch_code = "";
-      else if (this.bAdmin)
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-    }
-    else
-      this.SearchData.sman_name = "";
+    } else
+      this.SearchData.selected_sman_name = "";
 
     if (_category == "BRANCH") {
       if (_type == 'EXCEL')
-        this.SearchData.branch = this.Detail_title;
+      {
+        this.SearchData.selected_branch = this.Detail_title;
+        this.SearchData.selected_brcode = this.selected_brcode;
+      }
       else {
-        this.SearchData.branch = _rec.branch;
+        this.SearchData.selected_branch = _rec.branch;
+        this.SearchData.selected_brcode = _rec.brcode;
         this.Detail_title = _rec.branch;
+        this.selected_brcode =_rec.brcode;
       }
-      if (this.bCompany || this.bAdmin) {
-        this.SearchData.sman_name = "";
-      } else {
-        this.SearchData.sman_name = this.gs.globalVariables.sman_name;
-      }
+    } else {
+      this.SearchData.selected_branch = "";
+      this.SearchData.selected_brcode = "";
     }
-    else
-      this.SearchData.branch = "";
+
     if (_category == "PARTY") {
       if (_type == 'EXCEL')
-        this.SearchData.cust_name = this.Detail_title;
+        this.SearchData.selected_cust_name = this.Detail_title;
       else {
-        this.SearchData.cust_name = _rec.party_name;
+        this.SearchData.selected_cust_name = _rec.party_name;
         this.Detail_title = _rec.party_name;
       }
-    }
-    else
-      this.SearchData.cust_name = "";
+    } else
+      this.SearchData.selected_cust_name = "";
+
 
     this.SearchData.isadmin = this.bAdmin;
     this.SearchData.iscompany = this.bCompany;
