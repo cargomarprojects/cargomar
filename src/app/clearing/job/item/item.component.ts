@@ -285,6 +285,10 @@ export class ItemComponent {
       this.Record.itm_ritc_code = _Record.code;
       this.Record.itm_ritc_name = _Record.name;
       this.Record.itm_ritc_unit = _Record.col1;
+
+      this.Record.itm_rodtep_amt =  0;
+      this.Record.itm_rodtep_rate =  +_Record.col2;
+      this.Record.itm_rodtep_cap =  +_Record.col3;
     }
     if (_Record.controlname == "UNITTYPE") {
       this.Record.itm_unit_id = _Record.id;
@@ -555,6 +559,10 @@ export class ItemComponent {
     this.Record.itm_ritc_id = '';
     this.Record.itm_ritc_code = '';
     this.Record.itm_ritc_name = '';
+
+    this.Record.itm_rodtep_rate = 0;
+    this.Record.itm_rodtep_cap = 0;
+    this.Record.itm_rodtep_amt = 0;
 
     this.Record.itm_unit_id = '';
     this.Record.itm_unit_code = '';
