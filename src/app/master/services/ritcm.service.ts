@@ -29,7 +29,9 @@ export class RitcmService {
     LoadDefault(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Ritcm/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
-
-
+    
+    ProcessData(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Ritcm/ProcessData', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

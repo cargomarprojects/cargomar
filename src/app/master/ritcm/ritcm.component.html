@@ -19,6 +19,9 @@
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
       </div>
+      <div  *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col">
+        <button [disabled]="loading" (click)="ProcessData()" class="btn btn-primary btn-sm">Update</button>
+      </div>
     </div>
   </div>
 

@@ -357,5 +357,30 @@ export class RitcmComponent  {
     this.gs.ClosePage('home');
   }
 
+  ProcessData() {
+    
+    if (!confirm("Update Rates")) {
+     return
+    }
+
+    let SearchData = {
+       branch_code:this.gs.globalVariables.branch_code,
+       company_code: this.gs.globalVariables.comp_code,
+       user_code:this.gs.globalVariables.user_code
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ProcessData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Save Complete');
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
 
 }
