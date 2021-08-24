@@ -44,6 +44,9 @@
           <th>CODE</th>
           <th>NAME</th>
           <th>UNIT</th>
+          <th>RODTEP-RATE</th>
+          <th>RODTEP-CAP</th>
+          <th>NOTIFY-DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -51,6 +54,9 @@
           <td>{{rec.ritc_code}}</td>
           <td>{{rec.ritc_name}}</td>
           <td>{{rec.ritc_unit}}</td>
+          <td>{{rec.ritc_rate}}</td>
+          <td>{{rec.ritc_cap}}</td>
+          <td>{{rec.ritc_notify_date}}</td>
         </tr>
       </tbody>
     </table>
@@ -103,6 +109,31 @@
               (blur)="OnBlur('ritc_unit')" required maxlength="3" />
           </div>
         </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Rodtep-Rate</label>
+          <div class="col-9">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritc_rate"
+              (blur)="OnBlur('ritc_rate')" required maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Rodtep-Cap</label>
+          <div class="col-9">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritc_cap"
+              (blur)="OnBlur('ritc_cap')" required maxlength="15" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Notifty Date</label>
+          <div class="col-9">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_notify_date"
+              (blur)="OnBlur('ritc_notify_date')" required maxlength="50" />
+          </div>
+        </div>
+
 
       </div>
 

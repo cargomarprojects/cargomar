@@ -210,6 +210,10 @@ export class RitcmComponent  {
     this.Record.ritc_name = '';
     this.Record.ritc_unit = '';
 
+    this.Record.ritc_rate = 0;
+    this.Record.ritc_cap = 0;
+    this.Record.ritc_notify_date = '';
+
     this.Record.rec_mode = this.mode;
   
   }
@@ -325,7 +329,15 @@ export class RitcmComponent  {
     if (field == 'ritc_unit') {
       this.Record.ritc_unit = this.Record.ritc_unit.toUpperCase();
     }
-    
+    if (field == 'ritc_rate') {
+      this.Record.ritc_rate = this.gs.roundNumber(this.Record.ritc_rate,2);
+    }
+    if (field == 'ritc_cap') {
+      this.Record.ritc_cap = this.gs.roundNumber(this.Record.ritc_cap,2);
+    }
+    if (field == 'ritc_notify_date') {
+      this.Record.ritc_notify_date = this.Record.ritc_notify_date.toUpperCase();
+    }
   }
   GetSpaceTrim(str: string) {
     let num: number;
