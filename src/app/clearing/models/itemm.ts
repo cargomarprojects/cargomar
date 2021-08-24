@@ -92,6 +92,10 @@ export class Itemm {
     itm_ritc_unit: string;
     itm_ritc_qty:number;
     itm_gst_cess:number;
+
+    itm_rodtep_rate :number;
+    itm_rodtep_cap :number;
+    itm_rodtep_amt :number;
     
     itm_sw: boolean;
     itm_rodtep: string;
