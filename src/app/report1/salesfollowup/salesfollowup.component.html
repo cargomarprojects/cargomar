@@ -34,28 +34,30 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i" [class.active]="i==ms.index1" [style.cursor]="'pointer'">
+                <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i"
+                    [class.active]="i==ms.index1" [style.cursor]="'pointer'">
                     <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
-                    <td >{{rec.fin_year_name}}</td>
-                    <td  align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                    <td>{{rec.fin_year_name}}</td>
+                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
-                        <App-Dialog [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
-                          (result)="RemoveList($event)"></App-Dialog>
-                      </td>
+                        <App-Dialog
+                            [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -79,7 +81,8 @@
 <div *ngIf="ms.currentTab=='DISTINCTLIST'" class="page-details">
     <div class="page-header">
         <div class="col">
-            <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
+            <button class="btn btn-primary btn-sm"
+                (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
@@ -87,11 +90,12 @@
             <i *ngIf="loading2" class="fa fa-spinner"></i>
         </div>
     </div>
-   
+
     <div class="row">
 
         <div class="col">
-            <div *ngIf="ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH'||ms.distinctTab=='PARTY'" class="page-list">
+            <div *ngIf="ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH'||ms.distinctTab=='PARTY'"
+                class="page-list">
                 <div class="page-body table-responsive">
                     <table class="table  table-hover table-sm">
                         <thead class="page-body-thead">
@@ -116,11 +120,17 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of ms.RecordList;let i=index" (mousedown)="ms.index2=i" [class.active]="i==ms.index2" [style.cursor]="'pointer'"
-                                >
-                                <td *ngIf="ms.distinctTab=='SALESMAN'" (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.sman_name}}</td>
-                                <td *ngIf="ms.distinctTab=='BRANCH'"   (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.branch}}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'"    (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec)" class="hlink2">{{rec.party_name}}</td>
+                            <tr *ngFor="let rec of ms.RecordList;let i=index" (mousedown)="ms.index2=i"
+                                [class.active]="i==ms.index2" [style.cursor]="'pointer'">
+                                <td *ngIf="ms.distinctTab=='SALESMAN'"
+                                    (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
+                                    class="hlink2">{{rec.sman_name}}</td>
+                                <td *ngIf="ms.distinctTab=='BRANCH'"
+                                    (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
+                                    class="hlink2">{{rec.branch}}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'"
+                                    (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
+                                    class="hlink2">{{rec.party_name}}</td>
                                 <td>{{rec.fin_year_name}}</td>
                                 <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
@@ -150,8 +160,12 @@
     <div class="page-header">
         <div class="col">
             <label>{{ms.distinctTab}}-WISE</label>
-            <button *ngIf='ms.bExcel' [disabled]="ms.loading" (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null)" 
+            <button *ngIf='ms.bExcel' [disabled]="ms.loading"
+                (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null,emailsent)"
                 class="btn btn-primary btn-sm mr-1">Print</button>
+            <button *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" [disabled]="ms.loading"
+                (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,null, emailsent)"
+                class="btn btn-primary btn-sm">Mail</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
             <i *ngIf="ms.loading" class="fa fa-spinner"></i>
         </div>
@@ -182,27 +196,27 @@
                     <th>UPDATED.BY</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i" >
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
                 <tr [style.cursor]="'pointer'" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
-                    <td >{{rec.party_name}}</td>
-                    <td >{{rec.branch}}</td>
-                    <td >{{rec.fin_year_name}}</td>
-                    <td  align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td  align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                    <td>{{rec.party_name}}</td>
+                    <td>{{rec.branch}}</td>
+                    <td>{{rec.fin_year_name}}</td>
+                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
                     <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
@@ -228,3 +242,18 @@
 <div *ngIf="ms.ErrorMessage" class="alert alert-danger">
     {{ms.ErrorMessage}}
 </div>
+<ng-template #emailsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Message Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SALESFOLLOWUP'" [sHtml]="ms.sHtml" [defaultmessage]="ms.sMsg"
+            [defaultsubject]="ms.sSubject" [updateto_ids]=false [AttachList]="ms.AttachList"></app-mail>
+    </div>
+    <!--<div class="modal-footer">
+      <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+    </div>-->
+</ng-template>

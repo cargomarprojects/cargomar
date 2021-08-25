@@ -17,7 +17,6 @@ import { ReconComponent } from '../../accounts/Recon/recon.component';
 export class SalesFollowupComponent {
 
 
-
   InputSearchData = {
     type: '',
     pkid: '',
@@ -121,6 +120,6 @@ export class SalesFollowupComponent {
     }
   }
 
-
+  
   
 }

@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 
 import { SalesFollowup } from '../models/salesfollowup';
@@ -32,6 +32,7 @@ export class SalesFollowupService {
   generate_date: string;
 
   bExcel = false;
+  bEmail = false;
   bCompany = false;
   bAdmin = false;
   bCanAdd = false;
@@ -71,7 +72,14 @@ export class SalesFollowupService {
   SALESMANRECORD: SearchTable = new SearchTable();
   CUSTRECORD: SearchTable = new SearchTable();
 
+  modal: any;
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
+
   constructor(
+    private modalService: NgbModal,
     private http2: HttpClient,
     private gs: GlobalService) {
   }
@@ -91,6 +99,7 @@ export class SalesFollowupService {
     this.bExcel = false;
     this.bCanAdd = false;
     this.bCanDelete = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -104,6 +113,8 @@ export class SalesFollowupService {
         this.bCanAdd = true;
       if (this.menu_record.rights_delete)
         this.bCanDelete = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
 
     this.Init();
@@ -244,7 +255,7 @@ export class SalesFollowupService {
         });
   }
 
-  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup) {
+  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
 
     this.index3 = -1;
     this.currentTab = "DETAILLIST";
@@ -260,7 +271,7 @@ export class SalesFollowupService {
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     if (_category == "SALESMAN") {
-      if (_type == 'EXCEL')
+      if (_type == 'EXCEL' || _type == 'MAIL')
         this.SearchData.selected_sman_name = this.Detail_title;
       else {
         this.SearchData.selected_sman_name = _rec.sman_name;
@@ -270,8 +281,7 @@ export class SalesFollowupService {
       this.SearchData.selected_sman_name = "";
 
     if (_category == "BRANCH") {
-      if (_type == 'EXCEL')
-      {
+      if (_type == 'EXCEL' || _type == 'MAIL') {
         this.SearchData.selected_branch = this.Detail_title;
         this.SearchData.selected_brcode = this.selected_brcode;
       }
@@ -279,7 +289,7 @@ export class SalesFollowupService {
         this.SearchData.selected_branch = _rec.branch;
         this.SearchData.selected_brcode = _rec.brcode;
         this.Detail_title = _rec.branch;
-        this.selected_brcode =_rec.brcode;
+        this.selected_brcode = _rec.brcode;
       }
     } else {
       this.SearchData.selected_branch = "";
@@ -287,7 +297,7 @@ export class SalesFollowupService {
     }
 
     if (_category == "PARTY") {
-      if (_type == 'EXCEL')
+      if (_type == 'EXCEL' || _type == 'MAIL')
         this.SearchData.selected_cust_name = this.Detail_title;
       else {
         this.SearchData.selected_cust_name = _rec.party_name;
@@ -306,6 +316,14 @@ export class SalesFollowupService {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize:response.filesize });
+
+          this.setMailBody();
+
+          this.open(emailsent);
+        }
         else {
           this.RecordDetList = response.list;
         }
@@ -316,7 +334,15 @@ export class SalesFollowupService {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+  setMailBody() {
 
+    this.sSubject = "SALES FOLLOWUP REPORT";
+
+    this.sMsg = "Dear Sir,";
+    this.sMsg += " \n\n";
+    this.sMsg += "  Please find the attached Sales Followup Report as on "+this.report_date;
+    this.sMsg += " \n\n";
+  }
   ProcessData() {
 
     if (this.generate_date.toString().length <= 0) {
@@ -383,7 +409,9 @@ export class SalesFollowupService {
         });
   }
 
-  
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
