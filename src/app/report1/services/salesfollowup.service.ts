@@ -77,6 +77,7 @@ export class SalesFollowupService {
   sMsg: string = '';
   sHtml: string = '';
   AttachList: any[] = [];
+  defaultto_ids: string = '';
 
   constructor(
     private modalService: NgbModal,
@@ -258,7 +259,8 @@ export class SalesFollowupService {
   ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
 
     this.index3 = -1;
-    this.currentTab = "DETAILLIST";
+    if (_type != "MAIL")
+      this.currentTab = "DETAILLIST";
     this.ErrorMessage = '';
     this.loading = true;
     this.SearchData.row_type = _type;
@@ -271,7 +273,7 @@ export class SalesFollowupService {
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     if (_category == "SALESMAN") {
-      if (_type == 'EXCEL' || _type == 'MAIL')
+      if (_rec == null)
         this.SearchData.selected_sman_name = this.Detail_title;
       else {
         this.SearchData.selected_sman_name = _rec.sman_name;
@@ -281,7 +283,7 @@ export class SalesFollowupService {
       this.SearchData.selected_sman_name = "";
 
     if (_category == "BRANCH") {
-      if (_type == 'EXCEL' || _type == 'MAIL') {
+      if (_rec == null) {
         this.SearchData.selected_branch = this.Detail_title;
         this.SearchData.selected_brcode = this.selected_brcode;
       }
@@ -297,7 +299,7 @@ export class SalesFollowupService {
     }
 
     if (_category == "PARTY") {
-      if (_type == 'EXCEL' || _type == 'MAIL')
+      if (_rec == null)
         this.SearchData.selected_cust_name = this.Detail_title;
       else {
         this.SearchData.selected_cust_name = _rec.party_name;
@@ -318,10 +320,9 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize:response.filesize });
-
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          this.defaultto_ids = response.sman_email;
           this.setMailBody();
-
           this.open(emailsent);
         }
         else {
@@ -340,7 +341,7 @@ export class SalesFollowupService {
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
-    this.sMsg += "  Please find the attached Sales Followup Report as on "+this.report_date;
+    this.sMsg += "  Please find the attached Sales Followup Report as on " + this.report_date;
     this.sMsg += " \n\n";
   }
   ProcessData() {

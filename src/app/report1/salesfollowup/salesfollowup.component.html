@@ -4,7 +4,7 @@
         <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
             class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <i *ngIf="ms.loading" class="fa fa-spinner"></i>
+        <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
     </div>
 </div>
 
@@ -87,7 +87,7 @@
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
             <label>{{ms.report_date}}</label>
-            <i *ngIf="loading2" class="fa fa-spinner"></i>
+            <!-- <i *ngIf="loading2" class="fa fa-spinner"></i> -->
         </div>
     </div>
 
@@ -117,6 +117,7 @@
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
+                                <th *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'">EMAIL</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -147,6 +148,9 @@
                                 <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
                                 <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'"
+                                    (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
+                                    class="hlink2">MAIL</td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,7 +171,7 @@
                 (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,null, emailsent)"
                 class="btn btn-primary btn-sm">Mail</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
-            <i *ngIf="ms.loading" class="fa fa-spinner"></i>
+            <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
         </div>
     </div>
     <div class="page-body table-responsive">
@@ -251,7 +255,7 @@
     </div>
     <div class="modal-body">
         <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SALESFOLLOWUP'" [sHtml]="ms.sHtml" [defaultmessage]="ms.sMsg"
-            [defaultsubject]="ms.sSubject" [updateto_ids]=false [AttachList]="ms.AttachList"></app-mail>
+          [defaultto_ids]="ms.defaultto_ids"  [defaultsubject]="ms.sSubject" [updateto_ids]=false [AttachList]="ms.AttachList"></app-mail>
     </div>
     <!--<div class="modal-footer">
       <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
