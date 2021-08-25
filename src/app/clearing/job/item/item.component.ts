@@ -289,6 +289,14 @@ export class ItemComponent {
       this.Record.itm_rodtep_amt =  0;
       this.Record.itm_rodtep_rate =  +_Record.col2;
       this.Record.itm_rodtep_cap =  +_Record.col3;
+
+
+      if (this.gs.isZero(this.Record.itm_rodtep_rate))
+      {
+        alert('No RODTEP Rate Is Provided');
+        return;
+      }
+
     }
     if (_Record.controlname == "UNITTYPE") {
       this.Record.itm_unit_id = _Record.id;

@@ -344,4 +344,43 @@ export class GlobalService {
     return bRet;
   }
 
+  public isNull(iData: any): boolean {
+    if (iData == null || iData == undefined)
+      return true;
+    else
+      return false;
+  }
+
+  public isBlank(iData: any): boolean {
+    if (iData == null || iData == undefined || iData == '')
+      return true;
+    else
+      return false;
+  }
+
+  public isZero(iData: any): boolean {
+    if (iData == null || iData == undefined || iData == 0)
+      return true;
+    else
+      return false;
+  }
+
+  public CompareDate(d1: string, d2: string) {
+    if (this.isBlank(d1) || this.isBlank(d2))
+      return "";
+    var p1 = d1.split('-');
+    var p2 = d2.split('-');
+    var date1 = new Date(parseInt(p1[0]), parseInt(p1[1]) - 1, parseInt(p1[2]));
+    var date2 = new Date(parseInt(p2[0]), parseInt(p2[1]) - 1, parseInt(p2[2]));
+    if (date1 < date2)
+      return "<";
+    else if (date1 > date2)
+      return ">";
+    else
+      return "=";
+  }
+
+
+  
+
 }
