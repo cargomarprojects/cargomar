@@ -337,11 +337,11 @@ export class SalesFollowupService {
   }
   setMailBody() {
 
-    this.sSubject = "SALES FOLLOW UP REPORT";
+    this.sSubject = "DEBTORS O/S FOLLOWUP";
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
-    this.sMsg += "  Please find the attached sales follow up report as on " + this.report_date;
+    this.sMsg += "  Please find the attached debtors o/s followup ";
     this.sMsg += " \n\n";
   }
   ProcessData() {
