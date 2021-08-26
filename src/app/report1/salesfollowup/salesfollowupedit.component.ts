@@ -76,7 +76,11 @@ export class SalesFollowupEditComponent {
         this.loading = true;
         let SearchData = {
             type: _type,
-            pkid: this.pkid,
+            pkid: '',
+            report_date: this.InputSearchData.report_date,
+            sman_name: this.InputSearchData.sman_name,
+            branch: this.InputSearchData.branch,
+            party_name: this.InputSearchData.party_name,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code
@@ -107,8 +111,11 @@ export class SalesFollowupEditComponent {
         this.ErrorMessage = '';
         let SearchData = {
             type: '',
-            pkid: this.pkid,
-            uid: uid,
+            pkid: uid,
+            report_date: this.InputSearchData.report_date,
+            sman_name: this.InputSearchData.sman_name,
+            branch: this.InputSearchData.branch,
+            party_name: this.InputSearchData.party_name,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -186,32 +193,32 @@ export class SalesFollowupEditComponent {
 
     RemoveList(event: any) {
         if (event.selected) {
-          this.RemoveRemarks(event.id);
+            this.RemoveRemarks(event.id);
         }
     }
 
     RemoveRemarks(Id: string) {
         this.loading = true;
         let SearchData = {
-          rowtype: 'REMARKS',
-          pkid: Id,
-          comp_code: this.gs.globalVariables.comp_code,
-          branch_code: this.gs.globalVariables.branch_code,
-          user_code: this.gs.globalVariables.user_code,
+            rowtype: 'REMARKS',
+            pkid: Id,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
         };
-    
+
         this.ErrorMessage = '';
         this.mainService.DeleteRecord(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.ErrorMessage = "Deleted Successfully";
-            this.RecordList.splice(this.RecordList.findIndex(rec => rec.uid == Id), 1);
-            alert(this.ErrorMessage);
-          },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-              alert(this.ErrorMessage);
-            });
-      }
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = "Deleted Successfully";
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.uid == Id), 1);
+                alert(this.ErrorMessage);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }
