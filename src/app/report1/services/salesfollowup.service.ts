@@ -226,6 +226,10 @@ export class SalesFollowupService {
 
   ShowDistinctReport(_type: string, _category: string) {
 
+
+    if(this.report_date=="TOTAL")
+    return;
+    
     this.distinctTab = _category;
 
     this.ErrorMessage = '';
