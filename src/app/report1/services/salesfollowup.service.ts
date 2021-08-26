@@ -381,6 +381,7 @@ export class SalesFollowupService {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
+          this.ReportList('SCREEN');
           this.ErrorMessage = "Generate Complete";
           alert(this.ErrorMessage);
         }

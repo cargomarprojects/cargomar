@@ -14,7 +14,6 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>REPORT LIST</th>
-                    <th *ngIf="ms.bCanAdd">UPDATE</th>
                     <th>FINYEAR</th>
                     <th class="text-right">OP</th>
                     <th class="text-right">APR</th>
@@ -31,6 +30,7 @@
                     <th class="text-right">MAR</th>
                     <th class="text-right">BAL</th>
                     <th class="text-right">ADV</th>
+                    <th *ngIf="ms.bCanAdd">UPDATE</th>
                     <th *ngIf="ms.bCanDelete" class="text-center">DELETE</th>
                 </tr>
             </thead>
@@ -38,7 +38,6 @@
                 <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i"
                     [class.active]="i==ms.index1" [style.cursor]="'pointer'">
                     <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
-                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>RE-UPDATE</td>
                     <td>{{rec.fin_year_name}}</td>
                     <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
@@ -55,6 +54,7 @@
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
+                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>RE-UPDATE</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
                         <App-Dialog
                             [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
