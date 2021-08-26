@@ -93,10 +93,11 @@
           </div>
           <div class="form-group row">
             <!-- <label style="color: #007ee9;font-size: 15px;" class="col-sm-1 col-form-label col-form-label-sm pointer"  (click)="ShowHideAttach()">Attach.File</label> -->
-            <div style="padding-left: 2px" class="col-sm-1">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Attach File</label>
+            <!-- <div style="padding-left: 2px" class="col-sm-1">
               <button [disabled]="loading" (click)="ShowHideAttach()" class="btn btn-link">Attach File</button>
-            </div>
-            <div *ngIf="showattach" class="col-sm-11">
+            </div> -->
+            <div class="col-sm-11">
               <div class="page-details">
                 <div class="form-group row">
                   <div class="col-7">
@@ -112,9 +113,9 @@
                       <option [value]="'OTHERS'">Others</option>
                     </select>
                   </div> -->
-                  <div class="col-1">
+                  <!-- <div class="col-1">
                     <button (click)="uploadFiles()">Attach</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

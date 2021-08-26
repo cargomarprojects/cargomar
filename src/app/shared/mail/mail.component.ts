@@ -294,7 +294,7 @@ export class MailComponent {
       user_code: this.gs.globalVariables.user_code,
       update_toids: '',
       canftp: 'N',
-      updatetype:''
+      updatetype: ''
     };
 
     SearchData.table = controlname;
@@ -512,7 +512,7 @@ export class MailComponent {
           this.InfoMessage += "\n\r | " + response.ftp;
           alert(this.InfoMessage);
         }
-        if (this.ftptypecaption == "COSTING-FTP" && this.InfoMessage.indexOf("Successfully")>=0) {
+        if (this.ftptypecaption == "COSTING-FTP" && this.InfoMessage.indexOf("Successfully") >= 0) {
           if (this.ModifiedRecords != null)
             this.ModifiedRecords.emit({ saction: 'SENT-ON', sid: this.pkid, sdate: response.sentondate });
         }
@@ -544,7 +544,8 @@ export class MailComponent {
     if (!isValidFile) {
       this.filesSelected = false;
       alert('Invalid File Name - &%#');
-    }
+    } else
+      this.uploadFiles();
   }
 
 
