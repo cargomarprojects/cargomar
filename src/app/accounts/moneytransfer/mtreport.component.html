@@ -39,17 +39,17 @@
             </select>
           </div>
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-2">
+          <div class="col-sm-1">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" (click)="Generate('BANK')" class="btn btn-primary btn-sm">Generate</button>
             <button [disabled]="loading" (click)="Process()" class="btn btn-primary btn-sm">Check Status</button>
             <!-- <button [disabled]="loading" (click)="Generate('CHECK-LIST')" class="btn btn-primary btn-sm">CheckList</button> -->
             <label *ngIf="tot_amt!=0" class="col-form-label  col-form-label-sm">&nbsp;AMT:&nbsp;
-              <font color="red">{{tot_amt}} </font>
+              <font color="red">{{tot_amt}}&nbsp;({{selected_tot_amt}}) </font>
             </label>
           </div>
         </div>
@@ -110,7 +110,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
           <!-- *ngIf="rec.mt_lock!='G'" -->
-          <td><input type="checkbox" [(ngModel)]="rec.mt_selected">{{rec.mt_format}}</td>
+          <td><input type="checkbox" [(ngModel)]="rec.mt_selected" (change)="OnChange('mt_selected')">{{rec.mt_format}}</td>
           <td class="hlink" (click)="ShowMoneyTransfer(moneytransfer,rec.mt_jv_id)">{{rec.mt_jvh_docno}}</td>
           <td >{{rec.mt_jvh_date}}</td>
           <td >{{rec.mt_aprvd}}</td>

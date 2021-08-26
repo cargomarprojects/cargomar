@@ -20,7 +20,10 @@ export class SalesFollowupComponent {
   InputSearchData = {
     type: '',
     pkid: '',
-    party_name:''
+    report_date: '',
+    sman_name: '',
+    branch: '',
+    party_name: ''
   };
 
   constructor(
@@ -85,16 +88,16 @@ export class SalesFollowupComponent {
 
     this.ms.currentTab = _type;
   }
-  
+
 
   editData(_rec: SalesFollowup) {
     this.InputSearchData.pkid = _rec.pkid;
-    this.InputSearchData.party_name=_rec.party_name;
-    if (_rec.pkid == null)
-      return;
-    if (_rec.pkid != '') {
-      _rec.row_displayed = !_rec.row_displayed;
-    }
+    this.InputSearchData.report_date = this.ms.report_date;
+    this.InputSearchData.sman_name = _rec.sman_name;
+    this.InputSearchData.branch = _rec.branch;
+    this.InputSearchData.party_name = _rec.party_name;
+    
+    _rec.row_displayed = !_rec.row_displayed;
   }
 
   ModifiedRecords(params: any) {
@@ -120,6 +123,6 @@ export class SalesFollowupComponent {
     }
   }
 
-  
-  
+
+
 }
