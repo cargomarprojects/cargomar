@@ -28,6 +28,7 @@ export class MtReportComponent {
   fromdate: string = '';
   todate: string = '';
   tot_amt: number = 0;
+  selected_tot_amt: number = 0;
   ErrorMessage = "";
   InfoMessage = "";
   mode = '';
@@ -170,7 +171,8 @@ export class MtReportComponent {
 
   // // Query List Data
   List(_type: string) {
-
+    this.tot_amt = 0;
+    this.selected_tot_amt = 0;
     this.ErrorMessage = '';
     this.loading = true;
     this.pkid = this.gs.getGuid();
@@ -220,7 +222,15 @@ export class MtReportComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    // this.RecordList = null;
+    if (field == "mt_selected") {
+      this.selected_tot_amt = 0;
+      for (let rec of this.RecordList) {
+        if (rec.mt_selected)
+          this.selected_tot_amt += rec.mt_txn_amt;
+      }
+      this.selected_tot_amt = this.gs.roundNumber(this.selected_tot_amt, 2);
+    }
   }
 
   OnBlur(field: string) {
@@ -324,10 +334,10 @@ export class MtReportComponent {
       user_pkid: this.gs.globalVariables.user_pkid,
       pkid: this.jv_id,
       rowtype: _type,
-      year_start_date : this.gs.globalVariables.year_start_date,
-      year_end_date : this.gs.globalVariables.year_end_date,
-      year_prefix : this.gs.globalVariables.year_prefix,
-      year_code : this.gs.globalVariables.year_code,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
+      year_prefix: this.gs.globalVariables.year_prefix,
+      year_code: this.gs.globalVariables.year_code,
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;

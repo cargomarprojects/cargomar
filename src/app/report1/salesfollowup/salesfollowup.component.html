@@ -38,21 +38,21 @@
                     [class.active]="i==ms.index1" [style.cursor]="'pointer'">
                     <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
                     <td>{{rec.fin_year_name}}</td>
-                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.may | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jun | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jul | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.aug | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.sep | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.nov | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.oct | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.dec | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jan | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
                         <App-Dialog
                             [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
@@ -101,6 +101,7 @@
                         <thead class="page-body-thead">
                             <tr>
                                 <th>{{ms.distinctTab}}</th>
+                                <th *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" class="text-center">EMAIL</th>
                                 <th>FINYEAR</th>
                                 <th class="text-right">OP</th>
                                 <th class="text-right">APR</th>
@@ -117,7 +118,6 @@
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
-                                <th *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'">EMAIL</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -132,25 +132,27 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td>{{rec.fin_year_name}}</td>
-                                <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                                <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
                                 <td *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'"
                                     (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
-                                    class="hlink2">MAIL</td>
+                                    class="hlink2 text-center">
+                                    <i class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
+                                </td>
+                                <td>{{rec.fin_year_name}}</td>
+                                <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.may | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.jun | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.jul | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.aug | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.sep | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.nov | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.oct | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.dec | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.jan | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -206,21 +208,21 @@
                     <td>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td>{{rec.fin_year_name}}</td>
-                    <td align='right'>{{ rec.op | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.adv | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.may | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jun | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jul | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.aug | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.sep | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.nov | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.oct | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.dec | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.jan | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                     <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
@@ -254,8 +256,9 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SALESFOLLOWUP'" [sHtml]="ms.sHtml" [defaultmessage]="ms.sMsg"
-          [defaultto_ids]="ms.defaultto_ids"  [defaultsubject]="ms.sSubject" [updateto_ids]=false [AttachList]="ms.AttachList"></app-mail>
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SALESFOLLOWUP'" [sHtml]="ms.sHtml"
+            [defaultmessage]="ms.sMsg" [defaultto_ids]="ms.defaultto_ids" [defaultsubject]="ms.sSubject"
+            [updateto_ids]=false [AttachList]="ms.AttachList"></app-mail>
     </div>
     <!--<div class="modal-footer">
       <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
