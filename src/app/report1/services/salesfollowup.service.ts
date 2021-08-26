@@ -344,20 +344,29 @@ export class SalesFollowupService {
     this.sMsg += "  Please find the attached debtors o/s followup ";
     this.sMsg += " \n\n";
   }
-  ProcessData() {
 
-    if (this.generate_date.toString().length <= 0) {
-      this.ErrorMessage = " | Date Cannot Be Blank";
-      alert(this.ErrorMessage);
-      return;
+
+  ProcessData(_type: string, _rec: SalesFollowup) {
+
+    if (_type == 'GENERATE') {
+      if (this.generate_date.toString().length <= 0) {
+        this.ErrorMessage = " | Date Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+      if (!confirm("Generate Records")) {
+        return;
+      }
     }
-    if (!confirm("Generate Records")) {
-      return;
+    if (_type == 'RE-UPDATE') {
+      if (!confirm("Update Records " + _rec.report_date))
+        return;
     }
 
     this.ErrorMessage = '';
     let SearchData = {
-      reportdate: this.generate_date,
+      type: _type,
+      reportdate: _type == 'RE-UPDATE' ? _rec.report_date : this.generate_date,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
