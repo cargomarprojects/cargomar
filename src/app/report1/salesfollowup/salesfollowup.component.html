@@ -14,7 +14,7 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>REPORT LIST</th>
-                    <th>UPDATE</th>
+                    <th *ngIf="ms.bCanAdd">UPDATE</th>
                     <th>FINYEAR</th>
                     <th class="text-right">OP</th>
                     <th class="text-right">APR</th>
@@ -38,7 +38,7 @@
                 <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i"
                     [class.active]="i==ms.index1" [style.cursor]="'pointer'">
                     <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
-                    <td (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>RE-UPDATE</td>
+                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>RE-UPDATE</td>
                     <td>{{rec.fin_year_name}}</td>
                     <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
