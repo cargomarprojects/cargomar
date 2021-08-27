@@ -698,6 +698,7 @@ export class JobComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -1003,6 +1004,10 @@ export class JobComponent {
     this.loading = true;
     let SearchData = {
       pkid: Id,
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,      
+      user_code : this.gs.globalVariables.user_code,
     };
 
     this.ErrorMessage = '';
