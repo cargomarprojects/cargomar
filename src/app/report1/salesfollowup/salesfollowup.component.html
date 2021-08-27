@@ -89,7 +89,7 @@
                 (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
-            <button *ngIf="bCompany" class="btn btn-primary btn-sm" (click)="ms.MailAll('SCREEN', 'PARTY')">MAIL-ALL</button>
+            <button *ngIf="ms.bCompany&&ms.distinctTab=='SALESMAN'" class="btn btn-primary btn-sm" (click)="ms.MailAll()">MAIL-ALL</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
             <label>{{ms.report_date}}</label>
             <!-- <i *ngIf="loading2" class="fa fa-spinner"></i> -->
