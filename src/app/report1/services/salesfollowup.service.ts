@@ -324,7 +324,7 @@ export class SalesFollowupService {
         else if (_type == 'MAIL') {
           this.AttachList = new Array<any>();
           this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
-          this.defaultto_ids = response.sman_email;
+          this.defaultto_ids = response.defaultto_ids;
           this.setMailBody();
           this.open(emailsent);
         }
@@ -344,7 +344,7 @@ export class SalesFollowupService {
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
-    this.sMsg += "  Please find the attached debtors o/s followup ";
+    this.sMsg += "Please find the attached debtors o/s followup ";
     this.sMsg += " \n\n";
   }
 

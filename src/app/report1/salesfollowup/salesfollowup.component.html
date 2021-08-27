@@ -104,7 +104,7 @@
                         <thead class="page-body-thead">
                             <tr>
                                 <th>{{ms.distinctTab}}</th>
-                                <th *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" class="text-center">EMAIL</th>
+                                <th *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')" class="text-center">EMAIL</th>
                                 <th>FINYEAR</th>
                                 <th class="text-right">OP</th>
                                 <th class="text-right">APR</th>
@@ -135,7 +135,7 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'"
+                                <td *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')"
                                     (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
                                     class="hlink2 text-center">
                                     <i *ngIf="rec.row_type!='TOTAL'" class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
