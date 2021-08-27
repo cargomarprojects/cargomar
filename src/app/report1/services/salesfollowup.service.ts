@@ -227,9 +227,9 @@ export class SalesFollowupService {
   ShowDistinctReport(_type: string, _category: string) {
 
 
-    if(this.report_date=="TOTAL")
-    return;
-    
+    if (this.report_date == "TOTAL")
+      return;
+
     this.distinctTab = _category;
 
     this.ErrorMessage = '';
@@ -363,6 +363,8 @@ export class SalesFollowupService {
       }
     }
     if (_type == 'RE-UPDATE') {
+      if (_rec.row_type == "TOTAL")
+        return;
       if (!confirm("Update Records " + _rec.report_date))
         return;
     }

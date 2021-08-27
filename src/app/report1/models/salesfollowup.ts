@@ -2,6 +2,8 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class SalesFollowup {
+    row_type:string;
+    row_colour:string;
     report_date: string;
     report_created_date: string;
     report_created_by: string;
