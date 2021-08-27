@@ -21,6 +21,8 @@ export class CostPending {
   mbl_pol_etd_confirm: string;
   mbl_vessel_name: string;
   mbl_voyage_no: string;
-
+  exporter_name:string;
+  importer_name:string;
+  
   _globalvariables: GlobalVariables;
 }

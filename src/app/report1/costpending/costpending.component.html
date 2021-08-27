@@ -86,6 +86,8 @@
           <th>FOLDER-NO</th>
           <th>SENT-ON</th>
           <th>MBL-NO</th>
+          <th *ngIf="category=='MBL-SE'||category=='MBL-AE'">SHIPPER</th>
+          <th *ngIf="category=='MBL-SE'||category=='MBL-AE'">CONSIGNEE</th>
           <th>CONTAINERS</th>
           <th *ngIf="category=='MBL-SE'">VESSEL</th>
           <th *ngIf="category=='MBL-SE'">VOYAGE</th>
@@ -107,6 +109,8 @@
           <td>{{rec.mbl_folder_no}}</td>
           <td>{{rec.mbl_folder_sent_date}}</td>
           <td>{{rec.mbl_bl_no}}</td>
+          <td *ngIf="category=='MBL-SE'||category=='MBL-AE'">{{rec.exporter_name}}</td>
+          <td *ngIf="category=='MBL-SE'||category=='MBL-AE'">{{rec.importer_name}}</td>
           <td style="word-break: break-all;" >{{rec.mbl_book_cntr}}</td>
           <td *ngIf="category=='MBL-SE'">{{rec.mbl_vessel_name}}</td>
           <td *ngIf="category=='MBL-SE'">{{rec.mbl_voyage_no}}</td>
