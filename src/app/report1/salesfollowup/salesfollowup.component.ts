@@ -62,7 +62,7 @@ export class SalesFollowupComponent {
 
   ShowDetail(_rec: SalesFollowup) {
 
-    if (_rec.report_date == "TOTAL")
+    if (_rec.row_type == "TOTAL")
       return;
     this.ms.index1 = -1;
     this.ms.index2 = -1;
@@ -93,6 +93,8 @@ export class SalesFollowupComponent {
 
 
   editData(_rec: SalesFollowup) {
+    if (_rec.row_type == "TOTAL")
+    return;
     this.InputSearchData.pkid = _rec.pkid;
     this.InputSearchData.report_date = this.ms.report_date;
     this.InputSearchData.sman_name = _rec.sman_name;

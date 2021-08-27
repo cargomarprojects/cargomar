@@ -226,10 +226,6 @@ export class SalesFollowupService {
 
   ShowDistinctReport(_type: string, _category: string) {
 
-
-    if (this.report_date == "TOTAL")
-      return;
-
     this.distinctTab = _category;
 
     this.ErrorMessage = '';
@@ -261,6 +257,9 @@ export class SalesFollowupService {
   }
 
   ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
+
+    if (_rec != null && _rec.row_type == "TOTAL")
+      return;
 
     this.index3 = -1;
     if (_type != "MAIL")

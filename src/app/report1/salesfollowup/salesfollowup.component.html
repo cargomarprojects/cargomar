@@ -36,7 +36,7 @@
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i"
-                    [class.active]="i==ms.index1" [style.cursor]="'pointer'">
+                    [class.active]="i==ms.index1" [style.cursor]="'pointer'" [style.color]="rec.row_colour">
                     <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
                     <td>{{rec.fin_year_name}}</td>
                     <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
@@ -54,9 +54,9 @@
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>RE-UPDATE</td>
+                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>{{rec.row_type=='TOTAL'?'':'RE-UPDATE'}}</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
-                        <App-Dialog
+                        <App-Dialog *ngIf="rec.row_type!='TOTAL'"
                             [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
                             (result)="RemoveList($event)"></App-Dialog>
                     </td>
@@ -125,7 +125,7 @@
                         </thead>
                         <tbody class="page-body-tbody">
                             <tr *ngFor="let rec of ms.RecordList;let i=index" (mousedown)="ms.index2=i"
-                                [class.active]="i==ms.index2" [style.cursor]="'pointer'">
+                                [class.active]="i==ms.index2" [style.cursor]="'pointer'" [style.color]="rec.row_colour">
                                 <td *ngIf="ms.distinctTab=='SALESMAN'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.sman_name}}</td>
@@ -138,7 +138,7 @@
                                 <td *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'"
                                     (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
                                     class="hlink2 text-center">
-                                    <i class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
+                                    <i *ngIf="rec.row_type!='TOTAL'" class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
                                 </td>
                                 <td>{{rec.fin_year_name}}</td>
                                 <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
@@ -206,7 +206,7 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
-                <tr [style.cursor]="'pointer'" [class.active]="i==ms.index3">
+                <tr [style.cursor]="'pointer'"  [style.color]="rec.row_colour" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
                     <td>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
