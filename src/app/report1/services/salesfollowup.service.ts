@@ -30,6 +30,7 @@ export class SalesFollowupService {
   sman_name: string;
   cust_name: string;
   generate_date: string;
+  selectall: boolean = false;
 
   bExcel = false;
   bEmail = false;
@@ -59,7 +60,10 @@ export class SalesFollowupService {
     selected_sman_name: '',
     isadmin: false,
     iscompany: false,
-    all: false
+    sdata: '',
+    all: false,
+    user_pkid: '',
+    user_code: ''
   };
 
   // Array For Displaying List
@@ -325,7 +329,7 @@ export class SalesFollowupService {
           this.AttachList = new Array<any>();
           this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
           this.defaultto_ids = response.defaultto_ids;
-          this.setMailBody();
+          this.setMailBody(_category);
           this.open(emailsent);
         }
         else {
@@ -338,9 +342,13 @@ export class SalesFollowupService {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-  setMailBody() {
+  setMailBody(_category: string) {
 
-    this.sSubject = "DEBTORS O/S FOLLOWUP";
+    this.sSubject = "DEBTORS O/S FOLLOWUP AS ON " + this.report_date + " - ";
+    if (_category == "SALESMAN")
+      this.sSubject += this.SearchData.selected_sman_name;
+    if (_category == "BRANCH")
+      this.sSubject += this.SearchData.selected_branch;
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
@@ -369,7 +377,7 @@ export class SalesFollowupService {
     }
 
     this.ErrorMessage = '';
-    let SearchData = {
+    let SearchData2 = {
       type: _type,
       reportdate: _type == 'RE-UPDATE' ? _rec.report_date : this.generate_date,
       company_code: this.gs.globalVariables.comp_code,
@@ -382,7 +390,7 @@ export class SalesFollowupService {
     };
 
     this.loading = true;
-    this.Generate(SearchData)
+    this.Generate(SearchData2)
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
@@ -402,7 +410,7 @@ export class SalesFollowupService {
 
   RemoveRecord(Id: string) {
     this.loading = true;
-    let SearchData = {
+    let SearchData2 = {
       rowtype: this.type,
       pkid: Id,
       comp_code: this.gs.globalVariables.comp_code,
@@ -411,7 +419,7 @@ export class SalesFollowupService {
     };
 
     this.ErrorMessage = '';
-    this.DeleteRecord(SearchData)
+    this.DeleteRecord(SearchData2)
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Deleted Successfully";
@@ -425,6 +433,74 @@ export class SalesFollowupService {
         });
   }
 
+  MailAll() {
+
+    if (this.distinctTab == "PARTY" || this.distinctTab == "BRANCH") {
+      alert("Please Select Salesman Wise and continue.... ")
+      return;
+    }
+
+    let sdata: string = "";
+    for (let rec of this.RecordList.filter(rec => rec.row_checked == true)) {
+      if (sdata != "")
+        sdata += ",";
+      if (this.distinctTab == "SALESMAN")
+        sdata += rec.sman_name;
+    }
+
+    if (sdata == "") {
+      alert("No Rows Selected")
+      return;
+    }
+
+    if (!confirm('Send Mail to Selected ' + this.distinctTab)) {
+      return;
+    }
+
+    this.SearchData.row_type = 'MAIL';
+    this.SearchData.type = this.distinctTab;
+    this.SearchData.report_date = this.report_date;
+    this.SearchData.pkid = this.gs.getGuid();
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code
+    this.SearchData.sman_name = this.gs.globalVariables.sman_name;
+    this.SearchData.selected_sman_name = "";
+    this.SearchData.selected_branch = "";
+    this.SearchData.selected_brcode = "";
+    this.SearchData.selected_cust_name = "";
+    this.SearchData.isadmin = false;
+    this.SearchData.iscompany = false;
+    this.SearchData.sdata = sdata;
+    this.SearchData.user_pkid = this.gs.globalVariables.user_pkid;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.FollowupMailAll(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.ErrorMessage = response.retmessage;
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  SelectDeselect() {
+    this.selectall = !this.selectall;
+    for (let rec of this.RecordList) {
+      rec.row_checked = this.selectall;
+    }
+  }
+  IsChecked(_rec:SalesFollowup)
+  {
+    _rec.row_checked= !_rec.row_checked;
+  }
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
@@ -463,6 +539,10 @@ export class SalesFollowupService {
 
   DeleteRecord(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  FollowupMailAll(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/FollowupMailAll', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 

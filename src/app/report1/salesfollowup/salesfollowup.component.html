@@ -54,7 +54,8 @@
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>{{rec.row_type=='TOTAL'?'':'RE-UPDATE'}}</td>
+                    <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>
+                        {{rec.row_type=='TOTAL'?'':'RE-UPDATE'}}</td>
                     <td *ngIf="ms.bCanDelete" class="text-center">
                         <App-Dialog *ngIf="rec.row_type!='TOTAL'"
                             [id]="{msg:'DELETE REPORT LIST Y/N', buttons:'yn', selected :false,id:rec.report_date,name:rec.report_date}"
@@ -88,6 +89,7 @@
                 (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
+            <button *ngIf="bCompany" class="btn btn-primary btn-sm" (click)="ms.MailAll('SCREEN', 'PARTY')">MAIL-ALL</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
             <label>{{ms.report_date}}</label>
             <!-- <i *ngIf="loading2" class="fa fa-spinner"></i> -->
@@ -104,7 +106,10 @@
                         <thead class="page-body-thead">
                             <tr>
                                 <th>{{ms.distinctTab}}</th>
-                                <th *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')" class="text-center">EMAIL</th>
+                                <th *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" (click)="ms.SelectDeselect()"
+                                    class="text-center">SELECT</th>
+                                <th *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')"
+                                    class="text-center">EMAIL</th>
                                 <th>FINYEAR</th>
                                 <th class="text-right">OP</th>
                                 <th class="text-right">APR</th>
@@ -135,10 +140,16 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
+                                <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')"  class="text-center"  (click)="ms.IsChecked(rec)">
+
+                                    <input *ngIf="rec.row_type!='TOTAL'" type="checkbox" [(ngModel)]="rec.row_checked">
+
+                                </td>
                                 <td *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')"
                                     (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
                                     class="hlink2 text-center">
-                                    <i *ngIf="rec.row_type!='TOTAL'" class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
+                                    <i *ngIf="rec.row_type!='TOTAL'" class="fa fa-envelope  fa-lg pointer"
+                                        aria-hidden="true"></i>
                                 </td>
                                 <td>{{rec.fin_year_name}}</td>
                                 <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
@@ -206,7 +217,7 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
-                <tr [style.cursor]="'pointer'"  [style.color]="rec.row_colour" [class.active]="i==ms.index3">
+                <tr [style.cursor]="'pointer'" [style.color]="rec.row_colour" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
                     <td>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
