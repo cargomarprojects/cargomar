@@ -666,48 +666,48 @@ export class JobIncomeComponent {
     
     if (this.type == 'SEA EXPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
-        sWhere = " (acc_main_code in ('1101','1103','1104') or acc_code in ('1102003') )";
+        sWhere = " (acc_main_code in ('1101','1103','1104') or acc_code in ('1102003','1102004') )";
       }
       if (this.Record.inv_source == 'FREIGHT MEMO' || this.Record.inv_source == 'LOCAL CHARGES') {
-        sWhere = " (acc_main_code in ('1104','1105','1106') or acc_code in('1107003') ) ";
+        sWhere = " (acc_main_code in ('1104','1105','1106') or acc_code in('1107003','1107004','1107005') ) ";
       }
       if (this.Record.inv_source == 'EX-WORK') {
-        sWhere = " ( acc_main_code in ('1101','1103','1104','1105','1106') or acc_code in('1102003','1107003') )";
+        sWhere = " ( acc_main_code in ('1101','1103','1104','1105','1106') or acc_code in('1102003',,'1102004','1107003','1107004','1107005') )";
       }
     }
     if (this.type == 'SEA IMPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
-        sWhere = " (acc_main_code in ('1301', '1303', '1304') or acc_code in('1302003')) ";
+        sWhere = " (acc_main_code in ('1301', '1303', '1304') or acc_code in('1302003','1302004')) ";
       }
       if (this.Record.inv_source == 'FREIGHT MEMO' || this.Record.inv_source == 'LOCAL CHARGES') {
-        sWhere = " (acc_main_code in ('1304','1305','1306') or acc_code in('1307003') )";
+        sWhere = " (acc_main_code in ('1304','1305','1306') or acc_code in('1307003','1307004','1307005') )";
       }
       if (this.Record.inv_source == 'EX-WORK') {
-        sWhere = " (acc_main_code in ('1301', '1303', '1304','1305','1306') or acc_code in('1302003','1307003') )";
+        sWhere = " (acc_main_code in ('1301', '1303', '1304','1305','1306') or acc_code in('1302003','1302004','1307003','1307004','1307005') )";
       }
     }    
 
     if (this.type == 'AIR EXPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
-        sWhere = " (acc_main_code in ('1201','1203','1204') or acc_code in ('1202003') )";
+        sWhere = " (acc_main_code in ('1201','1203','1204') or acc_code in ('1202003','1202004') )";
       }
       if (this.Record.inv_source == 'FREIGHT MEMO' || this.Record.inv_source == 'LOCAL CHARGES') {
         sWhere = "acc_main_code in ( '1204','1205')";
       }
       if (this.Record.inv_source == 'EX-WORK') {
-        sWhere = "(acc_main_code in ('1201','1203','1204','1205') or acc_code in ('1202003'))";
+        sWhere = "(acc_main_code in ('1201','1203','1204','1205') or acc_code in ('1202003','1202004'))";
       }
     }
 
     if (this.type == 'AIR IMPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
-        sWhere = "(acc_main_code in ('1401','1403','1404') or acc_code in ('1402003') )";
+        sWhere = "(acc_main_code in ('1401','1403','1404') or acc_code in ('1402003','1402004') )";
       }
       if (this.Record.inv_source == 'FREIGHT MEMO' || this.Record.inv_source == 'LOCAL CHARGES') {
         sWhere = "acc_main_code in ('1404','1405')";
       }
       if (this.Record.inv_source == 'EX-WORK') {
-        sWhere = "(acc_main_code in ('1401','1403','1404','1405') or acc_code in ('1402003') )";
+        sWhere = "(acc_main_code in ('1401','1403','1404','1405') or acc_code in ('1402003','1402004') )";
       }
     }
 
