@@ -20,7 +20,7 @@ export class JobComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  
+
   selectedRowIndex = '';
 
   CrList: any[];
@@ -1006,8 +1006,8 @@ export class JobComponent {
       pkid: Id,
       rowtype: this.type,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,      
-      user_code : this.gs.globalVariables.user_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
     };
 
     this.ErrorMessage = '';
@@ -1496,7 +1496,8 @@ export class JobComponent {
       report_folder: '',
       folderid: '',
       company_code: '',
-      branch_code: ''
+      branch_code: '',
+      user_code: ''
     }
 
     SearchData.pkid = this.pkid;
@@ -1506,6 +1507,7 @@ export class JobComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
+    SearchData.user_code = this.gs.globalVariables.user_code;
 
     this.ErrorMessage = '';
     this.mainService.GenerateEdi(SearchData)
@@ -1609,7 +1611,7 @@ export class JobComponent {
 
     this.loading = true;
     let SearchData = {
-      type : 'JOB ' + this.type,
+      type: 'JOB ' + this.type,
       searchfrom: 'JOB',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
