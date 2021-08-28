@@ -235,7 +235,7 @@ export class SalesFollowupService {
     this.ErrorMessage = '';
     this.loading = true;
     this.SearchData.type = _category;
-
+    this.SearchData.row_type = _type;
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -249,8 +249,12 @@ export class SalesFollowupService {
     this.DistinctList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-
-        this.RecordList = response.list;
+        if (_type == 'EXCEL') {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
+        else {
+          this.RecordList = response.list;
+        }
 
       },
         error => {
@@ -497,9 +501,8 @@ export class SalesFollowupService {
       rec.row_checked = this.selectall;
     }
   }
-  IsChecked(_rec:SalesFollowup)
-  {
-    _rec.row_checked= !_rec.row_checked;
+  IsChecked(_rec: SalesFollowup) {
+    _rec.row_checked = !_rec.row_checked;
   }
   open(content: any) {
     this.modal = this.modalService.open(content);
