@@ -469,8 +469,8 @@ export class SalesFollowupService {
     this.SearchData.selected_branch = "";
     this.SearchData.selected_brcode = "";
     this.SearchData.selected_cust_name = "";
-    this.SearchData.isadmin = false;
-    this.SearchData.iscompany = false;
+    this.SearchData.isadmin = this.bAdmin;
+    this.SearchData.iscompany = this.bCompany;
     this.SearchData.sdata = sdata;
     this.SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
