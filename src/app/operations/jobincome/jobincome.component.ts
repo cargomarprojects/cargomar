@@ -672,7 +672,7 @@ export class JobIncomeComponent {
         sWhere = " (acc_main_code in ('1104','1105','1106') or acc_code in('1107003','1107004','1107005') ) ";
       }
       if (this.Record.inv_source == 'EX-WORK') {
-        sWhere = " ( acc_main_code in ('1101','1103','1104','1105','1106') or acc_code in('1102003',,'1102004','1107003','1107004','1107005') )";
+        sWhere = " ( acc_main_code in ('1101','1103','1104','1105','1106') or acc_code in('1102003','1102004','1107003','1107004','1107005') )";
       }
     }
     if (this.type == 'SEA IMPORT') {
