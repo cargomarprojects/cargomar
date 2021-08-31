@@ -35,9 +35,9 @@ export class HeaderComponent {
             bFlag = true;
 
         if (bFlag)
-            this.router.navigate([rec.menu_route1], { queryParams: { id: this.id, parameter: rec.menu_route2 }, replaceUrl: true });
+            this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, id: this.id, parameter: rec.menu_route2 }, replaceUrl: true });
         else
-            this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true });
+            this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }, replaceUrl: true });
     }
 
 

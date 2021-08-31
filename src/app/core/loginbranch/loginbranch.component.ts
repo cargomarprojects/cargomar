@@ -88,6 +88,7 @@ export class LoginBranchComponent {
 
     if ( bRet == 0 ) {
       this.gs.CreateAppId();
+      this.gs.Save2LocalStorage();
       this.router.navigate(['home'], { replaceUrl: true });
     }
 

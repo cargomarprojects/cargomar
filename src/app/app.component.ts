@@ -1,5 +1,6 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
-import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { GlobalService } from './core/services/global.service';
 
 @Component({
     selector: 'my-app',
@@ -11,7 +12,13 @@ export class AppComponent implements OnDestroy {
 
     sub : any;
 
-    constructor(private router: Router) {
+    constructor(
+        public gs: GlobalService,
+        private route : ActivatedRoute,
+        private router: Router) {
+
+        this.gs.RemoveLocalStorage();
+
         this.sub =  this.router.events.subscribe((event: Event) => {
             switch (true) {
                 case event instanceof NavigationStart: {
@@ -29,6 +36,14 @@ export class AppComponent implements OnDestroy {
                 }
             }
         });
+    }
+
+    async ngOnInit() {
+        
+        if (!this.gs.isAppidExtistsInLocalStorage()) 
+            return ;
+        //this.gs.ReadLocalStorage();
+
     }
 
     ngOnDestroy(){
