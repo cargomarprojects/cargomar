@@ -53,7 +53,7 @@ export class GlobalService {
   }
 
   public CreateAppId() {
-    this.AppId = UUID.UUID();
+    this.appid = UUID.UUID();
   }
 
 
