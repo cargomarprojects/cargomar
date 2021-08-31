@@ -12,8 +12,7 @@ export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
 
-  errorMessageVersion: string = '1.462';
-  software_version_string: string = '1.462';
+  
 
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
@@ -59,9 +58,8 @@ export class LoginComponent {
         this.CompanyList = response.list;
         this.server_software_version_string = response.version;
 
-        if (this.software_version_string != this.server_software_version_string) {
+        if (this.gs.software_version_string != this.server_software_version_string) {
           this.errorMessage = "New Version Available, Kindly Clear Browser History";
-
           this.showloginbutton = false;
         }
 
@@ -98,7 +96,7 @@ export class LoginComponent {
       return;
     }
 
-    if (this.software_version_string != this.server_software_version_string) {
+    if (this.gs.software_version_string != this.server_software_version_string) {
       this.errorMessage = "New Version Available, Kindly Clear Browser History";
       this.showloginbutton = false;
       return;

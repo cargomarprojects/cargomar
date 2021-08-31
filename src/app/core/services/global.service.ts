@@ -8,6 +8,9 @@ import { GlobalVariables } from '../models/globalvariables';
 import { DefaultValues } from '../models/defaultvalues';
 import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
+
+import { Settings } from '../models/settings';
+
 @Injectable()
 export class GlobalService {
   public Token: string;
@@ -18,6 +21,9 @@ export class GlobalService {
   public globalData: GlobalData;
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
+
+  
+  public software_version_string: string = '1.462';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -233,6 +239,257 @@ export class GlobalService {
     this.globalData.ledger_todate = this.defaultValues.today;
 
   }
+
+  InitdefaultValues2(settingslist: Settings[]) {
+    settingslist.forEach(rec => {
+      if (rec.parentid == this.globalVariables.comp_code) {
+        if (rec.caption == 'UNIT-PCS') {
+          this.defaultValues.param_unit_pcs_id = rec.id;
+          this.defaultValues.param_unit_pcs_code = rec.code;
+        }
+        if (rec.caption == 'UNIT-KGS') {
+          this.defaultValues.param_unit_kgs_id = rec.id;
+          this.defaultValues.param_unit_kgs_code = rec.code;
+        }
+        if (rec.caption == 'UNIT-CTN') {
+          this.defaultValues.param_unit_ctn_id = rec.id;
+          this.defaultValues.param_unit_ctn_code = rec.code;
+        }
+        if (rec.caption == 'LOCAL-CURRENCY') {
+          this.defaultValues.param_curr_local_id = rec.id;
+          this.defaultValues.param_curr_local_code = rec.code;
+        }
+        if (rec.caption == 'FOREIGN-CURRENCY') {
+          this.defaultValues.param_curr_foreign_id = rec.id;
+          this.defaultValues.param_curr_foreign_code = rec.code;
+        }
+
+        if (rec.caption == 'ROOT-FOLDER')
+          this.defaultValues.root_folder = rec.name;
+
+        if (rec.caption == 'SUB-FOLDER')
+          this.defaultValues.sub_folder = rec.name;
+
+
+        if (rec.caption == 'BL-REG-NO')
+          this.defaultValues.bl_reg_no = rec.name;
+
+        if (rec.caption == 'BL-ISSUED-BY1')
+          this.defaultValues.bl_issued_by1 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY2')
+          this.defaultValues.bl_issued_by2 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY3')
+          this.defaultValues.bl_issued_by3 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY4')
+          this.defaultValues.bl_issued_by4 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY5')
+          this.defaultValues.bl_issued_by5 = rec.name;
+
+      }
+      if (rec.parentid == this.globalVariables.branch_code) {
+        if (rec.caption == 'GSTIN') {
+          this.defaultValues.gstin = rec.name;
+          this.globalVariables.gstin = rec.name ;          
+        }
+        if (rec.caption == 'GST-STATE')
+          this.defaultValues.gstin_state_code = rec.code;
+        if (rec.caption == 'BL-ISSUED-PLACE')
+          this.defaultValues.bl_issued_place = rec.name;
+        if (rec.caption == 'DOC-PREFIX')
+          this.defaultValues.doc_prefix = rec.name;
+        if (rec.caption == 'CHQ_PRINT_HO_APRVD')
+          this.defaultValues.print_cheque_only_after_ho_approved = rec.name;
+        if (rec.caption == 'BR-ACC-EMAIL')
+          this.defaultValues.branch_accounts_email = rec.name;
+      }
+
+
+    });
+  }
+
+
+  public async LoadMenu(_branchid : string , _yearid : string ) :Promise<number> {
+    let bRet = -1;
+    let SearchData = {
+      userid: this.globalVariables.user_pkid,
+      usercode: this.globalVariables.user_code,
+      compid: this.globalVariables.user_company_id,
+      compcode: this.globalVariables.user_company_code,
+      branchid: _branchid,
+      yearid: _yearid,
+      ipaddress: this.globalVariables.ipaddress,
+      tokenid: this.globalVariables.tokenid,
+      istp: this.globalVariables.istp
+    };
+
+    if (_branchid == '') {
+      alert('Branch Not Selected');
+      return bRet;
+    }
+
+    if (_yearid == '') {
+      alert('Year Not Selected');
+      return bRet;
+    }
+
+    
+    //this.loginservice.LoadMenu(SearchData) .subscribe(response => {
+    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/LoadMenu", SearchData, this.headerparam2('authorized')).toPromise().then((response) => {
+        this.MenuList = response.list;
+        this.Modules = response.modules;
+
+        let data = response.data;
+
+        let airjob = response.airjob;
+        let seajob = response.seajob;
+        let seajobcntr = response.seajobcntr;
+        let foreigncurr = response.foreigncurr;
+        let payrollsetting = response.payrollsetting;
+
+        this.globalVariables.comp_pkid = data.comp_pkid;
+        this.globalVariables.comp_code = data.comp_code;
+        this.globalVariables.comp_name = data.comp_name;
+
+        this.Company_Name = data.comp_name;
+
+        this.globalVariables.branch_pkid = data.branch_pkid;
+        this.globalVariables.branch_code = data.branch_code;
+        this.globalVariables.branch_name = data.branch_name;
+        this.globalVariables.branch_location = data.branch_location;
+
+        this.globalVariables.branch_type = data.branch_type;
+
+
+        this.globalVariables.year_pkid = data.year_pkid;
+        this.globalVariables.year_code = data.year_code;
+        this.globalVariables.year_name = data.year_name;
+        this.globalVariables.year_prefix = data.year_prefix;
+
+        this.globalVariables.year_start_date = data.year_start_date;
+        this.globalVariables.year_end_date = data.year_end_date;
+        this.globalVariables.year_end_date = data.year_end_date;
+        this.globalVariables.year_closed = data.year_closed;
+
+        this.globalVariables.year_einv_start_date = data.year_einv_start_date;
+
+        this.globalVariables.report_folder = data.report_folder;
+
+
+        this.InitdefaultValues();
+        
+        this.InitdefaultValues2(response.settings);
+
+        //Air Export Job Default Loading 
+        this.defaultValues.air_job_place_receipt_id = airjob.job_place_receipt_id;
+        this.defaultValues.air_job_place_receipt_code = airjob.job_place_receipt_code;
+        this.defaultValues.air_job_place_receipt_name = airjob.job_place_receipt_name;
+        this.defaultValues.air_job_pre_carriage_id = airjob.job_pre_carriage_id;
+        this.defaultValues.air_job_pre_carriage_code = airjob.job_pre_carriage_code;
+        this.defaultValues.air_job_pre_carriage_name = airjob.job_pre_carriage_name;
+        this.defaultValues.air_job_origin_state_id = airjob.job_origin_state_id;
+        this.defaultValues.air_job_origin_state_code = airjob.job_origin_state_code;
+        this.defaultValues.air_job_origin_state_name = airjob.job_origin_state_name;
+        this.defaultValues.air_job_pol_id = airjob.job_pol_id;
+        this.defaultValues.air_job_pol_code = airjob.job_pol_code;
+        this.defaultValues.air_job_pol_name = airjob.job_pol_name;
+        this.defaultValues.air_job_cha_id = airjob.job_cha_id;
+        this.defaultValues.air_job_cha_code = airjob.job_cha_code;
+        this.defaultValues.air_job_cha_name = airjob.job_cha_name;
+        this.defaultValues.air_job_agent_id = airjob.job_agent_id;
+        this.defaultValues.air_job_agent_code = airjob.job_agent_code;
+        this.defaultValues.air_job_agent_name = airjob.job_agent_name;
+        this.defaultValues.air_job_commodity_id = airjob.job_commodity_id;
+        this.defaultValues.air_job_commodity_code = airjob.job_commodity_code;
+        this.defaultValues.air_job_commodity_name = airjob.job_commodity_name;
+        this.defaultValues.air_job_edi_id = airjob.job_edi_id;
+        this.defaultValues.air_job_edi_code = airjob.job_edi_code;
+        this.defaultValues.air_job_edi_name = airjob.job_edi_name;
+        this.defaultValues.air_job_nature = airjob.job_nature;
+        this.defaultValues.air_job_terms = airjob.job_terms;
+        this.defaultValues.air_job_status = airjob.job_status;
+        this.defaultValues.air_job_cargo_nature = airjob.job_cargo_nature;
+        this.defaultValues.air_job_marks = airjob.job_marks;
+        this.defaultValues.air_job_origin_country_id = airjob.job_origin_country_id;
+        this.defaultValues.air_job_origin_country_code = airjob.job_origin_country_code;
+        this.defaultValues.air_job_origin_country_name = airjob.job_origin_country_name;
+
+
+        //Sea Export Job Default Loading 
+        this.defaultValues.sea_job_place_receipt_id = seajob.job_place_receipt_id;
+        this.defaultValues.sea_job_place_receipt_code = seajob.job_place_receipt_code;
+        this.defaultValues.sea_job_place_receipt_name = seajob.job_place_receipt_name;
+        this.defaultValues.sea_job_pre_carriage_id = seajob.job_pre_carriage_id;
+        this.defaultValues.sea_job_pre_carriage_code = seajob.job_pre_carriage_code;
+        this.defaultValues.sea_job_pre_carriage_name = seajob.job_pre_carriage_name;
+        this.defaultValues.sea_job_origin_state_id = seajob.job_origin_state_id;
+        this.defaultValues.sea_job_origin_state_code = seajob.job_origin_state_code;
+        this.defaultValues.sea_job_origin_state_name = seajob.job_origin_state_name;
+        this.defaultValues.sea_job_pol_id = seajob.job_pol_id;
+        this.defaultValues.sea_job_pol_code = seajob.job_pol_code;
+        this.defaultValues.sea_job_pol_name = seajob.job_pol_name;
+        this.defaultValues.sea_job_cha_id = seajob.job_cha_id;
+        this.defaultValues.sea_job_cha_code = seajob.job_cha_code;
+        this.defaultValues.sea_job_cha_name = seajob.job_cha_name;
+        this.defaultValues.sea_job_agent_id = seajob.job_agent_id;
+        this.defaultValues.sea_job_agent_code = seajob.job_agent_code;
+        this.defaultValues.sea_job_agent_name = seajob.job_agent_name;
+        this.defaultValues.sea_job_commodity_id = seajob.job_commodity_id;
+        this.defaultValues.sea_job_commodity_code = seajob.job_commodity_code;
+        this.defaultValues.sea_job_commodity_name = seajob.job_commodity_name;
+        this.defaultValues.sea_job_edi_id = seajob.job_edi_id;
+        this.defaultValues.sea_job_edi_code = seajob.job_edi_code;
+        this.defaultValues.sea_job_edi_name = seajob.job_edi_name;
+        this.defaultValues.sea_job_nature = seajob.job_nature;
+        this.defaultValues.sea_job_terms = seajob.job_terms;
+        this.defaultValues.sea_job_status = seajob.job_status;
+        this.defaultValues.sea_job_cargo_nature = seajob.job_cargo_nature;
+        this.defaultValues.sea_job_marks = seajob.job_marks;
+        this.defaultValues.sea_job_origin_country_id = seajob.job_origin_country_id;
+        this.defaultValues.sea_job_origin_country_code = seajob.job_origin_country_code;
+        this.defaultValues.sea_job_origin_country_name = seajob.job_origin_country_name;
+
+        //Sea Export Job Container Default Loading
+        this.defaultValues.sea_jobcntr_sealtype = seajobcntr.cntr_sealtype;
+
+        //foreign currency details
+        this.defaultValues.param_curr_foreign_fwdrate = foreigncurr.param_rate;
+        this.defaultValues.param_curr_foreign_clrrate = foreigncurr.param_id1;
+
+        //Payroll settings details
+        this.defaultValues.pf_col_excluded = payrollsetting.ps_pf_col_excluded;
+        this.defaultValues.pf_percent = payrollsetting.ps_pf_per;
+        this.defaultValues.pf_limit = payrollsetting.ps_pf_cel_limit;
+        this.defaultValues.esi_emply_percent = payrollsetting.ps_esi_emply_per;
+        this.defaultValues.esi_limit = payrollsetting.ps_esi_limit;
+        this.defaultValues.pf_cel_limit_amt = payrollsetting.ps_pf_cel_limit_amt;
+        this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
+        this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
+
+        if (this.globalVariables.comp_pkid == '') {
+          alert("Invalid Company");
+          return bRet;
+        } else if (this.globalVariables.branch_pkid == '') {
+          alert("Invalid Branch");
+          return bRet;
+        } else if (this.globalVariables.year_pkid == '') {
+          alert("Invalid Fin-Year");
+          return bRet;
+        } else {
+          this.IsAuthenticated = true;
+          bRet = 0;
+        }
+        //this.router.navigate(['home'], { replaceUrl: true });
+      }, error => {
+          bRet = -1;
+          alert(this.getError(error));
+          
+      });
+      return bRet;
+  }
+
+
+
+
   public getNewdate(_days: number) {
     var nDate = new Date();
     if (_days <= 0)
