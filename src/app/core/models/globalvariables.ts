@@ -3,6 +3,7 @@ export class GlobalVariables {
     user_pkid: string ;
     user_code: string ;
     user_name: string ;
+    user_pwd: string ;
     user_email: string ;
     user_company_id: string;
     user_company_code: string;
