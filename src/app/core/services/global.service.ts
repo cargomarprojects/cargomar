@@ -251,42 +251,26 @@ export class GlobalService {
         if (this.IsLoginSuccess) {
           bRet = 0;
         }
-        else {
-          alert( "Login Failed");
-        }
-      },
-        error => {
+      },error => {
           alert(error.error.error_description);
-        });
-
-        return bRet;
+      });
+      return bRet;
   }
 
   public async checkLocalServer() : Promise<number> {
     var bRet = -1;
-    
     let SearchData = {
       user: "",
     };
     // a service is installed in local iis server and checked whether it is accessible
     this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
-
-        if (response == null) {
-          bRet = -1;
-        }
-        else if (response == "OK") {
-          bRet = 0;
-          this.router.navigate(['loginbranch'], { replaceUrl: true });
-        }
-        else {
-          bRet  =-1;
-
-        }
+      if (response == "OK")
+        bRet = 0;
       },error => {
           bRet = -1;
       });
       return bRet;
-  }
+    }
 
 
 

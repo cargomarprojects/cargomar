@@ -112,17 +112,13 @@ export class LoginComponent {
       else {
         this.errorMessage = "Login Success";
         this.router.navigate(['loginbranch'], { replaceUrl: true });
+      }
+    } else {
+      alert('Login Failed');
     }
   }
 
-}
-
-
-
-
-
   Logout1() {
-    //this.loginservice.Logout();
     this.errorMessage = 'Pls Login';
   }
 
