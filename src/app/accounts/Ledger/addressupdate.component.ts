@@ -99,7 +99,10 @@ export class AddressUpdateComponent {
         SearchData.company_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
         SearchData.pkid = this.pkid;
-        SearchData.addres_slno = this.addres_slno;
+        if (this.addres_slno == null || this.addres_slno == undefined)
+            SearchData.addres_slno = 0;
+        else
+            SearchData.addres_slno = this.addres_slno;
         SearchData.table = 'updatecompanyaddslno';
 
         this.gs.SearchRecord(SearchData)
