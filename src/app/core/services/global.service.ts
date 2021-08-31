@@ -8,6 +8,9 @@ import { GlobalVariables } from '../models/globalvariables';
 import { DefaultValues } from '../models/defaultvalues';
 import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
+
+import { Settings } from '../models/settings';
+
 @Injectable()
 export class GlobalService {
   public Token: string;
@@ -236,6 +239,75 @@ export class GlobalService {
     this.globalData.ledger_todate = this.defaultValues.today;
 
   }
+
+  InitdefaultValues2(settingslist: Settings[]) {
+    settingslist.forEach(rec => {
+      if (rec.parentid == this.globalVariables.comp_code) {
+        if (rec.caption == 'UNIT-PCS') {
+          this.defaultValues.param_unit_pcs_id = rec.id;
+          this.defaultValues.param_unit_pcs_code = rec.code;
+        }
+        if (rec.caption == 'UNIT-KGS') {
+          this.defaultValues.param_unit_kgs_id = rec.id;
+          this.defaultValues.param_unit_kgs_code = rec.code;
+        }
+        if (rec.caption == 'UNIT-CTN') {
+          this.defaultValues.param_unit_ctn_id = rec.id;
+          this.defaultValues.param_unit_ctn_code = rec.code;
+        }
+        if (rec.caption == 'LOCAL-CURRENCY') {
+          this.defaultValues.param_curr_local_id = rec.id;
+          this.defaultValues.param_curr_local_code = rec.code;
+        }
+        if (rec.caption == 'FOREIGN-CURRENCY') {
+          this.defaultValues.param_curr_foreign_id = rec.id;
+          this.defaultValues.param_curr_foreign_code = rec.code;
+        }
+
+        if (rec.caption == 'ROOT-FOLDER')
+          this.defaultValues.root_folder = rec.name;
+
+        if (rec.caption == 'SUB-FOLDER')
+          this.defaultValues.sub_folder = rec.name;
+
+
+        if (rec.caption == 'BL-REG-NO')
+          this.defaultValues.bl_reg_no = rec.name;
+
+        if (rec.caption == 'BL-ISSUED-BY1')
+          this.defaultValues.bl_issued_by1 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY2')
+          this.defaultValues.bl_issued_by2 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY3')
+          this.defaultValues.bl_issued_by3 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY4')
+          this.defaultValues.bl_issued_by4 = rec.name;
+        if (rec.caption == 'BL-ISSUED-BY5')
+          this.defaultValues.bl_issued_by5 = rec.name;
+
+      }
+      if (rec.parentid == this.globalVariables.branch_code) {
+        if (rec.caption == 'GSTIN') {
+          this.defaultValues.gstin = rec.name;
+          this.globalVariables.gstin = rec.name ;          
+        }
+        if (rec.caption == 'GST-STATE')
+          this.defaultValues.gstin_state_code = rec.code;
+        if (rec.caption == 'BL-ISSUED-PLACE')
+          this.defaultValues.bl_issued_place = rec.name;
+        if (rec.caption == 'DOC-PREFIX')
+          this.defaultValues.doc_prefix = rec.name;
+        if (rec.caption == 'CHQ_PRINT_HO_APRVD')
+          this.defaultValues.print_cheque_only_after_ho_approved = rec.name;
+        if (rec.caption == 'BR-ACC-EMAIL')
+          this.defaultValues.branch_accounts_email = rec.name;
+      }
+
+
+    });
+  }
+
+
   public getNewdate(_days: number) {
     var nDate = new Date();
     if (_days <= 0)

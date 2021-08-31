@@ -70,9 +70,9 @@ export class LoginBranchComponent {
         this.loading = false;
         this.showlogin = true;
 
+        // if trading partner login no branch selection allowed
         if (this.gs.globalVariables.tp_code != '')
-          this.LoadMenu();
-
+          this.Login();
       },
         error => {
           this.loading = false;
@@ -81,35 +81,45 @@ export class LoginBranchComponent {
         });
   }
 
-  LoadMenu() {
+  async Login(){
+    this.loading = true;
+    var iRet = await this.LoadMenu(this.branchid, this.yearid);
+    this.loading = false;
+
+    if ( iRet == 0 )
+      this.router.navigate(['home'], { replaceUrl: true });
+
+  }
+
+
+  public async LoadMenu(_branchid : string , _yearid : string ) :Promise<number> {
+    let bRet = -1;
     let SearchData = {
       userid: this.gs.globalVariables.user_pkid,
       usercode: this.gs.globalVariables.user_code,
       compid: this.gs.globalVariables.user_company_id,
       compcode: this.gs.globalVariables.user_company_code,
-      branchid: this.branchid,
-      yearid: this.yearid,
+      branchid: _branchid,
+      yearid: _yearid,
       ipaddress: this.gs.globalVariables.ipaddress,
       tokenid: this.gs.globalVariables.tokenid,
       istp: this.gs.globalVariables.istp
     };
 
-    if (this.branchid == '') {
-      this.ErrorMessage = 'Branch Not Selected';
-      return;
+    if (_branchid == '') {
+      alert('Branch Not Selected');
+      return bRet;
     }
 
-    if (this.yearid == '') {
-      this.ErrorMessage = 'Year Not Selected';
-      return;
+    if (_yearid == '') {
+      alert('Year Not Selected');
+      return bRet;
     }
 
-    this.loading = true;
 
     this.loginservice.LoadMenu(SearchData)
       .subscribe(response => {
-        this.gs.IsAuthenticated = true;
-        this.loading = false;
+        
 
         this.gs.MenuList = response.list;
         this.gs.Modules = response.modules;
@@ -152,7 +162,8 @@ export class LoginBranchComponent {
 
 
         this.gs.InitdefaultValues();
-        this.initDefaults(response.settings);
+        
+        this.gs.InitdefaultValues2(response.settings);
 
         //Air Export Job Default Loading 
         this.gs.defaultValues.air_job_place_receipt_id = airjob.job_place_receipt_id;
@@ -241,25 +252,24 @@ export class LoginBranchComponent {
         this.gs.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
 
         if (this.gs.globalVariables.comp_pkid == '') {
-          this.ErrorMessage = "Invalid Company";
-          return;
+          alert("Invalid Company");
+          return bRet;
+        } else if (this.gs.globalVariables.branch_pkid == '') {
+          alert("Invalid Branch");
+          return bRet;
+        } else if (this.gs.globalVariables.year_pkid == '') {
+          alert("Invalid Fin-Year");
+          return bRet;
+        } else {
+          this.gs.IsAuthenticated = true;
+          bRet = 0;
         }
-        if (this.gs.globalVariables.branch_pkid == '') {
-          this.ErrorMessage = "Invalid Branch";
-          return;
-        }
-
-        if (this.gs.globalVariables.year_pkid == '') {
-          this.ErrorMessage = "Invalid Fin-Year";
-          return;
-        }
-
-        this.router.navigate(['home'], { replaceUrl: true });
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
+        //this.router.navigate(['home'], { replaceUrl: true });
+      }, error => {
+          bRet = -1;
+          alert(this.gs.getError(error));
+      });
+      return bRet;
   }
 
   ngOnInit() {
@@ -274,72 +284,7 @@ export class LoginBranchComponent {
     this.gs.ClosePage('login');
   }
 
-  initDefaults(settingslist: Settings[]) {
-    settingslist.forEach(rec => {
-      if (rec.parentid == this.gs.globalVariables.comp_code) {
-        if (rec.caption == 'UNIT-PCS') {
-          this.gs.defaultValues.param_unit_pcs_id = rec.id;
-          this.gs.defaultValues.param_unit_pcs_code = rec.code;
-        }
-        if (rec.caption == 'UNIT-KGS') {
-          this.gs.defaultValues.param_unit_kgs_id = rec.id;
-          this.gs.defaultValues.param_unit_kgs_code = rec.code;
-        }
-        if (rec.caption == 'UNIT-CTN') {
-          this.gs.defaultValues.param_unit_ctn_id = rec.id;
-          this.gs.defaultValues.param_unit_ctn_code = rec.code;
-        }
-        if (rec.caption == 'LOCAL-CURRENCY') {
-          this.gs.defaultValues.param_curr_local_id = rec.id;
-          this.gs.defaultValues.param_curr_local_code = rec.code;
-        }
-        if (rec.caption == 'FOREIGN-CURRENCY') {
-          this.gs.defaultValues.param_curr_foreign_id = rec.id;
-          this.gs.defaultValues.param_curr_foreign_code = rec.code;
-        }
 
-        if (rec.caption == 'ROOT-FOLDER')
-          this.gs.defaultValues.root_folder = rec.name;
-
-        if (rec.caption == 'SUB-FOLDER')
-          this.gs.defaultValues.sub_folder = rec.name;
-
-
-        if (rec.caption == 'BL-REG-NO')
-          this.gs.defaultValues.bl_reg_no = rec.name;
-
-        if (rec.caption == 'BL-ISSUED-BY1')
-          this.gs.defaultValues.bl_issued_by1 = rec.name;
-        if (rec.caption == 'BL-ISSUED-BY2')
-          this.gs.defaultValues.bl_issued_by2 = rec.name;
-        if (rec.caption == 'BL-ISSUED-BY3')
-          this.gs.defaultValues.bl_issued_by3 = rec.name;
-        if (rec.caption == 'BL-ISSUED-BY4')
-          this.gs.defaultValues.bl_issued_by4 = rec.name;
-        if (rec.caption == 'BL-ISSUED-BY5')
-          this.gs.defaultValues.bl_issued_by5 = rec.name;
-
-      }
-      if (rec.parentid == this.gs.globalVariables.branch_code) {
-        if (rec.caption == 'GSTIN') {
-          this.gs.defaultValues.gstin = rec.name;
-          this.gs.globalVariables.gstin = rec.name ;          
-        }
-        if (rec.caption == 'GST-STATE')
-          this.gs.defaultValues.gstin_state_code = rec.code;
-        if (rec.caption == 'BL-ISSUED-PLACE')
-          this.gs.defaultValues.bl_issued_place = rec.name;
-        if (rec.caption == 'DOC-PREFIX')
-          this.gs.defaultValues.doc_prefix = rec.name;
-        if (rec.caption == 'CHQ_PRINT_HO_APRVD')
-          this.gs.defaultValues.print_cheque_only_after_ho_approved = rec.name;
-        if (rec.caption == 'BR-ACC-EMAIL')
-          this.gs.defaultValues.branch_accounts_email = rec.name;
-      }
-
-
-    });
-  }
 
 
 }
