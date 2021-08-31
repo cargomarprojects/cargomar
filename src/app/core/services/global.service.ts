@@ -23,6 +23,7 @@ export class GlobalService {
   public defaultValues: DefaultValues;
 
   public appid = "";
+  public reload_url = "";
   
   public software_version_string: string = '1.462';
 
@@ -712,6 +713,10 @@ export class GlobalService {
       return "=";
   }
 
+  getURLParam(param: string) {
+    return new URLSearchParams(window.location.search).get(param);
+  }
+
 
   getlocalStorageFileName() {
     return this.defaultValues.today + "-" + this.appid;
@@ -724,6 +729,7 @@ export class GlobalService {
   Save2LocalStorage() {
     const app_settings = {
       appid : this.appid,
+      access_token : this.Access_Token,
       user_code : this.globalVariables.user_code,
 		  user_pwd : this.globalVariables.user_pwd,
 		  company_code : this.globalVariables.user_company_code,
@@ -747,6 +753,7 @@ export class GlobalService {
   ReadLocalStorage() {
     const app_settings  = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
     this.appid = app_settings.appid;
+    this.Access_Token = app_settings.access_token ;
     this.globalVariables.user_code = app_settings.user_code ;
     this.globalVariables.user_pwd = app_settings.user_pwd;
     this.globalVariables.user_company_code = app_settings.company_code;

@@ -1,4 +1,4 @@
-﻿import { Component, OnDestroy } from '@angular/core';
+﻿import { Component, OnDestroy , OnInit } from '@angular/core';
 import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { GlobalService } from './core/services/global.service';
 
@@ -17,6 +17,7 @@ export class AppComponent implements OnDestroy {
         private route : ActivatedRoute,
         private router: Router) {
 
+        this.gs.InitdefaultValues();
         this.gs.RemoveLocalStorage();
 
         this.sub =  this.router.events.subscribe((event: Event) => {
@@ -39,11 +40,20 @@ export class AppComponent implements OnDestroy {
     }
 
     async ngOnInit() {
-        
+
+        const appid = this.gs.getURLParam('appid');
+        this.gs.appid = appid;
+        if (this.gs.isBlank(appid)) {
+            this.router.navigate(['login'], { replaceUrl: true }); 
+            return;
+        }
+
         if (!this.gs.isAppidExtistsInLocalStorage()) 
             return ;
-        //this.gs.ReadLocalStorage();
-
+        this.gs.ReadLocalStorage();
+        this.gs.reload_url =  window.location.pathname + window.location.search;
+        this.router.navigate(['/reload']);
+        
     }
 
     ngOnDestroy(){

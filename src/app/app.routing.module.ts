@@ -5,6 +5,7 @@ import { HomeComponent } from './core/home/home.component';
 import { LoginComponent } from './core/login/login.component';
 import { LoginBranchComponent } from './core/loginbranch/loginbranch.component';
 import { ContactComponent } from './core/contact/contact.component';
+import { ReloadComponent } from './reload.component';
 
 const routes: Routes = [
     { path: '', redirectTo : 'login', pathMatch : 'full'  },
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: 'loginbranch', component: LoginBranchComponent },
     { path: 'home', component: HomeComponent },
     { path: 'contact', component: ContactComponent },
+    { path: 'reload', component:ReloadComponent },
     { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule' },
     { path: 'hr', loadChildren: 'app/hr/hr.module#HrModule' },
     { path: 'master', loadChildren: 'app/master/master.module#MasterModule' },

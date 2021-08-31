@@ -29,6 +29,7 @@ import { LoadingScreenComponent } from './core/loadingscreen/loading-screen.comp
 import { InterceptorService } from './core/services/interceptor.service';
 import { LoadingScreenService } from './core/services/loadingscreen.service';
 import { InterceptorServiceProvider } from './core/services/interceptor.service.provider';
+import { ReloadComponent } from './reload.component';
 
 
 
@@ -50,7 +51,8 @@ import { InterceptorServiceProvider } from './core/services/interceptor.service.
         LoginComponent,
         LoginBranchComponent,
         ContactComponent,
-        LoadingScreenComponent
+        LoadingScreenComponent,
+        ReloadComponent
     ],
     providers: [
         GlobalService,
