@@ -53,6 +53,7 @@ import { FtpReportComponent } from './ftpreport/ftpreport.component';
 import { FileEditComponent } from './fileupload/fileedit.component';
 import { CrLimitComponent } from './crlimit/crlimit.component';
 import { GenRemarksComponent } from './genremarks/genremarks.component';
+import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { GenRemarksComponent } from './genremarks/genremarks.component';
     FtpReportComponent,
     FileEditComponent,
     CrLimitComponent,
-    GenRemarksComponent
+    GenRemarksComponent,
+    ReportDocsComponent
   ],
   exports: [
     CommonModule,
@@ -120,7 +122,8 @@ import { GenRemarksComponent } from './genremarks/genremarks.component';
     FtpReportComponent,
     FileEditComponent,
     CrLimitComponent,
-    GenRemarksComponent
+    GenRemarksComponent,
+    ReportDocsComponent
   ],
   providers: [
     AlertService,

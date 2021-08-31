@@ -1,0 +1,44 @@
+<div>
+    <button class="btn btn-success btn-sm" (click)="HistoryList(historymodal)">History</button>
+</div>
+<ng-template #historymodal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="page-body">
+            <div class="page-header">
+                <div class="col">
+                    <label>{{title}}</label>
+                    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+            </div>
+
+            <div *ngIf="currentTab=='LIST'" class="page-list">
+                <div class="page-body table-responsive">
+                    <table class="table  table-hover table-sm">
+                        <thead class="page-body-thead">
+                            <tr>
+                                <th>REFNO</th>
+                                <th>FILE</th>
+                                <th>CREATED.BY</th>
+                                <th>CREATED.DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                            <tr>
+                                <td>{{rec.doc_refno}}</td>
+                                <td>{{rec.doc_file_name}}</td>
+                                <td>{{rec.rec_created_by}}</td>
+                                <td>{{rec.rec_created_date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+            <div *ngIf="ErrorMessage" class="alert alert-info">
+                {{ErrorMessage}}
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1060,7 +1060,11 @@
         <ng-template ngbTabContent>
 
           <div class="page-details">
-
+            <div>
+                <app-reportdocs   [pkid]="pkid" [type]="''" [menuid]="menuid"  ></app-reportdocs>
+            </div>
+            <hr />
+            <br />
             <div>
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiNo('R')"
                 class="btn btn-success btn-sm">Show Edi No</button>

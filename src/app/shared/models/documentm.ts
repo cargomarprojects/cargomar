@@ -15,5 +15,6 @@ export class documentm {
   doc_selected : boolean;
   doc_parent_id: string;
   doc_type: string;
+  doc_refno: string;
   doc_app_name:string;
 }
