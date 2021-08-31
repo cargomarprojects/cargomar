@@ -214,7 +214,6 @@ export class GlobalService {
 
   public async Login(_username : string , _password : string , _company_code : string ) : Promise<number> {
     var bRet = -1;
-    //this.loginservice.Login(_username, _password, this.company_code)
     var body = 'grant_type=' + 'password' + '&username=' + _username + '&password=' + _password ;
     await this.http2.post<any>(this.baseUrl + "/Token", body, this.headerparam2('login', _company_code)).toPromise().then((response) => {
         let user = response;
@@ -251,6 +250,9 @@ export class GlobalService {
         if (this.IsLoginSuccess) {
           bRet = 0;
         }
+        else {
+          alert('Login Failed');
+        }
       },error => {
           alert(error.error.error_description);
       });
@@ -266,8 +268,11 @@ export class GlobalService {
     this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
       if (response == "OK")
         bRet = 0;
+      else 
+        alert('External Login Not Allowed');
       },error => {
           bRet = -1;
+          alert('External Login Not Allowed ' +error.error.error_description);
       });
       return bRet;
     }

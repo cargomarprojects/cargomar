@@ -11,10 +11,13 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
- 
 
-  username: string = 'ADMIN';
-  password: string = 'cpl2001*';
+
+  username: string = '';
+  password: string = '';
+
+  //username: string = 'ADMIN';
+  //password: string = 'cpl2001*';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
@@ -41,7 +44,7 @@ export class LoginComponent {
 
   LoadCombo() {
 
-    if ( this.gs.isBlank(this.username) ) {
+    if (this.gs.isBlank(this.username)) {
       this.username = this.gs.globalVariables.user_code;
       this.password = this.gs.globalVariables.user_pwd;
     }
@@ -80,7 +83,7 @@ export class LoginComponent {
     window.location.reload();
   }
 
-  async Login(){
+  async Login() {
 
     if (!this.username) {
       this.errorMessage = 'Login ID Cannot Be Blank';
@@ -100,28 +103,19 @@ export class LoginComponent {
       return;
     }
     var iRet = await this.gs.Login(this.username.toUpperCase(), this.password.toUpperCase(), this.company_code);
-
-    if ( iRet == 0) {
-      if (this.gs.baseLocalServerUrl != "") {
-        iRet = await this.gs.checkLocalServer();
-        if ( iRet == 0)
-          this.router.navigate(['loginbranch'], { replaceUrl: true });
-        else 
-          alert('External Login Not Allowed');
-      }
-      else {
-        this.errorMessage = "Login Success";
-        this.router.navigate(['loginbranch'], { replaceUrl: true });
-      }
-    } else {
-      alert('Login Failed');
+    if (iRet != 0)
+      return;
+    if (this.gs.baseLocalServerUrl != "") {
+      iRet = await this.gs.checkLocalServer();
+      if (iRet != 0)
+        return;
     }
+    this.router.navigate(['loginbranch'], { replaceUrl: true });
   }
 
   Logout1() {
     this.errorMessage = 'Pls Login';
   }
-
 
 }
 
