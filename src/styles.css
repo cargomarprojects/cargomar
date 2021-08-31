@@ -11,9 +11,9 @@
 }
 
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: var(--custom-even-color) !important; 
-}
+} */
 
 
 

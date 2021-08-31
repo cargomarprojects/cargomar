@@ -118,7 +118,7 @@ export class JobComponent {
     private gs: GlobalService
   ) {
     this.page_count = 0;
-    this.page_rows = 10;
+    this.page_rows = 15;
     this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
