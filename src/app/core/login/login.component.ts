@@ -43,6 +43,12 @@ export class LoginComponent {
 
 
   LoadCombo() {
+
+    if ( this.gs.isBlank(this.username) ) {
+      this.username = this.gs.globalVariables.user_code;
+      this.password = this.gs.globalVariables.user_pwd;
+    }
+
     this.loading = true;
     let SearchData = {
       userid: ''
@@ -114,6 +120,7 @@ export class LoginComponent {
           this.gs.globalVariables.user_pkid = user.userpkid;
           this.gs.globalVariables.user_code = user.usercode;
           this.gs.globalVariables.user_name = user.userName;
+          this.gs.globalVariables.user_pwd = this.password;
           this.gs.globalVariables.user_email = user.useremail;
           this.gs.globalVariables.user_company_id = user.usercompanyid;
           this.gs.globalVariables.user_company_code = user.usercompanycode;
