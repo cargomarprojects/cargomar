@@ -757,7 +757,7 @@ export class GlobalService {
     this.globalVariables.user_code = app_settings.user_code ;
     this.globalVariables.user_pwd = app_settings.user_pwd;
     this.globalVariables.user_company_code = app_settings.company_code;
-    this.globalVariables.branch_pkid  = app_settings.branch_pid;
+    this.globalVariables.branch_pkid  = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
   }
   
