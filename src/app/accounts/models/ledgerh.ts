@@ -128,7 +128,7 @@ export class Ledgerh {
     jvh_irn: string;
 
     jvh_source_id : string;
-    
+    jvh_company_add_slno:number;
     
     _globalvariables: GlobalVariables;
 
