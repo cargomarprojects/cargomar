@@ -12,7 +12,6 @@ export class LoginService {
         private http2: HttpClient,
         private gs: GlobalService) {
     }
-
   
     Login(username: string, password: string, company_code : string ) {
         var body = 'grant_type=' + 'password' + '&username=' + username + '&password=' + password ;
@@ -20,15 +19,7 @@ export class LoginService {
     }
 
     Logout(SearchData : any) {
-      
-      // moved to logout callin place
-      //this.gs.IsLoginSuccess = false;
-      //this.gs.IsAuthenticated = false;
-      //this.gs.Access_Token = '';
-
-
       return this.http2.post<any>(this.gs.baseUrl + "/api/Admin/User/LogOut", SearchData, this.gs.headerparam2('authorized'));
-
     }
 
     LoadMenu(SearchData : any) {

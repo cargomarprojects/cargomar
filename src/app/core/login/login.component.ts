@@ -12,17 +12,18 @@ export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
 
-  
 
-  username: string = 'ADMIN';
-  password: string = 'cpl2001*';
+  username: string = '';
+  password: string = '';
+
+  //username: string = 'ADMIN';
+  //password: string = 'cpl2001*';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
 
   company_code: string = '';
 
-  
 
   loading = false;
   showlogin = false;
@@ -43,7 +44,7 @@ export class LoginComponent {
 
   LoadCombo() {
 
-    if ( this.gs.isBlank(this.username) ) {
+    if (this.gs.isBlank(this.username)) {
       this.username = this.gs.globalVariables.user_code;
       this.password = this.gs.globalVariables.user_pwd;
     }
@@ -82,7 +83,8 @@ export class LoginComponent {
     window.location.reload();
   }
 
-  Login() {
+  async Login() {
+
     if (!this.username) {
       this.errorMessage = 'Login ID Cannot Be Blank';
       return;
@@ -95,111 +97,25 @@ export class LoginComponent {
       this.errorMessage = 'Please Select Company';
       return;
     }
-
     if (this.gs.software_version_string != this.server_software_version_string) {
       this.errorMessage = "New Version Available, Kindly Clear Browser History";
       this.showloginbutton = false;
       return;
     }
-
-
-    this.username = this.username.toUpperCase();
-    this.password = this.password.toUpperCase();
-
-    this.loading = true;
-
-    this.loginservice.Login(this.username, this.password, this.company_code)
-      .subscribe(response => {
-        this.loading = false;
-        let user = response;
-        if (user && user.access_token) {
-          this.gs.IsLoginSuccess = true;
-          this.gs.Access_Token = user.access_token;
-          this.gs.globalVariables.user_pkid = user.userpkid;
-          this.gs.globalVariables.user_code = user.usercode;
-          this.gs.globalVariables.user_name = user.userName;
-          this.gs.globalVariables.user_pwd = this.password;
-          this.gs.globalVariables.user_email = user.useremail;
-          this.gs.globalVariables.user_company_id = user.usercompanyid;
-          this.gs.globalVariables.user_company_code = user.usercompanycode;
-          this.gs.globalVariables.user_branch_id = user.userbranchid;
-          this.gs.globalVariables.sman_id = user.usersmanid;
-          this.gs.globalVariables.sman_name = user.usersmanname;
-          this.gs.globalVariables.tp_code = user.usertpcode;
-          this.gs.globalVariables.tp_name = user.usertpname;
-          this.gs.globalVariables.istp = false;
-          if (user.usertpcode != '')
-            this.gs.globalVariables.istp = true;
-          this.gs.baseLocalServerUrl = user.userlocalserver;
-          this.gs.globalVariables.ipaddress = user.useripaddress;
-          this.gs.globalVariables.tokenid = user.usertokenid;
-          this.gs.globalVariables.user_branch_user = user.user_branch_user;
-
-          // If a branch user hide ho entries
-          if (user.user_branch_user == "Y")
-            this.gs.globalVariables.hide_ho_entries = "Y";
-          else
-            this.gs.globalVariables.hide_ho_entries = "N";
-        }
-
-        if (this.gs.IsLoginSuccess) {
-          if (this.gs.baseLocalServerUrl != "") {
-            console.log( this.gs.baseLocalServerUrl);
-            this.checkLocalServer();
-          }
-          else {
-            this.errorMessage = "Login Success";
-            this.router.navigate(['loginbranch'], { replaceUrl: true });
-          }
-        }
-        else {
-          this.errorMessage = "Login Failed";
-        }
-      },
-        error => {
-          this.loading = false;
-          this.errorMessage = error.error.error_description;
-        });
-
+    var iRet = await this.gs.Login(this.username.toUpperCase(), this.password.toUpperCase(), this.company_code);
+    if (iRet != 0)
+      return;
+    if (this.gs.baseLocalServerUrl != "") {
+      iRet = await this.gs.checkLocalServer();
+      if (iRet != 0)
+        return;
+    }
+    this.router.navigate(['loginbranch'], { replaceUrl: true });
   }
-
-
-  checkLocalServer() {
-
-    this.loading = true;
-    let SearchData = {
-      user: "",
-    };
-
-    this.loginservice.CheckLocalServer(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-
-        if (response == null) {
-          this.ErrorExternalLogin = 'External Login Not Allowed';
-        }
-        else if (response == "OK") {
-          this.errorMessage = "Login Success";
-          this.router.navigate(['loginbranch'], { replaceUrl: true });
-        }
-        else {
-          this.ErrorExternalLogin = 'External Login Not Allowed ' + this.gs.baseLocalServerUrl;
-        }
-      },
-        error => {
-          this.loading = false;
-          this.ErrorExternalLogin = 'External Login Not Allowed';
-        });
-
-  }
-
-
 
   Logout1() {
-    //this.loginservice.Logout();
     this.errorMessage = 'Pls Login';
   }
-
 
 }
 

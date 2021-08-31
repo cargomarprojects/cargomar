@@ -211,6 +211,75 @@ export class GlobalService {
     return roundedTempNumber / factor;
   };
 
+
+  public async Login(_username : string , _password : string , _company_code : string ) : Promise<number> {
+    var bRet = -1;
+    var body = 'grant_type=' + 'password' + '&username=' + _username + '&password=' + _password ;
+    await this.http2.post<any>(this.baseUrl + "/Token", body, this.headerparam2('login', _company_code)).toPromise().then((response) => {
+        let user = response;
+        if (user && user.access_token) {
+          this.IsLoginSuccess = true;
+          this.Access_Token = user.access_token;
+          this.globalVariables.user_pkid = user.userpkid;
+          this.globalVariables.user_code = user.usercode;
+          this.globalVariables.user_name = user.userName;
+          this.globalVariables.user_pwd = _password;
+          this.globalVariables.user_email = user.useremail;
+          this.globalVariables.user_company_id = user.usercompanyid;
+          this.globalVariables.user_company_code = user.usercompanycode;
+          this.globalVariables.user_branch_id = user.userbranchid;
+          this.globalVariables.sman_id = user.usersmanid;
+          this.globalVariables.sman_name = user.usersmanname;
+          this.globalVariables.tp_code = user.usertpcode;
+          this.globalVariables.tp_name = user.usertpname;
+          this.globalVariables.istp = false;
+          if (user.usertpcode != '')
+            this.globalVariables.istp = true;
+          this.baseLocalServerUrl = user.userlocalserver;
+          this.globalVariables.ipaddress = user.useripaddress;
+          this.globalVariables.tokenid = user.usertokenid;
+          this.globalVariables.user_branch_user = user.user_branch_user;
+
+          // If a branch user hide ho entries
+          if (user.user_branch_user == "Y")
+            this.globalVariables.hide_ho_entries = "Y";
+          else
+            this.globalVariables.hide_ho_entries = "N";
+        }
+
+        if (this.IsLoginSuccess) {
+          bRet = 0;
+        }
+        else {
+          alert('Login Failed');
+        }
+      },error => {
+          alert(error.error.error_description);
+      });
+      return bRet;
+  }
+
+  public async checkLocalServer() : Promise<number> {
+    var bRet = -1;
+    let SearchData = {
+      user: "",
+    };
+    // a service is installed in local iis server and checked whether it is accessible
+    this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
+      if (response == "OK")
+        bRet = 0;
+      else 
+        alert('External Login Not Allowed');
+      },error => {
+          bRet = -1;
+          alert('External Login Not Allowed ' +error.error.error_description);
+      });
+      return bRet;
+    }
+
+
+
+
   public InitdefaultValues() {
 
     this.defaultValues = new DefaultValues;
