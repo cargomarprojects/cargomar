@@ -86,8 +86,10 @@ export class LoginBranchComponent {
     const bRet = await this.gs.LoadMenu(this.branchid, this.yearid);
     this.loading = false;
 
-    if ( bRet == 0 )
+    if ( bRet == 0 ) {
+      this.gs.CreateAppId();
       this.router.navigate(['home'], { replaceUrl: true });
+    }
 
   }
 

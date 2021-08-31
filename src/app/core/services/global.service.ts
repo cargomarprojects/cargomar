@@ -22,6 +22,7 @@ export class GlobalService {
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
 
+  public appid = "";
   
   public software_version_string: string = '1.462';
 
@@ -50,6 +51,11 @@ export class GlobalService {
     let uuid = UUID.UUID();
     return uuid.toUpperCase();
   }
+
+  public CreateAppId() {
+    this.AppId = UUID.UUID();
+  }
+
 
   public getPagetitle(menucode: string): string {
     return this.MenuList.find(f => f.menu_code == menucode).menu_name;
@@ -707,6 +713,46 @@ export class GlobalService {
   }
 
 
+  getlocalStorageFileName() {
+    return this.defaultValues.today + "-" + this.appid;
+  }
+
+  isAppidExtistsInLocalStorage() {
+    return localStorage.getItem(this.getlocalStorageFileName()) ? true : false;
+  }
+
+  Save2LocalStorage() {
+    const app_settings = {
+      appid : this.appid,
+      user_code : this.globalVariables.user_code,
+		  user_pwd : this.globalVariables.user_pwd,
+		  company_code : this.globalVariables.user_company_code,
+      branch_pkid :  this.globalVariables.branch_pkid, 
+      year_pkid  : this.globalVariables.year_pkid,
+    }
+    localStorage.setItem(this.getlocalStorageFileName(), JSON.stringify(app_settings));
+  }
+
+  RemoveLocalStorage() {
+    console.log('removing local storage Started : ', this.defaultValues.today);
+    for (var key in localStorage) {
+      if (localStorage.getItem(key)) {
+        if (!key.startsWith(this.defaultValues.today)) {
+          localStorage.removeItem(key);
+        }
+      }
+    }
+  }
+
+  ReadLocalStorage() {
+    const app_settings  = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
+    this.appid = app_settings.appid;
+    this.globalVariables.user_code = app_settings.user_code ;
+    this.globalVariables.user_pwd = app_settings.user_pwd;
+    this.globalVariables.user_company_code = app_settings.company_code;
+    this.globalVariables.branch_pkid  = app_settings.branch_pid;
+    this.globalVariables.year_pkid = app_settings.year_pkid;
+  }
   
 
 }
