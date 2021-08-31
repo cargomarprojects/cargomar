@@ -23,10 +23,10 @@
                                 <th>CREATED.DATE</th>
                             </tr>
                         </thead>
-                        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                            <tr>
+                        <tbody class="page-body-tbody" >
+                            <tr *ngFor="let rec of RecordList">
                                 <td>{{rec.doc_refno}}</td>
-                                <td>{{rec.doc_file_name}}</td>
+                                <td class="hlink" (click)="Download(rec)" style="cursor:pointer" >{{rec.doc_file_name}}</td>
                                 <td>{{rec.rec_created_by}}</td>
                                 <td>{{rec.rec_created_date}}</td>
                             </tr>

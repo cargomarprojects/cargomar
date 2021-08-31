@@ -17,4 +17,5 @@ export class documentm {
   doc_type: string;
   doc_refno: string;
   doc_app_name:string;
+  doc_file_path: string;
 }

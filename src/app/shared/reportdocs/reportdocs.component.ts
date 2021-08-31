@@ -76,7 +76,8 @@ export class ReportDocsComponent {
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,
-            year_code: this.gs.globalVariables.year_code
+            year_code: this.gs.globalVariables.year_code,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.gs.SearchRecord(SearchData)
@@ -99,4 +100,12 @@ export class ReportDocsComponent {
       Close() {
         this.modal.close();
     }
+
+    Download(_rec:documentm)
+    {
+        this.Downloadfile(_rec.doc_file_path, "SB", _rec.doc_file_name);
+    }
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+      }
 }
