@@ -64,15 +64,15 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList">
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_docno}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_category}}</td>
-          <td *ngIf="type=='IN'" (click)="ActionHandler('EDIT',rec.jvh_pkid)">
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_docno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_date}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_category}}</td>
+          <td *ngIf="type=='IN'" (click)="OpenAddressUpdate(rec)" style="cursor:pointer">
             {{rec.jvh_company_add_slno>0?rec.jvh_company_add_slno:''}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_cc_name}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_acc_name}}</td>
-          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_gstin}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_code}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_acc_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_gstin}}</td>
           <td>{{rec.jvh_gst_type}}</td>
           <td>{{rec.jvh_tot_amt}}</td>
           <td>{{rec.jvh_gst_amt}}</td>

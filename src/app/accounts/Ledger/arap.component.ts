@@ -20,7 +20,7 @@ import { pendinglist } from '../models/pendinglist';
 import { SearchTable } from '../../shared/models/searchtable';
 import { PendingListComponent } from './Pendinglist.component';
 import { DateComponent } from '../../shared/date/date.component';
-
+import { AddressUpdateComponent } from './addressupdate.component';
 
 @Component({
   selector: 'app-arap',
@@ -51,7 +51,7 @@ export class ArApComponent {
   lock_date: boolean = false;
   lock_cc: boolean = false;
 
-  
+
 
   modal: any;
 
@@ -71,6 +71,7 @@ export class ArApComponent {
 
   sub: any;
   urlid: string;
+  submodal: any;
 
   ProcessPendingList: boolean = false;
 
@@ -184,6 +185,8 @@ export class ArApComponent {
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
+    if (this.submodal != null && this.submodal != undefined)
+      this.submodal.unsubscribe();
   }
 
   LoadCombo() {
@@ -518,9 +521,9 @@ export class ArApComponent {
 
     this.Record.jvh_rec_source = 'JV';
 
-    this.Record.jvh_is_einv ='N';
-    this.Record.jvh_einv_status ='';
-    this.Record.jvh_irn ='';
+    this.Record.jvh_is_einv = 'N';
+    this.Record.jvh_einv_status = '';
+    this.Record.jvh_irn = '';
 
     this.Record.jvh_acc_id = '';
     this.Record.jvh_acc_code = '';
@@ -529,7 +532,7 @@ export class ArApComponent {
     this.Record.jvh_sez = false;
     this.Record.jvh_is_export = false;
 
-    this.Record.jvh_exwork =false;
+    this.Record.jvh_exwork = false;
 
     this.Record.jvh_igst_exception = false;
 
@@ -758,7 +761,7 @@ export class ArApComponent {
 
 
     if (this.Record.jvh_acc_code == "1105001" || this.Record.jvh_acc_code == "1205001" || this.Record.jvh_acc_code == "1305001" || this.Record.jvh_acc_code == "1405001") {
-      if ( (this.type == 'IN' ) || this.type == 'CN' ) {
+      if ((this.type == 'IN') || this.type == 'CN') {
         sError += "";
       }
       else {
@@ -785,9 +788,9 @@ export class ArApComponent {
       sError += " | Date Cannot Be Blank";
     }
 
-    if ( this.type =='PN' || this.type == 'DN' || this.type == 'CN' || this.type == 'DI' || this.type == 'CI') {
+    if (this.type == 'PN' || this.type == 'DN' || this.type == 'CN' || this.type == 'DI' || this.type == 'CI') {
 
-      if (this.type == 'PN' ||  this.type == 'DI' || this.type == 'CI') {
+      if (this.type == 'PN' || this.type == 'DI' || this.type == 'CI') {
         if (this.Record.jvh_reference.trim().length <= 0) {
           bret = false;
           sError += " | Reference Number Cannot Be Blank (Inward DN/CN Number)";
@@ -810,8 +813,7 @@ export class ArApComponent {
       }
     }
 
-    if (this.Record.jvh_einv_status == 'G')
-    {
+    if (this.Record.jvh_einv_status == 'G') {
       bret = false;
       sError += " | IRN Generated";
     }
@@ -2031,7 +2033,7 @@ export class ArApComponent {
       report_caption: '',
       report_format: '',
       menuadmin: '',
-      user_code : '',
+      user_code: '',
     }
 
     SearchData.pkid = this.pkid;
@@ -2178,6 +2180,25 @@ export class ArApComponent {
   closeAprovalModal() {
     this.modal.close();
     this.CanShowDoc = true;
+  }
+
+  OpenAddressUpdate(_rec: Ledgerh) {
+    this.modal = this.modalService.open(AddressUpdateComponent);
+    this.modal.componentInstance.pkid = _rec.jvh_pkid;
+    this.modal.componentInstance.addslno = _rec.jvh_company_add_slno;
+    this.submodal = this.modal.componentInstance.ModifiedAddress.subscribe((receivedEntry) => {
+      this.ModifiedAddress(receivedEntry);
+    });
+  }
+
+  ModifiedAddress(params: any) {
+    if (params.saction == "SAVE") {
+      var REC = this.RecordList.find(rec => rec.jvh_pkid == params.spkid);
+      if (REC != null) {
+        REC.jvh_company_add_slno = params.saddres_slno;
+      }
+    }
+    this.modal.close();
   }
 }
 

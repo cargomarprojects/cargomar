@@ -88,6 +88,7 @@ import { CashBookReportreducer } from './cashbook/cashbook.reducer';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
+import { AddressUpdateComponent } from './ledger/addressupdate.component';
 
 @NgModule({
   imports: [
@@ -140,12 +141,14 @@ import { DailyExpComponent } from './dailyexp/dailyexp.component';
     MtReportComponent,
     CashBookComponent,
     CollectionComponent,
-    DailyExpComponent
+    DailyExpComponent,
+    AddressUpdateComponent
   ],
   providers: [
   ],
   entryComponents: [
-    PendingListComponent
+    PendingListComponent,
+    AddressUpdateComponent
   ]
 
 })
