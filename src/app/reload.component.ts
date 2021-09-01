@@ -67,8 +67,12 @@ export class ReloadComponent {
       return;
     }
 
+    var _old_appid = 'appid='+this.gs.appid;
+    this.gs.CreateAppId();
+    var _new_appid = 'appid='+this.gs.appid;
+    url = url.replace(_old_appid, _new_appid );
+    this.gs.Save2LocalStorage();
     this.router.navigateByUrl(url, { replaceUrl: true });
-
 
   }
 
