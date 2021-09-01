@@ -196,6 +196,7 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>SALESMAN</th>
+                    <th>UPDATED.BY</th>                    
                     <th>PARTY</th>
                     <th>BRANCH</th>
                     <th>FINYEAR</th>
@@ -214,12 +215,13 @@
                     <th class="text-right">MAR</th>
                     <th class="text-right">BAL</th>
                     <th class="text-right">ADV</th>
-                    <th>UPDATED.BY</th>
+              
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
                 <tr [style.cursor]="'pointer'" [style.color]="rec.row_colour" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
+                    <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>                    
                     <td>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td>{{rec.fin_year_name}}</td>
@@ -238,7 +240,7 @@
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                    <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>
+                    
                 </tr>
                 <tr *ngIf="rec.row_displayed">
                     <td colspan="20">
