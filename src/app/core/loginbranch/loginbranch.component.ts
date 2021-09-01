@@ -83,13 +83,14 @@ export class LoginBranchComponent {
   }
 
   async Login(){
+    var iRet = 0;
     this.loading = true;
-    const bRet = await this.gs.LoadMenu(this.branchid, this.yearid);
+    iRet = await this.gs.LoadMenu(this.branchid, this.yearid);
     
-    if ( bRet == 0 ) {
+    if ( iRet == 0 ) {
       this.gs.CreateAppId();
-      const Record  = this.gs.getAppDetailsRecord();
-      const iRet =  await this.gs.saveAppDetails(Record);
+      const Record  = this.gs.CreateAppDetailsRecord();
+      iRet =  await this.gs.saveAppDetails(Record);
       this.loading = false;
       this.router.navigate(['home'], { replaceUrl: true });
     }

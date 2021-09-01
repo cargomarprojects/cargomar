@@ -26,7 +26,7 @@ export class GlobalService {
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
 
-  public HideMainMenu = false;
+  public Hide_Menu = false;
 
   public appid = "";
   public reload_url = "";
@@ -390,7 +390,7 @@ export class GlobalService {
   }
 
 
-  public getAppDetailsRecord(){
+  public CreateAppDetailsRecord(){
     const Record  = new AppDetails() ;
     Record.user_appid = this.appid ;
     Record.user_code = this.globalVariables.user_code;
@@ -786,16 +786,38 @@ export class GlobalService {
 
   ReadLocalStorage() {
     const app_settings  = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
+  
     this.appid = app_settings.appid;
     this.globalVariables.user_code = app_settings.user_code ;
     this.globalVariables.user_pwd = app_settings.user_pwd;
     this.globalVariables.user_company_code = app_settings.company_code;
     this.globalVariables.branch_pkid  = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
-    this.HideMainMenu = app_settings.hidemainmenu;
+    this.Hide_Menu = app_settings.hidemainmenu;
 
     console.log(app_settings);
   }
+
+  public async GetAppDetails(appid : string) : Promise<number> {
+    let SearchString = {
+      appid : appid
+    }
+    var iRet = -1;
+    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('authorized')).toPromise().then((response) => {
+      this.appid = response.record.appid;
+      this.globalVariables.user_code = response.record.user_code ;
+      this.globalVariables.user_pwd = response.record.user_pwd;
+      this.globalVariables.user_company_code = response.record.user_company_code;
+      this.globalVariables.branch_pkid  = response.record.user_branch_id;
+      this.globalVariables.year_pkid = response.record.user_year_id;
+      this.Hide_Menu = response.record.user_hide_menu;
+      iRet = 0;
+    }, error => {
+      alert(this.getError(error));
+    });
+    return iRet;
+  }
+
   
 
 }
