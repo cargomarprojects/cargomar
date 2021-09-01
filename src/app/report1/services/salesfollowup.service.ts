@@ -83,6 +83,8 @@ export class SalesFollowupService {
   AttachList: any[] = [];
   defaultto_ids: string = '';
 
+  
+
   constructor(
     private modalService: NgbModal,
     private http2: HttpClient,
@@ -95,6 +97,10 @@ export class SalesFollowupService {
     this.InitCompleted = true;
     this.menuid = options.menuid;
     this.type = options.type;
+    
+    //let url = this.gs.CreateURL(this.menuid);
+    //console.log(url);
+
     this.InitComponent();
   }
 
@@ -174,32 +180,9 @@ export class SalesFollowupService {
   }
 
   LoadCombo() {
-    // this.loading = true;
-    // let SearchData2 = {
-    //   type: 'type',
-    //   comp_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code
-    // };
-
-    // SearchData2.comp_code = this.gs.globalVariables.comp_code;
-    // SearchData2.branch_code = this.gs.globalVariables.branch_code;
-
-    // this.ErrorMessage = '';
-    // this.LoadDefault(SearchData2)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.ReportDateList = response.reportdatelist;
-    //     if (this.ReportDateList != null && this.ReportDateList != undefined) {
-    //       if (this.ReportDateList.length > 0)
-    //         this.report_date = this.ReportDateList[0].report_date;
-    //     }
-
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ErrorMessage = this.gs.getError(error);
-    //     });
   }
+
+  
 
   ReportList(_type: string) {
     this.currentTab = "LIST";
@@ -219,6 +202,11 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.ReportDateList = response.list;
+
+          if ( !this.gs.isBlank(this.type)) {
+            var trec1 =  this.ReportDateList[0];
+            this.ShowDetail( trec1);
+          }
         }
       },
         error => {
@@ -226,6 +214,22 @@ export class SalesFollowupService {
           this.ReportDateList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  ShowDetail(_rec: SalesFollowup) {
+
+    if (_rec.row_type == "TOTAL")
+      return;
+    this.index1 = -1;
+    this.index2 = -1;
+    this.index3 = -1;
+
+    this.report_date = _rec.report_date;
+    this.currentTab = "DISTINCTLIST";
+    this.distinctTab = "SALESMAN";
+    this.RecordList = null;
+    this.RecordDetList = null;
+    this.ShowDistinctReport('SCREEN', 'SALESMAN');
   }
 
   ShowDistinctReport(_type: string, _category: string) {
@@ -254,6 +258,12 @@ export class SalesFollowupService {
         }
         else {
           this.RecordList = response.list;
+          if (!this.gs.isBlank(this.type)) {
+            this.type ='';
+            var trec1 = this.RecordList[0];
+            this.ShowDetailReport('SCREEN', this.distinctTab, trec1,null);
+
+          }
         }
 
       },

@@ -60,21 +60,7 @@ export class SalesFollowupComponent {
 
   }
 
-  ShowDetail(_rec: SalesFollowup) {
 
-    if (_rec.row_type == "TOTAL")
-      return;
-    this.ms.index1 = -1;
-    this.ms.index2 = -1;
-    this.ms.index3 = -1;
-
-    this.ms.report_date = _rec.report_date;
-    this.ms.currentTab = "DISTINCTLIST";
-    this.ms.distinctTab = "SALESMAN";
-    this.ms.RecordList = null;
-    this.ms.RecordDetList = null;
-    this.ms.ShowDistinctReport('SCREEN', 'SALESMAN');
-  }
   // Query List Data
 
 

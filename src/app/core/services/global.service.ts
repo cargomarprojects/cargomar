@@ -72,14 +72,13 @@ export class GlobalService {
     return this.MenuList.find(f => f.menu_code == menucode);
   }
 
-  CreateURL(menucode : string, type : string = "{DEF_DEF_DEF}"){
+  CreateURL(menucode : string, type : string = "{_DEF_}"){
     var _url  = '';
     var rec = this.MenuList.find(f => f.menu_code == menucode) as Menum;
     if (rec ) {
       let params = new HttpParams();
       params = params.set('appid', this.appid);
-      type ='SALESMN';
-      if ( type == "{DEF_DEF_DEF}")
+      if ( type == "{_DEF_}")
         params = params.set('parameter', rec.menu_route2);
       else {
         var p1 =  JSON.parse(rec.menu_route2);

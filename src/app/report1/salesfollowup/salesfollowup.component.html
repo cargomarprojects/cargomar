@@ -37,7 +37,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of ms.ReportDateList;let i=index" (mousedown)="ms.index1=i"
                     [class.active]="i==ms.index1" [style.cursor]="'pointer'" [style.color]="rec.row_colour">
-                    <td (click)="ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
+                    <td (click)="ms.ShowDetail(rec)" class='hlink2'>{{rec.report_date}}</td>
                     <td>{{rec.fin_year_name}}</td>
                     <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.apr | number : '1.2-2' }}</td>
