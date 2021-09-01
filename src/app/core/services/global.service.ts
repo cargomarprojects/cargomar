@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
@@ -71,6 +71,19 @@ export class GlobalService {
   public getMenu(menucode: string): Menum {
     return this.MenuList.find(f => f.menu_code == menucode);
   }
+
+  CreateURL(menucode : string){
+    var _url  = '';
+    var rec = this.MenuList.find(f => f.menu_code == menucode) as Menum;
+    if (rec ) {
+      let params = new HttpParams();
+      params = params.set('appid', this.appid);
+      params = params.set('parameter', rec.menu_route2);
+      _url = window.location.host + '/' + rec.menu_route1 + '?' + params.toString();
+    }
+    return _url;
+}
+
 
   public getError(error: any) {
     if (this.isolderror)

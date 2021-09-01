@@ -1,5 +1,7 @@
+import { HttpParams } from '@angular/common/http';
 import { Component  } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConsoleEditorComponent } from '../../operations/costing/consoleeditor/consoleeditor.component';
 
 import { Menum } from '../models/menum';
 import { GlobalService } from '../services/global.service';
@@ -39,6 +41,7 @@ export class HeaderComponent {
         else
             this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }, replaceUrl: true });
     }
+
 
 
 
