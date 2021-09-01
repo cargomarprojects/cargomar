@@ -11,6 +11,7 @@ import { Modulem } from '../models/modulem';
 
 import { Settings } from '../models/settings';
 
+
 @Injectable()
 export class GlobalService {
   public Token: string;
@@ -719,6 +720,7 @@ export class GlobalService {
 
 
   getlocalStorageFileName() {
+    console.log(this.defaultValues.today + "-" + this.appid);
     return this.defaultValues.today + "-" + this.appid;
   }
 
@@ -729,7 +731,6 @@ export class GlobalService {
   Save2LocalStorage() {
     const app_settings = {
       appid : this.appid,
-      access_token : this.Access_Token,
       user_code : this.globalVariables.user_code,
 		  user_pwd : this.globalVariables.user_pwd,
 		  company_code : this.globalVariables.user_company_code,
@@ -753,12 +754,13 @@ export class GlobalService {
   ReadLocalStorage() {
     const app_settings  = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
     this.appid = app_settings.appid;
-    this.Access_Token = app_settings.access_token ;
     this.globalVariables.user_code = app_settings.user_code ;
     this.globalVariables.user_pwd = app_settings.user_pwd;
     this.globalVariables.user_company_code = app_settings.company_code;
     this.globalVariables.branch_pkid  = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
+
+    console.log(app_settings);
   }
   
 

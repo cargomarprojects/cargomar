@@ -36,10 +36,11 @@ export class ReloadComponent {
   }
 
   if (!this.gs.isAppidExtistsInLocalStorage())  {
+      console.log('Not Exists in Local Storage');
       this.router.navigate(['login'], { replaceUrl: true }); 
       return ;
   }
-
+  
     this.gs.ReadLocalStorage();
 
     let url = this.gs.reload_url;

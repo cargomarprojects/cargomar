@@ -44,7 +44,7 @@ export class AppComponent implements OnDestroy {
 
         this.gs.appid = this.gs.getURLParam('appid');
 
-
+        alert(this.gs.appid);
 
 
         this.router.navigate(['/reload']);
