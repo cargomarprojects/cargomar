@@ -72,14 +72,22 @@ export class GlobalService {
     return this.MenuList.find(f => f.menu_code == menucode);
   }
 
-  CreateURL(menucode : string){
+  CreateURL(menucode : string, type : string = "{DEF_DEF_DEF}"){
     var _url  = '';
     var rec = this.MenuList.find(f => f.menu_code == menucode) as Menum;
     if (rec ) {
       let params = new HttpParams();
       params = params.set('appid', this.appid);
-      params = params.set('parameter', rec.menu_route2);
-      _url = window.location.host + '/' + rec.menu_route1 + '?' + params.toString();
+      type ='SALESMN';
+      if ( type == "{DEF_DEF_DEF}")
+        params = params.set('parameter', rec.menu_route2);
+      else {
+        var p1 =  JSON.parse(rec.menu_route2);
+        p1.type = type;
+        params = params.set('parameter', JSON.stringify(p1));
+      }
+
+      _url = window.location.protocol + "//" + window.location.host + '/' + rec.menu_route1 + '?' + params.toString();
     }
     return _url;
 }

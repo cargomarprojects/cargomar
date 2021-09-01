@@ -6,7 +6,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { SalesFollowup } from '../models/salesfollowup';
 
 import { SalesFollowupService } from '../services/salesfollowup.service';
-import { ReconComponent } from '../../accounts/Recon/recon.component';
+
 
 @Component({
   selector: 'app-salesfollowup',
