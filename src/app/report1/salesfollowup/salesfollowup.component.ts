@@ -103,6 +103,7 @@ export class SalesFollowupComponent {
       var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
       REC.row_updated = 'Y';
       REC.row_updated_by = params.updatename;
+      REC.row_displayed =false;
       // REC.row_displayed = false;
     }
   }
