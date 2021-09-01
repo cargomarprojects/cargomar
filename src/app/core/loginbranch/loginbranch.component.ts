@@ -9,7 +9,7 @@ import { Companym } from '../models/company';
 import { Yearm } from '../models/yearm';
 
 import { Settings } from '../models/settings';
-import { AppDetails } from '../models/appdetails';
+
 
 @Component({
   selector: 'app-loginbranch',
@@ -110,9 +110,6 @@ export class LoginBranchComponent {
     this.gs.IsLoginSuccess = false;
     this.gs.ClosePage('login');
   }
-
-
-
 
 }
 
