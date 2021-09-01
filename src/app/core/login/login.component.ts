@@ -46,7 +46,7 @@ export class LoginComponent {
 
     if (this.gs.isBlank(this.username)) {
       this.username = this.gs.globalVariables.user_code;
-      this.password = this.gs.globalVariables.user_pwd;
+      this.password = this.gs.globalVariables.user_password;
     }
 
     this.loading = true;

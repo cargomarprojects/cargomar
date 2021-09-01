@@ -36,14 +36,14 @@ export class ReloadComponent {
     this.gs.reload_url = '';
     if ( this.gs.isBlank(url)) {
       this.router.navigate(['login'], { replaceUrl: true });
-    }
+    } 
 
     iRet = await this.gs.GetAppDetails(this.gs.appid);
     if ( iRet != 0) {
       this.router.navigate(['login'], { replaceUrl: true });
     }
     
-    iRet = await this.gs.Login(this.gs.globalVariables.user_code, this.gs.globalVariables.user_pwd, this.gs.globalVariables.user_company_code);
+    iRet = await this.gs.Login(this.gs.globalVariables.user_code, this.gs.globalVariables.user_password, this.gs.globalVariables.user_company_code);
         
     if (iRet != 0) {
       this.router.navigate(['login'], { replaceUrl: true });

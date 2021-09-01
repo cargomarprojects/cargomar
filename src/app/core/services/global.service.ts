@@ -236,7 +236,7 @@ export class GlobalService {
           this.globalVariables.user_pkid = user.userpkid;
           this.globalVariables.user_code = user.usercode;
           this.globalVariables.user_name = user.userName;
-          this.globalVariables.user_pwd = _password;
+          this.globalVariables.user_password = _password;
           this.globalVariables.user_email = user.useremail;
           this.globalVariables.user_company_id = user.usercompanyid;
           this.globalVariables.user_company_code = user.usercompanycode;
@@ -394,7 +394,7 @@ export class GlobalService {
     const Record  = new AppDetails() ;
     Record.user_appid = this.appid ;
     Record.user_code = this.globalVariables.user_code;
-    Record.user_password = this.globalVariables.user_pwd ;
+    Record.user_password = this.globalVariables.user_password ;
     Record.user_company_code = this.globalVariables.user_company_code;
     Record.user_branch_id = this.globalVariables.branch_pkid;
     Record.user_year_id = this.globalVariables.year_pkid
@@ -761,7 +761,7 @@ export class GlobalService {
     const app_settings = {
       appid : this.appid,
       user_code : this.globalVariables.user_code,
-		  user_pwd : this.globalVariables.user_pwd,
+		  user_password : this.globalVariables.user_password,
 		  company_code : this.globalVariables.user_company_code,
       branch_pkid :  this.globalVariables.branch_pkid, 
       year_pkid  : this.globalVariables.year_pkid,
@@ -788,7 +788,7 @@ export class GlobalService {
   
     this.appid = app_settings.appid;
     this.globalVariables.user_code = app_settings.user_code ;
-    this.globalVariables.user_pwd = app_settings.user_pwd;
+    this.globalVariables.user_password = app_settings.user_password;
     this.globalVariables.user_company_code = app_settings.company_code;
     this.globalVariables.branch_pkid  = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
@@ -805,7 +805,7 @@ export class GlobalService {
     await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('anonymous')).toPromise().then((response) => {
       this.appid = response.record.appid;
       this.globalVariables.user_code = response.record.user_code ;
-      this.globalVariables.user_pwd = response.record.user_pwd;
+      this.globalVariables.user_password = response.record.user_password;
       this.globalVariables.user_company_code = response.record.user_company_code;
       this.globalVariables.branch_pkid  = response.record.user_branch_id;
       this.globalVariables.year_pkid = response.record.user_year_id;
