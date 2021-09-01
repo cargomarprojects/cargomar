@@ -12,6 +12,7 @@ import { Modulem } from '../models/modulem';
 import { Settings } from '../models/settings';
 
 
+
 @Injectable()
 export class GlobalService {
   public Token: string;
@@ -22,6 +23,8 @@ export class GlobalService {
   public globalData: GlobalData;
   public globalVariables: GlobalVariables;
   public defaultValues: DefaultValues;
+
+  public HideMainMenu = false;
 
   public appid = "";
   public reload_url = "";
@@ -552,7 +555,8 @@ export class GlobalService {
           alert("Invalid Fin-Year");
           return bRet;
         } else {
-          this.IsAuthenticated = true;
+          if ( !this.HideMainMenu)
+            this.IsAuthenticated = true;
           bRet = 0;
         }
         //this.router.navigate(['home'], { replaceUrl: true });
@@ -736,6 +740,7 @@ export class GlobalService {
 		  company_code : this.globalVariables.user_company_code,
       branch_pkid :  this.globalVariables.branch_pkid, 
       year_pkid  : this.globalVariables.year_pkid,
+      hidemainmenu : false,
     }
     localStorage.setItem(this.getlocalStorageFileName(), JSON.stringify(app_settings));
   }
@@ -759,6 +764,7 @@ export class GlobalService {
     this.globalVariables.user_company_code = app_settings.company_code;
     this.globalVariables.branch_pkid  = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
+    this.HideMainMenu = app_settings.hidemainmenu;
 
     console.log(app_settings);
   }

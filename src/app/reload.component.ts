@@ -29,17 +29,6 @@ export class ReloadComponent {
   }
 
   async ngOnInit() {
-    
-    if (this.gs.isBlank(this.gs.appid)) {
-      this.router.navigate(['login'], { replaceUrl: true }); 
-      return;
-  }
-
-  if (!this.gs.isAppidExtistsInLocalStorage())  {
-      console.log('Not Exists in Local Storage');
-      this.router.navigate(['login'], { replaceUrl: true }); 
-      return ;
-  }
   
     this.gs.ReadLocalStorage();
 
