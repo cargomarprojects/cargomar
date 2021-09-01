@@ -417,8 +417,8 @@ export class GlobalService {
     Record.user_password = this.globalVariables.user_password ;
     Record.user_company_code = this.globalVariables.user_company_code;
     Record.user_branch_id = this.globalVariables.branch_pkid;
-    Record.user_year_id = this.globalVariables.year_pkid
-    Record.user_hide_menu = false;
+    Record.user_year_id = this.globalVariables.year_pkid;
+    Record.user_hide_menu = this.Hide_Menu;
     Record.user_logged_out = false;
     Record._globalvariables = this.globalVariables;
     return Record;
