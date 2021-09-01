@@ -10,6 +10,8 @@ import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
 
 import { Settings } from '../models/settings';
+import { AppDetails } from '../models/appdetails';
+
 
 
 
@@ -388,6 +390,30 @@ export class GlobalService {
   }
 
 
+  public getAppDetailsRecord(){
+    const Record  = new AppDetails() ;
+    Record.user_appid = this.appid ;
+    Record.user_code = this.globalVariables.user_code;
+    Record.user_password = this.globalVariables.user_pwd ;
+    Record.user_company_code = this.globalVariables.user_company_code;
+    Record.user_branch_id = this.globalVariables.branch_pkid;
+    Record.user_year_id = this.globalVariables.year_pkid
+    Record.user_hide_menu = false;
+    Record.user_logged_out = false;
+    Record._globalvariables = this.globalVariables;
+    return Record;
+  }
+
+  public async saveAppDetails(Record : AppDetails) :Promise<number> {
+    var iRet = -1;
+    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/SaveAppDetails", Record, this.headerparam2('authorized')).toPromise().then((response) => {
+      iRet = 0;
+    }, error => {
+      alert(this.getError(error));
+    });
+    return iRet;
+  }
+
   public async LoadMenu(_branchid : string , _yearid : string ) :Promise<number> {
     let bRet = -1;
     let SearchData = {
@@ -744,6 +770,8 @@ export class GlobalService {
     }
     localStorage.setItem(this.getlocalStorageFileName(), JSON.stringify(app_settings));
   }
+
+
 
   RemoveLocalStorage() {
     console.log('removing local storage Started : ', this.defaultValues.today);

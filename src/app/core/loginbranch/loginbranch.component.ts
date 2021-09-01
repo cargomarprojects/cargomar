@@ -9,6 +9,7 @@ import { Companym } from '../models/company';
 import { Yearm } from '../models/yearm';
 
 import { Settings } from '../models/settings';
+import { AppDetails } from '../models/appdetails';
 
 @Component({
   selector: 'app-loginbranch',
@@ -84,14 +85,15 @@ export class LoginBranchComponent {
   async Login(){
     this.loading = true;
     const bRet = await this.gs.LoadMenu(this.branchid, this.yearid);
-    this.loading = false;
-
+    
     if ( bRet == 0 ) {
       this.gs.CreateAppId();
-      this.gs.Save2LocalStorage();
+      const Record  = this.gs.getAppDetailsRecord();
+      const iRet =  await this.gs.saveAppDetails(Record);
+      this.loading = false;
       this.router.navigate(['home'], { replaceUrl: true });
     }
-
+    this.loading = false;
   }
 
 

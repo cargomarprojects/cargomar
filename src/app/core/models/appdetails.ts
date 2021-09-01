@@ -1,3 +1,5 @@
+import { GlobalVariables } from "./globalvariables";
+
 export class AppDetails {
     user_appid : string ;
     user_code : string ;
@@ -7,4 +9,5 @@ export class AppDetails {
     user_year_id : string ;
     user_hide_menu : boolean;
     user_logged_out : boolean ;
+    _globalvariables: GlobalVariables;
 }

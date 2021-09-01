@@ -45,17 +45,6 @@ export class AppComponent implements OnDestroy {
         this.gs.appid = this.gs.getURLParam('appid');
 
         console.log( 'appid ',this.gs.appid);
-
-        if (this.gs.isBlank(this.gs.appid)) {
-            this.router.navigate(['login'], { replaceUrl: true }); 
-            return;
-        }
-      
-        if (!this.gs.isAppidExtistsInLocalStorage())  {
-            console.log('Not Exists in Local Storage');
-            this.router.navigate(['login'], { replaceUrl: true }); 
-            return ;
-        }
         
         this.router.navigate(['/reload']);
     }

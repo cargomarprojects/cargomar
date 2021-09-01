@@ -61,7 +61,10 @@ export class ReloadComponent {
     this.gs.CreateAppId();
     var _new_appid = 'appid='+this.gs.appid;
     url = url.replace(_old_appid, _new_appid );
-    this.gs.Save2LocalStorage();
+
+    const Record  = this.gs.getAppDetailsRecord();
+    const iRet1 =  await this.gs.saveAppDetails(Record);
+
     this.router.navigateByUrl(url, { replaceUrl: true });
 
   }
