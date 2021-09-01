@@ -35,7 +35,7 @@ export class ReloadComponent {
     let url = this.gs.reload_url;
     this.gs.reload_url = '';
     if ( this.gs.isBlank(url)) {
-      this.router.navigate(['home'], { replaceUrl: true });
+      this.router.navigate(['login'], { replaceUrl: true });
     }
 
     iRet = await this.gs.GetAppDetails(this.gs.appid);

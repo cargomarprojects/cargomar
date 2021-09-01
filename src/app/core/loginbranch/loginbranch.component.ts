@@ -86,12 +86,13 @@ export class LoginBranchComponent {
     var iRet = 0;
     this.loading = true;
     iRet = await this.gs.LoadMenu(this.branchid, this.yearid);
-    
+    console.log( 'Load Branch Competed ', iRet);
     if ( iRet == 0 ) {
       this.gs.CreateAppId();
       const Record  = this.gs.CreateAppDetailsRecord();
       iRet =  await this.gs.saveAppDetails(Record);
       this.loading = false;
+      
       this.router.navigate(['home'], { replaceUrl: true });
     }
     this.loading = false;

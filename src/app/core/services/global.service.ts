@@ -581,8 +581,7 @@ export class GlobalService {
           alert("Invalid Fin-Year");
           return bRet;
         } else {
-          if ( !this.HideMainMenu)
-            this.IsAuthenticated = true;
+          this.IsAuthenticated = this.Hide_Menu ? false : true;
           bRet = 0;
         }
         //this.router.navigate(['home'], { replaceUrl: true });
