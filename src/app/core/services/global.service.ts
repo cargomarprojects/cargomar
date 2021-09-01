@@ -802,7 +802,7 @@ export class GlobalService {
       appid : appid
     }
     var iRet = -1;
-    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('authorized')).toPromise().then((response) => {
+    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('anonymous')).toPromise().then((response) => {
       this.appid = response.record.appid;
       this.globalVariables.user_code = response.record.user_code ;
       this.globalVariables.user_pwd = response.record.user_pwd;

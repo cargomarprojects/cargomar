@@ -16,8 +16,8 @@ export class LoginComponent {
   //username: string = '';
   //password: string = '';
 
-  username: string = 'ADMIN';
-  password: string = 'cpl2001*';
+  username: string = '';
+  password: string = '';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
