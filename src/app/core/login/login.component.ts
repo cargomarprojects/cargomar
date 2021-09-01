@@ -12,12 +12,11 @@ export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
 
-
   //username: string = '';
   //password: string = '';
 
-  username: string = '';
-  password: string = '';
+  username: string = 'ADMIN';
+  password: string = 'cpl2001*';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
@@ -43,11 +42,6 @@ export class LoginComponent {
 
 
   LoadCombo() {
-
-    if (this.gs.isBlank(this.username)) {
-      this.username = this.gs.globalVariables.user_code;
-      this.password = this.gs.globalVariables.user_password;
-    }
 
     this.loading = true;
     let SearchData = {
