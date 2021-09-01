@@ -13,8 +13,5 @@ export class Menum {
     menu_module_name: string;
     menu_module_order: number;
 
-
-
-
     rec_mode: string;
 }
