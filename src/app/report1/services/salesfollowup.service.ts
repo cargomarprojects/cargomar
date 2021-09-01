@@ -95,6 +95,8 @@ export class SalesFollowupService {
     this.InitCompleted = true;
     this.menuid = options.menuid;
     this.type = options.type;
+    let url = this.gs.CreateURL(this.menuid);
+    console.log(url);
     this.InitComponent();
   }
 
