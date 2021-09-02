@@ -151,6 +151,7 @@ export class SalesFollowupService {
     this.sman_name = this.gs.globalVariables.sman_name;
     this.cust_name = '';
     this.report_date = this.param_report_date;
+    this.param_report_date = '';
   }
 
   // Destroy Will be called when this component is closed
