@@ -7,6 +7,7 @@ import { SalesFollowup } from '../models/salesfollowup';
 import { SearchTable } from '../../shared/models/searchtable';
 import { GlobalService } from '../../core/services/global.service';
 
+
 @Injectable()
 export class SalesFollowupService {
 
@@ -32,6 +33,8 @@ export class SalesFollowupService {
   generate_date: string;
   selectall: boolean = false;
 
+  param_report_date: string = '';
+
   bExcel = false;
   bEmail = false;
   bCompany = false;
@@ -42,6 +45,8 @@ export class SalesFollowupService {
   loading = false;
   currentTab = 'LIST';
   distinctTab = 'SALESMAN';
+
+  url = '';
 
   SearchData = {
     type: '',
@@ -63,7 +68,10 @@ export class SalesFollowupService {
     sdata: '',
     all: false,
     user_pkid: '',
-    user_code: ''
+    menu_code : '',
+    user_code: '',
+    year_id : '',
+    hostname : '',
   };
 
   // Array For Displaying List
@@ -97,6 +105,10 @@ export class SalesFollowupService {
     this.InitCompleted = true;
     this.menuid = options.menuid;
     this.type = options.type;
+
+    this.param_report_date = '';
+    if ( options.reportdate)
+      this.param_report_date = options.reportdate;
     
     //let url = this.gs.CreateURL(this.menuid);
     //console.log(url);
@@ -139,7 +151,7 @@ export class SalesFollowupService {
     this.RecordList = null;
     this.sman_name = this.gs.globalVariables.sman_name;
     this.cust_name = '';
-    this.report_date = '';
+    this.report_date = this.param_report_date;
   }
 
   // Destroy Will be called when this component is closed
@@ -203,10 +215,21 @@ export class SalesFollowupService {
         else {
           this.ReportDateList = response.list;
 
+          /*
           if ( !this.gs.isBlank(this.type)) {
             var trec1 =  this.ReportDateList[0];
             this.ShowDetail( trec1);
           }
+          */
+
+
+          if ( !this.gs.isBlank(this.type)){
+            this.distinctTab = 'SALESMAN';
+            this.Detail_title = this.type ;
+            this.ShowDetailReport('SCREEN', this.distinctTab, null,null);
+          }
+
+
         }
       },
         error => {
@@ -258,12 +281,13 @@ export class SalesFollowupService {
         }
         else {
           this.RecordList = response.list;
+          /*
           if (!this.gs.isBlank(this.type)) {
             this.type ='';
             var trec1 = this.RecordList[0];
             this.ShowDetailReport('SCREEN', this.distinctTab, trec1,null);
-
           }
+          */
         }
 
       },
@@ -276,8 +300,10 @@ export class SalesFollowupService {
 
   ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
 
-    if (_rec != null && _rec.row_type == "TOTAL")
-      return;
+    if (_rec != null ) {
+      if ( _rec.row_type == "TOTAL")
+        return;
+    }
 
     this.index3 = -1;
     if (_type != "MAIL")
@@ -292,6 +318,12 @@ export class SalesFollowupService {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
+
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.year_id = this.gs.globalVariables.year_pkid;
+    this.SearchData.menu_code = 'SALESFOLLOWUP';
+    this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
+    
 
     if (_category == "SALESMAN") {
       if (_rec == null)
@@ -343,6 +375,7 @@ export class SalesFollowupService {
           this.AttachList = new Array<any>();
           this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
           this.defaultto_ids = response.defaultto_ids;
+          this.url = response.url;
           this.setMailBody(_category);
           this.open(emailsent);
         }
@@ -366,7 +399,10 @@ export class SalesFollowupService {
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
-    this.sMsg += "Please find the attached debtors o/s followup ";
+    this.sMsg += "Please find the attached debtors o/s followup \n\n";
+
+    this.sMsg += "Click to Update - " + this.url;
+
     this.sMsg += " \n\n";
   }
 

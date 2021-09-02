@@ -823,7 +823,7 @@ export class GlobalService {
     }
     var iRet = -1;
     await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('anonymous')).toPromise().then((response) => {
-      this.appid = response.record.appid;
+      this.appid = response.record.user_appid;
       this.globalVariables.user_code = response.record.user_code ;
       this.globalVariables.user_password = response.record.user_password;
       this.globalVariables.user_company_code = response.record.user_company_code;

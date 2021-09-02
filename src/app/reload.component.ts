@@ -39,6 +39,7 @@ export class ReloadComponent {
     } 
 
     iRet = await this.gs.GetAppDetails(this.gs.appid);
+    
     if ( iRet != 0) {
       this.router.navigate(['login'], { replaceUrl: true });
     }
