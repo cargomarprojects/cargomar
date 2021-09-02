@@ -89,7 +89,7 @@
                 (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
-            <button *ngIf='ms.bExcel' class="btn btn-primary btn-sm mr-1" (click)="ms.ShowDistinctReport('EXCEL', ms.distinctTab)">Print</button>
+            <button *ngIf='ms.bExcel' class="btn btn-primary btn-sm mr-1" (click)="ms.ShowDistinctReport('EXCEL', ms.distinctTab)">PRINT</button>
             <button *ngIf="ms.bCompany&&ms.distinctTab=='SALESMAN'" class="btn btn-primary btn-sm" (click)="ms.MailAll()">MAIL-ALL</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
             <label>{{ms.report_date}}</label>
@@ -183,7 +183,7 @@
             <label>{{ms.Detail_title}}</label>
             <button *ngIf='ms.bExcel' [disabled]="ms.loading"
                 (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null,emailsent)"
-                class="btn btn-primary btn-sm mr-1">Print</button>
+                class="btn btn-primary btn-sm mr-1">PRINT</button>
             <button *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" [disabled]="ms.loading"
                 (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,null, emailsent)"
                 class="btn btn-primary btn-sm">Mail</button>
