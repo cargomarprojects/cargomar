@@ -214,22 +214,11 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.ReportDateList = response.list;
-
-          /*
-          if ( !this.gs.isBlank(this.type)) {
-            var trec1 =  this.ReportDateList[0];
-            this.ShowDetail( trec1);
-          }
-          */
-
-
           if ( !this.gs.isBlank(this.type)){
             this.distinctTab = 'SALESMAN';
             this.Detail_title = this.type ;
             this.ShowDetailReport('SCREEN', this.distinctTab, null,null);
           }
-
-
         }
       },
         error => {
@@ -281,13 +270,6 @@ export class SalesFollowupService {
         }
         else {
           this.RecordList = response.list;
-          /*
-          if (!this.gs.isBlank(this.type)) {
-            this.type ='';
-            var trec1 = this.RecordList[0];
-            this.ShowDetailReport('SCREEN', this.distinctTab, trec1,null);
-          }
-          */
         }
 
       },
@@ -390,19 +372,38 @@ export class SalesFollowupService {
   }
   setMailBody(_category: string) {
 
+    var str = "";
     this.sSubject = "DEBTORS O/S FOLLOWUP AS ON " + this.report_date + " - ";
     if (_category == "SALESMAN")
       this.sSubject += this.SearchData.selected_sman_name;
     if (_category == "BRANCH")
       this.sSubject += this.SearchData.selected_branch;
 
+      str ="";
+      str += "<html>";
+      str += "<h3>Dear Sir, </h3>";
+      str += "<br><br>";
+      str += "<h4>Please find the attached debtors o/s followup </h4>";
+      str += "<br><br>";
+      str += "<h4>Click Below Link to update remarks </h4>" ;
+      str +=" <a href='" + this.url +"'>Click Here</a> ";
+      str += "<br><br>";
+      str += "</html>";
+      
+
+
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
     this.sMsg += "Please find the attached debtors o/s followup \n\n";
-
-    this.sMsg += "Click to Update - " + this.url;
+    
+    this.sMsg += "Click Below Link to update followup remarks \n\n " ;
+    
+    this.sMsg +=" <html> <a href='" + this.url +"'>Open Software</a>  </html>";
 
     this.sMsg += " \n\n";
+
+    //this.sMsg = str;
+    
   }
 
 
