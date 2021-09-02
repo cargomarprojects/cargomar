@@ -180,7 +180,7 @@
 <div *ngIf="ms.currentTab=='DETAILLIST'" class="page-list">
     <div class="page-header">
         <div class="col">
-            <label>{{ms.distinctTab}}-WISE</label>
+            <label>{{ms.Detail_title}}</label>
             <button *ngIf='ms.bExcel' [disabled]="ms.loading"
                 (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null,emailsent)"
                 class="btn btn-primary btn-sm mr-1">Print</button>
