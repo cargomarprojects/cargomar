@@ -68,7 +68,6 @@ export class SalesFollowupService {
     sdata: '',
     all: false,
     user_pkid: '',
-    menu_code : '',
     user_code: '',
     year_id : '',
     hostname : '',
@@ -321,7 +320,6 @@ export class SalesFollowupService {
 
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.year_id = this.gs.globalVariables.year_pkid;
-    this.SearchData.menu_code = 'SALESFOLLOWUP';
     this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
     
 
