@@ -767,6 +767,10 @@ export class GlobalService {
     return new URLSearchParams(window.location.search).get(param);
   }
 
+  getURLParameter(uri : string ,param: string) {
+    return new URLSearchParams(uri).get(param);
+  }
+
 
   getlocalStorageFileName() {
     console.log(this.defaultValues.today + "-" + this.appid);

@@ -107,7 +107,7 @@ export class SalesFollowupService {
     this.InitCompleted = true;
     this.menuid = options.menuid;
     // alert(options.type);
-    this.type =options.type;
+    this.type = decodeURIComponent(options.type);
     // alert(this.type);
     this.param_report_date = '';
     if ( options.reportdate)

@@ -39,10 +39,10 @@ export class AppComponent implements OnDestroy {
 
     ngOnInit() {
         this.gs.InitdefaultValues();
-        this.gs.RemoveLocalStorage();
         this.gs.reload_url =  window.location.pathname + window.location.search;
 
-        this.gs.appid = this.gs.getURLParam('appid');
+        alert( this.gs.reload_url);
+        this.gs.appid = this.gs.getURLParameter(window.location.search, 'appid');
 
         console.log( 'appid ',this.gs.appid);
 
