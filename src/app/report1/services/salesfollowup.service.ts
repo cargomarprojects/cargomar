@@ -7,6 +7,7 @@ import { SalesFollowup } from '../models/salesfollowup';
 import { SearchTable } from '../../shared/models/searchtable';
 import { GlobalService } from '../../core/services/global.service';
 
+//EDIT-AJITH-03-09-2021
 
 @Injectable()
 export class SalesFollowupService {
@@ -524,6 +525,8 @@ export class SalesFollowupService {
     this.SearchData.sdata = sdata;
     this.SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.year_id = this.gs.globalVariables.year_pkid;
+    this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
 
     this.loading = true;
     this.ErrorMessage = '';
