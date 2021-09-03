@@ -29,7 +29,9 @@
                             <th class="text-right">180+</th>
                             <th class="text-right">BALANCE</th>
                             <th class="text-right">ADVANCE</th>
-
+                            <!-- <th class="text-right">OVERDUE</th> -->
+                            <th class="text-right">1YEAR+</th>
+                            <!-- <th *ngIf="category != 'LEGAL'" class="text-right">LEGAL</th> -->
                         </tr>
                     </thead>
 
@@ -51,7 +53,9 @@
 
                             <td class="text-right">{{ rec.balance | number : '1.2-2' }}</td>
                             <td class="text-right">{{ rec.advance | number : '1.2-2' }}</td>
-
+                            <!-- <td class="text-right">{{ rec.overdue | number : '1.2-2'  }}</td> -->
+                            <td class="text-right">{{ rec.oneyear | number : '1.2-2'  }}</td>
+                            <!-- <td *ngIf="category != 'LEGAL'" align='right'>{{ rec.legal   | number : '1.2-2'  }}</td> -->
 
                         </tr>
                     </tbody>
