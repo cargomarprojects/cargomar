@@ -1,6 +1,6 @@
 <div class="page-header">
-  <div style="padding:5px" class="row">
-    <div style="padding-right:4px" class="col-sm-6">
+  <div style="padding:1px" class="row">
+    <div style="padding-right:1px" class="col-sm-6">
       <button [disabled]="loading" (click)="ShowPage('MAILPAGE')" [ngClass]="{'active':rootpage=='MAILPAGE'}"
         class="btn btn-outline-success btn-block">MAIL</button>
     </div>
@@ -132,7 +132,7 @@
           <div *ngIf="sHtml" class="form-group row">
             <label class="col-sm-1 col-form-label col-form-label-sm"></label>
             <div class="col-sm-11">
-              <textarea rows="6" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
+              <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="message"></textarea>
             </div>
           </div>
           <div *ngIf="sHtml==''" class="form-group row">
@@ -287,10 +287,3 @@
   <br />
 </div>
 
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>

@@ -207,8 +207,10 @@ export class MailComponent {
       bret = false;
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert( this.ErrorMessage);
+    }
     return bret;
   }
   OnBlur(field: string) {
@@ -256,6 +258,7 @@ export class MailComponent {
     this.ErrorMessage = '';
     if (controlname == "maillist" && this.type.trim().length <= 0) {
       this.ErrorMessage = "Invalid Type";
+      alert ( this.ErrorMessage);
       return;
     }
 
@@ -388,11 +391,13 @@ export class MailComponent {
         }
         else if (_type == "SAVE") {
           this.InfoMessage = "Save Complete";
+          alert( this.InfoMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert( this.ErrorMessage);
         });
   }
 
