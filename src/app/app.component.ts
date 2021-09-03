@@ -41,7 +41,7 @@ export class AppComponent implements OnDestroy {
         this.gs.InitdefaultValues();
         this.gs.reload_url =  window.location.pathname + window.location.search;
 
-        alert( this.gs.reload_url);
+        
         this.gs.appid = this.gs.getURLParameter(window.location.search, 'appid');
 
         console.log( 'appid ',this.gs.appid);
