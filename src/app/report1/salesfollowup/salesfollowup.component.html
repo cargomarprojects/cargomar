@@ -223,7 +223,7 @@
                 <tr [style.cursor]="'pointer'" [style.color]="rec.row_colour" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
                     <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>                    
-                    <td>{{rec.party_name}}</td>
+                    <td (click)="showInvoiceList(rec,invoicemodal)" class='hlink2'>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td>{{rec.fin_year_name}}</td>
                     <td class="text-right">{{ rec.op | number : '1.2-2' }}</td>
@@ -281,4 +281,16 @@
     <!--<div class="modal-footer">
       <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
     </div>-->
+</ng-template>
+
+<ng-template #invoicemodal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Invoice List</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-salesfollowupinv [menuid]="ms.menuid" [party]="ms.cust_name" [sman]="ms.sman_name" [branch]="ms.branch_name" [reportdate]="ms.report_date" (ModifiedRecords)="ModifiedInvoiceRecords($event)"></app-salesfollowupinv>
+    </div>
 </ng-template>

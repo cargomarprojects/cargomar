@@ -1,0 +1,63 @@
+<div *ngIf="currentTab=='LIST'">
+
+    <div class="page-header">
+        <div class="col">
+            <label>{{party}}</label>
+            <!-- <button class="btn btn-primary btn-sm" (click)="InvoiceList('EXCEL')">Excel</button> -->
+            <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+    </div>
+
+    <div class="page-list">
+
+        <div class="page-body table-responsive">
+            <div [style.height]="RecordList.length>8?'250px':'auto'"
+                [style.overflow-y]="RecordList.length>8?'scroll':'auto'">
+                <table class="table table-bordered table-hover table-sm text-nowrap">
+                    <thead class="page-body-thead">
+                        <tr>
+                            <th>INVNO</th>
+                            <th>DATE</th>
+                            <th>CATEGORY</th>
+                            <th class="text-right">0-15</th>
+                            <th class="text-right">16-30</th>
+                            <th class="text-right">31-60</th>
+                            <th class="text-right">61-90</th>
+                            <th class="text-right">91-180</th>
+                            <th class="text-right">180+</th>
+                            <th class="text-right">BALANCE</th>
+                            <th class="text-right">ADVANCE</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody class="page-body-tbody">
+                        <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList">
+
+                            <td>{{rec.invno}}</td>
+                            <td>{{rec.invdate}}</td>
+
+                            <td>{{rec.jv_inv_category}}</td>
+
+                            <td class="text-right">{{ rec.age1 | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.age2 | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.age3 | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.age4 | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.age5 | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.age6 | number : '1.2-2' }}</td>
+
+
+                            <td class="text-right">{{ rec.balance | number : '1.2-2' }}</td>
+                            <td class="text-right">{{ rec.advance | number : '1.2-2' }}</td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

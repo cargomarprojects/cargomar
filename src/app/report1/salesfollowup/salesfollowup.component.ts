@@ -16,7 +16,7 @@ import { SalesFollowupService } from '../services/salesfollowup.service';
 
 export class SalesFollowupComponent {
 
-
+   
   InputSearchData = {
     type: '',
     pkid: '',
@@ -114,6 +114,20 @@ export class SalesFollowupComponent {
     }
   }
 
+  showInvoiceList(_rec:SalesFollowup, invoicemodal: any)
+  {
+    this.ms.sman_name=_rec.sman_name;
+    this.ms.cust_name=_rec.party_name;
+    this.ms.branch_name=_rec.branch;
+    this.ms.open(invoicemodal);
+  }
+  
+  ModifiedInvoiceRecords(params: any) {
+    if (params.saction == "CLOSE") {
+      this.ms.modal.close();
+    }
+     
+  }
 
 
 }

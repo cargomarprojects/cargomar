@@ -31,6 +31,7 @@ export class SalesFollowupService {
   branch_code: string;
   sman_name: string;
   cust_name: string;
+  branch_name:string;
   generate_date: string;
   selectall: boolean = false;
 
@@ -101,11 +102,13 @@ export class SalesFollowupService {
 
 
   InitPage(params: any) {
+    // alert(params);
     const options = JSON.parse(params);
     this.InitCompleted = true;
     this.menuid = options.menuid;
-    this.type = options.type;
-
+    // alert(options.type);
+    this.type =options.type;
+    // alert(this.type);
     this.param_report_date = '';
     if ( options.reportdate)
       this.param_report_date = options.reportdate;
@@ -595,6 +598,10 @@ export class SalesFollowupService {
 
   FollowupMailAll(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/FollowupMailAll', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  InvoiceList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/SalesFollowup/InvoiceList', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 
