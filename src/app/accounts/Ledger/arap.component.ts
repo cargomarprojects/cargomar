@@ -21,6 +21,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { PendingListComponent } from './Pendinglist.component';
 import { DateComponent } from '../../shared/date/date.component';
 import { AddressUpdateComponent } from './addressupdate.component';
+//EDIT-AJITH-04-09-2021
 
 @Component({
   selector: 'app-arap',
@@ -2183,6 +2184,8 @@ export class ArApComponent {
   }
 
   OpenAddressUpdate(_rec: Ledgerh) {
+    if (!this.bAdmin)
+      return;
     this.modal = this.modalService.open(AddressUpdateComponent);
     this.modal.componentInstance.pkid = _rec.jvh_pkid;
     this.modal.componentInstance.addslno = _rec.jvh_company_add_slno;

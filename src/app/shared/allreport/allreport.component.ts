@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
+//EDIT-AJITH-04-09-2021
 
 @Component({
     selector: 'app-allreport',
@@ -83,7 +84,11 @@ export class AllReportComponent {
             company_code: this.company_code,
             branch_code: this.branch_code,
             user_code: this.gs.globalVariables.user_code,
-            view_name:this.view_name
+            view_name:this.view_name,
+            year_code: this.gs.globalVariables.year_code,
+            year_name: this.gs.globalVariables.year_name,
+            fin_start_date: this.gs.globalVariables.year_start_date,
+            fin_end_date: this.gs.globalVariables.year_end_date
         };
 
         this.gs.SearchRecord(SearchData)
