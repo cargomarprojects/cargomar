@@ -16,7 +16,7 @@ import { SalesFollowupService } from '../services/salesfollowup.service';
 
 export class SalesFollowupComponent {
 
-   
+
   InputSearchData = {
     type: '',
     pkid: '',
@@ -80,7 +80,7 @@ export class SalesFollowupComponent {
 
   editData(_rec: SalesFollowup) {
     if (_rec.row_type == "TOTAL")
-    return;
+      return;
     this.InputSearchData.pkid = _rec.pkid;
     this.InputSearchData.report_date = this.ms.report_date;
     this.InputSearchData.sman_name = _rec.sman_name;
@@ -103,8 +103,15 @@ export class SalesFollowupComponent {
       var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
       REC.row_updated = 'Y';
       REC.row_updated_by = params.updatename;
-      REC.row_displayed =false;
+      REC.row_displayed = false;
       // REC.row_displayed = false;
+    }
+    if (params.saction == "DELETE") {
+      if (this.ms.RecordDetList == null)
+        return;
+      var REC = this.ms.RecordDetList.find(rec => rec.pkid == params.pkid);
+      REC.row_updated = params.updatename != '' ? 'Y' : 'N';
+      REC.row_updated_by = params.updatename;
     }
   }
 
@@ -114,19 +121,18 @@ export class SalesFollowupComponent {
     }
   }
 
-  showInvoiceList(_rec:SalesFollowup, invoicemodal: any)
-  {
-    this.ms.sman_name=_rec.sman_name;
-    this.ms.cust_name=_rec.party_name;
-    this.ms.branch_name=_rec.branch;
+  showInvoiceList(_rec: SalesFollowup, invoicemodal: any) {
+    this.ms.sman_name = _rec.sman_name;
+    this.ms.cust_name = _rec.party_name;
+    this.ms.branch_name = _rec.branch;
     this.ms.open(invoicemodal);
   }
-  
+
   ModifiedInvoiceRecords(params: any) {
     if (params.saction == "CLOSE") {
       this.ms.modal.close();
     }
-     
+
   }
 
 

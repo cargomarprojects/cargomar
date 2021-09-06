@@ -214,6 +214,8 @@ export class SalesFollowupEditComponent {
                 this.ErrorMessage = "Deleted Successfully";
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.uid == Id), 1);
                 alert(this.ErrorMessage);
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ saction: "DELETE", pkid: this.pkid, updatename: response.updatename });
             },
                 error => {
                     this.loading = false;
