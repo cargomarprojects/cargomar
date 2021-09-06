@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" [style.color]="'red'">
           <td>{{rec.report_created_date}}</td>
           <td>{{rec.report_created_by}}</td>
           <td>{{rec.report_remarks}}</td>

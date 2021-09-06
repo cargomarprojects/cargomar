@@ -222,6 +222,7 @@ export class SalesFollowupService {
             this.distinctTab = 'SALESMAN';
             this.Detail_title = this.type ;
             this.ShowDetailReport('SCREEN', this.distinctTab, null,null);
+            this.ShowDetail2();
           }
         }
       },
@@ -245,6 +246,14 @@ export class SalesFollowupService {
     this.distinctTab = "SALESMAN";
     this.RecordList = null;
     this.RecordDetList = null;
+    this.ShowDistinctReport('SCREEN', 'SALESMAN');
+  }
+
+  ShowDetail2() {
+    this.index1 = -1;
+    this.index2 = -1;
+    this.index3 = -1;
+    this.report_date = this.param_report_date;
     this.ShowDistinctReport('SCREEN', 'SALESMAN');
   }
 
