@@ -223,6 +223,7 @@ export class SalesFollowupService {
             this.Detail_title = this.type ;
             this.ShowDetailReport('SCREEN', this.distinctTab, null,null);
             this.ShowDetail2();
+            this.type='';
           }
         }
       },
@@ -253,7 +254,8 @@ export class SalesFollowupService {
     this.index1 = -1;
     this.index2 = -1;
     this.index3 = -1;
-    this.report_date = this.param_report_date;
+    // this.report_date = this.param_report_date;
+    // alert(this.param_report_date);
     this.ShowDistinctReport('SCREEN', 'SALESMAN');
   }
 
