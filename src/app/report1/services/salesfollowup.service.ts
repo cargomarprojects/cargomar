@@ -9,6 +9,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 //EDIT-AJITH-03-09-2021
 //EDIT-AJITH-06-09-2021
+//EDIT-AJITH-07-09-2021
 
 @Injectable()
 export class SalesFollowupService {
@@ -104,7 +105,6 @@ export class SalesFollowupService {
 
   InitPage(params: any) {
     const options = JSON.parse(params);
-    this.InitCompleted = true;
     this.menuid = options.menuid;
     this.type = decodeURIComponent(options.type);
     this.param_report_date = '';
@@ -113,7 +113,7 @@ export class SalesFollowupService {
 
     //let url = this.gs.CreateURL(this.menuid);
     //console.log(url);
-
+    this.InitCompleted = true;
     this.InitComponent();
   }
 

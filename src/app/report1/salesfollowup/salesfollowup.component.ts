@@ -40,9 +40,9 @@ export class SalesFollowupComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    // if (!this.ms.InitCompleted) {
-    //   this.ms.InitComponent();
-    // }
+    if (!this.ms.InitCompleted) {
+      this.ms.InitComponent();
+    }
   }
 
 
