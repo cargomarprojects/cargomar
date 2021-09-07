@@ -36,9 +36,13 @@ export class LoginComponent {
     private router: Router,
     private gs1: GlobalService,
     private loginservice: LoginService) {
+
+
     this.gs = gs1;
     this.LoadCombo();
   }
+
+
 
 
   LoadCombo() {
