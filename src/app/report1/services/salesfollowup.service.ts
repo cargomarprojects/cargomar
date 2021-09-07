@@ -32,7 +32,7 @@ export class SalesFollowupService {
   branch_code: string;
   sman_name: string;
   cust_name: string;
-  branch_name:string;
+  branch_name: string;
   generate_date: string;
   selectall: boolean = false;
 
@@ -72,8 +72,8 @@ export class SalesFollowupService {
     all: false,
     user_pkid: '',
     user_code: '',
-    year_id : '',
-    hostname : '',
+    year_id: '',
+    hostname: '',
   };
 
   // Array For Displaying List
@@ -93,7 +93,7 @@ export class SalesFollowupService {
   AttachList: any[] = [];
   defaultto_ids: string = '';
 
-  
+
 
   constructor(
     private modalService: NgbModal,
@@ -103,17 +103,14 @@ export class SalesFollowupService {
 
 
   InitPage(params: any) {
-    // alert(params);
     const options = JSON.parse(params);
     this.InitCompleted = true;
     this.menuid = options.menuid;
-    // alert(options.type);
     this.type = decodeURIComponent(options.type);
-    // alert(this.type);
     this.param_report_date = '';
-    if ( options.reportdate)
+    if (options.reportdate)
       this.param_report_date = options.reportdate;
-    
+
     //let url = this.gs.CreateURL(this.menuid);
     //console.log(url);
 
@@ -130,6 +127,7 @@ export class SalesFollowupService {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      console.log('salesfollowup menu : ', this.title);
       if (this.menu_record.rights_company)
         this.bCompany = true;
       if (this.menu_record.rights_admin)
@@ -199,7 +197,7 @@ export class SalesFollowupService {
   LoadCombo() {
   }
 
-  
+
 
   ReportList(_type: string) {
     this.currentTab = "LIST";
@@ -219,12 +217,12 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.ReportDateList = response.list;
-          if ( !this.gs.isBlank(this.type)){
+          if (!this.gs.isBlank(this.type)) {
             this.distinctTab = 'SALESMAN';
-            this.Detail_title = this.type ;
-            this.ShowDetailReport('SCREEN', this.distinctTab, null,null);
+            this.Detail_title = this.type;
+            this.ShowDetailReport('SCREEN', this.distinctTab, null, null);
             this.ShowDetail2();
-            this.type='';
+            this.type = '';
           }
         }
       },
@@ -298,8 +296,8 @@ export class SalesFollowupService {
 
   ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
 
-    if (_rec != null ) {
-      if ( _rec.row_type == "TOTAL")
+    if (_rec != null) {
+      if (_rec.row_type == "TOTAL")
         return;
     }
 
@@ -320,7 +318,7 @@ export class SalesFollowupService {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.year_id = this.gs.globalVariables.year_pkid;
     this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
-    
+
 
     if (_category == "SALESMAN") {
       if (_rec == null)
@@ -395,31 +393,31 @@ export class SalesFollowupService {
     if (_category == "BRANCH")
       this.sSubject += this.SearchData.selected_branch;
 
-      str ="";
-      str += "<html>";
-      str += "<h3>Dear Sir, </h3>";
-      str += "<br><br>";
-      str += "<h4>Please find the attached debtors o/s followup </h4>";
-      str += "<br><br>";
-      str += "<h4>Click Below Link to update remarks </h4>" ;
-      str +=" <a href='" + this.url +"'>Click Here</a> ";
-      str += "<br><br>";
-      str += "</html>";
-      
+    str = "";
+    str += "<html>";
+    str += "<h3>Dear Sir, </h3>";
+    str += "<br><br>";
+    str += "<h4>Please find the attached debtors o/s followup </h4>";
+    str += "<br><br>";
+    str += "<h4>Click Below Link to update remarks </h4>";
+    str += " <a href='" + this.url + "'>Click Here</a> ";
+    str += "<br><br>";
+    str += "</html>";
+
 
 
     this.sMsg = "Dear Sir,";
     this.sMsg += " \n\n";
     this.sMsg += "Please find the attached debtors o/s followup \n\n";
-    
-    this.sMsg += "Click Below Link to update followup remarks \n\n " ;
-    
-    this.sMsg +=" <html> <a href='" + this.url +"'>Open Software</a>  </html>";
+
+    this.sMsg += "Click Below Link to update followup remarks \n\n ";
+
+    this.sMsg += " <html> <a href='" + this.url + "'>Open Software</a>  </html>";
 
     this.sMsg += " \n\n";
 
     //this.sMsg = str;
-    
+
   }
 
 

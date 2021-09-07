@@ -8,6 +8,7 @@ import { SalesFollowup } from '../models/salesfollowup';
 import { SalesFollowupService } from '../services/salesfollowup.service';
 
 //EDIT-AJITH-06-09-2021
+//EDIT-AJITH-07-09-2021
 
 @Component({
   selector: 'app-salesfollowup',
@@ -39,9 +40,9 @@ export class SalesFollowupComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.ms.InitCompleted) {
-      this.ms.InitComponent();
-    }
+    // if (!this.ms.InitCompleted) {
+    //   this.ms.InitComponent();
+    // }
   }
 
 
