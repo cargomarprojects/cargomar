@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Bl } from '../models/bl';
 import { GlobalService } from '../../core/services/global.service';
+//EDIT-AJITH-10-09-2021
 
 @Injectable()
 export class  BlService {
@@ -40,6 +41,10 @@ export class  BlService {
 
     LoadDescription(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/LoadDescription', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    UpdateBLAddress(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/UpdateBLAddress', SearchData, this.gs.headerparam2('authorized'));
     }
 }
 

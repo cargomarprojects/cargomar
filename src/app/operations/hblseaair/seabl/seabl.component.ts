@@ -8,7 +8,7 @@ import { SearchTable } from '../../../shared/models/searchtable';
 
 import { Bldesc } from '../../models/bdesc';
 import { IfObservable } from 'rxjs/observable/IfObservable';
-
+//EDIT-AJITH-10-09-2021
 
 @Component({
   selector: 'app-seabl',
@@ -369,7 +369,7 @@ export class BlComponent {
 
     if (fldtype == '' || fldtype == 'PRINT')
       if (this.BLPrintFormatList != null) {
-        var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'NA');
+        var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'CARGOMAR');
         if (REC != null) {
           this.Record.bl_print_format_id = REC.blf_pkid;
         }
@@ -1108,6 +1108,7 @@ export class BlComponent {
     }
   }
 
+
   OnBlurTableCell(field: string, fieldid: string) {
     var REC = this.AttchRecordList.find(rec => rec.bl_pkid == fieldid);
     if (REC != null) {
@@ -1115,6 +1116,25 @@ export class BlComponent {
         REC.bl_marks = REC.bl_marks.toUpperCase();
       if (field == "bl_desc")
         REC.bl_desc = REC.bl_desc.toUpperCase();
+    }
+  }
+
+  OnChange(field: string) {
+    switch (field) {
+      case 'bl_print_format_id':
+        {
+          if (this.BLPrintFormatList != null && this.invokefrom == "HBL") {
+            var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id);
+            if (REC != null) {
+              this.Record.bl_issued_by1 = REC.blf_issued_add1;
+              this.Record.bl_issued_by2 = REC.blf_issued_add2;
+              this.Record.bl_issued_by3 = REC.blf_issued_add3;
+              this.Record.bl_issued_by4 = REC.blf_issued_add4;
+              this.Record.bl_issued_by5 = REC.blf_issued_add5;
+            }
+          }
+          break;
+        }
     }
   }
 
@@ -1561,4 +1581,54 @@ export class BlComponent {
 
   }
 
+
+  UpdateBLAddress() {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    let _blf_name: string = '';
+    let _formattype: string = '';
+
+    if (this.BLPrintFormatList == null)
+      return;
+
+    var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id)
+    if (REC != null) {
+      _blf_name = REC.blf_name;
+      _formattype = REC.blf_type;
+    }
+
+    if (this.gs.isBlank(_blf_name) || this.gs.isBlank(_formattype)) {
+      this.ErrorMessage = "\n\r | Please select  print format and continue....";
+    }
+
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      blf_name: _blf_name,
+      formattype: _formattype,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      bl_issued_by1: this.Record.bl_issued_by1,
+      bl_issued_by2: this.Record.bl_issued_by2,
+      bl_issued_by3: this.Record.bl_issued_by3,
+      bl_issued_by4: this.Record.bl_issued_by4,
+      bl_issued_by5: this.Record.bl_issued_by5
+    };
+
+    this.mainService.UpdateBLAddress(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue)
+          alert('Save Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
