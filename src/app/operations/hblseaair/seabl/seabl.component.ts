@@ -301,9 +301,9 @@ export class BlComponent {
         return;
       var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id)
       if (REC != null) {
-        if (REC.blf_name == "NA") {
-          this.ErrorMessage = "\n\r | Please select  print format and continue....";
-        }
+        // if (REC.blf_name == "NA") {
+        //   this.ErrorMessage = "\n\r | Please select  print format and continue....";
+        // }
       }
     }
     if (this.ErrorMessage.length > 0)
@@ -369,7 +369,7 @@ export class BlComponent {
 
     if (fldtype == '' || fldtype == 'PRINT')
       if (this.BLPrintFormatList != null) {
-        var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'CARGOMAR');
+        var REC = this.BLPrintFormatList.find(rec => rec.blf_name == 'MTD');
         if (REC != null) {
           this.Record.bl_print_format_id = REC.blf_pkid;
         }
