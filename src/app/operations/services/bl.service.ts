@@ -46,5 +46,9 @@ export class  BlService {
     UpdateBLAddress(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/UpdateBLAddress', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    GetBlDraftReport(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/GetBlDraftReport', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

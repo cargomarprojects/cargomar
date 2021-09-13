@@ -1631,4 +1631,32 @@ export class BlComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+  GetBlDraft() {
+   
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    this.folder_id = this.gs.getGuid();
+
+    let SearchData = {
+      type: '',
+      pkid: this.parentid,
+      rowtype: 'SEA EXPORT',
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    this.mainService.GetBlDraftReport(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
+  }
 }
