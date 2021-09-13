@@ -299,12 +299,12 @@ export class BlComponent {
     if (_type == 'PDF' && _formattype == 'BLANKBL') {
       if (this.BLPrintFormatList == null)
         return;
-      var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id)
-      if (REC != null) {
-        // if (REC.blf_name == "NA") {
-        //   this.ErrorMessage = "\n\r | Please select  print format and continue....";
-        // }
-      }
+      // var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id)
+      // if (REC != null) {
+      //   if (REC.blf_name == "NA") {
+      //     this.ErrorMessage = "\n\r | Please select  print format and continue....";
+      //   }
+      // }
     }
     if (this.ErrorMessage.length > 0)
       return;
