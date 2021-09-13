@@ -67,7 +67,7 @@ export class BlComponent {
     private modalService: NgbModal,
     private mainService: BlService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
 
   }
