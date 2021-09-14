@@ -6,7 +6,7 @@ import { BlService } from '../../services/bl.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 
 import { Bldesc } from '../../models/bdesc';
-
+//EDIT-AJITH-14-09-2021
 
 @Component({
   selector: 'app-airbl',

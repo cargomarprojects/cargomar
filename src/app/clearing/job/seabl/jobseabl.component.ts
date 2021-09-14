@@ -5,6 +5,7 @@ import { Bl } from '../../../operations/models/bl';
 import { BlService } from '../../../operations/services/bl.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { Bldesc } from '../../../operations/models/bdesc';
+//EDIT-AJITH-14-09-2021
 
 @Component({
   selector: 'app-jobseabl',

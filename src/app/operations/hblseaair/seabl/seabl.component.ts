@@ -9,6 +9,7 @@ import { SearchTable } from '../../../shared/models/searchtable';
 import { Bldesc } from '../../models/bdesc';
 import { IfObservable } from 'rxjs/observable/IfObservable';
 //EDIT-AJITH-10-09-2021
+//EDIT-AJITH-14-09-2021
 
 @Component({
   selector: 'app-seabl',
