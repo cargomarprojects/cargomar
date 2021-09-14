@@ -355,54 +355,71 @@
 
       </div>
 
-      <div class="form-group row">
+      <!-- <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
+      </div> -->
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
+        <div class="col-8">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id"
+            (change)="OnChange('bl_print_format_id')">
+            <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
+          </select>
+        </div>
       </div>
+
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Issued By</label>
         <div class="col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by1"
-            (blur)="OnBlur('bl_issued_by1')" required maxlength="60" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.bl_issued_by1" (blur)="OnBlur('bl_issued_by1')" required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <div class="offset-4 col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by2"
-            (blur)="OnBlur('bl_issued_by2')" required maxlength="100" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.bl_issued_by2" (blur)="OnBlur('bl_issued_by2')" required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <div class="offset-4 col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by3"
-            (blur)="OnBlur('bl_issued_by3')" required maxlength="60" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.bl_issued_by3" (blur)="OnBlur('bl_issued_by3')" required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <div class="offset-4 col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by4"
-            (blur)="OnBlur('bl_issued_by4')" required maxlength="60" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.bl_issued_by4" (blur)="OnBlur('bl_issued_by4')" required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <div class="offset-4 col-8">
-          <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_by5"
-            (blur)="OnBlur('bl_issued_by5')" required maxlength="60" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.bl_issued_by5" (blur)="OnBlur('bl_issued_by5')" required maxlength="100" />
         </div>
       </div>
 
-      <div class="form-group row">
+      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
+        <div class="offset-4 col-8">
+          <button (click)="UpdateBLAddress()" class="btn btn-success btn-sm">Update Address</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
-      </div>
+      </div> -->
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery</label>
         <div class="col-8">
@@ -1143,14 +1160,14 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
               <div class="col-8">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id">
                   <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
                 </select>
               </div>
-            </div>
+            </div> -->
 
             <div class="form-group row">
               <div class="offset-4 col-8">
@@ -1161,8 +1178,10 @@
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
-                <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','DRAFT')"
+                <button [disabled]="loading" *ngIf="mode=='EDIT' && gs.globalVariables.user_code == 'ADMIN'" (click)="GetRecord('PDF','DRAFT')"
                   class="btn btn-success btn-sm">Draft</button>
+                <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
+                  class="btn btn-success btn-sm">Excel Draft</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
                 <i *ngIf="loading" class="fa fa-spinner"></i>
