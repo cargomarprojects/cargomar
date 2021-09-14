@@ -288,7 +288,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">HBL Sequence Format</label>
+          <label class="col-4 col-form-label col-form-label-sm">HBL Sequence</label>
           <div class="col-sm-8">
             <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id"
               [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_fcr_no != '') && (Record.hbl_blno_generated != 'B')">
@@ -355,20 +355,11 @@
 
       </div>
 
-      <!-- <div class="form-group row">
+      <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
-      </div> -->
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
-        <div class="col-8">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id"
-            (change)="OnChange('bl_print_format_id')">
-            <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
-          </select>
-        </div>
       </div>
 
       <div class="form-group row">
@@ -1160,14 +1151,14 @@
               </div>
             </div>
 
-            <!-- <div class="form-group row">
+            <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
               <div class="col-8">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id">
                   <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
                 </select>
               </div>
-            </div> -->
+            </div>
 
             <div class="form-group row">
               <div class="offset-4 col-8">
@@ -1178,8 +1169,8 @@
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
-                <button [disabled]="loading" *ngIf="mode=='EDIT' && gs.globalVariables.user_code == 'ADMIN'" (click)="GetRecord('PDF','DRAFT')"
-                  class="btn btn-success btn-sm">Draft Pdf</button>
+                <button [disabled]="loading" *ngIf="mode=='EDIT' && gs.globalVariables.user_code == 'ADMIN'"
+                  (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
                   class="btn btn-success btn-sm">Draft Excel</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
