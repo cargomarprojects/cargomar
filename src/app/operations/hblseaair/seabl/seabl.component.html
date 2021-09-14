@@ -1179,9 +1179,9 @@
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && gs.globalVariables.user_code == 'ADMIN'" (click)="GetRecord('PDF','DRAFT')"
-                  class="btn btn-success btn-sm">Draft</button>
+                  class="btn btn-success btn-sm">Draft Pdf</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
-                  class="btn btn-success btn-sm">Excel Draft</button>
+                  class="btn btn-success btn-sm">Draft Excel</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
                 <i *ngIf="loading" class="fa fa-spinner"></i>

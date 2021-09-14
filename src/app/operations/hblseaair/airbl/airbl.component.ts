@@ -306,7 +306,8 @@ export class AirBlComponent {
       folderid: this.folder_id,
       footerlist: this.FootNotes,
       bSideprint: _bSideprint,
-      invokefrm: this.invokefrom
+      invokefrm: this.invokefrom,
+      user_code:this.gs.globalVariables.user_code
     };
 
     this.mainService.GetRecord(SearchData)
@@ -1667,7 +1668,8 @@ export class AirBlComponent {
       rowtype: 'AIR EXPORT',
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      invokefrm: this.invokefrom
     };
 
     this.mainService.GetBlDraftReport(SearchData)

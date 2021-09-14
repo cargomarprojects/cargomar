@@ -54,7 +54,7 @@ export class BlComponent {
   constructor(
     private mainService: BlService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
 
   }
@@ -267,7 +267,8 @@ export class BlComponent {
       colorprint: _colorprint,
       issuedplace: this.gs.defaultValues.bl_issued_place,
       branch_code: this.gs.globalVariables.branch_code,
-      invokefrm: this.invokefrom
+      invokefrm: this.invokefrom,
+      user_code:this.gs.globalVariables.user_code
     };
 
     this.mainService.GetRecord(SearchData)
@@ -1314,5 +1315,34 @@ export class BlComponent {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
       });
+  }
+  
+  GetBlDraft() {
+   
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    this.folder_id = this.gs.getGuid();
+
+    let SearchData = {
+      type: '',
+      pkid: this.parentid,
+      rowtype: 'SEA EXPORT',
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      invokefrm: this.invokefrom
+    };
+
+    this.mainService.GetBlDraftReport(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
   }
 }

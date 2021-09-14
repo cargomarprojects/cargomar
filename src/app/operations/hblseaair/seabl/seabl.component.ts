@@ -325,7 +325,8 @@ export class BlComponent {
       colorprint: _colorprint,
       issuedplace: this.gs.defaultValues.bl_issued_place,
       branch_code: this.gs.globalVariables.branch_code,
-      invokefrm: this.invokefrom
+      invokefrm: this.invokefrom,
+      user_code:this.gs.globalVariables.user_code
     };
 
     this.mainService.GetRecord(SearchData)
@@ -1645,7 +1646,8 @@ export class BlComponent {
       rowtype: 'SEA EXPORT',
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      invokefrm: this.invokefrom
     };
 
     this.mainService.GetBlDraftReport(SearchData)
