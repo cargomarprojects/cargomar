@@ -10,6 +10,7 @@ import { Bldesc } from '../../models/bdesc';
 import { IfObservable } from 'rxjs/observable/IfObservable';
 //EDIT-AJITH-10-09-2021
 //EDIT-AJITH-14-09-2021
+//EDIT-AJITH-16-09-2021
 
 @Component({
   selector: 'app-seabl',
@@ -347,6 +348,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
