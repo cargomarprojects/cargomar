@@ -28,6 +28,11 @@ export class SalesFollowup {
     mar: number;
     bal: number;
     adv: number;
+
+    arratio :number;
+    acd:number;
+    sales :number;
+
     fin_year_name: string;
     row_displayed: boolean;
     row_checked: boolean;

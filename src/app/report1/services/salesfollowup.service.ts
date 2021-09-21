@@ -274,6 +274,7 @@ export class SalesFollowupService {
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
     this.SearchData.isadmin = this.bAdmin;
     this.SearchData.iscompany = this.bCompany;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;    
 
     this.ErrorMessage = '';
     this.DistinctList(this.SearchData)
@@ -318,6 +319,7 @@ export class SalesFollowupService {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.year_id = this.gs.globalVariables.year_pkid;
     this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
 
 
     if (_category == "SALESMAN") {
