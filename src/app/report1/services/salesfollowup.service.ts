@@ -10,6 +10,7 @@ import { GlobalService } from '../../core/services/global.service';
 //EDIT-AJITH-03-09-2021
 //EDIT-AJITH-06-09-2021
 //EDIT-AJITH-07-09-2021
+//EDIT-AJITH-22-09-2021
 
 @Injectable()
 export class SalesFollowupService {
@@ -269,6 +270,7 @@ export class SalesFollowupService {
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.report_date = this.report_date;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
@@ -313,6 +315,7 @@ export class SalesFollowupService {
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     this.SearchData.user_code = this.gs.globalVariables.user_code;
