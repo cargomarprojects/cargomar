@@ -208,7 +208,7 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>SALESMAN</th>
-                    <th>UPDATED.BY</th>                    
+                    <!-- <th>UPDATED.BY</th>                     -->
                     <th>PARTY</th>
                     <th>BRANCH</th>
                     <th>FINYEAR</th>
@@ -233,7 +233,7 @@
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
                 <tr [style.cursor]="'pointer'" [style.color]="rec.row_colour" [class.active]="i==ms.index3">
                     <td (click)="editData(rec)" class='hlink2'>{{rec.sman_name}}</td>
-                    <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>                    
+                    <!-- <td [style.color]="rec.row_updated=='Y'?'red':'black'">{{rec.row_updated_by}}</td>                     -->
                     <td (click)="showInvoiceList(rec,invoicemodal)" class='hlink2'>{{rec.party_name}}</td>
                     <td>{{rec.branch}}</td>
                     <td>{{rec.fin_year_name}}</td>
