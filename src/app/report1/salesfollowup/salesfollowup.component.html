@@ -133,6 +133,9 @@
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
+                                <th class="text-right">RATIO</th>
+                                <th class="text-right">CRDAYS</th>
+                                <th class="text-right">SALES</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -174,6 +177,9 @@
                                 <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.arratio | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.acd | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.sales | number : '1.2-2' }}</td>
                             </tr>
                         </tbody>
                     </table>
