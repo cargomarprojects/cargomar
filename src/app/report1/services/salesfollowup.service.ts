@@ -39,6 +39,7 @@ export class SalesFollowupService {
   selectall: boolean = false;
 
   param_report_date: string = '';
+  osrefreshstatus: string = "";
 
   bExcel = false;
   bEmail = false;
@@ -218,6 +219,8 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.ReportDateList = response.list;
+          this.osrefreshstatus = response.osrefreshstatus;
+
           if (!this.gs.isBlank(this.type)) {
             this.distinctTab = 'SALESMAN';
             this.Detail_title = this.type;

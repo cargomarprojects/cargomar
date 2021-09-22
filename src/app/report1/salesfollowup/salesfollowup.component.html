@@ -4,8 +4,13 @@
         <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
             class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <label>{{ms.report_date}}</label>        
+        <label> <strong>{{ms.report_date}}</strong></label>        
         <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
+        <label *ngIf="ms.osrefreshstatus">
+            <font color="black">
+                    [Processed on&nbsp; {{ms.osrefreshstatus}}]
+            </font>
+        </label>
     </div>
 </div>
 
