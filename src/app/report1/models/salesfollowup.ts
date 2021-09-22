@@ -31,6 +31,11 @@ export class SalesFollowup {
     arratio: number;
     acd: number;
     sales: number;
+    cust_crdays: number;
+    cust_crlimit: number;
+    cust_billed_date: string;
+    cust_payment_date: string;
+
     fin_year_name: string;
     row_displayed: boolean;
     row_checked: boolean;

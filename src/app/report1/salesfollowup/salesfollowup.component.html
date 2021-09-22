@@ -133,9 +133,13 @@
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">RATIO</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">AR.RATIO</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OSDAYS.RATIO</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CRDAYS</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">SALES</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CRLIMIT</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">BILL.DATE</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">PAYMENT.DATE</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -177,9 +181,13 @@
                                 <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.arratio | number : '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.acd | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_billed_date}}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_payment_date}}</td>
                             </tr>
                         </tbody>
                     </table>
