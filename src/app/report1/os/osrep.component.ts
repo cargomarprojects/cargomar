@@ -9,7 +9,7 @@ import { OsRep } from '../models/osrep';
 
 import { RepService } from '../services/report.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+//EDIT-AJITH-23-09-2021
 
 @Component({
   selector: 'app-osrep',
@@ -128,8 +128,8 @@ export class OsRepComponent {
         this.ResetControls();
 
         this.List('SCREEN', 'OSLIST');
-        this.AirListReport('SCREEN', 'BRANCH');
-        this.InvReport('SCREEN', 'BRANCH');
+        // this.AirListReport('SCREEN', 'BRANCH');
+        // this.InvReport('SCREEN', 'BRANCH');
 
 
       }
