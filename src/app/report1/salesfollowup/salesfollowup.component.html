@@ -219,8 +219,8 @@
             <button *ngIf='ms.bExcel' [disabled]="ms.loading"
                 (click)="ms.ShowDetailReport('EXCEL', ms.Print_DetailCategory,null,emailsent)"
                 class="btn btn-primary btn-sm mr-1">PRINT</button>
-            <button *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" [disabled]="ms.loading"
-                (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,null, emailsent)"
+            <button *ngIf="ms.bEmail&&ms.Print_DetailCategory=='SALESMAN'" [disabled]="ms.loading"
+                (click)="ms.ShowDetailReport('MAIL', ms.Print_DetailCategory,null, emailsent)"
                 class="btn btn-primary btn-sm">Mail</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
             <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
