@@ -100,7 +100,7 @@
             <button *ngIf="ms.bCompany&&ms.distinctTab=='SALESMAN'" class="btn btn-primary btn-sm"
                 (click)="ms.MailAll()">MAIL-ALL</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
-
+            <label>{{ms.distinctTab}}-WISE</label>
             <!-- <i *ngIf="loading2" class="fa fa-spinner"></i> -->
         </div>
     </div>
@@ -137,11 +137,11 @@
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">AR.RATIO</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS.RATIO</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.DAYS</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.LIMIT</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS.RATIO</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">AR.RATIO</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">BILL.DATE</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">PAYMENT.DATE</th>
                             </tr>
@@ -158,7 +158,8 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'">{{ rec.sman_name}}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" (click)="ms.ShowDetailReport('SCREEN','SALESMAN' ,rec,emailsent)"
+                                class="hlink2">{{ rec.sman_name}}</td>
                                 <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" class="text-center"
                                     (click)="ms.IsChecked(rec)">
 
@@ -189,16 +190,17 @@
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2'
                                     }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.arratio | number : '1.2-2'
-                                    }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays_ratio | number :
+
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number :
+                                    '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number :
                                     '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays | number :
                                     '1.2-2' }}</td>
-                                    <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number :
-                                        '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number :
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays_ratio | number :
                                     '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.arratio | number : '1.2-2'
+                                    }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_billed_date}}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_payment_date}}</td>
                             </tr>
