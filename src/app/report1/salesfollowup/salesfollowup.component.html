@@ -217,10 +217,10 @@
         <div class="col">
             <label>{{ms.Detail_title}}</label>
             <button *ngIf='ms.bExcel' [disabled]="ms.loading"
-                (click)="ms.ShowDetailReport('EXCEL', ms.Print_DetailCategory,null,emailsent)"
+                (click)="ms.ShowDetailReport('EXCEL', ms.Detail_PrintType,null,emailsent)"
                 class="btn btn-primary btn-sm mr-1">PRINT</button>
-            <button *ngIf="ms.bEmail&&ms.Print_DetailCategory=='SALESMAN'" [disabled]="ms.loading"
-                (click)="ms.ShowDetailReport('MAIL', ms.Print_DetailCategory,null, emailsent)"
+            <button *ngIf="ms.bEmail&&ms.Detail_PrintType=='SALESMAN'" [disabled]="ms.loading"
+                (click)="ms.ShowDetailReport('MAIL', ms.Detail_PrintType,null, emailsent)"
                 class="btn btn-primary btn-sm">Mail</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('DISTINCTLIST')">Return</button>
             <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->

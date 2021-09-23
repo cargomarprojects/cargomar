@@ -37,7 +37,7 @@ export class SalesFollowupService {
   branch_name: string;
   generate_date: string;
   selectall: boolean = false;
-  Print_DetailCategory = '';
+  Detail_PrintType = '';
 
   param_report_date: string = '';
   osrefreshstatus: string = "";
@@ -308,7 +308,7 @@ export class SalesFollowupService {
     }
 
     this.index3 = -1;
-    this.Print_DetailCategory = _category;
+    this.Detail_PrintType = _category;
     if (_type != "MAIL")
       this.currentTab = "DETAILLIST";
     this.ErrorMessage = '';
