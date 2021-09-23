@@ -140,6 +140,7 @@
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">AR.RATIO</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS.RATIO</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.DAYS</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.LIMIT</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">BILL.DATE</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">PAYMENT.DATE</th>
@@ -194,6 +195,8 @@
                                     '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays | number :
                                     '1.2-2' }}</td>
+                                    <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number :
+                                        '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number :
                                     '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_billed_date}}</td>
