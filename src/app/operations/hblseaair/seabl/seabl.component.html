@@ -10,6 +10,8 @@
       class="btn btn-success btn-sm">Reset FCR#</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('BOTH')"
       class="btn btn-success btn-sm">Both FCR & BL</button>
+      <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
+      class="btn btn-success btn-sm">Unlock Draft</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -1169,7 +1171,7 @@
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
-                <button [disabled]="loading" *ngIf="mode=='EDIT' && gs.globalVariables.user_code == 'ADMIN'"
+                <button [disabled]="loading" *ngIf="mode=='EDIT' && (gs.globalVariables.user_code == 'ADMIN'||!Record.bl_draft_lock)"
                   (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
                   class="btn btn-success btn-sm">Draft Excel</button>

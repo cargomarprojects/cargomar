@@ -263,7 +263,8 @@ export class Bl {
   bl_loc_add2: string;
   bl_loc_add3: string;
   bl_loc_add4: string;
-  hbl_deliv_date:string;
-  hbl_deliv_date_confirm:boolean;
+  hbl_deliv_date: string;
+  hbl_deliv_date_confirm: boolean;
+  bl_draft_lock: boolean;
 }
 
