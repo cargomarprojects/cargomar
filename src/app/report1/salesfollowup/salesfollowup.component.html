@@ -217,7 +217,7 @@
         <div class="col">
             <label>{{ms.Detail_title}}</label>
             <button *ngIf='ms.bExcel' [disabled]="ms.loading"
-                (click)="ms.ShowDetailReport('EXCEL', ms.distinctTab,null,emailsent)"
+                (click)="ms.ShowDetailReport('EXCEL', ms.Print_DetailCategory,null,emailsent)"
                 class="btn btn-primary btn-sm mr-1">PRINT</button>
             <button *ngIf="ms.bEmail&&ms.distinctTab=='SALESMAN'" [disabled]="ms.loading"
                 (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,null, emailsent)"
