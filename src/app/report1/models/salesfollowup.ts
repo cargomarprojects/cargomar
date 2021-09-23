@@ -30,6 +30,7 @@ export class SalesFollowup {
     adv: number;
     arratio: number;
     osdays_ratio: number;
+    osdays: number;
     acd: number;
     sales: number;
     cust_crdays: number;

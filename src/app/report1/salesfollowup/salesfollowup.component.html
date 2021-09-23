@@ -4,11 +4,11 @@
         <button [disabled]="ms.loading" (click)="ms.ReportList('SCREEN')"
             class="btn btn-primary btn-sm">Refresh</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <label> <strong>{{ms.report_date}}</strong></label>        
+        <label> <strong>{{ms.report_date}}</strong></label>
         <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
         <label *ngIf="ms.osrefreshstatus">
             <font color="black">
-                    [Processed on&nbsp; {{ms.osrefreshstatus}}]
+                [Processed on&nbsp; {{ms.osrefreshstatus}}]
             </font>
         </label>
     </div>
@@ -16,7 +16,7 @@
 
 <div *ngIf="ms.currentTab=='LIST'" class="page-list">
     <div class="page-body table-responsive">
-        <table class="table table-bordered table-hover table-sm text-nowrap" >
+        <table class="table table-bordered table-hover table-sm text-nowrap">
             <thead class="page-body-thead">
                 <tr>
                     <th>REPORT LIST</th>
@@ -95,8 +95,10 @@
                 (click)="ms.ShowDistinctReport('SCREEN', 'SALESMAN')">SALESMAN</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'BRANCH')">BRANCH</button>
             <button class="btn btn-primary btn-sm" (click)="ms.ShowDistinctReport('SCREEN', 'PARTY')">PARTY</button>
-            <button *ngIf='ms.bExcel' class="btn btn-primary btn-sm mr-1" (click)="ms.ShowDistinctReport('EXCEL', ms.distinctTab)">PRINT</button>
-            <button *ngIf="ms.bCompany&&ms.distinctTab=='SALESMAN'" class="btn btn-primary btn-sm" (click)="ms.MailAll()">MAIL-ALL</button>
+            <button *ngIf='ms.bExcel' class="btn btn-primary btn-sm mr-1"
+                (click)="ms.ShowDistinctReport('EXCEL', ms.distinctTab)">PRINT</button>
+            <button *ngIf="ms.bCompany&&ms.distinctTab=='SALESMAN'" class="btn btn-primary btn-sm"
+                (click)="ms.MailAll()">MAIL-ALL</button>
             <button class="btn btn-primary btn-sm" (click)="ReturnPage('LIST')">RETURN</button>
 
             <!-- <i *ngIf="loading2" class="fa fa-spinner"></i> -->
@@ -113,6 +115,7 @@
                         <thead class="page-body-thead">
                             <tr>
                                 <th>{{ms.distinctTab}}</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'">SALESMAN</th>
                                 <th *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" (click)="ms.SelectDeselect()"
                                     class="text-center">SELECT</th>
                                 <th *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')"
@@ -135,11 +138,11 @@
                                 <th class="text-right">ADV</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">AR.RATIO</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OSDAYS.RATIO</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CRDAYS</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CRLIMIT</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">BILL.DATE</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">PAYMENT.DATE</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS.RATIO</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.LIMIT</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">BILL.DATE</th>
+                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-left">PAYMENT.DATE</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -154,7 +157,9 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')"  class="text-center"  (click)="ms.IsChecked(rec)">
+                                <td *ngIf="ms.distinctTab=='PARTY'">{{ rec.sman_name}}</td>
+                                <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" class="text-center"
+                                    (click)="ms.IsChecked(rec)">
 
                                     <input *ngIf="rec.row_type!='TOTAL'" type="checkbox" [(ngModel)]="rec.row_checked">
 
@@ -181,11 +186,16 @@
                                 <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.arratio | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays_ratio | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number : '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2'
+                                    }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.arratio | number : '1.2-2'
+                                    }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays_ratio | number :
+                                    '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.osdays | number :
+                                    '1.2-2' }}</td>
+                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crlimit | number :
+                                    '1.2-2' }}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_billed_date}}</td>
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-left">{{ rec.cust_payment_date}}</td>
                             </tr>
@@ -235,7 +245,7 @@
                     <th class="text-right">MAR</th>
                     <th class="text-right">BAL</th>
                     <th class="text-right">ADV</th>
-              
+
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
@@ -260,7 +270,7 @@
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                    
+
                 </tr>
                 <tr *ngIf="rec.row_displayed">
                     <td colspan="20">
@@ -310,6 +320,8 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-salesfollowupinv [menuid]="ms.menuid" [party]="ms.cust_name" [sman]="ms.sman_name" [branch]="ms.branch_name" [reportdate]="ms.report_date" (ModifiedRecords)="ModifiedInvoiceRecords($event)"></app-salesfollowupinv>
+        <app-salesfollowupinv [menuid]="ms.menuid" [party]="ms.cust_name" [sman]="ms.sman_name"
+            [branch]="ms.branch_name" [reportdate]="ms.report_date" (ModifiedRecords)="ModifiedInvoiceRecords($event)">
+        </app-salesfollowupinv>
     </div>
 </ng-template>
