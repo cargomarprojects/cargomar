@@ -65,6 +65,8 @@
                     <th>TO</th>
                     <th>CC</th>
                     <th>BCC</th>
+                    <th>LOCKED</th>
+                    <th>REMARKS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -75,6 +77,8 @@
                     <td>{{rec.ml_to_ids}}</td>
                     <td>{{rec.ml_cc_ids}}</td>
                     <td>{{rec.ml_bcc_ids}}</td>
+                    <td>{{rec.rec_locked?'Y':'N'}}</td>
+                    <td>{{rec.ml_remarks}}</td>
                 </tr>
             </tbody>
         </table>
@@ -172,6 +176,13 @@
                     <div class="col-10">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_bcc_ids"
                             (blur)="OnBlur('ml_bcc_ids')" required maxlength="500"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-10">
+                        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_remarks"
+                            (blur)="OnBlur('ml_remarks')" required maxlength="200"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
