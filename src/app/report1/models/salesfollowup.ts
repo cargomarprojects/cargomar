@@ -28,10 +28,15 @@ export class SalesFollowup {
     mar: number;
     bal: number;
     adv: number;
-
-    arratio :number;
-    acd:number;
-    sales :number;
+    arratio: number;
+    osdays_ratio: number;
+    osdays: number;
+    acd: number;
+    sales: number;
+    cust_crdays: number;
+    cust_crlimit: number;
+    cust_billed_date: string;
+    cust_payment_date: string;
 
     fin_year_name: string;
     row_displayed: boolean;

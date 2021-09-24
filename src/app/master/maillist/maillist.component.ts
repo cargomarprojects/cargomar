@@ -5,6 +5,7 @@ import { MailList } from '../models/maillist';
 import { MailListService } from '../services/maillist.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
+//EDIT-AJITH-24-09-2021
 
 @Component({
     selector: 'app-maillist',
@@ -238,7 +239,7 @@ export class MailListComponent {
         this.Record.ml_bcc_ids = '';
         this.Record.rec_mode = this.mode;
         this.Record.rec_locked = false;
-        
+        this.Record.ml_remarks = '';
         this.controlname = "CUSTOMER";
         this.tabletype = "CUSTOMER";
         this.InitLov();
@@ -334,6 +335,7 @@ export class MailListComponent {
             REC.ml_bcc_ids = this.Record.ml_bcc_ids;
             REC.ml_cust_name = this.Record.ml_cust_name;
             REC.ml_cust_type = this.Record.ml_cust_type;
+            REC.ml_remarks = this.Record.ml_remarks;
         }
     }
 
@@ -349,6 +351,10 @@ export class MailListComponent {
         if (field == 'searchstring') {
             this.searchstring = this.searchstring.toUpperCase();
         }
+        if (field == 'ml_remarks') {
+            this.Record.ml_remarks = this.Record.ml_remarks.toUpperCase();
+        }
+        
 
     }
     OnChange(field: string) {

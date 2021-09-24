@@ -10,6 +10,8 @@ import { GlobalService } from '../../core/services/global.service';
 //EDIT-AJITH-03-09-2021
 //EDIT-AJITH-06-09-2021
 //EDIT-AJITH-07-09-2021
+//EDIT-AJITH-22-09-2021
+//EDIT-AJITH-23-09-2021
 
 @Injectable()
 export class SalesFollowupService {
@@ -36,8 +38,10 @@ export class SalesFollowupService {
   branch_name: string;
   generate_date: string;
   selectall: boolean = false;
+  Detail_PrintType = '';
 
   param_report_date: string = '';
+  osrefreshstatus: string = "";
 
   bExcel = false;
   bEmail = false;
@@ -217,6 +221,8 @@ export class SalesFollowupService {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.ReportDateList = response.list;
+          this.osrefreshstatus = response.osrefreshstatus;
+
           if (!this.gs.isBlank(this.type)) {
             this.distinctTab = 'SALESMAN';
             this.Detail_title = this.type;
@@ -269,6 +275,7 @@ export class SalesFollowupService {
     this.SearchData.pkid = this.gs.getGuid();
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.report_date = this.report_date;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
@@ -303,6 +310,7 @@ export class SalesFollowupService {
     }
 
     this.index3 = -1;
+    this.Detail_PrintType = _category;
     if (_type != "MAIL")
       this.currentTab = "DETAILLIST";
     this.ErrorMessage = '';
@@ -314,6 +322,7 @@ export class SalesFollowupService {
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     this.SearchData.user_code = this.gs.globalVariables.user_code;
@@ -449,7 +458,7 @@ export class SalesFollowupService {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      year_name: this.gs.globalVariables.year_name,
+      year_name: _type == 'RE-UPDATE' ? _rec.fin_year_name : this.gs.globalVariables.year_name,
       user_code: this.gs.globalVariables.user_code,
       fin_start_date: this.gs.globalVariables.year_start_date,
       fin_end_date: this.gs.globalVariables.year_end_date

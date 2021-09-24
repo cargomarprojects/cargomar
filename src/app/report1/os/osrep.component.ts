@@ -9,7 +9,7 @@ import { OsRep } from '../models/osrep';
 
 import { RepService } from '../services/report.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+//EDIT-AJITH-23-09-2021
 
 @Component({
   selector: 'app-osrep',
@@ -128,8 +128,8 @@ export class OsRepComponent {
         this.ResetControls();
 
         this.List('SCREEN', 'OSLIST');
-        this.AirListReport('SCREEN', 'BRANCH');
-        this.InvReport('SCREEN', 'BRANCH');
+        // this.AirListReport('SCREEN', 'BRANCH');
+        // this.InvReport('SCREEN', 'BRANCH');
 
 
       }
@@ -299,7 +299,7 @@ export class OsRepComponent {
 
     this.mailtype = _type;
     if (_type == "OS-SALESMAN-ALL") {
-      if (!confirm("Do you want to send Mail to all Sales Executives" + name)) {
+      if (!confirm("Do you want to send Mail to all Sales Executives")) {
         return;
       }
     }
@@ -470,7 +470,43 @@ export class OsRepComponent {
   }
 
 
+  OsBranchMail() {
 
+    if (!confirm('Send Mail')) {
+      return;
+    }
+
+    let SearchData1 = {
+      report_folder: '',
+      company_code: '',
+      branch_code: '',
+      user_pkid: '',
+      user_code: '',
+      user_name: ''
+    };
+
+    SearchData1.report_folder = this.gs.globalVariables.report_folder;
+    SearchData1.company_code = this.gs.globalVariables.comp_code;
+    SearchData1.branch_code = this.gs.globalVariables.branch_code
+    SearchData1.user_pkid = this.gs.globalVariables.user_pkid;
+    SearchData1.user_code = this.gs.globalVariables.user_code;
+    SearchData1.user_name = this.gs.globalVariables.user_name;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.OsBranchWiseMail(SearchData1)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.ErrorMessage = response.retmessage;
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
 
 

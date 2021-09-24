@@ -15,6 +15,8 @@
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
+              <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
+              *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Branch</button>
             <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
@@ -207,7 +209,7 @@
   <div class="page-header">
     <div class="col">
       <label>O/S Against AirLine Payment</label>
-      <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">RETURN</button>
+      <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">FIND</button>
       <i *ngIf="loading3" class="fa fa-spinner"></i>
     </div>
   </div>
