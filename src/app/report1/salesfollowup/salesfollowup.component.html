@@ -136,7 +136,7 @@
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
                                 <th class="text-right">ADV</th>
-                                <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th>
+                                <!-- <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th> -->
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.DAYS</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.LIMIT</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">OS.DAYS</th>
@@ -188,8 +188,8 @@
                                 <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2'
-                                    }}</td>
+                                <!-- <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2'
+                                    }}</td> -->
 
                                 <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.cust_crdays | number :
                                     '1.2-2' }}</td>
