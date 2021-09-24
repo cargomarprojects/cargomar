@@ -143,6 +143,9 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ProcessGSTRApi', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  OsBranchWiseMail(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/OsBranchWiseMail', SearchData, this.gs.headerparam2('authorized'));
+  }
 
 
 
