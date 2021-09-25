@@ -9,6 +9,7 @@ import { Stmtd } from '../../accounts/models/stmtm';
 
 import { RepService } from '../services/report.service';
 import { SearchTable } from '../../shared/models/searchtable';
+//EDIT-AJITH-25-09-2021
 
 @Component({
   selector: 'app-costos',
@@ -211,8 +212,13 @@ export class CostOsComponent {
 
   ShowPending(_type: string) {
 
-    this.loading = true;
+    this.ErrorMessage = '';
+    if (this.gs.isBlank(this.Record.stm_accid) ||this.gs.isBlank(this.Record.stm_acc_name)) {
+      this.ErrorMessage = "Agent Cannot Be Blank";
+      return;
+    }
 
+    this.loading = true;
     let SearchData = {
       type: _type,
       pkid: this.pkid,
