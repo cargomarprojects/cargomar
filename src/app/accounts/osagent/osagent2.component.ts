@@ -95,7 +95,7 @@ export class OsAgent2Component {
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
 
 

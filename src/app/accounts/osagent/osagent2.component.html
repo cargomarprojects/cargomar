@@ -12,7 +12,7 @@
     <div class="page-list">
       <div class="page-search">
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
               <div class="col-8">
@@ -27,7 +27,7 @@
             </div>
   
           </div>
-          <div class="col-4">
+          <div class="col-3">
   
             <div class="form-group row">
               <label class="col-2 col-form-label col-form-label-sm">Currency</label>
@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
               <div class="col-6">
@@ -74,6 +74,10 @@
               </div>
             </div>
           </div>
+          <div class="col-3">
+            <app-allreport [reportname]="title" [canrefresh]="gs.globalVariables.user_code == 'ADMIN'" [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'OS_AGENT'" ></app-allreport>
+          </div>
+
         </div>
       </div>
     </div>
