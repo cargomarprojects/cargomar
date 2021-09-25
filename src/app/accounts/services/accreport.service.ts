@@ -42,6 +42,10 @@ export class AccReportService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/OsAgent', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    OsAgent2(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/OsAgent2', SearchData, this.gs.headerparam2('authorized'));
+    }
+    
     PayHistory(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/PayHistory', SearchData, this.gs.headerparam2('authorized'));
     }

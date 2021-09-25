@@ -64,6 +64,7 @@ import { TdsPayComponent } from './tdspay/tdspay.component';
 import { OsAgingComponent } from './osaging/osaging.component';
 
 import { OsAgentComponent } from './osagent/osagent.component';
+import { OsAgent2Component } from './osagent/osagent2.component';
 
 import { PayHistoryComponent } from './payhistory/payhistory.component';
 
@@ -129,6 +130,7 @@ import { AddressUpdateComponent } from './ledger/addressupdate.component';
     TdsPayComponent,
     OsAgingComponent,
     OsAgentComponent,
+    OsAgent2Component,
     OsRemComponent,
     PayHistoryComponent,
     AcTransComponent,

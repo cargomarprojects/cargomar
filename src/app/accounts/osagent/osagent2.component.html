@@ -1,0 +1,233 @@
+
+<div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+  
+    <div class="page-list">
+      <div class="page-search">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
+              <div class="col-8">
+                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-4 col-form-label col-form-label-sm">Agent</label>
+              <div class="col-8">
+                <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
+  
+          </div>
+          <div class="col-4">
+  
+            <div class="form-group row">
+              <label class="col-2 col-form-label col-form-label-sm">Currency</label>
+              <div class="col-8">
+                <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
+              <div class="col-8">
+                <select class="form-control form-control-sm" [(ngModel)]="category">
+  
+                  <option [value]="'ALL'">ALL</option>
+                  <option [value]="'OTH'">OTH</option>
+                  <option [value]="'SEA'">SEA</option>
+                  <option [value]="'AIR'">AIR</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+              <div class="col-6">
+                <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
+  
+                  <option [value]="'DETAIL'">DETAIL</option>
+                  <option [value]="'INVOICE'">INVOICE</option>
+                  <option [value]="'SUMMERY'">SUMMARY</option>
+  
+                </select>
+              </div>
+  
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-2">
+                <!--<input type="checkbox" [(ngModel)]="isoverdue">
+                <span>Over Due</span>-->
+              </div>
+              <div class="col-sm-8">
+                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="category_type=='DETAIL'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+  
+            <th>A/C CODE</th>
+            <th>A/C NAME</th>
+            <th>CATEGORY</th>
+            <th>CURR-CODE</th>
+            <th class="text-right">0-30</th>
+            <th class="text-right">31-60</th>
+            <th class="text-right">61-90</th>
+            <th class="text-right">91-180</th>
+            <th class="text-right">180+</th>
+            <th class="text-right">365+</th>
+            <th class="text-right">BALANCE</th>
+            <th class="text-right">ADVANCE</th>
+            <th class="text-right">BALANCE-INR</th>
+            <th class="text-right">ADVANCE-INR</th>
+          </tr>
+        </thead>
+  
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.rowcolor">
+  
+            <td>{{rec.acc_code}}</td>
+            <td>{{rec.acc_name}}</td>
+            <td>{{rec.reccategory}}</td>
+            <td>{{rec.curr_code}}</td>
+            <td align='right'>{{ rec.G1 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.G2 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.G3 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance_inr | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance_inr | number : '1.2-2'  }}</td>          
+  
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  
+    <div *ngIf="category_type=='INVOICE'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+  
+            <th>DOCNO</th>
+            <th>DATE</th>
+            <th>REF.NO</th>
+  
+            <th>A/C CODE</th>
+            <th>A/C NAME</th>
+            <th>CATEGORY</th>
+            <th>CURR-CODE</th>
+            <th class="text-right">0-30</th>
+            <th class="text-right">31-60</th>
+            <th class="text-right">61-90</th>
+            <th class="text-right">91-180</th>
+            <th class="text-right">180+</th>
+            <th class="text-right">365+</th>
+            <th class="text-right">BALANCE</th>
+            <th class="text-right">ADVANCE</th>
+            <th class="text-right">BALANCE-INR</th>
+            <th class="text-right">ADVANCE-INR</th>
+          </tr>
+        </thead>
+  
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.rowcolor">
+  
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_reference}}</td>
+  
+            <td>{{rec.acc_code}}</td>
+            <td>{{rec.acc_name}}</td>
+            <td>{{rec.reccategory}}</td>
+            <td>{{rec.curr_code}}</td>
+            <td align='right'>{{ rec.G1 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.G2 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.G3 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.balance_inr | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.advance_inr | number : '1.2-2'  }}</td>          
+  
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  
+  
+  
+  
+  
+    <div *ngIf="category_type=='SUMMERY'" class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+  
+            <th>A/C CODE</th>
+            <th>A/C NAME</th>
+            
+            <th>CURR-CODE</th>
+            <th class="text-right">SEA</th>
+            <th class="text-right">AIR</th>
+            <th class="text-right">OTH</th>
+            <th class="text-right">ADJ</th>
+            <th class="text-right">BAL</th>
+            
+          </tr>
+        </thead>
+  
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.rowcolor">
+  
+            <td>{{rec.acc_code}}</td>
+            <td>{{rec.acc_name}}</td>
+          
+            <td>{{rec.curr_code}}</td>
+            <td align='right'>{{ rec.sea | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.air| number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.oth | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.adj | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
+           
+  
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  
+  </div>
+  
+  
+  <br />
+  
+  <div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+  </div>
+  
+  
+  

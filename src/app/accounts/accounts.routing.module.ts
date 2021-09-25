@@ -44,6 +44,7 @@ import { TdsPayComponent } from './tdspay/tdspay.component';
 import { OsAgingComponent } from './osaging/osaging.component';
 
 import { OsAgentComponent } from './osagent/osagent.component';
+import { OsAgent2Component } from './osagent/osagent2.component';
 
 import { PayHistoryComponent } from './payhistory/payhistory.component';
 
@@ -87,6 +88,7 @@ const routes: Routes = [
   { path: 'tdspay', component: TdsPayComponent },
   { path: 'osaging', component: OsAgingComponent },
   { path: 'osagent', component: OsAgentComponent },
+  { path: 'osagent2', component: OsAgent2Component },
   { path: 'payhistory', component: PayHistoryComponent },
   { path: 'actransreport', component: AcTransComponent },
   { path: 'transdetreport', component: TransDetComponent },
