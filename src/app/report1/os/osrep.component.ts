@@ -9,7 +9,7 @@ import { OsRep } from '../models/osrep';
 
 import { RepService } from '../services/report.service';
 import { SearchTable } from '../../shared/models/searchtable';
-//EDIT-AJITH-23-09-2021
+//EDIT-AJITH-25-09-2021
 
 @Component({
   selector: 'app-osrep',
