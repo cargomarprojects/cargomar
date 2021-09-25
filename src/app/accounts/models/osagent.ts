@@ -31,6 +31,9 @@ export class OsAgentReport {
   adj: number;
   bal: number;
 
- 
+  usd: number;
+  inr: number;
+  eur: number;
+  gbp: number;
  
 }

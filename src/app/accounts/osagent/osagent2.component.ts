@@ -132,7 +132,7 @@ export class OsAgent2Component {
     this.Init();
     this.LoadCombo();
     this.InitLov();
-
+    this.List('NEW');
   }
   Init() {
    
