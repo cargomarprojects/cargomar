@@ -89,21 +89,21 @@
   
           
             <th>A/C NAME</th>
+            <th class="text-right">USD</th>
             <th class="text-right">EUR</th>
             <th class="text-right">GBP</th>
             <th class="text-right">INR</th>
-            <th class="text-right">USD</th>
+            
           </tr>
         </thead>
   
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr [style.color]="rec.rowcolor">
            <td>{{rec.acc_name}}</td>
+            <td align='right'>{{ rec.usd | number : '1.2-2'  }}</td>
             <td align='right'>{{ rec.eur | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.gbp | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.inr | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.usd | number : '1.2-2'  }}</td>
-          
           </tr>
         </tbody>
       </table>
