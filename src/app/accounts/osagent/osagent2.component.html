@@ -64,17 +64,17 @@
   
             </div> -->
             <div class="form-group row">
-              <div class="col-sm-2">
-                <!--<input type="checkbox" [(ngModel)]="isoverdue">
-                <span>Over Due</span>-->
-              </div>
+              <!-- <div class="col-sm-2">
+                <input type="checkbox" [(ngModel)]="isoverdue">
+                <span>Over Due</span>
+              </div> -->
               <div class="col-sm-8">
-                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
-                <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Currency</button>
+                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
               </div>
             </div>
           </div>
-          <div class="col-5">
+          <div class="col-4">
             <app-allreport [reportname]="title" [canrefresh]="gs.globalVariables.user_code == 'ADMIN'" [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'OS_AGENT'" ></app-allreport>
           </div>
 

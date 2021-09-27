@@ -251,6 +251,7 @@ export class OsAgent2Component {
       return;
     }
 
+    this.category_type="CURRENCY";
     this.loading = true;
 
     this.pkid = this.gs.getGuid();
