@@ -10,6 +10,7 @@ import { OsAgentReport } from '../models/osagent';
 import { AccReportService } from '../services/accreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 //CREATE-AJITH-25-09-2021
+//CREATE-AJITH-27-09-2021
 
 @Component({
   selector: 'app-osagent2',
@@ -73,7 +74,7 @@ export class OsAgent2Component {
     year_code: '',
     searchstring: '',
     to_date: '',
-    acc_id:'',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
@@ -83,12 +84,12 @@ export class OsAgent2Component {
     curr_id: '',
     curr_code: '',
     category: '',
-    category_type:'',
+    category_type: '',
     isoverdue: false,
     all: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: OsAgentReport[] = [];
   // Single Record for add/edit/view details
@@ -134,17 +135,17 @@ export class OsAgent2Component {
     this.Init();
     this.LoadCombo();
     this.InitLov();
-    this.List('NEW');
+    this.List('NEW','CURRENCY');
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
     this.agent_id = '';
     this.curr_id = '';
     this.category = "ALL";
-    this.category_type = "DETAIL";
-   
+    this.category_type = "CURRENCY";
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -157,7 +158,7 @@ export class OsAgent2Component {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
@@ -207,7 +208,7 @@ export class OsAgent2Component {
     if (_Record.controlname == "CURRENCY") {
       this.curr_id = _Record.id;
       this.curr_code = _Record.code;
-    
+
     }
 
   }
@@ -244,14 +245,14 @@ export class OsAgent2Component {
   }
 
   // Query List Data
-  List(_type: string) {
+  List(_type: string, _category_type: string) {
 
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = 'To Date Cannot Be Blank';
       return;
     }
 
-    this.category_type="CURRENCY";
+    this.category_type = _category_type;
     this.loading = true;
 
     this.pkid = this.gs.getGuid();
@@ -261,8 +262,8 @@ export class OsAgent2Component {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
 
     //if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
+    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.branch_name = this.branch_name;
     //}
     //else {
     //  this.SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -296,12 +297,11 @@ export class OsAgent2Component {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-
 
   Downloadfile(_type: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);

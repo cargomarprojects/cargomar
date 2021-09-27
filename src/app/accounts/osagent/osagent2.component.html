@@ -1,123 +1,65 @@
-
 <div class="page-header">
-    <div class="col">
-      <label>{{title}}</label>
-      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
-  
-  <div *ngIf="currentTab=='LIST'" class="page-list">
-  
-    <div class="page-list">
-      <div class="page-search">
-        <div class="row">
-          <!-- <div class="col-3">
-            <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
-              <div class="col-8">
-                <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">Agent</label>
-              <div class="col-8">
-                <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-  
-          </div>
-          <div class="col-3">
-  
-            <div class="form-group row">
-              <label class="col-2 col-form-label col-form-label-sm">Currency</label>
-              <div class="col-8">
-                <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
-  
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
-              <div class="col-8">
-                <select class="form-control form-control-sm" [(ngModel)]="category">
-  
-                  <option [value]="'ALL'">ALL</option>
-                  <option [value]="'OTH'">OTH</option>
-                  <option [value]="'SEA'">SEA</option>
-                  <option [value]="'AIR'">AIR</option>
-                </select>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-4">
-            <!-- <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-              <div class="col-6">
-                <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
-  
-                  <option [value]="'DETAIL'">DETAIL</option>
-                  <option [value]="'INVOICE'">INVOICE</option>
-                  <option [value]="'SUMMERY'">SUMMARY</option>
-  
-                </select>
-              </div>
-  
-            </div> -->
-            <div class="form-group row">
-              <!-- <div class="col-sm-2">
-                <input type="checkbox" [(ngModel)]="isoverdue">
-                <span>Over Due</span>
-              </div> -->
-              <div class="col-sm-8">
-                <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Currency</button>
-                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-4">
-            <app-allreport [reportname]="title" [canrefresh]="gs.globalVariables.user_code == 'ADMIN'" [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'OS_AGENT'" ></app-allreport>
-          </div>
+</div>
 
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-list">
+    <div class="page-search">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group row">
+            <div class="col-sm-8">
+              <button [disabled]="loading" (click)="List('NEW','CURRENCY')" class="btn btn-primary btn-sm">Currency</button>
+              <button [disabled]="loading" (click)="List('EXCEL',category_type)" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <app-allreport [reportname]="title" [canrefresh]="gs.globalVariables.user_code == 'ADMIN'"
+            [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'OS_AGENT'"></app-allreport>
         </div>
       </div>
     </div>
-  
-    <div  class="page-body table-responsive">
-      <table class="table table-bordered table-hover table-sm table-striped">
-        <thead class="page-body-thead">
-          <tr>
-            <th>AGENT</th>
-            <th class="text-right">USD</th>
-            <th class="text-right">EUR</th>
-            <th class="text-right">GBP</th>
-            <th class="text-right">INR</th>
-          </tr>
-        </thead>
-  
-        <tbody class="page-body-tbody" >
-          <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index" 
-                [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex= i">
-           <td>{{rec.acc_name}}</td>
-            <td align='right'>{{ rec.usd | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.eur | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.gbp | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.inr | number : '1.2-2'  }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-  
-     
-  
   </div>
-  
-  
-  <br />
-  
-  <div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
+
+  <div class="page-body table-responsive">
+    <table class="table table-bordered table-hover table-sm table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>AGENT</th>
+          <th class="text-right">USD</th>
+          <th class="text-right">EUR</th>
+          <th class="text-right">GBP</th>
+          <th class="text-right">INR</th>
+        </tr>
+      </thead>
+
+      <tbody class="page-body-tbody">
+        <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index"
+          [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex= i">
+          <td>{{rec.acc_name}}</td>
+          <td align='right'>{{ rec.usd | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.eur | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.gbp | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.inr | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
-  
-  
+
+
+
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
