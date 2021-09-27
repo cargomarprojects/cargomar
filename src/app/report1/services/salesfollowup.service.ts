@@ -79,6 +79,7 @@ export class SalesFollowupService {
     user_code: '',
     year_id: '',
     hostname: '',
+    cust_name: ''
   };
 
   // Array For Displaying List
@@ -281,7 +282,7 @@ export class SalesFollowupService {
     this.SearchData.sman_name = this.gs.globalVariables.sman_name;
     this.SearchData.isadmin = this.bAdmin;
     this.SearchData.iscompany = this.bCompany;
-    this.SearchData.year_code = this.gs.globalVariables.year_code;    
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
 
     this.ErrorMessage = '';
     this.DistinctList(this.SearchData)
@@ -302,11 +303,17 @@ export class SalesFollowupService {
         });
   }
 
-  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
+  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any,_smanAndParty:boolean=false) {
 
     if (_rec != null) {
       if (_rec.row_type == "TOTAL")
         return;
+    }
+    
+    this.SearchData.cust_name ="";
+    if (_smanAndParty) {
+      this.cust_name = _rec.party_name;
+      this.SearchData.cust_name = _rec.party_name;
     }
 
     this.index3 = -1;

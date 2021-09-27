@@ -28,6 +28,7 @@ export class SalesFollowup {
     mar: number;
     bal: number;
     adv: number;
+    adv_op: number;
     arratio: number;
     osdays_ratio: number;
     osdays: number;

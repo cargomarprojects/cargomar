@@ -35,7 +35,8 @@
                     <th class="text-right">FEB</th>
                     <th class="text-right">MAR</th>
                     <th class="text-right">BAL</th>
-                    <th class="text-right">ADV</th>
+                    <th class="text-right">ADV(OP)</th>
+                    <th class="text-right">ADV(CLOSING)</th>
                     <th *ngIf="ms.bCanAdd">UPDATE</th>
                     <th *ngIf="ms.bCanDelete" class="text-center">DELETE</th>
                 </tr>
@@ -59,6 +60,7 @@
                     <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.adv_op | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                     <td *ngIf="ms.bCanAdd" (click)="ms.ProcessData('RE-UPDATE',rec)" class='hlink2'>
                         {{rec.row_type=='TOTAL'?'':'RE-UPDATE'}}</td>
@@ -135,7 +137,8 @@
                                 <th class="text-right">FEB</th>
                                 <th class="text-right">MAR</th>
                                 <th class="text-right">BAL</th>
-                                <th class="text-right">ADV</th>
+                                <th class="text-right">ADV(OP)</th>
+                                <th class="text-right">ADV(CLOSING)</th>
                                 <!-- <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">TURNOVER</th> -->
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.DAYS</th>
                                 <th *ngIf="ms.distinctTab=='PARTY'" class="text-right">CR.LIMIT</th>
@@ -158,13 +161,11 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" (click)="ms.ShowDetailReport('SCREEN','SALESMAN' ,rec,emailsent)"
+                                <td *ngIf="ms.distinctTab=='PARTY'" (click)="ms.ShowDetailReport('SCREEN','SALESMAN' ,rec,emailsent,true)"
                                 class="hlink2">{{ rec.sman_name}}</td>
                                 <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" class="text-center"
                                     (click)="ms.IsChecked(rec)">
-
                                     <input *ngIf="rec.row_type!='TOTAL'" type="checkbox" [(ngModel)]="rec.row_checked">
-
                                 </td>
                                 <td *ngIf="ms.bEmail&&(ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH')"
                                     (click)="ms.ShowDetailReport('MAIL', ms.distinctTab,rec,emailsent)"
@@ -187,6 +188,7 @@
                                 <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.adv_op | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
                                 <!-- <td *ngIf="ms.distinctTab=='PARTY'" class="text-right">{{ rec.sales | number : '1.2-2'
                                     }}</td> -->
@@ -248,8 +250,8 @@
                     <th class="text-right">FEB</th>
                     <th class="text-right">MAR</th>
                     <th class="text-right">BAL</th>
-                    <th class="text-right">ADV</th>
-
+                    <th class="text-right">ADV(OP)</th>
+                    <th class="text-right">ADV(CLOSING)</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.RecordDetList;let i=index" (mousedown)="ms.index3=i">
@@ -273,11 +275,12 @@
                     <td class="text-right">{{ rec.feb | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.mar | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.bal | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.adv_op | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.adv | number : '1.2-2' }}</td>
 
                 </tr>
                 <tr *ngIf="rec.row_displayed">
-                    <td colspan="20">
+                    <td colspan="21">
                         <app-salesfollowupedit [InputSearchData]="InputSearchData"
                             (ModifiedRecords)="ModifiedRecords($event)"></app-salesfollowupedit>
                     </td>
