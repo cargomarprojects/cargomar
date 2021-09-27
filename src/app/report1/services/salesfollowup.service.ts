@@ -303,17 +303,11 @@ export class SalesFollowupService {
         });
   }
 
-  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any,_smanAndParty:boolean=false) {
+  ShowDetailReport(_type: string, _category: string, _rec: SalesFollowup, emailsent: any) {
 
     if (_rec != null) {
       if (_rec.row_type == "TOTAL")
         return;
-    }
-    
-    this.SearchData.cust_name ="";
-    if (_smanAndParty) {
-      this.cust_name = _rec.party_name;
-      this.SearchData.cust_name = _rec.party_name;
     }
 
     this.index3 = -1;
@@ -336,14 +330,21 @@ export class SalesFollowupService {
     this.SearchData.year_id = this.gs.globalVariables.year_pkid;
     this.SearchData.hostname = window.location.protocol + "//" + window.location.host;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-
+    this.SearchData.cust_name = "";
 
     if (_category == "SALESMAN") {
-      if (_rec == null)
+      if (_rec == null) {
         this.SearchData.selected_sman_name = this.Detail_title;
+        this.SearchData.cust_name = this.cust_name;
+      }
       else {
         this.SearchData.selected_sman_name = _rec.sman_name;
         this.Detail_title = _rec.sman_name;
+        if (!this.gs.isBlank(_rec.party_name))
+          this.cust_name = _rec.party_name;
+        else
+          this.cust_name = "";
+          this.SearchData.cust_name = this.cust_name;
       }
     } else
       this.SearchData.selected_sman_name = "";

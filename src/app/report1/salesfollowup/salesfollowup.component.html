@@ -161,7 +161,7 @@
                                 <td *ngIf="ms.distinctTab=='PARTY'"
                                     (click)="ms.ShowDetailReport('SCREEN', ms.distinctTab,rec,emailsent)"
                                     class="hlink2">{{rec.party_name}}</td>
-                                <td *ngIf="ms.distinctTab=='PARTY'" (click)="ms.ShowDetailReport('SCREEN','SALESMAN' ,rec,emailsent,true)"
+                                <td *ngIf="ms.distinctTab=='PARTY'" (click)="ms.ShowDetailReport('SCREEN','SALESMAN' ,rec,emailsent)"
                                 class="hlink2">{{ rec.sman_name}}</td>
                                 <td *ngIf="ms.bCompany&&(ms.distinctTab=='SALESMAN')" class="text-center"
                                     (click)="ms.IsChecked(rec)">
