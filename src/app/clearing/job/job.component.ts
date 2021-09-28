@@ -41,6 +41,8 @@ export class JobComponent {
   bDocs: boolean = false;
   bAdmin: boolean = false;
 
+  bSign = false;
+
   searchby = '';
   searchstring = '';
   jobtype = 'ALL';
@@ -143,12 +145,17 @@ export class JobComponent {
     this.searchby = "ALL";
     this.job_no = "";
     this.bAdmin = false;
+    this.bSign = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
       this.bPrint = this.menu_record.rights_print;
+
+      if (this.menu_record.rights_approval.length > 0)
+        this.bSign = true;
+
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -1497,7 +1504,9 @@ export class JobComponent {
       folderid: '',
       company_code: '',
       branch_code: '',
-      user_code: ''
+      user_code: '',
+      user_name: '',
+      user_email : '',
     }
 
     SearchData.pkid = this.pkid;
@@ -1508,6 +1517,8 @@ export class JobComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
     SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.user_name = this.gs.globalVariables.user_name;
+    SearchData.user_email = this.gs.globalVariables.user_email;
 
     this.ErrorMessage = '';
     this.mainService.GenerateEdi(SearchData)

@@ -1089,6 +1089,13 @@
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')"
                 class="btn btn-success btn-sm">Edi File</button>
             </div>
+            <hr />
+            <br />
+            <div *ngIf="bSign">
+              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SIGN')"
+                class="btn btn-success btn-sm">Sign File</button>
+            </div>
+
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </ng-template>
