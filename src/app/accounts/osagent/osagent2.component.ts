@@ -11,6 +11,7 @@ import { AccReportService } from '../services/accreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 //CREATE-AJITH-25-09-2021
 //CREATE-AJITH-27-09-2021
+//CREATE-AJITH-28-09-2021
 
 @Component({
   selector: 'app-osagent2',
