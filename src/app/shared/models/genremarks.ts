@@ -7,6 +7,6 @@ export class GenRemarks {
     gr_remarks: string;
     rec_created_by: string;
     rec_created_date: string;
-    gr_uid
+    gr_uid: string;
     _globalvariables: GlobalVariables;
 }

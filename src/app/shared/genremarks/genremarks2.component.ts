@@ -16,21 +16,20 @@ export class GenRemarks2Component {
     // Local Variables 
     title = '';
 
-
     @ViewChild('_txtremark') private txtremark_ctrl: ElementRef;
-    private _pkid: string;
+    private _grpkid: string;
     @Input() set pkid(value: string) {
-        this._pkid = value;
+        this._grpkid = value;
     }
 
-    private _type: string = '';
+    private _grtype: string = '';
     @Input() set type(value: string) {
-        this._type = value;
+        this._grtype = value;
     }
 
-    private _subtype: string;
+    private _grsubtype: string;
     @Input() set subtype(value: string) {
-        this._subtype = value;
+        this._grsubtype = value;
     }
 
     @Output() ModifiedRecords = new EventEmitter<any>();
@@ -86,15 +85,10 @@ export class GenRemarks2Component {
         this.loading = true;
         let SearchData = {
             type: _type,
-            pkid: this._pkid,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            user_name: this.gs.globalVariables.user_name,
-            user_pkid: this.gs.globalVariables.user_pkid
+            grpkid: this._grpkid,
+            grtype: this._grtype,
+            grsubtype: this._grsubtype
         };
-
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.List(SearchData)
@@ -117,10 +111,10 @@ export class GenRemarks2Component {
             return;
 
         this.Record = new GenRemarks();
-        this.Record.gr_pkid = this._pkid;
+        this.Record.gr_pkid = this._grpkid;
         this.Record.gr_uid = this.gs.getGuid();
-        this.Record.gr_type = this._type;
-        this.Record.gr_subtype = this._subtype;
+        this.Record.gr_type = this._grtype;
+        this.Record.gr_subtype = this._grsubtype;
         this.Record.gr_remarks = this.remarks;
         this.Record._globalvariables = this.gs.globalVariables;
 
@@ -183,8 +177,8 @@ export class GenRemarks2Component {
         switch (field) {
             case 'remarks':
                 {
-                    this.remarks = this.remarks.toUpperCase();
-                    break;
+                    // this.remarks = this.remarks.toUpperCase();
+                    // break;
                 }
         }
     }

@@ -1,10 +1,9 @@
-<div class="page-list">
+<!-- <div class="page-list">
     <div class="page-body table-responsive">
         <table class="table  table-bordered table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
                     <th>DATE</th>
-                    <!-- <th>NAME</th> -->
                     <th>REMARKS</th>
                     <th class="text-center">DELETE</th>
                 </tr>
@@ -13,7 +12,6 @@
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     [style.color]="'black'">
                     <td>{{rec.rec_created_date}}</td>
-                    <!-- <td>{{rec.rec_created_by}}</td> -->
                     <td>{{rec.gr_remarks}}</td>
                     <td class="text-center">
                         <App-Dialog
@@ -24,8 +22,31 @@
             </tbody>
         </table>
     </div>
-</div>
+</div> -->
 
+<div class="page-list">
+
+    <!-- <div *ngFor="let rec of RecordList">
+    <label> {{rec.rec_created_date}}</label>
+    <label> {{rec.gr_remarks}}</label>
+    </div> -->
+
+    <div class="list-group" *ngFor="let rec of RecordList">
+        <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
+            <!-- <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">{{rec.gr_remarks}}</p>
+                <small> {{rec.rec_created_date}}</small>
+            </div> -->
+            <!-- <p class="d-flex w-100 justify-content-between">{{rec.gr_remarks}}</p>
+          <small class="text-right"> 3 days ago</small> -->
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{rec.rec_created_date}}</h6>
+            </div>
+            <p class="mb-1">{{rec.gr_remarks}}</p>
+        </a>
+    </div>
+
+</div>
 <div class="page-details">
     <div class="row">
         <div class="col-md-12">
@@ -33,10 +54,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-2 col-form-label col-form-label-sm">Remarks </label>
-                            <div class="col-10">
-                                <textarea #_txtremark rows="3" class="form-control form-control-sm"
+                            <!-- <label class="col-2 col-form-label col-form-label-sm">Remarks </label> -->
+                            <div class="col-11">
+                                <textarea #_txtremark rows="1" class="form-control form-control-sm"
                                     [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"></textarea>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-primary btn-sm mr-1" (click)="Save()"> <i
+                                        class="fa fa-angle-double-right fa-lg pointer" aria-hidden="true"></i></button>
+                                <!-- <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button> -->
                             </div>
                         </div>
                     </div>
@@ -44,12 +70,11 @@
             </div>
         </div>
     </div>
-    <div class="page-box">
+    <!-- <div class="page-box">
         <div class="col">
             <button class="btn btn-primary btn-sm mr-1" (click)="Save()">Save</button>
-            <!-- <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button> -->
         </div>
-    </div>
+    </div> -->
 </div>
 
 <br />

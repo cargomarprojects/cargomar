@@ -425,8 +425,8 @@
               <div class="form-group row">
                 <!-- <label class="col-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-2">
-                  <button *ngIf="mode == 'EDIT' && bCanUnLink" [disabled]="loading"
-                    (click)="Unlink(Record.cust_pkid)" class="btn btn-success btn-sm">Unlink</button>
+                  <button *ngIf="mode == 'EDIT' && bCanUnLink" [disabled]="loading" (click)="Unlink(Record.cust_pkid)"
+                    class="btn btn-success btn-sm">Unlink</button>
                 </div>
                 <div class="col-4">
                   <input [disabled]="cust_linked || !bAdmin2" type="checkbox" [(ngModel)]="Record.cust_linked" />
@@ -653,9 +653,106 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab title="History" *ngIf="mode == 'EDIT'">
+    <ngb-tab title="Agent" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
-        <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
+        <div >
+          <h4 class="mb-1">BANK DETAILS</h4>
+          <div class="page-details">
+            <div class="row">
+              <div class="col-sm-6">
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_contact" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Address</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line1" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm"></label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line2" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm"></label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line3" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">A/c.Number</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line4" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Bank-Identifier</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line4" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-sm-6">
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Beneficiary</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_contact" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm">Address</label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line1" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm"></label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line2" required
+                      maxlength="60" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-2 col-form-label  col-form-label-sm"></label>
+                  <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line3" required
+                      maxlength="60" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div >
+          <h4 class="mb-1">HISTORY</h4>
+          <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
