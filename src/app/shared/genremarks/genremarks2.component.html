@@ -25,22 +25,11 @@
 </div> -->
 
 <div class="page-list">
-
-    <!-- <div *ngFor="let rec of RecordList">
-    <label> {{rec.rec_created_date}}</label>
-    <label> {{rec.gr_remarks}}</label>
-    </div> -->
-
     <div class="list-group" *ngFor="let rec of RecordList">
         <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
-            <!-- <div class="d-flex w-100 justify-content-between">
-                <p class="mb-1">{{rec.gr_remarks}}</p>
-                <small> {{rec.rec_created_date}}</small>
-            </div> -->
-            <!-- <p class="d-flex w-100 justify-content-between">{{rec.gr_remarks}}</p>
-          <small class="text-right"> 3 days ago</small> -->
             <div class="d-flex w-100 justify-content-between">
-                <h6 class="mb-1">{{rec.rec_created_date}}</h6>
+                <h6 style="color: brown;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;" class="fa fa-trash pointer" aria-hidden="true"
+                    (click)="RemoveRemarks(rec.gr_uid)"></i></h6>
             </div>
             <p class="mb-1">{{rec.gr_remarks}}</p>
         </a>
@@ -56,8 +45,10 @@
                         <div class="form-group row">
                             <!-- <label class="col-2 col-form-label col-form-label-sm">Remarks </label> -->
                             <div class="col-11">
-                                <textarea #_txtremark rows="1" class="form-control form-control-sm"
-                                    [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"></textarea>
+                                <!-- <textarea #_txtremark rows="2" class="form-control form-control-sm"
+                                    [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"></textarea> -->
+                                    <input type="text" #_txtremark class="form-control form-control-sm"
+                                    [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"/>
                             </div>
                             <div class="col-1">
                                 <button class="btn btn-primary btn-sm mr-1" (click)="Save()"> <i

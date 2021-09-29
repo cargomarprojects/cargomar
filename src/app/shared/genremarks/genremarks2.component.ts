@@ -17,9 +17,9 @@ export class GenRemarks2Component {
     title = '';
 
     @ViewChild('_txtremark') private txtremark_ctrl: ElementRef;
-    private _grpkid: string;
+    private _pkid: string;
     @Input() set pkid(value: string) {
-        this._grpkid = value;
+        this._pkid = value;
     }
 
     private _grtype: string = '';
@@ -27,9 +27,9 @@ export class GenRemarks2Component {
         this._grtype = value;
     }
 
-    private _grsubtype: string;
+    private _subtype: string;
     @Input() set subtype(value: string) {
-        this._grsubtype = value;
+        this._subtype = value;
     }
 
     @Output() ModifiedRecords = new EventEmitter<any>();
@@ -85,9 +85,9 @@ export class GenRemarks2Component {
         this.loading = true;
         let SearchData = {
             type: _type,
-            grpkid: this._grpkid,
+            grpkid: this._pkid,
             grtype: this._grtype,
-            grsubtype: this._grsubtype
+            grsubtype: this._subtype
         };
         this.ErrorMessage = '';
         this.InfoMessage = '';
@@ -111,10 +111,10 @@ export class GenRemarks2Component {
             return;
 
         this.Record = new GenRemarks();
-        this.Record.gr_pkid = this._grpkid;
+        this.Record.gr_pkid = this._pkid;
         this.Record.gr_uid = this.gs.getGuid();
         this.Record.gr_type = this._grtype;
-        this.Record.gr_subtype = this._grsubtype;
+        this.Record.gr_subtype = this._subtype;
         this.Record.gr_remarks = this.remarks;
         this.Record._globalvariables = this.gs.globalVariables;
 
@@ -183,16 +183,18 @@ export class GenRemarks2Component {
         }
     }
 
-    RemoveList(event: any) {
-        if (event.selected) {
-            this.RemoveRemarks(event.id);
-        }
-    }
+
 
     RemoveRemarks(Id: string) {
+
+        if (!confirm("Delete Remarks")) {
+            return;
+        }
+
         this.loading = true;
         let SearchData = {
             pkid: Id,
+            parentid: this._pkid,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_code: this.gs.globalVariables.user_code,
