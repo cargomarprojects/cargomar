@@ -653,6 +653,11 @@
       </ng-template>
     </ngb-tab>
 
+    <ngb-tab title="History" *ngIf="mode == 'EDIT'">
+      <ng-template ngbTabContent>
+        <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
 </div>
 <br />

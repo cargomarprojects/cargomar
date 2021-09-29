@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Customerm } from '../models/customer';
 import { CustomerService } from '../services/customer.service';
 import { SearchTable } from '../../shared/models/searchtable';
+//EDIT-AJITH-29-09-2021
 
 @Component({
   selector: 'app-customerm',

@@ -54,6 +54,8 @@ import { FileEditComponent } from './fileupload/fileedit.component';
 import { CrLimitComponent } from './crlimit/crlimit.component';
 import { GenRemarksComponent } from './genremarks/genremarks.component';
 import { ReportDocsComponent } from './reportdocs/reportdocs.component';
+import { GenRemarks2Component } from './genremarks/genremarks2.component';
+//EDIT-AJITH-29-09-2021
 
 @NgModule({
   imports: [
@@ -90,7 +92,8 @@ import { ReportDocsComponent } from './reportdocs/reportdocs.component';
     FileEditComponent,
     CrLimitComponent,
     GenRemarksComponent,
-    ReportDocsComponent
+    ReportDocsComponent,
+    GenRemarks2Component
   ],
   exports: [
     CommonModule,
@@ -123,7 +126,8 @@ import { ReportDocsComponent } from './reportdocs/reportdocs.component';
     FileEditComponent,
     CrLimitComponent,
     GenRemarksComponent,
-    ReportDocsComponent
+    ReportDocsComponent,
+    GenRemarks2Component
   ],
   providers: [
     AlertService,
