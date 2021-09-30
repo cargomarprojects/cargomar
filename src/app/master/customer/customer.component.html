@@ -656,13 +656,11 @@
     <ngb-tab title="Agent" *ngIf="mode == 'EDIT'">
       <ng-template ngbTabContent>
         <div>
-          <label></label>
-          <h5 style="color: green" class="mb-1">BANK DETAILS</h5>
+          <h6 style="color: green" class="my-1">BANK DETAILS</h6>
           <app-bankinfo2 [pkid]="pkid" [source]="'AGENT'" ></app-bankinfo2>
         </div>
         <div>
-          <!-- <label></label> -->
-          <h5 style="color: green" class="mb-1">HISTORY</h5>
+          <h6 style="color: green" class="my-1">HISTORY</h6>
           <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
         </div>
       </ng-template>

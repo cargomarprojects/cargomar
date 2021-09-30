@@ -204,11 +204,13 @@ export class GenRemarks2Component {
         this.mainService.DeleteRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = "Deleted Successfully";
+                // this.ErrorMessage = "Deleted Successfully";
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.gr_uid == Id), 1);
-                alert(this.ErrorMessage);
+                // alert(this.ErrorMessage);
                 // if (this.ModifiedRecords != null)
                 //     this.ModifiedRecords.emit({ saction: "DELETE", pkid: this._pkid, remarks: this.remarks });
+                if (!this.gs.isBlank(this.txtremark_ctrl))
+                    this.txtremark_ctrl.nativeElement.focus();
             },
                 error => {
                     this.loading = false;

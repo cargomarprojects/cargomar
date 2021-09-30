@@ -1,77 +1,26 @@
-<!-- <div class="page-list">
-    <div class="page-body table-responsive">
-        <table class="table  table-bordered table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>DATE</th>
-                    <th>REMARKS</th>
-                    <th class="text-center">DELETE</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    [style.color]="'black'">
-                    <td>{{rec.rec_created_date}}</td>
-                    <td>{{rec.gr_remarks}}</td>
-                    <td class="text-center">
-                        <App-Dialog
-                            [id]="{msg:'DELETE REMARKS Y/N', buttons:'yn', selected :false,id:rec.gr_uid,name:rec.gr_remarks}"
-                            (result)="RemoveList($event)"></App-Dialog>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div> -->
-
-<div class="page-list">
-    <div class="list-group" *ngFor="let rec of RecordList">
-        <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <h6 style="color: brown;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;"
-                        class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveRemarks(rec.gr_uid)"></i></h6>
-            </div>
-            <p class="mb-1">{{rec.gr_remarks}}</p>
-        </a>
-    </div>
-
+<div class="list-group" *ngFor="let rec of RecordList">
+    <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <label style="color: brown;padding: 1px;font-weight: bold;font-size: 12px;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;"
+                    class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveRemarks(rec.gr_uid)"></i></label>
+                    <!-- <h6 style="color: brown;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;"
+                        class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveRemarks(rec.gr_uid)"></i></h6> -->
+        </div>
+        <p class="mb-1">{{rec.gr_remarks}}</p>
+    </a>
 </div>
-<div class="page-details">
+<div class="page-details p-1">
     <div class="row">
         <div class="col-md-12">
-            <div class="page-box">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" #_txtremark class="form-control form-control-sm" [(ngModel)]="remarks"
-                                (blur)="OnBlur('remarks')" maxlength="300" />
-                            <button style="margin-left: 5px;" class="btn btn-info btn-sm mr-1" (click)="Save()"> <i
-                                    class="fa fa-angle-double-right fa-lg pointer" aria-hidden="true"></i></button>
-                        </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-11">
-                                <textarea #_txtremark rows="2" class="form-control form-control-sm"
-                                    [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"></textarea>
-                                    <input type="text" #_txtremark class="form-control form-control-sm"
-                                    [(ngModel)]="remarks" (blur)="OnBlur('remarks')" maxlength="300"/>
-                            </div>
-                            <div class="col-1">
-                                <button class="btn btn-info btn-sm mr-1" (click)="Save()"> <i
-                                        class="fa fa-angle-double-right fa-lg pointer" aria-hidden="true"></i></button>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
+            <div class="input-group input-group-sm">
+                <input type="text" #_txtremark class="form-control form-control-sm" [(ngModel)]="remarks"
+                    (blur)="OnBlur('remarks')" maxlength="300" />
+                <button style="margin-left: 5px;" class="btn btn-info btn-sm mr-1" (click)="Save()"> <i
+                        class="fa fa-angle-double-right fa-lg pointer" aria-hidden="true"></i></button>
             </div>
         </div>
     </div>
-    <!-- <div class="page-box">
-        <div class="col">
-            <button class="btn btn-primary btn-sm mr-1" (click)="Save()">Save</button>
-        </div>
-    </div> -->
 </div>
-
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">

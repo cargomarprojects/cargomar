@@ -8,7 +8,7 @@ export class Bank_Info {
     bi_add2: string;
     bi_add3: string;
     bi_acno: string;
-    bi_identifier: string;
+    bi_swift: string;
     bi_curr_code: string;
     bi_benf_name: string;
     bi_benf_add1: string;

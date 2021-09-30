@@ -102,7 +102,7 @@ export class BankInfo2Component {
         this.Record.bi_add2 = '';
         this.Record.bi_add3 = '';
         this.Record.bi_acno = '';
-        this.Record.bi_identifier = '';
+        this.Record.bi_swift = '';
         this.Record.bi_curr_code = '';
         this.Record.bi_benf_name = '';
         this.Record.bi_benf_add1 = '';
@@ -194,9 +194,9 @@ export class BankInfo2Component {
                     this.Record.bi_acno = this.Record.bi_acno.toUpperCase();
                     break;
                 }
-            case 'bi_identifier':
+            case 'bi_swift':
                 {
-                    this.Record.bi_identifier = this.Record.bi_identifier.toUpperCase();
+                    this.Record.bi_swift = this.Record.bi_swift.toUpperCase();
                     break;
                 }
             case 'bi_curr_code':
