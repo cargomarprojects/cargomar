@@ -35,6 +35,7 @@ export class CustomerComponent {
   showalert = false;
   CrList: any[];
 
+  bAgent = false;
   bLegalDocs = false;
   bCanLock = false;
   bCanUnLink = false;
@@ -264,7 +265,7 @@ export class CustomerComponent {
     this.bCanUnLink = false;
     this.bDocs = true;
     this.bDocsUpload = true;
-
+    this.bAgent = false;
     if (!this.menu_record)
       return;
 
@@ -288,10 +289,13 @@ export class CustomerComponent {
       this.bCanLock = true;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("UNLINK"))
       this.bCanUnLink = true;
+    if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("{AGENT}"))
+      this.bAgent = true;
     if (this.mode == "EDIT" && this.gs.globalVariables.user_code == "ADMIN") {
       this.bLegalDocs = true;
       this.bCanLock = true;
       this.bCanUnLink = true;
+      this.bAgent = true;
     }
 
     this.bDocs = false;
