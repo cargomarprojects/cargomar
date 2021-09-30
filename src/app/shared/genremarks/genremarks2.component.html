@@ -1,7 +1,7 @@
 <div class="list-group" *ngFor="let rec of RecordList">
     <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-            <label style="color: brown;padding: 1px;font-weight: bold;font-size: 12px;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;"
+            <label style="color: brown;padding: 1px;font-weight: bold;font-size: 12px;" class="mb-1">{{rec.rec_created_by}}&nbsp;-&nbsp;{{rec.rec_created_date}} &nbsp;<i style="color: red;"
                     class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveRemarks(rec.gr_uid)"></i></label>
                     <!-- <h6 style="color: brown;" class="mb-1">{{rec.rec_created_date}} &nbsp;<i style="color: red;"
                         class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveRemarks(rec.gr_uid)"></i></h6> -->

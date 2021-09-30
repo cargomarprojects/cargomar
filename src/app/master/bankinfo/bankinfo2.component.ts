@@ -16,7 +16,7 @@ export class BankInfo2Component {
     // Local Variables 
     title = '';
 
-    @ViewChild('_txtbiname') private txtbiname_ctrl: ElementRef;
+    @ViewChild('_txtbiacno') private txtbiacno_ctrl: ElementRef;
     private _pkid: string;
     @Input() set pkid(value: string) {
         this._pkid = value;
@@ -82,8 +82,8 @@ export class BankInfo2Component {
                     this.NewRecord();
                 else
                     this.Record = response.record;
-                if (!this.gs.isBlank(this.txtbiname_ctrl))
-                    this.txtbiname_ctrl.nativeElement.focus();
+                if (!this.gs.isBlank(this.txtbiacno_ctrl))
+                    this.txtbiacno_ctrl.nativeElement.focus();
             },
                 error => {
                     this.loading = false;
@@ -130,8 +130,8 @@ export class BankInfo2Component {
                 if (response.retvalue) {
                     this.InfoMessage = "Save Complete";
                     alert(this.InfoMessage);
-                    if (!this.gs.isBlank(this.txtbiname_ctrl))
-                        this.txtbiname_ctrl.nativeElement.focus();
+                    if (!this.gs.isBlank(this.txtbiacno_ctrl))
+                        this.txtbiacno_ctrl.nativeElement.focus();
                 }
 
             },
