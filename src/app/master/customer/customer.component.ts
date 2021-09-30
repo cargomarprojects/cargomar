@@ -931,6 +931,4 @@ export class CustomerComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
-
 }

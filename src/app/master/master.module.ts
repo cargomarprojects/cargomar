@@ -41,6 +41,7 @@ import { MailListComponent } from './maillist/maillist.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { LocalChargeComponent } from './localcharge/localcharge.component';
 import { UnlockJobComponent } from './customer/unlockjob.component';
+import { BankInfo2Component } from './bankinfo/bankinfo2.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { UnlockJobComponent } from './customer/unlockjob.component';
     MailListComponent,
     SeaBuyRateComponent,
     LocalChargeComponent,
-    UnlockJobComponent
+    UnlockJobComponent,
+    BankInfo2Component
   ],
   providers: [
   ],
