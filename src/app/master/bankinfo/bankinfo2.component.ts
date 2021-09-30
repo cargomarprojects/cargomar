@@ -166,12 +166,63 @@ export class BankInfo2Component {
 
     }
 
+
     OnBlur(field: string) {
         switch (field) {
-            case 'remarks':
+            case 'bi_name':
                 {
-                    // this.remarks = this.remarks.toUpperCase();
-                    // break;
+                    this.Record.bi_name = this.Record.bi_name.toUpperCase();
+                    break;
+                }
+            case 'bi_add1':
+                {
+                    this.Record.bi_add1 = this.Record.bi_add1.toUpperCase();
+                    break;
+                }
+            case 'bi_add2':
+                {
+                    this.Record.bi_add2 = this.Record.bi_add2.toUpperCase();
+                    break;
+                }
+            case 'bi_add3':
+                {
+                    this.Record.bi_add3 = this.Record.bi_add3.toUpperCase();
+                    break;
+                }
+            case 'bi_acno':
+                {
+                    this.Record.bi_acno = this.Record.bi_acno.toUpperCase();
+                    break;
+                }
+            case 'bi_identifier':
+                {
+                    this.Record.bi_identifier = this.Record.bi_identifier.toUpperCase();
+                    break;
+                }
+            case 'bi_curr_code':
+                {
+                    this.Record.bi_curr_code = this.Record.bi_curr_code.toUpperCase();
+                    break;
+                }
+            case 'bi_benf_name':
+                {
+                    this.Record.bi_benf_name = this.Record.bi_benf_name.toUpperCase();
+                    break;
+                }
+            case 'bi_benf_add1':
+                {
+                    this.Record.bi_benf_add1 = this.Record.bi_benf_add1.toUpperCase();
+                    break;
+                }
+            case 'bi_benf_add2':
+                {
+                    this.Record.bi_benf_add2 = this.Record.bi_benf_add2.toUpperCase();
+                    break;
+                }
+            case 'bi_benf_add3':
+                {
+                    this.Record.bi_benf_add3 = this.Record.bi_benf_add3.toUpperCase();
+                    break;
                 }
         }
     }
