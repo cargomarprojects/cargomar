@@ -95,8 +95,8 @@ export class GenRemarks2Component {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
-                if (this.txtremark_ctrl != null && this.txtremark_ctrl != undefined)
-                    this.txtremark_ctrl.nativeElement.focus();
+                // if (this.txtremark_ctrl != null && this.txtremark_ctrl != undefined)
+                //     this.txtremark_ctrl.nativeElement.focus();
             },
                 error => {
                     this.loading = false;
