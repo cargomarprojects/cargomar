@@ -128,7 +128,7 @@ export class GenFileUploadComponent {
     for (let rec of this.RecordList) {
       this.FolderId = rec.filefolderid;
       if (this.FileNames != "")
-        this.FileNames += "\n";
+        this.FileNames += "*";
       this.FileNames += rec.filedisplayname;
     }
 
