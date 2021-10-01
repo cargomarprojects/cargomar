@@ -10,8 +10,9 @@ import { OsAgentReport } from '../models/osagent';
 import { AccReportService } from '../services/accreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 //CREATE-AJITH-25-09-2021
-//CREATE-AJITH-27-09-2021
-//CREATE-AJITH-28-09-2021
+//EDIT-AJITH-27-09-2021
+//EDIT-AJITH-28-09-2021
+//EDIT-AJITH-01-10-2021
 
 @Component({
   selector: 'app-osagent2',
@@ -136,7 +137,7 @@ export class OsAgent2Component {
     this.Init();
     this.LoadCombo();
     this.InitLov();
-    this.List('NEW','CURRENCY');
+    this.List('NEW','SUMMARY');
   }
   Init() {
 
@@ -145,7 +146,7 @@ export class OsAgent2Component {
     this.agent_id = '';
     this.curr_id = '';
     this.category = "ALL";
-    this.category_type = "CURRENCY";
+    this.category_type = "SUMMARY";
 
   }
   // Destroy Will be called when this component is closed
