@@ -1507,6 +1507,7 @@ export class JobComponent {
       user_code: '',
       user_name: '',
       user_email : '',
+      user_dsc_slno : '',
     }
 
     SearchData.pkid = this.pkid;
@@ -1519,6 +1520,7 @@ export class JobComponent {
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_email = this.gs.globalVariables.user_email;
+    SearchData.user_dsc_slno = this.gs.globalVariables.user_dsc_slno;
 
     this.ErrorMessage = '';
     this.mainService.GenerateEdi(SearchData)

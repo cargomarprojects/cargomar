@@ -149,29 +149,31 @@ export class GenFileUploadComponent {
     let SearchData = {
       type: '',
       subtype: '',
-      edifiletype: '',
+      filetype: '',
       pkid: '',
       report_folder: '',
       folderid: '',
-      filenames : '',
+      filename : '',
       company_code: '',
       branch_code: '',
       user_code: '',
       user_name: '',
       user_email : '',
+      user_dsc_slno : '',
     }
 
     SearchData.pkid = this.pkid;
-    SearchData.edifiletype = "PDF";
+    SearchData.filetype = "PDF";
     SearchData.subtype = "SIGN PDF";
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.FolderId;
-    SearchData.filenames = this.FileNames;
+    SearchData.filename = this.FileNames;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_email = this.gs.globalVariables.user_email;
+    SearchData.user_dsc_slno = this.gs.globalVariables.user_dsc_slno;
 
     this.http2.post<any>( this.gs.baseUrl + '/api/Operations/Job/SignPdf', SearchData, this.gs.headerparam2('authorized-fileupload')).subscribe(
         data => {
