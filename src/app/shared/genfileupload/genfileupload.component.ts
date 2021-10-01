@@ -129,7 +129,7 @@ export class GenFileUploadComponent {
       this.FolderId = rec.filefolderid;
       if (this.FileNames != "")
         this.FileNames += "*";
-      this.FileNames += rec.filedisplayname;
+      this.FileNames += rec.filename;
     }
 
     if (this.gs.isBlank(this.FileNames)) {
@@ -175,7 +175,7 @@ export class GenFileUploadComponent {
     SearchData.user_email = this.gs.globalVariables.user_email;
     SearchData.user_dsc_slno = this.gs.globalVariables.user_dsc_slno;
 
-    console.log('singing');
+    
 
     this.http2.post<any>( this.gs.baseUrl + '/api/Operations/Job/SignPdf', SearchData, this.gs.headerparam2('authorized-fileupload')).subscribe(
         data => {

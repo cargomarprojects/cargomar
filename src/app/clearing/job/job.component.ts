@@ -1532,9 +1532,7 @@ export class JobComponent {
           }
         }
 
-        if (_type == 'SIGN')
-          this.SignDoc(response.signedtext);
-        else
+        if (_type != 'SIGN')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
 
         if (response.invamtmismatch) {
@@ -1675,7 +1673,7 @@ export class JobComponent {
     this.loading = true;
     this.folder_id = this.gs.getGuid();
 
-    return ;
+  
     let SearchData = {
       signtext: '',
       report_folder: '',
