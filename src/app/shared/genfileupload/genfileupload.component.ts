@@ -27,6 +27,7 @@ export class GenFileUploadComponent {
   myFiles: string[] = [];
   sMsg: string = '';
   FileNames: string = '';
+  FileDisplayNames: string = '';
   FolderId: string = '';
 
   constructor(
@@ -125,11 +126,19 @@ export class GenFileUploadComponent {
   SignPdfFiles() {
 
     this.FileNames = "";
+    this.FileDisplayNames = "";
     for (let rec of this.RecordList) {
       this.FolderId = rec.filefolderid;
+      
       if (this.FileNames != "")
         this.FileNames += "*";
       this.FileNames += rec.filename;
+
+      if (this.FileDisplayNames != "")
+        this.FileDisplayNames += "*";
+      this.FileDisplayNames += rec.filedisplayname;
+
+
     }
 
     if (this.gs.isBlank(this.FileNames)) {
@@ -154,6 +163,7 @@ export class GenFileUploadComponent {
       report_folder: '',
       folderid: '',
       filename : '',
+      filedisplayname : '',
       company_code: '',
       branch_code: '',
       user_code: '',
@@ -170,6 +180,7 @@ export class GenFileUploadComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.FolderId;
     SearchData.filename = this.FileNames;
+    SearchData.filedisplayname = this.FileDisplayNames;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_email = this.gs.globalVariables.user_email;
