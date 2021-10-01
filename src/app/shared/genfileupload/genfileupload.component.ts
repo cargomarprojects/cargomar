@@ -128,8 +128,8 @@ export class GenFileUploadComponent {
     for (let rec of this.RecordList) {
       this.FolderId = rec.filefolderid;
       if (this.FileNames != "")
-        this.FileNames += "*";
-      this.FileNames += rec.filename;
+        this.FileNames += "\n";
+      this.FileNames += rec.filedisplayname;
     }
 
     if (this.gs.isBlank(this.FileNames)) {
@@ -141,17 +141,49 @@ export class GenFileUploadComponent {
       return;
     }
 
+
+//    SearchData.filename = this.FileNames;
+  //  SearchData.folderid = this.FolderId;
+
+
     let SearchData = {
-      filename: '',
-      folderid: ''
+      type: '',
+      subtype: '',
+      edifiletype: '',
+      pkid: '',
+      report_folder: '',
+      folderid: '',
+      filenames : '',
+      company_code: '',
+      branch_code: '',
+      user_code: '',
+      user_name: '',
+      user_email : '',
     }
 
-    SearchData.filename = this.FileNames;
+    SearchData.pkid = this.pkid;
+    SearchData.edifiletype = "PDF";
+    SearchData.subtype = "SIGN PDF";
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.FolderId;
+    SearchData.filenames = this.FileNames;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.user_name = this.gs.globalVariables.user_name;
+    SearchData.user_email = this.gs.globalVariables.user_email;
 
+    this.http2.post<any>( this.gs.baseUrl + '/api/Operations/Job/SignPdf', SearchData, this.gs.headerparam2('authorized-fileupload')).subscribe(
+        data => {
+          this.loading = false;
+          alert('Files Sent for Signing, pls check your email '+ this.gs.globalVariables.user_email   +' after few minutes');
+        }, error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        }
+    );
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
   }
 
 
