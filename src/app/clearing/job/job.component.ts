@@ -1675,6 +1675,7 @@ export class JobComponent {
     this.loading = true;
     this.folder_id = this.gs.getGuid();
 
+    return ;
     let SearchData = {
       signtext: '',
       report_folder: '',
