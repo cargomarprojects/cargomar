@@ -112,11 +112,11 @@ export class GenFileUploadComponent {
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
           this.RecordList = data.flist;
-          //   alert('Upload Complete');
+          alert('File Upload Complete');
         },
         error => {
           this.loading = false;
-          alert('Failed');
+          alert('Error ' + this.gs.getError(error));
         }
       );
   }
