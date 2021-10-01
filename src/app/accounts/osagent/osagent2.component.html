@@ -11,11 +11,29 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
           <div class="form-group row">
-            <div class="col-sm-8">
-              <button [disabled]="loading" (click)="List('NEW','CURRENCY')" class="btn btn-primary btn-sm">Process</button>
-              <button [disabled]="loading" (click)="List('EXCEL',category_type)" class="btn btn-primary btn-sm">Excel</button>
+            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+            <div class="col-4">
+              <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
+                <option [value]="'AGING'">AGING</option>
+                <option [value]="'SUMMARY'">SUMMARY</option>
+              </select>
+            </div>
+            <label *ngIf="category_type=='AGING'" class="col-2 col-form-label col-form-label-sm">Currency</label>
+            <div *ngIf="category_type=='AGING'" class="col-4">
+              <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <button [disabled]="loading" (click)="List('NEW',category_type)"
+                class="btn btn-primary btn-sm">Process</button>
+              <button [disabled]="loading" (click)="List('EXCEL',category_type)"
+                class="btn btn-primary btn-sm">Excel</button>
             </div>
           </div>
         </div>
@@ -27,7 +45,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive">
+  <div *ngIf="category_type=='SUMMARY'" class="page-body table-responsive">
     <table class="table table-bordered table-hover table-sm table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -47,6 +65,40 @@
           <td align='right'>{{ rec.eur | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.gbp | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.inr | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="category_type=='AGING'" class="page-body table-responsive">
+    <table class="table table-bordered table-hover table-sm table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>A/C NAME</th>
+          <th>CURRENCY</th>
+          <th class="text-right">0-30</th>
+          <th class="text-right">31-60</th>
+          <th class="text-right">61-90</th>
+          <th class="text-right">91-180</th>
+          <th class="text-right">180+</th>
+          <th class="text-right">365+</th>
+          <th class="text-right">BALANCE</th>
+          <th class="text-right">ADVANCE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index"
+          [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex= i">
+          <td>{{rec.acc_name}}</td>
+          <td>{{rec.curr_code}}</td>
+          <td align='right'>{{ rec.G1 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G2 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G3 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>  
         </tr>
       </tbody>
     </table>
