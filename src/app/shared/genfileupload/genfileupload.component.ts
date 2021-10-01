@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { AlertService } from '../services/alert.service';
 import { LovService } from '../services/lov.service';
-import { documentm } from '../models/documentm';
-import { FileDetails } from '../../operations/models/filedetails';
+import { Filesm } from '../models/filesm';
+
 //CREATE-AJITH-01-10-2021
 
 @Component({
@@ -26,6 +26,8 @@ export class GenFileUploadComponent {
   loading = false;
   myFiles: string[] = [];
   sMsg: string = '';
+  FileNames: string = '';
+  FolderId: string = '';
 
   constructor(
     public gs: GlobalService,
@@ -37,7 +39,7 @@ export class GenFileUploadComponent {
   }
 
   @ViewChild('fileinput') private fileinput: ElementRef;
-  RecordList: documentm[] = [];
+  RecordList: Filesm[] = [];
   filesSelected: boolean = false;;
   ngOnInit() {
     this.LoadCombo();
@@ -80,10 +82,6 @@ export class GenFileUploadComponent {
 
   uploadFiles() {
 
-    if (this.gs.defaultValues.root_folder == '') {
-      alert('Root Folder is blank');
-      return;
-    }
     if (!this.filesSelected) {
       alert('No File Selected');
       return;
@@ -113,6 +111,7 @@ export class GenFileUploadComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
+          this.RecordList = data.flist;
           //   alert('Upload Complete');
         },
         error => {
@@ -120,6 +119,39 @@ export class GenFileUploadComponent {
           alert('Failed');
         }
       );
+  }
+
+
+  SignPdfFiles() {
+
+    this.FileNames = "";
+    for (let rec of this.RecordList) {
+      this.FolderId = rec.filefolderid;
+      if (this.FileNames != "")
+        this.FileNames += "*";
+      this.FileNames += rec.filename;
+    }
+
+    if (this.gs.isBlank(this.FileNames)) {
+      alert('Files Not Found');
+      return;
+    }
+    if (this.gs.isBlank(this.FolderId)) {
+      alert('Invalid Folder');
+      return;
+    }
+
+    let SearchData = {
+      filename: '',
+      folderid: ''
+    }
+
+    SearchData.filename = this.FileNames;
+    SearchData.folderid = this.FolderId;
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    
   }
 
 
@@ -132,4 +164,6 @@ export class GenFileUploadComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+
+
 }
