@@ -181,7 +181,7 @@ export class GenFileUploadComponent {
           alert('Files Sent for Signing, pls check your email '+ this.gs.globalVariables.user_email   +' after few minutes');
         }, error => {
           this.loading = false;
-          alert(this.gs.getError(error));
+          alert('Error ' + this.gs.getError(error));
         }
     );
     this.ErrorMessage = '';
