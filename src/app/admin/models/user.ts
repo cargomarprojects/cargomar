@@ -19,6 +19,7 @@ export class User {
     user_local_server: string;
     user_tp_code: string;
     user_tp_name: string;
+    user_dsc_slno: string;
     
     rec_mode: string;
 
