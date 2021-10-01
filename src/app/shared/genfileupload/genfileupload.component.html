@@ -1,0 +1,54 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <!-- <button [disabled]="loading" (click)="List('LIST')" class="btn btn-primary btn-sm">Refresh</button> -->
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div class="page-details" *ngIf="canupload">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">File</label>
+                <div class="col-10">
+                    <input type="file" multiple id="file" accept = "application/pdf" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-10">
+                    <button (click)="SignFiles()">Sign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>NAME</th>
+                    <th>SIZE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr>
+                    <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_name}}</td>
+                    <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_file_size}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

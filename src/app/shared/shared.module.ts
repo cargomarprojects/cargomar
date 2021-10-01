@@ -55,8 +55,9 @@ import { CrLimitComponent } from './crlimit/crlimit.component';
 import { GenRemarksComponent } from './genremarks/genremarks.component';
 import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 import { GenRemarks2Component } from './genremarks/genremarks2.component';
+import { GenFileUploadComponent } from './genfileupload/genfileupload.component';
 //EDIT-AJITH-29-09-2021
-
+//EDIT-AJITH-01-10-2021
 @NgModule({
   imports: [
     CommonModule,
@@ -93,7 +94,8 @@ import { GenRemarks2Component } from './genremarks/genremarks2.component';
     CrLimitComponent,
     GenRemarksComponent,
     ReportDocsComponent,
-    GenRemarks2Component
+    GenRemarks2Component,
+    GenFileUploadComponent
   ],
   exports: [
     CommonModule,
@@ -127,7 +129,8 @@ import { GenRemarks2Component } from './genremarks/genremarks2.component';
     CrLimitComponent,
     GenRemarksComponent,
     ReportDocsComponent,
-    GenRemarks2Component
+    GenRemarks2Component,
+    GenFileUploadComponent
   ],
   providers: [
     AlertService,

@@ -1,0 +1,96 @@
+<div class="page-box">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">A/c.Number</label>
+                <div class="col-10">
+                    <input #_txtbiacno type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_acno" required
+                        maxlength="60" (blur)="OnBlur('bi_acno')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Bank</label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_name"
+                        required maxlength="60" (blur)="OnBlur('bi_name')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Address</label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_add1" required
+                        maxlength="60" (blur)="OnBlur('bi_add1')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_add2" required
+                        maxlength="60" (blur)="OnBlur('bi_add2')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_add3" required
+                        maxlength="60" (blur)="OnBlur('bi_add3')" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Swift Code</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_swift" required
+                        maxlength="60" (blur)="OnBlur('bi_swift')" />
+                </div>
+                <label class="col-2 col-form-label  col-form-label-sm">Currency</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_curr_code" required
+                        maxlength="3" (blur)="OnBlur('bi_curr_code')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Beneficiary</label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_benf_name" required
+                        maxlength="60" (blur)="OnBlur('bi_benf_name')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Address</label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_benf_add1" required
+                        maxlength="60" (blur)="OnBlur('bi_benf_add1')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_benf_add2" required
+                        maxlength="60" (blur)="OnBlur('bi_benf_add2')" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm"></label>
+                <div class="col-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bi_benf_add3" required
+                        maxlength="60" (blur)="OnBlur('bi_benf_add3')" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-box">
+    <div class="col-12">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-info btn-sm">SAVE</button>
+    </div>
+</div>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

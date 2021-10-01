@@ -66,6 +66,7 @@ export class Itemm {
     itm_stmt_code2: boolean;
     itm_stmt_code3: boolean;
     itm_stmt_codeR: boolean;
+    itm_stmt_codeS: boolean;
 
     itm_third_party_id: string;
     itm_third_party_code: string;

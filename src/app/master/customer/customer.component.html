@@ -425,8 +425,8 @@
               <div class="form-group row">
                 <!-- <label class="col-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-2">
-                  <button *ngIf="mode == 'EDIT' && bCanUnLink" [disabled]="loading"
-                    (click)="Unlink(Record.cust_pkid)" class="btn btn-success btn-sm">Unlink</button>
+                  <button *ngIf="mode == 'EDIT' && bCanUnLink" [disabled]="loading" (click)="Unlink(Record.cust_pkid)"
+                    class="btn btn-success btn-sm">Unlink</button>
                 </div>
                 <div class="col-4">
                   <input [disabled]="cust_linked || !bAdmin2" type="checkbox" [(ngModel)]="Record.cust_linked" />
@@ -653,9 +653,16 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab title="History" *ngIf="mode == 'EDIT'">
+    <ngb-tab title="Agent" *ngIf="mode == 'EDIT' && bAgent">
       <ng-template ngbTabContent>
-        <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
+        <div>
+          <h6 style="color: green" class="my-1">BANK DETAILS</h6>
+          <app-bankinfo2 [pkid]="pkid" [source]="'AGENT'" ></app-bankinfo2>
+        </div>
+        <div>
+          <h6 style="color: green" class="my-1">HISTORY</h6>
+          <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

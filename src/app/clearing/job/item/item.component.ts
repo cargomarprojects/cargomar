@@ -616,6 +616,7 @@ export class ItemComponent {
     this.Record.itm_stmt_code2 = false;
     this.Record.itm_stmt_code3 = false;
     this.Record.itm_stmt_codeR = true;
+    this.Record.itm_stmt_codeS = false;
 
     this.Record.itm_third_party_id = '';
     this.Record.itm_third_party_code = '';

@@ -30,6 +30,7 @@ import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { MailListComponent } from './maillist/maillist.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { LocalChargeComponent } from './localcharge/localcharge.component';
+import { EfileUploadComponent } from './efileupload/efileupload.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
     { path: 'maillist', component: MailListComponent },
     { path: 'seabuyrate', component: SeaBuyRateComponent },
     { path: 'localcharge', component: LocalChargeComponent },
+    { path: 'efileupload', component: EfileUploadComponent },
 ];
 
 @NgModule({
