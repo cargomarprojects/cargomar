@@ -33,7 +33,7 @@ export class GenFileUploadComponent {
     private alertService: AlertService,
     private http2: HttpClient,
   ) {
-   
+
   }
 
   @ViewChild('fileinput') private fileinput: ElementRef;
@@ -73,7 +73,8 @@ export class GenFileUploadComponent {
     if (!isValidFile) {
       this.filesSelected = false;
       alert('Invalid File Name - &%,#');
-    }
+    } else
+      this.uploadFiles();
   }
 
 
@@ -93,8 +94,8 @@ export class GenFileUploadComponent {
 
     frmData.append("COMPCODE", this.gs.globalVariables.comp_code);
     frmData.append("BRANCHCODE", this.gs.globalVariables.branch_code);
-    frmData.append("PARENTID", this.pkid);
-    frmData.append("GROUPID", '');
+    frmData.append("PARENTID", this.gs.globalVariables.report_folder);
+    frmData.append("GROUPID", 'EDI-SIGN-FILES');
     frmData.append("TYPE", this.type);
     frmData.append("DESC", '');
     frmData.append("CATGID", '');
@@ -112,7 +113,7 @@ export class GenFileUploadComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
-        //   alert('Upload Complete');
+          //   alert('Upload Complete');
         },
         error => {
           this.loading = false;
