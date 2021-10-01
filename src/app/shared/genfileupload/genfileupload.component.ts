@@ -17,9 +17,9 @@ export class GenFileUploadComponent {
 
   @Input() public pkid: string = '';
   @Input() public type: string = '';
+  @Input() public menuid: string = '';
+  @Input() public title: string = 'Documents';
   @Input() public canupload: boolean = true;
-
-  title = 'Documents';
 
   ErrorMessage: string = '';
   InfoMessage: string = '';

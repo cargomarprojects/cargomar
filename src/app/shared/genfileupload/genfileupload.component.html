@@ -7,28 +7,24 @@
 </div>
 
 <div class="page-details" *ngIf="canupload">
-
     <div class="row">
-
         <div class="col-sm-6">
             <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">File</label>
                 <div class="col-10">
-                    <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+                    <input type="file" multiple id="file" accept = "application/pdf" style="width: 600px" #fileinput (change)="getFileDetails($event)">
                 </div>
             </div>
-
+        </div>
+        <div class="col-sm-6">
             <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm"></label>
                 <div class="col-10">
                     <button (click)="SignFiles()">Sign</button>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <div class="page-list">
@@ -48,7 +44,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 
 <div *ngIf="InfoMessage" class="alert alert-success">
