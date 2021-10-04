@@ -13,6 +13,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 //EDIT-AJITH-27-09-2021
 //EDIT-AJITH-28-09-2021
 //EDIT-AJITH-01-10-2021
+//EDIT-AJITH-04-10-2021
 
 @Component({
   selector: 'app-osagent2',

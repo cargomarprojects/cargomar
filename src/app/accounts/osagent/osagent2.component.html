@@ -16,8 +16,8 @@
             <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
             <div class="col-4">
               <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
-                <option [value]="'AGING'">AGING</option>
                 <option [value]="'SUMMARY'">SUMMARY</option>
+                <option [value]="'AGING'">AGING</option>
               </select>
             </div>
             <label *ngIf="category_type=='AGING'" class="col-2 col-form-label col-form-label-sm">Currency</label>
@@ -82,8 +82,8 @@
           <th class="text-right">91-180</th>
           <th class="text-right">180+</th>
           <th class="text-right">365+</th>
-          <th class="text-right">BALANCE</th>
           <th class="text-right">ADVANCE</th>
+          <th class="text-right">BALANCE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -97,8 +97,8 @@
           <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>  
+          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
         </tr>
       </tbody>
     </table>
