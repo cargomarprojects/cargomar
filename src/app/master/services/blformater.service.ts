@@ -8,7 +8,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
 export class BlFormterService {
-
+  public zoom = 1;
   constructor(
     private http2: HttpClient,
     private gs: GlobalService) {

@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { printformatm } from '../models/printformatm';
 import { printformatd } from '../models/printformatd';
 import { BlFormterService } from '../services/blformater.service';
 import { SearchTable } from '../../shared/models/searchtable';
+//EDIT-AJITH-05-10-2021
 
 @Component({
   selector: 'app-blformater',
@@ -19,7 +20,8 @@ export class BlFormaterComponent {
   title = 'BL Format';
 
   @ViewChild('addressComponent') addressComponent: any;
-
+  @ViewChild('canvas') canvas : ElementRef;
+  private ctx: CanvasRenderingContext2D;  
 
   mdate: string;
 
@@ -60,8 +62,22 @@ export class BlFormaterComponent {
 
 
   RecordListDet: printformatd[] = [];
+  record :  printformatd;
 
+  selectedItem = -1;
+  btnx = 0;
+  btny =0;
 
+  mouseX = 0;
+  mouseY = 0;
+
+  destX = 0;
+  destY = 0;
+
+  remarks = '';
+
+  ht = 1200;
+  wd = 900;
 
   constructor(
     private mainService: BlFormterService,
@@ -94,13 +110,18 @@ export class BlFormaterComponent {
     }
   }
 
+  ngAfterViewInit() {
+    this.getCanvas();
+    this.drawPage();
+    this.List("NEW");
+}
   InitComponent() {
 
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-
-    this.LoadCombo();
+     
+  //  this.LoadCombo();
     this.InitLov();
   }
 
@@ -370,6 +391,10 @@ export class BlFormaterComponent {
   }
 
   Copy(_id: string) {
+
+// this.GetRecord(_id);
+// return;
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
@@ -397,20 +422,20 @@ export class BlFormaterComponent {
 
     let SearchData = {
       pkid: _id,
-      type:"COPY",
+      type: "COPY",
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       copyto_branch_code: this.copyto_branch_code,
       copyto_typename: this.copyto_typename,
-      copyto_type:this.Record.blf_type
+      copyto_type: this.Record.blf_type
     };
 
     this.mainService.CopyFormat(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.copyto_branch_code='';
-        this.copyto_branch_id ='';
-        this.copyto_typename ='';
+        this.copyto_branch_code = '';
+        this.copyto_branch_id = '';
+        this.copyto_typename = '';
         this.InfoMessage = "Save Complete";
         alert(this.InfoMessage);
       },
@@ -421,8 +446,7 @@ export class BlFormaterComponent {
         });
   }
 
-  AddRow(_id: string)
-  {
+  AddRow(_id: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (_id.length <= 0) {
@@ -443,20 +467,20 @@ export class BlFormaterComponent {
 
     let SearchData = {
       pkid: _id,
-      type:"ADD",
+      type: "ADD",
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       copyto_branch_code: this.copyto_branch_code,
       copyto_typename: this.copyto_typename,
-      copyto_type:this.Record.blf_type
+      copyto_type: this.Record.blf_type
     };
 
     this.mainService.CopyFormat(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.copyto_branch_code='';
-        this.copyto_branch_id ='';
-        this.copyto_typename ='';
+        this.copyto_branch_code = '';
+        this.copyto_branch_id = '';
+        this.copyto_typename = '';
         this.InfoMessage = "Save Complete";
         alert(this.InfoMessage);
       },
@@ -466,5 +490,128 @@ export class BlFormaterComponent {
           alert(this.ErrorMessage);
         });
   }
+
+   
+
+  getPos( x : number)
+    {   
+        let tot = x *  this.mainService.zoom;
+        return tot.toString() + "px";
+    }
+
+    onKeydown(event : KeyboardEvent, _rec  : printformatd) {
+        console.log(event.key);
+        this.disableScrolling();
+        var _factor = 1;
+        if (event.key === "ArrowDown") {
+            _rec.blf_col_y += _factor;
+        }
+        if (event.key === "ArrowUp") {
+            _rec.blf_col_y -= _factor;
+        }
+        if (event.key === "ArrowLeft") {
+            _rec.blf_col_x -= _factor;
+        }
+        if (event.key === "ArrowRight") {
+            _rec.blf_col_x += _factor;
+        }
+    }
+    onKeyup(event : KeyboardEvent, _rec  : printformatd) {
+        this.enableScrolling();
+    }
+
+
+    btnClick(evt  , _rec  : printformatd)
+    {
+        this.btnx = evt.x;
+        this.btny = evt.y;
+        this.setRemarks();     
+    }
+    
+    setRemarks(){
+        var str = "";
+        str = "Pos : (" + this.btnx.toString() + "," + this.btny.toString();
+        str += ")-(" + this.mouseX.toString() + "," + this.mouseY.toString() + ")";
+        this.remarks = str;
+    }
+
+    onDragStart(evt,_rec  : printformatd, i :number){
+        this.record = _rec;        
+        this.selectedItem = i; 
+        this.btnx = evt.x;
+        this.btny = evt.y;
+
+        this.setRemarks();
+    }
+
+    allowDrop(evt) {
+        this.mouseX =  evt.x;
+        this.mouseY =  evt.y;
+        this.setRemarks();
+        evt.preventDefault();
+    }
+   
+    onDrop(evt) {
+        if ( this.selectedItem == -1)
+            return;
+        this.setRemarks();
+        var x = 0;
+        var y = 0;
+        if (evt.x > this.btnx) {
+            x = (evt.x - this.btnx ) / this.mainService.zoom;
+            this.record.blf_col_x = this.record.blf_col_x + x;
+        }
+        if (evt.x < this.btnx) {
+            x = (this.btnx - evt.x) / this.mainService.zoom;
+            this.record.blf_col_x = this.record.blf_col_x - x;
+        }
+
+        if (evt.y > this.btny) {
+            y = (evt.y - this.btny) / this.mainService.zoom;
+            this.record.blf_col_y = this.record.blf_col_y + y;
+        }
+        if (evt.y < this.btny) {
+            y = (this.btny - evt.y) / this.mainService.zoom;
+            this.record.blf_col_y = this.record.blf_col_y - y;
+        }
+        this.destX = x;
+        this.destY = y;
+        this.setRemarks();
+        this.selectedItem = -1;
+    }
+
+    getCanvas(){
+        if ( this.canvas)
+            this.ctx = this.canvas.nativeElement.getContext('2d');
+    }
+
+    drawPage(){
+        if ( !this.ctx)
+            return;
+        this.ctx.beginPath();
+        //this.ctx.fillStyle = 'gray';
+        this.ctx.lineWidth = 0.1;
+        for ( var k=0; k <= this.wd ; k+=50){
+            this.ctx.moveTo(k, 0);
+            this.ctx.lineTo(k,this.ht);
+        }
+
+        for ( var k=0; k <= this.ht ; k+=50){
+            this.ctx.moveTo(0, k);
+            this.ctx.lineTo(this.wd,k);
+        }
+
+        this.ctx.stroke();
+    }
+
+    disableScrolling(){
+        var x=window.scrollX;
+        var y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};
+    }
+    
+    enableScrolling(){
+        window.onscroll=function(){};
+    }
 
 }
