@@ -15,6 +15,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class BlFormaterComponent {
   /*
   Ajith 01/06/2019 format copy implemented
+  Joy   05/10/2021 format copy implemented
   */
   // Local Variables 
   title = 'BL Format';
