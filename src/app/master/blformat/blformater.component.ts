@@ -21,7 +21,7 @@ export class BlFormaterComponent {
   title = 'BL Format';
 
   @ViewChild('addressComponent') addressComponent: any;
-  @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas') canvas: ElementRef;
 
   private ctx: CanvasRenderingContext2D;
 
@@ -78,7 +78,7 @@ export class BlFormaterComponent {
 
   remarks = '';
 
-  ht = 1200;
+  ht = 1400;
   wd = 900;
 
   constructor(
@@ -196,7 +196,6 @@ export class BlFormaterComponent {
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
-      this.InitCanvas();
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
@@ -507,7 +506,7 @@ export class BlFormaterComponent {
   }
 
   onKeydown(event: KeyboardEvent, _rec: printformatd) {
-    console.log(event.key);
+    
     this.disableScrolling();
     var _factor = 1;
     if (event.key === "ArrowDown") {
@@ -589,12 +588,15 @@ export class BlFormaterComponent {
   getCanvas() {
     if (this.canvas)
       this.ctx = this.canvas.nativeElement.getContext('2d');
-      console.log(this.ctx);
+      
   }
 
   drawPage() {
     if (!this.ctx)
       return;
+    
+    this.ctx.clearRect(0, 0, this.wd, this.ht);
+
     this.ctx.beginPath();
     //this.ctx.fillStyle = 'gray';
     this.ctx.lineWidth = 0.1;

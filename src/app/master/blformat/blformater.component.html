@@ -75,12 +75,16 @@
 
   <div class="page-box">
     <div class="row">
+
       <div class="col-sm-6">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Type</label>
           <div class="col-6">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_type"
               (blur)="OnBlur('blf_type')" required maxlength="8" />
+          </div>
+          <div class="col-4">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
           </div>
         </div>
 
@@ -90,51 +94,74 @@
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_name"
               (blur)="OnBlur('blf_name')" required maxlength="250" />
           </div>
+          <div class="col-4">
+            <button [disabled]="loading" (click)="InitCanvas()" class="btn btn-info btn-sm">Show Lines</button>
+          </div>
         </div>
 
-        <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Format Name</label>
-          <div class="col-3">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="copyto_typename"
-              (blur)="OnBlur('copyto_typename','')" required maxlength="50" />
+      </div>
+
+
+      <div class="col-sm-3">
+        <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'">
+
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Format</label>
+            <div class="col-10">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="copyto_typename"
+                (blur)="OnBlur('copyto_typename','')" required maxlength="50" />
+            </div>
           </div>
-          <label class="col-1 col-form-label col-form-label-sm">Branch</label>
-          <div class="col-3">
-            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete>
-          </div>
-          <div class="col-3">
-            <button [disabled]="loading" (click)="Copy(Record.blf_pkid)" class="btn btn-primary btn-sm">Copy</button>
-            <button [disabled]="loading" (click)="AddRow(Record.blf_pkid)" class="btn btn-primary btn-sm">Add Row</button>
-            <button [disabled]="loading" (click)="ActionHandler('EDIT',pkid)" class="btn btn-primary btn-sm">Refresh</button>
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-10">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="col-sm-3">
+        <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'">
+          <div class="form-group row">
+            <div class="col-12">
+              <button [disabled]="loading" (click)="Copy(Record.blf_pkid)" class="btn btn-info btn-sm">Copy</button>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-12">
+              <button [disabled]="loading" (click)="AddRow(Record.blf_pkid)" class="btn btn-info btn-sm">Add
+                Row</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 
   <div class="page-box">
-    
-
-      <div class="page-body" style="position:relative;min-height: 2100px;min-width: 1100px;z-index:0"
-        (drop)="onDrop($event)" (dragover)="allowDrop($event)">
-
-        <canvas id="canvas" #canvas [height]="ht" [width]="wd" style="border:1px solid #c3c3c3;">
-          Your browser does not support the canvas element.
-        </canvas> 
-
-        <button *ngFor="let rec of  RecordListDet; let i=index" class="abspos" draggable="true" [id]="i"
-          [style.left]="getPos(rec.blf_col_x)" [style.top]="getPos(rec.blf_col_y)" [style.text-align]="'left'"
-          (keydown)="onKeydown($event,rec)" 
-          (keyup)="onKeyup($event,rec)" 
-          (dragstart)="onDragStart($event,rec,i)"
-          (click)="btnClick($event,rec)"> 
-          {{rec.blf_col_name}} 
-        </button>
-      </div>
 
 
-      <!-- <div class="col-sm-6">
+    <div class="page-body" style="position:relative;min-height: 1500px;min-width: 950px;z-index:0"
+      (drop)="onDrop($event)" (dragover)="allowDrop($event)">
+
+      <canvas id="mcanvas" #canvas [height]="ht" [width]="wd" style="border:1px solid #c3c3c3;">
+        Your browser does not support the canvas element.
+      </canvas>
+
+      <button *ngFor="let rec of  RecordListDet; let i=index" class="abspos" draggable="true" [id]="i"
+        [style.left]="getPos(rec.blf_col_x)" [style.top]="getPos(rec.blf_col_y)" [style.text-align]="'left'"
+        (keydown)="onKeydown($event,rec)" (keyup)="onKeyup($event,rec)" (dragstart)="onDragStart($event,rec,i)"
+        (click)="btnClick($event,rec)">
+        {{rec.blf_col_name}}
+      </button>
+    </div>
+
+
+    <!-- <div class="col-sm-6">
         <div class="page-body table-responsive">
           <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
@@ -183,18 +210,7 @@
           </table>
         </div>
       </div> -->
-
   </div>
-  <div class="page-box">
-    <div class="col-sm-6">
-
-      <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-
-      <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
-  </div>
-
 </div>
 <br />
 
