@@ -1532,7 +1532,7 @@ export class JobComponent {
           }
         }
 
-        if (_type != 'SIGN')
+        if (_type != 'SIGN' && _type != 'SIGNANDMAIL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
 
         if (response.invamtmismatch) {
