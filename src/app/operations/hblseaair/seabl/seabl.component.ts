@@ -44,6 +44,7 @@ export class BlComponent {
   color_print = true;
   user_admin = false;
   bShowPasteData: boolean = false;
+  bShowDraftPdf: boolean = false;
   // Array For Displaying List
   BLFormatList: any[] = [];
   BLPrintFormatList: any[] = [];
@@ -329,7 +330,7 @@ export class BlComponent {
       issuedplace: this.gs.defaultValues.bl_issued_place,
       branch_code: this.gs.globalVariables.branch_code,
       invokefrm: this.invokefrom,
-      user_code:this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.mainService.GetRecord(SearchData)
@@ -1128,14 +1129,17 @@ export class BlComponent {
     switch (field) {
       case 'bl_print_format_id':
         {
+          this.bShowDraftPdf = false;
           if (this.BLPrintFormatList != null && this.invokefrom == "HBL") {
             var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id);
             if (REC != null) {
-              this.Record.bl_issued_by1 = REC.blf_issued_add1;
-              this.Record.bl_issued_by2 = REC.blf_issued_add2;
-              this.Record.bl_issued_by3 = REC.blf_issued_add3;
-              this.Record.bl_issued_by4 = REC.blf_issued_add4;
-              this.Record.bl_issued_by5 = REC.blf_issued_add5;
+              // this.Record.bl_issued_by1 = REC.blf_issued_add1;
+              // this.Record.bl_issued_by2 = REC.blf_issued_add2;
+              // this.Record.bl_issued_by3 = REC.blf_issued_add3;
+              // this.Record.bl_issued_by4 = REC.blf_issued_add4;
+              // this.Record.bl_issued_by5 = REC.blf_issued_add5;
+              if (REC.blf_name == 'MTD' || REC.blf_name == 'HCL')
+                this.bShowDraftPdf = true;
             }
           }
           break;
@@ -1638,7 +1642,7 @@ export class BlComponent {
   }
 
   GetBlDraft() {
-   
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.loading = true;
