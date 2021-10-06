@@ -1156,7 +1156,7 @@
             <div class="form-group row">
               <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
               <div class="col-8">
-                <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id" (change)="OnChange('bl_print_format_id')">
                   <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
                 </select>
               </div>
@@ -1171,7 +1171,7 @@
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
-                <button [disabled]="loading" *ngIf="mode=='EDIT' && (user_admin||!Record.bl_draft_lock)"
+                <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
                   (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
                   class="btn btn-success btn-sm">Draft Excel</button>
