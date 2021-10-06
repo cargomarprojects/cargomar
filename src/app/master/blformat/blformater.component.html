@@ -76,7 +76,7 @@
   <div class="page-box">
     <div class="row">
 
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Type</label>
           <div class="col-6">
@@ -102,35 +102,25 @@
       </div>
 
 
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'">
-
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Format</label>
-            <div class="col-10">
+            <div class="col-6">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="copyto_typename"
                 (blur)="OnBlur('copyto_typename','')" required maxlength="50" />
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Branch</label>
-            <div class="col-10">
-              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div *ngIf="this.gs.globalVariables.user_code == 'ADMIN'">
-          <div class="form-group row">
-            <div class="col-12">
+            <div class="col-4">
               <button [disabled]="loading" (click)="Copy(Record.blf_pkid)" class="btn btn-info btn-sm">Copy</button>
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-12">
+            <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-6">
+              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
+            </div>
+            <div class="col-4">
               <button [disabled]="loading" (click)="AddRow(Record.blf_pkid)" class="btn btn-info btn-sm">Add
                 Row</button>
             </div>
@@ -138,79 +128,136 @@
         </div>
       </div>
 
-
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-12 col-form-label col-form-label-sm"> {{remarks}}</label>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="page-box">
+    <ngb-tabset>
+      <ngb-tab title="Basic Details">
+        <ng-template ngbTabContent>
+          <div class="page-body" style="position:relative;min-height: 1500px;min-width: 950px;z-index:0"
+            (drop)="onDrop($event)" (dragover)="allowDrop($event)">
 
+            <canvas id="mcanvas" #canvas [height]="ht" [width]="wd" style="border:1px solid #c3c3c3;">
+              Your browser does not support the canvas element.
+            </canvas>
 
-    <div class="page-body" style="position:relative;min-height: 1500px;min-width: 950px;z-index:0"
-      (drop)="onDrop($event)" (dragover)="allowDrop($event)">
+            <button *ngFor="let rec of  RecordListDet; let i=index" class="abspos" draggable="true" [id]="i"
+              [style.left]="getPos(rec.blf_col_x)" [style.top]="getPos(rec.blf_col_y)" [style.text-align]="'left'"
+              (keydown)="onKeydown($event,rec)" (keyup)="onKeyup($event,rec)" (dragstart)="onDragStart($event,rec,i)"
+              (click)="btnClick($event,rec)">
+              {{rec.blf_col_name}}
+            </button>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Formatting">
+        <ng-template ngbTabContent>
+          <div class="col-sm-12">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th>HAEDING</th>
+                    <th>X(LEFT-MARGIN)</th>
+                    <th>Y(TOP-MARGIN)</th>
+                    <th>LEFT</th>
+                    <th>RIGHT</th>
+                    <th>UP</th>
+                    <th>DOWN</th>
+                    <th>HEIGHT</th>
+                    <th>WIDTH</th>
+                    <th>FONT-NAME</th>
+                    <th>FONT-SIZE</th>
+                    <th>STYLE</th>
+                    <th>ALIGNMENT</th>
+                    <th>VISIBLE</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of RecordListDet">
+                  <tr>
+                    <td>
+                      {{rec.blf_col_name}}
+                    </td>
+                    <td>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_x"
+                        (blur)="OnBlur('blf_col_x', rec)" />
+                    </td>
 
-      <canvas id="mcanvas" #canvas [height]="ht" [width]="wd" style="border:1px solid #c3c3c3;">
-        Your browser does not support the canvas element.
-      </canvas>
+                    <td>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_y"
+                        (blur)="OnBlur('blf_col_y', rec)" />
+                    </td>
 
-      <button *ngFor="let rec of  RecordListDet; let i=index" class="abspos" draggable="true" [id]="i"
-        [style.left]="getPos(rec.blf_col_x)" [style.top]="getPos(rec.blf_col_y)" [style.text-align]="'left'"
-        (keydown)="onKeydown($event,rec)" (keyup)="onKeyup($event,rec)" (dragstart)="onDragStart($event,rec,i)"
-        (click)="btnClick($event,rec)">
-        {{rec.blf_col_name}}
-      </button>
-    </div>
+                    <td>
+                      <button class="btn btn-default btn-sm" (click)="changepos('left',rec)">LEFT</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-default btn-sm" (click)="changepos('right',rec)">RIGHT</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-default btn-sm" (click)="changepos('up',rec)">UP</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-default btn-sm" (click)="changepos('down',rec)">DOWN</button>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_height"
+                        (blur)="OnBlur('blf_col_height', rec)" />
+                    </td>
 
-
-    <!-- <div class="col-sm-6">
-        <div class="page-body table-responsive">
-          <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-              <tr>
-                <th>HAEDING</th>
-                <th>X(LEFT-MARGIN)</th>
-                <th>Y(TOP-MARGIN)</th>
-                <th>LEFT</th>
-                <th>RIGHT</th>
-                <th>UP</th>
-                <th>DOWN</th>
-                <th>VISIBLE</th>
-              </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordListDet">
-              <tr>
-                <td>
-                  {{rec.blf_col_name}}
-
-                </td>
-                <td>
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_x" (blur)="OnBlur('blf_col_x', rec)" />
-                </td>
-
-                <td>
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_y" (blur)="OnBlur('blf_col_y', rec)" />
-                </td>
-
-                <td>
-                  <button class="btn btn-default btn-sm" (click)="changepos('left',rec)">LEFT</button>
-                </td>
-                <td>
-                  <button class="btn btn-default btn-sm" (click)="changepos('right',rec)">RIGHT</button>
-                </td>
-                <td>
-                  <button class="btn btn-default btn-sm" (click)="changepos('up',rec)">UP</button>
-                </td>
-                <td>
-                  <button class="btn btn-default btn-sm" (click)="changepos('down',rec)">DOWN</button>
-                </td>
-                <td>
-                  {{rec.blf_col_enabled}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
+                    <td>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_width"
+                        (blur)="OnBlur('blf_col_width', rec)" />
+                    </td>
+                    <td>
+                      <select class="form-control form-control-sm" [(ngModel)]="rec.blf_col_font" (blur)="OnBlur('blf_col_font', rec)">
+                        <option [value]="'Arial'">Arial</option>
+                        <option [value]="'Calibri'">Calibri</option>
+                        <option [value]="'Times New Roman'">Times New Roman</option>
+                        <option [value]="'Verdana'">Verdana</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.blf_col_font_size"
+                        (blur)="OnBlur('blf_col_font_size', rec)" />
+                    </td>
+                    <td>
+                      <select class="form-control form-control-sm" [(ngModel)]="rec.blf_col_style_font" (blur)="OnBlur('blf_col_style_font', rec)">
+                        <option [value]="'N'">Normal</option>
+                        <option [value]="'B'">Bold</option>
+                        <option [value]="'I'">Italic</option>
+                        <option [value]="'BI'">Bold Italic</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select class="form-control form-control-sm" [(ngModel)]="rec.blf_col_style_align" (blur)="OnBlur('blf_col_style_align', rec)">
+                        <option [value]="'L'">Left</option>
+                        <option [value]="'C'">Center</option>
+                        <option [value]="'R'">Right</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select class="form-control form-control-sm" [(ngModel)]="rec.blf_col_enabled" (blur)="OnBlur('blf_col_enabled', rec)">
+                        <option [value]="'Y'">YES</option>
+                        <option [value]="'N'">NO</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
+
 </div>
 <br />
 

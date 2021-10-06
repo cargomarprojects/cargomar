@@ -6,6 +6,7 @@ import { printformatd } from '../models/printformatd';
 import { BlFormterService } from '../services/blformater.service';
 import { SearchTable } from '../../shared/models/searchtable';
 //EDIT-AJITH-05-10-2021
+//EDIT-AJITH-06-10-2021
 
 @Component({
   selector: 'app-blformater',
@@ -110,15 +111,15 @@ export class BlFormaterComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    
+
   }
 
   ngAfterViewInit() {
     this.InitCanvas();
-    
+
   }
 
-  InitCanvas(){
+  InitCanvas() {
     this.getCanvas();
     this.drawPage();
   }
@@ -286,10 +287,9 @@ export class BlFormaterComponent {
   }
 
   LoadData(_Record: printformatm) {
+    this.remarks = '';
     this.Record = _Record;
-
     this.RecordListDet = _Record.FormatList;
-
     this.Record.rec_mode = this.mode;
   }
 
@@ -369,10 +369,19 @@ export class BlFormaterComponent {
 
   OnBlur(field: string, rec: printformatd) {
     if (field == 'blf_col_x') {
-
+      rec.blf_col_x = this.gs.roundNumber(rec.blf_col_x, 0);
     }
     if (field == 'blf_col_y') {
-
+      rec.blf_col_y = this.gs.roundNumber(rec.blf_col_y, 0);
+    }
+    if (field == 'blf_col_height') {
+      rec.blf_col_height = this.gs.roundNumber(rec.blf_col_height, 0);
+    }
+    if (field == 'blf_col_width') {
+      rec.blf_col_width = this.gs.roundNumber(rec.blf_col_width, 0);
+    }
+    if (field == 'blf_col_font_size') {
+      rec.blf_col_font_size = this.gs.roundNumber(rec.blf_col_font_size, 0);
     }
     if (field == 'copyto_typename') {
       this.copyto_typename = this.copyto_typename.toLocaleUpperCase();
@@ -506,7 +515,7 @@ export class BlFormaterComponent {
   }
 
   onKeydown(event: KeyboardEvent, _rec: printformatd) {
-    
+
     this.disableScrolling();
     var _factor = 1;
     if (event.key === "ArrowDown") {
@@ -588,13 +597,13 @@ export class BlFormaterComponent {
   getCanvas() {
     if (this.canvas)
       this.ctx = this.canvas.nativeElement.getContext('2d');
-      
+
   }
 
   drawPage() {
     if (!this.ctx)
       return;
-    
+
     this.ctx.clearRect(0, 0, this.wd, this.ht);
 
     this.ctx.beginPath();
