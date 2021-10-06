@@ -428,7 +428,7 @@ export class BlComponent {
     this.LOCADDRECORD.id = this.Record.bl_loc_br_id;
     this.LOCADDRECORD.code = this.Record.bl_loc_br_no;
     this.LOCADDRECORD.parentid = this.Record.bl_loc_id;
-  this.OnChange('bl_print_format_id');
+    this.OnChange('bl_print_format_id');
   }
 
   // Save Data
