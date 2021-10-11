@@ -30,6 +30,8 @@
     "angularx-qrcode": "^1.6.4",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "ng2-pdfjs-viewer": "^6.0.2",
+    "print-js": "^1.6.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

@@ -9,7 +9,12 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        {
+          "glob": "**/*",
+          "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
+          "output": "./assets/pdfjs"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",

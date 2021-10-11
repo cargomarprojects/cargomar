@@ -844,6 +844,40 @@ export class GlobalService {
     return iRet;
   }
 
+
+  public makecall(url: string, SearchData: any) {
+    return this.http2.post<any>(this.baseUrl + url, SearchData, this.headerparam2('authorized'));
+  }
+
+  public getFile(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
+    let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
+    return this.http2.get(this.baseUrl + '/api/Master/Param/DownloadFile?' + body, { responseType: 'blob' })
+
+
+  }
+
+
+  public ProperFileName(str: string) {
+    let sRet: string = str;
+    try {
+      sRet = sRet.replace("\\", "");
+      sRet = sRet.replace("/", "");
+      sRet = sRet.replace(":", "");
+      sRet = sRet.replace("*", "");
+      sRet = sRet.replace("?", "");
+      sRet = sRet.replace("<", "");
+      sRet = sRet.replace(">", "");
+      sRet = sRet.replace("|", "");
+      sRet = sRet.replace("'", "");
+      sRet = sRet.replace("#", "");
+      sRet = sRet.replace("&", "");
+      sRet = sRet.replace("%", "");
+    }
+    catch (Exception) {
+    }
+    return sRet;
+
+  }
   
 
 }
