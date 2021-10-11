@@ -25,6 +25,8 @@ export class Customerm {
     cust_crlimit: number;
     cust_crdate: string;
 
+    cust_iata_limit : boolean;
+
     cust_branch_code: string;
 
     cust_linked: boolean;

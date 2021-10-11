@@ -106,7 +106,7 @@ export class CustomerComponent {
     private modalService: NgbModal,
     private mainService: CustomerService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
 
   ) {
 
@@ -383,6 +383,7 @@ export class CustomerComponent {
     this.Record.cust_type = 'N';
 
 
+    this.Record.cust_iata_limit = false;
     this.Record.cust_sepz_unit = false;
     this.Record.cust_linked = false;
     this.Record.cust_is_shipper = false;

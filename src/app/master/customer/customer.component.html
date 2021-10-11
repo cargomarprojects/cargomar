@@ -272,10 +272,18 @@
             <div class="col-sm-3">
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Days</label>
-                <div class="col-8">
+                <div class="col-3">
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
                 </div>
+                <div class="col-5"> 
+                <div class="form-check form-check-inline">
+                  <input [disabled]="gs.globalVariables.user_code != 'ADMIN'"  type="checkbox" [(ngModel)]="Record.cust_iata_limit" />
+                  <span class="pl-1">Iata-Limit</span>
+                </div>
+              </div>
+
+
               </div>
               <div class="form-group row">
                 <label class="col-4 col-form-label col-form-label-sm">Credit Limit</label>
@@ -510,8 +518,14 @@
           </div>
         </div>
 
+        <div>
+          <h6>Iata-Limit -> Overdue Locking will be based on IATA payment rules </h6>
+        </div>
+
       </ng-template>
     </ngb-tab>
+
+
     <ngb-tab title="Others">
       <ng-template ngbTabContent>
 
@@ -668,6 +682,8 @@
   </ngb-tabset>
 </div>
 <br />
+
+
 
 
 
