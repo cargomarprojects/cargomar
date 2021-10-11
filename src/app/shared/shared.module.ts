@@ -57,14 +57,12 @@ import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 import { GenRemarks2Component } from './genremarks/genremarks2.component';
 import { GenFileUploadComponent } from './genfileupload/genfileupload.component';
 import { ReportComponent } from './report/report.component';
-import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    PdfJsViewerModule,
     NgbModule,
     QRCodeModule
   ],
