@@ -56,7 +56,7 @@ import { GenRemarksComponent } from './genremarks/genremarks.component';
 import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 import { GenRemarks2Component } from './genremarks/genremarks2.component';
 import { GenFileUploadComponent } from './genfileupload/genfileupload.component';
-import { ReportComponent } from './report/report.component';
+
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
 @NgModule({
@@ -97,7 +97,6 @@ import { ReportComponent } from './report/report.component';
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
-    ReportComponent
   ],
   exports: [
     CommonModule,
@@ -133,7 +132,6 @@ import { ReportComponent } from './report/report.component';
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
-    ReportComponent
   ],
   providers: [
     AlertService,
