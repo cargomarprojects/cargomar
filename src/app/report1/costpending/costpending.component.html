@@ -57,9 +57,11 @@
             <div class="col-sm-4">
               <app-autocomplete [disabled]="!bCompany" #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <div *ngIf="bCompany" class="col-sm-3">
-              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-              <span> All</span>
+            <div class="col-sm-6">
+              <input *ngIf="bCompany" type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span *ngIf="bCompany"> All&nbsp;</span>
+              <input type="checkbox" [(ngModel)]="bpending" (change)="OnChange('bpending')">
+              <span>Pending Only</span>
             </div>
           </div>
           <div class="form-group row">
@@ -79,7 +81,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <!--<th *ngIf="bCompany">BRANCH</th>-->
+          <th *ngIf="bCompany">BRANCH</th>
           <th>CREATED</th>
           <th>AGENT</th>
           <th>CATEGORY</th>
@@ -102,7 +104,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr >
-          <!--<td *ngIf="bCompany">{{rec.rec_branch_code}}</td>-->
+          <td *ngIf="bCompany">{{rec.rec_branch_code}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.mbl_agent_name}}</td>
           <td>{{rec.rec_category}}</td>

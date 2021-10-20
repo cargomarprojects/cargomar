@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { CostPending } from '../models/costpending';
 import { RepService } from '../services/report.service';
-
+//EDIT-AJITH-20-10-2021
 
 @Component({
   selector: 'app-costpending',
@@ -40,6 +40,7 @@ export class CostPendingComponent {
   disableSave = true;
   loading = false;
   all: boolean = false;
+  bpending: boolean = true;
   currentTab = 'LIST';
   searchstring = '';
 
@@ -57,7 +58,8 @@ export class CostPendingComponent {
     category: 'MBL-SE',
     sort_colname: '',
     all: false,
-    user_code:''
+    bpending: true,
+    user_code: ''
   };
 
   SortList: any[] = [];
@@ -178,7 +180,7 @@ export class CostPendingComponent {
 
   // Query List Data
   List(_type: string) {
-
+    this.InfoMessage = '';
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -193,10 +195,10 @@ export class CostPendingComponent {
       this.ErrorMessage = "Branch Code Cannot Be Blank";
       return;
     }
-    if (_type == "SCREEN" && this.all == true) {
-      this.ErrorMessage = "Cannot Process Report With All Option";
-      return;
-    }
+    // if (_type == "SCREEN" && this.all == true) {
+    //   this.ErrorMessage = "Cannot Process Report With All Option";
+    //   return;
+    // }
     if (_type == "MAIL") {
       if (!confirm("Do you want to Sent Pending List")) {
         return;
@@ -218,6 +220,7 @@ export class CostPendingComponent {
     this.SearchData.category = this.category;
     this.SearchData.sort_colname = this.sort_colname;
     this.SearchData.all = this.all;
+    this.SearchData.bpending = this.bpending;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
 
     this.ErrorMessage = '';
