@@ -117,6 +117,10 @@ export class CostPendingComponent {
     this.sort_colname = "mbl.rec_created_date";
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
+    this.all = this.bCompany;
+    if (this.gs.globalVariables.branch_code == 'COKAF' || this.gs.globalVariables.branch_code == 'DELAF'|| this.gs.globalVariables.branch_code == 'BLRAF'
+      || this.gs.globalVariables.branch_code == 'CHNAF' || this.gs.globalVariables.branch_code == 'MBYAF')
+      this.category = "MBL-AE";
   }
 
   // Destroy Will be called when this component is closed
