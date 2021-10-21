@@ -11,6 +11,7 @@
                     <thead class="page-body-thead">
                         <tr>
                             <th  class="text-center" (click)="SelectDeselect()">SELECT</th>
+                            <th>BRANCH</th>
                             <th>TO</th>
                             <th>CC</th>
                             <th>BCC</th>
@@ -22,6 +23,7 @@
                                 (click)="IsChecked(rec)">
                                 <input type="checkbox" [(ngModel)]="rec.rec_checked">
                             </td>
+                            <td>{{rec.rec_branch_code}}</td>
                             <td>{{rec.ml_to_ids}}</td>
                             <td>{{rec.ml_cc_ids}}</td>
                             <td>{{rec.ml_bcc_ids}}</td>

@@ -104,8 +104,39 @@ export class MailDirectComponent {
     }
 
     SentMail() {
+
+        let sbr_code: string = "";
+        for (let rec of this.RecordList.filter(rec => rec.rec_checked == true)) {
+            if (sbr_code != "")
+                sbr_code += ",";
+            sbr_code += rec.rec_branch_code;
+        }
+
+        if (sbr_code == "") {
+            alert("No Rows Selected")
+            return;
+        }
+        
         if (!confirm("Do you want to Sent Mail")) {
             return;
         }
+
+        let SearchData = {
+            mailtype: this.type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: sbr_code
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.SentMail(SearchData)
+            .subscribe(response => {
+                if (response.mailmsg.length > 0)
+                    alert(response.mailmsg);
+                this.Close();
+            },
+                error => {
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 }
