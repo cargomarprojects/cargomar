@@ -334,6 +334,11 @@ export class MonrepComponent {
       return;
     }
 
+    if (_type == "MAIL")
+      if (!confirm("Do you want to Sent Mail")) {
+        return;
+      }
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
