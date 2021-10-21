@@ -18,7 +18,7 @@ export class MailDirectComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
-    @Input() branch_code: string = '';
+    @Input() br_code: string = '';
 
     modal: any;
 
@@ -60,7 +60,7 @@ export class MailDirectComponent {
         let SearchData = {
             mailtype: this.type,
             company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.branch_code
+            branch_code: this.br_code
         };
 
         this.ErrorMessage = '';
