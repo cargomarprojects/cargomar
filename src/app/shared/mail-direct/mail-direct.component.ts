@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input,Output, OnInit, OnDestroy, ViewChild, AfterViewInit,EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MailList } from '../../master/models/maillist';
@@ -18,7 +18,7 @@ export class MailDirectComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
-    @Input() br_code: string = '';
+    @Output() mailcallbackevent = new EventEmitter<any>();
 
     modal: any;
 
@@ -60,7 +60,7 @@ export class MailDirectComponent {
         let SearchData = {
             mailtype: this.type,
             company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.br_code
+            branch_code: this.gs.globalVariables.branch_code
         };
 
         this.ErrorMessage = '';
@@ -103,7 +103,7 @@ export class MailDirectComponent {
         this.modal.close();
     }
 
-    SentMail() {
+    SendMail() {
 
         let sbr_code: string = "";
         for (let rec of this.RecordList.filter(rec => rec.rec_checked == true)) {
@@ -116,27 +116,13 @@ export class MailDirectComponent {
             alert("No Rows Selected")
             return;
         }
-        
-        if (!confirm("Do you want to Sent Mail")) {
+
+        if (!confirm("Do you want to Send Mail")) {
             return;
         }
 
-        let SearchData = {
-            mailtype: this.type,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: sbr_code
-        };
-
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.SentMail(SearchData)
-            .subscribe(response => {
-                if (response.mailmsg.length > 0)
-                    alert(response.mailmsg);
-                this.Close();
-            },
-                error => {
-                    this.ErrorMessage = this.gs.getError(error);
-                });
+        if (this.mailcallbackevent)
+        this.mailcallbackevent.emit({ action: 'MAIL', brcodes: sbr_code});
+        
     }
 }

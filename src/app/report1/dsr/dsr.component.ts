@@ -58,6 +58,7 @@ export class DsrComponent {
   all: boolean = false;
   loading = false;
   bAdmin = false;
+  bEmail = false;
   currentTab = 'LIST';
   searchstring = '';
 
@@ -135,6 +136,7 @@ export class DsrComponent {
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -144,6 +146,8 @@ export class DsrComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+        if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -415,4 +419,30 @@ export class DsrComponent {
     this.modal = this.modalService.open(content);
   }
 
+  mailcallbackevent(params: any) {
+    if (params.action == "MAIL") {
+      this.MailVolumeReport(params.brcodes)
+    }
+  }
+
+
+  MailVolumeReport(sbr_code: string) {
+
+    let SearchData = {
+      mailtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: sbr_code
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.VolumeReport(SearchData)
+      .subscribe(response => {
+        if (response.mailmsg.length > 0)
+          alert(response.mailmsg);
+        this.Close();
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }

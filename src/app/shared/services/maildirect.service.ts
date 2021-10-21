@@ -13,13 +13,9 @@ export class MailDirectService {
     private gs: GlobalService) {
   }
 
-
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Email/MailDirect/List', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  SentMail(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Email/MailDirect/SentMail', SearchData, this.gs.headerparam2('authorized'));
-  }
 }
 
