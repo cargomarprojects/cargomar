@@ -24,7 +24,7 @@ export class MailDirectComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-
+    selectall: boolean = true;
     // Array For Displaying List
     RecordList: MailList[] = [];
     // Single Record for add/edit/view details
@@ -79,26 +79,33 @@ export class MailDirectComponent {
     }
 
     OnBlur(field: string) {
-         
+
         // if (field == 'ml_cust_name') {
         //     this.Record.ml_cust_name = this.Record.ml_cust_name.toUpperCase();
         // }
 
 
     }
-
+    SelectDeselect() {
+        this.selectall = !this.selectall;
+        for (let rec of this.RecordList) {
+            rec.rec_checked = this.selectall;
+        }
+    }
+    IsChecked(_rec: MailList) {
+        _rec.rec_checked = !_rec.rec_checked;
+    }
     OnChange(field: string) {
 
     }
 
     Close() {
-      this.modal.close();
+        this.modal.close();
     }
 
-    SentMail()
-    {
+    SentMail() {
         if (!confirm("Do you want to Sent Mail")) {
             return;
-          }
+        }
     }
 }

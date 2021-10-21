@@ -1,36 +1,39 @@
 <div>
     <button class="btn btn-primary btn-sm" (click)="GetMailList(mailmodal)">Mail</button>
 </div>
+
 <ng-template #mailmodal let-c="close" let-d="dismiss">
     <div class="modal-body">
-        <div class="page-details">
-            <div class="row">
-                <div class="page-body table-responsive">
-                    <table class="table  table-hover table-sm">
-                        <thead class="page-body-thead">
-                            <tr>
-                                <th>TYPE</th>
-                                <th>TO</th>
-                                <th>CC</th>
-                                <th>BCC</th>
-                            </tr>
-                        </thead>
-                        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                            <tr>
-                                <td>{{rec.ml_type}}</td>
-                                <td>{{rec.ml_to_ids}}</td>
-                                <td>{{rec.ml_cc_ids}}</td>
-                                <td>{{rec.ml_bcc_ids}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <h6 style="color: black" class="my-1">EMAIL&nbsp;{{type}}</h6>
+        <div class="page-box">
+            <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                    <thead class="page-body-thead">
+                        <tr>
+                            <th  class="text-center" (click)="SelectDeselect()">SELECT</th>
+                            <th>TO</th>
+                            <th>CC</th>
+                            <th>BCC</th>
+                        </tr>
+                    </thead>
+                    <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                        <tr>
+                            <td class="text-center"
+                                (click)="IsChecked(rec)">
+                                <input type="checkbox" [(ngModel)]="rec.rec_checked">
+                            </td>
+                            <td>{{rec.ml_to_ids}}</td>
+                            <td>{{rec.ml_cc_ids}}</td>
+                            <td>{{rec.ml_bcc_ids}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="page-box">
-                <div class="row justify-content-center p-1">
-                    <button class="btn btn-primary btn-sm mr-1" (click)="SentMail()">Sent</button>
-                    <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button>
-                </div>
+        </div>
+        <div class="page-box">
+            <div class="row justify-content-center p-1">
+                <button class="btn btn-primary btn-sm mr-1" (click)="SentMail()">Sent</button>
+                <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button>
             </div>
         </div>
     </div>

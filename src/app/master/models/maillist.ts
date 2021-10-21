@@ -17,7 +17,8 @@ export class MailList {
 
   rec_mode: string;
   rec_locked:boolean;
-  
+  rec_checked:boolean;
+
   _globalvariables: GlobalVariables;
 
 }
