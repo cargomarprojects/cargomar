@@ -145,9 +145,11 @@
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-6">
               <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            </div>
+            <div class="col-sm-4">
               <app-mail-direct [menuid]="menuid" [type]="'OS-BRANCH'" ></app-mail-direct>
             </div>
           </div>
