@@ -16,13 +16,13 @@
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">From Date</label>
             <div class="col-8">
-              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+              <app-date #_from_date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">To Date</label>
             <div class="col-8">
-              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+              <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
 

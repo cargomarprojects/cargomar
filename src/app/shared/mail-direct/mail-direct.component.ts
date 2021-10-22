@@ -1,4 +1,4 @@
-import { Component, Input,Output, OnInit, OnDestroy, ViewChild, AfterViewInit,EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, AfterViewInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MailList } from '../../master/models/maillist';
@@ -6,7 +6,8 @@ import { MailDirectService } from '../services/maildirect.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-//CREATED-AJITH-21-09-2021
+//CREATED-AJITH-21-10-2021
+//EDIT-AJITH-22-10-2021
 
 @Component({
     selector: 'app-mail-direct',
@@ -118,7 +119,7 @@ export class MailDirectComponent {
         }
 
         if (this.mailcallbackevent)
-        this.mailcallbackevent.emit({ action: 'MAIL', brcodes: sbr_code});
-        
+            this.mailcallbackevent.emit({ action: 'MAIL', brcodes: sbr_code });
+        this.Close();
     }
 }

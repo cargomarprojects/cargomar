@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,9 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Dsr } from '../models/dsr';
 import { RepService } from '../services/report.service';
+import { DateComponent } from '../../shared/date/date.component';
 //EDIT-AJITH-21-10-2021
+//EDIT-AJITH-22-10-2021
 
 @Component({
   selector: 'app-dsr',
@@ -17,6 +19,8 @@ import { RepService } from '../services/report.service';
 export class DsrComponent {
   title = 'Dsr Report'
 
+  @ViewChild('_from_date') private from_date_ctrl: DateComponent;
+  @ViewChild('_to_date') private to_date_ctrl: DateComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -437,7 +441,10 @@ export class DsrComponent {
       return;
     }
 
-    if (!confirm("Do you want to Send Mail")) {
+    let msg = "Do you want to Send Volume Report ";
+    if (!this.gs.isBlank(this.from_date_ctrl) && !this.gs.isBlank(this.to_date_ctrl))
+      msg += "from " + this.from_date_ctrl.GetDisplayDate() + " to " + this.to_date_ctrl.GetDisplayDate();
+    if (!confirm(msg)) {
       return;
     }
 
@@ -457,7 +464,6 @@ export class DsrComponent {
       .subscribe(response => {
         if (response.mailmsg.length > 0)
           alert(response.mailmsg);
-        this.Close();
       },
         error => {
           this.ErrorMessage = this.gs.getError(error);
