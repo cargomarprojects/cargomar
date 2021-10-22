@@ -117,10 +117,6 @@ export class MailDirectComponent {
             return;
         }
 
-        if (!confirm("Do you want to Send Mail")) {
-            return;
-        }
-
         if (this.mailcallbackevent)
         this.mailcallbackevent.emit({ action: 'MAIL', brcodes: sbr_code});
         

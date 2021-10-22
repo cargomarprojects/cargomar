@@ -146,7 +146,7 @@ export class DsrComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
-        if (this.menu_record.rights_email)
+      if (this.menu_record.rights_email)
         this.bEmail = true;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
@@ -428,14 +428,32 @@ export class DsrComponent {
 
   MailVolumeReport(sbr_code: string) {
 
-    let SearchData = {
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = "From Date Cannot Be Blank";
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = "To Date Cannot Be Blank";
+      return;
+    }
+
+    if (!confirm("Do you want to Send Mail")) {
+      return;
+    }
+
+    let SearchData2 = {
       mailtype: this.type,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: sbr_code
+      branch_code: sbr_code,
+      from_date: this.from_date,
+      to_date: this.to_date,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code,
+      user_pkid: this.gs.globalVariables.user_pkid
     };
 
     this.ErrorMessage = '';
-    this.mainService.VolumeReport(SearchData)
+    this.mainService.VolumeReport(SearchData2)
       .subscribe(response => {
         if (response.mailmsg.length > 0)
           alert(response.mailmsg);

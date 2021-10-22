@@ -150,7 +150,7 @@
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
             <div *ngIf="rec_category=='SEA EXPORT' && bEmail" class="col-sm-4">
-              <app-mail-direct [menuid]="menuid" [type]="'OS-BRANCH'" (mailcallbackevent)="mailcallbackevent($event)" ></app-mail-direct>
+              <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'" (mailcallbackevent)="mailcallbackevent($event)" ></app-mail-direct>
             </div>
           </div>
         </div>
