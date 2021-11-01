@@ -297,7 +297,7 @@ export class ContactsComponent {
     this.Record.cont_cha_name = '';
     this.Record.cont_csd_id = '';
     this.Record.cont_csd_name = '';
-    this.Record.cont_type_2 = 'FIRST TIME BUYERS';
+    this.Record.cont_type_2 = '';
     this.Record.cont_target_market = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
@@ -383,6 +383,11 @@ export class ContactsComponent {
     if (this.gs.isBlank(this.Record.cont_name)) {
       bret = false;
       sError = " | Name Cannot be Blank";
+    }
+
+    if (this.gs.isBlank(this.Record.cont_type_2)) {
+      bret = false;
+      sError += " | Type Cannot be Blank";
     }
 
     if (bret) {
