@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { MarkContacts } from '../models/markcontacts';
 import { MarkContactService } from '../services/markcontacts.service';
 import { SearchTable } from '../../shared/models/searchtable';
-//EDIT-AJITH-29-09-2021
+ 
 
 @Component({
   selector: 'app-contacts',
@@ -111,21 +111,28 @@ export class ContactsComponent {
 
     this.CATEGORYRECORD = new SearchTable();
     this.CATEGORYRECORD.controlname = "CONTACT TYPE";
+    this.CATEGORYRECORD.displaycolumn = "NAME";
     this.CATEGORYRECORD.type = "CONTACT TYPE";
     this.CATEGORYRECORD.id = "";
+    this.CATEGORYRECORD.code = "";
     this.CATEGORYRECORD.name = "";
 
     this.SALESMANRECORD = new SearchTable();
     this.SALESMANRECORD.controlname = "SALESMAN";
+    this.SALESMANRECORD.displaycolumn = "NAME";
     this.SALESMANRECORD.type = "SALESMAN";
     this.SALESMANRECORD.id = "";
+    this.SALESMANRECORD.code = "";
     this.SALESMANRECORD.name = "";
 
     this.CSDRECORD = new SearchTable();
     this.CSDRECORD.controlname = "CSD";
+    this.CSDRECORD.displaycolumn = "NAME";
     this.CSDRECORD.type = "SALESMAN";
     this.CSDRECORD.id = "";
+    this.CSDRECORD.code = "";
     this.CSDRECORD.name = "";
+     
 
   }
 
@@ -232,7 +239,8 @@ export class ContactsComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code:this.gs.globalVariables.year_code
     };
 
     this.ErrorMessage = '';
@@ -261,83 +269,38 @@ export class ContactsComponent {
 
   NewRecord() {
 
-
-
     this.pkid = this.gs.getGuid();
-
     this.Record = new MarkContacts();
-    // this.Record.cust_pkid = this.pkid;
-    // this.Record.cust_code = '';
-    // this.Record.cust_name = '';
-    // this.Record.cust_iecode = '';
-    // this.Record.cust_panno = '';
-    // this.Record.cust_tanno = '';
-    // this.Record.cust_class = 'N';
-    // this.Record.cust_type = 'N';
-
-
-    // this.Record.cust_iata_limit = false;
-    // this.Record.cust_sepz_unit = false;
-    // this.Record.cust_linked = false;
-    // this.Record.cust_is_shipper = false;
-    // this.Record.cust_is_ungst = false;
-    // this.Record.cust_is_foreigner = false;
-    // this.Record.cust_is_consignee = false;
-    // this.Record.cust_is_agent = false;
-    // this.Record.cust_is_cha = false;
-    // this.Record.cust_is_creditor = false;
-    // this.Record.cust_is_others = false;
-    // this.Record.rec_locked = true;
-    // this.Record.cust_is_editable = true;
-
-
-    // this.Record.cust_crdays = 1;
-    // this.Record.cust_crlimit = 1;
-
-    // this.Record.cust_crdate = '';
-
-    // this.Record.cust_sman_id = '';
-    // this.Record.cust_sman_name = '';
-
-    // this.Record.cust_remarks = '';
-
-    // this.Record.cust_csd_id = '';
-    // this.Record.cust_csd_name = '';
-
-    // this.Record.cust_referdby = '';
-
-    // this.Record.cust_dbkacno = '';
-    // this.Record.cust_adcode = '';
-    // this.Record.cust_bank = '';
-    // this.Record.cust_bank_branch = '';
-    // this.Record.cust_acno = '';
-    // this.Record.cust_forexacno = '';
-    // this.Record.cust_bank_address1 = '';
-    // this.Record.cust_bank_address2 = '';
-    // this.Record.cust_bank_address3 = '';
-
-    // this.Record.cust_branch_code = '';
-
-    // this.Record.cust_linked = false;
-    // this.Record.cust_alert = false;
-    // this.cust_linked = false;
-
-    // this.Record.cust_nomination = 'NA';
-    // this.Record.cust_is_incomplete = true;
-    // this.Record.cust_incomplete_remarks = '';
-    // this.Record.cust_branch_remarks = '';
-    // this.Record.cust_uploaded_docs = '';
-    // this.Record.cust_caseno = '';
-    // this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
-    // this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
-
-
+    this.Record.cont_pkid = this.pkid;
+    this.Record.cont_name = '';
+    this.Record.cont_add1 = '';
+    this.Record.cont_add2 = '';
+    this.Record.cont_add3 = '';
+    this.Record.cont_add4 = '';
+    this.Record.cont_add5 = '';
+    this.Record.cont_state = '';
+    this.Record.cont_country = '';
+    this.Record.cont_tel = '';
+    this.Record.cont_fax = '';
+    this.Record.cont_mobile = '';
+    this.Record.cont_email = '';
+    this.Record.cont_web = '';
+    this.Record.cont_type_id = '';
+    this.Record.cont_type_name = '';
+    this.Record.cont_iscorporat = false;
+    this.Record.cont_saleman_id = '';
+    this.Record.cont_saleman_name = '';
+    this.Record.cont_region = '';
+    this.Record.cont_remark = '';
+    this.Record.cont_iecode = '';
+    this.Record.cont_location = '';
+    this.Record.cont_cha_name = '';
+    this.Record.cont_csd_id = '';
+    this.Record.cont_csd_name = '';
+    this.Record.cont_type_2 = 'FIRST TIME BUYERS';
+    this.Record.cont_target_market = '';
     this.Record.rec_mode = this.mode;
-
     this.InitLov();
-
-
-
   }
 
 
@@ -417,7 +380,7 @@ export class ContactsComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
-    if (this.Record.cont_name.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.cont_name)) {
       bret = false;
       sError = " | Name Cannot be Blank";
     }
@@ -446,32 +409,89 @@ export class ContactsComponent {
 
     if (this.RecordList == null)
       return;
-    // var REC = this.RecordList.find(rec => rec.cust_pkid == this.Record.cust_pkid);
-    // if (REC == null) {
-    //   this.RecordList.push(this.Record);
-    // }
-    // else {
-    //   REC.cust_code = this.Record.cust_code;
-    //   REC.cust_name = this.Record.cust_name;
-    //   REC.cust_group = this.Record.cust_group;
-    //   REC.cust_kyc_status = this.Record.cust_kyc_status;
-    //   REC.cust_sman_name = this.Record.cust_sman_name;
-    //   REC.cust_docs = this.Record.cust_docs;
-    //   REC.rec_locked = this.Record.rec_locked;
-    //   REC.cust_is_complete = this.Record.cust_is_incomplete == true ? 'N' : 'Y';
-    //   REC.cust_incomplete_remarks = this.Record.cust_incomplete_remarks;
-    // }
+    var REC = this.RecordList.find(rec => rec.cont_pkid == this.Record.cont_pkid);
+    if (REC == null) {
+      this.RecordList.push(this.Record);
+    }
+    else {
+      REC.cont_name = this.Record.cont_name;
+      REC.cont_add1 = this.Record.cont_add1;
+      REC.cont_state = this.Record.cont_state;
+      REC.cont_country = this.Record.cont_country;
+      REC.cont_tel = this.Record.cont_tel;
+      REC.cont_mobile = this.Record.cont_mobile;
+      REC.cont_email = this.Record.cont_email;
+    }
   }
 
 
   OnBlur(field: string) {
+
+    if (field == 'cont_name') {
+      this.Record.cont_name = this.Record.cont_name.toUpperCase();
+    }
+    if (field == 'cont_add1') {
+      this.Record.cont_add1 = this.Record.cont_add1.toUpperCase();
+    }
+    if (field == 'cont_add2') {
+      this.Record.cont_add2 = this.Record.cont_add2.toUpperCase();
+    }
+    if (field == 'cont_add3') {
+      this.Record.cont_add3 = this.Record.cont_add3.toUpperCase();
+    }
+    if (field == 'cont_add4') {
+      this.Record.cont_add4 = this.Record.cont_add4.toUpperCase();
+    }
+    if (field == 'cont_add5') {
+      this.Record.cont_add5 = this.Record.cont_add5.toUpperCase();
+    }
+    if (field == 'cont_state') {
+      this.Record.cont_state = this.Record.cont_state.toUpperCase();
+    }
+    if (field == 'cont_country') {
+      this.Record.cont_country = this.Record.cont_country.toUpperCase();
+    }
+    if (field == 'cont_tel') {
+      this.Record.cont_tel = this.Record.cont_tel.toUpperCase();
+    }
+    if (field == 'cont_fax') {
+      this.Record.cont_fax = this.Record.cont_fax.toUpperCase();
+    }
+    if (field == 'cont_mobile') {
+      this.Record.cont_mobile = this.Record.cont_mobile.toUpperCase();
+    }
     
-    // if (field == 'cust_incomplete_remarks') {
-    //   this.Record.cust_incomplete_remarks = this.Record.cust_incomplete_remarks.toUpperCase();
-    // }
-    // if (field == 'cust_branch_remarks') {
-    //   this.Record.cust_branch_remarks = this.Record.cust_branch_remarks.toUpperCase();
-    // }
+    if (field == 'cont_email') {
+      this.Record.cont_email = this.Record.cont_email.toLowerCase();
+    }
+    
+    if (field == 'cont_web') {
+      this.Record.cont_web = this.Record.cont_web.toUpperCase();
+    }
+    
+    if (field == 'cont_region') {
+      this.Record.cont_region = this.Record.cont_region.toUpperCase();
+    }
+    
+    if (field == 'cont_remark') {
+      this.Record.cont_remark = this.Record.cont_remark.toUpperCase();
+    }
+    
+    if (field == 'cont_iecode') {
+      this.Record.cont_iecode = this.Record.cont_iecode.toUpperCase();
+    }
+    
+    if (field == 'cont_location') {
+      this.Record.cont_location = this.Record.cont_location.toUpperCase();
+    }
+    
+    if (field == 'cont_cha_name') {
+      this.Record.cont_cha_name = this.Record.cont_cha_name.toUpperCase();
+    }
+   
+    if (field == 'cont_target_market') {
+      this.Record.cont_target_market = this.Record.cont_target_market.toUpperCase();
+    }
   }
 
   Close() {
@@ -481,10 +501,5 @@ export class ContactsComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
-  ShowHistory(history: any) {
-    this.ErrorMessage = '';
-    this.open(history);
-  }
-
-
+   
 }

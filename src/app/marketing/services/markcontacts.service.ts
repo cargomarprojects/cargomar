@@ -15,19 +15,19 @@ export class MarkContactService {
     }
 
     List(SearchData : any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContacts/List', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
     GetRecord(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContacts/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/GetRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
     Save(Record: MarkContacts) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContacts/Save', Record, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/Save', Record, this.gs.headerparam2('authorized'));
     }
 
     LoadDefault(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContacts/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
     

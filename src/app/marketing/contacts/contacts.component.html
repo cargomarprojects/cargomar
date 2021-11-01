@@ -91,14 +91,15 @@
           <label class="col-2 col-form-label col-form-label-sm">Name</label>
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_name" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_name')" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Category</label>
           <div class="col-10">
-            <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
         </div>
 
@@ -119,14 +120,14 @@
           <label class="col-2 col-form-label col-form-label-sm">Address</label>
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_add1" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_add1')" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="add2" [(ngModel)]="Record.cont_add2" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_add2')" />
           </div>
         </div>
         <div class="form-group row">
@@ -135,7 +136,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="add3" [(ngModel)]="Record.cont_add3" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_add3')" />
           </div>
         </div>
         <div class="form-group row">
@@ -144,7 +145,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="add4" [(ngModel)]="Record.cont_add4" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_add4')" />
           </div>
         </div>
         <div class="form-group row">
@@ -153,7 +154,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="add5" [(ngModel)]="Record.cont_add5" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_add5')" />
           </div>
         </div>
         <div class="form-group row">
@@ -162,7 +163,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="location" [(ngModel)]="Record.cont_location"
-              required maxlength="25" />
+              required maxlength="25" (blur)="OnBlur('cont_location')" />
           </div>
         </div>
         <div class="form-group row">
@@ -171,7 +172,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="region" [(ngModel)]="Record.cont_region"
-              required maxlength="40" />
+              required maxlength="40" (blur)="OnBlur('cont_region')" />
           </div>
         </div>
 
@@ -181,7 +182,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="Record.cont_state"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_state')" />
           </div>
         </div>
 
@@ -191,7 +192,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_country')" />
           </div>
         </div>
 
@@ -199,7 +200,7 @@
           <label class="col-2 col-form-label col-form-label-sm">Target Market</label>
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="target"
-              [(ngModel)]="Record.cont_target_market" required maxlength="50" />
+              [(ngModel)]="Record.cont_target_market" required maxlength="50" (blur)="OnBlur('cont_target_market')" />
           </div>
         </div>
 
@@ -215,7 +216,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="tel" [(ngModel)]="Record.cont_tel" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_tel')" />
           </div>
         </div>
 
@@ -225,7 +226,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="fax" [(ngModel)]="Record.cont_fax" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_fax')" />
           </div>
         </div>
         <div class="form-group row">
@@ -234,7 +235,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="mobile" [(ngModel)]="Record.cont_mobile"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_mobile')" />
           </div>
         </div>
 
@@ -244,7 +245,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="Record.cont_email"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_email')" />
           </div>
         </div>
 
@@ -254,7 +255,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="web" [(ngModel)]="Record.cont_web" required
-              maxlength="60" />
+              maxlength="60" (blur)="OnBlur('cont_web')" />
           </div>
         </div>
 
@@ -264,7 +265,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="iecode" [(ngModel)]="Record.cont_iecode"
-              required maxlength="15" />
+              required maxlength="15" (blur)="OnBlur('cont_iecode')" />
           </div>
         </div>
 
@@ -274,7 +275,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="cha" [(ngModel)]="Record.cont_cha_name"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_cha_name')" />
           </div>
         </div>
 
@@ -283,7 +284,8 @@
           <label class="col-2 col-form-label col-form-label-sm">Salesman</label>
 
           <div class="col-10">
-            <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
         </div>
 
@@ -302,7 +304,7 @@
 
           <div class="col-10">
             <input type="text" class="form-control form-control-sm" name="remarks" [(ngModel)]="Record.cont_remark"
-              required maxlength="60" />
+              required maxlength="60" (blur)="OnBlur('cont_remark')" />
           </div>
         </div>
 
@@ -323,7 +325,8 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="offset-2 col-10">
-          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+            class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
