@@ -21,6 +21,7 @@ const routes: Routes = [
     { path: 'operations', loadChildren: 'app/operations/operations.module#OperationsModule' },
     { path: 'clearing', loadChildren: 'app/clearing/clearing.module#ClearingModule' },
     { path: 'report1', loadChildren: 'app/report1/report1.module#Report1Module' },
+    { path: 'marketing', loadChildren: 'app/marketing/marketing.module#MarketingModule' },
 ];
 
 @NgModule({
