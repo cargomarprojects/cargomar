@@ -1,8 +1,5 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
-
-// import { Addressm } from './addressm';
-
 export class MarkContacts {
     cont_pkid: string;
     cont_id: string;

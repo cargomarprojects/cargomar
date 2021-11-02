@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { MarkContacts } from '../models/markcontacts';
 import { MarkContactService } from '../services/markcontacts.service';
 import { SearchTable } from '../../shared/models/searchtable';
- 
+
 
 @Component({
   selector: 'app-contacts',
@@ -17,7 +17,7 @@ export class ContactsComponent {
   // Local Variables 
   title = 'Contacts MASTER';
 
-
+  @Input() iisModalWindow: string = 'N';
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -43,7 +43,7 @@ export class ContactsComponent {
 
   mode = '';
   pkid = '';
-
+  showclosebutton: boolean = true;
 
   // Array For Displaying List
   RecordList: MarkContacts[] = [];
@@ -87,8 +87,19 @@ export class ContactsComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+
+    if (this.iisModalWindow == "Y") {
       this.InitComponent();
+      this.showclosebutton = false;
+      this.page_rows = 5;
+      this.ActionHandler('ADD', '');
+    }
+    else {
+
+      if (!this.InitCompleted) {
+        this.InitComponent();
+      }
+      this.List('NEW');
     }
   }
 
@@ -132,7 +143,7 @@ export class ContactsComponent {
     this.CSDRECORD.id = "";
     this.CSDRECORD.code = "";
     this.CSDRECORD.name = "";
-     
+
 
   }
 
@@ -240,7 +251,7 @@ export class ContactsComponent {
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code:this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code
     };
 
     this.ErrorMessage = '';
@@ -465,35 +476,35 @@ export class ContactsComponent {
     if (field == 'cont_mobile') {
       this.Record.cont_mobile = this.Record.cont_mobile.toUpperCase();
     }
-    
+
     if (field == 'cont_email') {
       this.Record.cont_email = this.Record.cont_email.toLowerCase();
     }
-    
+
     if (field == 'cont_web') {
       this.Record.cont_web = this.Record.cont_web.toUpperCase();
     }
-    
+
     if (field == 'cont_region') {
       this.Record.cont_region = this.Record.cont_region.toUpperCase();
     }
-    
+
     if (field == 'cont_remark') {
       this.Record.cont_remark = this.Record.cont_remark.toUpperCase();
     }
-    
+
     if (field == 'cont_iecode') {
       this.Record.cont_iecode = this.Record.cont_iecode.toUpperCase();
     }
-    
+
     if (field == 'cont_location') {
       this.Record.cont_location = this.Record.cont_location.toUpperCase();
     }
-    
+
     if (field == 'cont_cha_name') {
       this.Record.cont_cha_name = this.Record.cont_cha_name.toUpperCase();
     }
-   
+
     if (field == 'cont_target_market') {
       this.Record.cont_target_market = this.Record.cont_target_market.toUpperCase();
     }
@@ -506,5 +517,5 @@ export class ContactsComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
-   
+
 }
