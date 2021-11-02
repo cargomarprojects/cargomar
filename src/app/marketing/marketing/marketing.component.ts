@@ -291,6 +291,11 @@ export class MarketingComponent {
         this.Record.mobile = "";
         this.Record.email = "";
         this.Record.target = "";
+        this.Record.mark_competition = "";
+        this.Record.mark_nomination = "";
+        this.Record.mark_last_shipment = "";
+        this.Record.mark_agent_name = "";
+        this.Record.mark_commodity = "";
         this.Record.rec_mode = this.mode;
         this.InitLov();
     }
