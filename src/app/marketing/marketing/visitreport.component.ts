@@ -216,6 +216,21 @@ export class VisitReportComponent {
        
     }
 
+    ShowReport(_rec: MarkReport, _month: string) {
+        this.ChildRecord = {
+            type: 'Report',
+            user_id: _rec.user_id,
+            user_name: _rec.user_name,
+            year: this.iYear.toString(),
+            month: _month
+        };
+        this.currentPage = "VISIT-REPORT-CHILD";
+    }
+    pageChanged(stype: string)
+    {
+        this.currentPage = "ROOT";
+    }
+
     Close() {
         this.gs.ClosePage('home');
     }

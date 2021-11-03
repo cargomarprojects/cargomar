@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit,Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -19,13 +19,13 @@ export class VisitReportChildComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
-    closecaption : string = 'Close';
+    closecaption: string = 'Close';
     @Input() parentData: any;
     @Output() PageChanged = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
     menu_record: any;
-    
+
     modal: any;
     disableSave = true;
     loading = false;
@@ -68,14 +68,13 @@ export class VisitReportChildComponent {
     filename: string = "";
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
-     
+
 
     constructor(
         private modalService: NgbModal,
         private mainService: MarkMarketingService,
         private route: ActivatedRoute,
         public gs: GlobalService
-
     ) {
 
         this.page_count = 0;
@@ -129,8 +128,7 @@ export class VisitReportChildComponent {
         this.LoadCombo();
     }
 
-    AssignDate()
-    {
+    AssignDate() {
         if (this.parentData.month == "ALL") {
             this.From_Date = this.parentData.year + "-01-01";
             this.To_Date = this.parentData.year + "-12-31";
@@ -244,27 +242,35 @@ export class VisitReportChildComponent {
         }
     }
 
-    
+
     // Query List Data
     List(_type: string) {
+
+        if (_type == "NEW") {
+            this.searchdata.searchstring = this.searchstring.searchstring;
+        }
 
         this.loading = true;
 
         let SearchData = {
             type: _type,
+            filter_source: 'REPORT',
             rowtype: this.type,
-            // searchstring: this.searchstring.toUpperCase(),
+            searchstring: this.searchdata.searchstring,
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            user_pkid: this.gs.globalVariables.user_pkid
+            userid: this.gs.globalVariables.user_pkid,
+            companyid: this.gs.globalVariables.comp_code,
+            branchid: this.gs.globalVariables.branch_code,
+            branchids: this.gs.globalVariables.branch_code,
+            filter_from_date: this.From_Date,
+            filter_to_date: this.To_Date,
+            filter_branch_id: this.BRANCHRECORD.id,
+            filter_user_id: this.USERRECORD.id,
         };
 
         this.ErrorMessage = '';
@@ -293,7 +299,7 @@ export class VisitReportChildComponent {
 
     ShowHideRecord(_rec: MarkMarketingm) {
         if (!_rec.row_displayed) {
-            this.GetRecord(_rec.mark_id);
+            this.GetRecord(_rec.mark_pkid);
         }
         _rec.row_displayed = !_rec.row_displayed;
     }
@@ -312,14 +318,54 @@ export class VisitReportChildComponent {
         this.mainService.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.Record=response.record;
+                this.Record = response.record;
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
- 
+
+    DownloadList() {
+
+        this.searchdata.searchstring = this.searchstring.searchstring;
+
+        this.loading = true;
+
+        let SearchData = {
+            type: '',
+            filter_source: 'REPORT',
+            rowtype: this.type,
+            searchstring: this.searchdata.searchstring,
+            iscompany: this.IsCompany,
+            isadmin: this.IsAdmin,
+            page_count: this.page_count,
+            page_current: this.page_current,
+            page_rows: this.page_rows,
+            page_rowcount: this.page_rowcount,
+            userid: this.gs.globalVariables.user_pkid,
+            companyid: this.gs.globalVariables.comp_code,
+            branchid: this.gs.globalVariables.branch_code,
+            branchids: this.gs.globalVariables.branch_code,
+            filter_from_date: this.From_Date,
+            filter_to_date: this.To_Date,
+            filter_branch_id: this.BRANCHRECORD.id,
+            filter_user_id: this.USERRECORD.id,
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.List(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
     OnBlur(field: string) {
         // if (field == 'mark_time_visit') {
         //     this.Record.mark_time_visit = this.Record.mark_time_visit.toUpperCase();
@@ -327,6 +373,9 @@ export class VisitReportChildComponent {
     }
 
     Close() {
+        if (this.PageChanged != null)
+            this.PageChanged.emit('ROOT');
+        else
         this.gs.ClosePage('home');
     }
 
