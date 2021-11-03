@@ -15,6 +15,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class MarketingComponent {
 
     // Local Variables 
+    
     title = 'Visit Detail';
 
 

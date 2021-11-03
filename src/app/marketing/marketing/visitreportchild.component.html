@@ -12,25 +12,25 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">From</label>
                     <div class="col-10">
-                        <CustomDate [inputdate]="From_Date" (ValueChanged)="From_Date=$event"></CustomDate>
+                        <app-date [inputdate]="From_Date" (ValueChanged)="From_Date=$event"></app-date>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">To</label>
                     <div class="col-10">
-                        <CustomDate [inputdate]="To_Date" (ValueChanged)="To_Date=$event"></CustomDate>
+                        <app-date [inputdate]="To_Date" (ValueChanged)="To_Date=$event"></app-date>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Branch</label>
                     <div class="col-10">
-                        <AutoComplete [inputdata]="BRANCHRECORD" (ValueChanged)="LovSelected($event)"></AutoComplete>
+                        <app-autocomplete [inputdata]="BRANCHRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">User</label>
                     <div class="col-10">
-                        <AutoComplete [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></AutoComplete>
+                        <app-autocomplete [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">
