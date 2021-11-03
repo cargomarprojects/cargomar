@@ -31,7 +31,6 @@ export class VisitReportChildComponent {
     loading = false;
     currentTab = 'LIST';
 
-    searchstring = '';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -40,7 +39,8 @@ export class VisitReportChildComponent {
     sub: any;
     urlid: string;
 
-
+    searchstring = { searchstring: '' };
+    searchdata = { searchstring: '' };
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -253,7 +253,7 @@ export class VisitReportChildComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
+            // searchstring: this.searchstring.toUpperCase(),
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             page_count: this.page_count,
