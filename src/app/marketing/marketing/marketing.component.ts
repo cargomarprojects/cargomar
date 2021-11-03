@@ -349,7 +349,7 @@ export class MarketingComponent {
         this.mainService.LoadVisit(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                let mRow = response;
+                let mRow = response.record;
                 if (mRow != null) {
                     this.Record.mark_agent_name = mRow.mark_agent_name;
                     this.Record.mark_competition = mRow.mark_competition;
@@ -384,7 +384,12 @@ export class MarketingComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                // this.Record.mark_id = response;
+                if (this.mode == "ADD")
+                {
+                    this.Record.mark_id = response.mark_id;
+                    this.Record.branch_name = this.gs.globalVariables.branch_name;
+                    this.Record.mark_user_name = this.gs.globalVariables.user_code;
+                }
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 this.InfoMessage = "Save Complete";
@@ -402,7 +407,7 @@ export class MarketingComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        
+
         if (this.Record.rec_mode == "EDIT" && this.Record.mark_user_id != this.gs.globalVariables.user_pkid) {
             bret = false;
             sError = " | Cannot Edit Other User Visit Info";

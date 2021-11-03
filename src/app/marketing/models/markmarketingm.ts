@@ -1,6 +1,7 @@
 import { GlobalVariables } from "../../core/models/globalvariables";
 export class MarkMarketingm {
-    mark_pkid : string;
+    mark_id: string;
+    mark_pkid: string;
     mark_visit_date: string;
     mark_customer_id: string;
     mark_customer_name: string;
@@ -17,7 +18,7 @@ export class MarkMarketingm {
     mark_agent_name: string;
     mark_commodity: string;
     mark_mode: string;
-    mark_newclient: boolean ;
+    mark_newclient: boolean;
     mark_isjoincall: boolean;
     mark_jointsalesman_id: string;
     mark_jointsalesman_name: string;
