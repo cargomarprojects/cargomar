@@ -234,6 +234,7 @@ export class MarketingComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
+            filter_source: 'LIST',
             searchstring: this.searchstring.toUpperCase(),
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
@@ -241,6 +242,10 @@ export class MarketingComponent {
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
+            filter_from_date: '',
+            filter_to_date: '',
+            filter_branch_id: '',
+            filter_user_id: '', 
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -265,6 +270,7 @@ export class MarketingComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -322,6 +328,7 @@ export class MarketingComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -365,6 +372,7 @@ export class MarketingComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 }
             );
     }

@@ -263,9 +263,9 @@ export class VisitReportChildComponent {
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
-            userid: this.gs.globalVariables.user_pkid,
-            companyid: this.gs.globalVariables.comp_code,
-            branchid: this.gs.globalVariables.branch_code,
+            user_pkid: this.gs.globalVariables.user_pkid,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
             branchids: this.gs.globalVariables.branch_code,
             filter_from_date: this.From_Date,
             filter_to_date: this.To_Date,
@@ -290,6 +290,7 @@ export class VisitReportChildComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -323,6 +324,7 @@ export class VisitReportChildComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -343,19 +345,20 @@ export class VisitReportChildComponent {
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
-            userid: this.gs.globalVariables.user_pkid,
-            companyid: this.gs.globalVariables.comp_code,
-            branchid: this.gs.globalVariables.branch_code,
+            user_pkid: this.gs.globalVariables.user_pkid,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
             branchids: this.gs.globalVariables.branch_code,
             filter_from_date: this.From_Date,
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.id,
             filter_user_id: this.USERRECORD.id,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.mainService.ProcessDownloadList(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
@@ -363,6 +366,7 @@ export class VisitReportChildComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -376,7 +380,7 @@ export class VisitReportChildComponent {
         if (this.PageChanged != null)
             this.PageChanged.emit('ROOT');
         else
-        this.gs.ClosePage('home');
+            this.gs.ClosePage('home');
     }
 
     open(content: any) {

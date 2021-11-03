@@ -167,7 +167,8 @@ export class VisitReportComponent {
             branchids: this.gs.globalVariables.branch_code,
             iYear: this.iYear.toString(),
             output_type: _output_type,
-            file_name: "visitreport.xls"
+            file_name:'',
+            report_folder:this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -175,7 +176,7 @@ export class VisitReportComponent {
         this.mainService.DashBoard(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                if (_type == 'EXCEL')
+                if (_output_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
                     this.RecordList = response.list;
@@ -187,6 +188,7 @@ export class VisitReportComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
