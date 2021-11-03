@@ -34,7 +34,8 @@ export class MarkMarketingService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    
-
+    DashBoard(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/DashBoard', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
