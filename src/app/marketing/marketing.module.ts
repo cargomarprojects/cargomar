@@ -5,6 +5,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { MarketingComponent } from './marketing/marketing.component';
 import { VisitReportComponent } from './marketing/visitreport.component';
 import { VisitReportChildComponent } from './marketing/visitreportchild.component';
+import { SalesleadComponent } from './saleslead/saleslead.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { VisitReportChildComponent } from './marketing/visitreportchild.componen
     ContactsComponent,
     MarketingComponent,
     VisitReportComponent,
-    VisitReportChildComponent
+    VisitReportChildComponent,
+    SalesleadComponent
   ],
   providers: [
   ],
