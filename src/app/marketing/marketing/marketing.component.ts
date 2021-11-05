@@ -15,7 +15,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class MarketingComponent {
 
     // Local Variables 
-    
+
     title = 'Visit Detail';
 
 
@@ -108,9 +108,9 @@ export class MarketingComponent {
             if (this.menu_record.rights_company)
                 this.IsCompany = true;
         }
-        this.menu_contact_record = this.gs.getMenu("MARKCONTACTTYPE");
+        this.menu_contact_record = this.gs.getMenu("MARKCONTACTS");
         if (this.menu_contact_record) {
-            if (this.menu_record.rights_add)
+            if (this.menu_contact_record.rights_add)
                 this.CanAddContacts = true;
         }
 
@@ -245,7 +245,7 @@ export class MarketingComponent {
             filter_from_date: '',
             filter_to_date: '',
             filter_branch_id: '',
-            filter_user_id: '', 
+            filter_user_id: '',
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -393,8 +393,7 @@ export class MarketingComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                if (this.mode == "ADD")
-                {
+                if (this.mode == "ADD") {
                     this.Record.mark_id = response.mark_id;
                     this.Record.branch_name = this.gs.globalVariables.branch_name;
                     this.Record.mark_user_name = this.gs.globalVariables.user_code;
