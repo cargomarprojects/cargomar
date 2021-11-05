@@ -359,13 +359,20 @@ export class MarketingComponent {
                 this.loading = false;
                 let mRow = response.record;
                 if (mRow != null) {
-                    this.Record.mark_agent_name = mRow.mark_agent_name;
-                    this.Record.mark_competition = mRow.mark_competition;
-                    this.Record.mark_deciding_person = mRow.mark_deciding_person;
-                    this.Record.mark_last_shipment = mRow.mark_last_shipment;
-                    this.Record.mark_nomination = mRow.mark_nomination;
-                    this.Record.mark_commodity = mRow.mark_commodity;
-                    this.Record.mark_contact_person = mRow.mark_contact_person;
+                    if (!this.gs.isBlank(mRow.mark_agent_name))
+                        this.Record.mark_agent_name = mRow.mark_agent_name;
+                    if (!this.gs.isBlank(mRow.mark_competition))
+                        this.Record.mark_competition = mRow.mark_competition;
+                    if (!this.gs.isBlank(mRow.mark_deciding_person))
+                        this.Record.mark_deciding_person = mRow.mark_deciding_person;
+                    if (!this.gs.isBlank(mRow.mark_last_shipment))
+                        this.Record.mark_last_shipment = mRow.mark_last_shipment;
+                    if (!this.gs.isBlank(mRow.mark_nomination))
+                        this.Record.mark_nomination = mRow.mark_nomination;
+                    if (!this.gs.isBlank(mRow.mark_commodity))
+                        this.Record.mark_commodity = mRow.mark_commodity;
+                    if (!this.gs.isBlank(mRow.mark_contact_person))
+                        this.Record.mark_contact_person = mRow.mark_contact_person;
                 }
                 // this.ErrorMessage = this.title;
             },
