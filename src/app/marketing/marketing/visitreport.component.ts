@@ -23,7 +23,7 @@ export class VisitReportComponent {
     @Input() type: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
-    
+
     modal: any;
     disableSave = true;
     loading = false;
@@ -48,18 +48,19 @@ export class VisitReportComponent {
         type: '',
         user_id: '',
         user_name: '',
-        year : '',
+        year: '',
         month: ''
     };
-    iYear: number ;
+    iYear: number;
 
     // Array For Displaying List
     RecordList: MarkReport[] = [];
     // Single Record for add/edit/view details
     Record: MarkReport = new MarkReport;
-     
+
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
+    bPrint: boolean = true;
 
     constructor(
         private modalService: NgbModal,
@@ -95,6 +96,7 @@ export class VisitReportComponent {
     InitComponent() {
         this.IsAdmin = false;
         this.IsCompany = false;
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -102,6 +104,8 @@ export class VisitReportComponent {
                 this.IsAdmin = true;
             if (this.menu_record.rights_company)
                 this.IsCompany = true;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
         }
         this.LoadCombo();
     }
@@ -112,7 +116,7 @@ export class VisitReportComponent {
     }
 
 
-    InitLov() {   
+    InitLov() {
 
     }
 
@@ -144,9 +148,9 @@ export class VisitReportComponent {
     LovSelected(_Record: any) {
 
     }
- 
+
     // Query List Data
-    List(_type: string, _output_type : string) {
+    List(_type: string, _output_type: string) {
         let d = new Date();
         this.iYear = d.getFullYear();
 
@@ -154,7 +158,7 @@ export class VisitReportComponent {
 
         let SearchData = {
             type: _type,
-            filter_source : 'REPORT',
+            filter_source: 'REPORT',
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             page_count: this.page_count,
@@ -167,8 +171,8 @@ export class VisitReportComponent {
             branchids: this.gs.globalVariables.branch_code,
             iYear: this.iYear.toString(),
             output_type: _output_type,
-            file_name:'',
-            report_folder:this.gs.globalVariables.report_folder
+            file_name: '',
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -195,7 +199,7 @@ export class VisitReportComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
- 
+
 
     Isnumeric(i: any) {
 
@@ -208,14 +212,14 @@ export class VisitReportComponent {
 
     }
 
-    
+
 
     OnBlur(field: string) {
 
         // if (field == 'mark_time_visit') {
         //     this.Record.mark_time_visit = this.Record.mark_time_visit.toUpperCase();
         // }
-       
+
     }
 
     ShowReport(_rec: MarkReport, _month: string) {
@@ -228,8 +232,7 @@ export class VisitReportComponent {
         };
         this.currentPage = "VISIT-REPORT-CHILD";
     }
-    pageChanged(stype: string)
-    {
+    pageChanged(stype: string) {
         this.currentPage = "ROOT";
     }
 

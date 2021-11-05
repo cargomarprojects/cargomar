@@ -3,7 +3,7 @@
         <div class="col">
             <label class="col-form-label">{{title}}</label>
             <button (click)="Close()" class="btn btn-primary btn-sm">Close</button>
-            <button [disabled]="loading" (click)="List('LIST', 'EXCEL')" class="btn btn-primary btn-sm">Download</button>
+            <button [disabled]="loading" *ngIf="bPrint" (click)="List('LIST', 'EXCEL')" class="btn btn-primary btn-sm">Download</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
     </div>
@@ -55,5 +55,5 @@
 
 
 <div *ngIf="currentPage=='VISIT-REPORT-CHILD'">
-    <app-visitreportchild [parentData]="ChildRecord" (PageChanged)="pageChanged($event)"></app-visitreportchild>
+    <app-visitreportchild [menuid]="menuid" [parentData]="ChildRecord" (PageChanged)="pageChanged($event)"></app-visitreportchild>
 </div>

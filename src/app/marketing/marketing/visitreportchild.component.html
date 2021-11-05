@@ -30,14 +30,14 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">User</label>
                     <div class="col-10">
-                        <app-autocomplete [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        <app-autocomplete [disabled]="!IsAdmin"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <div class="col-10">
                         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                        <button [disabled]="loading" (click)="DownloadList()" class="btn btn-primary btn-sm">Download</button>
+                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList()" class="btn btn-primary btn-sm">Download</button>
                     </div>
                 </div>
             </div>

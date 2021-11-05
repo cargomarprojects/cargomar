@@ -68,6 +68,7 @@ export class VisitReportChildComponent {
     filename: string = "";
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
+    bPrint: boolean = true;
 
 
     constructor(
@@ -98,10 +99,8 @@ export class VisitReportChildComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        if (!this.InitCompleted) {
-            this.InitComponent();
-        }
 
+        this.InitComponent();
         if (this.parentData != null) {
             this.closecaption = "BACK";
             this.USERRECORD.controlname = "USER";
@@ -117,6 +116,7 @@ export class VisitReportChildComponent {
     InitComponent() {
         this.IsAdmin = false;
         this.IsCompany = false;
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -124,6 +124,8 @@ export class VisitReportChildComponent {
                 this.IsAdmin = true;
             if (this.menu_record.rights_company)
                 this.IsCompany = true;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
         }
         this.LoadCombo();
     }
@@ -269,7 +271,7 @@ export class VisitReportChildComponent {
             branchids: this.gs.globalVariables.branch_code,
             filter_from_date: this.From_Date,
             filter_to_date: this.To_Date,
-            filter_branch_id: this.BRANCHRECORD.id,
+            filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
         };
 
@@ -351,7 +353,7 @@ export class VisitReportChildComponent {
             branchids: this.gs.globalVariables.branch_code,
             filter_from_date: this.From_Date,
             filter_to_date: this.To_Date,
-            filter_branch_id: this.BRANCHRECORD.id,
+            filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
             report_folder: this.gs.globalVariables.report_folder
         };

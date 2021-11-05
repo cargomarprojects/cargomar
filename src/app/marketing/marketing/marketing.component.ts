@@ -447,7 +447,7 @@ export class MarketingComponent {
             this.RecordList.push(this.Record);
         }
         else {
-            REC.branch_name = this.Record.branch_name;
+            // REC.branch_name = this.Record.branch_name;
             REC.mark_user_name = this.Record.mark_user_name;
             REC.mark_visit_date = this.Record.mark_visit_date;
             REC.mark_customer_name = this.Record.mark_customer_name;
