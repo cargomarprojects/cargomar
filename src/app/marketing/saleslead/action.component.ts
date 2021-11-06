@@ -213,6 +213,7 @@ export class ActionComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
+        this.Record.msld_pkid =this.gs.getGuid();
         this.Record.msld_parent_id = this.parentData.parent_id;
         this.Record.msld_remarks = this.Record.msld_remarks.toUpperCase();
         this.Record.msld_action_plan = this.Record.msld_action_plan.toUpperCase();
