@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { MarkSalesleadm } from '../models/marksaleslead';
+import { MarkSalesleadm,MarkSalesleadd } from '../models/marksaleslead';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -30,7 +30,13 @@ export class MarkSalesleadService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    
+    getSalesleadActions(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/getSalesleadActions', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    SaveSalesleadActions(Record: MarkSalesleadd) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/SaveSalesleadActions', Record, this.gs.headerparam2('authorized'));
+    }
 
 }
 

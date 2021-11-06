@@ -37,6 +37,9 @@ export class SalesleadComponent {
     sub: any;
     urlid: string;
 
+    ActionsRecord = {
+        parent_id: ''
+    };
 
     ErrorMessage = "";
     InfoMessage = "";
@@ -109,7 +112,7 @@ export class SalesleadComponent {
         this.LOCATIONRECORD = new SearchTable();
         this.LOCATIONRECORD.controlname = "LOCATION";
         this.LOCATIONRECORD.displaycolumn = "NAME";
-        this.LOCATIONRECORD.type = "LOCATION";
+        this.LOCATIONRECORD.type = "BRANCH";
         this.LOCATIONRECORD.id = "";
         this.LOCATIONRECORD.name = "";
 
@@ -346,7 +349,7 @@ export class SalesleadComponent {
 
         if (bret) {
             this.Record.msl_action = "ACTION";
-          }
+        }
 
         if (bret === false)
             this.ErrorMessage = sError;
@@ -451,7 +454,7 @@ export class SalesleadComponent {
             this.Record.msl_consignee_email = this.Record.msl_consignee_email.toLowerCase();
         }
 
-         
+
     }
 
     Close() {
@@ -460,6 +463,19 @@ export class SalesleadComponent {
 
     open(content: any) {
         this.modal = this.modalService.open(content);
+    }
+
+    showhiderow(rec: MarkSalesleadm) {
+        this.ActionsRecord.parent_id = rec.msl_pkid.toString()
+        rec.rowdisplayed = !rec.rowdisplayed;
+    }
+
+
+    actionsChanged(comments: any, rec: MarkSalesleadm) {
+        if (comments.saction == "CLOSE")
+            rec.rowdisplayed = false;
+        if (comments.saction == "SAVE")
+            rec.msl_followupcount = comments.sfollowupcount;
     }
 
 }

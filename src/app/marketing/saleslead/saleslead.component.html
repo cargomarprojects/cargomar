@@ -61,7 +61,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_id)">{{rec.msl_location_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_location_name}}</td>
                     <td>{{rec.msl_date}}</td>
                     <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td>
                     <td>{{rec.msl_shipper_name}}</td>
@@ -76,7 +76,7 @@
                 <tr *ngIf="rec.rowdisplayed">
                     <td colspan="12" style="color:red">
                         <div>
-                            <!-- <Saleslead-Actions [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)"></Saleslead-Actions> -->
+                            <app-action [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)"></app-action>
                         </div>
                     </td>
                 </tr>

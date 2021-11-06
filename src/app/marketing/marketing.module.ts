@@ -6,6 +6,7 @@ import { MarketingComponent } from './marketing/marketing.component';
 import { VisitReportComponent } from './marketing/visitreport.component';
 import { VisitReportChildComponent } from './marketing/visitreportchild.component';
 import { SalesleadComponent } from './saleslead/saleslead.component';
+import { ActionComponent } from './saleslead/action.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SalesleadComponent } from './saleslead/saleslead.component';
     MarketingComponent,
     VisitReportComponent,
     VisitReportChildComponent,
-    SalesleadComponent
+    SalesleadComponent,
+    ActionComponent
   ],
   providers: [
   ],
