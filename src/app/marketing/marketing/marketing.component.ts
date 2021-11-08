@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { MarkMarketingm } from '../models/markmarketingm';
 import { MarkMarketingService } from '../services/markmarketing.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+import { DateComponent } from '../../shared/date/date.component';
 
 @Component({
     selector: 'app-marketing',
@@ -18,7 +18,7 @@ export class MarketingComponent {
 
     title = 'Visit Detail';
 
-
+    @ViewChild('_mark_visit_date') private mark_visit_date_ctrl: DateComponent;
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -451,11 +451,13 @@ export class MarketingComponent {
         var REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
         if (REC == null) {
             this.RecordList.push(this.Record);
+            REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
+            REC.mark_visit_date = this.mark_visit_date_ctrl.GetDisplayDate();
         }
         else {
             // REC.branch_name = this.Record.branch_name;
             REC.mark_user_name = this.Record.mark_user_name;
-            REC.mark_visit_date = this.Record.mark_visit_date;
+            REC.mark_visit_date = this.mark_visit_date_ctrl.GetDisplayDate();
             REC.mark_customer_name = this.Record.mark_customer_name;
             REC.mark_contact_person = this.Record.mark_contact_person;
         }
