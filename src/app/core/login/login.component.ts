@@ -4,6 +4,9 @@ import { Companym } from '../models/company';
 import { GlobalService } from '../services/global.service';
 import { LoginService } from '../services/login.service';
 
+//edited 10/100/2021
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
