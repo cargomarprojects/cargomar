@@ -1,0 +1,48 @@
+<div class="mx-0 px-0">
+    <button class="btn btn-primary btn-sm" (click)="GetMailList(mailmodal)">Mail</button>
+</div>
+
+<ng-template #mailmodal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <h6 style="color: black" class="my-1">EMAIL&nbsp;{{type}}</h6>
+        <div class="page-box">
+            <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                    <thead class="page-body-thead">
+                        <tr>
+                            <th  class="text-center" (click)="SelectDeselect()">SELECT</th>
+                            <th>BRANCH</th>
+                            <th>TO</th>
+                            <th>CC</th>
+                            <th>BCC</th>
+                        </tr>
+                    </thead>
+                    <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                        <tr>
+                            <td class="text-center"
+                                (click)="IsChecked(rec)">
+                                <input type="checkbox" [(ngModel)]="rec.rec_checked">
+                            </td>
+                            <td>{{rec.rec_branch_code}}</td>
+                            <td>{{rec.ml_to_ids}}</td>
+                            <td>{{rec.ml_cc_ids}}</td>
+                            <td>{{rec.ml_bcc_ids}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-box">
+            <div class="row justify-content-center p-1">
+                <button class="btn btn-primary btn-sm mr-1" (click)="SendMail()">Send</button>
+                <button class="btn btn-primary btn-sm mr-1" (click)="Close()">Close</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

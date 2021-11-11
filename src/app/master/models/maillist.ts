@@ -1,9 +1,9 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
- //EDIT-AJITH-24-09-2021
- 
+//EDIT-AJITH-24-09-2021
+
 export class MailList {
-  
+
   ml_pkid: string;
   ml_type: string;
   ml_to_ids: string;
@@ -16,7 +16,9 @@ export class MailList {
   ml_remarks: string;
 
   rec_mode: string;
-  rec_locked:boolean;
+  rec_locked: boolean;
+  rec_checked: boolean;
+  rec_branch_code: string;
   
   _globalvariables: GlobalVariables;
 

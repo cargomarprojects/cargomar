@@ -1,0 +1,344 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm"  *ngIf="showclosebutton" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
+          class="btn btn-primary btn-sm">EXCEL</button> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>NAME</th>
+          <th>ADDRESS</th>
+          <th>STATE</th>
+          <th>COUNTRY</th>
+          <th>TEL</th>
+          <th>MOBILE</th>
+          <th>EMAIL</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList">
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid)">{{rec.cont_name}}</td>
+          <td>{{rec.cont_add1}}</td>
+          <td>{{rec.cont_state}}</td>
+          <td>{{rec.cont_country}}</td>
+          <td>{{rec.cont_tel}}</td>
+          <td>{{rec.cont_mobile}}</td>
+          <td>{{rec.cont_email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+  <div class="page-box">
+    <div class="row">
+
+      <div class="col-sm-6">
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_name" required
+              maxlength="60" (blur)="OnBlur('cont_name')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Category</label>
+          <div class="col-10">
+            <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
+              <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
+              <option value="PROSPECTS">PROSPECTS</option>
+              <option value="REPEAT BUYERS">REPEAT BUYERS</option>
+              <option value="SUSPECTS">SUSPECTS</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Address</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_add1" required
+              maxlength="60" (blur)="OnBlur('cont_add1')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="add2" [(ngModel)]="Record.cont_add2" required
+              maxlength="60" (blur)="OnBlur('cont_add2')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="add3" [(ngModel)]="Record.cont_add3" required
+              maxlength="60" (blur)="OnBlur('cont_add3')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="add4" [(ngModel)]="Record.cont_add4" required
+              maxlength="60" (blur)="OnBlur('cont_add4')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="add5" [(ngModel)]="Record.cont_add5" required
+              maxlength="60" (blur)="OnBlur('cont_add5')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Location</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="location" [(ngModel)]="Record.cont_location"
+              required maxlength="25" (blur)="OnBlur('cont_location')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Region</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="region" [(ngModel)]="Record.cont_region"
+              required maxlength="40" (blur)="OnBlur('cont_region')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">State</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="Record.cont_state"
+              required maxlength="60" (blur)="OnBlur('cont_state')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Country</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
+              required maxlength="60" (blur)="OnBlur('cont_country')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Target Market</label>
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="target"
+              [(ngModel)]="Record.cont_target_market" required maxlength="50" (blur)="OnBlur('cont_target_market')" />
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-sm-6">
+
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Tel</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="tel" [(ngModel)]="Record.cont_tel" required
+              maxlength="60" (blur)="OnBlur('cont_tel')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Fax</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="fax" [(ngModel)]="Record.cont_fax" required
+              maxlength="60" (blur)="OnBlur('cont_fax')" />
+          </div>
+        </div>
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Mobile</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="mobile" [(ngModel)]="Record.cont_mobile"
+              required maxlength="60" (blur)="OnBlur('cont_mobile')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Email</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="Record.cont_email"
+              required maxlength="60" (blur)="OnBlur('cont_email')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Web</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="web" [(ngModel)]="Record.cont_web" required
+              maxlength="60" (blur)="OnBlur('cont_web')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">IE-Code</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="iecode" [(ngModel)]="Record.cont_iecode"
+              required maxlength="15" (blur)="OnBlur('cont_iecode')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">CHA</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="cha" [(ngModel)]="Record.cont_cha_name"
+              required maxlength="60" (blur)="OnBlur('cont_cha_name')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Salesman</label>
+
+          <div class="col-10">
+            <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">CSD</label>
+
+          <div class="col-10">
+            <app-autocomplete #CsdLov [inputdata]="CSDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="remarks" [(ngModel)]="Record.cont_remark"
+              required maxlength="60" (blur)="OnBlur('cont_remark')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <label class="checkbox-inline">Is Coprorate Customer</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_iscorporat">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="offset-2 col-10">
+          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+            class="btn btn-success btn-sm">Save</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

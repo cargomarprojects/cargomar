@@ -126,6 +126,9 @@ export class Ledgert {
     jv_income_type: string;
     jv_tan_update:boolean;
     
+    jv_pay_link: string;
+    jv_acc_drcr_only:string;
+    
     rec_mode: string;
 
 }

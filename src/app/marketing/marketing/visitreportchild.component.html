@@ -1,0 +1,147 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Return</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div  class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">From</label>
+                    <div class="col-10">
+                        <app-date [inputdate]="From_Date" (ValueChanged)="From_Date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">To</label>
+                    <div class="col-10">
+                        <app-date [inputdate]="To_Date" (ValueChanged)="To_Date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-10">
+                        <app-autocomplete [inputdata]="BRANCHRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">User</label>
+                    <div class="col-10">
+                        <app-autocomplete [disabled]="!IsAdmin"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList()" class="btn btn-primary btn-sm">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SL#</th>
+                    <th>BRANCH</th>
+                    <th>SALES PERSON</th>
+                    <th>VISIT DATE</th>
+                    <th>CUSTOMER</th>
+                    <th>CONTACT PERSON</th>
+                    <th>MOBILE</th>
+                    <th>EMAIL</th>
+                    <th>TARGET MARKET</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr class="hlink" (click)="ShowHideRecord(rec)">
+                    <td>{{rec.mark_id}}</td>
+                    <td>{{rec.branch_name}}</td>
+                    <td>{{rec.mark_user_name}}</td>
+                    <td>{{rec.mark_visit_date}}</td>
+                    <td>{{rec.mark_customer_name}}</td>
+                    <td>{{rec.mark_contact_person}}</td>
+                    <td>{{rec.mobile}}</td>
+                    <td>{{rec.email}}</td>
+                    <td>{{rec.target}}</td>
+                </tr>
+                <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
+                    <td colspan="6">
+                        <table>
+                            <tr>
+                                <td>Deciding Person</td>
+                                <td>{{this.Record.mark_deciding_person}}</td>
+                            </tr>
+                            <tr>
+                                <td>Visit Result</td>
+                                <td >{{this.Record.mark_result}}</td>
+                            </tr>
+                            <tr>
+                                <td>Next Action</td>
+                                <td>{{this.Record.mark_next_action}}</td>
+                            </tr>
+                            <tr>
+                                <td>Competition</td>
+                                <td>{{this.Record.mark_competition}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nomination</td>
+                                <td>{{this.Record.mark_nomination}}</td>
+                            </tr>
+                            <tr>
+                                <td>Commodity</td>
+                                <td>{{this.Record.mark_commodity}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

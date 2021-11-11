@@ -10,7 +10,7 @@ import { Acctm } from '../models/acctm';
 import { AcctmService } from '../services/acctm.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
-
+//EDIT-AJITH-11-11-2021
 
 @Component({
     selector: 'app-acctm',
@@ -330,6 +330,8 @@ export class AcctmComponent {
         this.Record.acc_bs_id = '';
         this.Record.acc_bs_code = '';
         this.Record.acc_bs_name = '';
+        
+        this.Record.acc_drcr_only = 'NA';
         this.Record.rec_mode = this.mode;
 
         this.InitLov();

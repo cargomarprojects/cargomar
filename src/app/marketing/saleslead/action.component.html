@@ -1,0 +1,107 @@
+<!-- <div class="page-list">
+  <div class="page-body table-responsive">
+    <table style="color:blue" class="table table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr style="border-bottom:2pt solid black;">
+          <td>
+            <font color="green">
+              <strong>
+                {{rec.msld_user_name}} @ {{rec.msld_date}}
+              </strong>
+            </font>
+            <BR>
+            <font color="blue">
+              <strong>
+                REMARKS
+              </strong>
+            </font>
+            <BR>
+            <font color="black">
+              {{rec.msld_remarks}}
+            </font>
+            <BR>
+            <font color="blue">
+              <strong>
+                PLAN
+              </strong>
+            </font>
+            <BR>
+            <font color="black">
+              {{rec.msld_action_plan}}
+            </font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+<h5 style="color: green" class="my-1">ACTIONS</h5>
+<div class="list-group" *ngFor="let rec of RecordList">
+  <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <label style="color: brown;padding: 1px;font-weight: bold;font-size: 10px;"
+        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} </label>
+    </div>
+    <h6 style="color: blue" class="my-1">REMARKS</h6>
+    <p style="color: black" class="mb-1">{{rec.msld_remarks}}</p>
+    <h6 style="color: blue" class="my-1">PLAN</h6>
+    <p style="color: black" class="mb-1">{{rec.msld_action_plan}}</p>
+  </a>
+</div>
+<div class="page-details">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label style="color:black" class="col-12 col-form-label col-form-label-sm">Date</label>
+          <div class="col-sm-4 col-md-4 col-lg-4">
+            <app-date [inputdate]="Record.msld_date" (ValueChanged)="Record.msld_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group row">
+          <label style="color:black" class="col-12 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-12">
+            <textarea style="resize: vertical" class="form-control form-control-sm" [(ngModel)]="Record.msld_remarks"
+              maxlength="500">  </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group row">
+          <label style="color:black" class="col-12 col-form-label col-form-label-sm">Action Plan</label>
+          <div class="col-12">
+            <textarea style="resize: vertical" class="form-control form-control-sm"
+              [(ngModel)]="Record.msld_action_plan" maxlength="500">  </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group row">
+          <div class="col-12">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
+            <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-info" *ngIf="ErrorMessage">
+  {{ErrorMessage}}
+</div>

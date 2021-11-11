@@ -10,6 +10,7 @@ import { LovService } from './services/lov.service';
 import { GenerateDocService } from './services/generatedoc.service';
 import { GenService } from './services/gen.services';
 import { GenRemarksService } from './services/genremarks.service';
+import { MailDirectService } from './services/maildirect.service';
 
 
 import { AlertComponent } from './alert/alert.component';
@@ -56,6 +57,7 @@ import { GenRemarksComponent } from './genremarks/genremarks.component';
 import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 import { GenRemarks2Component } from './genremarks/genremarks2.component';
 import { GenFileUploadComponent } from './genfileupload/genfileupload.component';
+import { MailDirectComponent } from './mail-direct/mail-direct.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -97,6 +99,7 @@ import { GenFileUploadComponent } from './genfileupload/genfileupload.component'
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
+    MailDirectComponent
   ],
   exports: [
     CommonModule,
@@ -132,12 +135,14 @@ import { GenFileUploadComponent } from './genfileupload/genfileupload.component'
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
+    MailDirectComponent
   ],
   providers: [
     AlertService,
     LovService,
     GenerateDocService,
-    GenRemarksService
+    GenRemarksService,
+    MailDirectService
   ]
 })
 export class SharedModule { }

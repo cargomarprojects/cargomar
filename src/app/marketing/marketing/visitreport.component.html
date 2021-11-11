@@ -1,0 +1,103 @@
+<div *ngIf="currentPage=='ROOT'">
+    <div class="page-header">
+        <div class="col">
+            <label class="col-form-label">{{title}}</label>
+            <button (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+            <button [disabled]="loading" *ngIf="bPrint" (click)="List('LIST', 'EXCEL')"
+                class="btn btn-primary btn-sm">Download</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+    </div>
+
+    <div class="page-list">
+
+        <div class="page-body table-responsive">
+            <table class="table table-hover table-sm">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>SALES EXECUTIVE</th>
+                        <th>JAN</th>
+                        <th>FEB</th>
+                        <th>MAR</th>
+                        <th>APR</th>
+                        <th>MAY</th>
+                        <th>JUN</th>
+                        <th>JUL</th>
+                        <th>AUG</th>
+                        <th>SEP</th>
+                        <th>OCT</th>
+                        <th>NOV</th>
+                        <th>DEC</th>
+                        <th>TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                    <tr>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.user_name}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JAN')">
+                                <a>{{rec.jan}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'FEB')">
+                                <a>{{rec.feb}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'MAR')">
+                                <a>{{rec.mar}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'APR')">
+                                <a>{{rec.apr}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'MAY')">
+                                <a>{{rec.may}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JUN')">
+                                <a>{{rec.jun}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JUL')">
+                                <a>{{rec.jul}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'AUG')">
+                                <a>{{rec.aug}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'SEP')">
+                                <a>{{rec.sep}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'OCT')">
+                                <a>{{rec.oct}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'NOV')">
+                                <a>{{rec.nov}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'DEC')">
+                                <a>{{rec.dec}}</a></div>
+                        </td>
+                        <td>
+                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.total}}</a></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="currentPage=='VISIT-REPORT-CHILD'">
+    <app-visitreportchild [menuid]="menuid" [parentData]="ChildRecord" (PageChanged)="pageChanged($event)">
+    </app-visitreportchild>
+</div>

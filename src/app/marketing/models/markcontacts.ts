@@ -1,0 +1,43 @@
+
+import { GlobalVariables } from '../../core/models/globalvariables';
+export class MarkContacts {
+    cont_pkid: string;
+    cont_id: string;
+    cont_name: string;
+    cont_add1: string;
+    cont_add2: string;
+    cont_add3: string;
+    cont_add4: string;
+    cont_add5: string;
+    cont_state: string;
+    cont_country: string;
+    cont_tel: string;
+    cont_fax: string;
+    cont_mobile: string;
+    cont_email: string;
+    cont_web: string;
+    cont_type_id: string;
+    cont_type_name: string;
+    cont_iscorporat: boolean;
+    cont_saleman_id: string;
+    cont_saleman_name: string;
+    cont_region: string;
+    cont_remark: string;
+    cont_iecode: string;
+    cont_location: string;
+    cont_cha_name: string;
+    cont_visit_date: string;
+    cont_shipper_id: string;
+    cont_invocie_date: string;
+    cont_csd_id: string;
+    cont_csd_name: string;
+    cont_type_2: string;
+    cont_target_market: string;
+    rec_branch_id: string;
+    rec_user_id: string;
+    rec_date: string;
+    rec_mode: string;
+
+    _globalvariables: GlobalVariables;
+}
+

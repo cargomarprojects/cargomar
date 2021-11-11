@@ -1,0 +1,289 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <label class="col-2">Search</label>
+            <div class="col">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
+            class="btn btn-primary btn-sm">EXCEL</button> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr style="cursor: auto">
+                    <th>BRANCH</th>
+                    <th>DATE</th>
+                    <th>ACTION</th>
+                    <th>SHIPPER</th>
+                    <th>ADDRESS</th>
+                    <th>PIC</th>
+                    <th>LOCATION</th>
+                    <th>CONSIGNEE</th>
+                    <th>DESTINATION</th>
+                    <th>REMARKS</th>
+                    <th>FOLLOW-UP COUNT</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_location_name}}</td>
+                    <td>{{rec.msl_date}}</td>
+                    <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td>
+                    <td>{{rec.msl_shipper_name}}</td>
+                    <td>{{rec.msl_shipper_add1}}</td>
+                    <td>{{rec.msl_pic}}</td>
+                    <td>{{rec.msl_city}}</td>
+                    <td>{{rec.msl_consignee}}</td>
+                    <td>{{rec.msl_destination}}</td>
+                    <td>{{rec.msl_remarks}}</td>
+                    <td>{{rec.msl_followupcount}}</td>
+                </tr>
+                <tr *ngIf="rec.rowdisplayed">
+                    <td colspan="12" style="color:red">
+                        <div>
+                            <app-action [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)"></app-action>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+    <div class="page-box">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete #LocationLov [inputdata]="LOCATIONRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-sm-8">
+                        <app-date  [inputdate]="Record.msl_date" (ValueChanged)="Record.msl_date=$event"></app-date >
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Shipper Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.msl_shipper_name"
+                            required maxlength="60"  (blur)="OnBlur('msl_shipper_name')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Address</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add1"
+                            [(ngModel)]="Record.msl_shipper_add1" required maxlength="60"  (blur)="OnBlur('msl_shipper_add1')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add2"
+                            [(ngModel)]="Record.msl_shipper_add2" required maxlength="60"  (blur)="OnBlur('msl_shipper_add2')"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add3"
+                            [(ngModel)]="Record.msl_shipper_add3" required maxlength="60"  (blur)="OnBlur('msl_shipper_add3')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Pic</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
+                            required maxlength="60"  (blur)="OnBlur('msl_pic')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Telephone</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_shipper_tel" required maxlength="60"  (blur)="OnBlur('msl_shipper_tel')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Email</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_shipper_email" required maxlength="60"  (blur)="OnBlur('msl_shipper_email')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Location</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="location"
+                            [(ngModel)]="Record.msl_city" required maxlength="60"  (blur)="OnBlur('msl_city')"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Consignee Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="cnge"
+                            [(ngModel)]="Record.msl_consignee" required maxlength="60"  (blur)="OnBlur('msl_consignee')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Address</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add1"
+                            [(ngModel)]="Record.msl_consignee_add1" required maxlength="60"  (blur)="OnBlur('msl_consignee_add1')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add2"
+                            [(ngModel)]="Record.msl_consignee_add2" required maxlength="60"  (blur)="OnBlur('msl_consignee_add2')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="add3"
+                            [(ngModel)]="Record.msl_consignee_add3" required maxlength="60"  (blur)="OnBlur('msl_consignee_add3')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Pic</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"  (blur)="OnBlur('msl_consignee_pic')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Telephone</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"  (blur)="OnBlur('msl_consignee_tel')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Email</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_email" required maxlength="60"  (blur)="OnBlur('msl_consignee_email')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Destination</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" name="dest"
+                            [(ngModel)]="Record.msl_destination" required maxlength="60"  (blur)="OnBlur('msl_destination')" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-sm-10">
+                        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.msl_remarks"
+                            maxlength="100"  (blur)="OnBlur('msl_remarks')" ></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-box">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="offset-4 col-8">
+                    <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                        class="btn btn-success btn-sm">Save</button>
+                    <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                        class="btn btn-success btn-sm">Return</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

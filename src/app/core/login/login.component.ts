@@ -4,6 +4,9 @@ import { Companym } from '../models/company';
 import { GlobalService } from '../services/global.service';
 import { LoginService } from '../services/login.service';
 
+//edited 10/100/2021
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -12,12 +15,15 @@ export class LoginComponent {
   errorMessage: string;
   ErrorExternalLogin: string = '';
 
-  //username: string = '';
-  //password: string = '';
 
-  username: string = 'ADMIN';
-  password: string = 'cpl2001*';
+  username: string = '';
+  password: string = '';
 
+
+  //username: string = 'ADMIN';
+  //password: string = 'cpl2001*';
+
+  
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
 

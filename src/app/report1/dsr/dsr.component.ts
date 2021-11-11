@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,9 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Dsr } from '../models/dsr';
 import { RepService } from '../services/report.service';
+import { DateComponent } from '../../shared/date/date.component';
+//EDIT-AJITH-21-10-2021
+//EDIT-AJITH-22-10-2021
 
 @Component({
   selector: 'app-dsr',
@@ -16,6 +19,8 @@ import { RepService } from '../services/report.service';
 export class DsrComponent {
   title = 'Dsr Report'
 
+  @ViewChild('_from_date') private from_date_ctrl: DateComponent;
+  @ViewChild('_to_date') private to_date_ctrl: DateComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -57,6 +62,7 @@ export class DsrComponent {
   all: boolean = false;
   loading = false;
   bAdmin = false;
+  bEmail = false;
   currentTab = 'LIST';
   searchstring = '';
 
@@ -134,6 +140,7 @@ export class DsrComponent {
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
+    this.bEmail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -143,6 +150,8 @@ export class DsrComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -414,4 +423,50 @@ export class DsrComponent {
     this.modal = this.modalService.open(content);
   }
 
+  mailcallbackevent(params: any) {
+    if (params.action == "MAIL") {
+      this.MailVolumeReport(params.brcodes)
+    }
+  }
+
+
+  MailVolumeReport(sbr_code: string) {
+
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = "From Date Cannot Be Blank";
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = "To Date Cannot Be Blank";
+      return;
+    }
+
+    let msg = "Do you want to Send Volume Report ";
+    if (!this.gs.isBlank(this.from_date_ctrl) && !this.gs.isBlank(this.to_date_ctrl))
+      msg += "from " + this.from_date_ctrl.GetDisplayDate() + " to " + this.to_date_ctrl.GetDisplayDate();
+    if (!confirm(msg)) {
+      return;
+    }
+
+    let SearchData2 = {
+      mailtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: sbr_code,
+      from_date: this.from_date,
+      to_date: this.to_date,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code,
+      user_pkid: this.gs.globalVariables.user_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.VolumeReport(SearchData2)
+      .subscribe(response => {
+        if (response.mailmsg.length > 0)
+          alert(response.mailmsg);
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
