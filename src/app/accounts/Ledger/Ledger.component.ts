@@ -1499,6 +1499,13 @@ export class LedgerComponent {
       return;
     }
 
+    if (this.Recorddet.jv_acc_drcr_only == "DR" || this.Recorddet.jv_acc_drcr_only == "CR") {
+      if (this.Recorddet.jv_drcr != this.Recorddet.jv_acc_drcr_only) {
+        this.ErrorMessage = 'Only ' + this.Recorddet.jv_acc_drcr_only + ' Allowed';
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
 
     if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
       this.ErrorMessage = 'Invalid Sea/Air Code';
