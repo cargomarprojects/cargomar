@@ -376,6 +376,7 @@ export class LedgerComponent {
       this.Recorddet.jv_acc_cost_centre = _Record.col2;      //  Cost Center
       this.Recorddet.jv_acc_main_code = _Record.col3;      //  Main Code
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
+      this.Recorddet.jv_acc_drcr_only = _Record.col7;  //DR CR Only Validation
       this.Recorddet.jv_is_taxable = false;
       if (_Record.col4 == "Y")  //  Taxable
         this.Recorddet.jv_is_taxable = true;
@@ -1278,6 +1279,7 @@ export class LedgerComponent {
     this.Recorddet.jv_od_remarks = '';
     this.Recorddet.jv_tan_update = false;
     this.Recorddet.jv_pay_link = '';
+    this.Recorddet.jv_acc_drcr_only = 'NA';
 
     this.CCList = new Array<CostCentert>();
 

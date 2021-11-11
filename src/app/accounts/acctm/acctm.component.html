@@ -161,6 +161,13 @@
         <div class="col-sm-3">
           <app-autocomplete #LinerLov [inputdata]="SACRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
+        <div class="col-3">
+          <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.acc_drcr_only">
+            <option [value]="'NA'">NA</option>
+            <option [value]="'DR'">DEBIT ONLY</option>
+            <option [value]="'CR'">CREDIT ONLY</option>
+          </select>
+        </div>
       </div>
 
 
