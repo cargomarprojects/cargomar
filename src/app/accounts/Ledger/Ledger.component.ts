@@ -20,6 +20,7 @@ import { pendinglist } from '../models/pendinglist';
 import { SearchTable } from '../../shared/models/searchtable';
 
 import { PendingListComponent } from './Pendinglist.component';
+//EDIT-AJITH-11-11-2021
 
 @Component({
   selector: 'app-ledger',
@@ -1276,6 +1277,8 @@ export class LedgerComponent {
     this.Recorddet.jv_od_type = '';
     this.Recorddet.jv_od_remarks = '';
     this.Recorddet.jv_tan_update = false;
+    this.Recorddet.jv_pay_link = '';
+
     this.CCList = new Array<CostCentert>();
 
 
@@ -1366,6 +1369,7 @@ export class LedgerComponent {
     this.Recorddet.jv_od_type = _Record.jv_od_type;
     this.Recorddet.jv_od_remarks = _Record.jv_od_remarks;
     this.Recorddet.jv_tan_update = _Record.jv_tan_update;
+    this.Recorddet.jv_pay_link = _Record.jv_pay_link;
 
     this.InitLov('DETAIL');
 
@@ -1901,7 +1905,7 @@ export class LedgerComponent {
 
       REC.jv_od_type = this.Recorddet.jv_od_type;
       REC.jv_od_remarks = this.Recorddet.jv_od_remarks;
-
+      REC.jv_pay_link = this.Recorddet.jv_pay_link;
 
     }
 
@@ -2539,4 +2543,11 @@ export class LedgerComponent {
     this.ErrorMessage = '';
     this.open(moneytransfer);
   }
+
+  openWebSite(_url: string) {
+    if (this.gs.isBlank(_url))
+      return;
+    window.open(_url, "_blank");
+  }
+
 }
