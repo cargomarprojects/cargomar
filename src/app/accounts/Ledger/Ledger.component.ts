@@ -21,6 +21,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 import { PendingListComponent } from './Pendinglist.component';
 //EDIT-AJITH-11-11-2021
+//EDIT-AJITH-12-11-2021
 
 @Component({
   selector: 'app-ledger',
@@ -386,6 +387,7 @@ export class LedgerComponent {
           this.Recorddet.jv_doc_type = "CHEQUE";
       }
 
+      this.ValidateDrCr();
       this.SearchRecord('taxcode');
     }
     if (_Record.controlname == "CURRENCY") {
@@ -1041,6 +1043,10 @@ export class LedgerComponent {
       this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
     }
 
+    if (field == 'jv_drcr') {
+      this.ValidateDrCr();
+    }
+
   }
 
 
@@ -1372,6 +1378,7 @@ export class LedgerComponent {
     this.Recorddet.jv_od_remarks = _Record.jv_od_remarks;
     this.Recorddet.jv_tan_update = _Record.jv_tan_update;
     this.Recorddet.jv_pay_link = _Record.jv_pay_link;
+    this.Recorddet.jv_acc_drcr_only = _Record.jv_acc_drcr_only;
 
     this.InitLov('DETAIL');
 
@@ -1499,13 +1506,13 @@ export class LedgerComponent {
       return;
     }
 
-    if (this.Recorddet.jv_acc_drcr_only == "DR" || this.Recorddet.jv_acc_drcr_only == "CR") {
-      if (this.Recorddet.jv_drcr != this.Recorddet.jv_acc_drcr_only) {
-        this.ErrorMessage = 'Only ' + this.Recorddet.jv_acc_drcr_only + ' Allowed';
-        alert(this.ErrorMessage);
-        return;
-      }
-    }
+    // if (this.Recorddet.jv_acc_drcr_only == "DR" || this.Recorddet.jv_acc_drcr_only == "CR") {
+    //   if (this.Recorddet.jv_drcr != this.Recorddet.jv_acc_drcr_only) {
+    //     this.ErrorMessage = 'Only ' + this.Recorddet.jv_acc_drcr_only + ' Allowed';
+    //     alert(this.ErrorMessage);
+    //     return;
+    //   }
+    // }
 
     if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
       this.ErrorMessage = 'Invalid Sea/Air Code';
@@ -1915,6 +1922,7 @@ export class LedgerComponent {
       REC.jv_od_type = this.Recorddet.jv_od_type;
       REC.jv_od_remarks = this.Recorddet.jv_od_remarks;
       REC.jv_pay_link = this.Recorddet.jv_pay_link;
+      REC.jv_acc_drcr_only = this.Recorddet.jv_acc_drcr_only;
 
     }
 
@@ -2157,13 +2165,14 @@ export class LedgerComponent {
 
     if (controlname == 'tanupdate') {
       if (this.Recorddet.jv_tan_id == '') {
-        alert("TAN # Cannot be empty");
+        alert("TAN# Cannot be empty, UPDATE TAN");
         return;
       }
       if (this.Recorddet.jv_tan_party_id == '') {
-        alert("Tan Party Cannot be empty");
+        alert("TAN Party Cannot be empty, UPDATE TAN");
         return;
       }
+
     }
 
     this.loading = true;
@@ -2557,6 +2566,15 @@ export class LedgerComponent {
     if (this.gs.isBlank(_url))
       return;
     window.open(_url, "_blank");
+  }
+
+  ValidateDrCr() {
+    if (this.Recorddet.jv_acc_drcr_only == "DR" || this.Recorddet.jv_acc_drcr_only == "CR") {
+      if (this.Recorddet.jv_drcr != this.Recorddet.jv_acc_drcr_only) {
+        let Errmsg = 'Only ' + this.Recorddet.jv_acc_drcr_only + ' Allowed';
+        alert(Errmsg);
+      }
+    }
   }
 
 }
