@@ -39,6 +39,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>MODULE</th>
+          <th>GROUP</th>
           <th>MENU ID</th>
           <th>MENU CAPTION</th>
           <th>ROUTE</th>
@@ -49,6 +50,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr (click)="ActionHandler('EDIT',rec.menu_pkid)">
           <td>{{rec.menu_module_name}}</td>
+          <td>{{rec.menu_group_name}}</td>
           <td>{{rec.menu_code}}</td>
           <td>{{rec.menu_name}}</td>
           <td>{{rec.menu_route1}}</td>
@@ -121,6 +123,16 @@
           </select>
         </div>
       </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Group</label>
+        <div class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.menu_group_id">
+            <option *ngFor="let rec of GroupList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+          </select>
+        </div>
+      </div>
+
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">Order</label>

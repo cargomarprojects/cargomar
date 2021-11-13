@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
-
+import { Param } from '../../master/models/param';
 import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
-
 import { MenuService } from '../services/menu.service';
+//EDIT-AJITH-13-11-2021
 
 @Component({
     selector: 'app-menu',
@@ -37,7 +37,7 @@ export class MenuComponent {
 
     // Modules List
     ModuleList: Modulem[] = [];
-
+    GroupList: Param[] = [];
     // Array For Displaying List
     RecordList: Menum[] = [];
     // Single Record for add/edit/view details
@@ -99,6 +99,7 @@ export class MenuComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ModuleList = response.modules;
+                this.GroupList = response.grouplist;
                 this.List("NEW");
             },
             error => {
@@ -148,6 +149,10 @@ export class MenuComponent {
         this.Record.menu_name = '';
         this.Record.menu_route1 = '';
         this.Record.menu_type = '';
+        this.Record.menu_module_id = '';
+        this.Record.menu_module_name = '';
+        this.Record.menu_group_id = '';
+        this.Record.menu_group_name = '';
         this.Record.rec_mode = this.mode;
     }
 
@@ -237,6 +242,7 @@ export class MenuComponent {
         var REC = this.RecordList.find(rec => rec.menu_pkid == this.Record.menu_pkid);
         if (REC == null) {
             this.Record.menu_module_name = this.ModuleList.find(row => row.module_pkid == this.Record.menu_module_id).module_name;
+            this.Record.menu_group_name = this.GroupList.find(row => row.param_pkid == this.Record.menu_group_id).param_name;
             this.RecordList.push(this.Record);
         }
         else {
@@ -246,6 +252,7 @@ export class MenuComponent {
             REC.menu_route2 = this.Record.menu_route2;
             REC.menu_order = this.Record.menu_order;
             REC.menu_module_name = this.ModuleList.find(row => row.module_pkid == this.Record.menu_module_id).module_name;
+            REC.menu_group_name = this.GroupList.find(row => row.param_pkid == this.Record.menu_group_id).param_name;
         }
     }
     

@@ -15,6 +15,8 @@ export class Menum {
     menu_module_order: number;
 
     menu_displayed: boolean;
+    menu_group_id: string;
+    menu_group_name: string;
 
     rights_company: boolean;
     rights_admin: boolean;
