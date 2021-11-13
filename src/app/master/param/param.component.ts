@@ -427,13 +427,13 @@ export class ParamComponent {
       sError += "\n\rName Cannot Be Blank";
     }
     if (this.type == 'SEA TRACKING EVENTS' || this.type == 'AIR TRACKING EVENTS') {
-        if ( this.Record.param_id1 != 'DATE' && this.Record.param_id1 != 'TEXT') {
-          bret = false;
-          sError += "\n\rTYPE CAN BE DATE OR TEXT";
-        }
+      if (this.Record.param_id1 != 'DATE' && this.Record.param_id1 != 'TEXT') {
+        bret = false;
+        sError += "\n\rTYPE CAN BE DATE OR TEXT";
+      }
     }
     if (this.type == 'SAC') {
-      if ( this.Record.param_id1 == ''  ) {
+      if (this.Record.param_id1 == '') {
         bret = false;
         sError += "\n\rSAC Code cannote be blank";
       }
@@ -529,7 +529,7 @@ export class ParamComponent {
         this.Record.param_code = this.Record.param_code.toUpperCase();
       else
         this.Record.param_code = this.Record.param_code.toUpperCase().replace(' ', '');
-      if (this.type != 'GOOGLE CUSTOMS SCRIPT')
+      if (this.type != 'GOOGLE CUSTOMS SCRIPT' && this.type != 'MENU HEADING')
         this.Record.param_name = this.Record.param_name.toUpperCase().trim();
       this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
