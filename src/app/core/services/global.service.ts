@@ -466,6 +466,15 @@ export class GlobalService {
     await this.http2.post<any>(this.baseUrl + "/api/Admin/User/LoadMenu", SearchData, this.headerparam2('authorized')).toPromise().then((response) => {
         this.MenuList = response.list;
         this.Modules = response.modules;
+        var grpname = '';
+        this.MenuList.forEach(element => {
+          if (element.menu_displayed) {
+            if (grpname != element.menu_group_name)
+              grpname = element.menu_group_name;
+            else
+              element.menu_group_name = null;
+          }
+        });
 
         let data = response.data;
 

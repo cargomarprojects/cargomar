@@ -12,6 +12,8 @@ export class Menum {
     menu_module_id: string;
     menu_module_name: string;
     menu_module_order: number;
-
+    menu_displayed:boolean;
+    menu_group_name:string;
+    
     rec_mode: string;
 }
