@@ -14,19 +14,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <!-- <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
-          <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            {{rech.module_name}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div *ngFor="let rec of gs.MenuList" class="menulist">
-              <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed" class="dropdown-item"
-                (click)="LoadPage(rec)">{{rec.menu_name}}</a>
-            </div>
-          </div>
-        </li> -->
-
         <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
           <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -34,7 +21,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div *ngFor="let rec of gs.MenuList" class="menulist">
-              <div *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed && rec.menu_group_name">
+              <div *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed && rec.menu_group_name" class="px-1">
                 <a style="background-color:green;color: white; "
                   class="dropdown-item border-bottom menu-group-name">{{rec.menu_group_name}}</a>
               </div>
