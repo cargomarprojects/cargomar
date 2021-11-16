@@ -1153,6 +1153,7 @@ export class JobComponent {
     //Fill Duplicate Job
     if (this.mode == "ADD") {
       this.Record.job_pkid = this.pkid;
+      this.Record.jobs_hbl_id = '';
       this.Record.job_docno = null;
       this.Record.job_date = this.gs.defaultValues.today;
       this.Record.lock_record = false;
@@ -1506,8 +1507,8 @@ export class JobComponent {
       branch_code: '',
       user_code: '',
       user_name: '',
-      user_email : '',
-      user_dsc_slno : '',
+      user_email: '',
+      user_dsc_slno: '',
     }
 
     SearchData.pkid = this.pkid;
@@ -1673,7 +1674,7 @@ export class JobComponent {
     this.loading = true;
     this.folder_id = this.gs.getGuid();
 
-  
+
     let SearchData = {
       signtext: '',
       report_folder: '',
