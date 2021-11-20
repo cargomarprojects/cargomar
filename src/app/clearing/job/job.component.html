@@ -104,7 +104,7 @@
             <th *ngIf="jobtype!='FORWARDING'">REF#</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
-            <th >INVNOS</th>
+            <th>INVNOS</th>
             <th>POL</th>
             <th>POD</th>
             <th>AGENT</th>
@@ -137,7 +137,7 @@
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
             <td>{{rec.job_exp_name}}</td>
             <td>{{rec.job_imp_name}}</td>
-            <td >{{rec.job_invoice_nos}}</td>
+            <td>{{rec.job_invoice_nos}}</td>
             <td>{{rec.job_pol_name}}</td>
             <td>{{rec.job_pod_name}}</td>
             <td>{{rec.job_agent_name}}</td>
@@ -625,6 +625,22 @@
                               (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
+
+                        <div *ngIf="type=='SEA EXPORT'" class=" form-group row">
+                          <label class="col-4 col-form-label col-form-label-sm">Vessel</label>
+                          <div class="col-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_vsl_name"
+                              (blur)="OnBlur('job_vsl_name')" required maxlength="60" />
+                          </div>
+                        </div>
+
+                        <div *ngIf="type=='SEA EXPORT'" class=" form-group row">
+                          <label class="col-4 col-form-label col-form-label-sm">Voyage</label>
+                          <div class="col-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_vsl_voy_no"
+                              (blur)="OnBlur('job_vsl_voy_no')" required maxlength="20" />
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -917,7 +933,7 @@
                         <div class=" form-group row">
                           <label class="col-3 col-form-label col-form-label-sm">Exporter.Type</label>
                           <div class="col-9">
-                            <select class="form-control form-control-sm"  [(ngModel)]="Record.job_cust_type">
+                            <select class="form-control form-control-sm" [(ngModel)]="Record.job_cust_type">
                               <option [value]="'N'">NA</option>
                               <option [value]="'R'">Merchant</option>
                               <option [value]="'F'">Manufacturer</option>
@@ -1061,7 +1077,7 @@
 
           <div class="page-details">
             <div>
-                <app-reportdocs   [pkid]="pkid" [type]="''" [menuid]="menuid"  ></app-reportdocs>
+              <app-reportdocs [pkid]="pkid" [type]="''" [menuid]="menuid"></app-reportdocs>
             </div>
             <hr />
             <br />
@@ -1100,7 +1116,7 @@
             <div *ngIf="bSign">
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SIGNANDMAIL')"
                 class="btn btn-success btn-sm">Sign & Mail</button>
-            </div>            
+            </div>
 
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
