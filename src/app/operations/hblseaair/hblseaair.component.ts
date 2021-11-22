@@ -27,6 +27,8 @@ export class HblSeaAirComponent {
     bAdmin = false;
     bPrint = false;
 
+    selectedRowIndex = 0;
+    
     bDocs = false;
     bBilling = false;
     bJobIncome = false;
