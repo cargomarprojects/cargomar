@@ -20,6 +20,8 @@ export class CompanyComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   title = 'COMPANY MASTER';
   loading = false;
   currentTab = 'LIST';

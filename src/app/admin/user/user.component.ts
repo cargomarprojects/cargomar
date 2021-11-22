@@ -25,7 +25,7 @@ export class UserComponent {
     title = 'USER MASTER';
     loading = false;
     currentTab = 'LIST';
-    
+    selectedRowIndex = 0;
     searchstring = '';
     page_count = 0;
     page_current = 0;

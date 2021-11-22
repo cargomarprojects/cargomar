@@ -19,6 +19,7 @@ export class ModuleComponent {
     title = 'MODULE MASTER';
     loading = false;
     currentTab = 'LIST';
+    selectedRowIndex = 0;
     
     searchstring = '';
     page_count = 0;

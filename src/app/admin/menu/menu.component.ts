@@ -28,7 +28,7 @@ export class MenuComponent {
     sub: any;
     urlid: string;
 
-    
+    selectedRowIndex = 0;
 
     ErrorMessage = "User Details";
     
