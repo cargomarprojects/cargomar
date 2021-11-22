@@ -23,6 +23,8 @@ export class MblAirComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   currentPage = 'ROOTPAGE';
   bAdmin = false;
   bDocs = false;

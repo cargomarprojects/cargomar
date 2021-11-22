@@ -66,7 +66,7 @@
     </div>
 
     <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
+      <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
             <th>SI#</th>
@@ -92,8 +92,8 @@
             <th *ngIf="type == 'SEA IMPORT'">CONTAINER</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr >
+        <tbody class="page-body-tbody" >
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
             <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
             <td>{{rec.hbl_sidate}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
