@@ -38,7 +38,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>CONTAINER</th>
@@ -61,8 +61,8 @@
           <th align='right'>CBM</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr >
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cntr_pkid)">{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
           <td>{{rec.cntr_asealno}}</td>

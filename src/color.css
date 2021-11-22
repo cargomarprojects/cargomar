@@ -26,15 +26,20 @@ section#topBar {
     background-color: #ef5750!important; 
     color: #fff!important; 
 }
+
+
+.menulist a:hover {
+    background-color: #cbe7f1!important; 
+}
+
+/* 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgb(203 231 241)!important; 
 }
 .table-striped tbody tr:nth-of-type(even) {
     background-color: white!important; 
 }
+
 .page-body-thead {
     background-color: #286699!important; 
-}
-.menulist a:hover {
-    background-color: #cbe7f1!important; 
-}
+} */

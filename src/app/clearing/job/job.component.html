@@ -96,7 +96,7 @@
     </div>
 
     <div class="page-body table-responsive">
-      <table class="table table-bordered table-hover table-sm table-striped">
+      <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
             <th>JOB#</th>
@@ -130,8 +130,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="rec.job_pkid == selectedRowIndex"
-            (mousedown)="selectedRowIndex= rec.job_pkid">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="index == selectedRowIndex"
+            (mousedown)="selectedRowIndex= index">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid,i)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>

@@ -2,7 +2,7 @@
 
 :root {
   --custom-bg-color: #E0E0E0;
-  --custom-even-color :rgba(0,0,0,.110)    ;
+  --custom-even-color :white ;
   --custom-fg-color: #c9c2c2; 
   --custom-border-color:rgba(0,0,0,.125) ;   
   --custom-icon-color:rgba(18, 134, 201, 0.918)    ;    
@@ -29,11 +29,9 @@ body {
 }
 
 
-
-
-/* tr:nth-child(even) {
+ tr:nth-child(even) {
   background-color: var(--custom-even-color) !important; 
-} */
+} 
 
 
 

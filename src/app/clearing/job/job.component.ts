@@ -21,7 +21,7 @@ export class JobComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  selectedRowIndex = '';
+  selectedRowIndex = 0;
 
   CrList: any[];
 
@@ -640,7 +640,7 @@ export class JobComponent {
   }
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
+  ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -655,7 +655,7 @@ export class JobComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.selectedRowIndex = id;
+      
       this.currentTab = 'DETAILS';
       this.pkid = id;
       this.mode = 'EDIT';

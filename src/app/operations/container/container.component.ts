@@ -20,6 +20,8 @@ export class ContainerComponent {
   // Local Variables 
   title = 'Container Master';
 
+  selectedRowIndex = 0;
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
