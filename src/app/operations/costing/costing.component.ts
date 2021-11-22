@@ -28,7 +28,7 @@ export class CostingComponent {
 
   modal: any;
   selectedRowIndex: number = -1;
-
+  // selectedRowIndex = 0;
   folder_id: string;
   disableSave = true;
   loading = false;
