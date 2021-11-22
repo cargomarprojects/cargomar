@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Jobm } from '../models/job';
 import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+//EDIT-AJITH-20-11-2021
 
 @Component({
   selector: 'app-jobm',
@@ -875,6 +875,8 @@ export class JobComponent {
     this.Record.job_billtype_name = '';
     this.Record.lock_record = false;
     this.Record.job_order = false;
+    this.Record.job_vsl_name = '';
+    this.Record.job_vsl_voy_no = '';
 
     this.job_edi_no = '';
     this.Record.job_pkg_unit_id = this.gs.defaultValues.param_unit_ctn_id;
@@ -1341,6 +1343,8 @@ export class JobComponent {
       REC.job_status = this.Record.job_status;
       REC.job_remarks = this.Record.job_remarks;
       REC.job_billtype_name = this.Record.job_billtype_name;
+      REC.job_vsl_name = this.Record.job_vsl_name;
+      REC.job_vsl_voy_no = this.Record.job_vsl_voy_no;
     }
   }
 
@@ -1449,6 +1453,16 @@ export class JobComponent {
       case 'job_forexacno':
         {
           this.Record.job_forexacno = this.Record.job_forexacno.toUpperCase();
+          break;
+        }
+        case 'job_vsl_name':
+        {
+          this.Record.job_vsl_name = this.Record.job_vsl_name.toUpperCase();
+          break;
+        }
+        case 'job_vsl_voy_no':
+        {
+          this.Record.job_vsl_voy_no = this.Record.job_vsl_voy_no.toUpperCase();
           break;
         }
     }
