@@ -41,7 +41,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>VRNO</th>
@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_category}}</td>

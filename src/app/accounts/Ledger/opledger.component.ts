@@ -21,6 +21,8 @@ export class OpLedgerComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   lock_record: boolean = false;
   lock_date: boolean = false;
 

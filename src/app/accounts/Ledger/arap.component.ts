@@ -52,7 +52,7 @@ export class ArApComponent {
   lock_date: boolean = false;
   lock_cc: boolean = false;
 
-
+  selectedRowIndex = 0;
 
   modal: any;
 

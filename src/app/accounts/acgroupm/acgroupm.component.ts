@@ -41,7 +41,8 @@ export class AcgroupmComponent {
     sub: any;
     urlid: string;
 
-
+    selectedRowIndex = 0;
+    
     ErrorMessage = "";
 
     mode = '';

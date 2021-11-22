@@ -53,7 +53,8 @@ export class LedgerComponent {
   bDocs: boolean = false;
   bChqprint: boolean = true;
   bChqboxvisible: boolean = false;
-
+  selectedRowIndex = 0;
+  
   modal: any;
 
   disableSave = true;
