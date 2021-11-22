@@ -20,6 +20,8 @@ export class GenJobComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   disableSave = true;
   //hideLRno = true;
   //  disablecategory = true;
