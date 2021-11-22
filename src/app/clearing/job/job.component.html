@@ -130,9 +130,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="index == selectedRowIndex"
-            (mousedown)="selectedRowIndex= index">
-            <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid,i)">{{rec.job_docno}}</td>
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+            <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
             <td>{{rec.job_exp_name}}</td>
