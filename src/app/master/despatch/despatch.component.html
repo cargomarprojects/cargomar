@@ -35,7 +35,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>REF.DATE</th>
@@ -57,8 +57,9 @@
           <th>ENTRY-DATE</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.dm_pkid)">
+      <tbody class="page-body-tbody">
+        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
+         (click)="ActionHandler('EDIT',rec.dm_pkid)">
           <td>{{rec.dm_refdate}}</td>
           <td>{{rec.dm_refno}}</td>
           <td>{{rec.rec_category}}</td>

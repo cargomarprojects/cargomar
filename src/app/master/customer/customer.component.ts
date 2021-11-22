@@ -30,7 +30,8 @@ export class CustomerComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-
+  selectedRowIndex = 0;
+  
   bCreditLimit: boolean = false;
   showalert = false;
   CrList: any[];
