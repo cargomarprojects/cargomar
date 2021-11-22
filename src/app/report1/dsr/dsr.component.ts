@@ -29,7 +29,8 @@ export class DsrComponent {
   menu_record: any;
   sub: any;
   urlid: string;
-
+  selectedRowIndex = 0;
+  
   ErrorMessage = "";
   mode = '';
   pkid = '';
