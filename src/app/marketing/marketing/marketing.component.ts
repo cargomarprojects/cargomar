@@ -38,7 +38,8 @@ export class MarketingComponent {
 
     sub: any;
     urlid: string;
-
+    
+    selectedRowIndex = 0;
 
     ErrorMessage = "";
     InfoMessage = "";

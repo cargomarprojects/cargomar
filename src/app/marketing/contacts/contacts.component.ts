@@ -23,6 +23,8 @@ export class ContactsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   modal: any;
   disableSave = true;
   loading = false;
