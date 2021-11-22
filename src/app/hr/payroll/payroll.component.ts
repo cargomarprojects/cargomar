@@ -24,6 +24,8 @@ export class PayRollComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;

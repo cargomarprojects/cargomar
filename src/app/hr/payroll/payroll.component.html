@@ -85,7 +85,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
@@ -153,8 +153,8 @@
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
+      <tbody class="page-body-tbody">
+        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td><input type="checkbox" [(ngModel)]="rec.sal_selected"></td>
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_name}}</td>

@@ -19,7 +19,8 @@ export class SalaryMasterComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
+  selectedRowIndex = 0;
+  
   bChanged: boolean;
   disableSave = true;
   loading = false;
