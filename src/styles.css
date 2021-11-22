@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --custom-bg-color: #f3f3f3;
+  --custom-bg-color: #E0E0E0;
   --custom-even-color :rgba(0,0,0,.110)    ;
   --custom-fg-color: #c9c2c2; 
   --custom-border-color:rgba(0,0,0,.125) ;   
@@ -9,6 +9,26 @@
   --custom-selected-row-color:red;    
   --custom-selected-row-back-color : rgb(100, 234, 248);    
 }
+
+
+body {
+  
+  margin-top: 0px!important;
+  margin-left: 0px!important;
+  margin-right: 0px!important;
+  
+  padding-top: 129px!important;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-family: Arial;
+  overflow-x: hidden;
+
+
+  background-color:  #F8F8F8!important;
+
+}
+
+
 
 
 /* tr:nth-child(even) {
@@ -55,19 +75,6 @@ old_body {
   padding-top: 129px!important;
   padding-left: 3px;
   padding-right: 3px;
-  font-family: Arial;
-  overflow-x: hidden;
-}
-
-body {
-  
-  margin-top: 0px!important;
-  margin-left: 0px!important;
-  margin-right: 0px!important;
-  
-  padding-top: 129px!important;
-  padding-left: 0px;
-  padding-right: 0px;
   font-family: Arial;
   overflow-x: hidden;
 }
