@@ -25,7 +25,8 @@ export class PreAlertComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
+  selectedRowIndex = 0;
+  
   disableSave = true;
   loading = false;
   currentTab = 'LIST';

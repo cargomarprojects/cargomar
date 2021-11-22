@@ -27,45 +27,53 @@
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
             <div *ngIf="rec_category=='TEU-EXPORT'" class="col-8">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
             <div *ngIf="rec_category=='TEU-IMPORT'" class="col-8">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
-            </div>
+          </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
             <div *ngIf="rec_category=='TEU-EXPORT'" class="col-8">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
             <div *ngIf="rec_category=='TEU-IMPORT'" class="col-8">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-            </div>
+              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
           </div>
+        </div>
         <div class="col-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
             <div class="col-8">
-              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
             <div class="col-8">
-              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
             <div class="col-8">
-              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
             <div class="col-8">
-              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
             </div>
           </div>
         </div>
@@ -95,8 +103,10 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
-              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                Report</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm">Excel</button>
             </div>
           </div>
         </div>
@@ -105,7 +115,7 @@
   </div>
 
   <div *ngIf="rec_category=='TEU-EXPORT'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -139,8 +149,8 @@
           <th class="text-right">CBM</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
@@ -168,7 +178,7 @@
           <td align='right'>{{ rec.cntr_teu | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_pcs | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_ntwt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.cntr_grwt | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.cntr_grwt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_cbm | number : '1.2-2' }}</td>
         </tr>
       </tbody>
@@ -177,13 +187,13 @@
 
 
   <div *ngIf="rec_category=='TEU-IMPORT'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
           <th>CONTAINER</th>
           <th>TYPE</th>
-         
+
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
           <th>AGENT</th>
@@ -192,14 +202,14 @@
           <th>POL</th>
           <th>POD</th>
           <th>POFD</th>
-          
+
           <th>MBL#</th>
-          
+
           <th>SOB</th>
-          
-         
+
+
           <th>JOB.TYPE</th>
-          
+
           <th class="text-right">TEU</th>
           <th class="text-right">PCS</th>
           <th class="text-right">NTWT</th>
@@ -207,12 +217,12 @@
           <th class="text-right">CBM</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
-        
+
           <td>{{rec.hbl_exp_name}}</td>
           <td>{{rec.hbl_imp_name}}</td>
           <td>{{rec.hbl_agent_name}}</td>
@@ -221,18 +231,18 @@
           <td>{{rec.hbl_pol_name}}</td>
           <td>{{rec.hbl_pod_name}}</td>
           <td>{{rec.hbl_pofd_name}}</td>
-          
+
           <td>{{rec.mbl_no}}</td>
-          
+
           <td>{{rec.mbl_pol_etd}}</td>
-         
-          
+
+
           <td>{{rec.job_type}}</td>
-         
+
           <td align='right'>{{ rec.cntr_teu | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_pcs | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_ntwt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.cntr_grwt | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.cntr_grwt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cntr_cbm | number : '1.2-2' }}</td>
         </tr>
       </tbody>

@@ -25,7 +25,7 @@ export class LandingCertificateComponent {
     @Input() type: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
-
+    selectedRowIndex = 0;
     hbl_ids = '';
     selectdeselect = false;
     disableSave = true;

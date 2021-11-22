@@ -33,7 +33,9 @@ body {
   background-color: var(--custom-even-color) !important; 
 } 
 
-
+tbody:nth-child(even) {
+  background-color: var(--custom-even-color) !important; 
+} 
 
 .main {
   margin-top: 1px; /* Add a Top margin to avoid content overlay */

@@ -28,7 +28,7 @@ export class BkTeuComponent {
 
   modal: any;
 
-  
+  selectedRowIndex = 0;
   ErrorMessage = "";
   mode = '';
   pkid = '';

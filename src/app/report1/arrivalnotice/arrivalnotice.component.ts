@@ -29,7 +29,7 @@ export class ArrivalNoticeComponent {
 
   modal: any;
 
-
+  selectedRowIndex = 0;
   page_count = 0;
   page_current = 0;
   page_rows = 0;
