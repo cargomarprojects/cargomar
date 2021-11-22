@@ -1,7 +1,7 @@
 /***** stell blue theme *****************************/
 #menuSec{
     /* background-color: #4682b4!important;     */
-     background-color: rgb(57, 140, 207)!important;     
+    background-color: #4682b4!important;     
 }
 li.nav-item.active a{
     color: #ffffff!important;
