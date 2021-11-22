@@ -1,51 +1,84 @@
-
-
-
-
 <div *ngIf="gs.IsLoginSuccess == false">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="divcenter">
-        <h2>Login</h2>
 
-        <div class="form-group">
-          <label for="username">Login ID</label>
-          <input type="text" class="form-control" name="username" [(ngModel)]="username" />
+
+  <div class="bgw">
+
+
+    <section id="loginSec">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm-4 col-md-6 col-lg-6 order-last order-md-first">
+            <div class="lgCnt">
+              <h2>Find Out More About Us</h2>
+              <h3>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</h3>
+              <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-8 col-md-6 col-lg-6">
+            <div class="divcenter">
+              <h2>Login</h2>
+
+              <div class="form-group">
+                <label for="username">Login ID</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" name="username" type="text"
+                  [(ngModel)]="username">
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password <span class="pass-opt">Forgot password?</span> </label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" name="password" type="password"
+                  [(ngModel)]="password">
+              </div>
+
+              <div class="form-group">
+                <label for="branch">Company</label>
+                <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
+                  [(ngModel)]="company_code">
+                  <option *ngFor="let rec of CompanyList" [value]="rec.comp_code">{{rec.comp_name}}</option>
+                </select>
+              </div>
+
+              <!---->
+              <div class="form-group" *ngIf="showloginbutton">
+                <button class="btn btn-primary btn-sm login-btn" (click)="Login()">Login</button>
+                <!---->
+              </div>
+              <p class="log-divider"><span>or</span></p>
+
+              <button class="btn btn-primary btn-sm g-login ">
+                <span class="g-login-img"><img src="assets/img/g.png"></span>
+                <span class="g-login-text">
+                  <p>Log in with Google</p>
+                </span>
+              </button>
+
+
+              <div>
+                <h5>Version : {{gs.software_version_string}}</h5>
+              </div>
+              <div>
+                <h5>{{errorMessage}}</h5>
+              </div>
+
+              <div *ngIf="!showloginbutton">
+                <h5> <a (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
+              </div>
+
+            </div>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="password" />
-        </div>
-
-        <div class="form-group">
-          <label for="branch">Company</label>
-          <select class="form-control form-control-sm" [(ngModel)]="company_code">
-            <option *ngFor="let rec of CompanyList" [value]="rec.comp_code">{{rec.comp_name}}</option>
-          </select>
-        </div>
-
-        <div *ngIf="showloginbutton" class="form-group">
-          <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="Login()">Login</button>
-          <i *ngIf="loading" class="fa fa-spinner"></i>          
-          <!--<a [routerLink]="['/register']" class="btn btn-link">Register</a>-->
-        </div>
-
-        <div><h5>Version : {{gs.software_version_string}}</h5></div>
-        <div><h5>{{errorMessage}}</h5></div>
-
-        <div *ngIf="!showloginbutton">
-          <h5> <a (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
-        </div>
-
       </div>
-    </div>
+    </section>
+
+
   </div>
+
 </div>
 
 <div>
   {{ErrorExternalLogin}}
 </div>
-
-
-

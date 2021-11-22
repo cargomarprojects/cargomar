@@ -1,0 +1,39 @@
+/***** stell blue theme *****************************/
+#menuSec{
+    background-color: #4682b4!important;    
+}
+li.nav-item.active a{
+    color: #ffffff!important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255 255 255 / 92%)!important;   
+}
+.navbar-light .navbar-brand h1 {
+    color: #dae5ff!important; 
+}
+.userSec.logged-in span {    
+    color: #fff!important; 
+}
+#menuSec li.nav-item.active a {
+    color: #fbd362!important;
+}
+.btn-primary {
+    background-color: #236ca9!important; 
+    border-color: #007bff!important; 
+}
+section#topBar {
+    background-color: #ef5750!important; 
+    color: #fff!important; 
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(203 231 241)!important; 
+}
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: white!important; 
+}
+.page-body-thead {
+    background-color: #286699!important; 
+}
+.menulist a:hover {
+    background-color: #cbe7f1!important; 
+}

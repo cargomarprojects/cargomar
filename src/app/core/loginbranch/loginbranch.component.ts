@@ -13,7 +13,8 @@ import { Settings } from '../models/settings';
 
 @Component({
   selector: 'app-loginbranch',
-  templateUrl: './loginbranch.component.html'
+  templateUrl: './loginbranch.component.html',
+  styleUrls: ['./loginbranch.component.css']
 })
 export class LoginBranchComponent {
   ErrorMessage: string;
@@ -108,6 +109,14 @@ export class LoginBranchComponent {
 
   Close() {
     this.gs.IsLoginSuccess = false;
+
+    // New Code Added Start
+    this.gs.IsAuthenticated = false;
+    this.gs.Access_Token = '';
+    this.gs.Modules =[];
+    this.gs.globalVariables.istp = false;
+    // New Code Added End
+
     this.gs.ClosePage('login');
   }
 

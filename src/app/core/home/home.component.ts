@@ -10,7 +10,8 @@ import { GlobalService } from '../services/global.service';
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
     title = "";
@@ -19,10 +20,12 @@ export class HomeComponent {
         private http2: HttpClient,
         private gs: GlobalService) {
 
+        /*
         if (!this.gs.IsLoginSuccess) {
             
             this.router.navigate(['login'], { replaceUrl: true });
         }
+        */
     }
 }
 

@@ -47,7 +47,7 @@ export class AppComponent implements OnDestroy {
         console.log( 'appid ',this.gs.appid);
 
         if ( this.gs.isBlank(this.gs.appid)) {
-            this.router.navigate(['login'], { replaceUrl: true });
+            this.router.navigate(['home'], { replaceUrl: true });
             return;
         }
         this.router.navigate(['/reload']);

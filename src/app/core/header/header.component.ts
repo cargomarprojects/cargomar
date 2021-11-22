@@ -9,7 +9,8 @@ import { LoginService } from '../services/login.service';
 
 @Component({
     selector: 'app-header',
-    templateUrl: './header.component.html'
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
     public isNavbarCollapsed = true;
@@ -61,17 +62,34 @@ export class HeaderComponent {
             }
         )
 
+        this.Login();
+
+
+    }
+
+
+    Login(){
+
         this.gs.IsLoginSuccess = false;
         this.gs.IsAuthenticated = false;
         this.gs.Access_Token = '';
 
+        this.gs.Modules =[];
+        this.gs.globalVariables.istp = false;
+
         this.title = 'Pls Login';
         this.router.navigate(['login'], { replaceUrl: true }); 
 
+
     }
+
 
     getUrlID() {
         this.id = this.gs1.getGuid();
+    }
+
+    home(){
+        this.router.navigate(['home'], { replaceUrl: true }); 
     }
 
 }

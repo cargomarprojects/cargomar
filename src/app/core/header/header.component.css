@@ -1,0 +1,329 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+    width: 100%;
+    background-color: #ffffff00!important;
+}
+
+#menuSec {
+    background-color: white;
+    box-shadow: 0 0 4px rgb(0 0 0 / 40%);
+}
+.userSec span {
+    text-align: left!important;
+    margin: 0!important;
+    padding: 0 5px;
+}
+.userSec.logged-in span {
+    font-weight: 500;
+}
+.userSec.logged-in span:nth-child(1) {
+    border-right:1px solid rgba(128, 128, 128, 0.58);
+    padding-right: 15px;
+}
+.userSec.logged-in span:nth-child(3) {
+    padding-left: 15px;
+}
+.submenuSec{
+   max-height: 70vh;
+    overflow-y: auto;
+}
+
+button.btn.btn-outline-success.my-2.my-sm-0 {
+    background-color: #da251c;
+    color: #fff;
+    border: 1px solid #dfaa46;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(68 62 62 / 92%);
+    font-weight: 600;
+}
+li.nav-item.active a {
+    color: #da251c!important;
+}
+section#topBar {
+    background-color: #da251c;
+    padding: 7px 0!important;
+    color: #fff;
+}
+section#topBar .row {
+    justify-content: space-between;
+}
+.submenuSec {
+    padding: 15px 0 30px;
+}
+.dropdown-item {   
+    border-bottom: 1px solid #a15f5f2b!important;
+}
+
+#topBar .ic {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+button.btn.btn-outline-success.my-2.my-sm-0 {
+    background-color: #da251c;
+    color: #fff;
+    margin-right: 15px;
+    padding: 5px 24px;
+    border: 1px solid #dfaa46;
+}
+
+section#menuSec,section#topBar {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    top: 0;
+}
+section#menuSec{
+    top: 38px;
+    padding: 0 30px;
+}
+section#topBar {   
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+}
+.dropdown-toggle::after {
+    display: none;
+}
+li.nav-item {
+    margin: 0 5px;
+}
+.submenuSec::-webkit-scrollbar {
+    background-color: #e1e1e1;
+      width: 10px;
+    height: 8px;
+}
+.submenuSec::-webkit-scrollbar-thumb {
+    background-color: #da251c;  
+}
+.navbar-light .navbar-brand h1 {
+    color: #da251c;
+    font-size: 17px;
+}
+.navbar-light .navbar-brand {
+    text-align: center;
+}
+div#navbarSupportedContent {
+    justify-content: space-between;
+}
+span.lgOut,span.YearD{
+    padding-right: 0;
+}
+#topBar i{
+    margin-right: 3px;
+}
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+    padding: 0rem 1rem;
+}
+.navbar-light .navbar-brand h1 {
+    margin-bottom: 0!important;
+}
+section#menuSec {
+    top: 38px;
+    padding: 0 30px;
+    min-height: 90px;
+}
+a.navbar-brand {
+    padding-top: 10px;
+}
+
+@media(min-width:992px){
+    .mobileNumber, .emailAddress, .userAC, .lgOut {
+    display: inline-block;
+    padding-right: 15px;
+}
+    ul.navbar-nav {
+    margin-left: 15px;
+}
+    .dropdown-menu {
+    cursor: pointer;
+    min-width: 13rem;
+}
+    .dropdown-item {
+    padding: 0.25rem 1.5rem 0.25rem 1rem;
+}
+    li.nav-item::before {
+        transition: all .4s;
+    display: block;
+    position: relative;
+    background-color: #da251c;
+    height: 2px;
+    content: "";
+    width: 0%;
+    margin: 0 auto;
+    top: 76px;
+}
+    li.nav-item:hover::before {
+    display: block;
+    position: relative;
+    background-color: #da251c;
+    height: 2px;
+    content: "";
+    width: 100%;
+    margin: 0 auto;
+    top: 76px;
+}
+    div#navbarSupportedContent,ul.navbar-nav.m-auto {
+    height: 100%;
+}
+.dropdown-menu {    
+    top: calc(100% - 2px);
+}
+.navbar-nav a.nav-link {
+    padding: 35px 0;
+}
+}
+@media(max-width:370px){
+    .cntDetails{
+        display: none;
+    }
+}
+    
+@media(max-width:991px){
+    .userSec {    
+    text-align: right;
+}
+    span.userAC, span.lgOut {
+    font-size: 14px;
+    margin-left: 5px;
+}
+    .userSec span {
+    font-size: 12px;
+    font-weight: 400!important;
+}
+ 
+    .mobileNumber{
+        display: none;
+    }
+    .userSec {
+    padding: 10px 0;
+}
+    .submenuSec::-webkit-scrollbar {
+    background-color: #ffffff;
+}
+    .dropdown-menu {
+    border: 1px solid rgb(197 197 197 / 15%);
+}
+    .userSec span {   
+    font-size: 14px;
+}
+    div#navbarSupportedContent {
+    border-top: 1px solid #da251c24;
+}
+
+    section#menuSec{
+        padding: 0;
+}
+    ul.navbar-nav.m-auto {
+    margin-top: 10px!important;
+    padding-top: 5px;
+}
+    button.btn.btn-outline-success.my-2.my-sm-0 {   
+    margin-top: 15px!important;
+}
+    li.nav-item {
+    border-bottom: 1px solid #d9d9d9;
+}
+    ul.navbar-nav.m-auto {
+    border-top: 1px solid #da251c;
+}
+    button.btn.btn-outline-success.my-2.my-sm-0 {
+    width: 100%;
+}
+    section#topBar{
+    padding: 7px 15px!important;
+}
+    .navbar-nav .dropdown-menu {   
+    max-height: 60vh;
+    overflow: scroll;
+}  
+    .dropdown-menu.submenuSec.show {
+    padding: 0;
+}
+}
+@media(max-width:768px){
+    .emailAddress {
+    font-size: 13px;
+}
+}
+@media(min-width:992px){ 
+    ul.navbar-nav {    
+    width: 100%;
+        height:100%;
+    justify-content: inherit;
+}
+
+    .navbar-nav a.nav-link {
+   padding: 52px 0.1vw 2px!important;
+}
+    .dropdown:hover > .dropdown-menu.submenuSec {
+    display: block;
+}
+    .dropdown-menu.show {
+    display: none;
+}
+    .userSec.logged-in {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 4px;
+}
+    .navbar-expand-lg .navbar-nav li:last-child .dropdown-menu, .navbar-expand-lg .navbar-nav li.to_Left .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+}
+@media(min-width:1044px){
+    
+}
+/******************************/
+@media(min-width:992px) and (max-width:1496px){
+
+section#menuSec {
+     padding: 0 13px!important;
+}
+ul.navbar-nav{
+    margin-left: 15px!important;
+}
+.navbar-light .navbar-nav .nav-link {    
+    font-size: 13px;
+}
+.userSec.logged-in span {
+    font-size: 10px;
+}
+}
+@media(min-width:1300px){
+        ul.navbar-nav {    
+    justify-content: flex-start;
+}
+    li.nav-item {
+    margin: 0 12px;
+}
+}
+@media(min-width:1497px){
+
+ul.navbar-nav {
+    margin-right: 60px;
+}
+}
+
+@media(min-width:1200px) and (max-width:1496px){
+   
+.userSec.logged-in span {
+    font-size: 11px;
+}
+    
+    .navbar-light .navbar-nav .nav-link {
+    font-size: 1rem;
+}
+}
+
+/*
+@media(min-width:1350px) and (max-width:1496px){
+li.nav-item {
+    margin: 0 9px!important;
+}
+}
+*/
+
+

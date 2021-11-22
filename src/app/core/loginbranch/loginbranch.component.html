@@ -1,49 +1,63 @@
 ﻿<div *ngIf="gs.IsLoginSuccess == true">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="divcenter">
-        <h2>Select Branch</h2>
-
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Branch</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="branchid">
-              <option *ngFor="let rec of BranchList" [value]="rec.comp_pkid">{{rec.comp_name}}</option>
-            </select>
-          </div>
-        </div>
 
 
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Fin-Year</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="yearid">
-              <option *ngFor="let rec1 of YearList" [value]="rec1.year_pkid">{{rec1.year_name}}</option>
-            </select>
-          </div>
-        </div>
+  <div class="bgw">
 
-        <div class="form-group row">
-          <div class="col-2">
-          </div>
-          <div class="col-10">
-            <div *ngIf="showlogin" class="form-group">
-              <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="Login()">Select</button>
-              <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="Close()">Return</button>
-              <i *ngIf="loading" class="fa fa-spinner"></i>                        
+  <section id="loginSec">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-8 order-last order-md-first">
+                <div class="lgCnt">
+                    <h2>Find Out More About Us</h2>
+                    <h3>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</h3>
+                    <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                    </p>
+                </div>
             </div>
-          </div>
+            <div class="col-md-4 "><div class="divcenter">
+                <h2>Select Branch</h2>
+
+                                            
+                  <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="branchid">
+                        <option *ngFor="let rec of BranchList" [value]="rec.comp_pkid">{{rec.comp_name}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="branch">Fin-Year</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="yearid">
+                        <option *ngFor="let rec1 of YearList" [value]="rec1.year_pkid">{{rec1.year_name}}</option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group" *ngIf="showlogin">
+                    <button class="btn btn-primary btn-sm login-btn" (click)="Login()">Select</button>
+                    <button [disabled]="loading" class="btn btn-primary btn-sm login-btn" (click)="Close()">Return</button>
+                    <!---->
+                </div>
+
+          
+                <!---->
+
+            </div></div>
+            
+            
         </div>
-
-
-      </div>
     </div>
-  </div>
-
-  <div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
-  </div>
+</section>
 
 
 
+
+</div>
+
+</div>
+
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
 </div>
