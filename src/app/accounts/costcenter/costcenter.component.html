@@ -36,15 +36,16 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>CODE</th>
           <th>NAME</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.cc_pkid)">
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
+         (click)="ActionHandler('EDIT',rec.cc_pkid)">
           <td>{{rec.cc_code}}</td>
           <td>{{rec.cc_name}}</td>
         </tr>

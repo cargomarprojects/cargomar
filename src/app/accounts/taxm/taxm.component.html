@@ -36,7 +36,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>DESC</th>
@@ -50,8 +50,9 @@
           <th>IGST</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.tax_pkid)">
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
+         (click)="ActionHandler('EDIT',rec.tax_pkid)">
           <td>{{rec.tax_desc}}</td>
           <td>{{rec.tax_acc_code}}</td>
           <td>{{rec.tax_acc_name}}</td>
