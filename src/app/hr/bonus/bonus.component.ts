@@ -19,6 +19,8 @@ export class BonusComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  selectedRowIndex = 0;
+  
   lock_record: boolean = false;
   bRelived = false;
   bPrint: boolean = false;
