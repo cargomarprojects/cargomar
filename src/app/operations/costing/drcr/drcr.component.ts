@@ -23,7 +23,7 @@ export class DrCrComponent {
   menu_record: any;
 
   modal: any;
-  selectedRowIndex: number = -1;
+  selectedRowIndex: number = 0;
 
   disableSave = true;
   loading = false;

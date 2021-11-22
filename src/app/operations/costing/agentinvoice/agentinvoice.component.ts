@@ -19,7 +19,7 @@ export class AgentInvoiceComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  selectedRowIndex: number = -1;
+  selectedRowIndex: number = 0;
 
   canprint = false;
   disableSave = true;
