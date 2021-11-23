@@ -155,7 +155,7 @@
         </div>
 
         <div class="page-body table-responsive">
-          <table class="table  table-hover table-sm">
+          <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
               <tr>
                 <th><input type="checkbox" [(ngModel)]="selectcheck" (click)="SelectCheckbox()"></th>
@@ -196,8 +196,8 @@
                 <!-- <th>CONTRACT#</th> -->
               </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-              <tr>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+              <tr  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                 <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
                 <td>{{rec.ord_agentref_id}}</td>
                 <td class="hlink" (click)="ActionHandler('EDIT',rec.ord_pkid)">{{rec.ord_agent_name}}</td>

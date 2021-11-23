@@ -34,7 +34,7 @@ export class EdiOrderComponent {
 
   loading = false;
   currentTab = 'LIST';
-
+   
   chk_all_pol: boolean = false;
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
