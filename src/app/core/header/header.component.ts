@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component  } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -25,13 +25,13 @@ export class HeaderComponent {
     }
 
     LoadPage(rec: Menum) {
-        let bFlag : boolean = false;
+        let bFlag: boolean = false;
         this.getUrlID();
         /* this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true }); */
         if (rec.menu_route1 == 'accounts/trial')
             bFlag = true;
         if (rec.menu_route1 == 'accounts/pandl')
-            bFlag = true;            
+            bFlag = true;
         if (rec.menu_route1 == 'accounts/ledger')
             bFlag = true;
         if (rec.menu_route1 == 'accounts/cashbook')
@@ -51,14 +51,15 @@ export class HeaderComponent {
         let SearchData = {
             usercode: this.gs.globalVariables.user_code,
             companycode: this.gs.globalVariables.comp_code,
-            branchcode: this.gs.globalVariables.branch_code
+            branchcode: this.gs.globalVariables.branch_code,
+            appid: this.gs.appid
         };
 
-        this.loginservice.Logout(SearchData).subscribe (
-            success =>{
+        this.loginservice.Logout(SearchData).subscribe(
+            success => {
 
             },
-            error =>{
+            error => {
             }
         )
 
@@ -68,17 +69,17 @@ export class HeaderComponent {
     }
 
 
-    Login(){
+    Login() {
 
         this.gs.IsLoginSuccess = false;
         this.gs.IsAuthenticated = false;
         this.gs.Access_Token = '';
 
-        this.gs.Modules =[];
+        this.gs.Modules = [];
         this.gs.globalVariables.istp = false;
 
         this.title = 'Pls Login';
-        this.router.navigate(['login'], { replaceUrl: true }); 
+        this.router.navigate(['login'], { replaceUrl: true });
 
 
     }
@@ -88,8 +89,8 @@ export class HeaderComponent {
         this.id = this.gs1.getGuid();
     }
 
-    home(){
-        this.router.navigate(['home'], { replaceUrl: true }); 
+    home() {
+        this.router.navigate(['home'], { replaceUrl: true });
     }
 
 
