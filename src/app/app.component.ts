@@ -1,6 +1,6 @@
 ﻿import { Component, OnDestroy , OnInit } from '@angular/core';
-import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { GlobalService } from './core/services/global.service';
+import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router  } from '@angular/router';
+import { GlobalService } from './core/services/global.service'; 
 
 @Component({
     selector: 'my-app',
@@ -24,6 +24,7 @@ export class AppComponent implements OnDestroy {
                     this.loading = true;
                     break;
                 }
+
                 case event instanceof NavigationEnd:
                 case event instanceof NavigationCancel:
                 case event instanceof NavigationError: {
