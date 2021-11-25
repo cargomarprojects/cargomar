@@ -26,6 +26,7 @@ export class TonnageComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
+  selectedRowIndex = 0;
 
   type_date: string ='MAWB DATE';
   from_date: string = '';

@@ -30,6 +30,7 @@ export class AirPreAlertComponent {
   loading = false;
   currentTab = 'LIST';
   searchmawb_no = '';
+  selectedRowIndex = 0;
 
 
   sub: any;

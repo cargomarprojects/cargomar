@@ -24,7 +24,8 @@ export class SeaBuyRateComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
+  selectedRowIndex = 0;
+  
   ispercent = false;
   disableSave = true;
   loading = false;

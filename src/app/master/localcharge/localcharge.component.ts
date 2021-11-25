@@ -36,7 +36,7 @@ export class LocalChargeComponent {
   bPrint = false;
   bDelete = false;
 
-
+  selectedRowIndex = 0;
 
   dbkmode = '';
   searchstring = '';
