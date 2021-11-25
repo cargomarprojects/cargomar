@@ -26,7 +26,7 @@ export class CostBillingComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  selectedRowIndex = 0;
   rec_category: string = "";
   type_date: string ='';
   from_date: string = '';

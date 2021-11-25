@@ -22,7 +22,8 @@ export class CostPendingComponent {
   menu_record: any;
   sub: any;
   urlid: string;
-
+  selectedRowIndex = 0;
+  
   ErrorMessage = "";
   InfoMessage = "";
   mode = '';

@@ -46,7 +46,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr *ngIf="!min_rate">
           <th>BRANCH</th>
@@ -73,8 +73,8 @@
           <th width="80%"></th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr *ngIf="!min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr *ngIf="!min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)"  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.cr_branch_name}}</td>
           <td>{{rec.cr_agent_name}}</td>
 
@@ -93,7 +93,7 @@
 
         </tr>
 
-        <tr *ngIf="min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)">
+        <tr *ngIf="min_rate" (click)="ActionHandler('EDIT',rec.cr_pkid)"  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.cr_rate_code}}</td>
           <td align='right'>{{rec.cr_rate_value | number : '1.3-3'}}</td>
           <td></td>

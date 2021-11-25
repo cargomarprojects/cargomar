@@ -36,7 +36,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>STMT#</th>
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.stm_pkid, i)" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList;  let i = index" (click)="ActionHandler('EDIT',rec.stm_pkid, i)" [class.active]="i == selectedRowIndex"  (mousedown)="selectedRowIndex=i">
           <td>{{rec.stm_no}}</td>
           <td>{{rec.stm_date}}</td>
           <td>{{rec.stm_acc_code}}</td>

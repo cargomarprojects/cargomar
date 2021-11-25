@@ -63,7 +63,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>VRNO</th>
@@ -83,8 +83,8 @@
           <th>NARRATION</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.rowcolor">
+      <tbody class="page-body-tbody" >
+        <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
           <td>{{rec.jvh_vrno}}</td>
           <td>{{rec.jvh_type}}</td>
           <td>{{rec.jvh_date}}</td>

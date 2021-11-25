@@ -16,33 +16,33 @@ export class CoststmtComponent {
   title = 'Cost Statement Report'
 
 
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
- 
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
-
+  selectedRowIndex = 0;
   ErrorMessage = "";
   mode = '';
   pkid = '';
 
   rec_category: string = "";
-  type_date: string ='';
+  type_date: string = '';
   from_date: string = '';
   to_date: string = '';
   branch_name: string;
   branch_code: string;
   job_type: string;
- 
+
   agent_id: string;
   agent_code: string;
   agent_name: string;
   curr_id: string;
   curr_code: string;
- 
+
 
   disableSave = true;
   bCompany = false;
@@ -53,7 +53,7 @@ export class CoststmtComponent {
 
   SearchData = {
     type: '',
-    rec_category:'',
+    rec_category: '',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -78,11 +78,11 @@ export class CoststmtComponent {
   // Single Record for add/edit/view details
   Record: Coststmt = new Coststmt;
 
- // BRRECORD: SearchTable = new SearchTable();
- 
+  // BRRECORD: SearchTable = new SearchTable();
+
   AGENTRECORD: SearchTable = new SearchTable();
   CURRECORD: SearchTable = new SearchTable();
- 
+
 
   constructor(
     private mainService: RepService,
@@ -120,7 +120,7 @@ export class CoststmtComponent {
       if (this.menu_record.rights_company)
         this.bCompany = true;
     }
-    
+
 
     this.Init();
     this.initLov();
@@ -128,7 +128,7 @@ export class CoststmtComponent {
   }
 
   Init() {
-   
+
     this.type_date = "DATE";
     this.job_type = "ALL";
     this.RecordList = null;
@@ -136,12 +136,12 @@ export class CoststmtComponent {
     this.branch_name = this.gs.globalVariables.branch_name;
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
-   
+
     this.agent_id = '';
     this.agent_name = '';
     this.curr_id = '';
     this.curr_code = '';
-   
+
   }
 
   // Destroy Will be called when this component is closed
@@ -158,7 +158,7 @@ export class CoststmtComponent {
     //this.BRRECORD.type = "BRANCH";
     //this.BRRECORD.id = "";
     //this.BRRECORD.code = this.gs.globalVariables.branch_code;
-    
+
     this.AGENTRECORD = new SearchTable();
     this.AGENTRECORD.controlname = "AGENT";
     this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
@@ -176,7 +176,7 @@ export class CoststmtComponent {
     this.CURRECORD.code = "";
     this.CURRECORD.name = "";
 
-    
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -184,9 +184,9 @@ export class CoststmtComponent {
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
-     
+
     }
-   
+
     if (_Record.controlname == "AGENT") {
       this.agent_id = _Record.id;
       this.agent_code = _Record.code;
@@ -197,7 +197,7 @@ export class CoststmtComponent {
       this.curr_code = _Record.code;
 
     }
-   
+
   }
   LoadCombo() {
   }
@@ -234,10 +234,23 @@ export class CoststmtComponent {
     this.ErrorMessage = '';
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = "From Date Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = "To Date Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (this.curr_id.trim().length <= 0) {
+      this.ErrorMessage = "Currency Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+    if (this.agent_id.trim().length <= 0) {
+      this.ErrorMessage = "Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -247,7 +260,7 @@ export class CoststmtComponent {
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+    this.SearchData.branch_name = this.gs.globalVariables.branch_name;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
@@ -256,13 +269,13 @@ export class CoststmtComponent {
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
     this.SearchData.job_type = this.job_type;
-   
+
     this.SearchData.agent_id = this.agent_id;
     this.SearchData.agent_name = this.agent_name;
     this.SearchData.agent_code = this.agent_code;
     this.SearchData.curr_id = this.curr_id;
     this.SearchData.curr_code = this.curr_code;
-   
+
     //this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
@@ -275,11 +288,11 @@ export class CoststmtComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -293,6 +306,6 @@ export class CoststmtComponent {
     this.gs.ClosePage('home');
   }
 
-   
-  
+
+
 }
