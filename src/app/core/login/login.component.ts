@@ -5,7 +5,7 @@ import { GlobalService } from '../services/global.service';
 import { LoginService } from '../services/login.service';
 
 //edited 10/100/2021
-
+//EDIT-AJITH-25-11-2021
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent {
 
   // username: string = '';
   // password: string = '';
-
+  
 
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
@@ -44,7 +44,6 @@ export class LoginComponent {
     private gs1: GlobalService,
     private loginservice: LoginService) {
 
-
     this.gs = gs1;
     this.LoadCombo();
   }
@@ -65,8 +64,9 @@ export class LoginComponent {
         this.server_software_version_string = response.version;
 
         if (this.gs.software_version_string != this.server_software_version_string) {
-          this.errorMessage = "New Version Available, Kindly Clear Browser History";
+          // this.errorMessage = "New Version Available, Kindly Clear Browser History";
           this.showloginbutton = false;
+          alert('New Version Available, Kindly Clear Browser History');
         }
 
         this.CompanyList.forEach(rec => {
