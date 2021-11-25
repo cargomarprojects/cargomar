@@ -52,8 +52,8 @@ export class LedgerBalComponent {
     from_date: string;
     to_date: string;
     ismaincode: boolean = false;
-    transdet : boolean = false;
-    showtotaldrcr : boolean = false;
+    transdet: boolean = false;
+    showtotaldrcr: boolean = false;
     bAdmin: boolean = false;
     bCompany = false;
     branch_code: string = '';
@@ -84,8 +84,8 @@ export class LedgerBalComponent {
         from_date: '',
         to_date: '',
         ismaincode: false,
-        transdet : false,
-        showtotaldrcr : false,
+        transdet: false,
+        showtotaldrcr: false,
         page_count: 0,
         page_current: 0,
         page_rows: 0,
@@ -120,7 +120,7 @@ export class LedgerBalComponent {
                     this.from_date = options.from_date;
                     this.to_date = options.to_date;
                     this.ismaincode = options.ismaincode;
-                    this.transdet= false;        
+                    this.transdet = false;
                     this.showtotaldrcr = false;
                     if (this.ismaincode) {
                         this.ACCMAINRECORD.id = options.acc_pkid;
@@ -221,7 +221,7 @@ export class LedgerBalComponent {
         this.SearchData.to_date = this.to_date;
 
         this.SearchData.ismaincode = this.ismaincode;
-        this.SearchData.transdet        = this.transdet;
+        this.SearchData.transdet = this.transdet;
         this.SearchData.showtotaldrcr = this.showtotaldrcr;
         if (this.ismaincode) {
             this.SearchData.acc_id = this.ACCMAINRECORD.id;
@@ -330,7 +330,7 @@ export class LedgerBalComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
-                    this.Downloadfile(_type);
+                    this.Downloadfile(response.reportfile, _type, response.filedisplayname);
                 else {
                     const state: LedgerReportState = {
                         urlid: this.urlid,
@@ -340,9 +340,9 @@ export class LedgerBalComponent {
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
                         ismaincode: this.SearchData.ismaincode,
-                        transdet : this.SearchData.transdet,
-                        showtotaldrcr : this.SearchData.showtotaldrcr,
-                        branch_code : this.SearchData.branch_code,
+                        transdet: this.SearchData.transdet,
+                        showtotaldrcr: this.SearchData.showtotaldrcr,
+                        branch_code: this.SearchData.branch_code,
                         acc_pkid: this.SearchData.acc_id,
                         acc_code: this.SearchData.acc_code,
                         acc_name: this.SearchData.acc_name,
@@ -361,9 +361,12 @@ export class LedgerBalComponent {
                 });
     }
 
-    Downloadfile(_type: string) {
-        this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
+    // Downloadfile(_type: string) {
+    //     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+    // }
 
 
     drilldown(rec: LedgerReport) {
