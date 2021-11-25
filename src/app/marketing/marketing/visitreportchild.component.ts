@@ -30,6 +30,7 @@ export class VisitReportChildComponent {
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
+    selectedRowIndex = 0;
 
     page_count = 0;
     page_current = 0;

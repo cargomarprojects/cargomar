@@ -65,7 +65,7 @@
     </div>
 
     <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
+        <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
                     <th>SL#</th>
@@ -79,8 +79,8 @@
                     <th>TARGET MARKET</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr class="hlink" (click)="ShowHideRecord(rec)">
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+                <tr class="hlink" (click)="ShowHideRecord(rec)"  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{rec.mark_id}}</td>
                     <td>{{rec.branch_name}}</td>
                     <td>{{rec.mark_user_name}}</td>

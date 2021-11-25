@@ -29,7 +29,8 @@ export class VisitReportComponent {
     loading = false;
     currentTab = 'LIST';
     currentPage = "ROOT";
-
+    selectedRowIndex = 0;
+    
     searchstring = '';
     page_count = 0;
     page_current = 0;
