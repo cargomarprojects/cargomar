@@ -38,7 +38,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>REQ#</th>
@@ -52,8 +52,8 @@
           <th>DOCS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.pay_no}}</td>
           <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.rec_created_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.pay_pkid)">{{rec.rec_created_by}}</td>

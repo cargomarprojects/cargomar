@@ -47,6 +47,7 @@ export class MtReportComponent {
   searchstring = "";
   jv_id: string = "";
   all: boolean = false;
+  selectedRowIndex = 0;
 
   SearchData = {
     type: '',

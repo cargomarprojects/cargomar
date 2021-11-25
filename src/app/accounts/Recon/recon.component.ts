@@ -31,6 +31,7 @@ export class ReconComponent {
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
+    selectedRowIndex = 0;
 
 
     basedonreconcileddate: boolean = false;

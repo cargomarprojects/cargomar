@@ -128,7 +128,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th class="text-left">VRNO</th>
@@ -146,8 +146,8 @@
         </tr>
       </thead>
 
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="showhiderow(rec)">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr (click)="showhiderow(rec)"  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td align='left'>{{ rec.recon_jv_vrno }}</td>
           <td align='left'>{{ rec.recon_jv_type }}</td>
           <td align='left'>{{ rec.recon_jv_year }}</td>

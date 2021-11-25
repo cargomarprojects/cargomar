@@ -25,6 +25,7 @@ export class PayRequestComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  selectedRowIndex = 0;
 
   searchstring = '';
 
