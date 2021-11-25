@@ -6,27 +6,27 @@
     position: absolute;
     background-color: #c6dbbe;
     background: url("../../../assets/img/logbg.jpg") no-repeat;
-
 }
 section:not(section#menuSec) {
     padding: 60px 0;
     overflow: hidden;
 }
-.divcenter {
+.divcenter2 {
     margin: auto;
-    width: 50%;
+    width: 100%;
     border: 1px solid green;
     padding: 10px;
+    
 }
 
 .divcenter {
     margin: auto;
-     width: 100%;
+    width: 100%;
     max-width: 350px;
     border: 1px solid #e0e0e030;
     padding: 10px;
-     position: relative; 
-     left: auto; 
+    position: relative; 
+    left: auto; 
     background-color: #ffffff;
     z-index: 299;
     border-radius: 7px;
@@ -34,8 +34,9 @@ section:not(section#menuSec) {
     padding: 45px;
     top: auto;
     transform: translate(0);
-    padding-top: 37px;    
+    padding-top: 37px;   
 }
+  
 
 .form-group {
     margin-bottom: 0.3rem;
