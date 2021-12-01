@@ -6,6 +6,7 @@ import { ImpMblService } from '../services/impmbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 
+//EDIT-AJITH-01-12-2021
 
 @Component({
   selector: 'app-impmblseaair',
@@ -20,7 +21,7 @@ export class ImpMblSeaAirComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  
+
   selectedRowIndex = 0;
 
   bAdmin = false;
@@ -994,6 +995,10 @@ export class ImpMblSeaAirComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    if (!confirm("Do you want to Generate Folder No")) {
+      return;
+    }
+
     this.loading = true;
     let SearchData = {
       type: "MBL-SE",
@@ -1012,6 +1017,8 @@ export class ImpMblSeaAirComponent {
           alert(this.ErrorMessage);
         } else
           this.Record.mbl_folder_no = response.newno;
+        if (response.dupfolder.length > 0)
+          alert(response.dupfolder);
       },
         error => {
           this.loading = false;

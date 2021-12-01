@@ -14,6 +14,7 @@ import { PreAlertReportService } from '../services/prealertreport.service';
 import { Trackingm } from '../models/tracking';
 import { transition } from '@angular/core/src/animation/dsl';
 import { Hblm } from '../models/hbl';
+//EDIT-AJITH-01-12-2021
 
 @Component({
   selector: 'app-mblsea',
@@ -28,7 +29,7 @@ export class MblSeaComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  
+
   selectedRowIndex = 0;
 
   disableSave = true;
@@ -1664,6 +1665,10 @@ export class MblSeaComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    if (!confirm("Do you want to Generate Folder No")) {
+      return;
+    }
+
     this.loading = true;
     let SearchData = {
       type: "MBL-SE",
@@ -1682,6 +1687,8 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         } else
           this.Record.book_folder_no = response.newno;
+        if (response.dupfolder.length > 0)
+          alert(response.dupfolder);
       },
         error => {
           this.loading = false;
