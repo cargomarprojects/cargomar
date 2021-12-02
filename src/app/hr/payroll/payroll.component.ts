@@ -772,6 +772,7 @@ export class PayRollComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+  
   SelectDeselect() {
     this.selectdeselect = !this.selectdeselect;
     for (let rec of this.RecordList) {
