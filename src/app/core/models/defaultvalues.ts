@@ -47,7 +47,8 @@ export class DefaultValues {
     pf_percent: number;
     pf_emplr_pension_per: number;
     pf_br_region: string;
-
+    esi_col_excluded: string;
+    
     sea_job_place_receipt_id: string;
     sea_job_place_receipt_code: string;
     sea_job_place_receipt_name: string;

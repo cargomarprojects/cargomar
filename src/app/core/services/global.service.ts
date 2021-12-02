@@ -602,6 +602,7 @@ export class GlobalService {
         this.defaultValues.pf_cel_limit_amt = payrollsetting.ps_pf_cel_limit_amt;
         this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
         this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
+        this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
 
         if (this.globalVariables.comp_pkid == '') {
           alert("Invalid Company");
