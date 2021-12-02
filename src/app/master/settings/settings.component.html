@@ -703,6 +703,13 @@
         </div>
       </div>
       <div class="form-group row">
+        <label class="col-6 col-form-label  col-form-label-sm">ESI EXCLUDED HEADS</label>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="PayrollRecord.ps_esi_col_excluded"
+            (blur)="OnBlur('ps_esi_col_excluded')" required maxlength="50" />
+        </div>
+      </div>
+      <div class="form-group row">
         <label class="col-6 col-form-label  col-form-label-sm">PF PERCENT</label>
         <div class="col-6">
           <input type="number" class="form-control form-control-sm" [(ngModel)]="PayrollRecord.ps_pf_per"
@@ -716,6 +723,9 @@
             (blur)="OnBlur('ps_pf_emplr_pension_per')" required maxlength="14" />
         </div>
       </div>
+    </div>
+
+    <div class="col-sm-4">
       <div class="form-group row">
         <label class="col-6 col-form-label  col-form-label-sm">PF LIMIT</label>
         <div class="col-6">
@@ -723,9 +733,6 @@
             (blur)="OnBlur('ps_pf_cel_limit')" required maxlength="14" />
         </div>
       </div>
-    </div>
-
-    <div class="col-sm-4">
       <div class="form-group row">
         <label class="col-6 col-form-label  col-form-label-sm">PENSION LIMIT AMT</label>
         <div class="col-6">
@@ -1032,7 +1039,7 @@
         <h4 class="p-4">this is to copy data from cpl to sgt</h4>
       </div>
     </div>
-  </div>  
+  </div>
 
   <div class="row">
     <div class="col-sm-12">
@@ -1061,46 +1068,49 @@
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('PARAM','SCHEME CODE')" class="btn btn-primary btn-sm">SCHEME CODE</button>
         </div>
-      </div>      
+      </div>
       <div class="form-group row">
         <div class="col-sm-12">
-          <button (click)="ImportDataFromCPL('PARAM','CONTAINER TYPE')" class="btn btn-primary btn-sm">CONTAINER TYPE</button>
+          <button (click)="ImportDataFromCPL('PARAM','CONTAINER TYPE')" class="btn btn-primary btn-sm">CONTAINER
+            TYPE</button>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('PARAM','UNIT')" class="btn btn-primary btn-sm">UNIT</button>
         </div>
-      </div>      
+      </div>
       <div class="form-group row">
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('PARAM','END USE')" class="btn btn-primary btn-sm">END USE</button>
         </div>
-      </div>      
+      </div>
       <div class="form-group row">
         <div class="col-sm-12">
-          <button (click)="ImportDataFromCPL('PARAM','ESANCHITDOC')" class="btn btn-primary btn-sm">ESANCHIT DOC</button>
+          <button (click)="ImportDataFromCPL('PARAM','ESANCHITDOC')" class="btn btn-primary btn-sm">ESANCHIT
+            DOC</button>
         </div>
-      </div>      
+      </div>
       <div class="form-group row">
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('PARAM','SW-INFO')" class="btn btn-primary btn-sm">SW INFO</button>
         </div>
-      </div>      
-      
+      </div>
+
       <div class="form-group row">
         <div class="col-sm-12">
           <button (click)="ImportDataFromCPL('PARAM','SW-CTRL')" class="btn btn-primary btn-sm">SW CTRL</button>
         </div>
-      </div>      
+      </div>
 
       <div class="form-group row">
         <div class="col-sm-12">
-          <button (click)="ImportDataFromCPL('PARAM','TRADE AGREEMENTS')" class="btn btn-primary btn-sm">TRADE AGREEMENTS</button>
+          <button (click)="ImportDataFromCPL('PARAM','TRADE AGREEMENTS')" class="btn btn-primary btn-sm">TRADE
+            AGREEMENTS</button>
         </div>
-      </div>           
+      </div>
 
-      
+
 
 
     </div>

@@ -538,7 +538,7 @@ export class SettingsComponent {
     this.currentTab = 'DATATRANSFER';
   }
 
-  ImportData(){
+  ImportData() {
     this.currentTab = 'IMPORTDATA';
   }
 
@@ -1269,7 +1269,11 @@ export class SettingsComponent {
           this.PayrollRecord.ps_bonus_amt = this.gs.roundNumber(this.PayrollRecord.ps_bonus_amt, 0);
           break;
         }
-
+      case 'ps_esi_col_excluded':
+        {
+          this.PayrollRecord.ps_esi_col_excluded = this.PayrollRecord.ps_esi_col_excluded.toUpperCase();
+          break;
+        }
     }
   }
 
@@ -1343,15 +1347,15 @@ export class SettingsComponent {
   }
 
 
-  ImportDataFromCPL(table : string, type : string ) {
-    
+  ImportDataFromCPL(table: string, type: string) {
+
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      table :  table,
-      type :  type,
+      table: table,
+      type: type,
     };
 
     // ParamService/SaveImportDataFromCpl

@@ -20,6 +20,7 @@ export class PayrollSetting {
   ps_pf_br_region: string;
   ps_sal_calc_days:number;
   ps_bonus_amt:number;
+  ps_esi_col_excluded:string
 
   rec_mode: string;
 
