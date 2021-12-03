@@ -205,7 +205,7 @@ export class TrialComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-          this.Downloadfile(_type);
+        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
         else {
 
           const state: TrialReportState = {
@@ -233,11 +233,13 @@ export class TrialComponent {
 
   }
 
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
-  }
+  // Downloadfile(_type: string) {
+  //   this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  // }
 
-  
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
   drilldown(rec : LedgerReport){
     let param = {
