@@ -264,7 +264,7 @@ export class ReconComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
-                    this.Downloadfile(_type);
+                this.Downloadfile(response.reportfile,_type,response.filedisplayname);
                 else {
                     this.RecordList = response.list;
                     this.page_count = response.page_count;
@@ -281,10 +281,12 @@ export class ReconComponent {
 
 
 
-    Downloadfile(_type : string) {
-        this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
-    }
-
+    // Downloadfile(_type : string) {
+    //     this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+    // }
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+      }
 
     showhiderow(rec: ReconReport) {
       rec.rowdisplayed = !rec.rowdisplayed;
