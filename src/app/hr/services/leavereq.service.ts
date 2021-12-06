@@ -28,6 +28,8 @@ export class LeaveReqService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveReq/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  
+  GetLeaveStatus(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveReq/GetLeaveStatus', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
