@@ -17,6 +17,7 @@ import { ArrearsComponent } from './arrears/arrears.component';
 import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
 import { IncLetterComponent } from './incletter/incletter.component';
 import { AttendanceRegComponent } from './attendancereg/attendancereg.component';
+import { LeaveReqComponent } from './leavereq/leavereq.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { AttendanceRegComponent } from './attendancereg/attendancereg.component'
     ArrearsComponent,
     ConsolPayrollComponent,
     IncLetterComponent,
-    AttendanceRegComponent
+    AttendanceRegComponent,
+    LeaveReqComponent
   ],
   providers: [
   ],

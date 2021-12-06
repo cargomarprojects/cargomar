@@ -16,6 +16,7 @@ import { ArrearsComponent } from './arrears/arrears.component';
 import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component';
 import { IncLetterComponent } from './incletter/incletter.component';
 import { AttendanceRegComponent } from './attendancereg/attendancereg.component';
+import { LeaveReqComponent } from './leavereq/leavereq.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'consolpayroll', component: ConsolPayrollComponent },
   { path: 'arrears', component: ArrearsComponent },
   { path: 'incletter', component: IncLetterComponent },
-  { path: 'attendancereg', component: AttendanceRegComponent }
+  { path: 'attendancereg', component: AttendanceRegComponent },
+  { path: 'leavereq', component: LeaveReqComponent },
 ];
 
 @NgModule({
