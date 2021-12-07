@@ -2203,6 +2203,35 @@ export class ArApComponent {
     }
     this.modal.close();
   }
+
+  DeleteRecord(event: any) {
+    if (!event.selected)
+      return;
+
+    this.loading = true;
+    let SearchData = {
+      pkid: event.id,
+      docno: event.name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      year_code: this.gs.globalVariables.year_code,
+      type: this.type,
+      menu_name: this.title
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.jvh_pkid == event.id), 1);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }
 
 

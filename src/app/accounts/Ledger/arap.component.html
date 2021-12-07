@@ -60,6 +60,7 @@
           <th>EINV</th>
           <th>NARRATION</th>
           <th *ngIf="type=='PN'">APPROVED.BY</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -80,8 +81,11 @@
           <td>{{rec.jvh_net_amt}}</td>
           <td>{{rec.jvh_einv_status}}</td>
           <td>{{rec.jvh_narration}}</td>
-
           <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='PN'">{{rec.rec_aprvd_by}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}"
+              (result)="DeleteRecord($event)"></App-Dialog>
+          </td>
         </tr>
       </tbody>
     </table>
