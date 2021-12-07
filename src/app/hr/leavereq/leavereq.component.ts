@@ -26,8 +26,17 @@ export class LeaveReqComponent {
   currentTab = 'LIST';
 
   searchstring = '';
+  fromdate: string;
+  todate: string;
+
   levyear = 0;
   levmonth = 0;
+  lev_pl_tkn = 0;
+  lev_pl_bal = 0;
+  lev_cl_tkn = 0;
+  lev_cl_bal = 0;
+  lev_sl_tkn = 0;
+  lev_sl_bal = 0;
 
   page_count = 0;
   page_current = 0;
@@ -39,8 +48,10 @@ export class LeaveReqComponent {
   sub: any;
   urlid: string;
   bJoinRelieve: boolean = false;
-
+  bPrint: boolean = false;
+  bAdmin: boolean = false;
   porttype = 'PORT';
+
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -83,16 +94,18 @@ export class LeaveReqComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
+    this.bAdmin = false;
+    this.fromdate = this.gs.globalVariables.year_start_date;
+    this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      this.bPrint = this.menu_record.rights_print;
+      this.bAdmin = this.menu_record.rights_admin;
+    }
     this.InitLov();
     this.LoadCombo();
-    if (this.gs.defaultValues.today.trim() != "") {
-      var tempdt = this.gs.defaultValues.today.split('-');
-      this.levyear = +tempdt[0];
-      this.levmonth = +tempdt[1];
-    }
   }
 
   // Destroy Will be called when this component is closed
@@ -197,8 +210,8 @@ export class LeaveReqComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      levmonth: this.levmonth,
-      levyear: this.levyear,
+      fromdate: this.fromdate,
+      todate: this.todate,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -218,6 +231,7 @@ export class LeaveReqComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -244,7 +258,12 @@ export class LeaveReqComponent {
     this.lock_record = false;
     this.InitLov();
     this.Record.rec_mode = this.mode;
-   
+    this.lev_pl_tkn = 0;
+    this.lev_pl_bal = 0;
+    this.lev_cl_tkn = 0;
+    this.lev_cl_bal = 0;
+    this.lev_sl_tkn = 0;
+    this.lev_sl_bal = 0;
   }
 
   // Load a single Record for VIEW/EDIT
@@ -264,6 +283,7 @@ export class LeaveReqComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -278,11 +298,12 @@ export class LeaveReqComponent {
     this.lock_record = true;
     if (this.Record.lr_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
+    this.GetLeaveStatus();
   }
 
   // Save Data
   Save() {
-   
+
     if (!this.allvalid())
       return;
     this.loading = true;
@@ -296,11 +317,12 @@ export class LeaveReqComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -309,28 +331,37 @@ export class LeaveReqComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    // if (this.Record.lev_year <= 0) {
-    //   bret = false;
-    //   sError = "\n\r | Invalid Year ";
-    // }
+    if (this.gs.isBlank(this.Record.lr_emp_id)) {
+      bret = false;
+      sError += "\n\r | Emplyoee Cannot Be Blank";
+    }
+    if (this.gs.isBlank(this.Record.lr_from_date)) {
+      bret = false;
+      sError += "\n\r | From Date Cannot be Blank ";
+    }
 
-    // if (this.Record.lev_month <= 0 || this.Record.lev_month > 12) {
-    //   bret = false;
-    //   sError += "\n\r | Invalid Month  ";
-    // }
+    if (this.gs.isBlank(this.Record.lr_to_date)) {
+      bret = false;
+      sError += "\n\r | To Date Cannot be Blank ";
+    }
 
-    // if (this.Record.lev_emp_id.trim().length <= 0) {
-    //   bret = false;
-    //   sError += "\n\r | Emplyoee Cannot Be Blank";
-    // }
+    if (this.gs.isBlank(this.Record.lr_join_date)) {
+      bret = false;
+      sError += "\n\r | Joining Date Cannot be Blank ";
+    }
 
-    // if (this.Record.lev_days_worked < 0) {
-    //   bret = false;
-    //   sError = "\n\r | Days worked cannot be less than Zero ";
-    // }
-
-    // if (bret === false)
-    //   this.ErrorMessage = sError;
+    let _num = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
+    _num += this.Record.lr_sl_days + this.Record.lr_sl_half_days;
+    _num += this.Record.lr_cl_days + this.Record.lr_cl_half_days;
+    _num += this.Record.lr_lop_days + this.Record.lr_lop_half_days;
+    if (_num == 0) {
+      bret = false;
+      sError += "\n\r | Value required for atleast one leave category";
+    }
+    if (bret === false) {
+      this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -380,7 +411,7 @@ export class LeaveReqComponent {
     //   this.FindLpDays();
     // }
   }
-   
+
 
   Close() {
     this.gs.ClosePage('home');
@@ -414,11 +445,17 @@ export class LeaveReqComponent {
     this.mainService.GetLeaveStatus(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.bJoinRelieve = response.joinrelieve;
+        this.lev_pl_tkn = response.lev_pl_tkn;
+        this.lev_pl_bal = response.lev_pl_bal;
+        this.lev_cl_tkn = response.lev_cl_tkn;
+        this.lev_cl_bal = response.lev_cl_bal;
+        this.lev_sl_tkn = response.lev_sl_tkn;
+        this.lev_sl_bal = response.lev_sl_bal;
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }
