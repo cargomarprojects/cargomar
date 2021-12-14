@@ -726,6 +726,8 @@ export class BuyRateComponent {
     let isGstBlank: Boolean = false;
     let Courier_Code_Found: Boolean = false;
 
+    let Code_Other_Than_Courier_Code_Found: Boolean = false;
+
 
 
 
@@ -878,6 +880,8 @@ export class BuyRateComponent {
       if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030'|| rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
          Courier_Code_Found = true;
       }
+      else 
+        Code_Other_Than_Courier_Code_Found = true;
 
 
     });
@@ -900,12 +904,10 @@ export class BuyRateComponent {
         bret = false;
         sError += " |Invalid A/c Code selected for Courier IGST";
       }
-
-      if (rowCount != 1) {
+      if (Code_Other_Than_Courier_Code_Found) {
         bret = false;
         sError += " |Only code 1205030/1105033/1105040/1526 can be used";
       }
-
     }
 
 
