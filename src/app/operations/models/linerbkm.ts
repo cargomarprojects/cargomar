@@ -4,6 +4,7 @@ import { BkmCntrtype } from './bkmcntrtype';
 import { BkmPayment } from './bkmpayment';
 import { BkmCargo } from './bkmcargo';
 import { Trackingm } from './tracking';
+import { HblBkmParty } from './hblbkmparty';
 
 export class LinerBkm {
   book_pkid: string;
@@ -153,5 +154,6 @@ export class LinerBkm {
   BkmPayList: BkmPayment[] = [];
   BkmCargoList: BkmCargo[] = [];
   TransitList:Trackingm[] = [];
+  HblBkmPartyList: HblBkmParty[] = [];
 }
 

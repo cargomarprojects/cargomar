@@ -12,6 +12,7 @@ import { BkmCargo } from '../models/bkmcargo';
 import { FileDetails } from '../models/filedetails';
 import { PreAlertReportService } from '../services/prealertreport.service';
 import { Trackingm } from '../models/tracking';
+import { HblBkmParty } from '../models/hblbkmparty';
 import { transition } from '@angular/core/src/animation/dsl';
 import { Hblm } from '../models/hbl';
 //EDIT-AJITH-01-12-2021
@@ -669,9 +670,11 @@ export class MblSeaComponent {
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
     this.Record.TransitList = new Array<Trackingm>();
+    this.Record.HblBkmPartyList = new Array<HblBkmParty>();
     this.NewPayRecord();
     this.NewCargoRecord();
     this.NewTransitRecord();
+    this.NewHblBkmRecord();
     this.InitDefault();
 
     this.InitLov();
@@ -799,6 +802,8 @@ export class MblSeaComponent {
       this.NewPayRecord();
     if (this.Record.TransitList.length == 0)
       this.NewTransitRecord();
+    if (this.Record.HblBkmPartyList.length == 0)
+      this.NewHblBkmRecord();
 
     //Fill Duplicate Job
     if (this.mode == "ADD") {
@@ -842,9 +847,11 @@ export class MblSeaComponent {
       this.Record.BkmPayList = new Array<BkmPayment>();
       this.Record.BkmCargoList = new Array<BkmCargo>();
       this.Record.TransitList = new Array<Trackingm>();
+      this.Record.HblBkmPartyList = new Array<HblBkmParty>();
       this.NewPayRecord();
       this.NewCargoRecord();
       this.NewTransitRecord();
+      this.NewHblBkmRecord();
       this.InitDefault();
     }
   }
@@ -1415,6 +1422,32 @@ export class MblSeaComponent {
     Rec.row_colour = 'darkslategray';
     this.Record.TransitList.push(Rec);
   }
+
+  NewHblBkmRecord() {
+    let Rec: HblBkmParty = new HblBkmParty;
+    Rec.hp_pkid = this.gs.getGuid();
+    Rec.hp_parent_id = this.Record.book_pkid;
+    Rec.rec_category = this.type;
+    Rec.hp_exp_id = '';
+    Rec.hp_exp_code = '';
+    Rec.hp_exp_name = '';
+    Rec.hp_imp_id = '';
+    Rec.hp_imp_code = '';
+    Rec.hp_imp_name = '';
+    Rec.hp_notify_id = '';
+    Rec.hp_notify_code = '';
+    Rec.hp_notify_name = '';
+    Rec.hp_cbm = 0;
+    Rec.hp_pcs = 0;
+    Rec.hp_kgs = 0;
+    if (this.gs.isBlank(this.Record.HblBkmPartyList))
+      Rec.hp_order = 1;
+    else
+      Rec.hp_order = this.Record.HblBkmPartyList.length + 1;
+    Rec.row_colour = 'darkslategray';
+    this.Record.HblBkmPartyList.push(Rec);
+    ;
+  }
   ModifiedRecords(params: any) {
     if (params.type == "PAYMENT") {
       if (params.saction == "ADD")
@@ -1451,6 +1484,16 @@ export class MblSeaComponent {
 
     if (params.type == "SHIP-TRACK-MBL-RLEASE-UPDT") {
       this.Record.book_released_date = params.mblreleasedate;
+    }
+
+    if (params.type == "BKMPARTY") {
+      if (params.saction == "ADD")
+        this.NewHblBkmRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.HblBkmPartyList.splice(this.Record.HblBkmPartyList.findIndex(rec => rec.hp_pkid == params.sid), 1);
+        if (this.Record.HblBkmPartyList.length == 0)
+          this.NewHblBkmRecord();
+      }
     }
   }
 

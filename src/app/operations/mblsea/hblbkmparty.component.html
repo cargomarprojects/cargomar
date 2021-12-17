@@ -1,0 +1,81 @@
+ 
+    <div class="row">
+      <div class="col-sm-8">
+        <div *ngIf="showCaption" class="form-group row mx-0">
+          <label style="background-color:lightgray;"
+            class="col-sm-4  col-form-label col-form-label-sm pl-0">SHIPPER</label>
+          <label style="background-color:lightgray;"
+            class="col-sm-4  col-form-label col-form-label-sm pl-0">CONSIGNEE</label>
+          <label style="background-color:lightgray;"
+            class="col-sm-4  col-form-label col-form-label-sm">NOTIFY</label>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2 pr-2">
+            <app-autocomplete #expLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <div class="col-sm-2 pl-0">
+            <input type="text" disabled class="form-control form-control-sm"
+              [(ngModel)]="mRecord.hp_exp_name" />
+          </div>
+          <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Consignee</label> -->
+          <div class="col-sm-2 pl-0">
+            <app-autocomplete #impLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <div class="col-sm-2 pl-0">
+            <input type="text" disabled class="form-control form-control-sm"
+              [(ngModel)]="mRecord.hp_imp_name" />
+          </div>
+          <div class="col-sm-2 pl-0">
+            <app-autocomplete #LinerLov [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <div class="col-sm-2 pl-0">
+            <input type="text"  class="form-control form-control-sm"
+              [(ngModel)]="mRecord.hp_notify_name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div *ngIf="showCaption" class="form-group row mx-0">
+          <label style="background-color:lightgray;"
+            class="col-sm-3 col-form-label col-form-label-sm pl-0">CBM</label>
+          <label style="background-color:lightgray;"
+            class="col-sm-3 col-form-label col-form-label-sm ">PCS</label>
+          <label style="background-color:lightgray;"
+            class="col-sm-3 col-form-label col-form-label-sm">KGS</label>
+          <label style="background-color:lightgray;"
+            class="col-sm-3 col-form-label col-form-label-sm"></label>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_cbm"
+            (blur)="OnBlur('hp_cbm')" required maxlength="15" />
+          </div>
+          <div class="col-sm-3">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_pcs"
+            (blur)="OnBlur('hp_pcs')" required maxlength="15" />
+          </div>
+          <div class="col-sm-3">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_kgs"
+            (blur)="OnBlur('hp_kgs')" required maxlength="15" />
+          </div>
+           
+          <div class="col-sm-3">
+            <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>
+            <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- <hr>
+    <div *ngFor="let rec of Record.TransitList">
+      <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+      </app-transit>
+      <hr>
+    </div> -->
+ 
