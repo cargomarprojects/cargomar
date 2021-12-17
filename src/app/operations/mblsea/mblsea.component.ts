@@ -867,6 +867,15 @@ export class MblSeaComponent {
     this.InfoMessage = '';
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
+    //Saving Shipper and consignee to master
+    if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
+      if (this.Record.HblBkmPartyList.length > 0) {
+        this.Record.HblBkmPartyList[0].hp_pkid = this.Record.book_pkid;
+        this.Record.book_exporter_id = this.Record.HblBkmPartyList[0].hp_exp_id;
+        this.Record.book_consignee_id = this.Record.HblBkmPartyList[0].hp_imp_id;
+      }
+    }
+
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
@@ -1440,10 +1449,6 @@ export class MblSeaComponent {
     Rec.hp_cbm = 0;
     Rec.hp_pcs = 0;
     Rec.hp_kgs = 0;
-    if (this.gs.isBlank(this.Record.HblBkmPartyList))
-      Rec.hp_order = 1;
-    else
-      Rec.hp_order = this.Record.HblBkmPartyList.length + 1;
     Rec.row_colour = 'darkslategray';
     this.Record.HblBkmPartyList.push(Rec);
     ;
@@ -1490,9 +1495,11 @@ export class MblSeaComponent {
       if (params.saction == "ADD")
         this.NewHblBkmRecord();
       if (params.saction == "REMOVE") {
+        if (this.Record.HblBkmPartyList.length == 1)
+          return;
         this.Record.HblBkmPartyList.splice(this.Record.HblBkmPartyList.findIndex(rec => rec.hp_pkid == params.sid), 1);
-        if (this.Record.HblBkmPartyList.length == 0)
-          this.NewHblBkmRecord();
+        // if (this.Record.HblBkmPartyList.length == 0)
+        //   this.NewHblBkmRecord();
       }
     }
   }

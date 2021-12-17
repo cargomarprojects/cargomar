@@ -82,27 +82,25 @@ export class HblBkmPartyComponent {
     this.EXPRECORD.controlname = "SHIPPER";
     this.EXPRECORD.displaycolumn = "CODE";
     this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
+    this.EXPRECORD.id = this.mRecord.hp_exp_id;
+    this.EXPRECORD.code = this.mRecord.hp_exp_code;
+    this.EXPRECORD.name = this.mRecord.hp_exp_name;
 
     this.IMPRECORD = new SearchTable();
     this.IMPRECORD.controlname = "CONSIGNEE";
     this.IMPRECORD.displaycolumn = "CODE";
     this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-
+    this.IMPRECORD.id = this.mRecord.hp_imp_id;
+    this.IMPRECORD.code =this.mRecord.hp_imp_code;
+    this.IMPRECORD.name = this.mRecord.hp_imp_name;
 
     this.NOTIFYRECORD = new SearchTable();
     this.NOTIFYRECORD.controlname = "NOTIFY";
     this.NOTIFYRECORD.displaycolumn = "CODE";
     this.NOTIFYRECORD.type = "CUSTOMER";
-    this.NOTIFYRECORD.id = "";
-    this.NOTIFYRECORD.code = "";
-    this.NOTIFYRECORD.name = "";
-
+    this.NOTIFYRECORD.id = this.mRecord.hp_notify_id;
+    this.NOTIFYRECORD.code = this.mRecord.hp_notify_code;
+    this.NOTIFYRECORD.name = this.mRecord.hp_notify_name;
 
   }
 
@@ -140,9 +138,24 @@ export class HblBkmPartyComponent {
     var oldChar = / /gi;//replace all blank space in a string
     switch (field) {
 
-      case 'trk_voyage':
+      case 'hp_cbm':
         {
-          //   this.mRecord.trk_voyage = this.mRecord.trk_voyage.toUpperCase().trim();
+          this.mRecord.hp_cbm = this.gs.roundNumber(this.mRecord.hp_cbm, 3);
+          break;
+        }
+        case 'hp_pcs':
+        {
+          this.mRecord.hp_pcs = this.gs.roundNumber(this.mRecord.hp_pcs, 3);
+          break;
+        }
+        case 'hp_kgs':
+        {
+          this.mRecord.hp_kgs = this.gs.roundNumber(this.mRecord.hp_kgs, 3);
+          break;
+        }
+        case 'hp_notify_name':
+        {
+          this.mRecord.hp_notify_name = this.mRecord.hp_notify_name.toUpperCase().trim();
           break;
         }
     }
