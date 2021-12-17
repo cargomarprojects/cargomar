@@ -7,6 +7,7 @@ import { GstReport } from '../models/gstreport';
 import { Companym } from '../../core/models/company';
 
 import { RepService } from '../services/report.service';
+//EDIT-AJITH-17-12-2021
 
 @Component({
   selector: 'app-einvoice',
@@ -70,7 +71,7 @@ export class EinvoiceComponent {
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
-
+  selectdeselect: boolean = false;
 
 
   SearchData = {
@@ -328,6 +329,7 @@ export class EinvoiceComponent {
             alert(response.mailmsg);
         }
         else {
+          this.selectdeselect = false;
           this.RecordList = response.list;
           this.page_count = response.page_count;
           this.page_current = response.page_current;
@@ -438,6 +440,16 @@ export class EinvoiceComponent {
           alert(this.ErrorMessage);
         });
   }
+
+
+  SelectDeselect() {
+    this.selectdeselect = !this.selectdeselect;
+    for (let rec of this.RecordList) {
+      if (rec.jvh_einv_status != 'G' && rec.jvh_einv_status != 'B')
+        rec.jvh_beinv_status = this.selectdeselect;
+    }
+  }
+
 
 
 
