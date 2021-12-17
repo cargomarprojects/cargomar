@@ -33,7 +33,8 @@
           </div>
           <div class="col-sm-2 pl-0">
             <input type="text"  class="form-control form-control-sm"
-              [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" />
+              [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required
+              maxlength="60" />
           </div>
         </div>
       </div>

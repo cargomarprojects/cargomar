@@ -862,6 +862,7 @@ export class MblSeaComponent {
       return;
 
     this.FindCntrTotal();
+    this.FindVolTotal();
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -1769,5 +1770,21 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  FindVolTotal() {
+    let mcbm: number = 0;
+    let mpcs: number = 0;
+    let mkgs: number = 0;
+    if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
+      for (let rec of this.Record.HblBkmPartyList) {
+        mcbm += rec.hp_cbm;
+        mpcs += rec.hp_pcs;
+        mkgs += rec.hp_kgs;
+      }
+    }
+    this.Record.book_mcbm = this.gs.roundNumber(mcbm, 3);
+    this.Record.book_mpcs = this.gs.roundNumber(mpcs, 3);
+    this.Record.book_mkgs = this.gs.roundNumber(mkgs, 3);
   }
 }

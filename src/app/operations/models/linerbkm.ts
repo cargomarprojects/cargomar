@@ -145,6 +145,9 @@ export class LinerBkm {
   book_dest_charges_status:string;
   book_free_days:number;
   
+  book_mpcs: number;
+  book_mkgs: number;
+
   rec_category: string;
   rec_mode: string;
   _globalvariables: GlobalVariables;
