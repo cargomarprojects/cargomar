@@ -4,7 +4,7 @@
       <label>{{title}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-      
+
       <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -52,7 +52,8 @@
             </div>
             <div class="col-sm-2">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>                    
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm">Print</button>
             </div>
           </div>
         </div>
@@ -104,8 +105,9 @@
             <th>CONTAINER</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" >
-          <tr *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
@@ -169,8 +171,8 @@
               <div class="col-sm-4">
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">MBLBK#</label>
-                  <div class="col-sm-4">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">MblBk#</label>
+                  <div class="col-sm-5">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.book_slno" [disabled]="true" required maxlength="15" />
                   </div>
@@ -186,8 +188,8 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label  col-form-label-sm">Booking No</label>
-                  <div class="col-sm-4">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Booking# </label>
+                  <div class="col-sm-5">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_no"
                       (blur)="OnBlur('book_no')" required maxlength="100" />
                   </div>
@@ -199,8 +201,8 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label  col-form-label-sm">MBL No</label>
-                  <div class="col-sm-9">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Mbl#</label>
+                  <div class="col-sm-10">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mblno"
                       (blur)="OnBlur('book_mblno')" required maxlength="100" />
                   </div>
@@ -233,8 +235,8 @@
                 </div> -->
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Liner</label>
-                  <div class="col-4">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
+                  <div class="col-5">
                     <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
@@ -243,10 +245,10 @@
                       [(ngModel)]="Record.book_liner_name" />
                   </div>
                 </div>
-                
+
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
-                  <div class="col-sm-4">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                  <div class="col-sm-5">
                     <app-autocomplete #LinerLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
@@ -256,17 +258,15 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-9">
+                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                  <div class="col-10">
                     <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
-
-
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm"></label>
-                  <div class="col-9">
+                  <label class="col-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-10">
                     <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.book_agent_br_addr"
                       [disabled]="true" maxlength="1000"></textarea>
                   </div>
@@ -276,7 +276,7 @@
               <div class="col-sm-4">
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent 2</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent2</label>
                   <div class="col-sm-4">
                     <app-autocomplete #LinerLov [inputdata]="AGENT2RECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
@@ -287,7 +287,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Co-Loader</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Co.Loader</label>
                   <div class="col-sm-4">
                     <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
@@ -351,12 +351,14 @@
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Sales.Rep.</label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-10">
                     <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-10">
                     <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
@@ -366,7 +368,8 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
                   <div class="col-sm-4">
-                    <app-date disabled [inputdate]="Record.book_released_date" (ValueChanged)="Record.book_released_date=$event">
+                    <app-date disabled [inputdate]="Record.book_released_date"
+                      (ValueChanged)="Record.book_released_date=$event">
                     </app-date>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm"
@@ -378,7 +381,13 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label>
+                  <!-- <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label> -->
+                  <div class="col-3">
+                    <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')"
+                      (click)="GenerateFolderNo(Record.book_pkid)"
+                      class="btn btn-success btn-sm">Generate.Folder#</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                  </div>
                   <div class="col-4">
                     <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_folder_no"
                       (blur)="OnBlur('book_folder_no')" required maxlength="20" />
@@ -387,8 +396,9 @@
                     <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                   </label>
                   <div style="padding-left:0" class="col-3">
-                    <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'" [inputdate]="Record.book_folder_sent_date"
-                      (ValueChanged)="Record.book_folder_sent_date=$event"></app-date>
+                    <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+                      [inputdate]="Record.book_folder_sent_date" (ValueChanged)="Record.book_folder_sent_date=$event">
+                    </app-date>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -434,14 +444,14 @@
                       (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
                   </div>
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                   <div class="offset-3 col-8">
                     <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')"
                       (click)="GenerateFolderNo(Record.book_pkid)" class="btn btn-success btn-sm">Generate Folder No And
                       Save</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -532,7 +542,8 @@
             </div>
           </div>
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
-            <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0" (ModifiedRecords)="ModifiedRecords($event)">
+            <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
+              (ModifiedRecords)="ModifiedRecords($event)">
             </app-hblbkmparty>
             <hr>
           </div>
@@ -952,7 +963,8 @@
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
         [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
         [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
-        [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" [default_ftptype]="'BL-FTP'" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+        [rootpage]="'MAILPAGE'" [PoFtpError]="PoFtpError" [default_ftptype]="'BL-FTP'"
+        (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
   <ng-template #ftphistory let-c="close" let-d="dismiss">
