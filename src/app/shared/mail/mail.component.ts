@@ -238,7 +238,7 @@ export class MailComponent {
         if (rec.fileftptype === this.ftptype)
           this.FtpAttachList.push(rec);
       }
-
+      this.GetTotfilesize();
     }
   }
   Close() {

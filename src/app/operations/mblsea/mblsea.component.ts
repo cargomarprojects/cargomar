@@ -43,6 +43,8 @@ export class MblSeaComponent {
   bAdmin = false;
   bDocs = false;
   bPrint = false;
+  default_ftptype: string = 'BL-FTP';
+  default_mailftp_rootpage: string = 'MAILPAGE';
 
   mMsg: string = '';
   sSubject: string = '';
@@ -1514,7 +1516,62 @@ export class MblSeaComponent {
     this.modal = this.modalService.open(content);
   }
 
+  BookingFtp(ftpsent: any) {
+    this.default_ftptype = 'BOOKING-FTP';
+    this.default_mailftp_rootpage = 'FTPPAGE';
+    this.ErrorMessage = '';
+    if (this.Record.book_agent_id.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      agent_id: this.Record.book_agent_id,
+      agent_code: this.Record.book_agent_code,
+      agent_name: this.Record.book_agent_name,
+      pre_alert_date: '',
+      hbl_nos: '',
+      type: '',
+      mbl_id: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.branch_name = this.gs.globalVariables.branch_name;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.agent_id = this.Record.book_agent_id;
+    SearchData.agent_code = this.Record.book_agent_code;
+    SearchData.agent_name = this.Record.book_agent_name;
+    SearchData.hbl_nos = '';
+    SearchData.mbl_id = this.Record.book_pkid;
+    this.mainService.GenerateXmlBooking(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.sSubject += ", " + response.subject + ", MBL- " + this.Record.book_mblno;
+        this.FtpAttachList = new Array<any>();
+        this.FileList = response.filelist;
+        for (let rec of this.FileList) {
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BOOKING-FTP' });
+        }
+        this.PoFtpAttachList = new Array<any>();
+        this.open(ftpsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
   MailFtp(ftpsent: any) {
+    this.default_ftptype = 'BL-FTP';
+    this.default_mailftp_rootpage = 'MAILPAGE';
     if (this.Record.book_cntr.trim().length > 11) {
       var cntrarry = this.Record.book_cntr.split('/');
       this.PrealertList(cntrarry[0].toString(), ftpsent);
