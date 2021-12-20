@@ -1450,6 +1450,7 @@ export class MblSeaComponent {
     Rec.hp_cbm = 0;
     Rec.hp_pcs = 0;
     Rec.hp_kgs = 0;
+    Rec.rec_deleted = 'N';
     Rec.row_colour = 'darkslategray';
     this.Record.HblBkmPartyList.push(Rec);
     ;
@@ -1498,7 +1499,11 @@ export class MblSeaComponent {
       if (params.saction == "REMOVE") {
         if (this.Record.HblBkmPartyList.length == 1)
           return;
-        this.Record.HblBkmPartyList.splice(this.Record.HblBkmPartyList.findIndex(rec => rec.hp_pkid == params.sid), 1);
+        for (let rec of this.Record.HblBkmPartyList.filter(rec => rec.hp_pkid == params.sid)) {
+          rec.rec_deleted = 'Y';
+          rec.row_colour = 'red';
+        }
+        // this.Record.HblBkmPartyList.splice(this.Record.HblBkmPartyList.findIndex(rec => rec.hp_pkid == params.sid), 1);
         // if (this.Record.HblBkmPartyList.length == 0)
         //   this.NewHblBkmRecord();
       }

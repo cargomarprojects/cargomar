@@ -15,7 +15,7 @@
             </app-autocomplete>
           </div>
           <div class="col-sm-2 pl-0">
-            <input type="text" disabled class="form-control form-control-sm"
+            <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
               [(ngModel)]="mRecord.hp_exp_name" />
           </div>
           <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Consignee</label> -->
@@ -24,7 +24,7 @@
             </app-autocomplete>
           </div>
           <div class="col-sm-2 pl-0">
-            <input type="text" disabled class="form-control form-control-sm"
+            <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
               [(ngModel)]="mRecord.hp_imp_name" />
           </div>
           <div class="col-sm-2 pl-0">
@@ -32,7 +32,7 @@
             </app-autocomplete>
           </div>
           <div class="col-sm-2 pl-0">
-            <input type="text"  class="form-control form-control-sm"
+            <input type="text" [style.color]="mRecord.row_colour"  class="form-control form-control-sm"
               [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required
               maxlength="60" />
           </div>
@@ -53,15 +53,15 @@
 
         <div class="form-group row">
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_cbm"
+            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_cbm"
             (blur)="OnBlur('hp_cbm')" required maxlength="15" />
           </div>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_pcs"
+            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_pcs"
             (blur)="OnBlur('hp_pcs')" required maxlength="15" />
           </div>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_kgs"
+            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_kgs"
             (blur)="OnBlur('hp_kgs')" required maxlength="15" />
           </div>
            
