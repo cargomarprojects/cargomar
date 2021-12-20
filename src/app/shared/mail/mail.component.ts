@@ -6,6 +6,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { stringify } from '@angular/core/src/render3/util';
 import { concat } from 'rxjs/operator/concat';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+//EDIT-AJITH-20-12-2021
 
 @Component({
   selector: 'app-mail',
