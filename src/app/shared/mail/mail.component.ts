@@ -415,7 +415,7 @@ export class MailComponent {
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
 
-    if (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP') {
+    if (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP'||_ftp_type == 'BOOKING-FTP') {
       if (this.ftptype_id.trim().length <= 0) {
         this.ErrorMessage += "\n\r | FTP To Cannot Be Blank";
         alert(this.ErrorMessage);
@@ -460,7 +460,7 @@ export class MailComponent {
     let filename: string = "";
     let filenameack: string = "";
 
-    if (this.FtpAttachList != null && (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP')) {
+    if (this.FtpAttachList != null && (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP'|| _ftp_type == 'BOOKING-FTP')) {
       for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")
