@@ -1554,7 +1554,7 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlBooking(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = "BOOKING-  " + this.Record.book_no + ", MBL- " + this.Record.book_mblno;
+        this.sSubject = "BOOKING -  1" + this.gs.globalVariables.year_code + this.Record.book_slno.toString();
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
