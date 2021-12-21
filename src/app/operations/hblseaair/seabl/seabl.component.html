@@ -1132,30 +1132,34 @@
 
       <div class="page-box">
         <div class="form-group row">
-          <div class="col-sm-6">
+          <div class="col-sm-8">
             <div *ngIf="invokefrom=='HBL'" class="form-group row">
-              <div class="offset-4 col-8">
+              <div class="offset-3 col-8">
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original"
                       [disabled]="Record.bl_original_print == 'Y'">
-                    Original BL&nbsp;&nbsp;&nbsp;&nbsp;
+                    Original BL&nbsp;&nbsp;
                   </label>
                   <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
-                    Brazil Declaration&nbsp;&nbsp;&nbsp;&nbsp;
+                    Brazil Declaration&nbsp;&nbsp;
                   </label>
                   <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="color_print">
-                    Colour
+                    Colour&nbsp;&nbsp;
+                  </label>
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill" [disabled]="Record.bl_seawaybill_disabled">
+                    Sea Waybill
                   </label>
                 </div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-4 col-form-label col-form-label-sm">BL Print Format</label>
-              <div class="col-8">
+              <label class="col-3 col-form-label col-form-label-sm">BL Print Format</label>
+              <div class="col-6">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id" (change)="OnChange('bl_print_format_id')">
                   <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
                 </select>
@@ -1163,12 +1167,14 @@
             </div>
 
             <div class="form-group row">
-              <div class="offset-4 col-8">
+              <div class="offset-3 col-8">
                 <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()"
                   class="btn btn-success btn-sm">Save</button>
                 <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
+                  <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
+                  (click)="GetRecord('PDF','SEAWAYBILL')" class="btn btn-success btn-sm">Sea Waybill</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
@@ -1182,7 +1188,7 @@
             </div>
 
           </div>
-          <div *ngIf="invokefrom=='HBL'" class="col-sm-6">
+          <div *ngIf="invokefrom=='HBL'" class="col-sm-4">
             <label style="color:red" class="col-form-label col-form-label-sm">No changes will be allowed after printing
               ORIGINAL. Also Printing ORIGINAL will only be allowed once.</label>
           </div>

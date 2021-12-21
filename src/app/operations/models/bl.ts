@@ -266,5 +266,7 @@ export class Bl {
   hbl_deliv_date: string;
   hbl_deliv_date_confirm: boolean;
   bl_draft_lock: boolean;
+  bl_seawaybill:boolean;
+  bl_seawaybill_disabled:boolean;
 }
 

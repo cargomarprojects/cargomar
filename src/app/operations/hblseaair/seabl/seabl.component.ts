@@ -342,6 +342,8 @@ export class BlComponent {
           var Rec = response.record;
           this.Record.bl_original_print = Rec.bl_original_print;
           this.Record.bl_print = Rec.bl_print;
+          if (_formattype === 'SEAWAYBILL')
+            this.Record.bl_seawaybill_disabled = true;
         }
         else {
           this.LoadData(response.record);
