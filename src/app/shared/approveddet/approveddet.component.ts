@@ -186,6 +186,7 @@ export class ApprovedDetComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -200,7 +201,10 @@ export class ApprovedDetComponent {
             sError += "\n\r | Approved Status Cannot be Blank";
         }
         if (bret === false)
+        {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
