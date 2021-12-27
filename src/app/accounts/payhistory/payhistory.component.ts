@@ -260,7 +260,7 @@ export class PayHistoryComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-          this.Downloadfile(_type);
+        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
@@ -272,10 +272,12 @@ export class PayHistoryComponent {
   }
 
 
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  // Downloadfile(_type: string) {
+  //   this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  // }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-
   OnChange(field: string) {
     this.RecordList = null;
 
