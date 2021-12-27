@@ -58,6 +58,8 @@ import { ReportDocsComponent } from './reportdocs/reportdocs.component';
 import { GenRemarks2Component } from './genremarks/genremarks2.component';
 import { GenFileUploadComponent } from './genfileupload/genfileupload.component';
 import { MailDirectComponent } from './mail-direct/mail-direct.component';
+import { ApprovedDetComponent } from './approveddet/approveddet.component';
+import { ApprovedDetService } from './services/approveddet.service';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -99,7 +101,8 @@ import { MailDirectComponent } from './mail-direct/mail-direct.component';
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
-    MailDirectComponent
+    MailDirectComponent,
+    ApprovedDetComponent
   ],
   exports: [
     CommonModule,
@@ -135,14 +138,16 @@ import { MailDirectComponent } from './mail-direct/mail-direct.component';
     ReportDocsComponent,
     GenRemarks2Component,
     GenFileUploadComponent,
-    MailDirectComponent
+    MailDirectComponent,
+    ApprovedDetComponent
   ],
   providers: [
     AlertService,
     LovService,
     GenerateDocService,
     GenRemarksService,
-    MailDirectService
+    MailDirectService,
+    ApprovedDetService
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,56 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>STATUS</th>
+                    <th>DATE</th>
+                    <th>BY</th>
+                    <th>COMMENTS</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList;let i = index" [class.active]="i == selectedRowIndex">
+                    <td>{{rec.ad_status}}</td>
+                    <td>{{rec.rec_created_date}}</td>
+                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.ad_remarks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div *ngIf="approvalstatus" class="page-details">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label col-form-label-sm">Status</label>
+                <div class="col-sm-3">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.ad_status">
+                        <option *ngFor="let rec of StatusList" [value]="rec.name">{{rec.name}}</option>
+                    </select>
+                </div>
+                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Comments</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ad_remarks"
+                        (blur)="OnBlur('ad_remarks')" required maxlength="100" />
+                </div>
+                <div class="col-sm-2">
+                    <button [disabled]="loading" (click)="Save()" class="btn btn-info btn-sm">Save</button>
+                    <!-- <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-info btn-sm">New</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+ 
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

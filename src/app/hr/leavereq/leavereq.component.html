@@ -129,7 +129,8 @@
           </div>
           <label class="col-1 col-form-label col-form-label-sm pl-0">Date</label>
           <div class="col-4">
-            <app-date disabled [inputdate]="Record.lr_apply_date" (ValueChanged)="Record.lr_apply_date=$event"></app-date>
+            <app-date disabled [inputdate]="Record.lr_apply_date" (ValueChanged)="Record.lr_apply_date=$event">
+            </app-date>
           </div>
         </div>
         <div class="form-group row">
@@ -269,6 +270,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="mode=='EDIT'" class="page-box">
+    <h6 style="color: green" class="my-1">Leave Approval</h6>
+    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus">
+    </app-approveddet>
   </div>
 </div>
 <br />

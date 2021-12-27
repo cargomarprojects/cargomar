@@ -18,6 +18,7 @@ export class LeaveReqComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
+  approvalstatus: string = '';
 
   selectedRowIndex = 0;
 
@@ -103,7 +104,13 @@ export class LeaveReqComponent {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
       this.bAdmin = this.menu_record.rights_admin;
+
+      if (this.menu_record.rights_approval.length > 0)
+        this.approvalstatus = this.menu_record.rights_approval.toString().trim();
     }
+
+    if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
+      this.approvalstatus = 'APPROVED,REJECTED,SANCTIONED'
     this.InitLov();
     this.LoadCombo();
   }
