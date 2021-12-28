@@ -296,12 +296,11 @@ export class LeaveReqComponent {
 
   LoadData(_Record: LeaveReq) {
     this.Record = _Record;
+    this.Record.rec_mode = this.mode;
     this.InitLov();
     this.EMPRECORD.id = this.Record.lr_emp_id;
     this.EMPRECORD.code = this.Record.lr_emp_code;
     this.EMPRECORD.name = this.Record.lr_emp_name;
-    this.Record.rec_mode = this.mode;
-
     this.lock_record = true;
     if (this.Record.lr_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;

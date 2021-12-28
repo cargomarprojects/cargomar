@@ -15,7 +15,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
-    providers : [UserService]
+    providers: [UserService]
 })
 export class UserComponent {
     /*
@@ -36,7 +36,7 @@ export class UserComponent {
     urlid: string;
 
     ErrorMessage = "User Details";
-    
+
     mode = '';
     pkid = '';
 
@@ -48,6 +48,7 @@ export class UserComponent {
     RecordDet: Userd[] = [];
 
     SALESMANRECORD: SearchTable = new SearchTable();
+    EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
         private mainService: UserService,
@@ -65,7 +66,7 @@ export class UserComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-      
+
     }
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
@@ -74,27 +75,40 @@ export class UserComponent {
 
     InitLov() {
 
-      this.SALESMANRECORD = new SearchTable();
-      this.SALESMANRECORD.controlname = "SALESMAN";
-      this.SALESMANRECORD.displaycolumn = "NAME";
-      this.SALESMANRECORD.type = "SALESMAN";
-      this.SALESMANRECORD.id = "";
-      this.SALESMANRECORD.code = "";
-      this.SALESMANRECORD.name = "";
+        this.SALESMANRECORD = new SearchTable();
+        this.SALESMANRECORD.controlname = "SALESMAN";
+        this.SALESMANRECORD.displaycolumn = "NAME";
+        this.SALESMANRECORD.type = "SALESMAN";
+        this.SALESMANRECORD.id = "";
+        this.SALESMANRECORD.code = "";
+        this.SALESMANRECORD.name = "";
 
+        this.EMPRECORD = new SearchTable();
+        this.EMPRECORD.controlname = "EMPLOYEE";
+        this.EMPRECORD.displaycolumn = "CODE";
+        this.EMPRECORD.type = "EMPLOYEE";
+        this.EMPRECORD.where = "";
+        this.EMPRECORD.id = "";
+        this.EMPRECORD.code = "";
+        this.EMPRECORD.name = "";
 
     }
 
     LovSelected(_Record: SearchTable) {
-       if (_Record.controlname == "SALESMAN") {
-         this.Record.user_sman_id = _Record.id;
-         this.Record.user_sman_code = _Record.code;
-         this.Record.user_sman_name = _Record.name;
-      }
+        if (_Record.controlname == "SALESMAN") {
+            this.Record.user_sman_id = _Record.id;
+            this.Record.user_sman_code = _Record.code;
+            this.Record.user_sman_name = _Record.name;
+        }
+        if (_Record.controlname == "EMPLOYEE") {
+            this.Record.user_emp_id = _Record.id;
+            this.Record.user_emp_code = _Record.code;
+            this.Record.user_emp_name = _Record.name;
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action : string, id :string ) {
+    ActionHandler(action: string, id: string) {
         this.ErrorMessage = '';
         if (action == 'LIST') {
             this.mode = '';
@@ -122,7 +136,7 @@ export class UserComponent {
         let SearchData = {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
-            comp_code : this.gs.globalVariables.comp_code,
+            comp_code: this.gs.globalVariables.comp_code,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
@@ -138,10 +152,10 @@ export class UserComponent {
                 this.page_current = response.page_current;
                 this.page_rowcount = response.page_rowcount;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     NewRecord() {
@@ -158,12 +172,15 @@ export class UserComponent {
         this.Record.user_sman_code = '';
         this.Record.user_sman_name = '';
         this.Record.user_email_pwd = '';
-        this.Record.user_local_server= '';
+        this.Record.user_local_server = '';
         this.Record.user_tp_code = '';
         this.Record.user_tp_name = '';
         this.Record.user_dsc_slno = '';
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
+        this.Record.user_emp_id = '';
+        this.Record.user_emp_code = '';
+        this.Record.user_emp_name = '';
 
         this.InitLov();
     }
@@ -174,7 +191,7 @@ export class UserComponent {
 
         let SearchData = {
             pkid: Id,
-            comp_id : this.gs.globalVariables.comp_pkid
+            comp_id: this.gs.globalVariables.comp_pkid
         };
 
         this.ErrorMessage = '';
@@ -184,10 +201,10 @@ export class UserComponent {
                 this.LoadData(response.record);
                 this.RecordDet = response.recorddet;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     LoadData(_Record: User) {
@@ -197,6 +214,9 @@ export class UserComponent {
         this.SALESMANRECORD.id = this.Record.user_sman_id;
         this.SALESMANRECORD.code = this.Record.user_sman_code;
         this.SALESMANRECORD.name = this.Record.user_sman_name;
+        this.EMPRECORD.id = this.Record.user_emp_id;
+        this.EMPRECORD.code = this.Record.user_emp_code;
+        this.EMPRECORD.name = this.Record.user_emp_name;
     }
 
     // Save Data
@@ -218,11 +238,11 @@ export class UserComponent {
                 this.Record.rec_mode = this.mode;
                 this.RefreshList();
             },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-                
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+
+                });
     }
 
     allvalid() {
@@ -271,7 +291,7 @@ export class UserComponent {
             REC.user_sman_name = this.Record.user_sman_name;
         }
     }
-    
+
     Close() {
         this.gs.ClosePage('home');
     }

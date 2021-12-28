@@ -20,7 +20,9 @@ export class User {
     user_tp_code: string;
     user_tp_name: string;
     user_dsc_slno: string;
-    
+    user_emp_id: string;
+    user_emp_code: string;
+    user_emp_name: string;
     rec_mode: string;
 
     _globalvariables: GlobalVariables;
