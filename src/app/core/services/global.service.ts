@@ -271,6 +271,7 @@ export class GlobalService {
           this.globalVariables.emp_id = user.userempid;
           this.globalVariables.emp_code = user.userempcode;
           this.globalVariables.emp_name = user.userempname;
+          this.globalVariables.emp_status = user.userempstatus;
 
           this.globalVariables.istp = false;
           if (user.usertpcode != '')

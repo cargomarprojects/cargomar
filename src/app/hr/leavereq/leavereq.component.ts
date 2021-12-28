@@ -92,9 +92,7 @@ export class LeaveReqComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    alert(this.gs.globalVariables.emp_code)
-    alert(this.gs.globalVariables.emp_id)
-    alert(this.gs.globalVariables.emp_name)
+     
   }
 
   InitComponent() {
@@ -156,9 +154,9 @@ export class LeaveReqComponent {
     this.EMPRECORD.displaycolumn = "CODE";
     this.EMPRECORD.type = "EMPLOYEE";
     this.EMPRECORD.where = "";
-    this.EMPRECORD.id = "";
-    this.EMPRECORD.code = "";
-    this.EMPRECORD.name = "";
+    this.EMPRECORD.id = this.gs.globalVariables.emp_id;
+    this.EMPRECORD.code = this.gs.globalVariables.emp_code;
+    this.EMPRECORD.name = this.gs.globalVariables.emp_name;
   }
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "EMPLOYEE") {
@@ -184,6 +182,7 @@ export class LeaveReqComponent {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
+      this.GetLeaveStatus();
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -249,9 +248,9 @@ export class LeaveReqComponent {
     this.pkid = this.gs.getGuid();
     this.Record = new LeaveReq();
     this.Record.lr_pkid = this.pkid;
-    this.Record.lr_emp_id = '';
-    this.Record.lr_emp_code = '';
-    this.Record.lr_emp_name = '';
+    this.Record.lr_emp_id = this.gs.globalVariables.emp_id;
+    this.Record.lr_emp_code = this.gs.globalVariables.emp_code;
+    this.Record.lr_emp_name = this.gs.globalVariables.emp_name;
     this.Record.lr_apply_date = this.gs.defaultValues.today;
     this.Record.lr_from_date = '';
     this.Record.lr_to_date = '';
@@ -264,7 +263,7 @@ export class LeaveReqComponent {
     this.Record.lr_sl_half_days = 0;
     this.Record.lr_lop_days = 0;
     this.Record.lr_lop_half_days = 0;
-    this.Record.rec_category = 'CONFIRMED';
+    this.Record.rec_category = this.gs.globalVariables.emp_status;
     this.lock_record = false;
     this.InitLov();
     this.Record.rec_mode = this.mode;

@@ -53,5 +53,5 @@ export class GlobalVariables {
     emp_id: string;
     emp_code: string;
     emp_name: string;
-
+    emp_status: string;
 }
