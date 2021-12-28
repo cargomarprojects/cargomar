@@ -124,7 +124,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm">Employee</label>
           <div class="col-4">
-            <app-autocomplete #UserLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
+            <app-autocomplete  #EmpLov  [inputdata]="EMPRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
           <label class="col-1 col-form-label col-form-label-sm pl-0">Date</label>

@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LeaveReq } from '../models/leavereq';
 import { LeaveReqService } from '../services/leavereq.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { AutoCompleteComponent } from '../../shared/autocomplete/autocomplete.component';
 
 @Component({
   selector: 'app-leavereq',
@@ -13,6 +14,8 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class LeaveReqComponent {
   // Local Variables 
   title = 'Leave Request';
+
+  // @ViewChild('EmpLov') private EmpLovCtrl: AutoCompleteComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -92,6 +95,10 @@ export class LeaveReqComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    
+  }
+
+  ngAfterViewInit() {
      
   }
 
