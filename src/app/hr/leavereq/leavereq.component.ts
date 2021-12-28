@@ -92,6 +92,9 @@ export class LeaveReqComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    alert(this.gs.globalVariables.emp_code)
+    alert(this.gs.globalVariables.emp_id)
+    alert(this.gs.globalVariables.emp_name)
   }
 
   InitComponent() {

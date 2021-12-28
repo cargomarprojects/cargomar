@@ -1,10 +1,10 @@
 
 export class GlobalVariables {
-    user_pkid: string ;
-    user_code: string ;
-    user_name: string ;
-    user_password: string ;
-    user_email: string ;
+    user_pkid: string;
+    user_code: string;
+    user_name: string;
+    user_password: string;
+    user_email: string;
     user_company_id: string;
     user_company_code: string;
     user_branch_id: string;
@@ -12,16 +12,16 @@ export class GlobalVariables {
 
     hide_ho_entries: string;
 
-    ipaddress : string;
-    tokenid : string;
+    ipaddress: string;
+    tokenid: string;
 
-    tp_code : string;
-    tp_name : string;
+    tp_code: string;
+    tp_name: string;
 
-    user_dsc_slno: string ;
+    user_dsc_slno: string;
 
-    istp : boolean;
-    
+    istp: boolean;
+
     comp_pkid: string;
     comp_code: string;
     comp_name: string;
@@ -29,12 +29,12 @@ export class GlobalVariables {
     branch_pkid: string;
     branch_code: string;
     branch_name: string;
-    branch_location:string;
-    
+    branch_location: string;
+
     branch_type: string;
 
     sman_id: string;
-    sman_name: string; 
+    sman_name: string;
 
     year_pkid: string;
     year_code: string;
@@ -48,7 +48,10 @@ export class GlobalVariables {
     year_einv_start_date: string;
 
     report_folder: string;
-    gstin : string ;
-    
-    
+    gstin: string;
+
+    emp_id: string;
+    emp_code: string;
+    emp_name: string;
+
 }

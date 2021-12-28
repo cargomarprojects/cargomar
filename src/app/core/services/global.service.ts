@@ -268,6 +268,10 @@ export class GlobalService {
           this.globalVariables.tp_name = user.usertpname;
           this.globalVariables.user_dsc_slno = user.userdscslno;
 
+          this.globalVariables.emp_id = user.userempid;
+          this.globalVariables.emp_code = user.userempcode;
+          this.globalVariables.emp_name = user.userempname;
+
           this.globalVariables.istp = false;
           if (user.usertpcode != '')
             this.globalVariables.istp = true;
