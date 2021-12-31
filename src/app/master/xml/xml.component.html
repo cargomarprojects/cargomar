@@ -31,6 +31,7 @@
         <div class="col-10">
           <button [disabled]="loading" (click)="GenerateXml('SEA')" class="btn btn-primary btn-sm">Generate Sea Xml</button>
           <button [disabled]="loading" (click)="GenerateXml('AIR')" class="btn btn-primary btn-sm">Generate Air Xml</button>
+          <button [disabled]="loading" (click)="GenerateBookingXml()" class="btn btn-primary btn-sm">Generate Booking Xml</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>

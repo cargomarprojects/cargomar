@@ -1600,6 +1600,7 @@ export class MblSeaComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
+      branch_number: this.gs.globalVariables.branch_number,
       agent_id: this.Record.book_agent_id,
       agent_code: this.Record.book_agent_code,
       agent_name: this.Record.book_agent_name,
@@ -1612,6 +1613,7 @@ export class MblSeaComponent {
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.branch_name = this.gs.globalVariables.branch_name;
+    SearchData.branch_number = this.gs.globalVariables.branch_number;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.agent_id = this.Record.book_agent_id;
     SearchData.agent_code = this.Record.book_agent_code;

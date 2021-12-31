@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-  import { XmlService } from '../services/xml.service';
+import { XmlService } from '../services/xml.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { FileDetails } from '../../operations/models/filedetails';
 
 @Component({
   selector: 'app-xml',
@@ -21,7 +22,7 @@ export class XmlComponent {
   selectedRowIndex: number = -1;
 
   loading = false;
-  
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -30,12 +31,13 @@ export class XmlComponent {
   bCompany = false;
   sub: any;
   urlid: string;
- // Prealertdate: boolean = false;
+  // Prealertdate: boolean = false;
   senton_date = "";
   ErrorMessage = "";
 
   branch_name: string;
   branch_code: string;
+  branch_number: number;
 
   hbl_nos = '';
   agent_id = '';
@@ -44,7 +46,8 @@ export class XmlComponent {
 
   BRRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
-  
+  FileList: FileDetails[] = [];
+
   constructor(
     private mainService: XmlService,
     private route: ActivatedRoute,
@@ -62,7 +65,7 @@ export class XmlComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-    
+
         this.InitComponent();
       }
     });
@@ -72,7 +75,7 @@ export class XmlComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     if (!this.InitCompleted) {
-      
+
       this.InitComponent();
     }
   }
@@ -91,10 +94,11 @@ export class XmlComponent {
     this.LoadCombo();
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
+    this.branch_number = this.gs.globalVariables.branch_number;
   }
 
   initLov(caption: string = '') {
-     
+
     this.AGENTRECORD = new SearchTable();
     this.AGENTRECORD.controlname = "AGENT";
     this.AGENTRECORD.displaycolumn = "NAME";
@@ -121,6 +125,7 @@ export class XmlComponent {
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
+      this.branch_number = +_Record.col1;
     }
   }
 
@@ -128,18 +133,18 @@ export class XmlComponent {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 
   LoadCombo() {
   }
 
   // Query List Data
   List(_type: string) {
-    
-  }
-   
 
-  GenerateXml(_type:string) {
+  }
+
+
+  GenerateXml(_type: string) {
     this.ErrorMessage = '';
     if (this.agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
@@ -147,6 +152,9 @@ export class XmlComponent {
     }
     if (this.agent_name.indexOf("RITRA") < 0) {
       this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      return;
+    }
+    if (!confirm("Generate " + _type + " Xml")) {
       return;
     }
     this.loading = true;
@@ -160,9 +168,9 @@ export class XmlComponent {
       agent_name: this.agent_name,
       pre_alert_date: '',
       hbl_nos: '',
-      type:''
+      type: ''
     };
-     
+
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     if (this.bCompany) {
       SearchData.branch_code = this.branch_code;
@@ -177,16 +185,16 @@ export class XmlComponent {
     SearchData.agent_code = this.agent_code;
     SearchData.agent_name = this.agent_name;
 
-     this.mainService.GenerateXmlEdi(SearchData)
+    this.mainService.GenerateXmlEdi(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
 
@@ -205,6 +213,9 @@ export class XmlComponent {
       return;
     }
 
+    if (!confirm("Generate Costing Xml")) {
+      return;
+    }
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
@@ -226,14 +237,84 @@ export class XmlComponent {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
   Close() {
     this.gs.ClosePage('home');
   }
-  
+
+  GenerateBookingXml() {
+
+    this.ErrorMessage = '';
+    if (this.agent_id.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      return;
+    }
+    if (this.agent_name.indexOf("RITRA") < 0) {
+      this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      return;
+    }
+
+    if (!confirm("Generate Booking Xml")) {
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      branch_number: this.gs.globalVariables.branch_number,
+      agent_id: this.agent_id,
+      agent_code: this.agent_code,
+      agent_name: this.agent_name,
+      pre_alert_date: '',
+      hbl_nos: '',
+      type: '',
+      mbl_id: ''
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    if (this.bCompany) {
+      SearchData.branch_code = this.branch_code;
+      SearchData.branch_name = this.branch_name;
+      SearchData.branch_number = this.branch_number;
+    }
+    else {
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.branch_name = this.gs.globalVariables.branch_name;
+      SearchData.branch_number = this.gs.globalVariables.branch_number;
+    }
+    SearchData.agent_id = this.agent_id;
+    SearchData.agent_code = this.agent_code;
+    SearchData.agent_name = this.agent_name;
+    SearchData.hbl_nos = '';
+    SearchData.mbl_id = '';
+    this.mainService.GenerateXmlBooking(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.FileList = response.filelist;
+        this.ErrorMessage = response.savemsg;
+        // alert(this.ErrorMessage);
+        for (let rec of this.FileList) {
+          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 }
