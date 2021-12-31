@@ -58,12 +58,13 @@
           <th *ngIf="type == 'B'">GSP-PWD</th>
 
           <th>TYPE</th>
+          <th *ngIf="type == 'B'">BR#</th>
           <th>ORDER</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         (click)="ActionHandler('EDIT',rec.comp_pkid)">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.comp_pkid)">
           <td>{{rec.comp_code}}</td>
           <td>{{rec.comp_name}}</td>
           <td *ngIf="type == 'B'">{{rec.comp_parent_name}}</td>
@@ -74,13 +75,14 @@
           <td>{{rec.comp_gstin_email}}</td>
           <td>{{rec.comp_gstin_state_code}}</td>
           <td>{{rec.comp_gstin_state_name}}</td>
-          
+
           <td *ngIf="type == 'B'">{{rec.comp_gsp_trial ? 'Y' : 'N'}}</td>
           <td *ngIf="type == 'B'">{{rec.comp_gsp_gstin}}</td>
           <td *ngIf="type == 'B'">{{rec.comp_gsp_user}}</td>
           <td *ngIf="type == 'B'">{{rec.comp_gsp_pwd}}</td>
 
           <td>{{rec.comp_branch_type}}</td>
+          <td *ngIf="type == 'B'">{{rec.comp_branch_number}}</td>
           <td>{{rec.comp_order}}</td>
         </tr>
       </tbody>
@@ -391,6 +393,13 @@
           <div class="col-9">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.comp_gsp_pwd"
               (blur)="OnBlur('comp_gsp_pwd')" maxlength="50" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label  col-form-label-sm">Branch Number</label>
+          <div class="col-9">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.comp_branch_number"
+              (blur)="OnBlur('comp_branch_number')" maxlength="5" />
           </div>
         </div>
       </div>

@@ -210,6 +210,7 @@ export class CompanyComponent {
     this.Record.comp_pol_code = '';
 
     this.Record.comp_order = 0;
+    this.Record.comp_branch_number = 0;
 
     this.Record.comp_branch_type = 'BOTH';
     this.Record.comp_uamno= '';

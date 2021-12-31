@@ -39,12 +39,12 @@ export class Companym {
     comp_pol_code: string;
     comp_order: number;
     comp_uamno: string;
-
+    comp_gsp_token_expiry: number;
 
     comp_gsp_client_id : string;
     comp_gsp_client_secret : string;
     comp_gsp_token : string;
-    comp_gsp_token_expiry: number;
+    comp_branch_number: number;
 
     comp_gsp_trial : boolean;
     comp_gsp_gstin : string;
