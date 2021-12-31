@@ -58,9 +58,9 @@
       </div>
       <div class="col-sm-4 input-group input-group-sm pl-1">
         <select class="form-control form-control-sm" [(ngModel)]="mRecord.hp_bkm_status">
-          <option [value]="'booked'">booked</option>
-          <option [value]="'active'">active</option>
-          <option [value]="'cancelled'">cancelled</option>
+          <option [value]="'BOOKED'">BOOKED</option>
+          <option [value]="'ACTIVE'">CONFIRMED</option>
+          <option [value]="'CANCELLED'">CANCELLED</option>
         </select>&nbsp;
         <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
         <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
