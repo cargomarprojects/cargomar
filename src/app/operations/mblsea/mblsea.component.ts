@@ -1450,7 +1450,7 @@ export class MblSeaComponent {
     Rec.hp_notify_id = '';
     Rec.hp_notify_code = '';
     Rec.hp_notify_name = '';
-    Rec.hp_bkm_status = '';
+    Rec.hp_bkm_status = 'BOOKED';
     Rec.hp_cbm = 0;
     Rec.hp_pcs = 0;
     Rec.hp_kgs = 0;
