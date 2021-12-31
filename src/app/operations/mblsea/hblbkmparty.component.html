@@ -1,82 +1,80 @@
- 
-    <div class="row">
-      <div class="col-sm-8">
-        <div *ngIf="showCaption" class="form-group row mx-0">
-          <label style="background-color:lightgray;"
-            class="col-sm-4  col-form-label col-form-label-sm pl-0">SHIPPER</label>
-          <label style="background-color:lightgray;"
-            class="col-sm-4  col-form-label col-form-label-sm pl-0">CONSIGNEE</label>
-          <label style="background-color:lightgray;"
-            class="col-sm-4  col-form-label col-form-label-sm">NOTIFY</label>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-2 pr-2">
-            <app-autocomplete #expLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete>
-          </div>
-          <div class="col-sm-2 pl-0">
-            <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
-              [(ngModel)]="mRecord.hp_exp_name" />
-          </div>
-          <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Consignee</label> -->
-          <div class="col-sm-2 pl-0">
-            <app-autocomplete #impLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete>
-          </div>
-          <div class="col-sm-2 pl-0">
-            <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
-              [(ngModel)]="mRecord.hp_imp_name" />
-          </div>
-          <div class="col-sm-2 pl-0">
-            <app-autocomplete #LinerLov [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete>
-          </div>
-          <div class="col-sm-2 pl-0">
-            <input type="text" [style.color]="mRecord.row_colour"  class="form-control form-control-sm"
-              [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required
-              maxlength="60" />
-          </div>
-        </div>
+<div class="row">
+  <div class="col-sm-8">
+    <div *ngIf="showCaption" class="form-group row mx-0">
+      <label style="background-color:lightgray;" class="col-sm-4  col-form-label col-form-label-sm pl-0">SHIPPER</label>
+      <label style="background-color:lightgray;"
+        class="col-sm-4  col-form-label col-form-label-sm pl-0">CONSIGNEE</label>
+      <label style="background-color:lightgray;" class="col-sm-4  col-form-label col-form-label-sm">NOTIFY</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-2 pr-2">
+        <app-autocomplete #expLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+        </app-autocomplete>
       </div>
-
-      <div class="col-sm-4">
-        <div *ngIf="showCaption" class="form-group row mx-0">
-          <label style="background-color:lightgray;"
-            class="col-sm-3 col-form-label col-form-label-sm pl-0">CBM</label>
-          <label style="background-color:lightgray;"
-            class="col-sm-3 col-form-label col-form-label-sm ">PKGS</label>
-          <label style="background-color:lightgray;"
-            class="col-sm-3 col-form-label col-form-label-sm">KGS</label>
-          <label style="background-color:lightgray;"
-            class="col-sm-3 col-form-label col-form-label-sm"></label>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-3">
-            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_cbm"
-            (blur)="OnBlur('hp_cbm')" required maxlength="15" />
-          </div>
-          <div class="col-sm-3">
-            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_pcs"
-            (blur)="OnBlur('hp_pcs')" required maxlength="15" />
-          </div>
-          <div class="col-sm-3">
-            <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm" [(ngModel)]="mRecord.hp_kgs"
-            (blur)="OnBlur('hp_kgs')" required maxlength="15" />
-          </div>
-           
-          <div class="col-sm-3">
-            <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
-            <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
-          </div>
-
-        </div>
+      <div class="col-sm-2 pl-0">
+        <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_exp_name" />
+      </div>
+      <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Consignee</label> -->
+      <div class="col-sm-2 pl-0">
+        <app-autocomplete #impLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+        </app-autocomplete>
+      </div>
+      <div class="col-sm-2 pl-0">
+        <input type="text" [style.color]="mRecord.row_colour" disabled class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_imp_name" />
+      </div>
+      <div class="col-sm-2 pl-0">
+        <app-autocomplete #LinerLov [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
+        </app-autocomplete>
+      </div>
+      <div class="col-sm-2 pl-0">
+        <input type="text" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required maxlength="60" />
       </div>
     </div>
-    <!-- <hr>
+  </div>
+
+  <div class="col-sm-4">
+    <div *ngIf="showCaption" class="form-group row mx-0">
+      <label style="background-color:lightgray;" class="col-sm-3 col-form-label col-form-label-sm pl-0">CBM</label>
+      <label style="background-color:lightgray;" class="col-sm-2 col-form-label col-form-label-sm pl-0">PKGS</label>
+      <label style="background-color:lightgray;" class="col-sm-3 col-form-label col-form-label-sm pl-1">KGS</label>
+      <label style="background-color:lightgray;" class="col-sm-4 col-form-label col-form-label-sm pl-2">STATUS</label>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-3 pr-0">
+        <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_cbm" (blur)="OnBlur('hp_cbm')" required maxlength="15" />
+      </div>
+      <div class="col-sm-2 pl-1 pr-0">
+        <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_pcs" (blur)="OnBlur('hp_pcs')" required maxlength="15" />
+      </div>
+      <div class="col-sm-3 pl-1 pr-0">
+        <input type="number" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+          [(ngModel)]="mRecord.hp_kgs" (blur)="OnBlur('hp_kgs')" required maxlength="15" />
+      </div>
+      <div class="col-sm-4 input-group input-group-sm pl-1">
+        <select class="form-control form-control-sm" [(ngModel)]="mRecord.hp_bkm_status">
+          <option [value]="'booked'">booked</option>
+          <option [value]="'active'">active</option>
+          <option [value]="'cancelled'">cancelled</option>
+        </select>&nbsp;
+        <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
+        <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+      </div>
+      <!-- <div class="col-sm-1">
+        <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
+        <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- <hr>
     <div *ngFor="let rec of Record.TransitList">
       <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
       </app-transit>
       <hr>
     </div> -->
- 

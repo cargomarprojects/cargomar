@@ -13,8 +13,9 @@ export class HblBkmParty {
     hp_cbm: number;
     hp_pcs: number;
     hp_kgs: number;
+    hp_bkm_status: string;
     hp_order: number;
-    rec_deleted:string;
-    rec_category:string;
-    row_colour:string;
+    rec_deleted: string;
+    rec_category: string;
+    row_colour: string;
 }
