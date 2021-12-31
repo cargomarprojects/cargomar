@@ -1534,6 +1534,7 @@ export class MblSeaComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
+      branch_number: this.gs.globalVariables.branch_number,
       agent_id: this.Record.book_agent_id,
       agent_code: this.Record.book_agent_code,
       agent_name: this.Record.book_agent_name,
@@ -1547,6 +1548,7 @@ export class MblSeaComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.branch_name = this.gs.globalVariables.branch_name;
     SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_number = this.gs.globalVariables.branch_number;
     SearchData.agent_id = this.Record.book_agent_id;
     SearchData.agent_code = this.Record.book_agent_code;
     SearchData.agent_name = this.Record.book_agent_name;
@@ -1555,7 +1557,7 @@ export class MblSeaComponent {
     this.mainService.GenerateXmlBooking(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = "BOOKING -  1" + this.gs.globalVariables.year_code + this.Record.book_slno.toString();
+        this.sSubject = "BOOKING - " + this.gs.globalVariables.branch_number.toString() + this.gs.globalVariables.year_code + this.Record.book_slno.toString();
         this.FtpAttachList = new Array<any>();
         this.FileList = response.filelist;
         for (let rec of this.FileList) {

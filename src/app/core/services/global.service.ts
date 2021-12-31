@@ -501,7 +501,7 @@ export class GlobalService {
         this.globalVariables.branch_location = data.branch_location;
 
         this.globalVariables.branch_type = data.branch_type;
-
+        this.globalVariables.branch_number = data.branch_number;
 
         this.globalVariables.year_pkid = data.year_pkid;
         this.globalVariables.year_code = data.year_code;
