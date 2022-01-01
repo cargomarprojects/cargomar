@@ -54,6 +54,7 @@ export class LeaveReqComponent {
   bJoinRelieve: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
+  bCompany: boolean = false;
   porttype = 'PORT';
 
 
@@ -95,16 +96,17 @@ export class LeaveReqComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    
+
   }
 
   ngAfterViewInit() {
-     
+
   }
 
   InitComponent() {
     this.bPrint = false;
     this.bAdmin = false;
+    this.bCompany = false;
     this.fromdate = this.gs.globalVariables.year_start_date;
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -112,7 +114,7 @@ export class LeaveReqComponent {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
       this.bAdmin = this.menu_record.rights_admin;
-
+      this.bCompany = this.menu_record.rights_company;
       if (this.menu_record.rights_approval.length > 0)
         this.approvalstatus = this.menu_record.rights_approval.toString().trim();
     }
@@ -226,8 +228,13 @@ export class LeaveReqComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      emp_code: this.gs.globalVariables.emp_code,
+      emp_id: this.gs.globalVariables.emp_id,
       fromdate: this.fromdate,
       todate: this.todate,
+      is_admin: this.bAdmin,
+      is_company: this.bCompany,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
