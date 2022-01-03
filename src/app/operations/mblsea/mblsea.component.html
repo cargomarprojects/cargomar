@@ -541,20 +541,18 @@
               </div>
             </div>
           </div>
-          <div>
-            <!-- <br/> -->
+          <!-- <div>
             <h6></h6>
-          </div>
+          </div> -->
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
             <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
               (ModifiedRecords)="ModifiedRecords($event)">
             </app-hblbkmparty>
           </div>
-          <div>
-            <!-- <br/> -->
+          <!-- <div>
             <h6></h6>
-          </div>
-          <div class="page-box">
+          </div> -->
+          <div class="page-box mt-1">
             <div class="row">
               <div class="col-sm-8 pr-0">
                 <div class="form-group row mx-0">
@@ -737,7 +735,7 @@
 
           </div>
 
-          <div class="page-box">
+          <div class="page-box mt-1">
             <ngb-tabset>
               <ngb-tab title="Container Details">
                 <ng-template ngbTabContent>
