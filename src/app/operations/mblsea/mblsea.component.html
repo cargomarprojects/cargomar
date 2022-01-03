@@ -541,12 +541,13 @@
               </div>
             </div>
           </div>
+          <br/>
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
             <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
               (ModifiedRecords)="ModifiedRecords($event)">
             </app-hblbkmparty>
-            <hr>
           </div>
+          <br/>
           <div class="page-box">
             <div class="row">
               <div class="col-sm-8">
