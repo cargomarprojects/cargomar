@@ -10,7 +10,7 @@ import { SearchTable } from '../../shared/models/searchtable';
   templateUrl: './ritcm.component.html',
   providers: [RitcmService]
 })
-export class RitcmComponent  {
+export class RitcmComponent {
   // Local Variables 
   title = 'Ritc Details';
 
@@ -85,7 +85,7 @@ export class RitcmComponent  {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    
+
     this.LoadCombo();
 
   }
@@ -94,11 +94,11 @@ export class RitcmComponent  {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 
 
   LoadCombo() {
-    
+
     //this.loading = true;
     //let SearchData = {
     //  type: 'type',
@@ -111,7 +111,7 @@ export class RitcmComponent  {
     //this.mainService.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
-       
+
     //    this.List("NEW");
     //  },
     //  error => {
@@ -121,7 +121,7 @@ export class RitcmComponent  {
 
     this.List("NEW");
   }
-  
+
 
   LovSelected(_Record: any) {
   }
@@ -139,9 +139,9 @@ export class RitcmComponent  {
     }
     else if (action === 'ADD') {
       this.currentTab = 'DETAILS';
+      this.NewRecord();
       this.mode = 'ADD';
       this.ResetControls();
-      this.NewRecord();
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -193,27 +193,36 @@ export class RitcmComponent  {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
   NewRecord() {
 
+    let _rec: Ritcm = this.Record;
+
     this.pkid = this.gs.getGuid();
     this.Record = new Ritcm();
-    this.Record.ritc_pkid = this.pkid;     
+    this.Record.ritc_pkid = this.pkid;
     this.Record.ritc_code = '';
     this.Record.ritc_name = '';
     this.Record.ritc_unit = '';
     this.Record.ritc_rate = 0;
     this.Record.ritc_cap = 0;
     this.Record.ritc_notify_date = '';
+
+    if (this.mode == 'EDIT') {
+      this.Record.ritc_name = _rec.ritc_name;
+      this.Record.ritc_unit = _rec.ritc_unit;
+      this.Record.ritc_rate = _rec.ritc_rate;
+      this.Record.ritc_cap = _rec.ritc_cap;
+    }
     this.Record.rec_locked = false;
+    this.mode = 'ADD';
     this.Record.rec_mode = this.mode;
-  
   }
 
 
@@ -234,10 +243,10 @@ export class RitcmComponent  {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Ritcm) {
@@ -245,7 +254,7 @@ export class RitcmComponent  {
     this.Record.rec_mode = this.mode;
   }
 
-  
+
   // Save Data
   Save() {
 
@@ -266,10 +275,10 @@ export class RitcmComponent  {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -293,7 +302,7 @@ export class RitcmComponent  {
       bret = false;
       sError = "\n\r  Invalid Ritc name";
     }
-           
+
     if (bret === false)
       this.ErrorMessage = sError;
     return bret;
@@ -317,7 +326,7 @@ export class RitcmComponent  {
 
   OnBlur(field: string) {
     if (field == 'ritc_code') {
-     
+
       this.Record.ritc_code = this.GetSpaceTrim(this.Record.ritc_code.trim()).newstr.toUpperCase();
 
     }
@@ -328,10 +337,10 @@ export class RitcmComponent  {
       this.Record.ritc_unit = this.Record.ritc_unit.toUpperCase();
     }
     if (field == 'ritc_rate') {
-      this.Record.ritc_rate = this.gs.roundNumber(this.Record.ritc_rate,2);
+      this.Record.ritc_rate = this.gs.roundNumber(this.Record.ritc_rate, 2);
     }
     if (field == 'ritc_cap') {
-      this.Record.ritc_cap = this.gs.roundNumber(this.Record.ritc_cap,2);
+      this.Record.ritc_cap = this.gs.roundNumber(this.Record.ritc_cap, 2);
     }
     if (field == 'ritc_notify_date') {
       this.Record.ritc_notify_date = this.Record.ritc_notify_date.toUpperCase();
@@ -356,15 +365,15 @@ export class RitcmComponent  {
   }
 
   ProcessData() {
-    
+
     if (!confirm("Update Rates")) {
-     return
+      return
     }
 
     let SearchData = {
-       branch_code:this.gs.globalVariables.branch_code,
-       company_code: this.gs.globalVariables.comp_code,
-       user_code:this.gs.globalVariables.user_code
+      branch_code: this.gs.globalVariables.branch_code,
+      company_code: this.gs.globalVariables.comp_code,
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.loading = true;
@@ -375,10 +384,10 @@ export class RitcmComponent  {
         this.loading = false;
         alert('Save Complete');
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }
