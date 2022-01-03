@@ -50,6 +50,7 @@
           <th>RODTEP-RATE</th>
           <th>RODTEP-CAP</th>
           <th>NOTIFY-DATE</th>
+          <th>LOCKED</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -60,6 +61,7 @@
           <td>{{rec.ritc_rate}}</td>
           <td>{{rec.ritc_cap}}</td>
           <td>{{rec.ritc_notify_date}}</td>
+          <td>{{rec.rec_locked?'Y':'N'}}</td>
         </tr>
       </tbody>
     </table>
