@@ -203,17 +203,15 @@ export class RitcmComponent  {
   NewRecord() {
 
     this.pkid = this.gs.getGuid();
-
     this.Record = new Ritcm();
     this.Record.ritc_pkid = this.pkid;     
     this.Record.ritc_code = '';
     this.Record.ritc_name = '';
     this.Record.ritc_unit = '';
-
     this.Record.ritc_rate = 0;
     this.Record.ritc_cap = 0;
     this.Record.ritc_notify_date = '';
-
+    this.Record.rec_locked = false;
     this.Record.rec_mode = this.mode;
   
   }

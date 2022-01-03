@@ -12,7 +12,7 @@ export class Ritcm {
   ritc_cap: number;
 
   ritc_notify_date: string;
-
+  rec_locked: boolean;
   rec_mode: string;
 
   _globalvariables: GlobalVariables;
