@@ -541,16 +541,22 @@
               </div>
             </div>
           </div>
-          <br/>
+          <div>
+            <!-- <br/> -->
+            <h6></h6>
+          </div>
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
             <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
               (ModifiedRecords)="ModifiedRecords($event)">
             </app-hblbkmparty>
           </div>
-          <br/>
+          <div>
+            <!-- <br/> -->
+            <h6></h6>
+          </div>
           <div class="page-box">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-8 pr-0">
                 <div class="form-group row mx-0">
                   <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label>
                   <div class="col-sm-1">
@@ -577,7 +583,7 @@
                     <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-2 pl-0">
+                  <div class="col-sm-2 pl-0 pr-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_pol_name" />
                   </div>
@@ -585,7 +591,7 @@
                     <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-3 pl-0">
+                  <div class="col-sm-3 pl-0 pr-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_vessel_name" />
                   </div>
@@ -598,10 +604,10 @@
 
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-4 pl-0">
                 <div class="form-group row mx-0">
                   <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm pl-0">ETD-[POL]</label>
+                    class="col-sm-3 col-form-label col-form-label-sm pl-2">ETD-[POL]</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
                   <label style="background-color:lightgray;"
@@ -612,7 +618,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-3 pl-4 pr-0">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                   </div>
                   <div class="col-sm-2">
@@ -658,12 +664,12 @@
                     <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-2 pl-0">
+                  <div class="col-sm-2 pl-0 pr-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_pod_name" />
                   </div>
 
-                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <label class="col-sm-1 col-form-label col-form-label-sm ">ETA</label>
                   <div class="col-sm-2 pr-2">
                     <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
                   </div>
@@ -683,7 +689,7 @@
                     <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-2 pl-0">
+                  <div class="col-sm-2 pl-0 pr-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_pofd_name" />
                   </div>
@@ -867,7 +873,7 @@
                 class="btn btn-success btn-sm">Save</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent)"
                 class="btn btn-success btn-sm">Mail/FTP</button>
-                <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
                 class="btn btn-success btn-sm">Booking/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
                 class="btn btn-success btn-sm">FTPHistory</button>

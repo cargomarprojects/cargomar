@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-sm-8">
+    <div class="col-sm-8 pr-0">
         <!-- <div class="form-group row">
                 <label class="offset-5 col-sm-5 col-form-label col-form-label-sm">Vessel</label>
                 <label class="col-sm-2  col-form-label col-form-label-sm">Voyage</label>
@@ -14,14 +14,14 @@
                 <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
                 </app-autocomplete>
             </div>
-            <div class="col-sm-2 pl-0">
+            <div class="col-sm-2 pl-0 pr-0">
                 <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.trk_pol_name" />
             </div>
             <div class="col-sm-2 pr-2">
                 <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                 </app-autocomplete>
             </div>
-            <div class="col-sm-3 pl-0">
+            <div class="col-sm-3 pl-0 pr-0">
                 <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.trk_vsl_name" />
             </div>
             <div class="col-sm-2 ">
@@ -33,9 +33,9 @@
 
     </div>
 
-    <div class="col-sm-4">     
+    <div class="col-sm-4 pl-0">     
         <div class="form-group row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 pl-4 pr-0">
                 <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
             </div>
             <div class="col-sm-2">
