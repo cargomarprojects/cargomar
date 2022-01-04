@@ -18,4 +18,5 @@ export class HblBkmParty {
     rec_deleted: string;
     rec_category: string;
     row_colour: string;
+    hp_booking_locked:boolean;
 }

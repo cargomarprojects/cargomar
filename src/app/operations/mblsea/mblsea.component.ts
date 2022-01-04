@@ -15,6 +15,7 @@ import { Trackingm } from '../models/tracking';
 import { HblBkmParty } from '../models/hblbkmparty';
 import { transition } from '@angular/core/src/animation/dsl';
 import { Hblm } from '../models/hbl';
+import { isNull } from 'util';
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
 
@@ -872,11 +873,23 @@ export class MblSeaComponent {
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
     //Saving Shipper and consignee to master
+    this.Record.book_exporter_id = '';
+    this.Record.book_consignee_id = '';
     if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
-      if (this.Record.HblBkmPartyList.length > 0) {
-        this.Record.HblBkmPartyList[0].hp_pkid = this.Record.book_pkid;
-        this.Record.book_exporter_id = this.Record.HblBkmPartyList[0].hp_exp_id;
-        this.Record.book_consignee_id = this.Record.HblBkmPartyList[0].hp_imp_id;
+      // if (this.Record.HblBkmPartyList.length > 0) {
+      //   this.Record.HblBkmPartyList[0].hp_pkid = this.Record.book_pkid;
+      //   this.Record.book_exporter_id = this.Record.HblBkmPartyList[0].hp_exp_id;
+      //   this.Record.book_consignee_id = this.Record.HblBkmPartyList[0].hp_imp_id;
+      // }
+      for (let rec of this.Record.HblBkmPartyList) {
+        if (rec.hp_bkm_status != 'CANCELLED') {
+          if (isNull(this.Record.book_exporter_id)) {
+            rec.hp_pkid = this.Record.book_pkid;
+            this.Record.book_exporter_id = rec.hp_exp_id;
+            this.Record.book_consignee_id = rec.hp_imp_id;
+            break;
+          }
+        }
       }
     }
 
@@ -1440,7 +1453,7 @@ export class MblSeaComponent {
     let Rec: HblBkmParty = new HblBkmParty;
     Rec.hp_pkid = this.gs.getGuid();
     Rec.hp_parent_id = this.Record.book_pkid;
-    Rec.rec_category = this.type;
+    Rec.rec_category = 'SEA EXPORT';
     Rec.hp_exp_id = '';
     Rec.hp_exp_code = '';
     Rec.hp_exp_name = '';
@@ -1456,8 +1469,8 @@ export class MblSeaComponent {
     Rec.hp_kgs = 0;
     Rec.rec_deleted = 'N';
     Rec.row_colour = 'darkslategray';
+    Rec.hp_booking_locked = false;
     this.Record.HblBkmPartyList.push(Rec);
-    ;
   }
   ModifiedRecords(params: any) {
     if (params.type == "PAYMENT") {
@@ -1846,9 +1859,11 @@ export class MblSeaComponent {
     let mkgs: number = 0;
     if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
       for (let rec of this.Record.HblBkmPartyList) {
-        mcbm += rec.hp_cbm;
-        mpcs += rec.hp_pcs;
-        mkgs += rec.hp_kgs;
+        if (rec.hp_bkm_status != 'CANCELLED') {
+          mcbm += rec.hp_cbm;
+          mpcs += rec.hp_pcs;
+          mkgs += rec.hp_kgs;
+        }
       }
     }
     this.Record.book_mcbm = this.gs.roundNumber(mcbm, 3);

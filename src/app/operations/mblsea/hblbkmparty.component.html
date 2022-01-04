@@ -15,7 +15,7 @@
       </div>
       <div class="form-group row">
         <div class="col-sm-2 pr-1">
-          <app-autocomplete #expLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+          <app-autocomplete #expLov [disabled]="mRecord.hp_booking_locked" [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
         <div class="col-sm-2 pl-0">
@@ -24,7 +24,7 @@
         </div>
         <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Consignee</label> -->
         <div class="col-sm-2 pl-0 pr-1">
-          <app-autocomplete #impLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+          <app-autocomplete #impLov [disabled]="mRecord.hp_booking_locked" [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
         <div class="col-sm-2 pl-0">
@@ -32,11 +32,11 @@
             [(ngModel)]="mRecord.hp_imp_name" />
         </div>
         <div class="col-sm-2 pl-0 pr-1">
-          <app-autocomplete #LinerLov [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
+          <app-autocomplete #LinerLov [disabled]="mRecord.hp_booking_locked" [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
         <div class="col-sm-2 pl-0 pr-3">
-          <input type="text" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+          <input type="text" [disabled]="mRecord.hp_booking_locked" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
             [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required maxlength="60" />
         </div>
       </div>
@@ -69,8 +69,8 @@
             <option [value]="'ACTIVE'">CONFIRMED</option>
             <option [value]="'CANCELLED'">CANCELLED</option>
           </select>&nbsp;
-          <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
-          <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+          <i class="fa fa-plus fa-md pointer pt-2" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
+          <!-- <i class="fa fa-trash fa-md pointer" aria-hidden="true" (click)="RemoveRow()"></i> -->
         </div>
         <!-- <div class="col-sm-1">
         <i class="fa fa-plus fa-md pointer" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
