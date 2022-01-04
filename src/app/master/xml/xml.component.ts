@@ -40,9 +40,9 @@ export class XmlComponent {
   branch_number: number;
 
   hbl_nos = '';
-  agent_id = '';
-  agent_name = '';
-  agent_code = '';
+  agent_id = 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621';
+  agent_name = 'RITRA CARGO (HOLLAND) B.V.';
+  agent_code = 'RITRACARGO-NL';
 
   BRRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
@@ -103,9 +103,9 @@ export class XmlComponent {
     this.AGENTRECORD.controlname = "AGENT";
     this.AGENTRECORD.displaycolumn = "NAME";
     this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
+    this.AGENTRECORD.id = this.agent_id;
+    this.AGENTRECORD.code = this.agent_code;
+    this.AGENTRECORD.name = this.agent_name;
 
     this.BRRECORD = new SearchTable();
     this.BRRECORD.controlname = "BRANCH";
