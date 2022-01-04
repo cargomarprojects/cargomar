@@ -876,13 +876,11 @@ export class MblSeaComponent {
     this.Record.book_exporter_id = '';
     this.Record.book_consignee_id = '';
     if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
-      // if (this.Record.HblBkmPartyList.length > 0) {
-      //   this.Record.HblBkmPartyList[0].hp_pkid = this.Record.book_pkid;
-      //   this.Record.book_exporter_id = this.Record.HblBkmPartyList[0].hp_exp_id;
-      //   this.Record.book_consignee_id = this.Record.HblBkmPartyList[0].hp_imp_id;
-      // }
       for (let rec of this.Record.HblBkmPartyList) {
         if (rec.hp_bkm_status != 'CANCELLED') {
+          for (let rec2 of this.Record.HblBkmPartyList.filter(x => x.hp_pkid == this.Record.book_pkid)) { //for master ref record pkid and parentid are same
+            rec2.hp_pkid = this.gs.getGuid();
+          }
           rec.hp_pkid = this.Record.book_pkid;
           this.Record.book_exporter_id = rec.hp_exp_id;
           this.Record.book_consignee_id = rec.hp_imp_id;
