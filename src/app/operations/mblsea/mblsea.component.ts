@@ -883,12 +883,10 @@ export class MblSeaComponent {
       // }
       for (let rec of this.Record.HblBkmPartyList) {
         if (rec.hp_bkm_status != 'CANCELLED') {
-          if (isNull(this.Record.book_exporter_id)) {
-            rec.hp_pkid = this.Record.book_pkid;
-            this.Record.book_exporter_id = rec.hp_exp_id;
-            this.Record.book_consignee_id = rec.hp_imp_id;
-            break;
-          }
+          rec.hp_pkid = this.Record.book_pkid;
+          this.Record.book_exporter_id = rec.hp_exp_id;
+          this.Record.book_consignee_id = rec.hp_imp_id;
+          break;
         }
       }
     }
