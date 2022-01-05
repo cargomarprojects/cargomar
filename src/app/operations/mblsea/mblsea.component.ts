@@ -18,6 +18,7 @@ import { Hblm } from '../models/hbl';
 import { isNull } from 'util';
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
+//EDIT-AJITH-05-01-2022
 
 @Component({
   selector: 'app-mblsea',
@@ -1586,8 +1587,9 @@ export class MblSeaComponent {
     this.default_ftptype = 'BL-FTP';
     this.default_mailftp_rootpage = 'MAILPAGE';
     if (this.Record.book_cntr.trim().length > 11) {
-      var cntrarry = this.Record.book_cntr.split('/');
-      this.PrealertList(cntrarry[0].toString(), ftpsent);
+      // var cntrarry = this.Record.book_cntr.split('/');
+      // this.PrealertList(cntrarry[0].toString(), ftpsent);
+      this.PrealertList(this.Record.book_cntr.toString(), ftpsent);
     } else {
       this.GenerateXml(ftpsent);
     }
@@ -1723,10 +1725,11 @@ export class MblSeaComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.Record.book_agent_id,
-      searchcontainer: this.Record.book_agent_code,
+      year_code: '',
+      searchcontainer: '',
       root_folder: this.gs.defaultValues.root_folder,
-      docattach: 'Y'
+      docattach: 'Y',
+      mbl_id:''
     };
     SearchData.pkid = this.gs.getGuid();
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1737,9 +1740,10 @@ export class MblSeaComponent {
     SearchData.type = "EXCEL";
     SearchData.docattach = "Y";
     SearchData.root_folder = this.gs.defaultValues.root_folder;
+    SearchData.mbl_id = this.Record.book_pkid;
 
     this.ErrorMessage = '';
-    this.prealertService.List(SearchData)
+    this.prealertService.PreAlertBookingSea(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.sSubject = "PRE-ALERT FOR " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
@@ -1763,7 +1767,7 @@ export class MblSeaComponent {
         this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
 
         this.AttachList = new Array<any>();
-        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: response.filesize });
+        // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: response.filesize });
         for (let rec of response.filelist) {
           this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
