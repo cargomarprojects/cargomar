@@ -90,6 +90,7 @@ import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
 import { AddressUpdateComponent } from './ledger/addressupdate.component';
+import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
 
 @NgModule({
   imports: [
@@ -144,7 +145,8 @@ import { AddressUpdateComponent } from './ledger/addressupdate.component';
     CashBookComponent,
     CollectionComponent,
     DailyExpComponent,
-    AddressUpdateComponent
+    AddressUpdateComponent,
+    AgentPayHistoryComponent
   ],
   providers: [
   ],

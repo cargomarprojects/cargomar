@@ -61,6 +61,7 @@ import { MtReportComponent} from './moneytransfer/mtreport.component';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
+import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
 
 const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
@@ -100,6 +101,7 @@ const routes: Routes = [
   { path: 'cashbook', component: CashBookComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'dailyexp', component: DailyExpComponent },
+  { path: 'agentpayhistory', component: AgentPayHistoryComponent },
 ];
 
 @NgModule({
