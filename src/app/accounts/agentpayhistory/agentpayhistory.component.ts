@@ -49,7 +49,7 @@ export class AgentPayHistoryComponent {
   intrest: string;
   credit_days: string;
 
-  ACCRECORD: SearchTable = new SearchTable();
+  AGENTRECORD: SearchTable = new SearchTable();
 
   BRRECORD: SearchTable = new SearchTable();
 
@@ -146,14 +146,14 @@ export class AgentPayHistoryComponent {
 
   InitLov() {
 
-    this.ACCRECORD = new SearchTable();
-    this.ACCRECORD.controlname = "ACCTM";
-    this.ACCRECORD.displaycolumn = "CODE";
-    this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
-    this.ACCRECORD.id = "";
-    this.ACCRECORD.code = "";
-    this.ACCRECORD.name = "";
+    this.AGENTRECORD = new SearchTable();
+    this.AGENTRECORD.controlname = "AGENT";
+    this.AGENTRECORD.displaycolumn = "CODE";
+    this.AGENTRECORD.type = "CUSTOMER";
+    this.AGENTRECORD.where  = " CUST_IS_AGENT = 'Y' ";
+    this.AGENTRECORD.id = "";
+    this.AGENTRECORD.code = "";
+    this.AGENTRECORD.name = "";
 
 
     this.BRRECORD = new SearchTable();
@@ -168,7 +168,7 @@ export class AgentPayHistoryComponent {
 
   LovSelected(_Record: SearchTable) {
 
-    if (_Record.controlname == "ACCTM") {
+    if (_Record.controlname == "AGENT") {
 
     }
 
@@ -248,15 +248,15 @@ export class AgentPayHistoryComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.from_date = this.from_date;
 
-    this.SearchData.acc_id = this.ACCRECORD.id;
-    this.SearchData.acc_name = this.ACCRECORD.name;
+    this.SearchData.acc_id = this.AGENTRECORD.id;
+    this.SearchData.acc_name = this.AGENTRECORD.name;
     this.SearchData.intrest = this.intrest;
     this.SearchData.credit_days = this.credit_days;
     this.SearchData.detail = this.detail;
 
     this.ErrorMessage = '';
-    //BLAccounts/PayHistoryService/List
-    this.mainService.PayHistory(this.SearchData)
+    //BLAccounts/AgentPayHistoryService/List
+    this.mainService.AgentPayHistory(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')

@@ -50,7 +50,10 @@ export class AccReportService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/PayHistory', SearchData, this.gs.headerparam2('authorized'));
     }
 
-
+    AgentPayHistory(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/AgentPayHistory', SearchData, this.gs.headerparam2('authorized'));
+    }
+    
     LoadDefault(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
