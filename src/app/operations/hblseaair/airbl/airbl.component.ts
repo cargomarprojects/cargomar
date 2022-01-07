@@ -316,7 +316,6 @@ export class AirBlComponent {
         this.mode = response.recmode;
 
         if (_type == 'PDF') {
-          // this.Downloadfile(_type);
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
           var Rec = response.record;
           this.Record.bl_original_print = Rec.bl_original_print;
