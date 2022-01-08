@@ -51,8 +51,6 @@ export class AgentPayHistoryComponent {
 
   AGENTRECORD: SearchTable = new SearchTable();
 
-  BRRECORD: SearchTable = new SearchTable();
-
   ErrorMessage = "";
 
   mode = '';
@@ -66,19 +64,19 @@ export class AgentPayHistoryComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    from_date:'',
-    acc_id:'',
+    from_date: '',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
     intrest: '',
-    credit_days:'',
+    credit_days: '',
     isoverdue: false,
     all: false,
     detail: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: payhistoryReport[] = [];
   // Single Record for add/edit/view details
@@ -124,7 +122,7 @@ export class AgentPayHistoryComponent {
     }
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
-    
+
 
     this.Init();
     this.LoadCombo();
@@ -132,12 +130,10 @@ export class AgentPayHistoryComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-    this.intrest = "12";
-    this.credit_days = "30";
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -150,19 +146,10 @@ export class AgentPayHistoryComponent {
     this.AGENTRECORD.controlname = "AGENT";
     this.AGENTRECORD.displaycolumn = "CODE";
     this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.where  = " CUST_IS_AGENT = 'Y' ";
+    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
     this.AGENTRECORD.id = "";
     this.AGENTRECORD.code = "";
     this.AGENTRECORD.name = "";
-
-
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
 
   }
 
@@ -172,10 +159,6 @@ export class AgentPayHistoryComponent {
 
     }
 
-    if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
-    }
 
   }
 
@@ -229,29 +212,14 @@ export class AgentPayHistoryComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-
-    if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
-    }
-    else {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.branch_name = this.gs.globalVariables.branch_name;
-
-    }
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.branch_name = this.gs.globalVariables.branch_name;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
-
-    this.SearchData.isoverdue = this.isoverdue;
-    this.SearchData.all = this.all;
-
     this.SearchData.to_date = this.to_date;
     this.SearchData.from_date = this.from_date;
-
     this.SearchData.acc_id = this.AGENTRECORD.id;
     this.SearchData.acc_name = this.AGENTRECORD.name;
-    this.SearchData.intrest = this.intrest;
-    this.SearchData.credit_days = this.credit_days;
     this.SearchData.detail = this.detail;
 
     this.ErrorMessage = '';
@@ -260,15 +228,15 @@ export class AgentPayHistoryComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -294,6 +262,6 @@ export class AgentPayHistoryComponent {
   //    rec.displayed = !rec.displayed;
   //  }
   //}
-  
+
 
 }

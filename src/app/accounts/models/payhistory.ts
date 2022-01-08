@@ -36,7 +36,9 @@ export class payhistoryReport {
 
   invno: string;
   jvh_narration: string;
-  jvh_reference:string;
-  rec_category:string;
+  jvh_reference: string;
+  rec_category: string;
   jv_curr_code: string;
+  allocation: number;
+  xref_stm_no:string;
 }
