@@ -44,7 +44,7 @@ export class OscrAgingComponent {
 
   to_date: string;
 
-  
+
 
   BRRECORD: SearchTable = new SearchTable();
 
@@ -61,15 +61,15 @@ export class OscrAgingComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    acc_id:'',
+    acc_id: '',
     branch_code: '',
     branch_name: '',
-    acc_name:'',
+    acc_name: '',
     isoverdue: false,
     all: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
@@ -118,10 +118,10 @@ export class OscrAgingComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -130,7 +130,7 @@ export class OscrAgingComponent {
 
   InitLov() {
 
-   
+
 
 
     this.BRRECORD = new SearchTable();
@@ -139,13 +139,13 @@ export class OscrAgingComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
   LovSelected(_Record: SearchTable) {
 
-   
+
 
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
@@ -211,7 +211,7 @@ export class OscrAgingComponent {
 
     }
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-   // this.SearchData.searchstring = this.searchstring.toUpperCase();
+    // this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.acc_id = '';
     this.SearchData.acc_name = '';
     this.SearchData.isoverdue = false;
@@ -219,28 +219,30 @@ export class OscrAgingComponent {
     this.SearchData.all = this.all;
 
     this.SearchData.to_date = this.to_date;
-  
-   
+
+
     this.ErrorMessage = '';
     this.mainService.OscrAging(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-          this.Downloadfile(_type);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+  // Downloadfile(_type: string) {
+  //   this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  // }
 
   OnChange(field: string) {
     this.RecordList = null;

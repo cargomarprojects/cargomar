@@ -46,7 +46,7 @@ export class OsAgingComponent {
 
   to_date: string;
 
-  
+
   ACCRECORD: SearchTable = new SearchTable();
   BRRECORD: SearchTable = new SearchTable();
 
@@ -63,18 +63,18 @@ export class OsAgingComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    acc_id:'',
+    acc_id: '',
     branch_code: '',
     branch_name: '',
-    acc_name:'',
+    acc_name: '',
     isoverdue: false,
     all: false,
-    user_name:'',
-    do_not_use_credit_date: false,    
-    legalonly :false,
+    user_name: '',
+    do_not_use_credit_date: false,
+    legalonly: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
@@ -123,10 +123,10 @@ export class OsAgingComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -139,12 +139,12 @@ export class OsAgingComponent {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
 
-    
+
 
 
     this.BRRECORD = new SearchTable();
@@ -153,13 +153,13 @@ export class OsAgingComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
   LovSelected(_Record: SearchTable) {
 
-   
+
 
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
@@ -235,36 +235,38 @@ export class OsAgingComponent {
 
     this.SearchData.acc_id = this.ACCRECORD.id;
     this.SearchData.acc_name = this.ACCRECORD.name;
-    
+
 
 
     this.SearchData.to_date = this.to_date;
-  
+
     this.SearchData.do_not_use_credit_date = this.do_not_use_credit_date;
 
     this.SearchData.legalonly = this.legalonly;
 
-   
+
     this.ErrorMessage = '';
     this.mainService.OsAging(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-          this.Downloadfile(_type);
-        else  if (_type != 'BAL-CONFIRM'){
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
+        else if (_type != 'BAL-CONFIRM') {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
-
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+  // Downloadfile(_type: string) {
+  //   this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+  // }
 
   OnChange(field: string) {
     this.RecordList = null;
