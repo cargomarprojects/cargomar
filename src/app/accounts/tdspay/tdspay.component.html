@@ -77,10 +77,12 @@
           <th>PAN</th>
           <th>NAME</th>
           <th>LOCATION</th>
+          
           <th class="text-right">AMOUNT PAID/CREDITED</th>
           <th class="text-right">DEDUCTION RATE</th>
           <th class="text-right">DEDUCTED AND DEPOSTIED TAX</th>
-          <th class="text-right">INTREST-194A</th>
+          <th class="text-right">DIVIDENT-194</th>
+          <th class="text-right">INTEREST-194A</th>
           <th class="text-right">COMM.BR-194H</th>
           <th class="text-right">CONTRACT-194C</th>
           <th class="text-right">BUILDING-194IA</th>
@@ -104,6 +106,7 @@
           <td align='right'>{{rec.jv_tds_gross_amt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_tds_rate | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_credit | number : '1.2-2'}}</td>
+          <td align='right'>{{rec.divident | number : '1.2-2'}}</td>
           <td align='right'>{{rec.interest | number : '1.2-2'}}</td>
           <td align='right'>{{rec.commision | number : '1.2-2'}}</td>
           <td align='right'>{{rec.contract | number : '1.2-2'}}</td>

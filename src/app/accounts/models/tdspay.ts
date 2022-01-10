@@ -17,6 +17,7 @@ export class TdsPay {
 
   jv_tds_gross_amt: number;
   jv_tds_rate: number;
+  divident: number;
   interest: number;
   commision: number;
   contract: number;
