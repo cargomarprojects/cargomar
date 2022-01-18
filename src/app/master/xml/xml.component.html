@@ -31,7 +31,7 @@
         <div class="col-10">
           <button [disabled]="loading" (click)="GenerateXml('SEA')" class="btn btn-primary btn-sm">Generate Sea Xml</button>
           <button [disabled]="loading" (click)="GenerateXml('AIR')" class="btn btn-primary btn-sm">Generate Air Xml</button>
-          <button [disabled]="loading" (click)="GenerateBookingXml()" class="btn btn-primary btn-sm">Generate Booking Xml</button>
+          <button [disabled]="loading" (click)="GenerateBookingXml(ftpsent)" class="btn btn-primary btn-sm">Generate Booking Xml</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
@@ -84,4 +84,18 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-
+<ng-template #ftpsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="pkid" [canftp]="canftp" [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="mMsg" [updatetype]="mail_update_type"
+      [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" 
+      [FtpAttachList]="FtpAttachList" [updatesql]="ftpUpdtSql" [rootpage]="canftp?'FTPPAGE':'MAILPAGE'" [disableBLftp]=true [default_ftptype]="'BOOKING-FTP'"
+      (ModifiedRecords)="ModifiedRecords($event)">
+    </app-mail>
+  </div>
+</ng-template>

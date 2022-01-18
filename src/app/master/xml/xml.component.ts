@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { XmlService } from '../services/xml.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { FileDetails } from '../../operations/models/filedetails';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-xml',
@@ -18,7 +19,7 @@ export class XmlComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-
+  modal: any;
   selectedRowIndex: number = -1;
 
   loading = false;
@@ -48,7 +49,20 @@ export class XmlComponent {
   AGENTRECORD: SearchTable = new SearchTable();
   FileList: FileDetails[] = [];
 
+  sSubject: string = '';
+  ftpUpdtSql: string = '';
+  ftpTransfertype: string = 'MBL-SE-BOOKING';
+  FtpAttachList: any[] = [];
+  ftp_agent_name: string = "";
+  ftp_agent_code: string = "";
+  AttachList: any[] = [];
+  canftp: boolean = false;
+  mMsg: string = "";
+  mail_update_type: string = "";
+  pkid: string = "";
+
   constructor(
+    private modalService: NgbModal,
     private mainService: XmlService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -247,7 +261,7 @@ export class XmlComponent {
     this.gs.ClosePage('home');
   }
 
-  GenerateBookingXml() {
+  GenerateBookingXml(ftpsent: any) {
 
     this.ErrorMessage = '';
     if (this.agent_id.trim().length <= 0) {
@@ -262,6 +276,9 @@ export class XmlComponent {
     if (!confirm("Generate Booking Xml " + this.branch_name)) {
       return;
     }
+
+
+
 
     this.loading = true;
     this.ErrorMessage = '';
@@ -301,11 +318,25 @@ export class XmlComponent {
       .subscribe(response => {
         this.loading = false;
         this.FileList = response.filelist;
-        this.ErrorMessage = response.savemsg;
-        // alert(this.ErrorMessage);
+        // this.ErrorMessage = response.savemsg;
+        // // alert(this.ErrorMessage);
+        // for (let rec of this.FileList) {
+        //   this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        // }
+         
+        this.canftp = true;
+        this.sSubject = "BOOKING - " + this.agent_name;
+        this.ftp_agent_code = this.agent_code;
+        this.ftp_agent_name = this.agent_name;
+        this.FtpAttachList = new Array<any>();
+        this.FileList = response.filelist;
+        this.AttachList = new Array<any>();
         for (let rec of this.FileList) {
-          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+          this.FtpAttachList.push({  filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BOOKING-FTP'  });
         }
+
+        this.open(ftpsent);
+
       },
         error => {
           this.loading = false;
@@ -317,4 +348,9 @@ export class XmlComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+
 }
