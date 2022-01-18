@@ -305,12 +305,14 @@ export class OpLedgerComponent {
         this.loading = false;
 
         if (_type == 'EXCEL') {
-          this.Downloadfile(_type);
+          // this.Downloadfile(_type);
+          this.Downloadfile(response.reportfile,_type,response.filedisplayname);
           return;
         }
 
         if (_type == 'EXCEL2') {
-          this.Downloadfile('EXCEL');
+          // this.Downloadfile('EXCEL');
+          this.Downloadfile(response.reportfile,'EXCEL',response.filedisplayname);
           return;
         }
 
@@ -333,11 +335,13 @@ export class OpLedgerComponent {
       });
   }
 
-  Downloadfile(_type: string) {
-    this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.folder_id, _type);
-  }
+  // Downloadfile(_type: string) {
+  //   this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.folder_id, _type);
+  // }
 
-  
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
   NewRecord() {
     this.lock_record = false;
