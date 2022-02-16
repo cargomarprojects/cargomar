@@ -51,6 +51,7 @@ export class ArApComponent {
   lock_record: boolean = false;
   lock_date: boolean = false;
   lock_cc: boolean = false;
+  cc_lock_status: string = '';
 
   selectedRowIndex = 0;
 
@@ -507,7 +508,7 @@ export class ArApComponent {
     this.lock_record = false;
     this.lock_date = false;
     this.lock_cc = false;
-
+    this.cc_lock_status = '';
     this.pkid = this.gs.getGuid();
 
     this.Record = new Ledgerh();
@@ -1897,6 +1898,7 @@ export class ArApComponent {
       SearchData.pkid = this.Recorddet.jv_acc_id;
     }
     if (controlname == 'jvh_cc_code') {
+      this.cc_lock_status = '';
       SearchData.table = 'costcenterm';
       SearchData.type = this.Record.jvh_cc_category;
       SearchData.comp_code = this.gs.globalVariables.comp_code;
@@ -1967,11 +1969,13 @@ export class ArApComponent {
             this.Record.jvh_cc_code = '';
             this.Record.jvh_cc_id = '';
             this.Record.jvh_cc_name = 'Invalid CostCenter';
+            this.cc_lock_status = '';
           }
           else {
             this.Record.jvh_cc_id = response.costcenterm[0].cc_pkid;
             this.Record.jvh_cc_code = response.costcenterm[0].cc_code;
             this.Record.jvh_cc_name = response.costcenterm[0].cc_name;
+            this.cc_lock_status = response.cc_lock_status;
           }
         }
 
