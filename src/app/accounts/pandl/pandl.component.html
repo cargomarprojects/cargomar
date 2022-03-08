@@ -25,18 +25,20 @@
         <input type="checkbox" [(ngModel)]="ismaincode" />
         <span>Main Code Wise</span>
       </div>
-      <div class="col-2">
+      <div class="col-1">
         <input type="checkbox" [(ngModel)]="ismonthwise" />
         <span>Month Wise</span>
       </div>
 
-      <div class="col">
+      <div class="col-1">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
       </div>
-      <div class="col">
+      <div class="col-1">
         <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
       </div>
-
+      <div class="col-1">
+        <button [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
+      </div>
     </div>
   </div>
 

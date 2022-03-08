@@ -32,7 +32,7 @@ export class PandLComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  
+
   loading = false;
   currentTab = 'LIST';
 
@@ -40,7 +40,7 @@ export class PandLComponent {
 
   sub: any;
   storesub: any;
-  
+
   pkid = '';
   urlid: string;
   from_date: string;
@@ -54,10 +54,10 @@ export class PandLComponent {
   page_rowcount = 0;
 
   ErrorMessage = "";
-  
+
   SearchData = {
     type: '',
-    urlid : '',
+    urlid: '',
     subtype: '',
     pkid: '',
     report_folder: '',
@@ -68,30 +68,32 @@ export class PandLComponent {
     from_date: '',
     to_date: '',
     ismaincode: false,
-    ismonthwise : false,
+    ismonthwise: false,
     page_count: 0,
     page_current: 0,
     page_rows: 0,
     page_rowcount: 0,
-    hide_ho_entries : '',
+    hide_ho_entries: '',
+    print_excel: false,
+    branch_codes: '',
   };
 
   // Array For Displaying List
-  pandlstate: Observable<PandlReportState>;  
+  pandlstate: Observable<PandlReportState>;
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
   Record: LedgerReport = new LedgerReport;
-
+  BranchList: any[] = [];
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
     private gs: GlobalService,
-    private store: Store<pandlreducer.AppState>    
+    private store: Store<pandlreducer.AppState>
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       this.page_rows = 20;
-      this.urlid = params["id"];      
+      this.urlid = params["id"];
       if (params["parameter"] != "") {
         this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
@@ -131,12 +133,12 @@ export class PandLComponent {
       else {
         this.RecordList = undefined;
         this.ismaincode = false;
-        this.ismonthwiseformat =false;
+        this.ismonthwiseformat = false;
         this.page_count = 0;
         this.page_current = 0;
         this.page_rowcount = 0;
         this.from_date = this.gs.globalVariables.year_start_date;
-        this.to_date = this.gs.globalVariables.year_end_date;        
+        this.to_date = this.gs.globalVariables.year_end_date;
       }
     });
 
@@ -146,7 +148,7 @@ export class PandLComponent {
 
   }
 
-  InitSearchData(){
+  InitSearchData() {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -158,7 +160,7 @@ export class PandLComponent {
     this.SearchData.ismaincode = this.ismaincode;
     this.SearchData.ismonthwise = this.ismonthwise;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
-    
+
   }
 
   // Destroy Will be called when this component is closed
@@ -166,7 +168,7 @@ export class PandLComponent {
     this.sub.unsubscribe();
     this.storesub.unsubscribe();
   }
- 
+
 
 
   ResetControls() {
@@ -206,24 +208,24 @@ export class PandLComponent {
           const state: PandlReportState = {
             urlid: this.urlid,
             pkid: this.pkid,
-            searchstring : this.SearchData.searchstring,
-            from_date : this.SearchData.from_date,
-            to_date : this.SearchData.to_date ,
+            searchstring: this.SearchData.searchstring,
+            from_date: this.SearchData.from_date,
+            to_date: this.SearchData.to_date,
             ismaincode: this.SearchData.ismaincode,
-            ismonthwise : this.SearchData.ismonthwise,
+            ismonthwise: this.SearchData.ismonthwise,
             page_count: response.page_count,
             page_current: response.page_current,
             page_rowcount: response.page_rowcount,
             records: response.list
           };
 
-          this.store.dispatch(new pandlactions.Update({ id: this.urlid, changes: state }));          
+          this.store.dispatch(new pandlactions.Update({ id: this.urlid, changes: state }));
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -232,25 +234,87 @@ export class PandLComponent {
   }
 
 
-  drilldown(rec : LedgerReport){
+  drilldown(rec: LedgerReport) {
     let param = {
-      menuid : 'LEDGER',
-      isdrildown : true,
-      acc_pkid : rec.acc_pkid,
-      acc_code : rec.acc_code,
-      acc_name : rec.acc_name,
-      from_date : this.SearchData.from_date,
-      to_date : this.SearchData.to_date,
-      ismaincode : this.SearchData.ismaincode
+      menuid: 'LEDGER',
+      isdrildown: true,
+      acc_pkid: rec.acc_pkid,
+      acc_code: rec.acc_code,
+      acc_name: rec.acc_name,
+      from_date: this.SearchData.from_date,
+      to_date: this.SearchData.to_date,
+      ismaincode: this.SearchData.ismaincode
     }
-    this.gs.Naviagete("accounts/ledger",JSON.stringify(param));
+    this.gs.Naviagete("accounts/ledger", JSON.stringify(param));
   }
 
-  
+
 
   Close() {
-    this.store.dispatch(new pandlactions.Delete({ id: this.urlid}));
+    this.store.dispatch(new pandlactions.Delete({ id: this.urlid }));
     this.gs.ClosePage('home');
 
+  }
+
+
+  getAllBranch() {
+
+    let branch_codes = '';
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = 'From Date Cannot Be Blank';
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = 'To Date Cannot Be Blank';
+      return;
+    }
+
+    this.loading = true;
+    this.pkid = this.gs.getGuid();
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.mainService.getAllBranch(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.BranchList = response.branchlist;
+        branch_codes = '';
+        for (let rec of this.BranchList) {
+          if (branch_codes != '')
+            branch_codes += ",";
+          branch_codes += rec.comp_code;
+        }
+        this.InitSearchData();
+        this.SearchData.type = 'CONSOL';
+        this.SearchData.subtype = '';
+        this.SearchData.print_excel = false;
+        this.SearchData.branch_codes='';
+        for (let rec of this.BranchList) {
+          this.SearchData.branch_code = rec.comp_code;
+          this.SearchData.type = 'CONSOL';
+          this.SearchData.branch_codes = branch_codes;
+          this.ConsolList();
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  ConsolList() {
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.PandLList(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        if (response.filename!='.xls')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
