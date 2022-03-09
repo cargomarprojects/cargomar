@@ -21,7 +21,7 @@ export class LoginComponent {
   //username: string = '';
   //password: string = '';
   
-  //test
+  //test - 2
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
 
