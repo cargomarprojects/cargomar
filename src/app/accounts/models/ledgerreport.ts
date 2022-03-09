@@ -24,7 +24,7 @@ export class LedgerReport {
   rec_category: string;
   rec_company_code: string;
   rec_branch_code: string;
-
+  
 
   jv_od_type: string;
   jv_od_remarks: string;

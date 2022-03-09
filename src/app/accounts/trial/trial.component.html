@@ -30,12 +30,13 @@
         <input type="checkbox" [(ngModel)]="shownote" />
         <span>Show Note</span>
       </div>
+      <div class="col-1" *ngIf="bAdmin">
+        <input type="checkbox" [(ngModel)]="isall" />
+        <span>All</span>
+      </div>
 
-
-
-      <div class="col">
+      <div class="col-1">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
-        <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
       </div>
 
     </div>
@@ -58,6 +59,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf='isall'>BRANCH</th>
           <th>MAIN-GROUP</th>
           <th>SUB-GROUP</th>
           <th>A/C CODE</th>
@@ -78,6 +80,7 @@
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr (click)="drilldown(rec)" style="cursor:pointer" >
+          <td *ngIf='isall'>{{rec.rec_branch_code}}</td>
           <td>{{rec.level2}}</td>
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>

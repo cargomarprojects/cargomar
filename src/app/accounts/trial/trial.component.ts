@@ -26,17 +26,18 @@ export class TrialComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
 
-  
+
   menu_record: any;
   loading = false;
-  
+
   sub: any;
   storesub: any;
 
-  currentTab='LIST';
+  currentTab = 'LIST';
 
-  bAdmin  : boolean = false;
-  shownote : boolean = false;
+  bAdmin: boolean = false;
+  shownote: boolean = false;
+  isall: boolean = false;
 
   ErrorMessage = "";
 
@@ -56,7 +57,7 @@ export class TrialComponent {
   BranchList: any[] = [];
   SearchData = {
     pkid: '',
-    urlid : '',
+    urlid: '',
     type: '',
     subtype: '',
     report_folder: '',
@@ -73,14 +74,15 @@ export class TrialComponent {
     company_code: '',
     branch_code: '',
     year_code: '',
-    branch_codes: '',    
+    branch_codes: '',
+    isall: false,
   };
-  
+
 
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
-    private location : Location,
+    private location: Location,
     private gs: GlobalService,
     private store: Store<trialreducer.AppState>
   ) {
@@ -105,15 +107,14 @@ export class TrialComponent {
   InitComponent() {
 
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-       this.bAdmin =  this.menu_record.rights_admin;
-       if ( this.gs.globalVariables.user_code == 'ADMIN')
+      this.bAdmin = this.menu_record.rights_admin;
+      if (this.gs.globalVariables.user_code == 'ADMIN')
         this.bAdmin = true;
     }
 
-    
+
 
     this.storesub = this.store.select(trialreducer.getTrialStateRec(this.urlid)).subscribe(rec => {
       if (rec) {
@@ -124,6 +125,7 @@ export class TrialComponent {
         this.to_date = rec.to_date;
         this.ismaincode = rec.ismaincode;
         this.shownote = rec.shownote;
+        this.isall = rec.isall;
         this.page_count = rec.page_count;
         this.page_current = rec.page_current;
         this.page_rowcount = rec.page_rowcount;
@@ -133,12 +135,13 @@ export class TrialComponent {
       else {
         this.RecordList = undefined;
         this.ismaincode = false;
-        this.shownote =false;
+        this.shownote = false;
+        this.isall = false;
         this.page_count = 0;
         this.page_current = 0;
         this.page_rowcount = 0;
         this.from_date = this.gs.globalVariables.year_start_date;
-        this.to_date = this.gs.globalVariables.year_end_date;        
+        this.to_date = this.gs.globalVariables.year_end_date;
       }
     });
 
@@ -149,7 +152,7 @@ export class TrialComponent {
     this.sub.unsubscribe();
     this.storesub.unsubscribe();
   }
-  
+
 
   ResetControls() {
     if (!this.menu_record)
@@ -157,7 +160,7 @@ export class TrialComponent {
   }
 
 
-  InitSearchData(){
+  InitSearchData() {
 
     this.SearchData.pkid = this.pkid;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -171,7 +174,7 @@ export class TrialComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.ismaincode = this.ismaincode;
     this.SearchData.shownote = this.shownote;
-
+    this.SearchData.isall = this.isall;
 
     this.SearchData.page_count = this.page_count;
     this.SearchData.page_current = this.page_current;
@@ -206,17 +209,18 @@ export class TrialComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
 
           const state: TrialReportState = {
             urlid: this.urlid,
             pkid: this.pkid,
-            searchstring : this.SearchData.searchstring,
-            from_date : this.SearchData.from_date,
-            to_date : this.SearchData.to_date ,
+            searchstring: this.SearchData.searchstring,
+            from_date: this.SearchData.from_date,
+            to_date: this.SearchData.to_date,
             ismaincode: this.SearchData.ismaincode,
             shownote: this.SearchData.shownote,
+            isall: this.SearchData.isall,
             page_count: response.page_count,
             page_current: response.page_current,
             page_rowcount: response.page_rowcount,
@@ -242,22 +246,22 @@ export class TrialComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
-  drilldown(rec : LedgerReport){
+  drilldown(rec: LedgerReport) {
     let param = {
-      menuid : 'LEDGER',
-      isdrildown : true,
-      acc_pkid : rec.acc_pkid,
-      acc_code : rec.acc_code,
-      acc_name : rec.acc_name,
-      from_date : this.SearchData.from_date,
-      to_date : this.SearchData.to_date,
-      ismaincode : this.SearchData.ismaincode,
+      menuid: 'LEDGER',
+      isdrildown: true,
+      acc_pkid: rec.acc_pkid,
+      acc_code: rec.acc_code,
+      acc_name: rec.acc_name,
+      from_date: this.SearchData.from_date,
+      to_date: this.SearchData.to_date,
+      ismaincode: this.SearchData.ismaincode,
     }
-    this.gs.Naviagete("accounts/ledger",JSON.stringify(param));
+    this.gs.Naviagete("accounts/ledger", JSON.stringify(param));
   }
 
   Close() {
-    this.store.dispatch(new trialactions.Delete({ id: this.urlid}));
+    this.store.dispatch(new trialactions.Delete({ id: this.urlid }));
     this.gs.ClosePage('home');
   }
 

@@ -10,6 +10,7 @@ export interface TrialReportState{
     to_date : string ,
     ismaincode : boolean,
     shownote : boolean,
+    isall : boolean,
     page_count :number;
     page_current :number;
     page_rowcount :number;        
