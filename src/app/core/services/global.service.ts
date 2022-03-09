@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
   
-  public software_version_string: string = '1.490';
+  public software_version_string: string = '1.491';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
