@@ -193,7 +193,12 @@ export class TrialComponent {
       this.ErrorMessage = 'To Date Cannot Be Blank';
       return;
     }
-
+    if (_type == 'EXCEL') {
+      if (this.gs.isBlank(this.RecordList)) {
+        this.ErrorMessage = 'Process Report and Continue....';
+        return;
+      }
+    }
     this.loading = true;
 
     if (_type == "NEW") {

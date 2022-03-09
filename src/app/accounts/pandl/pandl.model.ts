@@ -10,6 +10,7 @@ export interface PandlReportState{
     to_date : string ,
     ismaincode : boolean,
     ismonthwise : boolean,
+    isall:boolean,
     page_count :number;
     page_current :number;
     page_rowcount :number;        

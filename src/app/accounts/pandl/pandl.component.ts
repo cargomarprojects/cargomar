@@ -48,6 +48,7 @@ export class PandLComponent {
   to_date: string;
   ismaincode: boolean = false;
   ismonthwise: boolean = false;
+  isall: boolean = false;
   ismonthwiseformat = true;
   page_count = 0;
   page_current = 0;
@@ -77,6 +78,7 @@ export class PandLComponent {
     hide_ho_entries: '',
     print_excel: false,
     branch_codes: '',
+    isall: false,
   };
 
   // Array For Displaying List
@@ -129,6 +131,7 @@ export class PandLComponent {
         this.ismaincode = rec.ismaincode;
         this.ismonthwise = rec.ismonthwise;
         this.ismonthwiseformat = rec.ismonthwise;
+        this.isall = rec.isall;
         this.page_count = rec.page_count;
         this.page_current = rec.page_current;
         this.page_rowcount = rec.page_rowcount;
@@ -137,6 +140,7 @@ export class PandLComponent {
       else {
         this.RecordList = undefined;
         this.ismaincode = false;
+        this.isall = false;
         this.ismonthwiseformat = false;
         this.page_count = 0;
         this.page_current = 0;
@@ -162,6 +166,7 @@ export class PandLComponent {
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
     this.SearchData.ismaincode = this.ismaincode;
+    this.SearchData.isall = this.isall;
     this.SearchData.ismonthwise = this.ismonthwise;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
 
@@ -191,6 +196,13 @@ export class PandLComponent {
       return;
     }
 
+    if (_type == 'EXCEL') {
+      if (this.gs.isBlank(this.RecordList)) {
+        this.ErrorMessage = 'Process Report and Continue....';
+        return;
+      }
+    }
+
     this.loading = true;
 
     if (_type == "NEW") {
@@ -217,6 +229,7 @@ export class PandLComponent {
             to_date: this.SearchData.to_date,
             ismaincode: this.SearchData.ismaincode,
             ismonthwise: this.SearchData.ismonthwise,
+            isall: this.SearchData.isall,
             page_count: response.page_count,
             page_current: response.page_current,
             page_rowcount: response.page_rowcount,
@@ -260,7 +273,8 @@ export class PandLComponent {
 
   }
 
-
+  //Not use
+  /*
   getAllBranch() {
 
     let branch_codes = '';
@@ -320,5 +334,5 @@ export class PandLComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
-  }
+  }*/
 }

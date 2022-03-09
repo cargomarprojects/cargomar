@@ -10,7 +10,7 @@
 
   <div class="page-search">
     <div class="row">
-      <div class="col-4">
+      <div class="col-5">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
           <div class="col-4">
@@ -23,25 +23,29 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-5">
         <div class="form-group row">
-          <div class="col-6">
+          <div class="col-4">
             <input type="checkbox" [(ngModel)]="ismaincode" />
             <span>Main Code Wise</span>
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <input type="checkbox" [(ngModel)]="ismonthwise" />
             <span>Month Wise</span>
           </div>
+          <div *ngIf="bAdmin" class="col-4">
+            <input type="checkbox" [(ngModel)]="isall" />
+            <span>All</span>
+          </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <div class="form-group row">
           <div class="col-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Process
               Report</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Excel</button>
-            <!-- <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button> -->
+            <!-- <button   [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button> -->
           </div>
         </div>
       </div>
@@ -54,6 +58,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf='isall'>BRANCH</th>
           <th>GROUP</th>
           <th>A/C CODE</th>
           <th>A/C NAME</th>
@@ -78,6 +83,7 @@
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr (click)="drilldown(rec)" style="cursor:pointer">
+          <td *ngIf='isall'>{{rec.rec_branch_code}}</td>
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
           <td>{{rec.acc_name}}</td>
@@ -107,6 +113,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf='isall'>BRANCH</th>
           <th>GROUP</th>
           <th>A/C CODE</th>
           <th>A/C NAME</th>
@@ -120,6 +127,7 @@
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr (click)="drilldown(rec)" style="cursor:pointer">
+          <td *ngIf='isall'>{{rec.rec_branch_code}}</td>
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
           <td>{{rec.acc_name}}</td>

@@ -17,6 +17,7 @@ export const initialState: PandlReportState = {
     to_date : '',
     ismaincode : false,
     ismonthwise : false,
+    isall : false,
     page_count :0,
     page_current : 0,
     page_rowcount :0,
