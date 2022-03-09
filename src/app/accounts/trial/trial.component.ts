@@ -53,7 +53,7 @@ export class TrialComponent {
 
   trialstate: Observable<TrialReportState>;
   RecordList: LedgerReport[] = [];
-  
+  BranchList: any[] = [];
   SearchData = {
     pkid: '',
     urlid : '',
@@ -72,7 +72,8 @@ export class TrialComponent {
     hide_ho_entries: '',
     company_code: '',
     branch_code: '',
-    year_code: '',    
+    year_code: '',
+    branch_codes: '',    
   };
   
 
@@ -258,5 +259,65 @@ export class TrialComponent {
   Close() {
     this.store.dispatch(new trialactions.Delete({ id: this.urlid}));
     this.gs.ClosePage('home');
+  }
+
+  getAllBranch() {
+
+    let branch_codes = '';
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = 'From Date Cannot Be Blank';
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = 'To Date Cannot Be Blank';
+      return;
+    }
+
+    this.loading = true;
+    this.pkid = this.gs.getGuid();
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.mainService.getAllBranch(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.BranchList = response.branchlist;
+        branch_codes = '';
+        for (let rec of this.BranchList) {
+          if (branch_codes != '')
+            branch_codes += ",";
+          branch_codes += rec.comp_code;
+        }
+        this.InitSearchData();
+        this.SearchData.type = 'CONSOL';
+        this.SearchData.subtype = '';
+        this.SearchData.branch_codes = '';
+        for (let rec of this.BranchList) {
+          this.SearchData.branch_code = rec.comp_code;
+          this.SearchData.type = 'CONSOL';
+          this.SearchData.branch_codes = branch_codes;
+          this.ConsolList();
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  ConsolList() {
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.List(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        if (response.reportfile != '.xls')
+          this.Downloadfile(response.reportfile, 'EXCEL', response.filedisplayname);
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

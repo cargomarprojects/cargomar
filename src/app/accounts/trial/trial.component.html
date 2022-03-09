@@ -35,6 +35,7 @@
 
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+        <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
       </div>
 
     </div>

@@ -41,16 +41,10 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Process
               Report</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Excel</button>
-            <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
+            <!-- <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button> -->
           </div>
         </div>
       </div>
-      <!-- <div class="col-1">
-        <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-      </div>
-      <div class="col-1">
-        <button [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
-      </div> -->
     </div>
   </div>
 
