@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -11,34 +10,47 @@
 
   <div class="page-search">
     <div class="row">
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
 
-      <label class="col-1 col-form-label col-form-label-sm">From Date</label>
-      <div class="col-2">
-        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          <label class="col-2 col-form-label col-form-label-sm">To.Date</label>
+          <div class="col-4">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
       </div>
-
-      <label class="col-1 col-form-label col-form-label-sm">To Date</label>
-      <div class="col-2">
-        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+      <div class="col-4">
+        <div class="form-group row">
+          <div class="col-6">
+            <input type="checkbox" [(ngModel)]="ismaincode" />
+            <span>Main Code Wise</span>
+          </div>
+          <div class="col-6">
+            <input type="checkbox" [(ngModel)]="ismonthwise" />
+            <span>Month Wise</span>
+          </div>
+        </div>
       </div>
-      <div class="col-2">
-        <input type="checkbox" [(ngModel)]="ismaincode" />
-        <span>Main Code Wise</span>
+      <div class="col-4">
+        <div class="form-group row">
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Process
+              Report</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Excel</button>
+            <button *ngIf="bAdmin"  [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
+          </div>
+        </div>
       </div>
-      <div class="col-1">
-        <input type="checkbox" [(ngModel)]="ismonthwise" />
-        <span>Month Wise</span>
-      </div>
-
-      <div class="col-1">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
-      </div>
-      <div class="col-1">
+      <!-- <div class="col-1">
         <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
       </div>
       <div class="col-1">
         <button [disabled]="loading" (click)="getAllBranch()" class="btn btn-primary btn-sm">Consol</button>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -71,25 +83,25 @@
       </thead>
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="drilldown(rec)" style="cursor:pointer" >
+        <tr (click)="drilldown(rec)" style="cursor:pointer">
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
           <td>{{rec.acc_name}}</td>
 
-          <td align='right'>{{ rec.apr | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.may | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.jun | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.jul | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.aug | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.sep | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.oct | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.nov | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.dec | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.jan | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.feb | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.mar | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
 
-          <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.bal | number : '1.2-2' }}</td>
 
         </tr>
       </tbody>
@@ -113,7 +125,7 @@
       </thead>
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="drilldown(rec)" style="cursor:pointer" >
+        <tr (click)="drilldown(rec)" style="cursor:pointer">
           <td>{{rec.grp_name}}</td>
           <td>{{rec.acc_code}}</td>
           <td>{{rec.acc_name}}</td>
@@ -121,7 +133,7 @@
 
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.drbal | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.drbal | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.crbal | number : '1.2-2' }}</td>
 
         </tr>
@@ -140,5 +152,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
-
-

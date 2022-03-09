@@ -41,6 +41,7 @@ export class PandLComponent {
   sub: any;
   storesub: any;
 
+  bAdmin = false;
   pkid = '';
   urlid: string;
   from_date: string;
@@ -110,10 +111,13 @@ export class PandLComponent {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
 
     this.storesub = this.store.select(pandlreducer.getPandlStateRec(this.urlid)).subscribe(rec => {
       if (rec) {
@@ -286,7 +290,7 @@ export class PandLComponent {
         this.SearchData.type = 'CONSOL';
         this.SearchData.subtype = '';
         this.SearchData.print_excel = false;
-        this.SearchData.branch_codes='';
+        this.SearchData.branch_codes = '';
         for (let rec of this.BranchList) {
           this.SearchData.branch_code = rec.comp_code;
           this.SearchData.type = 'CONSOL';
@@ -308,7 +312,7 @@ export class PandLComponent {
       .subscribe(response => {
         this.loading = false;
 
-        if (response.filename!='.xls')
+        if (response.filename != '.xls')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
 
       },
