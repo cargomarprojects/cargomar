@@ -7,6 +7,7 @@
             <label>{{title}}</label>
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">BRANCH WISE</button>
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">SALESMAN WISE</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','PARTYLIST')">PARTY WISE</button>
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">LEGAL</button>
             <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)"
@@ -29,12 +30,13 @@
   </div>
 
   <div class="page-list">
-    <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'" class="page-body table-responsive">
+    <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'|| category == 'PARTYLIST'" class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
-            <th *ngIf="category == 'OSLIST'">BRANCH</th>
-            <th *ngIf="category == 'SMANLIST'">SALESMAN</th>
+            <th *ngIf="category == 'PARTYLIST'">PARTY</th>
+            <th *ngIf="category == 'SMANLIST' || category == 'PARTYLIST'">SALESMAN</th>
+            <th *ngIf="category == 'OSLIST' || category == 'PARTYLIST'">BRANCH</th>
             <th class="text-right">0-15</th>
             <th class="text-right">16-30</th>
             <th class="text-right">31-60</th>
@@ -46,14 +48,14 @@
             <th class="text-right">OVERDUE</th>
             <th class="text-right">1YEAR+</th>
             <th class="text-right">LEGAL</th>
-
           </tr>
         </thead>
 
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr [style.color]="rec.row_colour" (click)="openchild(rec)">
-            <td *ngIf="category == 'OSLIST'">{{rec.branch}}</td>
-            <td *ngIf="category == 'SMANLIST'">{{rec.sman}}</td>
+            <td *ngIf="category == 'PARTYLIST'">{{rec.party}}</td>
+            <td *ngIf="category == 'SMANLIST' || category == 'PARTYLIST'">{{rec.sman}}</td>
+            <td *ngIf="category == 'OSLIST' || category == 'PARTYLIST'">{{rec.branch}}</td>
             <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
             <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
             <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
