@@ -196,6 +196,8 @@ export class OsRepComponent {
       this.title = 'OS - Branch Wise';
     if (this.category == 'SMANLIST')
       this.title = 'OS - Salesman Wise';
+      if (this.category == 'PARTYLIST')
+      this.title = 'OS - Party Wise';
     if (this.category == 'LEGAL') {
       this.title = 'OS - Legal Wise';
 
