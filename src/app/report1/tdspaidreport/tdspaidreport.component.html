@@ -125,20 +125,24 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th width="5%">TAN-CODE</th>
+          <th width="6%">TAN-CODE</th>
           <th width="30%">TAN-NAME</th>
+          <th width="6%">PARTY-CODE</th>
+          <th width="30%">PARTY-NAME</th>
           <th width="5%" class="text-right">TDS-DR</th>
           <th width="5%" class="text-right">TDS-CR</th>
           <th width="5%" class="text-right">CERT-AMT</th>
           <th width="5%" class="text-right">ALLOCATED</th>
           <th width="5%" class="text-right">PENDING</th>
-          <th width="40%"></th>
+          <th width="3%"></th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
           <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_code}}</td>
           <td (click)="showDetails(rec)" style="cursor: pointer">{{rec.tan_name}}</td>
+          <td>{{rec.party_code}}</td>
+          <td>{{rec.party_name}}</td>
           <td align='right'>{{ rec.tds_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_credit | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.cert_amt | number : '1.2-2' }}</td>
