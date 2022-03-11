@@ -41,6 +41,7 @@
               <option [value]="'INVOICE-DETAILS'">INVOICE-DETAILS</option>
               <option [value]="'PURCHASE'">PURCHASE</option>
               <option [value]="'PURCHASE-DETAILS'">PURCHASE-DETAILS</option>
+              <option [value]="'PURCHASE-RATE-WISE'">PURCHASE-RATE-WISE</option>
               <option [value]="'FORM 3B'">FORM 3B</option>
               <option [value]="'FORM 3B-RATE WISE'">FORM 3B-RATE WISE</option>
               <option [value]="'DN'">DEBIT NOTE</option>
@@ -297,7 +298,7 @@
     </table>
   </div>
 
-  <div *ngIf="display_format_type=='PURCHASE'" class="page-body table-responsive">
+  <div *ngIf="display_format_type=='PURCHASE'||display_format_type=='PURCHASE-RATE-WISE'" class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
@@ -318,6 +319,7 @@
           <th>RC[Y/N]</th>
           <th>INV-TYPE</th>
           <th class="text-right">INV-AMT</th>
+          <th *ngIf="display_format_type=='PURCHASE-RATE-WISE'" class="text-right">RATE</th>
           <th class="text-right">TAXABLE-AMT</th>
           <th class="text-right">CGST-AMT</th>
           <th class="text-right">SGST-AMT</th>
@@ -344,6 +346,7 @@
           <td>{{rec.rc}}</td>
           <td>{{rec.jvh_invoice_type}}</td>
           <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+          <td *ngIf="display_format_type=='PURCHASE-RATE-WISE'" align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
