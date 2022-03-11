@@ -273,9 +273,9 @@ export class XmlComponent {
       return;
     }
 
-    if (!confirm("Generate Booking Xml " + this.branch_name)) {
-      return;
-    }
+    // if (!confirm("Generate Booking Xml " + this.branch_name)) {
+    //   return;
+    // }
 
 
 
