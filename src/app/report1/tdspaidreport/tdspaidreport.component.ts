@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { TdsPaidReport} from '../models/tdspaidreport';
+import { TdsPaidReport } from '../models/tdspaidreport';
 import { RepService } from '../services/report.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { RepService } from '../services/report.service';
 
 export class TdspaidReportComponent {
   title = 'Tds Paid Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -25,7 +25,7 @@ export class TdspaidReportComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-  
+
   branch_code: string = '';
   format_type: string = '';
   from_date: string = '';
@@ -33,6 +33,7 @@ export class TdspaidReportComponent {
   searchstring = '';
   display_format_type: string = '';
 
+  bAdmin = false;
   bCompany = false;
   disableSave = true;
   loading = false;
@@ -53,10 +54,10 @@ export class TdspaidReportComponent {
     format_type: '',
     all: false
   };
-  
+
   // Array For Displaying List
   RecordList: TdsPaidReport[] = [];
- //  Single Record for add/edit/view details
+  //  Single Record for add/edit/view details
   Record: TdsPaidReport = new TdsPaidReport;
   BRRECORD: SearchTable = new SearchTable();
 
@@ -87,11 +88,14 @@ export class TdspaidReportComponent {
 
   InitComponent() {
     this.bCompany = false;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_company )
+      if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -106,7 +110,7 @@ export class TdspaidReportComponent {
     this.display_format_type = this.format_type;
   }
 
- // // Destroy Will be called when this component is closed
+  // // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -155,7 +159,7 @@ export class TdspaidReportComponent {
     return this.disableSave;
   }
 
- // // Query List Data
+  // // Query List Data
   List(_type: string) {
 
     this.ErrorMessage = '';
@@ -179,9 +183,9 @@ export class TdspaidReportComponent {
     //     return;
     //   }
     // }
-    
-     
-    
+
+
+
 
     // if (_type == "GSTR1") {
 
@@ -216,11 +220,11 @@ export class TdspaidReportComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -238,10 +242,10 @@ export class TdspaidReportComponent {
     this.gs.ClosePage('home');
   }
   showDetails(rec: TdsPaidReport) {
-    if (rec.row_type=="TOTAL")
+    if (rec.row_type == "TOTAL")
       return;
 
-      rec.displayed = !rec.displayed;
+    rec.displayed = !rec.displayed;
     // if (rec.tan_id !== '') {
     //   rec.displayed = !rec.displayed;
     // }

@@ -30,6 +30,7 @@
               <option [value]="'TDS-PAID-SUMMARY'">TDS PAID SUMMARY</option>
               <option [value]="'26AS-MASTERS'">26AS MASTERS</option>
               <option [value]="'26AS-DETAILS'">26AS DETAILS</option>
+              <option *ngIf="bAdmin" [value]="'26AS+TDSPAID+CERT'">26AS + TDSPAID + CERT</option>
             </select>
           </div>
         </div>
@@ -214,7 +215,51 @@
       </tbody>
     </table>
   </div>
-  
+  <div *ngIf="display_format_type=='26AS+TDSPAID+CERT'" class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>TYPE</th>
+          <th>TAN#</th>
+          <th>BRANCH</th>
+          <th>BR.COUNT</th>
+          <th>NAME</th>
+          <th>CERT.COUNT</th>
+          <th class="text-right">TDS.26</th>
+          <th class="text-right">TDS.CERT</th>
+          <th class="text-right">TDS.PAID</th>
+          <th class="text-right">DIFF.26AS.CERT</th>
+          <th>26AS.CERT.STATUS</th>
+          <th class="text-right">DIFF.26AS.TDSPAID</th>
+          <th>26AS.PAID.STATUS</th>
+          <th class="text-right">DIFF.CERT.TDSPAID</th>
+          <th>CERT.PAID.STATUS</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.row_type}}</td>
+          <td>{{rec.tan_code}}</td>
+          <td>{{rec.branch_code}}</td>
+          <td>{{rec.branch_count}}</td>
+          <td>{{rec.tan_name}}</td>
+          <td>{{rec.cert_count}}</td>
+          <td class="text-right">{{rec.tds_26_amt | number : '1.2-2' }}</td>
+          <td class="text-right">{{rec.tds_cert_amt | number : '1.2-2' }}</td>
+          <td class="text-right">{{rec.tds_paid_amt | number : '1.2-2' }}</td>
+          <td class="text-right">{{rec.diff_26as_cert | number : '1.2-2' }}</td>
+          <td>{{rec.cert_26as_status}}</td>
+          <td class="text-right">{{ rec.diff_26as_tdspaid | number : '1.2-2' }}</td>
+          <td>{{ rec.paid_26as_status}}</td>
+          <td class="text-right">{{ rec.diff_cert_tdspaid | number : '1.2-2' }}</td>
+          <td>{{ rec.cert_paid_status}}</td>
+          <td>{{ rec.status}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
