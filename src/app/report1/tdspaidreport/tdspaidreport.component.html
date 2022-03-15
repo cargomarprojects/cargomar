@@ -216,7 +216,7 @@
     </table>
   </div>
   <div *ngIf="display_format_type=='26AS+TDSPAID+CERT'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>TYPE</th>
@@ -237,10 +237,10 @@
           <th>STATUS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
+      <tbody class="page-body-tbody" >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.row_type}}</td>
-          <td>{{rec.tan_code}}</td>
+          <td  class="hlink" (click)="showDetailReport(rec,tdscertpaid)" style="cursor: pointer">{{rec.tan_code}}</td>
           <td>{{rec.branch_code}}</td>
           <td>{{rec.branch_count}}</td>
           <td>{{rec.tan_name}}</td>
@@ -317,3 +317,15 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+
+<ng-template #tdscertpaid let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Tds Detail Report</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-tdspaidcertdet [type]="type" [menuid]="menuid" [tan_code]="tan_code"></app-tdspaidcertdet>
+  </div>
+</ng-template>

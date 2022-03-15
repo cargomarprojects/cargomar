@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -22,17 +23,18 @@ export class TdspaidReportComponent {
   sub: any;
   urlid: string;
 
+  selectedRowIndex = 0;
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  modal: any;
   branch_code: string = '';
   format_type: string = '';
   from_date: string = '';
   to_date: string = '';
   searchstring = '';
   display_format_type: string = '';
-
+  tan_code: string = '';
   bAdmin = false;
   bCompany = false;
   disableSave = true;
@@ -62,6 +64,7 @@ export class TdspaidReportComponent {
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -249,5 +252,17 @@ export class TdspaidReportComponent {
     // if (rec.tan_id !== '') {
     //   rec.displayed = !rec.displayed;
     // }
+
+  }
+
+  showDetailReport(rec: TdsPaidReport, tdscertpaid: any) {
+    
+    if (rec == null)
+      return;
+    this.tan_code = rec.tan_code;
+    this.open(tdscertpaid);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content);
   }
 }

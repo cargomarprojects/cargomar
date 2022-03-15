@@ -63,6 +63,7 @@ import { CostBillingComponent } from './costbilling/costbilling.component';
 import { SalesFollowupComponent } from './salesfollowup/salesfollowup.component';
 import { SalesFollowupEditComponent } from './salesfollowup/salesfollowupedit.component';
 import { SalesFollowupInvComponent } from './salesfollowup/salesfollowupinv.component';
+import { TdspaidCertDetComponent} from './tdspaidreport/tdspaidcertdet.component';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { SalesFollowupInvComponent } from './salesfollowup/salesfollowupinv.comp
     CostBillingComponent,
     SalesFollowupComponent,
     SalesFollowupEditComponent,
-    SalesFollowupInvComponent
+    SalesFollowupInvComponent,
+    TdspaidCertDetComponent
   ],
   providers: [
   ],

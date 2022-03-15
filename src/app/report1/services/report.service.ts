@@ -150,6 +150,8 @@ export class RepService {
   VolumeReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/VolumeReport', SearchData, this.gs.headerparam2('authorized'));
   }
-
+  TdspaidDetailReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/TdsPaidDetailList', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

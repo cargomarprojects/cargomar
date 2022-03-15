@@ -1,0 +1,34 @@
+<div class="page-list">
+  <div class="page-body table-responsive">
+    <div [style.height]="RecordList.length>10?'350px':'auto'" [style.overflow-y]="RecordList.length>10?'scroll':'auto'">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>BRANCH</th>
+            <th>TAN-NAME</th>
+            <th>DOC-COUNT</th>
+            <th>CERTIFICATE</th>
+            <th>QUARTER</th>
+            <th class="text-right">GROSS-AMT</th>
+            <th class="text-right">AMOUNT</th>
+            <th>CREATED-BY</th>
+            <th>ENTRY-DATE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr>
+            <td>{{rec.branch_code}}</td>
+            <td>{{rec.tan_name}}</td>
+            <td>{{rec.tds_doc_count}}</td>
+            <td>{{rec.tds_cert_no}}</td>
+            <td>{{rec.tds_cert_qtr}}</td>
+            <td class="text-right">{{rec.gross_bill_amt | number : '1.2-2' }}</td>
+            <td class="text-right">{{rec.tds_amt | number : '1.2-2' }}</td>
+            <td>{{rec.rec_created_by}}</td>
+            <td>{{rec.rec_created_date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

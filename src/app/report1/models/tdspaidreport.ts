@@ -35,5 +35,8 @@ export class TdsPaidReport {
     diff_cert_tdspaid: number;
     cert_paid_status: string;
     status: string;
+    tds_doc_count:number;
+    rec_created_by:string;
+    rec_created_date:string;
 
 }
