@@ -11,7 +11,7 @@ import { Modulem } from '../models/modulem';
 
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
-
+ 
 
 
 
@@ -30,7 +30,7 @@ export class GlobalService {
 
   public appid = "";
   public reload_url = "";
-  
+
   public software_version_string: string = '1.493';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
@@ -73,16 +73,16 @@ export class GlobalService {
     return this.MenuList.find(f => f.menu_code == menucode);
   }
 
-  CreateURL(menucode : string, type : string = "{_DEF_}"){
-    var _url  = '';
+  CreateURL(menucode: string, type: string = "{_DEF_}") {
+    var _url = '';
     var rec = this.MenuList.find(f => f.menu_code == menucode) as Menum;
-    if (rec ) {
+    if (rec) {
       let params = new HttpParams();
       params = params.set('appid', this.appid);
-      if ( type == "{_DEF_}")
+      if (type == "{_DEF_}")
         params = params.set('parameter', rec.menu_route2);
       else {
-        var p1 =  JSON.parse(rec.menu_route2);
+        var p1 = JSON.parse(rec.menu_route2);
         p1.type = type;
         params = params.set('parameter', JSON.stringify(p1));
       }
@@ -90,7 +90,7 @@ export class GlobalService {
       _url = window.location.protocol + "//" + window.location.host + '/' + rec.menu_route1 + '?' + params.toString();
     }
     return _url;
-}
+  }
 
 
   public getError(error: any) {
@@ -226,8 +226,8 @@ export class GlobalService {
 
   public DownloadFileFromLocalhost(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
-    
-    window.open('https://software.cargomar.in/api/Admin/User/DownloadFile?' + body, "_blank"); 
+
+    window.open('https://software.cargomar.in/api/Admin/User/DownloadFile?' + body, "_blank");
     /*     
     if ( window.location.toString().toLowerCase().indexOf('https') >= 0)
       window.open('https://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
@@ -245,62 +245,67 @@ export class GlobalService {
     return roundedTempNumber / factor;
   };
 
+  // public roundNumber2(_number: number, _precision: number = 2) {
+  //   const noAsString = _number.toFixed(_precision);
+  //   return Number.parseFloat(noAsString);
+  // };
 
-  public async Login(_username : string , _password : string , _company_code : string ) : Promise<number> {
+
+  public async Login(_username: string, _password: string, _company_code: string): Promise<number> {
     var bRet = -1;
-    var body = 'grant_type=' + 'password' + '&username=' + _username + '&password=' + _password ;
+    var body = 'grant_type=' + 'password' + '&username=' + _username + '&password=' + _password;
     await this.http2.post<any>(this.baseUrl + "/Token", body, this.headerparam2('login', _company_code)).toPromise().then((response) => {
-        let user = response;
-        if (user && user.access_token) {
-          this.IsLoginSuccess = true;
-          this.Access_Token = user.access_token;
-          this.globalVariables.user_pkid = user.userpkid;
-          this.globalVariables.user_code = user.usercode;
-          this.globalVariables.user_name = user.userName;
-          this.globalVariables.user_password = _password;
-          this.globalVariables.user_email = user.useremail;
-          this.globalVariables.user_company_id = user.usercompanyid;
-          this.globalVariables.user_company_code = user.usercompanycode;
-          this.globalVariables.user_branch_id = user.userbranchid;
-          this.globalVariables.sman_id = user.usersmanid;
-          this.globalVariables.sman_name = user.usersmanname;
-          this.globalVariables.tp_code = user.usertpcode;
-          this.globalVariables.tp_name = user.usertpname;
-          this.globalVariables.user_dsc_slno = user.userdscslno;
+      let user = response;
+      if (user && user.access_token) {
+        this.IsLoginSuccess = true;
+        this.Access_Token = user.access_token;
+        this.globalVariables.user_pkid = user.userpkid;
+        this.globalVariables.user_code = user.usercode;
+        this.globalVariables.user_name = user.userName;
+        this.globalVariables.user_password = _password;
+        this.globalVariables.user_email = user.useremail;
+        this.globalVariables.user_company_id = user.usercompanyid;
+        this.globalVariables.user_company_code = user.usercompanycode;
+        this.globalVariables.user_branch_id = user.userbranchid;
+        this.globalVariables.sman_id = user.usersmanid;
+        this.globalVariables.sman_name = user.usersmanname;
+        this.globalVariables.tp_code = user.usertpcode;
+        this.globalVariables.tp_name = user.usertpname;
+        this.globalVariables.user_dsc_slno = user.userdscslno;
 
-          this.globalVariables.emp_id = user.userempid;
-          this.globalVariables.emp_code = user.userempcode;
-          this.globalVariables.emp_name = user.userempname;
-          this.globalVariables.emp_status = user.userempstatus;
+        this.globalVariables.emp_id = user.userempid;
+        this.globalVariables.emp_code = user.userempcode;
+        this.globalVariables.emp_name = user.userempname;
+        this.globalVariables.emp_status = user.userempstatus;
 
-          this.globalVariables.istp = false;
-          if (user.usertpcode != '')
-            this.globalVariables.istp = true;
-          this.baseLocalServerUrl = user.userlocalserver;
-          this.globalVariables.ipaddress = user.useripaddress;
-          this.globalVariables.tokenid = user.usertokenid;
-          this.globalVariables.user_branch_user = user.user_branch_user;
+        this.globalVariables.istp = false;
+        if (user.usertpcode != '')
+          this.globalVariables.istp = true;
+        this.baseLocalServerUrl = user.userlocalserver;
+        this.globalVariables.ipaddress = user.useripaddress;
+        this.globalVariables.tokenid = user.usertokenid;
+        this.globalVariables.user_branch_user = user.user_branch_user;
 
-          // If a branch user hide ho entries
-          if (user.user_branch_user == "Y")
-            this.globalVariables.hide_ho_entries = "Y";
-          else
-            this.globalVariables.hide_ho_entries = "N";
-        }
+        // If a branch user hide ho entries
+        if (user.user_branch_user == "Y")
+          this.globalVariables.hide_ho_entries = "Y";
+        else
+          this.globalVariables.hide_ho_entries = "N";
+      }
 
-        if (this.IsLoginSuccess) {
-          bRet = 0;
-        }
-        else {
-          alert('Login Failed');
-        }
-      },error => {
-          alert(error.error.error_description);
-      });
-      return bRet;
+      if (this.IsLoginSuccess) {
+        bRet = 0;
+      }
+      else {
+        alert('Login Failed');
+      }
+    }, error => {
+      alert(error.error.error_description);
+    });
+    return bRet;
   }
 
-  public async checkLocalServer() : Promise<number> {
+  public async checkLocalServer(): Promise<number> {
     var bRet = -1;
     let SearchData = {
       user: "",
@@ -309,14 +314,14 @@ export class GlobalService {
     this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
       if (response == "OK")
         bRet = 0;
-      else 
+      else
         alert('External Login Not Allowed');
-      },error => {
-          bRet = -1;
-          alert('External Login Not Allowed ' +error.error.error_description);
-      });
-      return bRet;
-    }
+    }, error => {
+      bRet = -1;
+      alert('External Login Not Allowed ' + error.error.error_description);
+    });
+    return bRet;
+  }
 
 
 
@@ -399,7 +404,7 @@ export class GlobalService {
       if (rec.parentid == this.globalVariables.branch_code) {
         if (rec.caption == 'GSTIN') {
           this.defaultValues.gstin = rec.name;
-          this.globalVariables.gstin = rec.name ;          
+          this.globalVariables.gstin = rec.name;
         }
         if (rec.caption == 'GST-STATE')
           this.defaultValues.gstin_state_code = rec.code;
@@ -418,11 +423,11 @@ export class GlobalService {
   }
 
 
-  public CreateAppDetailsRecord(){
-    const Record  = new AppDetails() ;
-    Record.user_appid = this.appid ;
+  public CreateAppDetailsRecord() {
+    const Record = new AppDetails();
+    Record.user_appid = this.appid;
     Record.user_code = this.globalVariables.user_code;
-    Record.user_password = this.globalVariables.user_password ;
+    Record.user_password = this.globalVariables.user_password;
     Record.user_company_code = this.globalVariables.user_company_code;
     Record.user_branch_id = this.globalVariables.branch_pkid;
     Record.user_year_id = this.globalVariables.year_pkid;
@@ -432,7 +437,7 @@ export class GlobalService {
     return Record;
   }
 
-  public async saveAppDetails(Record : AppDetails) :Promise<number> {
+  public async saveAppDetails(Record: AppDetails): Promise<number> {
     var iRet = -1;
     await this.http2.post<any>(this.baseUrl + "/api/Admin/User/SaveAppDetails", Record, this.headerparam2('authorized')).toPromise().then((response) => {
       iRet = 0;
@@ -442,7 +447,7 @@ export class GlobalService {
     return iRet;
   }
 
-  public async LoadMenu(_branchid : string , _yearid : string ) :Promise<number> {
+  public async LoadMenu(_branchid: string, _yearid: string): Promise<number> {
     let bRet = -1;
     let SearchData = {
       userid: this.globalVariables.user_pkid,
@@ -466,169 +471,169 @@ export class GlobalService {
       return bRet;
     }
 
-    
+
     //this.loginservice.LoadMenu(SearchData) .subscribe(response => {
     await this.http2.post<any>(this.baseUrl + "/api/Admin/User/LoadMenu", SearchData, this.headerparam2('authorized')).toPromise().then((response) => {
-        this.MenuList = response.list;
-        this.Modules = response.modules;
-        var grpname = '';
-        this.MenuList.forEach(element => {
-          if (element.menu_displayed) {
-            if (grpname != element.menu_group_name)
-              grpname = element.menu_group_name;
-            else
-              element.menu_group_name = null;
-          }
-        });
-
-        let data = response.data;
-
-        let airjob = response.airjob;
-        let seajob = response.seajob;
-        let seajobcntr = response.seajobcntr;
-        let foreigncurr = response.foreigncurr;
-        let payrollsetting = response.payrollsetting;
-
-        this.globalVariables.comp_pkid = data.comp_pkid;
-        this.globalVariables.comp_code = data.comp_code;
-        this.globalVariables.comp_name = data.comp_name;
-
-        this.Company_Name = data.comp_name;
-
-        this.globalVariables.branch_pkid = data.branch_pkid;
-        this.globalVariables.branch_code = data.branch_code;
-        this.globalVariables.branch_name = data.branch_name;
-        this.globalVariables.branch_location = data.branch_location;
-
-        this.globalVariables.branch_type = data.branch_type;
-        this.globalVariables.branch_number = data.branch_number;
-
-        this.globalVariables.year_pkid = data.year_pkid;
-        this.globalVariables.year_code = data.year_code;
-        this.globalVariables.year_name = data.year_name;
-        this.globalVariables.year_prefix = data.year_prefix;
-
-        this.globalVariables.year_start_date = data.year_start_date;
-        this.globalVariables.year_end_date = data.year_end_date;
-        this.globalVariables.year_end_date = data.year_end_date;
-        this.globalVariables.year_closed = data.year_closed;
-
-        this.globalVariables.year_einv_start_date = data.year_einv_start_date;
-
-        this.globalVariables.report_folder = data.report_folder;
-
-
-        this.InitdefaultValues();
-        
-        this.InitdefaultValues2(response.settings);
-
-        //Air Export Job Default Loading 
-        this.defaultValues.air_job_place_receipt_id = airjob.job_place_receipt_id;
-        this.defaultValues.air_job_place_receipt_code = airjob.job_place_receipt_code;
-        this.defaultValues.air_job_place_receipt_name = airjob.job_place_receipt_name;
-        this.defaultValues.air_job_pre_carriage_id = airjob.job_pre_carriage_id;
-        this.defaultValues.air_job_pre_carriage_code = airjob.job_pre_carriage_code;
-        this.defaultValues.air_job_pre_carriage_name = airjob.job_pre_carriage_name;
-        this.defaultValues.air_job_origin_state_id = airjob.job_origin_state_id;
-        this.defaultValues.air_job_origin_state_code = airjob.job_origin_state_code;
-        this.defaultValues.air_job_origin_state_name = airjob.job_origin_state_name;
-        this.defaultValues.air_job_pol_id = airjob.job_pol_id;
-        this.defaultValues.air_job_pol_code = airjob.job_pol_code;
-        this.defaultValues.air_job_pol_name = airjob.job_pol_name;
-        this.defaultValues.air_job_cha_id = airjob.job_cha_id;
-        this.defaultValues.air_job_cha_code = airjob.job_cha_code;
-        this.defaultValues.air_job_cha_name = airjob.job_cha_name;
-        this.defaultValues.air_job_agent_id = airjob.job_agent_id;
-        this.defaultValues.air_job_agent_code = airjob.job_agent_code;
-        this.defaultValues.air_job_agent_name = airjob.job_agent_name;
-        this.defaultValues.air_job_commodity_id = airjob.job_commodity_id;
-        this.defaultValues.air_job_commodity_code = airjob.job_commodity_code;
-        this.defaultValues.air_job_commodity_name = airjob.job_commodity_name;
-        this.defaultValues.air_job_edi_id = airjob.job_edi_id;
-        this.defaultValues.air_job_edi_code = airjob.job_edi_code;
-        this.defaultValues.air_job_edi_name = airjob.job_edi_name;
-        this.defaultValues.air_job_nature = airjob.job_nature;
-        this.defaultValues.air_job_terms = airjob.job_terms;
-        this.defaultValues.air_job_status = airjob.job_status;
-        this.defaultValues.air_job_cargo_nature = airjob.job_cargo_nature;
-        this.defaultValues.air_job_marks = airjob.job_marks;
-        this.defaultValues.air_job_origin_country_id = airjob.job_origin_country_id;
-        this.defaultValues.air_job_origin_country_code = airjob.job_origin_country_code;
-        this.defaultValues.air_job_origin_country_name = airjob.job_origin_country_name;
-
-
-        //Sea Export Job Default Loading 
-        this.defaultValues.sea_job_place_receipt_id = seajob.job_place_receipt_id;
-        this.defaultValues.sea_job_place_receipt_code = seajob.job_place_receipt_code;
-        this.defaultValues.sea_job_place_receipt_name = seajob.job_place_receipt_name;
-        this.defaultValues.sea_job_pre_carriage_id = seajob.job_pre_carriage_id;
-        this.defaultValues.sea_job_pre_carriage_code = seajob.job_pre_carriage_code;
-        this.defaultValues.sea_job_pre_carriage_name = seajob.job_pre_carriage_name;
-        this.defaultValues.sea_job_origin_state_id = seajob.job_origin_state_id;
-        this.defaultValues.sea_job_origin_state_code = seajob.job_origin_state_code;
-        this.defaultValues.sea_job_origin_state_name = seajob.job_origin_state_name;
-        this.defaultValues.sea_job_pol_id = seajob.job_pol_id;
-        this.defaultValues.sea_job_pol_code = seajob.job_pol_code;
-        this.defaultValues.sea_job_pol_name = seajob.job_pol_name;
-        this.defaultValues.sea_job_cha_id = seajob.job_cha_id;
-        this.defaultValues.sea_job_cha_code = seajob.job_cha_code;
-        this.defaultValues.sea_job_cha_name = seajob.job_cha_name;
-        this.defaultValues.sea_job_agent_id = seajob.job_agent_id;
-        this.defaultValues.sea_job_agent_code = seajob.job_agent_code;
-        this.defaultValues.sea_job_agent_name = seajob.job_agent_name;
-        this.defaultValues.sea_job_commodity_id = seajob.job_commodity_id;
-        this.defaultValues.sea_job_commodity_code = seajob.job_commodity_code;
-        this.defaultValues.sea_job_commodity_name = seajob.job_commodity_name;
-        this.defaultValues.sea_job_edi_id = seajob.job_edi_id;
-        this.defaultValues.sea_job_edi_code = seajob.job_edi_code;
-        this.defaultValues.sea_job_edi_name = seajob.job_edi_name;
-        this.defaultValues.sea_job_nature = seajob.job_nature;
-        this.defaultValues.sea_job_terms = seajob.job_terms;
-        this.defaultValues.sea_job_status = seajob.job_status;
-        this.defaultValues.sea_job_cargo_nature = seajob.job_cargo_nature;
-        this.defaultValues.sea_job_marks = seajob.job_marks;
-        this.defaultValues.sea_job_origin_country_id = seajob.job_origin_country_id;
-        this.defaultValues.sea_job_origin_country_code = seajob.job_origin_country_code;
-        this.defaultValues.sea_job_origin_country_name = seajob.job_origin_country_name;
-
-        //Sea Export Job Container Default Loading
-        this.defaultValues.sea_jobcntr_sealtype = seajobcntr.cntr_sealtype;
-
-        //foreign currency details
-        this.defaultValues.param_curr_foreign_fwdrate = foreigncurr.param_rate;
-        this.defaultValues.param_curr_foreign_clrrate = foreigncurr.param_id1;
-
-        //Payroll settings details
-        this.defaultValues.pf_col_excluded = payrollsetting.ps_pf_col_excluded;
-        this.defaultValues.pf_percent = payrollsetting.ps_pf_per;
-        this.defaultValues.pf_limit = payrollsetting.ps_pf_cel_limit;
-        this.defaultValues.esi_emply_percent = payrollsetting.ps_esi_emply_per;
-        this.defaultValues.esi_limit = payrollsetting.ps_esi_limit;
-        this.defaultValues.pf_cel_limit_amt = payrollsetting.ps_pf_cel_limit_amt;
-        this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
-        this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
-        this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
-
-        if (this.globalVariables.comp_pkid == '') {
-          alert("Invalid Company");
-          return bRet;
-        } else if (this.globalVariables.branch_pkid == '') {
-          alert("Invalid Branch");
-          return bRet;
-        } else if (this.globalVariables.year_pkid == '') {
-          alert("Invalid Fin-Year");
-          return bRet;
-        } else {
-          this.IsAuthenticated = this.Hide_Menu ? false : true;
-          bRet = 0;
+      this.MenuList = response.list;
+      this.Modules = response.modules;
+      var grpname = '';
+      this.MenuList.forEach(element => {
+        if (element.menu_displayed) {
+          if (grpname != element.menu_group_name)
+            grpname = element.menu_group_name;
+          else
+            element.menu_group_name = null;
         }
-        //this.router.navigate(['home'], { replaceUrl: true });
-      }, error => {
-          bRet = -1;
-          alert(this.getError(error));
-          
       });
-      return bRet;
+
+      let data = response.data;
+
+      let airjob = response.airjob;
+      let seajob = response.seajob;
+      let seajobcntr = response.seajobcntr;
+      let foreigncurr = response.foreigncurr;
+      let payrollsetting = response.payrollsetting;
+
+      this.globalVariables.comp_pkid = data.comp_pkid;
+      this.globalVariables.comp_code = data.comp_code;
+      this.globalVariables.comp_name = data.comp_name;
+
+      this.Company_Name = data.comp_name;
+
+      this.globalVariables.branch_pkid = data.branch_pkid;
+      this.globalVariables.branch_code = data.branch_code;
+      this.globalVariables.branch_name = data.branch_name;
+      this.globalVariables.branch_location = data.branch_location;
+
+      this.globalVariables.branch_type = data.branch_type;
+      this.globalVariables.branch_number = data.branch_number;
+
+      this.globalVariables.year_pkid = data.year_pkid;
+      this.globalVariables.year_code = data.year_code;
+      this.globalVariables.year_name = data.year_name;
+      this.globalVariables.year_prefix = data.year_prefix;
+
+      this.globalVariables.year_start_date = data.year_start_date;
+      this.globalVariables.year_end_date = data.year_end_date;
+      this.globalVariables.year_end_date = data.year_end_date;
+      this.globalVariables.year_closed = data.year_closed;
+
+      this.globalVariables.year_einv_start_date = data.year_einv_start_date;
+
+      this.globalVariables.report_folder = data.report_folder;
+
+
+      this.InitdefaultValues();
+
+      this.InitdefaultValues2(response.settings);
+
+      //Air Export Job Default Loading 
+      this.defaultValues.air_job_place_receipt_id = airjob.job_place_receipt_id;
+      this.defaultValues.air_job_place_receipt_code = airjob.job_place_receipt_code;
+      this.defaultValues.air_job_place_receipt_name = airjob.job_place_receipt_name;
+      this.defaultValues.air_job_pre_carriage_id = airjob.job_pre_carriage_id;
+      this.defaultValues.air_job_pre_carriage_code = airjob.job_pre_carriage_code;
+      this.defaultValues.air_job_pre_carriage_name = airjob.job_pre_carriage_name;
+      this.defaultValues.air_job_origin_state_id = airjob.job_origin_state_id;
+      this.defaultValues.air_job_origin_state_code = airjob.job_origin_state_code;
+      this.defaultValues.air_job_origin_state_name = airjob.job_origin_state_name;
+      this.defaultValues.air_job_pol_id = airjob.job_pol_id;
+      this.defaultValues.air_job_pol_code = airjob.job_pol_code;
+      this.defaultValues.air_job_pol_name = airjob.job_pol_name;
+      this.defaultValues.air_job_cha_id = airjob.job_cha_id;
+      this.defaultValues.air_job_cha_code = airjob.job_cha_code;
+      this.defaultValues.air_job_cha_name = airjob.job_cha_name;
+      this.defaultValues.air_job_agent_id = airjob.job_agent_id;
+      this.defaultValues.air_job_agent_code = airjob.job_agent_code;
+      this.defaultValues.air_job_agent_name = airjob.job_agent_name;
+      this.defaultValues.air_job_commodity_id = airjob.job_commodity_id;
+      this.defaultValues.air_job_commodity_code = airjob.job_commodity_code;
+      this.defaultValues.air_job_commodity_name = airjob.job_commodity_name;
+      this.defaultValues.air_job_edi_id = airjob.job_edi_id;
+      this.defaultValues.air_job_edi_code = airjob.job_edi_code;
+      this.defaultValues.air_job_edi_name = airjob.job_edi_name;
+      this.defaultValues.air_job_nature = airjob.job_nature;
+      this.defaultValues.air_job_terms = airjob.job_terms;
+      this.defaultValues.air_job_status = airjob.job_status;
+      this.defaultValues.air_job_cargo_nature = airjob.job_cargo_nature;
+      this.defaultValues.air_job_marks = airjob.job_marks;
+      this.defaultValues.air_job_origin_country_id = airjob.job_origin_country_id;
+      this.defaultValues.air_job_origin_country_code = airjob.job_origin_country_code;
+      this.defaultValues.air_job_origin_country_name = airjob.job_origin_country_name;
+
+
+      //Sea Export Job Default Loading 
+      this.defaultValues.sea_job_place_receipt_id = seajob.job_place_receipt_id;
+      this.defaultValues.sea_job_place_receipt_code = seajob.job_place_receipt_code;
+      this.defaultValues.sea_job_place_receipt_name = seajob.job_place_receipt_name;
+      this.defaultValues.sea_job_pre_carriage_id = seajob.job_pre_carriage_id;
+      this.defaultValues.sea_job_pre_carriage_code = seajob.job_pre_carriage_code;
+      this.defaultValues.sea_job_pre_carriage_name = seajob.job_pre_carriage_name;
+      this.defaultValues.sea_job_origin_state_id = seajob.job_origin_state_id;
+      this.defaultValues.sea_job_origin_state_code = seajob.job_origin_state_code;
+      this.defaultValues.sea_job_origin_state_name = seajob.job_origin_state_name;
+      this.defaultValues.sea_job_pol_id = seajob.job_pol_id;
+      this.defaultValues.sea_job_pol_code = seajob.job_pol_code;
+      this.defaultValues.sea_job_pol_name = seajob.job_pol_name;
+      this.defaultValues.sea_job_cha_id = seajob.job_cha_id;
+      this.defaultValues.sea_job_cha_code = seajob.job_cha_code;
+      this.defaultValues.sea_job_cha_name = seajob.job_cha_name;
+      this.defaultValues.sea_job_agent_id = seajob.job_agent_id;
+      this.defaultValues.sea_job_agent_code = seajob.job_agent_code;
+      this.defaultValues.sea_job_agent_name = seajob.job_agent_name;
+      this.defaultValues.sea_job_commodity_id = seajob.job_commodity_id;
+      this.defaultValues.sea_job_commodity_code = seajob.job_commodity_code;
+      this.defaultValues.sea_job_commodity_name = seajob.job_commodity_name;
+      this.defaultValues.sea_job_edi_id = seajob.job_edi_id;
+      this.defaultValues.sea_job_edi_code = seajob.job_edi_code;
+      this.defaultValues.sea_job_edi_name = seajob.job_edi_name;
+      this.defaultValues.sea_job_nature = seajob.job_nature;
+      this.defaultValues.sea_job_terms = seajob.job_terms;
+      this.defaultValues.sea_job_status = seajob.job_status;
+      this.defaultValues.sea_job_cargo_nature = seajob.job_cargo_nature;
+      this.defaultValues.sea_job_marks = seajob.job_marks;
+      this.defaultValues.sea_job_origin_country_id = seajob.job_origin_country_id;
+      this.defaultValues.sea_job_origin_country_code = seajob.job_origin_country_code;
+      this.defaultValues.sea_job_origin_country_name = seajob.job_origin_country_name;
+
+      //Sea Export Job Container Default Loading
+      this.defaultValues.sea_jobcntr_sealtype = seajobcntr.cntr_sealtype;
+
+      //foreign currency details
+      this.defaultValues.param_curr_foreign_fwdrate = foreigncurr.param_rate;
+      this.defaultValues.param_curr_foreign_clrrate = foreigncurr.param_id1;
+
+      //Payroll settings details
+      this.defaultValues.pf_col_excluded = payrollsetting.ps_pf_col_excluded;
+      this.defaultValues.pf_percent = payrollsetting.ps_pf_per;
+      this.defaultValues.pf_limit = payrollsetting.ps_pf_cel_limit;
+      this.defaultValues.esi_emply_percent = payrollsetting.ps_esi_emply_per;
+      this.defaultValues.esi_limit = payrollsetting.ps_esi_limit;
+      this.defaultValues.pf_cel_limit_amt = payrollsetting.ps_pf_cel_limit_amt;
+      this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
+      this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
+      this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
+
+      if (this.globalVariables.comp_pkid == '') {
+        alert("Invalid Company");
+        return bRet;
+      } else if (this.globalVariables.branch_pkid == '') {
+        alert("Invalid Branch");
+        return bRet;
+      } else if (this.globalVariables.year_pkid == '') {
+        alert("Invalid Fin-Year");
+        return bRet;
+      } else {
+        this.IsAuthenticated = this.Hide_Menu ? false : true;
+        bRet = 0;
+      }
+      //this.router.navigate(['home'], { replaceUrl: true });
+    }, error => {
+      bRet = -1;
+      alert(this.getError(error));
+
+    });
+    return bRet;
   }
 
 
@@ -785,7 +790,7 @@ export class GlobalService {
     return new URLSearchParams(window.location.search).get(param);
   }
 
-  getURLParameter(uri : string ,param: string) {
+  getURLParameter(uri: string, param: string) {
     return new URLSearchParams(uri).get(param);
   }
 
@@ -801,13 +806,13 @@ export class GlobalService {
 
   Save2LocalStorage() {
     const app_settings = {
-      appid : this.appid,
-      user_code : this.globalVariables.user_code,
-		  user_password : this.globalVariables.user_password,
-		  company_code : this.globalVariables.user_company_code,
-      branch_pkid :  this.globalVariables.branch_pkid, 
-      year_pkid  : this.globalVariables.year_pkid,
-      hidemainmenu : false,
+      appid: this.appid,
+      user_code: this.globalVariables.user_code,
+      user_password: this.globalVariables.user_password,
+      company_code: this.globalVariables.user_company_code,
+      branch_pkid: this.globalVariables.branch_pkid,
+      year_pkid: this.globalVariables.year_pkid,
+      hidemainmenu: false,
     }
     localStorage.setItem(this.getlocalStorageFileName(), JSON.stringify(app_settings));
   }
@@ -826,30 +831,30 @@ export class GlobalService {
   }
 
   ReadLocalStorage() {
-    const app_settings  = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
-  
+    const app_settings = JSON.parse(localStorage.getItem(this.getlocalStorageFileName()));
+
     this.appid = app_settings.appid;
-    this.globalVariables.user_code = app_settings.user_code ;
+    this.globalVariables.user_code = app_settings.user_code;
     this.globalVariables.user_password = app_settings.user_password;
     this.globalVariables.user_company_code = app_settings.company_code;
-    this.globalVariables.branch_pkid  = app_settings.branch_pkid;
+    this.globalVariables.branch_pkid = app_settings.branch_pkid;
     this.globalVariables.year_pkid = app_settings.year_pkid;
     this.Hide_Menu = app_settings.hidemainmenu;
 
     console.log(app_settings);
   }
 
-  public async GetAppDetails(appid : string) : Promise<number> {
+  public async GetAppDetails(appid: string): Promise<number> {
     let SearchString = {
-      appid : appid
+      appid: appid
     }
     var iRet = -1;
-    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString , this.headerparam2('anonymous')).toPromise().then((response) => {
+    await this.http2.post<any>(this.baseUrl + "/api/Admin/User/GetAppDetails", SearchString, this.headerparam2('anonymous')).toPromise().then((response) => {
       this.appid = response.record.user_appid;
-      this.globalVariables.user_code = response.record.user_code ;
+      this.globalVariables.user_code = response.record.user_code;
       this.globalVariables.user_password = response.record.user_password;
       this.globalVariables.user_company_code = response.record.user_company_code;
-      this.globalVariables.branch_pkid  = response.record.user_branch_id;
+      this.globalVariables.branch_pkid = response.record.user_branch_id;
       this.globalVariables.year_pkid = response.record.user_year_id;
       this.Hide_Menu = response.record.user_hide_menu;
       iRet = 0;
@@ -893,6 +898,6 @@ export class GlobalService {
     return sRet;
 
   }
-  
+
 
 }
