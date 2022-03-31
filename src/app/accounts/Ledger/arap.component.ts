@@ -775,6 +775,12 @@ export class ArApComponent {
         bret = false;
         sError += " | Original INV#/DT Cannot Be Blank";
       }
+
+      if (!this.Record.jvh_gst) {
+        bret = false;
+        sError += " | GST need to be selected";
+      }
+
     }
 
     if ( this.editdoc == 'Y') {
@@ -869,21 +875,23 @@ export class ArApComponent {
     }
 
     if (this.subtype == 'AP') {
-      if (this.Record.jvh_no_brok) {
-        if (this.Record.jvh_brok_remarks.length <= 0) {
-          bret = false;
-          sError += " | Pls input Remarks for no Brokerage";
+      
+      if ( this.editdoc == 'Y') {
+        if (this.Record.jvh_no_brok) {
+          if (this.Record.jvh_brok_remarks.length <= 0) {
+            bret = false;
+            sError += " | Pls input Remarks for no Brokerage";
+          }
+          if (this.Record.jvh_basic_frt > 0 || this.Record.jvh_brok_per > 0 || this.Record.jvh_brok_amt > 0) {
+            bret = false;
+            sError += " | Basic Frt,Brok. Per,Brok. Amt Need to be zero";
+          }
         }
-        if (this.Record.jvh_basic_frt > 0 || this.Record.jvh_brok_per > 0 || this.Record.jvh_brok_amt > 0) {
-          bret = false;
-          sError += " | Basic Frt,Brok. Per,Brok. Amt Need to be zero";
-        }
-
-      }
-      if (!this.Record.jvh_no_brok) {
-        if (this.Record.jvh_brok_amt <= 0) {
-          bret = false;
-          sError += " | Brokerage Need To Be Entered";
+        if (!this.Record.jvh_no_brok) {
+          if (this.Record.jvh_brok_amt <= 0) {
+            bret = false;
+            sError += " | Brokerage Need To Be Entered";
+          }
         }
       }
     }
