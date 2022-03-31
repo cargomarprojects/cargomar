@@ -21,6 +21,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { PendingListComponent } from './Pendinglist.component';
 import { DateComponent } from '../../shared/date/date.component';
 import { AddressUpdateComponent } from './addressupdate.component';
+import { TemplateBindingParseResult } from '@angular/compiler';
 //EDIT-AJITH-04-09-2021
 
 @Component({
@@ -38,6 +39,7 @@ export class ArApComponent {
   @Input() type: string = '';
   @Input() subtype: string = '';
   @Input() editdrcr: string = '';
+  @Input() editdoc: string = 'Y';
 
 
   headerdrcr: string = '';
@@ -141,6 +143,9 @@ export class ArApComponent {
         this.type = options.type;
         this.subtype = options.subtype;
         this.editdrcr = options.editdrcr;
+        this.editdoc  = 'Y';
+        if ( options.editdoc)
+          this.editdoc  = options.editdoc;
 
         if (this.subtype == 'AR') {
           this.headerdrcr = 'DR';
@@ -565,6 +570,12 @@ export class ArApComponent {
       this.Record.jvh_cc_category = "SI SEA EXPORT";
     if (this.subtype == "AP")
       this.Record.jvh_cc_category = "MBL SEA EXPORT";
+    
+    // General Expenses
+    if ( this.editdoc == 'N') {
+      this.Record.jvh_cc_category = "NA";
+      this.lock_cc = true;
+    }
 
     this.Record.jvh_cc_code = "";
     this.Record.jvh_cc_id = "";
@@ -659,6 +670,10 @@ export class ArApComponent {
       this.lock_date = false;
     if (this.Record.jvh_edit_code.indexOf("{C}") >= 0)
       this.lock_cc = false;
+    
+    // General Expense
+    if ( this.editdoc == 'N')
+      this.lock_cc = true;
 
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;
@@ -748,17 +763,25 @@ export class ArApComponent {
 
 
     if (this.type == 'PN') {
-      if (this.Record.jvh_cc_category != 'MBL SEA EXPORT' && this.Record.jvh_cc_category != 'MBL SEA IMPORT' && this.Record.jvh_cc_category != 'MAWB AIR EXPORT' && this.Record.jvh_cc_category != 'MAWB AIR IMPORT' && this.Record.jvh_cc_category != 'GENERAL JOB') {
+      if (this.Record.jvh_cc_category != 'MBL SEA EXPORT' && this.Record.jvh_cc_category != 'MBL SEA IMPORT' && this.Record.jvh_cc_category != 'MAWB AIR EXPORT' && this.Record.jvh_cc_category != 'MAWB AIR IMPORT' && this.Record.jvh_cc_category != 'GENERAL JOB' && this.Record.jvh_cc_category != 'NA') {
         bret = false;
         sError += " | Invalid Document Type";
       }
     }
 
+    if( this.editdoc == 'N'){
+      if ( this.gs.isBlank(this.Record.jvh_org_invno) || this.gs.isBlank(this.Record.jvh_org_invdt))
+      {
+        bret = false;
+        sError += " | Original INV#/DT Cannot Be Blank";
+      }
+    }
 
-
-    if (this.Record.jvh_cc_code.trim().length <= 0 || this.Record.jvh_cc_id.trim().length <= 0) {
-      bret = false;
-      sError += " | Cost Center Code Cannot Be Blank";
+    if ( this.editdoc == 'Y') {
+      if (this.Record.jvh_cc_code.trim().length <= 0 || this.Record.jvh_cc_id.trim().length <= 0) {
+        bret = false;
+        sError += " | Cost Center Code Cannot Be Blank";
+      }
     }
 
 
@@ -1224,20 +1247,18 @@ export class ArApComponent {
       this.modeDetail = '';
     }
     else if (action === 'ADD') {
-
-      if (this.Record.jvh_cc_code.trim().length <= 0) {
-        alert("Pls enter CC Code");
-        return;
-      }
-
-      if (this.type == 'PN') {
-        if (this.Record.jvh_cc_category != 'MBL SEA EXPORT' && this.Record.jvh_cc_category != 'MBL SEA IMPORT' && this.Record.jvh_cc_category != 'MAWB AIR EXPORT' && this.Record.jvh_cc_category != 'MAWB AIR IMPORT' && this.Record.jvh_cc_category != 'GENERAL JOB') {
-          alert("Invalid Document Type");
-          return
+      if ( this.editdoc == 'Y')  {
+        if (this.Record.jvh_cc_code.trim().length <= 0) {
+          alert("Pls enter CC Code");
+          return;
+        }
+        if (this.type == 'PN') {
+          if (this.Record.jvh_cc_category != 'MBL SEA EXPORT' && this.Record.jvh_cc_category != 'MBL SEA IMPORT' && this.Record.jvh_cc_category != 'MAWB AIR EXPORT' && this.Record.jvh_cc_category != 'MAWB AIR IMPORT' && this.Record.jvh_cc_category != 'GENERAL JOB' && this.Record.jvh_cc_category != 'NA') {
+            alert("Invalid Document Type");
+            return
+          }
         }
       }
-
-
       this.DetailTab = 'DETAILS';
       this.modeDetail = 'ADD';
       this.NewRecordDetail();
@@ -1505,7 +1526,7 @@ export class ArApComponent {
     let ccamt: number = 0;
     let iscc: Boolean = false;
 
-    if (this.Record.jvh_cc_category == 'GENERAL JOB') {
+    if (this.Record.jvh_cc_category == 'GENERAL JOB' || this.Record.jvh_cc_category == 'NA') {
       if (this.Recorddet.jv_acc_cost_centre == "Y") {
         iscc = true;
         if (this.CCList.length <= 0) {
@@ -2138,7 +2159,7 @@ export class ArApComponent {
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1401','1402','1403','1404', '1405')";
     }
-    if (this.Record.jvh_cc_category == "GENERAL JOB") {
+    if (this.Record.jvh_cc_category == "GENERAL JOB" || this.Record.jvh_cc_category == "NA") {
       str = "'1105','1106','1107','1101','1102','1103','1104', '1105','1106','1107',";
       str += "'1205','1201','1202','1203','1204', '1205','1305', '1306','1307','1301','1302','1303','1304', '1305','1306','1307',";
       str += "'1405','1401','1402','1403','1404', '1405'";
