@@ -21,7 +21,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { PendingListComponent } from './Pendinglist.component';
 import { DateComponent } from '../../shared/date/date.component';
 import { AddressUpdateComponent } from './addressupdate.component';
-import { TemplateBindingParseResult } from '@angular/compiler';
+
 //EDIT-AJITH-04-09-2021
 
 @Component({
@@ -1453,7 +1453,7 @@ export class ArApComponent {
 
     this.Recorddet.jv_tds_rate = _Record.jv_tds_rate;
     this.Recorddet.jv_tds_gross_amt = _Record.jv_tds_gross_amt;
-    
+
 
     this.InitLov('DETAIL');
 
@@ -1755,6 +1755,10 @@ export class ArApComponent {
       REC.jv_supp_docs = this.Recorddet.jv_supp_docs;
       REC.jv_paid_to = this.Recorddet.jv_paid_to;
       REC.jv_remarks = this.Recorddet.jv_remarks;
+
+      REC.jv_pan_id = this.Recorddet.jv_pan_id;
+      REC.jv_pan_code = this.Recorddet.jv_pan_code;
+      REC.jv_pan_name = this.Recorddet.jv_pan_name;
 
       REC.jv_tds_rate = this.Recorddet.jv_tds_rate;
       REC.jv_tds_gross_amt = this.Recorddet.jv_tds_gross_amt;

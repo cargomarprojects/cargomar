@@ -38,6 +38,7 @@ export class CostPendingComponent {
 
   bCompany = false;
   bAdmin = false;
+  showamount =false;
   disableSave = true;
   loading = false;
   all: boolean = false;
@@ -60,7 +61,9 @@ export class CostPendingComponent {
     sort_colname: '',
     all: false,
     bpending: true,
-    user_code: ''
+    user_code: '',
+    admin : false,
+    showamount : false,
   };
 
   SortList: any[] = [];
@@ -99,6 +102,7 @@ export class CostPendingComponent {
   InitComponent() {
     this.bCompany = false;
     this.bAdmin = false;
+    this.showamount = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -106,6 +110,9 @@ export class CostPendingComponent {
         this.bCompany = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+
+      if (this.menu_record.rights_approval.trim() != '')
+        this.showamount = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -227,6 +234,7 @@ export class CostPendingComponent {
     this.SearchData.all = this.all;
     this.SearchData.bpending = this.bpending;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.admin  = this.showamount;
 
     this.ErrorMessage = '';
     this.mainService.PendingList(this.SearchData)
