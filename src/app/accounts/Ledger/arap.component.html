@@ -199,7 +199,7 @@
             <span>GST</span>
           </div>
           <div class="col-sm-2">
-            <input type="checkbox" disabled (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
+            <input type="checkbox" [disabled]="editdoc=='Y'" (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
             <span>RC</span>
           </div>
 
@@ -548,6 +548,32 @@
           </div>
 
         </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Pan#</label>
+            <div class="col-4">
+              <app-autocomplete #LinerLov [inputdata]="PANRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
+            </div>
+            <div class="col-6">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_pan_name" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Tds%</label>
+            <div class="col-4">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_rate"
+                (blur)="OnBlur('jv_tds_rate')" maxlength="15" />
+            </div>
+            <div class="col-6">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_gross_amt"
+                maxlength="15" />
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
       <div *ngIf="this.Record.jvh_cc_category == 'GENERAL JOB' || this.Record.jvh_cc_category == 'NA'">

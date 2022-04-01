@@ -119,7 +119,7 @@ export class ArApComponent {
 
   CNTRTYPERECORD: SearchTable = new SearchTable();
 
-
+  PANRECORD: SearchTable = new SearchTable();
 
   constructor(
     private modalService: NgbModal,
@@ -292,6 +292,16 @@ export class ArApComponent {
       this.CNTRTYPERECORD.name = "";
     }
 
+    if (saction == 'PAN' || saction == 'DETAIL' || saction == '') {
+      this.PANRECORD = new SearchTable();
+      this.PANRECORD.controlname = "PAN";
+      this.PANRECORD.displaycolumn = "CODE";
+      this.PANRECORD.type = "PAN";
+      this.PANRECORD.id = "";
+      this.PANRECORD.code = "";
+    }
+
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -394,6 +404,12 @@ export class ArApComponent {
       this.bChanged = true;
       this.OnBlur('jv_exrate');
     }
+    if (_Record.controlname == "PAN") {
+      this.Recorddet.jv_pan_id = _Record.id;
+      this.Recorddet.jv_pan_code = _Record.code;
+      this.Recorddet.jv_pan_name = _Record.name;
+    }
+
 
     if (_Record.controlname == "SAC") {
       this.Recorddet.jv_sac_id = _Record.id;
@@ -1189,6 +1205,16 @@ export class ArApComponent {
       this.FindRowTotal();
     }
 
+    if (field == 'jv_tds_rate' || field == 'jv_ftotal' || field == 'jv_total' || field == 'jv_exrate') {
+      if (this.Recorddet.jv_tds_rate > 0) {
+        this.Recorddet.jv_tds_gross_amt = (this.Recorddet.jv_total / this.Recorddet.jv_tds_rate) * 100;
+        this.Recorddet.jv_tds_gross_amt = this.gs.roundNumber(this.Recorddet.jv_tds_gross_amt, 2);
+      }
+      else
+        this.Recorddet.jv_tds_gross_amt = this.gs.roundNumber(this.Recorddet.jv_tds_gross_amt, 2);
+    }
+
+
     if (field == 'jv_bank') {
       this.Recorddet.jv_bank = this.Recorddet.jv_bank.toUpperCase();
     }
@@ -1338,6 +1364,13 @@ export class ArApComponent {
     this.Recorddet.jv_sac_id = '';
     this.Recorddet.jv_sac_code = '';
 
+    this.Recorddet.jv_pan_id = '';
+    this.Recorddet.jv_pan_code = '';
+    this.Recorddet.jv_pan_name = '';
+    this.Recorddet.jv_tds_rate = 0;
+    this.Recorddet.jv_tds_gross_amt = 0;
+
+
     this.Recorddet.jv_gst_edited = false;
 
 
@@ -1414,6 +1447,14 @@ export class ArApComponent {
 
     this.Recorddet.jv_gst_edited = _Record.jv_gst_edited;
 
+    this.Recorddet.jv_pan_id = _Record.jv_pan_id;
+    this.Recorddet.jv_pan_code = _Record.jv_pan_code;
+    this.Recorddet.jv_pan_name = _Record.jv_pan_name;
+
+    this.Recorddet.jv_tds_rate = _Record.jv_tds_rate;
+    this.Recorddet.jv_tds_gross_amt = _Record.jv_tds_gross_amt;
+    
+
     this.InitLov('DETAIL');
 
     this.ACCRECORD.id = this.Recorddet.jv_acc_id;
@@ -1428,6 +1469,11 @@ export class ArApComponent {
 
     this.CNTRTYPERECORD.id = this.Recorddet.jv_cntr_type_id;
     this.CNTRTYPERECORD.code = this.Recorddet.jv_cntr_type_code;
+
+    this.PANRECORD.id = this.Recorddet.jv_pan_id;
+    this.PANRECORD.code = this.Recorddet.jv_pan_code;
+    this.PANRECORD.name = this.Recorddet.jv_pan_name;
+
 
     this.CCList = this.Record.CostCenterList.filter(rec => rec.ct_jv_id == _Record.jv_pkid);
 
@@ -1686,6 +1732,8 @@ export class ArApComponent {
 
       REC.jv_gst_edited = this.Recorddet.jv_gst_edited;
 
+
+
       if (REC.jv_drcr == "DR") {
         REC.jv_row_type = 'DR-LEDGER';
         REC.jv_debit = REC.jv_total;
@@ -1707,6 +1755,10 @@ export class ArApComponent {
       REC.jv_supp_docs = this.Recorddet.jv_supp_docs;
       REC.jv_paid_to = this.Recorddet.jv_paid_to;
       REC.jv_remarks = this.Recorddet.jv_remarks;
+
+      REC.jv_tds_rate = this.Recorddet.jv_tds_rate;
+      REC.jv_tds_gross_amt = this.Recorddet.jv_tds_gross_amt;
+
 
 
     }
