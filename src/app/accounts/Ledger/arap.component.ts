@@ -2167,7 +2167,7 @@ export class ArApComponent {
       if (this.type == "DN" || this.type == "CN" || this.type == "DI" || this.type == "CI")
         this.ACCRECORD.where = "acc_main_code in ('1401','1402','1403','1404', '1405')";
     }
-    if (this.Record.jvh_cc_category == "GENERAL JOB" || this.Record.jvh_cc_category == "NA") {
+    if (this.Record.jvh_cc_category == "GENERAL JOB") {
       str = "'1105','1106','1107','1101','1102','1103','1104', '1105','1106','1107',";
       str += "'1205','1201','1202','1203','1204', '1205','1305', '1306','1307','1301','1302','1303','1304', '1305','1306','1307',";
       str += "'1405','1401','1402','1403','1404', '1405'";
@@ -2178,6 +2178,9 @@ export class ArApComponent {
         str = " acc_group_id in ( select acgrp_pkid  from acgroupm where rec_company_code = '" + this.gs.globalVariables.comp_code + "' and (acgrp_name  ='DIRECT INCOME' or acc_code ='1611'))";
         this.ACCRECORD.where = str;
       }
+    }
+    if (this.Record.jvh_cc_category == "NA") {
+      this.ACCRECORD.where = " acc_type_id  in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('DIRECT INCOME', 'DIRECT EXPENSE','INDIRECT INCOME','INDIRECT EXPENSE'))";
     }
 
   }
