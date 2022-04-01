@@ -2180,7 +2180,7 @@ export class ArApComponent {
       }
     }
     if (this.Record.jvh_cc_category == "NA") {
-      this.ACCRECORD.where = " acc_type_id  in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('DIRECT INCOME', 'DIRECT EXPENSE','INDIRECT INCOME','INDIRECT EXPENSE'))";
+      this.ACCRECORD.where = " (acc_type_id  in(select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "' and actype_name in('DIRECT INCOME', 'DIRECT EXPENSE','INDIRECT INCOME','INDIRECT EXPENSE')) or acc_code in ('195','194IA','TDSPAY','194H','194C','194','194A','194J','194I','192B'))";
     }
 
   }
