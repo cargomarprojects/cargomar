@@ -103,7 +103,8 @@ export class JobTransferComponent {
     this.ModuleList = [
       { "code": "JOB", "name": "JOB" },
       { "code": "HOUSE", "name": "SHIPPING INSTRUCTION" },
-      { "code": "MASTER", "name": "MASTER" }
+      { "code": "MASTER", "name": "MASTER" },
+      { "code": "COSTING", "name": "COSTING" }
     ];
   }
 
