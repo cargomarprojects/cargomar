@@ -490,10 +490,22 @@
         </div>
 
         <div class="col-sm-4">
+
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm"></label>
+            <div class="col-4">
+              <input type="checkbox"
+                [disabled]="(Recorddet.jv_acc_type_name != 'INDIRECT INCOME' && Recorddet.jv_acc_type_name != 'INDIRECT EXPENSE')"
+                [(ngModel)]="Recorddet.jv_gst_edited">
+              <span>Edit GST</span>
+            </div>
+          </div>
+
+
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Cgst%</label>
             <div class="col-4">
-              <input disabled type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_cgst_rate"
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_cgst_rate"
                 (blur)="OnBlur('jv_cgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
@@ -506,7 +518,7 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Sgst%</label>
             <div class="col-4">
-              <input disabled type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_sgst_rate"
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_sgst_rate"
                 (blur)="OnBlur('jv_sgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
@@ -519,7 +531,7 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Igst%</label>
             <div class="col-4">
-              <input disabled type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_igst_rate"
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_igst_rate"
                 (blur)="OnBlur('jv_igst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
@@ -537,15 +549,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-8 col-form-label  col-form-label-sm"></label>
-            <div class="col-4">
-              <input type="checkbox"
-                [disabled]="!Recorddet.jv_is_taxable || Recorddet.jv_acc_type_name == 'DIRECT INCOME' || Recorddet.jv_acc_type_name == 'DIRECT EXPENSE'  || Recorddet.jv_acc_type_name == ''"
-                [(ngModel)]="Recorddet.jv_gst_edited">
-              <span>Edit GST</span>
-            </div>
-          </div>
+
 
         </div>
         <div class="col-sm-4">

@@ -390,8 +390,10 @@ export class ArApComponent {
       this.Recorddet.jv_acc_main_code = _Record.col3;      //  Main Code
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
       this.Recorddet.jv_is_taxable = false;
-      if (_Record.col4 == "Y")
+      if (_Record.col4 == "Y") {
         this.Recorddet.jv_is_taxable = true;      //  Taxable
+        this.Recorddet.jv_gst_edited = false;
+      }
 
 
       this.SearchRecord('taxcode');
@@ -1536,6 +1538,8 @@ export class ArApComponent {
   Ok() {
     let bok = true;
 
+    this.ErrorMessage = '';
+
 
     if (this.Recorddet.jv_acc_id == null) {
       this.ErrorMessage = 'A/c code Cannot Be Blank';
@@ -1589,9 +1593,19 @@ export class ArApComponent {
         }
         this.CCList.forEach(rec => {
           ccamt += rec.ct_amount;
+          if ( rec.ct_cost_name == 'Invalid Cost Center Code')
+          {
+              this.ErrorMessage = 'Cost Center Not Allocated';
+          }
         });
       }
     }
+
+    if (this.ErrorMessage != '')
+    {
+      return;
+    }
+
 
     if (iscc) {
       if (ccamt != this.Recorddet.jv_total) {
@@ -1776,15 +1790,17 @@ export class ArApComponent {
     }
 
     let iCtr: number = 0;
-    this.CCList.forEach(rec => {
-      iCtr++;
-      rec.ct_ctr = iCtr;
-      rec.ct_jv_id = this.Recorddet.jv_pkid;
-      rec.ct_acc_id = this.Recorddet.jv_acc_id;
-      this.Record.CostCenterList.push(rec);
-    });
 
-
+    if ( this.Record.jvh_cc_category == 'GENERAL JOB' || this.Record.jvh_cc_category == 'NA') 
+    {
+      this.CCList.forEach(rec => {
+        iCtr++;
+        rec.ct_ctr = iCtr;
+        rec.ct_jv_id = this.Recorddet.jv_pkid;
+        rec.ct_acc_id = this.Recorddet.jv_acc_id;
+        this.Record.CostCenterList.push(rec);
+      });
+    }
 
 
 

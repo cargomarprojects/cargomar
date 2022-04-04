@@ -469,7 +469,7 @@
             <label class="col-2 col-form-label  col-form-label-sm"></label>
             <div class="col-4">
               <input type="checkbox"
-                [disabled]="Recorddet.jv_acc_type_name == 'DIRECT INCOME' || Recorddet.jv_acc_type_name == 'DIRECT EXPENSE'  || Recorddet.jv_acc_type_name == ''"
+                [disabled]="Recorddet.jv_acc_type_name != 'INDIRECT INCOME' && Recorddet.jv_acc_type_name != 'INDIRECT EXPENSE'"
                 [(ngModel)]="Recorddet.jv_gst_edited">
               <span>Edit GST</span>
             </div>
