@@ -13,6 +13,7 @@ export class Costingm {
   cost_agent_code: string;
   cost_agent_name: string;
   cost_year: number;
+  cost_folder_year: number;
   cost_date: string;
   cost_folder_recdon: string;
   cost_currency_id: string;
