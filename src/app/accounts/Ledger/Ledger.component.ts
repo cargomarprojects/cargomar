@@ -380,8 +380,10 @@ export class LedgerComponent {
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
       this.Recorddet.jv_acc_drcr_only = _Record.col7;  //DR CR Only Validation
       this.Recorddet.jv_is_taxable = false;
-      if (_Record.col4 == "Y")  //  Taxable
+      if (_Record.col4 == "Y")  { //  Taxable
         this.Recorddet.jv_is_taxable = true;
+        this.Recorddet.jv_gst_edited = false;
+      }
 
       if (this.type == "BP") {
         if (this.Recorddet.jv_acc_type_name == "BANK")
