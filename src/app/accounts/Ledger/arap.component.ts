@@ -799,6 +799,13 @@ export class ArApComponent {
         sError += " | GST need to be selected";
       }
 
+      if ( !this.Record.jvh_rc){
+        if (this.Record.jvh_gstin.length != 15) {
+          bret = false;
+          sError += " | Invalid GSTIN";
+        }
+      }
+
     }
 
     if ( this.editdoc == 'Y') {
