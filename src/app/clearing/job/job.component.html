@@ -993,6 +993,8 @@
                 (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-primary btn-sm">History</button>
+              <button *ngIf="mode == 'EDIT' && bCanDuplicate" [disabled]="loading" (click)="DuplicateJob()"
+                class="btn btn-primary btn-sm">Duplicate Job</button>                
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>

@@ -5,6 +5,8 @@ import { GlobalService } from '../../core/services/global.service';
 import { Jobm } from '../models/job';
 import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
+
+
 //EDIT-AJITH-20-11-2021
 
 @Component({
@@ -42,6 +44,8 @@ export class JobComponent {
   bAdmin: boolean = false;
 
   bSign = false;
+
+  bCanDuplicate= false;
 
   searchby = '';
   searchstring = '';
@@ -146,6 +150,7 @@ export class JobComponent {
     this.job_no = "";
     this.bAdmin = false;
     this.bSign = false;
+    this.bCanDuplicate =false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -155,6 +160,9 @@ export class JobComponent {
 
       if (this.menu_record.rights_approval.length > 0)
         this.bSign = true;
+
+      if ( this.menu_record.rights_approval == "{DUPLICATE}" || this.bAdmin)
+        this.bCanDuplicate = true;
 
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
@@ -692,6 +700,8 @@ export class JobComponent {
     return this.disableSave;
   }
 
+  
+
   // Query List Data
   List(_type: string) {
 
@@ -1215,6 +1225,31 @@ export class JobComponent {
           alert(this.ErrorMessage);
         });
   }
+
+
+  DuplicateJob() {
+
+    if ( !confirm('Generate Duplicate Job'))
+      return;
+
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record.rec_category = this.type;
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.DuplicateJob(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        alert("New Job " + response.docno + " Generated Successfully");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
 
 
