@@ -158,11 +158,12 @@ export class JobComponent {
         this.bAdmin = true;
       this.bPrint = this.menu_record.rights_print;
 
-      if (this.menu_record.rights_approval.length > 0)
-        this.bSign = true;
-
-      if ( this.menu_record.rights_approval == "{DUPLICATE}" || this.bAdmin)
-        this.bCanDuplicate = true;
+      if (this.menu_record.rights_approval.length > 0) {
+        if ( this.menu_record.rights_approval.toString().indexOf("{SIGN}") >=0 )        
+            this.bSign = true;
+        if ( this.menu_record.rights_approval.toString().indexOf("{DUPLICATE}") >=0 || this.bAdmin)
+          this.bCanDuplicate = true;
+      }
 
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
