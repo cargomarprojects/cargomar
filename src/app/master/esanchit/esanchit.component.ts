@@ -53,6 +53,7 @@ export class EsanchitComponent  {
   // Single Record for add/edit/view details
   Record: Esanchit = new Esanchit;
 
+  
   constructor(
     private modalService: NgbModal,
     private mainService: EsanchitService,
@@ -222,6 +223,34 @@ export class EsanchitComponent  {
         this.ErrorMessage = this.gs.getError(error);
       });
   }
+
+  GetBeneficiary(Id: string) {
+    this.loading = true;
+
+    let SearchData = {
+      branch_code: this.gs.globalVariables.branch_code,
+      code : this.Record.doc_type_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetBeneficiary(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        var _Rec = response.record as Esanchit;
+        this.Record.doc_ben_name =   _Rec.doc_ben_name;
+        this.Record.doc_ben_add1 =   _Rec.doc_ben_add1;
+        this.Record.doc_ben_add2 =   _Rec.doc_ben_add2;
+        this.Record.doc_ben_city =   _Rec.doc_ben_city;
+        this.Record.doc_ben_pin =   _Rec.doc_ben_pin;
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
+
+
 
 
   NewRecord() {

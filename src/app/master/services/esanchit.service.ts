@@ -21,6 +21,13 @@ export class EsanchitService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Esanchit/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  
+
+  GetBeneficiary(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Esanchit/GetBeneficiary', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
   Save(Record: Esanchit) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Esanchit/Save', Record, this.gs.headerparam2('authorized'));
   }
