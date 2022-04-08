@@ -229,7 +229,8 @@ export class EsanchitComponent  {
 
     let SearchData = {
       branch_code: this.gs.globalVariables.branch_code,
-      code : this.Record.doc_type_code
+      code : this.Record.doc_type_code,
+      date : this.Record.doc_upload_date
     };
 
     this.ErrorMessage = '';
