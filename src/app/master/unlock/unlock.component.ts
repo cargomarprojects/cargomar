@@ -114,6 +114,7 @@ export class UnLockComponent {
       { "code": "HO", "name": "Costing Journal Voucher" },
       { "code": "IN", "name": "Invoice" },
       { "code": "PN", "name": "MBL Invoice" },
+      { "code": "PN-JV", "name": "General Expense" },
       { "code": "OP", "name": "Opening Balance" },
       { "code": "OI", "name": "Opening Invoice" },
       { "code": "OC", "name": "Costing Opening Invoice" },
@@ -187,7 +188,7 @@ export class UnLockComponent {
       this.chkresetfldr = false;
       this.chkbpreaprvd = false;
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
-        this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" ||
+        this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" || this.moduletype == "PN-JV" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
         this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI"|| this.moduletype == "JV-BP") {
         this.refnotitle = "Vr.No";
