@@ -143,9 +143,9 @@ export class ArApComponent {
         this.type = options.type;
         this.subtype = options.subtype;
         this.editdrcr = options.editdrcr;
-        this.editdoc  = 'Y';
-        if ( options.editdoc)
-          this.editdoc  = options.editdoc;
+        this.editdoc = 'Y';
+        if (options.editdoc)
+          this.editdoc = options.editdoc;
 
         if (this.subtype == 'AR') {
           this.headerdrcr = 'DR';
@@ -588,9 +588,9 @@ export class ArApComponent {
       this.Record.jvh_cc_category = "SI SEA EXPORT";
     if (this.subtype == "AP")
       this.Record.jvh_cc_category = "MBL SEA EXPORT";
-    
+
     // General Expenses
-    if ( this.editdoc == 'N') {
+    if (this.editdoc == 'N') {
       this.Record.jvh_cc_category = "NA";
       this.lock_cc = true;
     }
@@ -688,9 +688,9 @@ export class ArApComponent {
       this.lock_date = false;
     if (this.Record.jvh_edit_code.indexOf("{C}") >= 0)
       this.lock_cc = false;
-    
+
     // General Expense
-    if ( this.editdoc == 'N')
+    if (this.editdoc == 'N')
       this.lock_cc = true;
 
     if (this.LockErrorMessage.length > 0) {
@@ -787,9 +787,8 @@ export class ArApComponent {
       }
     }
 
-    if( this.editdoc == 'N'){
-      if ( this.gs.isBlank(this.Record.jvh_org_invno) || this.gs.isBlank(this.Record.jvh_org_invdt))
-      {
+    if (this.editdoc == 'N') {
+      if (this.gs.isBlank(this.Record.jvh_org_invno) || this.gs.isBlank(this.Record.jvh_org_invdt)) {
         bret = false;
         sError += " | Original INV#/DT Cannot Be Blank";
       }
@@ -799,7 +798,7 @@ export class ArApComponent {
         sError += " | GST need to be selected";
       }
 
-      if ( !this.Record.jvh_rc){
+      if (!this.Record.jvh_rc) {
         if (this.Record.jvh_gstin.length != 15) {
           bret = false;
           sError += " | Invalid GSTIN";
@@ -808,7 +807,7 @@ export class ArApComponent {
 
     }
 
-    if ( this.editdoc == 'Y') {
+    if (this.editdoc == 'Y') {
       if (this.Record.jvh_cc_code.trim().length <= 0 || this.Record.jvh_cc_id.trim().length <= 0) {
         bret = false;
         sError += " | Cost Center Code Cannot Be Blank";
@@ -900,8 +899,8 @@ export class ArApComponent {
     }
 
     if (this.subtype == 'AP') {
-      
-      if ( this.editdoc == 'Y') {
+
+      if (this.editdoc == 'Y') {
         if (this.Record.jvh_no_brok) {
           if (this.Record.jvh_brok_remarks.length <= 0) {
             bret = false;
@@ -1290,7 +1289,7 @@ export class ArApComponent {
       this.modeDetail = '';
     }
     else if (action === 'ADD') {
-      if ( this.editdoc == 'Y')  {
+      if (this.editdoc == 'Y') {
         if (this.Record.jvh_cc_code.trim().length <= 0) {
           alert("Pls enter CC Code");
           return;
@@ -1600,16 +1599,15 @@ export class ArApComponent {
         }
         this.CCList.forEach(rec => {
           ccamt += rec.ct_amount;
-          if ( rec.ct_cost_name == 'Invalid Cost Center Code')
-          {
-              this.ErrorMessage = 'Cost Center Not Allocated';
+          ccamt = this.gs.roundNumber(ccamt, 2);
+          if (rec.ct_cost_name == 'Invalid Cost Center Code') {
+            this.ErrorMessage = 'Cost Center Not Allocated';
           }
         });
       }
     }
 
-    if (this.ErrorMessage != '')
-    {
+    if (this.ErrorMessage != '') {
       return;
     }
 
@@ -1798,8 +1796,7 @@ export class ArApComponent {
 
     let iCtr: number = 0;
 
-    if ( this.Record.jvh_cc_category == 'GENERAL JOB' || this.Record.jvh_cc_category == 'NA') 
-    {
+    if (this.Record.jvh_cc_category == 'GENERAL JOB' || this.Record.jvh_cc_category == 'NA') {
       this.CCList.forEach(rec => {
         iCtr++;
         rec.ct_ctr = iCtr;
