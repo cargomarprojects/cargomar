@@ -54,7 +54,7 @@ export class LedgerComponent {
   bChqprint: boolean = true;
   bChqboxvisible: boolean = false;
   selectedRowIndex = 0;
-  
+
   modal: any;
 
   disableSave = true;
@@ -380,7 +380,7 @@ export class LedgerComponent {
       this.Recorddet.jv_acc_type_name = _Record.col6;      //  Main Code
       this.Recorddet.jv_acc_drcr_only = _Record.col7;  //DR CR Only Validation
       this.Recorddet.jv_is_taxable = false;
-      if (_Record.col4 == "Y")  { //  Taxable
+      if (_Record.col4 == "Y") { //  Taxable
         this.Recorddet.jv_is_taxable = true;
         this.Recorddet.jv_gst_edited = false;
       }
@@ -2453,6 +2453,8 @@ export class LedgerComponent {
   }
 
   UpdateInvoice() {
+    if (!this.lock_record)
+      return;
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';

@@ -85,7 +85,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_reference}}</td>
@@ -445,7 +446,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Dr/Cr</label>
             <div class="col-4">
-              <select class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_drcr"  (change)="OnChange('jv_drcr')">
+              <select class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_drcr"
+                (change)="OnChange('jv_drcr')">
                 <option value="DR">DR</option>
                 <option value="CR">CR</option>
               </select>
@@ -590,7 +592,8 @@
 
           <div class="form-group row">
             <div class="col-2 pl-1">
-              <button [disabled]="loading" (click)="openWebSite(Recorddet.jv_pay_link)" class="btn btn-link btn-sm">Pay.Link
+              <button [disabled]="loading" (click)="openWebSite(Recorddet.jv_pay_link)"
+                class="btn btn-link btn-sm">Pay.Link
               </button>
             </div>
             <div class="col-10">
@@ -635,7 +638,8 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Tan#<i *ngIf="this.Recorddet.jv_tan_update&&this.Recorddet.jv_acc_code == 'TDSPAID'"
+            <label class="col-2 col-form-label col-form-label-sm">Tan#<i
+                *ngIf="this.Recorddet.jv_tan_update&&this.Recorddet.jv_acc_code == 'TDSPAID'"
                 class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="SearchRecord('tanupdate')"></i></label>
             <div class="col-4">
               <app-autocomplete #LinerLov [disabled]="this.Recorddet.jv_acc_code != 'TDSPAID'" [inputdata]="TANRECORD"
@@ -711,8 +715,10 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()"
-            style=" text-decoration: underline;cursor:pointer"> Narration
+          <label class="col-2 col-form-label  col-form-label-sm">
+            <label class="col-form-label  col-form-label-sm" (click)="getNarration()"
+              style=" text-decoration: underline;cursor:pointer"> Narration
+            </label>
             <button *ngIf="mode == 'EDIT'" [hidden]="!lock_record" [disabled]="loading||!this.Record.jvh_update_chq"
               (click)="UpdateInvoice()" class="btn btn-success btn-sm">Update</button>
           </label>
