@@ -64,7 +64,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_category}}</td>
@@ -183,7 +184,8 @@
           </div> -->
           <div class="col-10 input-group input-group-sm">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
-            <label *ngIf="cc_lock_status!=''" class="col-form-label col-form-label-sm text-danger">{{cc_lock_status}}</label>
+            <label *ngIf="cc_lock_status!=''"
+              class="col-form-label col-form-label-sm text-danger">{{cc_lock_status}}</label>
           </div>
         </div>
 
@@ -505,8 +507,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Cgst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_cgst_rate"
-                (blur)="OnBlur('jv_cgst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_cgst_rate" (blur)="OnBlur('jv_cgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
@@ -518,8 +520,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Sgst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_sgst_rate"
-                (blur)="OnBlur('jv_sgst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_sgst_rate" (blur)="OnBlur('jv_sgst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
@@ -531,8 +533,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Igst%</label>
             <div class="col-4">
-              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_igst_rate"
-                (blur)="OnBlur('jv_igst_per')" maxlength="15" />
+              <input [disabled]="!Recorddet.jv_gst_edited" type="number" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_igst_rate" (blur)="OnBlur('jv_igst_per')" maxlength="15" />
             </div>
             <label class="col-2 col-form-label  col-form-label-sm">Amt</label>
             <div class="col-4">
@@ -619,7 +621,9 @@
 
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm">Narration</label>
+          <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()"
+          [style.text-decoration]="type=='PN-JV'?'underline':'none'"  [style.cursor]="type=='PN-JV'?'pointer':'default'" > Narration
+          </label>
           <div class="col-10">
             <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required
               maxlength="255"></textarea>

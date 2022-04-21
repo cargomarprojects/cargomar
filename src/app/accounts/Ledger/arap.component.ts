@@ -2344,6 +2344,51 @@ export class ArApComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  getNarration() {
+    if (this.type != 'PN-JV')
+      return;
+    let str: string = '';
+    let catg: string = '';
+    let i: number = 0;
+    let IsCntrWise: boolean = false;
+    // this.CostCode = "";
+    // this.CostNarration = "";
+
+    if (this.Record.jvh_acc_name.length > 0)
+      str = "BEING AMT DUE TO TO M/s " + this.Record.jvh_acc_name;
+    if (this.Record.jvh_reference.length > 0)
+      str += " TWDS Bill# " + this.Record.jvh_reference + " dated " + this.Record.jvh_reference_date;
+
+    //CostCenterList
+    str += this.Record.jvh_cc_name;
+    this.Record.CostCenterList.forEach(rec => {
+      if (i == 0) {
+        str += rec.ct_category;
+        if (rec.ct_category == 'CNTR SEA EXPORT')
+          IsCntrWise = true;
+      }
+      i++;
+      if (catg != '')
+        catg += ',';
+      catg += rec.ct_cost_code;
+    });
+    str += catg;;
+    if (str.length > 0)
+      str = str.replace('CNTR SEA EXPORT', 'CNTR# ');
+
+    if (str.length > 255)
+      str = str.substring(0, 255);
+
+    if (str.length > 0)
+      this.Record.jvh_narration = str;
+
+    // if (IsCntrWise) {
+    //   this.CostCode = catg;
+    //   this.CostNarration = str;
+    //   this.SearchRecord('cntrsinos');
+    // }
+  }
 }
 
 
