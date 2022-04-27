@@ -175,7 +175,7 @@ export class CcReportComponent {
 
   // Query List Data
   List(_type: string, _CanUpdate: string) {
-
+     
     if (this.cc_type.trim().length <= 0) {
       this.ErrorMessage = 'Type Cannot Be Blank';
       alert(this.ErrorMessage);
