@@ -1201,6 +1201,17 @@ export class LedgerComponent {
     else if (action === 'EDIT') {
       this.DetailTab = 'DETAILS';
       this.modeDetail = 'EDIT';
+
+      let nYear: number = +this.gs.globalVariables.year_code;
+      if (nYear >= 2022) {
+        if (this.gs.globalVariables.user_branch_user == 'Y' && (rec.jv_acc_code == '1507' || rec.jv_acc_code == '1532' || rec.jv_acc_code == '1535')) {
+          this.DetailTab = 'LIST';
+          this.modeDetail = '';
+          alert('Cannot view this record');
+          return;
+        }
+      }
+
       this.LoadDetail(rec);
     }
   }
