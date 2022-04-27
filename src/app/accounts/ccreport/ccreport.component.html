@@ -42,7 +42,7 @@
               <option value="MAWB AIR IMPORT">MAWB AIR IMPORT</option>
               <option value="CNTR SEA EXPORT">CNTR SEA EXPORT</option>
               <option value="GENERAL JOB">GENERAL JOB</option>
-              <option *ngIf="gs.globalVariables.user_branch_user=='Y'" value="EMPLOYEE">EMPLOYEE</option>
+              <option *ngIf="gs.globalVariables.user_branch_user!='Y'" value="EMPLOYEE">EMPLOYEE</option>
               <option value="ACC CODE">A/C CODE</option>
             </select>
           </div>
