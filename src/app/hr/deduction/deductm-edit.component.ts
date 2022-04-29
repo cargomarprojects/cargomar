@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Deductm } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { SalaryHead } from '../models/salaryhead';
 
 @Component({
     selector: 'app-deductm-edit',
@@ -41,7 +42,7 @@ export class DeductmEditComponent {
     InfoMessage = "";
     
     // Array For Displaying List
-    
+    Salheadlist: SalaryHead[] = [];
     // Single Record for add/edit/view details
     Record: Deductm = new Deductm;
     
@@ -70,9 +71,35 @@ export class DeductmEditComponent {
                 this.bPrint = true;
         }
         this.InitLov();
-         this.ActionHandler(this.mode, this.pkid)
+        this.LoadCombo();
     }
 
+    LoadCombo() {
+
+        this.loading = true;
+        let SearchData = {
+          type: 'type',
+          comp_code: this.gs.globalVariables.comp_code,
+          branch_code: this.gs.globalVariables.branch_code
+        };
+    
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+    
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+          .subscribe(response => {
+            this.loading = false;
+            this.Salheadlist = response.salheadlist;
+            this.ActionHandler(this.mode, this.pkid)
+          },
+            error => {
+              this.loading = false;
+              this.ErrorMessage = this.gs.getError(error);
+            });
+      }
+    
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
          

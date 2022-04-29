@@ -1,9 +1,9 @@
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
     <div class="page-box">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">EMP.CODE</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
                     <div class="col-4">
                         <app-autocomplete #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
@@ -11,6 +11,34 @@
                     <div class="col-6">
                         <input type="text" disabled class="form-control form-control-sm"
                             [(ngModel)]="Record.ded_emp_name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-4">
+                        <app-date [inputdate]="Record.ded_start_date" (ValueChanged)="Record.ded_start_date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-4">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.ded_type">
+                            <option *ngFor="let rec of Salheadlist" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Paid Amount</label>
+                    <div class="col-4">
+                        <input type="number"  class="form-control form-control-sm"
+                        [(ngModel)]="Record.ded_paid_amt" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
+                    <div class="col-4">
+                        <input type="number"  class="form-control form-control-sm"
+                        [(ngModel)]="Record.ded_mon_amt" />
                     </div>
                 </div>
             </div>
@@ -23,8 +51,6 @@
                     <div class="offset-3 col-sm-9">
                         <button [disabled]="loading || lock_record" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
-                            class="btn btn-success btn-sm">Return</button>
                         <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                             <font color="RED">
                                 {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
