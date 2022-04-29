@@ -18,6 +18,8 @@ import { ConsolPayrollComponent } from './consolpayroll/consolpayroll.component'
 import { IncLetterComponent } from './incletter/incletter.component';
 import { AttendanceRegComponent } from './attendancereg/attendancereg.component';
 import { LeaveReqComponent } from './leavereq/leavereq.component';
+import { DeductmComponent } from './deduction/deductm.component';
+import { DeductmEditComponent } from './deduction/deductm-edit.component';
 
 @NgModule({
   imports: [
@@ -41,7 +43,9 @@ import { LeaveReqComponent } from './leavereq/leavereq.component';
     ConsolPayrollComponent,
     IncLetterComponent,
     AttendanceRegComponent,
-    LeaveReqComponent
+    LeaveReqComponent,
+    DeductmComponent,
+    DeductmEditComponent
   ],
   providers: [
   ],
