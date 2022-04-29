@@ -55,6 +55,8 @@
             <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
               [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')"
               class="btn btn-primary btn-sm">Excel</button>
+              <button *ngIf="bAdmin && salh_jvno>0" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','CSV')"
+                class="btn btn-primary btn-sm">Csv</button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')"
               class="btn btn-primary btn-sm">PaySlip</button>
             <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')"
