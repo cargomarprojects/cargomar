@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Deductm } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
- 
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
     selector: 'app-deductm',
@@ -40,13 +40,19 @@ export class DeductmComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-  
+    emp_id:string='';
+    emp_code:string='';
+    emp_name:string='';
+    salyear:number;
+    salmonth:number;
+
     mode = '';
     pkid = '';
     // Array For Displaying List
     RecordList: Deductm[] = [];
     // Single Record for add/edit/view details
-     
+    EMPRECORD: SearchTable = new SearchTable();
+
     constructor(
         private modalService: NgbModal,
         private mainService: DeductmService,
@@ -93,11 +99,27 @@ export class DeductmComponent {
     }
 
     InitLov() {
-         
+
+     this.EMPRECORD = new SearchTable();
+        this.EMPRECORD.controlname = "EMPLOYEE";
+        this.EMPRECORD.displaycolumn = "CODE";
+        this.EMPRECORD.type = "EMPLOYEE";
+        this.EMPRECORD.where = "";
+        this.EMPRECORD.id = ""
+        this.EMPRECORD.code = "";
+        this.EMPRECORD.name = "";
     }
- 
+
+    LovSelected(_Record: SearchTable) {
+        if (_Record.controlname == "EMPLOYEE") {
+            this.emp_id = _Record.id;
+            this.emp_code = _Record.code;
+            this.emp_name = _Record.name;
+        }
+    }
+
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string,_deductm: any) {
+    ActionHandler(action: string, id: string, _deductm: any) {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         if (action == 'LIST') {
@@ -106,15 +128,20 @@ export class DeductmComponent {
             this.currentTab = 'LIST';
         }
         else if (action === 'ADD') {
-             
-             this.pkid= this.gs.getGuid();
-             this.mode = 'ADD';
-             this.open(_deductm);
+
+            this.pkid = this.gs.getGuid();
+            this.mode = 'ADD';
+            this.open(_deductm);
         }
         else if (action === 'EDIT') {
             this.pkid = id;
             this.mode = 'EDIT';
             this.open(_deductm);
+        }
+        else if (action === 'PROCESS') {
+            this.mode = '';
+            this.pkid = '';
+            this.currentTab = 'PROCESS';
         }
     }
 
@@ -159,31 +186,58 @@ export class DeductmComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
-   
 
-    RefreshList() {
-        // if (this.RecordList == null)
-        //     return;
-        // var REC = this.RecordList.find(rec => rec.ded_pkid == this.Record.ded_pkid);
-        // if (REC == null) {
-        //     this.RecordList.push(this.Record);
+    OnBlur(field: string) {
+        // if (field == 'ded_paid_amt') {
+        //     this.Record.ded_paid_amt = this.gs.roundNumber(this.Record.ded_paid_amt, 2);
+        //     this.FindInstallments();
         // }
-        // else {
-        //     REC.ded_emp_code = this.Record.ded_emp_code;
-        //     REC.ded_emp_name = this.Record.ded_emp_name;
-           
+        // if (field == 'ded_mon_amt') {
+        //     this.Record.ded_mon_amt = this.gs.roundNumber(this.Record.ded_mon_amt, 2);
+        //     this.FindInstallments();
+        // }
+        // if (field == 'ded_tot_months') {
+        //     this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
+        // }
+        // if (field == 'sal_head') {
+        //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
         // }
     }
- 
-     
+
     Close() {
         this.gs.ClosePage('home');
     }
 
     open(content: any) {
         this.modal = this.modalService.open(content);
-      }
-     
+    }
 
-     
+    ModifiedRecords(params: any) {
+        if (params.saction == "SAVE") {
+            this.RefreshList(params.rec);
+        }
+        this.modal.close();
+    }
+
+    RefreshList(_rec: Deductm) {
+        if (this.RecordList == null)
+            return;
+        var REC = this.RecordList.find(rec => rec.ded_pkid == _rec.ded_pkid);
+        if (REC == null) {
+            this.RecordList.push(_rec);
+        }
+        else {
+            REC.ded_emp_code = _rec.ded_emp_code;
+            REC.ded_emp_name = _rec.ded_emp_name;
+            REC.ded_start_date = _rec.ded_start_date;
+            REC.ded_type = _rec.ded_type;
+            REC.ded_paid_amt = _rec.ded_paid_amt;
+            REC.ded_mon_amt = _rec.ded_mon_amt;
+            REC.ded_tot_months = _rec.ded_tot_months;
+            REC.ded_collected_amt = _rec.ded_collected_amt;
+            REC.ded_bal_amt = _rec.ded_bal_amt;
+
+        }
+    }
+
 }

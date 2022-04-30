@@ -14,7 +14,8 @@ export class Deductm {
     ded_collected_amt: number;
     ded_bal_amt: number;
     ded_closed: string;
-
+    ded_edit_code:string;
+    
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

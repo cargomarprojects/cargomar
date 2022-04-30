@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Deductm } from '../models/deductm';
@@ -13,16 +13,17 @@ import { SalaryHead } from '../models/salaryhead';
 })
 export class DeductmEditComponent {
     // Local Variables 
-    title = 'DEDUCTION MASTER';
+    title = 'DEDUCTIONS';
 
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() mode: string = '';
     @Input() pkid: string = '';
+    @Output() callbackevent = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
     menu_record: any;
-     
+
 
     bChanged: boolean;
     disableSave = true;
@@ -31,21 +32,21 @@ export class DeductmEditComponent {
     bPrint: boolean = false;
     searchstring = '';
 
-     
+
 
     sub: any;
     urlid: string;
     lock_record: boolean = false;
-     
+
 
     ErrorMessage = "";
     InfoMessage = "";
-    
+
     // Array For Displaying List
     Salheadlist: SalaryHead[] = [];
     // Single Record for add/edit/view details
     Record: Deductm = new Deductm;
-    
+
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
@@ -53,8 +54,8 @@ export class DeductmEditComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
-         
-         
+
+
     }
 
     // Init Will be called After executing Constructor
@@ -78,31 +79,31 @@ export class DeductmEditComponent {
 
         this.loading = true;
         let SearchData = {
-          type: 'type',
-          comp_code: this.gs.globalVariables.comp_code,
-          branch_code: this.gs.globalVariables.branch_code
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
         };
-    
+
         SearchData.comp_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
-    
+
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.LoadDefault(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.Salheadlist = response.salheadlist;
-            this.ActionHandler(this.mode, this.pkid)
-          },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-            });
-      }
-    
+            .subscribe(response => {
+                this.loading = false;
+                this.Salheadlist = response.salheadlist;
+                this.ActionHandler(this.mode, this.pkid)
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
-         
+
     }
 
     InitLov() {
@@ -147,10 +148,16 @@ export class DeductmEditComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new Deductm();
         this.Record.ded_pkid = this.pkid;
-        
-        //this.Record.ded_edit_code = "{S}";
-        // this.Record.DetList=this.Recorddet;
-         
+        this.Record.ded_emp_id = '';
+        this.Record.ded_emp_code = '';
+        this.Record.ded_emp_name = '';
+        this.Record.ded_type = '';
+        this.Record.ded_start_date = this.gs.defaultValues.today;
+        this.Record.ded_paid_amt = 0;
+        this.Record.ded_mon_amt = 0;
+        this.Record.ded_tot_months = 0;
+
+        this.Record.ded_edit_code = "{S}";
         this.lock_record = false;
         this.InitLov();
         this.Record.rec_mode = this.mode;
@@ -171,7 +178,7 @@ export class DeductmEditComponent {
             return this.disableSave;
     }
 
-  
+
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
         this.loading = true;
@@ -183,7 +190,6 @@ export class DeductmEditComponent {
         this.mainService.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.mode = response.mode;
                 this.LoadData(response.record);
             },
                 error => {
@@ -219,7 +225,8 @@ export class DeductmEditComponent {
                 this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
-                // this.RefreshList();
+                if (this.callbackevent != null)
+                    this.callbackevent.emit({ saction: 'SAVE', rec: this.Record });
             },
                 error => {
                     this.loading = false;
@@ -233,55 +240,61 @@ export class DeductmEditComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        //if (this.Record.job_date.trim().length <= 0) {
-        //  bret = false;
-        //  sError = " | Job Date Cannot Be Blank";
-        //}
 
-        //if (this.Record.sal_code.trim().length <= 0) {
-        //  bret = false;
-        //  sError += "\n\r | Code Cannot Be Blank";
-        //}
+        if (this.Record.ded_emp_code.trim().length <= 0) {
+            bret = false;
+            sError += "\n\r | Employee Cannot Be Blank";
+        }
 
-        //if (this.Record.sal_desc.trim().length <= 0) {
-        //  bret = false;
-        //  sError += "\n\r | Description Cannot Be Blank";
-        //}
+        if (this.Record.ded_type.trim().length <= 0) {
+            bret = false;
+            sError += "\n\r | Deduction Type Cannot Be Blank";
+        }
 
-        //if (this.Record.sal_head_order <= 0) {
-        //  bret = false;
-        //  sError += "\n\r | Invalid  order ";
-        //}
+        if (this.Record.ded_start_date.trim().length <= 0) {
+            bret = false;
+            sError = " | Date Cannot Be Blank";
+        }
 
+        if (this.Record.ded_paid_amt == 0 && this.Record.ded_mon_amt == 0) {
+            bret = false;
+            sError += "\n\r | Invalid  Amount ";
+        }
 
-        //if (bret === false)
-        //  this.ErrorMessage = sError;
+        if (bret === false) {
+            this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         if (bret) {
-          
+
         }
         return bret;
     }
 
-     
+
 
 
     OnBlur(field: string) {
-        // if (field == 'sal_pf_limit') {
-        //     this.Record.sal_pf_limit = this.gs.roundNumber(this.Record.sal_pf_limit, 2);
-        //     this.FindNetAmt();
-        // }
-        // if (field == 'sal_is_esi') {
-        //     this.FindNetAmt();
-        // }
-        //if (field == 'sal_head') {
+        if (field == 'ded_paid_amt') {
+            this.Record.ded_paid_amt = this.gs.roundNumber(this.Record.ded_paid_amt, 2);
+            this.FindInstallments();
+        }
+        if (field == 'ded_mon_amt') {
+            this.Record.ded_mon_amt = this.gs.roundNumber(this.Record.ded_mon_amt, 2);
+            this.FindInstallments();
+        }
+        if (field == 'ded_tot_months') {
+            this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
+        }
+        // if (field == 'sal_head') {
         //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
-        //}
+        // }
     }
- 
-     
+
+
 
     FindNetAmt() {
-       
+
         // let TotDeductn: number = 0;
         // for (let rec of this.Record.DetList) {
         //     if (rec.d_code1 == "D01") //Employee PF Deduction
@@ -297,5 +310,19 @@ export class DeductmEditComponent {
         // this.Record.d01 = PF_Amt;
         // this.Record.d02 = ESI_Amt;
         // this.Record.sal_gross_deduct = TotDeductn;
+    }
+
+    FindInstallments() {
+
+        let Totmons: number = 0;
+        if (this.Record.ded_mon_amt > 0)
+            Totmons = this.Record.ded_paid_amt / this.Record.ded_mon_amt;
+        Totmons = this.gs.roundNumber(this.Record.ded_paid_amt / this.Record.ded_mon_amt, 0);
+        this.Record.ded_tot_months = Totmons;
+    }
+
+    Close() {
+        if (this.callbackevent != null)
+            this.callbackevent.emit({ saction: 'CLOSE' });
     }
 }
