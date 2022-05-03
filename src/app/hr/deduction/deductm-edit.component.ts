@@ -18,15 +18,12 @@ export class DeductmEditComponent {
     title = 'DEDUCTIONS';
 
     @Input() menuid: string = '';
-    @Input() type: string = '';
-    @Input() mode: string = '';
     @Input() pkid: string = '';
     @Input() btncaption: string = 'New'; //link
     @Output() callbackevent = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
     menu_record: any;
-
 
     bChanged: boolean;
     disableSave = true;
@@ -36,7 +33,7 @@ export class DeductmEditComponent {
     searchstring = '';
     modal: any;
 
-
+    mode: string = 'EDIT';
     sub: any;
     urlid: string;
     lock_record: boolean = false;
@@ -231,7 +228,7 @@ export class DeductmEditComponent {
                 this.Record.rec_mode = this.mode;
                 if (this.callbackevent != null)
                     this.callbackevent.emit({ saction: 'SAVE', rec: this.Record });
-                this.ActionHandler("ADD", '');
+                // this.ActionHandler("ADD", '');
                 this.modal.close();
             },
                 error => {
@@ -334,6 +331,10 @@ export class DeductmEditComponent {
 
     ShowModal(_deductm: any) {
         this.currentTab = 'DETAILS';
+        if (this.gs.isBlank(this.pkid))
+            this.mode = 'ADD';
+        else
+            this.mode = 'EDIT';
         this.open(_deductm);
     }
     open(content: any) {

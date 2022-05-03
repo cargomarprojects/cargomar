@@ -4,7 +4,7 @@
             <label>{{title}}</label>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-primary btn-sm mr-1">List</button>
-            <app-deductm-edit [menuid]="menuid" [pkid]="''" [mode]="'ADD'" [type]="''" [btncaption]="'New'"
+            <app-deductm-edit [menuid]="menuid" [pkid]="''" [btncaption]="'New'"
                 (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
             <button [disabled]="loading" (click)="ActionHandler('PROCESS','')"
                 class="btn btn-primary btn-sm mr-1">Process</button>
@@ -65,8 +65,10 @@
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
                     <!-- <td>{{rec.ded_emp_code}}</td> -->
-                    <td class="p-0"> <app-deductm-edit [menuid]="menuid" [pkid]="rec.ded_pkid" [mode]="'EDIT'" [type]="''" [btncaption]="rec.ded_emp_code"
-                        (callbackevent)="ModifiedRecords($event)"></app-deductm-edit></td>
+                    <td class="p-0">
+                        <app-deductm-edit [menuid]="menuid" [pkid]="rec.ded_pkid" [btncaption]="rec.ded_emp_code"
+                            (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
+                    </td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_start_date}}</td>
                     <td>{{rec.ded_type}}</td>
