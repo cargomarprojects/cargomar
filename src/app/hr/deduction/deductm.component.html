@@ -59,7 +59,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
-                    <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_code}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_code}}</td>
                     <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_name}}</td>
                     <td >{{rec.ded_start_date}}</td>
                     <td >{{rec.ded_type}}</td>
