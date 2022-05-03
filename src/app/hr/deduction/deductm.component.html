@@ -1,11 +1,16 @@
 <div class="page-header">
-    <div class="col">
-        <label>{{title}}</label>
-        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)" class="btn btn-primary btn-sm">List</button>
-        <button [disabled]="loading" (click)="ActionHandler('ADD','',deductionm)" class="btn btn-primary btn-sm">New</button>
-        <button [disabled]="loading" (click)="ActionHandler('PROCESS','',deductionm)" class="btn btn-primary btn-sm">Process</button>
-        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
+    <div class="row">
+        <div class="col-12 input-group input-group-sm">
+            <label>{{title}}</label>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-primary btn-sm mr-1">List</button>
+            <app-deductm-edit [menuid]="menuid" [pkid]="''" [mode]="'ADD'" [type]="''" [btncaption]="'New'"
+                (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
+            <button [disabled]="loading" (click)="ActionHandler('PROCESS','')"
+                class="btn btn-primary btn-sm mr-1">Process</button>
+            <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
     </div>
 </div>
 
@@ -59,15 +64,17 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
-                    <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_code}}</td>
-                    <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_name}}</td>
-                    <td >{{rec.ded_start_date}}</td>
-                    <td >{{rec.ded_type}}</td>
-                    <td >{{rec.ded_paid_amt}}</td>
-                    <td >{{rec.ded_mon_amt}}</td>
-                    <td >{{rec.ded_tot_months}}</td>
-                    <td >{{rec.ded_collected_amt}}</td>
-                    <td >{{rec.ded_bal_amt}}</td>
+                    <!-- <td>{{rec.ded_emp_code}}</td> -->
+                    <td class="p-0"> <app-deductm-edit [menuid]="menuid" [pkid]="rec.ded_pkid" [mode]="'EDIT'" [type]="''" [btncaption]="rec.ded_emp_code"
+                        (callbackevent)="ModifiedRecords($event)"></app-deductm-edit></td>
+                    <td>{{rec.ded_emp_name}}</td>
+                    <td>{{rec.ded_start_date}}</td>
+                    <td>{{rec.ded_type}}</td>
+                    <td>{{rec.ded_paid_amt}}</td>
+                    <td>{{rec.ded_mon_amt}}</td>
+                    <td>{{rec.ded_tot_months}}</td>
+                    <td>{{rec.ded_collected_amt}}</td>
+                    <td>{{rec.ded_bal_amt}}</td>
                 </tr>
             </tbody>
         </table>
@@ -101,29 +108,28 @@
                         </app-autocomplete>
                     </div>
                     <div class="col-6">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="emp_name" />
+                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="emp_name" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label col-form-label-sm">Year/Month</label>
-                    <div  class="col-sm-2 pr-0">
-                      <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
-                        [(ngModel)]="salyear" required maxlength="4"/>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Year/Month</label>
+                    <div class="col-sm-2 pr-0">
+                        <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
+                            [(ngModel)]="salyear" required maxlength="4" />
                     </div>
                     <div class="col-sm-2 pl-0">
-                      <input  type="number" class="col form-control form-control-sm pl-0 pr-0" (blur)="OnBlur('salmonth')"
-                        [(ngModel)]="salmonth" required maxlength="2" />
+                        <input type="number" class="col form-control form-control-sm pl-0 pr-0"
+                            (blur)="OnBlur('salmonth')" [(ngModel)]="salmonth" required maxlength="2" />
                     </div>
                     <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                     <div class="col-sm-4">
-                      <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
-                        class="btn btn-primary btn-sm">Process</button>
+                        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
+                            class="btn btn-primary btn-sm">Process</button>
                     </div>
-                  </div>
+                </div>
 
-                
+
             </div>
         </div>
     </div>
@@ -156,14 +162,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
 </div>
-<ng-template #deductionm let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">{{title}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body mx-0 px-0">
-      <app-deductm-edit [menuid]="menuid" [pkid]="pkid" [mode]="mode" [type]="''"  (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
-    </div>
-  </ng-template>

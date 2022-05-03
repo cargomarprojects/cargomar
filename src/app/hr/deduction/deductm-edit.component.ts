@@ -1,10 +1,12 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Deductm } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { SalaryHead } from '../models/salaryhead';
+import { TaxplanDetService } from '../services/taxplandet.service';
 
 @Component({
     selector: 'app-deductm-edit',
@@ -19,7 +21,7 @@ export class DeductmEditComponent {
     @Input() type: string = '';
     @Input() mode: string = '';
     @Input() pkid: string = '';
-    @Input() btntype: string = 'button'; //link
+    @Input() btncaption: string = 'New'; //link
     @Output() callbackevent = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
@@ -32,7 +34,7 @@ export class DeductmEditComponent {
     currentTab = 'LIST';
     bPrint: boolean = false;
     searchstring = '';
-
+    modal: any;
 
 
     sub: any;
@@ -51,6 +53,7 @@ export class DeductmEditComponent {
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
+        private modalService: NgbModal,
         private mainService: DeductmService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -195,7 +198,7 @@ export class DeductmEditComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.gs.getError(error));
                 });
     }
 
@@ -223,16 +226,16 @@ export class DeductmEditComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                this.InfoMessage = "Save Complete";
+                // this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 if (this.callbackevent != null)
                     this.callbackevent.emit({ saction: 'SAVE', rec: this.Record });
+                this.modal.close();
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-
+                    alert(this.gs.getError(error));
                 });
     }
 
@@ -263,8 +266,8 @@ export class DeductmEditComponent {
         }
 
         if (bret === false) {
-            this.ErrorMessage = sError;
-            alert(this.ErrorMessage);
+            // this.ErrorMessage = sError;
+            alert(sError);
         }
         if (bret) {
 
@@ -325,5 +328,14 @@ export class DeductmEditComponent {
     Close() {
         if (this.callbackevent != null)
             this.callbackevent.emit({ saction: 'CLOSE' });
+        this.modal.close();
+    }
+
+    ShowModal(_deductm: any) {
+        this.currentTab = 'DETAILS';
+        this.open(_deductm);
+    }
+    open(content: any) {
+        this.modal = this.modalService.open(content);
     }
 }

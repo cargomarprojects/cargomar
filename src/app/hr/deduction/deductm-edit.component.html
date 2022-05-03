@@ -1,79 +1,98 @@
+<button *ngIf="btncaption == 'New'" [disabled]="loading" (click)="ShowModal(deductionm)"
+    class="btn btn-primary btn-sm mr-1">{{btncaption}}</button>
+<button *ngIf="btncaption != 'New'" [disabled]="loading" (click)="ShowModal(deductionm)"
+    class="btn btn-link btn-sm">{{btncaption}}</button>
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
-                    <div class="col-4">
-                        <app-autocomplete #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_emp_name" />
+<ng-template #deductionm let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body mx-0 px-0">
+        <div *ngIf="currentTab=='DETAILS'" class="page-details">
+            <div class="page-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
+                            <div class="col-4">
+                                <app-autocomplete #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
+                                </app-autocomplete>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" disabled class="form-control form-control-sm"
+                                    [(ngModel)]="Record.ded_emp_name" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                            <div class="col-4">
+                                <select class="form-control form-control-sm" [(ngModel)]="Record.ded_type">
+                                    <option *ngFor="let rec of Salheadlist" [value]="rec.sal_desc">{{rec.sal_head}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                            <div class="col-4">
+                                <app-date [inputdate]="Record.ded_start_date"
+                                    (ValueChanged)="Record.ded_start_date=$event">
+                                </app-date>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Paid Amount</label>
+                            <div class="col-4">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.ded_paid_amt" (blur)="OnBlur('ded_paid_amt')" required
+                                    [maxlength]="14" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
+                            <div class="col-4">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.ded_mon_amt" (blur)="OnBlur('ded_mon_amt')" required
+                                    [maxlength]="14" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">No of Installments</label>
+                            <div class="col-4">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.ded_tot_months" (blur)="OnBlur('ded_tot_months')" required
+                                    [maxlength]="3" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.ded_type">
-                            <option *ngFor="let rec of Salheadlist" [value]="rec.sal_desc">{{rec.sal_head}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-4">
-                        <app-date [inputdate]="Record.ded_start_date" (ValueChanged)="Record.ded_start_date=$event">
-                        </app-date>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Paid Amount</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_paid_amt"
-                            (blur)="OnBlur('ded_paid_amt')" required [maxlength]="14" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_mon_amt"
-                            (blur)="OnBlur('ded_mon_amt')" required [maxlength]="14" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">No of Installments</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_tot_months"
-                            (blur)="OnBlur('ded_tot_months')" required [maxlength]="3" />
+            </div>
+            <div class="page-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <div class="offset-2 col-sm-9">
+                                <button [disabled]="loading || lock_record" (click)="Save()"
+                                    class="btn btn-success btn-sm">Save</button>
+                                <button [disabled]="loading" (click)="Close()"
+                                    class="btn btn-success btn-sm">Close</button>
+                                <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+                                    <font color="RED">
+                                        {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                                    </font>
+                                </label>
+                                <i *ngIf="loading" class="fa fa-spinner"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <div class="offset-2 col-sm-9">
-                        <button [disabled]="loading || lock_record" (click)="Save()"
-                            class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" (click)="Close()" class="btn btn-success btn-sm">Close</button>
-                        <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
-                            <font color="RED">
-                                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
-                            </font>
-                        </label>
-                        <i *ngIf="loading" class="fa fa-spinner"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+</ng-template>
 
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Deductm } from '../models/deductm';
@@ -36,7 +35,6 @@ export class DeductmComponent {
     sub: any;
     urlid: string;
     lock_record: boolean = false;
-    modal: any;
 
     ErrorMessage = "";
     InfoMessage = "";
@@ -54,7 +52,6 @@ export class DeductmComponent {
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
-        private modalService: NgbModal,
         private mainService: DeductmService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -119,24 +116,13 @@ export class DeductmComponent {
     }
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string, _deductm: any) {
+    ActionHandler(action: string, id: string) {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         if (action == 'LIST') {
             this.mode = '';
             this.pkid = '';
             this.currentTab = 'LIST';
-        }
-        else if (action === 'ADD') {
-
-            this.pkid = this.gs.getGuid();
-            this.mode = 'ADD';
-            this.open(_deductm);
-        }
-        else if (action === 'EDIT') {
-            this.pkid = id;
-            this.mode = 'EDIT';
-            this.open(_deductm);
         }
         else if (action === 'PROCESS') {
             this.mode = '';
@@ -207,16 +193,13 @@ export class DeductmComponent {
     Close() {
         this.gs.ClosePage('home');
     }
-
-    open(content: any) {
-        this.modal = this.modalService.open(content);
-    }
+ 
 
     ModifiedRecords(params: any) {
         if (params.saction == "SAVE") {
             this.RefreshList(params.rec);
         }
-        this.modal.close();
+         
     }
 
     RefreshList(_rec: Deductm) {
