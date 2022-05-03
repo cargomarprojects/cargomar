@@ -231,6 +231,7 @@ export class DeductmEditComponent {
                 this.Record.rec_mode = this.mode;
                 if (this.callbackevent != null)
                     this.callbackevent.emit({ saction: 'SAVE', rec: this.Record });
+                this.ActionHandler("ADD", '');
                 this.modal.close();
             },
                 error => {
