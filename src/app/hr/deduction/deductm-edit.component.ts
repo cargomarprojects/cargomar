@@ -19,6 +19,7 @@ export class DeductmEditComponent {
     @Input() type: string = '';
     @Input() mode: string = '';
     @Input() pkid: string = '';
+    @Input() btntype: string = 'button'; //link
     @Output() callbackevent = new EventEmitter<any>();
 
     InitCompleted: boolean = false;

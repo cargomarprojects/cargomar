@@ -108,13 +108,13 @@
 
                 <div class="form-group row">
                     <label  class="col-sm-2 col-form-label col-form-label-sm">Year/Month</label>
-                    <div  class="col-sm-2">
+                    <div  class="col-sm-2 pr-0">
                       <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
-                        [(ngModel)]="salyear" />
+                        [(ngModel)]="salyear" required maxlength="4"/>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 pl-0">
                       <input  type="number" class="col form-control form-control-sm pl-0 pr-0" (blur)="OnBlur('salmonth')"
-                        [(ngModel)]="salmonth" />
+                        [(ngModel)]="salmonth" required maxlength="2" />
                     </div>
                     <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                     <div class="col-sm-4">
