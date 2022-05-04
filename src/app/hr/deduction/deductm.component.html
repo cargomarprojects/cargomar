@@ -1,9 +1,12 @@
 <div class="page-header">
     <div class="col">
         <label>{{title}}</label>
-        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)" class="btn btn-primary btn-sm">List</button>
-        <button [disabled]="loading" (click)="ActionHandler('ADD','',deductionm)" class="btn btn-primary btn-sm">New</button>
-        <button [disabled]="loading" (click)="ActionHandler('PROCESS','',deductionm)" class="btn btn-primary btn-sm">Process</button>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
+            class="btn btn-primary btn-sm">List</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','',deductionm)"
+            class="btn btn-primary btn-sm">New</button>
+        <button [disabled]="loading" (click)="ActionHandler('PROCESS','',deductionm)"
+            class="btn btn-primary btn-sm">Process</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -61,13 +64,13 @@
                     (mousedown)="selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_code}}</td>
                     <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_name}}</td>
-                    <td >{{rec.ded_start_date}}</td>
-                    <td >{{rec.ded_type}}</td>
-                    <td >{{rec.ded_paid_amt}}</td>
-                    <td >{{rec.ded_mon_amt}}</td>
-                    <td >{{rec.ded_tot_months}}</td>
-                    <td >{{rec.ded_collected_amt}}</td>
-                    <td >{{rec.ded_bal_amt}}</td>
+                    <td>{{rec.ded_start_date}}</td>
+                    <td>{{rec.ded_type}}</td>
+                    <td>{{rec.ded_paid_amt}}</td>
+                    <td>{{rec.ded_mon_amt}}</td>
+                    <td>{{rec.ded_tot_months}}</td>
+                    <td>{{rec.ded_collected_amt}}</td>
+                    <td>{{rec.ded_bal_amt}}</td>
                 </tr>
             </tbody>
         </table>
@@ -93,8 +96,8 @@
 <div *ngIf="currentTab=='PROCESS'" class="page-details">
     <div class="page-box">
         <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group row">
+            <div class="col-sm-4">
+                <!-- <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
                     <div class="col-4">
                         <app-autocomplete #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
@@ -104,30 +107,81 @@
                         <input type="text" disabled class="form-control form-control-sm"
                             [(ngModel)]="emp_name" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label col-form-label-sm">Year/Month</label>
-                    <div  class="col-sm-2 pr-0">
-                      <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
-                        [(ngModel)]="salyear" required maxlength="4"/>
+                    <label class="col-sm-1 col-form-label col-form-label-sm">Year</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
+                            [(ngModel)]="salyear" required maxlength="4" />
                     </div>
-                    <div class="col-sm-2 pl-0">
-                      <input  type="number" class="col form-control form-control-sm pl-0 pr-0" (blur)="OnBlur('salmonth')"
-                        [(ngModel)]="salmonth" required maxlength="2" />
+                    <label class="col-sm-1 col-form-label col-form-label-sm">Month</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
+                            [(ngModel)]="salmonth" required maxlength="2" />
                     </div>
                     <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                     <div class="col-sm-4">
-                      <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
-                        class="btn btn-primary btn-sm">Process</button>
+                        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
+                            class="btn btn-primary btn-sm">Process</button>
                     </div>
-                  </div>
-
-                
+                </div>
             </div>
         </div>
+        <div class="page-box">
+            <div class="row">
+                <div class="col-sm-12">
+                <div class="page-body table-responsive">
+                    <table class="table table-hover table-sm table-bordered table-striped">
+                        <thead class="page-body-thead">
+                            <tr>
+                                <th>CODE</th>
+                                <th>NAME</th>
+                                <th>TDS</th>
+                                <th>LIC</th>
+                                <th>VPLOAN</th>
+                                <th>LOAN</th>
+                                <th>ADV</th>
+                                <th>MEDCLAIM</th>
+                                <th>PTAX</th>
+                                <th>EXFUEL</th>
+                                <th>EXPHONE</th>
+                                <th>FINE</th>
+                                <th>LWF</th>
+                                <th>VPF</th>
+                                <th>OTHERS_AMT</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody">
+                            <tr *ngFor="let rec of RecordList2; let i = index" [class.active]="i == selectedRowIndex"
+                                (mousedown)="selectedRowIndex=i">
+                                <td class="hlink" (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">
+                                    {{rec.ded_emp_code}}</td>
+                                <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_name}}
+                                </td>
+                                <td>{{rec.ded_tds_amt}}</td>
+                                <td>{{rec.ded_lic_amt}}</td>
+                                <td>{{rec.ded_vploan_amt}}</td>
+                                <td>{{rec.ded_loan_amt}}</td>
+                                <td>{{rec.ded_adv_amt}}</td>
+                                <td>{{rec.ded_medclaim_amt}}</td>
+                                <td>{{rec.ded_ptax_amt}}</td>
+                                <td>{{rec.ded_exfuel_amt}}</td>
+                                <td>{{rec.ded_exphone_amt}}</td>
+                                <td>{{rec.ded_fine_amt}}</td>
+                                <td>{{rec.ded_lwf_amt}}</td>
+                                <td>{{rec.ded_vpf_amt}}</td>
+                                <td>{{rec.ded_others_amt}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+
     </div>
-    <!-- <div class="page-box">
+    <div class="page-box">
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group row">
@@ -145,7 +199,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <br />
@@ -158,12 +212,13 @@
 </div>
 <ng-template #deductionm let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">{{title}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">{{title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body mx-0 px-0">
-      <app-deductm-edit [menuid]="menuid" [pkid]="pkid" [mode]="mode" [type]="''"  (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
+        <app-deductm-edit [menuid]="menuid" [pkid]="pkid" [mode]="mode" [type]="''"
+            (callbackevent)="ModifiedRecords($event)"></app-deductm-edit>
     </div>
-  </ng-template>
+</ng-template>

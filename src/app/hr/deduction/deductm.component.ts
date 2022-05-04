@@ -40,17 +40,18 @@ export class DeductmComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-    emp_id:string='';
-    emp_code:string='';
-    emp_name:string='';
-    salyear:number;
-    salmonth:number;
+    emp_id: string = '';
+    emp_code: string = '';
+    emp_name: string = '';
+    salyear: number;
+    salmonth: number;
 
     mode = '';
     pkid = '';
     // Array For Displaying List
     RecordList: Deductm[] = [];
     // Single Record for add/edit/view details
+    RecordList2: Deductm[] = [];
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
@@ -90,6 +91,11 @@ export class DeductmComponent {
                 this.bPrint = true;
         }
         this.InitLov();
+        if (this.gs.defaultValues.today.trim() != "") {
+            var tempdt = this.gs.defaultValues.today.split('-');
+            this.salyear = +tempdt[0];
+            this.salmonth = +tempdt[1];
+        }
         this.List("NEW");
     }
 
@@ -100,7 +106,7 @@ export class DeductmComponent {
 
     InitLov() {
 
-     this.EMPRECORD = new SearchTable();
+        this.EMPRECORD = new SearchTable();
         this.EMPRECORD.controlname = "EMPLOYEE";
         this.EMPRECORD.displaycolumn = "CODE";
         this.EMPRECORD.type = "EMPLOYEE";
