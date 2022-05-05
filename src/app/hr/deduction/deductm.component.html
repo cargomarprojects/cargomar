@@ -16,10 +16,14 @@
     <div class="page-search">
         <div class="row">
             <label class="col-2">Search</label>
-            <div class="col">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <div class="col-4">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"  (blur)="OnBlur('searchstring')"  />
             </div>
-            <div class="col">
+            <div class="col-3">
+                <input type="checkbox" [(ngModel)]="bpending">
+                <span>Pending</span>
+            </div>
+            <div class="col-3">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
                 <!-- <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Print</button> -->
@@ -52,11 +56,12 @@
                     <th>NAME</th>
                     <th>DATE</th>
                     <th>TYPE</th>
-                    <th>PAID.AMT</th>
+                    <th>AMOUNT</th>
                     <th>MONTHLY.AMT</th>
                     <th>INSTALLMENT.NOS</th>
                     <th>COLLECTED.AMT</th>
                     <th>BALANCE.AMT</th>
+                    <th>CLOSED</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -71,6 +76,7 @@
                     <td>{{rec.ded_tot_months}}</td>
                     <td>{{rec.ded_collected_amt}}</td>
                     <td>{{rec.ded_bal_amt}}</td>
+                    <td>{{rec.ded_closed}}</td>
                 </tr>
             </tbody>
         </table>
@@ -97,32 +103,31 @@
     <div class="page-box">
         <div class="row">
             <div class="col-sm-4">
-                <!-- <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
-                    <div class="col-4">
-                        <app-autocomplete #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="emp_name" />
-                    </div>
-                </div> -->
-
                 <div class="form-group row">
-                    <label class="col-sm-1 col-form-label col-form-label-sm">Year</label>
-                    <div class="col-sm-3">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Year</label>
+                    <div class="col-sm-4">
                         <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
                             [(ngModel)]="salyear" required maxlength="4" />
                     </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm">Month</label>
-                    <div class="col-sm-3">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
+                    <div class="col-sm-4">
                         <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
                             [(ngModel)]="salmonth" required maxlength="2" />
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-sm-2">Search</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="col form-control form-control-sm" name="Search"
+                            [(ngModel)]="searchstring2"  (blur)="OnBlur('searchstring2')" />
+                    </div>
                     <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                     <div class="col-sm-4">
-                        <button [disabled]="loading" (click)="ActionHandler('LIST','',deductionm)"
+                        <button [disabled]="loading" (click)="ProcessDeductions('LIST')"
+                            class="btn btn-primary btn-sm mr-1">Search</button>
+                        <button [disabled]="loading" (click)="ProcessDeductions('PROCESS')"
                             class="btn btn-primary btn-sm">Process</button>
                     </div>
                 </div>
@@ -131,74 +136,31 @@
         <div class="page-box">
             <div class="row">
                 <div class="col-sm-12">
-                <div class="page-body table-responsive">
-                    <table class="table table-hover table-sm table-bordered table-striped">
-                        <thead class="page-body-thead">
-                            <tr>
-                                <th>CODE</th>
-                                <th>NAME</th>
-                                <th>TDS</th>
-                                <th>LIC</th>
-                                <th>VPLOAN</th>
-                                <th>LOAN</th>
-                                <th>ADV</th>
-                                <th>MEDCLAIM</th>
-                                <th>PTAX</th>
-                                <th>EXFUEL</th>
-                                <th>EXPHONE</th>
-                                <th>FINE</th>
-                                <th>LWF</th>
-                                <th>VPF</th>
-                                <th>OTHERS_AMT</th>
-                            </tr>
-                        </thead>
-                        <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of RecordList2; let i = index" [class.active]="i == selectedRowIndex"
-                                (mousedown)="selectedRowIndex=i">
-                                <td class="hlink" (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">
-                                    {{rec.ded_emp_code}}</td>
-                                <td (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_name}}
-                                </td>
-                                <td>{{rec.ded_tds_amt}}</td>
-                                <td>{{rec.ded_lic_amt}}</td>
-                                <td>{{rec.ded_vploan_amt}}</td>
-                                <td>{{rec.ded_loan_amt}}</td>
-                                <td>{{rec.ded_adv_amt}}</td>
-                                <td>{{rec.ded_medclaim_amt}}</td>
-                                <td>{{rec.ded_ptax_amt}}</td>
-                                <td>{{rec.ded_exfuel_amt}}</td>
-                                <td>{{rec.ded_exphone_amt}}</td>
-                                <td>{{rec.ded_fine_amt}}</td>
-                                <td>{{rec.ded_lwf_amt}}</td>
-                                <td>{{rec.ded_vpf_amt}}</td>
-                                <td>{{rec.ded_others_amt}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <div class="offset-2 col-sm-9">
-                        <button [disabled]="loading || lock_record" (click)="Save()"
-                            class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" (click)="Close()" class="btn btn-success btn-sm">Close</button>
-                        <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
-                            <font color="RED">
-                                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
-                            </font>
-                        </label>
-                        <i *ngIf="loading" class="fa fa-spinner"></i>
+                    <div class="page-body table-responsive">
+                        <table class="table table-hover table-sm table-bordered table-striped">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th>CODE</th>
+                                    <th>NAME</th>
+                                    <th>TYPE</th>
+                                    <th>AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody">
+                                <tr *ngFor="let rec of RecordList2; let i = index"
+                                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                                    <td>{{rec.ded_emp_code}}</td>
+                                    <td>{{rec.ded_emp_name}}</td>
+                                    <td>{{rec.ded_type}}</td>
+                                    <td>{{rec.ded_mon_amt}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 

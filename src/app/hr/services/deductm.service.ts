@@ -26,5 +26,9 @@ export class DeductmService {
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
+  
+  ProcessDeduction(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/ProcessDeduction', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

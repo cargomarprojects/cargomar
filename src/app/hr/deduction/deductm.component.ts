@@ -21,12 +21,14 @@ export class DeductmComponent {
     menu_record: any;
     selectedRowIndex = 0;
 
+    bpending: boolean = true;
     bChanged: boolean;
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
     bPrint: boolean = false;
     searchstring = '';
+    searchstring2 = '';
 
     page_count = 0;
     page_current = 0;
@@ -163,6 +165,7 @@ export class DeductmComponent {
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
             report_folder: this.gs.globalVariables.report_folder,
+            bpending: this.bpending,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
@@ -186,6 +189,7 @@ export class DeductmComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -205,9 +209,12 @@ export class DeductmComponent {
         // if (field == 'ded_tot_months') {
         //     this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
         // }
-        // if (field == 'sal_head') {
-        //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
-        // }
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.toUpperCase();
+        }
+        if (field == 'searchstring2') {
+            this.searchstring2 = this.searchstring2.toUpperCase();
+        }
     }
 
     Close() {
@@ -242,8 +249,56 @@ export class DeductmComponent {
             REC.ded_tot_months = _rec.ded_tot_months;
             REC.ded_collected_amt = _rec.ded_collected_amt;
             REC.ded_bal_amt = _rec.ded_bal_amt;
-
+            REC.ded_closed = _rec.ded_closed;
         }
     }
 
+    ProcessDeductions(_type: string) {
+        this.ErrorMessage = '';
+        if (this.salyear <= 0) {
+            this.ErrorMessage += " | Invalid Year";
+        } else if (this.salyear < 100) {
+            this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
+        }
+        if (this.salmonth <= 0 || this.salmonth > 12) {
+            this.ErrorMessage += " | Invalid Month";
+        }
+        if (this.ErrorMessage.length > 0) {
+            alert(this.ErrorMessage);
+            return;
+        }
+        if (_type == 'PROCESS') {
+            if (!confirm("Process Payroll Deductions (Year-" + this.salyear.toString() + ", Month-" + this.salmonth.toString() + ")")) {
+                return;
+            }
+        }
+        this.loading = true;
+        let SearchData = {
+            type: _type,
+            rowtype: this.type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
+            report_folder: this.gs.globalVariables.report_folder,
+            salyear: this.salyear,
+            salmonth: this.salmonth,
+            searchstring: this.searchstring2.toUpperCase(),
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.ProcessDeduction(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList2 = response.list;
+                if (_type == 'PROCESS')
+                    alert('Successfully Processed');
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }

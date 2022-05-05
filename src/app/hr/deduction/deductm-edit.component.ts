@@ -19,7 +19,7 @@ export class DeductmEditComponent {
     @Input() type: string = '';
     @Input() mode: string = '';
     @Input() pkid: string = '';
-     
+
     @Output() callbackevent = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
@@ -156,7 +156,7 @@ export class DeductmEditComponent {
         this.Record.ded_paid_amt = 0;
         this.Record.ded_mon_amt = 0;
         this.Record.ded_tot_months = 0;
-
+        this.Record.ded_closed = 'N';
         this.Record.ded_edit_code = "{S}";
         this.lock_record = false;
         this.InitLov();
@@ -253,7 +253,7 @@ export class DeductmEditComponent {
 
         if (this.Record.ded_start_date.trim().length <= 0) {
             bret = false;
-            sError = " | Date Cannot Be Blank";
+            sError += " | Date Cannot Be Blank";
         }
 
         if (this.Record.ded_paid_amt == 0 && this.Record.ded_mon_amt == 0) {

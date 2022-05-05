@@ -1,4 +1,3 @@
-
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
     <div class="page-box">
         <div class="row">
@@ -30,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Paid Amount</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
                     <div class="col-4">
                         <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_paid_amt"
                             (blur)="OnBlur('ded_paid_amt')" required [maxlength]="14" />
@@ -48,6 +47,15 @@
                     <div class="col-4">
                         <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_tot_months"
                             (blur)="OnBlur('ded_tot_months')" required [maxlength]="3" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Closed</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" disabled name="clsd" [(ngModel)]="Record.ded_closed">
+                            <option [value]="'N'">NO</option>
+                            <option [value]="'Y'">YES</option>
+                        </select>
                     </div>
                 </div>
             </div>
