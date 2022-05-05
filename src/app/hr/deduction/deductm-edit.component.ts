@@ -256,7 +256,17 @@ export class DeductmEditComponent {
             sError += " | Date Cannot Be Blank";
         }
 
-        if (this.Record.ded_paid_amt == 0 && this.Record.ded_mon_amt == 0) {
+        if (this.Record.ded_paid_amt == 0) {
+            bret = false;
+            sError += "\n\r | Invalid  Amount ";
+        }
+
+        if (this.Record.ded_mon_amt == 0) {
+            bret = false;
+            sError += "\n\r | Invalid Monthly Amount ";
+        }
+
+        if (this.Record.ded_mon_amt > this.Record.ded_paid_amt) {
             bret = false;
             sError += "\n\r | Invalid  Amount ";
         }
