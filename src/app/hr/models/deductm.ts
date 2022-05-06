@@ -15,19 +15,7 @@ export class Deductm {
     ded_bal_amt: number;
     ded_closed: string;
     ded_edit_code: string;
-    ded_tds_amt: number;
-    ded_lic_amt: number;
-    ded_vploan_amt: number;
-    ded_loan_amt: number;
-    ded_adv_amt: number;
-    ded_medclaim_amt: number;
-    ded_ptax_amt: number;
-    ded_exfuel_amt: number;
-    ded_exphone_amt: number;
-    ded_fine_amt: number;
-    ded_lwf_amt: number;
-    ded_vpf_amt: number;
-    ded_others_amt: number;
+    ded_amt: number;
 
     rec_mode: string;
     _globalvariables: GlobalVariables;
