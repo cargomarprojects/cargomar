@@ -25,7 +25,7 @@ export class PayRollComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
@@ -772,7 +772,7 @@ export class PayRollComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-  
+
   SelectDeselect() {
     this.selectdeselect = !this.selectdeselect;
     for (let rec of this.RecordList) {
@@ -938,5 +938,52 @@ export class PayRollComponent {
           alert(this.ErrorMessage);
         });
 
+  }
+
+  ProcessDeductions(_type: string) {
+    this.ErrorMessage = '';
+    if (this.salyear <= 0) {
+      this.ErrorMessage += " | Invalid Year";
+    } else if (this.salyear < 100) {
+      this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
+    }
+    if (this.salmonth <= 0 || this.salmonth > 12) {
+      this.ErrorMessage += " | Invalid Month";
+    }
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
+      return;
+    }
+    if (_type == 'PROCESS') {
+      if (!confirm("Process Payroll Deductions (Year-" + this.salyear.toString() + ", Month-" + this.salmonth.toString() + ")")) {
+        return;
+      }
+    }
+    
+    this.loading = true;
+    let SearchData = {
+      type: _type,
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      salyear: this.salyear,
+      salmonth: this.salmonth,
+      searchstring: '',
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ProcessDeduction(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Successfully Processed');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }

@@ -291,9 +291,12 @@ export class DeductmComponent {
         this.mainService.ProcessDeduction(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList2 = response.list;
-                if (_type == 'PROCESS')
+                if (_type == 'LIST')
+                    this.RecordList2 = response.list;
+                if (_type == 'PROCESS') {
+                    this.ProcessDeductions('LIST');
                     alert('Successfully Processed');
+                }
             },
                 error => {
                     this.loading = false;

@@ -23,8 +23,8 @@
               [(ngModel)]="salmonth" />
           </div>
           <div class="col-sm-4">
-            <!-- <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
-              class="btn btn-primary btn-sm">Process</button> -->
+            <button [disabled]="loading" (click)="ProcessDeductions('PROCESS')"
+              class="btn btn-primary btn-sm">Process</button>
             <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
               class="btn btn-primary btn-sm">Generate</button>
           </div>
