@@ -23,10 +23,11 @@
               [(ngModel)]="salmonth" />
           </div>
           <div class="col-sm-4">
-            <!-- <button [disabled]="loading" (click)="ProcessDeductions('PROCESS','')"
-              class="btn btn-primary btn-sm">Process</button> -->
-            <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
-              class="btn btn-primary btn-sm">Generate Payroll</button>
+            <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
+              <option [value]="'BOTH'">Both</option>
+              <option [value]="'CONFIRMED'">Confirmed</option>
+              <option [value]="'UNCONFIRM'">Unconfirmed</option>
+            </select>
           </div>
         </div>
       </div>
@@ -37,15 +38,16 @@
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
           </div>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
-            <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
-              <option [value]="'BOTH'">Both</option>
-              <option [value]="'CONFIRMED'">Confirmed</option>
-              <option [value]="'UNCONFIRM'">Unconfirmed</option>
-            </select>
-          </div>
-          <div class="col-sm-2">
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          <div class="col-sm-5">
+            
+          <!-- </div>
+          <div class="col-sm-2"> -->
+            <!-- <button [disabled]="loading" (click)="ProcessDeductions('PROCESS','')"
+              class="btn btn-primary btn-sm">Process</button> -->
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+              <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
+              class="btn btn-primary btn-sm">Generate Payroll</button>
+            
           </div>
         </div>
       </div>
