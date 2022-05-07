@@ -152,12 +152,14 @@ export class DeductmEditComponent {
         this.Record.ded_emp_code = '';
         this.Record.ded_emp_name = '';
         this.Record.ded_type = '';
+        this.Record.ded_type_code = '';
         this.Record.ded_start_date = this.gs.defaultValues.today;
         this.Record.ded_paid_amt = 0;
         this.Record.ded_mon_amt = 0;
         this.Record.ded_tot_months = 0;
         this.Record.ded_closed = 'N';
         this.Record.ded_edit_code = "{S}";
+        this.Record.ded_remarks = '';
         this.lock_record = false;
         this.InitLov();
         this.Record.rec_mode = this.mode;
@@ -218,6 +220,7 @@ export class DeductmEditComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        this.Record.ded_type_code=this.getTypecode(this.Record.ded_type);
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
@@ -296,9 +299,9 @@ export class DeductmEditComponent {
         if (field == 'ded_tot_months') {
             this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
         }
-        // if (field == 'sal_head') {
-        //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
-        // }
+        if (field == 'ded_remarks') {
+         this.Record.ded_remarks = this.Record.ded_remarks.toUpperCase();
+        }
     }
 
 
@@ -334,5 +337,17 @@ export class DeductmEditComponent {
     Close() {
         if (this.callbackevent != null)
             this.callbackevent.emit({ saction: 'CLOSE' });
+    }
+
+    getTypecode(_type:string)
+    {
+        let str="";
+        if (this.Salheadlist != null) {
+            var REC = this.Salheadlist.find(rec => rec.sal_desc == _type);
+            if (REC != null) {
+              str = REC.sal_code;
+            }
+          }
+        return str;
     }
 }
