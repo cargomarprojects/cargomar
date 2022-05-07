@@ -220,7 +220,7 @@ export class DeductmEditComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        this.Record.ded_type_code=this.getTypecode(this.Record.ded_type);
+        this.Record.ded_type_code = this.getTypecode(this.Record.ded_type);
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
@@ -234,7 +234,7 @@ export class DeductmEditComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
-
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -300,7 +300,7 @@ export class DeductmEditComponent {
             this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
         }
         if (field == 'ded_remarks') {
-         this.Record.ded_remarks = this.Record.ded_remarks.toUpperCase();
+            this.Record.ded_remarks = this.Record.ded_remarks.toUpperCase();
         }
     }
 
@@ -339,15 +339,14 @@ export class DeductmEditComponent {
             this.callbackevent.emit({ saction: 'CLOSE' });
     }
 
-    getTypecode(_type:string)
-    {
-        let str="";
+    getTypecode(_type: string) {
+        let str = "";
         if (this.Salheadlist != null) {
             var REC = this.Salheadlist.find(rec => rec.sal_desc == _type);
             if (REC != null) {
-              str = REC.sal_code;
+                str = REC.sal_code;
             }
-          }
+        }
         return str;
     }
 }
