@@ -1016,6 +1016,7 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.Close2();
+        this.GetRecord(this.pkid);
         alert('Save Complete');
       },
         error => {

@@ -35,6 +35,9 @@ export class Deductd {
     ded_mon: number;
     ded_year: number;
     ded_amt: number;
+    ded_paid_amt: number;
+    ded_collected_amt: number;
+    ded_bal_amt: number;
     ded_edit_code: string;
     rec_created_by: string;
     rec_created_date: string;

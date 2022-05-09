@@ -563,7 +563,7 @@
                     <th>CODE</th>
                     <th>NAME</th>
                     <th>TYPE</th>
-                    <th>AMOUNT</th>
+                    <th>MONTHLY.AMT</th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of RecordList3">
@@ -571,7 +571,7 @@
                     <td>{{rec.ded_emp_code}}</td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_type}}</td>
-                    <td style="padding:0px 0px 0px 0px"><input type="number" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
+                    <td style="padding:0px 0px 0px 0px"><input type="number" [disabled]="rec.ded_bal_amt==0" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
                   </tr>
                 </tbody>
               </table>
