@@ -464,8 +464,8 @@
                     <th>DOJ</th>
                     <th>GRADE</th>
                     <th>SALARY</th>
-                    <th>DEDUCTIONS</th>
-                    <th>NET</th>
+                    <!-- <th>DEDUCTIONS</th>
+                    <th>NET</th> -->
                     <th *ngIf="bRemove">REMOVE</th>
                   </tr>
                 </thead>
@@ -476,8 +476,8 @@
                     <td>{{rec.sal_emp_do_joining}}</td>
                     <td>{{rec.sal_emp_grade}}</td>
                     <td>{{rec.sal_gross_earn}}</td>
-                    <td>{{rec.sal_gross_deduct}}</td>
-                    <td>{{rec.sal_net}}</td>
+                    <!-- <td>{{rec.sal_gross_deduct}}</td>
+                    <td>{{rec.sal_net}}</td> -->
                     <td *ngIf="bRemove">
                       <App-Dialog
                         [id]="{msg:'REMOVE FROM SALARY MASTER Y/N', buttons:'yn', selected :false,id:rec.sal_emp_id,name:rec.sal_emp_name}"
