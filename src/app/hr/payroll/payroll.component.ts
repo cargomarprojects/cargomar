@@ -1013,7 +1013,7 @@ export class PayRollComponent {
         this.loading = false;
         this.Close2();
         this.GetRecord(this.pkid);
-        alert('Save Complete');
+        // alert('Save Complete');
       },
         error => {
           this.loading = false;
