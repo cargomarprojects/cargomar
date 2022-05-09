@@ -562,6 +562,7 @@ export class PayRollComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.bRemove = true;
+    let EmpIds = "";
 
     if (this.salyear <= 0) {
       this.ErrorMessage += " | Invalid Year";
@@ -576,6 +577,11 @@ export class PayRollComponent {
       if (this.RecordList2.length <= 0) {
         alert("No Records Found");
         return;
+      }
+      for (let rec of this.RecordList2) {
+        if (EmpIds != "")
+          EmpIds += ",";
+        EmpIds += rec.sal_emp_id;
       }
     }
 
@@ -612,7 +618,8 @@ export class PayRollComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
-      salpkids: SalPkids
+      salpkids: SalPkids,
+      empids: EmpIds
     };
 
     this.ErrorMessage = '';
