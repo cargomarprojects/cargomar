@@ -5,8 +5,6 @@
             class="btn btn-primary btn-sm">List</button>
         <button [disabled]="loading" (click)="ActionHandler('ADD','',deductionm)"
             class="btn btn-primary btn-sm">New</button>
-        <!-- <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="ActionHandler('PROCESS','',deductionm)"
-            class="btn btn-primary btn-sm">Process</button> -->
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -17,7 +15,8 @@
         <div class="row">
             <label class="col-2">Search</label>
             <div class="col-4">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"  (blur)="OnBlur('searchstring')"  />
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                    (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col-3">
                 <input type="checkbox" [(ngModel)]="bpending">
@@ -101,71 +100,6 @@
         </div>
     </div>
 </div>
-<div *ngIf="currentTab=='PROCESS'" class="page-details">
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Year</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
-                            [(ngModel)]="salyear" required maxlength="4" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
-                            [(ngModel)]="salmonth" required maxlength="2" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-2">Search</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="col form-control form-control-sm" name="Search"
-                            [(ngModel)]="searchstring2"  (blur)="OnBlur('searchstring2')" />
-                    </div>
-                    <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
-                    <div class="col-sm-4">
-                        <button [disabled]="loading" (click)="ProcessDeductions('LIST')"
-                            class="btn btn-primary btn-sm mr-1">Search</button>
-                        <button [disabled]="loading" (click)="ProcessDeductions('PROCESS')"
-                            class="btn btn-primary btn-sm">Process</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="page-box">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="page-body table-responsive">
-                        <table class="table table-hover table-sm table-bordered table-striped">
-                            <thead class="page-body-thead">
-                                <tr>
-                                    <th>CODE</th>
-                                    <th>NAME</th>
-                                    <th>TYPE</th>
-                                    <th>AMOUNT</th>
-                                </tr>
-                            </thead>
-                            <tbody class="page-body-tbody">
-                                <tr *ngFor="let rec of RecordList2; let i = index"
-                                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
-                                    <td>{{rec.ded_emp_code}}</td>
-                                    <td>{{rec.ded_emp_name}}</td>
-                                    <td>{{rec.ded_type}}</td>
-                                    <td>{{rec.ded_amt}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">

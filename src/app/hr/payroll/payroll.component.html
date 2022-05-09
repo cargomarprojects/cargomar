@@ -418,7 +418,7 @@
         <div class="form-group row">
           <div class="offset-1 col-sm-9">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading || lock_record" (click)="ProcessDeductions('LIST',deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
+            <button [disabled]="loading || lock_record" (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -571,7 +571,7 @@
                     <td>{{rec.ded_emp_code}}</td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_type}}</td>
-                    <td style="padding:0px 0px 0px 0px"><input type="number" [disabled]="rec.ded_bal_amt==0" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
+                    <td style="padding:0px 0px 0px 0px"><input type="number" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
                   </tr>
                 </tbody>
               </table>

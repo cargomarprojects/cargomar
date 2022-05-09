@@ -47,8 +47,8 @@ export class PayRollService {
   UpdatePaymentDate(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payroll/UpdatePaymentDate', SearchData, this.gs.headerparam2('authorized'));
   }
-  ProcessDeduction(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/ProcessDeduction', SearchData, this.gs.headerparam2('authorized'));
+  DeductionList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/DeductionList', SearchData, this.gs.headerparam2('authorized'));
   }
   
   UpdateDeduction(Record: Deductm) {

@@ -950,7 +950,7 @@ export class PayRollComponent {
 
   }
 
-  ProcessDeductions(_type: string, deductmodal: any) {
+  DeductionsList(deductmodal: any) {
     this.ErrorMessage = '';
     if (this.salyear <= 0) {
       this.ErrorMessage += " | Invalid Year";
@@ -964,15 +964,10 @@ export class PayRollComponent {
       alert(this.ErrorMessage);
       return;
     }
-    // if (_type == 'PROCESS') {
-    //   if (!confirm("Process Payroll Deductions (Year-" + this.salyear.toString() + ", Month-" + this.salmonth.toString() + ")")) {
-    //     return;
-    //   }
-    // }
 
     this.loading = true;
     let SearchData = {
-      type: _type,
+      type: 'LIST',
       rowtype: this.type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -981,19 +976,16 @@ export class PayRollComponent {
       report_folder: this.gs.globalVariables.report_folder,
       salyear: this.salyear,
       salmonth: this.salmonth,
-      searchstring: _type == 'LIST' ? this.Record.sal_emp_name : '',
+      searchstring: '',
+      empid: this.Record.sal_emp_id
     };
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.mainService.ProcessDeduction(SearchData)
+    this.mainService.DeductionList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == "LIST") {
-          this.RecordList3 = response.list;//Modal List
-          this.open(deductmodal);
-        } else {
-          alert('Successfully Processed');
-        }
+        this.RecordList3 = response.list;//Modal List
+        this.open(deductmodal);
       },
         error => {
           this.loading = false;
@@ -1003,9 +995,13 @@ export class PayRollComponent {
   }
 
   UpdateDeduction() {
-
+    
+    if (this.RecordList3.length <= 0) {
+      alert("No Records Found");
+      return;
+    }
     let Rec: Deductm = new Deductm;
-    Rec.ded_sal_pkid=this.pkid;
+    Rec.ded_sal_pkid = this.pkid;
     Rec.ded_emp_id = this.Record.sal_emp_id;
     Rec.dedList = this.RecordList3;
     Rec._globalvariables = this.gs.globalVariables;
