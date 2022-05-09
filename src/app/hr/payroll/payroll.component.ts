@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { PayRollService } from '../services/payroll.service';
-import { Deductm } from '../models/deductm';
+import { Deductm, Deductd } from '../models/deductm';
 
 @Component({
   selector: 'app-payroll',
@@ -72,7 +72,7 @@ export class PayRollComponent {
   // Single Record for add/edit/view details
   Record: Salarym = new Salarym;
   Recorddet: SalDet = new SalDet;
-  RecordList3: Deductm[] = [];
+  RecordList3: Deductd[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -619,7 +619,8 @@ export class PayRollComponent {
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
       salpkids: SalPkids,
-      empids: EmpIds
+      empids: EmpIds,
+      origion: 'PAYROLL-LIST-PAGE'
     };
 
     this.ErrorMessage = '';
@@ -963,11 +964,11 @@ export class PayRollComponent {
       alert(this.ErrorMessage);
       return;
     }
-    if (_type == 'PROCESS') {
-      if (!confirm("Process Payroll Deductions (Year-" + this.salyear.toString() + ", Month-" + this.salmonth.toString() + ")")) {
-        return;
-      }
-    }
+    // if (_type == 'PROCESS') {
+    //   if (!confirm("Process Payroll Deductions (Year-" + this.salyear.toString() + ", Month-" + this.salmonth.toString() + ")")) {
+    //     return;
+    //   }
+    // }
 
     this.loading = true;
     let SearchData = {
@@ -1001,19 +1002,21 @@ export class PayRollComponent {
         });
   }
 
-  UpdateDeduction(_rec: Deductm) {
-    this.ErrorMessage = '';
+  UpdateDeduction() {
+
+    let Rec: Deductm = new Deductm;
+    Rec.ded_sal_pkid=this.pkid;
+    Rec.ded_emp_id = this.Record.sal_emp_id;
+    Rec.dedList = this.RecordList3;
+    Rec._globalvariables = this.gs.globalVariables;
     this.loading = true;
-    let SearchData = {
-      pkid: _rec.ded_pkid,
-      ded_amt: _rec.ded_amt
-    };
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.mainService.UpdateDeduction(SearchData)
+    this.mainService.UpdateDeduction(Rec)
       .subscribe(response => {
         this.loading = false;
-        alert('Updated Successfully');
+        this.Close2();
+        alert('Save Complete');
       },
         error => {
           this.loading = false;

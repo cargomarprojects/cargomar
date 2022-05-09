@@ -18,7 +18,26 @@ export class Deductm {
     ded_edit_code: string;
     ded_amt: number;
     ded_remarks: string;
+    ded_sal_pkid: string;
     
     rec_mode: string;
     _globalvariables: GlobalVariables;
+    dedList: Deductd[] = [];
+}
+
+export class Deductd {
+    ded_pkid: string;
+    ded_parent_id: string;
+    ded_emp_id: string;
+    ded_emp_code: string;
+    ded_emp_name: string;
+    ded_type: string;
+    ded_mon: number;
+    ded_year: number;
+    ded_amt: number;
+    ded_edit_code: string;
+    rec_created_by: string;
+    rec_created_date: string;
+    rec_edited_by: string;
+    rec_edited_date: string;
 }

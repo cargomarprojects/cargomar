@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Salarym } from '../models/salarym';
 import { GlobalService } from '../../core/services/global.service';
+import { Deductm } from '../models/deductm';
 
 @Injectable()
 export class PayRollService {
@@ -50,8 +51,9 @@ export class PayRollService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/ProcessDeduction', SearchData, this.gs.headerparam2('authorized'));
   }
   
-  UpdateDeduction(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/UpdateDeduction', SearchData, this.gs.headerparam2('authorized'));
+  UpdateDeduction(Record: Deductm) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payroll/UpdateDeduction', Record, this.gs.headerparam2('authorized'));
   }
+
 }
 
