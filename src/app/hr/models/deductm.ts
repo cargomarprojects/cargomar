@@ -31,6 +31,7 @@ export class Deductd {
     ded_emp_id: string;
     ded_emp_code: string;
     ded_emp_name: string;
+    ded_start_date: string;
     ded_type: string;
     ded_mon: number;
     ded_year: number;

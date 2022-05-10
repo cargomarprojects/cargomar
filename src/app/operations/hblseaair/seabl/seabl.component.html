@@ -10,7 +10,7 @@
       class="btn btn-success btn-sm">Reset FCR#</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('BOTH')"
       class="btn btn-success btn-sm">Both FCR & BL</button>
-      <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
+    <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
       class="btn btn-success btn-sm">Unlock Draft Pdf</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -1150,7 +1150,8 @@
                     Colour&nbsp;&nbsp;
                   </label>
                   <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill" [disabled]="Record.bl_seawaybill_disabled">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill"
+                      [disabled]="Record.bl_seawaybill_disabled">
                     Sea Waybill
                   </label>
                 </div>
@@ -1160,7 +1161,8 @@
             <div class="form-group row">
               <label class="col-3 col-form-label col-form-label-sm">BL Print Format</label>
               <div class="col-6">
-                <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id" (change)="OnChange('bl_print_format_id')">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id"
+                  (change)="OnChange('bl_print_format_id')">
                   <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
                 </select>
               </div>
@@ -1173,7 +1175,7 @@
                 <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
-                  <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
+                <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','SEAWAYBILL')" class="btn btn-success btn-sm">Sea Waybill</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
                   class="btn btn-success btn-sm">FCR</button>
@@ -1183,6 +1185,8 @@
                   class="btn btn-success btn-sm">Draft Excel</button>
                 <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
                   (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
+                <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
+                  (click)="GetRecord('PDF','SEABL-PREVIEW')" class="btn btn-success btn-sm">Preview</button>
                 <i *ngIf="loading" class="fa fa-spinner"></i>
               </div>
             </div>
