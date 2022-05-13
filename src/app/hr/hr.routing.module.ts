@@ -18,6 +18,7 @@ import { IncLetterComponent } from './incletter/incletter.component';
 import { AttendanceRegComponent } from './attendancereg/attendancereg.component';
 import { LeaveReqComponent } from './leavereq/leavereq.component';
 import { DeductmComponent } from './deduction/deductm.component';
+import { CommonDeductComponent } from './deduction/commondeduct.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'attendancereg', component: AttendanceRegComponent },
   { path: 'leavereq', component: LeaveReqComponent },
   { path: 'deductionmaster', component: DeductmComponent },
+  { path: 'commondeduct', component: CommonDeductComponent },
 ];
 
 @NgModule({

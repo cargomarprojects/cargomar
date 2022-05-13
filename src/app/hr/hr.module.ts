@@ -20,6 +20,7 @@ import { AttendanceRegComponent } from './attendancereg/attendancereg.component'
 import { LeaveReqComponent } from './leavereq/leavereq.component';
 import { DeductmComponent } from './deduction/deductm.component';
 import { DeductmEditComponent } from './deduction/deductm-edit.component';
+import { CommonDeductComponent } from './deduction/commondeduct.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { DeductmEditComponent } from './deduction/deductm-edit.component';
     AttendanceRegComponent,
     LeaveReqComponent,
     DeductmComponent,
-    DeductmEditComponent
+    DeductmEditComponent,
+    CommonDeductComponent
   ],
   providers: [
   ],
