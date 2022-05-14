@@ -678,6 +678,13 @@
             (blur)="OnBlur('ps_edli_amt')" required maxlength="14" />
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-6 col-form-label  col-form-label-sm">PTAX INCLUDED MONTHS</label>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="PayrollRecord.ps_ptax_mon_included"
+            (blur)="OnBlur('ps_ptax_mon_included')" required maxlength="50" />
+        </div>
+      </div>
     </div>
 
     <div class="col-sm-4">

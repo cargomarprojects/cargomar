@@ -21,7 +21,8 @@ export class PayrollSetting {
   ps_sal_calc_days:number;
   ps_bonus_amt:number;
   ps_esi_col_excluded:string
-
+  ps_ptax_mon_included:string;
+  
   rec_mode: string;
 
   _globalvariables: GlobalVariables;
