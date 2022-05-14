@@ -26,5 +26,9 @@ export class SalaryMasterService {
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/SalaryMaster/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  UpdateRecord(Record: Salarym) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/SalaryMaster/UpdateRecord', Record, this.gs.headerparam2('authorized'));
+  }
 }
 
