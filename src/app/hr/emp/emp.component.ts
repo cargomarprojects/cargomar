@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Location } from '@angular/common';
 
@@ -35,7 +35,7 @@ export class EmpComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   selectedRowIndex = 0;
-  
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -118,7 +118,7 @@ export class EmpComponent {
       if (this.menu_record.rights_print)
         this.bPrint = true;
       if (this.menu_record.rights_admin)
-        this.bAdmin = true;  
+        this.bAdmin = true;
     }
     this.LoadCombo();
   }
@@ -315,6 +315,7 @@ export class EmpComponent {
     this.Record.emp_designation_id = '';
     this.Record.emp_status_id = '';
     this.Record.emp_in_payroll = false;
+    this.Record.emp_in_csv = false;
     this.Record.emp_marital_status = 'SINGLE';
     this.Record.emp_gender = 'M';
     this.Record.emp_comp_mediclaim = false;
@@ -381,12 +382,23 @@ export class EmpComponent {
   LoadData(_Record: Emp) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
+    this.Record.emp_branch_name = this.getBranchName(this.Record.rec_branch_code);
     this.ageinyears = '';
     if (this.Record.emp_do_birth != null) {
       this.ageinyears = this.GetAge().ageyears + "Yrs";
     }
-  }
 
+  }
+  getBranchName(_BrCode: String) {
+    let str = "";
+    if (this.BranchList != null) {
+      var REC = this.BranchList.find(rec => rec.comp_code == _BrCode);
+      if (REC != null) {
+        str = REC.comp_name;
+      }
+    }
+    return str;
+  }
 
   // Save Data
   Save() {
@@ -513,8 +525,7 @@ export class EmpComponent {
 
     //}
 
-    if (bret === false)
-    {
+    if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }
@@ -551,6 +562,7 @@ export class EmpComponent {
       REC.emp_do_confirmation = this._do_confirmation.GetDisplayDate();
       REC.emp_do_relieve = this._do_relieve.GetDisplayDate();
       REC.emp_trans_date = this._trans_date.GetDisplayDate();
+
     }
   }
 
