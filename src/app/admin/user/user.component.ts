@@ -181,7 +181,8 @@ export class UserComponent {
         this.Record.user_emp_id = '';
         this.Record.user_emp_code = '';
         this.Record.user_emp_name = '';
-
+        this.Record.rec_locked = false;
+        this.Record.user_remarks = '';
         this.InitLov();
     }
 
@@ -268,6 +269,7 @@ export class UserComponent {
             this.Record.user_name = this.Record.user_name.toUpperCase().trim();
             this.Record.user_password = this.Record.user_password.toUpperCase().trim();
             this.Record.user_tp_code = this.Record.user_tp_code.toUpperCase().trim();
+            this.Record.user_remarks = this.Record.user_remarks.toUpperCase().trim();
         }
 
         if (bret === false)
@@ -289,6 +291,8 @@ export class UserComponent {
             REC.user_name = this.Record.user_name;
             REC.user_email = this.Record.user_email;
             REC.user_sman_name = this.Record.user_sman_name;
+            REC.rec_locked = this.Record.rec_locked;
+            REC.user_remarks = this.Record.user_remarks;
         }
     }
 

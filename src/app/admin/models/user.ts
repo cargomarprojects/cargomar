@@ -23,7 +23,10 @@ export class User {
     user_emp_id: string;
     user_emp_code: string;
     user_emp_name: string;
+    
     rec_mode: string;
+    rec_locked: boolean;
+    user_remarks: string;
 
     _globalvariables: GlobalVariables;
 
