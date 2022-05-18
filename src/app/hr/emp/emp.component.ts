@@ -57,7 +57,7 @@ export class EmpComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
-
+  radio_emp: string = 'EMPLOYEE';
 
   mode = '';
   pkid = '';
@@ -228,6 +228,7 @@ export class EmpComponent {
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
       report_folder: this.gs.globalVariables.report_folder,
+      empstatus: this.radio_emp,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -661,6 +662,9 @@ export class EmpComponent {
     //if (field == 'emp_do_birth' && this.Record.emp_do_birth != null) {
     //  this.ageinyears = this.GetAge().ageyears;
     //}
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase();
+    }
 
   }
 

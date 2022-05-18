@@ -12,15 +12,29 @@
 
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <div class="offset-2 col-10">
+            <input type="radio" [(ngModel)]="radio_emp" [value]="'EMPLOYEE'" />
+            <span>EMPLOYEE</span>&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="radio_emp" [value]="'CONSULTANT'" />
+            <span>CONSULTANT</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2">Search</label>
+          <div class="col-sm-4">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm">Print</button>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
-          class="btn btn-primary btn-sm">Print</button>
-      </div>
+
     </div>
   </div>
 
@@ -58,9 +72,9 @@
           <th>TRANSFER DATE</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         (click)="ActionHandler('EDIT',rec.emp_pkid)">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.emp_pkid)">
           <td>{{rec.emp_no}}</td>
           <td>{{rec.emp_name}}</td>
           <td>{{rec.emp_branch_name}}</td>
@@ -175,7 +189,8 @@
           </select>
         </div>
         <label class="col-sm-3 col-form-label col-form-label-sm">DOB
-          <font style="color:orangered">{{ageinyears}}</font></label>
+          <font style="color:orangered">{{ageinyears}}</font>
+        </label>
         <div class="col-sm-3">
           <app-date #_do_birth [inputdate]="Record.emp_do_birth" (ValueChanged)="Record.emp_do_birth=$event"></app-date>
         </div>
@@ -198,11 +213,13 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Join Date</label>
         <div class="col-sm-3">
-          <app-date #_do_joining [inputdate]="Record.emp_do_joining" (ValueChanged)="Record.emp_do_joining=$event"></app-date>
+          <app-date #_do_joining [inputdate]="Record.emp_do_joining" (ValueChanged)="Record.emp_do_joining=$event">
+          </app-date>
         </div>
         <label class="col-sm-3 col-form-label col-form-label-sm">Confirm Date</label>
         <div class="col-sm-3">
-          <app-date #_do_confirmation [inputdate]="Record.emp_do_confirmation" (ValueChanged)="Record.emp_do_confirmation=$event">
+          <app-date #_do_confirmation [inputdate]="Record.emp_do_confirmation"
+            (ValueChanged)="Record.emp_do_confirmation=$event">
           </app-date>
         </div>
       </div>
@@ -218,13 +235,14 @@
           <input type="checkbox" [(ngModel)]="Record.emp_is_relieved">
         </div> -->
         <div class="col-sm-3">
-            <input  type="checkbox" [(ngModel)]="Record.emp_is_relieved"> Relieved&nbsp;&nbsp;&nbsp;
-            <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired"> <span *ngIf="bAdmin">Retired</span>
-          </div>
+          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved"> Relieved&nbsp;&nbsp;&nbsp;
+          <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired"> <span *ngIf="bAdmin">Retired</span>
+        </div>
 
         <label class="col-sm-3 col-form-label col-form-label-sm">Relieve Date</label>
         <div class="col-sm-3">
-          <app-date #_do_relieve [inputdate]="Record.emp_do_relieve" (ValueChanged)="Record.emp_do_relieve=$event"></app-date>
+          <app-date #_do_relieve [inputdate]="Record.emp_do_relieve" (ValueChanged)="Record.emp_do_relieve=$event">
+          </app-date>
         </div>
       </div>
       <div class="form-group row">
@@ -334,8 +352,8 @@
                     <div class="col-sm-3">
                       <button [disabled]="loading" (click)="CopyAddress('COPYTOLOCAL')" class="btn btn-primary btn-sm">
                         << </button> <button [disabled]="loading" (click)="CopyAddress('COPYTOPERMANENT')"
-                          class="btn btn-primary btn-sm"> >>
-                      </button>
+                            class="btn btn-primary btn-sm"> >>
+                          </button>
                     </div>
                     <div class="col-sm-9">
                       <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_home_address2"
@@ -735,7 +753,8 @@
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label  col-form-label-sm">Transfer Date</label>
                   <div class="col-sm-4">
-                    <app-date #_trans_date [inputdate]="Record.emp_trans_date" (ValueChanged)="Record.emp_trans_date=$event">
+                    <app-date #_trans_date [inputdate]="Record.emp_trans_date"
+                      (ValueChanged)="Record.emp_trans_date=$event">
                     </app-date>
                   </div>
                 </div>
