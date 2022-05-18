@@ -16,7 +16,7 @@ import { ModuleService } from '../services/module.service';
 })
 export class ModuleComponent {
     // Local Variables 
-    title = 'MODULE MASTER';
+    title = 'Module Master';
     loading = false;
     currentTab = 'LIST';
     selectedRowIndex = 0;

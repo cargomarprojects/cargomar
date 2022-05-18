@@ -22,7 +22,7 @@ export class UserComponent {
     Ajith 19/06/2019 Page row increase to 50,server det added in list
     */
     // Local Variables 
-    title = 'USER MASTER';
+    title = 'User Master';
     loading = false;
     currentTab = 'LIST';
     selectedRowIndex = 0;
