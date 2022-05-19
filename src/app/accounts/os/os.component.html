@@ -61,6 +61,12 @@
               <span>Legal Only</span>
             </div>
           </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <input type="checkbox" [(ngModel)]="hidetotal">
+              <span>Hide Total</span>
+            </div>
+          </div>
         </div>
 
         <div class="col-2">
@@ -132,7 +138,7 @@
           <td align='right'>{{ rec.bal | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
           <td align='right'>{{ rec.crlimit }}</td>
-          <td align='right'>{{ rec.crdays }}</td>
+          <td align='right'>{{ rec.crdays }}</td>        
           <td align='right'>{{ rec.osdays }}</td>
           <td align='right'>{{ rec.overduedays }}</td>
           <td>{{rec.due_date}}</td>

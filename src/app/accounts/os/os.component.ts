@@ -29,6 +29,7 @@ export class OsComponent {
 
 
   legal = false;
+  hidetotal = false;
 
   disableSave = true;
   loading = false;
@@ -76,6 +77,7 @@ export class OsComponent {
     all: false,
     do_not_use_credit_date: false,
     legalonly: false,
+    hidetotal:false
   };
 
   
@@ -246,6 +248,7 @@ export class OsComponent {
     this.SearchData.do_not_use_credit_date = this.do_not_use_credit_date;
 
     this.SearchData.legalonly = this.legal;
+    this.SearchData.hidetotal = this.hidetotal;
 
     this.ErrorMessage = '';
     this.mainService.OsReport(this.SearchData)
