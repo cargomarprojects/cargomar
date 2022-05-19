@@ -113,19 +113,21 @@
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
         <div class="col-sm-3">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no" required maxlength="30" />
         </div>
-        <label class="col-sm-2 col-form-label  col-form-label-sm">In payroll</label>
-        <div class="col-sm-1">
+        <!-- <label class="col-sm-2 col-form-label  col-form-label-sm"></label> -->
+        <div class="col-sm-3">
+          <span>In payroll</span>
           <input type="checkbox" [(ngModel)]="Record.emp_in_payroll">
         </div>
-        <label class="col-sm-2 col-form-label  col-form-label-sm">In CSV</label>
-        <div class="col-sm-1">
+        <!-- <label class="col-sm-2 col-form-label  col-form-label-sm"></label> -->
+        <div class="col-sm-3">
+          <span>In CSV</span>
           <input type="checkbox" [(ngModel)]="Record.emp_in_csv">
         </div>
       </div>
@@ -178,7 +180,7 @@
 
 
 
-    <div class="col-sm-5">
+    <div class="col-sm-6">
 
 
       <div class="form-group row">
@@ -271,7 +273,7 @@
 
             <div class="page-box">
               <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-6">
 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label  col-form-label-sm">Local Addr.</label>
@@ -337,7 +339,7 @@
                 </div>
 
 
-                <div class="col-sm-5">
+                <div class="col-sm-6">
 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label  col-form-label-sm">Permanent</label>
@@ -416,7 +418,7 @@
           <ng-template ngbTabContent>
 
             <div class="page-box">
-              <div class="col-sm-5">
+              <div class="col-sm-6">
 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">Branch Group</label>
@@ -475,7 +477,7 @@
           <ng-template ngbTabContent>
 
             <div class="page-box">
-              <div class="col-sm-5">
+              <div class="col-sm-6">
 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label  col-form-label-sm">Tel/Residence</label>
@@ -537,7 +539,7 @@
           <ng-template ngbTabContent>
 
             <div class="page-box">
-              <div class="col-sm-5">
+              <div class="col-sm-6">
 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label  col-form-label-sm">A/C No</label>
