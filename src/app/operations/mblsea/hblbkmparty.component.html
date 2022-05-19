@@ -2,19 +2,20 @@
   <div class="row">
     <div class="col-sm-8 pr-0">
       <div *ngIf="showCaption" class="form-group row mx-0">
-        <!-- <label style="background-color:lightgray;"
-          class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-0">SHIPPER</label>
         <label style="background-color:lightgray;"
-          class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-0">CONSIGNEE</label>
-        <label style="background-color:lightgray;" class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-1">NOTIFY</label> -->
+        class="col-sm-1  col-form-label col-form-label-sm pl-0 pr-0">SL#</label>
         <label style="background-color:lightgray;"
-        class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-0">SHIPPER</label>
+        class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-1">SHIPPER</label>
       <label style="background-color:lightgray;"
         class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-1">CONSIGNEE</label>
-      <label style="background-color:lightgray;" class="col-sm-4  col-form-label col-form-label-sm pl-2 pr-1">NOTIFY</label>
+      <label style="background-color:lightgray;" class="col-sm-3  col-form-label col-form-label-sm pl-2 pr-1">NOTIFY</label>
       </div>
       <div class="form-group row">
-        <div class="col-sm-2 pr-1">
+        <div class="col-sm-1 pr-1">
+          <input type="number" disabled [style.color]="mRecord.row_colour" class="form-control form-control-sm"
+            [(ngModel)]="mRecord.hp_order" (blur)="OnBlur('hp_order')" required maxlength="15" />
+        </div>
+        <div class="col-sm-2 pl-0">
           <app-autocomplete #expLov [disabled]="mRecord.hp_booking_locked" [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
@@ -35,7 +36,7 @@
           <app-autocomplete #LinerLov [disabled]="mRecord.hp_booking_locked" [inputdata]="NOTIFYRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
-        <div class="col-sm-2 pl-0 pr-3">
+        <div class="col-sm-1 pl-0 pr-3">
           <input type="text" [disabled]="mRecord.hp_booking_locked" [style.color]="mRecord.row_colour" class="form-control form-control-sm"
             [(ngModel)]="mRecord.hp_notify_name" (blur)="OnBlur('hp_notify_name')" required maxlength="60" />
         </div>
