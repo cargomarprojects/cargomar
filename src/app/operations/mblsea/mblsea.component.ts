@@ -906,7 +906,7 @@ export class MblSeaComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
         for (let rec of this.Record.HblBkmPartyList) {
-          if (this.gs.isZero(rec.hp_order)) {
+          if (this.gs.isZero(rec.hp_order)) { //After saving hp_order is set for new records
             for (let rec2 of response.bkmlist.filter(x => x.hp_pkid == rec.hp_pkid)) {
               rec.hp_order = rec2.hp_order;
             }
