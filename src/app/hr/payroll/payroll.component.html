@@ -10,10 +10,10 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-2">
+          <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
             <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
               [(ngModel)]="salyear" />
           </div>
@@ -22,7 +22,7 @@
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
               [(ngModel)]="salmonth" />
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3 pr-0">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
               <option [value]="'BOTH'">Both</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
@@ -33,7 +33,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label style="padding-left:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <label  class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-6">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
@@ -46,26 +46,27 @@
               class="btn btn-primary btn-sm">Process</button> -->
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
               <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
-              class="btn btn-primary btn-sm">Generate Payroll</button>
+              class="btn btn-primary btn-sm">Generate</button>
             
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div class="form-group row">
-          <div class="col-sm-12">
+          <div class="col-sm-12 input-group input-group-sm">
             <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','PDF')"
-              class="btn btn-primary btn-sm">SalarySheet</button>
+              class="btn btn-primary btn-sm mr-1">SalarySheet</button>
             <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
               [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')"
-              class="btn btn-primary btn-sm">Excel</button>
+              class="btn btn-primary btn-sm mr-1">Excel</button>
+            <input *ngIf="bAdmin && salh_jvno>0" type="text" name="incamt" class="form-control form-control-sm  mr-1" [(ngModel)]="csvamt" required maxlength="14" />
             <button *ngIf="bAdmin && salh_jvno>0" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','CSV')"
-              class="btn btn-primary btn-sm">Csv</button>
+              class="btn btn-primary btn-sm  mr-1">Csv</button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')"
-              class="btn btn-primary btn-sm">PaySlip</button>
+              class="btn btn-primary btn-sm  mr-1">PaySlip</button>
             <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')"
-              class="btn btn-primary btn-sm">Mail/Payslip</button>
-            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm">Post
+              class="btn btn-primary btn-sm  mr-1">Mail/Payslip</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1">Post
               JV</button>
             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
               <font color="red">{{salh_jvno}} </font>

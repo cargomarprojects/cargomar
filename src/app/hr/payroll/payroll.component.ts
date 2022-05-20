@@ -62,6 +62,7 @@ export class PayRollComponent {
   empstatus = "BOTH";
   ErrorMessage = "";
   InfoMessage = "";
+  csvamt: string;
 
   SalDetails: any[] = [];
   mode = '';
@@ -746,7 +747,8 @@ export class PayRollComponent {
       filetype: 'PDF',
       empbrgroup: 1,
       psadmin: 'N',
-      ssadmin: 'N'
+      ssadmin: 'N',
+      csvamt: this.csvamt
     }
 
     SearchData.type = _type;
@@ -764,6 +766,7 @@ export class PayRollComponent {
     SearchData.empbrgroup = empbrgrp;
     SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
     SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
+    SearchData.csvamt =  this.gs.isBlank(this.csvamt)?'0':this.csvamt;
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
@@ -995,7 +998,7 @@ export class PayRollComponent {
   }
 
   UpdateDeduction() {
-    
+
     if (this.RecordList3.length <= 0) {
       alert("No Records Found");
       return;
