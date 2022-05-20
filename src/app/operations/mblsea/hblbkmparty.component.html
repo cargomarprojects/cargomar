@@ -3,9 +3,9 @@
     <div class="col-sm-8 pr-0">
       <div *ngIf="showCaption" class="form-group row mx-0">
         <label style="background-color:lightgray;"
-        class="col-sm-1  col-form-label col-form-label-sm pl-0 pr-0">SL#</label>
+        class="col-sm-1  col-form-label col-form-label-sm pl-0">BK#</label>
         <label style="background-color:lightgray;"
-        class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-1">SHIPPER</label>
+        class="col-sm-4  col-form-label col-form-label-sm pl-0">SHIPPER</label>
       <label style="background-color:lightgray;"
         class="col-sm-4  col-form-label col-form-label-sm pl-0 pr-1">CONSIGNEE</label>
       <label style="background-color:lightgray;" class="col-sm-3  col-form-label col-form-label-sm pl-2 pr-1">NOTIFY</label>
@@ -15,7 +15,7 @@
           <input type="number" disabled [style.color]="mRecord.row_colour" class="form-control form-control-sm"
             [(ngModel)]="mRecord.hp_order" (blur)="OnBlur('hp_order')" required maxlength="15" />
         </div>
-        <div class="col-sm-2 pl-0">
+        <div class="col-sm-2 pl-1">
           <app-autocomplete #expLov [disabled]="mRecord.hp_booking_locked" [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>

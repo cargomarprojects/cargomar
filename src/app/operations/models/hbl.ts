@@ -152,6 +152,7 @@ export class Hblm {
   hbl_sell_remarks:string;
 
   hbl_unlockid : string;
+  hbl_book_slno: number;
 
   _globalvariables: GlobalVariables;
 

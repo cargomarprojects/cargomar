@@ -763,10 +763,10 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <div style="height: 150px; overflow-y: scroll;">
+                            <div [style.height]="Record.BkmCntrList.length>4?'165px':'auto'" [style.overflow-y]="Record.BkmCntrList.length>4?'scroll':'auto'">
                               <div class="page-list">
                                 <div class="page-body table-responsive">
-                                  <table class="table  table-hover table-sm">
+                                  <table class="table  table-hover table-sm my-0">
                                     <thead class="page-body-thead">
                                       <tr>
                                         <th width="15%">QTY</th>
@@ -836,7 +836,7 @@
             </div>
             <div>
               <div class="page-body table-responsive">
-                <table class="table  table-hover table-sm">
+                <table class="table  table-hover table-sm my-0">
                   <thead class="page-body-thead">
                     <tr>
                       <th>SI#</th>
@@ -847,6 +847,8 @@
                       <th>AGENT</th>
                       <th>LINER</th>
                       <th>TERMS</th>
+                      <th>BK#</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
@@ -859,6 +861,8 @@
                       <td>{{rec.hbl_agent_name}}</td>
                       <td>{{rec.hbl_carrier_name}}</td>
                       <td>{{rec.hbl_terms}}</td>
+                      <td style="padding:0px 0px 0px 0px"><input type="number" name="bkno" class="form-control form-control-sm" [(ngModel)]="rec.hbl_book_slno" required maxlength="5"/></td>
+                      <td class="hlink" (click)="UpdateRecord(rec)" >UPDATE</td>
                     </tr>
                   </tbody>
                 </table>

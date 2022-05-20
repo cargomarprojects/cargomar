@@ -1729,7 +1729,7 @@ export class MblSeaComponent {
       searchcontainer: '',
       root_folder: this.gs.defaultValues.root_folder,
       docattach: 'Y',
-      mbl_id:''
+      mbl_id: ''
     };
     SearchData.pkid = this.gs.getGuid();
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1869,5 +1869,27 @@ export class MblSeaComponent {
     this.Record.book_mcbm = this.gs.roundNumber(mcbm, 3);
     this.Record.book_mpcs = this.gs.roundNumber(mpcs, 3);
     this.Record.book_mkgs = this.gs.roundNumber(mkgs, 3);
+  }
+
+  UpdateRecord(_rec: Hblm) {
+    this.loading = true;
+    let SearchData = {
+      mblid: this.pkid,
+      hblid: _rec.hbl_pkid,
+      bkslno: _rec.hbl_book_slno
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateHblRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert("Save Complete");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }

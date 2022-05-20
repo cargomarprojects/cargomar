@@ -58,5 +58,10 @@ export class LinerBkmService {
     GenerateXmlBooking(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlBooking', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    UpdateHblRecord(SearchData: any) {   
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/UpdateHblRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
 }
 
