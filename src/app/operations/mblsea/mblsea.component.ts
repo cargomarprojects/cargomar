@@ -905,6 +905,13 @@ export class MblSeaComponent {
         this.foldersent = response.foldersent;
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        for (let rec of this.Record.HblBkmPartyList) {
+          if (this.gs.isZero(rec.hp_order)) {
+            for (let rec2 of response.bkmlist.filter(x => x.hp_pkid == rec.hp_pkid)) {
+              rec.hp_order = rec2.hp_order;
+            }
+          }
+        }
         alert(this.InfoMessage);
       },
         error => {
