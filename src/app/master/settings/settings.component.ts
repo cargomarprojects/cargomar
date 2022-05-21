@@ -154,6 +154,23 @@ export class SettingsComponent {
   HOBANKREC: any = { id: '', code: '', name: '' };
 
 
+  EPFEMPLOYERRECORD: any;
+  EPFEMPLOYERREC: any = { id: '', code: '', name: '' };
+
+  EPFEDLIRECORD: any;
+  EPFEDLIREC: any = { id: '', code: '', name: '' };
+
+  ESIRECORD: any;
+  ESIREC: any = { id: '', code: '', name: '' };
+
+  PFPAYRECORD: any;
+  PFPAYREC: any = { id: '', code: '', name: '' };
+
+  ESIPAYRECORD: any;
+  ESIPAYREC: any = { id: '', code: '', name: '' };
+
+
+
   // BRANCH SETTINGS
   BR_BL_ISSUED_PLACE: string = '';
   BR_GSTIN: string = '';
@@ -365,6 +382,45 @@ export class SettingsComponent {
       };
 
 
+    if (caption == '' || caption == 'EPFEMPLOYERCODE') {
+      this.EPFEMPLOYERRECORD = {
+        controlname: 'EPFEMPLOYERCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.EPFEMPLOYERREC.id, code: this.EPFEMPLOYERREC.code, name: this.EPFEMPLOYERREC.name
+      };
+    }
+
+
+    if (caption == '' || caption == 'EPFEDLICODE') {
+      this.EPFEDLIRECORD = {
+        controlname: 'EPFEDLICODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.EPFEDLIREC.id, code: this.EPFEDLIREC.code, name: this.EPFEDLIREC.name
+      };
+    }
+
+    if (caption == '' || caption == 'ESICODE') {
+      this.ESIRECORD = {
+        controlname: 'ESICODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.ESIREC.id, code: this.ESIREC.code, name: this.ESIREC.name
+      };
+    }
+
+
+    if (caption == '' || caption == 'PFPAYCODE') {
+      this.PFPAYRECORD = {
+        controlname: 'PFPAYCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.PFPAYREC.id, code: this.PFPAYREC.code, name: this.PFPAYREC.name
+      };
+    }
+
+    if (caption == '' || caption == 'ESIPAYCODE') {
+      this.ESIPAYRECORD = {
+        controlname: 'ESIPAYCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.ESIPAYREC.id, code: this.ESIPAYREC.code, name: this.ESIPAYREC.name
+      };
+    }
+
+
+
 
     // BRANCH SETTINGS
 
@@ -514,6 +570,37 @@ export class SettingsComponent {
       this.HOBANKREC.id = _Record.id;
       this.HOBANKREC.code = _Record.code;
       this.HOBANKREC.name = _Record.name;
+    }
+
+
+    if (_Record.controlname == 'EPFEMPLOYERCODE') {
+      this.EPFEMPLOYERREC.id = _Record.id;
+      this.EPFEMPLOYERREC.code = _Record.code;
+      this.EPFEMPLOYERREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'EPFEDLICODE') {
+      this.EPFEDLIREC.id = _Record.id;
+      this.EPFEDLIREC.code = _Record.code;
+      this.EPFEDLIREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'ESICODE') {
+      this.ESIREC.id = _Record.id;
+      this.ESIREC.code = _Record.code;
+      this.ESIREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'PFPAYCODE') {
+      this.PFPAYREC.id = _Record.id;
+      this.PFPAYREC.code = _Record.code;
+      this.PFPAYREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'ESIPAYCODE') {
+      this.ESIPAYREC.id = _Record.id;
+      this.ESIPAYREC.code = _Record.code;
+      this.ESIPAYREC.name = _Record.name;
     }
 
 
@@ -827,6 +914,43 @@ export class SettingsComponent {
       }
 
 
+      if (rec.caption == "EPFEMPLOYERCODE") {
+        this.EPFEMPLOYERREC.id = rec.id;
+        this.EPFEMPLOYERREC .code = rec.code;
+        this.EPFEMPLOYERREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
+
+      if (rec.caption == "EPFEDLICODE") {
+        this.EPFEDLIREC.id = rec.id;
+        this.EPFEDLIREC .code = rec.code;
+        this.EPFEDLIREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
+      if (rec.caption == "ESICODE") {
+        this.ESIREC.id = rec.id;
+        this.ESIREC .code = rec.code;
+        this.ESIREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
+      if (rec.caption == "PFPAYCODE") {
+        this.PFPAYREC.id = rec.id;
+        this.PFPAYREC .code = rec.code;
+        this.PFPAYREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
+      if (rec.caption == "ESIPAYCODE") {
+        this.ESIPAYREC.id = rec.id;
+        this.ESIPAYREC .code = rec.code;
+        this.ESIPAYREC.name = rec.name;
+        this.initLov(rec.caption);
+      }      
+
+
       if (rec.caption == "LR-PREFIX")
         this.BR_LR_PREFIX = rec.name;
       if (rec.caption == "DOC-PREFIX")
@@ -1014,6 +1138,17 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'HOBANKACCODE', this.HOBANKREC.id, this.HOBANKREC.code, this.HOBANKREC.name));
+
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'EPFEMPLOYERCODE', this.EPFEMPLOYERREC.id, this.EPFEMPLOYERREC.code, this.EPFEMPLOYERREC.name));
+
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'EPFEDLICODE', this.EPFEDLIREC.id, this.EPFEDLIREC.code, this.EPFEDLIREC.name));
+
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'ESICODE', this.ESIREC.id, this.ESIREC.code, this.ESIREC.name));
+
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'PFPAYCODE', this.PFPAYREC.id, this.PFPAYREC.code, this.PFPAYREC.name));
+
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'ESIPAYCODE', this.ESIPAYREC.id, this.ESIPAYREC.code, this.ESIPAYREC.name));
+
 
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CREDIT-LIMIT-ENABLED', '', '', this.BR_CRLIMIT_ENABLED == true ? "Y" : "N"));
