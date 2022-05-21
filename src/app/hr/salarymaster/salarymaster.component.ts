@@ -487,9 +487,13 @@ export class SalaryMasterComponent {
     let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
     let ESI_Amt: number = 0;
     let ESI_ExcludedAmt: number = 0;//CONVEYANCE (A06) not included in ESI Calculation
-
-    this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
-    this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
+    if (this.Record.sal_emp_status == "CONSULTANT") {
+      this.Record.sal_esi_emply_per = 0;
+      this.Record.sal_pf_per = 0;
+    } else {
+      this.Record.sal_esi_emply_per = this.gs.defaultValues.esi_emply_percent;
+      this.Record.sal_pf_per = this.gs.defaultValues.pf_percent;
+    }
     for (let rec of this.Record.DetList) {
       TotEarning += rec.e_amt1;
       TotEarning += rec.e_amt2;
@@ -510,12 +514,12 @@ export class SalaryMasterComponent {
     if (PF_BaseAmt <= 0)
       PF_BaseAmt = (TotEarning - PF_ExcludedAmt) > this.gs.defaultValues.pf_limit ? this.gs.defaultValues.pf_limit : (TotEarning - PF_ExcludedAmt);
 
-    PF_Amt = PF_BaseAmt * (this.gs.defaultValues.pf_percent / 100);
+    PF_Amt = PF_BaseAmt * (this.Record.sal_pf_per / 100);
     PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
     ESI_Amt = 0
     if ((TotEarning - ESI_ExcludedAmt) <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
-      ESI_Amt = (TotEarning - ESI_ExcludedAmt) * (this.gs.defaultValues.esi_emply_percent / 100);
+      ESI_Amt = (TotEarning - ESI_ExcludedAmt) * (this.Record.sal_esi_emply_per / 100);
       ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);
       ESI_Amt = Math.ceil(ESI_Amt);
     }

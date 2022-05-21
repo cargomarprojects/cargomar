@@ -107,7 +107,8 @@ export class Salarym {
   sal_sl: number;
   sal_ot: number;
   sal_lp: number;
-
+  
+  sal_emp_status:string;
   sal_edit_code:string;
   rec_mode: string;
   rec_printed:boolean;
