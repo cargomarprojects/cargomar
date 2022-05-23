@@ -1204,7 +1204,8 @@ export class LedgerComponent {
 
       let nYear: number = +this.gs.globalVariables.year_code;
       if (nYear >= 2022) {
-        if (this.gs.globalVariables.user_branch_user == 'Y' && (rec.jv_acc_code == '1507' || rec.jv_acc_code == '1532' || rec.jv_acc_code == '1535')) {
+        if (this.gs.globalVariables.user_branch_user == 'Y' && (rec.jv_acc_code == '1507' || rec.jv_acc_code == '1532' || rec.jv_acc_code == '1535'
+          || rec.jv_acc_code == '1510' || rec.jv_acc_code == '1545' || rec.jv_acc_code == '1511')) {
           this.DetailTab = 'LIST';
           this.modeDetail = '';
           alert('Cannot view this record');
