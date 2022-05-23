@@ -47,7 +47,6 @@
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
               <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
               class="btn btn-primary btn-sm">Generate</button>
-            
           </div>
         </div>
       </div>
@@ -59,18 +58,22 @@
             <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
               [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')"
               class="btn btn-primary btn-sm mr-1">Excel</button>
-            <input *ngIf="bAdmin && salh_jvno>0" type="text" name="incamt" class="form-control form-control-sm  mr-1" [(ngModel)]="csvamt" required maxlength="14" />
+            <input *ngIf="bAdmin && salh_jvno>0" type="text" name="incamt" class="form-control form-control-sm  mr-1" [(ngModel)]="csvamt" required maxlength="5" />
             <button *ngIf="bAdmin && salh_jvno>0" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','CSV')"
-              class="btn btn-primary btn-sm  mr-1">Csv</button>
+              class="btn btn-primary btn-sm  mr-1">CSV</button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')"
               class="btn btn-primary btn-sm  mr-1">PaySlip</button>
             <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')"
-              class="btn btn-primary btn-sm  mr-1">Mail/Payslip</button>
-            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1">Post
-              JV</button>
-            <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
+              class="btn btn-primary btn-sm  mr-1">Mail</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
+              SAL-{{salh_jvno}}</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostPFJV()" class="btn btn-primary btn-sm  mr-1"> Post
+                PF-{{pf_jvno}}</button>
+  
+<!--             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
+
               <font color="red">{{salh_jvno}} </font>
-            </label>
+            </label> -->
           </div>
         </div>
       </div>
