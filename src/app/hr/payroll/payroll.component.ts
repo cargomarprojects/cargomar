@@ -898,6 +898,14 @@ export class PayRollComponent {
     Msg = "Generate PF JV";
     if (this.pf_jvno > 0)
       Msg = "Re-Generate PF JV";
+
+
+    if ( this.salyear < 2020 && this.salmonth < 5)
+    {
+      alert('Invalid Payroll Year And Month');
+      return;
+    }
+
     if (!confirm(Msg)) {
       return;
     }
