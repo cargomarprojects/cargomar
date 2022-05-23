@@ -892,8 +892,8 @@ export class PayRollComponent {
 
   }
 
-
-  PfJV() {
+  
+  PostPFJV() {
     let Msg: string = "";
     Msg = "Generate PF JV";
     if (this.pf_jvno > 0)
