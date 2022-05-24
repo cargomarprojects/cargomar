@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -11,7 +10,35 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <div class="offset-2 col-10">
+            <input type="radio" [(ngModel)]="radio_emp" [value]="'EMPLOYEE'" />
+            <span>Employee</span>&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="radio_emp" [value]="'CONSULTANT'" />
+            <span>Consultant</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2">Search</label>
+          <div class="col-sm-4">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+          <div class="col-sm-4">
+            <div class="col-sm-12 input-group input-group-sm">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+              <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm mr-1">Print</button>
+              <input *ngIf="bPrint" type="text" name="incamt" class="form-control form-control-sm  mr-1"
+                [(ngModel)]="csvamt" required maxlength="15" />
+              <button [disabled]="loading" *ngIf="bPrint" (click)="List('CSV')"
+                class="btn btn-primary btn-sm mr-1">Csv</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- <label class="col-2">Search</label>
       <div class="col">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
@@ -19,17 +46,23 @@
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">Print</button>
+      </div> -->
+
       </div>
+
     </div>
   </div>
 
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -96,8 +129,9 @@
           <th>NET</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
           <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_name}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
@@ -161,10 +195,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -240,7 +277,8 @@
         <div class="form-group row">
           <label class="col-sm-6 col-form-label col-form-label-sm">PF LIMIT</label>
           <div class="col-sm-6">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit" (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_pf_limit"
+              (blur)="OnBlur('sal_pf_limit')" required maxlength="14" />
           </div>
         </div>
         <div class="form-group row">
@@ -267,9 +305,17 @@
               <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
                 <tr>
                   <td style="padding:0">{{rec.e_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible1" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt1" (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)" (change)="OnChangeTableCell('EARN', rec.e_code1, 1)" (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible1" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.e_amt1"
+                      (focus)="OnFocusTableCell('EARN', rec.e_code1, 1)"
+                      (change)="OnChangeTableCell('EARN', rec.e_code1, 1)"
+                      (blur)="OnBlurTableCell('EARN', rec.e_code1, 1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.e_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.e_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.e_amt2" (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)" (change)="OnChangeTableCell('EARN', rec.e_code2, 2)" (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.e_visible2" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.e_amt2"
+                      (focus)="OnFocusTableCell('EARN', rec.e_code2, 2)"
+                      (change)="OnChangeTableCell('EARN', rec.e_code2, 2)"
+                      (blur)="OnBlurTableCell('EARN', rec.e_code2, 2)" required maxlength="14" /> </td>
                 </tr>
               </tbody>
             </table>
@@ -291,9 +337,18 @@
               <tbody class="page-body-tbody" *ngFor="let rec of Record.DetList">
                 <tr>
                   <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible1" [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt1" (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)" (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible1"
+                      [disabled]="rec.d_code1=='D01' || rec.d_code1=='D02'" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.d_amt1"
+                      (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)"
+                      (change)="OnChangeTableCell('DEDUCT',rec.d_code1,1)"
+                      (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
-                  <td style="padding:0"> <input *ngIf="rec.d_visible2" type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2" (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)" (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)" (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
+                  <td style="padding:0"> <input *ngIf="rec.d_visible2" type="number"
+                      class="form-control form-control-sm" [(ngModel)]="rec.d_amt2"
+                      (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)"
+                      (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)"
+                      (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
                 </tr>
               </tbody>
             </table>
@@ -308,10 +363,11 @@
         <div class="form-group row">
           <div class="offset-3 col-sm-9">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','','')" class="btn btn-success btn-sm">Return</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
+              class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                  {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -330,4 +386,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

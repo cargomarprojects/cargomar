@@ -37,6 +37,8 @@ export class SalaryMasterComponent {
   urlid: string;
   lock_record: boolean = false;
   porttype = 'PORT';
+  radio_emp: string = 'EMPLOYEE';
+  csvamt: string;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -150,6 +152,8 @@ export class SalaryMasterComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
+      empstatus: this.radio_emp,
+      csvamt: this.gs.isBlank(this.csvamt) ? '0' : this.csvamt,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -161,7 +165,7 @@ export class SalaryMasterComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL' || _type == 'CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;

@@ -58,7 +58,7 @@
             <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
               [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','EXCEL')"
               class="btn btn-primary btn-sm mr-1">Excel</button>
-            <input *ngIf="bAdmin && salh_jvno>0" type="text" name="incamt" class="form-control form-control-sm  mr-1" [(ngModel)]="csvamt" required maxlength="5" />
+            <!-- <input *ngIf="bAdmin && salh_jvno>0" type="text" name="incamt" class="form-control form-control-sm  mr-1" [(ngModel)]="csvamt" required maxlength="15" /> -->
             <button *ngIf="bAdmin && salh_jvno>0" [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','CSV')"
               class="btn btn-primary btn-sm  mr-1">CSV</button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="PrintSalarySheet('PAYSLIP','EXCEL')"
