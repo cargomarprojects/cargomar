@@ -205,13 +205,14 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Bank.A/c</label>
           <div class="col-5">
-            <select disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
               <option [value]="'NA'">NA</option>
               <option [value]="'AE'">AIR EXPORT</option>
               <option [value]="'AI'">AIR IMPORT</option>
               <option [value]="'SE'">SEA EXPORT</option>
               <option [value]="'SI'">SEA IMPORT</option>
               <option [value]="'BR'">BROKERAGE</option>
+              <option [value]="'FC'">FOREIGN CURRENCY</option>
             </select>
           </div>
           <div class="col-5">
