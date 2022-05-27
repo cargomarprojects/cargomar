@@ -395,6 +395,13 @@ export class ArApComponent {
         this.Recorddet.jv_gst_edited = false;
       }
 
+      alert(_Record.col8);
+      this.Recorddet.jv_is_rcm = false;
+      if (_Record.col8 == "Y") {
+        this.Recorddet.jv_is_rcm = true;      //  Taxable
+      }
+
+
 
       this.SearchRecord('taxcode');
     }
@@ -1342,6 +1349,7 @@ export class ArApComponent {
 
     this.Recorddet.jv_is_taxable = false;
     this.Recorddet.jv_is_gst_item = false;
+    this.Recorddet.jv_is_rcm = false;
 
     this.Recorddet.jv_cgst_rate = 0;
     this.Recorddet.jv_sgst_rate = 0;
@@ -1410,6 +1418,8 @@ export class ArApComponent {
     this.Recorddet.jv_acc_against_invoice = _Record.jv_acc_against_invoice;
     this.Recorddet.jv_acc_cost_centre = _Record.jv_acc_cost_centre;
     this.Recorddet.jv_is_taxable = _Record.jv_is_taxable;
+
+    this.Recorddet.jv_is_rcm = _Record.jv_is_rcm;
 
     this.Recorddet.jv_curr_id = _Record.jv_curr_id;
     this.Recorddet.jv_curr_code = _Record.jv_curr_code;
@@ -1717,6 +1727,9 @@ export class ArApComponent {
       REC.jv_acc_against_invoice = this.Recorddet.jv_acc_against_invoice;   // Against Invoice
       REC.jv_acc_cost_centre = this.Recorddet.jv_acc_cost_centre;      //  Cost Center
       REC.jv_is_taxable = this.Recorddet.jv_is_taxable;
+
+
+      REC.jv_is_rcm = this.Recorddet.jv_is_rcm;
 
       REC.jv_is_gst_item = this.Recorddet.jv_is_gst_item;
 

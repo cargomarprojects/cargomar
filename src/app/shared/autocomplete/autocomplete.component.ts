@@ -189,6 +189,7 @@ export class AutoCompleteComponent {
             this.inputdata.col5 = '';
             this.inputdata.col6 = '';
             this.inputdata.col7 = '';
+            this.inputdata.col8 = '';            
             this.displaydata = '';
             this.parentid = '';
             
@@ -211,6 +212,7 @@ export class AutoCompleteComponent {
             this.inputdata.col5 = _Record.col5;
             this.inputdata.col6 = _Record.col6;
             this.inputdata.col7 = _Record.col7;
+            this.inputdata.col8 = _Record.col8;
         }
 
 

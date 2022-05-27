@@ -30,7 +30,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 export class AutoComplete2Component {
 
-  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '',col5 :'',col6:'',col7:'' };
+  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '',col5 :'',col6:'',col7:'', col8:'' };
   @Output() ValueChanged = new EventEmitter<SearchTable>();
 
   @Input() disabled: boolean = false;
@@ -216,6 +216,8 @@ export class AutoComplete2Component {
         this.inputdata.col6 = '';
       if (this.inputdata.hasOwnProperty('col7'))
         this.inputdata.col7 = '';
+      if (this.inputdata.hasOwnProperty('col8'))
+        this.inputdata.col8 = '';
 
       this.displaydata = '';
       this.parentid = '';
@@ -247,8 +249,11 @@ export class AutoComplete2Component {
         this.inputdata.col5 = _Record.col5;
       if (this.inputdata.hasOwnProperty('col6'))
         this.inputdata.col6 = _Record.col6;
-        if (this.inputdata.hasOwnProperty('col7'))
-        this.inputdata.col6 = _Record.col7;
+      if (this.inputdata.hasOwnProperty('col7'))
+        this.inputdata.col7 = _Record.col7;
+      if (this.inputdata.hasOwnProperty('col8'))
+        this.inputdata.col8 = _Record.col8;        
+
     }
 
 

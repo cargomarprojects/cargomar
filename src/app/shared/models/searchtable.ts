@@ -16,6 +16,7 @@ export class SearchTable {
     col5: string;
     col6: string;
     col7: string;
+    col8: string;
     colchecked: boolean;
     constructor(_controlname: string = '',
         _type: string = '',
@@ -34,6 +35,7 @@ export class SearchTable {
         _col5: string = '',
         _col6: string = '',
         _col7: string = '',
+        _col8: string = '',
         _colchecked: boolean = false
     ) {
         this.controlname = _controlname;
@@ -53,6 +55,7 @@ export class SearchTable {
         this.col5 = _col5;
         this.col6 = _col6;
         this.col7 = _col7;
+        this.col8 = _col8;
         this.colchecked = _colchecked;
     }
 }

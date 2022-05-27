@@ -47,6 +47,8 @@
           <th>TYPE</th>
           <th>ALLOCATION</th>
           <th>CC</th>
+          <th>TAXABLE</th>
+          <th>RCM</th>
           <th>BS CODE</th>
           <th>BS NAME</th>
         </tr>
@@ -59,7 +61,9 @@
           <td>{{rec.acc_group_name}}</td>
           <td>{{rec.acc_type_name}}</td>
           <td>{{rec.acc_against_invoice}}</td>
-          <td>{{rec.acc_cost_centre}}</td>
+          <td>{{rec.acc_cost_centre ? 'Y' : ''}}</td>
+          <td>{{rec.acc_taxable ? 'Y' : ''}}</td>
+          <td>{{rec.acc_rcm ? 'Y' : ''}}</td>
           <td>{{rec.acc_bs_code}}</td>
           <td>{{rec.acc_bs_name}}</td>
         </tr>
@@ -138,21 +142,27 @@
 
       <div class="form-group row">
         <label class="col-3 col-form-label col-form-label-sm">Against-Invoice</label>
-        <div class="col-3">
+        <div class="col-2">
           <select class="form-control form-control-sm" [(ngModel)]="Record.acc_against_invoice">
             <option [value]="'N'">NA</option>
             <option [value]="'D'">DEBIT</option>
             <option [value]="'C'">CREDIT</option>
           </select>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <input type="checkbox" [(ngModel)]="Record.acc_cost_centre" />
           <span>COST CENTER</span>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <input type="checkbox" [(ngModel)]="Record.acc_taxable" />
           <span>TAXABLE</span>
         </div>
+
+        <div class="col-2">
+          <input type="checkbox" [(ngModel)]="Record.acc_rcm" />
+          <span>RCM</span>
+        </div>
+
       </div>
 
 

@@ -328,6 +328,8 @@ export class AcctmComponent {
         this.Record.acc_sac_id = '';
         this.Record.acc_sac_code = '';
 
+        this.Record.acc_rcm = false;
+
         this.Record.acc_branch_code = '';
         this.Record.acc_bs_id = '';
         this.Record.acc_bs_code = '';

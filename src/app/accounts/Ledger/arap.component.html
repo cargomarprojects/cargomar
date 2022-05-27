@@ -351,6 +351,7 @@
               <th>NAME</th>
               <th>SAC</th>
               <th>TAXABLE</th>
+              <th>RCM</th>
               <th>CURR</th>
               <th>QTY</th>
               <th>RATE</th>
@@ -371,6 +372,7 @@
               <td (click)="ActionHandlerDetail('EDIT',rec)">{{rec.jv_acc_name}}</td>
               <td>{{rec.jv_sac_code}}</td>
               <td>{{(rec.jv_is_taxable) ? 'Y' : 'N'}}</td>
+              <td>{{(rec.jv_is_rcm) ? 'Y' : 'N'}}</td>
               <td>{{rec.jv_curr_code}}</td>
               <td>{{rec.jv_qty}}</td>
               <td>{{rec.jv_rate}}</td>

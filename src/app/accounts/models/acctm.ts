@@ -22,6 +22,8 @@ export class Acctm {
     acc_taxable: boolean;
     acc_sepz_unit: boolean;
 
+    acc_rcm: boolean;
+
     acc_sac_id: string;
     acc_sac_code: string;
 
