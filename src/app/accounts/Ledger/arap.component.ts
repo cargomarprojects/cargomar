@@ -395,7 +395,6 @@ export class ArApComponent {
         this.Recorddet.jv_gst_edited = false;
       }
 
-      alert(_Record.col8);
       this.Recorddet.jv_is_rcm = false;
       if (_Record.col8 == "Y") {
         this.Recorddet.jv_is_rcm = true;      //  Taxable
