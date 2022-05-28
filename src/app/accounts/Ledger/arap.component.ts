@@ -762,8 +762,13 @@ export class ArApComponent {
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
     let Courier_Code_Found: Boolean = false;
+    let Code_Other_Than_Courier_Code_Found: Boolean = false;
+
+
     let bOk: Boolean = false;
     let rowCount: number = 0;
+
+    
 
 
     let cgst_dr = 0;
@@ -926,6 +931,9 @@ export class ArApComponent {
       }
     }
 
+    let IsRcmRecords =  false;
+    let IsNoRcmRecords =  false;
+
     this.Record.LedgerList.forEach(rec => {
       rowCount++;
 
@@ -959,6 +967,13 @@ export class ArApComponent {
       if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
         Courier_Code_Found = true;
       }
+      else 
+        Code_Other_Than_Courier_Code_Found = true;
+
+      if ( rec.jv_is_rcm)
+        IsRcmRecords = true;
+      else 
+        IsNoRcmRecords = true;        
 
 
     });
@@ -978,7 +993,12 @@ export class ArApComponent {
         bret = false;
         sError += " |Invalid A/c Code selected for Courier IGST";
       }
-
+      /*
+      if (Code_Other_Than_Courier_Code_Found) {
+        bret = false;
+        sError += " |Only code 1205030/1105033/1105040/1526 can be used";
+      }      
+      */
       if (rowCount != 1) {
         bret = false;
         sError += " |Only one row can be entered";
@@ -986,9 +1006,22 @@ export class ArApComponent {
     }
 
 
-
+    if (IsRcmRecords && IsNoRcmRecords) {
+      bret = false;
+      sError += " |Separate invoice required for RCM/Non-RCM Items";
+    }
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
+    if ( IsRcmRecords && !this.Record.jvh_rc ){
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
+    if ( !IsRcmRecords && this.Record.jvh_rc ){
       bret = false;
       sError += " |Reverse Charge Invalid";
     }

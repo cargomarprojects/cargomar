@@ -395,6 +395,11 @@ export class BuyRateComponent {
       if (_Record.col4 == "Y")
         this.Recorddet.jv_is_taxable = true;      //  Taxable
 
+      this.Recorddet.jv_is_rcm = false;
+      if (_Record.col8 == "Y") {
+        this.Recorddet.jv_is_rcm = true;      //  Taxable
+      }        
+
 
       this.SearchRecord('taxcode');
     }
@@ -843,7 +848,9 @@ export class BuyRateComponent {
       sError += " | Courier IGST Cannot Be Selected";
     }
 
-
+    
+    let IsRcmRecords =  false;
+    let IsNoRcmRecords =  false;
 
     this.Record.LedgerList.forEach(rec => {
       rowCount++;
@@ -883,6 +890,11 @@ export class BuyRateComponent {
       else 
         Code_Other_Than_Courier_Code_Found = true;
 
+      if ( rec.jv_is_rcm)
+        IsRcmRecords = true;        
+      else 
+        IsNoRcmRecords = true;
+
 
     });
 
@@ -910,11 +922,29 @@ export class BuyRateComponent {
       }
     }
 
+    if (IsRcmRecords && IsNoRcmRecords) {
+      bret = false;
+      sError += " |Separate invoice required for RCM/Non-RCM Items";
+    }
+
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
+
+
+    if ( IsRcmRecords && !this.Record.jvh_rc ){
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
+    if ( !IsRcmRecords && this.Record.jvh_rc ){
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
+
 
     if (gst_dr != 0 && gst_cr != 0) {
       bret = false;

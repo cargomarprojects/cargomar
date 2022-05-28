@@ -345,13 +345,15 @@
             <tr>
               <th>CODE</th>
               <th>NAME</th>
+              <th>TAXABLE</th>
+              <th>RCM</th>
               <th>SAC</th>
               <th>CURR</th>
               <th>AMT</th>
               <th>EX.RATE</th>
               <th>DEBIT</th>
               <th>CREDIT</th>
-              <th>TAXABLE</th>
+              <th>TAXABLE-AMT</th>
               <th>CGST</th>
               <th>SGST</th>
               <th>IGST</th>
@@ -366,6 +368,10 @@
             <tr *ngFor="let rec of Record.LedgerList; let i = index">
               <td (click)="ActionHandlerDetail('EDIT',rec)">{{rec.jv_acc_code}}</td>
               <td (click)="ActionHandlerDetail('EDIT',rec)">{{rec.jv_acc_name}}</td>
+
+              <td>{{(rec.jv_is_taxable) ? 'Y' : 'N'}}</td>
+              <td>{{(rec.jv_is_rcm) ? 'Y' : 'N'}}</td>
+
               <td>{{rec.jv_sac_code}}</td>
               <td>{{rec.jv_curr_code}}</td>
               <td>{{rec.jv_ftotal}}</td>

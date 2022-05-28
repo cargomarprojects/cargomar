@@ -20,6 +20,8 @@ export class Ledgert {
   jv_is_taxable: boolean;
   jv_is_gst_item: boolean;
 
+  jv_is_rcm : boolean;
+
   jv_sac_id: string;
   jv_sac_code: string;
   jv_sac_name: string;

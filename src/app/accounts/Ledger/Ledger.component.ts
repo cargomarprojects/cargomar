@@ -384,6 +384,10 @@ export class LedgerComponent {
         this.Recorddet.jv_is_taxable = true;
         this.Recorddet.jv_gst_edited = false;
       }
+      this.Recorddet.jv_is_rcm = false;
+      if (_Record.col8 == "Y") {
+        this.Recorddet.jv_is_rcm = true;      //  Taxable
+      }      
 
       if (this.type == "BP") {
         if (this.Recorddet.jv_acc_type_name == "BANK")
@@ -741,6 +745,9 @@ export class LedgerComponent {
     let isGstBlank: Boolean = false;
     let Courier_Code_Found: Boolean = false;
 
+    let Code_Other_Than_Courier_Code_Found: Boolean = false;
+
+
     let iTotalRows: number = 0;
 
     let cgst_dr = 0;
@@ -869,6 +876,9 @@ export class LedgerComponent {
       sError += " | Courier IGST Cannot Be Selected";
     }
 
+    let IsRcmRecords =  false;
+    let IsNoRcmRecords =  false;
+
 
     this.Record.LedgerList.forEach(rec => {
       iTotalRows++;
@@ -903,6 +913,14 @@ export class LedgerComponent {
       if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
         Courier_Code_Found = true;
       }
+      else 
+        Code_Other_Than_Courier_Code_Found = true;
+
+      if ( rec.jv_is_rcm)
+        IsRcmRecords = true;
+      else 
+        IsNoRcmRecords = true;        
+
 
 
 
@@ -925,20 +943,38 @@ export class LedgerComponent {
         bret = false;
         sError += " |Invalid A/c Code selected for Courier IGST";
       }
-
+      /*
+      if (Code_Other_Than_Courier_Code_Found) {
+        bret = false;
+        sError += " |Only code 1205030/1105033/1105040/1526 can be used";
+      }      
+      */
       if (iTotalRows != 2) {
         bret = false;
         sError += " |Only two rows can be entered";
       }
     }
 
-
-
+    if (IsRcmRecords && IsNoRcmRecords) {
+      bret = false;
+      sError += " |Separate invoice required for RCM/Non-RCM Items";
+    }
 
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
+
+    if ( IsRcmRecords && !this.Record.jvh_rc ){
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
+    if ( !IsRcmRecords && this.Record.jvh_rc ){
+      bret = false;
+      sError += " |Reverse Charge Invalid";
+    }
+
 
     if (gst_dr != 0 && gst_cr != 0) {
       bret = false;
