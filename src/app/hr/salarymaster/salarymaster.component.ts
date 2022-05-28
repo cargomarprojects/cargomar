@@ -143,6 +143,12 @@ export class SalaryMasterComponent {
   // Query List Data
   List(_type: string) {
 
+    if (_type == 'CSV') {
+      if (!confirm("Confirm all the staff need to be included before proceed payment.")) {
+        return;
+      }
+    }
+
     this.loading = true;
     let SearchData = {
       type: _type,
