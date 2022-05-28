@@ -729,6 +729,12 @@ export class PayRollComponent {
       }
     }
 
+    if (_filetype == 'CSV') {
+      if (!confirm("Confirm all the staff need to be included before proceed payment.")) {
+        return;
+      }
+    }
+
     if (empbrgrp <= 0)
       empbrgrp = 1;
 
