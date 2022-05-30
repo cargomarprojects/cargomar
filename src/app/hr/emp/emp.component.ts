@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 
 import { ActivatedRoute } from '@angular/router';
@@ -51,9 +51,12 @@ export class EmpComponent {
 
   bPrint: boolean = false;
   bAdmin: boolean = false;
+  bDocs: boolean = false;
+
   sub: any;
   urlid: string;
   // type: string;
+  modal: any;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -81,6 +84,7 @@ export class EmpComponent {
   Record: Emp = new Emp;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: EmpService,
     private location: Location,
     private route: ActivatedRoute,
@@ -112,6 +116,7 @@ export class EmpComponent {
   InitComponent() {
     this.bPrint = false;
     this.bAdmin = false;
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -119,6 +124,8 @@ export class EmpComponent {
         this.bPrint = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.LoadCombo();
   }
@@ -778,6 +785,13 @@ export class EmpComponent {
     return CalculateAge;
   }
 
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content);
+  }
 }
 
 
