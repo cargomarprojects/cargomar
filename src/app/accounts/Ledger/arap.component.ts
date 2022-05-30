@@ -395,6 +395,7 @@ export class ArApComponent {
         this.Recorddet.jv_gst_edited = false;
       }
 
+      //RCM-1
       this.Recorddet.jv_is_rcm = false;
       if (_Record.col8 == "Y") {
         this.Recorddet.jv_is_rcm = true;      //  Taxable
@@ -970,6 +971,7 @@ export class ArApComponent {
       else 
         Code_Other_Than_Courier_Code_Found = true;
 
+      //RCM-2
       if ( rec.jv_is_rcm)
         IsRcmRecords = true;
       else 
@@ -1381,6 +1383,7 @@ export class ArApComponent {
 
     this.Recorddet.jv_is_taxable = false;
     this.Recorddet.jv_is_gst_item = false;
+    //RCM-3
     this.Recorddet.jv_is_rcm = false;
 
     this.Recorddet.jv_cgst_rate = 0;
@@ -1451,6 +1454,7 @@ export class ArApComponent {
     this.Recorddet.jv_acc_cost_centre = _Record.jv_acc_cost_centre;
     this.Recorddet.jv_is_taxable = _Record.jv_is_taxable;
 
+    //RCM-4
     this.Recorddet.jv_is_rcm = _Record.jv_is_rcm;
 
     this.Recorddet.jv_curr_id = _Record.jv_curr_id;
@@ -1761,6 +1765,7 @@ export class ArApComponent {
       REC.jv_is_taxable = this.Recorddet.jv_is_taxable;
 
 
+      //RCM-5
       REC.jv_is_rcm = this.Recorddet.jv_is_rcm;
 
       REC.jv_is_gst_item = this.Recorddet.jv_is_gst_item;
