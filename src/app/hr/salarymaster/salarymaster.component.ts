@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Salarym } from '../models/salarym';
@@ -42,6 +43,8 @@ export class SalaryMasterComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
+  bDocs: boolean = false;
+  modal: any;
 
   SalDetails: any[] = [];
   mode = '';
@@ -53,6 +56,7 @@ export class SalaryMasterComponent {
   Recorddet: SalDet = new SalDet;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: SalaryMasterService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -81,11 +85,14 @@ export class SalaryMasterComponent {
 
   InitComponent() {
     this.bPrint = false;
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.InitLov();
     this.List("NEW");
@@ -551,5 +558,13 @@ export class SalaryMasterComponent {
     this.Record.sal_gross_earn = TotEarning;
     this.Record.sal_gross_deduct = TotDeductn;
     this.Record.sal_net = (TotEarning - TotDeductn);
+  }
+  
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content);
   }
 }

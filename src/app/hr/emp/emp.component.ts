@@ -485,6 +485,10 @@ export class EmpComponent {
       sError += "\n\r| Designation Cannot Be Blank";
     }
 
+    if (this.gs.isBlank(this.Record.emp_status_id)) {
+      bret = false;
+      sError += "\n\r| Employee Status Cannot Be Blank";
+    }
 
     if (this.GetFieldName("CONFIRMED").fieldid == this.Record.emp_status_id || this.GetFieldName("TRANSFER").fieldid == this.Record.emp_status_id) {
 

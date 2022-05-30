@@ -359,10 +359,12 @@
   </div>
   <div class="page-box">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <div class="form-group row">
-          <div class="offset-3 col-sm-9">
+          <div class="offset-2 col-sm-9">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+              class="btn btn-success btn-sm">Documents</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -386,3 +388,17 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #doc let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload [pkid]="pkid" [type]="'SALARY-MASTER'"></app-upload>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
