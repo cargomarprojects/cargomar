@@ -31,6 +31,7 @@ export class PayRollComponent {
   bPrint: boolean = false;
   bAdmin: boolean = false;
   bEmail: boolean = false;
+  bDocs: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bRemove: boolean = false;
@@ -64,6 +65,7 @@ export class PayRollComponent {
   ErrorMessage = "";
   InfoMessage = "";
   csvamt: string;
+  docpkid: string;
 
   SalDetails: any[] = [];
   mode = '';
@@ -111,6 +113,7 @@ export class PayRollComponent {
     this.bAdmin = false;
     this.bEmail = false;
     this.bPrint = false;
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -122,6 +125,8 @@ export class PayRollComponent {
         this.bPrint = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {
@@ -1085,5 +1090,11 @@ export class PayRollComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  ShowDocuments(doc: any) {
+    this.docpkid = this.Record.sal_emp_id.toString() + this.Record.sal_year.toString().substring(2) + this.Record.sal_month.toString();
+    this.ErrorMessage = '';
+    this.open(doc);
   }
 }

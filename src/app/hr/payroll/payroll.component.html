@@ -24,28 +24,29 @@
           </div>
           <div class="col-sm-3 pr-0">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
-              <option [value]="'BOTH'">Both</option>
+              <option [value]="'BOTH'">Both(Confm/UnConfm)</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
               <option [value]="'UNCONFIRM'">Unconfirmed</option>
+              <option [value]="'CONSULTANT'">Consultant</option>
             </select>
           </div>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label  class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-6">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
           </div>
           <div class="col-sm-5">
-            
-          <!-- </div>
+
+            <!-- </div>
           <div class="col-sm-2"> -->
             <!-- <button [disabled]="loading" (click)="ProcessDeductions('PROCESS','')"
               class="btn btn-primary btn-sm">Process</button> -->
-              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-              <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button [disabled]="loading" (click)="Generate('LIST',salgenerate)"
               class="btn btn-primary btn-sm">Generate</button>
           </div>
         </div>
@@ -68,9 +69,9 @@
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
               SAL-{{salh_jvno}}</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostPFJV()" class="btn btn-primary btn-sm  mr-1"> Post
-                PF-{{pf_jvno}}</button>
-  
-<!--             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
+              PF-{{pf_jvno}}</button>
+
+            <!--             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
 
               <font color="red">{{salh_jvno}} </font>
             </label> -->
@@ -421,8 +422,12 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <div class="offset-1 col-sm-9">
-            <!-- <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button> -->
-            <button [disabled]="loading || lock_record" (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
+            <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading || lock_record"
+              (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
+            <button *ngIf="!(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading || lock_record"
+              (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+              class="btn btn-success btn-sm">Documents</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -577,7 +582,8 @@
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_type}}</td>
                     <td>{{rec.ded_start_date}}</td>
-                    <td style="padding:0px 0px 0px 0px"><input type="number" name="frtpp" class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
+                    <td style="padding:0px 0px 0px 0px"><input type="number" name="frtpp"
+                        class="form-control form-control-sm" [(ngModel)]="rec.ded_amt" required maxlength="14" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -591,8 +597,7 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="UpdateDeduction()"
-                class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="UpdateDeduction()" class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
@@ -600,5 +605,19 @@
         </div>
       </div>
     </div>
+  </div>
+</ng-template>
+<ng-template #doc let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload [pkid]="docpkid" [type]="'PAYROLL'"></app-upload>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
