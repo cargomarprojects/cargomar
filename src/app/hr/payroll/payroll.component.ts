@@ -774,7 +774,7 @@ export class PayRollComponent {
     SearchData.empbrgroup = empbrgrp;
     SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
     SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
-    SearchData.csvamt =  this.gs.isBlank(this.csvamt)?'0':this.csvamt;
+    SearchData.csvamt = this.gs.isBlank(this.csvamt) ? '0' : this.csvamt;
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)
@@ -783,6 +783,8 @@ export class PayRollComponent {
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         if (response.filename2.length > 0)
           this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
+        if (response.filename3.length > 0)
+          this.Downloadfile(response.filename3, response.filetype3, response.filedisplayname3);
       },
         error => {
           this.loading = false;
@@ -898,7 +900,7 @@ export class PayRollComponent {
 
   }
 
-  
+
   PostPFJV() {
     let Msg: string = "";
     Msg = "Generate PF JV";
@@ -906,8 +908,7 @@ export class PayRollComponent {
       Msg = "Re-Generate PF JV";
 
 
-    if ( this.salyear < 2020 && this.salmonth < 5)
-    {
+    if (this.salyear < 2020 && this.salmonth < 5) {
       alert('Invalid Payroll Year And Month');
       return;
     }
