@@ -161,6 +161,7 @@ export class DeductmEditComponent {
         this.Record.ded_edit_code = "{S}";
         this.Record.ded_remarks = '';
         this.lock_record = false;
+        this.Record.ded_alloc_exist = false;
         this.InitLov();
         this.Record.rec_mode = this.mode;
 

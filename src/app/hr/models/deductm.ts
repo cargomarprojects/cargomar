@@ -19,6 +19,7 @@ export class Deductm {
     ded_amt: number;
     ded_remarks: string;
     ded_sal_pkid: string;
+    ded_alloc_exist:boolean;
     
     rec_mode: string;
     _globalvariables: GlobalVariables;
