@@ -501,13 +501,17 @@ export class EmpComponent {
 
 
     if (this.mode == 'ADD') {
-      if (this.GetFieldName("CONSULTANT").fieldid != this.Record.emp_status_id) {
-        if (this.Record.emp_in_payroll == false) {
+      // if (this.GetFieldName("CONSULTANT").fieldid != this.Record.emp_status_id) {
+      //   if (this.Record.emp_in_payroll == false) {
 
-          bret = false;
-          sError += "\n\r| Not Include in PayRoll ";
+      //     bret = false;
+      //     sError += "\n\r| Not Include in PayRoll ";
 
-        }
+      //   }
+      // }
+      if (this.Record.emp_in_payroll == false) {
+        bret = false;
+        sError += "\n\r| Not Include in PayRoll ";
       }
     }
 
@@ -522,12 +526,12 @@ export class EmpComponent {
       }
     }
 
-    if (this.GetFieldName("CONSULTANT").fieldid == this.Record.emp_status_id) {
-      if (this.Record.emp_in_payroll == true) {
-        bret = false;
-        sError += "\n\r| Please Untick Include in PayRoll ";
-      }
-    }
+    // if (this.GetFieldName("CONSULTANT").fieldid == this.Record.emp_status_id) {
+    //   if (this.Record.emp_in_payroll == true) {
+    //     bret = false;
+    //     sError += "\n\r| Please Untick Include in PayRoll ";
+    //   }
+    // }
 
     //if (this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
     //  bret = false;
