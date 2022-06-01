@@ -485,6 +485,15 @@
       </div>
 
       <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">LWF-EMPLOYER-CODE</label>
+        <div class="col-8">
+          <app-autocomplete2 #CsdLov [inputdata]="LWFEMPLOYERRECORD" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">EPF EDLI-ADMIN-CODE</label>
         <div class="col-8">
           <app-autocomplete2 #CsdLov [inputdata]="EPFEDLIRECORD" (ValueChanged)="LovSelected($event)">
@@ -511,6 +520,15 @@
         <label class="col-4 col-form-label col-form-label-sm">ESI-PAYABLE-CODE</label>
         <div class="col-8">
           <app-autocomplete2 #CsdLov [inputdata]="ESIPAYRECORD" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">LWF-PAYABLE-CODE</label>
+        <div class="col-8">
+          <app-autocomplete2 #CsdLov [inputdata]="LWFPAYRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete2>
         </div>
       </div>

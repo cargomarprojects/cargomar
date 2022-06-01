@@ -897,6 +897,7 @@ export class PayRollComponent {
     this.mainService.PostPayRoll(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.salh_jvno =response.jvno;
         alert('PAYROLL JV Generated : ' + response.jvno);
       },
         error => {
@@ -947,6 +948,7 @@ export class PayRollComponent {
     this.mainService.PostPFJV(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.pf_jvno = response.jvno;
         alert('PF JV Generated : ' + response.jvno);
       },
         error => {
@@ -996,6 +998,7 @@ export class PayRollComponent {
     this.mainService.PostLWFJV(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.lwf_jvno = response.jvno;
         alert('LWF JV Generated : ' + response.jvno);
       },
         error => {
