@@ -44,6 +44,7 @@ export class PayRollComponent {
   searchstring = '';
   salh_jvno = 0;
   pf_jvno = 0;
+  lwf_jvno = 0;
 
   page_count = 0;
   page_current = 0;
@@ -231,6 +232,7 @@ export class PayRollComponent {
         this.Recorddet = response.record;
         this.salh_jvno = response.saljvno;
         this.pf_jvno = response.pfjvno;
+        this.lwf_jvno = response.lwfjvno;
         this.chkallselected = false;
         this.selectdeselect = false;
       },
@@ -954,6 +956,56 @@ export class PayRollComponent {
         });
 
   }
+
+  PostLWFJV() {
+    let Msg: string = "";
+    Msg = "Generate LWF JV";
+    if (this.lwf_jvno > 0)
+      Msg = "Re-Generate LWF JV";
+
+
+    if (this.salyear < 2020 && this.salmonth < 5) {
+      alert('Invalid Payroll Year And Month');
+      return;
+    }
+
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      year_prefix: this.gs.globalVariables.year_prefix,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
+      sal_year: this.salyear,
+      sal_month: this.salmonth,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+
+    this.ErrorMessage = '';
+
+    this.mainService.PostLWFJV(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('LWF JV Generated : ' + response.jvno);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
+
 
 
 

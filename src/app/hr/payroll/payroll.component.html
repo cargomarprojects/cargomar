@@ -70,6 +70,8 @@
               SAL-{{salh_jvno}}</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostPFJV()" class="btn btn-primary btn-sm  mr-1"> Post
               PF-{{pf_jvno}}</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostLWFJV()" class="btn btn-primary btn-sm  mr-1"> Post
+                LWF-{{lwf_jvno}}</button>              
 
             <!--             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
 

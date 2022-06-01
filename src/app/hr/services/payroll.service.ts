@@ -48,6 +48,10 @@ export class PayRollService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SavePFJV', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  PostLWFJV(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveLWFJV', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   UpdatePaymentDate(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payroll/UpdatePaymentDate', SearchData, this.gs.headerparam2('authorized'));
   }
