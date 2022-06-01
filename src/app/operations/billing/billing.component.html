@@ -205,7 +205,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Bank.A/c</label>
           <div class="col-5">
-            <select [disabled] ="cc_category!='SI SEA EXPORT'" class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
+            <select [disabled] ="cc_category!='SI SEA EXPORT' && cc_category!='SI AIR EXPORT'" class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
               <option [value]="'NA'">NA</option>
               <option [value]="'AE'">AIR EXPORT</option>
               <option [value]="'AI'">AIR IMPORT</option>
