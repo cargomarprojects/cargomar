@@ -157,6 +157,10 @@ export class SettingsComponent {
   EPFEMPLOYERRECORD: any;
   EPFEMPLOYERREC: any = { id: '', code: '', name: '' };
 
+  LWFEMPLOYERRECORD: any;
+  LWFEMPLOYERREC: any = { id: '', code: '', name: '' };
+
+
   EPFEDLIRECORD: any;
   EPFEDLIREC: any = { id: '', code: '', name: '' };
 
@@ -168,6 +172,11 @@ export class SettingsComponent {
 
   ESIPAYRECORD: any;
   ESIPAYREC: any = { id: '', code: '', name: '' };
+
+  LWFPAYRECORD: any;
+  LWFPAYREC: any = { id: '', code: '', name: '' };
+  
+
 
 
 
@@ -389,6 +398,13 @@ export class SettingsComponent {
       };
     }
 
+    if (caption == '' || caption == 'LWFEMPLOYERCODE') {
+      this.LWFEMPLOYERRECORD = {
+        controlname: 'LWFEMPLOYERCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.LWFEMPLOYERREC.id, code: this.LWFEMPLOYERREC.code, name: this.LWFEMPLOYERREC.name
+      };
+    }
+
 
     if (caption == '' || caption == 'EPFEDLICODE') {
       this.EPFEDLIRECORD = {
@@ -416,6 +432,14 @@ export class SettingsComponent {
       this.ESIPAYRECORD = {
         controlname: 'ESIPAYCODE', type: 'ACCTM', displaycolumn: 'CODE',
         parentid: '', id: this.ESIPAYREC.id, code: this.ESIPAYREC.code, name: this.ESIPAYREC.name
+      };
+    }
+
+
+    if (caption == '' || caption == 'LWFPAYCODE') {
+      this.LWFPAYRECORD = {
+        controlname: 'LWFPAYCODE', type: 'ACCTM', displaycolumn: 'CODE',
+        parentid: '', id: this.LWFPAYREC.id, code: this.LWFPAYREC.code, name: this.LWFPAYREC.name
       };
     }
 
@@ -579,6 +603,14 @@ export class SettingsComponent {
       this.EPFEMPLOYERREC.name = _Record.name;
     }
 
+    if (_Record.controlname == 'LWFEMPLOYERCODE') {
+      this.LWFEMPLOYERREC.id = _Record.id;
+      this.LWFEMPLOYERREC.code = _Record.code;
+      this.LWFEMPLOYERREC.name = _Record.name;
+    }
+
+
+
     if (_Record.controlname == 'EPFEDLICODE') {
       this.EPFEDLIREC.id = _Record.id;
       this.EPFEDLIREC.code = _Record.code;
@@ -601,6 +633,12 @@ export class SettingsComponent {
       this.ESIPAYREC.id = _Record.id;
       this.ESIPAYREC.code = _Record.code;
       this.ESIPAYREC.name = _Record.name;
+    }
+
+    if (_Record.controlname == 'LWFPAYCODE') {
+      this.LWFPAYREC.id = _Record.id;
+      this.LWFPAYREC.code = _Record.code;
+      this.LWFPAYREC.name = _Record.name;
     }
 
 
@@ -916,10 +954,18 @@ export class SettingsComponent {
 
       if (rec.caption == "EPFEMPLOYERCODE") {
         this.EPFEMPLOYERREC.id = rec.id;
-        this.EPFEMPLOYERREC .code = rec.code;
+        this.EPFEMPLOYERREC.code = rec.code;
         this.EPFEMPLOYERREC.name = rec.name;
         this.initLov(rec.caption);
       }
+
+      if (rec.caption == "LWFEMPLOYERCODE") {
+        this.LWFEMPLOYERREC.id = rec.id;
+        this.LWFEMPLOYERREC.code = rec.code;
+        this.LWFEMPLOYERREC.name = rec.name;
+        this.initLov(rec.caption);
+      }
+
 
 
       if (rec.caption == "EPFEDLICODE") {
@@ -947,6 +993,13 @@ export class SettingsComponent {
         this.ESIPAYREC.id = rec.id;
         this.ESIPAYREC .code = rec.code;
         this.ESIPAYREC.name = rec.name;
+        this.initLov(rec.caption);
+      }      
+
+      if (rec.caption == "LWFPAYCODE") {
+        this.LWFPAYREC.id = rec.id;
+        this.LWFPAYREC .code = rec.code;
+        this.LWFPAYREC.name = rec.name;
         this.initLov(rec.caption);
       }      
 
@@ -1141,6 +1194,8 @@ export class SettingsComponent {
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'EPFEMPLOYERCODE', this.EPFEMPLOYERREC.id, this.EPFEMPLOYERREC.code, this.EPFEMPLOYERREC.name));
 
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'LWFEMPLOYERCODE', this.LWFEMPLOYERREC.id, this.LWFEMPLOYERREC.code, this.LWFEMPLOYERREC.name));
+
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'EPFEDLICODE', this.EPFEDLIREC.id, this.EPFEDLIREC.code, this.EPFEDLIREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'ESICODE', this.ESIREC.id, this.ESIREC.code, this.ESIREC.name));
@@ -1148,6 +1203,8 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'PFPAYCODE', this.PFPAYREC.id, this.PFPAYREC.code, this.PFPAYREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'ESIPAYCODE', this.ESIPAYREC.id, this.ESIPAYREC.code, this.ESIPAYREC.name));
+    
+    this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'LWFPAYCODE', this.LWFPAYREC.id, this.LWFPAYREC.code, this.LWFPAYREC.name));
 
 
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'CHQ_PRINT_HO_APRVD', '', '', this.BR_CHQ_PRINT_HO_APRVD == true ? "Y" : "N"));
