@@ -82,6 +82,7 @@ export class HblBkmPartyComponent {
     this.EXPRECORD.controlname = "SHIPPER";
     this.EXPRECORD.displaycolumn = "CODE";
     this.EXPRECORD.type = "CUSTOMER";
+    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
     this.EXPRECORD.id = this.mRecord.hp_exp_id;
     this.EXPRECORD.code = this.mRecord.hp_exp_code;
     this.EXPRECORD.name = this.mRecord.hp_exp_name;
@@ -90,6 +91,7 @@ export class HblBkmPartyComponent {
     this.IMPRECORD.controlname = "CONSIGNEE";
     this.IMPRECORD.displaycolumn = "CODE";
     this.IMPRECORD.type = "CUSTOMER";
+    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
     this.IMPRECORD.id = this.mRecord.hp_imp_id;
     this.IMPRECORD.code =this.mRecord.hp_imp_code;
     this.IMPRECORD.name = this.mRecord.hp_imp_name;
