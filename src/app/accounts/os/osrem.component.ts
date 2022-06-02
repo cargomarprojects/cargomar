@@ -23,6 +23,7 @@ export class OsRemComponent {
   pkid: string = '';
   type: string ='';
   remarks: string = '';
+  remarks2: string = '';
       
   
   InitCompleted: boolean = false;
@@ -48,7 +49,8 @@ export class OsRemComponent {
   SearchData = {
     pkid: '',
     type: '',
-    remarks: ''
+    remarks: '',
+    remarks2: ''    
   }
   
   // Array For Displaying List
@@ -72,6 +74,7 @@ export class OsRemComponent {
     this.pkid = this.record.pkid;
     this.type = this.record.jv_od_type;
     this.remarks = this.record.jv_od_remarks;
+    this.remarks2 = this.record.jv_od_remarks2;
   }
 
   InitComponent() {
@@ -98,6 +101,7 @@ export class OsRemComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.type = this.type;
     this.SearchData.remarks = this.remarks;
+    this.SearchData.remarks2 = this.remarks2;
 
     this.mainService.UpdateOsRemarks(this.SearchData)
       .subscribe(response => {
@@ -106,6 +110,7 @@ export class OsRemComponent {
         if (response.status == "OK") {
           this.record.jv_od_type = this.type;
           this.record.jv_od_remarks = this.remarks;
+          this.record.jv_od_remarks2 = this.remarks2;
           this.record.displayed = false;
         }
 

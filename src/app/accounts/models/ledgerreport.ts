@@ -28,6 +28,7 @@ export class LedgerReport {
 
   jv_od_type: string;
   jv_od_remarks: string;
+  jv_od_remarks2: string;
 
   opdebit: number;
   opcredit: number;

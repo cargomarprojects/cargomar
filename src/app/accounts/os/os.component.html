@@ -119,9 +119,9 @@
 
           <th>SALESMAN</th>
           <th>CATEGORY</th>
-          <th>REMARKS</th>
           <th>STATUS</th>
-          
+          <th>REMARKS</th>
+          <th>REMARKS2</th>
           
         </tr>
       </thead>
@@ -153,6 +153,8 @@
           <td>{{rec.rec_category}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_type}}</td>
           <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks}}</td>
+          <td (click)="showRemarks(rec)" style="cursor: pointer">{{rec.jv_od_remarks2}}</td>
+
         </tr>
         <tr *ngIf="rec.displayed">
           <td colspan="20">
