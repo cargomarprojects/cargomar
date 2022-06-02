@@ -769,7 +769,7 @@ export class ArApComponent {
     let bOk: Boolean = false;
     let rowCount: number = 0;
 
-    
+
 
 
     let cgst_dr = 0;
@@ -932,8 +932,8 @@ export class ArApComponent {
       }
     }
 
-    let IsRcmRecords =  false;
-    let IsNoRcmRecords =  false;
+    let IsRcmRecords = false;
+    let IsNoRcmRecords = false;
 
     this.Record.LedgerList.forEach(rec => {
       rowCount++;
@@ -968,14 +968,14 @@ export class ArApComponent {
       if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
         Courier_Code_Found = true;
       }
-      else 
+      else
         Code_Other_Than_Courier_Code_Found = true;
 
       //RCM-2
-      if ( rec.jv_is_rcm)
+      if (rec.jv_is_rcm)
         IsRcmRecords = true;
-      else 
-        IsNoRcmRecords = true;        
+      else
+        IsNoRcmRecords = true;
 
 
     });
@@ -1018,12 +1018,12 @@ export class ArApComponent {
       sError += " |Reverse Charge Invalid";
     }
 
-    if ( IsRcmRecords && !this.Record.jvh_rc ){
+    if (IsRcmRecords && !this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
 
-    if ( !IsRcmRecords && this.Record.jvh_rc ){
+    if (!IsRcmRecords && this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
@@ -1139,6 +1139,32 @@ export class ArApComponent {
     }
   }
 
+  onLostFocus(field: string) {
+    if (field == 'jvh_cc_code') {
+      this.SearchRecord('jvh_cc_code');
+    }
+
+    if (field == 'jvh_cc_category') {
+      this.Record.jvh_cc_code = '';
+      this.Record.jvh_cc_id = '';
+      this.Record.jvh_cc_name = 'Invalid CostCenter';
+      this.ChangeAccList();
+    }
+
+  }
+
+  onFocusout(field: string) {
+    if (field == 'jvh_reference') {
+      if (!this.gs.isBlank(this.Record.jvh_reference)) {
+        this.IsDupliation(this.Record.jvh_reference);
+      }
+    }
+    if (field == 'jvh_org_invno') {
+      if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
+        this.IsDupliation(this.Record.jvh_org_invno);
+      }
+    }
+  }
 
   OnFocus(field: string) {
     this.bChanged = false;
@@ -1610,8 +1636,8 @@ export class ArApComponent {
 
 
     if (this.Recorddet.jv_drcr == 'CR') {
-      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' || 
-        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' || 
+      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' ||
+        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' ||
         this.Recorddet.jv_acc_code == '194IA' || this.Recorddet.jv_acc_code == '194J' || this.Recorddet.jv_acc_code == '192B') {
 
         if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {
@@ -1633,7 +1659,7 @@ export class ArApComponent {
       }
     }
 
-    
+
 
 
 
@@ -2047,22 +2073,6 @@ export class ArApComponent {
   }
 
 
-
-  onLostFocus(field: string) {
-    if (field == 'jvh_cc_code') {
-      this.SearchRecord('jvh_cc_code');
-    }
-
-    if (field == 'jvh_cc_category') {
-      this.Record.jvh_cc_code = '';
-      this.Record.jvh_cc_id = '';
-      this.Record.jvh_cc_name = 'Invalid CostCenter';
-      this.ChangeAccList();
-    }
-
-  }
-
-
   SearchRecord(controlname: string) {
 
     this.loading = true;
@@ -2467,6 +2477,42 @@ export class ArApComponent {
     //   this.SearchRecord('cntrsinos');
     // }
   }
+
+  IsDupliation(_searchString: string) {
+
+    let SearchData = {
+      pkid: '',
+      company_code: '',
+      branch_code: '',
+      type: '',
+      year_code: '',
+      searchstring: ''
+    };
+
+    SearchData.pkid = this.Record.jvh_pkid;
+    SearchData.type = this.Record.jvh_type;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.searchstring = _searchString;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.IsRefnoDuplication(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue) {
+          this.ErrorMessage = response.retstring;
+          alert(this.ErrorMessage);
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
 
 
