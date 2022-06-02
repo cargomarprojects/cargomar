@@ -1609,6 +1609,34 @@ export class ArApComponent {
     }
 
 
+    if (this.Recorddet.jv_drcr == 'CR') {
+      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' || 
+        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' || 
+        this.Recorddet.jv_acc_code == '194IA' || this.Recorddet.jv_acc_code == '194J' || this.Recorddet.jv_acc_code == '192B') {
+
+        if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {
+          this.ErrorMessage = 'Invalid Pan | Tds% ';
+          alert(this.ErrorMessage);
+          return;
+        }
+
+      }
+    }
+
+    if (this.Recorddet.jv_drcr == 'DR') {
+      if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
+        if (this.Recorddet.jv_tan_id.toString() == '' || this.Recorddet.jv_tan_party_id.toString() == '' || this.Recorddet.jv_gross_bill_amt <= 0) {
+          this.ErrorMessage = 'Invalid Tan / Tan Party / Gross Bill Amt ';
+          alert(this.ErrorMessage);
+          return;
+        }
+      }
+    }
+
+    
+
+
+
     if (this.Recorddet.jv_qty <= 0) {
       this.ErrorMessage = 'Invalid Qty';
       return;
