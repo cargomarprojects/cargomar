@@ -989,6 +989,18 @@ export class BillingComponent {
     }
   }
 
+  onFocusout(field: string) {
+    if (field == 'jvh_reference') {
+      if (!this.gs.isBlank(this.Record.jvh_reference)) {
+        this.IsDupliation(this.Record.jvh_reference);
+      }
+    }
+    if (field == 'jvh_org_invno') {
+      if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
+        this.IsDupliation(this.Record.jvh_org_invno);
+      }
+    }
+  }
 
   OnFocus(field: string) {
     this.bChanged = false;
@@ -1542,6 +1554,41 @@ export class BillingComponent {
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
+  IsDupliation(_searchString: string) {
+
+    let SearchData = {
+      pkid: '',
+      company_code: '',
+      branch_code: '',
+      type: '',
+      year_code: '',
+      searchstring: ''
+    };
+
+    SearchData.pkid = this.Record.jvh_pkid;
+    SearchData.type = this.Record.jvh_type;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.searchstring = _searchString;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.IsRefnoDuplication(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue) {
+          this.ErrorMessage = response.retstring;
+          alert(this.ErrorMessage);
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }

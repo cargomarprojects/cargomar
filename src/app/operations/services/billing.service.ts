@@ -44,5 +44,8 @@ export class BillingService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/PrintVoucher', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  IsRefnoDuplication(SearchData : any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
