@@ -82,6 +82,7 @@ export class Ledgert {
 
     jv_od_type: string;
     jv_od_remarks: string;
+    jv_od_remarks2: string;
 
 
     jv_doc_type: string;
