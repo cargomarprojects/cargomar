@@ -1351,6 +1351,7 @@ export class LedgerComponent {
 
     this.Recorddet.jv_od_type = '';
     this.Recorddet.jv_od_remarks = '';
+    this.Recorddet.jv_od_remarks2 = '';
     this.Recorddet.jv_tan_update = false;
     this.Recorddet.jv_pay_link = '';
     this.Recorddet.jv_acc_drcr_only = 'NA';
@@ -1447,6 +1448,7 @@ export class LedgerComponent {
     this.Recorddet.jv_recon_date = _Record.jv_recon_date;
     this.Recorddet.jv_od_type = _Record.jv_od_type;
     this.Recorddet.jv_od_remarks = _Record.jv_od_remarks;
+    this.Recorddet.jv_od_remarks2 = _Record.jv_od_remarks2;
     this.Recorddet.jv_tan_update = _Record.jv_tan_update;
     this.Recorddet.jv_pay_link = _Record.jv_pay_link;
     this.Recorddet.jv_acc_drcr_only = _Record.jv_acc_drcr_only;
@@ -1997,6 +1999,7 @@ export class LedgerComponent {
 
       REC.jv_od_type = this.Recorddet.jv_od_type;
       REC.jv_od_remarks = this.Recorddet.jv_od_remarks;
+      REC.jv_od_remarks2 = this.Recorddet.jv_od_remarks2;
       REC.jv_pay_link = this.Recorddet.jv_pay_link;
       REC.jv_acc_drcr_only = this.Recorddet.jv_acc_drcr_only;
 
