@@ -150,6 +150,9 @@ export class LinerBkm {
 
   rec_category: string;
   rec_mode: string;
+  rec_created_by:string;
+  rec_created_date:string;
+  
   _globalvariables: GlobalVariables;
 
   HblList: Hblm[] = [];
