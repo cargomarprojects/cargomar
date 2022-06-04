@@ -14,9 +14,9 @@ import { TdsPayService } from '../services/tdspay.service';
 
 export class TdsPayComponent {
   title = 'Tdspay Report'
-/*
-Ajith 22/06/2019 allbranch implemented
-*/
+  /*
+  Ajith 22/06/2019 allbranch implemented
+  */
 
 
   @Input() menuid: string = '';
@@ -62,7 +62,8 @@ Ajith 22/06/2019 allbranch implemented
     type_date: '',
     code: '',
     final: false,
-    allbranch: false
+    allbranch: false,
+    show_payroll: false
   };
 
   // Array For Displaying List
@@ -212,7 +213,7 @@ Ajith 22/06/2019 allbranch implemented
     this.SearchData.code = this.code;
     this.SearchData.final = this.final;
     this.SearchData.allbranch = this.allbranch;
-
+    this.SearchData.show_payroll = this.gs.globalVariables.user_show_payroll == 'Y' ? true : false;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {

@@ -388,7 +388,7 @@ export class LedgerComponent {
       this.Recorddet.jv_is_rcm = false;
       if (_Record.col8 == "Y") {
         this.Recorddet.jv_is_rcm = true;      //  Taxable
-      }      
+      }
 
       if (this.type == "BP") {
         if (this.Recorddet.jv_acc_type_name == "BANK")
@@ -877,8 +877,8 @@ export class LedgerComponent {
       sError += " | Courier IGST Cannot Be Selected";
     }
 
-    let IsRcmRecords =  false;
-    let IsNoRcmRecords =  false;
+    let IsRcmRecords = false;
+    let IsNoRcmRecords = false;
 
 
     this.Record.LedgerList.forEach(rec => {
@@ -914,14 +914,14 @@ export class LedgerComponent {
       if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
         Courier_Code_Found = true;
       }
-      else 
+      else
         Code_Other_Than_Courier_Code_Found = true;
 
       //RCM-2
-      if ( rec.jv_is_rcm)
+      if (rec.jv_is_rcm)
         IsRcmRecords = true;
-      else 
-        IsNoRcmRecords = true;        
+      else
+        IsNoRcmRecords = true;
 
 
 
@@ -967,12 +967,12 @@ export class LedgerComponent {
       sError += " |Reverse Charge Invalid";
     }
 
-    if ( IsRcmRecords && !this.Record.jvh_rc ){
+    if (IsRcmRecords && !this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
 
-    if ( !IsRcmRecords && this.Record.jvh_rc ){
+    if (!IsRcmRecords && this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
@@ -1254,16 +1254,16 @@ export class LedgerComponent {
       this.modeDetail = 'EDIT';
 
       let nYear: number = +this.gs.globalVariables.year_code;
-      if (nYear >= 2022) {
-        if (this.gs.globalVariables.user_branch_user == 'Y' && (rec.jv_acc_code == '1507' || rec.jv_acc_code == '1532' || rec.jv_acc_code == '1535'
-          || rec.jv_acc_code == '1510' || rec.jv_acc_code == '1545' || rec.jv_acc_code == '1511')) {
+      if (nYear >= 2022 && this.gs.globalVariables.user_show_payroll == 'N') {
+
+        if (this.gs.IsPayrollRecord(rec.jv_acc_code)) {
           this.DetailTab = 'LIST';
           this.modeDetail = '';
           alert('Cannot view this record');
           return;
         }
-      }
 
+      }
       this.LoadDetail(rec);
     }
   }
@@ -1594,8 +1594,8 @@ export class LedgerComponent {
     }
 
     if (this.Recorddet.jv_drcr == 'CR') {
-      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' || 
-        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' || 
+      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' ||
+        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' ||
         this.Recorddet.jv_acc_code == '194IA' || this.Recorddet.jv_acc_code == '194J' || this.Recorddet.jv_acc_code == '192B') {
 
         if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {

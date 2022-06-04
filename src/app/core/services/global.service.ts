@@ -11,7 +11,7 @@ import { Modulem } from '../models/modulem';
 
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
- 
+
 
 
 
@@ -900,5 +900,12 @@ export class GlobalService {
 
   }
 
+  public IsPayrollRecord(_acc_code: string): boolean {
+    if (_acc_code == '1507' || _acc_code == '1532'
+      || _acc_code == '1535' || _acc_code == '1510' || _acc_code == '1545' || _acc_code == '1511')
+      return true;
+    else
+      return false;
+  }
 
 }
