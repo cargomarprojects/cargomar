@@ -285,6 +285,7 @@ export class GlobalService {
         this.globalVariables.ipaddress = user.useripaddress;
         this.globalVariables.tokenid = user.usertokenid;
         this.globalVariables.user_branch_user = user.user_branch_user;
+        this.globalVariables.user_show_payroll = user.user_show_payroll;
 
         // If a branch user hide ho entries
         if (user.user_branch_user == "Y")
