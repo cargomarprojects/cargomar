@@ -51,6 +51,7 @@
           <th>BR.USER</th>
           <th>REMARKS</th>
           <th>LOCKED</th>
+          <th>SHOW.PAYROLL</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -66,6 +67,7 @@
           <td>{{rec.user_branch_user ? 'YES' : 'NO'}}</td>
           <td>{{rec.user_remarks}}</td>
           <td>{{rec.rec_locked ? 'YES' : 'NO'}}</td>
+          <td>{{rec.user_show_payroll ? 'YES' : 'NO'}}</td>
         </tr>
       </tbody>
     </table>
@@ -150,9 +152,12 @@
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">Branch User</label>
-        <div class="col-10">
+        <div class="col-4">
           <input type="checkbox" [(ngModel)]="Record.user_branch_user" />
-
+        </div>
+        <label class="col-2 col-form-label  col-form-label-sm">Show Payroll</label>
+        <div class="col-4">
+          <input type="checkbox" [(ngModel)]="Record.user_show_payroll" />
         </div>
       </div>
 

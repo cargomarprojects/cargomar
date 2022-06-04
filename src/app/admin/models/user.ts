@@ -23,6 +23,7 @@ export class User {
     user_emp_id: string;
     user_emp_code: string;
     user_emp_name: string;
+    user_show_payroll: boolean;
     
     rec_mode: string;
     rec_locked: boolean;

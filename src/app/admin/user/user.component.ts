@@ -178,6 +178,7 @@ export class UserComponent {
         this.Record.user_dsc_slno = '';
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
+        this.Record.user_show_payroll= false;
         this.Record.user_emp_id = '';
         this.Record.user_emp_code = '';
         this.Record.user_emp_name = '';
@@ -293,6 +294,7 @@ export class UserComponent {
             REC.user_sman_name = this.Record.user_sman_name;
             REC.rec_locked = this.Record.rec_locked;
             REC.user_remarks = this.Record.user_remarks;
+            REC.user_show_payroll = this.Record.user_show_payroll;
         }
     }
 
