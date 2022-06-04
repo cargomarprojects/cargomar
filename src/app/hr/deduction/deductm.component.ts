@@ -21,7 +21,7 @@ export class DeductmComponent {
     menu_record: any;
     selectedRowIndex = 0;
 
-    bpending: boolean = true;
+    bpending: boolean = false;
     bChanged: boolean;
     disableSave = true;
     loading = false;
