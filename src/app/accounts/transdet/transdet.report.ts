@@ -138,6 +138,13 @@ Ajith 22/05/19 -DeleteRecord modified to delete single row
     DeleteRecord(_type: string, _id: string) {
         this.ErrorMessage = '';
         let jvhid: string = "";
+        
+        // let jvh_pkid: string = "";
+
+        // for (let rec of this.RecordList) {
+        //     jvh_pkid = rec.jvh_pkid;
+        //     break;
+        // }
 
         if (_type == "FULL-DELETE") {
 
