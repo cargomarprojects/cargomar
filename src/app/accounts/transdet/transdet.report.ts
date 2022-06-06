@@ -138,13 +138,13 @@ Ajith 22/05/19 -DeleteRecord modified to delete single row
     DeleteRecord(_type: string, _id: string) {
         this.ErrorMessage = '';
         let jvhid: string = "";
-        
-        // let jvh_pkid: string = "";
+        let xrefPkid: string = "";
+        let jvh_pkid: string = "";
 
-        // for (let rec of this.RecordList) {
-        //     jvh_pkid = rec.jvh_pkid;
-        //     break;
-        // }
+        for (let rec of this.RecordList) {
+            jvh_pkid = rec.jvh_pkid;
+            break;
+        }
 
         if (_type == "FULL-DELETE") {
 
@@ -166,14 +166,16 @@ Ajith 22/05/19 -DeleteRecord modified to delete single row
             }
         }
         if (_type == "ROW-DELETE") {
-            jvhid = _id;
-            if (jvhid.length <= 0)
+            xrefPkid = _id;
+            if (xrefPkid.length <= 0)
                 return;
         }
+
         this.loading = true;
         let SearchData = {
             type: _type,
-            pkid: jvhid,
+            pkid: _type == "FULL-DELETE" ? jvhid : xrefPkid,
+            jvh_pkid: jvh_pkid,
             branch_code: this.gs.globalVariables.branch_code,
             user_code: this.gs.globalVariables.user_code,
             user_pkid: this.gs.globalVariables.user_pkid
