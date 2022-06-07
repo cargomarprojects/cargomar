@@ -38,6 +38,8 @@ Ajith 22/05/19 -DeleteRecord modified to delete single row
 
     narration: '';
 
+    
+
     SearchData = {
         pkid: '',
         company_code: '',
@@ -115,6 +117,7 @@ Ajith 22/05/19 -DeleteRecord modified to delete single row
                 this.RecordList = response.list;
                 this.narration = response.narration;
                 this.RecordXrefList = response.xreflist;
+                
             },
                 error => {
                     this.loading = false;
