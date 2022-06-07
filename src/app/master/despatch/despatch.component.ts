@@ -701,7 +701,8 @@ export class DespatchComponent {
 
             if (this.Record.dm_si_nos.indexOf(",") < 0) {
               this.Record.dm_containers = response.despatchdefault[0].hbl_book_cntr;
-              this.Record.dm_inv_no = response.despatchdefault[0].hbl_ar_invnos;
+              // this.Record.dm_inv_no = response.despatchdefault[0].hbl_ar_invnos;
+              this.Record.dm_inv_no = response.despatchdefault[0].hbl_invoice_nos;
               this.Record.dm_tot_ctns = response.despatchdefault[0].hbl_pkg;
               this.Record.dm_volume = response.despatchdefault[0].hbl_cbm;
               this.Record.dm_grwt = response.despatchdefault[0].hbl_grwt;
