@@ -766,6 +766,11 @@ export class BuyRateComponent {
       sError += " | Invalid Document Type";
     }
 
+    if (this.gs.isBlank(this.Record.jvh_org_invno) || this.gs.isBlank(this.Record.jvh_org_invdt)) {
+      bret = false;
+      sError += " | Original INV#/DT Cannot Be Blank";
+    }
+    
     if (this.Record.jvh_state_id.trim() == "" || this.Record.jvh_state_code.trim() == "") {
       bret = false;
       sError += " | State Cannot Be Blank";
