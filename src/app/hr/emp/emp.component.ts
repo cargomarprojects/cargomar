@@ -342,6 +342,8 @@ export class EmpComponent {
     this.Record.emp_branch_group = 1;
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.Record.rec_mode = this.mode;
+    this.Record.emp_incentive_type = 'NA';
+
     this.Initdefault();
 
   }
