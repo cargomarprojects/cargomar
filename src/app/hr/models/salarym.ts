@@ -101,6 +101,8 @@ export class Salarym {
   sal_selected: boolean;
   sal_esi_emply_per: number;
   sal_pf_per: number;
+  sal_incentive: number;
+
 
   sal_pl: number;
   sal_cl: number;

@@ -374,6 +374,7 @@ export class SalaryMasterComponent {
       REC.sal_gross_earn = this.Record.sal_gross_earn;
       REC.sal_gross_deduct = this.Record.sal_gross_deduct;
       REC.sal_net = this.Record.sal_net;
+      REC.sal_incentive = this.Record.sal_incentive;
     }
   }
 
@@ -385,6 +386,9 @@ export class SalaryMasterComponent {
     }
     if (field == 'sal_is_esi') {
       this.FindNetAmt();
+    }
+    if (field == 'sal_incentive') {
+      this.Record.sal_incentive = this.gs.roundNumber(this.Record.sal_incentive, 2);
     }
     //if (field == 'sal_head') {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
