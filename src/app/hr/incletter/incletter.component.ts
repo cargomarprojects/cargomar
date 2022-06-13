@@ -37,6 +37,7 @@ export class IncLetterComponent {
   searchstring = '';
   print_date = '';
   effective_date = '';
+  incentive_effective_date = '';
   folderid = "";
   uploadfilename = "";
   uploadfiledispname = "";
@@ -160,6 +161,24 @@ export class IncLetterComponent {
         return;
       }
     }
+    if (_type == "INCENTIVE-LETTER") {
+      if (this.print_date.length <= 0) {
+        this.ErrorMessage = " | Print Date Cannot be blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+      if (this.effective_date.length <= 0) {
+        this.ErrorMessage = " | Effective Date Cannot be blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+
+      if (this.incentive_effective_date.length <= 0) {
+        this.ErrorMessage = " | Incentive Effective Date Cannot be blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
 
     this.folderid = this.gs.getGuid();
     this.loading = true;
@@ -175,7 +194,8 @@ export class IncLetterComponent {
       folderid: this.folderid,
       uploadfileid: this.uploadfilename,
       print_date: this.print_date,
-      effective_date: this.effective_date
+      effective_date: this.effective_date,
+      incentive_effective_date: this.incentive_effective_date
     };
 
     this.ErrorMessage = '';
@@ -183,7 +203,7 @@ export class IncLetterComponent {
     this.mainService.ProcessLetter(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'DOWNLOAD-TEMPLATE')
+        if (_type == 'DOWNLOAD-TEMPLATE' || _type == 'INCENTIVE-LETTER')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         if (_type == 'PROCESS-LETTER') {
           if (response.serror.length > 0) {
