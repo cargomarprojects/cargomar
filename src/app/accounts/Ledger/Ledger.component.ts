@@ -957,11 +957,13 @@ export class LedgerComponent {
       }
     }
 
+    /*
     if (IsRcmRecords && IsNoRcmRecords) {
       bret = false;
       sError += " |Separate invoice required for RCM/Non-RCM Items";
     }
-
+    */
+   
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
       sError += " |Reverse Charge Invalid";
