@@ -28,6 +28,14 @@ export class Costreco {
   mstat: string;
   hstat: string;
 
+  cust_name : string ;
+  sman_name : string ;
+  grwt : number;
+  chwt : number ;
+  teu : number;
+  cbm : number;
+  
+
 
   acc_code: number;
   jvh_cc_id: number; 
