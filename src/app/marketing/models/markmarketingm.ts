@@ -35,6 +35,7 @@ export class MarkMarketingm {
     rec_user_id: string;
     rec_date: string;
     rec_mode: string;
+    rec_created_date: string;
 
     row_displayed: boolean = false;
 

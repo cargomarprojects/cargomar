@@ -4,7 +4,7 @@
             <label class="col-form-label">{{title}}</label>
             <button (click)="Close()" class="btn btn-primary btn-sm">Close</button>
             <button [disabled]="loading" *ngIf="bPrint" (click)="List('LIST', 'EXCEL')"
-                class="btn btn-primary btn-sm">Download</button>
+                class="btn btn-primary btn-sm">Print</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
     </div>

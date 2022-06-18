@@ -354,6 +354,8 @@ export class GlobalService {
     this.globalData.ledger_fromdate = this.defaultValues.lastmonthdate;
     this.globalData.ledger_todate = this.defaultValues.today;
 
+    this.globalData.mark_fromdate = this.defaultValues.monthbegindate;
+    this.globalData.mark_todate = this.defaultValues.today;
   }
 
   InitdefaultValues2(settingslist: Settings[]) {

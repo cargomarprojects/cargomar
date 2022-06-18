@@ -30,7 +30,9 @@ export class MarketingComponent {
     loading = false;
     currentTab = 'LIST';
 
+    searchby = "";
     searchstring = '';
+
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -38,7 +40,7 @@ export class MarketingComponent {
 
     sub: any;
     urlid: string;
-    
+
     selectedRowIndex = 0;
 
     ErrorMessage = "";
@@ -59,7 +61,7 @@ export class MarketingComponent {
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     CanAddContacts: boolean = false;
-
+    bPrint: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -98,9 +100,11 @@ export class MarketingComponent {
     }
 
     InitComponent() {
+        this.searchby = "ALL";
         this.CanAddContacts = false;
         this.IsAdmin = false;
         this.IsCompany = false;
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -108,6 +112,8 @@ export class MarketingComponent {
                 this.IsAdmin = true;
             if (this.menu_record.rights_company)
                 this.IsCompany = true;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
         }
         this.menu_contact_record = this.gs.getMenu("MARKCONTACTS");
         if (this.menu_contact_record) {
@@ -236,6 +242,7 @@ export class MarketingComponent {
             type: _type,
             rowtype: this.type,
             filter_source: 'LIST',
+            searchby: this.searchby,
             searchstring: this.searchstring.toUpperCase(),
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
@@ -251,7 +258,9 @@ export class MarketingComponent {
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
             user_code: this.gs.globalVariables.user_code,
-            user_pkid: this.gs.globalVariables.user_pkid
+            user_pkid: this.gs.globalVariables.user_pkid,
+            from_date: this.gs.globalData.mark_fromdate,
+            to_date: this.gs.globalData.mark_todate,
         };
 
         this.ErrorMessage = '';
@@ -496,6 +505,9 @@ export class MarketingComponent {
         }
         if (field == 'mark_next_action') {
             this.Record.mark_next_action = this.Record.mark_next_action.toUpperCase();
+        }
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.toUpperCase();
         }
     }
 

@@ -16,4 +16,6 @@ export class GlobalData {
     mbl_todate: string;
     ledger_fromdate: string;
     ledger_todate: string;
+    mark_fromdate: string;
+    mark_todate: string;
 }
