@@ -167,6 +167,7 @@ export class VisitReportComponent {
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
             userid: this.gs.globalVariables.user_pkid,
+            usercode: this.gs.globalVariables.user_code,
             companyid: this.gs.globalVariables.comp_code,
             branchid: this.gs.globalVariables.branch_code,
             branchids: this.gs.globalVariables.branch_code,
