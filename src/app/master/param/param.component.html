@@ -47,8 +47,9 @@
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th>CODE</th>
-          <th>NAME</th>
+          <th>{{ListCode}}</th>
+          <th>{{ListName}}</th>
+          <th *ngIf="type == 'USER HIERARCHY'">SUB USERS</th>
           <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
@@ -81,6 +82,7 @@
           [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.param_code}}</td>
           <td>{{rec.param_name}}</td>
+          <td *ngIf="type == 'USER HIERARCHY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
@@ -134,7 +136,7 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Code</label>
+        <label class="col-2 col-form-label col-form-label-sm">{{idCode}}</label>
         <div class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_code" required
             [maxlength]="code_length" />
@@ -142,7 +144,7 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label  col-form-label-sm">Name</label>
+        <label class="col-2 col-form-label  col-form-label-sm">{{idName}}</label>
         <div class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_name" required
             [maxlength]="name_length" />
@@ -154,7 +156,7 @@
         <label class="col-2 col-form-label  col-form-label-sm">{{id1}}</label>
         <div class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_id1" required
-            maxlength="60" />
+            maxlength="200" />
         </div>
       </div>
 
@@ -222,7 +224,13 @@
 
       </div>
 
+      <div *ngIf="Comments != ''" class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <div class="col-10">
+          <span>{{Comments}}</span>
+        </div>
 
+      </div>
 
 
     </div>

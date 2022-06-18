@@ -41,6 +41,11 @@ export class ParamComponent {
   sub: any;
   urlid: string;
 
+  Comments: string = '';
+  ListCode: string = 'CODE';
+  ListName: string = 'NAME';
+  idCode: string = 'Code';
+  idName: string = 'Name';
   id1: string = '';
   id2: string = '';
   id3: string = '';
@@ -115,7 +120,9 @@ export class ParamComponent {
   }
 
   InitColumns() {
-
+    this.Comments = '';
+    this.idCode = 'Code';
+    this.idName = 'Name';
     this.id1 = '';
     this.id2 = '';
     this.id3 = '';
@@ -125,6 +132,15 @@ export class ParamComponent {
     this.email = '';
 
     this.code_length = 15;
+
+    if (this.type == 'USER HIERARCHY') {
+      this.idCode = 'Description';
+      this.idName = 'Main User';
+      this.id1 = "Sub Users";
+      this.ListCode='DESCRIPTION';
+      this.ListName='MAIN USER';
+      this.Comments='MARKETING';
+    }
 
 
     if (this.type == 'SAC') {
