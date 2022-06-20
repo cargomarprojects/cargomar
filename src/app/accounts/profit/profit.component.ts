@@ -269,6 +269,7 @@ export class ProfitComponent {
       this.SearchData.searchstring = this.searchstring.toUpperCase();
       this.SearchData.type = this.type_date;
       this.SearchData.all = true;
+      this.SearchData.ledgerdate = this.ledgerdate;      
 
       if ( this.finyear > 0)
         this.SearchData.year_code = this.finyear.toString();
