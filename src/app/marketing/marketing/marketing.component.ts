@@ -261,6 +261,7 @@ export class MarketingComponent {
             user_pkid: this.gs.globalVariables.user_pkid,
             from_date: this.gs.globalData.mark_fromdate,
             to_date: this.gs.globalData.mark_todate,
+            report_folder:this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
