@@ -23,6 +23,7 @@ export class ProfitComponent {
   InitCompleted: boolean = false;
   main_code: boolean = false;
   all: boolean = false;
+  ledgerdate: boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
@@ -67,6 +68,7 @@ export class ProfitComponent {
     code: '',
     main_code: false,
     all: false,
+    ledgerdate : false,
     finyear : 0,
     isnewformat: true
   };
@@ -218,6 +220,7 @@ export class ProfitComponent {
     this.SearchData.code = this.code;
     this.SearchData.main_code = this.main_code;
     this.SearchData.all = this.all;
+    this.SearchData.ledgerdate = this.ledgerdate;
     this.SearchData.isnewformat = this.isnewformat;
     if ( this.finyear == null)
       this.SearchData.finyear = 0;
