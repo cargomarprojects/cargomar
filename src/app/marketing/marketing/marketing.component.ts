@@ -236,8 +236,12 @@ export class MarketingComponent {
     // Query List Data
     List(_type: string) {
 
-        this.loading = true;
+        if (!this.gs.isBlank(this.searchstring) && this.searchby == "ALL") {
+            alert('Please select a search type and continue.....');
+            return;
+        }
 
+        this.loading = true;
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -261,6 +265,7 @@ export class MarketingComponent {
             user_pkid: this.gs.globalVariables.user_pkid,
             from_date: this.gs.globalData.mark_fromdate,
             to_date: this.gs.globalData.mark_todate,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
