@@ -24,16 +24,16 @@
                 </div>
                 <div class="col-sm-2" style="padding-right:0px">
                   <select class="form-control form-control-sm" [(ngModel)]="searchby">
-                    <option [value]="'ALL'">ALL</option>
+                    <option [value]="'NA'">NA</option>
                     <option [value]="'BRANCH'">BRANCH</option>
                     <option [value]="'COMMODITY'">COMMODITY </option>
                     <option [value]="'CUSTOMER'">CUSTOMER</option>
-                    <option [value]="'JOIN-VISIT-WITH'">JOIN VISIT WITH</option>
+                    <option [value]="'JOIN-VISIT-WITH'">JOINT VISIT WITH</option>
                     <option [value]="'SALES-PERSON'">SALES PERSON </option>
                   </select>
                 </div>
                 <div class="col-sm-3">
-                  <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                  <input type="text" [disabled]="searchby=='NA'" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
                     (blur)="OnBlur('searchstring')" />
                 </div>
                 <div class="col-sm-3">
@@ -75,7 +75,7 @@
                     <th>DATE</th>
                     <th>BRANCH</th>
                     <th>SALES PERSON</th>
-                    <th>JOIN VISIT WITH</th>
+                    <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
                     <th>NEXT VISIT DATE</th>
                     <th>CUSTOMER</th>

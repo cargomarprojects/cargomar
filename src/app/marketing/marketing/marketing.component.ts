@@ -100,7 +100,7 @@ export class MarketingComponent {
     }
 
     InitComponent() {
-        this.searchby = "ALL";
+        this.searchby = "NA";
         this.CanAddContacts = false;
         this.IsAdmin = false;
         this.IsCompany = false;
@@ -235,11 +235,6 @@ export class MarketingComponent {
 
     // Query List Data
     List(_type: string) {
-
-        if (!this.gs.isBlank(this.searchstring) && this.searchby == "ALL") {
-            alert('Please select a search type and continue.....');
-            return;
-        }
 
         this.loading = true;
         let SearchData = {
