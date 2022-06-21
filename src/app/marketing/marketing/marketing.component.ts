@@ -302,7 +302,7 @@ export class MarketingComponent {
         this.Record.mark_contact_person = "";
         this.Record.mark_customer_id = "";
         this.Record.mark_customer_name = "";
-        this.Record.mark_user_id = "";
+        this.Record.mark_user_id = this.gs.globalVariables.user_pkid;
         this.Record.mark_user_name = "";
         this.Record.branch_name = "";
         this.Record.mobile = "";
