@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Profit } from '../models/profit';
 import { ProfitService } from '../services/profit.service';
+import { unwatchFile } from 'fs';
 
 @Component({
   selector: 'app-profit',
@@ -127,8 +128,11 @@ export class ProfitComponent {
     this.branch_name = this.gs.globalVariables.branch_name;
     this.type_date = "AIR-EXPORT-FORWARDING";
     this.RecordList = null;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
+    this.from_date = "",
+    this.to_date = "";
+
+    this.finyear = +this.gs.globalVariables.year_code;
+
   }
 
   // Destroy Will be called when this component is closed
@@ -197,6 +201,9 @@ export class ProfitComponent {
     //  return;
     //}
 
+    if ( this.finyear <=0)
+      this.finyear = +this.gs.globalVariables.year_code;  
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -222,10 +229,7 @@ export class ProfitComponent {
     this.SearchData.all = this.all;
     this.SearchData.ledgerdate = this.ledgerdate;
     this.SearchData.isnewformat = this.isnewformat;
-    if ( this.finyear == null)
-      this.SearchData.finyear = 0;
-    else
-      this.SearchData.finyear = this.finyear;
+    this.SearchData.finyear = this.finyear;
 
     this.ErrorMessage = '';
       this.mainService.List(this.SearchData)
@@ -262,6 +266,9 @@ export class ProfitComponent {
       //  return;
       //}
 
+      if ( this.finyear <=0)
+        this.finyear = +this.gs.globalVariables.year_code;
+
       this.loading = true;
       this.SearchData.company_code = this.gs.globalVariables.comp_code;
       this.SearchData.branch_code = this.branch_code;
@@ -271,8 +278,8 @@ export class ProfitComponent {
       this.SearchData.all = true;
       this.SearchData.ledgerdate = this.ledgerdate;      
 
-      if ( this.finyear > 0)
-        this.SearchData.year_code = this.finyear.toString();
+      
+      this.SearchData.year_code = this.finyear.toString();
 
       this.ErrorMessage = '';
       this.mainService.ProcessProfit(this.SearchData)
