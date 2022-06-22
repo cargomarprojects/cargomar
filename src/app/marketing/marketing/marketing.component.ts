@@ -10,7 +10,7 @@ import { DateComponent } from '../../shared/date/date.component';
 @Component({
     selector: 'app-marketing',
     templateUrl: './marketing.component.html',
-    providers: [MarkMarketingService]
+    // providers: [MarkMarketingService]
 })
 export class MarketingComponent {
 
@@ -51,7 +51,7 @@ export class MarketingComponent {
 
 
     // Array For Displaying List
-    RecordList: MarkMarketingm[] = [];
+    //RecordList: MarkMarketingm[] = [];
     // Single Record for add/edit/view details
     Record: MarkMarketingm = new MarkMarketingm;
 
@@ -65,7 +65,7 @@ export class MarketingComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: MarkMarketingService,
+        public mainService: MarkMarketingService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
@@ -79,6 +79,7 @@ export class MarketingComponent {
 
         this.InitLov();
 
+        alert('Visit');
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -271,7 +272,7 @@ export class MarketingComponent {
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.RecordList = response.list;
+                    this.mainService.RecordList = response.list;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
                     this.page_rowcount = response.page_rowcount;
@@ -456,12 +457,12 @@ export class MarketingComponent {
 
     RefreshList() {
 
-        if (this.RecordList == null)
+        if (this.mainService.RecordList == null)
             return;
-        var REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
+        var REC = this.mainService.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
         if (REC == null) {
-            this.RecordList.push(this.Record);
-            REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
+            this.mainService.RecordList.push(this.Record);
+            REC = this.mainService.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
             REC.mark_visit_date = this.mark_visit_date_ctrl.GetDisplayDate();
         }
         else {

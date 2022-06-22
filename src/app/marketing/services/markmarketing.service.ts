@@ -12,8 +12,16 @@ export class MarkMarketingService {
     constructor(
         private http2: HttpClient,
         private gs: GlobalService) {
+
+          alert('Service');
     }
 
+    RecordList: MarkMarketingm[] = [];
+
+    init(){
+      
+    }
+    
     List(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/List', SearchData, this.gs.headerparam2('authorized'));
     }

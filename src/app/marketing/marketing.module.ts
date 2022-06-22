@@ -7,6 +7,7 @@ import { VisitReportComponent } from './marketing/visitreport.component';
 import { VisitReportChildComponent } from './marketing/visitreportchild.component';
 import { SalesleadComponent } from './saleslead/saleslead.component';
 import { ActionComponent } from './saleslead/action.component';
+import { MarkMarketingService } from './services/markmarketing.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { ActionComponent } from './saleslead/action.component';
     ActionComponent
   ],
   providers: [
+    MarkMarketingService
   ],
 })
 export class MarketingModule { }
