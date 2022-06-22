@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { letProto } from 'rxjs/operator/let';
 
 
 import { Menum } from '../models/menum';
@@ -25,6 +26,7 @@ export class HeaderComponent {
     }
 
     LoadPage(rec: Menum) {
+        let _replaceurl : boolean = true;
         let bFlag: boolean = false;
         this.getUrlID();
         /* this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true }); */
@@ -37,10 +39,23 @@ export class HeaderComponent {
         if (rec.menu_route1 == 'accounts/cashbook')
             bFlag = true;
 
+        // replaceurl parameter has to be added in menu_route2 or menu master
+        if ( rec.menu_route2 != "")  {
+            let mobj = JSON.parse( rec.menu_route2);
+            if ( mobj.hasOwnProperty('replaceurl'))
+            {
+                _replaceurl = mobj.replaceurl; 
+            }
+        }
+        
         if (bFlag)
-            this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, id: this.id, parameter: rec.menu_route2 }, replaceUrl: true });
-        else
-            this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }, replaceUrl: true });
+            this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, id: this.id, parameter: rec.menu_route2 }, replaceUrl: _replaceurl });
+        else {
+            if ( _replaceurl)
+                this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }, replaceUrl: true });
+            else 
+                this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }});
+        }
     }
 
 

@@ -26,8 +26,10 @@ import { ContactComponent } from './core/contact/contact.component';
 import { LoadingScreenComponent } from './core/loadingscreen/loading-screen.component';
 import { InterceptorService } from './core/services/interceptor.service';
 import { LoadingScreenService } from './core/services/loadingscreen.service';
-import { InterceptorServiceProvider } from './core/services/interceptor.service.provider';
 import { ReloadComponent } from './reload.component';
+import { InterceptorServiceProvider } from './core/services/interceptor.service.provider';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomRouteReuseStrategy } from './customReuseRouteStrategy';
 
 
 
@@ -56,7 +58,12 @@ import { ReloadComponent } from './reload.component';
         GlobalService,
         LoginService,
         LoadingScreenService,
-        InterceptorServiceProvider       
+        InterceptorServiceProvider,
+        {
+            provide: RouteReuseStrategy ,
+            useClass: CustomRouteReuseStrategy
+        }
+      
     ],
     bootstrap: [
         AppComponent
