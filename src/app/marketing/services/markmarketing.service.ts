@@ -13,10 +13,9 @@ export class MarkMarketingService {
         private http2: HttpClient,
         private gs: GlobalService) {
 
-          alert('Service');
     }
-
-    RecordList: MarkMarketingm[] = [];
+    
+    
 
     init(){
       
