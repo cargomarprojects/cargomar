@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Salarym } from '../models/salarym';
 import { SalDet } from '../models/salarym';
 import { SalaryMasterService } from '../services/salarymaster.service';
+import { timingSafeEqual } from 'crypto';
 
 
 @Component({
@@ -226,6 +227,7 @@ export class SalaryMasterComponent {
     this.lock_record = true;
     if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
+
   }
 
   // Save Data
@@ -374,6 +376,7 @@ export class SalaryMasterComponent {
       REC.sal_gross_earn = this.Record.sal_gross_earn;
       REC.sal_gross_deduct = this.Record.sal_gross_deduct;
       REC.sal_net = this.Record.sal_net;
+      REC.sal_increment = this.Record.sal_increment;
       REC.sal_incentive = this.Record.sal_incentive;
     }
   }
@@ -387,6 +390,9 @@ export class SalaryMasterComponent {
     if (field == 'sal_is_esi') {
       this.FindNetAmt();
     }
+    if (field == 'sal_increment') {
+      this.Record.sal_increment = this.gs.roundNumber(this.Record.sal_increment, 2);
+    }    
     if (field == 'sal_incentive') {
       this.Record.sal_incentive = this.gs.roundNumber(this.Record.sal_incentive, 2);
     }
