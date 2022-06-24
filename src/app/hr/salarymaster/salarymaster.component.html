@@ -127,6 +127,7 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th>INCREMENT</th>
           <th>INCENTIVE</th>
         </tr>
       </thead>
@@ -188,6 +189,7 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
+          <td>{{rec.sal_increment}}</td>
           <td>{{rec.sal_incentive}}</td>
         </tr>
       </tbody>
@@ -362,6 +364,15 @@
   <div class="page-box">
     <div class="row">
       <div class="col-sm-6">
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm pl-3 mr-3">INCREMENT</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_increment" (blur)="OnBlur('sal_increment')"
+             required maxlength="14" /> 
+          </div>
+        </div>
+        
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm pl-3 mr-3">INCENTIVE</label>
           <div class="col-sm-2">
@@ -369,6 +380,8 @@
              required maxlength="14" /> 
           </div>
         </div>
+
+
       </div>
     </div>
   </div>
