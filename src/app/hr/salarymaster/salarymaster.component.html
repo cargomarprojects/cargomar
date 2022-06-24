@@ -129,6 +129,7 @@
           <th>NET</th>
           <th>INCREMENT</th>
           <th>INCENTIVE</th>
+          <th>TDS-INCENTIVE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -191,6 +192,7 @@
           <td>{{rec.sal_net}}</td>
           <td>{{rec.sal_increment}}</td>
           <td>{{rec.sal_incentive}}</td>
+          <td>{{rec.sal_tds_incentive}}</td>
         </tr>
       </tbody>
     </table>
@@ -377,6 +379,14 @@
           <label class="col-sm-4 col-form-label col-form-label-sm pl-3 mr-3">INCENTIVE</label>
           <div class="col-sm-2">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_incentive" (blur)="OnBlur('sal_incentive')"
+             required maxlength="14" /> 
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm pl-3 mr-3">TDS-INCENTIVE</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sal_tds_incentive" (blur)="OnBlur('sal_tds_incentive')"
              required maxlength="14" /> 
           </div>
         </div>

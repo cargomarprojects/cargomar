@@ -44,6 +44,7 @@
             <th width="15%" *ngIf="Recorddet.d03_visible">{{Recorddet.d03_desc}}</th>
             <th width="15%" *ngIf="Recorddet.d09_visible">{{Recorddet.d09_desc}}</th>
             <th width="15%" *ngIf="Recorddet.d13_visible">{{Recorddet.d13_desc}}</th>
+            <th width="15%" >TDS-INCENTIVE</th>
             <th width="20%">UPDATE</th>
           </tr>
         </thead>
@@ -54,6 +55,8 @@
             <td *ngIf="Recorddet.d03_visible" style="padding:0px 0px 0px 0px"><input type="number" name="tdsamt" class="form-control form-control-sm" [(ngModel)]="rec.d03" required maxlength="14" (blur)="OnBlur('d03',rec)" /></td>
             <td *ngIf="Recorddet.d09_visible" style="padding:0px 0px 0px 0px"><input type="number" name="ptaxamt" class="form-control form-control-sm" [(ngModel)]="rec.d09" required maxlength="14" (blur)="OnBlur('d09',rec)"/></td>
             <td *ngIf="Recorddet.d13_visible" style="padding:0px 0px 0px 0px"><input type="number" name="lwfamt" class="form-control form-control-sm" [(ngModel)]="rec.d13" required maxlength="14"  (blur)="OnBlur('d13',rec)"/></td>
+            <td style="padding:0px 0px 0px 0px"><input type="number" name="lwfamt" class="form-control form-control-sm" [(ngModel)]="rec.sal_tds_incentive" required maxlength="14"  (blur)="OnBlur('sal_tds_incentive',rec)"/></td>
+
             <td class="hlink" (click)="UpdateRecord(rec)" >UPDATE</td>
           </tr>
         </tbody>

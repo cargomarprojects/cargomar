@@ -103,6 +103,7 @@ export class Salarym {
   sal_pf_per: number;
   sal_increment: number;
   sal_incentive: number;
+  sal_tds_incentive: number;
 
 
   sal_pl: number;

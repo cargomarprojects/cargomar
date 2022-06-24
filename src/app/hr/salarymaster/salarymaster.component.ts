@@ -378,6 +378,7 @@ export class SalaryMasterComponent {
       REC.sal_net = this.Record.sal_net;
       REC.sal_increment = this.Record.sal_increment;
       REC.sal_incentive = this.Record.sal_incentive;
+      REC.sal_tds_incentive = this.Record.sal_tds_incentive;
     }
   }
 
@@ -395,6 +396,9 @@ export class SalaryMasterComponent {
     }    
     if (field == 'sal_incentive') {
       this.Record.sal_incentive = this.gs.roundNumber(this.Record.sal_incentive, 2);
+    }
+    if (field == 'sal_tds_incentive') {
+      this.Record.sal_tds_incentive = this.gs.roundNumber(this.Record.sal_tds_incentive, 2);
     }
     //if (field == 'sal_head') {
     //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
