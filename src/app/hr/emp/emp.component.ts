@@ -78,6 +78,8 @@ export class EmpComponent {
   BranchList: any[] = [];
   StateList: Param[] = [];
 
+  IncentiveTypeList: any[] = [];
+
   // Array For Displaying List
   RecordList: Emp[] = [];
   // Single Record for add/edit/view details
@@ -147,6 +149,16 @@ export class EmpComponent {
     this.MaritalStatusList = [{ "id": "SINGLE", "name": "SINGLE" }, { "id": "MARRIED", "name": "MARRIED" }, { "id": "DIVORCED", "name": "DIVORCED" }];
     this.GenderList = [{ "id": "M", "name": "MALE" }, { "id": "F", "name": "FEMALE" }];
 
+    //this.IncentiveTypeList = [{ "id": "NA", "name": "NA" }, { "id": "BIMONTHLY-A", "name": "BIMONTHLY-A" }, { "id": "BIMONTHLY-B", "name": "BIMONTHLY-B" }, { "id": "QUARTERLY", "name": "QUARTERLY" }];
+
+    /*
+    <option [value]="'NA'">NA</option>
+    <option [value]="'BIMONTHLY-A'">BIMONTHLY-A</option>
+    <option [value]="'BIMONTHLY-B'">BIMONTHLY-B</option>
+    <option [value]="'QUARTERLY'">QUARTERLY</option>
+    */
+
+
     this.loading = true;
     let SearchData = {
       type: 'type',
@@ -169,6 +181,8 @@ export class EmpComponent {
         this.DepartmentList = response.departmentlist;
         this.DesignationList = response.designationlist;
         this.StatusList = response.statuslist;
+        this.IncentiveTypeList = response.incentivelist;
+        
         this.List("NEW");
       },
         error => {
@@ -343,6 +357,7 @@ export class EmpComponent {
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.Record.rec_mode = this.mode;
     this.Record.emp_incentive_type = 'NA';
+    this.Record.emp_incentive_type_id = '';
 
     this.Initdefault();
 
@@ -491,6 +506,12 @@ export class EmpComponent {
       bret = false;
       sError += "\n\r| Employee Status Cannot Be Blank";
     }
+
+    if (this.gs.isBlank(this.Record.emp_incentive_type_id)) {
+      bret = false;
+      sError += "\n\r| Incentive Type Cannot Be Blank";
+    }
+    
 
     if (this.GetFieldName("CONFIRMED").fieldid == this.Record.emp_status_id || this.GetFieldName("TRANSFER").fieldid == this.Record.emp_status_id) {
 

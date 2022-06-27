@@ -74,6 +74,7 @@ export class Emp {
   emp_is_retired: boolean;
   emp_in_csv:boolean;
   emp_incentive_type:string;
+  emp_incentive_type_id:string;
 
   rec_mode: string;
   rec_branch_code: string;

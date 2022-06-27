@@ -702,15 +702,13 @@
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-4 col-form-label  col-form-label-sm">Incentive Type</label>
+
                     <div class="col-sm-6">
-                      <select class="form-control form-control-sm" name="empinc" [(ngModel)]="Record.emp_incentive_type">
-                        <option [value]="'NA'">NA</option>
-                        <option [value]="'BIMONTHLY'">BIMONTHLY-A</option>
-                        <option [value]="'BIMONTHLY-B'">BIMONTHLY-B</option>
-                        <option [value]="'TRIMONTHLY'">TRIMONTHLY</option>
-                        <option [value]="'QUARTERLY'">QUARTERLY</option>
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_incentive_type_id">
+                        <option *ngFor="let rec of IncentiveTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                       </select>
                     </div>
+
                   </div>
 
                 </div>
