@@ -21,6 +21,7 @@ import { LeaveReqComponent } from './leavereq/leavereq.component';
 import { DeductmComponent } from './deduction/deductm.component';
 import { DeductmEditComponent } from './deduction/deductm-edit.component';
 import { CommonDeductComponent } from './deduction/commondeduct.component';
+import { IncentiveComponent } from './incentive/incentive.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { CommonDeductComponent } from './deduction/commondeduct.component';
     LeaveReqComponent,
     DeductmComponent,
     DeductmEditComponent,
-    CommonDeductComponent
+    CommonDeductComponent,
+    IncentiveComponent
   ],
   providers: [
   ],

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { sal_incentivem } from '../models/sal_incentivem';
+import { sal_incentived, sal_incentivem } from '../models/sal_incentivem';
 import { SalIncentiveService } from '../services/salincentive.service';
 
 @Component({
@@ -25,6 +25,8 @@ export class IncentiveComponent  {
   loading = false;
   currentTab = 'LIST';
 
+  bAdmin = false;
+
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -33,6 +35,8 @@ export class IncentiveComponent  {
 
   sub: any;
   urlid: string;
+
+  IncentiveTypeList  = [];
 
 
   ErrorMessage = "";
@@ -45,6 +49,9 @@ export class IncentiveComponent  {
   RecordList: sal_incentivem [] = [];
   // Single Record for add/edit/view details
   Record: sal_incentivem = new sal_incentivem;
+
+  RecordDet: sal_incentived [] = [];
+
 
   constructor(
     private mainService: SalIncentiveService,
@@ -78,13 +85,14 @@ export class IncentiveComponent  {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-    
-   
-    this.List("NEW");
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
+    this.LoadCombo();
   }
 
   // Destroy Will be called when this component is closed
@@ -145,6 +153,7 @@ export class IncentiveComponent  {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       page_count: this.page_count,
       page_current: this.page_current,
@@ -169,11 +178,43 @@ export class IncentiveComponent  {
   }
 
 
+  LoadCombo() {
+
+    this.loading = true;
+    let SearchData = {
+      type: 'type',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.IncentiveTypeList = response.incentivelist;
+        this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+
+
+
   NewRecord() {
 
     this.pkid = this.gs.getGuid();
     this.Record = new sal_incentivem();
     this.Record.salh_pkid = this.pkid;
+    this.Record.salh_due_months = "";
+    this.Record.salh_arears_nos = 0;
     this.Record.rec_mode = this.mode;
   
   }
@@ -195,6 +236,9 @@ export class IncentiveComponent  {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+        
+        this.RecordDet = response.list;
+
       },
       error => {
         this.loading = false;
@@ -205,6 +249,9 @@ export class IncentiveComponent  {
   LoadData(_Record: sal_incentivem) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
+
+    
+
   }
 
   
@@ -227,6 +274,8 @@ export class IncentiveComponent  {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+
+        this.ActionHandler('EDIT',this.Record.salh_pkid)
         
       },
       error => {
@@ -268,9 +317,9 @@ export class IncentiveComponent  {
     else {
       REC.salh_date = this.Record.salh_date;
       REC.salh_due_months = this.Record.salh_due_months;
-      REC.salh_arearsnos = this.Record.salh_arearsnos;
-      REC.salh_incentive_type_id = this.Record.salh_incentive_type_id;
-      REC.salh_incentive_type_name = this.Record.salh_incentive_type_name;
+      REC.salh_arears_nos = this.Record.salh_arears_nos;
+      //REC.salh_incentive_type_id = this.Record.salh_incentive_type_id;
+      //REC.salh_incentive_type_name = this.Record.salh_incentive_type_name;
     }
   }
 
@@ -278,7 +327,39 @@ export class IncentiveComponent  {
   OnBlur(field: string) {
     
   }
-  
+
+
+  RemoveList(event: any) {
+    if (event.selected) {
+      this.RemoveRecord(event.id);
+    }
+  }
+
+  RemoveRecord(Id: string) {
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      pkid: Id,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.Delete(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert("Deleted Successfully");
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.salh_pkid == Id), 1);
+      },
+        error => {
+          this.loading = false;
+          alert( this.gs.getError(error));
+        });
+  }
+
+
 
   Close() {
     this.gs.ClosePage('home');

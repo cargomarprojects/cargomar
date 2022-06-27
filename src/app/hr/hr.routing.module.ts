@@ -19,6 +19,7 @@ import { AttendanceRegComponent } from './attendancereg/attendancereg.component'
 import { LeaveReqComponent } from './leavereq/leavereq.component';
 import { DeductmComponent } from './deduction/deductm.component';
 import { CommonDeductComponent } from './deduction/commondeduct.component';
+import { IncentiveComponent } from './incentive/incentive.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'leavereq', component: LeaveReqComponent },
   { path: 'deductionmaster', component: DeductmComponent },
   { path: 'commondeduct', component: CommonDeductComponent },
+  { path: 'incentive', component: IncentiveComponent},
 ];
 
 @NgModule({

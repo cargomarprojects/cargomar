@@ -28,5 +28,11 @@ export class SalIncentiveService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/Delete', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  LoadDefault(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
+
 }
 
