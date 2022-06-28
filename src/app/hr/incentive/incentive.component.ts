@@ -216,6 +216,9 @@ export class IncentiveComponent  {
     this.Record.salh_due_months = "";
     this.Record.salh_arears_nos = 0;
     this.Record.rec_mode = this.mode;
+
+
+    this.RecordDet = [];
   
   }
 
@@ -252,14 +255,18 @@ export class IncentiveComponent  {
 
     
 
+
   }
 
   
   // Save Data
   Save() {
-
+    let _caption = this.mode =="ADD" ? "Process" : "Re-Process"
     if (!this.allvalid())
       return;
+    if (!confirm(_caption + ' Records') ){
+      return;
+    }
 
     this.loading = true;
     this.ErrorMessage = '';
@@ -320,13 +327,72 @@ export class IncentiveComponent  {
       REC.salh_arears_nos = this.Record.salh_arears_nos;
       //REC.salh_incentive_type_id = this.Record.salh_incentive_type_id;
       //REC.salh_incentive_type_name = this.Record.salh_incentive_type_name;
+
+      REC.salh_gross_amt = this.Record.salh_gross_amt;
+      REC.salh_total_ded = this.Record.salh_total_ded;
+      REC.salh_net_amt = this.Record.salh_net_amt;
+
     }
   }
 
 
-  OnBlur(field: string) {
-    
+  OnBlur(field: string, rec : sal_incentived) {
+    let iGross = 0;
+    let iDed = 0;
+    let iNet = 0;
+
+    iGross  = rec.sald_arears_amt + rec.sald_incentive_amt + rec.sald_allow_amt;
+    iDed  = rec.sald_ded_amt + rec.sald_tds_amt;
+    iNet = iGross - iDed ;
+
+    iGross= this.gs.roundNumber(iGross,0);
+    iDed= this.gs.roundNumber(iDed,0);
+    iNet= this.gs.roundNumber(iNet,0);
+
+    rec.sald_gross_amt = iGross;
+    rec.sald_total_ded = iDed;
+    rec.sald_net_amt = iNet;
+
+    iGross = 0; 
+    iDed = 0;
+    iNet = 0;
+
+    this.RecordDet.forEach( r=> {
+      iGross += r.sald_gross_amt;
+      iDed += r.sald_total_ded;
+      iNet   += r.sald_net_amt;
+    });
+
+    iGross= this.gs.roundNumber(iGross,0);
+    iDed= this.gs.roundNumber(iDed,0);
+    iNet= this.gs.roundNumber(iNet,0);
+
+    this.Record.salh_gross_amt = iGross;
+    this.Record.salh_total_ded = iDed;
+    this.Record.salh_net_amt = iNet;
+
+
   }
+
+
+  UpdateRecord(_rec: sal_incentived) {
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    _rec._globalvariables = this.gs.globalVariables;
+    this.mainService.UpdateRecord(_rec)
+      .subscribe(response => {
+        this.loading = false;
+        //alert("Record Updated");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
 
   RemoveList(event: any) {

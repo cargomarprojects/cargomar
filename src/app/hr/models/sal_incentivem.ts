@@ -10,6 +10,10 @@ export class sal_incentivem {
   salh_incentive_type_name : string;
   salh_arears_nos : number;
 
+  salh_gross_amt : number;
+  salh_total_ded : number;
+  salh_net_amt : number;
+
   salh_jvno : number;
   salh_posted : string;
 
@@ -36,4 +40,7 @@ export class sal_incentived {
   sald_gross_amt   : number;
   sald_total_ded   : number;
   sald_net_amt   : number;
+
+  _globalvariables: GlobalVariables;
+  
 }

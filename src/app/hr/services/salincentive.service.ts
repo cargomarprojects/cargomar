@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
-import { sal_incentivem } from '../models/sal_incentivem';
+import { sal_incentived, sal_incentivem } from '../models/sal_incentivem';
 
 @Injectable()
 export class SalIncentiveService {
@@ -22,6 +22,10 @@ export class SalIncentiveService {
 
   Save(Record: sal_incentivem) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/Save', Record, this.gs.headerparam2('authorized'));
+  }
+
+  UpdateRecord(Record: sal_incentived) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/UpdateRecord', Record, this.gs.headerparam2('authorized'));
   }
 
   Delete(SearchData: any) {
