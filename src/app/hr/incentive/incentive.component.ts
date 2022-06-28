@@ -458,6 +458,7 @@ export class IncentiveComponent  {
       type: _type,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      report_folder : this.gs.globalVariables.report_folder,
     };
 
     this.ErrorMessage = '';
