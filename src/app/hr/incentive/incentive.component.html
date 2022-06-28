@@ -158,14 +158,12 @@
           <label class="col-3 col-form-label col-form-label-sm">Net</label>
           <label class="col-3 col-form-label col-form-label-sm">{{Record.salh_net_amt}}</label>
         </div>
-      
+
       </div>
 
       <div class="col-sm-3">
-        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =="ADD" ? "Process" : "Re-Process"}} </button>
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
       </div>
-
-
 
     </div>
   </div>
@@ -182,12 +180,13 @@
             <th width="8%">INCENTIVE(+)</th>
             <th width="8%">OTH-ALLOW(+)</th>
             <th style="text-align:right" width="8%">GROSS-AMT</th>
+            
             <th width="8%">OTH-DED(-)</th>
 
             <th width="8%">TDS(-)</th>
 
             <th style="text-align:right" width="8%">TOTAL-DED</th>
-            
+
             <th style="text-align:right" width="8%">NET-AMT</th>
 
             <th style="text-align:center" width="10%">UPDATE</th>
@@ -210,8 +209,8 @@
                 class="form-control form-control-sm" [(ngModel)]="rec.sald_allow_amt" required maxlength="14"
                 (blur)="OnBlur('sald_allow_amt',rec)" /></td>
 
-                <td align="right">{{rec.sald_gross_amt}}</td>
-                                
+            <td align="right">{{rec.sald_gross_amt}}</td>
+
             <td style="padding:0px 0px 0px 0px"><input type="number" name="sald_ded_amt"
                 class="form-control form-control-sm" [(ngModel)]="rec.sald_ded_amt" required maxlength="14"
                 (blur)="OnBlur('sald_ded_amt',rec)" /></td>
@@ -219,7 +218,7 @@
                 class="form-control form-control-sm" [(ngModel)]="rec.sald_tds_amt" required maxlength="14"
                 (blur)="OnBlur('sald_tds_amt',rec)" /></td>
 
-            
+
             <td align="right">{{rec.sald_total_ded}}</td>
             <td align="right">{{rec.sald_net_amt}}</td>
 
@@ -231,9 +230,6 @@
     </div>
 
   </div>
-
-
-
 
 </div>
 <br />
