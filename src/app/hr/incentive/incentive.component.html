@@ -158,20 +158,11 @@
           <label class="col-3 col-form-label col-form-label-sm">Net</label>
           <label class="col-3 col-form-label col-form-label-sm">{{Record.salh_net_amt}}</label>
         </div>
-
-
-
+      
       </div>
 
       <div class="col-sm-3">
-
-        <div class="form-group row">
-          <label class="col-3 col-form-label col-form-label-sm"></label>
-          <div class="col-sm-3">
-            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =="ADD" ? "Process" : "Re-Process"}} </button>
-          </div>
-        </div>
-
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =="ADD" ? "Process" : "Re-Process"}} </button>
       </div>
 
 
