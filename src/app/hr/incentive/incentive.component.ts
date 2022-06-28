@@ -261,9 +261,11 @@ export class IncentiveComponent  {
   
   // Save Data
   Save() {
-    let _caption = this.mode =="ADD" ? "Process" : "Re-Process"
+    
     if (!this.allvalid())
       return;
+
+    let _caption = this.mode =="ADD" ? "Process" : "Re-Process"
     if (!confirm(_caption + ' Records') ){
       return;
     }
@@ -309,7 +311,7 @@ export class IncentiveComponent  {
     }
 
     if (bret === false)
-      this.ErrorMessage = sError;
+      alert(sError);
     return bret;
   }
 
@@ -340,6 +342,24 @@ export class IncentiveComponent  {
     let iGross = 0;
     let iDed = 0;
     let iNet = 0;
+    
+    
+    if ( field == 'sald_arears_amt') {
+      rec.sald_arears_amt = this.gs.roundNumber(rec.sald_arears_amt,0);
+    }
+    if ( field == 'sald_incentive_amt') {
+      rec.sald_incentive_amt = this.gs.roundNumber(rec.sald_incentive_amt,0);
+    }    
+    if ( field == 'sald_allow_amt') {
+      rec.sald_allow_amt = this.gs.roundNumber(rec.sald_allow_amt,0);
+    }        
+    if ( field == 'sald_ded_amt') {
+      rec.sald_ded_amt = this.gs.roundNumber(rec.sald_ded_amt,0);
+    }            
+    if ( field == 'sald_tds_amt') {
+      rec.sald_tds_amt = this.gs.roundNumber(rec.sald_tds_amt,0);
+    }            
+
 
     iGross  = rec.sald_arears_amt + rec.sald_incentive_amt + rec.sald_allow_amt;
     iDed  = rec.sald_ded_amt + rec.sald_tds_amt;
@@ -425,6 +445,35 @@ export class IncentiveComponent  {
         });
   }
 
+
+  Print(_type: string) {
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid : this.pkid,
+      type: _type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.PrintList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+  
 
 
   Close() {
