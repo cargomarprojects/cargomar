@@ -17,6 +17,8 @@ export class sal_incentivem {
   salh_jvno : number;
   salh_posted : string;
 
+  salh_edit_code : string;
+
   rec_mode: string;
   rec_company_code : string ;
   rec_branch_code : string ;

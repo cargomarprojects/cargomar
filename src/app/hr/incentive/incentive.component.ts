@@ -216,6 +216,7 @@ export class IncentiveComponent  {
     this.Record.salh_due_months = "";
     this.Record.salh_arears_nos = 0;
     this.Record.rec_mode = this.mode;
+    this.Record.salh_edit_code = '{S}';
 
 
     this.RecordDet = [];
@@ -289,7 +290,7 @@ export class IncentiveComponent  {
       },
       error => {
         this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
+        alert(this.gs.getError(error));
        
       });
   }
@@ -327,6 +328,8 @@ export class IncentiveComponent  {
       REC.salh_date = this.Record.salh_date;
       REC.salh_due_months = this.Record.salh_due_months;
       REC.salh_arears_nos = this.Record.salh_arears_nos;
+
+      REC.salh_edit_code = this.Record.salh_edit_code;
       //REC.salh_incentive_type_id = this.Record.salh_incentive_type_id;
       //REC.salh_incentive_type_name = this.Record.salh_incentive_type_name;
 
@@ -453,7 +456,7 @@ export class IncentiveComponent  {
     let SearchData = {
       pkid : this.pkid,
       type: _type,
-      company_code: this.gs.globalVariables.comp_code,
+      comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
     };
 

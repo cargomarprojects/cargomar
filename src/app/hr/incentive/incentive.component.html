@@ -52,7 +52,7 @@
           <th style="text-align:right">GROSS-AMT</th>
           <th style="text-align:right">TOTAL-DED</th>
           <th style="text-align:right">NET-AMT</th>
-
+          <th>LOCKED</th>
           <th>POSTED</th>
           <th>JV#</th>
           <th *ngIf="bAdmin">DELETE</th>
@@ -68,7 +68,7 @@
           <td align="right">{{rec.salh_gross_amt}}</td>
           <td align="right">{{rec.salh_total_ded}}</td>
           <td align="right">{{rec.salh_net_amt}}</td>
-
+          <td>{{rec.salh_edit_code == '{S}' ? 'N' : 'Y'}}</td>
           <td>{{rec.salh_posted}}</td>
           <td>{{rec.salh_jvno}}</td>
           <td *ngIf="bAdmin">
@@ -162,7 +162,7 @@
       </div>
 
       <div class="col-sm-3">
-        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm" *ngIf="Record.salh_edit_code == '{S}'" > {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
         <button [disabled]="loading" (click)="Print('EXCEL')" class="btn btn-success btn-sm"> Excel </button>
         <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm"> CSV </button>
       </div>
@@ -186,7 +186,7 @@
             <th style="text-align:right" width="8%">GROSS-AMT</th>
             <th style="text-align:right" width="8%">TOTAL-DED</th>
             <th style="text-align:right" width="8%">NET-AMT</th>
-            <th style="text-align:center" width="10%">UPDATE</th>
+            <th style="text-align:center" width="10%" *ngIf="Record.salh_edit_code == '{S}'"> UPDATE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -216,7 +216,7 @@
             <td align="right">{{rec.sald_gross_amt}}</td>
             <td align="right">{{rec.sald_total_ded}}</td>
             <td align="right">{{rec.sald_net_amt}}</td>
-            <td class="hlink" align="center" (click)="UpdateRecord(rec)">UPDATE</td>
+            <td class="hlink" align="center" (click)="UpdateRecord(rec)" *ngIf="Record.salh_edit_code == '{S}'">UPDATE</td>
 
           </tr>
         </tbody>
