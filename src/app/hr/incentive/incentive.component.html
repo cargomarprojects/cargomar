@@ -163,7 +163,8 @@
 
       <div class="col-sm-3">
         <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm"> {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
-        <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm"> Print </button>
+        <button [disabled]="loading" (click)="Print('EXCEL')" class="btn btn-success btn-sm"> Excel </button>
+        <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm"> CSV </button>
       </div>
 
     </div>

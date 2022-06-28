@@ -475,7 +475,6 @@ export class IncentiveComponent  {
   }
   
 
-
   Close() {
     this.gs.ClosePage('home');
   }
