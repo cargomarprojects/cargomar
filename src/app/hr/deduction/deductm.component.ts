@@ -252,4 +252,36 @@ export class DeductmComponent {
             REC.ded_closed = _rec.ded_closed;
         }
     }
+    Removededuction(_ded_pkid: string,_empnam: string, _type: string, _startdate: string) {
+        if (!confirm("Do you want to Delete " + _type + " of " + _empnam + ", Dated " + _startdate)) {
+            return;
+        }
+        this.RemoveRecord(_ded_pkid);
+    }
+
+    RemoveRecord(Id: string) {
+        this.loading = true;
+        let SearchData = {
+            rowtype: this.type,
+            type: '',
+            pkid: Id,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.ded_pkid == Id), 1);
+                alert("Removed Successfully");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }

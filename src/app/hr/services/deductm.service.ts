@@ -27,5 +27,8 @@ export class DeductmService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
    
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

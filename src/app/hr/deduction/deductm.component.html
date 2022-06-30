@@ -65,6 +65,7 @@
                     <th>CLOSED</th>
                     <th>CREATED.BY</th>
                     <th>CREATED.DATE</th>
+                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -84,6 +85,8 @@
                     <td>{{rec.ded_closed}}</td>
                     <td>{{rec.rec_created_by}}</td>
                     <td>{{rec.rec_created_date}}</td>
+                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                        (click)="Removededuction(rec.ded_pkid,rec.ded_emp_name,rec.ded_type,rec.ded_start_date)"></i></td>
                 </tr>
             </tbody>
         </table>
