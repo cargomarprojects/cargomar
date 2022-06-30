@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Deductm } from '../models/deductm';
+import { Deductm,Deductd } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { SalaryHead } from '../models/salaryhead';
@@ -46,7 +46,7 @@ export class DeductmEditComponent {
     Salheadlist: SalaryHead[] = [];
     // Single Record for add/edit/view details
     Record: Deductm = new Deductm;
-
+    RecordList: Deductd[] = [];
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
@@ -194,6 +194,7 @@ export class DeductmEditComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
+                this.RecordList=response.list;
             },
                 error => {
                     this.loading = false;
