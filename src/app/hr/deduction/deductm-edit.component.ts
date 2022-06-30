@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Deductm,Deductd } from '../models/deductm';
+import { Deductm, Deductd } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { SalaryHead } from '../models/salaryhead';
@@ -41,7 +41,7 @@ export class DeductmEditComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-
+    iTotal: number = 0;
     // Array For Displaying List
     Salheadlist: SalaryHead[] = [];
     // Single Record for add/edit/view details
@@ -194,7 +194,11 @@ export class DeductmEditComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
-                this.RecordList=response.list;
+                this.RecordList = response.list;
+                this.iTotal = 0;
+                for (let rec of this.RecordList) {
+                    this.iTotal += rec.ded_amt;
+                }
             },
                 error => {
                     this.loading = false;

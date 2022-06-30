@@ -47,4 +47,5 @@ export class Deductd {
     rec_created_date: string;
     rec_edited_by: string;
     rec_edited_date: string;
+    ded_remarks:string;
 }

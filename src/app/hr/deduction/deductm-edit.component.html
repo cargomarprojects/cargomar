@@ -43,6 +43,8 @@
                             class="form-control form-control-sm" [(ngModel)]="Record.ded_paid_amt"
                             (blur)="OnBlur('ded_paid_amt')" required [maxlength]="14" />
                     </div>
+                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Collected : {{Record.ded_collected_amt}}</label>
+                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Balance : {{Record.ded_bal_amt}}</label>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
@@ -101,21 +103,21 @@
         </div>
     </div>
     <div *ngIf="mode=='EDIT'" class="page-box">
-        <h6 class="my-1">DEDUCTION LIST</h6>
+        <h6 class="my-1">DEDUCTION LIST&nbsp;&nbsp;&nbsp;&nbsp; Total : {{iTotal}}</h6>
         <div style="max-height: 200px; overflow-y: scroll;">
             <div class="page-body table-responsive">
                 <table class="table  table-hover table-sm">
                     <thead class="page-body-thead">
                         <tr>
-                            <th width="15%">MONTH</th>
                             <th width="15%">YEAR</th>
+                            <th width="15%">MONTH</th>
                             <th width="70%">AMOUNT</th>
                         </tr>
                     </thead>
                     <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                         <tr>
-                            <td>{{rec.ded_mon}}</td>
                             <td>{{rec.ded_year}}</td>
+                            <td>{{rec.ded_mon}}</td>
                             <td>{{rec.ded_amt}}</td>
                         </tr>
                     </tbody>
