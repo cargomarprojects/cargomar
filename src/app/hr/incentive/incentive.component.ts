@@ -38,6 +38,9 @@ export class IncentiveComponent  {
 
   IncentiveTypeList  = [];
 
+  excelall = false;
+  csvall = false;
+
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -456,6 +459,8 @@ export class IncentiveComponent  {
     let SearchData = {
       pkid : this.pkid,
       type: _type,
+      excelall : this.excelall,
+      csvall : this.csvall,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       report_folder : this.gs.globalVariables.report_folder,
@@ -470,7 +475,7 @@ export class IncentiveComponent  {
       },
       error => {
         this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
+        alert( this.gs.getError(error));
       });
   }
 
