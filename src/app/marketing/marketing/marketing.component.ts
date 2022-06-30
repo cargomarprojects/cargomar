@@ -79,7 +79,7 @@ export class MarketingComponent {
 
         this.InitLov();
 
-        alert('Visit');
+
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
