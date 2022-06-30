@@ -424,7 +424,7 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <div class="offset-1 col-sm-9">
-            <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading || lock_record"
+            <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading"
               (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
             <button *ngIf="!(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading || lock_record"
               (click)="Save()" class="btn btn-success btn-sm">Save</button>
@@ -571,6 +571,7 @@
               <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                   <tr>
+                    <th>SLNO</th>
                     <th>CODE</th>
                     <th>NAME</th>
                     <th>TYPE</th>
@@ -581,6 +582,7 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of RecordList3">
                   <tr>
+                    <td>{{rec.ded_slno}}</td>
                     <td>{{rec.ded_emp_code}}</td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_type}}</td>
@@ -601,7 +603,7 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="UpdateDeduction()" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading|| lock_record" (click)="UpdateDeduction()" class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>

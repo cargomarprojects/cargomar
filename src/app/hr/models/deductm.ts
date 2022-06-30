@@ -20,6 +20,7 @@ export class Deductm {
     ded_remarks: string;
     ded_sal_pkid: string;
     ded_alloc_exist:boolean;
+    ded_slno:number;
     
     rec_mode: string;
     _globalvariables: GlobalVariables;
@@ -40,6 +41,7 @@ export class Deductd {
     ded_paid_amt: number;
     ded_collected_amt: number;
     ded_bal_amt: number;
+    ded_slno: number;
     ded_edit_code: string;
     rec_created_by: string;
     rec_created_date: string;

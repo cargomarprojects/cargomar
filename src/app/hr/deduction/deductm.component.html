@@ -51,6 +51,7 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>SLNO</th>
                     <th>CODE</th>
                     <th>NAME</th>
                     <th>DATE</th>
@@ -69,6 +70,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i" [style.color]="rec.ded_closed=='Y'?'orange':'dark grey'">
+                    <td>{{rec.ded_slno}}</td>
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.ded_pkid,deductionm)">{{rec.ded_emp_code}}</td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_start_date}}</td>
