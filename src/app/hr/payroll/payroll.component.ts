@@ -44,6 +44,7 @@ export class PayRollComponent {
   searchstring = '';
   salh_jvno = 0;
   pf_jvno = 0;
+  pf_jvno_ho = 0;
   lwf_jvno = 0;
 
   page_count = 0;
@@ -232,6 +233,7 @@ export class PayRollComponent {
         this.Recorddet = response.record;
         this.salh_jvno = response.saljvno;
         this.pf_jvno = response.pfjvno;
+        this.pf_jvno_ho = response.pfjvno_ho;
         this.lwf_jvno = response.lwfjvno;
         this.chkallselected = false;
         this.selectdeselect = false;
@@ -949,7 +951,7 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.pf_jvno = response.jvno;
-        alert('PF JV Generated : ' + response.jvno);
+        alert('PF JV Generated : ' + response.msg);
       },
         error => {
           this.loading = false;
