@@ -75,6 +75,8 @@
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">COLUMN</td>
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">ORDER</td>
 
+          <th *ngIf="type == 'ACCSETTINGS'">VALUE</th>
+
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -82,6 +84,7 @@
           [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.param_code}}</td>
           <td>{{rec.param_name}}</td>
+
           <td *ngIf="type == 'USER HIERARCHY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
@@ -107,6 +110,8 @@
           <td *ngIf="type == 'SEA TRACKING EVETNS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id3}}</td>
+
+          <td *ngIf="type == 'ACCSETTINGS'">{{rec.param_id1}}</td>
 
         </tr>
       </tbody>

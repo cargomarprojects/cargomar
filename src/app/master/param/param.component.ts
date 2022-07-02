@@ -143,6 +143,11 @@ export class ParamComponent {
     }
 
 
+    if (this.type == 'ACCSETTINGS') {
+      this.id1 = "Value";
+    }
+
+
     if (this.type == 'SAC') {
       this.id1 = "SAC Code";
     }
