@@ -22,6 +22,8 @@ export class DeductmComponent {
     selectedRowIndex = 0;
 
     bpending: boolean = false;
+    bmonthlydeduction: boolean = false;
+    public hidemondeductList: boolean = false;
     bChanged: boolean;
     disableSave = true;
     loading = false;
@@ -166,6 +168,7 @@ export class DeductmComponent {
             year_code: this.gs.globalVariables.year_code,
             report_folder: this.gs.globalVariables.report_folder,
             bpending: this.bpending,
+            bmonthlydeduction:this.bmonthlydeduction,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
@@ -180,6 +183,7 @@ export class DeductmComponent {
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
+                    this.hidemondeductList=this.bmonthlydeduction;
                     this.RecordList = response.list;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;

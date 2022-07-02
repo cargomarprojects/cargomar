@@ -19,9 +19,11 @@ export class Deductm {
     ded_amt: number;
     ded_remarks: string;
     ded_sal_pkid: string;
-    ded_alloc_exist:boolean;
-    ded_slno:number;
-    
+    ded_alloc_exist: boolean;
+    ded_slno: number;
+    monthly_deducted_amt: number;
+    valid_deduction: string;
+    pending_amt: number;
     rec_mode: string;
     _globalvariables: GlobalVariables;
     dedList: Deductd[] = [];
@@ -47,5 +49,5 @@ export class Deductd {
     rec_created_date: string;
     rec_edited_by: string;
     rec_edited_date: string;
-    ded_remarks:string;
+    ded_remarks: string;
 }

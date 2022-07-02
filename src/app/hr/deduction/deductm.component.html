@@ -20,7 +20,9 @@
             </div>
             <div class="col-3">
                 <input type="checkbox" [(ngModel)]="bpending">
-                <span>Pending</span>
+                <span>Pending</span>&nbsp;&nbsp;
+                <input type="checkbox" [(ngModel)]="bmonthlydeduction">
+                <span>Monthly Deduction</span>
             </div>
             <div class="col-3">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -61,6 +63,9 @@
                     <th>INSTALLMENT.NOS</th>
                     <th>COLLECTED.AMT</th>
                     <th>BALANCE.AMT</th>
+                    <th *ngIf="hidemondeductList">MONTHLY.DEDUCTED.AMT</th>
+                    <th *ngIf="hidemondeductList">PENDING.AMT</th>
+                    <th *ngIf="hidemondeductList">VALID</th>
                     <th>REMARKS</th>
                     <th>CLOSED</th>
                     <th>CREATED.BY</th>
@@ -81,6 +86,9 @@
                     <td>{{rec.ded_tot_months}}</td>
                     <td>{{rec.ded_collected_amt}}</td>
                     <td>{{rec.ded_bal_amt}}</td>
+                    <td *ngIf="hidemondeductList">{{rec.monthly_deducted_amt}}</td>
+                    <td *ngIf="hidemondeductList">{{rec.pending_amt}}</td>
+                    <td *ngIf="hidemondeductList">{{rec.valid_deduction}}</td>
                     <td>{{rec.ded_remarks}}</td>
                     <td>{{rec.ded_closed}}</td>
                     <td>{{rec.rec_created_by}}</td>
