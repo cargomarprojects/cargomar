@@ -105,6 +105,9 @@ export class Salarym {
   sal_incentive: number;
   sal_tds_incentive: number;
 
+  sal_sales_incentive: number;
+  sal_tds_sales_incentive: number;
+
 
   sal_pl: number;
   sal_cl: number;
