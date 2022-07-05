@@ -283,6 +283,13 @@ export class IncentiveComponent  {
     if (!this.allvalid())
       return;
 
+
+    this.IncentiveTypeList.forEach( rec =>{
+      if( rec.param_pkid == this.Record.salh_incentive_type_id)
+        this.Record.salh_incentive_type_name = rec.param_name;
+    })
+
+
     let _caption = this.mode =="ADD" ? "Process" : "Re-Process"
     if (!confirm(_caption + ' Records') ){
       return;
@@ -363,6 +370,7 @@ export class IncentiveComponent  {
     let iDed = 0;
     let iNet = 0;
     
+    let iTds = 0;
     
     if ( field == 'sald_arears_amt') {
       rec.sald_arears_amt = this.gs.roundNumber(rec.sald_arears_amt,0);
@@ -401,14 +409,17 @@ export class IncentiveComponent  {
       iGross += r.sald_gross_amt;
       iDed += r.sald_total_ded;
       iNet   += r.sald_net_amt;
+      iTds   += r.sald_tds_amt;
     });
 
     iGross= this.gs.roundNumber(iGross,0);
     iDed= this.gs.roundNumber(iDed,0);
     iNet= this.gs.roundNumber(iNet,0);
+    iTds= this.gs.roundNumber(iTds,0);
 
     this.Record.salh_gross_amt = iGross;
     this.Record.salh_total_ded = iDed;
+    this.Record.salh_tds_amt = iTds;
     this.Record.salh_net_amt = iNet;
 
 

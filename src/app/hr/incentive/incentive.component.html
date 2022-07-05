@@ -50,6 +50,7 @@
           <th>NO. OF AREARS</th>
 
           <th style="text-align:right">GROSS-AMT</th>
+          <th style="text-align:right">TDS-AMT</th>
           <th style="text-align:right">TOTAL-DED</th>
           <th style="text-align:right">NET-AMT</th>
           <th>LOCKED</th>
@@ -67,6 +68,7 @@
           <td>{{rec.salh_arears_nos}}</td>
 
           <td align="right">{{rec.salh_gross_amt}}</td>
+          <td align="right">{{rec.salh_tds_amt}}</td>
           <td align="right">{{rec.salh_total_ded}}</td>
           <td align="right">{{rec.salh_net_amt}}</td>
           <td>{{rec.salh_edit_code == '{S}' ? 'N' : 'Y'}}</td>
@@ -152,9 +154,17 @@
         </div>
 
         <div class="form-group row">
+          <label class="col-3 col-form-label col-form-label-sm">Tds</label>
+          <label class="col-3 col-form-label col-form-label-sm">{{Record.salh_tds_amt}}</label>
+        </div>
+
+        <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm">Deduction</label>
           <label class="col-3 col-form-label col-form-label-sm">{{Record.salh_total_ded}}</label>
         </div>
+
+
+
 
         <div class="form-group row">
           <label class="col-3 col-form-label col-form-label-sm">Net</label>
@@ -168,7 +178,7 @@
           <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm" *ngIf="Record.salh_edit_code == '{S}'" > {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
         </div>
         <div class="form-group row">
-          <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-success btn-sm  mr-1"> Post JV-{{jvdesc}} </button>
+          <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-success btn-sm  mr-1"> Post JV {{jvdesc}} </button>
         </div>
 
         <div class="form-group row">

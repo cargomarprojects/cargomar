@@ -12,6 +12,7 @@ export class sal_incentivem {
 
   salh_gross_amt : number;
   salh_total_ded : number;
+  salh_tds_amt : number;
   salh_net_amt : number;
 
   salh_jvno : number;
