@@ -55,6 +55,7 @@
           <th>LOCKED</th>
           <th>POSTED</th>
           <th>JV#</th>
+          <th>HO-JV#</th>
           <th *ngIf="bAdmin">DELETE</th>
         </tr>
       </thead>
@@ -71,6 +72,7 @@
           <td>{{rec.salh_edit_code == '{S}' ? 'N' : 'Y'}}</td>
           <td>{{rec.salh_posted}}</td>
           <td>{{rec.salh_jvno}}</td>
+          <td>{{rec.salh_jvno_ho}}</td>
           <td *ngIf="bAdmin">
             <App-Dialog [id]="{msg:'DELETE Y/N', buttons:'yn', selected :false,id:rec.salh_pkid,name:''}"
               (result)="RemoveList($event)"></App-Dialog>
@@ -164,6 +166,9 @@
       <div class="col-sm-3">
         <div class="form-group row">
           <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm" *ngIf="Record.salh_edit_code == '{S}'" > {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
+        </div>
+        <div class="form-group row">
+          <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-success btn-sm  mr-1"> Post JV-{{jvno}}-{{jvno_ho}} </button>
         </div>
 
         <div class="form-group row">

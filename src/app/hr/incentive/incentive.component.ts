@@ -36,6 +36,10 @@ export class IncentiveComponent  {
   sub: any;
   urlid: string;
 
+  jvdesc = '';
+  jvno = 0;
+  jvno_ho = 0;
+
   IncentiveTypeList  = [];
 
   excelall = false;
@@ -173,6 +177,8 @@ export class IncentiveComponent  {
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
+
+        
       },
       error => {
         this.loading = false;
@@ -220,8 +226,9 @@ export class IncentiveComponent  {
     this.Record.salh_arears_nos = 0;
     this.Record.rec_mode = this.mode;
     this.Record.salh_edit_code = '{S}';
-
-
+    this.jvno = 0;
+    this.jvno_ho = 0;
+    this.jvdesc = '';
     this.RecordDet = [];
   
   }
@@ -257,7 +264,12 @@ export class IncentiveComponent  {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
 
-    
+    this.jvno = _Record.salh_jvno;
+    this.jvno_ho = _Record.salh_jvno_ho;
+
+    this.jvdesc = "";
+    if (_Record.salh_jvno >0)
+      this.jvdesc = "Post JV " + _Record.salh_jvno +  "-" + _Record.salh_jvno_ho; 
 
 
   }
@@ -486,6 +498,56 @@ export class IncentiveComponent  {
 
   Close() {
     this.gs.ClosePage('home');
+  }
+
+
+
+  PostJV() {
+    let Msg: string = "";
+    Msg = "Generate JV";
+    
+    if (this.jvno > 0)
+      Msg = "Re-Generate JV";
+
+
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid : this.pkid,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      year_prefix: this.gs.globalVariables.year_prefix,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+
+    this.ErrorMessage = '';
+
+    this.mainService.PostIncentiveJV(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.jvno = response.jvno;
+        this.jvno_ho= response.jvno_ho;
+        this.jvdesc = "";
+        if ( response.jvno > 0)
+          this.jvdesc = "Post JV " + response.jvno +  "-" + response.jvno_ho; 
+        alert('JV Generated : ' + response.msg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 

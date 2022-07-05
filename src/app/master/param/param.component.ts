@@ -144,6 +144,7 @@ export class ParamComponent {
 
 
     if (this.type == 'ACCSETTINGS') {
+      this.code_length = 100;
       this.id1 = "Value";
     }
 
@@ -456,9 +457,17 @@ export class ParamComponent {
     if (this.type == 'SAC') {
       if (this.Record.param_id1 == '') {
         bret = false;
-        sError += "\n\rSAC Code cannote be blank";
+        sError += "\n\rSAC Code cannot be blank";
       }
     }
+
+    if (this.type == 'ACCSETTINGS') {
+      if (this.Record.param_id1 == '') {
+        bret = false;
+        sError += "\n\rValue Cannot be blank";
+      }
+    }
+
 
     if (this.type == 'CONTAINER TYPE') {
       if (this.Record.param_id1 != "20" && this.Record.param_id1 != "40" && this.Record.param_id1 != "45") {

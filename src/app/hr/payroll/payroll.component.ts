@@ -951,6 +951,7 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.pf_jvno = response.jvno;
+        //this.pf_jvno_ho= response.jvno_ho;
         alert('PF JV Generated : ' + response.msg);
       },
         error => {
