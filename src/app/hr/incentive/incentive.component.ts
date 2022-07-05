@@ -269,7 +269,9 @@ export class IncentiveComponent  {
 
     this.jvdesc = "";
     if (_Record.salh_jvno >0)
-      this.jvdesc = "Post JV " + _Record.salh_jvno +  "-" + _Record.salh_jvno_ho; 
+      this.jvdesc = _Record.salh_jvno.toString() ; 
+    if (_Record.salh_jvno_ho >0)
+      this.jvdesc += "-" + _Record.salh_jvno_ho.toString();       
 
 
   }
@@ -540,7 +542,10 @@ export class IncentiveComponent  {
         this.jvno_ho= response.jvno_ho;
         this.jvdesc = "";
         if ( response.jvno > 0)
-          this.jvdesc = "Post JV " + response.jvno +  "-" + response.jvno_ho; 
+          this.jvdesc = response.jvno.toString() ; 
+        if ( response.jvno_ho > 0)
+          this.jvdesc +=  "-" + response.jvno_ho;           
+
         alert('JV Generated : ' + response.msg);
       },
         error => {

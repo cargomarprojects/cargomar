@@ -168,7 +168,7 @@
           <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm" *ngIf="Record.salh_edit_code == '{S}'" > {{mode =='ADD' ? 'Process' : 'Re-Process'}} </button>
         </div>
         <div class="form-group row">
-          <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-success btn-sm  mr-1"> Post JV-{{jvno}}-{{jvno_ho}} </button>
+          <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-success btn-sm  mr-1"> Post JV-{{jvdesc}} </button>
         </div>
 
         <div class="form-group row">
