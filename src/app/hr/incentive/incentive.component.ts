@@ -373,19 +373,19 @@ export class IncentiveComponent  {
     let iTds = 0;
     
     if ( field == 'sald_arears_amt') {
-      rec.sald_arears_amt = this.gs.roundNumber(rec.sald_arears_amt,0);
+      rec.sald_arears_amt = this.gs.roundNumber(rec.sald_arears_amt,2);
     }
     if ( field == 'sald_incentive_amt') {
-      rec.sald_incentive_amt = this.gs.roundNumber(rec.sald_incentive_amt,0);
+      rec.sald_incentive_amt = this.gs.roundNumber(rec.sald_incentive_amt,2);
     }    
     if ( field == 'sald_allow_amt') {
-      rec.sald_allow_amt = this.gs.roundNumber(rec.sald_allow_amt,0);
+      rec.sald_allow_amt = this.gs.roundNumber(rec.sald_allow_amt,2);
     }        
     if ( field == 'sald_ded_amt') {
-      rec.sald_ded_amt = this.gs.roundNumber(rec.sald_ded_amt,0);
+      rec.sald_ded_amt = this.gs.roundNumber(rec.sald_ded_amt,2);
     }            
     if ( field == 'sald_tds_amt') {
-      rec.sald_tds_amt = this.gs.roundNumber(rec.sald_tds_amt,0);
+      rec.sald_tds_amt = this.gs.roundNumber(rec.sald_tds_amt,2);
     }            
 
 
@@ -393,9 +393,9 @@ export class IncentiveComponent  {
     iDed  = rec.sald_ded_amt + rec.sald_tds_amt;
     iNet = iGross - iDed ;
 
-    iGross= this.gs.roundNumber(iGross,0);
-    iDed= this.gs.roundNumber(iDed,0);
-    iNet= this.gs.roundNumber(iNet,0);
+    iGross= this.gs.roundNumber(iGross,2);
+    iDed= this.gs.roundNumber(iDed,2);
+    iNet= this.gs.roundNumber(iNet,2);
 
     rec.sald_gross_amt = iGross;
     rec.sald_total_ded = iDed;
@@ -412,10 +412,10 @@ export class IncentiveComponent  {
       iTds   += r.sald_tds_amt;
     });
 
-    iGross= this.gs.roundNumber(iGross,0);
-    iDed= this.gs.roundNumber(iDed,0);
-    iNet= this.gs.roundNumber(iNet,0);
-    iTds= this.gs.roundNumber(iTds,0);
+    iGross= this.gs.roundNumber(iGross,2);
+    iDed= this.gs.roundNumber(iDed,2);
+    iNet= this.gs.roundNumber(iNet,2);
+    iTds= this.gs.roundNumber(iTds,2);
 
     this.Record.salh_gross_amt = iGross;
     this.Record.salh_total_ded = iDed;
