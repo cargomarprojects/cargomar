@@ -30,6 +30,7 @@
             <label class="col-sm-2 col-form-label  col-form-label-sm">Type</label>
             <div class="col-8">
               <select class="form-control form-control-sm" [(ngModel)]="type_date" (change)="OnChange('change')">
+                <option [value]="'ALL'">ALL</option>
                 <option [value]="'AIR-EXPORT-FORWARDING'">AIR EXPORT FORWARDING</option>
                 <option [value]="'AIR-IMPORT'">AIR IMPORT</option>
                 <option [value]="'SEA-EXPORT-FORWARDING'">SEA EXPORT FORWARDING</option>

@@ -33,7 +33,7 @@ export class ProfitComponent {
   mode = '';
   pkid = '';
 
-  finyear : number;
+  finyear: number;
 
   rec_category: string = "";
   type_date: string = '';
@@ -59,7 +59,7 @@ export class ProfitComponent {
     pkid: '',
     report_folder: '',
     company_code: '',
-    branch_name:'',
+    branch_name: '',
     branch_code: '',
     year_code: '',
     searchstring: '',
@@ -69,8 +69,8 @@ export class ProfitComponent {
     code: '',
     main_code: false,
     all: false,
-    ledgerdate : false,
-    finyear : 0,
+    ledgerdate: false,
+    finyear: 0,
     isnewformat: true
   };
 
@@ -126,11 +126,11 @@ export class ProfitComponent {
 
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-    this.type_date = "AIR-EXPORT-FORWARDING";
+    this.type_date = "ALL";
+    // this.type_date = "AIR-EXPORT-FORWARDING";
     this.RecordList = null;
-    this.from_date = "",
-    this.to_date = "";
-
+    this.from_date = this.gs.globalVariables.year_start_date;
+    this.to_date = this.gs.globalVariables.year_end_date;
     this.finyear = +this.gs.globalVariables.year_code;
 
   }
@@ -152,7 +152,7 @@ export class ProfitComponent {
   }
 
   LovSelected(_Record: SearchTable) {
-    
+
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
@@ -201,8 +201,8 @@ export class ProfitComponent {
     //  return;
     //}
 
-    if ( this.finyear <=0)
-      this.finyear = +this.gs.globalVariables.year_code;  
+    // if ( this.finyear <=0)
+    //   this.finyear = +this.gs.globalVariables.year_code;  
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
@@ -229,82 +229,86 @@ export class ProfitComponent {
     this.SearchData.all = this.all;
     this.SearchData.ledgerdate = this.ledgerdate;
     this.SearchData.isnewformat = this.isnewformat;
-    this.SearchData.finyear = this.finyear;
+    if (this.gs.isBlank(this.finyear))
+      this.SearchData.finyear = 0;
+    else
+      this.SearchData.finyear = this.finyear;
 
     this.ErrorMessage = '';
-      this.mainService.List(this.SearchData)
-        .subscribe(response => {
-          this.loading = false;
-          if (_type == 'EXCEL')
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          else {
-            this.RecordList = response.list;
-          }
-        },
+    this.mainService.List(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+        }
+      },
         error => {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
-    }
+  }
 
-    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
-      this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
 
-    // Query List Data
-    ProcessProfit() {
+  // Query List Data
+  ProcessProfit() {
 
-      this.ErrorMessage = '';
-      //if (this.from_date.trim().length <= 0) {
-      //  this.ErrorMessage = "From Date Cannot Be Blank";
-      //  return;
-      //}
-      //if (this.to_date.trim().length <= 0) {
-      //  this.ErrorMessage = "To Date Cannot Be Blank";
-      //  return;
-      //}
+    this.ErrorMessage = '';
+    //if (this.from_date.trim().length <= 0) {
+    //  this.ErrorMessage = "From Date Cannot Be Blank";
+    //  return;
+    //}
+    //if (this.to_date.trim().length <= 0) {
+    //  this.ErrorMessage = "To Date Cannot Be Blank";
+    //  return;
+    //}
+    if (this.type_date == "ALL") {
+      alert('Please select a type and continue......');
+      return;
+    }
 
-      if ( this.finyear <=0)
-        this.finyear = +this.gs.globalVariables.year_code;
+    if (this.finyear <= 0)
+      this.finyear = +this.gs.globalVariables.year_code;
 
-      this.loading = true;
-      this.SearchData.company_code = this.gs.globalVariables.comp_code;
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.year_code = this.gs.globalVariables.year_code;
-      this.SearchData.searchstring = this.searchstring.toUpperCase();
-      this.SearchData.type = this.type_date;
-      this.SearchData.all = true;
-      this.SearchData.ledgerdate = this.ledgerdate;      
+    this.loading = true;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.type = this.type_date;
+    this.SearchData.all = true;
+    this.SearchData.ledgerdate = this.ledgerdate;
 
-      
-      this.SearchData.year_code = this.finyear.toString();
 
-      this.ErrorMessage = '';
-      this.mainService.ProcessProfit(this.SearchData)
-        .subscribe(response => {
-          this.loading = false;
-        },
+    this.SearchData.year_code = this.finyear.toString();
+
+    this.ErrorMessage = '';
+    this.mainService.ProcessProfit(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;      
+      },
         error => {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
-    }
+  }
+
+
+  OnChange(field: string) {
+    this.RecordList = null;
+
+  }
+  Close() {
+    this.gs.ClosePage('home');
+  }
 
 
 
-
-
-    OnChange(field: string) {
-      this.RecordList = null;
-      
-    }
-    Close() {
-      this.gs.ClosePage('home');
-    }
-
-
-  
 }
