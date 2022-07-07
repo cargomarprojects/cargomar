@@ -204,6 +204,11 @@ export class ProfitComponent {
     // if ( this.finyear <=0)
     //   this.finyear = +this.gs.globalVariables.year_code;  
 
+    if (this.gs.isZero(this.finyear) && (this.gs.isBlank(this.from_date) || this.gs.isBlank(this.to_date))) {
+      alert('Either a date period or year is required');
+      return;
+    }
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -291,7 +296,7 @@ export class ProfitComponent {
     this.ErrorMessage = '';
     this.mainService.ProcessProfit(this.SearchData)
       .subscribe(response => {
-        this.loading = false;      
+        this.loading = false;
       },
         error => {
           this.loading = false;
