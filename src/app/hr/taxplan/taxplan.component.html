@@ -18,8 +18,9 @@
       <div class="col-4">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col-1">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      <div class="col-4">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+        <button  *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="LoadPreviousyear()" class="btn btn-primary btn-sm mr-1">Load previous year Data</button>
       </div>
     </div>
   </div>

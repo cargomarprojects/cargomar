@@ -24,5 +24,9 @@ export class TaxplanService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Taxplan/Save', Record, this.gs.headerparam2('authorized'));
   }
 
+  LoadPreviousyearRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Taxplan/LoadPreviousyearRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

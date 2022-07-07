@@ -49,7 +49,7 @@ export class TaxPlanComponent  {
   constructor(
     private mainService: TaxplanService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
 
   ) {
     this.page_count = 0;
@@ -294,6 +294,26 @@ export class TaxPlanComponent  {
     
   }
   
+  LoadPreviousyear()
+  {
+    this.loading = true;
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      year_code: this.gs.globalVariables.year_code,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadPreviousyearRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List('NEW');
+      },
+      error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+      });
+  }
 
   Close() {
     this.gs.ClosePage('home');
