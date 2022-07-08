@@ -31,7 +31,7 @@ export class UserComponent {
     page_current = 0;
     page_rows = 0;
     page_rowcount = 0;
-    lockstatus:string = "BOTH";
+    lockstatus: string = "BOTH";
 
     sub: any;
     urlid: string;
@@ -40,7 +40,7 @@ export class UserComponent {
 
     mode = '';
     pkid = '';
-
+    bPrint = true;
     // Array For Displaying List
     RecordList: User[] = [];
     // Single Record for add/edit/view details
@@ -138,7 +138,7 @@ export class UserComponent {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
             comp_code: this.gs.globalVariables.comp_code,
-            lockstatus:this.lockstatus,
+            lockstatus: this.lockstatus,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
@@ -149,16 +149,25 @@ export class UserComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
+
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
+
 
     NewRecord() {
 
@@ -180,7 +189,7 @@ export class UserComponent {
         this.Record.user_dsc_slno = '';
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
-        this.Record.user_show_payroll= false;
+        this.Record.user_show_payroll = false;
         this.Record.user_emp_id = '';
         this.Record.user_emp_code = '';
         this.Record.user_emp_name = '';
