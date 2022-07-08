@@ -31,6 +31,7 @@ export class UserComponent {
     page_current = 0;
     page_rows = 0;
     page_rowcount = 0;
+    lockstatus:string = "BOTH";
 
     sub: any;
     urlid: string;
@@ -137,6 +138,7 @@ export class UserComponent {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
             comp_code: this.gs.globalVariables.comp_code,
+            lockstatus:this.lockstatus,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,

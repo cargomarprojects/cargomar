@@ -12,11 +12,19 @@
 
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col">
+      <label class="col-1">Search</label>
+      <div class="col-3">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col">
+      <label class="col-1">Locked</label>
+      <div class="col-3">
+        <select class="form-control form-control-sm" name="lstatus" [(ngModel)]="lockstatus">
+          <option [value]="'BOTH'">BOTH</option>
+          <option [value]="'Y'">YES</option>
+          <option [value]="'N'">NO</option>
+        </select>
+      </div>
+      <div class="col-2">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
       </div>
     </div>
