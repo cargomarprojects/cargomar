@@ -138,6 +138,8 @@ export class UserComponent {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
             comp_code: this.gs.globalVariables.comp_code,
+            branch_code:this.gs.globalVariables.branch_code,
+            report_folder: this.gs.globalVariables.report_folder,
             lockstatus: this.lockstatus,
             page_count: this.page_count,
             page_current: this.page_current,
