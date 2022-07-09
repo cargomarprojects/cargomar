@@ -23,7 +23,18 @@ export class MarkSalesleadm {
     msl_consignee_pic: string;
     msl_consignee_tel: string;
     msl_consignee_email: string;
-
+    msl_agent_id: string;
+    msl_agent_name: string;
+    msl_terms: string;
+    msl_commodity: string;
+    msl_volume: string;
+    msl_pol: string;
+    msl_pod: string;
+    msl_competition: string;
+    msl_type: string;
+    msl_converted: string;
+    msl_country: string;
+    
     rowdisplayed: boolean = false;
     rec_mode: string;
     _globalvariables: GlobalVariables;

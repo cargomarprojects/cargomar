@@ -47,7 +47,7 @@ export class SalesleadComponent {
     mode = '';
     pkid = '';
     showclosebutton: boolean = true;
-
+    AgentList: any[] = [];
     // Array For Displaying List
     RecordList: MarkSalesleadm[] = [];
     // Single Record for add/edit/view details

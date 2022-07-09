@@ -76,7 +76,8 @@
                 <tr *ngIf="rec.rowdisplayed">
                     <td colspan="12" style="color:red">
                         <div>
-                            <app-action [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)"></app-action>
+                            <app-action [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)">
+                            </app-action>
                         </div>
                     </td>
                 </tr>
@@ -105,165 +106,260 @@
     </div>
 </div>
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="currentTab=='DETAILS'" class="page-details p-1">
     <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
-                    <div class="col-sm-8">
-                        <app-autocomplete #LocationLov [inputdata]="LOCATIONRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-sm-8">
-                        <app-date  [inputdate]="Record.msl_date" (ValueChanged)="Record.msl_date=$event"></app-date >
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Shipper Name</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Shipper</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.msl_shipper_name"
-                            required maxlength="60"  (blur)="OnBlur('msl_shipper_name')" />
+                            required maxlength="60" (blur)="OnBlur('msl_shipper_name')" />
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Address</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add1"
-                            [(ngModel)]="Record.msl_shipper_add1" required maxlength="60"  (blur)="OnBlur('msl_shipper_add1')" />
+                            [(ngModel)]="Record.msl_shipper_add1" required maxlength="60"
+                            (blur)="OnBlur('msl_shipper_add1')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add2"
-                            [(ngModel)]="Record.msl_shipper_add2" required maxlength="60"  (blur)="OnBlur('msl_shipper_add2')"/>
+                            [(ngModel)]="Record.msl_shipper_add2" required maxlength="60"
+                            (blur)="OnBlur('msl_shipper_add2')" />
                     </div>
                 </div>
                 <div class="form-group row">
-
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add3"
-                            [(ngModel)]="Record.msl_shipper_add3" required maxlength="60"  (blur)="OnBlur('msl_shipper_add3')" />
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Pic</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
-                            required maxlength="60"  (blur)="OnBlur('msl_pic')" />
+                            [(ngModel)]="Record.msl_shipper_add3" required maxlength="60"
+                            (blur)="OnBlur('msl_shipper_add3')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Telephone</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_shipper_tel" required maxlength="60"  (blur)="OnBlur('msl_shipper_tel')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Email</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_shipper_email" required maxlength="60"  (blur)="OnBlur('msl_shipper_email')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Location</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">City</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="location"
-                            [(ngModel)]="Record.msl_city" required maxlength="60"  (blur)="OnBlur('msl_city')"/>
+                            [(ngModel)]="Record.msl_city" required maxlength="60" (blur)="OnBlur('msl_city')" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
+                            required maxlength="60" (blur)="OnBlur('msl_pic')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_shipper_tel" required maxlength="60"
+                            (blur)="OnBlur('msl_shipper_tel')" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_shipper_email" required maxlength="60"
+                            (blur)="OnBlur('msl_shipper_email')" />
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-6">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Consignee Name</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="cnge"
-                            [(ngModel)]="Record.msl_consignee" required maxlength="60"  (blur)="OnBlur('msl_consignee')" />
+                            [(ngModel)]="Record.msl_consignee" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee')" />
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Address</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add1"
-                            [(ngModel)]="Record.msl_consignee_add1" required maxlength="60"  (blur)="OnBlur('msl_consignee_add1')" />
+                            [(ngModel)]="Record.msl_consignee_add1" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_add1')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add2"
-                            [(ngModel)]="Record.msl_consignee_add2" required maxlength="60"  (blur)="OnBlur('msl_consignee_add2')" />
+                            [(ngModel)]="Record.msl_consignee_add2" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_add2')" />
                     </div>
                 </div>
                 <div class="form-group row">
-
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="add3"
-                            [(ngModel)]="Record.msl_consignee_add3" required maxlength="60"  (blur)="OnBlur('msl_consignee_add3')" />
+                            [(ngModel)]="Record.msl_consignee_add3" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_add3')" />
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Pic</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"  (blur)="OnBlur('msl_consignee_pic')" />
+                            [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_pic')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Telephone</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"  (blur)="OnBlur('msl_consignee_tel')" />
+                            [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_tel')" />
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Email</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_email" required maxlength="60"  (blur)="OnBlur('msl_consignee_email')" />
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Destination</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" name="dest"
-                            [(ngModel)]="Record.msl_destination" required maxlength="60"  (blur)="OnBlur('msl_destination')" />
+                            [(ngModel)]="Record.msl_consignee_email" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_email')" />
                     </div>
                 </div>
             </div>
 
         </div>
+    </div>
+
+    <div class="page-box">
         <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.msl_agent_name">
+                            <option *ngFor="let rec of AgentList" [value]="rec.id">{{rec.name}}</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="comd"
+                            [(ngModel)]="Record.msl_commodity" required maxlength="100"
+                            (blur)="OnBlur('msl_commodity')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Terms</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="terms" [(ngModel)]="Record.msl_terms">
+                            <option [value]="'FOB'">FOB</option>
+                            <option [value]="'DAP'">DAP</option>
+                          </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Volume</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="vol"
+                            [(ngModel)]="Record.msl_volume" required maxlength="60"
+                            (blur)="OnBlur('msl_volume')" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pol"
+                            [(ngModel)]="Record.msl_pol" required maxlength="60"
+                            (blur)="OnBlur('msl_pol')" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pod"
+                            [(ngModel)]="Record.msl_pod" required maxlength="60" (blur)="OnBlur('msl_pod')" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="cnge"
+                            [(ngModel)]="Record.msl_country" required maxlength="60"
+                            (blur)="OnBlur('msl_country')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="tpe" [(ngModel)]="Record.msl_type">
+                            <option [value]="'AIR'">AIR</option>
+                            <option [value]="'SEA'">SEA</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Converted</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="cys" [(ngModel)]="Record.msl_converted">
+                            <option [value]="'Y'">YES</option>
+                            <option [value]="'N'">NO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Competition</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="comp"
+                            [(ngModel)]="Record.msl_competition" required maxlength="60"
+                            (blur)="OnBlur('msl_competition')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="rem"
+                            [(ngModel)]="Record.msl_remarks" required maxlength="100"
+                            (blur)="OnBlur('msl_remarks')" />
+                    </div>
+                </div>
+                <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_pic')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_tel')" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" name="pic"
+                            [(ngModel)]="Record.msl_consignee_email" required maxlength="60"
+                            (blur)="OnBlur('msl_consignee_email')" />
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+        <!-- <div class="row">
             <div class="col-sm-12">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
                     <div class="col-sm-10">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.msl_remarks"
-                            maxlength="100"  (blur)="OnBlur('msl_remarks')" ></textarea>
+                            maxlength="100" (blur)="OnBlur('msl_remarks')"></textarea>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
+
+
+
+
+
 
     <div class="page-box">
         <div class="row">
