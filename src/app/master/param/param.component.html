@@ -76,6 +76,7 @@
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">ORDER</td>
 
           <th *ngIf="type == 'ACCSETTINGS'">VALUE</th>
+          <th *ngIf="type == 'SALESAGENT'">AGENT</th>
 
         </tr>
       </thead>
@@ -112,7 +113,7 @@
           <td *ngIf="type == 'SEA TRACKING EVENTS' || type == 'AIR TRACKING EVENTS'">{{rec.param_id3}}</td>
 
           <td *ngIf="type == 'ACCSETTINGS'">{{rec.param_id1}}</td>
-
+          <td *ngIf="type == 'SALESAGENT'">{{rec.param_id5_name}}</td>
         </tr>
       </tbody>
     </table>

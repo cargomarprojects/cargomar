@@ -137,9 +137,9 @@ export class ParamComponent {
       this.idCode = 'Description';
       this.idName = 'Main User';
       this.id1 = "Sub Users";
-      this.ListCode='DESCRIPTION';
-      this.ListName='MAIN USER';
-      this.Comments='MARKETING';
+      this.ListCode = 'DESCRIPTION';
+      this.ListName = 'MAIN USER';
+      this.Comments = 'MARKETING';
     }
 
 
@@ -239,6 +239,10 @@ export class ParamComponent {
       this.id3 = "Order";
     }
 
+    if (this.type == 'SALESAGENT') {
+      this.id5 = "Agent";
+      this.id5_lovtype = "CUSTOMER";
+    }
 
     if (this.type == 'MAILING TYPE') {
       this.code_length = 50;
@@ -254,7 +258,10 @@ export class ParamComponent {
     this.ID5RECORD.controlname = "ID5";
     this.ID5RECORD.displaycolumn = "CODE";
     this.ID5RECORD.type = this.id5_lovtype;
-    this.ID5RECORD.where = "";
+    if (this.type == 'SALESAGENT')
+      this.ID5RECORD.where = " CUST_IS_AGENT = 'Y' ";
+    else
+      this.ID5RECORD.where = "";
     this.ID5RECORD.id = "";
     this.ID5RECORD.code = "";
     this.ID5RECORD.name = "";
