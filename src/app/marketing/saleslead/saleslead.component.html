@@ -234,8 +234,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                     <div class="col-sm-10">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.msl_agent_name">
-                            <option *ngFor="let rec of AgentList" [value]="rec.id">{{rec.name}}</option>
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.msl_agent_id">
+                            <option *ngFor="let rec of AgentList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                           </select>
                     </div>
                 </div>

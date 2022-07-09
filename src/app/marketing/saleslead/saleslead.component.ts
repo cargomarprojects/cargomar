@@ -122,24 +122,28 @@ export class SalesleadComponent {
 
     LoadCombo() {
 
-        // this.loading = true;
-        // let SearchData = {
-        //   type: 'type',
-        //   comp_code: this.gs.globalVariables.comp_code,
-        //   branch_code: this.gs.globalVariables.branch_code
-        // };
+        this.loading = true;
+        let SearchData = {
+          type: 'type',
+          comp_code: this.gs.globalVariables.comp_code,
+          branch_code: this.gs.globalVariables.branch_code
+        };
+    
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+    
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+          .subscribe(response => {
+            this.loading = false;
+            this.AgentList = response.agentlist;
 
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        // this.mainService.LoadDefault(SearchData)
-        //   .subscribe(response => {
-        //     this.loading = false;
-        //     this.List("NEW");
-        //   },
-        //     error => {
-        //       this.loading = false;
-        //       this.ErrorMessage = this.gs.getError(error);
-        //     });
+          },
+            error => {
+              this.loading = false;
+              this.ErrorMessage = this.gs.getError(error);
+            });
     }
 
 
@@ -266,6 +270,17 @@ export class SalesleadComponent {
         this.Record.msl_consignee_pic = "";
         this.Record.msl_consignee_tel = "";
         this.Record.msl_consignee_email = "";
+        this.Record.msl_agent_id = "";
+        this.Record.msl_agent_name = "";
+        this.Record.msl_terms = "";
+        this.Record.msl_commodity = "";
+        this.Record.msl_volume = "";
+        this.Record.msl_pol = "";
+        this.Record.msl_pod = "";
+        this.Record.msl_competition = "";
+        this.Record.msl_type = "";
+        this.Record.msl_converted = "";
+        this.Record.msl_country = "";
         this.Record.rec_mode = this.mode;
         this.InitLov();
     }
@@ -301,8 +316,8 @@ export class SalesleadComponent {
 
         this.InitLov();
 
-        this.LOCATIONRECORD.id = this.Record.msl_location_id.toString();
-        this.LOCATIONRECORD.name = this.Record.msl_location_name;
+        // this.LOCATIONRECORD.id = this.Record.msl_location_id.toString();
+        // this.LOCATIONRECORD.name = this.Record.msl_location_name;
 
     }
 
@@ -377,7 +392,7 @@ export class SalesleadComponent {
         }
         else {
             REC.msl_date = this.Record.msl_date;
-            REC.msl_location_name = this.Record.msl_location_name;
+            //REC.msl_location_name = this.Record.msl_location_name;
             REC.msl_shipper_name = this.Record.msl_shipper_name;
             REC.msl_shipper_add1 = this.Record.msl_shipper_add1;
             REC.msl_shipper_add2 = this.Record.msl_shipper_add2;
@@ -385,7 +400,7 @@ export class SalesleadComponent {
             REC.msl_city = this.Record.msl_city;
             REC.msl_pic = this.Record.msl_pic;
             REC.msl_consignee = this.Record.msl_consignee;
-            REC.msl_destination = this.Record.msl_destination;
+            //REC.msl_destination = this.Record.msl_destination;
             REC.msl_remarks = this.Record.msl_remarks;
         }
     }
