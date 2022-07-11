@@ -595,14 +595,14 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label col-form-label-sm">Inward Debit Note</label>
+        <label class="col-6 col-form-label col-form-label-sm">Inward DN</label>
         <div class="col-4">
           <app-date [inputdate]="LockRecord.lock_dri" (ValueChanged)="LockRecord.lock_dri=$event"></app-date>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label col-form-label-sm">Inward Credit Note</label>
+        <label class="col-6 col-form-label col-form-label-sm">Inward CN/Gen.Exp(CN)</label>
         <div class="col-4">
           <app-date [inputdate]="LockRecord.lock_cri" (ValueChanged)="LockRecord.lock_cri=$event"></app-date>
         </div>

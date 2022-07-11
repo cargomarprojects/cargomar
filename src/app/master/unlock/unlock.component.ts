@@ -123,6 +123,7 @@ export class UnLockComponent {
       { "code": "CN", "name": "Credit Note" },
       { "code": "DI", "name": "Inward Debit Note" },
       { "code": "CI", "name": "Inward Credit Note" },
+      { "code": "PN-CI", "name": "Inward Credit Note(GE)" },
       { "code": "FUND-TRANSFER", "name": "Fund Transfer" },
       { "code": "MBL-AE", "name": "Air Export Folder" },
       { "code": "MBL-AI", "name": "Air Import Folder" },
@@ -190,7 +191,7 @@ export class UnLockComponent {
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" || this.moduletype == "PN-JV" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
-        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI"|| this.moduletype == "JV-BP") {
+        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI"||this.moduletype == "PN-CI"|| this.moduletype == "JV-BP") {
         this.refnotitle = "Vr.No";
       } else if (this.moduletype == "MBL-AE" || this.moduletype == "MBL-AI" ||
         this.moduletype == "MBL-SE" || this.moduletype == "MBL-SI") {
