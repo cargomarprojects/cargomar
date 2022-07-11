@@ -125,7 +125,7 @@ export class ArApComponent {
     private modalService: NgbModal,
     private mainService: ArApService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 20;
