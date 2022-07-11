@@ -54,6 +54,9 @@ export class SalesleadComponent {
     Record: MarkSalesleadm = new MarkSalesleadm;
 
     LOCATIONRECORD: SearchTable = new SearchTable();
+    IsCompany: boolean = false;
+    IsAdmin: boolean = false;
+    bPrint: boolean = true;
 
     constructor(
         private modalService: NgbModal,
@@ -93,10 +96,18 @@ export class SalesleadComponent {
     }
 
     InitComponent() {
+        this.IsAdmin = false;
+        this.IsCompany = false;
+        this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
-
+            if (this.menu_record.rights_admin)
+                this.IsAdmin = true;
+            if (this.menu_record.rights_company)
+                this.IsCompany = true;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
         }
         this.LoadCombo();
     }
@@ -124,26 +135,26 @@ export class SalesleadComponent {
 
         this.loading = true;
         let SearchData = {
-          type: 'type',
-          comp_code: this.gs.globalVariables.comp_code,
-          branch_code: this.gs.globalVariables.branch_code
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
         };
-    
+
         SearchData.comp_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
-    
+
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.LoadDefault(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.AgentList = response.agentlist;
+            .subscribe(response => {
+                this.loading = false;
+                this.AgentList = response.agentlist;
 
-          },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-            });
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -180,6 +191,7 @@ export class SalesleadComponent {
             this.ResetControls();
             this.pkid = id;
             this.GetRecord(id);
+            this.ActionsRecord.parent_id = id;
         }
     }
 
@@ -217,7 +229,12 @@ export class SalesleadComponent {
             page_rowcount: this.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code
+            year_code: this.gs.globalVariables.year_code,
+            user_id: this.gs.globalVariables.user_pkid,
+            user_code: this.gs.globalVariables.user_code,
+            iscompany: this.IsCompany,
+            isadmin: this.IsAdmin
+
         };
 
         this.ErrorMessage = '';
@@ -282,6 +299,7 @@ export class SalesleadComponent {
         this.Record.msl_converted = "";
         this.Record.msl_country = "";
         this.Record.rec_mode = this.mode;
+        this.Record.rec_user_id = this.gs.globalVariables.user_pkid;
         this.InitLov();
     }
 
@@ -400,7 +418,13 @@ export class SalesleadComponent {
             REC.msl_city = this.Record.msl_city;
             REC.msl_pic = this.Record.msl_pic;
             REC.msl_consignee = this.Record.msl_consignee;
-            //REC.msl_destination = this.Record.msl_destination;
+            REC.msl_agent_name = this.Record.msl_agent_name;
+            REC.msl_type = this.Record.msl_type;
+            REC.msl_terms = this.Record.msl_terms;
+            REC.msl_commodity = this.Record.msl_commodity;
+            REC.msl_pol = this.Record.msl_pol;
+            REC.msl_pod = this.Record.msl_pod;
+            REC.msl_country = this.Record.msl_country;
             REC.msl_remarks = this.Record.msl_remarks;
         }
     }
@@ -505,11 +529,14 @@ export class SalesleadComponent {
     }
 
 
-    actionsChanged(comments: any, rec: MarkSalesleadm) {
+    actionsChanged(comments: any, _rec: MarkSalesleadm) {
         if (comments.saction == "CLOSE")
-            rec.rowdisplayed = false;
-        if (comments.saction == "SAVE")
-            rec.msl_followupcount = comments.sfollowupcount;
+            _rec.rowdisplayed = false;
+        if (comments.saction == "SAVE") {
+            for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
+                rec.msl_followupcount = comments.sfollowupcount;
+            }
+        }
     }
 
 }

@@ -38,5 +38,8 @@ export class MarkSalesleadService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/SaveSalesleadActions', Record, this.gs.headerparam2('authorized'));
     }
 
+    GetRecordSalesleadActions(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/GetRecordSalesleadActions', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

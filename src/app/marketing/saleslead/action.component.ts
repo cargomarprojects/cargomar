@@ -19,6 +19,7 @@ export class ActionComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
+    @Input() rec_user_id: string = '';
     @Input() parentData: any;
     @Output() actionsChanged = new EventEmitter<any>();
 
@@ -92,7 +93,9 @@ export class ActionComponent {
     }
 
     newRecord() {
+        this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadd();
+        this.Record.msld_pkid = this.pkid;
         this.Record.msld_date = this.gs.defaultValues.today;
         this.Record.msld_remarks = "";
         this.Record.msld_action_plan = "";
@@ -213,7 +216,7 @@ export class ActionComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
-        this.Record.msld_pkid =this.gs.getGuid();
+        this.Record.msld_pkid = this.pkid;
         this.Record.msld_parent_id = this.parentData.parent_id;
         this.Record.msld_remarks = this.Record.msld_remarks.toUpperCase();
         this.Record.msld_action_plan = this.Record.msld_action_plan.toUpperCase();
@@ -224,11 +227,20 @@ export class ActionComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ErrorMessage = "";
-                this.RecordList.push(this.Record);
-                this.newRecord();
-                this.followupcount = this.RecordList.length.toString();
-                if (this.actionsChanged != null)
-                    this.actionsChanged.emit({ saction: 'SAVE', sfollowupcount: this.followupcount});
+                if (response.mode == "EDIT") {
+                    for (let rec of this.RecordList.filter(rec => rec.msld_pkid == this.pkid)) {
+                        rec.msld_date=this.Record.msld_date;
+                        rec.msld_remarks=this.Record.msld_remarks;
+                        rec.msld_action_plan=this.Record.msld_action_plan;
+                      }
+
+                } else {
+                    this.RecordList.push(this.Record);
+                    this.newRecord();
+                    this.followupcount = this.RecordList.length.toString();
+                    if (this.actionsChanged != null)
+                        this.actionsChanged.emit({ saction: 'SAVE', sfollowupcount: this.followupcount });
+                }
             },
                 error => {
                     this.loading = false;
@@ -272,6 +284,34 @@ export class ActionComponent {
 
     open(content: any) {
         this.modal = this.modalService.open(content);
+    }
+
+    editRecord(Id: string) {
+
+        this.loading = true;
+        let SearchData = {
+            pkid: Id,
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.GetRecordSalesleadActions(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.LoadData(response.record);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
+    LoadData(_Record: MarkSalesleadd) {
+        this.pkid = _Record.msld_pkid;
+        this.Record.msld_pkid = this.pkid;
+        this.Record.msld_remarks = _Record.msld_remarks;
+        this.Record.msld_action_plan = _Record.msld_action_plan;
     }
 
 }

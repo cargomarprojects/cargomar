@@ -48,7 +48,7 @@
                 <tr style="cursor: auto">
                     <th>BRANCH</th>
                     <th>DATE</th>
-                    <th>ACTION</th>
+                    <!-- <th>ACTION</th> -->
                     <th>SHIPPER</th>
                     <th>ADDRESS</th>
                     <th>CONTACT</th>
@@ -62,14 +62,14 @@
                     <th>POD</th>
                     <th>COUNTRY</th>
                     <th>COMMENTS</th>
-                    <th>FOLLOW-UP COUNT</th>
+                    <th>FOLLOW.UP</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_location_name}}</td>
                     <td>{{rec.msl_date}}</td>
-                    <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td>
+                    <!-- <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td> -->
                     <td>{{rec.msl_shipper_name}}</td>
                     <td>{{rec.msl_shipper_add1}}</td>
                     <td>{{rec.msl_pic}}</td>
@@ -85,14 +85,14 @@
                     <td>{{rec.msl_remarks}}</td>
                     <td>{{rec.msl_followupcount}}</td>
                 </tr>
-                <tr *ngIf="rec.rowdisplayed">
+                <!-- <tr *ngIf="rec.rowdisplayed">
                     <td colspan="12" style="color:red">
                         <div>
                             <app-action [parentData]="ActionsRecord" (actionsChanged)="actionsChanged($event,rec)">
                             </app-action>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
@@ -299,16 +299,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <!-- <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="cnge"
-                            [(ngModel)]="Record.msl_country" required maxlength="60"
-                            (blur)="OnBlur('msl_country')" />
-                    </div>
-                </div> -->
-                
+            <div class="col-sm-6">               
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Competition</label>
                     <div class="col-sm-10">
@@ -333,59 +324,30 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"
-                            (blur)="OnBlur('msl_consignee_pic')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"
-                            (blur)="OnBlur('msl_consignee_tel')" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
-                            [(ngModel)]="Record.msl_consignee_email" required maxlength="60"
-                            (blur)="OnBlur('msl_consignee_email')" />
-                    </div>
-                </div> -->
             </div>
 
         </div>
-        <!-- <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-                    <div class="col-sm-10">
-                        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.msl_remarks"
-                            maxlength="100" (blur)="OnBlur('msl_remarks')"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
-
-
-
-
 
 
     <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
                 <div class="offset-4 col-8">
-                    <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                    <button [hidden]="disableSave" [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="mode=='EDIT'" class="page-box">
+        <div class="row">
+            <div class="col-sm-12">
+                <app-action [parentData]="ActionsRecord" [rec_user_id]="Record.rec_user_id" (actionsChanged)="actionsChanged($event,Record)">
+                </app-action>
             </div>
         </div>
     </div>
