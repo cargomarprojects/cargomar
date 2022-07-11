@@ -79,7 +79,7 @@ export class AcctmComponent {
     constructor(
         private mainService: AcctmService,
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
 
         this.InitLov();
