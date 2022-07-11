@@ -38,6 +38,7 @@ export class MarkSalesleadm {
     rowdisplayed: boolean = false;
     rec_mode: string;
     rec_user_id: string;
+    rec_created_by: string;
     _globalvariables: GlobalVariables;
 }
 

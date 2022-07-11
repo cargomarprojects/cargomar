@@ -49,18 +49,19 @@
                     <th>BRANCH</th>
                     <th>DATE</th>
                     <!-- <th>ACTION</th> -->
+                    <th>SALESMAN</th>
+                    <th>AGENT</th>
                     <th>SHIPPER</th>
                     <th>ADDRESS</th>
                     <th>CONTACT</th>
                     <th>CITY</th>
                     <th>CONSIGNEE</th>
-                    <th>AGENT</th>
+                    <th>COUNTRY</th>
                     <th>TYPE</th>
                     <th>TERMS</th>
                     <th>COMMODITY</th>
                     <th>POL</th>
                     <th>POD</th>
-                    <th>COUNTRY</th>
                     <th>COMMENTS</th>
                     <th>FOLLOW.UP</th>
                 </tr>
@@ -70,18 +71,19 @@
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_location_name}}</td>
                     <td>{{rec.msl_date}}</td>
                     <!-- <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td> -->
+                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.msl_agent_name}}</td>
                     <td>{{rec.msl_shipper_name}}</td>
                     <td>{{rec.msl_shipper_add1}}</td>
                     <td>{{rec.msl_pic}}</td>
                     <td>{{rec.msl_city}}</td>
                     <td>{{rec.msl_consignee}}</td>
-                    <td>{{rec.msl_agent_name}}</td>
+                    <td>{{rec.msl_country}}</td>
                     <td>{{rec.msl_type}}</td>
                     <td>{{rec.msl_terms}}</td>
                     <td>{{rec.msl_commodity}}</td>
                     <td>{{rec.msl_pol}}</td>
                     <td>{{rec.msl_pod}}</td>
-                    <td>{{rec.msl_country}}</td>
                     <td>{{rec.msl_remarks}}</td>
                     <td>{{rec.msl_followupcount}}</td>
                 </tr>
@@ -275,8 +277,17 @@
                     <label class="col-sm-2 col-form-label col-form-label-sm">Terms</label>
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="terms" [(ngModel)]="Record.msl_terms">
-                            <option [value]="'FOB'">FOB</option>
-                            <option [value]="'DAP'">DAP</option>
+                            <option [value]="'EXW - Ex Works'">EXW - Ex Works</option>
+                            <option [value]="'FCA - Free Carrier'">FCA - Free Carrier</option> 
+                            <option [value]="'FAS - Free Alongside Ship'">FAS - Free Alongside Ship</option> 
+                            <option [value]="'FOB - Free on Board'">FOB - Free on Board</option> 
+                            <option [value]="'CPT - Carriage paid to'">CPT - Carriage paid to</option>
+                            <option [value]="'CIP - Carriage and Insurance paid to'">CIP - Carriage and Insurance paid to</option>                         
+                            <option [value]="'CFR - Cost and Freight'">CFR - Cost and Freight</option> 
+                            <option [value]="'CIF - Cost, Insurance and Freight'">CIF - Cost, Insurance and Freight</option>  
+                            <option [value]="'DAP - Delivered at Place'">DAP - Delivered at Place</option>  
+                            <option [value]="'DPU - Delivered at Place Unloaded'">DPU - Delivered at Place Unloaded</option>  
+                            <option [value]="'DDP - Delivered Duty Paid'">DDP - Delivered Duty Paid</option>
                         </select>
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Volume</label>

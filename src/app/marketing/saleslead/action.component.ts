@@ -93,6 +93,7 @@ export class ActionComponent {
     }
 
     newRecord() {
+        this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadd();
         this.Record.msld_pkid = this.pkid;
@@ -197,14 +198,7 @@ export class ActionComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
-
-
-
-    OnBlur(field: string) {
-        // if (field == 'mark_time_visit') {
-        //     this.Record.mark_time_visit = this.Record.mark_time_visit.toUpperCase();
-        // }
-    }
+ 
 
     // Save Data
     Save() {
@@ -276,6 +270,15 @@ export class ActionComponent {
         return bret;
     }
 
+    OnBlur(field: string) {
+
+        if (field == 'msld_remarks') {
+            this.Record.msld_remarks = this.Record.msld_remarks.toUpperCase();
+        }
+        if (field == 'msld_action_plan') {
+            this.Record.msld_action_plan = this.Record.msld_action_plan.toUpperCase();
+        }
+    }
 
     Close() {
         if (this.actionsChanged != null)

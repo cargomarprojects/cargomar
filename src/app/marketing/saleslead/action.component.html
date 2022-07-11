@@ -31,7 +31,7 @@
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Remarks</label>
           <div class="col-sm-12">
             <textarea style="resize: vertical" class="form-control form-control-sm" [(ngModel)]="Record.msld_remarks"
-              maxlength="500">  </textarea>
+              maxlength="500" (blur)="OnBlur('msld_remarks')" >  </textarea>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Action Plan</label>
           <div class="col-12">
             <textarea style="resize: vertical" class="form-control form-control-sm"
-              [(ngModel)]="Record.msld_action_plan" maxlength="500">  </textarea>
+              [(ngModel)]="Record.msld_action_plan" maxlength="500" (blur)="OnBlur('msld_action_plan')" >  </textarea>
           </div>
         </div>
       </div>
