@@ -51,11 +51,17 @@
                     <th>ACTION</th>
                     <th>SHIPPER</th>
                     <th>ADDRESS</th>
-                    <th>PIC</th>
-                    <th>LOCATION</th>
+                    <th>CONTACT</th>
+                    <th>CITY</th>
                     <th>CONSIGNEE</th>
-                    <th>DESTINATION</th>
-                    <th>REMARKS</th>
+                    <th>AGENT</th>
+                    <th>TYPE</th>
+                    <th>TERMS</th>
+                    <th>COMMODITY</th>
+                    <th>POL</th>
+                    <th>POD</th>
+                    <th>COUNTRY</th>
+                    <th>COMMENTS</th>
                     <th>FOLLOW-UP COUNT</th>
                 </tr>
             </thead>
@@ -69,7 +75,13 @@
                     <td>{{rec.msl_pic}}</td>
                     <td>{{rec.msl_city}}</td>
                     <td>{{rec.msl_consignee}}</td>
-                    <td>{{rec.msl_destination}}</td>
+                    <td>{{rec.msl_agent_name}}</td>
+                    <td>{{rec.msl_type}}</td>
+                    <td>{{rec.msl_terms}}</td>
+                    <td>{{rec.msl_commodity}}</td>
+                    <td>{{rec.msl_pol}}</td>
+                    <td>{{rec.msl_pod}}</td>
+                    <td>{{rec.msl_country}}</td>
                     <td>{{rec.msl_remarks}}</td>
                     <td>{{rec.msl_followupcount}}</td>
                 </tr>
@@ -306,12 +318,12 @@
                     <label class="col-sm-2 col-form-label col-form-label-sm">Competition</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="comp"
-                            [(ngModel)]="Record.msl_competition" required maxlength="60"
+                            [(ngModel)]="Record.msl_competition" required maxlength="100"
                             (blur)="OnBlur('msl_competition')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Comments</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control form-control-sm" name="rem"
                             [(ngModel)]="Record.msl_remarks" required maxlength="100"

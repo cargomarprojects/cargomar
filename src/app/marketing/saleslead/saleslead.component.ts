@@ -251,7 +251,7 @@ export class SalesleadComponent {
         this.Record = new MarkSalesleadm();
         this.Record.msl_pkid = this.pkid;
         this.Record.msl_location_id = "";
-        this.Record.msl_location_name = "";
+        this.Record.msl_location_name = this.gs.globalVariables.branch_name;
         this.Record.msl_date = this.gs.defaultValues.today;
         this.Record.msl_shipper_name = "";
         this.Record.msl_shipper_add1 = "";
@@ -469,6 +469,25 @@ export class SalesleadComponent {
             this.Record.msl_consignee_email = this.Record.msl_consignee_email.toLowerCase();
         }
 
+        if (field == 'msl_commodity') {
+            this.Record.msl_commodity = this.Record.msl_commodity.toUpperCase();
+        }
+
+        if (field == 'msl_volume') {
+            this.Record.msl_volume = this.Record.msl_volume.toUpperCase();
+        }
+        if (field == 'msl_pol') {
+            this.Record.msl_pol = this.Record.msl_pol.toUpperCase();
+        }
+        if (field == 'msl_pod') {
+            this.Record.msl_pod = this.Record.msl_pod.toUpperCase();
+        }
+        if (field == 'msl_country') {
+            this.Record.msl_country = this.Record.msl_country.toUpperCase();
+        }
+        if (field == 'msl_competition') {
+            this.Record.msl_competition = this.Record.msl_competition.toUpperCase();
+        }
 
     }
 
