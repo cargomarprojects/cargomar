@@ -129,6 +129,9 @@ export class Ledgerh {
 
     jvh_source_id : string;
     jvh_company_add_slno:number;
+
+    rec_created_by : string ;
+    rec_created_date : string ;
     
     _globalvariables: GlobalVariables;
 
