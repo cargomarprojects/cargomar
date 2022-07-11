@@ -15,6 +15,8 @@ export class sal_incentivem {
   salh_tds_amt : number;
   salh_net_amt : number;
 
+
+
   salh_jvno : number;
   salh_jvno_ho : number;
   salh_posted : string;

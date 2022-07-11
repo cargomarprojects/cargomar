@@ -27,6 +27,8 @@ export class IncentiveComponent  {
 
   bAdmin = false;
 
+  selectedRowIndex = 0;
+
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -226,6 +228,7 @@ export class IncentiveComponent  {
     this.Record.salh_arears_nos = 0;
     this.Record.rec_mode = this.mode;
     this.Record.salh_edit_code = '{S}';
+    
     this.jvno = 0;
     this.jvno_ho = 0;
     this.jvdesc = '';
