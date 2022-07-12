@@ -54,6 +54,9 @@ export class Rebate {
   inv_rebate_jvid_ho: string;
   inv_rebate_jvno_ho: string;
 
+  row_colour : string ;
+  inv_paid_amt : number;
+
   posted: string;
   selected: boolean;
 
