@@ -58,6 +58,7 @@ export class SalesleadComponent {
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = true;
+    bWithFollowup: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -236,7 +237,8 @@ export class SalesleadComponent {
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             searchstatus: this.searchstatus,
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            bwithfollowup:this.bWithFollowup
         };
 
         this.ErrorMessage = '';

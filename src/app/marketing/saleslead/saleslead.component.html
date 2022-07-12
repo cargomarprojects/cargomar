@@ -11,19 +11,21 @@
     <div class="page-search">
         <div class="row">
             <label class="col-1">Search</label>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"/>
             </div>
             <label class="col-1">Status</label>
-            <div class="col-4">
+            <div class="col-3">
                 <select class="form-control form-control-sm" name="tpe" [(ngModel)]="searchstatus">
                     <option [value]="'ALL'">ALL</option>
                     <option [value]="'ACTIVE'">ACTIVE</option>
                     <option [value]="'INACTIVE'">INACTIVE</option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+                <input type="checkbox" [(ngModel)]="bWithFollowup">
+                <span>With Followup</span>
                 <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>    
             </div>
         </div>
