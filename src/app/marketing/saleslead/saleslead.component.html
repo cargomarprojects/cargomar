@@ -10,14 +10,21 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
     <div class="page-search">
         <div class="row">
-            <label class="col-2">Search</label>
-            <div class="col">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <label class="col-1">Search</label>
+            <div class="col-4">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"/>
             </div>
-            <div class="col">
+            <label class="col-1">Status</label>
+            <div class="col-4">
+                <select class="form-control form-control-sm" name="tpe" [(ngModel)]="searchstatus">
+                    <option [value]="'ALL'">ALL</option>
+                    <option [value]="'ACTIVE'">ACTIVE</option>
+                    <option [value]="'INACTIVE'">INACTIVE</option>
+                </select>
+            </div>
+            <div class="col-2">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
-            class="btn btn-primary btn-sm">EXCEL</button> -->
+                <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>    
             </div>
         </div>
     </div>
@@ -278,15 +285,18 @@
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="terms" [(ngModel)]="Record.msl_terms">
                             <option [value]="'EXW - Ex Works'">EXW - Ex Works</option>
-                            <option [value]="'FCA - Free Carrier'">FCA - Free Carrier</option> 
-                            <option [value]="'FAS - Free Alongside Ship'">FAS - Free Alongside Ship</option> 
-                            <option [value]="'FOB - Free on Board'">FOB - Free on Board</option> 
+                            <option [value]="'FCA - Free Carrier'">FCA - Free Carrier</option>
+                            <option [value]="'FAS - Free Alongside Ship'">FAS - Free Alongside Ship</option>
+                            <option [value]="'FOB - Free on Board'">FOB - Free on Board</option>
                             <option [value]="'CPT - Carriage paid to'">CPT - Carriage paid to</option>
-                            <option [value]="'CIP - Carriage and Insurance paid to'">CIP - Carriage and Insurance paid to</option>                         
-                            <option [value]="'CFR - Cost and Freight'">CFR - Cost and Freight</option> 
-                            <option [value]="'CIF - Cost, Insurance and Freight'">CIF - Cost, Insurance and Freight</option>  
-                            <option [value]="'DAP - Delivered at Place'">DAP - Delivered at Place</option>  
-                            <option [value]="'DPU - Delivered at Place Unloaded'">DPU - Delivered at Place Unloaded</option>  
+                            <option [value]="'CIP - Carriage and Insurance paid to'">CIP - Carriage and Insurance paid
+                                to</option>
+                            <option [value]="'CFR - Cost and Freight'">CFR - Cost and Freight</option>
+                            <option [value]="'CIF - Cost, Insurance and Freight'">CIF - Cost, Insurance and Freight
+                            </option>
+                            <option [value]="'DAP - Delivered at Place'">DAP - Delivered at Place</option>
+                            <option [value]="'DPU - Delivered at Place Unloaded'">DPU - Delivered at Place Unloaded
+                            </option>
                             <option [value]="'DDP - Delivered Duty Paid'">DDP - Delivered Duty Paid</option>
                         </select>
                     </div>
@@ -310,7 +320,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">               
+            <div class="col-sm-6">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Competition</label>
                     <div class="col-sm-10">
@@ -334,6 +344,13 @@
                             <option [value]="'N'">NO</option>
                         </select>
                     </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="sts" [(ngModel)]="Record.msl_status">
+                            <option [value]="'ACTIVE'">ACTIVE</option>
+                            <option [value]="'INACTIVE'">INACTIVE</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -345,7 +362,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="offset-4 col-8">
-                    <button [hidden]="disableSave" [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
+                    <button [hidden]="disableSave"
+                        [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
@@ -357,7 +375,8 @@
     <div *ngIf="mode=='EDIT'" class="page-box">
         <div class="row">
             <div class="col-sm-12">
-                <app-action [parentData]="ActionsRecord" [rec_user_id]="Record.rec_user_id" (actionsChanged)="actionsChanged($event,Record)">
+                <app-action [parentData]="ActionsRecord" [rec_user_id]="Record.rec_user_id"
+                    (actionsChanged)="actionsChanged($event,Record)">
                 </app-action>
             </div>
         </div>

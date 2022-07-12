@@ -29,6 +29,7 @@ export class SalesleadComponent {
     currentTab = 'LIST';
 
     searchstring = '';
+    searchstatus = 'ALL';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -233,8 +234,9 @@ export class SalesleadComponent {
             user_id: this.gs.globalVariables.user_pkid,
             user_code: this.gs.globalVariables.user_code,
             iscompany: this.IsCompany,
-            isadmin: this.IsAdmin
-
+            isadmin: this.IsAdmin,
+            searchstatus: this.searchstatus,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -295,9 +297,11 @@ export class SalesleadComponent {
         this.Record.msl_pol = "";
         this.Record.msl_pod = "";
         this.Record.msl_competition = "";
-        this.Record.msl_type = "";
-        this.Record.msl_converted = "";
+        this.Record.msl_type = "SEA";
+        this.Record.msl_converted = "N";
         this.Record.msl_country = "";
+        this.Record.msl_status = "ACTIVE";
+
         this.Record.rec_mode = this.mode;
         this.Record.rec_user_id = this.gs.globalVariables.user_pkid;
         this.InitLov();
@@ -426,6 +430,7 @@ export class SalesleadComponent {
             REC.msl_pod = this.Record.msl_pod;
             REC.msl_country = this.Record.msl_country;
             REC.msl_remarks = this.Record.msl_remarks;
+            REC.msl_status = this.Record.msl_status;
         }
     }
 
@@ -512,6 +517,10 @@ export class SalesleadComponent {
         if (field == 'msl_competition') {
             this.Record.msl_competition = this.Record.msl_competition.toUpperCase();
         }
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.trim().toUpperCase();
+        }
+        
 
     }
 
