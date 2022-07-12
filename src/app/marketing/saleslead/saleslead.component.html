@@ -65,12 +65,14 @@
                     <th>CONSIGNEE</th>
                     <th>COUNTRY</th>
                     <th>TYPE</th>
-                    <th>TERMS</th>
-                    <th>COMMODITY</th>
                     <th>POL</th>
                     <th>POD</th>
+                    <th>COMMODITY</th>
+                    <th>TERMS</th>
+                    <th>VOLUME</th>
                     <th>COMMENTS</th>
                     <th>FOLLOW.UP</th>
+                    <th>CONVERTED</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -87,12 +89,14 @@
                     <td>{{rec.msl_consignee}}</td>
                     <td>{{rec.msl_country}}</td>
                     <td>{{rec.msl_type}}</td>
-                    <td>{{rec.msl_terms}}</td>
-                    <td>{{rec.msl_commodity}}</td>
                     <td>{{rec.msl_pol}}</td>
                     <td>{{rec.msl_pod}}</td>
+                    <td>{{rec.msl_commodity}}</td>
+                    <td>{{rec.msl_terms}}</td>
+                    <td>{{rec.msl_volume}}</td>
                     <td>{{rec.msl_remarks}}</td>
                     <td>{{rec.msl_followupcount}}</td>
+                    <td>{{rec.msl_converted}}</td>
                 </tr>
                 <!-- <tr *ngIf="rec.rowdisplayed">
                     <td colspan="12" style="color:red">
