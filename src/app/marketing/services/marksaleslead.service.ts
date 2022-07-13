@@ -41,5 +41,9 @@ export class MarkSalesleadService {
     GetRecordSalesleadActions(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/GetRecordSalesleadActions', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    PrintSaleslead(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkSaleslLead/PrintSaleslead', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

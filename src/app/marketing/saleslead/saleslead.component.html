@@ -371,6 +371,8 @@
                     <button [hidden]="disableSave"
                         [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
+                        <button *ngIf='bPrint' [disabled]="loading" (click)="PrintSaleslead(Record.msl_pkid)"
+                        class="btn btn-success btn-sm">Print</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>

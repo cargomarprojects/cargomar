@@ -238,7 +238,7 @@ export class SalesleadComponent {
             isadmin: this.IsAdmin,
             searchstatus: this.searchstatus,
             report_folder: this.gs.globalVariables.report_folder,
-            bwithfollowup:this.bWithFollowup
+            bwithfollowup: this.bWithFollowup
         };
 
         this.ErrorMessage = '';
@@ -522,7 +522,7 @@ export class SalesleadComponent {
         if (field == 'searchstring') {
             this.searchstring = this.searchstring.trim().toUpperCase();
         }
-        
+
 
     }
 
@@ -548,6 +548,33 @@ export class SalesleadComponent {
                 rec.msl_followupcount = comments.sfollowupcount;
             }
         }
+    }
+
+    PrintSaleslead(_id: string) {
+
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            pkid: _id,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            report_folder: this.gs.globalVariables.report_folder,
+            bwithfollowup: this.bWithFollowup
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.PrintSaleslead(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+
     }
 
 }
