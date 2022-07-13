@@ -24,8 +24,8 @@
             </div>
             <div class="col-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                <input type="checkbox" [(ngModel)]="bWithFollowup">
-                <span>With Followup</span>
+                <!-- <input type="checkbox" [(ngModel)]="bWithFollowup">
+                <span>With Followup</span> -->
                 <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>    
             </div>
         </div>
