@@ -12,7 +12,8 @@
         <div class="row">
             <label class="col-1">Search</label>
             <div class="col-3">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"/>
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                    (blur)="OnBlur('searchstring')" />
             </div>
             <label class="col-1">Status</label>
             <div class="col-3">
@@ -26,7 +27,8 @@
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
                 <!-- <input type="checkbox" [(ngModel)]="bWithFollowup">
                 <span>With Followup</span> -->
-                <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>    
+                <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                    class="btn btn-primary btn-sm">Print</button>
             </div>
         </div>
     </div>
@@ -331,14 +333,14 @@
                     <label class="col-sm-2 col-form-label col-form-label-sm">Competition</label>
                     <div class="col-sm-10">
                         <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.msl_competition"
-                            required maxlength="100" (blur)="OnBlur('msl_competition')"></textarea>
+                            required maxlength="250" (blur)="OnBlur('msl_competition')"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Comments</label>
                     <div class="col-sm-10">
                         <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.msl_remarks"
-                            required maxlength="100" (blur)="OnBlur('msl_remarks')"></textarea>
+                            required maxlength="250" (blur)="OnBlur('msl_remarks')"></textarea>
                     </div>
                 </div>
 
@@ -371,7 +373,9 @@
                     <button [hidden]="disableSave"
                         [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
-                        <button *ngIf='bPrint' [disabled]="loading" (click)="PrintSaleslead(Record.msl_pkid)"
+                    <input type="checkbox" [(ngModel)]="bWithFollowup">
+                    <span>With Follow Up</span>
+                    <button *ngIf='bPrint' [disabled]="loading" (click)="PrintSaleslead(Record.msl_pkid)"
                         class="btn btn-success btn-sm">Print</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
