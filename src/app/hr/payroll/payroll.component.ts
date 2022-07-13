@@ -84,7 +84,7 @@ export class PayRollComponent {
     private modalService: NgbModal,
     private mainService: PayRollService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 100;
@@ -951,7 +951,7 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.pf_jvno = response.jvno;
-        //this.pf_jvno_ho= response.jvno_ho;
+        this.pf_jvno_ho= response.jvno_ho;
         alert('PF JV Generated : ' + response.msg);
       },
         error => {
