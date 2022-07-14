@@ -242,6 +242,7 @@ export class ParamComponent {
     if (this.type == 'SALESAGENT') {
       this.id5 = "Agent";
       this.id5_lovtype = "CUSTOMER";
+      this.email = "e-Mail";
     }
 
     if (this.type == 'MAILING TYPE') {

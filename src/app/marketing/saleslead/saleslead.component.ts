@@ -47,6 +47,12 @@ export class SalesleadComponent {
 
     mode = '';
     pkid = '';
+    sSubject: string = '';
+    sMsg: string = '';
+    sHtml: string = '';
+    sTo_ids:string ='';
+    AttachList: any[] = [];
+
     showclosebutton: boolean = true;
     AgentList: any[] = [];
     // Array For Displaying List
@@ -57,7 +63,8 @@ export class SalesleadComponent {
     LOCATIONRECORD: SearchTable = new SearchTable();
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
-    bPrint: boolean = true;
+    bPrint: boolean = false;
+    bEmail: boolean = false;
     bWithFollowup: boolean = false;
 
     constructor(
@@ -101,6 +108,7 @@ export class SalesleadComponent {
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
+        this.bEmail = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -110,6 +118,8 @@ export class SalesleadComponent {
                 this.IsCompany = true;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
         }
         this.LoadCombo();
     }
@@ -553,11 +563,11 @@ export class SalesleadComponent {
         }
     }
 
-    PrintSaleslead(_id: string) {
+    PrintSaleslead(_id: string, _type: string, mailsent: any) {
 
         this.loading = true;
         let SearchData = {
-            type: 'type',
+            type: _type,
             pkid: _id,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
@@ -570,7 +580,17 @@ export class SalesleadComponent {
         this.mainService.PrintSaleslead(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                if (_type == 'EXCEL') {
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                }
+                else if (_type == 'MAIL') {
+                    this.AttachList = new Array<any>();
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.sTo_ids = response.toids;
+                    this.open(mailsent);
+                }
 
             },
                 error => {
