@@ -50,6 +50,7 @@ export class SalesleadComponent {
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
+    sTo_ids:string ='';
     AttachList: any[] = [];
 
     showclosebutton: boolean = true;
@@ -587,6 +588,7 @@ export class SalesleadComponent {
                     this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
+                    this.sTo_ids = response.toids;
                     this.open(mailsent);
                 }
 

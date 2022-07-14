@@ -414,7 +414,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="pkid" [type]="'SALES-LEAD'" [sHtml]="sHtml" [defaultmessage]="sMsg"
-            [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+        <app-mail [pkid]="pkid" [type]="'SALES-LEAD'" [defaultto_ids]="sTo_ids" [sHtml]="sHtml" [defaultmessage]="sMsg"
+            [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
     </div>
 </ng-template>
