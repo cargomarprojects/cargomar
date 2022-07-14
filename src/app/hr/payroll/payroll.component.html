@@ -67,7 +67,7 @@
             <button *ngIf="bEmail" [disabled]="loading" (click)="Mail('PAYSLIP-ALL')"
               class="btn btn-primary btn-sm  mr-1">Mail</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
-              SAL-{{salh_jvno}}</button>
+              SAL-{{salh_jvno}}-{{salh_jvno_ho}}</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostPFJV()" class="btn btn-primary btn-sm  mr-1"> Post
               PF-{{pf_jvno}}-{{pf_jvno_ho}}</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostLWFJV()" class="btn btn-primary btn-sm  mr-1"> Post

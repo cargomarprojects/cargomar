@@ -43,6 +43,8 @@ export class PayRollComponent {
   bapprovalstatus = "";
   searchstring = '';
   salh_jvno = 0;
+  salh_jvno_ho = 0;
+
   pf_jvno = 0;
   pf_jvno_ho = 0;
   lwf_jvno = 0;
@@ -232,6 +234,7 @@ export class PayRollComponent {
         this.page_rowcount = response.page_rowcount;
         this.Recorddet = response.record;
         this.salh_jvno = response.saljvno;
+        this.salh_jvno_ho = response.saljvno_ho;
         this.pf_jvno = response.pfjvno;
         this.pf_jvno_ho = response.pfjvno_ho;
         this.lwf_jvno = response.lwfjvno;
@@ -900,7 +903,8 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.salh_jvno =response.jvno;
-        alert('PAYROLL JV Generated : ' + response.jvno);
+        this.salh_jvno_ho = response.jvno_ho;
+        alert('Payroll JV Generated : ' + response.msg);
       },
         error => {
           this.loading = false;
