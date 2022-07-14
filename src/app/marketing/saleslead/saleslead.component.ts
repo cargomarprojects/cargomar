@@ -271,6 +271,7 @@ export class SalesleadComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadm();
         this.Record.msl_pkid = this.pkid;
+        this.Record.msl_slno = 0;
         this.Record.msl_location_id = "";
         this.Record.msl_location_name = this.gs.globalVariables.branch_name;
         this.Record.msl_date = this.gs.defaultValues.today;
@@ -363,6 +364,8 @@ export class SalesleadComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                if (this.mode == "ADD")
+                    this.Record.msl_slno = response.slno;
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 this.InfoMessage = "Save Complete";

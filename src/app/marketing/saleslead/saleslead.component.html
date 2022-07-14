@@ -57,6 +57,7 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr style="cursor: auto">
+                    <th>SL#</th>
                     <th>BRANCH</th>
                     <th>DATE</th>
                     <!-- <th>ACTION</th> -->
@@ -81,7 +82,8 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_location_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.msl_pkid)">{{rec.msl_slno}}</td>
+                    <td>{{rec.msl_location_name}}</td>
                     <td>{{rec.msl_date}}</td>
                     <!-- <td class="hlink" (click)="showhiderow(rec)">{{rec.msl_action}}</td> -->
                     <td>{{rec.rec_created_by}}</td>

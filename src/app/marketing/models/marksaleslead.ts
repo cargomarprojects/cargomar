@@ -35,7 +35,8 @@ export class MarkSalesleadm {
     msl_converted: string;
     msl_country: string;
     msl_status:string;
-    
+    msl_slno:number;
+
     rowdisplayed: boolean = false;
     rec_mode: string;
     rec_user_id: string;
