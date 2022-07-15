@@ -196,6 +196,7 @@ export class SalesleadComponent {
             this.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
+            this.ActionsRecord.parent_id = this.pkid;
         }
         else if (action === 'EDIT') {
             this.currentTab = 'DETAILS';
