@@ -75,7 +75,7 @@
                     <th>COMMODITY</th>
                     <th>TERMS</th>
                     <th>VOLUME</th>
-                    <th>COMMENTS</th>
+                    <!-- <th>COMMENTS</th> -->
                     <th>FOLLOW.UP</th>
                     <th>CONVERTED</th>
                 </tr>
@@ -100,7 +100,7 @@
                     <td>{{rec.msl_commodity}}</td>
                     <td>{{rec.msl_terms}}</td>
                     <td>{{rec.msl_volume}}</td>
-                    <td>{{rec.msl_remarks}}</td>
+                    <!-- <td>{{rec.msl_remarks}}</td> -->
                     <td>{{rec.msl_followupcount}}</td>
                     <td>{{rec.msl_converted}}</td>
                 </tr>
@@ -375,11 +375,13 @@
                     <button [hidden]="disableSave"
                         [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
-                    <input *ngIf="(bPrint||bEmail) && mode=='EDIT'"  type="checkbox" [(ngModel)]="bWithFollowup">
-                    <span *ngIf="(bPrint||bEmail) && mode=='EDIT'" >With Follow Up</span>
-                    <button *ngIf="bPrint && mode=='EDIT'" [disabled]="loading" (click)="PrintSaleslead(Record.msl_pkid,'EXCEL','')"
+                    <input *ngIf="(bPrint||bEmail) && mode=='EDIT'" type="checkbox" [(ngModel)]="bWithFollowup">
+                    <span *ngIf="(bPrint||bEmail) && mode=='EDIT'">With Follow Up</span>
+                    <button *ngIf="bPrint && mode=='EDIT'" [disabled]="loading"
+                        (click)="PrintSaleslead(Record.msl_pkid,'EXCEL','')"
                         class="btn btn-success btn-sm">Print</button>
-                    <button *ngIf="bEmail && mode=='EDIT'" [disabled]="loading" (click)="PrintSaleslead(Record.msl_pkid,'MAIL', mailsent)"
+                    <button *ngIf="bEmail && mode=='EDIT'" [disabled]="loading"
+                        (click)="PrintSaleslead(Record.msl_pkid,'MAIL', mailsent)"
                         class="btn btn-success btn-sm">Mail</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
@@ -388,7 +390,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="mode=='EDIT'" class="page-box">
+    <div *ngIf="mode=='EDIT'" >
         <div class="row">
             <div class="col-sm-12">
                 <app-action [parentData]="ActionsRecord" [rec_user_id]="Record.rec_user_id"

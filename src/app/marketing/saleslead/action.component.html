@@ -1,20 +1,20 @@
 
-<h5 style="color: green" class="my-1">FOLLOW UP</h5>
+<h6 style="color: green" class="my-3">ADD/EDIT FOLLOW UP DETAILS</h6>
 <div class="list-group" *ngFor="let rec of RecordList; let i = index">
   <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <label style="color: brown;padding: 1px;font-weight: bold;font-size: 10px;"
-        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1" (click)="editRecord(rec.msld_pkid)"  class="btn btn-link pointer m-0 p-0">edit</button></label>
+        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1" (click)="editRecord(rec.msld_pkid)" style="color: red;font-weight: bold;font-size: 10px;"  class="btn btn-link pointer m-0 p-0 hlink">EDIT</button></label>
     </div>
-    <h6 style="color: blue" class="my-1">REMARKS</h6>
-    <p style="color: black" class="mb-1">{{rec.msld_remarks}}</p>
-    <h6 style="color: blue" class="my-1">PLAN</h6>
-    <p style="color: black" class="mb-1">{{rec.msld_action_plan}}</p>
+    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS</h6>
+    <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_remarks}}</p>
+    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">PLAN</h6>
+    <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_action_plan}}</p>
   </a>
 </div>
 <div class="page-details">
   <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-12">
         <div class="form-group row">
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Date</label>
@@ -23,8 +23,8 @@
           </div>
         </div>
       </div>
-    </div>
-
+    </div> -->
+    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode=='ADD'?'ADD TO FOLLOW UP':'EDIT FOLLOW UP'}}</h6>
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="form-group row">
@@ -52,8 +52,8 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="form-group row">
           <div class="col-12">
-            <button [disabled]="loading || rec_user_id != gs.globalVariables.user_pkid" (click)="Save()" class="btn btn-primary btn-sm">Save</button>
-            <button [disabled]="loading" (click)="newRecord()" class="btn btn-primary btn-sm">New</button>
+            <button [disabled]="loading || rec_user_id != gs.globalVariables.user_pkid" (click)="Save()" class="btn btn-primary btn-sm my-1">Save</button>
+            <button [disabled]="loading" (click)="newRecord()" class="btn btn-primary btn-sm my-1">Add</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>

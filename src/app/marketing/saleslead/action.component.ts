@@ -42,7 +42,7 @@ export class ActionComponent {
     ErrorMessage = "";
     InfoMessage = "";
 
-    mode = '';
+    mode = 'ADD';
     pkid = '';
     followupcount: string = '';
     // Array For Displaying List
@@ -93,6 +93,7 @@ export class ActionComponent {
     }
 
     newRecord() {
+        this.mode='ADD';
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadd();
@@ -198,7 +199,7 @@ export class ActionComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
- 
+
 
     // Save Data
     Save() {
@@ -223,10 +224,10 @@ export class ActionComponent {
                 this.ErrorMessage = "";
                 if (response.mode == "EDIT") {
                     for (let rec of this.RecordList.filter(rec => rec.msld_pkid == this.pkid)) {
-                        rec.msld_date=this.Record.msld_date;
-                        rec.msld_remarks=this.Record.msld_remarks;
-                        rec.msld_action_plan=this.Record.msld_action_plan;
-                      }
+                        rec.msld_date = this.Record.msld_date;
+                        rec.msld_remarks = this.Record.msld_remarks;
+                        rec.msld_action_plan = this.Record.msld_action_plan;
+                    }
 
                 } else {
                     this.RecordList.push(this.Record);
@@ -296,6 +297,7 @@ export class ActionComponent {
             pkid: Id,
         };
 
+        this.mode = 'EDIT';
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.GetRecordSalesleadActions(SearchData)
