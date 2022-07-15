@@ -228,7 +228,7 @@ export class ActionComponent {
                         rec.msld_remarks = this.Record.msld_remarks;
                         rec.msld_action_plan = this.Record.msld_action_plan;
                     }
-
+                    this.newRecord();
                 } else {
                     this.RecordList.push(this.Record);
                     this.newRecord();
