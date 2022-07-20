@@ -14,38 +14,40 @@
       <div class="col-sm-6">
         <div class="form-group row">
           <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-5">
+          <div class="col-sm-4">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
           </div>
           <div class="col-sm-2">
-            <button [disabled]="loading" (click)="Generate('LIST',bongenerate)" class="btn btn-primary btn-sm">Generate</button>
+            <button [disabled]="loading" (click)="Generate('LIST',bongenerate)"
+              class="btn btn-primary btn-sm">Generate</button>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <input type="checkbox" [(ngModel)]="bRelived"> Relieved
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button [disabled]="loading" *ngIf="bPrint"  (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
+            <button [disabled]="loading" *ngIf="bPrint" (click)="List('CSV')"
+              class="btn btn-primary btn-sm">Csv</button>
           </div>
         </div>
       </div>
+      <div class="col-sm-6">
 
-      <!-- <label class="col-2">Search</label>
-      <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-      </div> -->
     </div>
   </div>
 
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -67,8 +69,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         (click)="ActionHandler('EDIT',rec.bon_pkid)">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.bon_pkid)">
           <td>{{rec.bon_emp_code}}</td>
           <td>{{rec.bon_emp_name}}</td>
           <td>{{rec.bon_days_worked}}</td>
@@ -86,10 +88,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -138,48 +143,48 @@
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Total Month Bonus Payable</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_days_worked" (blur)="OnBlur('bon_days_worked')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_days_worked"
+              (blur)="OnBlur('bon_days_worked')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Bonus Payable</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_gross_bonus" (blur)="OnBlur('bon_gross_bonus')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_gross_bonus"
+              (blur)="OnBlur('bon_gross_bonus')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Puja Bonus</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_puja_deduct" (blur)="OnBlur('bon_puja_deduct')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_puja_deduct"
+              (blur)="OnBlur('bon_puja_deduct')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Interim Bonus</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_interim_deduct" (blur)="OnBlur('bon_interim_deduct')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_interim_deduct"
+              (blur)="OnBlur('bon_interim_deduct')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Tax Deduction If any</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tax_deduct" (blur)="OnBlur('bon_tax_deduct')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_tax_deduct"
+              (blur)="OnBlur('bon_tax_deduct')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Other Deductions</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_other_deduct" (blur)="OnBlur('bon_other_deduct')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_other_deduct"
+              (blur)="OnBlur('bon_other_deduct')" required [maxlength]="14" />
           </div>
         </div>
 
@@ -188,24 +193,24 @@
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Total Deductions</label>
           <div class="col-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.bon_tot_deduct" (blur)="OnBlur('bon_tot_deduct')"
-              required [maxlength]="14" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.bon_tot_deduct"
+              (blur)="OnBlur('bon_tot_deduct')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Net Amount</label>
           <div class="col-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.bon_net_amount" (blur)="OnBlur('bon_net_amount')"
-              required [maxlength]="14" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.bon_net_amount"
+              (blur)="OnBlur('bon_net_amount')" required [maxlength]="14" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Bonus Paid</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_actual_paid" (blur)="OnBlur('bon_actual_paid')"
-              required [maxlength]="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.bon_actual_paid"
+              (blur)="OnBlur('bon_actual_paid')" required [maxlength]="14" />
           </div>
         </div>
 
@@ -225,10 +230,11 @@
         <div class="form-group row">
           <div class="offset-3 col-sm-9">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                  {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -293,7 +299,8 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="Generate('SAVE',bongenerate)" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="Generate('SAVE',bongenerate)"
+                class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>

@@ -20,7 +20,7 @@ export class BonusComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   lock_record: boolean = false;
   bRelived = false;
   bPrint: boolean = false;
@@ -173,7 +173,7 @@ export class BonusComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL' || _type == 'CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
