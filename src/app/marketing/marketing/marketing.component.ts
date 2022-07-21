@@ -314,6 +314,7 @@ export class MarketingComponent {
         this.Record.mark_last_shipment = "";
         this.Record.mark_agent_name = "";
         this.Record.mark_commodity = "";
+        this.Record.mark_next_visit_status = "FOLLOW UP REQUIRED";
         this.Record.rec_mode = this.mode;
         this.InitLov();
     }

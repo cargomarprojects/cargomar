@@ -24,6 +24,7 @@ export class MarkMarketingm {
     mark_jointsalesman_name: string;
     mark_time_visit: string;
     rec_category: string;
+    mark_next_visit_status: string;
 
     mobile: string;
     email: string;
