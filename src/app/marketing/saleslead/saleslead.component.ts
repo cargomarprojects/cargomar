@@ -312,7 +312,7 @@ export class SalesleadComponent {
         this.Record.msl_pod = "";
         this.Record.msl_competition = "";
         this.Record.msl_type = "SEA";
-        this.Record.msl_converted = "N";
+        this.Record.msl_converted = "P";
         this.Record.msl_country = "";
         this.Record.msl_status = "ACTIVE";
 

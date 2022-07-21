@@ -178,14 +178,14 @@
                         <input type="text" class="form-control form-control-sm" name="location"
                             [(ngModel)]="Record.msl_city" required maxlength="60" (blur)="OnBlur('msl_city')" />
                     </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact.Person</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
                             required maxlength="60" (blur)="OnBlur('msl_pic')" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Tel</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_shipper_tel" required maxlength="60"
@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Contact.Person</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"
@@ -246,7 +246,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Telephone</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Tel</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"
@@ -274,9 +274,10 @@
                             <option *ngFor="let rec of AgentList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                         </select>
                     </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="tpe" [(ngModel)]="Record.msl_type">
+                            <option [value]="'BOTH'">BOTH</option>
                             <option [value]="'AIR'">AIR</option>
                             <option [value]="'SEA'">SEA</option>
                         </select>
@@ -352,6 +353,7 @@
                         <select class="form-control form-control-sm" name="cys" [(ngModel)]="Record.msl_converted">
                             <option [value]="'Y'">YES</option>
                             <option [value]="'N'">NO</option>
+                            <option [value]="'P'">IN PROGRESS</option>
                         </select>
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Status</label>
