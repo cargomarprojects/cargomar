@@ -37,7 +37,8 @@ export class MarkContacts {
     rec_user_id: string;
     rec_date: string;
     rec_mode: string;
-
+    cont_contact:string;
+    
     cont_is_seclr: boolean;
     cont_is_sefwd: boolean;
     cont_is_siclr: boolean;

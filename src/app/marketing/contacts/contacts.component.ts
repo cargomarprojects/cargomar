@@ -24,7 +24,7 @@ export class ContactsComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   modal: any;
   disableSave = true;
   loading = false;
@@ -324,7 +324,7 @@ export class ContactsComponent {
     this.Record.cont_is_pj = false;
     this.Record.cont_is_wh = false;
     this.Record.cont_is_tp = false;
-
+    this.Record.cont_contact = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
   }
@@ -523,6 +523,10 @@ export class ContactsComponent {
 
     if (field == 'cont_target_market') {
       this.Record.cont_target_market = this.Record.cont_target_market.toUpperCase();
+    }
+
+    if (field == 'cont_contact') {
+      this.Record.cont_contact = this.Record.cont_contact.toUpperCase();
     }
   }
 
