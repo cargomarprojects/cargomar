@@ -3,7 +3,7 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    <button class="btn btn-primary btn-sm"  *ngIf="showclosebutton" (click)="Close()">Close</button>
+    <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -51,7 +51,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid)">{{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
           <td>{{rec.cont_state}}</td>
@@ -104,7 +105,6 @@
         </div>
 
         <div class="form-group row">
-
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-10">
             <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
@@ -167,6 +167,74 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Sea Export Clearing</label>
+          </div>
+          <div class="col-5 pl-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
+            <label class="col-form-label col-form-label-sm">Sea Export Forwarding</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
+            <label class="col-form-label col-form-label-sm">Sea Import Clearing</label>
+          </div>
+          <div class="col-5 pl-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
+            <label class="col-form-label col-form-label-sm">Sea Import Forwarding</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
+            <label class="col-form-label col-form-label-sm">Air Export Clearing</label>
+          </div>
+          <div class="col-5 pl-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
+            <label class="col-form-label col-form-label-sm">Air Export Forwarding</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
+            <label class="col-form-label col-form-label-sm">Air Import Clearing</label>
+          </div>
+          <div class="col-5 pl-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
+            <label class="col-form-label col-form-label-sm">Air Import Forwarding</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
+            <label class="col-form-label col-form-label-sm">Projects</label>
+          </div>
+          <div class="col-5 pl-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
+            <label class="col-form-label col-form-label-sm">Warehouse</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-5">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
+            <label class="col-form-label col-form-label-sm">Transport</label>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-sm-6">
+
+        <div class="form-group row">
 
           <label class="col-2 col-form-label col-form-label-sm">Region</label>
 
@@ -203,13 +271,6 @@
               [(ngModel)]="Record.cont_target_market" required maxlength="50" (blur)="OnBlur('cont_target_market')" />
           </div>
         </div>
-
-
-      </div>
-
-      <div class="col-sm-6">
-
-
         <div class="form-group row">
 
           <label class="col-2 col-form-label col-form-label-sm">Tel</label>

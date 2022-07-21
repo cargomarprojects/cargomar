@@ -313,6 +313,18 @@ export class ContactsComponent {
     this.Record.cont_csd_name = '';
     this.Record.cont_type_2 = '';
     this.Record.cont_target_market = '';
+    this.Record.cont_is_seclr = false;
+    this.Record.cont_is_sefwd = false;
+    this.Record.cont_is_siclr = false;
+    this.Record.cont_is_sifwd = false;
+    this.Record.cont_is_aeclr = false;
+    this.Record.cont_is_aefwd = false;
+    this.Record.cont_is_aiclr = false;
+    this.Record.cont_is_aifwd = false;
+    this.Record.cont_is_pj = false;
+    this.Record.cont_is_wh = false;
+    this.Record.cont_is_tp = false;
+
     this.Record.rec_mode = this.mode;
     this.InitLov();
   }

@@ -38,6 +38,18 @@ export class MarkContacts {
     rec_date: string;
     rec_mode: string;
 
+    cont_is_seclr: boolean;
+    cont_is_sefwd: boolean;
+    cont_is_siclr: boolean;
+    cont_is_sifwd: boolean;
+    cont_is_aeclr: boolean;
+    cont_is_aefwd: boolean;
+    cont_is_aiclr: boolean;
+    cont_is_aifwd: boolean;
+    cont_is_pj: boolean;
+    cont_is_wh: boolean;
+    cont_is_tp: boolean;
+
     _globalvariables: GlobalVariables;
 }
 
