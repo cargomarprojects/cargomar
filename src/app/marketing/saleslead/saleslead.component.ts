@@ -66,6 +66,7 @@ export class SalesleadComponent {
     PODRECORD: SearchTable = new SearchTable();
     BUYAGENTRECORD: SearchTable = new SearchTable();
     LOCATIONRECORD: SearchTable = new SearchTable();
+    CNTRYRECORD: SearchTable = new SearchTable();
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = false;
@@ -187,6 +188,14 @@ export class SalesleadComponent {
         this.BUYAGENTRECORD.id = "";
         this.BUYAGENTRECORD.code = "";
         this.BUYAGENTRECORD.name = "";
+
+        this.CNTRYRECORD = new SearchTable();
+        this.CNTRYRECORD.controlname = "COUNTRY";
+        this.CNTRYRECORD.displaycolumn = "NAME";
+        this.CNTRYRECORD.type = "COUNTRY";
+        this.CNTRYRECORD.id = "";
+        this.CNTRYRECORD.code = "";
+        this.CNTRYRECORD.name = "";
     }
 
 
@@ -263,6 +272,11 @@ export class SalesleadComponent {
             this.Record.msl_buyagent_id = _Record.id;
             this.Record.msl_buyagent_code = _Record.code;
             this.Record.msl_buyagent_name = _Record.name;
+        }
+        if (_Record.controlname == "COUNTRY") {
+            this.Record.msl_country_id = _Record.id;
+            this.Record.msl_country_code = _Record.code;
+            this.Record.msl_country = _Record.name;
         }
     }
 
@@ -408,6 +422,8 @@ export class SalesleadComponent {
         this.Record.msl_competition = "";
         this.Record.msl_type = "SEA";
         this.Record.msl_converted = "IN-PROGRESS";
+        this.Record.msl_country_id = "";
+        this.Record.msl_country_code = "";
         this.Record.msl_country = "";
         this.Record.msl_status = "ACTIVE";
         this.Record.msl_buyagent_id = "";
@@ -469,6 +485,10 @@ export class SalesleadComponent {
         this.BUYAGENTRECORD.id = this.Record.msl_buyagent_id;
         this.BUYAGENTRECORD.code = this.Record.msl_buyagent_code;
         this.BUYAGENTRECORD.name = this.Record.msl_buyagent_name;
+
+        this.CNTRYRECORD.id = this.Record.msl_country_id;
+        this.CNTRYRECORD.code = this.Record.msl_country_code;
+        this.CNTRYRECORD.name = this.Record.msl_country;
     }
 
 

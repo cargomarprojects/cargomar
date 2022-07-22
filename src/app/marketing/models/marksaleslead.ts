@@ -42,6 +42,8 @@ export class MarkSalesleadm {
     msl_competition: string;
     msl_type: string;
     msl_converted: string;
+    msl_country_id: string;
+    msl_country_code: string;
     msl_country: string;
     msl_status:string;
     msl_slno:number;
