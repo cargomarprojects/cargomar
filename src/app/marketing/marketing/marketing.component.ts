@@ -186,6 +186,7 @@ export class MarketingComponent {
         if (_Record.controlname == "CUSTOMER") {
             this.Record.mark_customer_id = _Record.id;
             this.Record.mark_customer_name = _Record.name;
+            this.Record.mark_contact_person=_Record.col5;
         }
     }
 
