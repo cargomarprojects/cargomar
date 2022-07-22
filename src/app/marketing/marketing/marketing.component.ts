@@ -186,7 +186,7 @@ export class MarketingComponent {
         if (_Record.controlname == "CUSTOMER") {
             this.Record.mark_customer_id = _Record.id;
             this.Record.mark_customer_name = _Record.name;
-            this.Record.mark_contact_person=_Record.col5;
+            this.Record.mark_contact_person = _Record.col5;
         }
     }
 
@@ -237,7 +237,9 @@ export class MarketingComponent {
 
     // Query List Data
     List(_type: string) {
-
+        
+        if (this.searchby == "NA")
+            this.searchstring = "";
         this.loading = true;
         let SearchData = {
             type: _type,
