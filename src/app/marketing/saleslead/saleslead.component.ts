@@ -50,7 +50,7 @@ export class SalesleadComponent {
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
-    sTo_ids:string ='';
+    sTo_ids: string = '';
     AttachList: any[] = [];
 
     showclosebutton: boolean = true;
@@ -60,6 +60,11 @@ export class SalesleadComponent {
     // Single Record for add/edit/view details
     Record: MarkSalesleadm = new MarkSalesleadm;
 
+    EXPRECORD: SearchTable = new SearchTable();
+    IMPRECORD: SearchTable = new SearchTable();
+    POLRECORD: SearchTable = new SearchTable();
+    PODRECORD: SearchTable = new SearchTable();
+    BUYAGENTRECORD: SearchTable = new SearchTable();
     LOCATIONRECORD: SearchTable = new SearchTable();
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
@@ -139,6 +144,45 @@ export class SalesleadComponent {
         this.LOCATIONRECORD.id = "";
         this.LOCATIONRECORD.name = "";
 
+        this.EXPRECORD = new SearchTable();
+        this.EXPRECORD.controlname = "EXPORTER";
+        this.EXPRECORD.displaycolumn = "NAME";
+        this.EXPRECORD.type = "MARKETING CONTACT";
+        this.EXPRECORD.id = "";
+        this.EXPRECORD.code = "";
+        this.EXPRECORD.name = "";
+
+        this.IMPRECORD = new SearchTable();
+        this.IMPRECORD.controlname = "IMPORTER";
+        this.IMPRECORD.displaycolumn = "NAME";
+        this.IMPRECORD.type = "MARKETING CONTACT";
+        this.IMPRECORD.id = "";
+        this.IMPRECORD.code = "";
+        this.IMPRECORD.name = "";
+
+        this.POLRECORD = new SearchTable();
+        this.POLRECORD.controlname = "POL";
+        this.POLRECORD.displaycolumn = "CODE";
+        this.POLRECORD.type = "PORT";
+        this.POLRECORD.id = "";
+        this.POLRECORD.code = "";
+        this.POLRECORD.name = "";
+
+        this.PODRECORD = new SearchTable();
+        this.PODRECORD.controlname = "POD";
+        this.PODRECORD.displaycolumn = "CODE";
+        this.PODRECORD.type = "PORT";
+        this.PODRECORD.id = "";
+        this.PODRECORD.code = "";
+        this.PODRECORD.name = "";
+
+        this.BUYAGENTRECORD = new SearchTable();
+        this.BUYAGENTRECORD.controlname = "BUYING-AGENT";
+        this.BUYAGENTRECORD.displaycolumn = "NAME";
+        this.BUYAGENTRECORD.type = "MARKETING CONTACT";
+        this.BUYAGENTRECORD.id = "";
+        this.BUYAGENTRECORD.code = "";
+        this.BUYAGENTRECORD.name = "";
     }
 
 
@@ -177,7 +221,45 @@ export class SalesleadComponent {
             this.Record.msl_location_name = _Record.name;
         }
 
-
+        if (_Record.controlname == "EXPORTER") {
+            this.Record.msl_shipper_id = _Record.id;
+            this.Record.msl_shipper_code = _Record.code;
+            this.Record.msl_shipper_name = _Record.name;
+            this.Record.msl_shipper_add1 = _Record.col1;
+            this.Record.msl_shipper_add2 = _Record.col2;
+            this.Record.msl_shipper_add3 = _Record.col3;
+            this.Record.msl_city = _Record.col4;
+            this.Record.msl_pic = _Record.col5;
+            this.Record.msl_shipper_tel = _Record.col6;
+            this.Record.msl_shipper_email = _Record.col7;
+        }
+        if (_Record.controlname == "IMPORTER") {
+            this.Record.msl_consignee_id = _Record.id;
+            this.Record.msl_consignee_code = _Record.code;
+            this.Record.msl_consignee = _Record.name;
+            this.Record.msl_consignee_add1 = _Record.col1;
+            this.Record.msl_consignee_add2 = _Record.col2;
+            this.Record.msl_consignee_add3 = _Record.col3;
+            this.Record.msl_consignee_pic = _Record.col5;
+            this.Record.msl_consignee_tel = _Record.col6;
+            this.Record.msl_consignee_email = _Record.col7;
+            this.Record.msl_country = _Record.col8;
+        }
+        if (_Record.controlname == "POL") {
+            this.Record.msl_pol_id = _Record.id;
+            this.Record.msl_pol_code = _Record.code;
+            this.Record.msl_pol = _Record.name;
+        }
+        if (_Record.controlname == "POD") {
+            this.Record.msl_pod_id = _Record.id;
+            this.Record.msl_pod_code = _Record.code;
+            this.Record.msl_pod = _Record.name;
+        }
+        if (_Record.controlname == "BUYING-AGENT") {
+            this.Record.msl_buyagent_id = _Record.id;
+            this.Record.msl_buyagent_code = _Record.code;
+            this.Record.msl_buyagent_name = _Record.name;
+        }
     }
 
 
@@ -286,12 +368,16 @@ export class SalesleadComponent {
         this.Record.msl_location_id = "";
         this.Record.msl_location_name = this.gs.globalVariables.branch_name;
         this.Record.msl_date = this.gs.defaultValues.today;
+        this.Record.msl_shipper_id = "";
+        this.Record.msl_shipper_code = "";
         this.Record.msl_shipper_name = "";
         this.Record.msl_shipper_add1 = "";
         this.Record.msl_shipper_add2 = "";
         this.Record.msl_shipper_add3 = "";
         this.Record.msl_city = "";
         this.Record.msl_pic = "";
+        this.Record.msl_consignee_id = "";
+        this.Record.msl_consignee_code = "";
         this.Record.msl_consignee = "";
         this.Record.msl_destination = "";
         this.Record.msl_remarks = "";
@@ -308,13 +394,21 @@ export class SalesleadComponent {
         this.Record.msl_terms = "";
         this.Record.msl_commodity = "";
         this.Record.msl_volume = "";
+        this.Record.msl_pol_id = "";
+        this.Record.msl_pol_code = "";
         this.Record.msl_pol = "";
+        this.Record.msl_pod_id = "";
+        this.Record.msl_pod_code = "";
         this.Record.msl_pod = "";
+        this.Record.msl_recommendation = "";
         this.Record.msl_competition = "";
         this.Record.msl_type = "SEA";
-        this.Record.msl_converted = "P";
+        this.Record.msl_converted = "IN-PROGRESS";
         this.Record.msl_country = "";
         this.Record.msl_status = "ACTIVE";
+        this.Record.msl_buyagent_id = "";
+        this.Record.msl_buyagent_code = "";
+        this.Record.msl_buyagent_name = "";
 
         this.Record.rec_mode = this.mode;
         this.Record.rec_user_id = this.gs.globalVariables.user_pkid;
@@ -352,9 +446,25 @@ export class SalesleadComponent {
 
         this.InitLov();
 
-        // this.LOCATIONRECORD.id = this.Record.msl_location_id.toString();
-        // this.LOCATIONRECORD.name = this.Record.msl_location_name;
+        this.EXPRECORD.id = this.Record.msl_shipper_id;
+        this.EXPRECORD.code = this.Record.msl_shipper_code;
+        this.EXPRECORD.name = this.Record.msl_shipper_name;
+        
+        this.IMPRECORD.id = this.Record.msl_consignee_id;
+        this.IMPRECORD.code = this.Record.msl_consignee_code;
+        this.IMPRECORD.name = this.Record.msl_consignee;
 
+        this.POLRECORD.id = this.Record.msl_pol_id;
+        this.POLRECORD.code = this.Record.msl_pol_code;
+        this.POLRECORD.name = this.Record.msl_pol;
+
+        this.PODRECORD.id = this.Record.msl_pod_id;
+        this.PODRECORD.code = this.Record.msl_pod_code;
+        this.PODRECORD.name = this.Record.msl_pod
+
+        this.BUYAGENTRECORD.id = this.Record.msl_buyagent_id;
+        this.BUYAGENTRECORD.code = this.Record.msl_buyagent_code;
+        this.BUYAGENTRECORD.name = this.Record.msl_buyagent_name;
     }
 
 
@@ -533,6 +643,9 @@ export class SalesleadComponent {
         if (field == 'msl_competition') {
             this.Record.msl_competition = this.Record.msl_competition.toUpperCase();
         }
+        if (field == 'msl_recommendation') {
+            this.Record.msl_recommendation = this.Record.msl_recommendation.toUpperCase();
+        }
         if (field == 'searchstring') {
             this.searchstring = this.searchstring.trim().toUpperCase();
         }
@@ -586,7 +699,7 @@ export class SalesleadComponent {
                 }
                 else if (_type == 'MAIL') {
                     this.AttachList = new Array<any>();
-                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
                     this.sTo_ids = response.toids;
