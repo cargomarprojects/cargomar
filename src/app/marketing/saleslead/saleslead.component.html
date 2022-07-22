@@ -423,6 +423,8 @@
                     <button *ngIf="bEmail && mode=='EDIT'" [disabled]="loading"
                         (click)="PrintSaleslead(Record.msl_pkid,'MAIL', mailsent)"
                         class="btn btn-success btn-sm">Mail</button>
+                    <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                        class="btn btn-success btn-sm">Documents</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -458,5 +460,19 @@
     <div class="modal-body">
         <app-mail [pkid]="pkid" [type]="'SALES-LEAD'" [defaultto_ids]="sTo_ids" [sHtml]="sHtml" [defaultmessage]="sMsg"
             [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+    </div>
+</ng-template>
+<ng-template #doc let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Documents</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-upload [pkid]="pkid" [type]="'SALES-LEAD'"></app-upload>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

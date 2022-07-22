@@ -70,6 +70,7 @@ export class SalesleadComponent {
     IsAdmin: boolean = false;
     bPrint: boolean = false;
     bEmail: boolean = false;
+    bDocs: boolean = false;
     bWithFollowup: boolean = false;
 
     constructor(
@@ -114,6 +115,7 @@ export class SalesleadComponent {
         this.IsCompany = false;
         this.bPrint = false;
         this.bEmail = false;
+        this.bDocs = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -125,6 +127,8 @@ export class SalesleadComponent {
                 this.bPrint = true;
             if (this.menu_record.rights_email)
                 this.bEmail = true;
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
         }
         this.LoadCombo();
     }
@@ -449,7 +453,7 @@ export class SalesleadComponent {
         this.EXPRECORD.id = this.Record.msl_shipper_id;
         this.EXPRECORD.code = this.Record.msl_shipper_code;
         this.EXPRECORD.name = this.Record.msl_shipper_name;
-        
+
         this.IMPRECORD.id = this.Record.msl_consignee_id;
         this.IMPRECORD.code = this.Record.msl_consignee_code;
         this.IMPRECORD.name = this.Record.msl_consignee;
@@ -712,6 +716,11 @@ export class SalesleadComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
 
+    }
+
+    ShowDocuments(doc: any) {
+        this.ErrorMessage = '';
+        this.open(doc);
     }
 
 }
