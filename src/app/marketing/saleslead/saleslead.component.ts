@@ -258,7 +258,7 @@ export class SalesleadComponent {
             this.Record.msl_consignee_email = _Record.col7;
             this.Record.msl_country = '';
             var temparry = _Record.col8.split(',');
-            if (temparry.length == 2) {
+            if (temparry.length >= 2) {
                 this.Record.msl_country_id = temparry[0].toString();
                 this.Record.msl_country = temparry[1].toString();
                 this.Record.msl_country_code = '';
