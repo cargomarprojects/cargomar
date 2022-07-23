@@ -256,7 +256,20 @@ export class SalesleadComponent {
             this.Record.msl_consignee_pic = _Record.col5;
             this.Record.msl_consignee_tel = _Record.col6;
             this.Record.msl_consignee_email = _Record.col7;
-            this.Record.msl_country = _Record.col8;
+            this.Record.msl_country = '';
+            var temparry = _Record.col8.split(',');
+            if (temparry.length == 2) {
+                this.Record.msl_country_id = temparry[0].toString();
+                this.Record.msl_country = temparry[1].toString();
+                this.Record.msl_country_code = '';
+                this.CNTRYRECORD = new SearchTable();
+                this.CNTRYRECORD.controlname = "COUNTRY";
+                this.CNTRYRECORD.displaycolumn = "NAME";
+                this.CNTRYRECORD.type = "COUNTRY";
+                this.CNTRYRECORD.id = this.Record.msl_country_id;
+                this.CNTRYRECORD.code = this.Record.msl_country_code;
+                this.CNTRYRECORD.name = this.Record.msl_country;
+            }
         }
         if (_Record.controlname == "POL") {
             this.Record.msl_pol_id = _Record.id;

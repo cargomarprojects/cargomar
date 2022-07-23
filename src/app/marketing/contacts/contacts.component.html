@@ -102,7 +102,7 @@
             <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
           <div class="col-4">
             <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
               <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
@@ -176,7 +176,7 @@
             <input type="text" class="form-control form-control-sm" name="location" [(ngModel)]="Record.cont_location"
               required maxlength="25" (blur)="OnBlur('cont_location')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">Contact.Person</label>
+          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Contact.Person</label>
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" name="cperson" [(ngModel)]="Record.cont_contact"
               required maxlength="60" (blur)="OnBlur('cont_contact')" />
@@ -188,7 +188,7 @@
             <input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="Record.cont_state"
               required maxlength="60" (blur)="OnBlur('cont_state')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">Country</label>
+          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Country</label>
           <div class="col-4">
             <!-- <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
               required maxlength="60" (blur)="OnBlur('cont_country')" /> -->
