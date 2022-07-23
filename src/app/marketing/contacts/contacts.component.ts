@@ -56,7 +56,7 @@ export class ContactsComponent {
   CATEGORYRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
   CSDRECORD: SearchTable = new SearchTable();
-
+  CNTRYRECORD: SearchTable = new SearchTable();
 
   constructor(
     private modalService: NgbModal,
@@ -146,7 +146,13 @@ export class ContactsComponent {
     this.CSDRECORD.code = "";
     this.CSDRECORD.name = "";
 
-
+    this.CNTRYRECORD = new SearchTable();
+    this.CNTRYRECORD.controlname = "COUNTRY";
+    this.CNTRYRECORD.displaycolumn = "NAME";
+    this.CNTRYRECORD.type = "COUNTRY";
+    this.CNTRYRECORD.id = "";
+    this.CNTRYRECORD.code = "";
+    this.CNTRYRECORD.name = "";
   }
 
 
@@ -189,6 +195,12 @@ export class ContactsComponent {
     if (_Record.controlname == "CSD") {
       this.Record.cont_csd_id = _Record.id;
       this.Record.cont_csd_name = _Record.name;
+    }
+
+    if (_Record.controlname == "COUNTRY") {
+      this.Record.cont_country_id = _Record.id;
+      this.Record.cont_country_code = _Record.code;
+      this.Record.cont_country = _Record.name;
     }
 
   }
@@ -293,6 +305,8 @@ export class ContactsComponent {
     this.Record.cont_add4 = '';
     this.Record.cont_add5 = '';
     this.Record.cont_state = '';
+    this.Record.cont_country_id = '';
+    this.Record.cont_country_code = '';
     this.Record.cont_country = '';
     this.Record.cont_tel = '';
     this.Record.cont_fax = '';
@@ -368,6 +382,10 @@ export class ContactsComponent {
 
     this.CSDRECORD.id = this.Record.cont_csd_id.toString();
     this.CSDRECORD.name = this.Record.cont_csd_name;
+
+    this.CNTRYRECORD.id = this.Record.cont_country_id;
+    this.CNTRYRECORD.code = this.Record.cont_country_code;
+    this.CNTRYRECORD.name = this.Record.cont_country;
 
   }
 

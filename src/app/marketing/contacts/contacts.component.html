@@ -190,69 +190,39 @@
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
-              required maxlength="60" (blur)="OnBlur('cont_country')" />
+            <!-- <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
+              required maxlength="60" (blur)="OnBlur('cont_country')" /> -->
+              <app-autocomplete #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
           </div>
         </div>
-        <!-- <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Country</label>
-          <div class="col-10">
-            <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
-              required maxlength="60" (blur)="OnBlur('cont_country')" />
-          </div>
-        </div> -->
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Mode</label>
           <div class="col-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
-            <label class="col-form-label col-form-label-sm">Sea Export Clearing</label>
+            <label class="col-form-label col-form-label-sm">Sea Export CLR</label>
           </div>
-          <div class="col-6">
+          <div class="col-3  pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
-            <label class="col-form-label col-form-label-sm">Sea Export Forwarding</label>
+            <label class="col-form-label col-form-label-sm">Sea Export FWD</label>
+          </div>
+          <div class="col-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
+            <label class="col-form-label col-form-label-sm">Projects</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
-            <label class="col-form-label col-form-label-sm">Sea Import Clearing</label>
+            <label class="col-form-label col-form-label-sm">Sea Import CLR</label>
           </div>
-          <div class="col-6">
+          <div class="col-3 pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
-            <label class="col-form-label col-form-label-sm">Sea Import Forwarding</label>
+            <label class="col-form-label col-form-label-sm">Sea Import FWD</label>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
-            <label class="col-form-label col-form-label-sm">Air Export Clearing</label>
-          </div>
-          <div class="col-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
-            <label class="col-form-label col-form-label-sm">Air Export Forwarding</label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
-            <label class="col-form-label col-form-label-sm">Air Import Clearing</label>
-          </div>
-          <div class="col-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
-            <label class="col-form-label col-form-label-sm">Air Import Forwarding</label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
-            <label class="col-form-label col-form-label-sm">Projects</label>
-          </div>
-          <div class="col-6">
+          <div class="col-3 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
             <label class="col-form-label col-form-label-sm">Warehouse</label>
           </div>
@@ -260,12 +230,72 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-4 pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
+            <label class="col-form-label col-form-label-sm">Air Export CLR</label>
+          </div>
+          <div class="col-3 pl-0 pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
+            <label class="col-form-label col-form-label-sm">Air Export FWD</label>
+          </div>
+          <div class="col-3 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
             <label class="col-form-label col-form-label-sm">Transport</label>
           </div>
         </div>
-
-
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-4 pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
+            <label class="col-form-label col-form-label-sm">Air Import CLR</label>
+          </div>
+          <div class="col-3 pl-0 pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
+            <label class="col-form-label col-form-label-sm">Air Import FWD</label>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-10 input-group input-group-sm pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm mr-4">Sea Export CLR&nbsp;</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
+            <label class="col-form-label col-form-label-sm mr-4">Sea Export FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
+            <label class="col-form-label col-form-label-sm">Projects</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10 input-group input-group-sm pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
+            <label class="col-form-label col-form-label-sm mr-4">Sea Import CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
+            <label class="col-form-label col-form-label-sm mr-4">Sea Import FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
+            <label class="col-form-label col-form-label-sm">Warehouse</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10 input-group input-group-sm pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
+            <label class="col-form-label col-form-label-sm mr-4">Air Export CLR&nbsp;</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
+            <label class="col-form-label col-form-label-sm mr-4">Air Export FWD&nbsp;&nbsp;</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
+            <label class="col-form-label col-form-label-sm">Transport</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10 input-group input-group-sm pr-0">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
+            <label class="col-form-label col-form-label-sm mr-4">Air Import CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
+            <label class="col-form-label col-form-label-sm mr-4">Air Import FWD</label>
+          </div>
+        </div> -->
+ 
       </div>
 
       <div class="col-sm-6">

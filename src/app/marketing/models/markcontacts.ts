@@ -10,6 +10,8 @@ export class MarkContacts {
     cont_add4: string;
     cont_add5: string;
     cont_state: string;
+    cont_country_id: string;
+    cont_country_code: string;
     cont_country: string;
     cont_tel: string;
     cont_fax: string;
