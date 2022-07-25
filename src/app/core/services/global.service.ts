@@ -335,7 +335,7 @@ export class GlobalService {
     this.defaultValues.lastmonthdate = this.getNewdate(30);//get today -30 days
     this.defaultValues.print_cheque_only_after_ho_approved = 'N';
     this.defaultValues.tdsos_list_format = 'BRANCH-WISE';
-
+    this.defaultValues.bl_fmc_no = "031793";
     this.globalData.cost_sea_fromdate = this.defaultValues.monthbegindate;
     this.globalData.cost_sea_todate = this.defaultValues.today;
     this.globalData.cost_air_fromdate = this.defaultValues.monthbegindate;

@@ -268,5 +268,7 @@ export class Bl {
   bl_draft_lock: boolean;
   bl_seawaybill:boolean;
   bl_seawaybill_disabled:boolean;
+
+  bl_fmc_no: string;
 }
 

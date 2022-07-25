@@ -37,6 +37,7 @@ export class DefaultValues {
     bl_issued_by4: string;
     bl_issued_by5: string;
     bl_issued_place: string;
+    bl_fmc_no: string;
 
     doc_prefix: string;
     pf_col_excluded: string;

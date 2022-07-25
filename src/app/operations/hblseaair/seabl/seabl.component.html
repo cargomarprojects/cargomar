@@ -268,9 +268,14 @@
 
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Reg. No.</label>
-        <div class="col-8">
+        <div class="col-4">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_reg_no"
             (blur)="OnBlur('bl_reg_no')" disabled required maxlength="30" />
+        </div>
+        <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">FMC.No.</label>
+        <div class="col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fmc_no"
+            (blur)="OnBlur('bl_fmc_no')" disabled required maxlength="30" />
         </div>
       </div>
 

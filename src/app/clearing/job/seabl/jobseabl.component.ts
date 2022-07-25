@@ -338,6 +338,7 @@ export class BlComponent {
       this.Record.bl_issued_by5 = this.gs.defaultValues.bl_issued_by5;
       this.Record.bl_issued_place = this.gs.defaultValues.bl_issued_place;
     }
+    this.Record.bl_fmc_no = this.gs.defaultValues.bl_fmc_no;
     this.InitLov();
     this.SHPRRECORD.id = this.Record.bl_shipper_id;
     this.SHPRRECORD.code = this.Record.bl_shipper_code;
