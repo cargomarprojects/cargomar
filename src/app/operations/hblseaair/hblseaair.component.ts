@@ -687,6 +687,8 @@ export class HblSeaAirComponent {
 
         //Fill Duplicate Job
         if (this.mode == "ADD") {
+            this.old_shipper_id = '';
+            this.old_billto_id = '';
             this.Record.hbl_pkid = this.pkid;
             this.Record.hbl_no = null;
             this.Record.hbl_mbl_id = '';

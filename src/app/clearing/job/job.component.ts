@@ -1165,6 +1165,8 @@ export class JobComponent {
     this.Record.rec_mode = this.mode;
     //Fill Duplicate Job
     if (this.mode == "ADD") {
+      this.old_shipper_id = '';
+      this.old_billto_id = '';
       this.Record.job_pkid = this.pkid;
       this.Record.jobs_hbl_id = '';
       this.Record.job_docno = null;
