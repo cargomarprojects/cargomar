@@ -116,7 +116,7 @@ export class MblSeaComponent {
     private mainService: LinerBkmService,
     private prealertService: PreAlertReportService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 10;
