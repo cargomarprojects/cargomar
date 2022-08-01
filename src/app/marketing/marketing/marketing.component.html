@@ -293,23 +293,6 @@
         </div>
     </div>
     <div class="page-box">
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
-            <div class="col-sm-10">
-                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_result"
-                    maxlength="1000" (blur)="OnBlur('mark_result')"></textarea>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Next Action</label>
-            <div class="col-sm-10">
-                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_next_action"
-                    maxlength="255" (blur)="OnBlur('mark_next_action')"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group row">
@@ -332,6 +315,24 @@
             </div>
         </div>
     </div>
+    <div class="page-box">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
+            <div class="col-sm-10">
+                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_result"
+                    maxlength="1000" (blur)="OnBlur('mark_result')"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Next Action</label>
+            <div class="col-sm-10">
+                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_next_action"
+                    maxlength="255" (blur)="OnBlur('mark_next_action')"></textarea>
+            </div>
+        </div>
+    </div>
+    
     <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
