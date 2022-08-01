@@ -16,13 +16,19 @@
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
-              <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
+            <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Branch</button>
+            <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="btn btn-primary btn-sm"
+              (click)="List('EXCEL','EXCEL-ALL')">Excel/ALL</button>
+            <label class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
+              <input type="checkbox" [(ngModel)]="IsHeader"> Header
+            </label>
             <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
           <div class="col-sm-4">
-            <app-allreport [reportname]="title" [canrefresh]="isadmin" [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'os'" ></app-allreport>
+            <app-allreport [reportname]="title" [canrefresh]="isadmin" [company_code]="gs.globalVariables.comp_code"
+              [branch_code]='' [view_name]="'os'"></app-allreport>
           </div>
         </div>
       </div>
@@ -30,7 +36,8 @@
   </div>
 
   <div class="page-list">
-    <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'|| category == 'PARTYLIST'" class="page-body table-responsive">
+    <div *ngIf="category == 'OSLIST' || category == 'SMANLIST'|| category == 'PARTYLIST'"
+      class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
@@ -56,17 +63,17 @@
             <td *ngIf="category == 'PARTYLIST'">{{rec.party}}</td>
             <td *ngIf="category == 'SMANLIST' || category == 'PARTYLIST'">{{rec.sman}}</td>
             <td *ngIf="category == 'OSLIST' || category == 'PARTYLIST'">{{rec.branch}}</td>
-            <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.legal | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age1 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age2 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age3 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age4 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age5 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age6 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.overdue | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.oneyear | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.legal | number : '1.2-2' }}</td>
           </tr>
         </tbody>
       </table>
@@ -100,16 +107,16 @@
             <td>{{rec.party}}</td>
             <td>{{rec.sman}}</td>
             <td>{{rec.branch}}</td>
-            <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age3 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age4 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age5 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.age6 | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.overdue | number : '1.2-2'  }}</td>
-            <td align='right'>{{ rec.oneyear | number : '1.2-2'  }}</td>
+            <td align='right'>{{ rec.age1 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age2 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age3 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age4 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age5 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.age6 | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.advance | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.overdue | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.oneyear | number : '1.2-2' }}</td>
           </tr>
         </tbody>
       </table>
@@ -152,7 +159,7 @@
             <tbody class="page-body-tbody" *ngFor="let rec of AirList">
               <tr [style.color]="rec.row_colour">
                 <td>{{rec.branch}}</td>
-                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
               </tr>
             </tbody>
 
@@ -175,7 +182,7 @@
               <tr [style.color]="rec.row_colour">
                 <td>{{rec.branch}}</td>
                 <td>{{rec.sman}}</td>
-                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
               </tr>
             </tbody>
           </table>
@@ -197,7 +204,7 @@
               <tr [style.color]="rec.row_colour">
                 <td>{{rec.branch}}</td>
                 <td>{{rec.sman}}</td>
-                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
               </tr>
             </tbody>
           </table>
@@ -236,9 +243,9 @@
             <tbody class="page-body-tbody" *ngFor="let rec of InvList">
               <tr [style.color]="rec.row_colour">
                 <td (click)="InvReport('SCREEN', rec.branch_code)">{{rec.branch}}</td>
-                <td align='right'>{{ rec.age1 | number : '1.2-2'  }}</td>
-                <td align='right'>{{ rec.age2 | number : '1.2-2'  }}</td>
-                <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+                <td align='right'>{{ rec.age1 | number : '1.2-2' }}</td>
+                <td align='right'>{{ rec.age2 | number : '1.2-2' }}</td>
+                <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
                 <td><i class="fa fa-file-excel-o  fa-lg pointer" aria-hidden="true"
                     (click)="InvReport('EXCEL', rec.branch_code)"></i></td>
               </tr>

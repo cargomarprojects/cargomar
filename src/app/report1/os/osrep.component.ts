@@ -51,6 +51,7 @@ export class OsRepComponent {
 
   iscompany = false;
   isadmin = false;
+  IsHeader = false;
   category: string = 'OSLIST';
 
   PayTab = '';
@@ -190,13 +191,14 @@ export class OsRepComponent {
     if (_category == 'EXCEL')
       _category = this.category;
 
-    this.category = _category;
+    if (_category != 'EXCEL-ALL')
+      this.category = _category;
 
     if (this.category == 'OSLIST')
       this.title = 'OS - Branch Wise';
     if (this.category == 'SMANLIST')
       this.title = 'OS - Salesman Wise';
-      if (this.category == 'PARTYLIST')
+    if (this.category == 'PARTYLIST')
       this.title = 'OS - Party Wise';
     if (this.category == 'LEGAL') {
       this.title = 'OS - Legal Wise';
