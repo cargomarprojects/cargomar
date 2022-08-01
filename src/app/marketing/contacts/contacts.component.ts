@@ -20,6 +20,8 @@ export class ContactsComponent {
   @Input() iisModalWindow: string = 'N';
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() clientType: string = '';
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -341,6 +343,18 @@ export class ContactsComponent {
     this.Record.cont_contact = '';
     this.Record.rec_mode = this.mode;
     this.InitLov();
+    if (!this.gs.isBlank(this.clientType)) {
+      if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {
+        this.CATEGORYRECORD.id = "4E625CA6-3343-478F-9C54-3A29C5172330";
+        this.CATEGORYRECORD.code = "SHIPPER";
+        this.CATEGORYRECORD.name = "SHIPPER";
+      }
+      if (this.clientType == "CONSIGNEE" && this.gs.globalVariables.comp_code == "CPL") {
+        this.CATEGORYRECORD.id = "5260B605-4D32-4064-BB61-FCDC76D503F1";
+        this.CATEGORYRECORD.code = "CONSIGNEE";
+        this.CATEGORYRECORD.name = "CONSIGNEE";
+      }
+    }
   }
 
 
@@ -425,22 +439,22 @@ export class ContactsComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
-    if (this.gs.isBlank(this.Record.cont_name)) {
-      bret = false;
-      sError = " | Name Cannot be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.cont_name)) {
+    //   bret = false;
+    //   sError = " | Name Cannot be Blank";
+    // }
 
-    if (this.gs.isBlank(this.Record.cont_type_2)) {
-      bret = false;
-      sError += " | Type Cannot be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.cont_type_2)) {
+    //   bret = false;
+    //   sError += " | Type Cannot be Blank";
+    // }
 
     if (bret) {
       this.Record.cont_name = this.Record.cont_name.toUpperCase().trim();
     }
 
-    if (bret === false)
-      this.ErrorMessage = sError;
+    // if (bret === false)
+    //   this.ErrorMessage = sError;
     return bret;
   }
 

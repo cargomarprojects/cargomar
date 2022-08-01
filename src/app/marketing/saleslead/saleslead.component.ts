@@ -44,7 +44,7 @@ export class SalesleadComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-
+    clientType = "";
     mode = '';
     pkid = '';
     sSubject: string = '';
@@ -756,4 +756,9 @@ export class SalesleadComponent {
         this.open(doc);
     }
 
+    ShowClientModal(content: any, _clientType: string) {
+        this.ErrorMessage = '';
+        this.clientType = _clientType;
+        this.open(content);
+    }
 }
