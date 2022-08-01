@@ -28,6 +28,7 @@ export class MarketingComponent {
     modal: any;
     disableSave = true;
     loading = false;
+
     currentTab = 'LIST';
 
     searchby = "";
@@ -62,6 +63,7 @@ export class MarketingComponent {
     IsAdmin: boolean = false;
     CanAddContacts: boolean = false;
     bPrint: boolean = false;
+    IsHeader: boolean = true;
 
     constructor(
         private modalService: NgbModal,
@@ -184,6 +186,8 @@ export class MarketingComponent {
         }
 
         if (_Record.controlname == "CUSTOMER") {
+            if (this.Record.mark_customer_id != _Record.id)
+                this.Record.rec_category = "";
             this.Record.mark_customer_id = _Record.id;
             this.Record.mark_customer_name = _Record.name;
             this.Record.mark_contact_person = _Record.col5;
@@ -237,7 +241,7 @@ export class MarketingComponent {
 
     // Query List Data
     List(_type: string) {
-        
+
         if (this.searchby == "NA")
             this.searchstring = "";
         this.loading = true;
@@ -264,7 +268,8 @@ export class MarketingComponent {
             user_pkid: this.gs.globalVariables.user_pkid,
             from_date: this.gs.globalData.mark_fromdate,
             to_date: this.gs.globalData.mark_todate,
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            isheader: this.IsHeader
         };
 
         this.ErrorMessage = '';
@@ -298,7 +303,7 @@ export class MarketingComponent {
         this.Record = new MarkMarketingm();
         this.Record.mark_pkid = this.pkid;
         this.Record.mark_mode = "PERSONAL VISIT";
-        this.Record.rec_category = "SEA EXPORT";
+        this.Record.rec_category = "";
         this.Record.mark_visit_date = "";
         this.Record.mark_result = "";
         this.Record.mark_next_action = "";
@@ -388,6 +393,8 @@ export class MarketingComponent {
                         this.Record.mark_commodity = mRow.mark_commodity;
                     if (!this.gs.isBlank(mRow.mark_contact_person))
                         this.Record.mark_contact_person = mRow.mark_contact_person;
+                    if (!this.gs.isBlank(mRow.rec_category))
+                        this.Record.rec_category = mRow.rec_category;
                 }
                 // this.ErrorMessage = this.title;
             },
