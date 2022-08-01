@@ -76,13 +76,12 @@ export class OsRepComponent {
     branch: '',
     branch_code: '',
     year_code: '',
-
     iscompany: false,
     isadmin: false,
     filter_branch_code: '',
     filter_sman_id: '',
     filter_sman_name: '',
-
+    isheader:false
   };
 
   ChildData = {
@@ -220,7 +219,7 @@ export class OsRepComponent {
     this.SearchData.filter_branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.filter_sman_id = this.gs.globalVariables.sman_id;
     this.SearchData.filter_sman_name = this.gs.globalVariables.sman_name;
-
+    this.SearchData.isheader = this.IsHeader;
 
     this.ErrorMessage = '';
     this.mainService.OsReport(this.SearchData)
