@@ -345,15 +345,16 @@ export class ContactsComponent {
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
       if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {
-        this.CATEGORYRECORD.id = "4E625CA6-3343-478F-9C54-3A29C5172330";
-        this.CATEGORYRECORD.code = "SHIPPER";
-        this.CATEGORYRECORD.name = "SHIPPER";
+        this.Record.cont_type_id = "4E625CA6-3343-478F-9C54-3A29C5172330";
+        this.Record.cont_type_name = "SHIPPER";
       }
       if (this.clientType == "CONSIGNEE" && this.gs.globalVariables.comp_code == "CPL") {
-        this.CATEGORYRECORD.id = "5260B605-4D32-4064-BB61-FCDC76D503F1";
-        this.CATEGORYRECORD.code = "CONSIGNEE";
-        this.CATEGORYRECORD.name = "CONSIGNEE";
+        this.Record.cont_type_id = "5260B605-4D32-4064-BB61-FCDC76D503F1";
+        this.Record.cont_type_name = "CONSIGNEE";
       }
+      this.CATEGORYRECORD.id = this.Record.cont_type_id;
+      this.CATEGORYRECORD.code = this.Record.cont_type_name;
+      this.CATEGORYRECORD.name = this.Record.cont_type_name;
     }
   }
 
@@ -560,6 +561,11 @@ export class ContactsComponent {
     if (field == 'cont_contact') {
       this.Record.cont_contact = this.Record.cont_contact.toUpperCase();
     }
+
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase().trim();
+    }
+
   }
 
   Close() {
