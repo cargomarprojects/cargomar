@@ -73,6 +73,8 @@ export class SalesleadComponent {
     bEmail: boolean = false;
     bDocs: boolean = false;
     bWithFollowup: boolean = false;
+    disableShipperAddr: boolean = true;
+    disableConsigneeAddr: boolean = true;
 
     constructor(
         private modalService: NgbModal,

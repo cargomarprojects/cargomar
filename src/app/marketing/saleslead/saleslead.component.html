@@ -156,14 +156,14 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.msl_shipper_name"
+                        <input [disabled]="disableShipperAddr" type="text" class="form-control form-control-sm" [(ngModel)]="Record.msl_shipper_name"
                             required maxlength="60" (blur)="OnBlur('msl_shipper_name')" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add1"
+                        <input [disabled]="disableShipperAddr" type="text" class="form-control form-control-sm" name="add1"
                             [(ngModel)]="Record.msl_shipper_add1" required maxlength="60"
                             (blur)="OnBlur('msl_shipper_add1')" />
                     </div>
@@ -171,7 +171,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add2"
+                        <input [disabled]="disableShipperAddr" type="text" class="form-control form-control-sm" name="add2"
                             [(ngModel)]="Record.msl_shipper_add2" required maxlength="60"
                             (blur)="OnBlur('msl_shipper_add2')" />
                     </div>
@@ -179,7 +179,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add3"
+                        <input [disabled]="disableShipperAddr" type="text" class="form-control form-control-sm" name="add3"
                             [(ngModel)]="Record.msl_shipper_add3" required maxlength="60"
                             (blur)="OnBlur('msl_shipper_add3')" />
                     </div>
@@ -187,25 +187,25 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">City</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="location"
+                        <input  [disabled]="disableShipperAddr"  type="text" class="form-control form-control-sm" name="location"
                             [(ngModel)]="Record.msl_city" required maxlength="60" (blur)="OnBlur('msl_city')" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm ">Contact.Person</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
+                        <input  [disabled]="disableShipperAddr"  type="text" class="form-control form-control-sm" name="pic" [(ngModel)]="Record.msl_pic"
                             required maxlength="60" (blur)="OnBlur('msl_pic')" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Tel</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
+                        <input  [disabled]="disableShipperAddr"  type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_shipper_tel" required maxlength="60"
                             (blur)="OnBlur('msl_shipper_tel')" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm ">Email</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
+                        <input  [disabled]="disableShipperAddr"  type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_shipper_email" required maxlength="60"
                             (blur)="OnBlur('msl_shipper_email')" />
                     </div>
@@ -225,7 +225,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="cnge"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="cnge"
                             [(ngModel)]="Record.msl_consignee" required maxlength="60"
                             (blur)="OnBlur('msl_consignee')" />
                     </div>
@@ -233,7 +233,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add1"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="add1"
                             [(ngModel)]="Record.msl_consignee_add1" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_add1')" />
                     </div>
@@ -241,7 +241,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add2"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="add2"
                             [(ngModel)]="Record.msl_consignee_add2" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_add2')" />
                     </div>
@@ -249,7 +249,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="add3"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="add3"
                             [(ngModel)]="Record.msl_consignee_add3" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_add3')" />
                     </div>
@@ -257,12 +257,12 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
                     <div class="col-sm-4">
-                        <app-autocomplete #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
+                        <app-autocomplete  [disabled]="disableConsigneeAddr"  #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Contact.Person</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
+                        <input  [disabled]="disableConsigneeAddr"  type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_consignee_pic" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_pic')" />
                     </div>
@@ -270,13 +270,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Tel</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_consignee_tel" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_tel')" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" name="pic"
+                        <input [disabled]="disableConsigneeAddr" type="text" class="form-control form-control-sm" name="pic"
                             [(ngModel)]="Record.msl_consignee_email" required maxlength="60"
                             (blur)="OnBlur('msl_consignee_email')" />
                     </div>
