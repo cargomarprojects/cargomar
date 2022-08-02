@@ -5,7 +5,12 @@ import { GlobalService } from '../../core/services/global.service';
 import { MarkSalesleadd, MarkSalesleadm } from '../models/marksaleslead';
 import { MarkSalesleadService } from '../services/marksaleslead.service';
 import { SearchTable } from '../../shared/models/searchtable';
+// declare const $: any;
 
+// $('#content').modal({
+//     keyboard: false,
+//     backdrop:'static'
+//   })
 
 @Component({
     selector: 'app-saleslead',
