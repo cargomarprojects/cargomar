@@ -825,9 +825,18 @@ export class PayRollComponent {
     }
 
     if (_type == "PAYSLIP-ALL") {
-      Msg = "Send Payslip to ALL Employees of " + this.gs.globalVariables.branch_name;
+      let str: string = "";
+      if (this.empstatus == "BOTH")
+        str = "Employees";
+      else if (this.empstatus == "CONFIRMED")
+        str = "Confirmed Employees";
+      else if (this.empstatus == "UNCONFIRM")
+        str = "Unconfirmed Employees";
+      else
+        str = "Consultant";
+      Msg = "Send Payslip to ALL " + str + " of " + this.gs.globalVariables.branch_name;
       if (SalPkids != "")
-        Msg = "Send Payslip to Selected Employees of " + this.gs.globalVariables.branch_name;
+        Msg = "Send Payslip to Selected  " + str + "  of " + this.gs.globalVariables.branch_name;
       if (!confirm(Msg)) {
         return;
       }
@@ -902,7 +911,7 @@ export class PayRollComponent {
     this.mainService.PostPayRoll(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.salh_jvno =response.jvno;
+        this.salh_jvno = response.jvno;
         this.salh_jvno_ho = response.jvno_ho;
         alert('Payroll JV Generated : ' + response.msg);
       },
@@ -955,7 +964,7 @@ export class PayRollComponent {
       .subscribe(response => {
         this.loading = false;
         this.pf_jvno = response.jvno;
-        this.pf_jvno_ho= response.jvno_ho;
+        this.pf_jvno_ho = response.jvno_ho;
         alert('PF JV Generated : ' + response.msg);
       },
         error => {
