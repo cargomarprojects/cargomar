@@ -332,7 +332,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
@@ -368,5 +368,8 @@
     </div>
     <div class="modal-body">
         <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'"></app-contacts>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
     </div>
 </ng-template>
