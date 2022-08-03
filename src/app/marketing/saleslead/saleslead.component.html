@@ -441,7 +441,7 @@
                         [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
                     <input *ngIf="(bPrint||bEmail) && mode=='EDIT'" type="checkbox" [(ngModel)]="bWithFollowup">
-                    <span *ngIf="(bPrint||bEmail) && mode=='EDIT'">With Follow Up</span>
+                    <span *ngIf="(bPrint||bEmail) && mode=='EDIT'">Include Follow Up</span>
                     <button *ngIf="bPrint && mode=='EDIT'" [disabled]="loading"
                         (click)="PrintSaleslead(Record.msl_pkid,'EXCEL','')"
                         class="btn btn-success btn-sm">Print</button>

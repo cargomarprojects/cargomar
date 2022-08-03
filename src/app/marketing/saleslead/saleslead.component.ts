@@ -542,17 +542,17 @@ export class SalesleadComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        if (this.gs.isBlank(this.Record.msl_shipper_name)) {
-            bret = false;
-            sError = " | Shipper Name Cannot be Blank";
-        }
+        // if (this.gs.isBlank(this.Record.msl_shipper_name)) {
+        //     bret = false;
+        //     sError = " | Shipper Name Cannot be Blank";
+        // }
 
         if (bret) {
             this.Record.msl_action = "ACTION";
         }
 
-        if (bret === false)
-            this.ErrorMessage = sError;
+        // if (bret === false)
+        //     this.ErrorMessage = sError;
         return bret;
     }
 
