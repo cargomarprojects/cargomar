@@ -1,17 +1,11 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit,ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MarkSalesleadd, MarkSalesleadm } from '../models/marksaleslead';
 import { MarkSalesleadService } from '../services/marksaleslead.service';
 import { SearchTable } from '../../shared/models/searchtable';
-// declare const $: any;
-
-// $('#content').modal({
-//     keyboard: false,
-//     backdrop:'static'
-//   })
-
+ 
 @Component({
     selector: 'app-saleslead',
     templateUrl: './saleslead.component.html',
@@ -21,8 +15,7 @@ export class SalesleadComponent {
 
     // Local Variables 
     title = 'Saleslead';
-
-
+    
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -549,17 +542,17 @@ export class SalesleadComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        if (this.gs.isBlank(this.Record.msl_shipper_name)) {
-            bret = false;
-            sError = " | Shipper Name Cannot be Blank";
-        }
+        // if (this.gs.isBlank(this.Record.msl_shipper_name)) {
+        //     bret = false;
+        //     sError = " | Shipper Name Cannot be Blank";
+        // }
 
         if (bret) {
             this.Record.msl_action = "ACTION";
         }
 
-        if (bret === false)
-            this.ErrorMessage = sError;
+        // if (bret === false)
+        //     this.ErrorMessage = sError;
         return bret;
     }
 
@@ -702,7 +695,7 @@ export class SalesleadComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
     }
 
     showhiderow(rec: MarkSalesleadm) {
