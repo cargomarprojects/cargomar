@@ -31,6 +31,12 @@
           </div>
         </div>
 
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
+          <div class="col-10">
+            <app-autocomplete #CngeLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
 
       </div>
 
@@ -39,7 +45,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Agent</label>
           <div class="col-10">
-            <app-autocomplete #CsdLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #Csd1Lov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
         </div>
 

@@ -43,7 +43,7 @@ export class CostOsComponent {
   lock_date: boolean = false;
 
   folder_id: string;
-
+  consignee_id: string='';
 
   sub: any;
   urlid: string;
@@ -56,6 +56,7 @@ export class CostOsComponent {
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
   CURRECORD: SearchTable = new SearchTable();
+  CUSTRECORD: SearchTable = new SearchTable();
   // Array For Displaying List
 
   // Single Record for add/edit/view details
@@ -154,7 +155,14 @@ export class CostOsComponent {
       this.AGENTADDRECORD.parentid = "";
     }
 
-
+    this.CUSTRECORD = new SearchTable();
+    this.CUSTRECORD.controlname = "CONSIGNEE";
+    this.CUSTRECORD.displaycolumn = "NAME";
+    this.CUSTRECORD.type = "CUSTOMER";
+    this.CUSTRECORD.where = " (CUST_IS_CONSIGNEE = 'Y' or CUST_IS_SHIPPER = 'Y') "; //Export and Import
+    this.CUSTRECORD.id = "";
+    this.CUSTRECORD.code = "";
+    this.CUSTRECORD.name = "";
 
   }
 
@@ -163,6 +171,9 @@ export class CostOsComponent {
     if (_Record.controlname == "CURRENCY") {
       this.Record.stm_currencyid = _Record.id;
       this.Record.stm_curr_code = _Record.code;
+    }
+    if (_Record.controlname == "CONSIGNEE") {
+      this.consignee_id = _Record.id;
     }
 
     if (_Record.controlname == "AGENT") {
@@ -229,8 +240,8 @@ export class CostOsComponent {
       stm_date: this.Record.stm_date,
       report_folder: this.gs.globalVariables.report_folder,
       folderid: this.gs.getGuid(),
-      agent: this.Record.stm_acc_name
-
+      agent: this.Record.stm_acc_name,
+      consignee_id: this.consignee_id
     };
 
     this.ErrorMessage = '';
