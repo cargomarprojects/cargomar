@@ -150,6 +150,11 @@ export class BonusComponent {
   // Query List Data
   List(_type: string) {
 
+    if (_type == 'CSV')
+      if (!confirm("Confirm all the staff need to be included before proceed payment.")) {
+        return;
+      }
+
     this.loading = true;
     let SearchData = {
       type: _type,
@@ -173,8 +178,13 @@ export class BonusComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL' || _type == 'CSV')
+        if (_type == 'EXCEL' || _type == 'CSV') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          if (!this.gs.isBlank(response.filename2))
+            this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
+          if (!this.gs.isBlank(response.filename3))
+            this.Downloadfile(response.filename3, response.filetype3, response.filedisplayname3);
+        }
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
