@@ -545,40 +545,28 @@
               </div>
             </div>
           </div>
-          <!-- <div>
-            <h6></h6>
-          </div> -->
+          
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
             <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
               (ModifiedRecords)="ModifiedRecords($event)">
             </app-hblbkmparty>
           </div>
-          <!-- <div>
-            <h6></h6>
-          </div> -->
           <div class="page-box mt-1">
             <div class="row">
               <div class="col-sm-8 pr-0">
                 <div class="form-group row mx-0">
-                  <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label>
-                  <div class="col-sm-1">
-                    <app-date [inputdate]="Record.book_cutoff_on" (ValueChanged)="Record.book_cutoff_on=$event">
-                    </app-date>
-                  </div>
-                  <div class="col-sm-3 input-group input-group-sm p-0">
-                    <label class="col-form-label col-form-label-sm">ETA</label>
-                    <app-date [inputdate]="Record.book_vsl_eta" (ValueChanged)="Record.book_vsl_eta=$event">
-                    </app-date>
-                  </div> -->
                   <label style="background-color:lightgray;"
                     class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                    class="col-sm-4  col-form-label col-form-label-sm">VESSEL</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-2 col-form-label col-form-label-sm pl-4">VOYAGE</label>
+                    class="col-sm-1 col-form-label col-form-label-sm pl-4">VOYAGE</label>
+                    <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm pl-4">SI CUT-OFF</label>
                 </div>
+                
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
                   <div class="col-sm-2 pr-2">
@@ -593,37 +581,42 @@
                     <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <div class="col-sm-3 pl-0 pr-0">
+                  <div class="col-sm-2 pl-0 pr-0">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_vessel_name" />
                   </div>
-                  <div class="col-sm-2 ">
+                  <div class="col-sm-1 pr-0">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_no"
                       (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                   </div>
+                  <div class="col-sm-2">
+                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                  </div>
                 </div>
-
 
               </div>
 
               <div class="col-sm-4 pl-0">
                 <div class="form-group row mx-0">
                   <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm pl-2">CY CUT-OFF</label>
+                  <label style="background-color:lightgray;"
                     class="col-sm-3 col-form-label col-form-label-sm pl-2">ETD-[POL]</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
+                    class="col-sm-1 col-form-label col-form-label-sm pl-0">CONFM</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-4 col-form-label col-form-label-sm">CONFM</label>
-                  <!-- <label style="background-color:lightgray;" class="col-sm-1 col-form-label col-form-label-sm"></label> -->
+                    class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
                 </div>
-
                 <div class="form-group row">
                   <div class="col-sm-3 pl-4 pr-0">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-3 pr-0">
+                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                  </div>
+                  <div class="col-sm-1">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_etd_confirm">
@@ -634,14 +627,14 @@
                     <app-date [inputdate]="Record.book_pol_eta" (ValueChanged)="Record.book_pol_eta=$event">
                     </app-date>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-1 pl-0">
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pol_eta_confirm">
                       </label>
                     </div>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-1">
                     <!-- <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddTransit()"></i>
                     <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveTransit()"></i> -->
                   </div>
