@@ -671,6 +671,8 @@ export class MblSeaComponent {
     this.Record.book_inland_haulage_status = 'NA';
     this.Record.book_dest_charges_status = 'NA';
     this.Record.book_free_days = 0;
+    this.Record.book_si_cutoff = '';
+    this.Record.book_cy_cutoff = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -842,6 +844,8 @@ export class MblSeaComponent {
       this.Record.book_eta_confirm = false;
       this.Record.book_pofd_eta = '';
       this.Record.book_pofd_eta_confirm = false;
+      this.Record.book_si_cutoff = '';
+      this.Record.book_cy_cutoff = '';
 
       this.VESSELRECORD.id = '';
       this.VESSELRECORD.code = '';
@@ -1449,6 +1453,8 @@ export class MblSeaComponent {
     Rec.trk_pod_eta = '';
     Rec.trk_pod_eta_confirm = false;
     Rec.trk_vsl_count = 0;
+    Rec.trk_si_cutoff = '';
+    Rec.trk_cy_cutoff = '';
     Rec.row_colour = 'darkslategray';
     this.Record.TransitList.push(Rec);
   }

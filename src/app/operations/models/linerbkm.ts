@@ -147,7 +147,9 @@ export class LinerBkm {
   
   book_mpcs: number;
   book_mkgs: number;
-
+  book_si_cutoff:string;
+  book_cy_cutoff:string;  
+  
   rec_category: string;
   rec_mode: string;
   rec_created_by:string;

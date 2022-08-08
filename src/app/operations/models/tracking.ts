@@ -32,7 +32,9 @@ export class Trackingm {
   mbl_consignee_name: string;
   trk_vsl_count: number;
   row_colour:string;
-  
+  trk_si_cutoff: string;
+  trk_cy_cutoff: string;
+
   _globalvariables: GlobalVariables;
 }
 

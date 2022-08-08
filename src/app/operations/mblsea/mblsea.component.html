@@ -590,7 +590,7 @@
                       (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                   </div>
                   <div class="col-sm-2">
-                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                    <app-date [inputdate]="Record.book_si_cutoff" (ValueChanged)="Record.book_si_cutoff=$event"></app-date>
                   </div>
                 </div>
 
@@ -611,7 +611,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-3 pl-4 pr-0">
-                    <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
+                    <app-date [inputdate]="Record.book_cy_cutoff" (ValueChanged)="Record.book_cy_cutoff=$event"></app-date>
                   </div>
                   <div class="col-sm-3 pr-0">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>

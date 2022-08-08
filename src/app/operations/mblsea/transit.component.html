@@ -26,7 +26,7 @@
                     [(ngModel)]="mRecord.trk_voyage" (blur)="OnBlur('trk_voyage')" required maxlength="15" />
             </div>
             <div class="col-sm-2">
-                <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
+                <app-date [inputdate]="mRecord.trk_si_cutoff" (ValueChanged)="mRecord.trk_si_cutoff=$event"></app-date>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
     <div class="col-sm-4 pl-0">
         <div class="form-group row">
             <div class="col-sm-3 pl-4 pr-0">
-                <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
+                <app-date [inputdate]="mRecord.trk_cy_cutoff" (ValueChanged)="mRecord.trk_cy_cutoff=$event"></app-date>
             </div>
             <div class="col-sm-3 pr-0">
                 <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
