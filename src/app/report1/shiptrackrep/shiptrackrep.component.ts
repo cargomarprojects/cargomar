@@ -110,8 +110,8 @@ export class ShipTrackComponent {
         private gs: GlobalService
     ) {
         this.page_count = 0;
-    this.page_rows = 15;
-    this.page_current = 0;
+        this.page_rows = 15;
+        this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -356,9 +356,9 @@ export class ShipTrackComponent {
         this.SearchData.showpending = this.showpending;
 
         this.SearchData.page_count = this.page_count;
-        this.SearchData.page_current= this.page_current;
-        this.SearchData.page_rows= this.page_rows;
-        this.SearchData.page_rowcount= this.page_rowcount;
+        this.SearchData.page_current = this.page_current;
+        this.SearchData.page_rows = this.page_rows;
+        this.SearchData.page_rowcount = this.page_rowcount;
 
         this.ErrorMessage = '';
         this.mainService.ShipTrackList(this.SearchData)
@@ -376,10 +376,15 @@ export class ShipTrackComponent {
                 // else {
                 //     this.RecordList = response.list;
                 // }
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
+
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
