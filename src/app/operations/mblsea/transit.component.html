@@ -13,7 +13,7 @@
                 <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm"
                     [(ngModel)]="mRecord.trk_pol_name" />
             </div>
-            <div class="col-sm-2 pr-2">
+            <div class="col-sm-2 pl-2 pr-2">
                 <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                 </app-autocomplete>
             </div>
@@ -21,11 +21,11 @@
                 <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm"
                     [(ngModel)]="mRecord.trk_vsl_name" />
             </div>
-            <div class="col-sm-1  pr-0">
+            <div class="col-sm-1 pl-2 pr-0">
                 <input [style.color]="mRecord.row_colour" type="text" class="form-control form-control-sm"
                     [(ngModel)]="mRecord.trk_voyage" (blur)="OnBlur('trk_voyage')" required maxlength="15" />
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 pl-2">
                 <app-date [inputdate]="mRecord.trk_si_cutoff" (ValueChanged)="mRecord.trk_si_cutoff=$event"></app-date>
             </div>
         </div>
@@ -38,7 +38,7 @@
             <div class="col-sm-3 pl-4 pr-0">
                 <app-date [inputdate]="mRecord.trk_cy_cutoff" (ValueChanged)="mRecord.trk_cy_cutoff=$event"></app-date>
             </div>
-            <div class="col-sm-3 pr-0">
+            <div class="col-sm-3 pl-2 pr-0">
                 <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
             </div>
             <div class="col-sm-1">
@@ -48,7 +48,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 pl-2">
                 <app-date [inputdate]="mRecord.trk_pod_eta" (ValueChanged)="mRecord.trk_pod_eta=$event">
                 </app-date>
             </div>

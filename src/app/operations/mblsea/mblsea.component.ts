@@ -198,6 +198,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
     //this.List("NEW");
@@ -715,6 +716,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1202,6 +1204,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1250,6 +1253,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1325,6 +1329,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1716,6 +1721,7 @@ export class MblSeaComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

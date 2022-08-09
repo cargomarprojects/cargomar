@@ -562,9 +562,9 @@
                   <label style="background-color:lightgray;"
                     class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-4  col-form-label col-form-label-sm">VESSEL</label>
+                    class="col-sm-4  col-form-label col-form-label-sm pl-2">VESSEL</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-1 col-form-label col-form-label-sm pl-4">VOYAGE</label>
+                    class="col-sm-1 col-form-label col-form-label-sm pl-3">VOYAGE</label>
                     <label style="background-color:lightgray;"
                     class="col-sm-2 col-form-label col-form-label-sm pl-4">SI CUT-OFF</label>
                 </div>
@@ -579,7 +579,7 @@
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_pol_name" />
                   </div>
-                  <div class="col-sm-2 pr-2">
+                  <div class="col-sm-2 pl-2 pr-2">
                     <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
@@ -587,11 +587,11 @@
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.book_vessel_name" />
                   </div>
-                  <div class="col-sm-1 pr-0">
+                  <div class="col-sm-1 pl-2 pr-0">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_vessel_no"
                       (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-2 pl-2">
                     <app-date [inputdate]="Record.book_si_cutoff" (ValueChanged)="Record.book_si_cutoff=$event"></app-date>
                   </div>
                 </div>
@@ -603,11 +603,11 @@
                   <label style="background-color:lightgray;"
                     class="col-sm-3 col-form-label col-form-label-sm pl-2">CY CUT-OFF</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm pl-2">ETD-[POL]</label>
+                    class="col-sm-3 col-form-label col-form-label-sm pl-1">ETD-[POL]</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-1 col-form-label col-form-label-sm pl-0">CONFM</label>
                   <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
+                    class="col-sm-3 col-form-label col-form-label-sm pl-2">ETA-[POD]</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
                 </div>
@@ -615,7 +615,7 @@
                   <div class="col-sm-3 pl-4 pr-0">
                     <app-date [inputdate]="Record.book_cy_cutoff" (ValueChanged)="Record.book_cy_cutoff=$event"></app-date>
                   </div>
-                  <div class="col-sm-3 pr-0">
+                  <div class="col-sm-3 pl-2 pr-0">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
                   </div>
                   <div class="col-sm-1">
@@ -625,7 +625,7 @@
                       </label>
                     </div>
                   </div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-3 pl-2 ">
                     <app-date [inputdate]="Record.book_pol_eta" (ValueChanged)="Record.book_pol_eta=$event">
                     </app-date>
                   </div>
