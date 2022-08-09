@@ -22,7 +22,7 @@ export class HblTracking {
     mform13_filing_date: string;
     hisf_date: string;
     hams_date: string;
-
+    ams_is_1y:boolean;
 
     rec_mode: string;
     rec_category: string;
