@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { PayRequestm } from '../models/payrequestm';
@@ -43,7 +43,7 @@ export class PayRequestComponent {
 
   mode = '';
   pkid = '';
-
+  btn_pay_is_paid = 'NO';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
@@ -189,10 +189,10 @@ export class PayRequestComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -224,10 +224,10 @@ export class PayRequestComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: PayRequestm) {
@@ -263,11 +263,11 @@ export class PayRequestComponent {
         this.RefreshList();
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -325,5 +325,27 @@ export class PayRequestComponent {
   }
   showhiderow(rec: PayRequestm) {
     rec.rowdisplayed = !rec.rowdisplayed;
+  }
+  paidStatus(rec: PayRequestm) {
+
+    rec.pay_is_paid = rec.pay_is_paid == "Y" ? "N" : "Y";
+
+    this.loading = true;
+    let SearchData = {
+      pkid: rec.pay_pkid,
+      paidstatus: rec.pay_is_paid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.PaidStatus(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        rec.pay_is_paid = response.paidstatus;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

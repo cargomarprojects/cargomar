@@ -21,6 +21,7 @@ export class PayRequestm {
   pay_amt: number;
   rowdisplayed: boolean;
   pay_chq_name: string;
+  pay_is_paid: string;
 
   rec_mode: string;
   _globalvariables: GlobalVariables;

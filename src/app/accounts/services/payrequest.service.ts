@@ -18,7 +18,6 @@ export class PayRequestService {
     }
 
     GetRecord(SearchData: any) {
-        
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/GetRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
@@ -28,6 +27,10 @@ export class PayRequestService {
 
     LoadDefault(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    PaidStatus(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/PaidStatus', SearchData, this.gs.headerparam2('authorized'));
     }
 }
 
