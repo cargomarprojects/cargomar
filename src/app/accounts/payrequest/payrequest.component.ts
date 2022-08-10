@@ -329,6 +329,10 @@ export class PayRequestComponent {
   }
   paidStatus(rec: PayRequestm) {
 
+    if (!confirm("Change Paid Status to " + (rec.pay_is_paid == "Y" ? "NO" : "YES"))) {
+      return;
+    }
+    
     rec.pay_is_paid = rec.pay_is_paid == "Y" ? "N" : "Y";
 
     this.loading = true;

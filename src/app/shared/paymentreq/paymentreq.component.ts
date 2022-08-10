@@ -83,10 +83,10 @@ export class PaymentReqComponent {
       sError = "Date Cannot Be Blank";
       bret = false;
     }
-    if (this.pay_chq_name.trim().length <= 0) {
-      sError += " | Name On Cheque Cannot Be Blank";
-      bret = false;
-    }
+    // if (this.pay_chq_name.trim().length <= 0) {
+    //   sError += " | Name On Cheque Cannot Be Blank";
+    //   bret = false;
+    // }
     if (bret === false)
       this.ErrorMessage = sError;
     return bret;

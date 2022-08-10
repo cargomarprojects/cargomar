@@ -103,6 +103,9 @@ export class Ledgerh {
 
   jvh_brok_exrate: number;
   jvh_brok_amt_inr: number;
+  jvh_due_date:string;
+  jvh_is_paid: string;
+  jvh_pay_remarks:string;
 
   rec_mode: string;
   rec_category: string = '';
