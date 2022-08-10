@@ -43,7 +43,7 @@ export class PayRequestComponent {
 
   mode = '';
   pkid = '';
-  btn_pay_is_paid = 'NO';
+  search_ispaid = 'N';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
@@ -173,6 +173,7 @@ export class PayRequestComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      ispaid: this.search_ispaid,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,

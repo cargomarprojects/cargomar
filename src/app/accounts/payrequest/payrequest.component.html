@@ -1,8 +1,8 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <!-- <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button> -->
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -14,12 +14,20 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Paid</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="search_ispaid">
+              <option [value]="'Y'">YES</option>
+              <option [value]="'N'">NO</option>
+            </select>
           </div>
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
           </div>
+
         </div>
       </div>
     </div>
