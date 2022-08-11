@@ -60,6 +60,7 @@
           <th>CHQ.NAME</th>
           <th>AMOUNT</th>
           <th>PAID</th>
+          <th>REMARKS</th>
           <!-- <th>DOCS</th> -->
         </tr>
       </thead>
@@ -78,6 +79,7 @@
           <td class="p-0">
             <button (click)="paidStatus(rec)" style="font-size: 11px;" class="btn btn-info btn-block py-1">{{rec.pay_is_paid=='Y'?'YES':'NO'}}</button>
           </td>
+          <td>{{rec.pay_remarks}}</td>
           <!-- <td><i class="fa fa-file-o fa-lg pointer" aria-hidden="true" (click)="showhiderow(rec)"></i></td> -->
         </tr>
         <!-- <tr *ngIf="rec.rowdisplayed">

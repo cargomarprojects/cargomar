@@ -619,7 +619,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-paymentreq [parentid]="parentid" [jvhid]="pkid" [type]="'MBL'" [party_name]="Record.jvh_acc_name" [vrno]="Record.jvh_vrno"></app-paymentreq>
+    <app-paymentreq [parentid]="parentid" [jvhid]="pkid" [type]="'MBL'" [party_name]="Record.jvh_acc_name" [vrno]="Record.jvh_vrno" (CallbackEvent)="CallbackEventPayRequest($event)"></app-paymentreq>
   </div>
 </ng-template>
 

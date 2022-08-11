@@ -23,7 +23,8 @@ export class PayRequestm {
   rowdisplayed: boolean;
   pay_chq_name: string;
   pay_is_paid: string;
-
+  pay_remarks:string;
+  
   rec_mode: string;
   _globalvariables: GlobalVariables;
 

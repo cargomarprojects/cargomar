@@ -399,7 +399,7 @@ export class BuyRateComponent {
       this.Recorddet.jv_is_rcm = false;
       if (_Record.col8 == "Y") {
         this.Recorddet.jv_is_rcm = true;      //  Taxable
-      }        
+      }
 
 
       this.SearchRecord('taxcode');
@@ -770,7 +770,7 @@ export class BuyRateComponent {
       bret = false;
       sError += " | Original INV#/DT Cannot Be Blank";
     }
-    
+
     if (this.Record.jvh_state_id.trim() == "" || this.Record.jvh_state_code.trim() == "") {
       bret = false;
       sError += " | State Cannot Be Blank";
@@ -854,9 +854,9 @@ export class BuyRateComponent {
       sError += " | Courier IGST Cannot Be Selected";
     }
 
-    
-    let IsRcmRecords =  false;
-    let IsNoRcmRecords =  false;
+
+    let IsRcmRecords = false;
+    let IsNoRcmRecords = false;
 
     this.Record.LedgerList.forEach(rec => {
       rowCount++;
@@ -890,16 +890,16 @@ export class BuyRateComponent {
       }
 
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030'|| rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
-         Courier_Code_Found = true;
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
+        Courier_Code_Found = true;
       }
-      else 
+      else
         Code_Other_Than_Courier_Code_Found = true;
 
       //RCM-2
-      if ( rec.jv_is_rcm)
-        IsRcmRecords = true;        
-      else 
+      if (rec.jv_is_rcm)
+        IsRcmRecords = true;
+      else
         IsNoRcmRecords = true;
 
 
@@ -941,12 +941,12 @@ export class BuyRateComponent {
     }
 
 
-    if ( IsRcmRecords && !this.Record.jvh_rc ){
+    if (IsRcmRecords && !this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
 
-    if ( !IsRcmRecords && this.Record.jvh_rc ){
+    if (!IsRcmRecords && this.Record.jvh_rc) {
       bret = false;
       sError += " |Reverse Charge Invalid";
     }
@@ -1891,7 +1891,7 @@ export class BuyRateComponent {
     this.modal.close();
   }
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 
@@ -2211,6 +2211,17 @@ export class BuyRateComponent {
          }
        }
      }*/
+    this.modal.close();
+  }
+
+  CallbackEventPayRequest(params: any) {
+
+    if (params.saction == "SAVE") {
+      var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
+      if (REC != null) {
+        REC.jvh_due_date = this.gs.ConvertDate2DisplayFormat(params.duedate);
+      }
+    }
     this.modal.close();
   }
   closeAprovalModal() {

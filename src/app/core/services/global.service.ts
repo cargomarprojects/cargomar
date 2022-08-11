@@ -651,6 +651,19 @@ export class GlobalService {
     return nDate.toISOString().slice(0, 10);
   }
 
+  ConvertDate2DisplayFormat(_strdate: string) {
+    let retdate: string = '';
+    if (_strdate.includes("-")) {
+      var strdt = _strdate.split('-');
+      let dtyear: string = strdt[0];
+      let dtmonth: string = strdt[1];
+      let dtday: string = strdt[2];
+      retdate = dtday + '/' + dtmonth + '/' + dtyear;
+    } else
+      retdate = _strdate;
+    return retdate;
+  }
+
   public getGstType(_gstin: string, _gstin_state_code: string, isSez: boolean, bISGT_Exception = false) {
     let _type: string = '';
     if (_gstin.length == 15) {

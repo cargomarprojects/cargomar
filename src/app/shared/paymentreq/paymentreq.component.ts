@@ -13,6 +13,7 @@ export class PaymentReqComponent {
   // Local Variables 
   title = 'Payment Request Details';
 
+  @Output() CallbackEvent = new EventEmitter<any>();
   @Input() public parentid: string = '';
   @Input() public jvhid: string = '';
   @Input() public type: string = '';
@@ -25,13 +26,15 @@ export class PaymentReqComponent {
   currentTab = 'LIST';
   sub: any;
   urlid: string;
-  
+
   pay_date: string = '';
-  pay_chq_name: string = ''; 
-  pkid ='';
+  pay_chq_name: string = '';
+  pay_is_paid: Boolean = false;
+
+  pkid = '';
   ErrorMessage = "";
   InfoMessage = "";
-    constructor(
+  constructor(
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -41,7 +44,7 @@ export class PaymentReqComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     this.LoadCombo();
-    this.SearchRecord("paymentrequest",'LIST');
+    this.SearchRecord("paymentrequest", 'LIST');
   }
 
   InitComponent() {
@@ -50,21 +53,21 @@ export class PaymentReqComponent {
 
   InitLov() {
 
-   
+
   }
   LovSelected(_Record: SearchTable) {
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-   // this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   LoadCombo() {
-   
-   
+
+
   }
-  
+
   // Save Data
   Save() {
 
@@ -96,9 +99,9 @@ export class PaymentReqComponent {
 
   }
   Close() {
-    
+
   }
-  
+
   SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
@@ -119,7 +122,8 @@ export class PaymentReqComponent {
       parentid: this.parentid,
       rowtype: this.type,
       paydate: this.pay_date,
-      paychqname:this.pay_chq_name,
+      paychqname: this.pay_chq_name,
+      payispaid: this.pay_is_paid == true ? "Y" : "N",
       table: 'paymentrequest',
       type: _type,
     };
@@ -137,33 +141,37 @@ export class PaymentReqComponent {
     SearchData.rowtype = this.type;
     SearchData.type = _type;
     SearchData.paychqname = this.pay_chq_name;
-    
+    SearchData.payispaid = this.pay_is_paid == true ? "Y" : "N",
 
+      this.gs.SearchRecord(SearchData)
+        .subscribe(response => {
+          this.loading = false;
+          this.InfoMessage = '';
+          if (_type == "LIST") {
+            if (response.paydate.length <= 0) {
+              this.pay_date = this.gs.defaultValues.today;
+              this.pay_chq_name = this.party_name;
+              this.pay_is_paid = false;
+            }
+            else {
+              this.pay_date = response.paydate;
+              this.pay_chq_name = response.paychqname;
+              this.pay_is_paid = response.payispaid == "Y" ? true : false;
+            }
 
-    this.gs.SearchRecord(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        this.InfoMessage = '';
-        if (_type == "LIST") {
-          if (response.paydate.length <= 0) {
-            this.pay_date = this.gs.defaultValues.today;
-            this.pay_chq_name = this.party_name;
+          } else {
+            if (response.savemsg == "Save Complete")
+              this.InfoMessage = response.savemsg;
+            else
+              this.ErrorMessage = response.savemsg;
+
+            if (this.CallbackEvent != null)
+              this.CallbackEvent.emit({ saction: 'SAVE', sid: this.jvhid, duedate: this.pay_date, ispaid: SearchData.payispaid });
           }
-          else {
-            this.pay_date = response.paydate;
-            this.pay_chq_name = response.paychqname;
-          }
-
-        } else {
-          if (response.savemsg == "Save Complete")
-            this.InfoMessage = response.savemsg;
-          else
-            this.ErrorMessage = response.savemsg;
-        }
-      },
-      error => {
-        this.loading = false;
-        this.InfoMessage = this.gs.getError(error);
-      });
+        },
+          error => {
+            this.loading = false;
+            this.InfoMessage = this.gs.getError(error);
+          });
   }
 }
