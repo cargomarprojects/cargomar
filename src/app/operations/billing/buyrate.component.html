@@ -2,6 +2,7 @@
   <div class="col">
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="NewInvoice('PN', 'AP')" class="btn btn-primary btn-sm">New</button>
+    <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Process Remarks</button>
     <label *ngIf="master_lock" class="col-form-label col-form-label-sm">
       <font color="RED">
         <strong>

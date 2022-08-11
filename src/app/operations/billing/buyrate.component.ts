@@ -2263,7 +2263,35 @@ export class BuyRateComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+  ProcessRemarks() {
 
+    if (!confirm("Process Remarks")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: '',
+      parentid: this.parentid,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ProcessRemarks(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.currentTab = 'LIST';
+        this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
 
 

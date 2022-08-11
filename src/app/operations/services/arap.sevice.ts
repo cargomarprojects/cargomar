@@ -47,5 +47,10 @@ export class ArApService {
   IsRefnoDuplication(SearchData : any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  ProcessRemarks(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/ProcessRemarks', SearchData, this.gs.headerparam2('authorized'));
+  }
+  
 }
 

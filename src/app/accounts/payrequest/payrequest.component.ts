@@ -59,7 +59,7 @@ export class PayRequestComponent {
     private gs: GlobalService
   ) {
     this.page_count = 0;
-    this.page_rows = 10;
+    this.page_rows = 15;
     this.page_current = 0;
 
     // URL Query Parameter 
@@ -332,7 +332,7 @@ export class PayRequestComponent {
     if (!confirm("Change Paid Status to " + (rec.pay_is_paid == "Y" ? "NO" : "YES"))) {
       return;
     }
-    
+
     rec.pay_is_paid = rec.pay_is_paid == "Y" ? "N" : "Y";
 
     this.loading = true;
@@ -347,6 +347,35 @@ export class PayRequestComponent {
       .subscribe(response => {
         this.loading = false;
         rec.pay_is_paid = response.paidstatus;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+  ProcessRemarks() {
+    if (!confirm("Process Remarks")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid:'',
+      parentid:'',
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code:this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ProcessRemarks(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List("NEW");
       },
         error => {
           this.loading = false;

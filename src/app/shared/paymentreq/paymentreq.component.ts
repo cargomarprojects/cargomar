@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 //import { Auditlog } from '../../shared/models/auditlog';
- 
+
 @Component({
   selector: 'app-paymentreq',
   templateUrl: './paymentreq.component.html',
@@ -173,4 +173,5 @@ export class PaymentReqComponent {
             this.InfoMessage = this.gs.getError(error);
           });
   }
+
 }
