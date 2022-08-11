@@ -7,6 +7,7 @@ export class PayRequestm {
   pay_date: string;
   pay_no: number;
   pay_docno: string;
+  pay_docdate: string;
   pay_type: string;
   pay_subtype: string;
   pay_acc_id: string;
