@@ -27,7 +27,7 @@
           </div>
           <div class="col-sm-5">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-            <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Process Remarks</button>
+            <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid Status</button>
           </div>
 
         </div>
@@ -61,7 +61,7 @@
           <th>CHQ.NAME</th>
           <th>AMOUNT</th>
           <th>PAID</th>
-          <th>REMARKS</th>
+          <th>PAID.STATUS</th>
           <!-- <th>DOCS</th> -->
         </tr>
       </thead>
@@ -77,9 +77,10 @@
           <td>{{rec.pay_date}}</td>
           <td>{{rec.pay_chq_name}}</td>
           <td>{{rec.pay_amt}}</td>
-          <td class="p-0">
+          <td>{{rec.pay_is_paid}}</td>
+          <!-- <td class="p-0">
             <button (click)="paidStatus(rec)" style="font-size: 11px;" class="btn btn-info btn-block py-1">{{rec.pay_is_paid=='Y'?'YES':'NO'}}</button>
-          </td>
+          </td> -->
           <td>{{rec.pay_remarks}}</td>
           <!-- <td><i class="fa fa-file-o fa-lg pointer" aria-hidden="true" (click)="showhiderow(rec)"></i></td> -->
         </tr>

@@ -2265,7 +2265,7 @@ export class BuyRateComponent {
   }
   ProcessRemarks() {
 
-    if (!confirm("Process Remarks")) {
+    if (!confirm("Update Paid Status")) {
       return;
     }
 

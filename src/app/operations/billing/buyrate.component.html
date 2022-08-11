@@ -2,7 +2,7 @@
   <div class="col">
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="NewInvoice('PN', 'AP')" class="btn btn-primary btn-sm">New</button>
-    <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Process Remarks</button>
+    <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid Status</button>
     <label *ngIf="master_lock" class="col-form-label col-form-label-sm">
       <font color="RED">
         <strong>
@@ -32,7 +32,7 @@
           <th>APPROVED.BY</th>
           <th>DUE DATE</th>
           <th>PAID</th>
-          <th>REMARKS</th>
+          <th>PAID.STATUS</th>
          
         </tr>
       </thead>
