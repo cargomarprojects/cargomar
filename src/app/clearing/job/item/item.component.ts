@@ -1168,7 +1168,7 @@ export class ItemComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
   }
 
   LinkDocs(esanchitlink: any) {
@@ -1181,7 +1181,7 @@ export class ItemComponent {
     this.myData = { job_id: this.parentid, inv_id: this.search_inv_pkid };
 
     this.bShowPasteData = true;
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
   }
 
   PasteDataClosed(cbdata: string) {

@@ -945,7 +945,7 @@ export class JobInvoiceComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
     }
 
     LinkDocs(esanchitlink: any) {
