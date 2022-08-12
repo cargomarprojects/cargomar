@@ -24,7 +24,9 @@ export class PayRequestm {
   pay_chq_name: string;
   pay_is_paid: string;
   pay_remarks:string;
-  
+  pay_org_invno: string;
+  pay_org_invdt: string;
+
   rec_mode: string;
   _globalvariables: GlobalVariables;
 

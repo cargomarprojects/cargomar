@@ -43,7 +43,7 @@ export class PayRequestComponent {
 
   mode = '';
   pkid = '';
-  search_ispaid = 'N';
+  search_ispaid = 'B';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
