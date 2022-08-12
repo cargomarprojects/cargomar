@@ -2265,6 +2265,10 @@ export class BuyRateComponent {
   }
   ProcessRemarks() {
 
+    if (this.gs.isBlank(this.RecordList)) {
+      alert('List Not Found');
+      return;
+    }
     if (!confirm("Update Paid Status")) {
       return;
     }
