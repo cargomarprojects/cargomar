@@ -59,7 +59,7 @@ export class AddReportsComponent {
     sMsg: string = '';
     sHtml: string = '';
     AttachList: any[] = [];
-
+    FileList: any[] = [];
     // Array For Displaying List
     RecordList: AddReports[] = [];
     //  Single Record for add/edit/view details
@@ -176,7 +176,11 @@ export class AddReportsComponent {
         this.mainService.List(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-                 
+                // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                this.FileList = response.filelist;
+                for (let rec of this.FileList) {
+                    this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                }
             },
                 error => {
                     this.loading = false;
@@ -184,7 +188,7 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-     
+
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
