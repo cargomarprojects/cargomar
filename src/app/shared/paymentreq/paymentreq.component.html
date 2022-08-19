@@ -19,6 +19,12 @@
             <div class="col-sm-3">
               <app-date [inputdate]="pay_date" (ValueChanged)="pay_date=$event"></app-date>
             </div>
+           
+            <div class="col-sm-6 input-group input-group-sm">
+              <label class="col-form-label col-form-label-sm">Cr Days</label>
+              <input type="number" class="form-control form-control-sm mr-1" [(ngModel)]="pay_crdays" maxlength="5" />
+              <button [disabled]="loading" (click)="FillDueDate()" class="btn btn-success btn-sm mr-1">Fill Due Date</button>
+            </div>
             <!-- <div class="col-sm-3 mt-1">
               <input type="checkbox" [(ngModel)]="pay_is_paid">
               <span>Paid</span>

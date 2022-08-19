@@ -29,6 +29,7 @@ export class PaymentReqComponent {
   pay_date: string = '';
   pay_chq_name: string = '';
   pay_is_paid: Boolean = false;
+  pay_crdays: number = 0;
 
   pkid = '';
   ErrorMessage = "";
@@ -125,6 +126,7 @@ export class PaymentReqComponent {
       payispaid: this.pay_is_paid == true ? "Y" : "N",
       table: 'paymentrequest',
       type: _type,
+      pay_crdays: this.pay_crdays
     };
 
     SearchData.pkid = this.pkid;
@@ -141,37 +143,51 @@ export class PaymentReqComponent {
     SearchData.type = _type;
     SearchData.paychqname = this.pay_chq_name;
     SearchData.payispaid = this.pay_is_paid == true ? "Y" : "N",
+      SearchData.pay_crdays = this.pay_crdays;
 
-      this.gs.SearchRecord(SearchData)
-        .subscribe(response => {
-          this.loading = false;
-          this.InfoMessage = '';
-          if (_type == "LIST") {
-            if (response.paydate.length <= 0) {
-              this.pay_date = this.gs.defaultValues.today;
-              this.pay_chq_name = this.party_name;
-              this.pay_is_paid = false;
-            }
-            else {
-              this.pay_date = response.paydate;
-              this.pay_chq_name = response.paychqname;
-              this.pay_is_paid = response.payispaid == "Y" ? true : false;
-            }
-
-          } else {
-            if (response.savemsg == "Save Complete")
-              this.InfoMessage = response.savemsg;
-            else
-              this.ErrorMessage = response.savemsg;
-
-            if (this.CallbackEvent != null)
-              this.CallbackEvent.emit({ saction: 'SAVE', sid: this.jvhid, duedate: this.pay_date, ispaid: SearchData.payispaid });
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = '';
+        if (_type == "LIST") {
+          if (response.paydate.length <= 0) {
+            // this.pay_date = this.gs.defaultValues.today;
+            this.pay_date = '';
+            this.pay_chq_name = this.party_name;
+            this.pay_is_paid = false;
           }
-        },
-          error => {
-            this.loading = false;
-            this.InfoMessage = this.gs.getError(error);
-          });
+          else {
+            this.pay_date = response.paydate;
+            this.pay_chq_name = response.paychqname;
+            this.pay_is_paid = response.payispaid == "Y" ? true : false;
+          }
+
+        } else if (_type == "DUE-DATE") {
+          this.pay_date = response.duedate;
+        }
+        else {
+          if (response.savemsg == "Save Complete")
+            this.InfoMessage = response.savemsg;
+          else
+            this.ErrorMessage = response.savemsg;
+
+          if (this.CallbackEvent != null)
+            this.CallbackEvent.emit({ saction: 'SAVE', sid: this.jvhid, duedate: this.pay_date, ispaid: SearchData.payispaid });
+        }
+      },
+        error => {
+          this.loading = false;
+          this.InfoMessage = this.gs.getError(error);
+        });
+  }
+  FillDueDate() {
+
+    if (this.pay_crdays==undefined) {
+      alert('Credit Days Cannot be Blank');
+      return;
+    }
+    this.SearchRecord('paymentrequest', 'DUE-DATE');
+
   }
 
 }
