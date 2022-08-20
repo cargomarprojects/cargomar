@@ -150,7 +150,7 @@ export class AddReportsComponent {
     }
 
     // // Query List Data
-    List(_type: string) {
+    List(_type: string, mailsent: any) {
 
         this.ErrorMessage = '';
         //if (this.from_date.trim().length <= 0) {
@@ -164,6 +164,7 @@ export class AddReportsComponent {
 
         this.loading = true;
         this.pkid = this.gs.getGuid();
+        this.SearchData.type = _type;
         this.SearchData.pkid = this.pkid;
         this.SearchData.report_folder = this.gs.globalVariables.report_folder;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
@@ -177,9 +178,22 @@ export class AddReportsComponent {
             .subscribe(response => {
                 this.loading = false;
                 // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-                this.FileList = response.filelist;
-                for (let rec of this.FileList) {
-                    this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+
+                if (_type == 'MAIL') {
+                    this.FileList = response.filelist;
+                    this.AttachList = new Array<any>();
+                    for (let rec of this.FileList) {
+                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname,filesize: rec.filesize });
+                    }
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.open(mailsent);
+                }
+                else {
+                    this.FileList = response.filelist;
+                    for (let rec of this.FileList) {
+                        this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                    }
                 }
             },
                 error => {
@@ -188,7 +202,7 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-
+ 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
@@ -203,7 +217,7 @@ export class AddReportsComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
 }
