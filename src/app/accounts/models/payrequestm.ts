@@ -26,7 +26,11 @@ export class PayRequestm {
   pay_remarks:string;
   pay_org_invno: string;
   pay_org_invdt: string;
-
+  mbl_slno: number;
+  mbl_book_no: string;
+  mbl_mblno: string;
+  mbl_date: string;
+   
   rec_mode: string;
   _globalvariables: GlobalVariables;
 
