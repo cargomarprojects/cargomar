@@ -597,8 +597,8 @@
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'PN' || type == 'DI' || type == 'CI')" (click)="PrintInvoice('FC','PDF')"
         class="btn btn-success btn-sm">Print Foreign Currency</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Ledger</button>
-      <!-- <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PaymentRequest(payrequest)" class="btn btn-success btn-sm">Payment
-        Request</button> -->
+      <button [hidden]="!lock_record" [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PaymentRequest(payrequest)" class="btn btn-success btn-sm">Payment
+        Request</button>
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT' && bapprovalstatus !='' && type=='PN'" (click)="ShowApproval(approval,Record.jvh_pkid)"
         class="btn btn-success btn-sm">Approval</button>

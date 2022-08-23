@@ -2220,8 +2220,10 @@ export class BuyRateComponent {
     if (params.saction == "SAVE") {
       var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
       if (REC != null) {
-        REC.jvh_due_date = this.gs.ConvertDate2DisplayFormat(params.duedate);
+        // REC.jvh_due_date = this.gs.ConvertDate2DisplayFormat(params.duedate);
+        REC.jvh_crdays = params.crdays;
       }
+      this.Record.jvh_crdays = params.crdays;
     }
     this.modal.close();
   }

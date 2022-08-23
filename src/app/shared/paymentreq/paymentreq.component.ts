@@ -82,16 +82,16 @@ export class PaymentReqComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.pay_date.trim().length <= 0) {
-      sError = "Date Cannot Be Blank";
-      bret = false;
-    }
+    // if (this.pay_date.trim().length <= 0) {
+    //   sError = "Date Cannot Be Blank";
+    //   bret = false;
+    // }
     // if (this.pay_chq_name.trim().length <= 0) {
     //   sError += " | Name On Cheque Cannot Be Blank";
     //   bret = false;
     // }
-    if (bret === false)
-      this.ErrorMessage = sError;
+    // if (bret === false)
+    //   this.ErrorMessage = sError;
     return bret;
   }
 
@@ -150,17 +150,18 @@ export class PaymentReqComponent {
         this.loading = false;
         this.InfoMessage = '';
         if (_type == "LIST") {
-          if (response.paydate.length <= 0) {
-            // this.pay_date = this.gs.defaultValues.today;
-            this.pay_date = '';
-            this.pay_chq_name = this.party_name;
-            this.pay_is_paid = false;
-          }
-          else {
-            this.pay_date = response.paydate;
-            this.pay_chq_name = response.paychqname;
-            this.pay_is_paid = response.payispaid == "Y" ? true : false;
-          }
+          this.pay_chq_name = this.party_name;
+          this.pay_crdays = response.crdays;
+          // if (response.paydate.length <= 0) {
+          //   this.pay_date = '';
+          //   this.pay_chq_name = this.party_name;
+          //   this.pay_is_paid = false;
+          // }
+          // else {
+          //   this.pay_date = response.paydate;
+          //   this.pay_chq_name = response.paychqname;
+          //   this.pay_is_paid = response.payispaid == "Y" ? true : false;
+          // }
 
         } else if (_type == "DUE-DATE") {
           this.pay_date = response.duedate;
@@ -172,7 +173,7 @@ export class PaymentReqComponent {
             this.ErrorMessage = response.savemsg;
 
           if (this.CallbackEvent != null)
-            this.CallbackEvent.emit({ saction: 'SAVE', sid: this.jvhid, duedate: this.pay_date, ispaid: SearchData.payispaid });
+            this.CallbackEvent.emit({ saction: 'SAVE', sid: this.jvhid, duedate: this.pay_date, ispaid: SearchData.payispaid, crdays: this.pay_crdays });
         }
       },
         error => {
@@ -182,7 +183,7 @@ export class PaymentReqComponent {
   }
   FillDueDate() {
 
-    if (this.pay_crdays==undefined) {
+    if (this.pay_crdays == undefined) {
       alert('Credit Days Cannot be Blank');
       return;
     }
