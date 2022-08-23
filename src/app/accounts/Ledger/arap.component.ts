@@ -620,6 +620,7 @@ export class ArApComponent {
 
     this.Record.jvh_diff = 0;
     this.Record.jvh_banktype = 'NA';
+    this.Record.jvh_crdays = 0;
 
     this.ProcessPendingList = false;
 

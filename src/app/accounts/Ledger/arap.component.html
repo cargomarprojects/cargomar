@@ -182,10 +182,14 @@
           <!-- <div class="col-10">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
           </div> -->
-          <div class="col-10 input-group input-group-sm">
+          <div class="col-5 input-group input-group-sm">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
             <label *ngIf="cc_lock_status!=''"
               class="col-form-label col-form-label-sm text-danger">{{cc_lock_status}}</label>
+          </div>
+          <label class="col-1 col-form-label  col-form-label-sm">Cr.Days</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_crdays" maxlength="10"   />
           </div>
         </div>
 

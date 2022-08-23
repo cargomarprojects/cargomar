@@ -116,6 +116,8 @@ export class Ledgerh {
    jvh_einv_status : string = '';
    jvh_irn : string = '';
 
+   jvh_crdays: number;
+
   jvh_allocation_found: boolean;
 
   _globalvariables: GlobalVariables;

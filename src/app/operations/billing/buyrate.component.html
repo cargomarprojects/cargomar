@@ -30,7 +30,7 @@
           <th>RC</th>
           <th>NET</th>
           <th>APPROVED.BY</th>
-          <th>DUE DATE</th>
+          <th>CR.DAYS</th>
           <th>PAID</th>
           <th>PAID.STATUS</th>
          
@@ -48,7 +48,7 @@
           <td>{{(rec.jvh_rc) ? 'Y' : 'N'}}</td>
           <td>{{rec.jvh_net_amt}}</td>
           <td>{{rec.rec_aprvd_by}}</td>
-          <td>{{rec.jvh_due_date}}</td>
+          <td>{{rec.jvh_crdays}}</td>
           <td>{{rec.jvh_is_paid}}</td>
           <td>{{rec.jvh_pay_remarks}}</td>
         </tr>
@@ -96,6 +96,13 @@
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
             <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label  col-form-label-sm">Credit Days</label>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_crdays" maxlength="10"   />
           </div>
         </div>
 
@@ -590,8 +597,8 @@
       <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'PN' || type == 'DI' || type == 'CI')" (click)="PrintInvoice('FC','PDF')"
         class="btn btn-success btn-sm">Print Foreign Currency</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Ledger</button>
-      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PaymentRequest(payrequest)" class="btn btn-success btn-sm">Payment
-        Request</button>
+      <!-- <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PaymentRequest(payrequest)" class="btn btn-success btn-sm">Payment
+        Request</button> -->
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)" class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" *ngIf="mode=='EDIT' && bapprovalstatus !='' && type=='PN'" (click)="ShowApproval(approval,Record.jvh_pkid)"
         class="btn btn-success btn-sm">Approval</button>

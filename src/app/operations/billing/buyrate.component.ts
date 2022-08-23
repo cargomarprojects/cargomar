@@ -555,6 +555,7 @@ export class BuyRateComponent {
 
     this.Record.jvh_brok_exrate = 0;
     this.Record.jvh_brok_amt_inr = 0;
+    this.Record.jvh_crdays = 0;
 
     this.ProcessPendingList = false;
 
