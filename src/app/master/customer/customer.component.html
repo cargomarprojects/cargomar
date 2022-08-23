@@ -114,7 +114,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_code}}</td>
           <td>{{rec.cust_name}}</td>
           <td>{{rec.cust_group}}</td>
@@ -164,7 +165,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Code</label>
+                <label class="col-2 col-form-label col-form-label-sm">Code</label>
                 <div class="col-4">
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_code" required maxlength="15" />
@@ -276,12 +277,13 @@
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
                 </div>
-                <div class="col-5"> 
-                <div class="form-check form-check-inline">
-                  <input [disabled]="gs.globalVariables.user_code != 'ADMIN'"  type="checkbox" [(ngModel)]="Record.cust_iata_limit" />
-                  <span class="pl-1">Iata-Limit</span>
+                <div class="col-5">
+                  <div class="form-check form-check-inline">
+                    <input [disabled]="gs.globalVariables.user_code != 'ADMIN'" type="checkbox"
+                      [(ngModel)]="Record.cust_iata_limit" />
+                    <span class="pl-1">Iata-Limit</span>
+                  </div>
                 </div>
-              </div>
 
 
               </div>
@@ -671,7 +673,7 @@
       <ng-template ngbTabContent>
         <div>
           <h6 style="color: green" class="my-1">BANK DETAILS</h6>
-          <app-bankinfo2 [pkid]="pkid" [source]="'AGENT'" ></app-bankinfo2>
+          <app-bankinfo2 [pkid]="pkid" [source]="'AGENT'"></app-bankinfo2>
         </div>
         <div>
           <h6 style="color: green" class="my-1">HISTORY</h6>
