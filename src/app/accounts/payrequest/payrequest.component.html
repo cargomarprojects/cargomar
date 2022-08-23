@@ -14,9 +14,18 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
+          <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="search_mode">
+              <option [value]="'MBL-AE'">AIR EXPORT</option>
+              <option [value]="'MBL-AI'">AIR IMPORT</option>
+              <option [value]="'MBL-SE'">SEA EXPORT</option>
+              <option [value]="'MBL-SI'">SEA IMPORT</option>
+            </select>
+          </div> -->
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Paid</label>
           <div class="col-sm-2">
             <select class="form-control form-control-sm" [(ngModel)]="search_ispaid">
@@ -25,7 +34,7 @@
               <option [value]="'B'">BOTH</option>
             </select>
           </div>
-          <div class="col-sm-5">
+          <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid
               Status</button>

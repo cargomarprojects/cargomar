@@ -44,6 +44,7 @@ export class PayRequestComponent {
   mode = '';
   pkid = '';
   search_ispaid = 'B';
+  search_mode = 'MBL-SE';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
@@ -174,6 +175,7 @@ export class PayRequestComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       ispaid: this.search_ispaid,
+      search_mode:this.search_mode,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
