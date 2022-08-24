@@ -48,7 +48,8 @@ export class SalesVolumeComponent {
     mode = '';
     pkid = '';
     showclosebutton: boolean = true;
-
+    IsCompany: boolean = false;
+    IsAdmin: boolean = false;
     // Array For Displaying List
     RecordList: MarkSalesVolume[] = [];
     // Single Record for add/edit/view details
@@ -56,9 +57,9 @@ export class SalesVolumeComponent {
 
 
     CUSTRECORD: SearchTable = new SearchTable();
-    SALESMANRECORD: SearchTable = new SearchTable();
-    CSDRECORD: SearchTable = new SearchTable();
-    CNTRYRECORD: SearchTable = new SearchTable();
+    COUNTERPARTRECORD: SearchTable = new SearchTable();
+    POLRECORD: SearchTable = new SearchTable();
+    PODRECORD: SearchTable = new SearchTable();
 
     constructor(
         private modalService: NgbModal,
@@ -72,9 +73,6 @@ export class SalesVolumeComponent {
         this.page_count = 0;
         this.page_rows = 25;
         this.page_current = 0;
-
-
-        this.InitLov();
 
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -98,11 +96,18 @@ export class SalesVolumeComponent {
     }
 
     InitComponent() {
+        this.IsAdmin = false;
+        this.IsCompany = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_admin)
+                this.IsAdmin = true;
+            if (this.menu_record.rights_company)
+                this.IsCompany = true;
         }
         this.LoadCombo();
+        this.InitLov();
     }
 
     // Destroy Will be called when this component is closed
@@ -121,31 +126,31 @@ export class SalesVolumeComponent {
         this.CUSTRECORD.code = "";
         this.CUSTRECORD.name = "";
 
-         
 
-        // this.SALESMANRECORD = new SearchTable();
-        // this.SALESMANRECORD.controlname = "SALESMAN";
-        // this.SALESMANRECORD.displaycolumn = "NAME";
-        // this.SALESMANRECORD.type = "SALESMAN";
-        // this.SALESMANRECORD.id = "";
-        // this.SALESMANRECORD.code = "";
-        // this.SALESMANRECORD.name = "";
 
-        // this.CSDRECORD = new SearchTable();
-        // this.CSDRECORD.controlname = "CSD";
-        // this.CSDRECORD.displaycolumn = "NAME";
-        // this.CSDRECORD.type = "SALESMAN";
-        // this.CSDRECORD.id = "";
-        // this.CSDRECORD.code = "";
-        // this.CSDRECORD.name = "";
+        this.COUNTERPARTRECORD = new SearchTable();
+        this.COUNTERPARTRECORD.controlname = "COUNTER-PART";
+        this.COUNTERPARTRECORD.displaycolumn = "NAME";
+        this.COUNTERPARTRECORD.type = "MARKETING CONTACT";
+        this.COUNTERPARTRECORD.id = "";
+        this.COUNTERPARTRECORD.code = "";
+        this.COUNTERPARTRECORD.name = "";
 
-        // this.CNTRYRECORD = new SearchTable();
-        // this.CNTRYRECORD.controlname = "COUNTRY";
-        // this.CNTRYRECORD.displaycolumn = "NAME";
-        // this.CNTRYRECORD.type = "COUNTRY";
-        // this.CNTRYRECORD.id = "";
-        // this.CNTRYRECORD.code = "";
-        // this.CNTRYRECORD.name = "";
+        this.POLRECORD = new SearchTable();
+        this.POLRECORD.controlname = "POL";
+        this.POLRECORD.displaycolumn = "CODE";
+        this.POLRECORD.type = "PORT";
+        this.POLRECORD.id = "";
+        this.POLRECORD.code = "";
+        this.POLRECORD.name = "";
+
+        this.PODRECORD = new SearchTable();
+        this.PODRECORD.controlname = "POD";
+        this.PODRECORD.displaycolumn = "CODE";
+        this.PODRECORD.type = "PORT";
+        this.PODRECORD.id = "";
+        this.PODRECORD.code = "";
+        this.PODRECORD.name = "";
     }
 
 
@@ -195,7 +200,21 @@ export class SalesVolumeComponent {
             this.Record.sv_cust_code = _Record.code;
             this.Record.sv_cust_name = _Record.name;
         }
-
+        if (_Record.controlname == "COUNTER-PART") {
+            this.Record.sv_counterpart_id = _Record.id;
+            this.Record.sv_counterpart_code = _Record.code;
+            this.Record.sv_counterpart_name = _Record.name;
+        }
+        if (_Record.controlname == "POL") {
+            this.Record.sv_pol_id = _Record.id;
+            this.Record.sv_pol_code = _Record.code;
+            this.Record.sv_pol_name = _Record.name;
+        }
+        if (_Record.controlname == "POD") {
+            this.Record.sv_pod_id = _Record.id;
+            this.Record.sv_pod_code = _Record.code;
+            this.Record.sv_pod_name = _Record.name;
+        }
     }
 
 
@@ -258,7 +277,12 @@ export class SalesVolumeComponent {
             page_rowcount: this.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code
+            year_code: this.gs.globalVariables.year_code,
+            user_id: this.gs.globalVariables.user_pkid,
+            user_code: this.gs.globalVariables.user_code,
+            iscompany: this.IsCompany,
+            isadmin: this.IsAdmin,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -290,18 +314,19 @@ export class SalesVolumeComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesVolume();
         this.Record.sv_pkid = this.pkid;
-        this.Record.sv_mode = '';
-        this.Record.sv_type = '';
+        this.Record.sv_mode = 'SEA EXPORT';
+        this.Record.sv_type = 'BOTH';
         this.Record.sv_cust_id = '';
         this.Record.sv_cust_code = '';
         this.Record.sv_cust_name = '';
-        this.Record.sv_cust_is_new = '';
+        this.Record.sv_cust_is_new = 'Y';
         this.Record.sv_cntr_20 = 0;
         this.Record.sv_cntr_40 = 0;
         this.Record.sv_cntr_lcl = 0;
         this.Record.sv_kgs = 0;
         this.Record.sv_sb = 0;
         this.Record.sv_be = 0;
+        this.Record.sv_week_no = 0;
         this.Record.sv_pol_id = '';
         this.Record.sv_pol_code = '';
         this.Record.sv_pol_name = '';
@@ -314,11 +339,26 @@ export class SalesVolumeComponent {
         this.Record.sv_commodity = '';
         this.Record.rec_mode = '';
         this.Record.rec_mode = this.mode;
+        this.Record.rec_created_by = this.gs.globalVariables.user_code;
+        this.Record.rec_created_date = this.gs.defaultValues.today;
+
         this.InitLov();
-        
-        // this.CATEGORYRECORD.id = this.Record.cont_type_id;
-        // this.CATEGORYRECORD.code = this.Record.cont_type_name;
-        // this.CATEGORYRECORD.name = this.Record.cont_type_name;
+
+        this.CUSTRECORD.id = this.Record.sv_cust_id;
+        this.CUSTRECORD.code = this.Record.sv_cust_code;
+        this.CUSTRECORD.name = this.Record.sv_cust_name;
+
+        this.COUNTERPARTRECORD.id = this.Record.sv_counterpart_id;
+        this.COUNTERPARTRECORD.code = this.Record.sv_counterpart_code;
+        this.COUNTERPARTRECORD.name = this.Record.sv_counterpart_name;
+
+        this.POLRECORD.id = this.Record.sv_pol_id;
+        this.POLRECORD.code = this.Record.sv_pol_code;
+        this.POLRECORD.name = this.Record.sv_pol_name;
+
+        this.PODRECORD.id = this.Record.sv_pod_id;
+        this.PODRECORD.code = this.Record.sv_pod_code;
+        this.PODRECORD.name = this.Record.sv_pod_name
 
     }
 
@@ -353,18 +393,21 @@ export class SalesVolumeComponent {
 
         this.InitLov();
 
-        // this.CATEGORYRECORD.id = this.Record.cont_type_id.toString();
-        // this.CATEGORYRECORD.name = this.Record.cont_type_name;
+        this.CUSTRECORD.id = this.Record.sv_cust_id;
+        this.CUSTRECORD.code = this.Record.sv_cust_code;
+        this.CUSTRECORD.name = this.Record.sv_cust_name;
 
-        // this.SALESMANRECORD.id = this.Record.cont_saleman_id.toString();
-        // this.SALESMANRECORD.name = this.Record.cont_saleman_name;
+        this.COUNTERPARTRECORD.id = this.Record.sv_counterpart_id;
+        this.COUNTERPARTRECORD.code = this.Record.sv_counterpart_code;
+        this.COUNTERPARTRECORD.name = this.Record.sv_counterpart_name;
 
-        // this.CSDRECORD.id = this.Record.cont_csd_id.toString();
-        // this.CSDRECORD.name = this.Record.cont_csd_name;
+        this.POLRECORD.id = this.Record.sv_pol_id;
+        this.POLRECORD.code = this.Record.sv_pol_code;
+        this.POLRECORD.name = this.Record.sv_pol_name;
 
-        // this.CNTRYRECORD.id = this.Record.cont_country_id;
-        // this.CNTRYRECORD.code = this.Record.cont_country_code;
-        // this.CNTRYRECORD.name = this.Record.cont_country;
+        this.PODRECORD.id = this.Record.sv_pod_id;
+        this.PODRECORD.code = this.Record.sv_pod_code;
+        this.PODRECORD.name = this.Record.sv_pod_name
 
     }
 
@@ -415,7 +458,7 @@ export class SalesVolumeComponent {
         // }
 
         if (bret) {
-            
+
         }
 
         // if (bret === false)
@@ -443,13 +486,22 @@ export class SalesVolumeComponent {
             this.RecordList.push(this.Record);
         }
         else {
-            // REC.cont_name = this.Record.cont_name;
-            // REC.cont_add1 = this.Record.cont_add1;
-            // REC.cont_state = this.Record.cont_state;
-            // REC.cont_country = this.Record.cont_country;
-            // REC.cont_tel = this.Record.cont_tel;
-            // REC.cont_mobile = this.Record.cont_mobile;
-            // REC.cont_email = this.Record.cont_email;
+            REC.rec_created_by = this.Record.rec_created_by;
+            REC.rec_created_date = this.Record.rec_created_date;
+            REC.sv_mode = this.Record.sv_mode;
+            REC.sv_type = this.Record.sv_type;
+            REC.sv_cust_name = this.Record.sv_cust_name;
+            REC.sv_cntr_20 = this.Record.sv_cntr_20;
+            REC.sv_cntr_40 = this.Record.sv_cntr_40;
+            REC.sv_cntr_lcl = this.Record.sv_cntr_lcl;
+            REC.sv_kgs = this.Record.sv_kgs;
+            REC.sv_sb = this.Record.sv_sb;
+            REC.sv_be = this.Record.sv_be;
+            REC.sv_pol_name = this.Record.sv_pol_name;
+            REC.sv_pod_name = this.Record.sv_pod_name;
+            REC.sv_counterpart_name = this.Record.sv_counterpart_name;
+            REC.sv_commodity = this.Record.sv_commodity;
+            REC.sv_week_no = this.Record.sv_week_no;
         }
     }
 
@@ -463,7 +515,28 @@ export class SalesVolumeComponent {
         if (field == 'searchstring') {
             this.searchstring = this.searchstring.toUpperCase().trim();
         }
+        if (field == 'sv_commodity') {
+            this.Record.sv_commodity = this.Record.sv_commodity.toUpperCase().trim();
+        }
 
+        if (field == 'sv_cntr_20') {
+            this.Record.sv_cntr_20 = this.gs.roundNumber(this.Record.sv_cntr_20, 0);
+        }
+        if (field == 'sv_cntr_40') {
+            this.Record.sv_cntr_40 = this.gs.roundNumber(this.Record.sv_cntr_40, 0);
+        }
+        if (field == 'sv_cntr_lcl') {
+            this.Record.sv_cntr_lcl = this.gs.roundNumber(this.Record.sv_cntr_lcl, 0);
+        }
+        if (field == 'sv_kgs') {
+            this.Record.sv_kgs = this.gs.roundNumber(this.Record.sv_kgs, 3);
+        }
+        if (field == 'sv_sb') {
+            this.Record.sv_sb = this.gs.roundNumber(this.Record.sv_sb, 0);
+        }
+        if (field == 'sv_be') {
+            this.Record.sv_be = this.gs.roundNumber(this.Record.sv_be, 0);
+        }
     }
 
     Close() {

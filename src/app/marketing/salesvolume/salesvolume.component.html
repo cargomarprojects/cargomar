@@ -47,9 +47,13 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>WEEK#</th>
+                    <th>USER</th>
+                    <th>DATE</th>
                     <th>MODE</th>
                     <th>TYPE</th>
                     <th>CLIENT</th>
+                    <th>NEW CLIENT</th>
                     <th>20</th>
                     <th>40</th>
                     <th>LCL</th>
@@ -60,16 +64,18 @@
                     <th>POD</th>
                     <th>COUNTERPART</th>
                     <th>COMMODITY</th>
-                    <th>CREATED.BY</th>
-                    <th>DATE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.sv_pkid)">{{rec.sv_mode}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.sv_pkid)">{{rec.sv_week_no}}</td>
+                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.rec_created_date}}</td>
+                    <td>{{rec.sv_mode}}</td>
                     <td>{{rec.sv_type}}</td>
                     <td>{{rec.sv_cust_name}}</td>
+                    <td>{{rec.sv_cust_is_new}}</td>
                     <td>{{rec.sv_cntr_20}}</td>
                     <td>{{rec.sv_cntr_40}}</td>
                     <td>{{rec.sv_cntr_lcl}}</td>
@@ -80,8 +86,6 @@
                     <td>{{rec.sv_pod_name}}</td>
                     <td>{{rec.sv_counterpart_name}}</td>
                     <td>{{rec.sv_commodity}}</td>
-                    <td>{{rec.rec_created_by}}</td>
-                    <td>{{rec.rec_created_date}}</td>
                 </tr>
             </tbody>
         </table>
@@ -113,44 +117,144 @@
     <div class="page-box">
         <div class="row">
 
-            <div class="col-sm-4">
+            <div class="col-sm-6">
 
                 <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Week#</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" name="wkno"
+                            [(ngModel)]="Record.sv_week_no" required maxlength="10" (blur)="OnBlur('sv_week_no')" />
+                    </div>
+
                     <label class="col-2 col-form-label col-form-label-sm">Mode</label>
-                    <div class="col-10">
+                    <div class="col-4">
                         <select class="form-control form-control-sm" [(ngModel)]="Record.sv_mode">
-                            <option value="'SEA EXPORT'">SEA EXPORT</option>
-                            <option value="'SEA IMPORT'">SEA IMPORT</option>
-                            <option value="'AIR EXPORT'">AIR EXPORT</option>
-                            <option value="'AIR IMPORT'">AIR IMPORT</option>
+                            <option value="SEA EXPORT">SEA EXPORT</option>
+                            <option value="SEA IMPORT">SEA IMPORT</option>
+                            <option value="AIR EXPORT">AIR EXPORT</option>
+                            <option value="AIR IMPORT">AIR IMPORT</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-10">
+                    <div class="col-4">
                         <select class="form-control form-control-sm" [(ngModel)]="Record.sv_type">
-                            <option value="'CLEARING'">CLEARING</option>
-                            <option value="'FORWARDING'">FORWARDING</option>
-                            <option value="'BOTH'">BOTH</option>
+                            <option value="CLEARING">CLEARING</option>
+                            <option value="FORWARDING">FORWARDING</option>
+                            <option value="BOTH">BOTH</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Client</label>
-                    <div class="col-4">
+                    <div class="col-10">
                         <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                     </div>
-                    <div class="col-sm-6">
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-10">
                         <input type="radio" [(ngModel)]="Record.sv_cust_is_new" [value]="'Y'" />
                         <label class="col-form-label col-form-label-sm">New Client</label>&nbsp;&nbsp;
                         <input type="radio" [(ngModel)]="Record.sv_cust_is_new" [value]="'N'" />
                         <label class="col-form-label col-form-label-sm">Existing Client</label>
                     </div>
                 </div>
-            </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Volume</label>
+                    <!-- <div class="col-sm-10 input-group input-group-sm">
+                        <label class="col-form-label col-form-label-sm">20</label>&nbsp;&nbsp;
+                        <input type="number" class="form-control form-control-sm mr-1" name="Cntr20"
+                            [(ngModel)]="Record.sv_cntr_20" required maxlength="10" (blur)="OnBlur('sv_cntr_20')" />
+                        <label class="col-form-label col-form-label-sm">40</label>&nbsp;&nbsp;
+                        <input type="number" class="form-control form-control-sm mr-1" name="Cntr40"
+                            [(ngModel)]="Record.sv_cntr_40" required maxlength="10" (blur)="OnBlur('sv_cntr_40')" />
+                        <label class="col-form-label col-form-label-sm">LCL</label>&nbsp;&nbsp;
+                        <input type="number" class="form-control form-control-sm" name="Cntrlcl"
+                            [(ngModel)]="Record.sv_cntr_lcl" required maxlength="10" (blur)="OnBlur('sv_cntr_lcl')" />
+                    </div> -->
+                    <label class="col-1 col-form-label col-form-label-sm">20</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" name="Cntr20"
+                            [(ngModel)]="Record.sv_cntr_20" required maxlength="10" (blur)="OnBlur('sv_cntr_20')" />
+                    </div>
+                    <label class="col-1 col-form-label col-form-label-sm">40</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" name="Cntr40"
+                            [(ngModel)]="Record.sv_cntr_40" required maxlength="10" (blur)="OnBlur('sv_cntr_40')" />
+                    </div>
+                    <label class="col-1 col-form-label col-form-label-sm">LCL</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control form-control-sm" name="Cntrlcl"
+                            [(ngModel)]="Record.sv_cntr_lcl" required maxlength="10" (blur)="OnBlur('sv_cntr_lcl')" />
+                    </div>
+                </div>
 
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <label class="col-1 col-form-label col-form-label-sm">KGS</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" name="kgs" [(ngModel)]="Record.sv_kgs"
+                            required maxlength="10" (blur)="OnBlur('sv_kgs')" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <label class="col-1 col-form-label col-form-label-sm">SB#</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" name="sb" [(ngModel)]="Record.sv_sb"
+                            required maxlength="10" (blur)="OnBlur('sv_sb')" />
+                    </div>
+                    <label class="col-1 col-form-label col-form-label-sm">BE#</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" name="be" [(ngModel)]="Record.sv_be"
+                            required maxlength="10" (blur)="OnBlur('sv_be')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Counterpart</label>
+                    <div class="col-10">
+                        <app-autocomplete #cPartLov [inputdata]="COUNTERPARTRECORD"
+                            (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
+                    <div class="col-sm-4">
+                        <app-autocomplete #polLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <input type="text" disabled class="form-control form-control-sm" name="pol"
+                            [(ngModel)]="Record.sv_pol_name" required maxlength="60" (blur)="OnBlur('sv_pol_name')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
+                    <div class="col-sm-4">
+                        <app-autocomplete #podLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <input type="text" disabled class="form-control form-control-sm" name="pod"
+                            [(ngModel)]="Record.sv_pod_name" required maxlength="60" (blur)="OnBlur('sv_pod_name')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" name="commodity"
+                            [(ngModel)]="Record.sv_commodity" required maxlength="60" (blur)="OnBlur('sv_commodity')" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
         </div>
     </div>
 
