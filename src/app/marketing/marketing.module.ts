@@ -8,6 +8,7 @@ import { VisitReportChildComponent } from './marketing/visitreportchild.componen
 import { SalesleadComponent } from './saleslead/saleslead.component';
 import { ActionComponent } from './saleslead/action.component';
 import { MarkMarketingService } from './services/markmarketing.service';
+import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { MarkMarketingService } from './services/markmarketing.service';
     VisitReportComponent,
     VisitReportChildComponent,
     SalesleadComponent,
-    ActionComponent
+    ActionComponent,
+    SalesVolumeComponent
   ],
   providers: [
     MarkMarketingService
