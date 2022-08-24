@@ -326,7 +326,6 @@ export class SalesVolumeComponent {
         this.Record.sv_kgs = 0;
         this.Record.sv_sb = 0;
         this.Record.sv_be = 0;
-        this.Record.sv_week_no = 0;
         this.Record.sv_pol_id = '';
         this.Record.sv_pol_code = '';
         this.Record.sv_pol_name = '';
@@ -337,7 +336,9 @@ export class SalesVolumeComponent {
         this.Record.sv_counterpart_code = '';
         this.Record.sv_counterpart_name = '';
         this.Record.sv_commodity = '';
-        this.Record.rec_mode = '';
+        this.Record.sv_date = this.gs.defaultValues.today;
+        this.Record.sv_week_no = 0;
+        
         this.Record.rec_mode = this.mode;
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.defaultValues.today;

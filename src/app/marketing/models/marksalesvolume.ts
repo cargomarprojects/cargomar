@@ -26,6 +26,7 @@ export class MarkSalesVolume {
     sv_counterpart_name: string;
     sv_commodity: string;
     sv_week_no: number;
+    sv_date:string;
     
     rec_mode: string;
     rec_created_by:string;
