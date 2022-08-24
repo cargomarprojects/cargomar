@@ -37,6 +37,7 @@ export class PayRequestComponent {
   sub: any;
   urlid: string;
   bDocsUpload: boolean = false;
+  bExcel: boolean = false;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -84,10 +85,13 @@ export class PayRequestComponent {
 
   InitComponent() {
     this.bDocsUpload = false;
+    this.bExcel = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-
+      if (this.menu_record.rights_print)
+        this.bExcel = true;
+    }
     this.InitLov();
     this.LoadCombo();
     this.currentTab = 'LIST';
@@ -174,8 +178,9 @@ export class PayRequestComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
       ispaid: this.search_ispaid,
-      search_mode:this.search_mode,
+      search_mode: this.search_mode,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -187,15 +192,22 @@ export class PayRequestComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
   NewRecord() {
@@ -364,12 +376,12 @@ export class PayRequestComponent {
 
     this.loading = true;
     let SearchData = {
-      pkid:'',
-      parentid:'',
+      pkid: '',
+      parentid: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      user_code:this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.ErrorMessage = '';
