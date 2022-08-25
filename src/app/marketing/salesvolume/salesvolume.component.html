@@ -172,18 +172,8 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Volume</label>
-                    <!-- <div class="col-sm-10 input-group input-group-sm">
-                        <label class="col-form-label col-form-label-sm">20</label>&nbsp;&nbsp;
-                        <input type="number" class="form-control form-control-sm mr-1" name="Cntr20"
-                            [(ngModel)]="Record.sv_cntr_20" required maxlength="10" (blur)="OnBlur('sv_cntr_20')" />
-                        <label class="col-form-label col-form-label-sm">40</label>&nbsp;&nbsp;
-                        <input type="number" class="form-control form-control-sm mr-1" name="Cntr40"
-                            [(ngModel)]="Record.sv_cntr_40" required maxlength="10" (blur)="OnBlur('sv_cntr_40')" />
-                        <label class="col-form-label col-form-label-sm">LCL</label>&nbsp;&nbsp;
-                        <input type="number" class="form-control form-control-sm" name="Cntrlcl"
-                            [(ngModel)]="Record.sv_cntr_lcl" required maxlength="10" (blur)="OnBlur('sv_cntr_lcl')" />
-                    </div> -->
-                    <label class="col-1 col-form-label col-form-label-sm">20</label>
+
+                    <!-- <label class="col-1 col-form-label col-form-label-sm">20</label>
                     <div class="col-sm-3">
                         <input type="number" class="form-control form-control-sm" name="Cntr20"
                             [(ngModel)]="Record.sv_cntr_20" required maxlength="10" (blur)="OnBlur('sv_cntr_20')" />
@@ -197,19 +187,84 @@
                     <div class="col-sm-2">
                         <input type="number" class="form-control form-control-sm" name="Cntrlcl"
                             [(ngModel)]="Record.sv_cntr_lcl" required maxlength="10" (blur)="OnBlur('sv_cntr_lcl')" />
+                    </div> -->
+
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            <label class="col-12 col-form-label col-form-label-sm"><b>SEA EXPORT/IMPORT</b></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">20</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="Cntr20"
+                                    [(ngModel)]="Record.sv_cntr_20" required maxlength="10"
+                                    (blur)="OnBlur('sv_cntr_20')" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">40</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="Cntr40"
+                            [(ngModel)]="Record.sv_cntr_40" required maxlength="10" (blur)="OnBlur('sv_cntr_40')" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">LCL</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="Cntrlcl"
+                                [(ngModel)]="Record.sv_cntr_lcl" required maxlength="10" (blur)="OnBlur('sv_cntr_lcl')" />
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group row">
+                            <label class="col-12 col-form-label col-form-label-sm"><b>AIR EXPORT/IMPORT</b></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">KGS</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="kgs" [(ngModel)]="Record.sv_kgs"
+                                required maxlength="10" (blur)="OnBlur('sv_kgs')" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group row">
+                            <label class="col-12 col-form-label col-form-label-sm"><b>CLEARING</b></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">SB#</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="sb" [(ngModel)]="Record.sv_sb"
+                                required maxlength="10" (blur)="OnBlur('sv_sb')" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label col-form-label-sm">BE#</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control form-control-sm" name="be" [(ngModel)]="Record.sv_be"
+                            required maxlength="10" (blur)="OnBlur('sv_be')" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <label class="col-1 col-form-label col-form-label-sm">KGS</label>
                     <div class="col-sm-3">
                         <input type="number" class="form-control form-control-sm" name="kgs" [(ngModel)]="Record.sv_kgs"
                             required maxlength="10" (blur)="OnBlur('sv_kgs')" />
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <label class="col-1 col-form-label col-form-label-sm">SB#</label>
                     <div class="col-sm-3">
@@ -221,7 +276,7 @@
                         <input type="number" class="form-control form-control-sm" name="be" [(ngModel)]="Record.sv_be"
                             required maxlength="10" (blur)="OnBlur('sv_be')" />
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Counterpart</label>
                     <div class="col-10">
@@ -270,7 +325,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="offset-2 col-10">
-                    <button [hidden]="disableSave" [disabled]="loading || Record.rec_created_by !=gs.globalVariables.user_code" (click)="Save()"
+                    <button [hidden]="disableSave"
+                        [disabled]="loading || Record.rec_created_by !=gs.globalVariables.user_code" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
