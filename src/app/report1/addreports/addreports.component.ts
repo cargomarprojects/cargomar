@@ -37,6 +37,9 @@ export class AddReportsComponent {
     from_date: string = '';
     to_date: string = '';
 
+    sales_from_date: string = '';
+    sales_to_date: string = '';
+
     bExcel = false;
     bCompany = false;
     bAdmin = false;
@@ -52,6 +55,7 @@ export class AddReportsComponent {
         branch_code: '',
         branch_name: '',
         year_code: '',
+        from_date: '',
         to_date: ''
     };
 
@@ -113,6 +117,14 @@ export class AddReportsComponent {
 
     Init() {
         this.to_date = this.gs.defaultValues.today;
+
+        var today = new Date();
+        var wkday = today.getDate() - today.getDay() + 1;
+        var wkStart = new Date(today.setDate(wkday));
+        var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+        this.sales_from_date = wkStart.toISOString().slice(0, 10);;
+        this.sales_to_date = wkEnd.toISOString().slice(0, 10);;
     }
 
     // // Destroy Will be called when this component is closed
@@ -183,7 +195,7 @@ export class AddReportsComponent {
                     this.FileList = response.filelist;
                     this.AttachList = new Array<any>();
                     for (let rec of this.FileList) {
-                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname,filesize: rec.filesize });
+                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
                     }
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
@@ -202,7 +214,7 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
- 
+
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
@@ -220,4 +232,39 @@ export class AddReportsComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+    SalesCallReport(_type: string) {
+
+        this.ErrorMessage = '';
+        if (this.sales_from_date.trim().length <= 0) {
+            this.ErrorMessage = "From Date Cannot Be Blank";
+            return;
+        }
+        if (this.sales_to_date.trim().length <= 0) {
+            this.ErrorMessage = "To Date Cannot Be Blank";
+            return;
+        }
+
+        this.loading = true;
+        this.pkid = this.gs.getGuid();
+        this.SearchData.type = _type;
+        this.SearchData.pkid = this.pkid;
+        this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+        this.SearchData.company_code = this.gs.globalVariables.comp_code;
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+        this.SearchData.year_code = this.gs.globalVariables.year_code;
+        this.SearchData.from_date = this.sales_from_date;
+        this.SearchData.to_date = this.sales_to_date;
+        this.ErrorMessage = '';
+        this.mainService.SalesCallReport(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+            },
+                error => {
+                    this.loading = false;
+                    this.RecordList = null;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
 }
