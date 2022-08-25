@@ -123,8 +123,9 @@ export class AddReportsComponent {
         var wkStart = new Date(today.setDate(wkday));
         var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
 
-        this.sales_from_date = wkStart.toISOString().slice(0, 10);;
-        this.sales_to_date = wkEnd.toISOString().slice(0, 10);;
+        this.to_date = wkStart.toISOString().slice(0, 10);
+        this.sales_from_date = wkStart.toISOString().slice(0, 10);
+        this.sales_to_date = wkEnd.toISOString().slice(0, 10);
     }
 
     // // Destroy Will be called when this component is closed
@@ -259,7 +260,10 @@ export class AddReportsComponent {
         this.mainService.SalesCallReport(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-
+                this.FileList = response.filelist;
+                for (let rec of this.FileList) {
+                    this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                }
             },
                 error => {
                     this.loading = false;
