@@ -107,9 +107,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                                     <div class="col-sm-10">
-                                        <button [disabled]="loading" (click)="SalesCallReport('SCREEN','')"
+                                        <button [disabled]="loading" (click)="SalesReport('SCREEN','')"
                                             class="btn btn-primary btn-sm mr-1">Process Report</button>
-                                            <button [disabled]="loading" (click)="SalesCallReport('MAIL',mailsent)"
+                                            <button [disabled]="loading" (click)="SalesReport('MAIL',mailsent)"
                                             class="btn btn-primary btn-sm">Mail</button>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'MIS-WEEKLY-VOLUME-REPORT'" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true  [AttachList] ="AttachList" ></app-mail>
+      <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="sMailType" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true  [AttachList] ="AttachList" ></app-mail>
     </div>
     <!--<div class="modal-footer">
       <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>

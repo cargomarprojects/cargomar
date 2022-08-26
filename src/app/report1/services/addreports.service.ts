@@ -15,8 +15,8 @@ export class AddReportsService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AddReports/List', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  SalesCallReport(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AddReports/SalesCallReport', SearchData, this.gs.headerparam2('authorized'));
+  SalesReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AddReports/SalesReport', SearchData, this.gs.headerparam2('authorized'));
   }
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + 'api/Report1/AddReports/LoadDefault', SearchData, this.gs.headerparam2('authorized'));

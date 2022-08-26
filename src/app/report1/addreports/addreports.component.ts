@@ -62,6 +62,7 @@ export class AddReportsComponent {
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
+    sMailType: string = 'MIS-WEEKLY-VOLUME-REPORT';
     AttachList: any[] = [];
     FileList: any[] = [];
     // Array For Displaying List
@@ -198,6 +199,7 @@ export class AddReportsComponent {
                     for (let rec of this.FileList) {
                         this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
                     }
+                    this.sMailType = "MIS-WEEKLY-VOLUME-REPORT";
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
                     this.open(mailsent);
@@ -233,7 +235,7 @@ export class AddReportsComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-    SalesCallReport(_type: string, mailsent: any) {
+    SalesReport(_type: string, mailsent: any) {
 
         this.ErrorMessage = '';
         if (this.sales_from_date.trim().length <= 0) {
@@ -257,7 +259,7 @@ export class AddReportsComponent {
         this.SearchData.from_date = this.sales_from_date;
         this.SearchData.to_date = this.sales_to_date;
         this.ErrorMessage = '';
-        this.mainService.SalesCallReport(this.SearchData)
+        this.mainService.SalesReport(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
 
@@ -267,6 +269,7 @@ export class AddReportsComponent {
                     for (let rec of this.FileList) {
                         this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
                     }
+                    this.sMailType = "MIS-WEEKLY-SALES-REPORT";
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
                     this.open(mailsent);
