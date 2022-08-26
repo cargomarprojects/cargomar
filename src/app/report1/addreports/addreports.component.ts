@@ -233,7 +233,7 @@ export class AddReportsComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-    SalesCallReport(_type: string) {
+    SalesCallReport(_type: string, mailsent: any) {
 
         this.ErrorMessage = '';
         if (this.sales_from_date.trim().length <= 0) {
@@ -260,9 +260,22 @@ export class AddReportsComponent {
         this.mainService.SalesCallReport(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.FileList = response.filelist;
-                for (let rec of this.FileList) {
-                    this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+
+                if (_type == 'MAIL') {
+                    this.FileList = response.filelist;
+                    this.AttachList = new Array<any>();
+                    for (let rec of this.FileList) {
+                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
+                    }
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.open(mailsent);
+                }
+                else {
+                    this.FileList = response.filelist;
+                    for (let rec of this.FileList) {
+                        this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                    }
                 }
             },
                 error => {
