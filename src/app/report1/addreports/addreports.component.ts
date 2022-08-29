@@ -122,11 +122,19 @@ export class AddReportsComponent {
         var today = new Date();
         var wkday = today.getDate() - today.getDay() + 1;
         var wkStart = new Date(today.setDate(wkday));
-        var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
 
         this.to_date = wkStart.toISOString().slice(0, 10);
-        this.sales_from_date = wkStart.toISOString().slice(0, 10);
-        this.sales_to_date = wkEnd.toISOString().slice(0, 10);
+
+        if (today.getDay() == 1) { 
+            //if Monday will show previous week
+            wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+            var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+            this.sales_from_date = wkStart.toISOString().slice(0, 10);
+            this.sales_to_date = wkEnd.toISOString().slice(0, 10);
+        } else {
+            this.sales_from_date = wkStart.toISOString().slice(0, 10);
+            this.sales_to_date = this.gs.defaultValues.today;
+        }
     }
 
     // // Destroy Will be called when this component is closed
