@@ -335,7 +335,7 @@ export class MonrepComponent {
     }
 
     if (_type == "MAIL")
-      if (!confirm("Do you want to Sent Mail")) {
+      if (!confirm("Do you want to Send Invoice Pending List? ")) {
         return;
       }
 
