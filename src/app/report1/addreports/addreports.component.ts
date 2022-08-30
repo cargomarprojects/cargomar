@@ -117,15 +117,16 @@ export class AddReportsComponent {
     }
 
     Init() {
-        this.to_date = this.gs.defaultValues.today;
-
+        let dayOfWk: number = 0;
+       
         var today = new Date();
+        dayOfWk = today.getDay();
         var wkday = today.getDate() - today.getDay() + 1;
         var wkStart = new Date(today.setDate(wkday));
 
         this.to_date = wkStart.toISOString().slice(0, 10);
 
-        if (today.getDay() == 1) { 
+        if (dayOfWk == 1) {
             //if Monday will show previous week
             wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
             var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
