@@ -43,8 +43,10 @@
                             class="form-control form-control-sm" [(ngModel)]="Record.ded_paid_amt"
                             (blur)="OnBlur('ded_paid_amt')" required [maxlength]="14" />
                     </div>
-                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Collected : {{Record.ded_collected_amt}}</label>
-                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Balance : {{Record.ded_bal_amt}}</label>
+                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Collected :
+                        {{Record.ded_collected_amt}}</label>
+                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm">Balance :
+                        {{Record.ded_bal_amt}}</label>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
@@ -88,6 +90,8 @@
                     <div class="offset-2 col-sm-9">
                         <button [disabled]="loading || lock_record" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
+                        <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+                            class="btn btn-success btn-sm">History</button>
                         <button [disabled]="loading" (click)="Close()" class="btn btn-success btn-sm">Close</button>
                         <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                             <font color="RED">
@@ -136,3 +140,14 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
 </div>
+<ng-template #history let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">History</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-history [pkid]="pkid" [type]="'LOAN-DEDUCTION'"></app-history>
+    </div>
+</ng-template>

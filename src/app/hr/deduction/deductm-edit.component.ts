@@ -5,6 +5,7 @@ import { Deductm, Deductd } from '../models/deductm';
 import { DeductmService } from '../services/deductm.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { SalaryHead } from '../models/salaryhead';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-deductm-edit',
@@ -33,7 +34,7 @@ export class DeductmEditComponent {
     bPrint: boolean = false;
     searchstring = '';
 
-
+    modal: any;
     sub: any;
     urlid: string;
     lock_record: boolean = false;
@@ -50,6 +51,7 @@ export class DeductmEditComponent {
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
+        private modalService: NgbModal,
         private mainService: DeductmService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -354,5 +356,14 @@ export class DeductmEditComponent {
             }
         }
         return str;
+    }
+
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
+
+    ShowHistory(history: any) {
+        this.ErrorMessage = '';
+        this.open(history);
     }
 }
