@@ -23,6 +23,7 @@ export class BonusComponent {
 
   lock_record: boolean = false;
   bRelived = false;
+  bActive = true;
   bPrint: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
@@ -170,7 +171,8 @@ export class BonusComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      brelived: this.bRelived
+      brelived: this.bRelived,
+      bactive: this.bActive
     };
 
     this.ErrorMessage = '';
@@ -178,7 +180,7 @@ export class BonusComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL' || _type == 'CSV') {
+        if (_type == 'EXCEL' || _type == 'CSV'||_type == 'SUMMARY') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
           if (!this.gs.isBlank(response.filename2))
             this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
