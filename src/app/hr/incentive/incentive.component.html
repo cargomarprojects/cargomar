@@ -189,7 +189,8 @@
 
         <div class="form-group row">
             <input class="form-check-input" type="checkbox"  [(ngModel)]="csvall">
-            <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm"> CSV </button>
+            <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm mr-1"> CSV </button>
+            <button [disabled]="loading" (click)="PrintBrSummary()" class="btn btn-success btn-sm"> Branch Summary </button>
           </div>
       </div>
 

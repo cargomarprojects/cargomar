@@ -46,6 +46,7 @@ export class ConsolPayrollComponent {
   salyear = 0;
   salmonth = 0;
   bSalarySheet = false;
+  bBranchSummary = false;
 
   fromdate: string = '';
   todate: string = '';
@@ -160,9 +161,18 @@ export class ConsolPayrollComponent {
       }
     }
 
+    if (this.bSalarySheet && this.bBranchSummary) {
+      this.ErrorMessage += " | Please select either Salary Sheet or Branch Summary and Continue.....";
+    }
+
     if (this.bSalarySheet && this.prtype != 'PAY ROLL') {
       this.ErrorMessage += " | To print Salary Sheet Please select type as Monthwise and Continue.....";
     }
+
+    if (this.bBranchSummary && this.prtype != 'PAY ROLL') {
+      this.ErrorMessage += " | To print Branch Summary Please select type as Monthwise and Continue.....";
+    }
+
     if (this.ErrorMessage.length > 0)
       return;
 
@@ -188,6 +198,7 @@ export class ConsolPayrollComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       bsalarysheet: this.bSalarySheet,
+      bbranchsummary: this.bBranchSummary,
       fromdate: this.fromdate,
       todate: this.todate
     };
@@ -264,6 +275,7 @@ export class ConsolPayrollComponent {
   }
   OnChange(field: string) {
     this.bSalarySheet=false;
+    this.bBranchSummary=false;
     this.RecordList = null;
   }
 

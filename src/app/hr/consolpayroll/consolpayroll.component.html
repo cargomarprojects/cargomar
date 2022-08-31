@@ -12,7 +12,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" name="etype" [(ngModel)]="prtype" (change)="OnChange('prtype')">
+            <select class="form-control form-control-sm" name="etype" [(ngModel)]="prtype"
+              (change)="OnChange('prtype')">
               <option [value]="'PAY ROLL'">Month Wise</option>
               <option [value]="'CONSOL PAY ROLL'">Period Wise</option>
               <option [value]="'CONSOL PAY ROLL[FOR LBR RTN]'">Labour Return</option>
@@ -56,15 +57,16 @@
       <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-1 col-form-label col-form-label-sm">Status</label>
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
-              <option [value]="'BOTH'">Both</option>
+              <option [value]="'BOTH'">Both(Confm/UnConfm)</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
               <option [value]="'UNCONFIRM'">Unconfirmed</option>
+              <option [value]="'CONSULTANT'">Consultant</option>
             </select>
           </div>
           <label *ngIf="bCompany" class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
-          <div *ngIf="bCompany" class="col-6">
+          <div *ngIf="bCompany" class="col-5">
             <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
 
@@ -76,8 +78,10 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
-              <span *ngIf="bPrint && prtype=='PAY ROLL'">
-            <input type="checkbox"  [(ngModel)]="bSalarySheet"> Salary Sheet</span>
+            <span *ngIf="bPrint && prtype=='PAY ROLL'">
+              <input type="checkbox" [(ngModel)]="bSalarySheet">Salary Sheet&nbsp;
+              <input type="checkbox" [(ngModel)]="bBranchSummary">Branch Summary
+            </span>
           </div>
         </div>
       </div>

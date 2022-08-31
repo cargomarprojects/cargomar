@@ -43,7 +43,10 @@ export class SalIncentiveService {
   PostIncentiveJV(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveIncentiveJV', SearchData, this.gs.headerparam2('authorized'));
   }
-
+  
+  PrintBrSummary(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/PrintBrSummary', SearchData, this.gs.headerparam2('authorized'));
+  }
 
 }
 

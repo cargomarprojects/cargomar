@@ -23,7 +23,6 @@ export class BonusComponent {
 
   lock_record: boolean = false;
   bRelived = false;
-  bActive = true;
   bPrint: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
@@ -171,8 +170,7 @@ export class BonusComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      brelived: this.bRelived,
-      bactive: this.bActive
+      brelived: this.bRelived
     };
 
     this.ErrorMessage = '';
