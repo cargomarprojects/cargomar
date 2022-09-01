@@ -26,6 +26,7 @@ export class IncentiveComponent {
   currentTab = 'LIST';
 
   bAdmin = false;
+  bEdit = false;
 
   selectedRowIndex = 0;
 
@@ -95,11 +96,14 @@ export class IncentiveComponent {
 
   InitComponent() {
     this.bAdmin = false;
+    this.bEdit = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_edit)
+        this.bEdit = true;
     }
     this.LoadCombo();
   }
@@ -448,6 +452,27 @@ export class IncentiveComponent {
   }
 
 
+  UpdateHeaderRecord(_rec: sal_incentivem) {
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    _rec._globalvariables = this.gs.globalVariables;
+    this.mainService.UpdateHeaderRecord(_rec)
+      .subscribe(response => {
+        this.loading = false;
+        _rec.row_displayed = false;
+        _rec.salh_display_date = this.gs.ConvertDate2DisplayFormat(_rec.salh_date);
+        _rec.salh_pay_display_date = this.gs.ConvertDate2DisplayFormat(_rec.salh_pay_date);
+        // alert("Record Updated");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
   RemoveList(event: any) {
     if (event.selected) {
@@ -592,5 +617,8 @@ export class IncentiveComponent {
         });
   }
 
+  showHeaderUpdate(_rec: sal_incentivem) {
+    _rec.row_displayed = !_rec.row_displayed;
+  }
 
 }
