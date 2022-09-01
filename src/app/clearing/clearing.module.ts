@@ -29,6 +29,7 @@ import { CtrlComponent } from './job/singlewindow/ctrl.component';
 import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
 import { OnlineTrackMasterComponent } from './job/onlinetrackmaster/onlinetrackmaster.component';
 import { OnlineTrackMasterDetComponent } from './job/onlinetrackmaster/onlinetrackmasterdet.component';
+import { BlDataComponent } from './job/bldata/bldata.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { OnlineTrackMasterDetComponent } from './job/onlinetrackmaster/onlinetra
     CtrlComponent,
     OnlineTrackComponent,
     OnlineTrackMasterComponent,
-    OnlineTrackMasterDetComponent
+    OnlineTrackMasterDetComponent,
+    BlDataComponent
   ],
   providers: [
   ],
