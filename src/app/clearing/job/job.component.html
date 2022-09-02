@@ -130,7 +130,8 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
@@ -994,7 +995,7 @@
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-primary btn-sm">History</button>
               <button *ngIf="mode == 'EDIT' && bCanDuplicate" [disabled]="loading" (click)="DuplicateJob()"
-                class="btn btn-primary btn-sm">Duplicate Job</button>                
+                class="btn btn-primary btn-sm">Duplicate Job</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -1125,7 +1126,14 @@
       </ngb-tab>
       <ngb-tab title="BL Data" *ngIf="mode == 'EDIT'">
         <ng-template ngbTabContent>
-          <app-bldata [parentid]="pkid" [type]="'INVOICE'"></app-bldata>
+          <app-bldata [parentid]="pkid" [type]="'COMMODITY'" [category]="type"></app-bldata>
+          <hr />
+          <app-bldata [parentid]="pkid" [type]="'SB'" [category]="type"></app-bldata>
+          <hr />
+          <app-bldata [parentid]="pkid" [type]="'INVOICE'" [category]="type"></app-bldata>
+          <hr />
+          <app-bldata [parentid]="pkid" [type]="'DESC'" [category]="type"></app-bldata>
+         
         </ng-template>
       </ngb-tab>
     </ngb-tabset>

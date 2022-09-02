@@ -17,16 +17,19 @@ export class BlDataComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
+    @Input() category: string = '';
 
     loading = false;
     currentTab = 'LIST';
 
+    Desc_Caption = "INVOICE.NO";
     ErrorMessage = "";
     InfoMessage = "";
     mode = 'ADD';
     pkid = '';
     ctr: number;
 
+    RITCRECORD: SearchTable = new SearchTable();
     // Array For Displaying List
     RecordList: Bldata[] = [];
     // Single Record for add/edit/view details
@@ -42,7 +45,16 @@ export class BlDataComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        this.List("NEW");
+
+        if (this.type == "INVOICE")
+            this.Desc_Caption = "INVOICE.NO";
+        else if (this.type == "SB")
+            this.Desc_Caption = "SB.NO";
+        else if (this.type == "COMMODITY")
+            this.Desc_Caption = "COMMODITY";
+        else if (this.type == "DESC")
+            this.Desc_Caption = "DESCRIPTION";
+        this.List();
     }
 
     // Destroy Will be called when this component is closed
@@ -52,17 +64,34 @@ export class BlDataComponent {
 
     InitLov() {
 
+        // this.RITCRECORD = new SearchTable();
+        // this.RITCRECORD.controlname = "RITC";
+        // this.RITCRECORD.displaycolumn = "CODE";
+        // this.RITCRECORD.type = "RITCM";
+        // this.RITCRECORD.id = "";
+        // this.RITCRECORD.code = "";
+        // this.RITCRECORD.name = "";
+
     }
 
-    LovSelected(_Record: SearchTable) {
-
+    LovSelected(_Record: SearchTable, idx: number = 0) {
+        if (_Record.controlname == "RITC") {
+            this.RecordList.forEach(rec => {
+              if (rec.bd_pkid == _Record.uid) {
+                rec.bd_hscode_id = _Record.id;
+                rec.bd_hscode_code = _Record.code;
+                rec.bd_hscode_name = _Record.name;
+                // if (idx < this.cntr_sealno_field.toArray().length)
+                //   this.cntr_sealno_field.toArray()[idx].nativeElement.focus();
+              }
+            });
+          }
     }
 
-    List(_type: string) {
+    List() {
         this.loading = true;
         let SearchData = {
-            type: _type,
-            rowtype: this.type,
+            type: this.type,
             parentid: this.parentid,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
@@ -93,9 +122,13 @@ export class BlDataComponent {
         let Rec: Bldata = new Bldata();
         Rec.bd_pkid = this.gs.getGuid();
         Rec.bd_parent_id = this.parentid;
+        Rec.bd_type = this.type;
         Rec.bd_desc = '';
         Rec.bd_date = '';
         Rec.bd_hscode_id = '';
+        Rec.bd_hscode_code = '';
+        Rec.bd_hscode_name = '';
+        Rec.rec_category = this.category;
         this.RecordList.push(Rec);
     }
 
@@ -114,7 +147,8 @@ export class BlDataComponent {
         this.mainService.Save(Rec)
             .subscribe(response => {
                 this.loading = false;
-                this.InfoMessage = "Save Complete";
+                // this.InfoMessage = "Save Complete";
+                alert('Save Complete')
             },
                 error => {
                     this.loading = false;
@@ -160,11 +194,11 @@ export class BlDataComponent {
     OnBlur(field: string, rec: Bldata) {
         var oldChar = / /gi;//replace all blank space in a string
         switch (field) {
-            // case 'cntr_no':
-            //     {
-            //   this.Record.cntr_no = this.Record.cntr_no.replace(oldChar, '').toUpperCase();
-            //         break;
-            //     }
+            case 'bd_desc':
+                {
+                    rec.bd_desc = rec.bd_desc.toUpperCase();
+                    break;
+                }
             // case 'cntr_sealno':
             //     {
             //         this.Record.cntr_sealno = this.Record.cntr_sealno.toUpperCase();

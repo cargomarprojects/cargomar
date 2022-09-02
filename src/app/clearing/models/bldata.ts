@@ -5,6 +5,8 @@ export class Bldata {
     bd_parent_id: string;
     bd_type: string;
     bd_hscode_id: string;
+    bd_hscode_code: string;
+    bd_hscode_name: string;
     bd_desc: string;
     bd_date: string;
     bd_ctr: number;

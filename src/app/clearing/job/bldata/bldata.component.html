@@ -1,19 +1,27 @@
 <div class="page-list">
     <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
+        <table class="table  table-hover table-sm mb-1">
             <thead class="page-body-thead">
                 <tr>
-                    <th width="20%">INVOICE.NO</th>
-                    <th width="20%">DATE</th>
-                    <th width="60%"></th>
+                    <th *ngIf="type=='COMMODITY'" width="20%">HS CODE</th>
+                    <th width="30%">{{Desc_Caption}}</th>
+                    <th *ngIf="type=='SB'||type=='INVOICE'" width="20%">DATE</th>
+                    <th width="50%"></th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList">
+                <tr *ngFor="let rec of RecordList; let i = index">
+                    <td *ngIf="type=='COMMODITY'" style="padding:0px 0px 0px 0px">
+                          
+                        <app-autocomplete3 [controlname]="'RITC'" [tabletype]="'RITCM'" [displaycolumn]="'CODE'" [uid]="rec.bd_pkid"
+                        [displaydata]="rec.bd_hscode_code" (ValueChanged)="LovSelected($event,i)" >
+                      </app-autocomplete3>
+                    </td>
                     <td style="padding:0px 0px 0px 0px"><input type="text" name="invno"
-                            class="form-control form-control-sm" [(ngModel)]="rec.bd_desc" required
-                            maxlength="60" (blur)="OnBlur('bd_desc',rec)" /></td>
-                    <td style="padding:0px 0px 0px 0px">
+                            class="form-control form-control-sm" [(ngModel)]="rec.bd_desc" required maxlength="60"
+                            (blur)="OnBlur('bd_desc',rec)" /></td>
+                   
+                    <td *ngIf="type=='SB'||type=='INVOICE'" style="padding:0px 0px 0px 0px">
                         <app-date [inputdate]="rec.bd_date" (ValueChanged)="rec.bd_date=$event"></app-date>
                     </td>
 
@@ -24,13 +32,16 @@
                 </tr>
             </tbody>
         </table>
+        <div class="col mt-0 mb-1">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
+        </div>
     </div>
 </div>
-<div class="page-box">
+<!-- <div class="page-box">
     <div class="col">
         <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
     </div>
-</div>
+</div> -->
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
