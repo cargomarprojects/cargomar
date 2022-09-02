@@ -16,6 +16,8 @@ export class Bldata {
 
 export class SaveBldata {
     BldataList: Bldata[] = [];
+    parentid: string;
+    type: string;
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

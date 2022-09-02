@@ -3,9 +3,9 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>INVOICE.NO</th>
-                    <th>DATE</th>
-                    <th></th>
+                    <th width="20%">INVOICE.NO</th>
+                    <th width="20%">DATE</th>
+                    <th width="60%"></th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -19,7 +19,7 @@
 
                     <td>
                         <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
-                        <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow()"></i>
+                        <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec.bd_pkid)"></i>
                     </td>
                 </tr>
             </tbody>
@@ -28,7 +28,7 @@
 </div>
 <div class="page-box">
     <div class="col">
-        <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
     </div>
 </div>
 <br />

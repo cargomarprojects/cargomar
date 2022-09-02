@@ -1123,6 +1123,11 @@
           </div>
         </ng-template>
       </ngb-tab>
+      <ngb-tab title="BL Data" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-bldata [parentid]="pkid" [type]="'INVOICE'"></app-bldata>
+        </ng-template>
+      </ngb-tab>
     </ngb-tabset>
   </div>
 

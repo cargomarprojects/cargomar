@@ -32,7 +32,6 @@ export class BlDataComponent {
     // Single Record for add/edit/view details
     Record: Bldata = new Bldata;
 
-
     constructor(
         private mainService: BldataService,
         private route: ActivatedRoute,
@@ -44,7 +43,6 @@ export class BlDataComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.List("NEW");
-        // this.ActionHandler("ADD", null);
     }
 
     // Destroy Will be called when this component is closed
@@ -60,43 +58,8 @@ export class BlDataComponent {
 
     }
 
-    //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
-        }
-        else if (action === 'ADD') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'ADD';
-            this.ResetControls();
-            this.NewRecord();
-
-        }
-        else if (action === 'EDIT') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'EDIT';
-            this.ResetControls();
-            this.pkid = id;
-            // this.GetRecord(id);
-        }
-        else if (action === 'REMOVE') {
-            this.currentTab = 'DETAILS';
-            this.pkid = id;
-            this.RemoveRecord(id);
-        }
-    }
-
-    ResetControls() {
-
-    }
-
     List(_type: string) {
         this.loading = true;
-
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -112,6 +75,11 @@ export class BlDataComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                if (this.gs.isBlank(this.RecordList))
+                    this.RecordList = new Array<Bldata>();
+                if (this.RecordList.length == 0)
+                    this.NewRecord();
+
             },
                 error => {
                     this.loading = false;
@@ -119,31 +87,17 @@ export class BlDataComponent {
                 });
     }
 
+
     NewRecord() {
 
-        this.pkid = this.gs.getGuid();
-        this.Record = new Bldata();
-        this.Record.bd_pkid = this.pkid;
-        // this.Record.cntr_no = '';
-        // this.Record.cntr_sealno = '';
-        // this.Record.cntr_sealdate = '';
-        // this.Record.cntr_size = '';
-        // this.Record.cntr_type = 'GP';
-        // this.Record.cntr_pkts = 0;
-        // this.Record.cntr_transporter = '';
-        // this.Record.cntr_sealtype = this.gs.defaultValues.sea_jobcntr_sealtype;
-        // this.Record.cntr_sealdevice_id = '';
-        // this.Record.cntr_movdoc_type = '';
-        // this.Record.cntr_movdoc_number = '';
-
-        this.Record.rec_mode = this.mode;
-        this.InitLov();
-
-        // this.cntr_no.nativeElement.focus();
+        let Rec: Bldata = new Bldata();
+        Rec.bd_pkid = this.gs.getGuid();
+        Rec.bd_parent_id = this.parentid;
+        Rec.bd_desc = '';
+        Rec.bd_date = '';
+        Rec.bd_hscode_id = '';
+        this.RecordList.push(Rec);
     }
-
-    // Load a single Record for VIEW/EDIT
-
 
     // Save Data
     Save() {
@@ -154,15 +108,13 @@ export class BlDataComponent {
         this.InfoMessage = '';
         let Rec: SaveBldata = new SaveBldata;
         Rec.BldataList = this.RecordList;
+        Rec.type = this.type;
+        Rec.parentid = this.parentid;
         Rec._globalvariables = this.gs.globalVariables;
         this.mainService.Save(Rec)
             .subscribe(response => {
                 this.loading = false;
                 this.InfoMessage = "Save Complete";
-                this.mode = 'EDIT';
-                // this.Record.rec_mode = this.mode;
-                //   this.RefreshList();
-                //   this.ActionHandler('ADD', null);
             },
                 error => {
                     this.loading = false;
@@ -191,35 +143,6 @@ export class BlDataComponent {
         //     this.ErrorMessage = sError;
         return bret;
     }
-
-
-
-    RemoveList(event: any) {
-        if (event.selected) {
-            this.ActionHandler('REMOVE', event.id)
-        }
-    }
-    RemoveRecord(Id: string) {
-        // this.loading = true;
-        // let SearchData = {
-        //     pkid: Id,
-        //     parentid: this.parentid
-        // };
-
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        // this.mainService.DeleteRecord(SearchData)
-        //     .subscribe(response => {
-        //         this.loading = false;
-        //         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cntr_pkid == this.pkid), 1);
-        //         this.ActionHandler('ADD', null);
-        //     },
-        //     error => {
-        //         this.loading = false;
-        //         this.ErrorMessage = this.gs.getError(error);
-        //     });
-    }
-
 
     Close() {
         this.gs.ClosePage('home');
@@ -251,11 +174,14 @@ export class BlDataComponent {
         }
     }
 
+
     AddRow() {
-
-
+        this.NewRecord();
     }
-    RemoveRow() {
 
+    RemoveRow(_id: string) {
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.bd_pkid == _id), 1);
+        if (this.RecordList.length == 0)
+            this.NewRecord();
     }
 }
