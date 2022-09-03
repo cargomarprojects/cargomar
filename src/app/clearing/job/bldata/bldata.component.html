@@ -13,7 +13,7 @@
                 <tr *ngFor="let rec of RecordList; let i = index">
                     <td *ngIf="type=='COMMODITY'" style="padding:0px 0px 0px 0px">
                           
-                        <app-autocomplete3 [controlname]="'RITC'" [tabletype]="'RITCM'" [displaycolumn]="'CODE'" [uid]="rec.bd_pkid"
+                        <app-autocomplete3 #_hs_code [controlname]="'RITC'" [tabletype]="'RITCM'" [displaycolumn]="'CODE'" [uid]="rec.bd_pkid"
                         [displaydata]="rec.bd_hscode_code" (ValueChanged)="LovSelected($event,i)" >
                       </app-autocomplete3>
                     </td>

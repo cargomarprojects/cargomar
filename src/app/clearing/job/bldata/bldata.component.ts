@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Bldata, SaveBldata } from '../../models/bldata';
@@ -13,7 +13,7 @@ import { SearchTable } from '../../../shared/models/searchtable';
 export class BlDataComponent {
     // Local Variables 
     title = 'BlData';
-
+    @ViewChildren('_hs_code') hs_code_field: QueryList<ElementRef>;
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
@@ -47,9 +47,9 @@ export class BlDataComponent {
     ngOnInit() {
 
         if (this.type == "INVOICE")
-            this.Desc_Caption = "INVOICE.NO";
+            this.Desc_Caption = "INVOICE NO";
         else if (this.type == "SB")
-            this.Desc_Caption = "SB.NO";
+            this.Desc_Caption = "SB NO";
         else if (this.type == "COMMODITY")
             this.Desc_Caption = "COMMODITY";
         else if (this.type == "DESC")
