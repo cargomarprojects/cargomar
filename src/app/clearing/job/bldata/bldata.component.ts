@@ -77,15 +77,15 @@ export class BlDataComponent {
     LovSelected(_Record: SearchTable, idx: number = 0) {
         if (_Record.controlname == "RITC") {
             this.RecordList.forEach(rec => {
-              if (rec.bd_pkid == _Record.uid) {
-                rec.bd_hscode_id = _Record.id;
-                rec.bd_hscode_code = _Record.code;
-                rec.bd_hscode_name = _Record.name;
-                // if (idx < this.cntr_sealno_field.toArray().length)
-                //   this.cntr_sealno_field.toArray()[idx].nativeElement.focus();
-              }
+                if (rec.bd_pkid == _Record.uid) {
+                    rec.bd_hscode_id = _Record.id;
+                    rec.bd_hscode_code = _Record.code;
+                    rec.bd_hscode_name = _Record.name;
+                    // if (idx < this.cntr_sealno_field.toArray().length)
+                    //   this.cntr_sealno_field.toArray()[idx].nativeElement.focus();
+                }
             });
-          }
+        }
     }
 
     List() {
@@ -161,20 +161,65 @@ export class BlDataComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        let iCtr = 0;
+        if (this.type == "COMMODITY") {
 
-        // if (this.Record.cntr_no.trim().length <= 0) {
-        //   bret = false;
-        //   sError += "\n\r | Container Number Cannot Be Blank";
-        // }
+            for (let rec of this.RecordList) {
+                iCtr++;
+                if (this.gs.isBlank(rec.bd_hscode_code)) {
+                    bret = false;
+                    sError += "\n\r | HS Code Cannot Be Blank, Row" + iCtr.toString();
+                } else if (rec.bd_hscode_code.trim().length < 8) {
+                    bret = false;
+                    sError += "\n\r | Invalid HS Code, Row" + iCtr.toString();
+                }
+                if (this.gs.isBlank(rec.bd_desc)) {
+                    bret = false;
+                    sError += "\n\r | Commodity Cannot Be Blank, Row" + iCtr.toString();
+                }
+                if (!bret)
+                    break;
+            }
+        }
+        if (this.type == "SB") {
 
-        // if (this.Record.cntr_size.trim().length <= 0) {
-        //     bret = false;
-        //     sError += "\n\r | Container Size Cannot Be Blank";
-        // }
+            for (let rec of this.RecordList) {
+                iCtr++;
 
+                if (this.gs.isBlank(rec.bd_desc)) {
+                    bret = false;
+                    sError += "\n\r | SB Number Cannot Be Blank, Row" + iCtr.toString();
+                }
 
-        // if (bret === false)
-        //     this.ErrorMessage = sError;
+                if (this.gs.isBlank(rec.bd_date)) {
+                    bret = false;
+                    sError += "\n\r | Date Cannot Be Blank, Row" + iCtr.toString();
+                }
+                if (!bret)
+                    break;
+            }
+        }
+
+        if (this.type == "INVOICE") {
+
+            for (let rec of this.RecordList) {
+                iCtr++;
+                if (this.gs.isBlank(rec.bd_desc)) {
+                    bret = false;
+                    sError += "\n\r | Invoice Number Cannot Be Blank, Row" + iCtr.toString();
+                }
+
+                if (this.gs.isBlank(rec.bd_date)) {
+                    bret = false;
+                    sError += "\n\r | Date Cannot Be Blank, Row" + iCtr.toString();
+                }
+                if (!bret)
+                    break;
+            }
+        }
+
+        if (bret === false)
+            this.ErrorMessage = sError;
         return bret;
     }
 
