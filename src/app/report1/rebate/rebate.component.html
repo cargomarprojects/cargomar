@@ -78,6 +78,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>SELECTED</th>
+          <th>INV-REBATE-RECVD</th>
           <th *ngIf="all">BRANCH</th>
           <th>INV#</th>
           <th>INV-DATE</th>
@@ -119,7 +120,10 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td><input type="checkbox" [(ngModel)]="rec.selected" /></td>
+          <td><input *ngIf="rec.inv_pkid && !rec.inv_rebate_inv_recvd && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)" type="checkbox" [(ngModel)]="rec.selected" /></td>
+          <td >
+            <input *ngIf="rec.inv_pkid && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)" class="pointer" type="checkbox" [(ngModel)]="rec.inv_rebate_inv_recvd" (change)="OnInvRecvdChange($event, rec)">
+          </td>
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.inv_no}}</td>
           <td>{{rec.inv_date}}</td>

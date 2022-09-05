@@ -77,6 +77,7 @@ export class Rebate {
   inv_paid_docno: string;
   inv_paid_date: string;
   in_paid_amt: number;
+  inv_rebate_inv_recvd: boolean;  
 
   _globalvariables: GlobalVariables;
 }

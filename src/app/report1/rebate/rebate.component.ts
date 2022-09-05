@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
-import { Rebate  } from '../models/rebate';
+import { Rebate } from '../models/rebate';
 import { RepService } from '../services/report.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class RebateComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  
+
   modal: any;
   sub: any;
   urlid: string;
@@ -62,7 +62,7 @@ export class RebateComponent {
 
   SearchData = {
     type: '',
-    rebate_type  :'',
+    rebate_type: '',
     pkid: '',
     report_folder: '',
     company_code: '',
@@ -89,7 +89,7 @@ export class RebateComponent {
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private modalService: NgbModal, 
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -250,11 +250,11 @@ export class RebateComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -264,7 +264,7 @@ export class RebateComponent {
     this.gs.ClosePage('home');
   }
 
-  ShowDlg(content:any) {
+  ShowDlg(content: any) {
     let sid: string = '';
     let bok: boolean = true;
     let serr: string = '';
@@ -300,8 +300,7 @@ export class RebateComponent {
       }
     });
 
-    if (bok)
-    {
+    if (bok) {
       this.bShowDlg = true;
       this.modal = this.modalService.open(content);
     }
@@ -309,9 +308,9 @@ export class RebateComponent {
       alert(serr);
   }
 
-  
 
-  EditDlg(_record  : Rebate,content:any) {
+
+  EditDlg(_record: Rebate, content: any) {
 
     let sid: string = '';
     let bok: boolean = true;
@@ -351,8 +350,7 @@ export class RebateComponent {
       }
     });
 
-    if (bok)
-    {
+    if (bok) {
       this.bShowDlg = true;
       this.modal = this.modalService.open(content);
     }
@@ -366,7 +364,7 @@ export class RebateComponent {
 
   }
 
-  DlgClosed(irec : any ) {
+  DlgClosed(irec: any) {
     this.bShowDlg = false;
     this.closeModal();
     if (irec.status == 'OK') {
@@ -396,14 +394,34 @@ export class RebateComponent {
 
   OnChange2(field: string) {
     this.paymentwise = this.showpaid;
-   
+
   }
 
-closeModal() {
+  closeModal() {
     this.modal.close();
- 
   }
-} 
+
+
+  OnInvRecvdChange(evt: any, rec: Rebate) {
+    let SaveData = {
+      "inv_rebate_inv_recvd": (rec.inv_rebate_inv_recvd) ? "Y" : "N",
+      "inv_pkid": rec.inv_pkid
+    }
+    this.ErrorMessage = '';
+    this.mainService.SaveRebateInvRecvd(SaveData)
+      .subscribe(response => {
+        if (response.rebate_inv_recvd == "Y")
+          rec.inv_rebate_inv_recvd = true;
+        else
+          rec.inv_rebate_inv_recvd = false;
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+}
 
 
 

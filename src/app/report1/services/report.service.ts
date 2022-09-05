@@ -153,5 +153,8 @@ export class RepService {
   TdspaidDetailReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/TdsPaidDetailList', SearchData, this.gs.headerparam2('authorized'));
   }
+  SaveRebateInvRecvd(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SaveRebateInvRecvd', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
