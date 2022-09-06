@@ -1124,16 +1124,16 @@
           </div>
         </ng-template>
       </ngb-tab>
-      <ngb-tab title="BL Data" *ngIf="mode == 'EDIT' && Record.job_type !='CLEARING'">
+      <!-- && Record.job_type !='CLEARING' -->
+      <ngb-tab title="BL Data" *ngIf="mode == 'EDIT'">
         <ng-template ngbTabContent>
           <app-bldata [parentid]="pkid" [type]="'COMMODITY'" [category]="type"></app-bldata>
-          <hr />
+          <hr class="my-2" />
           <app-bldata [parentid]="pkid" [type]="'SB'" [category]="type"></app-bldata>
-          <hr />
+          <hr class="my-2" />
           <app-bldata [parentid]="pkid" [type]="'INVOICE'" [category]="type"></app-bldata>
-          <hr />
+          <hr class="my-2" />
           <app-bldata [parentid]="pkid" [type]="'DESC'" [category]="type"></app-bldata>
-         
         </ng-template>
       </ngb-tab>
     </ngb-tabset>

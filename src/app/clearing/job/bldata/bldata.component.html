@@ -27,6 +27,7 @@
 
                     <td>
                         <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
+                        <!-- <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i> -->
                         <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec.bd_pkid)"></i>
                     </td>
                 </tr>
@@ -42,7 +43,7 @@
         <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
     </div>
 </div> -->
-<br />
+ 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
     {{InfoMessage}}
