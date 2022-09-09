@@ -118,7 +118,7 @@ export class AddReportsComponent {
 
     Init() {
         let dayOfWk: number = 0;
-       
+
         var today = new Date();
         dayOfWk = today.getDay();
         var wkday = today.getDate() - today.getDay() + 1;
@@ -222,7 +222,6 @@ export class AddReportsComponent {
             },
                 error => {
                     this.loading = false;
-                    this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
@@ -292,7 +291,30 @@ export class AddReportsComponent {
             },
                 error => {
                     this.loading = false;
-                    this.RecordList = null;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
+    CustomerDetails() {
+        this.ErrorMessage = '';
+        this.loading = true;
+        this.pkid = this.gs.getGuid();
+        this.SearchData.type = 'SCREEN';
+        this.SearchData.pkid = this.pkid;
+        this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+        this.SearchData.company_code = this.gs.globalVariables.comp_code;
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.year_code = this.gs.globalVariables.year_code;
+        this.mainService.CustomerDetails(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.FileList = response.filelist;
+                for (let rec of this.FileList) {
+                    this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                }
+            },
+                error => {
+                    this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
