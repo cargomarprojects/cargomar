@@ -34,7 +34,7 @@ export class RebateComponent {
   jvid: string = '';
   jvdate: string = '';
 
-
+  bEditInvRebate = "";
   jvno_ho: string = '';
   jvid_ho: string = '';
 
@@ -116,6 +116,7 @@ export class RebateComponent {
   }
 
   InitComponent() {
+    this.bEditInvRebate = "";
     this.bAdmin = false;
     this.bCompany = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -128,11 +129,16 @@ export class RebateComponent {
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
 
+      if (this.menu_record.rights_approval.length > 0)
+        this.bEditInvRebate = this.menu_record.rights_approval.toString();
+
       if (this.bCompany)
         this.bAdmin = false;
 
-      if (this.gs.globalVariables.user_code == "ADMIN")
+      if (this.gs.globalVariables.user_code == "ADMIN") {
         this.bAdmin = true;
+        this.bEditInvRebate = "EDIT-INV-REBATE";
+      }
     }
 
     this.Init();
@@ -402,7 +408,14 @@ export class RebateComponent {
   }
 
 
-  OnInvRecvdChange(evt: any, rec: Rebate) {
+  OnInvRecvdChange(rec: Rebate) {
+    let msg = "Rebate Invoice Received Y/N?";
+    if (confirm(msg)) {
+      rec.inv_rebate_inv_recvd = true;
+    } else {
+      rec.inv_rebate_inv_recvd = false;
+    }
+
     let SaveData = {
       "inv_rebate_inv_recvd": (rec.inv_rebate_inv_recvd) ? "Y" : "N",
       "inv_pkid": rec.inv_pkid

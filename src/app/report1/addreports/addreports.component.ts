@@ -296,6 +296,10 @@ export class AddReportsComponent {
     }
 
     CustomerDetails() {
+       
+        if (!confirm("Download Customer Details")) {
+            return;
+        }
         this.ErrorMessage = '';
         this.loading = true;
         this.pkid = this.gs.getGuid();

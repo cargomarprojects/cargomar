@@ -53,15 +53,17 @@
               <span> All</span>
             </div>
             <div class="col-5">
-              <input type="checkbox" [(ngModel)]="showpaid" (change)="OnChange2('paid_details')" >
+              <input type="checkbox" [(ngModel)]="showpaid" (change)="OnChange2('paid_details')">
               <span> Paid Details</span>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-7">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-              <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)" class="btn btn-primary btn-sm">POST-JV</button>
+              <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)"
+                class="btn btn-primary btn-sm">POST-JV</button>
             </div>
             <div class="col-5">
               <input type="checkbox" [(ngModel)]="paymentwise">
@@ -97,7 +99,7 @@
           <th>CURR</th>
           <th class="text-right">EXRATE</th>
           <th class="text-right">INR</th>
-          
+
           <th>JV-NO</th>
           <th>JV-DATE</th>
 
@@ -120,9 +122,17 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td><input *ngIf="rec.inv_pkid && !rec.inv_rebate_inv_recvd && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)" type="checkbox" [(ngModel)]="rec.selected" /></td>
-          <td >
-            <input *ngIf="rec.inv_pkid && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)" class="pointer" type="checkbox" [(ngModel)]="rec.inv_rebate_inv_recvd" (change)="OnInvRecvdChange($event, rec)">
+          <td><input
+              *ngIf="rec.inv_pkid && !rec.inv_rebate_inv_recvd && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)"
+              type="checkbox" [(ngModel)]="rec.selected" /></td>
+          <!-- <td>
+            <input *ngIf="rec.inv_pkid && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)" class="pointer"
+              type="checkbox" [(ngModel)]="rec.inv_rebate_inv_recvd" (change)="OnInvRecvdChange(rec)">
+          </td> -->
+          <td style="padding:0px 0px 0px 0px">
+            <button *ngIf="rec.inv_pkid && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)"
+              [disabled]="rec.inv_rebate_inv_recvd && bEditInvRebate!='EDIT-INV-REBATE'" (click)="OnInvRecvdChange(rec)"
+              class="btn btn-info btn-sm mb-0">{{rec.inv_rebate_inv_recvd?'YES':'NO'}}</button>
           </td>
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.inv_no}}</td>
@@ -151,7 +161,7 @@
           <td *ngIf="showpaid">{{rec.inv_paid_docno}}</td>
           <td *ngIf="showpaid">{{rec.inv_paid_date}}</td>
           <td *ngIf="showpaid">{{rec.inv_paid_amt | number : '1.2-2'}}</td>
-          
+
           <td *ngIf="showpaid">{{rec.paid_vrno}}</td>
           <td *ngIf="showpaid">{{rec.paid_date}}</td>
           <td *ngIf="showpaid">{{rec.paid_amt | number : '1.2-2'}}</td>
@@ -160,7 +170,8 @@
       </tbody>
     </table>
   </div>
-  <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)" class="btn btn-primary btn-sm">POST-JV</button>
+  <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowDlg(postrebate)"
+    class="btn btn-primary btn-sm">POST-JV</button>
 </div>
 
 <br />
@@ -178,7 +189,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-PostRebate [jvid]="jvid" [jvno]="jvno" [jvdate]="jvdate" [jvid_ho]="jvid_ho" [jvno]="jvno_ho"  [visible]="bShowDlg" [RecordList]="SelectedList" [menuid]="menuid" [type]="type" (CloseClicked)="DlgClosed($event)"></App-PostRebate>
+    <App-PostRebate [jvid]="jvid" [jvno]="jvno" [jvdate]="jvdate" [jvid_ho]="jvid_ho" [jvno]="jvno_ho"
+      [visible]="bShowDlg" [RecordList]="SelectedList" [menuid]="menuid" [type]="type"
+      (CloseClicked)="DlgClosed($event)"></App-PostRebate>
   </div>
 </ng-template>
 
