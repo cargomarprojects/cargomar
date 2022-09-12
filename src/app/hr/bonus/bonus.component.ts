@@ -178,7 +178,7 @@ export class BonusComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL' || _type == 'CSV'||_type == 'SUMMARY') {
+        if (_type == 'EXCEL' || _type == 'CSV' || _type == 'SUMMARY') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
           if (!this.gs.isBlank(response.filename2))
             this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
@@ -227,28 +227,35 @@ export class BonusComponent {
     this.Record = _Record;
     this.InitLov();
     this.Record.rec_mode = this.mode;
-
     this.lock_record = true;
     if (this.Record.bon_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
   }
 
   // Save Data
-  Save() {
+  Save(_type: string = "") {
     this.FindNetAmt();
     if (!this.allvalid())
       return;
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.bon_save_type = _type;
     this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
-        this.RefreshList();
+        if (_type == "UPDATE-ALL") {
+           alert('Save Complete');
+           for (let rec of this.RecordList) {
+            rec.bon_paid_date =  this.gs.ConvertDate2DisplayFormat(this.Record.bon_paid_date);
+          }
+        } else {
+          this.InfoMessage = "Save Complete";
+          this.mode = 'EDIT';
+          this.Record.rec_mode = this.mode;
+          this.RefreshList();
+        }
       },
         error => {
           this.loading = false;

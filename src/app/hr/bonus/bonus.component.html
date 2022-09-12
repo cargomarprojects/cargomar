@@ -224,6 +224,9 @@
           <div class="col-4">
             <app-date [inputdate]="Record.bon_paid_date" (ValueChanged)="Record.bon_paid_date=$event"></app-date>
           </div>
+          <div class="col-sm-2 px-0">
+            <button [disabled]="loading" (click)="Save('UPDATE-ALL')" class="btn btn-success btn-sm">Update ALL</button>
+          </div>
         </div>
       </div>
     </div>
@@ -234,7 +237,7 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <div class="offset-3 col-sm-9">
-            <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading || lock_record" (click)="Save('SAVE')" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
