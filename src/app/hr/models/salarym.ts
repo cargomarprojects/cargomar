@@ -98,6 +98,7 @@ export class Salarym {
   sal_emp_grade: string;
   sal_emp_designation:string;
   sal_emp_do_joining: string;
+  sal_emp_do_birth: string;
   sal_selected: boolean;
   sal_esi_emply_per: number;
   sal_pf_per: number;

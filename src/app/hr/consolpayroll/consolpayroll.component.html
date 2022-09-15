@@ -97,6 +97,7 @@
           <th>CODE</th>
           <th>NAME</th>
           <th *ngIf="prtype=='PAY ROLL'">DOJ</th>
+          <th *ngIf="prtype=='PAY ROLL'">DOB</th>
           <th *ngIf="prtype=='PAY ROLL'">GRADE</th>
           <th *ngIf="prtype=='PAY ROLL'">A/C.NO</th>
           <th *ngIf="prtype=='PAY ROLL'">SALARY.MONTH</th>
@@ -163,6 +164,7 @@
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_do_joining}}</td>
+          <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_do_birth}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_grade}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_bank_acno}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_pf_mon_year}}</td>
