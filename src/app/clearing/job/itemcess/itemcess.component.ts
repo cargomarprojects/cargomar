@@ -15,9 +15,9 @@ export class ItemCessComponent {
   // Local Variables 
   title = 'Item Cess';
 
-//   @ViewChild('lic_reg_no') private lic_reg_no: ElementRef;
-//   @ViewChild('lic_slno_partc') private lic_slno_partc: ElementRef;
-  
+  @ViewChild('_cess_srno') private cess_srno_ctrl: ElementRef;
+  @ViewChild('_cess_rate') private cess_rate_ctrl: ElementRef;
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
@@ -45,7 +45,7 @@ export class ItemCessComponent {
   Record: ItemCess = new ItemCess;
 
   LICUNITRECORD: SearchTable = new SearchTable();
- 
+
   constructor(
     private mainService: ItemCessService,
     private route: ActivatedRoute,
@@ -92,12 +92,14 @@ export class ItemCessComponent {
       this.Record.cess_unit_id = _Record.id;
       this.Record.cess_unit_code = _Record.code;
       this.Record.cess_unit_name = _Record.name;
+      if (!this.gs.isBlank(this.cess_rate_ctrl))
+        this.cess_rate_ctrl.nativeElement.focus();
     }
-    
+
   }
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1 ) {
+  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -112,7 +114,7 @@ export class ItemCessComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-        this.selectedRowIndex = _selectedRowIndex;
+      this.selectedRowIndex = _selectedRowIndex;
       this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
@@ -149,10 +151,10 @@ export class ItemCessComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -188,11 +190,8 @@ export class ItemCessComponent {
     this.LICUNITRECORD.code = this.gs.defaultValues.param_unit_pcs_code;
     this.Record.cess_unit_id = this.LICUNITRECORD.id;
     this.Record.cess_unit_code = this.LICUNITRECORD.code;
-     
-    // if (this.Record.lic_reg_no == '')
-    //   this.lic_reg_no.nativeElement.focus();
-    // else
-    //   this.lic_slno_partc.nativeElement.focus();
+    if (!this.gs.isBlank(this.cess_srno_ctrl))
+      this.cess_srno_ctrl.nativeElement.focus();
   }
 
   // Load a single Record for VIEW/EDIT
@@ -210,10 +209,10 @@ export class ItemCessComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: ItemCess) {
@@ -222,9 +221,10 @@ export class ItemCessComponent {
     this.LICUNITRECORD.id = this.Record.cess_unit_id;
     this.LICUNITRECORD.code = this.Record.cess_unit_code;
     this.LICUNITRECORD.name = this.Record.cess_unit_name;
-    
+
     this.Record.rec_mode = this.mode;
-    // this.lic_reg_no.nativeElement.focus();
+    if (!this.gs.isBlank(this.cess_srno_ctrl))
+      this.cess_srno_ctrl.nativeElement.focus();
   }
 
   // Save Data
@@ -246,10 +246,10 @@ export class ItemCessComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -262,7 +262,7 @@ export class ItemCessComponent {
       bret = false;
       sError += "\n\r | Item ID Cannot Be Blank";
     }
-    
+
     if (this.jobid.trim().length <= 0) {
       bret = false;
       sError += "\n\r | Job ID Cannot Be Blank";
@@ -288,7 +288,8 @@ export class ItemCessComponent {
       REC.cess_qty = this.Record.cess_qty;
       REC.cess_unit_code = this.Record.cess_unit_code;
       REC.cess_rate = this.Record.cess_rate;
-   }
+      REC.cess_type = this.Record.cess_type;
+    }
   }
 
   RemoveList(event: any) {
@@ -311,10 +312,10 @@ export class ItemCessComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cess_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -334,12 +335,12 @@ export class ItemCessComponent {
   OnBlur(field: string) {
     switch (field) {
 
-       
-    //   case 'lic_slno_parte':
-    //     {
-    //       this.Record.lic_slno_parte = this.Record.lic_slno_parte.toUpperCase();
-    //       break;
-    //     }
+
+      //   case 'lic_slno_parte':
+      //     {
+      //       this.Record.lic_slno_parte = this.Record.lic_slno_parte.toUpperCase();
+      //       break;
+      //     }
       case 'cess_qty':
         {
           this.Record.cess_qty = this.gs.roundWeight(this.Record.cess_qty, "PCS");
@@ -350,7 +351,7 @@ export class ItemCessComponent {
           this.Record.cess_rate = this.gs.roundWeight(this.Record.cess_rate, "EXRATE");
           break;
         }
-        
+
     }
   }
 
