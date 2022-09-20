@@ -618,6 +618,12 @@
         <app-ctrl [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-ctrl>
       </ng-template>
     </ngb-tab>
+    
+    <ngb-tab title="Item Cess" *ngIf="mode=='EDIT'">
+      <ng-template ngbTabContent>
+        <app-itemcess [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-itemcess>
+      </ng-template>
+    </ngb-tab>
 
 
   </ngb-tabset>

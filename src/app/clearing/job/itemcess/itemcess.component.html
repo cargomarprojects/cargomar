@@ -1,0 +1,86 @@
+
+<div class="page-list">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>SRNO</th>
+            <th>CODE</th>
+            <th>QTY</th>
+            <th>UNIT</th>
+            <th>RATE</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.cess_pkid,i)">
+            <td>{{rec.cess_srno}}</td>
+            <td>{{rec.cess_code}}</td>
+            <td>{{rec.cess_qty}}</td>
+            <td>{{rec.cess_unit_code}}</td>
+            <td>{{rec.cess_rate}}</td>
+            <td>
+              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.cess_pkid,name:rec.cess_code}" (result)="RemoveList($event)"></App-Dialog>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-details">
+    <div class="row">
+  
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">SrNo</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Code</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Qty</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Unit</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Rate</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cess_srno" (blur)="OnBlur('cess_srno')" required maxlength="2" #cess_srno />
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cess_code" (blur)="OnBlur('cess_code')" required maxlength="40" />
+          </div>
+          <div class="col-sm-1">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cess_qty" (blur)="OnBlur('cess_qty')" required maxlength="11" />
+          </div>
+          <div class="col-sm-1">
+            <app-autocomplete #pkgUnitLov [inputdata]="LICUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cess_rate" (blur)="OnBlur('cess_rate')" required maxlength="11" />
+          </div>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.cess_type">
+              <option [value]="'VALUE'">VALUE</option>
+              <option [value]="'QTY'">QTY</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+            <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+  
+          </div>
+        </div>
+      </div>
+       
+    </div>
+  </div>
+  
+  
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+  
+  
