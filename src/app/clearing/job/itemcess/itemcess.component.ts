@@ -186,10 +186,10 @@ export class ItemCessComponent {
     this.Record.rec_mode = this.mode;
     this.InitLov();
 
-    this.LICUNITRECORD.id = this.gs.defaultValues.param_unit_pcs_id;
-    this.LICUNITRECORD.code = this.gs.defaultValues.param_unit_pcs_code;
-    this.Record.cess_unit_id = this.LICUNITRECORD.id;
-    this.Record.cess_unit_code = this.LICUNITRECORD.code;
+    // this.LICUNITRECORD.id = this.gs.defaultValues.param_unit_pcs_id;
+    // this.LICUNITRECORD.code = this.gs.defaultValues.param_unit_pcs_code;
+    // this.Record.cess_unit_id = this.LICUNITRECORD.id;
+    // this.Record.cess_unit_code = this.LICUNITRECORD.code;
     if (!this.gs.isBlank(this.cess_srno_ctrl))
       this.cess_srno_ctrl.nativeElement.focus();
   }
