@@ -27,6 +27,7 @@ export class PayRollComponent {
 
   selectedRowIndex = 0;
 
+  bPayrollSave: boolean = false;
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
@@ -118,6 +119,7 @@ export class PayRollComponent {
     this.bEmail = false;
     this.bPrint = false;
     this.bDocs = false;
+    this.bPayrollSave = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -127,8 +129,11 @@ export class PayRollComponent {
         this.bEmail = true;
       if (this.menu_record.rights_print)
         this.bPrint = true;
-      if (this.menu_record.rights_approval.length > 0)
+      if (this.menu_record.rights_approval.length > 0) {
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
+        if (this.bapprovalstatus.indexOf('{SAVE}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bPayrollSave = true;
+      }
       if (this.menu_record.rights_docs)
         this.bDocs = true;
     }

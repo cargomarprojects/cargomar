@@ -427,7 +427,7 @@
           <div class="offset-1 col-sm-9">
             <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading"
               (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
-            <button *ngIf="!(Record.sal_month >= 5 && Record.sal_year >= 2022 && gs.globalVariables.user_code != 'ADMIN')" [disabled]="loading || lock_record"
+            <button *ngIf="(!(Record.sal_month >= 5 && Record.sal_year >= 2022) || bPayrollSave)" [disabled]="loading || lock_record"
               (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               class="btn btn-success btn-sm">Documents</button>
