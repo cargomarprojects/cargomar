@@ -48,7 +48,8 @@ export class EmpComponent {
   page_rows = 0;
   page_rowcount = 0;
   ageinyears = '';
-
+  
+  lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
   bDocs: boolean = false;
@@ -358,7 +359,7 @@ export class EmpComponent {
     this.Record.rec_mode = this.mode;
     this.Record.emp_incentive_type = 'NA';
     this.Record.emp_incentive_type_id = '';
-
+    this.lock_record = false;
     this.Initdefault();
 
   }
@@ -413,6 +414,9 @@ export class EmpComponent {
       this.ageinyears = this.GetAge().ageyears + "Yrs";
     }
 
+    this.lock_record = true;
+    if (this.Record.emp_edit_code.indexOf("{S}") >= 0)
+      this.lock_record = false;
   }
   getBranchName(_BrCode: String) {
     let str = "";
