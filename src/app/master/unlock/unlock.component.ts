@@ -139,6 +139,7 @@ export class UnLockComponent {
       { "code": "SE CONSOLE COSTING", "name": "Sea Console Costing" },
       { "code": "AGENT INVOICE", "name": "Agent Invoice" },
       { "code": "DRCR ISSUE", "name": "DRCR Issue" },
+      { "code": "HR-EMPLOYEE-MASTER", "name": "Employee Master" },
       { "code": "HR-SALARY-MASTER", "name": "Salary Master" },
       { "code": "HR-PAYROLL", "name": "Payroll" },
       { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
