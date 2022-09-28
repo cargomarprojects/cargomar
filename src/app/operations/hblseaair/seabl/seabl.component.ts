@@ -1672,4 +1672,55 @@ export class BlComponent {
         });
 
   }
+
+  LoadJobBLData(_type: string) {
+
+    if (!confirm("Copy BL Data from Job?")) {
+      return;
+    }
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      pkid: this.parentid,
+      format: '',
+      company_name: this.gs.globalVariables.comp_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      invokefrm: ''
+    }
+
+    SearchData.pkid = this.parentid;
+    SearchData.format = _type;
+    SearchData.invokefrm = this.invokefrom;
+
+    this.mainService.LoadJobBLData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        let _NewRecord: Bl;
+        _NewRecord = response.record;
+        this.Record.bl_desc3 = _NewRecord.bl_desc3;
+        this.Record.bl_desc4 = _NewRecord.bl_desc4;
+        this.Record.bl_desc5 = _NewRecord.bl_desc5;
+        this.Record.bl_desc6 = _NewRecord.bl_desc6;
+        this.Record.bl_desc7 = _NewRecord.bl_desc7;
+        this.Record.bl_desc8 = _NewRecord.bl_desc8;
+        this.Record.bl_desc9 = _NewRecord.bl_desc9;
+        this.Record.bl_desc10 = _NewRecord.bl_desc10;
+        this.Record.bl_desc11 = _NewRecord.bl_desc11;
+        this.Record.bl_desc12 = _NewRecord.bl_desc12;
+        this.Record.bl_desc13 = _NewRecord.bl_desc13;
+        this.Record.bl_desc14 = _NewRecord.bl_desc14;
+        this.Record.bl_desc15 = _NewRecord.bl_desc15;
+        this.Record.bl_desc16 = _NewRecord.bl_desc16;
+        this.Record.bl_desc17 = _NewRecord.bl_desc17;
+        this.Record.bl_desc18 = _NewRecord.bl_desc18;
+        this.AttchRecordList = _NewRecord.AttachList;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
