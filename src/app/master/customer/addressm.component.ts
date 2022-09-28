@@ -421,13 +421,11 @@ export class AddressmComponent {
     ShowlinkList(addlnklst: any, _rec: Addressm) {
         this.ErrorMessage = '';
         this.addid = _rec.add_pkid;
-
-        if(this.addid==this.customer_id)
-        {
-            alert('Cannot Delete Default Address');
-            return;
-        }
-
+        // if(this.addid==this.customer_id)
+        // {
+        //     alert('Cannot Delete Default Address');
+        //     return;
+        // }
         this.open(addlnklst);
     }
 
