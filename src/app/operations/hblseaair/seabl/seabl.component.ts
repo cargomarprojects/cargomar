@@ -1675,7 +1675,7 @@ export class BlComponent {
 
   LoadJobBLData(_type: string) {
 
-    if (!confirm("Copy BL Data from Job?")) {
+    if (!confirm("Copy BL Data From Job?")) {
       return;
     }
     this.ErrorMessage = '';
