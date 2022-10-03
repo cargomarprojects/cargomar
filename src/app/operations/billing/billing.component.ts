@@ -1381,11 +1381,14 @@ export class BillingComponent {
       branch_code: '',
       type: '',
       year: '',
-      searchstring: ''
+      searchstring: '',
+      jvh_date:''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
       SearchData.pkid = Rec.jv_acc_id;
+      //  SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
+      SearchData.jvh_date ='';
     }
 
     this.ErrorMessage = '';
