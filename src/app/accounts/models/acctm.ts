@@ -37,7 +37,8 @@ export class Acctm {
     acc_bs_sub_head: string;
     acc_bs_sub_note: string;
     acc_drcr_only: string;
-
+    rec_locked: boolean = false;
+    
     rec_mode: string;
 
     _globalvariables: GlobalVariables;

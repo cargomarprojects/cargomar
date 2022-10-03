@@ -337,6 +337,7 @@ export class AcctmComponent {
         
         this.Record.acc_drcr_only = 'NA';
         this.Record.rec_mode = this.mode;
+        this.Record.rec_locked = false;
 
         this.InitLov();
     }
