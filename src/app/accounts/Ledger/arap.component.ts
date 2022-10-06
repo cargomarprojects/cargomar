@@ -216,7 +216,8 @@ export class ArApComponent {
 
       this.PARTYRECORD.where = "";
 
-      if (this.type == 'IN')//FRTRATECHANGE
+      //FRTRATECHANGE
+      if (this.type == 'IN')
         this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001','1105111','1205111','1405111') )";
       if (this.type == 'PN')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
