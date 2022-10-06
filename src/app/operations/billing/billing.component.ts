@@ -109,7 +109,7 @@ export class BillingComponent {
 
   CNTRTYPERECORD: SearchTable = new SearchTable();
 
-//general invoice accounts/ledger/arap component
+  //general invoice accounts/ledger/arap component
 
   constructor(
     private modalService: NgbModal,
@@ -210,16 +210,16 @@ export class BillingComponent {
       this.PARTYRECORD.id = "";
       this.PARTYRECORD.code = "";
 
-
+      //FRTRATECHANGE
       this.PARTYRECORD.name = "";
       if (this.cc_category_type == "SEA EXPORT")
-        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1105001' )";
+        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in ('1105001','1105111'))";
       if (this.cc_category_type == "AIR EXPORT")
-        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1205001' )";
+        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in ('1205001','1205111'))";
       if (this.cc_category_type == "SEA IMPORT")
         this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1305001' )";
       if (this.cc_category_type == "AIR IMPORT")
-        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code= '1405001' )";
+        this.PARTYRECORD.where = "(acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in ('1405001','1405111'))";
 
     }
     if (saction == 'PARTYADDRESS' || saction == '') {
@@ -948,9 +948,12 @@ export class BillingComponent {
 
     }
 
+    //FRTRATECHANGE
     if (this.Record.jvh_exwork) {
       bOk = false;
-      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001')
+      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001' ||
+        this.Record.jvh_acc_code == "1105111" || this.Record.jvh_acc_code == "1205111" || this.Record.jvh_acc_code == "1405111"
+      )
         bOk = true;
 
       if (!bOk) {
@@ -1382,7 +1385,7 @@ export class BillingComponent {
       type: '',
       year: '',
       searchstring: '',
-      jvh_date:''
+      jvh_date: ''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';

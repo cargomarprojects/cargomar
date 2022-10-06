@@ -216,8 +216,8 @@ export class ArApComponent {
 
       this.PARTYRECORD.where = "";
 
-      if (this.type == 'IN')
-        this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001') )";
+      if (this.type == 'IN')//FRTRATECHANGE
+        this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001','1105111','1205111','1405111') )";
       if (this.type == 'PN')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
 
@@ -827,8 +827,10 @@ export class ArApComponent {
       }
     }
 
-
-    if (this.Record.jvh_acc_code == "1105001" || this.Record.jvh_acc_code == "1205001" || this.Record.jvh_acc_code == "1305001" || this.Record.jvh_acc_code == "1405001") {
+    //FRTRATECHANGE
+    if (this.Record.jvh_acc_code == "1105001" || this.Record.jvh_acc_code == "1205001" || this.Record.jvh_acc_code == "1305001" || this.Record.jvh_acc_code == "1405001" ||
+      this.Record.jvh_acc_code == "1105111" || this.Record.jvh_acc_code == "1205111" || this.Record.jvh_acc_code == "1405111"
+    ) {
       if ((this.type == 'IN') || this.type == 'CN') {
         sError += "";
       }
@@ -1098,10 +1100,12 @@ export class ArApComponent {
       }
     }
 
-
+    //FRTRATECHANGE
     if (this.Record.jvh_exwork) {
       bOk = false;
-      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001')
+      if (this.Record.jvh_acc_code == '1105001' || this.Record.jvh_acc_code == '1205001' || this.Record.jvh_acc_code == '1305001' || this.Record.jvh_acc_code == '1405001' ||
+        this.Record.jvh_acc_code == "1105111" || this.Record.jvh_acc_code == "1205111" || this.Record.jvh_acc_code == "1405111"
+      )
         bOk = true;
 
       if (!bOk) {
@@ -2070,7 +2074,7 @@ export class ArApComponent {
     this.modal.close();
   }
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 
