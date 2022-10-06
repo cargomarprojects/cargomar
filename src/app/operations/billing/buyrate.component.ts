@@ -1944,11 +1944,12 @@ export class BuyRateComponent {
       jvh_reference_date: '',
       jvh_org_invno: '',
       jvh_org_invdt: '',
-
+      jvh_date: ''
     };
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
       SearchData.pkid = this.Recorddet.jv_acc_id;
+     // SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
     }
     if (controlname == 'jvh_cc_code') {
       SearchData.table = 'costcenterm';

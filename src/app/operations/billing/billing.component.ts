@@ -1387,8 +1387,7 @@ export class BillingComponent {
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
       SearchData.pkid = Rec.jv_acc_id;
-      //  SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
-      SearchData.jvh_date ='';
+      //SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
     }
 
     this.ErrorMessage = '';
