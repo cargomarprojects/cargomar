@@ -155,6 +155,7 @@ export class OsComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
+    this.ACCRECORD.showlocked =true;
 
 
     this.BRRECORD = new SearchTable();

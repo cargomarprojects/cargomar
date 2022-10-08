@@ -256,6 +256,7 @@ export class LedgerBalComponent {
         this.ACCRECORD.id = "";
         this.ACCRECORD.code = "";
         this.ACCRECORD.name = "";
+        this.ACCRECORD.showlocked = true;
 
         this.ACCMAINRECORD = new SearchTable();
         this.ACCMAINRECORD.controlname = "ACCOUNTS MAIN CODE";
@@ -295,6 +296,7 @@ export class LedgerBalComponent {
             this.ACCRECORD.id = "";
             this.ACCRECORD.code = "";
             this.ACCRECORD.name = "";
+            this.ACCRECORD.showlocked = true;
         }
         if (_Record.controlname == "BRANCH") {
             this.branch_code = _Record.code;

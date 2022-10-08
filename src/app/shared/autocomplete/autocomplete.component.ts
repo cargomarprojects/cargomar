@@ -37,9 +37,9 @@ export class AutoCompleteComponent {
 
     @ViewChild('inputbox') private inputbox: ElementRef;
 
-    public displaydata: string ='';
+    public displaydata: string = '';
 
-    rows_to_display : number = 0;
+    rows_to_display: number = 0;
     rows_total: number = 0;
     rows_starting_number: number = 0;
     rows_ending_number: number = 0;
@@ -77,7 +77,7 @@ export class AutoCompleteComponent {
         this.controlname = this.inputdata.controlname;
         this.TableType = this.inputdata.type;
         this.displaycolumn = this.inputdata.displaycolumn;
-        if ( this.displaycolumn == 'CODE')
+        if (this.displaycolumn == 'CODE')
             this.displaydata = this.inputdata.code;
         if (this.displaycolumn == 'NAME')
             this.displaydata = this.inputdata.name;
@@ -90,17 +90,17 @@ export class AutoCompleteComponent {
             let changedProp = changes[propName];
             let from = changedProp.previousValue;
             if (this.displaycolumn == 'CODE') {
-              this.displaydata = this.inputdata.code;
+                this.displaydata = this.inputdata.code;
             }
             if (this.displaycolumn == 'NAME') {
-              this.displaydata = this.inputdata.name;
+                this.displaydata = this.inputdata.name;
             }
         }
     }
 
     Focus() {
-      if ( !this.disabled)
-        this.inputbox.nativeElement.focus();
+        if (!this.disabled)
+            this.inputbox.nativeElement.focus();
     }
 
     eventHandler(KeyCode: any) {
@@ -108,20 +108,18 @@ export class AutoCompleteComponent {
     }
 
     More() {
-        if (this.rows_ending_number < this.rows_total)
-        {
-            this.rows_starting_number = this.rows_ending_number +1;
+        if (this.rows_ending_number < this.rows_total) {
+            this.rows_starting_number = this.rows_ending_number + 1;
             this.rows_ending_number = this.rows_ending_number + this.rows_to_display;
-            
+
             this.List('NEXT');
         }
     }
 
-    List(_action : string = 'NEW') {
+    List(_action: string = 'NEW') {
         this.loading = true;
 
-        if (_action == "NEW")
-        {
+        if (_action == "NEW") {
             this.rows_to_display = 10;
             this.rows_starting_number = 1;
             this.rows_ending_number = this.rows_to_display;
@@ -130,17 +128,18 @@ export class AutoCompleteComponent {
 
         let SearchData = {
             action: _action,
-            rows_to_display : this.rows_to_display,
+            rows_to_display: this.rows_to_display,
             rows_starting_number: this.rows_starting_number,
             rows_ending_number: this.rows_ending_number,
             type: this.inputdata.type,
             parentid: this.inputdata.parentid,
             searchstring: this.displaydata,
-            where : this.inputdata.where,
+            where: this.inputdata.where,
             comp_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code
+            branch_code: this.gs.globalVariables.branch_code,
+            showlocked: this.inputdata.showlocked
         };
-        
+
         this.lovService.List(SearchData)
             .subscribe(response => {
                 //this.RecList = response.list;
@@ -165,11 +164,11 @@ export class AutoCompleteComponent {
                     this.showDiv = true;
                 }
             },
-            error => {
-              this.loading = false;
-              this.alertService.error(error.error);
-                
-            }
+                error => {
+                    this.loading = false;
+                    this.alertService.error(error.error);
+
+                }
             );
     }
 
@@ -189,10 +188,11 @@ export class AutoCompleteComponent {
             this.inputdata.col5 = '';
             this.inputdata.col6 = '';
             this.inputdata.col7 = '';
-            this.inputdata.col8 = '';            
+            this.inputdata.col8 = '';
+            this.inputdata.showlocked = false;
             this.displaydata = '';
             this.parentid = '';
-            
+
         }
         else {
             this.inputdata.id = _Record.id;
@@ -201,8 +201,8 @@ export class AutoCompleteComponent {
             this.inputdata.rate = _Record.rate;
             if (this.displaycolumn == "CODE")
                 this.displaydata = _Record.code;
-            if ( this.displaycolumn == "NAME")
-              this.displaydata = _Record.name;
+            if (this.displaycolumn == "NAME")
+                this.displaydata = _Record.name;
             this.parentid = _Record.parentid;
 
             this.inputdata.col1 = _Record.col1;
@@ -213,6 +213,7 @@ export class AutoCompleteComponent {
             this.inputdata.col6 = _Record.col6;
             this.inputdata.col7 = _Record.col7;
             this.inputdata.col8 = _Record.col8;
+            this.inputdata.showlocked = _Record.showlocked;
         }
 
 
@@ -261,7 +262,7 @@ export class AutoCompleteComponent {
     }
 }
 
-    
+
 
 
 
