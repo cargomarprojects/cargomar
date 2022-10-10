@@ -47,7 +47,7 @@ export class OscrComponent {
   showzero: boolean = false;
 
   to_date: string;
-  
+
 
   ACCRECORD: SearchTable = new SearchTable();
 
@@ -66,17 +66,17 @@ export class OscrComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    acc_id:'',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
     isoverdue: false,
     all: false,
-    showzero : false,
+    showzero: false,
     do_not_use_credit_date: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
@@ -128,10 +128,10 @@ export class OscrComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -144,11 +144,11 @@ export class OscrComponent {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
     this.BRRECORD = new SearchTable();
     this.BRRECORD.controlname = "BRANCH";
@@ -156,7 +156,7 @@ export class OscrComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
@@ -246,15 +246,15 @@ export class OscrComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -280,6 +280,6 @@ export class OscrComponent {
       rec.displayed = !rec.displayed;
     }
   }
-  
+
 
 }
