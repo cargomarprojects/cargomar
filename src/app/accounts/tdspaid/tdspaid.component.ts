@@ -31,14 +31,14 @@ export class TdsPaidComponent {
   currentTab = 'LIST';
 
   searchstring = '';
-  
+
 
   sub: any;
   urlid: string;
   branch_name: string;
   branch_code: string;
 
-  
+
   ismaincode: boolean = false;
   bCompany = false;
 
@@ -63,9 +63,9 @@ export class TdsPaidComponent {
     branch_name: '',
     year_code: '',
     searchstring: '',
-   
+
     ismaincode: false,
-    hide_ho_entries : '',
+    hide_ho_entries: '',
   };
 
 
@@ -82,7 +82,7 @@ export class TdsPaidComponent {
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    
+
 
 
 
@@ -114,7 +114,7 @@ export class TdsPaidComponent {
       if (this.menu_record.rights_company)
         this.bCompany = true;
     }
-    
+
     this.InitLov();
     this.Init();
     this.LoadCombo();
@@ -169,7 +169,7 @@ export class TdsPaidComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
 
     this.BRRECORD = new SearchTable();
@@ -197,7 +197,7 @@ export class TdsPaidComponent {
 
   // Query List Data
   List(_type: string) {
-  
+
 
     this.loading = true;
 
@@ -206,7 +206,7 @@ export class TdsPaidComponent {
       this.SearchData.pkid = this.pkid;
       this.SearchData.report_folder = this.gs.globalVariables.report_folder;
       this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    
+
 
       if (this.bCompany) {
         this.SearchData.branch_code = this.branch_code;
@@ -227,7 +227,7 @@ export class TdsPaidComponent {
     this.SearchData.subtype = '';
 
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
-    
+
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -236,13 +236,13 @@ export class TdsPaidComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-        
+
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
