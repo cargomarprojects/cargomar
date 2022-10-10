@@ -250,7 +250,8 @@ export class CashBookComponent {
         this.ACCRECORD.id = "";
         this.ACCRECORD.code = "";
         this.ACCRECORD.name = "";
-
+        this.ACCRECORD.showlocked = true;
+        
         this.ACCMAINRECORD = new SearchTable();
         this.ACCMAINRECORD.controlname = "ACCOUNTS MAIN CODE";
         this.ACCMAINRECORD.displaycolumn = "CODE";
@@ -289,6 +290,7 @@ export class CashBookComponent {
             this.ACCRECORD.id = "";
             this.ACCRECORD.code = "";
             this.ACCRECORD.name = "";
+            this.ACCRECORD.showlocked = true;
         }
         if (_Record.controlname == "BRANCH") {
             this.branch_code = _Record.code;
