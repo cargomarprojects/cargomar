@@ -71,18 +71,18 @@ export class CollectionComponent {
     branch_code: '',
     branch_name: '',
     intrest: '',
-    credit_days:'',
+    credit_days: '',
     isoverdue: false,
     all: false,
-    detail: false,    
+    detail: false,
   };
 
 
   // Array For Displaying List
-  
+
   // Single Record for add/edit/view details
   Record: payhistoryReport = new payhistoryReport;
-  
+
   RecordList: payhistoryReport[] = [];
 
   constructor(
@@ -154,7 +154,7 @@ export class CollectionComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
     this.BRRECORD = new SearchTable();
     this.BRRECORD.controlname = "BRANCH";
@@ -236,34 +236,34 @@ export class CollectionComponent {
 
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
-    
+
     this.SearchData.isoverdue = this.isoverdue;
     this.SearchData.all = this.all;
 
     this.SearchData.acc_id = this.ACCRECORD.id;
     this.SearchData.acc_name = this.ACCRECORD.name;
 
-    
+
 
     this.ErrorMessage = '';
     this.mainService.CollectionReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         //this.RecordList = response.list;
-        if ( _type == 'EXCEL'){
-          this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+        if (_type == 'EXCEL') {
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         }
         else {
           this.RecordList = response.list;
         }
 
       }, error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
       });
   }
 
-  
+
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }

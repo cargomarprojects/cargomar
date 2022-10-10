@@ -66,19 +66,19 @@ export class PayHistoryComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    from_date:'',
-    acc_id:'',
+    from_date: '',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
     intrest: '',
-    credit_days:'',
+    credit_days: '',
     isoverdue: false,
     all: false,
     detail: false,
   };
 
-  
+
   // Array For Displaying List
   RecordList: payhistoryReport[] = [];
   // Single Record for add/edit/view details
@@ -124,7 +124,7 @@ export class PayHistoryComponent {
     }
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
-    
+
 
     this.Init();
     this.LoadCombo();
@@ -132,12 +132,12 @@ export class PayHistoryComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
     this.intrest = "12";
     this.credit_days = "30";
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -150,11 +150,11 @@ export class PayHistoryComponent {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
     this.BRRECORD = new SearchTable();
     this.BRRECORD.controlname = "BRANCH";
@@ -162,7 +162,7 @@ export class PayHistoryComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
@@ -260,15 +260,15 @@ export class PayHistoryComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -294,6 +294,6 @@ export class PayHistoryComponent {
   //    rec.displayed = !rec.displayed;
   //  }
   //}
-  
+
 
 }

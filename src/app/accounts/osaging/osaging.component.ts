@@ -143,7 +143,7 @@ export class OsAgingComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
 
 
