@@ -60,7 +60,7 @@ export class BillWiseComponent {
     type_date: '',
     code: '',
     acc_id: '',
-    acc_name:'',
+    acc_name: '',
     main_code: false,
     all: false
   };
@@ -145,6 +145,7 @@ export class BillWiseComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
+    this.ACCRECORD.showlocked = true;
   }
 
   LovSelected(_Record: SearchTable) {
@@ -205,7 +206,7 @@ export class BillWiseComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
       this.SearchData.branch_name = this.branch_name;
@@ -229,34 +230,34 @@ export class BillWiseComponent {
     this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
-      this.mainService.List(this.SearchData)
-        .subscribe(response => {
-          this.loading = false;
-          if (_type == 'EXCEL')
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          else {
-            this.RecordList = response.list;
-          }
-        },
+    this.mainService.List(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+        }
+      },
         error => {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
         });
-    }
+  }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-    OnChange(field: string) {
-      this.RecordList = null;
+  OnChange(field: string) {
+    this.RecordList = null;
 
-    }
+  }
 
-    Close() {
-      this.gs.ClosePage('home');
-    }
+  Close() {
+    this.gs.ClosePage('home');
+  }
 
 
-  
+
 }
