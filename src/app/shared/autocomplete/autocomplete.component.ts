@@ -60,7 +60,6 @@ export class AutoCompleteComponent {
     controlname = "";
     parentid = "";
     displaycolumn: string = "NAME";
-    bShowlocked = false;
     loading = false;
 
     constructor(
@@ -83,7 +82,6 @@ export class AutoCompleteComponent {
             this.displaydata = this.inputdata.name;
 
         this.parentid = this.inputdata.parentid;
-        this.bShowlocked = this.inputdata.showlocked;
     }
 
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -190,10 +188,8 @@ export class AutoCompleteComponent {
             this.inputdata.col6 = '';
             this.inputdata.col7 = '';
             this.inputdata.col8 = '';
-            this.inputdata.showlocked = this.bShowlocked;
             this.displaydata = '';
             this.parentid = '';
-
         }
         else {
             this.inputdata.id = _Record.id;
@@ -214,7 +210,6 @@ export class AutoCompleteComponent {
             this.inputdata.col6 = _Record.col6;
             this.inputdata.col7 = _Record.col7;
             this.inputdata.col8 = _Record.col8;
-            this.inputdata.showlocked = _Record.showlocked;
         }
 
 
