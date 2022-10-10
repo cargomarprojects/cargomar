@@ -57,7 +57,7 @@ export class FcComponent {
     type: '',
     subtype: '',
     pkid: '',
-    curr_code : '',
+    curr_code: '',
     acc_id: '',
     acc_name: '',
     report_folder: '',
@@ -72,7 +72,7 @@ export class FcComponent {
     page_current: 0,
     page_rows: 0,
     page_rowcount: 0,
-    hide_ho_entries : '',
+    hide_ho_entries: '',
   };
 
 
@@ -174,7 +174,7 @@ export class FcComponent {
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-
+    this.ACCRECORD.showlocked = true;
 
   }
 
@@ -229,7 +229,7 @@ export class FcComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
@@ -237,10 +237,10 @@ export class FcComponent {
           this.page_rowcount = response.page_rowcount;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
