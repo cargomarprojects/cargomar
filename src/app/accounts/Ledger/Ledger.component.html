@@ -147,7 +147,7 @@
           <label class="col-2 col-form-label  col-form-label-sm">Ref.No</label>
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" required
-              maxlength="50"  (focusout)="onFocusout('jvh_reference')" />
+              maxlength="50" (focusout)="onFocusout('jvh_reference')" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Ref.Date</label>
           <div class="col-4">
@@ -159,7 +159,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Org.Inv#</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50" (focusout)="onFocusout('jvh_org_invno')" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50"
+              (focusout)="onFocusout('jvh_org_invno')" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
@@ -259,7 +260,7 @@
 
           <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.jvh_igst_exception" (change)="OnChange('jvh_igst_exception')">
-            <span>Courier IGST</span>
+            <span>Courier/Frt IGST</span>
           </div>
 
         </div>

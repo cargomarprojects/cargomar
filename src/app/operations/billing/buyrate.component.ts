@@ -852,7 +852,7 @@ export class BuyRateComponent {
 
     if (!this.Record.jvh_gst && this.Record.jvh_igst_exception) {
       bret = false;
-      sError += " | Courier IGST Cannot Be Selected";
+      sError += " | Courier/Frt IGST Cannot Be Selected";
     }
 
 
@@ -891,7 +891,7 @@ export class BuyRateComponent {
       }
 
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111') {
         Courier_Code_Found = true;
       }
       else
@@ -922,12 +922,15 @@ export class BuyRateComponent {
     if (this.Record.jvh_igst_exception) {
       if (!Courier_Code_Found) {
         bret = false;
-        sError += " |Invalid A/c Code selected for Courier IGST";
+        sError += " |Invalid A/c Code selected for Courier/Frt IGST";
       }
+
+      /*
       if (Code_Other_Than_Courier_Code_Found) {
         bret = false;
-        sError += " |Only code 1205030/1105033/1105040/1526 can be used";
+        sError += " |Only code 1205030/1105033/1105040/1526/1105111 can be used";
       }
+      */
     }
 
     if (IsRcmRecords && IsNoRcmRecords) {
@@ -1949,7 +1952,7 @@ export class BuyRateComponent {
     if (controlname == 'taxcode') {
       SearchData.table = 'acctm';
       SearchData.pkid = this.Recorddet.jv_acc_id;
-     // SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
+      // SearchData.jvh_date = this.Record.jvh_date;//TAXRATECHANGED
     }
     if (controlname == 'jvh_cc_code') {
       SearchData.table = 'costcenterm';

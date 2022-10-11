@@ -144,7 +144,8 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Org.Inv#</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50" (focusout)="onFocusout('jvh_org_invno')" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50"
+              (focusout)="onFocusout('jvh_org_invno')" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
@@ -189,7 +190,7 @@
           </div>
           <label class="col-1 col-form-label  col-form-label-sm">Cr.Days</label>
           <div class="col-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_crdays" maxlength="10"   />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.jvh_crdays" maxlength="10" />
           </div>
         </div>
 
@@ -266,7 +267,7 @@
 
           <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.jvh_igst_exception" (change)="OnChange('jvh_igst_exception')">
-            <span>Courier IGST</span>
+            <span>Courier/Frt IGST</span>
           </div>
 
 
@@ -629,7 +630,8 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()"
-          [style.text-decoration]="type=='PN-JV'?'underline':'none'"  [style.cursor]="type=='PN-JV'?'pointer':'default'" > Narration
+            [style.text-decoration]="type=='PN-JV'?'underline':'none'"
+            [style.cursor]="type=='PN-JV'?'pointer':'default'"> Narration
           </label>
           <div class="col-10">
             <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required

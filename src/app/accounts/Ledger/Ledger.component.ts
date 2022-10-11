@@ -874,7 +874,7 @@ export class LedgerComponent {
 
     if (!this.Record.jvh_gst && this.Record.jvh_igst_exception) {
       bret = false;
-      sError += " | Courier IGST Cannot Be Selected";
+      sError += " | Courier/Frt IGST Cannot Be Selected";
     }
 
     let IsRcmRecords = false;
@@ -911,7 +911,7 @@ export class LedgerComponent {
         isGstBlank = true;
       }
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526') {
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111') {
         Courier_Code_Found = true;
       }
       else
@@ -943,7 +943,7 @@ export class LedgerComponent {
     if (this.Record.jvh_igst_exception) {
       if (!Courier_Code_Found) {
         bret = false;
-        sError += " |Invalid A/c Code selected for Courier IGST";
+        sError += " |Invalid A/c Code selected for Courier/Frt IGST";
       }
       /*
       if (Code_Other_Than_Courier_Code_Found) {
