@@ -17,15 +17,11 @@
           <div class="col-sm-2">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
-          <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Mode</label>
+          <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Currency</label>
           <div class="col-sm-2">
-            <select class="form-control form-control-sm" [(ngModel)]="search_mode">
-              <option [value]="''">AIR EXPORT</option>
-              <option [value]="''">AIR IMPORT</option>
-              <option [value]="'MBL SEA EXPORT'">SEA EXPORT</option>
-              <option [value]="''">SEA IMPORT</option>
-            </select>
-          </div> -->
+            <app-autocomplete #CurrLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Paid</label>
           <div class="col-sm-2">
             <select class="form-control form-control-sm" [(ngModel)]="search_ispaid">
@@ -40,7 +36,6 @@
             <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid
               Status</button>
           </div>
-
         </div>
       </div>
     </div>
@@ -79,10 +74,10 @@
           <th>REF.DATE</th>
           <th>DUE.DATE</th>
           <!-- <th>CHQ.NAME</th> -->
-          <th>AMOUNT</th>
-          <th>CURRENCY</th>
-          <th>EX-RATE</th>
-          <th>F.AMOUNT</th>
+          <th class="text-right">AMT</th>
+          <th>CURR.</th>
+          <th class="text-right">EX-RATE</th>
+          <th class="text-right">AMT(INR)</th>
           <th>PAID</th>
           <th>PAID.STATUS</th>
           <!-- <th>DOCS</th> -->
@@ -105,10 +100,10 @@
           <td>{{rec.pay_org_invdt}}</td>
           <td>{{rec.pay_date}}</td>
           <!-- <td>{{rec.pay_chq_name}}</td> -->
-          <td>{{rec.pay_amt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_famt | number : '1.2-2'}}</td>
           <td>{{rec.pay_curr_code}}</td>
-          <td>{{rec.pay_exrate}}</td>
-          <td>{{rec.pay_famt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_exrate | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_amt | number : '1.2-2'}}</td>
           <td>{{rec.pay_is_paid}}</td>
           <!-- <td class="p-0">
             <button (click)="paidStatus(rec)" style="font-size: 11px;" class="btn btn-info btn-block py-1">{{rec.pay_is_paid=='Y'?'YES':'NO'}}</button>

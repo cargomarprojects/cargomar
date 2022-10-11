@@ -46,6 +46,7 @@ export class PayRequestComponent {
   pkid = '';
   search_ispaid = 'B';
   search_mode = 'MBL-SE';
+  search_currency = '';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
@@ -53,7 +54,7 @@ export class PayRequestComponent {
 
   // Shipper
   PARTYRECORD: SearchTable = new SearchTable();
-
+  CURRECORD: SearchTable = new SearchTable();
 
   constructor(
     private mainService: PayRequestService,
@@ -118,6 +119,14 @@ export class PayRequestComponent {
     this.PARTYRECORD.code = "";
     this.PARTYRECORD.name = "";
 
+    this.CURRECORD = new SearchTable();
+    this.CURRECORD.controlname = "CURRENCY";
+    this.CURRECORD.displaycolumn = "CODE";
+    this.CURRECORD.type = "CURRENCY";
+    this.CURRECORD.id = "";
+    this.CURRECORD.code = "";
+    this.CURRECORD.name = "";
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -125,6 +134,10 @@ export class PayRequestComponent {
       this.Record.pay_acc_id = _Record.id;
       this.Record.pay_acc_code = _Record.code;
       this.Record.pay_acc_name = _Record.name;
+    }
+
+    if (_Record.controlname == "CURRENCY") {
+      this.search_currency = _Record.code;
     }
 
   }
@@ -181,6 +194,7 @@ export class PayRequestComponent {
       report_folder: this.gs.globalVariables.report_folder,
       ispaid: this.search_ispaid,
       search_mode: this.search_mode,
+      search_currency: this.search_currency,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
