@@ -151,8 +151,8 @@
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
                   </div>
-                  <label class="col-2 col-form-label col-form-label-sm">Date</label>
-                  <div class="col-4">
+                  <label class="col-3 col-form-label col-form-label-sm">Date</label>
+                  <div class="col-3">
                     <app-date [inputdate]="Record.hbl_cf_date" (ValueChanged)="Record.hbl_cf_date=$event"></app-date>
                   </div>
                 </div>
@@ -162,8 +162,8 @@
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no"
                       (blur)="OnBlur('hbl_bl_no')" required maxlength="25" />
                   </div>
-                  <label class="col-2 col-form-label col-form-label-sm">{{lblhbldate}}</label>
-                  <div class="col-4">
+                  <label class="col-3 col-form-label col-form-label-sm">{{lblhbldate}}</label>
+                  <div class="col-3">
                     <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
                   </div>
                 </div>
