@@ -31,7 +31,8 @@ export class ImpMblSeaAirComponent {
   loading = false;
   currentTab = 'LIST';
 
-  lblmblno = 'MBL No';
+  lblmblno = 'MBL#';
+  lblmbldate= 'MBL.Date';
   lblvesselno = 'Voyage';
   searchstring = '';
   porttype = 'SEA PORT';
@@ -127,12 +128,14 @@ export class ImpMblSeaAirComponent {
     }
 
     if (this.type == "SEA IMPORT") {
-      this.lblmblno = "MBL No.";
+      this.lblmblno = "MBL#";
+      this.lblmbldate= 'MBL.Date';
       this.lblvesselno = "Voyage";
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
     } else {
-      this.lblmblno = "MAWB No";
+      this.lblmblno = "MAWB#";
+      this.lblmbldate= 'MAWB.Date';
       this.lblvesselno = "Flight No.";
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
@@ -571,6 +574,7 @@ export class ImpMblSeaAirComponent {
     this.Record.mbl_origin_country_id = '';
     this.Record.mbl_origin_country_code = '';
     this.Record.mbl_origin_country_name = '';
+    this.Record.mbl_cf_date = this.gs.defaultValues.today;
 
     this.InitDefault();
     this.InitLov();
@@ -721,12 +725,16 @@ export class ImpMblSeaAirComponent {
       else
         sError = " | MAWB Number Cannot Be Blank";
     }
+    if (this.Record.mbl_cf_date.trim().length <= 0) {
+      bret = false;
+        sError += "\n\r | Date Cannot Be Blank";
+    }
     if (this.Record.mbl_date.trim().length <= 0) {
       bret = false;
       if (this.type == "SEA IMPORT")
-        sError = " | MBL Date Cannot Be Blank";
+        sError += "\n\r | MBL Date Cannot Be Blank";
       else
-        sError = " | MAWB Date Cannot Be Blank";
+        sError += "\n\r | MAWB Date Cannot Be Blank";
     }
     if (this.Record.mbl_carrier_id.trim().length <= 0) {
       bret = false;
@@ -797,6 +805,7 @@ export class ImpMblSeaAirComponent {
     }
     else {
       REC.mbl_bookslno = this.Record.mbl_bookslno;
+      REC.mbl_cf_date = this.Record.mbl_cf_date;
       REC.mbl_date = this.Record.mbl_date;
       REC.mbl_carrier_name = this.Record.mbl_carrier_name;
       REC.mbl_pol_name = this.Record.mbl_pol_name;
