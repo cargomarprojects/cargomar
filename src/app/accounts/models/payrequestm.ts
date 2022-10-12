@@ -20,6 +20,8 @@ export class PayRequestm {
   pay_request_code: string;
   pay_request_name: string;
   pay_amt: number;
+  pay_gst_amt: number;
+  pay_net_amt: number;
   rowdisplayed: boolean;
   pay_chq_name: string;
   pay_is_paid: string;
@@ -34,7 +36,8 @@ export class PayRequestm {
   pay_curr_code: string;
   pay_exrate: number;
   pay_famt: number;
-  
+  pay_gst_famt: number;
+  pay_net_famt: number;
   rec_mode: string;
   _globalvariables: GlobalVariables;
 

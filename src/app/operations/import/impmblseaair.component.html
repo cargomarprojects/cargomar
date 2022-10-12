@@ -152,8 +152,8 @@
                   <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                     [(ngModel)]="Record.mbl_bookslno" [disabled]="true" required maxlength="15" />
                 </div>
-                <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm pl-0">Date</label>
-                <div class="col-sm-4">
+                <label style="text-align:right" class="col-sm-2 col-form-label col-form-label-sm pl-0">Date</label>
+                <div class="col-sm-3">
                   <app-date [inputdate]="Record.mbl_cf_date" (ValueChanged)="Record.mbl_cf_date=$event"></app-date>
                 </div>
               </div>
@@ -170,8 +170,8 @@
                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_no"
                     (blur)="OnBlur('mbl_no')" required maxlength="30" />
                 </div>
-                <label style="text-align:right" class="col-sm-1 col-form-label col-form-label-sm pl-0">{{lblmbldate}}</label>
-                <div class="col-sm-4">
+                <label style="text-align:right" class="col-sm-2 col-form-label col-form-label-sm pl-0">{{lblmbldate}}</label>
+                <div class="col-sm-3">
                   <app-date [inputdate]="Record.mbl_date" (ValueChanged)="Record.mbl_date=$event"></app-date>
                 </div>
               </div>

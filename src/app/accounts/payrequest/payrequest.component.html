@@ -76,9 +76,13 @@
           <th>DUE.DATE</th>
           <!-- <th>CHQ.NAME</th> -->
           <th class="text-right">AMT</th>
+          <th class="text-right">GST</th>
+          <th class="text-right">TOTAL</th>
           <th>CURR.</th>
           <th class="text-right">EX-RATE</th>
           <th class="text-right">AMT(INR)</th>
+          <th class="text-right">GST(INR)</th>
+          <th class="text-right">TOTAL(INR)</th>
           <th>PAID</th>
           <th>PAID.STATUS</th>
           <!-- <th>DOCS</th> -->
@@ -103,9 +107,13 @@
           <td>{{rec.pay_date}}</td>
           <!-- <td>{{rec.pay_chq_name}}</td> -->
           <td class="text-right">{{rec.pay_famt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_gst_famt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_net_famt | number : '1.2-2'}}</td>
           <td>{{rec.pay_curr_code}}</td>
           <td class="text-right">{{rec.pay_exrate | number : '1.2-2'}}</td>
           <td class="text-right">{{rec.pay_amt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_gst_amt | number : '1.2-2'}}</td>
+          <td class="text-right">{{rec.pay_net_amt | number : '1.2-2'}}</td>
           <td>{{rec.pay_is_paid}}</td>
           <!-- <td class="p-0">
             <button (click)="paidStatus(rec)" style="font-size: 11px;" class="btn btn-info btn-block py-1">{{rec.pay_is_paid=='Y'?'YES':'NO'}}</button>
