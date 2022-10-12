@@ -31,6 +31,7 @@ export class ImpHblSeaAirComponent {
   // disableBookslno = false;
 
   lblhblname = 'HBL No';
+  lblhbldate = 'HBL Date';
   masterexist = false;
   jobexist = false;
   disableSave = true;
@@ -132,12 +133,14 @@ export class ImpHblSeaAirComponent {
     }
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
-      this.lblhblname = "HBL.No";
+      this.lblhblname = "HBL#";
+      this.lblhbldate = "HBL.Date";
       this.carriertype = "SEA CARRIER";
     }
     else {
       this.porttype = "AIR PORT";
-      this.lblhblname = "HAWB.No";
+      this.lblhblname = "HAWB#";
+      this.lblhbldate = "HAWB.Date";
       this.carriertype = "AIR CARRIER";
     }
     this.InitLov();
@@ -602,6 +605,7 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_insu_ex_rate = 0;
     this.Record.hbl_invoice_nos = '';
     this.Record.hbl_bl_no = '';
+    this.Record.hbl_cf_date = this.gs.defaultValues.today;
 
     this.InitLov();
     this.PKGUNITRECORD.id = this.gs.defaultValues.param_unit_pcs_id;
@@ -778,9 +782,13 @@ export class ImpHblSeaAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.Record.hbl_date.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.hbl_cf_date)) {
       bret = false;
-      sError = " | Hbl Date Cannot Be Blank";
+      sError = " | Date Cannot Be Blank";
+    }
+    if (this.gs.isBlank(this.Record.hbl_date)) {
+      bret = false;
+      sError += "\n\r | Hbl Date Cannot Be Blank";
     }
     if (this.Record.hbl_exp_id.trim().length <= 0) {
       bret = false;
@@ -860,6 +868,8 @@ export class ImpHblSeaAirComponent {
       REC.hbl_nature = this.Record.hbl_nature;
       REC.hbl_terms = this.Record.hbl_terms;
       REC.hbl_nomination = this.Record.hbl_nomination;
+      REC.hbl_cf_date = this.Record.hbl_cf_date;
+      REC.hbl_sidate = this.Record.hbl_cf_date;
     }
   }
 

@@ -718,33 +718,33 @@ export class ImpMblSeaAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.Record.mbl_no.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_no)) {
       bret = false;
       if (this.type == "SEA IMPORT")
         sError = " | MBL Number Cannot Be Blank";
       else
         sError = " | MAWB Number Cannot Be Blank";
     }
-    if (this.Record.mbl_cf_date.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_cf_date)) {
       bret = false;
         sError += "\n\r | Date Cannot Be Blank";
     }
-    if (this.Record.mbl_date.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_date)) {
       bret = false;
       if (this.type == "SEA IMPORT")
         sError += "\n\r | MBL Date Cannot Be Blank";
       else
         sError += "\n\r | MAWB Date Cannot Be Blank";
     }
-    if (this.Record.mbl_carrier_id.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
       bret = false;
       sError += "\n\r | Carrier Cannot Be Blank";
     }
-    if (this.Record.mbl_agent_id.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_agent_id)) {
       bret = false;
       sError += "\n\r | Agent Cannot Be Blank";
     }
-    if (this.type == "SEA IMPORT" && this.Record.mbl_vessel_id.trim().length <= 0) {
+    if (this.type == "SEA IMPORT" && this.gs.isBlank(this.Record.mbl_vessel_id)) {
       bret = false;
       sError += "\n\r | Vessel Cannot Be Blank";
     }

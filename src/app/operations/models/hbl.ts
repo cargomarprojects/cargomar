@@ -150,7 +150,8 @@ export class Hblm {
 
   hbl_buy_remarks:string;
   hbl_sell_remarks:string;
-
+  hbl_cf_date: string;
+  
   hbl_unlockid : string;
   hbl_book_slno: number;
 
