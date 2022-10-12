@@ -134,13 +134,13 @@ export class ImpHblSeaAirComponent {
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
       this.lblhblname = "HBL#";
-      this.lblhbldate = "HBL.Date";
+      this.lblhbldate = "HBL Date";
       this.carriertype = "SEA CARRIER";
     }
     else {
       this.porttype = "AIR PORT";
       this.lblhblname = "HAWB#";
-      this.lblhbldate = "HAWB.Date";
+      this.lblhbldate = "HAWB Date";
       this.carriertype = "AIR CARRIER";
     }
     this.InitLov();
