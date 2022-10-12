@@ -312,7 +312,9 @@ export class BillingComponent {
       this.STATERECORD.code = this.Record.jvh_state_code;
       this.STATERECORD.name = this.Record.jvh_state_name;
 
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      //this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
+
 
     }
 
@@ -343,7 +345,9 @@ export class BillingComponent {
       this.Record.jvh_state_id = _Record.id;
       this.Record.jvh_state_code = _Record.code;
       this.Record.jvh_state_name = _Record.name;
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      //this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
+
     }
 
 
@@ -741,11 +745,13 @@ export class BillingComponent {
     this.InfoMessage = '';
 
 
-
-
     let isNegative: Boolean = false;
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
+
+    let Courier_Code_Found: Boolean = false;
+    let Code_Other_Than_Courier_Code_Found: Boolean = false;
+
     let rowCount: number = 0;
     let bOk: Boolean = false;
 
@@ -815,6 +821,12 @@ export class BillingComponent {
     }
 
 
+    if (!this.Record.jvh_gst && this.Record.jvh_igst_exception) {
+      bret = false;
+      sError += " | Courier/Frt IGST Cannot Be Selected";
+    }
+
+
     this.Record.LedgerList.forEach(rec => {
       if (rec.jv_selected) {
         rowCount++;
@@ -845,6 +857,12 @@ export class BillingComponent {
         _gst_amt = rec.jv_cgst_amt + rec.jv_sgst_amt + rec.jv_igst_amt;
         if (rec.jv_gst_amt != _gst_amt)
           isGstMismatch = true;
+
+        if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111') {
+          Courier_Code_Found = true;
+        }
+        else
+          Code_Other_Than_Courier_Code_Found = true;
 
       }
     });
@@ -912,6 +930,21 @@ export class BillingComponent {
       }
     }
     */
+
+
+    if (this.Record.jvh_igst_exception) {
+      if (!Courier_Code_Found) {
+        bret = false;
+        sError += " |Invalid A/c Code selected for Courier/Frt IGST";
+      }
+      /*
+      if (Code_Other_Than_Courier_Code_Found) {
+        bret = false;
+        sError += " |Only code 1205030/1105033/1105040/1526/1105111 can be used";
+      }
+    */
+    }
+
 
     if (!this.Record.jvh_gst) {
       if (this.Record.jvh_gst_amt != 0) {

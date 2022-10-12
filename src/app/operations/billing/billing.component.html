@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -29,8 +28,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList" (click)="EditInvoice(rec.jvh_pkid, rec.jvh_type, rec.jvh_subtype,rec.jvh_rec_source)">
-          <td >{{rec.jvh_docno}}</td>
+        <tr *ngFor="let rec of RecordList"
+          (click)="EditInvoice(rec.jvh_pkid, rec.jvh_type, rec.jvh_subtype,rec.jvh_rec_source)">
+          <td>{{rec.jvh_docno}}</td>
           <td>{{rec.jvh_date}}</td>
           <td>{{rec.jvh_acc_name}}</td>
           <td>{{rec.jvh_gstin}}</td>
@@ -59,32 +59,38 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Vr.No</label>
           <div class="col-4">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_vrno" required maxlength="15" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_vrno" required
+              maxlength="15" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Date</label>
           <div class="col-4">
-            <app-date #jvh_date [disabled]="lock_date" [inputdate]="Record.jvh_date" (ValueChanged)="Record.jvh_date=$event"></app-date>
+            <app-date #jvh_date [disabled]="lock_date" [inputdate]="Record.jvh_date"
+              (ValueChanged)="Record.jvh_date=$event"></app-date>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Ref.No</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" required maxlength="50"  (focusout)="onFocusout('jvh_reference')" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_reference" required
+              maxlength="50" (focusout)="onFocusout('jvh_reference')" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Ref.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event"></app-date>
+            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event">
+            </app-date>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Org.Inv#</label>
           <div class="col-4">
-            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno" maxlength="50"  (focusout)="onFocusout('jvh_org_invno')" />
+            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_org_invno"
+              maxlength="50" (focusout)="onFocusout('jvh_org_invno')" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
-            <app-date disabled [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
+            <app-date disabled [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event">
+            </app-date>
           </div>
         </div>
 
@@ -110,14 +116,14 @@
             <span>GST</span>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox"  disabled  (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
+            <input type="checkbox" disabled (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
             <span>RC</span>
           </div>
 
-          <div class="col-sm-4" *ngIf="Record.jvh_einv_status == 'G'">  
-            <label class="col-form-label col-form-label-sm text-danger font-weight-bold" >IRN ISSUED</label>
+          <div class="col-sm-4" *ngIf="Record.jvh_einv_status == 'G'">
+            <label class="col-form-label col-form-label-sm text-danger font-weight-bold">IRN ISSUED</label>
           </div>
-          
+
 
         </div>
 
@@ -130,7 +136,8 @@
 
           <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
           <div class="col-3">
-            <app-autocomplete #CsdLov [inputdata]="PARTYADDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <app-autocomplete #CsdLov [inputdata]="PARTYADDRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
 
         </div>
@@ -138,14 +145,16 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Name</label>
           <div class="col-10">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_name" (blur)="OnBlur('jvh_acc_name')" required maxlength="60" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_name"
+              (blur)="OnBlur('jvh_acc_name')" required maxlength="60" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_br_address" [disabled]="true" maxlength="1000"></textarea>
+            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jvh_acc_br_address"
+              [disabled]="true" maxlength="1000"></textarea>
           </div>
         </div>
 
@@ -156,28 +165,47 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Gst#</label>
-          <div class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_gstin" (blur)="OnBlur('jvh_gstin')" (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required maxlength="15" />
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_gstin"
+              (blur)="OnBlur('jvh_gstin')" (focus)="OnFocus('jvh_gstin')" (change)="OnChange('jvh_gstin')" required
+              maxlength="15" />
           </div>
-          <label class="col-4 col-form-label col-form-label-sm">{{Record.jvh_gst_type}}</label>
+
+          <div class="col-sm-3">
+            <input type="checkbox" [(ngModel)]="Record.jvh_igst_exception" (change)="OnChange('jvh_igst_exception')">
+            <span>IGST</span>
+          </div>
 
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">State</label>
-          <div class="col-5">
+          <div class="col-4">
             <app-autocomplete #CsdLov [inputdata]="STATERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_state_name" />
           </div>
-          
+
+
         </div>
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Currency</label>
-          <div class="col-5">
-            <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <div class="col-4">
+            <app-autocomplete #CsdLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+
+          <label class="col-4 col-form-label col-form-label-sm">{{Record.jvh_gst_type}}</label>
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Ex.Rate</label>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required
+              maxlength="15" />
           </div>
 
           <div class="col-sm-3">
@@ -185,17 +213,8 @@
             <span>SEZ</span>
           </div>
 
-
-        </div>
-
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Ex.Rate</label>
-          <div class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_exrate" required maxlength="15" />
-          </div>
-
           <div class="col-sm-3">
-            <input disabled type="checkbox" [(ngModel)]="Record.jvh_is_export" >
+            <input disabled type="checkbox" [(ngModel)]="Record.jvh_is_export">
             <span>EXPORT</span>
           </div>
 
@@ -204,8 +223,10 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Bank.A/c</label>
-          <div class="col-5">
-            <select [disabled] ="cc_category!='SI SEA EXPORT' && cc_category!='SI AIR EXPORT' && cc_category!='SI SEA IMPORT' && cc_category!='SI AIR IMPORT'" class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
+          <div class="col-4">
+            <select
+              [disabled]="cc_category!='SI SEA EXPORT' && cc_category!='SI AIR EXPORT' && cc_category!='SI SEA IMPORT' && cc_category!='SI AIR IMPORT'"
+              class="form-control form-control-sm" [(ngModel)]="Record.jvh_banktype">
               <option [value]="'NA'">NA</option>
               <option [value]="'AE'">AIR EXPORT</option>
               <option [value]="'AI'">AIR IMPORT</option>
@@ -284,9 +305,11 @@
 
       <div class="col-sm-4">
         <div class="form-group row">
-          <label style="cursor: pointer;" class="col-2 col-form-label  col-form-label-sm" (click)="getNarration()">Change Narration</label>
+          <label style="cursor: pointer;" class="col-2 col-form-label  col-form-label-sm"
+            (click)="getNarration()">Change Narration</label>
           <div class="col-10">
-            <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required maxlength="255"></textarea>
+            <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.jvh_narration" required
+              maxlength="255"></textarea>
           </div>
         </div>
       </div>
@@ -304,22 +327,28 @@
         </div>
         <div class="form-group row">
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_debit" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_debit" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_credit" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_credit" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_cgst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_cgst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_sgst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_sgst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_igst_amt" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_igst_amt" required
+              maxlength="20" />
           </div>
           <div class="col-2">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_diff" required maxlength="20" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jvh_diff" required
+              maxlength="20" />
           </div>
         </div>
 
@@ -330,17 +359,23 @@
   </div>
 
 
-  
+
 
   <div *ngIf="DetailTab=='LIST'" class="page-box">
     <div class="col">
-      <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
+        class="btn btn-success btn-sm">Save</button>
 
-      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('SUMMARY','PDF','')" class="btn btn-success btn-sm">Print Summary</button>
-      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('DETAIL','PDF','')" class="btn btn-success btn-sm">Print Detail</button>
-      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('FC','PDF','')" class="btn btn-success btn-sm">Print Foreign Currency</button>
-      <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'DI' || type == 'CI')" (click)="PrintInvoice('DETAIL','MAIL',mailsent)" class="btn btn-success btn-sm">Mail</button>
-      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')" class="btn btn-success btn-sm">Ledger</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('SUMMARY','PDF','')"
+        class="btn btn-success btn-sm">Print Summary</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('DETAIL','PDF','')"
+        class="btn btn-success btn-sm">Print Detail</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintInvoice('FC','PDF','')"
+        class="btn btn-success btn-sm">Print Foreign Currency</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT' && !(type == 'DI' || type == 'CI')"
+        (click)="PrintInvoice('DETAIL','MAIL',mailsent)" class="btn btn-success btn-sm">Mail</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="PrintVoucher(Record.jvh_pkid,'EXCEL')"
+        class="btn btn-success btn-sm">Ledger</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -365,6 +400,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [type]="'INVOICE'" [sHtml]="sHtml" [defaultto_ids]="Record.jvh_acc_br_email" [defaultmessage]="mMsg" [defaultsubject]="mSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+    <app-mail [type]="'INVOICE'" [sHtml]="sHtml" [defaultto_ids]="Record.jvh_acc_br_email" [defaultmessage]="mMsg"
+      [defaultsubject]="mSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
