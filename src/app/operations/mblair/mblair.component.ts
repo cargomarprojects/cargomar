@@ -671,10 +671,10 @@ export class MblAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    //if (this.Record.mbl_date.trim().length <= 0) {
-    //  bret = false;
-    //  sError = " | Mbl Date Cannot Be Blank";
-    //}
+    if (this.Record.mbl_date.trim().length <= 0) {
+     bret = false;
+     sError = " | Mbl Date Cannot Be Blank";
+    }
     if (this.Record.mbl_agent_id.trim().length <= 0) {
       bret = false;
       sError += "\n\r | Agent Cannot Be Blank";
