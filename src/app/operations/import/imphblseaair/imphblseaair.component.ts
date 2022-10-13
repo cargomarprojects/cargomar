@@ -506,6 +506,7 @@ export class ImpHblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -860,7 +861,7 @@ export class ImpHblSeaAirComponent {
     else {
       REC.hbl_no = this.Record.hbl_no;
       REC.hbl_bl_no = this.Record.hbl_bl_no;
-      REC.hbl_date = this.Record.hbl_date;
+      REC.hbl_date = this.gs.ConvertDate2DisplayFormat(this.Record.hbl_date);
       REC.hbl_exp_name = this.Record.hbl_exp_name;
       REC.hbl_imp_name = this.Record.hbl_imp_name;
       REC.hbl_beno = this.Record.hbl_beno;
@@ -868,8 +869,7 @@ export class ImpHblSeaAirComponent {
       REC.hbl_nature = this.Record.hbl_nature;
       REC.hbl_terms = this.Record.hbl_terms;
       REC.hbl_nomination = this.Record.hbl_nomination;
-      REC.hbl_cf_date = this.Record.hbl_cf_date;
-      REC.hbl_sidate = this.Record.hbl_cf_date;
+      REC.hbl_cf_date = this.gs.ConvertDate2DisplayFormat(this.Record.hbl_cf_date);
     }
   }
 

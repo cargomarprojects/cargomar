@@ -491,6 +491,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -805,8 +806,8 @@ export class ImpMblSeaAirComponent {
     }
     else {
       REC.mbl_bookslno = this.Record.mbl_bookslno;
-      REC.mbl_cf_date = this.Record.mbl_cf_date;
-      REC.mbl_date = this.Record.mbl_date;
+      REC.mbl_cf_date = this.gs.ConvertDate2DisplayFormat(this.Record.mbl_cf_date);
+      REC.mbl_date = this.gs.ConvertDate2DisplayFormat(this.Record.mbl_date);
       REC.mbl_carrier_name = this.Record.mbl_carrier_name;
       REC.mbl_pol_name = this.Record.mbl_pol_name;
       REC.mbl_pod_name = this.Record.mbl_pod_name;

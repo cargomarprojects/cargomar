@@ -28,7 +28,7 @@ export class HblSeaAirComponent {
     bPrint = false;
 
     selectedRowIndex = 0;
-    
+
     bDocs = false;
     bBilling = false;
     bJobIncome = false;
@@ -604,6 +604,8 @@ export class HblSeaAirComponent {
         this.Record.hbl_coloader_name = '';
         this.Record.lock_record = false;
         this.Record.hbl_released_date = '';
+        this.Record.hbl_cf_date = this.gs.defaultValues.today;
+
         this.InitLov();
         this.Record.rec_mode = this.mode;
     }
@@ -691,6 +693,7 @@ export class HblSeaAirComponent {
             this.old_billto_id = '';
             this.Record.hbl_pkid = this.pkid;
             this.Record.hbl_no = null;
+            this.Record.hbl_cf_date = this.gs.defaultValues.today;
             this.Record.hbl_mbl_id = '';
             this.Record.hbl_mbl_no = '';
             this.Record.hbl_mbl_bookslno = '';
@@ -764,19 +767,23 @@ export class HblSeaAirComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        if (this.Record.hbl_exp_id.trim().length <= 0) {
+        if (this.gs.isBlank(this.Record.hbl_cf_date)) {
+            bret = false;
+            sError += "\n\r | Date Cannot Be Blank";
+        }
+        if (this.gs.isBlank(this.Record.hbl_exp_id)) {
             bret = false;
             sError += "\n\r | Exporter Cannot Be Blank";
         }
-        if (this.Record.hbl_imp_id.trim().length <= 0) {
+        if (this.gs.isBlank(this.Record.hbl_imp_id)) {
             bret = false;
             sError += "\n\r | Importer Cannot Be Blank";
         }
-        if (this.Record.hbl_agent_id.trim().length <= 0) {
+        if (this.gs.isBlank(this.Record.hbl_agent_id)) {
             bret = false;
             sError += "\n\r | Agent Cannot Be Blank";
         }
-        if (this.Record.hbl_carrier_id.trim().length <= 0) {
+        if (this.gs.isBlank(this.Record.hbl_carrier_id)) {
             bret = false;
             sError += "\n\r | Carrier Cannot Be Blank";
         }
@@ -804,7 +811,7 @@ export class HblSeaAirComponent {
 
         this.loading = true;
         let SearchData = {
-            type : 'SI ' + this.type,
+            type: 'SI ' + this.type,
             searchfrom: 'SI',
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
@@ -858,6 +865,8 @@ export class HblSeaAirComponent {
             //REC.job_nomination = this.Record.job_nomination;
             //REC.job_terms = this.Record.job_terms;
             //REC.job_status = this.Record.job_status;
+            REC.hbl_cf_date = this.Record.hbl_cf_date;
+            REC.hbl_sidate=this.gs.ConvertDate2DisplayFormat(this.Record.hbl_cf_date);
         }
     }
 

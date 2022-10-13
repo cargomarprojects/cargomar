@@ -46,7 +46,8 @@
             </div>
             <div class="col-sm-3">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>                                  
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm">Print</button>
             </div>
           </div>
         </div>
@@ -77,7 +78,7 @@
             <th>DATE</th>
             <th><span *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></th>
             <th><span *ngIf="type=='SEA EXPORT'">HBL#</span><span *ngIf="type=='AIR EXPORT'">HAWB#</span></th>
-            <th>DATE</th>
+            <th><span *ngIf="type=='SEA EXPORT'">HBL DATE</span><span *ngIf="type=='AIR EXPORT'">HAWB DATE</span></th>
             <th>AGENT</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
@@ -100,9 +101,10 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
-            <td>{{rec.hbl_sidate}}</td>
+            <td>{{rec.hbl_cf_date}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
             <td>{{rec.hbl_bl_no}}</td>
             <td>{{rec.hbl_date}}</td>
@@ -174,22 +176,32 @@
                       class="btn btn-primary btn-sm">Fill</button>
                   </div>
                 </div>
-
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_cf_date" (ValueChanged)="Record.hbl_cf_date=$event"></app-date>
+                  </div>
+                </div>
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-                  <div class="col-10">
+                  <div class="col-6">
                     <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-10">
+                  <label class="col-1 col-form-label col-form-label-sm">Br#</label>
+                  <div class="col-3">
                     <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
+
+                <!-- <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
+                  <div class="col-2">
+                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                </div> -->
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm"></label>
@@ -209,19 +221,24 @@
 
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-                  <div class="col-10">
+                  <div class="col-6">
                     <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
+                  <label class="col-1 col-form-label col-form-label-sm">Br#</label>
+                  <div class="col-3">
+                    <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
                 </div>
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
                   <div class="col-10">
                     <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm"></label>
@@ -234,7 +251,7 @@
                 <div class="form-group row">
                   <label class="col-2 col-form-label col-form-label-sm"></label>
                   <div class="col-10">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr"
+                    <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr"
                       [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
@@ -603,7 +620,7 @@
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>
-                <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"
+              <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"
                 class="btn btn-success btn-sm">ISF</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-success btn-sm">History</button>
@@ -624,7 +641,7 @@
       </ngb-tab>
       <ngb-tab title="Income/Booking" *ngIf="mode == 'EDIT' && bJobIncome">
         <ng-template ngbTabContent>
-          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'INCOME'" [menuid]="menuid" ></app-jobincome>
+          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'INCOME'" [menuid]="menuid"></app-jobincome>
         </ng-template>
       </ngb-tab>
 
@@ -708,7 +725,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [type]="'ISF'" [sHtml]="sHtml" [defaultto_ids]="To_ids" [defaultmessage]="mMsg" [defaultsubject]="mSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+    <app-mail [type]="'ISF'" [sHtml]="sHtml" [defaultto_ids]="To_ids" [defaultmessage]="mMsg"
+      [defaultsubject]="mSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
 

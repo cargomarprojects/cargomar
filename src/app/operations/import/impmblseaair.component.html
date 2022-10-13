@@ -577,15 +577,7 @@
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
-        <br />
 
-        <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-        <div *ngIf="InfoMessage" class="alert alert-success">
-          {{InfoMessage}}
-        </div>
-        <div *ngIf="ErrorMessage" class="alert alert-danger">
-          {{ErrorMessage}}
-        </div>
 
       </ng-template>
     </ngb-tab>
@@ -627,5 +619,14 @@
     </ngb-tab>
 
   </ngb-tabset>
+</div>
 
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
 </div>
