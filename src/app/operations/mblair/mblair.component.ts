@@ -24,7 +24,7 @@ export class MblAirComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   currentPage = 'ROOTPAGE';
   bAdmin = false;
   bDocs = false;
@@ -159,6 +159,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -466,6 +467,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -563,6 +565,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -671,15 +674,16 @@ export class MblAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.Record.mbl_date.trim().length <= 0) {
-     bret = false;
-     sError = " | Mbl Date Cannot Be Blank";
+    if (this.gs.isBlank(this.Record.mbl_date)) {
+      bret = false;
+      sError = " | Mbl Date Cannot Be Blank";
     }
-    if (this.Record.mbl_agent_id.trim().length <= 0) {
+
+    if (this.gs.isBlank(this.Record.mbl_agent_id)) {
       bret = false;
       sError += "\n\r | Agent Cannot Be Blank";
     }
-    if (this.Record.mbl_carrier_id.trim().length <= 0) {
+    if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
       bret = false;
       sError += "\n\r | Carrier Cannot Be Blank";
     }
@@ -697,7 +701,10 @@ export class MblAirComponent {
     }
 
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -711,16 +718,14 @@ export class MblAirComponent {
     else {
       REC.mbl_no = this.Record.mbl_no;
       REC.mbl_date = this.Record.mbl_date;
-      //REC.hbl_exp_name = this.Record.hbl_exp_name;
-      //REC.hbl_imp_name = this.Record.hbl_imp_name;
-      //REC.job_pol_name = this.Record.job_pol_name;
-      //REC.job_pod_name = this.Record.job_pod_name;
-      //REC.hbl_agent_name = this.Record.hbl_agent_name;
-      //REC.job_commodity_name = this.Record.job_commodity_name;
-      //REC.job_type = this.Record.job_type;
-      //REC.job_nomination = this.Record.job_nomination;
-      //REC.job_terms = this.Record.job_terms;
-      //REC.job_status = this.Record.job_status;
+      REC.mbl_book_no = this.Record.mbl_book_no;
+      REC.mbl_folder_no = this.Record.mbl_folder_no;
+      REC.mbl_folder_sent_date = this.Record.mbl_folder_sent_date;
+      REC.mbl_pol_name = this.Record.mbl_pol_name;
+      REC.mbl_pod_name = this.Record.mbl_pod_name;
+      REC.mbl_agent_name = this.Record.mbl_agent_name;
+      REC.mbl_carrier_name = this.Record.mbl_carrier_name;
+      REC.mbl_freight_status = this.Record.mbl_freight_status;
     }
   }
 
@@ -831,6 +836,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -873,6 +879,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -924,6 +931,7 @@ export class MblAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   FolderSent() {

@@ -1089,16 +1089,16 @@ export class MblSeaComponent {
       REC.book_pol_name = this.Record.book_pol_name;
       REC.book_pod_name = this.Record.book_pod_name;
       REC.book_pofd_name = this.Record.book_pofd_name;
-      //REC.job_exp_name = this.Record.job_exp_name;
-      //REC.job_imp_name = this.Record.job_imp_name;
-      //REC.job_pol_name = this.Record.job_pol_name;
-      //REC.job_pod_name = this.Record.job_pod_name;
-      //REC.job_agent_name = this.Record.job_agent_name;
-      //REC.job_commodity_name = this.Record.job_commodity_name;
-      //REC.job_type = this.Record.job_type;
-      //REC.job_nomination = this.Record.job_nomination;
-      //REC.job_terms = this.Record.job_terms;
-      //REC.job_status = this.Record.job_status;
+      REC.book_folder_no = this.Record.book_folder_no;
+      REC.book_folder_sent_date = this.Record.book_folder_sent_date;
+      REC.book_shipper_name = this.Record.book_shipper_name;
+      REC.book_consignee_name = this.Record.book_consignee_name;
+      REC.book_agent_name = this.Record.book_agent_name;
+      REC.book_m20 = this.Record.book_m20;
+      REC.book_m40 = this.Record.book_m40;
+      REC.book_mcbm = this.Record.book_mcbm;
+      REC.book_mteu = this.Record.book_mteu;
+
     }
   }
 
@@ -1548,7 +1548,7 @@ export class MblSeaComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   BookingFtp(ftpsent: any) {
