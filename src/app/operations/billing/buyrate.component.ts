@@ -891,7 +891,7 @@ export class BuyRateComponent {
       }
 
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111') {
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
         Courier_Code_Found = true;
       }
       else

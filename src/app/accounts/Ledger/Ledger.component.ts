@@ -911,7 +911,7 @@ export class LedgerComponent {
         isGstBlank = true;
       }
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111') {
+      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
         Courier_Code_Found = true;
       }
       else
@@ -963,7 +963,7 @@ export class LedgerComponent {
       sError += " |Separate invoice required for RCM/Non-RCM Items";
     }
     */
-   
+
     if (this.Record.jvh_rc && !this.Record.jvh_gst) {
       bret = false;
       sError += " |Reverse Charge Invalid";
@@ -2231,7 +2231,7 @@ export class LedgerComponent {
     this.modal.close();
   }
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 
