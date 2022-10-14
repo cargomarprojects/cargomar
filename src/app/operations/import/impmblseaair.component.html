@@ -85,6 +85,7 @@
           <th>POL</th>
           <th>POD</th>
           <th>POFD</th>
+          <th *ngIf="type == 'SEA IMPORT'" class="text-right">TEU</th>
           <th *ngIf="type == 'AIR IMPORT'" class="text-right">GR.WT</th>
           <th *ngIf="type == 'AIR IMPORT'" class="text-right">CH.WT</th>
           <th>SINOS</th>
@@ -112,6 +113,7 @@
           <td>{{rec.mbl_pol_name}}</td>
           <td>{{rec.mbl_pod_name}}</td>
           <td>{{rec.mbl_pofd_name}}</td>
+          <td *ngIf="type == 'SEA IMPORT'" class="text-right">{{rec.mbl_teu}}</td>
           <td *ngIf="type == 'AIR IMPORT'" class="text-right">{{rec.mbl_grwt | number : '1.3-3'}}</td>
           <td *ngIf="type == 'AIR IMPORT'" class="text-right">{{rec.mbl_chwt | number : '1.3-3'}}</td>
           <td>{{rec.mbl_sinos}}</td>

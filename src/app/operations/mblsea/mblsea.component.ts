@@ -1083,14 +1083,14 @@ export class MblSeaComponent {
     }
     else {
       REC.book_slno = this.Record.book_slno;
-      REC.book_booked_on = this.Record.book_booked_on;
+      REC.book_booked_on = this.gs.ConvertDate2DisplayFormat(this.Record.book_booked_on);
       REC.book_no = this.Record.book_no;
       REC.book_liner_name = this.Record.book_liner_name;
       REC.book_pol_name = this.Record.book_pol_name;
       REC.book_pod_name = this.Record.book_pod_name;
       REC.book_pofd_name = this.Record.book_pofd_name;
       REC.book_folder_no = this.Record.book_folder_no;
-      REC.book_folder_sent_date = this.Record.book_folder_sent_date;
+      REC.book_folder_sent_date = this.gs.ConvertDate2DisplayFormat(this.Record.book_folder_sent_date);
       REC.book_shipper_name = this.Record.book_shipper_name;
       REC.book_consignee_name = this.Record.book_consignee_name;
       REC.book_agent_name = this.Record.book_agent_name;

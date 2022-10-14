@@ -127,7 +127,8 @@ export class Mblm {
   mbl_deliv_date_confirm:boolean;
 
   mbl_cf_date: string;
-
+  mbl_teu:number;
+  
   lock_record: boolean;
 
   rec_mode: string;
