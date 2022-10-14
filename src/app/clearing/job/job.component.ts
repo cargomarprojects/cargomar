@@ -1368,7 +1368,7 @@ export class JobComponent {
     }
     else {
       REC.job_docno = this.Record.job_docno;
-      REC.job_date = this.Record.job_date;
+      REC.job_date = this.gs.ConvertDate2DisplayFormat(this.Record.job_date);
       REC.job_exp_name = this.Record.job_exp_name;
       REC.job_imp_name = this.Record.job_imp_name;
       REC.job_pol_name = this.Record.job_pol_name;
