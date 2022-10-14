@@ -29,7 +29,8 @@ export class Leavem {
   lev_cl_bal: number;
   lev_pl_bal: number;
   lev_edit_code:string;
-
+  sal_edit_code:string;
+  
   rec_category: string;
   rec_mode: string;
 _globalvariables: GlobalVariables;

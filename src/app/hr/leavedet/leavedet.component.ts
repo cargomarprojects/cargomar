@@ -35,6 +35,7 @@ export class LeaveDetComponent {
   page_rowcount = 0;
 
   lock_record: boolean = false;
+  lock_sal_record: boolean = false;
   bChanged: boolean = false;
   sub: any;
   urlid: string;
@@ -249,6 +250,7 @@ export class LeaveDetComponent {
     this.Record.lev_fin_year = 0;
     this.Record.rec_category = 'CONFIRMED';
     this.lock_record = false;
+    this.lock_sal_record = false;
     if (this.gs.defaultValues.today.trim() != "") {
       var tempdt = this.gs.defaultValues.today.split('-');
       this.Record.lev_year = +tempdt[0];
@@ -291,6 +293,10 @@ export class LeaveDetComponent {
     this.lock_record = true;
     if (this.Record.lev_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
+
+    this.lock_sal_record = true;
+    if (this.Record.sal_edit_code.indexOf("{S}") >= 0)
+      this.lock_sal_record = false;
   }
 
   // Save Data
@@ -400,7 +406,7 @@ export class LeaveDetComponent {
   }
   FindLpDays() {
     if (this.bJoinRelieve)
-    return;
+      return;
     if (this.Record.lev_year > 0 && this.Record.lev_month > 0) {
       var nDate = new Date(this.Record.lev_year, this.Record.lev_month, 0);
       this.Record.lev_lp = nDate.getDate();
