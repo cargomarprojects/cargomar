@@ -517,7 +517,8 @@ export class BuyRateComponent {
     this.Record.jvh_state_id = '';
     this.Record.jvh_state_code = '';
     this.Record.jvh_state_name = '';
-
+    this.Record.jvh_banktype = 'NA';
+    
     this.Record.jvh_gstin = '';
     this.Record.jvh_no_brok = false;
     this.Record.jvh_basic_frt = 0;
