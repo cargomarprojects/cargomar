@@ -812,6 +812,8 @@ export class ImpMblSeaAirComponent {
       REC.mbl_pol_name = this.Record.mbl_pol_name;
       REC.mbl_pod_name = this.Record.mbl_pod_name;
       REC.mbl_pofd_name = this.Record.mbl_pofd_name;
+      REC.mbl_grwt = this.Record.mbl_grwt;
+      REC.mbl_chwt = this.Record.mbl_chwt;
     }
   }
 

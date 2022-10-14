@@ -700,8 +700,7 @@ export class MblAirComponent {
       sError += "\n\r | HBL List not proper, please Click the find button";
     }
 
-    if (bret === false)
-    {
+    if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }
@@ -717,15 +716,17 @@ export class MblAirComponent {
     }
     else {
       REC.mbl_no = this.Record.mbl_no;
-      REC.mbl_date = this.Record.mbl_date;
+      REC.mbl_date = this.gs.ConvertDate2DisplayFormat(this.Record.mbl_date);
       REC.mbl_book_no = this.Record.mbl_book_no;
       REC.mbl_folder_no = this.Record.mbl_folder_no;
-      REC.mbl_folder_sent_date = this.Record.mbl_folder_sent_date;
+      REC.mbl_folder_sent_date = this.gs.ConvertDate2DisplayFormat(this.Record.mbl_folder_sent_date);
       REC.mbl_pol_name = this.Record.mbl_pol_name;
       REC.mbl_pod_name = this.Record.mbl_pod_name;
       REC.mbl_agent_name = this.Record.mbl_agent_name;
       REC.mbl_carrier_name = this.Record.mbl_carrier_name;
       REC.mbl_freight_status = this.Record.mbl_freight_status;
+      REC.mbl_grwt = this.Record.mbl_grwt;
+      REC.mbl_chwt = this.Record.mbl_chwt;
     }
   }
 
