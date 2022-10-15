@@ -1004,10 +1004,17 @@ export class ArApComponent {
         bret = false;
         sError += " |Only code 1205030/1105033/1105040/1526 can be used";
       }      
-      */
       if (rowCount != 1) {
         bret = false;
         sError += " |Only one row can be entered";
+      }
+      */
+    }
+
+    if (Courier_Code_Found) {
+      if (this.Record.jvh_gst_type != 'INTER-STATE') {
+        bret = false;
+        sError += " | GST Type Should Be INTER-STATE";
       }
     }
 

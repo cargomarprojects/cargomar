@@ -934,6 +934,14 @@ export class BuyRateComponent {
       */
     }
 
+    if (Courier_Code_Found) {
+      if (this.Record.jvh_gst_type != 'INTER-STATE') {
+        bret = false;
+        sError += " | GST Type Should Be INTER-STATE";
+      }
+    }
+
+
     if (IsRcmRecords && IsNoRcmRecords) {
       bret = false;
       sError += " |Separate invoice required for RCM/Non-RCM Items";

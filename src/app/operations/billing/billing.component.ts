@@ -945,6 +945,13 @@ export class BillingComponent {
     */
     }
 
+    if (Courier_Code_Found) {
+      if (this.Record.jvh_gst_type != 'INTER-STATE') {
+        bret = false;
+        sError += " | GST Type Should Be INTER-STATE";
+      }
+    }
+
 
     if (!this.Record.jvh_gst) {
       if (this.Record.jvh_gst_amt != 0) {
@@ -1045,8 +1052,12 @@ export class BillingComponent {
   OnChange(field: string) {
     this.bChanged = true;
     if (field == 'jvh_sez') {
-      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
     }
+    if (field == 'jvh_igst_exception') {
+      this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
+    }
+
   }
 
 
@@ -1080,7 +1091,7 @@ export class BillingComponent {
       if (this.bChanged) {
         this.Record.jvh_gstin = this.Record.jvh_gstin.toUpperCase();
         if (this.Record.jvh_gstin.length == 15)
-          this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez);
+          this.Record.jvh_gst_type = this.gs.getGstType(this.Record.jvh_gstin, this.Record.jvh_state_code, this.Record.jvh_sez, this.Record.jvh_igst_exception);
       }
     }
     if (field == "jv_qty") {
