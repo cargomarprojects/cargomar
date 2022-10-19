@@ -838,7 +838,7 @@ export class EmpComponent {
 
   showUpload(_rec: EmpDocs, doc: any) {
     this.ErrorMessage = '';
-    this.upload_type = "EMPLOYEE-CB-DOCUMENTS";
+    this.upload_type = "EMPLOYEE DOCUMENTS";
     this.doc_group_id = _rec.doc_pkid;
     this.doc_type = _rec.doc_name;
     this.open(doc);
