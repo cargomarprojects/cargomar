@@ -42,6 +42,7 @@ export class EmpComponent {
 
   upload_type = "EMPLOYEE-MASTER";
   doc_group_id = "";
+  doc_type = "";
   searchstring = '';
   branch_id = '';
   company_id = '';
@@ -828,6 +829,7 @@ export class EmpComponent {
     this.ErrorMessage = '';
     this.upload_type = "EMPLOYEE-MASTER";
     this.doc_group_id = "";
+    this.doc_type = "";
     this.open(doc);
   }
   open(content: any) {
@@ -838,6 +840,7 @@ export class EmpComponent {
     this.ErrorMessage = '';
     this.upload_type = "EMPLOYEE-CB-DOCUMENTS";
     this.doc_group_id = _rec.doc_pkid;
+    this.doc_type = _rec.doc_name;
     this.open(doc);
   }
 }
