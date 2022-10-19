@@ -43,6 +43,9 @@ export class EmpComponent {
   upload_type = "EMPLOYEE-MASTER";
   doc_group_id = "";
   doc_type = "";
+  doc_file_type = "";
+  doc_file_size = 0;
+
   searchstring = '';
   branch_id = '';
   company_id = '';
@@ -830,6 +833,8 @@ export class EmpComponent {
     this.upload_type = "EMPLOYEE-MASTER";
     this.doc_group_id = "";
     this.doc_type = "";
+    this.doc_file_type = "";
+    this.doc_file_size = 0;
     this.open(doc);
   }
   open(content: any) {
@@ -841,6 +846,8 @@ export class EmpComponent {
     this.upload_type = "EMPLOYEE DOCUMENTS";
     this.doc_group_id = _rec.doc_pkid;
     this.doc_type = _rec.doc_name;
+    this.doc_file_type = _rec.doc_file_type;
+    this.doc_file_size = _rec.doc_file_size;
     this.open(doc);
   }
 }

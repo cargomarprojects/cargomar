@@ -19,7 +19,8 @@ export class FileUploadComponent {
   @Input() public type: string = '';
   @Input() public canupload: boolean = true;
   @Input() public defaultdoctype: string = '';
-
+  @Input() public uploadfilesize: number = 0;
+  @Input() public uploadfiletype: string = '';
 
   public QrData: string = null;
   qrJson = {
@@ -132,13 +133,16 @@ export class FileUploadComponent {
 
   getFileDetails(e: any) {
     //console.log (e.target.files);
+    this.ErrorMessage = "";
     let isValidFile = true;
     let fname: string = '';
+    let fsize: number = 0;
     this.filesSelected = false;
     this.myFiles = [];
     for (var i = 0; i < e.target.files.length; i++) {
       this.filesSelected = true;
       fname = e.target.files[i].name;
+      fsize = e.target.files[i].size;
       if (fname.indexOf('&') >= 0)
         isValidFile = false;
       if (fname.indexOf('%') >= 0)
@@ -156,11 +160,31 @@ export class FileUploadComponent {
       this.filesSelected = false;
       alert('Invalid File Name - &%,+#');
     }
+
+    if (!this.gs.isBlank(this.uploadfiletype) && this.filesSelected) {
+      let str = "." + this.uploadfiletype;
+      if (!fname.toUpperCase().endsWith(str)) {
+        this.ErrorMessage = "Invalid File Type, Only " + this.uploadfiletype + " File Allowed";
+        alert(this.ErrorMessage);
+      }
+    }
+
+    if (!this.gs.isZero(this.uploadfilesize) && this.filesSelected) {
+      let uplodfsize = this.uploadfilesize * 1024;
+      if (fsize > uplodfsize) {
+        this.ErrorMessage = "File Size must be less than or equal to " + this.uploadfilesize.toString() + " KB";
+        alert(this.ErrorMessage);
+      }
+    }
   }
 
 
   uploadFiles() {
 
+    if (!this.gs.isBlank(this.ErrorMessage)) {
+      alert(this.ErrorMessage);
+      return;
+    }
 
     if (this.gs.defaultValues.root_folder == '') {
       alert('Root Folder is blank');
@@ -400,7 +424,6 @@ export class FileUploadComponent {
           this.loading = false;
           alert(this.gs.getError(error));
         });
-
 
   }
 

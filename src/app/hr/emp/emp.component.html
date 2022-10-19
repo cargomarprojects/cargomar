@@ -862,7 +862,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="upload_type"  [groupid]="doc_group_id"></app-upload>
+    <app-upload [pkid]="pkid" [type]="upload_type"  [groupid]="doc_group_id" [uploadfiletype]="doc_file_type" [uploadfilesize]="doc_file_size"  ></app-upload>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
