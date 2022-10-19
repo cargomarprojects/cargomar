@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
 
-import { Emp } from '../models/emp';
+import { Emp, EmpDocs } from '../models/emp';
 
 import { EmpService } from '../services/emp.service';
 
@@ -40,6 +40,8 @@ export class EmpComponent {
   loading = false;
   currentTab = 'LIST';
 
+  upload_type = "EMPLOYEE-MASTER";
+  doc_group_id = "";
   searchstring = '';
   branch_id = '';
   company_id = '';
@@ -48,7 +50,7 @@ export class EmpComponent {
   page_rows = 0;
   page_rowcount = 0;
   ageinyears = '';
-  
+
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
@@ -85,6 +87,7 @@ export class EmpComponent {
   RecordList: Emp[] = [];
   // Single Record for add/edit/view details
   Record: Emp = new Emp;
+  RecordDocList: EmpDocs[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -183,7 +186,7 @@ export class EmpComponent {
         this.DesignationList = response.designationlist;
         this.StatusList = response.statuslist;
         this.IncentiveTypeList = response.incentivelist;
-        
+
         this.List("NEW");
       },
         error => {
@@ -398,6 +401,7 @@ export class EmpComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+        this.RecordDocList = response.doclist;
       },
         error => {
           this.loading = false;
@@ -515,7 +519,7 @@ export class EmpComponent {
       bret = false;
       sError += "\n\r| Incentive Type Cannot Be Blank";
     }
-    
+
 
     if (this.GetFieldName("CONFIRMED").fieldid == this.Record.emp_status_id || this.GetFieldName("TRANSFER").fieldid == this.Record.emp_status_id) {
 
@@ -822,10 +826,19 @@ export class EmpComponent {
 
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
+    this.upload_type = "EMPLOYEE-MASTER";
+    this.doc_group_id = "";
     this.open(doc);
   }
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+  showUpload(_rec: EmpDocs, doc: any) {
+    this.ErrorMessage = '';
+    this.upload_type = "EMPLOYEE-CB-DOCUMENTS";
+    this.doc_group_id = _rec.doc_pkid;
+    this.open(doc);
   }
 }
 

@@ -72,13 +72,22 @@ export class Emp {
   emp_company_id: string;
   emp_branch_group: number;
   emp_is_retired: boolean;
-  emp_in_csv:boolean;
-  emp_incentive_type:string;
-  emp_incentive_type_id:string;
-  emp_edit_code:string;
-  
+  emp_in_csv: boolean;
+  emp_incentive_type: string;
+  emp_incentive_type_id: string;
+  emp_edit_code: string;
+
   rec_mode: string;
   rec_branch_code: string;
 
   _globalvariables: GlobalVariables;
+}
+
+export class EmpDocs {
+  doc_pkid: string;
+  doc_code: string;
+  doc_name: string;
+  doc_group: string;
+  doc_file_type: string;
+  doc_file_size: number;
 }

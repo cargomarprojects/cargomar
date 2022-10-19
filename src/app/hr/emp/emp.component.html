@@ -705,7 +705,8 @@
 
                     <div class="col-sm-6">
                       <select class="form-control form-control-sm" [(ngModel)]="Record.emp_incentive_type_id">
-                        <option *ngFor="let rec of IncentiveTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                        <option *ngFor="let rec of IncentiveTypeList" [value]="rec.param_pkid">{{rec.param_name}}
+                        </option>
                       </select>
                     </div>
 
@@ -786,9 +787,40 @@
 
           </ng-template>
         </ngb-tab>
-
+        <ngb-tab title="Customs Broker Documents">
+          <ng-template ngbTabContent>
+            <div class="page-box">
+              <div class="col-sm-12">
+                <div class="page-body table-responsive">
+                  <div [style.height]="RecordDocList.length>8?'250px':'auto'"
+                    [style.overflow-y]="RecordDocList.length>8?'scroll':'auto'">
+                    <table class="table  table-hover table-sm">
+                      <thead class="page-body-thead">
+                        <tr>
+                          <th>NAME</th>
+                          <th>GROUP</th>
+                          <th>FILE TYPE</th>
+                          <th>FILE SIZE(KB)</th>
+                          <th style="text-align:center">UPLOAD</th>
+                        </tr>
+                      </thead>
+                      <tbody class="page-body-tbody">
+                        <tr *ngFor="let rec of RecordDocList">
+                          <td>{{rec.doc_name}}</td>
+                          <td>{{rec.doc_group}}</td>
+                          <td>{{rec.doc_file_type}}</td>
+                          <td>{{rec.doc_file_size}}</td>
+                          <td class="hlink" align="center" (click)="showUpload(rec,doc)">UPLOAD</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
       </ngb-tabset>
-
 
     </div>
   </div>
@@ -796,7 +828,8 @@
 
   <div class="page-box">
     <div class="col">
-      <button [hidden]="disableSave" [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [hidden]="disableSave" [disabled]="loading || lock_record" (click)="Save()"
+        class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
@@ -827,7 +860,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="'EMPLOYEE-MASTER'"></app-upload>
+    <app-upload [pkid]="pkid" [type]="upload_type"  [groupid]="doc_group_id"></app-upload>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
