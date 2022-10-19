@@ -78,6 +78,10 @@
           <th *ngIf="type == 'ACCSETTINGS'">VALUE</th>
           <th *ngIf="type == 'SALESAGENT'">AGENT</th>
           <th *ngIf="type == 'SALESAGENT'">EMAIL</th>
+          <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">GROUP</th>
+          <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">FILE TYPE</th>
+          <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">FILE SIZE(KB)</th>
+          <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">ORDER</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -115,6 +119,10 @@
           <td *ngIf="type == 'ACCSETTINGS'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SALESAGENT'">{{rec.param_id5_name}}</td>
           <td *ngIf="type == 'SALESAGENT'">{{rec.param_email}}</td>
+          <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id2}}</td>
+          <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id3}}</td>
+          <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_rate}}</td>
         </tr>
       </tbody>
     </table>
@@ -212,7 +220,7 @@
 
 
 
-      <div *ngIf="type=='CURRENCY'" class="form-group row">
+      <div *ngIf="type=='CURRENCY'||type=='EMPLOYEE DOCUMENTS'" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{param_rate_caption}}</label>
         <div class="col-10">
           <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.param_rate" required

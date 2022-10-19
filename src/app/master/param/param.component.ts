@@ -251,6 +251,13 @@ export class ParamComponent {
     if (this.type == 'GOOGLE CUSTOMS SCRIPT') {
       this.name_length = 200;
     }
+
+    if (this.type == 'EMPLOYEE DOCUMENTS') {
+      this.id1 = 'Group';
+      this.id2 = 'File Type';
+      this.id3 = 'File Size(KB)';
+      this.param_rate_caption = 'Order';
+    }
   }
 
   InitLov() {
