@@ -172,7 +172,7 @@ export class FileUploadComponent {
     if (!this.gs.isZero(this.uploadfilesize) && this.filesSelected) {
       let uplodfsize = this.uploadfilesize * 1024;
       if (fsize > uplodfsize) {
-        this.ErrorMessage = "File Size must be less than or equal to " + this.uploadfilesize.toString() + " KB";
+        this.ErrorMessage = "File Size must be less than or equal to " + this.ConvertKB2MB(this.uploadfilesize);
         alert(this.ErrorMessage);
       }
     }
@@ -427,6 +427,20 @@ export class FileUploadComponent {
 
   }
 
-
+  ConvertKB2MB(_fsize: number) {
+    let strsize: string = "";
+    if (_fsize < 1024)
+      strsize = _fsize.toString() + "KB";
+    else {
+      let _newfsize = (_fsize / 1024.00);
+      _newfsize = this.gs.roundNumber(_newfsize, 2);
+      _newfsize = Math.ceil(_newfsize);
+      if (_newfsize < 1024)
+        strsize = _newfsize.toString() + "MB";
+      else
+        strsize = _newfsize.toString() + "GB";
+    }
+    return " " + strsize;
+  }
 
 }
