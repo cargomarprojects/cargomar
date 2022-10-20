@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
 
-import { pendinglist   } from '../models/pendinglist';
+import { pendinglist } from '../models/pendinglist';
 
 import { FreeAllocationService } from '../services/freeallocationservice';
 
@@ -70,7 +70,7 @@ export class FreeAllocationComponent {
   xRefList: LedgerXref[] = [];
 
   xRefRec: LedgerXref = new LedgerXref;
-  
+
   constructor(
     private mainService: FreeAllocationService,
     private route: ActivatedRoute,
@@ -184,12 +184,12 @@ export class FreeAllocationComponent {
         this.loading = false;
         this.SourceList = response.sourcelist;
         this.PendingList = response.pendinglist;
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -199,7 +199,7 @@ export class FreeAllocationComponent {
         this.jv_total = _rec.jv_balance;
       else
         this.jv_total = 0;
-      this.findtotal();  
+      this.findtotal();
     }
 
   }
@@ -249,7 +249,7 @@ export class FreeAllocationComponent {
     this.Total_Diff = this.jv_total - this.Total_Amount;
     this.Total_Diff = this.gs.roundNumber(this.Total_Diff, 2);
   }
-  
+
 
   Close() {
     this.gs.ClosePage('home');
@@ -290,7 +290,7 @@ export class FreeAllocationComponent {
     });
 
 
-    if (this.Total_Amount <=0 ) {
+    if (this.Total_Amount <= 0) {
       bret = false;
       sError += " | Allocation Not Entered  in Second List";
     }
@@ -312,7 +312,7 @@ export class FreeAllocationComponent {
   Save() {
 
     let bOk: Boolean = false;
-    let mRec : pendinglist;
+    let mRec: pendinglist;
 
     this.findtotal();
     if (!this.allvalid())
@@ -378,11 +378,11 @@ export class FreeAllocationComponent {
         alert("Save Complete")
         this.FindPendingList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
 
 
   }

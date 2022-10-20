@@ -518,7 +518,7 @@ export class BuyRateComponent {
     this.Record.jvh_state_code = '';
     this.Record.jvh_state_name = '';
     this.Record.jvh_banktype = 'NA';
-    
+
     this.Record.jvh_gstin = '';
     this.Record.jvh_no_brok = false;
     this.Record.jvh_basic_frt = 0;
@@ -892,7 +892,8 @@ export class BuyRateComponent {
       }
 
 
-      if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
+      //if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
+      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
         Courier_Code_Found = true;
       }
       else

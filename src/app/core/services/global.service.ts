@@ -923,4 +923,24 @@ export class GlobalService {
       return false;
   }
 
+  public IsIgstCode(jv_acc_code: string) {
+    if (jv_acc_code == '1105033'
+      || jv_acc_code == '1205030'
+      || jv_acc_code == '1105040'
+      || jv_acc_code == '1526'
+      || jv_acc_code == '1105111'
+      || jv_acc_code == '1205111'
+      || jv_acc_code == '1205112'
+      || jv_acc_code == '1205113'
+      || jv_acc_code == '1205114'
+      || jv_acc_code == '1205115'
+      || jv_acc_code == '1205116'
+      || jv_acc_code == '1205117'
+    )
+      return true;
+    else
+      return true;
+
+  }
+
 }

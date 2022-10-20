@@ -858,12 +858,12 @@ export class BillingComponent {
         if (rec.jv_gst_amt != _gst_amt)
           isGstMismatch = true;
 
-        if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
+        //if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
+        if (this.gs.IsIgstCode(rec.jv_acc_code)) {
           Courier_Code_Found = true;
         }
         else
           Code_Other_Than_Courier_Code_Found = true;
-
       }
     });
 
