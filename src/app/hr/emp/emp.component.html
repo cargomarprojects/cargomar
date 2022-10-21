@@ -2,18 +2,18 @@
   <div class="col">
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button *ngIf="type!='EMPLOYEE-DOCUMENTS'" [disabled]="loading" (click)="ActionHandler('ADD','')"
+      class="btn btn-primary btn-sm">New</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
 
 <div *ngIf="currentTab=='LIST'" class="page-list">
-
   <div class="page-search">
     <div class="row">
       <div class="col-sm-12">
-        <div class="form-group row">
+        <div *ngIf="type!='EMPLOYEE-DOCUMENTS'" class="form-group row">
           <div class="offset-2 col-10">
             <input type="radio" [(ngModel)]="radio_emp" [value]="'EMPLOYEE'" />
             <span>Employee</span>&nbsp;&nbsp;
@@ -29,7 +29,7 @@
           </div>
           <div class="col-sm-2">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
+            <button [disabled]="loading" *ngIf="bPrint && type!='EMPLOYEE-DOCUMENTS'" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
           </div>
         </div>
@@ -787,7 +787,7 @@
 
           </ng-template>
         </ngb-tab>
-        <ngb-tab title="Customs Broker Documents">
+        <!-- <ngb-tab title="Customs Broker Documents">
           <ng-template ngbTabContent>
             <div class="page-box">
               <div class="col-sm-12">
@@ -821,7 +821,7 @@
               </div>
             </div>
           </ng-template>
-        </ngb-tab>
+        </ngb-tab> -->
       </ngb-tabset>
 
     </div>
@@ -846,13 +846,42 @@
 
 </div>
 
-<br />
-
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="currentTab=='DETAILS2'" class="page-details">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-box">
+        <div class="col-sm-12">
+          <div class="page-body table-responsive">
+            <!-- <div [style.height]="RecordDocList.length>8?'250px':'auto'"
+                    [style.overflow-y]="RecordDocList.length>8?'scroll':'auto'"> -->
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>NAME</th>
+                  <th>GROUP</th>
+                  <th>FILE TYPE</th>
+                  <th>MAXIMUM FILE SIZE</th>
+                  <th>DOCS</th>
+                  <th style="text-align:center">UPLOAD</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordDocList">
+                  <td>{{rec.doc_name}}</td>
+                  <td>{{rec.doc_group}}</td>
+                  <td>{{rec.doc_file_type}}</td>
+                  <td>{{rec.doc_file_size2}}</td>
+                  <td>{{rec.doc_count}}</td>
+                  <td class="hlink" align="center" (click)="showUpload(rec,doc)">UPLOAD</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #doc let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -862,9 +891,24 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="upload_type"  [groupid]="doc_group_id" [uploadfiletype]="doc_file_type" [uploadfilesize]="doc_file_size"  ></app-upload>
+    <app-upload [pkid]="pkid" [type]="upload_type" [groupid]="doc_group_id" [uploadfiletype]="doc_file_type"
+      [uploadfilesize]="doc_file_size"></app-upload>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
+
+
+
+
+
+
+<br />
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

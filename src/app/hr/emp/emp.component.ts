@@ -211,13 +211,19 @@ export class EmpComponent {
       this.currentTab = 'LIST';
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
+      if (this.type == "EMPLOYEE-DOCUMENTS")
+        this.currentTab = 'DETAILS2';
+      else
+        this.currentTab = 'DETAILS';
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
+      if (this.type == "EMPLOYEE-DOCUMENTS")
+        this.currentTab = 'DETAILS2';
+      else
+        this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
@@ -257,7 +263,9 @@ export class EmpComponent {
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
       report_folder: this.gs.globalVariables.report_folder,
+      emp_id: this.gs.globalVariables.emp_id,
       empstatus: this.radio_emp,
+      isadmin: this.bAdmin,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,

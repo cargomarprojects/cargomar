@@ -90,5 +90,6 @@ export class EmpDocs {
   doc_group: string;
   doc_file_type: string;
   doc_file_size: number;
+  doc_file_size2: string;
   doc_count: number;
 }
