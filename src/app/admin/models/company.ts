@@ -50,7 +50,8 @@ export class Companym {
     comp_gsp_gstin : string;
     comp_gsp_user : string;
     comp_gsp_pwd : string;
-
+    comp_lut_no:string;
+    
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

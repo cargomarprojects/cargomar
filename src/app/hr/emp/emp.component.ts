@@ -858,6 +858,31 @@ export class EmpComponent {
     this.doc_file_size = _rec.doc_file_size;
     this.open(doc);
   }
+
+  DownloadEmpDocs(_id: string) {
+
+    this.loading = true;
+
+    let SearchData = {
+      branch_code: this.gs.globalVariables.branch_code,
+      company_code: this.gs.globalVariables.comp_code,
+      root_folder: this.gs.defaultValues.root_folder,
+      report_folder: this.gs.globalVariables.report_folder,
+      emp_id: _id
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DownloadEmpDocs(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Download Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
 
 

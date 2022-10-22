@@ -28,6 +28,8 @@ export class EmpService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Emp/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
-
+  DownloadEmpDocs(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Emp/DownloadEmpDocs', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
