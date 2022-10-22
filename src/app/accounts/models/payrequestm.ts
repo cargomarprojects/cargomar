@@ -33,6 +33,7 @@ export class PayRequestm {
   mbl_mblno: string;
   mbl_date: string;
   mbl_pol_etd:string;
+  mbl_pol_etd_confirm:string;
   pay_curr_code: string;
   pay_exrate: number;
   pay_famt: number;

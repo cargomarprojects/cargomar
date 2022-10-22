@@ -11,7 +11,7 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-12">
+      <!-- <div class="col-sm-12">
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-2">
@@ -37,16 +37,60 @@
               Status</button>
           </div>
         </div>
+      </div> -->
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-4">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-sm-4">
+            <app-autocomplete #CurrLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
       </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Paid</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="search_ispaid">
+              <option [value]="'Y'">YES</option>
+              <option [value]="'N'">NO</option>
+              <option [value]="'B'">BOTH</option>
+            </select>
+          </div>
+          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Sort</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="search_sort">
+              <option [value]="'a.jvh_docno'">INVOICE NO</option>
+              <option [value]="'m.hbl_pol_etd'">ETD</option>
+              <option [value]="'pay_date'">DUE DATE</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+          <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+            class="btn btn-primary btn-sm">Excel</button>
+          <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid
+            Status</button>
+        </div>
+      </div>
+
     </div>
   </div>
-
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
         </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
@@ -73,6 +117,7 @@
           <th>REF.NO</th>
           <th>REF.DATE</th>
           <th>ETD</th>
+          <th>ETD.CONFIRM</th>
           <th>DUE.DATE</th>
           <!-- <th>CHQ.NAME</th> -->
           <th class="text-right">AMT</th>
@@ -104,6 +149,7 @@
           <td>{{rec.pay_org_invno}}</td>
           <td>{{rec.pay_org_invdt}}</td>
           <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.mbl_pol_etd_confirm}}</td>
           <td>{{rec.pay_date}}</td>
           <!-- <td>{{rec.pay_chq_name}}</td> -->
           <td class="text-right">{{rec.pay_famt | number : '1.2-2'}}</td>
@@ -135,9 +181,11 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
         </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
@@ -199,14 +247,14 @@
     </div>
   </div>
 
-</div>
 
-<br />
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>

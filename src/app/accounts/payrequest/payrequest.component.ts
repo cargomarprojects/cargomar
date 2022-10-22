@@ -47,6 +47,7 @@ export class PayRequestComponent {
   search_ispaid = 'B';
   search_mode = 'MBL-SE';
   search_currency = '';
+  search_sort = 'm.hbl_pol_etd';
   // Array For Displaying List
   RecordList: PayRequestm[] = [];
   // Single Record for add/edit/view details
@@ -195,6 +196,7 @@ export class PayRequestComponent {
       ispaid: this.search_ispaid,
       search_mode: this.search_mode,
       search_currency: this.search_currency,
+      search_sort:this.search_sort,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
