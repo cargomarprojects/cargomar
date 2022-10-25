@@ -958,14 +958,15 @@ export class LedgerComponent {
       */
     }
 
-
+    /*
+    Courier/Igst disabled in JV
     if (Courier_Code_Found) {
       if (this.Record.jvh_gst_type != 'INTER-STATE') {
         bret = false;
         sError += " | GST Type Should Be INTER-STATE";
       }
     }
-
+    */
 
     /*
     if (IsRcmRecords && IsNoRcmRecords) {
