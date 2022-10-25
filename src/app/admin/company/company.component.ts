@@ -21,7 +21,7 @@ export class CompanyComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   title = 'COMPANY MASTER';
   loading = false;
   currentTab = 'LIST';
@@ -213,7 +213,7 @@ export class CompanyComponent {
     this.Record.comp_branch_number = 0;
 
     this.Record.comp_branch_type = 'BOTH';
-    this.Record.comp_uamno= '';
+    this.Record.comp_uamno = '';
 
     this.Record.comp_gsp_client_id = '';
     this.Record.comp_gsp_client_secret = '';
@@ -223,7 +223,8 @@ export class CompanyComponent {
     this.Record.comp_gsp_gstin = '';
     this.Record.comp_gsp_user = '';
     this.Record.comp_gsp_pwd = '';
-
+    this.Record.comp_lut_no = '';
+    
     this.Record.rec_mode = this.mode;
   }
 
@@ -449,7 +450,7 @@ export class CompanyComponent {
           this.Record.comp_pol_code = this.Record.comp_pol_code.toUpperCase();
           break;
         }
-        case 'comp_uamno':
+      case 'comp_uamno':
         {
           this.Record.comp_uamno = this.Record.comp_uamno.toUpperCase();
           break;

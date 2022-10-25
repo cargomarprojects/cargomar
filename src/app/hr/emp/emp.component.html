@@ -31,6 +31,8 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" *ngIf="bPrint && type!='EMPLOYEE-DOCUMENTS'" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
+            <button [disabled]="loading" *ngIf="bAdmin && type=='EMPLOYEE-DOCUMENTS'" (click)="DownloadEmpDocs('')"
+              class="btn btn-primary btn-sm">Download</button>
           </div>
         </div>
       </div>
@@ -847,6 +849,12 @@
 </div>
 
 <div *ngIf="currentTab=='DETAILS2'" class="page-details">
+  <div class="page-header">
+    <div class="col">
+      <button [disabled]="loading" *ngIf="bAdmin && type=='EMPLOYEE-DOCUMENTS'"
+        (click)="DownloadEmpDocs(Record.emp_pkid)" class="btn btn-primary btn-sm">Download</button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="page-box">
