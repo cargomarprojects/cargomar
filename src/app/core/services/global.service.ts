@@ -923,6 +923,17 @@ export class GlobalService {
       return false;
   }
 
+  public IsCourierCode(jv_acc_code: string) {
+    if (jv_acc_code == '1105033'
+      || jv_acc_code == '1205030'
+      || jv_acc_code == '1105040'
+      || jv_acc_code == '1526'
+    )
+      return true;
+    else
+      return false;
+  }
+
   public IsIgstCode(jv_acc_code: string) {
     if (jv_acc_code == '1105033'
       || jv_acc_code == '1205030'

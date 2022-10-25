@@ -765,7 +765,8 @@ export class ArApComponent {
     let isGstMismatch: Boolean = false;
     let isGstBlank: Boolean = false;
     let Courier_Code_Found: Boolean = false;
-    let Code_Other_Than_Courier_Code_Found: Boolean = false;
+    let Igst_Only_Code_Found: Boolean = false;
+
 
 
     let bOk: Boolean = false;
@@ -914,6 +915,11 @@ export class ArApComponent {
       sError += " | Narration Cannot Be Blank";
     }
 
+    if (!this.Record.jvh_gst && this.Record.jvh_igst_exception) {
+      bret = false;
+      sError += " | Courier/Frt IGST Cannot Be Selected";
+    }
+
     if (this.subtype == 'AP') {
 
       if (this.editdoc == 'Y') {
@@ -970,11 +976,15 @@ export class ArApComponent {
       }
 
       //if (rec.jv_acc_code == '1105033' || rec.jv_acc_code == '1205030' || rec.jv_acc_code == '1105040' || rec.jv_acc_code == '1526' || rec.jv_acc_code == '1105111' || rec.jv_acc_code == '1205111') {
-      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+
+      if (this.gs.IsCourierCode(rec.jv_acc_code)) {
         Courier_Code_Found = true;
       }
-      else
-        Code_Other_Than_Courier_Code_Found = true;
+
+      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+        Igst_Only_Code_Found = true;
+      }
+
 
       //RCM-2
       if (rec.jv_is_rcm)
@@ -996,7 +1006,7 @@ export class ArApComponent {
     }
 
     if (this.Record.jvh_igst_exception) {
-      if (!Courier_Code_Found) {
+      if (!Courier_Code_Found && !Igst_Only_Code_Found) {
         bret = false;
         sError += " |Invalid A/c Code selected for Courier/Frt IGST";
       }
@@ -1012,7 +1022,7 @@ export class ArApComponent {
       */
     }
 
-    if (Courier_Code_Found) {
+    if (Igst_Only_Code_Found) {
       if (this.Record.jvh_gst_type != 'INTER-STATE') {
         bret = false;
         sError += " | GST Type Should Be INTER-STATE";
