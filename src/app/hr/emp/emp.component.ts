@@ -861,8 +861,11 @@ export class EmpComponent {
 
   DownloadEmpDocs(_id: string) {
 
-    this.loading = true;
+    if (!confirm("Do you want to Download")) {
+      return;
+    }
 
+    this.loading = true;
     let SearchData = {
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
