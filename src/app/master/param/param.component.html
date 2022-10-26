@@ -82,6 +82,8 @@
           <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">FILE TYPE</th>
           <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">FILE SIZE(KB)</th>
           <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">ORDER</th>
+          <th *ngIf="type == 'LUT'">GSTIN</th>
+          <th *ngIf="type == 'LUT'">FIN-YEAR</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -123,6 +125,8 @@
           <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id3}}</td>
           <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_rate}}</td>
+          <td *ngIf="type == 'LUT'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'LUT'">{{rec.param_id2}}</td>
         </tr>
       </tbody>
     </table>

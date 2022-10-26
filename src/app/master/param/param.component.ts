@@ -258,6 +258,12 @@ export class ParamComponent {
       this.id3 = 'File Size(KB)';
       this.param_rate_caption = 'Order';
     }
+    if (this.type == 'LUT') {
+      this.ListName = 'LUT#';
+      this.idName = 'LUT#';
+      this.id1 = 'GSTIN#';
+      this.id2 = 'FIN-YEAR';
+    }
   }
 
   InitLov() {
@@ -394,6 +400,10 @@ export class ParamComponent {
     this.Record.param_type = this.type;
     this.Record.rec_locked = false;
     this.Record.rec_mode = this.mode;
+    if (this.type == "LUT") {
+      // this.Record.param_id1 = this.gs.globalVariables.gstin;
+      this.Record.param_id2 = this.gs.globalVariables.year_code;
+    }
     this.InitLov();
   }
 
