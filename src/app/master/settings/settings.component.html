@@ -865,13 +865,20 @@
             <button [disabled]="loading" (click)="SaveDataTransfer()" class="btn btn-primary btn-sm">Process
               CSV</button>
           </div>
-          <label class="col-1 col-form-label col-form-label-sm">Type</label>
-          <div class="col-sm-3">
-            <select class="form-control form-control-sm" [(ngModel)]="transfrTableName">
+        </div>
+        <hr class="my-1" >
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-2">
+            <select class="form-control form-control-sm" [(ngModel)]="transfrTableName" (change)="OnChange('transfrTableName')" >
               <option *ngFor="let rec of DataTransfrList" [value]="rec.param_name">{{rec.param_name}}</option>
             </select>
           </div>
-
+          <label *ngIf="transfrTotRows>0"  class="col-2 col-form-label col-form-label-sm text-danger">TotRows:{{transfrTotRows}}</label>
+          <label class="col-2 col-form-label col-form-label-sm">TransferLimit</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="transfrLimit" />
+          </div>
           <div class="col-sm-2">
             <button [disabled]="loading" (click)="SaveImportData()" class="btn btn-primary btn-sm">Import Data</button>
           </div>

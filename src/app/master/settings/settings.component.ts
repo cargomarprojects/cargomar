@@ -41,7 +41,8 @@ export class SettingsComponent {
 
   statedisabled: boolean = false;
   transfrTableName: string = '';
-
+  transfrLimit: number = 1;
+  transfrTotRows: number = 0;
   ErrorMessage = "";
 
   mode = '';
@@ -175,7 +176,7 @@ export class SettingsComponent {
 
   LWFPAYRECORD: any;
   LWFPAYREC: any = { id: '', code: '', name: '' };
-  
+
 
 
 
@@ -970,38 +971,38 @@ export class SettingsComponent {
 
       if (rec.caption == "EPFEDLICODE") {
         this.EPFEDLIREC.id = rec.id;
-        this.EPFEDLIREC .code = rec.code;
+        this.EPFEDLIREC.code = rec.code;
         this.EPFEDLIREC.name = rec.name;
         this.initLov(rec.caption);
       }
 
       if (rec.caption == "ESICODE") {
         this.ESIREC.id = rec.id;
-        this.ESIREC .code = rec.code;
+        this.ESIREC.code = rec.code;
         this.ESIREC.name = rec.name;
         this.initLov(rec.caption);
       }
 
       if (rec.caption == "PFPAYCODE") {
         this.PFPAYREC.id = rec.id;
-        this.PFPAYREC .code = rec.code;
+        this.PFPAYREC.code = rec.code;
         this.PFPAYREC.name = rec.name;
         this.initLov(rec.caption);
       }
 
       if (rec.caption == "ESIPAYCODE") {
         this.ESIPAYREC.id = rec.id;
-        this.ESIPAYREC .code = rec.code;
+        this.ESIPAYREC.code = rec.code;
         this.ESIPAYREC.name = rec.name;
         this.initLov(rec.caption);
-      }      
+      }
 
       if (rec.caption == "LWFPAYCODE") {
         this.LWFPAYREC.id = rec.id;
-        this.LWFPAYREC .code = rec.code;
+        this.LWFPAYREC.code = rec.code;
         this.LWFPAYREC.name = rec.name;
         this.initLov(rec.caption);
-      }      
+      }
 
 
       if (rec.caption == "LR-PREFIX")
@@ -1203,7 +1204,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'PFPAYCODE', this.PFPAYREC.id, this.PFPAYREC.code, this.PFPAYREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'ESIPAYCODE', this.ESIPAYREC.id, this.ESIPAYREC.code, this.ESIPAYREC.name));
-    
+
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'LWFPAYCODE', this.LWFPAYREC.id, this.LWFPAYREC.code, this.LWFPAYREC.name));
 
 
@@ -1266,7 +1267,8 @@ export class SettingsComponent {
       year_start_date: this.gs.globalVariables.year_start_date,
       year_end_date: this.gs.globalVariables.year_end_date,
       year_prefix: this.gs.globalVariables.year_prefix,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      transferlimit: this.transfrLimit
     };
 
     this.DataTransfrList.forEach(rec => {
@@ -1381,6 +1383,12 @@ export class SettingsComponent {
 
         });
   }
+
+  OnChange(field: string) {
+    if (field == "transfrTableName") {
+      this.GetTransferStatus();
+    }
+  }
   OnBlur(field: string) {
 
     switch (field) {
@@ -1468,6 +1476,26 @@ export class SettingsComponent {
         }
     }
   }
+
+  GetTransferStatus() {
+    this.ErrorMessage = "";
+    this.loading = true;
+    let SearchData = {
+      tablename: this.transfrTableName
+    };
+    this.ErrorMessage = '';
+    this.mainService.GetTransferStatus(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.transfrTotRows = response.totrows;
+        this.transfrLimit =  this.transfrTotRows;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
