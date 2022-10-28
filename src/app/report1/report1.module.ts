@@ -65,6 +65,8 @@ import { SalesFollowupEditComponent } from './salesfollowup/salesfollowupedit.co
 import { SalesFollowupInvComponent } from './salesfollowup/salesfollowupinv.component';
 import { TdspaidCertDetComponent} from './tdspaidreport/tdspaidcertdet.component';
 import { AddReportsComponent } from './addreports/addreports.component';
+import { ShipDataComponent } from './shipdata/shipdata.component';
+import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 
 @NgModule({
   imports: [
@@ -114,7 +116,9 @@ import { AddReportsComponent } from './addreports/addreports.component';
     SalesFollowupEditComponent,
     SalesFollowupInvComponent,
     TdspaidCertDetComponent,
-    AddReportsComponent
+    AddReportsComponent,
+    ShipDataComponent,
+    ShipDataParentComponent
   ],
   providers: [
   ],

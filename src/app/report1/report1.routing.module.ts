@@ -34,6 +34,7 @@ import { PreAlertRepComponent } from './prealertrep/prealertrep.component';
 import { CostBillingComponent } from './costbilling/costbilling.component';
 import { SalesFollowupComponent } from './salesfollowup/salesfollowup.component';
 import { AddReportsComponent } from './addreports/addreports.component';
+import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'costbilling', component: CostBillingComponent },
   { path: 'salesfollowup', component: SalesFollowupComponent },
   { path: 'addreports', component: AddReportsComponent },
+  { path: 'shipmentdata', component: ShipDataParentComponent },
 ];
 
 @NgModule({

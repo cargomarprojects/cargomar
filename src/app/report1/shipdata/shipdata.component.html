@@ -1,0 +1,210 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType">
+                            <option [value]="'EXPORT'">EXPORT</option>
+                            <option [value]="'IMPORT'">IMPORT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchCustomer" (blur)="OnBlur('searchCustomer')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Address1</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchAddress1" (blur)="OnBlur('searchAddress1')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Address2</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchAddress2" (blur)="OnBlur('searchAddress2')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Address3</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchAddress3" (blur)="OnBlur('searchAddress3')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Region</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchRegion" (blur)="OnBlur('searchRegion')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">City</label>
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" 
+                            [(ngModel)]="searchCity" (blur)="OnBlur('searchCity')" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Region</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="stype1" [(ngModel)]="searchRegionType">
+                            <option [value]="'NA'">NA</option>
+                            <option [value]="'BLANK'">BLANK</option>
+                            <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">City</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="stype2" [(ngModel)]="searchCityType">
+                            <option [value]="'NA'">NA</option>
+                            <option [value]="'BLANK'">BLANK</option>
+                            <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Group By</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchGroupBy">
+                            <option [value]="'NA'">NA</option>
+                            <option [value]="'CUSTOMER'">CUSTOMER</option>
+                            <option [value]="'ADDRESS1'">ADDRESS1</option>
+                            <option [value]="'ADDRESS2'">ADDRESS2</option>
+                            <option [value]="'ADDRESS3'">ADDRESS3</option>
+                            <option [value]="'REGION'">REGION</option>
+                            <option [value]="'CITY'">CITY</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-2 col-5">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm btn-block">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div *ngIf="searchGroupBy=='NA'" class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>CUSTOMER</th>
+                    <th>ADDRESS1</th>
+                    <th>ADDRESS2</th>
+                    <th>ADDRESS3</th>
+                    <th>PIN</th>
+                    <th>CITY</th>
+                    <th>REGION</th>
+                    <th>COUNTRY</th>
+                    <th>INDIAN PORT</th>
+                    <th>FOREIGN PORT</th>
+                    <th>HS CODE</th>
+                    <th>PRODUCT</th>
+                    <th>QTY</th>
+                    <th>UNIT</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr>
+                    <td>{{rec.sd_indian_company}}</td>
+                    <td>{{rec.sd_address1}}</td>
+                    <td>{{rec.sd_address2}}</td>
+                    <td>{{rec.sd_address3}}</td>
+                    <td>{{rec.sd_pin}}</td>
+                    <td>{{rec.sd_city}}</td>
+                    <td>{{rec.sd_region}}</td>
+                    <td>{{rec.sd_foreign_country}}</td>
+                    <td>{{rec.sd_indian_port}}</td>
+                    <td>{{rec.sd_foreign_port}}</td>
+                    <td>{{rec.sd_hs_code}}</td>
+                    <td>{{rec.sd_product}}</td>
+                    <td>{{rec.sd_qty}}</td>
+                    <td>{{rec.sd_unit}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="searchGroupBy!='NA'" class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>{{searchGroupBy}}</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr>
+                    <td *ngIf="searchGroupBy=='CUSTOMER'">{{rec.sd_indian_company}}</td>
+                    <td *ngIf="searchGroupBy=='ADDRESS1'">{{rec.sd_address1}}</td>
+                    <td *ngIf="searchGroupBy=='ADDRESS2'">{{rec.sd_address2}}</td>
+                    <td *ngIf="searchGroupBy=='ADDRESS3'">{{rec.sd_address3}}</td>
+                    <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_city}}</td>
+                    <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_region}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+                <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
