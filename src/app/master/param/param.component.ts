@@ -264,6 +264,10 @@ export class ParamComponent {
       this.id1 = 'GSTIN#';
       this.id2 = 'FIN-YEAR';
     }
+    if (this.type == 'ANALYSIS-CITY') {
+      this.id5 = "Region";
+      this.id5_lovtype = "ANALYSIS-REGION";
+    }
   }
 
   InitLov() {
