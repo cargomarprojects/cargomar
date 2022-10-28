@@ -17,5 +17,9 @@ export class ShipmentDataService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentData/List', SearchData, this.gs.headerparam2('authorized'));
   }
   
+  LoadDefault(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentData/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { ShipmentData } from '../models/shipmentdata';
 import { ShipmentDataService } from '../services/shipmentdata.service';
+import { Param } from '../../master/models/param';
 
 @Component({
     selector: 'app-shipdata',
@@ -39,6 +40,9 @@ export class ShipDataComponent {
     searchCityType: string = 'NA';
     searchGroupBy: string = 'NA';
 
+    updateRegion: string = '';
+    updateCity: string = '';
+
     page_count: number = 0;
     page_current: number = 0;
     page_rowcount: number = 0;
@@ -47,7 +51,9 @@ export class ShipDataComponent {
     ErrorMessage = "";
     InfoMessage = "";
     RecordList: ShipmentData[] = [];
-
+    RegionList: Param[] = [];
+    FullCityList: Param[] = [];
+    CityList: Param[] = [];
     constructor(
         private mainService: ShipmentDataService,
         private route: ActivatedRoute,
@@ -70,7 +76,6 @@ export class ShipDataComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        this.LoadCombo();
         this.InitComponent();
     }
 
@@ -86,6 +91,7 @@ export class ShipDataComponent {
             this.title = this.menu_record.menu_name;
         }
         this.InitLov();
+        this.LoadCombo();
         this.InitCompleted = true;
     }
 
@@ -99,6 +105,28 @@ export class ShipDataComponent {
     }
 
     LoadCombo() {
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
+
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RegionList = response.regionlist;
+                this.FullCityList = response.citylist;
+                this.CityList = new Array<Param>();
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     // Save Data
@@ -124,7 +152,13 @@ export class ShipDataComponent {
     }
     OnChange(field: string) {
         if (field == 'searchGroupBy') {
-            this.RecordList=null;
+            this.RecordList = null;
+        }
+        if (field == 'updateRegion') {
+            this.CityList = new Array<Param>();
+            for (let rec of this.FullCityList.filter(rec => rec.param_id5_name == this.updateRegion)) {
+                this.CityList.push(rec);
+            }
         }
     }
     Close() {
@@ -188,8 +222,8 @@ export class ShipDataComponent {
     SelectDeselect() {
         this.selectdeselect = !this.selectdeselect;
         for (let rec of this.RecordList) {
-          rec.sd_selected = this.selectdeselect;
+            rec.sd_selected = this.selectdeselect;
         }
-      }
+    }
 
 }
