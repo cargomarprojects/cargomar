@@ -19,5 +19,6 @@ export class ShipmentData {
     sd_city: string;
     sd_region: string;
     sd_created_date: string;
+    sd_selected:boolean;
     _globalvariables: GlobalVariables;
 }

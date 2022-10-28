@@ -20,6 +20,8 @@ export class ShipDataComponent {
     menu_record: any;
     InitCompleted: boolean = false;
     disableSave = true;
+    chkallselected: boolean = false;
+    selectdeselect: boolean = false;
     loading = false;
     currentTab = 'LIST';
     sub: any;
@@ -120,6 +122,11 @@ export class ShipDataComponent {
             this.searchCity = this.searchCity.toUpperCase();
         }
     }
+    OnChange(field: string) {
+        if (field == 'searchGroupBy') {
+            this.RecordList=null;
+        }
+    }
     Close() {
         this.gs.ClosePage('home');
     }
@@ -134,7 +141,7 @@ export class ShipDataComponent {
             type: _type,
             rowtype: this.type,
             report_folder: this.gs.globalVariables.report_folder,
-            searchType: this.searchType,
+            searchtype: this.searchType,
             customer: this.searchCustomer,
             address1: this.searchAddress1,
             address2: this.searchAddress2,
@@ -144,7 +151,7 @@ export class ShipDataComponent {
             regiontype: this.searchRegionType,
             citytype: this.searchCityType,
             groupby: this.searchGroupBy,
-            comp_code: this.gs.globalVariables.comp_code,
+            company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,
             year_code: this.gs.globalVariables.year_code,
@@ -158,6 +165,8 @@ export class ShipDataComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.chkallselected = false;
+                this.selectdeselect = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
@@ -176,6 +185,11 @@ export class ShipDataComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
-
+    SelectDeselect() {
+        this.selectdeselect = !this.selectdeselect;
+        for (let rec of this.RecordList) {
+          rec.sd_selected = this.selectdeselect;
+        }
+      }
 
 }
