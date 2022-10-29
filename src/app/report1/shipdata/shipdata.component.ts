@@ -24,6 +24,7 @@ export class ShipDataComponent {
     chkallselected: boolean = false;
     selectdeselect: boolean = false;
     loading = false;
+    bExcel = false;
     currentTab = 'LIST';
     sub: any;
     urlid: string;
@@ -85,6 +86,7 @@ export class ShipDataComponent {
     InitComponent() {
         if (this.InitCompleted)
             return;
+        this.bExcel = false;
         this.searchType = "EXPORT";
         this.searchRegionType = "NA";
         this.searchCityType = "NA";
@@ -92,6 +94,8 @@ export class ShipDataComponent {
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_print)
+                this.bExcel = true;
         }
         this.InitLov();
         this.LoadCombo();

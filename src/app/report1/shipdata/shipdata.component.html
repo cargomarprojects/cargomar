@@ -104,7 +104,8 @@
                             <div class="form-group row">
                                 <div class="offset-4 col-8">
                                     <button [disabled]="loading" (click)="List('NEW')"
-                                        class="btn btn-primary btn-sm mt-1">Search</button>
+                                        class="btn btn-primary btn-sm mt-1 mr-1">Search</button>
+                                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')" class="btn btn-primary btn-sm mt-1">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -224,8 +225,8 @@
                     <td *ngIf="searchGroupBy=='ADDRESS1'">{{rec.sd_address1}}</td>
                     <td *ngIf="searchGroupBy=='ADDRESS2'">{{rec.sd_address2}}</td>
                     <td *ngIf="searchGroupBy=='ADDRESS3'">{{rec.sd_address3}}</td>
-                    <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_city}}</td>
-                    <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_region}}</td>
+                    <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_region}}</td>
+                    <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_city}}</td>
                     <td>{{rec.sd_region}}</td>
                 </tr>
             </tbody>
