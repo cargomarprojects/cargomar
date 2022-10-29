@@ -156,6 +156,7 @@ export class ShipDataComponent {
         }
         if (field == 'updateRegion') {
             this.CityList = new Array<Param>();
+            this.updateCity="";
             for (let rec of this.FullCityList.filter(rec => rec.param_id5_name == this.updateRegion)) {
                 this.CityList.push(rec);
             }
