@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, 
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { ShipmentData } from '../models/shipmentdata';
+import { ShipmentData, SaveShipData } from '../models/shipmentdata';
 import { ShipmentDataService } from '../services/shipmentdata.service';
 import { Param } from '../../master/models/param';
 
@@ -51,6 +51,7 @@ export class ShipDataComponent {
     ErrorMessage = "";
     InfoMessage = "";
     RecordList: ShipmentData[] = [];
+    Record: SaveShipData = new SaveShipData;
     RegionList: Param[] = [];
     FullCityList: Param[] = [];
     CityList: Param[] = [];
@@ -156,7 +157,7 @@ export class ShipDataComponent {
         }
         if (field == 'updateRegion') {
             this.CityList = new Array<Param>();
-            this.updateCity="";
+            this.updateCity = "";
             for (let rec of this.FullCityList.filter(rec => rec.param_id5_name == this.updateRegion)) {
                 this.CityList.push(rec);
             }
@@ -226,5 +227,68 @@ export class ShipDataComponent {
             rec.sd_selected = this.selectdeselect;
         }
     }
+
+    Save(_type: string) {
+        if (!this.allvalid(_type))
+            return;
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.Record = new SaveShipData();
+        this.Record.ssd_type = _type;
+        this.Record.ssd_update_city = this.updateCity;
+        this.Record.ssd_update_region = this.updateRegion;
+        this.Record._globalvariables = this.gs.globalVariables;
+        this.mainService.Save(this.Record)
+            .subscribe(response => {
+                this.loading = false;
+                alert("Save Complete");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
+    allvalid(_type: string) {
+        let sError: string = "";
+        let bret: boolean = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        let bselected: boolean = false;
+
+        for (let rec of this.RecordList) {
+            if (rec.sd_selected) {
+                bselected = true;
+                break;
+            }
+        }
+
+        if (!bselected) {
+            bret = false;
+            sError += "\n\r | Rows not selected ";
+        }
+
+        if (_type == "CITY" && this.gs.isBlank(this.updateCity)) {
+            bret = false;
+            sError += "\n\r | City Cannot Be Blank";
+        }
+
+        if (_type == "REGION" && this.gs.isBlank(this.updateRegion)) {
+            bret = false;
+            sError += "\n\r | Region Cannot Be Blank";
+        }
+
+        if (bret === false) {
+            this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
+        if (bret) {
+
+        }
+        return bret;
+    }
+
 
 }

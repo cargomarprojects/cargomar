@@ -22,3 +22,12 @@ export class ShipmentData {
     sd_selected:boolean;
     _globalvariables: GlobalVariables;
 }
+
+export class SaveShipData {
+    ssd_pkid: string;
+    ssd_type: string;
+    ssd_update_city: string;
+    ssd_update_region: string;
+    ssd_List: ShipmentData[] = [];
+    _globalvariables: GlobalVariables;
+}
