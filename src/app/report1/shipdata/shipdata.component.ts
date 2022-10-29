@@ -50,8 +50,10 @@ export class ShipDataComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
+
     RecordList: ShipmentData[] = [];
     Record: SaveShipData = new SaveShipData;
+    RecordList2: ShipmentData[] = [];
     RegionList: Param[] = [];
     FullCityList: Param[] = [];
     CityList: Param[] = [];
@@ -231,19 +233,36 @@ export class ShipDataComponent {
     Save(_type: string) {
         if (!this.allvalid(_type))
             return;
+            
+        let Rec2: ShipmentData = new ShipmentData();
+        this.RecordList2 = new Array<ShipmentData>();
+        for (let rec of this.RecordList) {
+            if (rec.sd_selected) {
+                if (this.searchGroupBy == "NA") {
+                    Rec2 = new ShipmentData();
+                    Rec2.sd_pkid = rec.sd_pkid;
+                    this.RecordList2.push(Rec2);
+                }
+                else
+                    this.RecordList2.push(rec);
+            }
+        }
+
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.Record = new SaveShipData();
         this.Record.ssd_type = _type;
+        this.Record.ssd_mode = this.searchType;
         this.Record.ssd_group = this.searchGroupBy;
         this.Record.ssd_update_city = this.updateCity;
         this.Record.ssd_update_region = this.updateRegion;
-        this.Record.ssd_List = this.RecordList;
+        this.Record.ssd_List = this.RecordList2;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                this.List('NEW');
                 alert("Save Complete");
             },
                 error => {

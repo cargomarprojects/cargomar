@@ -175,9 +175,9 @@
                     <th>ADDRESS1</th>
                     <th>ADDRESS2</th>
                     <th>ADDRESS3</th>
-                    <th>PIN</th>
-                    <th>CITY</th>
+                    <th *ngIf="searchType=='IMPORT'">PIN</th>
                     <th>REGION</th>
+                    <th>CITY</th>
                     <th>COUNTRY</th>
                     <th>INDIAN PORT</th>
                     <th>FOREIGN PORT</th>
@@ -194,9 +194,9 @@
                     <td>{{rec.sd_address1}}</td>
                     <td>{{rec.sd_address2}}</td>
                     <td>{{rec.sd_address3}}</td>
-                    <td>{{rec.sd_pin}}</td>
-                    <td>{{rec.sd_city}}</td>
+                    <td *ngIf="searchType=='IMPORT'">{{rec.sd_pin}}</td>
                     <td>{{rec.sd_region}}</td>
+                    <td>{{rec.sd_city}}</td>
                     <td>{{rec.sd_foreign_country}}</td>
                     <td>{{rec.sd_indian_port}}</td>
                     <td>{{rec.sd_foreign_port}}</td>
