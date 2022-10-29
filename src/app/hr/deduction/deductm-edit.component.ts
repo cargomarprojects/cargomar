@@ -113,7 +113,7 @@ export class DeductmEditComponent {
         this.EMPRECORD.controlname = "EMPLOYEE";
         this.EMPRECORD.displaycolumn = "CODE";
         this.EMPRECORD.type = "EMPLOYEE";
-        this.EMPRECORD.where = "";
+        this.EMPRECORD.where = " a.rec_branch_code='" + this.gs.globalVariables.branch_code + "'";
         this.EMPRECORD.id = ""
         this.EMPRECORD.code = "";
         this.EMPRECORD.name = "";
