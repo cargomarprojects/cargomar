@@ -271,7 +271,7 @@ export class ShipDataComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.List('NEW');
-                alert("Save Complete");
+                // alert("Save Complete");
             },
                 error => {
                     this.loading = false;
