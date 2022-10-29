@@ -7,126 +7,143 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
     <div class="page-search">
         <div class="row">
-
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType">
-                            <option [value]="'EXPORT'">EXPORT</option>
-                            <option [value]="'IMPORT'">IMPORT</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Customer</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchCustomer"
-                            (blur)="OnBlur('searchCustomer')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Address1</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchAddress1"
-                            (blur)="OnBlur('searchAddress1')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Address2</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchAddress2"
-                            (blur)="OnBlur('searchAddress2')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Address3</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchAddress3"
-                            (blur)="OnBlur('searchAddress3')" />
+            <div class="col-sm-8 pr-1">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Type</label>
+                                <div class="col-8">
+                                    <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType">
+                                        <option [value]="'EXPORT'">EXPORT</option>
+                                        <option [value]="'IMPORT'">IMPORT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Customer</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchCustomer" (blur)="OnBlur('searchCustomer')" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Address1</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchAddress1" (blur)="OnBlur('searchAddress1')" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Address2</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchAddress2" (blur)="OnBlur('searchAddress2')" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Address3</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchAddress3" (blur)="OnBlur('searchAddress3')" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Region</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchRegion" (blur)="OnBlur('searchRegion')" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">City</label>
+                                <div class="col-8">
+                                    <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchCity"
+                                        (blur)="OnBlur('searchCity')" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Region Data</label>
+                                <div class="col-8">
+                                    <select class="form-control form-control-sm" name="stype1"
+                                        [(ngModel)]="searchRegionType">
+                                        <option [value]="'NA'">NA</option>
+                                        <option [value]="'BLANK'">BLANK</option>
+                                        <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">City Data</label>
+                                <div class="col-8">
+                                    <select class="form-control form-control-sm" name="stype2"
+                                        [(ngModel)]="searchCityType">
+                                        <option [value]="'NA'">NA</option>
+                                        <option [value]="'BLANK'">BLANK</option>
+                                        <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Group</label>
+                                <div class="col-8">
+                                    <select class="form-control form-control-sm" name="stype"
+                                        [(ngModel)]="searchGroupBy" (change)="OnChange('searchGroupBy')">
+                                        <option [value]="'NA'">NA</option>
+                                        <option [value]="'CUSTOMER'">CUSTOMER</option>
+                                        <option [value]="'ADDRESS1'">ADDRESS1</option>
+                                        <option [value]="'ADDRESS2'">ADDRESS2</option>
+                                        <option [value]="'ADDRESS3'">ADDRESS3</option>
+                                        <option [value]="'REGION'">REGION</option>
+                                        <option [value]="'CITY'">CITY</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                    <button [disabled]="loading" (click)="List('NEW')"
+                                        class="btn btn-primary btn-sm mt-1">Search</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Region</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchRegion"
-                            (blur)="OnBlur('searchRegion')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">City</label>
-                    <div class="col-8">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchCity"
-                            (blur)="OnBlur('searchCity')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Region Data</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="stype1" [(ngModel)]="searchRegionType">
-                            <option [value]="'NA'">NA</option>
-                            <option [value]="'BLANK'">BLANK</option>
-                            <option [value]="'NOT-BLANK'">NOT BLANK</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">City Data</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="stype2" [(ngModel)]="searchCityType">
-                            <option [value]="'NA'">NA</option>
-                            <option [value]="'BLANK'">BLANK</option>
-                            <option [value]="'NOT-BLANK'">NOT BLANK</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Group</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchGroupBy"
-                            (change)="OnChange('searchGroupBy')">
-                            <option [value]="'NA'">NA</option>
-                            <option [value]="'CUSTOMER'">CUSTOMER</option>
-                            <option [value]="'ADDRESS1'">ADDRESS1</option>
-                            <option [value]="'ADDRESS2'">ADDRESS2</option>
-                            <option [value]="'ADDRESS3'">ADDRESS3</option>
-                            <option [value]="'REGION'">REGION</option>
-                            <option [value]="'CITY'">CITY</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="offset-4 col-8">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm ">Search</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class=" form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Region</label>
-                    <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="updateRegion" (change)="OnChange('updateRegion')">
-                            <option *ngFor="let rec of RegionList" [value]="rec.param_name">{{rec.param_name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm ">Update</button>
-                    </div>
-                </div>
-                <div class=" form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">City</label>
-                    <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="updateCity">
-                            <option *ngFor="let rec of CityList" [value]="rec.param_name">{{rec.param_name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm ">Update</button>
+            <div class="col-sm-4 pl-1">
+                <div class="page-box" style="height:99%;">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class=" form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">Region</label>
+                                <div class="col-4">
+                                    <select class="form-control form-control-sm" [(ngModel)]="updateRegion"
+                                        (change)="OnChange('updateRegion')">
+                                        <option *ngFor="let rec of RegionList" [value]="rec.param_name">
+                                            {{rec.param_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <button [disabled]="loading" (click)="List('NEW')"
+                                        class="btn btn-primary btn-sm ">Update</button>
+                                </div>
+                            </div>
+                            <div class=" form-group row">
+                                <label class="col-4 col-form-label col-form-label-sm">City</label>
+                                <div class="col-4">
+                                    <select class="form-control form-control-sm" [(ngModel)]="updateCity">
+                                        <option *ngFor="let rec of CityList" [value]="rec.param_name">{{rec.param_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <button [disabled]="loading" (click)="List('NEW')"
+                                        class="btn btn-primary btn-sm ">Update</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
