@@ -26,6 +26,7 @@ export class ShipmentData {
 export class SaveShipData {
     ssd_pkid: string;
     ssd_type: string;
+    ssd_group:string;
     ssd_update_city: string;
     ssd_update_region: string;
     ssd_List: ShipmentData[] = [];

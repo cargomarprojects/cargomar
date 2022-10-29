@@ -236,8 +236,10 @@ export class ShipDataComponent {
         this.InfoMessage = '';
         this.Record = new SaveShipData();
         this.Record.ssd_type = _type;
+        this.Record.ssd_group = this.searchGroupBy;
         this.Record.ssd_update_city = this.updateCity;
         this.Record.ssd_update_region = this.updateRegion;
+        this.Record.ssd_List = this.RecordList;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
