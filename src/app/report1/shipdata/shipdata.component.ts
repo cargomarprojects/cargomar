@@ -233,7 +233,11 @@ export class ShipDataComponent {
     Save(_type: string) {
         if (!this.allvalid(_type))
             return;
-            
+
+        if (!confirm("UPDATE " + _type)) {
+            return;
+        }
+
         let Rec2: ShipmentData = new ShipmentData();
         this.RecordList2 = new Array<ShipmentData>();
         for (let rec of this.RecordList) {
