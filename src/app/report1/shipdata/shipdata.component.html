@@ -212,8 +212,9 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
-                    <th>{{searchGroupBy}}</th>
+                    <th width="10%"><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
+                    <th width="40%">{{searchGroupBy}}</th>
+                    <th width="50%">REGION</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -225,6 +226,7 @@
                     <td *ngIf="searchGroupBy=='ADDRESS3'">{{rec.sd_address3}}</td>
                     <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_city}}</td>
                     <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_region}}</td>
+                    <td>{{rec.sd_region}}</td>
                 </tr>
             </tbody>
         </table>
