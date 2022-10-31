@@ -387,6 +387,11 @@ export class ShipReportComponent {
         this.ErrorMessage = '';
         this.mainService.Save(this.SaveRecord)
             .subscribe(response => {
+                if (response.retval)
+                    if (rec.sd_selected)
+                        rec.sd_report_name = this.Record.ssd_report_name;
+                    else
+                        rec.sd_report_name = '';
             },
                 error => {
                     this.ErrorMessage = this.gs.getError(error);

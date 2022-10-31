@@ -1,9 +1,9 @@
 <div class="page-header">
     <div class="col-4">
         <div class="form-group row">
-        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-        <label class="col-form-label col-form-label-sm">Report Name</label>
-        <input type="text" class="col form-control form-control-sm"
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mr-1">List</button>
+        <label class="col-form-label col-form-label-sm mr-1">Report Name</label>
+        <input type="text" class="col form-control form-control-sm mr-1"
             [(ngModel)]="newReportName" (blur)="OnBlur('newReportName')" />
         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
     </div>
@@ -188,7 +188,7 @@
                     <tr>
                         <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
                         <th *ngIf="ReportFormat=='SUMMARY'"></th>
-                        <th>REPORT NAME</th>
+                        <th>REPORT</th>
                         <th>INDIAN COMPANY</th>
                         <th>ADDRESS1</th>
                         <th>ADDRESS2</th>
@@ -238,13 +238,13 @@
             </div>
         </div>
     </div>
-    <div *ngIf="ReportFormat=='SUMMARY'" class="page-box">
+    <!-- <div *ngIf="ReportFormat=='SUMMARY'" class="page-box">
         <div class="col-sm-6">
             <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-success btn-sm">Return</button>
         </div>
-    </div>
+    </div> -->
 </div>
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
