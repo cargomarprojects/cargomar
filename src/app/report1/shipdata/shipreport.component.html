@@ -47,15 +47,11 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>REPORT NAME</th>
-                    <th>CREATED BY</th>
-                    <th>DATE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink2" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.sd_report_name}}</td>
-                    <td>{{rec.ssd_report_created_by}}</td>
-                    <td>{{rec.ssd_report_created_date}}</td>
+                    <td class="hlink2" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.ssd_report_name}}</td>
                 </tr>
             </tbody>
         </table>
@@ -106,20 +102,18 @@
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Indian Port</label>
                         <div class="col-8">
-                            <select class="form-control form-control-sm" name="stype1" [(ngModel)]="IndianPort">
-                                <option [value]="'NA'">NA</option>
-                                <option [value]="'BLANK'">BLANK</option>
-                                <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                            <select class="form-control form-control-sm" [(ngModel)]="IndianPort">
+                                <option *ngFor="let rec of IndianPortList" [value]="rec.sd_indian_port">{{rec.sd_indian_port}}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Foreign Port</label>
                         <div class="col-8">
-                            <select class="form-control form-control-sm" name="stype2" [(ngModel)]="ForeignPort">
-                                <option [value]="'NA'">NA</option>
-                                <option [value]="'BLANK'">BLANK</option>
-                                <option [value]="'NOT-BLANK'">NOT BLANK</option>
+                            <select class="form-control form-control-sm" [(ngModel)]="ForeignPort">
+                                <option *ngFor="let rec of ForeignPortList" [value]="rec.sd_foreign_port">{{rec.sd_foreign_port}}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -153,7 +147,7 @@
 
                     <div class="form-group row">
                         <div class="offset-4 col-8">
-                            <button [disabled]="loading" (click)="List('NEW')"
+                            <button [disabled]="loading" (click)="List2('NEW')"
                                 class="btn btn-primary btn-sm mt-1 mr-1">Search</button>
                             <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')"
                                     class="btn btn-primary btn-sm mt-1">Print</button> -->
@@ -164,7 +158,7 @@
             </div>
         </div>
         <div class="page-pager">
-            <div *ngIf="page_count">
+            <div *ngIf="page_count2">
                 <ul class="pagination pagination-sm">
                     <li class="page-item"><a class="page-link">Page
                             {{page_current2}}/{{page_count2}}(Records-{{page_rowcount2}})</a></li>
@@ -185,6 +179,7 @@
                 <thead class="page-body-thead">
                     <tr>
                         <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
+                        <th *ngIf="ReportFormat=='SUMMARY'"></th>
                         <th>INDIAN COMPANY</th>
                         <th>ADDRESS1</th>
                         <th>ADDRESS2</th>
@@ -200,7 +195,7 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.ssd_List">
                     <tr>
-                        <!-- <td><input type="checkbox" [(ngModel)]="rec.sd_selected"></td> -->
+                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected"></td>
                         <td>{{rec.sd_indian_company}}</td>
                         <td>{{rec.sd_address1}}</td>
                         <td>{{rec.sd_address2}}</td>
@@ -217,7 +212,7 @@
             </table>
         </div>
         <div class="page-pager">
-            <div *ngIf="page_count">
+            <div *ngIf="page_count2">
                 <ul class="pagination pagination-sm">
                     <li class="page-item"><a class="page-link">Page
                             {{page_current2}}/{{page_count2}}(Records-{{page_rowcount2}})</a></li>
@@ -233,7 +228,7 @@
             </div>
         </div>
     </div>
-    <div class="page-box">
+    <div *ngIf="ReportFormat=='SUMMARY'" class="page-box">
         <div class="col-sm-6">
             <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { SaveShipData } from '../models/shipmentdata';
+import { SaveShipData, ShipmentData } from '../models/shipmentdata';
 import { ShipmentReportService } from '../services/shipmentreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -43,8 +43,9 @@ export class ShipReportComponent {
     ForeignPort: string = '';
     ReportFormat: string = 'SUMMARY';
     Region: string = '';
-    
 
+    IndianPortList: ShipmentData[] = [];
+    ForeignPortList: ShipmentData[] = [];
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -108,28 +109,28 @@ export class ShipReportComponent {
 
 
     LoadCombo() {
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
 
-        //this.loading = true;
-        //let SearchData = {
-        //  type: 'type',
-        //  comp_code: this.gs.globalVariables.comp_code,
-        //  branch_code: this.gs.globalVariables.branch_code
-        //};
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
 
-        //this.ErrorMessage = '';
-        //this.InfoMessage = '';
-        //this.mainService.LoadDefault(SearchData)
-        //  .subscribe(response => {
-        //    this.loading = false;
+                this.IndianPortList = response.indianports;
+                this.ForeignPortList = response.foreignports;
 
-        //    this.List("NEW");
-        //  },
-        //  error => {
-        //    this.loading = false;
-        //    this.ErrorMessage = JSON.parse(error._body).Message;
-        //  });
-
-        this.List("NEW");
+                this.List("NEW");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = JSON.parse(error._body).Message;
+                });
     }
 
 
@@ -220,8 +221,6 @@ export class ShipReportComponent {
     }
 
 
-
-
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
         this.loading = true;
@@ -308,20 +307,32 @@ export class ShipReportComponent {
         //     this.Record.ritc_name = this.Record.ritc_name.toUpperCase();
         // }
     }
-    
+
     Close() {
         this.gs.ClosePage('home');
     }
-
+ 
     List2(_type: string) {
-
+        this.InfoMessage = "";
+        this.ErrorMessage = '';
+        this.pkid = this.gs.getGuid();
         this.loading = true;
-
         let SearchData = {
+            pkid: this.pkid,
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
+            report_folder: this.gs.globalVariables.report_folder,
+            searchtype: this.searchType,
+            indiancompany: this.IndianCompany,
+            indianport: this.IndianPort,
+            foreignport: this.ForeignPort,
+            region: this.Region,
+            reportformat: this.ReportFormat,
+            reportname: this.Record.ssd_report_name,
             company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_pkid: this.gs.globalVariables.user_pkid,
+            year_code: this.gs.globalVariables.year_code,
             page_count: this.page_count2,
             page_current: this.page_current2,
             page_rows: this.page_rows2,
@@ -329,19 +340,26 @@ export class ShipReportComponent {
         };
 
         this.ErrorMessage = '';
-        this.InfoMessage = '';
         this.mainService.List2(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count2 = response.page_count;
-                this.page_current2 = response.page_current;
-                this.page_rowcount2 = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.Record.ssd_List = response.list;
+                    this.page_count2 = response.page_count;
+                    this.page_current2 = response.page_current;
+                    this.page_rowcount2 = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
+                    this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
                 });
+    }
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
 
 }
