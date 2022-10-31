@@ -21,6 +21,7 @@ export class ShipmentData {
     sd_created_date: string;
     sd_selected:boolean;
     sd_shipment: number;
+    sd_report_name:string;
     _globalvariables: GlobalVariables;
 }
 

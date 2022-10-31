@@ -1,10 +1,12 @@
 <div class="page-header">
-    <div class="col">
-        <!-- <label>{{title}}</label> -->
+    <div class="col-4">
+        <div class="form-group row">
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+        <label class="col-form-label col-form-label-sm">Report Name</label>
+        <input type="text" class="col form-control form-control-sm"
+            [(ngModel)]="newReportName" (blur)="OnBlur('newReportName')" />
         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-        <!-- <button class="btn btn-primary btn-sm" (click)="Close()">Close</button> -->
-        <!-- <i *ngIf="loading" class="fa fa-spinner"></i> -->
+    </div>
     </div>
 </div>
 
@@ -12,8 +14,8 @@
 
     <div class="page-search">
         <div class="row">
-            <label class="col-2">Search</label>
-            <div class="col">
+            <label class="col-1">Search</label>
+            <div class="col-2">
                 <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
             </div>
             <div class="col">
@@ -51,7 +53,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink2" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.ssd_report_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.ssd_report_name}}</td>
                 </tr>
             </tbody>
         </table>
@@ -84,6 +86,13 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">Report Name</label>
+                        <div class="col-8">
+                            <input type="text" disabled class="col form-control form-control-sm"
+                                [(ngModel)]="Record.ssd_report_name" (blur)="OnBlur('ssd_report_name')" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Type</label>
                         <div class="col-8">
                             <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType">
@@ -103,7 +112,8 @@
                         <label class="col-4 col-form-label col-form-label-sm">Indian Port</label>
                         <div class="col-8">
                             <select class="form-control form-control-sm" [(ngModel)]="IndianPort">
-                                <option *ngFor="let rec of IndianPortList" [value]="rec.sd_indian_port">{{rec.sd_indian_port}}
+                                <option *ngFor="let rec of IndianPortList" [value]="rec.sd_indian_port">
+                                    {{rec.sd_indian_port}}
                                 </option>
                             </select>
                         </div>
@@ -112,7 +122,8 @@
                         <label class="col-4 col-form-label col-form-label-sm">Foreign Port</label>
                         <div class="col-8">
                             <select class="form-control form-control-sm" [(ngModel)]="ForeignPort">
-                                <option *ngFor="let rec of ForeignPortList" [value]="rec.sd_foreign_port">{{rec.sd_foreign_port}}
+                                <option *ngFor="let rec of ForeignPortList" [value]="rec.sd_foreign_port">
+                                    {{rec.sd_foreign_port}}
                                 </option>
                             </select>
                         </div>
@@ -123,27 +134,24 @@
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Region</label>
                         <div class="col-8">
-                            <input type="text" class="col form-control form-control-sm" [(ngModel)]="Region"
-                                (blur)="OnBlur('Region')" />
+                                <select class="form-control form-control-sm" [(ngModel)]="Region">
+                                    <option *ngFor="let rec of RegionList" [value]="rec.param_name">
+                                        {{rec.param_name}}
+                                    </option>
+                                </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Report Format</label>
                         <div class="col-8">
-                            <select class="form-control form-control-sm" name="stype2" [(ngModel)]="ReportFormat">
+                            <select class="form-control form-control-sm" name="stype2" [(ngModel)]="ReportFormat" (change)="OnChange('ReportFormat')">
                                 <option [value]="'SUMMARY'">SUMMARY</option>
                                 <option [value]="'DETAIL'">DETAIL</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label col-form-label-sm">Report Name</label>
-                        <div class="col-8">
-                            <input type="text" [disabled]="mode=='EDIT'" class="col form-control form-control-sm"
-                                [(ngModel)]="Record.ssd_report_name" (blur)="OnBlur('ssd_report_name')" />
-                        </div>
-                    </div>
+                  
 
                     <div class="form-group row">
                         <div class="offset-4 col-8">
@@ -180,6 +188,7 @@
                     <tr>
                         <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
                         <th *ngIf="ReportFormat=='SUMMARY'"></th>
+                        <th>REPORT NAME</th>
                         <th>INDIAN COMPANY</th>
                         <th>ADDRESS1</th>
                         <th>ADDRESS2</th>
@@ -195,7 +204,8 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.ssd_List">
                     <tr>
-                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected"></td>
+                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected" (change)="OnStatusChange($event, rec)"></td>
+                        <td>{{rec.sd_report_name}}</td>
                         <td>{{rec.sd_indian_company}}</td>
                         <td>{{rec.sd_address1}}</td>
                         <td>{{rec.sd_address2}}</td>

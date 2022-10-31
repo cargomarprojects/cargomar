@@ -157,6 +157,7 @@ export class ShipDataComponent {
             this.searchCity = this.searchCity.toUpperCase();
         }
     }
+    
     OnChange(field: string) {
         if (field == 'searchGroupBy') {
             this.RecordList = null;

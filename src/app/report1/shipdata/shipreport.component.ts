@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SaveShipData, ShipmentData } from '../models/shipmentdata';
 import { ShipmentReportService } from '../services/shipmentreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { Param } from '../../master/models/param';
 
 @Component({
     selector: 'app-shipreport',
@@ -43,9 +44,13 @@ export class ShipReportComponent {
     ForeignPort: string = '';
     ReportFormat: string = 'SUMMARY';
     Region: string = '';
+    newReportName: string = '';
 
     IndianPortList: ShipmentData[] = [];
     ForeignPortList: ShipmentData[] = [];
+    RegionList: Param[] = [];
+    SaveList: ShipmentData[] = [];
+    SaveRecord: SaveShipData = new SaveShipData;
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -121,10 +126,12 @@ export class ShipReportComponent {
         this.mainService.LoadDefault(SearchData)
             .subscribe(response => {
                 this.loading = false;
-
                 this.IndianPortList = response.indianports;
                 this.ForeignPortList = response.foreignports;
-
+                this.RegionList = response.regionlist;
+                this.IndianPort = "NA";
+                this.ForeignPort = "NA";
+                this.Region = "NA";
                 this.List("NEW");
             },
                 error => {
@@ -149,12 +156,14 @@ export class ShipReportComponent {
             this.currentTab = 'LIST';
         }
         else if (action === 'ADD') {
-            this.currentTab = 'DETAILS';
-            this.NewRecord();
-            this.mode = 'ADD';
-            this.ResetControls();
+            if (this.gs.isBlank(this.newReportName)) {
+                alert('Report name cannot be blank');
+                return
+            }
+            this.ReportNameExist(this.newReportName);
         }
         else if (action === 'EDIT') {
+            this.newReportName = '';
             this.currentTab = 'DETAILS';
             this.mode = 'EDIT';
             this.ResetControls();
@@ -212,7 +221,7 @@ export class ShipReportComponent {
 
 
     NewRecord() {
-        this.report_name = '';
+        this.report_name = this.newReportName;
         this.Record = new SaveShipData();
         this.Record.ssd_report_name = this.report_name;
         this.Record.ssd_report_created_by = this.gs.globalVariables.user_code;
@@ -303,15 +312,20 @@ export class ShipReportComponent {
         //     this.Record.ritc_code = this.GetSpaceTrim(this.Record.ritc_code.trim()).newstr.toUpperCase();
 
         // }
-        // if (field == 'ritc_name') {
-        //     this.Record.ritc_name = this.Record.ritc_name.toUpperCase();
-        // }
+        if (field == 'newReportName') {
+            this.newReportName = this.newReportName.toUpperCase();
+        }
     }
 
+    OnChange(field: string) {
+        if (field == 'ReportFormat') {
+            this.Record.ssd_List = null;
+        }
+    }
     Close() {
         this.gs.ClosePage('home');
     }
- 
+
     List2(_type: string) {
         this.InfoMessage = "";
         this.ErrorMessage = '';
@@ -362,4 +376,50 @@ export class ShipReportComponent {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
 
+    OnStatusChange(evt: any, rec: ShipmentData) {
+        this.SaveRecord = new SaveShipData();
+        this.SaveList = new Array<ShipmentData>();
+        this.SaveList.push(rec);
+        this.SaveRecord.ssd_mode = this.searchType;
+        this.SaveRecord.ssd_report_name = this.Record.ssd_report_name;
+        this.SaveRecord._globalvariables = this.gs.globalVariables;
+        this.SaveRecord.ssd_List = this.SaveList;
+        this.ErrorMessage = '';
+        this.mainService.Save(this.SaveRecord)
+            .subscribe(response => {
+            },
+                error => {
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
+    ReportNameExist(Id: string) {
+        this.loading = true;
+        let SearchData = {
+            report_name: Id,
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.ReportNameExist(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retval) {
+                    this.ErrorMessage = "Report Name Exist."
+                    alert(this.ErrorMessage);
+                }
+                else {
+
+                    this.currentTab = 'DETAILS';
+                    this.NewRecord();
+                    this.mode = 'ADD';
+                    this.ResetControls();
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
 }

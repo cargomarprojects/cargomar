@@ -23,11 +23,11 @@ export class ShipDataParentComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-
+  bAdmin = false;
   loading = false;
 
   currentTab = 'LIST';
-   
+
   constructor(
     // private mainService: RepService,
     private route: ActivatedRoute,
@@ -48,13 +48,16 @@ export class ShipDataParentComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-     
+
   }
 
   InitComponent() {
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
     }
     this.Init();
     this.initLov();
@@ -62,7 +65,7 @@ export class ShipDataParentComponent {
   }
 
   Init() {
-     
+
   }
 
   // Destroy Will be called when this component is closed
@@ -78,7 +81,7 @@ export class ShipDataParentComponent {
   }
   LoadCombo() {
   }
-   
+
   Close() {
     this.gs.ClosePage('home');
   }
