@@ -20,6 +20,7 @@ export class ShipmentData {
     sd_region: string;
     sd_created_date: string;
     sd_selected:boolean;
+    sd_shipment: number;
     _globalvariables: GlobalVariables;
 }
 
@@ -30,6 +31,10 @@ export class SaveShipData {
     ssd_type: string;
     ssd_update_city: string;
     ssd_update_region: string;
+    ssd_report_name:string;
+    ssd_report_created_by:string;
+    ssd_report_created_date:string;
+    rec_mode: string;
     ssd_List: ShipmentData[] = [];
     _globalvariables: GlobalVariables;
 }

@@ -67,6 +67,7 @@ import { TdspaidCertDetComponent} from './tdspaidreport/tdspaidcertdet.component
 import { AddReportsComponent } from './addreports/addreports.component';
 import { ShipDataComponent } from './shipdata/shipdata.component';
 import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
+import { ShipReportComponent } from './shipdata/shipreport.component';
 
 @NgModule({
   imports: [
@@ -118,7 +119,8 @@ import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
     TdspaidCertDetComponent,
     AddReportsComponent,
     ShipDataComponent,
-    ShipDataParentComponent
+    ShipDataParentComponent,
+    ShipReportComponent
   ],
   providers: [
   ],
