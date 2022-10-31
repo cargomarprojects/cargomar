@@ -1,3 +1,23 @@
-<div class="col-sm-12">
-    <app-shipdata [type]="type" [menuid]="menuid"></app-shipdata>
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
 </div>
+<ngb-tabset>
+    <ngb-tab title="Report">
+        <ng-template ngbTabContent>
+            <div class="col-sm-12 mx-0 px-0">
+                <app-shipdata [type]="type" [menuid]="menuid"></app-shipdata>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Update Data">
+        <ng-template ngbTabContent>
+            <div class="col-sm-12 mx-0 px-0">
+                <app-shipdata [type]="type" [menuid]="menuid"></app-shipdata>
+            </div>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>
