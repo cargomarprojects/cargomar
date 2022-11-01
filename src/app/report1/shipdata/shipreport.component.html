@@ -52,7 +52,7 @@
                     <th width="30%">REPORT NAME</th>
                     <th width="10%">CREATED BY</th>
                     <th width="10%">CREATED DATE</th>
-                    <th *ngIf="bAdmin" width="10%">DELETE</th>
+                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'" width="10%">DELETE</th>
                     <th width="40%"></th>
                 </tr>
             </thead>
@@ -62,7 +62,7 @@
                         {{rec.ssd_report_name}}</td>
                     <td>{{rec.ssd_report_created_by}}</td>
                     <td>{{rec.ssd_report_created_date}}</td>
-                    <td *ngIf="bAdmin">
+                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
                         <App-Dialog
                             [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ssd_report_name,name:rec.ssd_report_name}"
                             (result)="RemoveList($event)"></App-Dialog>
