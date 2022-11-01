@@ -422,6 +422,7 @@ export class ShipReportComponent {
         this.SaveRecord = new SaveShipData();
         this.SaveList = new Array<ShipmentData>();
         this.SaveList.push(rec);
+        this.SaveRecord.ssd_allselected = false;
         this.SaveRecord.ssd_mode = this.searchType;
         this.SaveRecord.ssd_report_name = this.Record.ssd_report_name;
         this.SaveRecord._globalvariables = this.gs.globalVariables;
@@ -472,29 +473,31 @@ export class ShipReportComponent {
 
     SaveAll() {
 
-
+        this.updateAll = true;
         this.SaveRecord = new SaveShipData();
         this.SaveList = new Array<ShipmentData>();
         for (let rec of this.Record.ssd_List) {
             if (this.chkallselected != rec.sd_selected) {
-                rec.sd_selected = this.chkallselected;
                 this.SaveList.push(rec);
             }
         }
 
-        if (this.SaveList.length <= 0)
+        if (this.SaveList.length <= 0) {
+            this.updateAll = false;
             return;
-
+        }
+        this.SaveRecord.ssd_allselected = this.chkallselected;
         this.SaveRecord.ssd_mode = this.searchType;
         this.SaveRecord.ssd_report_name = this.Record.ssd_report_name;
         this.SaveRecord._globalvariables = this.gs.globalVariables;
         this.SaveRecord.ssd_List = this.SaveList;
         this.ErrorMessage = '';
-        this.updateAll = true;
+
         this.mainService.Save(this.SaveRecord)
             .subscribe(response => {
                 if (response.retval)
                     for (let rec of this.Record.ssd_List) {
+                        rec.sd_selected = this.chkallselected;
                         if (this.chkallselected)
                             rec.sd_report_name = this.Record.ssd_report_name;
                         else

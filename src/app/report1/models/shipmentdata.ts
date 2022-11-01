@@ -36,6 +36,7 @@ export class SaveShipData {
     ssd_report_created_by:string;
     ssd_report_created_date:string;
     rec_mode: string;
+    ssd_allselected:boolean;
     ssd_List: ShipmentData[] = [];
     _globalvariables: GlobalVariables;
 }
