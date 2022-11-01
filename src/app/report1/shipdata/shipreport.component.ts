@@ -156,7 +156,7 @@ export class ShipReportComponent {
 
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string,_searchmode:string="") {
+    ActionHandler(action: string, id: string, _searchmode: string = "") {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         if (action == 'LIST') {
@@ -271,7 +271,7 @@ export class ShipReportComponent {
         this.Record.ssd_report_created_date = this.gs.defaultValues.today;
         this.Record.rec_mode = this.mode;
     }
- 
+
 
     // Save Data
     Save() {
@@ -348,6 +348,7 @@ export class ShipReportComponent {
     }
 
     List2(_type: string, _mode: string = "") {
+        this.chkallselected = false;
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();

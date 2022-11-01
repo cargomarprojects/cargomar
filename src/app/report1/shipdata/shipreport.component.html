@@ -58,7 +58,8 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name,rec.ssd_mode)">{{rec.ssd_report_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name,rec.ssd_mode)">
+                        {{rec.ssd_report_name}}</td>
                     <td>{{rec.ssd_report_created_by}}</td>
                     <td>{{rec.ssd_report_created_date}}</td>
                     <td *ngIf="bAdmin">
@@ -121,6 +122,8 @@
                                 (blur)="OnBlur('IndianCompany')" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-4">
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Indian Port</label>
                         <div class="col-8">
@@ -141,9 +144,6 @@
                             </select>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-4">
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Region</label>
                         <div class="col-8">
@@ -154,7 +154,8 @@
                             </select>
                         </div>
                     </div>
-
+                </div>
+                <div class="col-sm-4">
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Report Format</label>
                         <div class="col-8">
@@ -211,7 +212,7 @@
                         <th>PRODUCT</th>
                         <th>INDIAN PORT</th>
                         <th>FOREIGN PORT</th>
-                        <th>SHIPMENT</th>
+                        <th>SHIPMENT NOS</th>
                         <th>QTY</th>
                         <th>UNIT</th>
                     </tr>
