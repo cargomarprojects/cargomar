@@ -1,12 +1,13 @@
 <div class="page-header">
     <div class="col-4">
         <div class="form-group row">
-        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mr-1">List</button>
-        <label class="col-form-label col-form-label-sm mr-1">Report Name</label>
-        <input type="text" class="col form-control form-control-sm mr-1"
-            [(ngModel)]="newReportName" (blur)="OnBlur('newReportName')" />
-        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    </div>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-primary btn-sm mr-1">List</button>
+            <label class="col-form-label col-form-label-sm mr-1">Report Name</label>
+            <input type="text" class="col form-control form-control-sm mr-1" [(ngModel)]="newReportName"
+                (blur)="OnBlur('newReportName')" />
+            <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        </div>
     </div>
 </div>
 
@@ -48,12 +49,24 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>REPORT NAME</th>
+                    <th width="30%">REPORT NAME</th>
+                    <th width="10%">CREATED BY</th>
+                    <th width="10%">CREATED DATE</th>
+                    <th *ngIf="bAdmin" width="10%">DELETE</th>
+                    <th width="40%"></th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.ssd_report_name}}</td>
+                    <td>{{rec.ssd_report_created_by}}</td>
+                    <td>{{rec.ssd_report_created_date}}</td>
+                    <td *ngIf="bAdmin">
+                        <App-Dialog
+                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ssd_report_name,name:rec.ssd_report_name}"
+                            (result)="RemoveList($event)"></App-Dialog>
+                    </td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
@@ -134,24 +147,25 @@
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Region</label>
                         <div class="col-8">
-                                <select class="form-control form-control-sm" [(ngModel)]="Region">
-                                    <option *ngFor="let rec of RegionList" [value]="rec.param_name">
-                                        {{rec.param_name}}
-                                    </option>
-                                </select>
+                            <select class="form-control form-control-sm" [(ngModel)]="Region">
+                                <option *ngFor="let rec of RegionList" [value]="rec.param_name">
+                                    {{rec.param_name}}
+                                </option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-4 col-form-label col-form-label-sm">Report Format</label>
                         <div class="col-8">
-                            <select class="form-control form-control-sm" name="stype2" [(ngModel)]="ReportFormat" (change)="OnChange('ReportFormat')">
+                            <select class="form-control form-control-sm" name="stype2" [(ngModel)]="ReportFormat"
+                                (change)="OnChange('ReportFormat')">
                                 <option [value]="'SUMMARY'">SUMMARY</option>
                                 <option [value]="'DETAIL'">DETAIL</option>
                             </select>
                         </div>
                     </div>
-                  
+
 
                     <div class="form-group row">
                         <div class="offset-4 col-8">
@@ -204,7 +218,8 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.ssd_List">
                     <tr>
-                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected" (change)="OnStatusChange($event, rec)"></td>
+                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected"
+                                (change)="OnStatusChange($event, rec)"></td>
                         <td>{{rec.sd_report_name}}</td>
                         <td>{{rec.sd_indian_company}}</td>
                         <td>{{rec.sd_address1}}</td>

@@ -26,6 +26,10 @@ export class ShipmentReportService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    DeleteRecord(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
     ReportNameExist(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/ReportNameExist', SearchData, this.gs.headerparam2('authorized'));
     }

@@ -21,6 +21,7 @@ export class ShipReportComponent {
     menu_record: any;
 
     disableSave = true;
+    bAdmin = false;
     loading = false;
     currentTab = 'LIST';
 
@@ -91,17 +92,19 @@ export class ShipReportComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        if (this.InitCompleted) {
+        if (!this.InitCompleted) {
             this.InitComponent();
         }
     }
 
     InitComponent() {
-
+        this.bAdmin = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
-
+            if (this.menu_record.rights_admin)
+                this.bAdmin = true;
+        }
         this.LoadCombo();
         this.InitCompleted = true;
     }
@@ -187,6 +190,29 @@ export class ShipReportComponent {
         return this.disableSave;
     }
 
+    RemoveList(event: any) {
+        if (event.selected) {
+            this.RemoveRecord(event.id);
+        }
+    }
+
+    RemoveRecord(Id: string) {
+        this.loading = true;
+        let SearchData = {
+            pkid: Id
+        };
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.ssd_report_name == Id), 1);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
     // Query List Data
     List(_type: string) {
 
@@ -251,6 +277,12 @@ export class ShipReportComponent {
     }
 
     LoadData(_Record: SaveShipData) {
+        this.searchType = _Record.ssd_mode;
+        this.IndianCompany = "";
+        this.IndianPort = "NA";
+        this.ForeignPort = "NA";
+        this.Region = "NA";
+        this.ReportFormat = "SUMMARY";
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
     }
@@ -308,12 +340,13 @@ export class ShipReportComponent {
 
     OnBlur(field: string) {
         // if (field == 'ritc_code') {
-
         //     this.Record.ritc_code = this.GetSpaceTrim(this.Record.ritc_code.trim()).newstr.toUpperCase();
-
         // }
         if (field == 'newReportName') {
             this.newReportName = this.newReportName.toUpperCase();
+        }
+        if (field == 'IndianCompany') {
+            this.IndianCompany = this.IndianCompany.toUpperCase();
         }
     }
 
@@ -411,7 +444,7 @@ export class ShipReportComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (response.retval) {
-                    this.ErrorMessage = "Report Name Exist."
+                    this.ErrorMessage = "Report Name (" + Id + ") Exists.";
                     alert(this.ErrorMessage);
                 }
                 else {
