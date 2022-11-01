@@ -200,8 +200,7 @@
             <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                     <tr>
-                        <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
-                        <th *ngIf="ReportFormat=='SUMMARY'"></th>
+                        <th *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="chkallselected" (change)="OnChange('chkallselected')"></th>
                         <th>REPORT</th>
                         <th>INDIAN COMPANY</th>
                         <th>ADDRESS1</th>

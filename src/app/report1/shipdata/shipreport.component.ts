@@ -20,6 +20,8 @@ export class ShipReportComponent {
     InitCompleted: boolean = false;
     menu_record: any;
 
+    chkallselected = false;
+    updateAll = false;
     disableSave = true;
     bAdmin = false;
     loading = false;
@@ -247,6 +249,7 @@ export class ShipReportComponent {
 
 
     NewRecord() {
+        this.chkallselected = false;
         this.report_name = this.newReportName;
         this.Record = new SaveShipData();
         this.Record.ssd_report_name = this.report_name;
@@ -277,6 +280,7 @@ export class ShipReportComponent {
     }
 
     LoadData(_Record: SaveShipData) {
+        this.chkallselected = false;
         this.searchType = _Record.ssd_mode;
         this.IndianCompany = "";
         this.IndianPort = "NA";
@@ -354,6 +358,9 @@ export class ShipReportComponent {
         if (field == 'ReportFormat') {
             this.Record.ssd_List = null;
         }
+        if (field == 'chkallselected') {
+            this.SaveAll();
+        }
     }
     Close() {
         this.gs.ClosePage('home');
@@ -410,6 +417,8 @@ export class ShipReportComponent {
     }
 
     OnStatusChange(evt: any, rec: ShipmentData) {
+        if (this.updateAll)
+            return;
         this.SaveRecord = new SaveShipData();
         this.SaveList = new Array<ShipmentData>();
         this.SaveList.push(rec);
@@ -458,6 +467,45 @@ export class ShipReportComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
+    SaveAll() {
+
+
+        this.SaveRecord = new SaveShipData();
+        this.SaveList = new Array<ShipmentData>();
+        for (let rec of this.Record.ssd_List) {
+            if (this.chkallselected != rec.sd_selected) {
+                rec.sd_selected = this.chkallselected;
+                this.SaveList.push(rec);
+            }
+        }
+
+        if (this.SaveList.length <= 0)
+            return;
+
+        this.SaveRecord.ssd_mode = this.searchType;
+        this.SaveRecord.ssd_report_name = this.Record.ssd_report_name;
+        this.SaveRecord._globalvariables = this.gs.globalVariables;
+        this.SaveRecord.ssd_List = this.SaveList;
+        this.ErrorMessage = '';
+        this.updateAll = true;
+        this.mainService.Save(this.SaveRecord)
+            .subscribe(response => {
+                if (response.retval)
+                    for (let rec of this.Record.ssd_List) {
+                        if (this.chkallselected)
+                            rec.sd_report_name = this.Record.ssd_report_name;
+                        else
+                            rec.sd_report_name = '';
+                    }
+                this.updateAll = false;
+            },
+                error => {
+                    this.updateAll = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 }
