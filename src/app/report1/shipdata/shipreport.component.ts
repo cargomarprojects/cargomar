@@ -20,6 +20,7 @@ export class ShipReportComponent {
     InitCompleted: boolean = false;
     menu_record: any;
 
+    bExcel = false;
     chkallselected = false;
     updateAll = false;
     disableSave = true;
@@ -101,11 +102,14 @@ export class ShipReportComponent {
 
     InitComponent() {
         this.bAdmin = false;
+        this.bExcel = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_admin)
                 this.bAdmin = true;
+            if (this.menu_record.rights_print)
+                this.bExcel = true;
         }
         this.LoadCombo();
         this.InitCompleted = true;
@@ -152,7 +156,7 @@ export class ShipReportComponent {
 
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string) {
+    ActionHandler(action: string, id: string,_searchmode:string="") {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         if (action == 'LIST') {
@@ -173,7 +177,17 @@ export class ShipReportComponent {
             this.mode = 'EDIT';
             this.ResetControls();
             this.report_name = id;
-            this.GetRecord(id);
+
+            this.Record.ssd_report_name = this.report_name;
+            this.Record.rec_mode = this.mode;
+            this.chkallselected = false;
+            this.IndianCompany = "";
+            this.IndianPort = "NA";
+            this.ForeignPort = "NA";
+            this.Region = "NA";
+            this.ReportFormat = "SUMMARY";
+            this.searchType = _searchmode;
+            this.List2('NEW', 'EDIT');
         }
     }
 
@@ -257,40 +271,7 @@ export class ShipReportComponent {
         this.Record.ssd_report_created_date = this.gs.defaultValues.today;
         this.Record.rec_mode = this.mode;
     }
-
-
-    // Load a single Record for VIEW/EDIT
-    GetRecord(Id: string) {
-        this.loading = true;
-        let SearchData = {
-            report_name: Id,
-        };
-
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.GetRecord(SearchData)
-            .subscribe(response => {
-                this.loading = false;
-                this.LoadData(response.record);
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
-    }
-
-    LoadData(_Record: SaveShipData) {
-        this.chkallselected = false;
-        this.searchType = _Record.ssd_mode;
-        this.IndianCompany = "";
-        this.IndianPort = "NA";
-        this.ForeignPort = "NA";
-        this.Region = "NA";
-        this.ReportFormat = "SUMMARY";
-        this.Record = _Record;
-        this.Record.rec_mode = this.mode;
-    }
-
+ 
 
     // Save Data
     Save() {
@@ -366,7 +347,7 @@ export class ShipReportComponent {
         this.gs.ClosePage('home');
     }
 
-    List2(_type: string) {
+    List2(_type: string, _mode: string = "") {
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
@@ -374,6 +355,7 @@ export class ShipReportComponent {
         let SearchData = {
             pkid: this.pkid,
             type: _type,
+            mode: _mode,
             rowtype: this.type,
             report_folder: this.gs.globalVariables.report_folder,
             searchtype: this.searchType,

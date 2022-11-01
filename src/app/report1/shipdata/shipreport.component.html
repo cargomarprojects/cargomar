@@ -58,7 +58,7 @@
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr>
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name)">{{rec.ssd_report_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.ssd_report_name,rec.ssd_mode)">{{rec.ssd_report_name}}</td>
                     <td>{{rec.ssd_report_created_by}}</td>
                     <td>{{rec.ssd_report_created_date}}</td>
                     <td *ngIf="bAdmin">
@@ -171,8 +171,8 @@
                         <div class="offset-4 col-8">
                             <button [disabled]="loading" (click)="List2('NEW')"
                                 class="btn btn-primary btn-sm mt-1 mr-1">Search</button>
-                            <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')"
-                                    class="btn btn-primary btn-sm mt-1">Print</button> -->
+                            <button *ngIf="bExcel" [disabled]="loading" (click)="List2('EXCEL','')"
+                                class="btn btn-primary btn-sm mt-1">Print</button>
                         </div>
                     </div>
                 </div>
@@ -200,7 +200,8 @@
             <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                     <tr>
-                        <th *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="chkallselected" (change)="OnChange('chkallselected')"></th>
+                        <th *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="chkallselected"
+                                (change)="OnChange('chkallselected')"></th>
                         <th>REPORT</th>
                         <th>INDIAN COMPANY</th>
                         <th>ADDRESS1</th>

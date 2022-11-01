@@ -18,8 +18,8 @@ export class ShipmentReportService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    GetRecord(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+    List2(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/List2', SearchData, this.gs.headerparam2('authorized'));
     }
 
     Save(Record: SaveShipData) {
@@ -39,8 +39,6 @@ export class ShipmentReportService {
     }
 
 
-    List2(SearchData : any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentReport/List2', SearchData, this.gs.headerparam2('authorized'));
-    }
+    
 }
 
