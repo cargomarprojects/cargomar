@@ -26,6 +26,7 @@ export class ShipReportComponent {
     disableSave = true;
     bAdmin = false;
     loading = false;
+    selectedonly = false;
     currentTab = 'LIST';
 
     searchstring = '';
@@ -366,6 +367,7 @@ export class ShipReportComponent {
             region: this.Region,
             reportformat: this.ReportFormat,
             reportname: this.Record.ssd_report_name,
+            selectedonly: this.selectedonly,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,
