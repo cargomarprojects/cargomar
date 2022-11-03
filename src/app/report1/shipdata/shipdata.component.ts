@@ -35,11 +35,13 @@ export class ShipDataComponent {
     searchAddress1: string = '';
     searchAddress2: string = '';
     searchAddress3: string = '';
-    searchRegion: string = '';
-    searchCity: string = '';
+    searchRegion: string = 'NA';
+    searchCity: string = 'NA';
     searchRegionType: string = 'NA';
     searchCityType: string = 'NA';
     searchGroupBy: string = 'NA';
+    searchBlankData: string = 'REGION';
+    searchBlankType: string = 'NA';
 
     updateRegion: string = '';
     updateCity: string = '';
@@ -91,6 +93,7 @@ export class ShipDataComponent {
         this.searchRegionType = "NA";
         this.searchCityType = "NA";
         this.searchGroupBy = "NA";
+        this.searchBlankType = "NA";
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -157,7 +160,7 @@ export class ShipDataComponent {
             this.searchCity = this.searchCity.toUpperCase();
         }
     }
-    
+
     OnChange(field: string) {
         if (field == 'searchGroupBy') {
             this.RecordList = null;
@@ -193,6 +196,8 @@ export class ShipDataComponent {
             city: this.searchCity,
             regiontype: this.searchRegionType,
             citytype: this.searchCityType,
+            blankdata: this.searchBlankData,
+            blanktype: this.searchBlankType,
             groupby: this.searchGroupBy,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,

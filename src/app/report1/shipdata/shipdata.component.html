@@ -74,17 +74,26 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-4 col-form-label col-form-label-sm">Region Data</label>
+                                <!-- <label class="col-4 col-form-label col-form-label-sm">Region Data</label> -->
+                                <div class="col-4">
+                                    <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchBlankData">
+                                        <option [value]="'ADDRESS1'">Address1 Data</option>
+                                        <option [value]="'ADDRESS2'">Address2 Data</option>
+                                        <option [value]="'ADDRESS3'">Address3 Data</option>
+                                        <option [value]="'REGION'">Region Data</option>
+                                        <option [value]="'CITY'">City Data</option>
+                                    </select>
+                                </div>
                                 <div class="col-8">
                                     <select class="form-control form-control-sm" name="stype1"
-                                        [(ngModel)]="searchRegionType">
+                                        [(ngModel)]="searchBlankType">
                                         <option [value]="'NA'">NA</option>
                                         <option [value]="'BLANK'">BLANK</option>
                                         <option [value]="'NOT-BLANK'">NOT BLANK</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="col-4 col-form-label col-form-label-sm">City Data</label>
                                 <div class="col-8">
                                     <select class="form-control form-control-sm" name="stype2"
@@ -94,7 +103,7 @@
                                         <option [value]="'NOT-BLANK'">NOT BLANK</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label class="col-4 col-form-label col-form-label-sm">Group</label>
                                 <div class="col-8">
@@ -105,8 +114,8 @@
                                         <option [value]="'ADDRESS1'">ADDRESS1</option>
                                         <option [value]="'ADDRESS2'">ADDRESS2</option>
                                         <option [value]="'ADDRESS3'">ADDRESS3</option>
-                                        <!-- <option [value]="'REGION'">REGION</option>
-                                        <option [value]="'CITY'">CITY</option> -->
+                                        <option [value]="'REGION'">REGION</option>
+                                        <!-- <option [value]="'CITY'">CITY</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -225,7 +234,7 @@
                 <tr>
                     <th width="10%"><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
                     <th width="40%">{{searchGroupBy}}</th>
-                    <th width="50%">REGION</th>
+                    <th *ngIf="searchGroupBy!='REGION'" width="50%">REGION</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -237,7 +246,7 @@
                     <td *ngIf="searchGroupBy=='ADDRESS3'">{{rec.sd_address3}}</td>
                     <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_region}}</td>
                     <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_city}}</td>
-                    <td>{{rec.sd_region}}</td>
+                    <td *ngIf="searchGroupBy!='REGION'">{{rec.sd_region}}</td>
                 </tr>
             </tbody>
         </table>
