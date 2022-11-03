@@ -1,12 +1,12 @@
 <div class="page-header">
-    <div class="col-4">
+    <div class="col-6">
         <div class="form-group row">
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-primary btn-sm mr-1">List</button>
-            <label class="col-form-label col-form-label-sm mr-1">Report Name</label>
-            <input type="text" class="col form-control form-control-sm mr-1" [(ngModel)]="newReportName"
+            <label *ngIf="currentTab=='LIST'"  class="col-form-label col-form-label-sm mr-1">Report Name</label>
+            <input *ngIf="currentTab=='LIST'"  type="text" class="col form-control form-control-sm mr-1" [(ngModel)]="newReportName"
                 (blur)="OnBlur('newReportName')" />
-            <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+            <button *ngIf="currentTab=='LIST'"  [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
         </div>
     </div>
 </div>
@@ -15,12 +15,18 @@
 
     <div class="page-search">
         <div class="row">
-            <label class="col-1">Search</label>
-            <div class="col-2">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
-            </div>
-            <div class="col">
-                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
+                            name="Search" [(ngModel)]="searchstring" />
+                    </div>
+                    <div class="col-sm-1">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm">Search</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -225,8 +231,8 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.ssd_List">
                     <tr>
-                        <td *ngIf="ReportFormat=='SUMMARY'"><input type="checkbox" [(ngModel)]="rec.sd_selected"
-                                (change)="OnStatusChange($event, rec)"></td>
+                        <td *ngIf="ReportFormat=='SUMMARY'"><input *ngIf="!rec.sd_disabled" type="checkbox"
+                                [(ngModel)]="rec.sd_selected" (change)="OnStatusChange($event, rec)"></td>
                         <td>{{rec.sd_report_name}}</td>
                         <td>{{rec.sd_indian_company}}</td>
                         <td>{{rec.sd_address1}}</td>

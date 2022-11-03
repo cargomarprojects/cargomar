@@ -188,6 +188,7 @@ export class ShipReportComponent {
             this.Region = "NA";
             this.ReportFormat = "SUMMARY";
             this.searchType = _searchmode;
+            this.selectedonly = true;
             this.List2('NEW', 'EDIT');
         }
     }
@@ -334,6 +335,9 @@ export class ShipReportComponent {
         if (field == 'IndianCompany') {
             this.IndianCompany = this.IndianCompany.toUpperCase();
         }
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.toUpperCase();
+        }
     }
 
     OnChange(field: string) {
@@ -448,6 +452,7 @@ export class ShipReportComponent {
                     this.NewRecord();
                     this.mode = 'ADD';
                     this.ResetControls();
+                    this.newReportName = '';
                 }
             },
                 error => {
@@ -462,8 +467,10 @@ export class ShipReportComponent {
         this.SaveRecord = new SaveShipData();
         this.SaveList = new Array<ShipmentData>();
         for (let rec of this.Record.ssd_List) {
-            if (this.chkallselected != rec.sd_selected) {
-                this.SaveList.push(rec);
+            if (!rec.sd_disabled) {
+                if (this.chkallselected != rec.sd_selected) {
+                    this.SaveList.push(rec);
+                }
             }
         }
 
@@ -482,11 +489,13 @@ export class ShipReportComponent {
             .subscribe(response => {
                 if (response.retval)
                     for (let rec of this.Record.ssd_List) {
-                        rec.sd_selected = this.chkallselected;
-                        if (this.chkallselected)
-                            rec.sd_report_name = this.Record.ssd_report_name;
-                        else
-                            rec.sd_report_name = '';
+                        if (!rec.sd_disabled) {
+                            rec.sd_selected = this.chkallselected;
+                            if (this.chkallselected)
+                                rec.sd_report_name = this.Record.ssd_report_name;
+                            else
+                                rec.sd_report_name = '';
+                        }
                     }
                 this.updateAll = false;
             },

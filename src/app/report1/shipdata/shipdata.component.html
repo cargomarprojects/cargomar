@@ -53,15 +53,24 @@
                             <div class="form-group row">
                                 <label class="col-4 col-form-label col-form-label-sm">Region</label>
                                 <div class="col-8">
-                                    <input type="text" class="col form-control form-control-sm"
-                                        [(ngModel)]="searchRegion" (blur)="OnBlur('searchRegion')" />
+                                    <!-- <input type="text" class="col form-control form-control-sm"
+                                        [(ngModel)]="searchRegion" (blur)="OnBlur('searchRegion')" /> -->
+                                    <select class="form-control form-control-sm" [(ngModel)]="searchRegion">
+                                        <option *ngFor="let rec of RegionList" [value]="rec.param_name">
+                                            {{rec.param_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-4 col-form-label col-form-label-sm">City</label>
                                 <div class="col-8">
-                                    <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchCity"
-                                        (blur)="OnBlur('searchCity')" />
+                                    <!-- <input type="text" class="col form-control form-control-sm" [(ngModel)]="searchCity"
+                                        (blur)="OnBlur('searchCity')" /> -->
+                                    <select class="form-control form-control-sm" [(ngModel)]="searchCity">
+                                        <option *ngFor="let rec of FullCityList" [value]="rec.param_name">{{rec.param_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -105,7 +114,8 @@
                                 <div class="offset-4 col-8">
                                     <button [disabled]="loading" (click)="List('NEW')"
                                         class="btn btn-primary btn-sm mt-1 mr-1">Search</button>
-                                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')" class="btn btn-primary btn-sm mt-1">Print</button>
+                                    <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL','')"
+                                        class="btn btn-primary btn-sm mt-1">Print</button>
                                 </div>
                             </div>
                         </div>
