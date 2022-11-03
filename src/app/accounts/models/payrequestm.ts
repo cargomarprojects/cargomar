@@ -39,6 +39,7 @@ export class PayRequestm {
   pay_famt: number;
   pay_gst_famt: number;
   pay_net_famt: number;
+  pay_category:string;
   rec_mode: string;
   _globalvariables: GlobalVariables;
 
