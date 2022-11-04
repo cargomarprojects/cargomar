@@ -268,6 +268,13 @@ export class ShipReportComponent {
 
     NewRecord() {
         this.chkallselected = false;
+        this.showsentreport = false;
+        this.selectedonly = false;
+        this.IndianCompany = "";
+        this.IndianPort = "NA";
+        this.ForeignPort = "NA";
+        this.Region = "NA";
+        this.ReportFormat = "SUMMARY";
         this.report_name = this.newReportName;
         this.Record = new SaveShipData();
         this.Record.ssd_report_name = this.report_name;
@@ -374,7 +381,7 @@ export class ShipReportComponent {
             reportformat: this.ReportFormat,
             reportname: this.Record.ssd_report_name,
             selectedonly: this.selectedonly,
-            showsentreport:this.showsentreport,
+            showsentreport: this.showsentreport,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,
@@ -456,6 +463,7 @@ export class ShipReportComponent {
                     this.mode = 'ADD';
                     this.ResetControls();
                     this.newReportName = '';
+
                 }
             },
                 error => {
