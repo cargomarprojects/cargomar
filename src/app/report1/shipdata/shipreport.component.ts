@@ -27,6 +27,7 @@ export class ShipReportComponent {
     bAdmin = false;
     loading = false;
     selectedonly = false;
+    showsentreport = false;
     currentTab = 'LIST';
 
     searchstring = '';
@@ -189,6 +190,7 @@ export class ShipReportComponent {
             this.ReportFormat = "SUMMARY";
             this.searchType = _searchmode;
             this.selectedonly = true;
+            this.showsentreport = false;
             this.List2('NEW', 'EDIT');
         }
     }
@@ -372,6 +374,7 @@ export class ShipReportComponent {
             reportformat: this.ReportFormat,
             reportname: this.Record.ssd_report_name,
             selectedonly: this.selectedonly,
+            showsentreport:this.showsentreport,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,
