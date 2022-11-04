@@ -36,5 +36,9 @@ export class PayRequestService {
     ProcessRemarks(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/ProcessRemarks', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    MailPayReqPending(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/MailPayReqPending', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

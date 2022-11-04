@@ -38,6 +38,7 @@ export class PayRequestComponent {
   urlid: string;
   bDocsUpload: boolean = false;
   bExcel: boolean = false;
+  bMail: boolean = false;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -88,11 +89,14 @@ export class PayRequestComponent {
   InitComponent() {
     this.bDocsUpload = false;
     this.bExcel = false;
+    this.bMail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      if (this.menu_record.rights_email)
+        this.bMail = true;
     }
     this.InitLov();
     this.LoadCombo();
@@ -196,7 +200,7 @@ export class PayRequestComponent {
       ispaid: this.search_ispaid,
       search_mode: this.search_mode,
       search_currency: this.search_currency,
-      search_sort:this.search_sort,
+      search_sort: this.search_sort,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -412,4 +416,34 @@ export class PayRequestComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+
+  MailPayReqPending() {
+
+    if (!confirm("Do you want to Send Pending List")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      user_code: this.gs.globalVariables.user_code,
+      year_code: this.gs.globalVariables.year_code
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.MailPayReqPending(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.mailmsg.length > 0)
+          alert(response.mailmsg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }

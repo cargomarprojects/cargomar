@@ -801,6 +801,8 @@
         class="btn btn-success btn-sm">Print</button>
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && type=='IN-ES'"
         (click)="PrintInvoice('SUMMARY','PDF',Record.jvh_pkid)" class="btn btn-success btn-sm">Invoice</button>
+      <button [disabled]="loading" *ngIf="mode == 'EDIT' && type=='IN-ES'"
+        (click)="PrintInvoice('FC','PDF',Record.jvh_pkid)" class="btn btn-success btn-sm">Invoice-FC</button>
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm">Documents</button>
       <button [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>

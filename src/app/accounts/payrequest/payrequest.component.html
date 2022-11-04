@@ -77,11 +77,12 @@
           <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
           <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
             class="btn btn-primary btn-sm mr-1">Excel</button>
-          <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm">Update Paid
+          <button [disabled]="loading" (click)="ProcessRemarks()" class="btn btn-primary btn-sm mr-1">Update Paid
             Status</button>
+            <button *ngIf="bMail" [disabled]="loading" (click)="MailPayReqPending()"
+            class="btn btn-primary btn-sm">Mail</button>
         </div>
       </div>
-
     </div>
   </div>
   <div class="page-pager">
