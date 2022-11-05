@@ -27,7 +27,7 @@ export class ShipReportComponent {
     bAdmin = false;
     loading = false;
     selectedonly = false;
-    showsentreport = false;
+    showall = false;
     currentTab = 'LIST';
 
     searchstring = '';
@@ -190,7 +190,7 @@ export class ShipReportComponent {
             this.ReportFormat = "SUMMARY";
             this.searchType = _searchmode;
             this.selectedonly = true;
-            this.showsentreport = false;
+            this.showall = false;
             this.List2('NEW', 'EDIT');
         }
     }
@@ -268,7 +268,7 @@ export class ShipReportComponent {
 
     NewRecord() {
         this.chkallselected = false;
-        this.showsentreport = false;
+        this.showall = false;
         this.selectedonly = false;
         this.IndianCompany = "";
         this.IndianPort = "NA";
@@ -381,7 +381,7 @@ export class ShipReportComponent {
             reportformat: this.ReportFormat,
             reportname: this.Record.ssd_report_name,
             selectedonly: this.selectedonly,
-            showsentreport: this.showsentreport,
+            showall: this.showall,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_pkid: this.gs.globalVariables.user_pkid,

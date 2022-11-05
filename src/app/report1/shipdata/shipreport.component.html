@@ -13,6 +13,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Report Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="col form-control form-control-sm mr-1" [(ngModel)]="newReportName"
+                        (blur)="OnBlur('newReportName')" />
+                    </div>
+                    <div class="col-sm-1">
+                        <button  [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
                     <div class="col-sm-8">
                         <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
@@ -25,7 +35,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Report Name</label>
                     <div class="col-sm-8">
                         <input type="text" class="col form-control form-control-sm mr-1" [(ngModel)]="newReportName"
@@ -34,7 +44,7 @@
                     <div class="col-sm-1">
                         <button  [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -188,8 +198,8 @@
                             <span>Selected Only</span>
                         </div>
                         <div class="col-4">
-                            <input type="checkbox" [(ngModel)]="showsentreport" />
-                            <span>Show Sent Report</span>
+                            <input type="checkbox" [(ngModel)]="showall" />
+                            <span>Show All</span>
                         </div>
                     </div>
                     <div class="form-group row">
