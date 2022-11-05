@@ -38,7 +38,7 @@ export class PayRequestService {
     }
 
     MailPayReqPending(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/MailPayReqPending', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/PayRequest/MailPayReqPending', SearchData, this.gs.headerparam2('anonymous'));
     }
 }
 
