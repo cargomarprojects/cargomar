@@ -82,6 +82,7 @@
           <th *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" width="4%">APPROVED</th>
           <th *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" width="3%">BY</th>
           <th *ngIf="type=='BP'" width="3%">CHQ.PRINT</th>
+          <th class="text-center" *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -102,6 +103,9 @@
           <td *ngIf="type=='BP'||type=='CP'||type=='JV-BP'" (click)="ShowApproval(approval,rec.jvh_pkid)">
             {{rec.rec_aprvd_by}}</td>
           <td *ngIf="type=='BP'" align='center'>{{rec.jvh_chq_printed}}</td>
+          <td class="text-center" *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+            <App-Dialog *ngIf="rec.jvh_pkid" [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}" (result)="DeleteRecord($event)"></App-Dialog>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -53,6 +53,10 @@ export class LedgerService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/GetSettlementList', SearchData, this.gs.headerparam2('authorized'));
     }
     
+    DeleteRecord(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
     GenerateInvoice(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/GenerateInvoice', SearchData, this.gs.headerparam2('authorized'));
     }
@@ -60,5 +64,7 @@ export class LedgerService {
     IsRefnoDuplication(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    
 }
 

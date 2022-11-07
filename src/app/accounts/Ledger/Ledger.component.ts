@@ -480,7 +480,6 @@ export class LedgerComponent {
     }
   }
 
-
   ResetControls() {
     this.disableSave = true;
     if (!this.menu_record)
@@ -2707,6 +2706,40 @@ export class LedgerComponent {
           alert(this.ErrorMessage);
         }
 
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  DeleteRecord(event: any) {
+    if (!event.selected)
+      return;
+
+    let _id: string = event.id
+    let _name: string = event.name
+    this.ErrorMessage = '';
+    if (_id.length <= 0)
+      return;
+
+    this.loading = true;
+    let SearchData = {
+      jvh_pkid: _id,
+      docno: _name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      year_code: this.gs.globalVariables.year_code,
+      type: this.type,
+      menu_name: this.title
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.jvh_pkid == _id), 1);
       },
         error => {
           this.loading = false;
