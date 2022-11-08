@@ -216,9 +216,11 @@
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                   </div>
-                  <div *ngIf="Record.job_prefix" class="col-4">
+                  <div *ngIf="Record.job_prefix" class="col-4 input-group input-group-sm">
                     <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
                       required maxlength="65" />
+                      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="GenerateClrNo()"
+                      class="btn btn-primary btn-sm">ReGenerate</button>
                   </div>
                 </div>
               </div>

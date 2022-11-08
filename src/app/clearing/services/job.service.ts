@@ -25,6 +25,7 @@ export class JobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/Save', Record, this.gs.headerparam2('authorized'));
   }
 
+  
   DuplicateJob(Record: Jobm) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/DuplicateJob', Record, this.gs.headerparam2('authorized'));
   }
@@ -63,6 +64,11 @@ export class JobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/GetMailDetails', SearchData, this.gs.headerparam2('authorized'));
 
   }
+
+  GenerateClrNo(Record: Jobm) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/GenerateClrNo', Record, this.gs.headerparam2('authorized'));
+  }
+
 
 }
 

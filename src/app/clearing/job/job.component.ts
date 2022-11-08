@@ -45,7 +45,7 @@ export class JobComponent {
 
   bSign = false;
 
-  bCanDuplicate= false;
+  bCanDuplicate = false;
 
   searchby = '';
   searchstring = '';
@@ -150,7 +150,7 @@ export class JobComponent {
     this.job_no = "";
     this.bAdmin = false;
     this.bSign = false;
-    this.bCanDuplicate =false;
+    this.bCanDuplicate = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -159,9 +159,9 @@ export class JobComponent {
       this.bPrint = this.menu_record.rights_print;
 
       if (this.menu_record.rights_approval.length > 0) {
-        if ( this.menu_record.rights_approval.toString().indexOf("{SIGN}") >=0 )        
-            this.bSign = true;
-        if ( this.menu_record.rights_approval.toString().indexOf("{DUPLICATE}") >=0 || this.bAdmin)
+        if (this.menu_record.rights_approval.toString().indexOf("{SIGN}") >= 0)
+          this.bSign = true;
+        if (this.menu_record.rights_approval.toString().indexOf("{DUPLICATE}") >= 0 || this.bAdmin)
           this.bCanDuplicate = true;
       }
 
@@ -664,7 +664,7 @@ export class JobComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      
+
       this.currentTab = 'DETAILS';
       this.pkid = id;
       this.mode = 'EDIT';
@@ -701,7 +701,7 @@ export class JobComponent {
     return this.disableSave;
   }
 
-  
+
 
   // Query List Data
   List(_type: string) {
@@ -1232,7 +1232,7 @@ export class JobComponent {
 
   DuplicateJob() {
 
-    if ( !confirm('Generate Duplicate Job'))
+    if (!confirm('Generate Duplicate Job'))
       return;
 
 
@@ -1493,12 +1493,12 @@ export class JobComponent {
           this.Record.job_forexacno = this.Record.job_forexacno.toUpperCase();
           break;
         }
-        case 'job_vsl_name':
+      case 'job_vsl_name':
         {
           this.Record.job_vsl_name = this.Record.job_vsl_name.toUpperCase();
           break;
         }
-        case 'job_vsl_voy_no':
+      case 'job_vsl_voy_no':
         {
           this.Record.job_vsl_voy_no = this.Record.job_vsl_voy_no.toUpperCase();
           break;
@@ -1718,7 +1718,7 @@ export class JobComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   SignDoc(stext: string) {
@@ -1840,5 +1840,28 @@ export class JobComponent {
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
+  }
+
+  GenerateClrNo() {
+
+    if (!confirm("Regenerate RefNo?")) {
+      return;
+    }
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record.rec_category = this.type;
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.GenerateClrNo(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.job_docno = response.docno;
+        this.Record.job_prefix = response.jobprefix;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
