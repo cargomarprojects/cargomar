@@ -44,7 +44,7 @@ export class IncentiveComponent {
   jvno_ho = 0;
 
   IncentiveTypeList = [];
-
+  FileList: any[] = [];
   excelall = false;
   csvall = false;
 
@@ -524,7 +524,12 @@ export class IncentiveComponent {
     this.mainService.PrintList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+        // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        this.FileList = response.filelist;
+        for (let rec of this.FileList) {
+            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        }
       },
         error => {
           this.loading = false;
