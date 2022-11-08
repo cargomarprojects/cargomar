@@ -35,6 +35,7 @@ export class PayRollComponent {
   bDocs: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
+  allbranch:boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -773,7 +774,8 @@ export class PayRollComponent {
       empbrgroup: 1,
       psadmin: 'N',
       ssadmin: 'N',
-      csvamt: this.csvamt
+      csvamt: this.csvamt,
+      allbranch: this.allbranch
     }
 
     SearchData.type = _type;
@@ -792,6 +794,7 @@ export class PayRollComponent {
     SearchData.psadmin = (this.bapprovalstatus.indexOf('PS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
     SearchData.ssadmin = (this.bapprovalstatus.indexOf('SS-ADMIN') >= 0 || this.gs.globalVariables.user_code == "ADMIN") ? 'Y' : 'N';
     SearchData.csvamt = this.gs.isBlank(this.csvamt) ? '0' : this.csvamt;
+    SearchData.allbranch = this.allbranch;
 
     this.ErrorMessage = '';
     this.mainService.PrintSalarySheet(SearchData)

@@ -54,6 +54,7 @@
       <div class="col-sm-5">
         <div class="form-group row">
           <div class="col-sm-12 input-group input-group-sm">
+            <input *ngIf="bAdmin" class="form-check-input mt-2 mr-1" type="checkbox" [(ngModel)]="allbranch">
             <button [disabled]="loading" (click)="PrintSalarySheet('SALSHEET','PDF')"
               class="btn btn-primary btn-sm mr-1">SalarySheet</button>
             <button *ngIf="bapprovalstatus.indexOf('SS-ADMIN')>=0||this.gs.globalVariables.user_code=='ADMIN'"
@@ -71,7 +72,7 @@
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostPFJV()" class="btn btn-primary btn-sm  mr-1"> Post
               PF-{{pf_jvno}}-{{pf_jvno_ho}}</button>
             <button *ngIf="bAdmin" [disabled]="loading" (click)="PostLWFJV()" class="btn btn-primary btn-sm  mr-1"> Post
-                LWF-{{lwf_jvno}}</button>              
+              LWF-{{lwf_jvno}}</button>
 
             <!--             <label *ngIf="salh_jvno>0" class="col-form-label  col-form-label-sm">&nbsp;JV#&nbsp;
 
@@ -407,8 +408,8 @@
                       (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
                   <td style="padding:0"> <input *ngIf="rec.d_visible2"
-                      [disabled]="(rec.d_code2=='D14' || rec.d_code2=='D16')|| ((Record.sal_month >= 5 && Record.sal_year >= 2022) && rec.d_code2=='D15')" type="number"
-                      class="form-control form-control-sm" [(ngModel)]="rec.d_amt2"
+                      [disabled]="(rec.d_code2=='D14' || rec.d_code2=='D16')|| ((Record.sal_month >= 5 && Record.sal_year >= 2022) && rec.d_code2=='D15')"
+                      type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2"
                       (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)"
                       (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)"
                       (blur)="OnBlurTableCell('DEDUCT',rec.d_code2,2)" required maxlength="14" /> </td>
@@ -427,8 +428,8 @@
           <div class="offset-1 col-sm-9">
             <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading"
               (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
-            <button *ngIf="(!(Record.sal_month >= 5 && Record.sal_year >= 2022) || bPayrollSave)" [disabled]="loading || lock_record"
-              (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button *ngIf="(!(Record.sal_month >= 5 && Record.sal_year >= 2022) || bPayrollSave)"
+              [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               class="btn btn-success btn-sm">Documents</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
@@ -606,7 +607,8 @@
         <div class="page-box">
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading|| lock_record" (click)="UpdateDeduction()" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading|| lock_record" (click)="UpdateDeduction()"
+                class="btn btn-success btn-sm">Save</button>
               <button [disabled]="loading" (click)="Close2()" class="btn btn-success btn-sm">Close</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
