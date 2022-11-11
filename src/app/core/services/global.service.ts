@@ -917,7 +917,7 @@ export class GlobalService {
 
   public IsPayrollRecord(_acc_code: string): boolean {
     if (_acc_code == '1507' || _acc_code == '1532'
-      || _acc_code == '1535' || _acc_code == '1510' || _acc_code == '1545' || _acc_code == '1511')
+      || _acc_code == '1535' || _acc_code == '1510' || _acc_code == '1545' || _acc_code == '1511' || _acc_code == '1515')
       return true;
     else
       return false;
