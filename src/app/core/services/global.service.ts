@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.564';
+  public software_version_string: string = '1.565';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -917,10 +917,10 @@ export class GlobalService {
 
   public IsPayrollRecord(_acc_code: string): boolean {
     if (_acc_code == '1507' || _acc_code == '1532'
-      || _acc_code == '1535' || _acc_code == '1510' 
-      || _acc_code == '1545' || _acc_code == '1511' 
+      || _acc_code == '1535' || _acc_code == '1510'
+      || _acc_code == '1545' || _acc_code == '1511'
       || _acc_code == '1515001' || _acc_code == '1515002'
-      )
+    )
       return true;
     else
       return false;
