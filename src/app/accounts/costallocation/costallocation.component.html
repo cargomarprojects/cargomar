@@ -194,6 +194,7 @@
           <table class="table" style="overflow:auto;display:block;width:100%">
             <thead class="page-body-thead">
               <tr>
+                <th style="width:100px;text-align:left">INVOICE#</th>
                 <th style="width:100px;text-align:left">DATE</th>
                 <th style="width:200px;text-align:left">REF#</th>
                 <th style="width:100px;text-align:left" *ngIf ="showrem">REMARKS</th>
@@ -215,6 +216,7 @@
             </thead>
             <tbody class="page-body-tbody" style="overflow:auto;display:block;width:100%" [style.height]='getht()'>
               <tr *ngFor="let rec of PendingList">
+                <td style="width:100px;text-align:left">{{rec.jv_docno}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_display_date}}</td>
                 <td style="width:200px;max-width:200px;text-align:left">{{rec.jv_reference}}</td>
                 <td style="width:100px;max-width:100px;text-align:left" *ngIf ="showrem">{{rec.jv_remarks}}</td>

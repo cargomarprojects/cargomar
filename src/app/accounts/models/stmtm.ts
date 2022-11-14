@@ -67,6 +67,7 @@ export class Stmtd {
   jv_debit: number;
   jv_credit: number;
   jv_exchange_rate: number;
+  jv_docno:string;
   inrbalance: number;
   inrallocation: number; 
   amount: number;
