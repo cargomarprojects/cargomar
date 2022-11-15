@@ -136,7 +136,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class=" form-group row">
-                                <label class="col-4 col-form-label col-form-label-sm">Region</label>
+                                <label (click)="LoadCombo()" class="col-4 col-form-label col-form-label-sm hlink">Region</label>
                                 <div class="col-4">
                                     <select class="form-control form-control-sm" [(ngModel)]="updateRegion"
                                         (change)="OnChange('updateRegion')">
@@ -234,7 +234,8 @@
                 <tr>
                     <th width="10%"><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
                     <th width="40%">{{searchGroupBy}}</th>
-                    <th *ngIf="searchGroupBy!='REGION'" width="50%">REGION</th>
+                    <th *ngIf="searchGroupBy!='REGION'" width="20%">REGION</th>
+                    <th  width="30%">SHIPMENT NOS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -247,6 +248,7 @@
                     <td *ngIf="searchGroupBy=='REGION'">{{rec.sd_region}}</td>
                     <td *ngIf="searchGroupBy=='CITY'">{{rec.sd_city}}</td>
                     <td *ngIf="searchGroupBy!='REGION'">{{rec.sd_region}}</td>
+                    <td>{{rec.sd_shipment}}</td>
                 </tr>
             </tbody>
         </table>
