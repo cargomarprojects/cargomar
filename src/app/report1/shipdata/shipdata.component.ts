@@ -276,7 +276,33 @@ export class ShipDataComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                this.List('NEW');
+
+                for (let rec of this.RecordList2) {
+                    if (this.searchGroupBy == "NA") {
+                        this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_pkid == rec.sd_pkid), 1);
+                    } else {
+                        if (this.searchGroupBy == "CUSTOMER") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_indian_company == rec.sd_indian_company), 1);
+                        }
+                        else if (this.searchGroupBy == "ADDRESS1") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_address1 == rec.sd_address1), 1);
+                        }
+                        else if (this.searchGroupBy == "ADDRESS2") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_address2 == rec.sd_address2), 1);
+                        }
+                        else if (this.searchGroupBy == "ADDRESS3") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_address3 == rec.sd_address3), 1);
+                        }
+                        else if (this.searchGroupBy == "REGION") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_region == rec.sd_region), 1);
+                        }
+                        else if (this.searchGroupBy == "CITY") {
+                            this.RecordList.splice(this.RecordList.findIndex(rec2 => rec2.sd_city == rec.sd_city), 1);
+                        }
+                    }
+                }
+
+                // this.List('NEW');
                 // alert("Save Complete");
             },
                 error => {
