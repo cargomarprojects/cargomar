@@ -2780,7 +2780,7 @@ export class LedgerComponent {
 
   Showmail(mailsent: any) {
     if (this.gs.isBlank(this.RecordMailList)) {
-      alert('Please select rows and continue......');
+      alert('Please select VRNOS to approval and continue......');
       return;
     }
     this.ErrorMessage = '';
