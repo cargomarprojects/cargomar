@@ -75,6 +75,7 @@ export class MailComponent {
 
   poftptype_id: string = '';
   PoFtpTypeList: any[] = [];
+  innerHtmlHt: string = '';
 
   customer_name: string = '';
   ErrorMessage = "";
@@ -107,6 +108,10 @@ export class MailComponent {
       this.ftptypecaption = 'COSTING-FTP';
     else
       this.ftptypecaption = 'BL-FTP';
+    if (this.type == 'BP-APPROVAL')
+      this.innerHtmlHt = '200px';
+    else
+      this.innerHtmlHt = '';
     this.ftptype = this.default_ftptype;
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
@@ -126,6 +131,7 @@ export class MailComponent {
     this.InitLov();
     this.customer_name = '';
     this.catg_id = 'OTHERS';
+
   }
 
   InitLov() {
@@ -210,7 +216,7 @@ export class MailComponent {
 
     if (bret === false) {
       this.ErrorMessage = sError;
-      alert( this.ErrorMessage);
+      alert(this.ErrorMessage);
     }
     return bret;
   }
@@ -259,7 +265,7 @@ export class MailComponent {
     this.ErrorMessage = '';
     if (controlname == "maillist" && this.type.trim().length <= 0) {
       this.ErrorMessage = "Invalid Type";
-      alert ( this.ErrorMessage);
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -327,7 +333,7 @@ export class MailComponent {
         this.InfoMessage = '';
         if (_type == "MAIL") {
           this.InfoMessage = response.smtpmail;
-          if (this.ModifiedRecords != null && this.type == "DESPATCH-DETAILS")
+          if (this.ModifiedRecords != null && (this.type == "DESPATCH-DETAILS" || this.type == "BP-APPROVAL"))
             this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
 
           // Auto ftp Sent
@@ -392,13 +398,13 @@ export class MailComponent {
         }
         else if (_type == "SAVE") {
           this.InfoMessage = "Save Complete";
-          alert( this.InfoMessage);
+          alert(this.InfoMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -415,7 +421,7 @@ export class MailComponent {
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
 
-    if (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP'||_ftp_type == 'BOOKING-FTP') {
+    if (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP' || _ftp_type == 'BOOKING-FTP') {
       if (this.ftptype_id.trim().length <= 0) {
         this.ErrorMessage += "\n\r | FTP To Cannot Be Blank";
         alert(this.ErrorMessage);
@@ -460,7 +466,7 @@ export class MailComponent {
     let filename: string = "";
     let filenameack: string = "";
 
-    if (this.FtpAttachList != null && (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP'|| _ftp_type == 'BOOKING-FTP')) {
+    if (this.FtpAttachList != null && (_ftp_type == 'BL-FTP' || _ftp_type == 'PO-FTP' || _ftp_type == 'BOOKING-FTP')) {
       for (let rec of this.FtpAttachList) {
         if (rec.filecategory != 'OTHERS') {
           if (filename != "")

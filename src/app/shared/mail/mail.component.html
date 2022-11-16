@@ -28,7 +28,7 @@
     <div class="row">
       <div class="col-sm-12">
         <!-- <div style="height: 400px; overflow-y: scroll;"> -->
-        <div >
+        <div>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group row">
@@ -104,8 +104,8 @@
             </div>
           </div>
 
-
-          <div *ngIf="sHtml" class="form-group row">
+          <div *ngIf="sHtml" [style.height]="innerHtmlHt!=''?innerHtmlHt:'auto'"
+            [style.overflow-y]="innerHtmlHt!=''?'scroll':'auto'" class="form-group row">
             <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
             <div class="col-sm-11">
               <div class="page-box">
@@ -271,4 +271,3 @@
   </div>
   <br />
 </div>
-

@@ -54,7 +54,7 @@ export class LedgerComponent {
   bChqprint: boolean = true;
   bChqboxvisible: boolean = false;
   selectedRowIndex = 0;
-
+  bMail: boolean = false;
   modal: any;
 
   disableSave = true;
@@ -119,6 +119,10 @@ export class LedgerComponent {
   TANRECORD: SearchTable = new SearchTable();
   TPRECORD: SearchTable = new SearchTable();
 
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -154,6 +158,7 @@ export class LedgerComponent {
   InitComponent() {
     this.bapprovalstatus = "";
     this.bDocs = false;
+    this.bMail = false;
     this.bChqprint = true;
     if (this.gs.defaultValues.print_cheque_only_after_ho_approved == 'Y')
       this.bChqprint = false;
@@ -166,6 +171,8 @@ export class LedgerComponent {
       this.title = this.title.toUpperCase();
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+        if (this.menu_record.rights_email)
+        this.bMail = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
@@ -2771,17 +2778,65 @@ export class LedgerComponent {
     }
   }
 
-  Showmail(moneytransfer: any) {
+  Showmail(mailsent: any) {
+    if (this.gs.isBlank(this.RecordMailList)) {
+      alert('Please select rows and continue......');
+      return;
+    }
     this.ErrorMessage = '';
-    this.open(moneytransfer);
+    this.AttachList = new Array<any>();
+    // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+    this.setMailBody();
+    this.open(mailsent);
   }
 
-  IsSelected4Mail(_jvhid: string) {
-    let bRet: boolean = false;
-    var REC = this.RecordMailList.find(rec => rec.jvh_pkid == _jvhid);
-    if (REC != null)
-      bRet = true;
-    return bRet;
+  setMailBody() {
+
+    let _str: string = "";
+    this.RecordMailList.forEach(rec => {
+      if (_str != "")
+        _str += ",";
+      _str += rec.jvh_vrno.toString();
+    });
+    this.sSubject = "Pending Bank Payment Approval of BP# " + _str;
+
+    _str = "";
+    this.sHtml = " <html>";
+    this.sHtml += "<body style='font-family=Calibri;'>";
+    // this.sHtml += "<br> ";
+    this.sHtml += " Dear Sir/ Madam,<br>";
+    this.sHtml += this.sSubject + "<br><br>";
+
+    this.sHtml += "<table border=1 cellspacing=0   borderColor=grey > ";
+    this.sHtml += "<tr style='font-family=Calibri;background-color: lightblue; font-size: 09pt;'>";
+    this.sHtml += "<th style='text-align: left;' >VRNO</th>";
+    this.sHtml += "<th style='text-align: left;' >DATE</th>";
+    this.sHtml += "<th style='text-align: left;' >AMOUNT</th>";
+    this.sHtml += "<th style='text-align: left;' >NARRATION</th>";
+    this.sHtml += "</tr>";
+    this.RecordMailList.forEach(rec => {
+      this.sHtml += "<tr style='font-family=Calibri;font-size: 09pt;'>";
+      this.sHtml += "<td align='left'>" + rec.jvh_docno + "</td>";
+      this.sHtml += "<td align='left'>" + rec.jvh_date + "</td>";
+      _str = this.gs.roundNumber(rec.jvh_debit, 2).toString();
+      this.sHtml += "<td align='right'>" + _str + "</td>";
+      this.sHtml += "<td align='left'>" + rec.jvh_narration + "</td>";
+      this.sHtml += "</tr>";
+    });
+
+    this.sHtml += " </table>";
+    this.sHtml += " </body>";
+    this.sHtml += " </html>";
+
   }
+
+  MailCallback(params: any) {
+    this.RecordMailList = new Array<Ledgerh>();
+    this.RecordList.forEach(rec => {
+      rec.jvh_selected=false;
+    });
+    this.modal.close();
+  }
+
 
 }
