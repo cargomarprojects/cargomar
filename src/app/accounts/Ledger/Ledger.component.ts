@@ -99,10 +99,11 @@ export class LedgerComponent {
 
   CCList: CostCentert[] = [];
 
-
   PendingListRecords: pendinglist[] = [];
 
   Recorddet: Ledgert = new Ledgert;
+
+  RecordMailList: Ledgerh[] = [];
 
   PARTYRECORD: SearchTable = new SearchTable();
   PARTYADDRECORD: SearchTable = new SearchTable();
@@ -525,6 +526,13 @@ export class LedgerComponent {
         this.page_count = response.page_count;
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
+        if (!this.gs.isBlank(this.RecordMailList) && !this.gs.isBlank(this.RecordList)) {
+          this.RecordMailList.forEach(rec => {
+            for (let rec2 of this.RecordList.filter(rec2 => rec2.jvh_pkid == rec.jvh_pkid)) {
+              rec2.jvh_selected = true;
+            }
+          });
+        }
       },
         error => {
           this.loading = false;
@@ -2746,6 +2754,34 @@ export class LedgerComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  OnCheckedChange(evt: any, _rec: Ledgerh) {
+    if (this.RecordMailList == null)
+      return;
+    var REC = this.RecordMailList.find(rec => rec.jvh_pkid == _rec.jvh_pkid);
+    if (REC == null) {
+      if (_rec.jvh_selected)
+        this.RecordMailList.push(_rec);
+    }
+    else {
+      if (!_rec.jvh_selected) {
+        this.RecordMailList.splice(this.RecordMailList.findIndex(rec => rec.jvh_pkid == _rec.jvh_pkid), 1);
+      }
+    }
+  }
+
+  Showmail(moneytransfer: any) {
+    this.ErrorMessage = '';
+    this.open(moneytransfer);
+  }
+
+  IsSelected4Mail(_jvhid: string) {
+    let bRet: boolean = false;
+    var REC = this.RecordMailList.find(rec => rec.jvh_pkid == _jvhid);
+    if (REC != null)
+      bRet = true;
+    return bRet;
   }
 
 }
