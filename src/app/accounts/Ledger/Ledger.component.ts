@@ -2812,6 +2812,8 @@ export class LedgerComponent {
     this.sHtml += "<th style='text-align: left;' >VRNO</th>";
     this.sHtml += "<th style='text-align: left;' >DATE</th>";
     this.sHtml += "<th style='text-align: left;' >AMOUNT</th>";
+    this.sHtml += "<th style='text-align: left;' >APPROVED</th>";
+    this.sHtml += "<th style='text-align: left;' >BY</th>";
     this.sHtml += "<th style='text-align: left;' >NARRATION</th>";
     this.sHtml += "</tr>";
     this.RecordMailList.forEach(rec => {
@@ -2820,6 +2822,8 @@ export class LedgerComponent {
       this.sHtml += "<td align='left'>" + rec.jvh_date + "</td>";
       _str = this.gs.roundNumber(rec.jvh_debit, 2).toString();
       this.sHtml += "<td align='right'>" + _str + "</td>";
+      this.sHtml += "<td align='left'>" + rec.rec_aprvd_status + "</td>";
+      this.sHtml += "<td align='left'>" + rec.rec_aprvd_by + "</td>";
       this.sHtml += "<td align='left'>" + rec.jvh_narration + "</td>";
       this.sHtml += "</tr>";
     });
