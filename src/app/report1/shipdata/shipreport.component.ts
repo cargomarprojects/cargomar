@@ -241,7 +241,7 @@ export class ShipReportComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
+            searchstring: this.searchstring.trim().toUpperCase(),
             company_code: this.gs.globalVariables.comp_code,
             page_count: this.page_count,
             page_current: this.page_current,
@@ -374,7 +374,7 @@ export class ShipReportComponent {
             rowtype: this.type,
             report_folder: this.gs.globalVariables.report_folder,
             searchtype: this.searchType,
-            indiancompany: this.IndianCompany,
+            indiancompany: this.IndianCompany.trim(),
             indianport: this.IndianPort,
             foreignport: this.ForeignPort,
             region: this.Region,
