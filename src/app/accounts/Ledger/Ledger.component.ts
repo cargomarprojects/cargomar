@@ -171,7 +171,7 @@ export class LedgerComponent {
       this.title = this.title.toUpperCase();
       if (this.menu_record.rights_docs)
         this.bDocs = true;
-        if (this.menu_record.rights_email)
+      if (this.menu_record.rights_email)
         this.bMail = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
@@ -2837,7 +2837,7 @@ export class LedgerComponent {
   MailCallback(params: any) {
     this.RecordMailList = new Array<Ledgerh>();
     this.RecordList.forEach(rec => {
-      rec.jvh_selected=false;
+      rec.jvh_selected = false;
     });
     this.modal.close();
   }

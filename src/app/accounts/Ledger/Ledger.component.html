@@ -90,7 +90,7 @@
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
-          <td *ngIf="bMail&&(type=='BP'||type=='JV-BP')"><input type="checkbox"
+          <td *ngIf="bMail&&(type=='BP'||type=='JV-BP')"><input type="checkbox" [disabled]="rec.rec_aprvd_status==''||rec.rec_aprvd=='Y'"
             [(ngModel)]="rec.jvh_selected" (change)="OnCheckedChange($event, rec)"></td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
