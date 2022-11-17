@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SaveShipData, ShipmentData } from '../models/shipmentdata';
@@ -21,6 +22,7 @@ export class ShipReportComponent {
     menu_record: any;
 
     bExcel = false;
+    bEmail = false;
     chkallselected = false;
     updateAll = false;
     disableSave = true;
@@ -43,6 +45,7 @@ export class ShipReportComponent {
 
     sub: any;
     urlid: string;
+    modal: any;
 
     searchType: string = 'EXPORT';
     IndianCompany: string = '';
@@ -60,6 +63,11 @@ export class ShipReportComponent {
     ErrorMessage = "";
     InfoMessage = "";
 
+    sSubject: string = '';
+    sMsg: string = '';
+    sHtml: string = '';
+    AttachList: any[] = [];
+
     mode = '';
     pkid = '';
     report_name = '';
@@ -69,6 +77,7 @@ export class ShipReportComponent {
     Record: SaveShipData = new SaveShipData;
 
     constructor(
+        private modalService: NgbModal,
         private mainService: ShipmentReportService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -105,6 +114,7 @@ export class ShipReportComponent {
     InitComponent() {
         this.bAdmin = false;
         this.bExcel = false;
+        this.bEmail = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -112,6 +122,8 @@ export class ShipReportComponent {
                 this.bAdmin = true;
             if (this.menu_record.rights_print)
                 this.bExcel = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
         }
         this.LoadCombo();
         this.InitCompleted = true;
@@ -191,7 +203,7 @@ export class ShipReportComponent {
             this.searchType = _searchmode;
             this.selectedonly = true;
             this.showall = false;
-            this.List2('NEW', 'EDIT');
+            this.List2('NEW', 'EDIT', '');
         }
     }
 
@@ -361,7 +373,7 @@ export class ShipReportComponent {
         this.gs.ClosePage('home');
     }
 
-    List2(_type: string, _mode: string = "") {
+    List2(_type: string, _mode: string = "", mailsent: any = '') {
         this.chkallselected = false;
         this.InfoMessage = "";
         this.ErrorMessage = '';
@@ -398,6 +410,13 @@ export class ShipReportComponent {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else if (_type == 'MAIL') {
+                    this.AttachList = new Array<any>();
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.open(mailsent);
+                }
                 else {
                     this.Record.ssd_List = response.list;
                     this.page_count2 = response.page_count;
@@ -515,5 +534,9 @@ export class ShipReportComponent {
                     this.ErrorMessage = this.gs.getError(error);
                     alert(this.ErrorMessage);
                 });
+    }
+
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 }
