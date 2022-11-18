@@ -315,7 +315,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SHIPMENT-DATA-MARKETING'" [sHtml]="sHtml" [defaultmessage]="sMsg"
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="gs.globalVariables.user_code+'-SHIPMENT-DATA-MARKETING'" [sHtml]="sHtml" [defaultmessage]="sMsg"
             [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
     </div>
 </ng-template>
