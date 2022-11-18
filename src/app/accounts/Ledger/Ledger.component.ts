@@ -2791,6 +2791,8 @@ export class LedgerComponent {
   }
 
   setMailBody() {
+     //sort list by vrno
+    this.RecordMailList = this.RecordMailList.sort((a, b) => a.jvh_vrno < b.jvh_vrno ? -1 : a.jvh_vrno > b.jvh_vrno ? 1 : 0);
 
     let _str: string = "";
     this.RecordMailList.forEach(rec => {
@@ -2798,6 +2800,7 @@ export class LedgerComponent {
         _str += ",";
       _str += rec.jvh_vrno.toString();
     });
+
     this.sSubject = "Pending Bank Payment Approval of BP# " + _str;
 
     _str = "";
@@ -2827,7 +2830,6 @@ export class LedgerComponent {
       this.sHtml += "<td align='left'>" + rec.jvh_narration + "</td>";
       this.sHtml += "</tr>";
     });
-
     this.sHtml += " </table>";
     this.sHtml += " </body>";
     this.sHtml += " </html>";
