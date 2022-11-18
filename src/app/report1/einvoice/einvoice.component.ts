@@ -412,7 +412,6 @@ export class EinvoiceComponent {
 
   getIRN(rec: GstReport) {
     this.ErrorMessage = '';
-
     if (rec.jvh_pkid.trim().length <= 0) {
       this.ErrorMessage = "No Valid Record";
       alert(this.ErrorMessage);
@@ -450,6 +449,46 @@ export class EinvoiceComponent {
     }
   }
 
+  ChangeInvStatus(rec: GstReport) {
+    this.ErrorMessage = '';
+    if (rec.jvh_pkid.trim().length <= 0) {
+      this.ErrorMessage = "No Valid Record";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (rec.jvh_einv_status == "G") {
+      this.ErrorMessage = "Cannot Change Status, IRN Issued";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm("Change Invoice Status ")) {
+      return;
+    }
+
+    this.loading = true;
+    this.SearchData.pkid = rec.jvh_pkid;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+
+    this.ErrorMessage = '';
+    this.mainService.ChangeInvStatus(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        rec.jvh_einv_status = response.status;
+        alert('Changed Successfully');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
 
 
 

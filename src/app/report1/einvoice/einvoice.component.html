@@ -144,10 +144,12 @@
           <td *ngIf="rec.jvh_einv_status != 'G' && rec.jvh_einv_status != 'B'" >
             <input class="pointer" type="checkbox" [(ngModel)]="rec.jvh_beinv_status" (change)="OnStatusChange($event, rec)">
           </td>
-          <td *ngIf="rec.jvh_einv_status == 'G' || rec.jvh_einv_status == 'B'" >
+          <td *ngIf="gs.globalVariables.user_code != 'ADMIN'&&(rec.jvh_einv_status == 'G' || rec.jvh_einv_status == 'B')" >
             {{rec.jvh_einv_status}}
           </td>
-          
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'&&(rec.jvh_einv_status == 'G' || rec.jvh_einv_status == 'B')" class="hlink" (click)="ChangeInvStatus(rec)">
+            {{rec.jvh_einv_status}}
+          </td>
           <td>{{rec.ack_no}}</td>
           <td>{{rec.ack_date}}</td>
 
