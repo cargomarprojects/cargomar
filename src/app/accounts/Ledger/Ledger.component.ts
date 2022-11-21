@@ -2902,7 +2902,7 @@ export class LedgerComponent {
     this.mainService.GenerateAllInvoice(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ErrorMessage = "Generate All Invoice Complete";
+        this.ErrorMessage = "Generate Complete (Reports/COSTING-INVOICE/" + this.gs.globalVariables.branch_code + "/" + this.gs.globalVariables.year_code + ")";
         alert(this.ErrorMessage);
       },
         error => {
