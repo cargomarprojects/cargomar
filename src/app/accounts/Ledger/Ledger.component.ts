@@ -2879,9 +2879,12 @@ export class LedgerComponent {
       report_format: '',
       menuadmin: '',
       from_date: this.fromdate,
-      to_date: this.todate
+      to_date: this.todate,
+      year_code: '',
+      print_in_temp: false
     }
 
+    SearchData.type = this.type;
     SearchData.pkid = '';
     SearchData.report_format = 'FC';
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -2892,16 +2895,20 @@ export class LedgerComponent {
     SearchData.menuadmin = "N";
     SearchData.from_date = this.fromdate;
     SearchData.to_date = this.todate;
-    
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.print_in_temp = false;
+
     this.loading = true;
     this.mainService.GenerateAllInvoice(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Generate All Invoice Complete";
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
