@@ -65,6 +65,8 @@ export class LedgerService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    
+    GenerateAllInvoice(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Report/GenerateAllInvoice', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

@@ -55,6 +55,7 @@ export class LedgerComponent {
   bChqboxvisible: boolean = false;
   selectedRowIndex = 0;
   bMail: boolean = false;
+  bAdmin: boolean = false;
   modal: any;
 
   disableSave = true;
@@ -159,6 +160,7 @@ export class LedgerComponent {
     this.bapprovalstatus = "";
     this.bDocs = false;
     this.bMail = false;
+    this.bAdmin = false;
     this.bChqprint = true;
     if (this.gs.defaultValues.print_cheque_only_after_ho_approved == 'Y')
       this.bChqprint = false;
@@ -173,6 +175,8 @@ export class LedgerComponent {
         this.bDocs = true;
       if (this.menu_record.rights_email)
         this.bMail = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
     }
@@ -2791,7 +2795,7 @@ export class LedgerComponent {
   }
 
   setMailBody() {
-     //sort list by vrno
+    //sort list by vrno
     this.RecordMailList = this.RecordMailList.sort((a, b) => a.jvh_vrno < b.jvh_vrno ? -1 : a.jvh_vrno > b.jvh_vrno ? 1 : 0);
 
     let _str: string = "";
@@ -2844,5 +2848,61 @@ export class LedgerComponent {
     this.modal.close();
   }
 
+  GenerateAll() {
+    this.ErrorMessage = '';
+
+    let msg: string = "";
+    msg = "Generate ALL Invoice of " + this.gs.globalVariables.branch_name;
+    msg += " From ";
+    if (this.gs.isBlank(this.fromdate))
+      msg += this.gs.ConvertDate2DisplayFormat(this.gs.globalVariables.year_start_date);
+    else
+      msg += this.gs.ConvertDate2DisplayFormat(this.fromdate);
+    msg += " To ";
+    if (this.gs.isBlank(this.todate))
+      msg += this.gs.ConvertDate2DisplayFormat(this.gs.globalVariables.year_end_date);
+    else
+      msg += this.gs.ConvertDate2DisplayFormat(this.todate);
+    if (!confirm(msg)) {
+      return;
+    }
+
+    let SearchData = {
+      type: '',
+      araptype: '',
+      pkid: '',
+      report_folder: '',
+      folderid: '',
+      company_code: '',
+      branch_code: '',
+      report_caption: '',
+      report_format: '',
+      menuadmin: '',
+      from_date: this.fromdate,
+      to_date: this.todate
+    }
+
+    SearchData.pkid = '';
+    SearchData.report_format = 'FC';
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.folderid = '';
+    SearchData.report_caption = "INVOICE";
+    SearchData.menuadmin = "N";
+    SearchData.from_date = this.fromdate;
+    SearchData.to_date = this.todate;
+    
+    this.loading = true;
+    this.mainService.GenerateAllInvoice(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = "Generate All Invoice Complete";
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
 }
