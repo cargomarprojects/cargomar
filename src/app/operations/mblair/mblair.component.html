@@ -728,7 +728,7 @@
 
       <ngb-tab title="Expense/Booking" *ngIf="mode == 'EDIT'">
         <ng-template ngbTabContent>
-          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXP-BOOKING'"></app-jobincome>
+          <app-jobincome [parentid]="'E-'+pkid" [type]="type" [subtype]="'EXP-BOOKING'"></app-jobincome>
         </ng-template>
       </ngb-tab>
 

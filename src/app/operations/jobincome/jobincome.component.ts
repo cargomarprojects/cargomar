@@ -831,7 +831,8 @@ export class JobIncomeComponent {
       report_caption: '',
       parentid: '',
       comp_code: '',
-      incometype: ''
+      incometype: '',
+      subtype: this.subtype
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;

@@ -74,12 +74,12 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
         <tr (click)="ActionHandler('EDIT',rec.inv_pkid)">
-          <td >{{i+1}}</td>
+          <td>{{i+1}}</td>
           <td>{{rec.inv_source}}</td>
           <td>{{rec.inv_acc_code}}</td>
-          
-          <td [ngStyle]="{'color': (rec.inv_is_rebate2) ? 'red' : 'black'}" >{{rec.inv_acc_name}}</td>
-          
+
+          <td [ngStyle]="{'color': (rec.inv_is_rebate2) ? 'red' : 'black'}">{{rec.inv_acc_name}}</td>
+
 
           <td>{{rec.inv_cntr_type}}</td>
           <td>{{rec.inv_type}}</td>
@@ -142,8 +142,8 @@
           <label class="col-1 col-form-label col-form-label-sm">Type</label>
           <div class="col-2">
             <select class="form-control form-control-sm" [(ngModel)]="Record.inv_type">
-              <option *ngIf="subtype=='INCOME'" value="PREPAID">PREPAID</option>
-              <option value="COLLECT">COLLECT</option>
+              <option *ngIf="subtype=='INCOME'||subtype=='EXP-BOOKING'" value="PREPAID">PREPAID</option>
+              <option *ngIf="subtype!='EXP-BOOKING'" value="COLLECT">COLLECT</option>
             </select>
           </div>
 
@@ -234,7 +234,8 @@
         class="btn btn-default btn-sm">PRINT</button>
       <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm">Load Quotation</button>
 
-      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)" class="btn btn-success btn-sm">History</button>
+      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+        class="btn btn-success btn-sm">History</button>
 
     </div>
   </div>
@@ -263,7 +264,8 @@
               (blur)="OnBlur('inv_rebate2_exrate')" required maxlength="10" />
           </div>
           <div class="col-1">
-            <button [disabled]="lock_record || Record.inv_rebate2_posted" (click)="SaveSpecialRebate()" class="btn btn-success btn-sm">SAVE
+            <button [disabled]="lock_record || Record.inv_rebate2_posted" (click)="SaveSpecialRebate()"
+              class="btn btn-success btn-sm">SAVE
               SPECIAL REBATE</button>
           </div>
         </div>
