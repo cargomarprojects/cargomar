@@ -726,6 +726,12 @@
         </ng-template>
       </ngb-tab> -->
 
+      <ngb-tab title="Expense/Booking" *ngIf="mode == 'EDIT'">
+        <ng-template ngbTabContent>
+          <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXP-BOOKING'"></app-jobincome>
+        </ng-template>
+      </ngb-tab>
+
       <ngb-tab title="Buy Rate-Collect" *ngIf="mode == 'EDIT'">
         <ng-template ngbTabContent>
           <app-jobincome [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'"></app-jobincome>
