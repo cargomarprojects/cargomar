@@ -367,6 +367,10 @@ export class JobIncomeComponent {
       this.Record.inv_type = 'COLLECT';
       this.Record.inv_drcr = 'DR';
     }
+    if (this.subtype == 'EXP-BOOKING') {
+      this.Record.inv_type = 'PREPAID';
+      this.Record.inv_drcr = 'DR';
+    }
 
     this.Record.inv_ctr = 0;
 
