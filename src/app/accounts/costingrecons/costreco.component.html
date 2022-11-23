@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -57,8 +56,11 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+              <button [disabled]="loading" (click)="List('EXP-BOOKING-EXCEL')" class="btn btn-primary btn-sm">Booking
+                Excel</button>
             </div>
           </div>
         </div>
@@ -112,7 +114,7 @@
             <td>{{rec.ntwt}}</td>
             <td>{{rec.teu}}</td>
             <td>{{rec.cbm}}</td>
-            
+
 
             <td>{{rec.jvh_narration}}</td>
           </tr>
@@ -214,5 +216,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
-

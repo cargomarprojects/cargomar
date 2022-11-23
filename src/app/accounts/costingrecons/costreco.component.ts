@@ -71,7 +71,7 @@ export class CostrecoComponent {
     code: '',
     main_code: false,
     format2: false,
-    hide_ho_entries : ''
+    hide_ho_entries: ''
   };
 
   // Array For Displaying List
@@ -201,14 +201,14 @@ export class CostrecoComponent {
     this.mainService.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL' || _type == 'EXP-BOOKING-EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
           this.isclr = response.isclr;
           this.isimp = response.isimp;
           this.codecount = response.codecount
-          if ( this.codecount > 1) {
+          if (this.codecount > 1) {
             var splitted = this.code.split(",");
             if (this.codecount >= 1) {
               this.coldr0 = splitted[0] + "-DR";
@@ -226,11 +226,11 @@ export class CostrecoComponent {
 
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
