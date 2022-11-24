@@ -94,8 +94,8 @@
           </app-autocomplete>
         </div>
         <div class="col-2">
-        <button [disabled]="loading" (click)="Copy()" class="btn btn-primary btn-sm">Copy</button>
-      </div>
+          <button [disabled]="loading" (click)="Copy()" class="btn btn-primary btn-sm">Copy</button>
+        </div>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
     </div>
   </div>
 
-  <div class="table-responsive" style="border:1px solid grey; margin-bottom:1px;">
+  <div class="table-responsive" style="border:1px solid grey; margin-bottom:1px; height:650px;">
     <table class="table table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
@@ -155,8 +155,11 @@
     <button [disabled]="loading" (click)="Return2Parent()" class="btn btn-primary btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
-
-
+  <div>
+    <p>
+      Air Export - Master Air Export - Approvals <b> {{'{PP}{COST}{CL}'}} </b>PP-Prepaid Tab;COST- Air Cost Tab;CL-CheckList
+    </p>
+  </div>
 </div>
 
 <div *ngIf="ErrorMessage" class="alert alert-info">

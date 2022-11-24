@@ -34,6 +34,9 @@ export class UserService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/User/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    LockAll(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/User/LockAll', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 

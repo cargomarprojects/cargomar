@@ -314,5 +314,5 @@ export class UserComponent {
     Close() {
         this.gs.ClosePage('home');
     }
-
+ 
 }

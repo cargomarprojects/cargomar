@@ -29,6 +29,10 @@ export class MblAirComponent {
   bAdmin = false;
   bDocs = false;
 
+  bCheckList = false;
+  bAirCostTab = false;
+  bPrepaidTab = false;
+
   modal: any;
   folder_id: string;
   chk_foldersent: boolean = false;
@@ -119,6 +123,9 @@ export class MblAirComponent {
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
+    this.bAirCostTab = false;
+    this.bPrepaidTab = false;
+    this.bCheckList = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     this.bAdmin = false;
     this.bDocs = false;
@@ -128,6 +135,14 @@ export class MblAirComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_approval.length > 0) {
+        if (this.menu_record.rights_approval.toString().indexOf('{COST}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bAirCostTab = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{PP}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bPrepaidTab = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{CL}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bCheckList = true;
+      }
     }
     this.InitLov();
     this.LoadCombo();

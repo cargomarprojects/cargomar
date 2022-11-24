@@ -693,7 +693,7 @@
                   class="btn btn-success btn-sm">Save</button>
                 <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                   class="btn btn-success btn-sm">Return</button>
-                <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
+                <button *ngIf="mode=='EDIT' && bCheckList" [disabled]="loading"
                   (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                   class="btn btn-success btn-sm">MAWB</button>
@@ -739,7 +739,7 @@
       </ngb-tab>
 
 
-      <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'">
+      <ngb-tab title="Buy Rate-Prepaid" *ngIf="mode == 'EDIT'  && bPrepaidTab">
         <ng-template ngbTabContent>
           <app-buyrate [parentid]="pkid" [type]="type" [subtype]="'EXPENSE'" [mbl_no]="Record.mbl_no"
             [master_lock]="Record.lock_record"></app-buyrate>
@@ -747,7 +747,7 @@
       </ngb-tab>
 
 
-      <ngb-tab title="Air Cost" *ngIf="mode=='EDIT' && bAdmin">
+      <ngb-tab title="Air Cost" *ngIf="mode=='EDIT' && bAirCostTab">
         <ng-template ngbTabContent>
           <app-aircost [parentid]="pkid" [type]="type"></app-aircost>
         </ng-template>
