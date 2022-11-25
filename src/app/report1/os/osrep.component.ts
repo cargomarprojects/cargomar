@@ -81,7 +81,7 @@ export class OsRepComponent {
     filter_branch_code: '',
     filter_sman_id: '',
     filter_sman_name: '',
-    isheader:false
+    isheader: false
   };
 
   ChildData = {
@@ -342,7 +342,29 @@ export class OsRepComponent {
         });
   }
 
+  //not used for testing automatic mail sent by powershell
+  AutoMail() {
+    let eSearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      email_type: 'OS-DELHI',
+      report_folder: this.gs.globalVariables.report_folder,
+      auto_mail: "Y"
+    };
 
+    this.ErrorMessage = '';
+    this.gs.SendEmail(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Message Send')
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 
   // Query List Data
   AirListReport(_type: string, _category: string) {
@@ -514,7 +536,7 @@ export class OsRepComponent {
 
 
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 }
