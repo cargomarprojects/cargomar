@@ -56,7 +56,10 @@ export class AddReportsComponent {
         branch_name: '',
         year_code: '',
         from_date: '',
-        to_date: ''
+        to_date: '',
+        user_pkid: this.gs.globalVariables.user_pkid,
+        user_code: this.gs.globalVariables.user_code,
+        auto_mail: "N"
     };
 
     sSubject: string = '';
