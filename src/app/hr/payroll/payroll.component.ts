@@ -35,7 +35,7 @@ export class PayRollComponent {
   bDocs: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
-  allbranch:boolean = false;
+  allbranch: boolean = false;
   bRemove: boolean = false;
   bChanged: boolean;
   disableSave = true;
@@ -72,7 +72,7 @@ export class PayRollComponent {
   InfoMessage = "";
   csvamt: string;
   docpkid: string;
-
+  FileList: any[] = [];
   SalDetails: any[] = [];
   mode = '';
   pkid = '';
@@ -800,11 +800,18 @@ export class PayRollComponent {
     this.mainService.PrintSalarySheet(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        if (response.filename2.length > 0)
-          this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
-        if (response.filename3.length > 0)
-          this.Downloadfile(response.filename3, response.filetype3, response.filedisplayname3);
+        this.FileList = response.filelist;
+        if (this.gs.isBlank(this.FileList)) {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          if (response.filename2.length > 0)
+            this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
+          if (response.filename3.length > 0)
+            this.Downloadfile(response.filename3, response.filetype3, response.filedisplayname3);
+        } else {
+          for (let rec of this.FileList) {
+            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+          }
+        }
       },
         error => {
           this.loading = false;
