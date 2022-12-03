@@ -325,7 +325,7 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-    
+    /*
     AutoEmail1()
     {
           this.loading = true; //MIS report
@@ -379,4 +379,5 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
+    */
 }
