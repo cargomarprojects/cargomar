@@ -325,8 +325,8 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-    /*
-    AutoEmail1()
+    /* 
+    AutoEmail()
     {
           this.loading = true; //MIS report
         let eSearchData = {
@@ -353,7 +353,7 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-    AutoEmail()
+    AutoEmail1()
     {
         this.loading = true; //Volume report
         let eSearchData = {
@@ -379,5 +379,5 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
-    */
+     */
 }
