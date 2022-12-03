@@ -325,4 +325,58 @@ export class AddReportsComponent {
                     this.ErrorMessage = this.gs.getError(error);
                 });
     }
+    
+    AutoEmail1()
+    {
+          this.loading = true; //MIS report
+        let eSearchData = {
+            user_pkid: "C2AD01C8-0585-403D-83D7-4C2E8854EE5C",
+            user_code: "ADMIN",
+            company_code: this.gs.globalVariables.comp_code,
+            type: 'MAIL',
+            report_folder: this.gs.globalVariables.report_folder,
+            auto_mail: "Y",
+            from_date: "2022-11-28",
+            to_date: "2022-12-04"
+          };
+
+        this.ErrorMessage = '';
+        this.mainService.SalesReport(eSearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+                if(response.retvalue)
+                alert('Sent')
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+    AutoEmail()
+    {
+        this.loading = true; //Volume report
+        let eSearchData = {
+            user_pkid: "C2AD01C8-0585-403D-83D7-4C2E8854EE5C",
+            user_code: "ADMIN",
+            company_code: this.gs.globalVariables.comp_code,
+            type: 'MAIL',
+            report_folder: this.gs.globalVariables.report_folder,
+            auto_mail: "Y",
+            to_date: "2022-11-28"
+          };
+
+        this.ErrorMessage = '';
+        this.mainService.List(eSearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+                if(response.retvalue)
+                alert('Sent')
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
 }
