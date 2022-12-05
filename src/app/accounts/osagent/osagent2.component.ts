@@ -138,7 +138,7 @@ export class OsAgent2Component {
     this.Init();
     this.LoadCombo();
     this.InitLov();
-    this.List('NEW','SUMMARY');
+    this.List('NEW', 'SUMMARY');
   }
   Init() {
 
@@ -295,7 +295,7 @@ export class OsAgent2Component {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
@@ -321,4 +321,32 @@ export class OsAgent2Component {
   Close() {
     this.gs.ClosePage('home');
   }
+  /*
+  AutoEmail() {
+    this.loading = true; //Agent Summary report
+    let eSearchData = {
+      user_pkid: "C2AD01C8-0585-403D-83D7-4C2E8854EE5C",
+      user_code: "ADMIN",
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      type: 'MAIL',
+      report_folder: this.gs.globalVariables.report_folder,
+      category_type:'AGING',
+      to_date:"2022-12-05"
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.OsAgent2(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        if (response.retvalue)
+          alert('Sent')
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  */
 }
