@@ -321,6 +321,7 @@ export class OsAgent2Component {
   Close() {
     this.gs.ClosePage('home');
   }
+ 
   /*
   AutoEmail() {
     this.loading = true; //Agent Summary report
