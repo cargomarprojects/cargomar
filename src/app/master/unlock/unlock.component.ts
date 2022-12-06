@@ -134,6 +134,8 @@ export class UnLockComponent {
       { "code": "HBL-SE", "name": "Sea Export Shipping Instructions" },
       { "code": "HBL-SI", "name": "Sea Import Shipping Instructions" },
       { "code": "JOB-GN", "name": "General Job" },
+      { "code": "JOB-AE", "name": "Air Export Job" },
+      { "code": "JOB-SE", "name": "Sea Export Job" },
       { "code": "AIR EXPORT COSTING", "name": "Air Export Costing" },
       { "code": "SEA EXPORT COSTING", "name": "Sea Export Costing" },
       { "code": "SE CONSOLE COSTING", "name": "Sea Console Costing" },
@@ -210,6 +212,8 @@ export class UnLockComponent {
         this.refnotitle = "Job#";
       }else if (this.moduletype == "FUND-TRANSFER") {
         this.refnotitle = "Ref#";
+      }else if (this.moduletype == "JOB-AE" || this.moduletype == "JOB-SE") {
+        this.refnotitle = "Job#";
       }
       else if (this.moduletype.indexOf('HR-') == 0) {
         if(this.moduletype =="HR-RE-JVPOST")
