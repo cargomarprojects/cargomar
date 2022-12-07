@@ -715,7 +715,8 @@ export class CostingComponent {
             this.Record.cost_agent_br_no = response.costing[0].cost_agent_br_no;
             this.Record.cost_agent_br_addr = response.costing[0].cost_agent_br_addr;
 
-            this.Record.cost_date = this.Record.cost_sob_date;
+            // this.Record.cost_date = this.Record.cost_sob_date;
+            this.Record.cost_date = this.gs.defaultValues.today;
             this.Record.cost_jv_agent_id = this.Record.cost_agent_id;
             this.Record.cost_jv_agent_code = this.Record.cost_agent_code;
             this.Record.cost_jv_agent_name = this.Record.cost_agent_name;
