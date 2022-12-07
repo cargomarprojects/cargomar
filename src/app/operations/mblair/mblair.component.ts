@@ -28,7 +28,7 @@ export class MblAirComponent {
   currentPage = 'ROOTPAGE';
   bAdmin = false;
   bDocs = false;
-
+  bPrint = false;
   bCheckList = false;
   bAirCostTab = false;
   bPrepaidTab = false;
@@ -129,12 +129,14 @@ export class MblAirComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     this.bAdmin = false;
     this.bDocs = false;
+    this.bPrint = false;
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      this.bPrint = this.menu_record.rights_print;
       if (this.menu_record.rights_approval.length > 0) {
         if (this.menu_record.rights_approval.toString().indexOf('{COST}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
           this.bAirCostTab = true;
@@ -466,7 +468,8 @@ export class MblAirComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.mbl_fromdate,
-      to_date: this.gs.globalData.mbl_todate
+      to_date: this.gs.globalData.mbl_todate,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.ErrorMessage = '';
@@ -474,10 +477,14 @@ export class MblAirComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;

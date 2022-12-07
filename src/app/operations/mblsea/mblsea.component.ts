@@ -533,7 +533,7 @@ export class MblSeaComponent {
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.mbl_fromdate,
       to_date: this.gs.globalData.mbl_todate,
-      report_folder: this.gs.globalVariables.report_folder,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.ErrorMessage = '';
