@@ -76,6 +76,7 @@ export class ArApComponent {
   sub: any;
   urlid: string;
   submodal: any;
+  bShowPasteData: boolean = false;
 
   ProcessPendingList: boolean = false;
 
@@ -2535,6 +2536,17 @@ export class ArApComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  PasteData(content: any) {
+    this.bShowPasteData = true;
+    this.open(content) ;
+  }
+
+  PasteDataClosed(cbdata: string) {
+    this.bShowPasteData = false;
+    // this.ChangeInvoiceList(true, 'NEW');        
+    this.modal.close();
   }
 
 }

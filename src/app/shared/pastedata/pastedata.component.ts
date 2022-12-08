@@ -151,11 +151,44 @@ export class PasteDataComponent implements OnInit {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
+
+
+
+  Save() {
+
+
+    if (this.loading)
+      return;
+
+    this.loading = true;
+
+    this.data.type = this.ExcelFormat;
+    this.data.comp_code = this.gs.globalVariables.comp_code;
+    this.data.branch_code = this.gs.globalVariables.branch_code;
+    this.data.year_code = this.gs.globalVariables.year_code;
+    this.data.cbdata = this.cbdata;
+    this.data._globalvariables = this.gs.globalVariables;
+    this.ErrorMessage = '';
+    this.gs.importData(this.data)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Import Data Complete');
+        this.close();
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
+  }
+
   verify() {
 
+    if (this.gs.isBlank(this.cbdata)) {
+      alert('Records Not Found');
+      return;
+    }
     this.result = this.cbdata.split("\n");
-
-
 
     this.htmldata = '';
     this.htmldata += '<div class="page-body table-responsive">';
@@ -197,33 +230,14 @@ export class PasteDataComponent implements OnInit {
     this.isVerified = true;
   }
 
-
-  Save() {
-
-
-    if ( this.loading)
+  ok2() {
+    if (this.gs.isBlank(this.result)) {
+      alert('Please Verify and Continue.....');
       return;
+    }
 
-    this.loading =true;
-
-    this.data.type = this.ExcelFormat;
-    this.data.comp_code = this.gs.globalVariables.comp_code;
-    this.data.branch_code = this.gs.globalVariables.branch_code;
-    this.data.year_code = this.gs.globalVariables.year_code;
-    this.data.cbdata = this.cbdata;
-    this.data._globalvariables = this.gs.globalVariables;
-    this.ErrorMessage = '';
-    this.gs.importData(this.data)
-      .subscribe(response => {
-        this.loading = false;
-        alert('Import Data Complete');
-        this.close();
-      },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
-
+    if (this.CloseClicked != null)
+      this.CloseClicked.emit(this.result);
   }
 
 

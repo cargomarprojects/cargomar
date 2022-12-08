@@ -21,6 +21,7 @@
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
         <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm mr-1">Print</button>
+        <button  *ngIf="type=='PN-CI'"  [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-primary btn-sm mr-1">Paste Data</button>
       </div>
     </div>
   </div>
@@ -831,5 +832,17 @@
   <div class="modal-body">
     <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)">
     </app-approval>
+  </div>
+</ng-template>
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Paste Data</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-PasteData [visible]="bShowPasteData"  [ExcelFormat]="'PN-CI-GE'" [version]="2"  (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   </div>
 </ng-template>
