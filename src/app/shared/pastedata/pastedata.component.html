@@ -27,7 +27,7 @@
       <div class="col-2" *ngIf="version == 0">
         <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>
       </div>
-      
+
       <div class="col-2" *ngIf="version == 1">
         <button class="btn btn-primary btn-sm" (click)="Save()">OK</button>
       </div>
@@ -52,11 +52,111 @@
   <i *ngIf="loading" class="fa fa-spinner"></i>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-12">
     <div class="form-group row">
       <div class="col-12">
-        <div [innerHTML]="htmldata"></div>
+        <div class="page-box" [style.height]="innerHtmlDivHt!=''?innerHtmlDivHt:'auto'"
+          [style.overflow-y]="innerHtmlDivHt!=''?'scroll':'auto'">
+          <div [innerHTML]="htmldata"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="row">
+  <div class="col-sm-12">
+    <div class="form-group row">
+      <div class="col-12">
+        <div class="page-box" [style.height]="innerHtmlDivHt!=''?innerHtmlDivHt:'auto'"
+          [style.overflow-y]="innerHtmlDivHt!=''?'scroll':'auto'">
+          <div #templatee ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="version == 2" class="row">
+  <div class="col-sm-12">
+    <div class="page-box">
+      <div class="page-body table-responsive">
+        <div [style.height]="Record.DetList.length>5?'400px':'auto'"
+          [style.overflow-y]="Record.DetList.length>5?'scroll':'auto'">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th *ngIf="Record.hdr_col1">{{Record.hdr_col1}}</th>
+                <th *ngIf="Record.hdr_col2">{{Record.hdr_col2}}</th>
+                <th *ngIf="Record.hdr_col3">{{Record.hdr_col3}}</th>
+                <th *ngIf="Record.hdr_col4">{{Record.hdr_col4}}</th>
+                <th *ngIf="Record.hdr_col5">{{Record.hdr_col5}}</th>
+                <th *ngIf="Record.hdr_col6">{{Record.hdr_col6}}</th>
+                <th *ngIf="Record.hdr_col7">{{Record.hdr_col7}}</th>
+                <th *ngIf="Record.hdr_col8">{{Record.hdr_col8}}</th>
+                <th *ngIf="Record.hdr_col9">{{Record.hdr_col9}}</th>
+                <th *ngIf="Record.hdr_col10">{{Record.hdr_col10}}</th>
+                <th *ngIf="Record.hdr_col11">{{Record.hdr_col11}}</th>
+                <th *ngIf="Record.hdr_col12">{{Record.hdr_col12}}</th>
+                <th *ngIf="Record.hdr_col13">{{Record.hdr_col13}}</th>
+                <th *ngIf="Record.hdr_col14">{{Record.hdr_col14}}</th>
+                <th *ngIf="Record.hdr_col15">{{Record.hdr_col15}}</th>
+                <th *ngIf="Record.hdr_col16">{{Record.hdr_col16}}</th>
+                <th *ngIf="Record.hdr_col17">{{Record.hdr_col17}}</th>
+                <th *ngIf="Record.hdr_col18">{{Record.hdr_col18}}</th>
+                <th *ngIf="Record.hdr_col19">{{Record.hdr_col19}}</th>
+                <th *ngIf="Record.hdr_col20">{{Record.hdr_col20}}</th>
+                <th *ngIf="Record.hdr_col21">{{Record.hdr_col21}}</th>
+                <th *ngIf="Record.hdr_col22">{{Record.hdr_col22}}</th>
+                <th *ngIf="Record.hdr_col23">{{Record.hdr_col23}}</th>
+                <th *ngIf="Record.hdr_col24">{{Record.hdr_col24}}</th>
+                <th *ngIf="Record.hdr_col25">{{Record.hdr_col25}}</th>
+                <th *ngIf="Record.hdr_col26">{{Record.hdr_col26}}</th>
+                <th *ngIf="Record.hdr_col27">{{Record.hdr_col27}}</th>
+                <th *ngIf="Record.hdr_col28">{{Record.hdr_col28}}</th>
+                <th *ngIf="Record.hdr_col29">{{Record.hdr_col29}}</th>
+                <th *ngIf="Record.hdr_col30">{{Record.hdr_col30}}</th>
+                <th >DEL</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+              <tr *ngFor="let rec of Record.DetList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                <td *ngIf="Record.hdr_col1">{{rec.row_col1}}</td>
+                <td *ngIf="Record.hdr_col2">{{rec.row_col2}}</td>
+                <td *ngIf="Record.hdr_col3">{{ rec.row_col3}}</td>
+                <td *ngIf="Record.hdr_col4">{{ rec.row_col4}}</td>
+                <td *ngIf="Record.hdr_col5">{{ rec.row_col5}}</td>
+                <td *ngIf="Record.hdr_col6">{{ rec.row_col6}}</td>
+                <td *ngIf="Record.hdr_col7">{{ rec.row_col7}}</td>
+                <td *ngIf="Record.hdr_col8">{{ rec.row_col8}}</td>
+                <td *ngIf="Record.hdr_col9">{{ rec.row_col9}}</td>
+                <td *ngIf="Record.hdr_col10">{{rec.row_col10}}</td>
+                <td *ngIf="Record.hdr_col11">{{rec.row_col11}}</td>
+                <td *ngIf="Record.hdr_col12">{{rec.row_col12}}</td>
+                <td *ngIf="Record.hdr_col13">{{rec.row_col13}}</td>
+                <td *ngIf="Record.hdr_col14">{{rec.row_col14}}</td>
+                <td *ngIf="Record.hdr_col15">{{rec.row_col15}}</td>
+                <td *ngIf="Record.hdr_col16">{{rec.row_col16}}</td>
+                <td *ngIf="Record.hdr_col17">{{rec.row_col17}}</td>
+                <td *ngIf="Record.hdr_col18">{{rec.row_col18}}</td>
+                <td *ngIf="Record.hdr_col19">{{rec.row_col19}}</td>
+                <td *ngIf="Record.hdr_col20">{{rec.row_col20}}</td>
+                <td *ngIf="Record.hdr_col21">{{rec.row_col21}}</td>
+                <td *ngIf="Record.hdr_col22">{{rec.row_col22}}</td>
+                <td *ngIf="Record.hdr_col23">{{rec.row_col23}}</td>
+                <td *ngIf="Record.hdr_col24">{{rec.row_col24}}</td>
+                <td *ngIf="Record.hdr_col25">{{rec.row_col25}}</td>
+                <td *ngIf="Record.hdr_col26">{{rec.row_col26}}</td>
+                <td *ngIf="Record.hdr_col27">{{rec.row_col27}}</td>
+                <td *ngIf="Record.hdr_col28">{{rec.row_col28}}</td>
+                <td *ngIf="Record.hdr_col29">{{rec.row_col29}}</td>
+                <td *ngIf="Record.hdr_col30">{{rec.row_col30}}</td>
+                <td class="p-0 text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="DeleteRow(rec)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
