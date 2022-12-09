@@ -360,7 +360,7 @@ export class PasteDataComponent implements OnInit {
       alert('Please Verify and Continue.....');
       return;
     }
-    this.result = (this.Record.hdr_col1 != "") ? "\t" + this.Record.hdr_col1 : "";
+    this.result = (this.Record.hdr_col1 != "") ? this.Record.hdr_col1 : "";
     this.result += (this.Record.hdr_col2 != "") ? "\t" + this.Record.hdr_col2 : "";
     this.result += (this.Record.hdr_col3 != "") ? "\t" + this.Record.hdr_col3 : "";
     this.result += (this.Record.hdr_col4 != "") ? "\t" + this.Record.hdr_col4 : "";
@@ -392,7 +392,7 @@ export class PasteDataComponent implements OnInit {
     this.result += (this.Record.hdr_col30 != "") ? "\t" + this.Record.hdr_col30 : "";
     for (let rec of this.Record.DetList) {
       this.result += "\n";
-      this.result += (this.Record.hdr_col1 != "") ? "\t" + rec.row_col1 : "";
+      this.result += (this.Record.hdr_col1 != "") ? rec.row_col1 : "";
       this.result += (this.Record.hdr_col2 != "") ? "\t" + rec.row_col2 : "";
       this.result += (this.Record.hdr_col3 != "") ? "\t" + rec.row_col3 : "";
       this.result += (this.Record.hdr_col4 != "") ? "\t" + rec.row_col4 : "";
