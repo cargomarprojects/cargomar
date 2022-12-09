@@ -1810,6 +1810,16 @@ export class ArApComponent {
       }
     }
 
+
+    if (this.Recorddet.jv_drcr == 'DR') {
+      if (this.gs.IsWrongDrCode(this.Recorddet.jv_acc_code)) {
+        this.ErrorMessage = this.Recorddet.jv_acc_code + ' is debited only when transferred to HO, continue with debit balance?';
+        if (!confirm(this.ErrorMessage))
+          return;
+      }
+    }
+
+
     this.Recorddet.jv_qty = this.Recorddet.jv_qty;
     this.Recorddet.jv_rate = this.Recorddet.jv_rate;
 
@@ -2540,7 +2550,7 @@ export class ArApComponent {
 
   PasteData(content: any) {
     this.bShowPasteData = true;
-    this.open(content) ;
+    this.open(content);
   }
 
   PasteDataClosed(cbdata: string) {

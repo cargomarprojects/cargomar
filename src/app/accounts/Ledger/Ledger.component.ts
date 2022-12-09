@@ -1599,7 +1599,6 @@ export class LedgerComponent {
     let bok = true;
     let cctotal: number = 0;
 
-
     if (this.Recorddet.jv_acc_id == null) {
       this.ErrorMessage = 'A/c code Cannot Be Blank';
       alert(this.ErrorMessage);
@@ -1929,6 +1928,13 @@ export class LedgerComponent {
       }
     }
 
+    if (this.Recorddet.jv_drcr == 'DR') {
+      if (this.gs.IsWrongDrCode(this.Recorddet.jv_acc_code)) {
+        this.ErrorMessage = this.Recorddet.jv_acc_code + ' is debited only when transferred to HO, continue with debit balance?';
+        if (!confirm(this.ErrorMessage))
+          return;
+      }
+    }
 
     if (this.Recorddet.jv_drcr == "DR") {
       this.Recorddet.jv_row_type = 'DR-LEDGER';

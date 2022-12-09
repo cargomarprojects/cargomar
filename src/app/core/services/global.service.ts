@@ -954,5 +954,30 @@ export class GlobalService {
       return false;
 
   }
+  
+  public IsWrongDrCode(jv_acc_code: string) {
+    if (jv_acc_code == '195'
+      || jv_acc_code == '194IA'
+      || jv_acc_code == 'TDSPAY'
+      || jv_acc_code == '194H'
+      || jv_acc_code == '194C'
+      || jv_acc_code == '194'
+      || jv_acc_code == '194A'
+      || jv_acc_code == '194J'
+      || jv_acc_code == '194I'
+      || jv_acc_code == '192B'
+    )
+      return true;
+    else
+      return false;
 
+  }
+  public IsWrongCrCode(jv_acc_code: string) {
+    if (jv_acc_code == ''
+    )
+      return true;
+    else
+      return false;
+
+  }
 }
