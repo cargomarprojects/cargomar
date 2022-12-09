@@ -78,7 +78,7 @@
   </div>
 </div> -->
 
-<div *ngIf="version == 2" class="row">
+<div *ngIf="version == 2 && Record.hdr_col1" class="row">
   <div class="col-sm-12">
     <div class="page-box">
       <div class="page-body table-responsive">
@@ -117,7 +117,7 @@
                 <th *ngIf="Record.hdr_col28">{{Record.hdr_col28}}</th>
                 <th *ngIf="Record.hdr_col29">{{Record.hdr_col29}}</th>
                 <th *ngIf="Record.hdr_col30">{{Record.hdr_col30}}</th>
-                <th >DEL</th>
+                <th *ngIf="Record.hdr_col1">DEL</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -152,7 +152,7 @@
                 <td *ngIf="Record.hdr_col28">{{rec.row_col28}}</td>
                 <td *ngIf="Record.hdr_col29">{{rec.row_col29}}</td>
                 <td *ngIf="Record.hdr_col30">{{rec.row_col30}}</td>
-                <td class="p-0 text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="DeleteRow(rec)"></i></td>
+                <td *ngIf="Record.hdr_col1" class="p-0 text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="DeleteRow(rec)"></i></td>
               </tr>
             </tbody>
           </table>

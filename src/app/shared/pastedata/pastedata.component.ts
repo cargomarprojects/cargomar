@@ -88,6 +88,7 @@ export class PasteDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.Record = new PasteDatam;
   }
 
   ngAfterViewChecked() {
