@@ -265,12 +265,8 @@ export class PasteDataComponent implements OnInit {
       alert('Records Not Found');
       return;
     }
-    this.innerHtmlDivHt = '400px';
+
     this.result = this.cbdata.trim().split("\n");
-
-    let dRow: PasteDatad = new PasteDatad;
-    let detList: PasteDatad[] = new Array<PasteDatad>();
-
     var colhead = this.result[0].split('\t');
     for (var i = 0; i < colhead.length; i++) {
       if (this.gs.isBlank(colhead[i])) {
@@ -278,7 +274,8 @@ export class PasteDataComponent implements OnInit {
         return;
       }
     }
-
+    
+    let dRow: PasteDatad = new PasteDatad;
     this.Record = new PasteDatam;
     this.Record.hdr_pkid = this.gs.getGuid();
     this.Record.hdr_col1 = colhead.length > 0 ? colhead[0] : "";
@@ -356,13 +353,14 @@ export class PasteDataComponent implements OnInit {
     }
     this.isVerified = true;
   }
+
   ok2() {
 
-    if (this.gs.isBlank(this.Record)) {
+    if (this.gs.isBlank(this.Record.DetList)) {
       alert('Please Verify and Continue.....');
       return;
     }
-    this.result = this.Record.hdr_col1;
+    this.result = (this.Record.hdr_col1 != "") ? "\t" + this.Record.hdr_col1 : "";
     this.result += (this.Record.hdr_col2 != "") ? "\t" + this.Record.hdr_col2 : "";
     this.result += (this.Record.hdr_col3 != "") ? "\t" + this.Record.hdr_col3 : "";
     this.result += (this.Record.hdr_col4 != "") ? "\t" + this.Record.hdr_col4 : "";
@@ -394,7 +392,7 @@ export class PasteDataComponent implements OnInit {
     this.result += (this.Record.hdr_col30 != "") ? "\t" + this.Record.hdr_col30 : "";
     for (let rec of this.Record.DetList) {
       this.result += "\n";
-      this.result += rec.row_col1;
+      this.result += (this.Record.hdr_col1 != "") ? "\t" + rec.row_col1 : "";
       this.result += (this.Record.hdr_col2 != "") ? "\t" + rec.row_col2 : "";
       this.result += (this.Record.hdr_col3 != "") ? "\t" + rec.row_col3 : "";
       this.result += (this.Record.hdr_col4 != "") ? "\t" + rec.row_col4 : "";

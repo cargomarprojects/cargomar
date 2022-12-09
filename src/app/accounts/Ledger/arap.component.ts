@@ -2555,6 +2555,7 @@ export class ArApComponent {
 
   PasteDataClosed(cbdata: string) {
     this.bShowPasteData = false;
+    //var strdata = cbdata.split('\n');
     // this.ChangeInvoiceList(true, 'NEW');        
     this.modal.close();
   }
