@@ -30,5 +30,8 @@ export class PostingService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  IsBackDateEntry(SearchData: any) {
+  return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/IsBackDateEntry', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

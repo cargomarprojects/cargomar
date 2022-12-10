@@ -46,19 +46,19 @@ export class PostingComponent {
   ErrorMessage = "";
 
   mode = '';
-  
-  
+
+
 
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
 
   // Array For Displaying List
-  
+
   // Single Record for add/edit/view details
   Record: Posting = new Posting;
 
-  
-  
+
+
   HORECORD: SearchTable = new SearchTable();
   BRRECORD: SearchTable = new SearchTable();
 
@@ -70,7 +70,7 @@ export class PostingComponent {
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    
+
     this.page_count = 0;
     this.page_rows = 15;
     this.page_current = 0;
@@ -94,13 +94,13 @@ export class PostingComponent {
     this.InitLov();
 
     this.GetRecord(this.pkid);
-    
+
 
   }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-  
+
   }
 
   LoadCombo() {
@@ -145,10 +145,10 @@ export class PostingComponent {
   }
 
 
-  
+
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "HO") {
-      this.Record.jv_ho_id  = _Record.id;
+      this.Record.jv_ho_id = _Record.id;
       this.Record.jv_ho_code = _Record.code;
       this.Record.jv_ho_name = _Record.name;
     }
@@ -172,7 +172,7 @@ export class PostingComponent {
   }
 
 
-  
+
 
   ResetControls() {
     this.disableSave = true;
@@ -190,7 +190,7 @@ export class PostingComponent {
   }
 
   // Query List Data
-  
+
 
   NewRecord() {
 
@@ -207,7 +207,7 @@ export class PostingComponent {
   GetRecord(Id: string) {
     this.loading = true;
 
-    this.einvstatus  ='';
+    this.einvstatus = '';
 
     let SearchData = {
       pkid: Id,
@@ -221,22 +221,22 @@ export class PostingComponent {
         this.LockErrorMessage = response.lockedmsg;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Posting) {
     this.Record = _Record;
 
-    if ( this.Record.jvh_einv_status == 'G')
+    if (this.Record.jvh_einv_status == 'G')
       this.einvstatus = 'EINVOICE STATUS : GENERATED';
-    if ( this.Record.jvh_einv_status == 'B')
+    if (this.Record.jvh_einv_status == 'B')
       this.einvstatus = 'EINVOICE STATUS : B2B';
 
     this.InitLov();
-    
+
     this.FRTRECORD.id = this.Record.jv_frt_id;
     this.FRTRECORD.code = this.Record.jv_frt_code;
     this.FRTRECORD.name = this.Record.jv_frt_name;
@@ -254,9 +254,44 @@ export class PostingComponent {
     this.AGENTRECORD.name = this.Record.jv_agent_name;
 
     this.Record.rec_mode = this.mode;
-    
+
   }
 
+
+  IsBackDateEntry() {
+
+    let eSearchData = {
+      company_code: '',
+      branch_code: '',
+      year_code: '',
+      jv_date: ''
+    };
+
+    eSearchData.company_code = this.gs.globalVariables.comp_code;
+    eSearchData.branch_code = this.gs.globalVariables.branch_code;
+    eSearchData.year_code = this.gs.globalVariables.year_code;
+    eSearchData.jv_date = this.Record.jv_date;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.IsBackDateEntry(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue) {
+          this.ErrorMessage = response.retstring;
+          if (confirm(this.ErrorMessage)) {
+            this.Save();
+          }
+        } else {
+          this.Save();
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  
 
   // Save Data
   Save() {
@@ -273,12 +308,12 @@ export class PostingComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -298,7 +333,7 @@ export class PostingComponent {
     }
 
     if (this.LockErrorMessage.length > 0) {
-        sError += "| Cannot Save, " + this.LockErrorMessage;
+      sError += "| Cannot Save, " + this.LockErrorMessage;
     }
 
     if (this.Record.jv_ho_id.trim().length <= 0) {
