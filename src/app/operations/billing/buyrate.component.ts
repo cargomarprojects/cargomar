@@ -112,7 +112,7 @@ export class BuyRateComponent {
 
   CNTRTYPERECORD: SearchTable = new SearchTable();
 
-
+  ExpBookingList: Ledgert[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -2316,6 +2316,33 @@ export class BuyRateComponent {
         this.loading = false;
         this.currentTab = 'LIST';
         this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  LoadExpBooking() {
+    // if (this.gs.isBlank(this.RecordList)) {
+    //   alert('List Not Found');
+    //   return;
+    // }
+    // if (!confirm("Update Paid Status")) {
+    //   return;
+    // }
+
+    this.loading = true;
+    let SearchData = {
+      type: this.type,
+      parentid: 'E-' + this.parentid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadExpBooking(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
       },
         error => {
           this.loading = false;

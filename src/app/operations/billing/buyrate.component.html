@@ -232,6 +232,7 @@
     <div>
       <button [disabled]="loading" (click)="ActionHandlerDetail('LIST','')" class="btn btn-link">List</button>
       <button [disabled]="loading" (click)="ActionHandlerDetail('ADD','')" class="btn btn-link">Add Record</button>
+      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="LoadExpBooking()" class="btn btn-link">Load Expense/Booking</button>
     </div>
     <div *ngIf="DetailTab=='LIST'">
       <div class="page-body table-responsive">
