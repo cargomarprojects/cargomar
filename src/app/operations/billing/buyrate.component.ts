@@ -20,8 +20,6 @@ import { pendinglist } from '../models/pendinglist';
 import { SearchTable } from '../../shared/models/searchtable';
 import { ok } from 'assert';
 
-
-
 @Component({
   selector: 'app-buyrate',
   templateUrl: './buyrate.component.html',
@@ -2368,6 +2366,7 @@ export class BuyRateComponent {
           this.Ok();
         }
         this.ActionHandlerDetail("LIST", null);
+        this.FindTotal();
 
       },
         error => {
