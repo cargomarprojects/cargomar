@@ -18,6 +18,7 @@ import { LedgerXref } from '../models/ledgerxref';
 import { pendinglist } from '../models/pendinglist';
 
 import { SearchTable } from '../../shared/models/searchtable';
+import { ok } from 'assert';
 
 
 
@@ -1831,6 +1832,9 @@ export class BuyRateComponent {
       if (!this.Record.jvh_rc)
         rec.jv_net_total = rec.jv_total + rec.jv_gst_amt;
 
+      //This is new added to round row net total from 13/12/2022
+      rec.jv_net_total = this.gs.roundNumber(rec.jv_net_total, 2);
+
       cgstamt += rec.jv_cgst_amt;
       sgstamt += rec.jv_sgst_amt;
       igstamt += rec.jv_igst_amt;
@@ -2323,18 +2327,32 @@ export class BuyRateComponent {
         });
   }
   LoadExpBooking() {
-    // if (this.gs.isBlank(this.RecordList)) {
-    //   alert('List Not Found');
-    //   return;
-    // }
-    // if (!confirm("Update Paid Status")) {
-    //   return;
-    // }
+
+    if (!this.gs.isBlank(this.Record.LedgerList)) {
+      alert('Cannot load details exist');
+      return;
+    }
+
+    if (!this.Record.jvh_gst) {
+      alert('GST not selected');
+      return;
+    }
+
+    if (this.gs.isBlank(this.Record.jvh_acc_name) || this.gs.isBlank(this.Record.jvh_acc_id)) {
+      alert('Party cannot be blank');
+      return;
+    }
+    if (this.gs.isBlank(this.Record.jvh_acc_br_address) || this.gs.isBlank(this.Record.jvh_acc_br_id)) {
+      alert('Party address cannot be blank');
+      return;
+    }
 
     this.loading = true;
     let SearchData = {
       type: this.type,
-      parentid: 'E-' + this.parentid
+      parentid: 'E-' + this.parentid,
+      jvh_gst: this.Record.jvh_gst == true ? true : false,
+      jvh_gst_type: this.Record.jvh_gst_type
     };
 
     this.ErrorMessage = '';
@@ -2342,6 +2360,14 @@ export class BuyRateComponent {
     this.mainService.LoadExpBooking(SearchData)
       .subscribe(response => {
         this.loading = false;
+        let ExpList: Ledgert[] = response.list
+        for (let rec of ExpList) {
+          this.modeDetail = 'ADD';
+          this.Recorddet = rec;
+          this.FindRowTotal();
+          this.Ok();
+        }
+        this.ActionHandlerDetail("LIST", null);
 
       },
         error => {

@@ -214,8 +214,9 @@
 
         <div class="form-group row">
 
-          <div class="col-5">
-            <button [disabled]="loading" (click)="FindTotal()" class="btn btn-success btn-sm">Re-Calculate1</button>
+          <div class="col-12">
+            <button [disabled]="loading" (click)="FindTotal()" class="btn btn-success btn-sm mr-1">Re-Calculate</button>
+            <button *ngIf="cc_category == 'MAWB AIR EXPORT'" [disabled]="loading" (click)="LoadExpBooking()" class="btn btn-success btn-sm mr-1">Load Expense/Booking</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
 
@@ -232,7 +233,6 @@
     <div>
       <button [disabled]="loading" (click)="ActionHandlerDetail('LIST','')" class="btn btn-link">List</button>
       <button [disabled]="loading" (click)="ActionHandlerDetail('ADD','')" class="btn btn-link">Add Record</button>
-      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="LoadExpBooking()" class="btn btn-link">Load Expense/Booking</button>
     </div>
     <div *ngIf="DetailTab=='LIST'">
       <div class="page-body table-responsive">
