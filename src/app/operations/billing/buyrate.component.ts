@@ -2324,6 +2324,7 @@ export class BuyRateComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+  
   LoadExpBooking() {
 
     if (!this.gs.isBlank(this.Record.LedgerList)) {
@@ -2361,6 +2362,7 @@ export class BuyRateComponent {
         let ExpList: Ledgert[] = response.list
         for (let rec of ExpList) {
           this.modeDetail = 'ADD';
+          this.Recorddet = new Ledgert;
           this.Recorddet = rec;
           this.FindRowTotal();
           this.Ok();
