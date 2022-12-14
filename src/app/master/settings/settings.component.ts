@@ -63,7 +63,7 @@ export class SettingsComponent {
 
   _Record: Settings = new Settings;
   DataTransfrList: any[] = [];
-
+  CultureList: Settings[] = [];
   LockRecord: Lockingm = new Lockingm;
   PayrollRecord: PayrollSetting = new PayrollSetting;
 
@@ -674,6 +674,11 @@ export class SettingsComponent {
   PayrollSettings() {
     this.currentTab = 'PAYROLL';
     this.PayrollList();
+  }
+
+  CultureSettings() {
+    this.currentTab = 'CULTURE';
+    this.CurrentCulture();
   }
   LoadCombo() {
     this.loading = true;
@@ -1488,7 +1493,7 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.transfrTotRows = response.totrows;
-        this.transfrLimit =  this.transfrTotRows;
+        this.transfrLimit = this.transfrTotRows;
       },
         error => {
           this.loading = false;
@@ -1590,6 +1595,26 @@ export class SettingsComponent {
 
         });
 
+  }
+
+  CurrentCulture() {
+    this.loading = true;
+    let SearchData = {
+      parentid: this.gs.globalVariables.comp_code,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
+    };
+    this.ErrorMessage = '';
+    this.mainService.CurrentCulture(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.CultureList = response.list;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 }

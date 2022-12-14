@@ -79,5 +79,9 @@ export class ParamService {
     GetTransferStatus(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/GetTransferStatus', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    CurrentCulture(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/CurrentCulture', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

@@ -7,6 +7,7 @@
     <button [disabled]="loading" (click)="ImportData()" class="btn btn-primary btn-sm">Import Data</button>
     <button [disabled]="loading" (click)="UpdateData()" class="btn btn-primary btn-sm">Update Data</button>
     <button [disabled]="loading" (click)="PayrollSettings()" class="btn btn-primary btn-sm">Payroll Settings</button>
+    <button [disabled]="loading" (click)="CultureSettings()" class="btn btn-primary btn-sm">Server Settings</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -742,7 +743,7 @@
             (blur)="OnBlur('ps_edli_amt')" required maxlength="14" />
         </div>
       </div>
-      
+
       <div class="form-group row">
         <label class="col-6 col-form-label  col-form-label-sm">PTAX INCLUDED MONTHS</label>
         <div class="col-6">
@@ -866,15 +867,17 @@
               CSV</button>
           </div>
         </div>
-        <hr class="my-1" >
+        <hr class="my-1">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-2">
-            <select class="form-control form-control-sm" [(ngModel)]="transfrTableName" (change)="OnChange('transfrTableName')" >
+            <select class="form-control form-control-sm" [(ngModel)]="transfrTableName"
+              (change)="OnChange('transfrTableName')">
               <option *ngFor="let rec of DataTransfrList" [value]="rec.param_name">{{rec.param_name}}</option>
             </select>
           </div>
-          <label *ngIf="transfrTotRows>0"  class="col-2 col-form-label col-form-label-sm text-danger">TotRows:{{transfrTotRows}}</label>
+          <label *ngIf="transfrTotRows>0"
+            class="col-2 col-form-label col-form-label-sm text-danger">TotRows:{{transfrTotRows}}</label>
           <label class="col-2 col-form-label col-form-label-sm">TransferLimit</label>
           <div class="col-sm-2">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="transfrLimit" />
@@ -1197,6 +1200,28 @@
   </div>
 
 
+</div>
+
+
+<div *ngIf="currentTab=='CULTURE'" class="page-details">
+  <div class="row">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th width="30%">CAPTION</th>
+            <th width="70%">VALUE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of CultureList">
+          <tr>
+            <td>{{rec.code}}</td>
+            <td>{{rec.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
