@@ -1325,7 +1325,7 @@ export class SettingsComponent {
     this.mainService.UpdateData(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ErrorMessage = response.savemsg;
+        this.ErrorMessage = response.result;
       },
         error => {
           this.loading = false;
@@ -1333,6 +1333,28 @@ export class SettingsComponent {
 
         });
 
+  }
+
+  AutoRefresh() {
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      type: 'UPDATECC',
+      subtype: 'MBL-SE',
+      comp_code: this.gs.globalVariables.comp_code
+    };
+    this.mainService.UpdateData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = response.result;
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   SaveLock() {
