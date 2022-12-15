@@ -32,7 +32,7 @@ export class ImpMblSeaAirComponent {
   currentTab = 'LIST';
 
   lblmblno = 'MBL#';
-  lblmbldate= 'MBL.Date';
+  lblmbldate = 'MBL.Date';
   lblvesselno = 'Voyage';
   searchstring = '';
   porttype = 'SEA PORT';
@@ -129,13 +129,13 @@ export class ImpMblSeaAirComponent {
 
     if (this.type == "SEA IMPORT") {
       this.lblmblno = "MBL#";
-      this.lblmbldate= 'MBL.Date';
+      this.lblmbldate = 'MBL.Date';
       this.lblvesselno = "Voyage";
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
     } else {
       this.lblmblno = "MAWB#";
-      this.lblmbldate= 'MAWB.Date';
+      this.lblmbldate = 'MAWB.Date';
       this.lblvesselno = "Flight No.";
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
@@ -728,7 +728,7 @@ export class ImpMblSeaAirComponent {
     }
     if (this.gs.isBlank(this.Record.mbl_cf_date)) {
       bret = false;
-        sError += "\n\r | Date Cannot Be Blank";
+      sError += "\n\r | Date Cannot Be Blank";
     }
     if (this.gs.isBlank(this.Record.mbl_date)) {
       bret = false;
@@ -1018,7 +1018,9 @@ export class ImpMblSeaAirComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      category: "SEA IMPORT"
+      category: "SEA IMPORT",
+      user_code: this.gs.globalVariables.user_code,
+      mbl_slno: this.Record.mbl_bookslno
     };
 
     this.mainService.GenerateFolderNumber(SearchData)

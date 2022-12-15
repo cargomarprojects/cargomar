@@ -1832,7 +1832,9 @@ export class MblSeaComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      category: "SEA EXPORT"
+      category: "SEA EXPORT",
+      user_code: this.gs.globalVariables.user_code,
+      mbl_slno: this.Record.book_slno
     };
 
     this.mainService.GenerateFolderNumber(SearchData)
