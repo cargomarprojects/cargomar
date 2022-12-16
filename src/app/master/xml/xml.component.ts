@@ -353,4 +353,28 @@ export class XmlComponent {
     this.modal = this.modalService.open(content);
   }
 
+
+  AutoBookingXmlFtp() {
+    this.ErrorMessage = '';
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      agent_id: 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621',
+      agent_code: 'RITRACARGO-NL',
+      auto_ftp:'Y'
+    };
+    this.mainService.GenerateXmlBooking(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert(response.savemsg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
 }
