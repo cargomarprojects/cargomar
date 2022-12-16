@@ -71,7 +71,7 @@ export class VisitReportComponent {
 
     ) {
         this.page_count = 0;
-        this.page_rows = 25;
+        this.page_rows = 100;
         this.page_current = 0;
         this.InitLov();
         // URL Query Parameter 
