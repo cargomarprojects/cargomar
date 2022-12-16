@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.576';
+  public software_version_string: string = '1.577';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -954,7 +954,7 @@ export class GlobalService {
       return false;
 
   }
-  
+
   public IsWrongDrCode(jv_acc_code: string) {
     if (jv_acc_code == '195'
       || jv_acc_code == '194IA'
