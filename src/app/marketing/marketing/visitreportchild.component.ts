@@ -44,7 +44,8 @@ export class VisitReportChildComponent {
     searchdata = { searchstring: '' };
     ErrorMessage = "";
     InfoMessage = "";
-
+    userCaption = "Sales Person";
+    report_type = "SALES PERSON";
     mode = '';
     pkid = '';
     myTable = {
@@ -103,10 +104,18 @@ export class VisitReportChildComponent {
 
         this.InitComponent();
         if (this.parentData != null) {
+            this.report_type = this.parentData.report_type;
             this.closecaption = "BACK";
             this.USERRECORD.controlname = "USER";
             this.USERRECORD.displaycolumn = "NAME";
-            this.USERRECORD.type = "USER";
+            if (this.report_type == "SALES PERSON") {
+                this.USERRECORD.type = "USER";
+                this.userCaption = "Sales Person";
+            }
+            else {
+                this.USERRECORD.type = "MARKETING CONTACT";
+                this.userCaption = "Customer";
+            }
             this.USERRECORD.id = this.parentData.user_id;
             this.USERRECORD.name = this.parentData.user_name;
             this.AssignDate();
@@ -200,9 +209,14 @@ export class VisitReportChildComponent {
         this.BRANCHRECORD.type = "BRANCH";
         this.BRANCHRECORD.id = "";
         this.BRANCHRECORD.name = "";
-
         this.USERRECORD.controlname = "USER";
         this.USERRECORD.displaycolumn = "NAME";
+        if (this.report_type == "SALES PERSON") {
+            this.USERRECORD.type = "USER";
+        }
+        else {
+            this.USERRECORD.type = "MARKETING CONTACT";
+        }
         this.USERRECORD.type = "USER";
         this.USERRECORD.id = "";
         this.USERRECORD.name = "";
@@ -274,6 +288,7 @@ export class VisitReportChildComponent {
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
+            report_type: this.parentData.report_type
         };
 
         this.ErrorMessage = '';
@@ -356,7 +371,8 @@ export class VisitReportChildComponent {
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            report_type: this.parentData.report_type
         };
 
         this.ErrorMessage = '';

@@ -30,7 +30,7 @@ export class VisitReportComponent {
     currentTab = 'LIST';
     currentPage = "ROOT";
     selectedRowIndex = 0;
-    
+
     searchstring = '';
     page_count = 0;
     page_current = 0;
@@ -43,6 +43,8 @@ export class VisitReportComponent {
     ErrorMessage = "";
     InfoMessage = "";
 
+    report_type = 'SALES PERSON';
+    search_report_type = 'SALES PERSON';
     mode = '';
     pkid = '';
     ChildRecord = {
@@ -50,7 +52,8 @@ export class VisitReportComponent {
         user_id: '',
         user_name: '',
         year: '',
-        month: ''
+        month: '',
+        report_type: 'SALES PERSON'
     };
     iYear: number;
 
@@ -84,7 +87,7 @@ export class VisitReportComponent {
                 this.InitComponent();
             }
         });
-        this.List('LIST', 'SCREEN');
+        this.List('NEW', 'SCREEN');
     }
 
     // Init Will be called After executing Constructor
@@ -95,6 +98,8 @@ export class VisitReportComponent {
     }
 
     InitComponent() {
+        let d = new Date();
+        this.iYear = d.getFullYear();
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -151,12 +156,10 @@ export class VisitReportComponent {
     }
 
     // Query List Data
-    List(_type: string, _output_type: string) {
-        let d = new Date();
-        this.iYear = d.getFullYear();
-
+    List(_type: string, _output_type: string = "SCREEN") {
+       
+        this.search_report_type = this.report_type;
         this.loading = true;
-
         let SearchData = {
             type: _type,
             filter_source: 'REPORT',
@@ -174,7 +177,8 @@ export class VisitReportComponent {
             iYear: this.iYear.toString(),
             output_type: _output_type,
             file_name: '',
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            report_type: this.report_type
         };
 
         this.ErrorMessage = '';
@@ -186,9 +190,9 @@ export class VisitReportComponent {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
                     this.RecordList = response.list;
-                    // this.page_count = response.page_count;
-                    // this.page_current = response.page_current;
-                    // this.page_rowcount = response.page_rowcount;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {
@@ -230,7 +234,8 @@ export class VisitReportComponent {
             user_id: _rec.user_id,
             user_name: _rec.user_name,
             year: this.iYear.toString(),
-            month: _month
+            month: _month,
+            report_type: this.search_report_type
         };
         this.currentPage = "VISIT-REPORT-CHILD";
     }

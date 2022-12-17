@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">User</label>
+                    <label class="col-2 col-form-label col-form-label-sm">{{userCaption}}</label>
                     <div class="col-10">
                         <app-autocomplete [disabled]="!IsAdmin"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
@@ -80,8 +80,8 @@
                     <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>TARGET MARKET</th>
-                    <!-- <th>COMMODITY</th>
-                    <th>NEXT ACTION</th> -->
+                    <th>VISIT RESULT</th>
+                    <th>NEXT ACTION</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -98,12 +98,12 @@
                     <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>
                     <td>{{rec.target}}</td>
-                    <!-- <td>{{rec.mark_commodity}}</td>
-                    <td>{{rec.mark_next_action}}</td> -->
+                    <td>{{rec.mark_result}}</td>
+                    <td>{{rec.mark_next_action}}</td>
 
                 </tr>
                 <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
-                    <td colspan="12">
+                    <td colspan="14">
                         <table width="100%">
                             <tr>
                                 <td>Deciding Person</td>
