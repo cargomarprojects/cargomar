@@ -53,7 +53,9 @@ export class VisitReportComponent {
         user_name: '',
         year: '',
         month: '',
-        report_type: 'SALES PERSON'
+        report_type: 'SALES PERSON',
+        cust_id: '',
+        cust_name: ''
     };
     iYear: number;
 
@@ -230,13 +232,32 @@ export class VisitReportComponent {
     }
 
     ShowReport(_rec: MarkReport, _month: string) {
+
+        let user_id: string = '';
+        let user_name: string = '';
+        let cust_id: string = '';
+        let cust_name: string = '';
+        if (this.search_report_type == "SALES PERSON") {
+            user_id = _rec.user_id;
+            user_name = _rec.user_name;
+            cust_id = "";
+            cust_name = "";
+        } else { //Customer
+            user_id = "";
+            user_name = "";
+            cust_id = _rec.user_id;
+            cust_name = _rec.user_name;
+        }
+
         this.ChildRecord = {
             type: 'Report',
-            user_id: _rec.user_id,
-            user_name: _rec.user_name,
+            user_id: user_id,
+            user_name: user_name,
             year: this.iYear.toString(),
             month: _month,
-            report_type: this.search_report_type
+            report_type: this.search_report_type,
+            cust_id: cust_id,
+            cust_name: cust_name
         };
         this.currentPage = "VISIT-REPORT-CHILD";
     }

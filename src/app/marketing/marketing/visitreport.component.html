@@ -59,7 +59,7 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th>SALES EXECUTIVE</th>
+                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>

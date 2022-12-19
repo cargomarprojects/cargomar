@@ -63,6 +63,7 @@ export class VisitReportChildComponent {
 
     BRANCHRECORD: SearchTable = new SearchTable();
     USERRECORD: SearchTable = new SearchTable();
+    CUSTRECORD: SearchTable = new SearchTable();
 
     From_Date: string = "";
     To_Date: string = "";
@@ -108,16 +109,17 @@ export class VisitReportChildComponent {
             this.closecaption = "BACK";
             this.USERRECORD.controlname = "USER";
             this.USERRECORD.displaycolumn = "NAME";
-            if (this.report_type == "SALES PERSON") {
-                this.USERRECORD.type = "USER";
-                this.userCaption = "Sales Person";
-            }
-            else {
-                this.USERRECORD.type = "MARKETING CONTACT";
-                this.userCaption = "Customer";
-            }
+            this.USERRECORD.type = "USER";
             this.USERRECORD.id = this.parentData.user_id;
             this.USERRECORD.name = this.parentData.user_name;
+
+            this.CUSTRECORD = new SearchTable();
+            this.CUSTRECORD.controlname = "CUSTOMER";
+            this.CUSTRECORD.displaycolumn = "NAME";
+            this.CUSTRECORD.type = "MARKETING CONTACT";
+            this.CUSTRECORD.id = this.parentData.cust_id;
+            this.CUSTRECORD.name = this.parentData.cust_name;
+
             this.AssignDate();
             this.List('NEW');
         }
@@ -209,17 +211,18 @@ export class VisitReportChildComponent {
         this.BRANCHRECORD.type = "BRANCH";
         this.BRANCHRECORD.id = "";
         this.BRANCHRECORD.name = "";
+
         this.USERRECORD.controlname = "USER";
         this.USERRECORD.displaycolumn = "NAME";
-        if (this.report_type == "SALES PERSON") {
-            this.USERRECORD.type = "USER";
-        }
-        else {
-            this.USERRECORD.type = "MARKETING CONTACT";
-        }
         this.USERRECORD.type = "USER";
         this.USERRECORD.id = "";
         this.USERRECORD.name = "";
+
+        this.CUSTRECORD.controlname = "CUSTOMER";
+        this.CUSTRECORD.displaycolumn = "NAME";
+        this.CUSTRECORD.type = "MARKETING CONTACT";
+        this.CUSTRECORD.id = "";
+        this.CUSTRECORD.name = "";
     }
 
 
@@ -288,6 +291,7 @@ export class VisitReportChildComponent {
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
+            filter_cust_id: this.CUSTRECORD.id,
             report_type: this.parentData.report_type,
             sman_id: this.gs.globalVariables.sman_id
         };
@@ -372,6 +376,7 @@ export class VisitReportChildComponent {
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
+            filter_cust_id: this.CUSTRECORD.id,
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.parentData.report_type
         };

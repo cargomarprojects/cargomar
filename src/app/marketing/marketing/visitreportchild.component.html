@@ -5,7 +5,7 @@
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
 </div>
-<div  class="page-list">
+<div class="page-list">
     <div class="page-search">
         <div class="row">
             <div class="col-sm-6">
@@ -24,20 +24,31 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Branch</label>
                     <div class="col-10">
-                        <app-autocomplete [inputdata]="BRANCHRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        <app-autocomplete [inputdata]="BRANCHRECORD"
+                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">{{userCaption}}</label>
+                <div *ngIf="IsCompany||IsAdmin||report_type=='SALES PERSON'" class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Sales Person</label>
                     <div class="col-10">
-                        <app-autocomplete [disabled]="!IsAdmin && !IsCompany"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #UsrLov [inputdata]="USERRECORD"
+                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                </div>
+                <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-10">
+                        <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #ClientLov [inputdata]="CUSTRECORD"
+                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <div class="col-10">
-                        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList()" class="btn btn-primary btn-sm">Print</button>
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm">Search</button>
+                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList()"
+                            class="btn btn-primary btn-sm">Print</button>
                     </div>
                 </div>
             </div>
@@ -74,36 +85,39 @@
                     <th>SALES PERSON</th>
                     <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
+                    <th>NEXT VISIT STATUS</th>
                     <th>NEXT VISIT DATE</th>
                     <th>CUSTOMER</th>
                     <th>CONTACT PERSON</th>
                     <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>TARGET MARKET</th>
+                    <th>COMMODITY</th>
                     <th>VISIT RESULT</th>
-                    <th>NEXT ACTION</th>
+                    <th>NEXT ACTION</th>                   
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
                 <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
-                    <td class="hlink" (click)="ShowHideRecord(rec)" >{{rec.mark_id}}</td>
+                    <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.mark_id}}</td>
                     <td>{{rec.rec_created_date}}</td>
                     <td>{{rec.branch_name}}</td>
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_visit_date}}</td>
+                    <td>{{rec.mark_next_visit_status}}</td>
                     <td>{{rec.mark_next_visit_date}}</td>
                     <td>{{rec.mark_customer_name}}</td>
                     <td>{{rec.mark_contact_person}}</td>
                     <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>
                     <td>{{rec.target}}</td>
+                    <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_result}}</td>
                     <td>{{rec.mark_next_action}}</td>
-
                 </tr>
                 <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
-                    <td colspan="14">
+                    <td colspan="16">
                         <table width="100%">
                             <tr>
                                 <td>Deciding Person</td>
@@ -115,7 +129,7 @@
                             </tr>
                             <tr>
                                 <td>Visit Result</td>
-                                <td >{{this.Record.mark_result}}</td>
+                                <td>{{this.Record.mark_result}}</td>
                             </tr>
                             <tr>
                                 <td>Next Action</td>
