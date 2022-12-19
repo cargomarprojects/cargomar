@@ -87,8 +87,6 @@
                     <th>SALES PERSON</th>
                     <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
-                    <th>NEXT VISIT STATUS</th>
-                    <th>NEXT VISIT DATE</th>
                     <th>CUSTOMER</th>
                     <th>CONTACT PERSON</th>
                     <th>MOBILE</th>
@@ -96,7 +94,9 @@
                     <th>TARGET MARKET</th>
                     <th>COMMODITY</th>
                     <th>VISIT RESULT</th>
-                    <th>NEXT ACTION</th>                   
+                    <th>NEXT ACTION</th>     
+                    <th>NEXT VISIT STATUS</th>
+                    <th>NEXT VISIT DATE</th>              
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -107,8 +107,6 @@
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_visit_date}}</td>
-                    <td>{{rec.mark_next_visit_status}}</td>
-                    <td>{{rec.mark_next_visit_date}}</td>
                     <td>{{rec.mark_customer_name}}</td>
                     <td>{{rec.mark_contact_person}}</td>
                     <td>{{rec.mobile}}</td>
@@ -117,6 +115,8 @@
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_result}}</td>
                     <td>{{rec.mark_next_action}}</td>
+                    <td>{{rec.mark_next_visit_status}}</td>
+                    <td>{{rec.mark_next_visit_date}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
                     <td colspan="16">
