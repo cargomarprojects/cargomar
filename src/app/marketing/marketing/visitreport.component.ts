@@ -157,7 +157,7 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-       
+
         this.search_report_type = this.report_type;
         this.loading = true;
         let SearchData = {
@@ -178,7 +178,8 @@ export class VisitReportComponent {
             output_type: _output_type,
             file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
-            report_type: this.report_type
+            report_type: this.report_type,
+            sman_id: this.gs.globalVariables.sman_id
         };
 
         this.ErrorMessage = '';

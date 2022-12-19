@@ -30,7 +30,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">{{userCaption}}</label>
                     <div class="col-10">
-                        <app-autocomplete [disabled]="!IsAdmin"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        <app-autocomplete [disabled]="!IsAdmin && !IsCompany"  #UsrLov  [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">

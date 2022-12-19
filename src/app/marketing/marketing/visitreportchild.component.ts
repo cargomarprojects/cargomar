@@ -288,7 +288,8 @@ export class VisitReportChildComponent {
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
             filter_user_id: this.USERRECORD.id,
-            report_type: this.parentData.report_type
+            report_type: this.parentData.report_type,
+            sman_id: this.gs.globalVariables.sman_id
         };
 
         this.ErrorMessage = '';
