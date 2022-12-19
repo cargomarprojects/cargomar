@@ -375,8 +375,11 @@ export class VisitReportChildComponent {
             filter_from_date: this.From_Date,
             filter_to_date: this.To_Date,
             filter_branch_id: this.BRANCHRECORD.code,
+            filter_branch_name: this.BRANCHRECORD.name,
             filter_user_id: this.USERRECORD.id,
+            filter_user_name: this.USERRECORD.name,
             filter_cust_id: this.CUSTRECORD.id,
+            filter_cust_name: this.CUSTRECORD.name,
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.parentData.report_type
         };
