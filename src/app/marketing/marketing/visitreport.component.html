@@ -3,28 +3,34 @@
         <div class="col">
             <label class="col-form-label">{{title}}</label>
             <button (click)="Close()" class="btn btn-primary btn-sm">Close</button>
-
-
-
-
             <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
     </div>
     <div class="page-list">
         <div class="page-search">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-5">
                     <div class="form-group row">
-                        <label class="col-1 col-form-label col-form-label-sm">Year</label>
-                        <div class="col-2">
+                        <label class="col-3 col-form-label col-form-label-sm">Year</label>
+                        <div class="col-4">
                             <input type="number" class="form-control form-control-sm" [(ngModel)]="iYear"
                                 maxlength="4" />
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'SALES PERSON'" />
                             <label class="col-form-label col-form-label-sm">Sales Person</label>&nbsp;&nbsp;
                             <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'CUSTOMER'" />
                             <label class="col-form-label col-form-label-sm">Customer</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label col-form-label-sm">{{report_type=='SALES PERSON'?'Sales
+                            Person':'Customer'}}</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="searchstring"
+                                maxlength="100" (blur)="OnBlur('searchstring')" />
                         </div>
                         <div class="col-5">
                             <button [disabled]="loading" (click)="List('NEW','SCREEN')"
@@ -33,6 +39,8 @@
                                 class="btn btn-primary btn-sm">Print</button>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-2">
                 </div>
             </div>
         </div>
@@ -59,7 +67,8 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span
+                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>

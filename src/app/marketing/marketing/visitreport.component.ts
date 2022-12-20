@@ -181,7 +181,8 @@ export class VisitReportComponent {
             file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,
-            sman_id: this.gs.globalVariables.sman_id
+            sman_id: this.gs.globalVariables.sman_id,
+            searchstring: this.searchstring
         };
 
         this.ErrorMessage = '';
@@ -221,13 +222,11 @@ export class VisitReportComponent {
 
     }
 
-
-
     OnBlur(field: string) {
 
-        // if (field == 'mark_time_visit') {
-        //     this.Record.mark_time_visit = this.Record.mark_time_visit.toUpperCase();
-        // }
+        if (field == 'searchstring') {
+            this.searchstring = this.searchstring.toUpperCase();
+        }
 
     }
 
