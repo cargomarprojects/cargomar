@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit,ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MarkSalesleadd, MarkSalesleadm } from '../models/marksaleslead';
 import { MarkSalesleadService } from '../services/marksaleslead.service';
 import { SearchTable } from '../../shared/models/searchtable';
- 
+
 @Component({
     selector: 'app-saleslead',
     templateUrl: './saleslead.component.html',
@@ -15,7 +15,7 @@ export class SalesleadComponent {
 
     // Local Variables 
     title = 'Saleslead';
-    
+
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -26,8 +26,11 @@ export class SalesleadComponent {
     loading = false;
     currentTab = 'LIST';
 
+    from_date: string;
+    to_date: string;
     searchstring = '';
     searchstatus = 'ALL';
+    searchconverted = 'ALL';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -112,6 +115,8 @@ export class SalesleadComponent {
     }
 
     InitComponent() {
+        this.from_date = '';
+        this.to_date = '';
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -362,7 +367,10 @@ export class SalesleadComponent {
             isadmin: this.IsAdmin,
             searchstatus: this.searchstatus,
             report_folder: this.gs.globalVariables.report_folder,
-            bwithfollowup: this.bWithFollowup
+            bwithfollowup: this.bWithFollowup,
+            from_date: this.from_date,
+            to_date: this.to_date,
+            searchconverted: this.searchconverted
         };
 
         this.ErrorMessage = '';
@@ -695,7 +703,7 @@ export class SalesleadComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
     showhiderow(rec: MarkSalesleadm) {

@@ -11,8 +11,8 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group row">
-                        <label class="col-3 col-form-label col-form-label-sm">Year</label>
-                        <div class="col-4">
+                        <label class="col-sm-3 col-form-label col-form-label-sm">Year</label>
+                        <div class="col-sm-4">
                             <input type="number" class="form-control form-control-sm" [(ngModel)]="iYear"
                                 maxlength="4" />
                         </div>
@@ -26,13 +26,13 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group row">
-                        <label class="col-3 col-form-label col-form-label-sm">{{report_type=='SALES PERSON'?'Sales
+                        <label class="col-sm-3 col-form-label col-form-label-sm">{{report_type=='SALES PERSON'?'Sales
                             Person':'Customer'}}</label>
-                        <div class="col-4">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="searchstring"
                                 maxlength="100" (blur)="OnBlur('searchstring')" />
                         </div>
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <button [disabled]="loading" (click)="List('NEW','SCREEN')"
                                 class="btn btn-primary btn-sm">Search</button>
                             <button [disabled]="loading" *ngIf="bPrint" (click)="List('PRINT', 'EXCEL')"
