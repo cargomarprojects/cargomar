@@ -26,7 +26,7 @@ export class NewCustComponent {
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
-    
+
     selectedRowIndex = 0;
 
     searchstring = '';
@@ -40,11 +40,12 @@ export class NewCustComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
+    fromdate = "";
+    todate = "";
 
-    
     mode = '';
     pkid = '';
-     
+
 
     // Array For Displaying List
     RecordList: NewCustReport[] = [];
@@ -147,21 +148,21 @@ export class NewCustComponent {
         this.loading = true;
         let SearchData = {
             type: _type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_id: this.gs.globalVariables.user_pkid,
+            user_code: this.gs.globalVariables.user_code,
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
-            companyid: this.gs.globalVariables.comp_code,
-            branchid: this.gs.globalVariables.branch_code,
-            branchids: this.gs.globalVariables.branch_code,
-             
-            file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
-            
-            sman_id: this.gs.globalVariables.sman_id,
-            searchstring: this.searchstring
+            searchstring: this.searchstring,
+            fromdate:this.fromdate,
+            todate:this.todate 
         };
 
         this.ErrorMessage = '';
@@ -207,7 +208,7 @@ export class NewCustComponent {
 
     }
 
-     
+
     Close() {
         this.gs.ClosePage('home');
     }
