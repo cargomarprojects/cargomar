@@ -60,6 +60,8 @@
                     <div class="col-8">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
+                            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Print</button>
                     </div>
                 </div>
             </div>

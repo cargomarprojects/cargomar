@@ -16,7 +16,6 @@ export class NewCustComponent {
     // Local Variables 
     title = 'New Customer Report';
 
-
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -45,7 +44,6 @@ export class NewCustComponent {
     InfoMessage = "";
     fromdate = "";
     todate = "";
-
     mode = '';
     pkid = '';
 
