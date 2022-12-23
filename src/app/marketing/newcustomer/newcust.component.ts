@@ -29,6 +29,8 @@ export class NewCustComponent {
 
     selectedRowIndex = 0;
 
+    Is_NewCustomer = false;
+    searchType = "ALL";
     searchstring = '';
     page_count = 0;
     page_current = 0;
@@ -77,7 +79,6 @@ export class NewCustComponent {
                 this.InitComponent();
             }
         });
-        this.List('NEW');
     }
 
     // Init Will be called After executing Constructor
@@ -109,33 +110,30 @@ export class NewCustComponent {
         this.sub.unsubscribe();
     }
 
-
     InitLov() {
 
     }
 
-
-
     LoadCombo() {
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
 
-        // this.loading = true;
-        // let SearchData = {
-        //   type: 'type',
-        //   comp_code: this.gs.globalVariables.comp_code,
-        //   branch_code: this.gs.globalVariables.branch_code
-        // };
-
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        // this.mainService.LoadDefault(SearchData)
-        //   .subscribe(response => {
-        //     this.loading = false;
-        //     this.List("NEW");
-        //   },
-        //     error => {
-        //       this.loading = false;
-        //       this.ErrorMessage = this.gs.getError(error);
-        //     });
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.fromdate = response.fromdate;
+                this.List('NEW');
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -155,14 +153,16 @@ export class NewCustComponent {
             user_code: this.gs.globalVariables.user_code,
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
+            isnewcustomer: this.Is_NewCustomer,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
             report_folder: this.gs.globalVariables.report_folder,
+            searchtype: this.searchType,
             searchstring: this.searchstring,
-            fromdate:this.fromdate,
-            todate:this.todate 
+            fromdate: this.fromdate,
+            todate: this.todate
         };
 
         this.ErrorMessage = '';
@@ -208,6 +208,9 @@ export class NewCustComponent {
 
     }
 
+    OnChange(field: string) {
+        this.RecordList = null;
+    }
 
     Close() {
         this.gs.ClosePage('home');
