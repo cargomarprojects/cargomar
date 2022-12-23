@@ -142,6 +142,16 @@ export class NewCustComponent {
 
     // Query List Data
     List(_type: string) {
+
+        if (_type == 'PROCESS-REPORT') {
+            if (this.gs.isBlank(this.fromdate)) {
+                alert('From date cannot be blank?');
+                return;
+            }
+            if (!confirm('Process Report start from ' + this.gs.ConvertDate2DisplayFormat(this.fromdate)))
+                return;
+        }
+
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -172,6 +182,9 @@ export class NewCustComponent {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else if (_type == 'PROCESS-REPORT') {
+                    alert('Successfully Processed');
+                }
                 else {
                     this.RecordList = response.list;
                     this.page_count = response.page_count;

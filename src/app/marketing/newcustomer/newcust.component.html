@@ -62,6 +62,8 @@
                             class="btn btn-primary btn-sm mr-1">Search</button>
                             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm mr-1">Print</button>
+                            <button *ngIf='IsAdmin' [disabled]="loading" (click)="List('PROCESS-REPORT')"
+                            class="btn btn-primary btn-sm mr-1">Process Report</button>
                     </div>
                 </div>
             </div>
