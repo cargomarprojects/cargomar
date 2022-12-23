@@ -30,6 +30,7 @@ export class NewCustComponent {
     selectedRowIndex = 0;
 
     Is_NewCustomer = false;
+    searchMode = "ALL";
     searchType = "ALL";
     searchstring = '';
     page_count = 0;
@@ -159,6 +160,7 @@ export class NewCustComponent {
             page_rows: this.page_rows,
             page_rowcount: this.page_rowcount,
             report_folder: this.gs.globalVariables.report_folder,
+            searchmode: this.searchMode,
             searchtype: this.searchType,
             searchstring: this.searchstring,
             fromdate: this.fromdate,

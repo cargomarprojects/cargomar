@@ -8,41 +8,58 @@
 <div class="page-list">
     <div class="page-search">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group row">
-                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Date From</label>
-                    <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                    <label class="col-4 col-form-label col-form-label-sm">Date From</label>
+                    <div class="col-8">
                         <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
                         </app-date>
                     </div>
-                    <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-                    <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
-                        <app-date [inputdate]="todate"
-                            (ValueChanged)="todate=$event">
-                        </app-date>
-                    </div> -->
-                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
-                    <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Category</label>
+                    <div class="col-8">
+                        <select class="form-control form-control-sm" name="smde" [(ngModel)]="searchMode" (change)="OnChange('searchMode')">
+                            <option [value]="'ALL'">ALL</option>
+                            <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+                            <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-8">
                         <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType" (change)="OnChange('searchType')">
                             <option [value]="'ALL'">ALL</option>
                             <option [value]="'SHIPPER'">SHIPPER</option>
                             <option [value]="'CONSIGNEE'">CONSIGNEE</option>
                         </select>
                     </div>
-                    <div class="col-sm-2 mr-1">
-                        <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
-                        <label class="col-form-label col-form-label-sm">New Customer Only</label>
-                    </div>                  
-                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')"
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-8">
+                        <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
                             name="Search" [(ngModel)]="searchstring" />
                     </div>
-                    <div class="col-sm-2">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-8">
+                        <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
+                        <label class="col-form-label col-form-label-sm">New Customer Only</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-8">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
-                        <!-- <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-                    class="btn btn-primary btn-sm mr-1">Print</button> -->
                     </div>
                 </div>
             </div>
@@ -71,8 +88,8 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
-                    <th *ngIf="searchType=='ALL'">SALES PERSON</th>
-                    <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">CUSTOMER</th>
+                    <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SALES PERSON</th>
+                    <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SHIPPER</th>
                     <th *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">CONSIGNEE</th>
                     <th>CLEARING</th>
                     <th>FORWARDING</th>
@@ -85,7 +102,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
-                    <td *ngIf="searchType=='ALL'">{{rec.sman_name}}</td>
+                    <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.sman_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.cust_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
                     <td>{{rec.both_nos}}</td>
