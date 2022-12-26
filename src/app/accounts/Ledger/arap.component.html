@@ -180,13 +180,9 @@
         </div>
 
         <div class="form-group row">
-          <!-- <label class="col-2 col-form-label col-form-label-sm">Desc</label> -->
-          <!-- <div class="col-10">
-            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
-          </div> -->
-          <div class="col-2">
-            <button *ngIf="mode == 'EDIT'&&lock_record" [disabled]="loading" (click)="UpdateInvoice()"
-              class="btn btn-success btn-sm">InvUpdt</button>
+          <label *ngIf="!(mode == 'EDIT'&&lock_record&&type=='PN-JV')" class="col-2 col-form-label col-form-label-sm">Desc</label>
+          <div *ngIf="mode == 'EDIT'&&lock_record&&type=='PN-JV'" class="col-2">
+            <button [disabled]="loading" (click)="UpdateInvoice()" class="btn btn-success btn-sm">InvUpdt</button>
           </div>
           <div class="col-5 input-group input-group-sm">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
@@ -847,6 +843,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-PasteData [visible]="bShowPasteData"  [ExcelFormat]="'PN-CI-GE'" [version]="2"  (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
+    <App-PasteData [visible]="bShowPasteData" [ExcelFormat]="'PN-CI-GE'" [version]="2"
+      (CloseClicked)="PasteDataClosed($event)"></App-PasteData>
   </div>
 </ng-template>
