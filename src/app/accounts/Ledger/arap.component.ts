@@ -2560,6 +2560,27 @@ export class ArApComponent {
     this.modal.close();
   }
 
+  UpdateInvoice() {
+    if (!this.lock_record)
+      return;
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.UpdateInvoice(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Updated Successfully";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          this.loading = false;
+          alert(this.ErrorMessage);
+        });
+
+  }
+
 }
 
 

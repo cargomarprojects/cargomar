@@ -180,10 +180,14 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Desc</label>
+          <!-- <label class="col-2 col-form-label col-form-label-sm">Desc</label> -->
           <!-- <div class="col-10">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
           </div> -->
+          <div class="col-2">
+            <button *ngIf="mode == 'EDIT'&&lock_record" [disabled]="loading" (click)="UpdateInvoice()"
+              class="btn btn-success btn-sm">InvUpdt</button>
+          </div>
           <div class="col-5 input-group input-group-sm">
             <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.jvh_cc_name" />
             <label *ngIf="cc_lock_status!=''"

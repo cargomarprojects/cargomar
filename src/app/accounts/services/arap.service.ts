@@ -52,5 +52,9 @@ export class ArApService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  UpdateInvoice(Record: Ledgerh) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/UpdateInvoice', Record, this.gs.headerparam2('authorized'))
+  }
+  
 }
 
