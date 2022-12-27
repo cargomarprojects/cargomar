@@ -10,6 +10,7 @@ export class NewCustReport {
     rec_category:string;
     first_job_date:string;
     last_job_date:string;
+    previous_job_date:string;
     
     _globalvariables: GlobalVariables;
 }

@@ -29,9 +29,15 @@ export class NewCustComponent {
     selectedRowIndex = 0;
 
     Is_NewCustomer = false;
+    Is_Nomination = false;
+    Is_Clearing = false;
+    Is_Forwarding = true;
+    Is_Both = true;
+
     searchMode = "ALL";
     searchType = "ALL";
     searchstring = '';
+
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -47,7 +53,10 @@ export class NewCustComponent {
     mode = '';
     pkid = '';
 
-
+    listHdr_Clearing = false;
+    listHdr_Forwarding = true;
+    listHdr_Both = true;
+    processdate = '';
     // Array For Displaying List
     RecordList: NewCustReport[] = [];
     // Single Record for add/edit/view details
@@ -152,6 +161,16 @@ export class NewCustComponent {
                 return;
         }
 
+        if (!this.Is_Clearing && !this.Is_Forwarding && !this.Is_Both) {
+            alert('Please select Clearing/Forwarding/Both and continue......');
+            return;
+        }
+
+
+        this.listHdr_Clearing = this.Is_Clearing;
+        this.listHdr_Forwarding = this.Is_Forwarding;
+        this.listHdr_Both = this.Is_Both;
+
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -163,6 +182,10 @@ export class NewCustComponent {
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             isnewcustomer: this.Is_NewCustomer,
+            isnomination: this.Is_Nomination,
+            isclearing: this.Is_Clearing,
+            isforwarding: this.Is_Forwarding,
+            isboth: this.Is_Both,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
@@ -190,6 +213,7 @@ export class NewCustComponent {
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
                     this.page_rowcount = response.page_rowcount;
+                    this.processdate = response.processdate;
                 }
             },
                 error => {

@@ -10,37 +10,59 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Date From</label>
-                    <div class="col-8">
+                    <label class="col-2 col-form-label col-form-label-sm">Date.From</label>
+                    <div class="col-10">
                         <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
                         </app-date>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Category</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="smde" [(ngModel)]="searchMode" (change)="OnChange('searchMode')">
+                    <label class="col-2 col-form-label col-form-label-sm">Category</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="smde" [(ngModel)]="searchMode"
+                            (change)="OnChange('searchMode')">
                             <option [value]="'ALL'">ALL</option>
                             <option [value]="'AIR EXPORT'">AIR EXPORT</option>
                             <option [value]="'SEA EXPORT'">SEA EXPORT</option>
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-8">
-                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType" (change)="OnChange('searchType')">
+                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-10">
+                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType"
+                            (change)="OnChange('searchType')">
                             <option [value]="'ALL'">ALL</option>
                             <option [value]="'SHIPPER'">SHIPPER</option>
                             <option [value]="'CONSIGNEE'">CONSIGNEE</option>
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Search</label>
-                    <div class="col-8">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                        <input type="checkbox" [(ngModel)]="Is_Clearing"> <label
+                            class="col-form-label col-form-label-sm">Clearing</label>&nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="Is_Forwarding"> <label
+                            class="col-form-label col-form-label-sm">Forwarding</label>&nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="Is_Both"> <label
+                            class="col-form-label col-form-label-sm">Both</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                        <!-- <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
+                        <label class="col-form-label col-form-label-sm">New Customer Only</label>&nbsp;&nbsp; -->
+                        <input type="checkbox" [(ngModel)]="Is_Nomination" /> 
+                        <label class="col-form-label col-form-label-sm">Include Nomination</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-10">
                         <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
                             name="Search" [(ngModel)]="searchstring" />
                     </div>
@@ -48,21 +70,15 @@
             </div>
 
             <div class="col-sm-4">
+                
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-8">
-                        <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
-                        <label class="col-form-label col-form-label-sm">New Customer Only</label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-8">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
-                            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                        <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm mr-1">Print</button>
-                            <button *ngIf='IsAdmin' [disabled]="loading" (click)="List('PROCESS-REPORT')"
+                        <button *ngIf='IsAdmin' [disabled]="loading" (click)="List('PROCESS-REPORT')"
                             class="btn btn-primary btn-sm mr-1">Process Report</button>
                     </div>
                 </div>
@@ -95,12 +111,13 @@
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SALES PERSON</th>
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SHIPPER</th>
                     <th *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">CONSIGNEE</th>
-                    <th>CLEARING</th>
-                    <th>FORWARDING</th>
-                    <th>BOTH</th>
+                    <th *ngIf="listHdr_Clearing">CLEARING</th>
+                    <th *ngIf="listHdr_Forwarding">FORWARDING</th>
+                    <th *ngIf="listHdr_Both">BOTH</th>
                     <th *ngIf="searchType=='ALL'">CATEGORY</th>
                     <th>FIRST.JOB.DATE</th>
                     <th>LAST.JOB.DATE</th>
+                    <th>JOB RCVD BEFORE&nbsp;{{processdate}}</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -109,12 +126,13 @@
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.sman_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.cust_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
-                    <td>{{rec.both_nos}}</td>
-                    <td>{{rec.clr_nos}}</td>
-                    <td>{{rec.fwd_nos}}</td>
+                    <td *ngIf="listHdr_Clearing">{{rec.clr_nos}}</td>
+                    <td *ngIf="listHdr_Forwarding">{{rec.fwd_nos}}</td>
+                    <td *ngIf="listHdr_Both">{{rec.both_nos}}</td>
                     <td *ngIf="searchType=='ALL'">{{rec.rec_category}}</td>
                     <td>{{rec.first_job_date}}</td>
                     <td>{{rec.last_job_date}}</td>
+                    <td>{{rec.previous_job_date}}</td>
                 </tr>
             </tbody>
         </table>
