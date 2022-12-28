@@ -11,12 +11,21 @@
             <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Date.From</label>
-                    <div class="col-10">
+                    <div class="col-4">
                         <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
                         </app-date>
                     </div>
+                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-4">
+                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType"
+                            (change)="OnChange('searchType')">
+                            <option [value]="'ALL'">ALL</option>
+                            <option [value]="'SHIPPER'">SHIPPER</option>
+                            <option [value]="'CONSIGNEE'">CONSIGNEE</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Category</label>
                     <div class="col-10">
                         <select class="form-control form-control-sm" name="smde" [(ngModel)]="searchMode"
@@ -26,16 +35,12 @@
                             <option [value]="'SEA EXPORT'">SEA EXPORT</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
+                    <label class="col-2 col-form-label col-form-label-sm">Search</label>
                     <div class="col-10">
-                        <select class="form-control form-control-sm" name="stype" [(ngModel)]="searchType"
-                            (change)="OnChange('searchType')">
-                            <option [value]="'ALL'">ALL</option>
-                            <option [value]="'SHIPPER'">SHIPPER</option>
-                            <option [value]="'CONSIGNEE'">CONSIGNEE</option>
-                        </select>
+                        <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
+                            name="Search" [(ngModel)]="searchstring" />
                     </div>
                 </div>
             </div>
@@ -56,17 +61,13 @@
                     <div class="col-10">
                         <!-- <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
                         <label class="col-form-label col-form-label-sm">New Customer Only</label>&nbsp;&nbsp; -->
-                        <input type="checkbox" [(ngModel)]="Is_Nomination" /> 
-                        <label class="col-form-label col-form-label-sm">Include Nomination</label>
+                        <input type="checkbox" [(ngModel)]="Is_Nomination" />
+                        <label class="col-form-label col-form-label-sm">Include Nomination</label>&nbsp;&nbsp;
+                        <!-- <input type="checkbox" [(ngModel)]="Is_DaysAbove365" />
+                        <label class="col-form-label col-form-label-sm">Job Days > 1Year</label> -->
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Search</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')"
-                            name="Search" [(ngModel)]="searchstring" />
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-sm-4">
@@ -110,14 +111,15 @@
                 <tr>
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SALES PERSON</th>
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SHIPPER</th>
-                    <th *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">CONSIGNEE</th>
+                    <th *ngIf="searchType=='CONSIGNEE'">CONSIGNEE</th>
                     <th *ngIf="listHdr_Clearing">CLEARING</th>
                     <th *ngIf="listHdr_Forwarding">FORWARDING</th>
                     <th *ngIf="listHdr_Both">BOTH</th>
-                    <th *ngIf="searchType=='ALL'">CATEGORY</th>
+                    <!-- <th *ngIf="searchType=='ALL'">CATEGORY</th> -->
                     <th>FIRST.JOB.DATE</th>
                     <th>LAST.JOB.DATE</th>
-                    <th>JOB RCVD BEFORE&nbsp;{{processdate}}</th>
+                    <!-- <th>JOB RCVD BEFORE&nbsp;{{processdate}}</th> -->
+                    <!-- <th>JOB DAYS</th> -->
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -125,14 +127,15 @@
                     (mousedown)="selectedRowIndex=i">
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.sman_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.cust_name}}</td>
-                    <td *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
+                    <td *ngIf="searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
                     <td *ngIf="listHdr_Clearing">{{rec.clr_nos}}</td>
                     <td *ngIf="listHdr_Forwarding">{{rec.fwd_nos}}</td>
                     <td *ngIf="listHdr_Both">{{rec.both_nos}}</td>
-                    <td *ngIf="searchType=='ALL'">{{rec.rec_category}}</td>
+                    <!-- <td *ngIf="searchType=='ALL'">{{rec.rec_category}}</td> -->
                     <td>{{rec.first_job_date}}</td>
                     <td>{{rec.last_job_date}}</td>
-                    <td>{{rec.previous_job_date}}</td>
+                    <!-- <td>{{rec.previous_job_date}}</td> -->
+                    <!-- <td>{{rec.job_days==0?'':rec.job_days}}</td> -->
                 </tr>
             </tbody>
         </table>

@@ -33,6 +33,7 @@ export class NewCustComponent {
     Is_Clearing = false;
     Is_Forwarding = true;
     Is_Both = true;
+    Is_DaysAbove365 = true;
 
     searchMode = "ALL";
     searchType = "ALL";
@@ -186,6 +187,7 @@ export class NewCustComponent {
             isclearing: this.Is_Clearing,
             isforwarding: this.Is_Forwarding,
             isboth: this.Is_Both,
+            isdaysabove365: this.Is_DaysAbove365,
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
