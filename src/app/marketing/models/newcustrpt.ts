@@ -12,6 +12,8 @@ export class NewCustReport {
     last_job_date: string;
     previous_job_date: string;
     cust_created_date: string;
+    teu: number;
+    cbm: number;
     _globalvariables: GlobalVariables;
 }
 

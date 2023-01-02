@@ -48,8 +48,8 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <div class="col-10">
-                        <input type="checkbox" [(ngModel)]="Is_Clearing"> <label
-                            class="col-form-label col-form-label-sm">Clearing</label>&nbsp;&nbsp;
+                        <!-- <input type="checkbox" [(ngModel)]="Is_Clearing"> <label
+                            class="col-form-label col-form-label-sm">Clearing</label>&nbsp;&nbsp; -->
                         <input type="checkbox" [(ngModel)]="Is_Forwarding"> <label
                             class="col-form-label col-form-label-sm">Forwarding</label>&nbsp;&nbsp;
                         <input type="checkbox" [(ngModel)]="Is_Both"> <label
@@ -119,6 +119,8 @@
                     <th>CUST.CREATED.DATE</th>
                     <th>FIRST.JOB.DATE</th>
                     <th>LAST.JOB.DATE</th>
+                    <th>TEU</th>
+                    <th>CBM</th>
                     <!-- <th>JOB RCVD BEFORE&nbsp;{{processdate}}</th> -->
                     <!-- <th>JOB DAYS</th> -->
                 </tr>
@@ -136,6 +138,8 @@
                     <td>{{rec.cust_created_date}}</td>
                     <td>{{rec.first_job_date}}</td>
                     <td>{{rec.last_job_date}}</td>
+                    <td>{{rec.teu}}</td>
+                    <td>{{rec.cbm}}</td>
                     <!-- <td>{{rec.previous_job_date}}</td> -->
                     <!-- <td>{{rec.job_days==0?'':rec.job_days}}</td> -->
                 </tr>
