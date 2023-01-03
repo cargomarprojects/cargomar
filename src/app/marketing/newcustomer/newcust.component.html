@@ -112,11 +112,13 @@
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SALES PERSON</th>
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SHIPPER</th>
                     <th *ngIf="searchType=='CONSIGNEE'">CONSIGNEE</th>
+                    <th>POD</th>
                     <th *ngIf="listHdr_Clearing">CLEARING</th>
                     <th *ngIf="listHdr_Forwarding">FORWARDING</th>
                     <th *ngIf="listHdr_Both">BOTH</th>
                     <!-- <th *ngIf="searchType=='ALL'">CATEGORY</th> -->
                     <th>CUST.CREATED.DATE</th>
+                    <th>CUST.CREATED.BRANCH</th>
                     <th>FIRST.JOB.DATE</th>
                     <th>LAST.JOB.DATE</th>
                     <th>TEU</th>
@@ -131,11 +133,13 @@
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.sman_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.cust_name}}</td>
                     <td *ngIf="searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
+                    <td>{{rec.pod}}</td>
                     <td *ngIf="listHdr_Clearing">{{rec.clr_nos}}</td>
                     <td *ngIf="listHdr_Forwarding">{{rec.fwd_nos}}</td>
                     <td *ngIf="listHdr_Both">{{rec.both_nos}}</td>
                     <!-- <td *ngIf="searchType=='ALL'">{{rec.rec_category}}</td> -->
                     <td>{{rec.cust_created_date}}</td>
+                    <td>{{rec.cust_created_branch}}</td>
                     <td>{{rec.first_job_date}}</td>
                     <td>{{rec.last_job_date}}</td>
                     <td>{{rec.teu}}</td>
