@@ -162,10 +162,10 @@ export class NewCustComponent {
                 return;
         }
 
-        if (!this.Is_Clearing && !this.Is_Forwarding && !this.Is_Both) {
-            alert('Please select Forwarding/Both and continue......');
-            return;
-        }
+        // if (!this.Is_Clearing && !this.Is_Forwarding && !this.Is_Both) {
+        //     alert('Please select Forwarding/Both and continue......');
+        //     return;
+        // }
 
 
         this.listHdr_Clearing = this.Is_Clearing;

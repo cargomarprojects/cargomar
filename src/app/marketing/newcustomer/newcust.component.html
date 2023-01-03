@@ -48,17 +48,6 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
                     <div class="col-10">
-                        <!-- <input type="checkbox" [(ngModel)]="Is_Clearing"> <label
-                            class="col-form-label col-form-label-sm">Clearing</label>&nbsp;&nbsp; -->
-                        <input type="checkbox" [(ngModel)]="Is_Forwarding"> <label
-                            class="col-form-label col-form-label-sm">Forwarding</label>&nbsp;&nbsp;
-                        <input type="checkbox" [(ngModel)]="Is_Both"> <label
-                            class="col-form-label col-form-label-sm">Both</label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-10">
                         <!-- <input type="checkbox" [(ngModel)]="Is_NewCustomer" />
                         <label class="col-form-label col-form-label-sm">New Customer Only</label>&nbsp;&nbsp; -->
                         <input type="checkbox" [(ngModel)]="Is_Nomination" />
@@ -67,13 +56,16 @@
                         <label class="col-form-label col-form-label-sm">Job Days > 1Year</label> -->
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col-sm-4">
-                
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <!-- <div class="col-10">
+                        <input type="checkbox" [(ngModel)]="Is_Clearing"> <label
+                            class="col-form-label col-form-label-sm">Clearing</label>&nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="Is_Forwarding"> <label
+                            class="col-form-label col-form-label-sm">Forwarding</label>&nbsp;&nbsp;
+                        <input type="checkbox" [(ngModel)]="Is_Both"> <label
+                            class="col-form-label col-form-label-sm">Both</label>
+                    </div> -->
                     <div class="col-10">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
@@ -83,6 +75,23 @@
                             class="btn btn-primary btn-sm mr-1">Process Report</button>
                     </div>
                 </div>
+
+
+            </div>
+
+            <div class="col-sm-4">
+
+                <!-- <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm mr-1">Search</button>
+                        <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Print</button>
+                        <button *ngIf='IsAdmin' [disabled]="loading" (click)="List('PROCESS-REPORT')"
+                            class="btn btn-primary btn-sm mr-1">Process Report</button>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -112,6 +121,7 @@
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SALES PERSON</th>
                     <th *ngIf="searchType=='ALL'||searchType=='SHIPPER'">SHIPPER</th>
                     <th *ngIf="searchType=='CONSIGNEE'">CONSIGNEE</th>
+                    <th *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">NOMINATION</th>
                     <th>POD</th>
                     <th *ngIf="listHdr_Clearing">CLEARING</th>
                     <th *ngIf="listHdr_Forwarding">FORWARDING</th>
@@ -133,6 +143,7 @@
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.sman_name}}</td>
                     <td *ngIf="searchType=='ALL'||searchType=='SHIPPER'">{{rec.cust_name}}</td>
                     <td *ngIf="searchType=='CONSIGNEE'">{{rec.cons_name}}</td>
+                    <td *ngIf="searchType=='ALL'||searchType=='CONSIGNEE'">{{rec.cust_nomination}}</td>
                     <td>{{rec.pod}}</td>
                     <td *ngIf="listHdr_Clearing">{{rec.clr_nos}}</td>
                     <td *ngIf="listHdr_Forwarding">{{rec.fwd_nos}}</td>

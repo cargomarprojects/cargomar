@@ -16,6 +16,8 @@ export class NewCustReport {
     pod: string;
     teu: number;
     cbm: number;
+    cust_nomination: string;
+    // cust_type: string;
     _globalvariables: GlobalVariables;
 }
 
