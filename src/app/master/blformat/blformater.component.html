@@ -91,7 +91,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Name</label>
           <div class="col-6">
-            <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_name"
+            <input [disabled]="this.gs.globalVariables.user_code != 'ADMIN'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.blf_name"
               (blur)="OnBlur('blf_name')" required maxlength="250" />
           </div>
           <div class="col-4">
