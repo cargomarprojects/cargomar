@@ -17,6 +17,7 @@ export class NewCustReport {
     teu: number;
     cbm: number;
     cust_nomination: string;
+    row_type: string;
     // cust_type: string;
     _globalvariables: GlobalVariables;
 }
