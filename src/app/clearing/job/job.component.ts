@@ -1213,6 +1213,9 @@ export class JobComponent {
         if (this.mode == 'ADD') {
           this.Record.job_docno = response.docno;
           this.Record.job_prefix = response.jobprefix;
+          this.Record.job_unlockid = '';
+          this.old_shipper_id = this.Record.job_exp_id;
+          this.old_billto_id = this.Record.job_billto_id;
           this.InfoMessage = "New Record " + this.Record.job_docno + " Generated Successfully";
         } else
           this.InfoMessage = "Save Complete";
@@ -1368,7 +1371,8 @@ export class JobComponent {
     }
     else {
       REC.job_docno = this.Record.job_docno;
-      REC.job_date = this.gs.ConvertDate2DisplayFormat(this.Record.job_date);
+      if (this.gs.isBlank(REC._globalvariables))
+        REC.job_date = this.gs.ConvertDate2DisplayFormat(this.Record.job_date);
       REC.job_exp_name = this.Record.job_exp_name;
       REC.job_imp_name = this.Record.job_imp_name;
       REC.job_pol_name = this.Record.job_pol_name;
