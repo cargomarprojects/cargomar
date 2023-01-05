@@ -83,5 +83,9 @@ export class ParamService {
     CurrentCulture(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/CurrentCulture', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    UpdateCCSchedule(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/UpdateCCSchedule', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
