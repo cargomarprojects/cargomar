@@ -2351,7 +2351,11 @@ export class BuyRateComponent {
       type: this.type,
       parentid: 'E-' + this.parentid,
       jvh_gst: this.Record.jvh_gst == true ? true : false,
-      jvh_gst_type: this.Record.jvh_gst_type
+      jvh_gst_type: this.Record.jvh_gst_type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.ErrorMessage = '';
