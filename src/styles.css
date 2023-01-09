@@ -651,8 +651,11 @@ a {
 }
 
 
-
-
+.fixedTableHead thead th {
+  position: sticky;
+  top: 0;
+  background-color: steelblue;
+}
 
 /* For Loading Screen  */
 

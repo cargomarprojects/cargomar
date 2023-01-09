@@ -36,71 +36,67 @@
 
   </div>
 
+  <div class="page-body table-responsive fixedTableHead" [style.height]="RecordList.length>8?'250px':'auto'"
+    [style.overflow-y]="RecordList.length>8?'scroll':'auto'">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>INV#</th>
+          <th>DESCRIPTION</th>
+          <th>QTY</th>
+          <th>UNIT</th>
+          <th>RATE</th>
+          <th>AMOUNT</th>
+          <th>RITC</th>
+          <th>R.QTY</th>
+          <th>R.UNIT</th>
 
-  <div class="page-body table-responsive">
-    <div [style.height]="RecordList.length>8?'250px':'auto'" [style.overflow-y]="RecordList.length>8?'scroll':'auto'">
-      <table class="table  table-hover table-sm">
-        <thead class="page-body-thead">
-          <tr>
-            <th>SL#</th>
-            <th>INV#</th>
-            <th>DESCRIPTION</th>
-            <th>QTY</th>
-            <th>UNIT</th>
-            <th>RATE</th>
-            <th>AMOUNT</th>
-            <th>RITC</th>
-            <th>R.QTY</th>
-            <th>R.UNIT</th>
+          <th>RODTEP.RT</th>
+          <th>RODTEP.CAP</th>
 
-            <th>RODTEP.RT</th>
-            <th>RODTEP.CAP</th>
+          <th>DBK</th>
+          <th>DBK.QTY</th>
+          <th>DBK.RATE</th>
+          <th>DBK.UNIT</th>
+          <th>STATE</th>
+          <th>DISTRICT</th>
+          <th>PTA/FTA</th>
+          <th>DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
 
-            <th>DBK</th>
-            <th>DBK.QTY</th>
-            <th>DBK.RATE</th>
-            <th>DBK.UNIT</th>
-            <th>STATE</th>
-            <th>DISTRICT</th>
-            <th>PTA/FTA</th>
-            <th>DELETE</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" (click)="ActionHandler('EDIT',rec.itm_pkid,i)"
+          [class.active]="i == selectedRowIndex">
+          <td>{{i+1}}</td>
+          <td>{{rec.itm_invoice_no}}</td>
+          <td>{{rec.itm_desc}}</td>
+          <td>{{rec.itm_qty}}</td>
+          <td>{{rec.itm_unit_code}}</td>
+          <td>{{rec.itm_unit_rate}}</td>
+          <td>{{rec.itm_amount}}</td>
+          <td>{{rec.itm_ritc_code}}</td>
+          <td>{{rec.itm_ritc_qty}}</td>
+          <td>{{rec.itm_ritc_unit}}</td>
 
-          <tr *ngFor="let rec of RecordList; let i = index" (click)="ActionHandler('EDIT',rec.itm_pkid,i)"
-            [class.active]="i == selectedRowIndex">
-            <td>{{i+1}}</td>
-            <td>{{rec.itm_invoice_no}}</td>
-            <td>{{rec.itm_desc}}</td>
-            <td>{{rec.itm_qty}}</td>
-            <td>{{rec.itm_unit_code}}</td>
-            <td>{{rec.itm_unit_rate}}</td>
-            <td>{{rec.itm_amount}}</td>
-            <td>{{rec.itm_ritc_code}}</td>
-            <td>{{rec.itm_ritc_qty}}</td>
-            <td>{{rec.itm_ritc_unit}}</td>
+          <td>{{rec.itm_rodtep_rate}}</td>
+          <td>{{rec.itm_rodtep_cap}}</td>
 
-            <td>{{rec.itm_rodtep_rate}}</td>
-            <td>{{rec.itm_rodtep_cap}}</td>
-            
-            <td>{{rec.itm_dbk_code}}</td>
-            <td>{{rec.itm_dbk_qty}}</td>
-            <td>{{rec.itm_dbk_rate}}</td>
-            <td>{{rec.itm_dbk_unit}}</td>
-            <td>{{rec.itm_state_name}}</td>
-            <td>{{rec.itm_district_name}}</td>
-            <td>{{rec.itm_ta_code}}</td>
-            <td>
-              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.itm_pkid,name:i+1}"
-                (result)="RemoveList($event)"></App-Dialog>
-            </td>
-          </tr>
-
-        </tbody>
-
-      </table>
-    </div>
+          <td>{{rec.itm_dbk_code}}</td>
+          <td>{{rec.itm_dbk_qty}}</td>
+          <td>{{rec.itm_dbk_rate}}</td>
+          <td>{{rec.itm_dbk_unit}}</td>
+          <td>{{rec.itm_state_name}}</td>
+          <td>{{rec.itm_district_name}}</td>
+          <td>{{rec.itm_ta_code}}</td>
+          <td>
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.itm_pkid,name:i+1}"
+              (result)="RemoveList($event)"></App-Dialog>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -351,14 +347,14 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">CESS Code</label>
                 <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_code" required
-                    maxlength="15" />
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_code"
+                    required maxlength="15" />
                 </div>
                 <label style="padding-left:0;padding-right:0"
                   class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-3">
-                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_qty" required
-                    maxlength="14" />
+                  <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_qty"
+                    required maxlength="14" />
                 </div>
               </div>
 
@@ -453,7 +449,7 @@
                   </select>
                 </div>
               </div>
-              
+
               <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Stmt Code</label>
                 <div style="padding-right:0" class="col-sm-8">
@@ -618,7 +614,7 @@
         <app-ctrl [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-ctrl>
       </ng-template>
     </ngb-tab>
-    
+
     <ngb-tab title="Cess" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
         <app-itemcess [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-itemcess>
