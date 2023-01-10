@@ -102,8 +102,8 @@
 
 <div class="page-details" *ngIf="bListLoaded">
 
-  <ngb-tabset>
-    <ngb-tab title="Details">
+  <ngb-tabset #tabset>
+    <ngb-tab title="Details" id="Detail">
       <ng-template ngbTabContent>
         <div class="page-box">
 
@@ -576,7 +576,7 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab title="Others" *ngIf="mode=='EDIT'">
+    <ngb-tab title="Others" id="Other" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
 
         <app-itemdet [parentid]="pkid" [type]="type"></app-itemdet>
@@ -584,7 +584,7 @@
       </ng-template>
     </ngb-tab>
 
-    <ngb-tab title="License" *ngIf="mode=='EDIT'">
+    <ngb-tab title="License" id="Lic" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
 
         <app-itemlicense [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-itemlicense>

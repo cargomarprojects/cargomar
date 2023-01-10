@@ -33,6 +33,7 @@ export class ItemComponent {
   @Input() job_org_state_code: string = '';
   @Input() job_org_state_name: string = '';
 
+  @ViewChild('tabset') _tabset: any;
 
   selectedRowIndex: number = -1;
 
@@ -286,13 +287,12 @@ export class ItemComponent {
       this.Record.itm_ritc_name = _Record.name;
       this.Record.itm_ritc_unit = _Record.col1;
 
-      this.Record.itm_rodtep_amt =  0;
-      this.Record.itm_rodtep_rate =  +_Record.col2;
-      this.Record.itm_rodtep_cap =  +_Record.col3;
+      this.Record.itm_rodtep_amt = 0;
+      this.Record.itm_rodtep_rate = +_Record.col2;
+      this.Record.itm_rodtep_cap = +_Record.col3;
 
 
-      if (this.gs.isZero(this.Record.itm_rodtep_rate))
-      {
+      if (this.gs.isZero(this.Record.itm_rodtep_rate)) {
         alert('No RODTEP Rate Is Provided');
         return;
       }
@@ -761,6 +761,9 @@ export class ItemComponent {
     this.TARECORD.name = this.Record.itm_ta_name;
 
     this.Record.rec_mode = this.mode;
+
+    // if (!this.gs.isBlank(this._tabset))
+    //   this._tabset.select('Detail');
   }
   // Save Data
   Save() {
@@ -1168,7 +1171,7 @@ export class ItemComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   LinkDocs(esanchitlink: any) {
@@ -1181,18 +1184,18 @@ export class ItemComponent {
     this.myData = { job_id: this.parentid, inv_id: this.search_inv_pkid };
 
     this.bShowPasteData = true;
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   PasteDataClosed(cbdata: string) {
     this.bShowPasteData = false;
-    this.ChangeInvoiceList(true, 'NEW');        
+    this.ChangeInvoiceList(true, 'NEW');
     this.closeModal();
   }
 
   closeModal() {
     this.modal.close();
-  
+
   }
 
 
