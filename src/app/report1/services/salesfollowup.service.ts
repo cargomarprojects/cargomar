@@ -586,7 +586,7 @@ export class SalesFollowupService {
     _rec.row_checked = !_rec.row_checked;
   }
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

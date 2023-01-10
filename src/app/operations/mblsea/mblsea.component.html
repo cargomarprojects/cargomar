@@ -527,11 +527,11 @@
                     </select>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm"
-                  style="padding-left:0;padding-right:0">VGM.WT</label>
-                <div style="padding-left:0" class="col-sm-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_vgmwt"
-                    (blur)="OnBlur('book_vgmwt')" required maxlength="14" />
-                </div>
+                    style="padding-left:0;padding-right:0">VGM.WT</label>
+                  <div style="padding-left:0" class="col-sm-3">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_vgmwt"
+                      (blur)="OnBlur('book_vgmwt')" required maxlength="14" />
+                  </div>
 
                 </div>
                 <div class="form-group row">
@@ -554,7 +554,7 @@
               </div>
             </div>
           </div>
-          
+
           <div *ngFor="let rec of Record.HblBkmPartyList; let i = index">
             <app-hblbkmparty [mRecord]="rec" [type]="type" [showCaption]="i==0"
               (ModifiedRecords)="ModifiedRecords($event)">
@@ -572,10 +572,10 @@
                     class="col-sm-4  col-form-label col-form-label-sm pl-2">VESSEL</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-1 col-form-label col-form-label-sm pl-3">VOYAGE</label>
-                    <label style="background-color:lightgray;"
-                    class="col-sm-2 col-form-label col-form-label-sm pl-4">SI CUT-OFF</label>
+                  <label style="background-color:lightgray;" class="col-sm-2 col-form-label col-form-label-sm pl-4">SI
+                    CUT-OFF</label>
                 </div>
-                
+
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
                   <div class="col-sm-2 pr-2">
@@ -599,7 +599,8 @@
                       (blur)="OnBlur('book_vessel_no')" required maxlength="15" />
                   </div>
                   <div class="col-sm-2 pl-2">
-                    <app-date [inputdate]="Record.book_si_cutoff" (ValueChanged)="Record.book_si_cutoff=$event"></app-date>
+                    <app-date [inputdate]="Record.book_si_cutoff"
+                      (ValueChanged)="Record.book_si_cutoff=$event"></app-date>
                   </div>
                 </div>
 
@@ -607,8 +608,8 @@
 
               <div class="col-sm-4 pl-0">
                 <div class="form-group row mx-0">
-                  <label style="background-color:lightgray;"
-                    class="col-sm-3 col-form-label col-form-label-sm pl-2">CY CUT-OFF</label>
+                  <label style="background-color:lightgray;" class="col-sm-3 col-form-label col-form-label-sm pl-2">CY
+                    CUT-OFF</label>
                   <label style="background-color:lightgray;"
                     class="col-sm-3 col-form-label col-form-label-sm pl-1">ETD-[POL]</label>
                   <label style="background-color:lightgray;"
@@ -620,7 +621,8 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-3 pl-4 pr-0">
-                    <app-date [inputdate]="Record.book_cy_cutoff" (ValueChanged)="Record.book_cy_cutoff=$event"></app-date>
+                    <app-date [inputdate]="Record.book_cy_cutoff"
+                      (ValueChanged)="Record.book_cy_cutoff=$event"></app-date>
                   </div>
                   <div class="col-sm-3 pl-2 pr-0">
                     <app-date [inputdate]="Record.book_etd" (ValueChanged)="Record.book_etd=$event"></app-date>
@@ -769,10 +771,10 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <div [style.height]="Record.BkmCntrList.length>4?'165px':'auto'"
-                              [style.overflow-y]="Record.BkmCntrList.length>4?'scroll':'auto'">
-                              <div class="page-list">
+                            <div class="page-list">
                                 <div class="page-body table-responsive">
+                                  <div class="fixedTableHead" [style.height]="Record.BkmCntrList.length>4?'165px':'auto'"
+                                    [style.overflow-y]="Record.BkmCntrList.length>4?'scroll':'auto'">
                                   <table class="table  table-hover table-sm my-0">
                                     <thead class="page-body-thead">
                                       <tr>
