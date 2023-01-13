@@ -10,6 +10,7 @@ import { ActionComponent } from './saleslead/action.component';
 import { MarkMarketingService } from './services/markmarketing.service';
 import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 import { NewCustComponent } from './newcustomer/newcust.component';
+import { QtnLclComponent } from './qtnlcl/qtnlcl.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { NewCustComponent } from './newcustomer/newcust.component';
     SalesleadComponent,
     ActionComponent,
     SalesVolumeComponent,
-    NewCustComponent
+    NewCustComponent,
+    QtnLclComponent
   ],
   providers: [
     MarkMarketingService
