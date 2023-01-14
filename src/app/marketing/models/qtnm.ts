@@ -42,6 +42,9 @@ export class Qtnm {
     qtnm_transtime: string;
     qtnm_routing: string;
     qtnm_curr_code: string;
+
+    qtnm_lcl_detList: QtndLcl[] = [];
+
     _globalvariables: GlobalVariables;
 }
 

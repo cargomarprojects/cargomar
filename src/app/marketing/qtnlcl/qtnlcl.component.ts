@@ -174,16 +174,34 @@ export class QtnLclComponent {
 
     LovSelected(_Record: any) {
 
-        // if (_Record.controlname == "CONTACT TYPE") {
-        //     this.Record.cont_type_id = _Record.id;
-        //     this.Record.cont_type_name = _Record.name;
-        // }
+        if (_Record.controlname == "QUOTE-TO") {
+            this.Record.qtnm_to_id = _Record.id;
+            this.Record.qtnm_to_code = _Record.code;
+            this.Record.qtnm_to_name = _Record.name;
+        }
 
-        // if (_Record.controlname == "SALESMAN") {
-        //     this.Record.cont_saleman_id = _Record.id;
-        //     this.Record.cont_saleman_name = _Record.name;
-        // }
-
+        if (_Record.controlname == "SALESMAN") {
+            this.Record.qtnm_salesman_id = _Record.id;
+            this.Record.qtnm_salesman_name = _Record.name;
+        }
+        if (_Record.controlname == "CURR") {
+            this.Record.qtnm_curr_code = _Record.code;
+        }
+        if (_Record.controlname == "POR") {
+            this.Record.qtnm_por_id = _Record.id;
+            this.Record.qtnm_por_code = _Record.code;
+            this.Record.qtnm_por_name = _Record.name;
+        }
+        if (_Record.controlname == "POL") {
+            this.Record.qtnm_pol_id = _Record.id;
+            this.Record.qtnm_pol_code = _Record.code;
+            this.Record.qtnm_pol_name = _Record.name;
+        }
+        if (_Record.controlname == "POD") {
+            this.Record.qtnm_pod_id = _Record.id;
+            this.Record.qtnm_pod_code = _Record.code;
+            this.Record.qtnm_pod_name = _Record.name;
+        }
         // if (_Record.controlname == "CSD") {
         //     this.Record.cont_csd_id = _Record.id;
         //     this.Record.cont_csd_name = _Record.name;
@@ -289,50 +307,67 @@ export class QtnLclComponent {
 
         this.pkid = this.gs.getGuid();
         this.Record = new Qtnm();
-        // this.Record.cont_pkid = this.pkid;
-        // this.Record.cont_name = '';
-        // this.Record.cont_add1 = '';
-        // this.Record.cont_add2 = '';
-        // this.Record.cont_add3 = '';
-        // this.Record.cont_add4 = '';
-        // this.Record.cont_add5 = '';
-        // this.Record.cont_state = '';
-        // this.Record.cont_country_id = '';
-        // this.Record.cont_country_code = '';
-        // this.Record.cont_country = '';
-        // this.Record.cont_tel = '';
-        // this.Record.cont_fax = '';
-        // this.Record.cont_mobile = '';
-        // this.Record.cont_email = '';
-        // this.Record.cont_web = '';
-        // this.Record.cont_type_id = '';
-        // this.Record.cont_type_name = '';
-        // this.Record.cont_iscorporat = false;
-        // this.Record.cont_saleman_id = '';
-        // this.Record.cont_saleman_name = '';
-        // this.Record.cont_region = '';
-        // this.Record.cont_remark = '';
-        // this.Record.cont_iecode = '';
-        // this.Record.cont_location = '';
-        // this.Record.cont_cha_name = '';
-        // this.Record.cont_csd_id = '';
-        // this.Record.cont_csd_name = '';
-        // this.Record.cont_type_2 = '';
-        // this.Record.cont_target_market = '';
-        // this.Record.cont_is_seclr = false;
-        // this.Record.cont_is_sefwd = false;
-        // this.Record.cont_is_siclr = false;
-        // this.Record.cont_is_sifwd = false;
-        // this.Record.cont_is_aeclr = false;
-        // this.Record.cont_is_aefwd = false;
-        // this.Record.cont_is_aiclr = false;
-        // this.Record.cont_is_aifwd = false;
-        // this.Record.cont_is_pj = false;
-        // this.Record.cont_is_wh = false;
-        // this.Record.cont_is_tp = false;
-        // this.Record.cont_contact = '';
-        // this.Record.rec_mode = this.mode;
+        this.Record.qtnm_pkid = this.pkid;
+        this.Record.qtnm_cfno = 0;
+        this.Record.qtnm_no = '';
+        this.Record.qtnm_to_id = '';
+        this.Record.qtnm_to_code = '';
+        this.Record.qtnm_to_name = '';
+        this.Record.qtnm_to_addr1 = '';
+        this.Record.qtnm_to_addr2 = '';
+        this.Record.qtnm_to_addr3 = '';
+        this.Record.qtnm_to_addr4 = '';
+        this.Record.qtnm_date = '';
+        this.Record.qtnm_quot_by = '';
+        this.Record.qtnm_valid_date = '';
+        this.Record.qtnm_salesman_id = '';
+        this.Record.qtnm_salesman_name = '';
+        this.Record.qtnm_move_type = '';
+        this.Record.qtnm_por_id = '';
+        this.Record.qtnm_por_code = '';
+        this.Record.qtnm_por_name = '';
+        this.Record.qtnm_pol_id = '';
+        this.Record.qtnm_pol_code = '';
+        this.Record.qtnm_pol_name = '';
+        this.Record.qtnm_pod_id = '';
+        this.Record.qtnm_pod_code = '';
+        this.Record.qtnm_pod_name = '';
+        this.Record.qtnm_pld_name = '';
+        this.Record.qtnm_plfd_name = '';
+        this.Record.qtnm_commodity = '';
+        this.Record.qtnm_package = '';
+        this.Record.qtnm_type = '';
+        this.Record.qtnm_kgs = 0;
+        this.Record.qtnm_lbs = 0;
+        this.Record.qtnm_cbm = 0;
+        this.Record.qtnm_cft = 0;
+        this.Record.qtnm_tot_amt = 0;
+        this.Record.qtnm_subjects = '';
+        this.Record.qtnm_remarks = '';
+        this.Record.qtnm_office_use = '';
+        this.Record.rec_files_attached = '';
+        this.Record.qtnm_transtime = '';
+        this.Record.qtnm_routing = '';
+        this.Record.qtnm_curr_code = '';
+      // this.Record.rec_mode = this.mode;
+
+
+
         // this.InitLov();
+        this.Record.qtnm_lcl_detList = new Array<QtndLcl>();
+        this.NewDetRecord();
+    }
+
+    NewDetRecord() {
+        let Rec: QtndLcl = new QtndLcl();
+        Rec.qtnd_pkid = this.gs.getGuid();
+        Rec.qtnd_parent_id = this.pkid;
+        Rec.qtnd_desc_id = '';
+        Rec.qtnd_desc_code = '';
+        Rec.qtnd_desc_name = '';
+        Rec.qtnd_amt = 0;
+        Rec.qtnd_per = '';
+        this.Record.qtnm_lcl_detList.push(Rec);
     }
 
     // Load a single Record for VIEW/EDIT
@@ -359,6 +394,13 @@ export class QtnLclComponent {
 
     LoadData(_Record: Qtnm) {
         this.Record = _Record;
+
+
+        if (this.gs.isBlank(this.Record.qtnm_lcl_detList))
+            this.Record.qtnm_lcl_detList = new Array<QtndLcl>();
+        if (this.Record.qtnm_lcl_detList.length == 0)
+            this.NewDetRecord();
+
         // this.Record.rec_mode = "EDIT";
 
         // this.InitLov();
