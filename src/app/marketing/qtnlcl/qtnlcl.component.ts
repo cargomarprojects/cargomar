@@ -354,20 +354,20 @@ export class QtnLclComponent {
 
 
         // this.InitLov();
-        this.Record.qtnm_lcl_detList = new Array<QtndLcl>();
+        this.Record.qtnm_detList = new Array<QtndLcl>();
         this.NewDetRecord();
     }
 
     NewDetRecord() {
-        let Rec: QtndLcl = new QtndLcl();
-        Rec.qtnd_pkid = this.gs.getGuid();
-        Rec.qtnd_parent_id = this.pkid;
-        Rec.qtnd_desc_id = '';
-        Rec.qtnd_desc_code = '';
-        Rec.qtnd_desc_name = '';
-        Rec.qtnd_amt = 0;
-        Rec.qtnd_per = '';
-        this.Record.qtnm_lcl_detList.push(Rec);
+        // let Rec: QtndLcl = new QtndLcl();
+        // Rec.qtnd_pkid = this.gs.getGuid();
+        // Rec.qtnd_parent_id = this.pkid;
+        // Rec.qtnd_desc_id = '';
+        // Rec.qtnd_desc_code = '';
+        // Rec.qtnd_desc_name = '';
+        // Rec.qtnd_amt = 0;
+        // Rec.qtnd_per = '';
+        // this.Record.qtnm_lcl_detList.push(Rec);
     }
 
     // Load a single Record for VIEW/EDIT
@@ -396,9 +396,9 @@ export class QtnLclComponent {
         this.Record = _Record;
 
 
-        if (this.gs.isBlank(this.Record.qtnm_lcl_detList))
-            this.Record.qtnm_lcl_detList = new Array<QtndLcl>();
-        if (this.Record.qtnm_lcl_detList.length == 0)
+        if (this.gs.isBlank(this.Record.qtnm_detList))
+            this.Record.qtnm_detList = new Array<QtndLcl>();
+        if (this.Record.qtnm_detList.length == 0)
             this.NewDetRecord();
 
         // this.Record.rec_mode = "EDIT";

@@ -11,6 +11,7 @@ import { MarkMarketingService } from './services/markmarketing.service';
 import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 import { NewCustComponent } from './newcustomer/newcust.component';
 import { QtnLclComponent } from './qtnlcl/qtnlcl.component';
+import { QtnLclDetComponent } from './qtnlcl/qtnlcldet.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { QtnLclComponent } from './qtnlcl/qtnlcl.component';
     ActionComponent,
     SalesVolumeComponent,
     NewCustComponent,
-    QtnLclComponent
+    QtnLclComponent,
+    QtnLclDetComponent
   ],
   providers: [
     MarkMarketingService
