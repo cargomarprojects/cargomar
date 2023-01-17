@@ -332,7 +332,8 @@
             <th>NAME</th>
             <th>TYPE</th>
             <th>QTY</th>
-            <th>RATE</th>
+            <th>RATE</th> 
+            <th>AMOUNT</th>
             <th>CURR</th>
             <th>EXRATE</th>
             <th>TOTAL</th>
@@ -349,6 +350,7 @@
             <td>{{rec.qtnd_type}}</td>
             <td>{{rec.qtnd_qty}}</td>
             <td>{{rec.qtnd_rate}}</td>
+            <td>{{rec.qtnd_amt}}</td>
             <td>{{rec.qtnd_curr_code}}</td>
             <td>{{rec.qtnd_exrate}}</td>
             <td>{{rec.qtnd_total}}</td>
@@ -441,11 +443,15 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
+          <div class="col-sm-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt"
+             required maxlength="20" />
+          </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
-          <div class="col-sm-10">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total"
-              (focus)="OnFocus('inv_total')" (change)="OnChange('qtnd_total')" (blur)="OnBlur('qtnd_total')" required
-              maxlength="20" />
+          <div class="col-sm-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total" 
+             required maxlength="20" />
           </div>
         </div>
         <div class="form-group row">
@@ -479,7 +485,7 @@
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
                   <tr>
-                    <th>DESCRIPTION</th>
+                    <th>REMARKS</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -499,7 +505,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-12 col-form-label col-form-label-sm">REMARKS</label>
+          <label class="col-sm-12 col-form-label col-form-label-sm">TERMS & CONDITIONS</label>
         </div>
         <div class="form-group row">
           <div class="col-sm-12">

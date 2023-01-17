@@ -42,7 +42,7 @@ export class Mark_Qtnm {
     qtnm_transtime: string;
     qtnm_routing: string;
     qtnm_curr_code: string;
-
+    
     qtnm_detList: Mark_Qtnd[] = [];
 
     _globalvariables: GlobalVariables;
@@ -88,6 +88,7 @@ export class Mark_Qtnd {
     qtnd_rate: number;
     qtnd_exrate: number;
     qtnd_total: number;
+    qtnd_amt:number;
     qtnd_remarks: string;
     qtnd_category: string;
     rec_mode: string;
