@@ -92,7 +92,7 @@
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
   <div class="page-box">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Quote#</label>
           <div class="col-sm-10">
@@ -101,15 +101,24 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type" (change)="OnChange('type')">
+              <option [value]="'SEA'">SEA</option>
+              <option [value]="'AIR'">AIR</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="page-box">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Quote To</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Quote.To</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'QUOTE-TO'" [tabletype]="'CUSTOMER'" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_to_code" (ValueChanged)="LovSelected($event)">
@@ -153,15 +162,15 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Quote Date</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Quote.Date</label>
           <div class="col-sm-10">
             <app-date [inputdate]="Record.qtnm_date" (ValueChanged)="Record.qtnm_date=$event"></app-date>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Quote By</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Quote.By</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_quot_by"
               (blur)="OnBlur('qtnm_quot_by')" required maxlength="60" />
@@ -177,12 +186,12 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Salesperson</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'SALESMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-            [displaydata]="Record.qtnm_salesman_name" (ValueChanged)="LovSelected($event)">
-           </app-autocomplete3>
+              [displaydata]="Record.qtnm_salesman_name" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Move Type</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Move.Type</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
               (blur)="OnBlur('qtnm_move_type')" required maxlength="25" />
@@ -192,16 +201,12 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'CURR'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
-            [displaydata]="Record.qtnm_curr_code" (ValueChanged)="LovSelected($event)">
-           </app-autocomplete3>
+              [displaydata]="Record.qtnm_curr_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="page-box">
-    <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
           <div class="col-sm-10">
@@ -216,8 +221,6 @@
               (blur)="OnBlur('qtnm_package')" required maxlength="60" />
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">KGS</label>
           <div class="col-sm-10">
@@ -237,13 +240,13 @@
   </div>
   <div class="page-box">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Place Of Receipt</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Place.Receipt</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'POR'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
-            [displaydata]="Record.qtnm_por_code" (ValueChanged)="LovSelected($event)">
-           </app-autocomplete3>
+              [displaydata]="Record.qtnm_por_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
@@ -254,11 +257,11 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Port Of Loading</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'POL'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
-            [displaydata]="Record.qtnm_pol_code" (ValueChanged)="LovSelected($event)">
-           </app-autocomplete3>
+              [displaydata]="Record.qtnm_pol_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
@@ -268,12 +271,14 @@
               (blur)="OnBlur('qtnm_pol_name')" required maxlength="60" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Discharge Port</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'POD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
-            [displaydata]="Record.qtnm_pod_code" (ValueChanged)="LovSelected($event)">
-           </app-autocomplete3>
+              [displaydata]="Record.qtnm_pod_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
@@ -283,22 +288,22 @@
               (blur)="OnBlur('qtnm_pod_name')" required maxlength="60" />
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Place Of Delivery</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Place.Delivery</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pld_name"
               (blur)="OnBlur('qtnm_pld_name')" required maxlength="60" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Final Destination</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_plfd_name"
               (blur)="OnBlur('qtnm_plfd_name')" required maxlength="60" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Transit Time</label>
           <div class="col-sm-10">
@@ -316,86 +321,202 @@
       </div>
     </div>
   </div>
-  
-    <app-qtnlcldet  [Record]="Record" [type]="'SE-CLR'"></app-qtnlcldet>
-    <!-- <div class="row">
-      <div class="col-sm-12">
-        <div class="page-body table-responsive">
-          <table class="table  table-hover table-sm mb-1">
-            <thead class="page-body-thead">
-              <tr>
-                <th width="15%">CODE</th>
-                <th width="30%">DESCRIPTION</th>
-                <th width="15%">AMT</th>
-                <th width="30%">PER</th>
-                <th width="10%" style="text-align:center"></th>
-              </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-              <tr *ngFor="let rec of Record.qtnm_lcl_detList; let i = index">
-                <td style="padding:0px 0px 0px 0px">
-                  <app-autocomplete2 #podLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete2>
-                </td>
-                <td style="padding:0px 0px 0px 0px">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnd_desc_name"
-                    (blur)="OnBlur('qtnd_desc_name')" required maxlength="60" />
-                </td>
-
-                <td style="padding:0px 0px 0px 0px">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnd_amt"
-                    (blur)="OnBlur('qtnd_amt')" required maxlength="15" />
-                </td>
-                <td style="padding:0px 0px 0px 0px">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnd_per"
-                    (blur)="OnBlur('qtnd_per')" required maxlength="60" />
-                </td>
-                <td>
-                  <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="NewDetRecord()"></i>
-                  <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec.qtnd_pkid)"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="col mt-0 mb-1">
-              <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Load Clr Quotation</button>
-              <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Load Fwd Quotation</button>
+  <div class="page-box">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>SL#</th>
+            <th>CODE</th>
+            <th>NAME</th>
+            <th>QTY</th>
+            <th>RATE</th>
+            <th>CURR</th>
+            <th>EXRATE</th>
+            <th>TOTAL</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of Record.qtnm_detList; let i = index">
+          <tr>
+            <td>{{i+1}}</td>
+            <td>{{rec.qtnd_acc_code}}</td>
+            <td>{{rec.qtnd_acc_name}}</td>
+            <td>{{rec.qtnd_qty}}</td>
+            <td>{{rec.qtnd_rate}}</td>
+            <td>{{rec.qtnd_curr_code}}</td>
+            <td>{{rec.qtnd_exrate}}</td>
+            <td>{{rec.qtnd_total}}</td>
+            <td>
+              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.qtnd_pkid,name:i+1}"
+                (result)="RemoveList($event)"></App-Dialog>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="type" (change)="OnChange('type')">
+              <option [value]="'CLEARING'">CLEARING</option>
+              <option [value]="'FORWARDING'">FORWARDING</option>
+              <option [value]="'TRANSPORTATION'">TRANSPORTATION</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Code</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
+            [branchcode]="gs.globalVariables.branch_code"  [displaydata]="Recorddet.qtnd_acc_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_acc_name"
+              (blur)="OnBlur('qtnd_acc_name')" required maxlength="60" />
           </div>
         </div>
       </div>
-    </div> -->
- 
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type">
+              <option value="INVOICE">INVOICE</option>
+              <option value="CBM">CBM</option>
+              <option value="QTY">QTY</option>
+              <option value="GRWT">GRWT</option>
+              <option value="NTWT">NTWT</option>
+              <option value="CNTR">CNTR</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'CNTRTYPE'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
+              [displaydata]="Recorddet.qtnd_cntr_type_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'CURRENCY'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
+            [displaydata]="Recorddet.qtnd_curr_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_exrate"
+              (focus)="OnFocus('qtnd_exrate')" (change)="OnChange('inv_exrate')" (blur)="OnBlur('qtnd_exrate')" required
+              maxlength="10" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Qty</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_qty"
+              (focus)="OnFocus('qtnd_qty')" (change)="OnChange('inv_qty')" (blur)="OnBlur('qtnd_qty')" required
+              maxlength="20" />
+          </div>
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Rate</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_rate"
+              (focus)="OnFocus('qtnd_rate')" (change)="OnChange('inv_rate')" (blur)="OnBlur('qtnd_rate')" required
+              maxlength="20" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
+          <div class="col-sm-10">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total"
+              (focus)="OnFocus('inv_total')" (change)="OnChange('qtnd_total')" (blur)="OnBlur('qtnd_total')" required
+              maxlength="20" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm">PER</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_remarks"
+              (blur)="OnBlur('qtnd_remarks')" required maxlength="100" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-box">
+    <div class="col-sm-12">
+      <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Add</button>
+      <button [disabled]="loading" (click)="NewDetRecord()" class="btn btn-success btn-sm">New</button>
+      <!-- <label *ngIf="total_amt!=0" class="col-sm-5 col-form-label col-form-label-sm"><b>TOTAL :</b>
+                {{total_amt}}</label> -->
+    </div>
+  </div>
+
   <div class="page-box">
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group row">
-          <label class="col-1 col-form-label col-form-label-sm">Remarks</label>
-          <div class="col-11">
-            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
+          <label class="col-sm-1 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-11">
+            <textarea disabled rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
               maxlength="1000"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-11">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm mb-1">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th>DESCRIPTION</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                  <tr *ngFor="let rec of RecordRemList; let i = index">
+                    <td style="padding:0px 0px 0px 0px"><input type="text" name="desc"
+                        class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
+                        (blur)="OnBlur('qtnm_remarks',rec)" /></td>
+                    <td>
+                      <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
+                      <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec.qtnm_pkid)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="offset-2 col-10">
+            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+              class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="page-box">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="offset-2 col-10">
-          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
-            class="btn btn-success btn-sm">Save</button>
-          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-          <i *ngIf="loading" class="fa fa-spinner"></i>
-        </div>
-      </div>
-    </div>
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
   </div>
-</div>
-<br />
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>

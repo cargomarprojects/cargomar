@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Qtnm, QtndLcl } from '../models/qtnm';
 import { QtnLclService } from '../services/qtnlcl.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { qtnm } from '../../shared/models/qtn';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class QtnLclComponent {
     sub: any;
     urlid: string;
 
-
+    bChanged: boolean;
+    total_amt: number = 0;
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -53,12 +55,18 @@ export class QtnLclComponent {
     RecordList: Qtnm[] = [];
     // Single Record for add/edit/view details
     Record: Qtnm = new Qtnm;
-
+    RecordRemList: Qtnm[] = [];
 
     CATEGORYRECORD: SearchTable = new SearchTable();
     SALESMANRECORD: SearchTable = new SearchTable();
     CSDRECORD: SearchTable = new SearchTable();
     CNTRYRECORD: SearchTable = new SearchTable();
+    
+    Recorddet: QtndLcl = new QtndLcl;
+    // ACCRECORD: SearchTable = new SearchTable();
+    // CURRECORD: SearchTable = new SearchTable();
+    // CNTRTYPERECORD: SearchTable = new SearchTable();
+    // REBTCURRECORD: SearchTable = new SearchTable();
 
     constructor(
         private modalService: NgbModal,
@@ -213,6 +221,23 @@ export class QtnLclComponent {
         //     this.Record.cont_country = _Record.name;
         // }
 
+        if (_Record.controlname == "ACCTM") {
+            this.Recorddet.qtnd_acc_id = _Record.id;
+            this.Recorddet.qtnd_acc_code = _Record.code;
+            this.Recorddet.qtnd_acc_name = _Record.name;
+        }
+        if (_Record.controlname == "CURRENCY") {
+            this.Recorddet.qtnd_curr_id = _Record.id;
+            this.Recorddet.qtnd_curr_code = _Record.code;
+            this.Recorddet.qtnd_exrate = _Record.rate;
+            this.bChanged = true;
+            this.OnBlur('inv_exrate');
+        }
+        if (_Record.controlname == "CNTRTYPE") {
+            this.Recorddet.qtnd_cntr_type_id = _Record.id;
+            this.Recorddet.qtnd_cntr_type_code = _Record.code;
+        }
+
     }
 
 
@@ -336,7 +361,7 @@ export class QtnLclComponent {
         this.Record.qtnm_plfd_name = '';
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
-        this.Record.qtnm_type = '';
+        this.Record.qtnm_type = 'SEA';
         this.Record.qtnm_kgs = 0;
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
@@ -349,25 +374,45 @@ export class QtnLclComponent {
         this.Record.qtnm_transtime = '';
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
-      // this.Record.rec_mode = this.mode;
+        // this.Record.rec_mode = this.mode;
 
 
 
         // this.InitLov();
         this.Record.qtnm_detList = new Array<QtndLcl>();
+        this.RecordRemList = new Array<Qtnm>();
         this.NewDetRecord();
+        this.NewRemarkRecord();
     }
 
     NewDetRecord() {
-        // let Rec: QtndLcl = new QtndLcl();
-        // Rec.qtnd_pkid = this.gs.getGuid();
-        // Rec.qtnd_parent_id = this.pkid;
-        // Rec.qtnd_desc_id = '';
-        // Rec.qtnd_desc_code = '';
-        // Rec.qtnd_desc_name = '';
-        // Rec.qtnd_amt = 0;
-        // Rec.qtnd_per = '';
-        // this.Record.qtnm_lcl_detList.push(Rec);
+        this.Recorddet = new QtndLcl();
+
+        this.Recorddet.qtnd_pkid = this.gs.getGuid();
+
+        this.Recorddet.qtnd_parent_id = this.pkid;
+
+        this.Recorddet.qtnd_acc_id = '';
+        this.Recorddet.qtnd_acc_code = '';
+        this.Recorddet.qtnd_acc_name = '';
+
+        this.Recorddet.qtnd_type = 'INVOICE';
+
+        this.Recorddet.qtnd_cntr_type_id = '';
+        this.Recorddet.qtnd_cntr_type_code = '';
+
+        this.Recorddet.qtnd_curr_id = '';
+        this.Recorddet.qtnd_curr_code = '';
+
+        this.Recorddet.qtnd_qty = 0;
+        this.Recorddet.qtnd_rate = 0;
+
+        this.Recorddet.qtnd_exrate = 1;
+
+        this.Recorddet.qtnd_remarks = '';
+
+        this.Recorddet.rec_mode = "ADD";
+
     }
 
     // Load a single Record for VIEW/EDIT
@@ -504,13 +549,61 @@ export class QtnLclComponent {
         //     REC.cont_email = this.Record.cont_email;
         // }
     }
+    OnChange(field: string) {
+        this.bChanged = true;
+        // if (field == 'cont_name') {
+        //     this.Record.cont_name = this.Record.cont_name.toUpperCase();
+        // }
+    }
 
-
-    OnBlur(field: string) {
+    OnBlur(field: string, _rec: Qtnm = null) {
 
         // if (field == 'cont_name') {
         //     this.Record.cont_name = this.Record.cont_name.toUpperCase();
         // }
+
+        let amt: number;
+        switch (field) {
+            case 'qtn_acc_name': {
+                break;
+            }
+            case 'qtn_remarks': {
+                break;
+            }
+            case 'qtnd_qty': {
+                this.Findtotal();
+                break;
+            }
+            case 'qtnd_rate': {
+                this.Findtotal();
+                break;
+            }
+            case 'qtnd_exrate': {
+                this.Findtotal();
+                break;
+            }
+        }
+    }
+    OnFocus(field: string) {
+        this.bChanged = false;
+    }
+ 
+
+    AddRow() {
+        this.NewRemarkRecord();
+    }
+
+    RemoveRow(_id: string) {
+        this.RecordRemList.splice(this.RecordRemList.findIndex(rec => rec.qtnm_pkid == _id), 1);
+        if (this.RecordRemList.length == 0)
+            this.NewRemarkRecord();
+    }
+
+    NewRemarkRecord() {
+        let _Rec: Qtnm = new Qtnm;
+        _Rec.qtnm_pkid = this.gs.getGuid();
+        _Rec.qtnm_remarks = '';
+        this.RecordRemList.push(_Rec);
     }
 
     Close() {
@@ -519,6 +612,78 @@ export class QtnLclComponent {
 
     open(content: any) {
         this.modal = this.modalService.open(content);
+    }
+
+    RemoveList(event: any) {
+        if (event.selected) {
+            this.Record.qtnm_detList.splice(this.Record.qtnm_detList.findIndex(rec => rec.qtnd_pkid == event.id), 1);
+        }
+    }
+    FindListTotal() {
+        this.total_amt = 0;
+        this.Record.qtnm_detList.forEach(rec => {
+            this.total_amt += rec.qtnd_total;
+        });
+    }
+
+    AddRecord() {
+
+        let sError: string = "";
+        let bret: boolean = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+
+        // if (this.Record.qtn_party_id.length <= 0) {
+        //   bret = false;
+        //   sError += "|A/c Code Cannot Be Blank";
+        // }
+
+
+        if (this.Recorddet.qtnd_acc_id == '') {
+            bret = false;
+            sError += " | Invalid A/c Code";
+        }
+
+
+        if (this.Recorddet.qtnd_curr_id == '') {
+            bret = false;
+            sError += " | Invalid Currency";
+        }
+
+
+        if (this.Recorddet.qtnd_qty <= 0) {
+            bret = false;
+            sError += " | Invalid Qty";
+        }
+
+        if (this.Recorddet.qtnd_rate <= 0) {
+            bret = false;
+            sError += " | Invalid Rate";
+        }
+
+        if (this.Recorddet.qtnd_exrate <= 0) {
+            bret = false;
+            sError += " | Invalid Ex.Rate";
+        }
+
+        if (this.Recorddet.qtnd_total <= 0) {
+            bret = false;
+            sError += " | Invalid Total Amount";
+        }
+
+        if (bret === false) {
+            alert(sError);
+            return;
+        }
+
+        this.Record.qtnm_detList.push(this.Recorddet);
+        this.FindListTotal()
+        this.NewDetRecord();
+    }
+    Findtotal() {
+        let amt: number;
+        amt = this.Recorddet.qtnd_qty * (this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate);
+        this.Recorddet.qtnd_total = amt;
     }
 
 }
