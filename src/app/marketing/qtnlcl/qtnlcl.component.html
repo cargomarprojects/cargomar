@@ -327,26 +327,32 @@
         <thead class="page-body-thead">
           <tr>
             <th>SL#</th>
+            <th>CATEGORY</th>
             <th>CODE</th>
             <th>NAME</th>
+            <th>TYPE</th>
             <th>QTY</th>
             <th>RATE</th>
             <th>CURR</th>
             <th>EXRATE</th>
             <th>TOTAL</th>
+            <th>PER</th>
             <th>DELETE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of Record.qtnm_detList; let i = index">
           <tr>
             <td>{{i+1}}</td>
+            <td>{{rec.qtnd_category}}</td>
             <td>{{rec.qtnd_acc_code}}</td>
             <td>{{rec.qtnd_acc_name}}</td>
+            <td>{{rec.qtnd_type}}</td>
             <td>{{rec.qtnd_qty}}</td>
             <td>{{rec.qtnd_rate}}</td>
             <td>{{rec.qtnd_curr_code}}</td>
             <td>{{rec.qtnd_exrate}}</td>
             <td>{{rec.qtnd_total}}</td>
+            <td>{{rec.qtnd_remarks}}</td>
             <td>
               <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.qtnd_pkid,name:i+1}"
                 (result)="RemoveList($event)"></App-Dialog>
@@ -360,7 +366,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
           <div class="col-sm-10">
-            <select class="form-control form-control-sm" [(ngModel)]="type" (change)="OnChange('type')">
+            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_category" (change)="OnChange('qtnd_category')">
               <option [value]="'CLEARING'">CLEARING</option>
               <option [value]="'FORWARDING'">FORWARDING</option>
               <option [value]="'TRANSPORTATION'">TRANSPORTATION</option>
@@ -371,7 +377,8 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Code</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
-            [branchcode]="gs.globalVariables.branch_code"  [displaydata]="Recorddet.qtnd_acc_code" (ValueChanged)="LovSelected($event)">
+              [branchcode]="gs.globalVariables.branch_code" [displaydata]="Recorddet.qtnd_acc_code"
+              (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -407,7 +414,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
           <div class="col-sm-4">
             <app-autocomplete3 [controlname]="'CURRENCY'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
-            [displaydata]="Recorddet.qtnd_curr_code" (ValueChanged)="LovSelected($event)">
+              [displaydata]="Recorddet.qtnd_curr_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
@@ -452,27 +459,22 @@
     </div>
   </div>
   <div class="page-box">
-    <div class="col-sm-12">
-      <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Add</button>
-      <button [disabled]="loading" (click)="NewDetRecord()" class="btn btn-success btn-sm">New</button>
-      <!-- <label *ngIf="total_amt!=0" class="col-sm-5 col-form-label col-form-label-sm"><b>TOTAL :</b>
-                {{total_amt}}</label> -->
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="offset-2 col-sm-10">
+          <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Add</button>
+          <button [disabled]="loading" (click)="NewDetRecord()" class="btn btn-success btn-sm">New</button>
+          <label *ngIf="total_amt!=0" class="col-sm-5 col-form-label col-form-label-sm"><b>TOTAL :</b>
+            {{total_amt}}</label>
+        </div>
+      </div>
     </div>
   </div>
-
   <div class="page-box">
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Remarks</label>
-          <div class="col-sm-11">
-            <textarea disabled rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
-              maxlength="1000"></textarea>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm"></label>
-          <div class="col-sm-11">
+          <div class="col-sm-12">
             <div class="page-body table-responsive">
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
@@ -494,6 +496,15 @@
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label col-form-label-sm">REMARKS</label>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <textarea disabled rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
+              maxlength="1000"></textarea>
           </div>
         </div>
       </div>

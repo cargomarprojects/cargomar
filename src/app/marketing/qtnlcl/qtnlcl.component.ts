@@ -375,10 +375,9 @@ export class QtnLclComponent {
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
         // this.Record.rec_mode = this.mode;
+         this.total_amt=0;
 
-
-
-        // this.InitLov();
+       // this.InitLov();
         this.Record.qtnm_detList = new Array<QtndLcl>();
         this.RecordRemList = new Array<Qtnm>();
         this.NewDetRecord();
@@ -391,7 +390,7 @@ export class QtnLclComponent {
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
 
         this.Recorddet.qtnd_parent_id = this.pkid;
-
+        this.Recorddet.qtnd_category ='CLEARING';
         this.Recorddet.qtnd_acc_id = '';
         this.Recorddet.qtnd_acc_code = '';
         this.Recorddet.qtnd_acc_name = '';
@@ -558,30 +557,103 @@ export class QtnLclComponent {
 
     OnBlur(field: string, _rec: Qtnm = null) {
 
-        // if (field == 'cont_name') {
-        //     this.Record.cont_name = this.Record.cont_name.toUpperCase();
-        // }
-
         let amt: number;
         switch (field) {
-            case 'qtn_acc_name': {
+            case 'qtnm_to_name': {
+                this.Record.qtnm_to_name = this.Record.qtnm_to_name.toUpperCase();
                 break;
             }
-            case 'qtn_remarks': {
+            case 'qtnm_to_addr1': {
+                this.Record.qtnm_to_addr1 = this.Record.qtnm_to_addr1.toUpperCase();
+                break;
+            }
+            case 'qtnm_to_addr2': {
+                this.Record.qtnm_to_addr2 = this.Record.qtnm_to_addr2.toUpperCase();
+                break;
+            }
+            case 'qtnm_to_addr3': {
+                this.Record.qtnm_to_addr3 = this.Record.qtnm_to_addr3.toUpperCase();
+                break;
+            }
+            case 'qtnm_to_addr4': {
+                this.Record.qtnm_to_addr4 = this.Record.qtnm_to_addr4.toUpperCase();
+                break;
+            }
+            case 'qtnm_quot_by': {
+                this.Record.qtnm_quot_by = this.Record.qtnm_quot_by.toUpperCase();
+                break;
+            }
+            case 'qtnm_move_type': {
+                this.Record.qtnm_move_type = this.Record.qtnm_move_type.toUpperCase();
+                break;
+            }
+            case 'qtnm_commodity': {
+                this.Record.qtnm_commodity = this.Record.qtnm_commodity.toUpperCase();
+                break;
+            }
+            case 'qtnm_por_name': {
+                this.Record.qtnm_por_name = this.Record.qtnm_por_name.toUpperCase();
+                break;
+            }
+            case 'qtnm_pol_name': {
+                this.Record.qtnm_pol_name = this.Record.qtnm_pol_name.toUpperCase();
+                break;
+            }
+            case 'qtnm_pod_name': {
+                this.Record.qtnm_pod_name = this.Record.qtnm_pod_name.toUpperCase();
+                break;
+            }
+            case 'qtnm_pld_name': {
+                this.Record.qtnm_pld_name = this.Record.qtnm_pld_name.toUpperCase();
+                break;
+            }
+            case 'qtnm_plfd_name': {
+                this.Record.qtnm_plfd_name = this.Record.qtnm_plfd_name.toUpperCase();
+                break;
+            }
+            case 'qtnm_transtime': {
+                this.Record.qtnm_transtime = this.Record.qtnm_transtime.toUpperCase();
+                break;
+            }
+            case 'qtnm_routing': {
+                this.Record.qtnm_routing = this.Record.qtnm_routing.toUpperCase();
+                break;
+            }
+
+            case 'qtnm_package': {
+                this.Record.qtnm_package = this.Record.qtnm_package.toUpperCase();
+                break;
+            }
+            case 'qtnm_kgs': {
+                this.Record.qtnm_kgs = this.gs.roundNumber(this.Record.qtnm_kgs, 3);
+                break;
+            }
+            case 'qtnm_cbm': {
+                this.Record.qtnm_cbm = this.gs.roundNumber(this.Record.qtnm_cbm, 3);
                 break;
             }
             case 'qtnd_qty': {
+                this.Recorddet.qtnd_qty = this.gs.roundNumber(this.Recorddet.qtnd_qty, 3);
                 this.Findtotal();
                 break;
             }
             case 'qtnd_rate': {
+                this.Recorddet.qtnd_rate = this.gs.roundNumber(this.Recorddet.qtnd_rate, 2);
                 this.Findtotal();
                 break;
             }
             case 'qtnd_exrate': {
+                this.Recorddet.qtnd_exrate = this.gs.roundNumber(this.Recorddet.qtnd_exrate, 2);
                 this.Findtotal();
                 break;
             }
+        }
+
+        if (field == 'qtnd_remarks') {
+            this.Recorddet.qtnd_remarks = this.Recorddet.qtnd_remarks.toUpperCase();
+        }
+        if (field == 'qtnd_acc_name') {
+            this.Recorddet.qtnd_acc_name = this.Recorddet.qtnd_acc_name.toUpperCase();
         }
     }
     OnFocus(field: string) {
@@ -682,8 +754,9 @@ export class QtnLclComponent {
     }
     Findtotal() {
         let amt: number;
-        amt = this.Recorddet.qtnd_qty * (this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate);
-        this.Recorddet.qtnd_total = amt;
+        amt = this.Recorddet.qtnd_qty * (this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate); 
+        amt = this.gs.roundNumber(amt, 2);
+        this.Recorddet.qtnd_total =  amt;
     }
 
 }

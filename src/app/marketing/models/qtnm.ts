@@ -89,6 +89,6 @@ export class QtndLcl {
     qtnd_exrate: number;
     qtnd_total: number;
     qtnd_remarks: string;
-  
+    qtnd_category: string;
     rec_mode: string;
   }
