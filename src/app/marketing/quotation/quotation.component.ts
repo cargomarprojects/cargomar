@@ -2,21 +2,21 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Qtnm, QtndLcl } from '../models/qtnm';
-import { QtnLclService } from '../services/qtnlcl.service';
+import { Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
+import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { qtnm } from '../../shared/models/qtn';
 
 
 @Component({
-    selector: 'app-qtnlcl',
-    templateUrl: './qtnlcl.component.html',
-    providers: [QtnLclService]
+    selector: 'app-quotation',
+    templateUrl: './quotation.component.html',
+    providers: [QuotationService]
 })
-export class QtnLclComponent {
+export class QuotationComponent {
 
     // Local Variables 
-    title = 'Quotation LCL';
+    title = 'Quotation';
 
     @Input() iisModalWindow: string = 'N';
     @Input() menuid: string = '';
@@ -52,17 +52,17 @@ export class QtnLclComponent {
     showclosebutton: boolean = true;
 
     // Array For Displaying List
-    RecordList: Qtnm[] = [];
+    RecordList: Mark_Qtnm[] = [];
     // Single Record for add/edit/view details
-    Record: Qtnm = new Qtnm;
-    RecordRemList: Qtnm[] = [];
+    Record: Mark_Qtnm = new Mark_Qtnm;
+    RecordRemList: Mark_Qtnm[] = [];
 
     CATEGORYRECORD: SearchTable = new SearchTable();
     SALESMANRECORD: SearchTable = new SearchTable();
     CSDRECORD: SearchTable = new SearchTable();
     CNTRYRECORD: SearchTable = new SearchTable();
     
-    Recorddet: QtndLcl = new QtndLcl;
+    Recorddet: Mark_Qtnd = new Mark_Qtnd;
     // ACCRECORD: SearchTable = new SearchTable();
     // CURRECORD: SearchTable = new SearchTable();
     // CNTRTYPERECORD: SearchTable = new SearchTable();
@@ -70,7 +70,7 @@ export class QtnLclComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: QtnLclService,
+        private mainService: QuotationService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
@@ -331,7 +331,7 @@ export class QtnLclComponent {
     NewRecord() {
 
         this.pkid = this.gs.getGuid();
-        this.Record = new Qtnm();
+        this.Record = new Mark_Qtnm();
         this.Record.qtnm_pkid = this.pkid;
         this.Record.qtnm_cfno = 0;
         this.Record.qtnm_no = '';
@@ -378,14 +378,14 @@ export class QtnLclComponent {
          this.total_amt=0;
 
        // this.InitLov();
-        this.Record.qtnm_detList = new Array<QtndLcl>();
-        this.RecordRemList = new Array<Qtnm>();
+        this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+        this.RecordRemList = new Array<Mark_Qtnm>();
         this.NewDetRecord();
         this.NewRemarkRecord();
     }
 
     NewDetRecord() {
-        this.Recorddet = new QtndLcl();
+        this.Recorddet = new Mark_Qtnd();
 
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
 
@@ -436,12 +436,12 @@ export class QtnLclComponent {
                 });
     }
 
-    LoadData(_Record: Qtnm) {
+    LoadData(_Record: Mark_Qtnm) {
         this.Record = _Record;
 
 
         if (this.gs.isBlank(this.Record.qtnm_detList))
-            this.Record.qtnm_detList = new Array<QtndLcl>();
+            this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         if (this.Record.qtnm_detList.length == 0)
             this.NewDetRecord();
 
@@ -555,7 +555,7 @@ export class QtnLclComponent {
         // }
     }
 
-    OnBlur(field: string, _rec: Qtnm = null) {
+    OnBlur(field: string, _rec: Mark_Qtnm = null) {
 
         let amt: number;
         switch (field) {
@@ -672,7 +672,7 @@ export class QtnLclComponent {
     }
 
     NewRemarkRecord() {
-        let _Rec: Qtnm = new Qtnm;
+        let _Rec: Mark_Qtnm = new Mark_Qtnm;
         _Rec.qtnm_pkid = this.gs.getGuid();
         _Rec.qtnm_remarks = '';
         this.RecordRemList.push(_Rec);

@@ -1,5 +1,5 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
-export class Qtnm {
+export class Mark_Qtnm {
     qtnm_pkid: string;
     qtnm_cfno: number;
     qtnm_no: string;
@@ -43,7 +43,7 @@ export class Qtnm {
     qtnm_routing: string;
     qtnm_curr_code: string;
 
-    qtnm_detList: QtndLcl[] = [];
+    qtnm_detList: Mark_Qtnd[] = [];
 
     _globalvariables: GlobalVariables;
 }
@@ -66,7 +66,7 @@ export class Qtnm {
 //     globalvariables: GlobalVariables;
 // }
 
-export class QtndLcl {
+export class Mark_Qtnd {
     qtnd_pkid: string;
   
     qtnd_parent_id: string;

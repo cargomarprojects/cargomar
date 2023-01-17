@@ -6,7 +6,7 @@ import { VisitReportComponent } from './marketing/visitreport.component';
 import { SalesleadComponent } from './saleslead/saleslead.component';
 import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 import { NewCustComponent } from './newcustomer/newcust.component';
-import { QtnLclComponent } from './qtnlcl/qtnlcl.component';
+import { QuotationComponent } from './quotation/quotation.component';
 
 const routes: Routes = [
     { path: 'markcontacts', component: ContactsComponent },
@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'markvisitrpt', component: VisitReportComponent },
     { path: 'marksaleslead', component: SalesleadComponent },
     { path: 'marksalesvolume', component: SalesVolumeComponent },
-    { path: 'qtnlcl', component: QtnLclComponent },
+    { path: 'quotation', component: QuotationComponent },
     { path: 'newcustomer', component: NewCustComponent }
 ];
 

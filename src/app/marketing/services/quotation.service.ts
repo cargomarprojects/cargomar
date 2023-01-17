@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import {Qtnm, QtndLcl } from '../models/qtnm';
+import {Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
-export class QtnLclService {
+export class QuotationService {
 
     constructor(
         private http2: HttpClient,
@@ -22,7 +22,7 @@ export class QtnLclService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/GetRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    Save(Record: Qtnm) {
+    Save(Record: Mark_Qtnm) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/Save', Record, this.gs.headerparam2('authorized'));
     }
 
