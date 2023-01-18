@@ -85,6 +85,7 @@
           <th *ngIf="type == 'LUT'">GSTIN</th>
           <th *ngIf="type == 'LUT'">FIN-YEAR</th>
           <th *ngIf="type == 'ANALYSIS-CITY'">REGION</th>
+          <th *ngIf="type == 'QUOTATION-CATEGORY'">ORDER</th>
           <th>CREATED.BY</th>
           <th>DATE</th>
           <th>EDITED.BY</th>
@@ -133,6 +134,7 @@
           <td *ngIf="type == 'LUT'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'LUT'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'ANALYSIS-CITY'">{{rec.param_id5_name}}</td>
+          <td *ngIf="type == 'QUOTATION-CATEGORY'">{{rec.param_rate}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.rec_edited_by}}</td>
@@ -234,7 +236,7 @@
 
 
 
-      <div *ngIf="type=='CURRENCY'||type=='EMPLOYEE DOCUMENTS'" class="form-group row">
+      <div *ngIf="type=='CURRENCY'||type=='EMPLOYEE DOCUMENTS'||type=='QUOTATION-CATEGORY'" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{param_rate_caption}}</label>
         <div class="col-10">
           <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.param_rate" required

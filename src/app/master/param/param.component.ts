@@ -268,6 +268,9 @@ export class ParamComponent {
       this.id5 = "Region";
       this.id5_lovtype = "ANALYSIS-REGION";
     }
+    if (this.type == 'QUOTATION-CATEGORY') {
+      this.param_rate_caption = 'Order';
+    }
   }
 
   InitLov() {
