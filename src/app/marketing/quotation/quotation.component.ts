@@ -715,11 +715,13 @@ export class QuotationComponent {
             this.Record.qtnm_detList.splice(this.Record.qtnm_detList.findIndex(rec => rec.qtnd_pkid == event.id), 1);
         }
     }
+    
     FindListTotal() {
         this.total_amt = 0;
         this.Record.qtnm_detList.forEach(rec => {
             this.total_amt += rec.qtnd_total;
         });
+        this.total_amt = this.gs.roundNumber(this.total_amt,2);
     }
 
     AddRecord() {
