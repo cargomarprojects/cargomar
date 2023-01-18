@@ -778,13 +778,16 @@ export class QuotationComponent {
     }
     Findtotal() {
         let amt: number;
-        let total: number;
+        let inramt: number;
+       
         amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
         amt = this.gs.roundNumber(amt, 2);
+
+        inramt = amt * this.Recorddet.qtnd_exrate;
+        inramt = this.gs.roundNumber(inramt, 2);
+        
         this.Recorddet.qtnd_amt = amt;
-        total = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate;
-        total = this.gs.roundNumber(total, 2);
-        this.Recorddet.qtnd_total = total;
+        this.Recorddet.qtnd_total = inramt;
     }
 
     SaveTerms() {
