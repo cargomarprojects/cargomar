@@ -106,8 +106,10 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type" (change)="OnChange('type')">
-              <option [value]="'SEA'">SEA</option>
-              <option [value]="'AIR'">AIR</option>
+              <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+              <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+              <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+              <option [value]="'AIR IMPORT'">AIR IMPORT</option>
             </select>
           </div>
         </div>
@@ -332,7 +334,7 @@
             <th>NAME</th>
             <th>TYPE</th>
             <th>QTY</th>
-            <th>RATE</th> 
+            <th>RATE</th>
             <th>AMOUNT</th>
             <th>CURR</th>
             <th>EXRATE</th>
@@ -368,7 +370,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
           <div class="col-sm-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_category" (change)="OnChange('qtnd_category')">
+            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_category"
+              (change)="OnChange('qtnd_category')">
               <option [value]="'CLEARING'">CLEARING</option>
               <option [value]="'FORWARDING'">FORWARDING</option>
               <option [value]="'TRANSPORTATION'">TRANSPORTATION</option>
@@ -445,13 +448,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
           <div class="col-sm-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt"
-             required maxlength="20" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt" required
+              maxlength="20" />
           </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
           <div class="col-sm-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total" 
-             required maxlength="20" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total"
+              required maxlength="20" />
           </div>
         </div>
         <div class="form-group row">
@@ -485,8 +488,8 @@
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
                   <tr>
-                    <th>REMARKS</th>
-                    <th></th>
+                    <th width="90%" >REMARKS</th>
+                    <th width="10%" ></th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
@@ -495,8 +498,9 @@
                         class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
                         (blur)="OnBlur('qtnm_remarks',rec)" /></td>
                     <td>
-                      <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
-                      <i class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec.qtnm_pkid)"></i>
+                      <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('REMARK')"></i>
+                      <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+                        (click)="RemoveRow(rec.qtnm_pkid,'REMARK')"></i>
                     </td>
                   </tr>
                 </tbody>
@@ -505,6 +509,34 @@
           </div>
         </div>
         <div class="form-group row">
+          <div class="col-sm-12">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm mb-1">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th width="90%" >TERMS & CONDITIONS</th>
+                    <th  *ngIf="gs.globalVariables.user_code == 'ADMIN'"></th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                  <tr *ngFor="let rec of RecordTermList; let i = index">
+                    <td style="padding:0px 0px 0px 0px"><input type="text"
+                        [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="desc"
+                        class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
+                        (blur)="OnBlur('qtnm_remarks',rec)" /></td>
+                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+                      <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('TERM')"></i>
+                      <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+                        (click)="RemoveRow(rec.qtnm_pkid,'TERM')"></i>
+                      <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-link btn-sm">Update </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
           <label class="col-sm-12 col-form-label col-form-label-sm">TERMS & CONDITIONS</label>
         </div>
         <div class="form-group row">
@@ -512,7 +544,7 @@
             <textarea disabled rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
               maxlength="1000"></textarea>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="page-box">

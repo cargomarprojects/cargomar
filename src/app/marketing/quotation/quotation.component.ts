@@ -56,12 +56,13 @@ export class QuotationComponent {
     // Single Record for add/edit/view details
     Record: Mark_Qtnm = new Mark_Qtnm;
     RecordRemList: Mark_Qtnm[] = [];
+    RecordTermList: Mark_Qtnm[] = [];
 
     CATEGORYRECORD: SearchTable = new SearchTable();
     SALESMANRECORD: SearchTable = new SearchTable();
     CSDRECORD: SearchTable = new SearchTable();
     CNTRYRECORD: SearchTable = new SearchTable();
-    
+
     Recorddet: Mark_Qtnd = new Mark_Qtnd;
     // ACCRECORD: SearchTable = new SearchTable();
     // CURRECORD: SearchTable = new SearchTable();
@@ -361,7 +362,7 @@ export class QuotationComponent {
         this.Record.qtnm_plfd_name = '';
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
-        this.Record.qtnm_type = 'SEA';
+        this.Record.qtnm_type = 'SEA EXPORT';
         this.Record.qtnm_kgs = 0;
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
@@ -375,13 +376,15 @@ export class QuotationComponent {
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
         // this.Record.rec_mode = this.mode;
-         this.total_amt=0;
+        this.total_amt = 0;
 
-       // this.InitLov();
+        // this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         this.RecordRemList = new Array<Mark_Qtnm>();
+        this.RecordTermList = new Array<Mark_Qtnm>();
         this.NewDetRecord();
         this.NewRemarkRecord();
+        this.NewTermRecord();
     }
 
     NewDetRecord() {
@@ -390,7 +393,7 @@ export class QuotationComponent {
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
 
         this.Recorddet.qtnd_parent_id = this.pkid;
-        this.Recorddet.qtnd_category ='CLEARING';
+        this.Recorddet.qtnd_category = 'CLEARING';
         this.Recorddet.qtnd_acc_id = '';
         this.Recorddet.qtnd_acc_code = '';
         this.Recorddet.qtnd_acc_name = '';
@@ -647,6 +650,11 @@ export class QuotationComponent {
                 this.Findtotal();
                 break;
             }
+            case 'qtnm_remarks': {
+                if (_rec != null)
+                    _rec.qtnm_remarks = _rec.qtnm_remarks.toUpperCase();
+                break;
+            }
         }
 
         if (field == 'qtnd_remarks') {
@@ -659,16 +667,27 @@ export class QuotationComponent {
     OnFocus(field: string) {
         this.bChanged = false;
     }
- 
 
-    AddRow() {
-        this.NewRemarkRecord();
+
+    AddRow(_type: string) {
+        if (_type == "REMARK") {
+            this.NewRemarkRecord();
+        } else {
+            this.NewTermRecord();
+        }
     }
 
-    RemoveRow(_id: string) {
-        this.RecordRemList.splice(this.RecordRemList.findIndex(rec => rec.qtnm_pkid == _id), 1);
-        if (this.RecordRemList.length == 0)
-            this.NewRemarkRecord();
+    RemoveRow(_id: string, _type: string) {
+
+        if (_type == "REMARK") {
+            this.RecordRemList.splice(this.RecordRemList.findIndex(rec => rec.qtnm_pkid == _id), 1);
+            if (this.RecordRemList.length == 0)
+                this.NewRemarkRecord();
+        } else {
+            this.RecordTermList.splice(this.RecordTermList.findIndex(rec => rec.qtnm_pkid == _id), 1);
+            if (this.RecordTermList.length == 0)
+                this.NewTermRecord();
+        }
     }
 
     NewRemarkRecord() {
@@ -677,7 +696,12 @@ export class QuotationComponent {
         _Rec.qtnm_remarks = '';
         this.RecordRemList.push(_Rec);
     }
-
+    NewTermRecord() {
+        let _Rec: Mark_Qtnm = new Mark_Qtnm;
+        _Rec.qtnm_pkid = this.gs.getGuid();
+        _Rec.qtnm_remarks = '';
+        this.RecordTermList.push(_Rec);
+    }
     Close() {
         this.gs.ClosePage('home');
     }
@@ -755,12 +779,15 @@ export class QuotationComponent {
     Findtotal() {
         let amt: number;
         let total: number;
-        amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate; 
+        amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
         amt = this.gs.roundNumber(amt, 2);
-        this.Recorddet.qtnd_amt =  amt;
-        total = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate; 
+        this.Recorddet.qtnd_amt = amt;
+        total = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate * this.Recorddet.qtnd_exrate;
         total = this.gs.roundNumber(total, 2);
-        this.Recorddet.qtnd_total =  total;
+        this.Recorddet.qtnd_total = total;
     }
 
+    SaveTerms() {
+
+    }
 }
