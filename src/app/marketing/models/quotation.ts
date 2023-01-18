@@ -44,7 +44,8 @@ export class Mark_Qtnm {
     qtnm_curr_code: string;
     
     qtnm_detList: Mark_Qtnd[] = [];
-
+    
+    rec_mode:String;
     _globalvariables: GlobalVariables;
 }
 

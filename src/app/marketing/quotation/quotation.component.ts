@@ -5,8 +5,6 @@ import { GlobalService } from '../../core/services/global.service';
 import { Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
 import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { qtnm } from '../../shared/models/qtn';
-
 
 @Component({
     selector: 'app-quotation',
@@ -375,7 +373,7 @@ export class QuotationComponent {
         this.Record.qtnm_transtime = '';
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
-        // this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.mode;
         this.total_amt = 0;
 
         // this.InitLov();
@@ -441,14 +439,12 @@ export class QuotationComponent {
 
     LoadData(_Record: Mark_Qtnm) {
         this.Record = _Record;
-
+        this.Record.rec_mode = this.mode;
 
         if (this.gs.isBlank(this.Record.qtnm_detList))
             this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         if (this.Record.qtnm_detList.length == 0)
             this.NewDetRecord();
-
-        // this.Record.rec_mode = "EDIT";
 
         // this.InitLov();
 
@@ -485,9 +481,14 @@ export class QuotationComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                if (this.mode == 'ADD') {
+                    this.Record.qtnm_no = response.qtnslno;
+                    this.InfoMessage = "New Quotation " + this.Record.qtnm_no + " Generated Successfully";
+                } else
+                    this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
-                // this.Record.rec_mode = this.mode;
-                this.InfoMessage = "Save Complete";
+                this.Record.rec_mode = this.mode;
+                alert(this.InfoMessage);
                 this.RefreshList();
             },
                 error => {
@@ -715,13 +716,13 @@ export class QuotationComponent {
             this.Record.qtnm_detList.splice(this.Record.qtnm_detList.findIndex(rec => rec.qtnd_pkid == event.id), 1);
         }
     }
-    
+
     FindListTotal() {
         this.total_amt = 0;
         this.Record.qtnm_detList.forEach(rec => {
             this.total_amt += rec.qtnd_total;
         });
-        this.total_amt = this.gs.roundNumber(this.total_amt,2);
+        this.total_amt = this.gs.roundNumber(this.total_amt, 2);
     }
 
     AddRecord() {
@@ -781,13 +782,13 @@ export class QuotationComponent {
     Findtotal() {
         let amt: number;
         let inramt: number;
-       
+
         amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
         amt = this.gs.roundNumber(amt, 2);
 
         inramt = amt * this.Recorddet.qtnd_exrate;
         inramt = this.gs.roundNumber(inramt, 2);
-        
+
         this.Recorddet.qtnd_amt = amt;
         this.Recorddet.qtnd_total = inramt;
     }

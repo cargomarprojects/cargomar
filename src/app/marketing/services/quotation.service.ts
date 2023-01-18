@@ -15,19 +15,19 @@ export class QuotationService {
     }
 
     List(SearchData : any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/List', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
     GetRecord(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/GetRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
     Save(Record: Mark_Qtnm) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/Save', Record, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/Save', Record, this.gs.headerparam2('authorized'));
     }
 
     LoadDefault(SearchData: any) {
-      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QtnLcl/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
     
