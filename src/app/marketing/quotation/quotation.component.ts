@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
 import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { Param } from '../../master/models/param';
 
 @Component({
     selector: 'app-quotation',
@@ -48,7 +49,7 @@ export class QuotationComponent {
     mode = '';
     pkid = '';
     showclosebutton: boolean = true;
-
+    QtnCategoryList: Param[] = [];
     // Array For Displaying List
     RecordList: Mark_Qtnm[] = [];
     // Single Record for add/edit/view details
@@ -72,14 +73,10 @@ export class QuotationComponent {
         private mainService: QuotationService,
         private route: ActivatedRoute,
         public gs: GlobalService
-
     ) {
-
-
         this.page_count = 0;
         this.page_rows = 25;
         this.page_current = 0;
-
 
         this.InitLov();
 
@@ -93,7 +90,6 @@ export class QuotationComponent {
                 this.InitComponent();
             }
         });
-
     }
 
     // Init Will be called After executing Constructor
@@ -101,14 +97,12 @@ export class QuotationComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
-        this.List('NEW');
     }
 
     InitComponent() {
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
-
         }
         this.LoadCombo();
     }
@@ -154,28 +148,30 @@ export class QuotationComponent {
         this.CNTRYRECORD.name = "";
     }
 
-
-
     LoadCombo() {
 
-        // this.loading = true;
-        // let SearchData = {
-        //   type: 'type',
-        //   comp_code: this.gs.globalVariables.comp_code,
-        //   branch_code: this.gs.globalVariables.branch_code
-        // };
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
 
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        // this.mainService.LoadDefault(SearchData)
-        //   .subscribe(response => {
-        //     this.loading = false;
-        //     this.List("NEW");
-        //   },
-        //     error => {
-        //       this.loading = false;
-        //       this.ErrorMessage = this.gs.getError(error);
-        //     });
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.QtnCategoryList = response.qtncategorylist;
+                this.List("NEW");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -378,6 +374,7 @@ export class QuotationComponent {
 
         // this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+
         this.RecordRemList = new Array<Mark_Qtnm>();
         this.RecordTermList = new Array<Mark_Qtnm>();
         this.NewDetRecord();
@@ -387,32 +384,33 @@ export class QuotationComponent {
 
     NewDetRecord() {
         this.Recorddet = new Mark_Qtnd();
-
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
-
         this.Recorddet.qtnd_parent_id = this.pkid;
-        this.Recorddet.qtnd_category = 'CLEARING';
+        this.Recorddet.qtnd_category = '';
+        this.Recorddet.qtnd_category_id = '';
         this.Recorddet.qtnd_acc_id = '';
         this.Recorddet.qtnd_acc_code = '';
         this.Recorddet.qtnd_acc_name = '';
-
         this.Recorddet.qtnd_type = 'INVOICE';
-
         this.Recorddet.qtnd_cntr_type_id = '';
         this.Recorddet.qtnd_cntr_type_code = '';
-
         this.Recorddet.qtnd_curr_id = '';
         this.Recorddet.qtnd_curr_code = '';
-
         this.Recorddet.qtnd_qty = 0;
         this.Recorddet.qtnd_rate = 0;
-
+        this.Recorddet.qtnd_ftotal = 0;
+        this.Recorddet.qtnd_total = 0;
         this.Recorddet.qtnd_exrate = 1;
-
         this.Recorddet.qtnd_remarks = '';
-
-        this.Recorddet.rec_mode = "ADD";
-
+        this.Initdefault();
+    }
+    Initdefault() {
+        if (this.QtnCategoryList != null) {
+            var REC = this.QtnCategoryList.find(rec => rec.param_name == 'CLEARING');
+            if (REC != null) {
+                this.Recorddet.qtnd_category_id = REC.param_pkid;
+            }
+        }
     }
 
     // Load a single Record for VIEW/EDIT
@@ -429,6 +427,7 @@ export class QuotationComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
+                this.NewDetRecord();
             },
                 error => {
                     this.loading = false;
@@ -440,30 +439,10 @@ export class QuotationComponent {
     LoadData(_Record: Mark_Qtnm) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
-
         if (this.gs.isBlank(this.Record.qtnm_detList))
             this.Record.qtnm_detList = new Array<Mark_Qtnd>();
-        if (this.Record.qtnm_detList.length == 0)
-            this.NewDetRecord();
-
-        // this.InitLov();
-
-        // this.CATEGORYRECORD.id = this.Record.cont_type_id.toString();
-        // this.CATEGORYRECORD.name = this.Record.cont_type_name;
-
-        // this.SALESMANRECORD.id = this.Record.cont_saleman_id.toString();
-        // this.SALESMANRECORD.name = this.Record.cont_saleman_name;
-
-        // this.CSDRECORD.id = this.Record.cont_csd_id.toString();
-        // this.CSDRECORD.name = this.Record.cont_csd_name;
-
-        // this.CNTRYRECORD.id = this.Record.cont_country_id;
-        // this.CNTRYRECORD.code = this.Record.cont_country_code;
-        // this.CNTRYRECORD.name = this.Record.cont_country;
-
+        this.FindListTotal();
     }
-
-
 
 
     // Save Data
@@ -472,12 +451,12 @@ export class QuotationComponent {
             alert(this.ErrorMessage);
             return;
         }
-
+        this.FindListTotal();
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
-
+        this.Record.qtnm_tot_amt = this.total_amt;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
@@ -490,6 +469,7 @@ export class QuotationComponent {
                 this.Record.rec_mode = this.mode;
                 alert(this.InfoMessage);
                 this.RefreshList();
+                this.Record.qtnm_detList = response.list;
             },
                 error => {
                     this.loading = false;
@@ -535,22 +515,24 @@ export class QuotationComponent {
     }
 
     RefreshList() {
-
         if (this.RecordList == null)
             return;
-        // var REC = this.RecordList.find(rec => rec.cont_pkid == this.Record.cont_pkid);
-        // if (REC == null) {
-        //     this.RecordList.push(this.Record);
-        // }
-        // else {
-        //     REC.cont_name = this.Record.cont_name;
-        //     REC.cont_add1 = this.Record.cont_add1;
-        //     REC.cont_state = this.Record.cont_state;
-        //     REC.cont_country = this.Record.cont_country;
-        //     REC.cont_tel = this.Record.cont_tel;
-        //     REC.cont_mobile = this.Record.cont_mobile;
-        //     REC.cont_email = this.Record.cont_email;
-        // }
+        var REC = this.RecordList.find(rec => rec.qtnm_pkid == this.Record.qtnm_pkid);
+        if (REC == null) {
+            this.RecordList.push(this.Record);
+        }
+        else {
+            REC.qtnm_no = this.Record.qtnm_no;
+            REC.qtnm_date = this.Record.qtnm_date;
+            REC.qtnm_to_name = this.Record.qtnm_to_name;
+            REC.qtnm_quot_by = this.Record.qtnm_quot_by;
+            REC.qtnm_pol_name = this.Record.qtnm_pol_name;
+            REC.qtnm_pod_name = this.Record.qtnm_pod_name;
+            REC.qtnm_pld_name = this.Record.qtnm_pld_name;
+            REC.qtnm_move_type = this.Record.qtnm_move_type;
+            REC.qtnm_kgs = this.Record.qtnm_kgs;
+            REC.qtnm_cbm = this.Record.qtnm_cbm;
+        }
     }
     OnChange(field: string) {
         this.bChanged = true;
@@ -726,23 +708,15 @@ export class QuotationComponent {
     }
 
     AddRecord() {
-
         let sError: string = "";
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        // if (this.Record.qtn_party_id.length <= 0) {
-        //   bret = false;
-        //   sError += "|A/c Code Cannot Be Blank";
-        // }
-
-
         if (this.Recorddet.qtnd_acc_id == '') {
             bret = false;
             sError += " | Invalid A/c Code";
         }
-
 
         if (this.Recorddet.qtnd_curr_id == '') {
             bret = false;
@@ -775,6 +749,12 @@ export class QuotationComponent {
             return;
         }
 
+        if (this.QtnCategoryList != null) {
+            var REC = this.QtnCategoryList.find(rec => rec.param_pkid == this.Recorddet.qtnd_category_id);
+            if (REC != null) {
+                this.Recorddet.qtnd_category = REC.param_name;
+            }
+        }
         this.Record.qtnm_detList.push(this.Recorddet);
         this.FindListTotal()
         this.NewDetRecord();
@@ -789,7 +769,7 @@ export class QuotationComponent {
         inramt = amt * this.Recorddet.qtnd_exrate;
         inramt = this.gs.roundNumber(inramt, 2);
 
-        this.Recorddet.qtnd_amt = amt;
+        this.Recorddet.qtnd_ftotal = amt;
         this.Recorddet.qtnd_total = inramt;
     }
 
