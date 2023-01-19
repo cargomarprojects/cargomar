@@ -537,9 +537,8 @@ export class QuotationComponent {
     }
     OnChange(field: string) {
         this.bChanged = true;
-        // if (field == 'cont_name') {
-        //     this.Record.cont_name = this.Record.cont_name.toUpperCase();
-        // }
+        if (field == 'type')
+            this.GetTerms();
     }
 
     OnBlur(field: string, _rec: GenRemarks = null) {
