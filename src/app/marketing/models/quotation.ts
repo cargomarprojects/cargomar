@@ -1,4 +1,5 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
+import { GenRemarks } from '../../shared/models/genremarks';
 export class Mark_Qtnm {
     qtnm_pkid: string;
     qtnm_cfno: number;
@@ -44,6 +45,7 @@ export class Mark_Qtnm {
     qtnm_curr_code: string;
 
     qtnm_detList: Mark_Qtnd[] = [];
+    qtnm_remList: GenRemarks[] = [];
 
     rec_mode: String;
     _globalvariables: GlobalVariables;
@@ -71,3 +73,11 @@ export class Mark_Qtnd {
     qtnd_category: string;
     rec_mode: string;
 }
+
+export class SaveTermsData {
+    qtnm_termList: Mark_Qtnm[] = [];
+    type:string;
+    rec_mode: String;
+    _globalvariables: GlobalVariables;
+}
+ 

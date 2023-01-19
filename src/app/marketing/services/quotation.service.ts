@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import {Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
+import {Mark_Qtnm, Mark_Qtnd,SaveTermsData } from '../models/quotation';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -30,7 +30,13 @@ export class QuotationService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    
+    // GetTerms(SearchData: any) {
+    //   return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/GetTerms', SearchData, this.gs.headerparam2('authorized'));
+    // }
+
+    SaveTerms(Record: SaveTermsData) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Quotation/SaveTerms', Record, this.gs.headerparam2('authorized'));
+    }
 
 }
 

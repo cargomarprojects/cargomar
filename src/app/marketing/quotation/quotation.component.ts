@@ -2,10 +2,11 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Mark_Qtnm, Mark_Qtnd } from '../models/quotation';
+import { Mark_Qtnm, Mark_Qtnd, SaveTermsData } from '../models/quotation';
 import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
+import { GenRemarks } from '../../shared/models/genremarks';
 
 @Component({
     selector: 'app-quotation',
@@ -54,19 +55,13 @@ export class QuotationComponent {
     RecordList: Mark_Qtnm[] = [];
     // Single Record for add/edit/view details
     Record: Mark_Qtnm = new Mark_Qtnm;
-    RecordRemList: Mark_Qtnm[] = [];
-    RecordTermList: Mark_Qtnm[] = [];
-
-    CATEGORYRECORD: SearchTable = new SearchTable();
-    SALESMANRECORD: SearchTable = new SearchTable();
-    CSDRECORD: SearchTable = new SearchTable();
-    CNTRYRECORD: SearchTable = new SearchTable();
-
+    TermList: Mark_Qtnm[] = [];
+    FullTermList: Mark_Qtnm[] = [];
+    // CATEGORYRECORD: SearchTable = new SearchTable();
+    // SALESMANRECORD: SearchTable = new SearchTable();
+    // CSDRECORD: SearchTable = new SearchTable();
+    // CNTRYRECORD: SearchTable = new SearchTable();
     Recorddet: Mark_Qtnd = new Mark_Qtnd;
-    // ACCRECORD: SearchTable = new SearchTable();
-    // CURRECORD: SearchTable = new SearchTable();
-    // CNTRTYPERECORD: SearchTable = new SearchTable();
-    // REBTCURRECORD: SearchTable = new SearchTable();
 
     constructor(
         private modalService: NgbModal,
@@ -115,37 +110,37 @@ export class QuotationComponent {
 
     InitLov() {
 
-        this.CATEGORYRECORD = new SearchTable();
-        this.CATEGORYRECORD.controlname = "CONTACT TYPE";
-        this.CATEGORYRECORD.displaycolumn = "NAME";
-        this.CATEGORYRECORD.type = "CONTACT TYPE";
-        this.CATEGORYRECORD.id = "";
-        this.CATEGORYRECORD.code = "";
-        this.CATEGORYRECORD.name = "";
+        // this.CATEGORYRECORD = new SearchTable();
+        // this.CATEGORYRECORD.controlname = "CONTACT TYPE";
+        // this.CATEGORYRECORD.displaycolumn = "NAME";
+        // this.CATEGORYRECORD.type = "CONTACT TYPE";
+        // this.CATEGORYRECORD.id = "";
+        // this.CATEGORYRECORD.code = "";
+        // this.CATEGORYRECORD.name = "";
 
-        this.SALESMANRECORD = new SearchTable();
-        this.SALESMANRECORD.controlname = "SALESMAN";
-        this.SALESMANRECORD.displaycolumn = "NAME";
-        this.SALESMANRECORD.type = "SALESMAN";
-        this.SALESMANRECORD.id = "";
-        this.SALESMANRECORD.code = "";
-        this.SALESMANRECORD.name = "";
+        // this.SALESMANRECORD = new SearchTable();
+        // this.SALESMANRECORD.controlname = "SALESMAN";
+        // this.SALESMANRECORD.displaycolumn = "NAME";
+        // this.SALESMANRECORD.type = "SALESMAN";
+        // this.SALESMANRECORD.id = "";
+        // this.SALESMANRECORD.code = "";
+        // this.SALESMANRECORD.name = "";
 
-        this.CSDRECORD = new SearchTable();
-        this.CSDRECORD.controlname = "CSD";
-        this.CSDRECORD.displaycolumn = "NAME";
-        this.CSDRECORD.type = "SALESMAN";
-        this.CSDRECORD.id = "";
-        this.CSDRECORD.code = "";
-        this.CSDRECORD.name = "";
+        // this.CSDRECORD = new SearchTable();
+        // this.CSDRECORD.controlname = "CSD";
+        // this.CSDRECORD.displaycolumn = "NAME";
+        // this.CSDRECORD.type = "SALESMAN";
+        // this.CSDRECORD.id = "";
+        // this.CSDRECORD.code = "";
+        // this.CSDRECORD.name = "";
 
-        this.CNTRYRECORD = new SearchTable();
-        this.CNTRYRECORD.controlname = "COUNTRY";
-        this.CNTRYRECORD.displaycolumn = "NAME";
-        this.CNTRYRECORD.type = "COUNTRY";
-        this.CNTRYRECORD.id = "";
-        this.CNTRYRECORD.code = "";
-        this.CNTRYRECORD.name = "";
+        // this.CNTRYRECORD = new SearchTable();
+        // this.CNTRYRECORD.controlname = "COUNTRY";
+        // this.CNTRYRECORD.displaycolumn = "NAME";
+        // this.CNTRYRECORD.type = "COUNTRY";
+        // this.CNTRYRECORD.id = "";
+        // this.CNTRYRECORD.code = "";
+        // this.CNTRYRECORD.name = "";
     }
 
     LoadCombo() {
@@ -166,6 +161,7 @@ export class QuotationComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.QtnCategoryList = response.qtncategorylist;
+                this.FullTermList = response.termlist;
                 this.List("NEW");
             },
                 error => {
@@ -374,12 +370,12 @@ export class QuotationComponent {
 
         // this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+        this.Record.qtnm_remList = new Array<GenRemarks>();
 
-        this.RecordRemList = new Array<Mark_Qtnm>();
-        this.RecordTermList = new Array<Mark_Qtnm>();
+        this.TermList = new Array<Mark_Qtnm>();
         this.NewDetRecord();
         this.NewRemarkRecord();
-        this.NewTermRecord();
+        this.GetTerms();
     }
 
     NewDetRecord() {
@@ -441,7 +437,12 @@ export class QuotationComponent {
         this.Record.rec_mode = this.mode;
         if (this.gs.isBlank(this.Record.qtnm_detList))
             this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+        if (this.gs.isBlank(this.Record.qtnm_remList))
+            this.Record.qtnm_remList = new Array<GenRemarks>();
+        if (this.Record.qtnm_remList.length == 0)
+            this.NewRemarkRecord();
         this.FindListTotal();
+        this.GetTerms();
     }
 
 
@@ -541,7 +542,7 @@ export class QuotationComponent {
         // }
     }
 
-    OnBlur(field: string, _rec: Mark_Qtnm = null) {
+    OnBlur(field: string, _rec: GenRemarks = null) {
 
         let amt: number;
         switch (field) {
@@ -633,9 +634,9 @@ export class QuotationComponent {
                 this.Findtotal();
                 break;
             }
-            case 'qtnm_remarks': {
+            case 'gr_remarks': {
                 if (_rec != null)
-                    _rec.qtnm_remarks = _rec.qtnm_remarks.toUpperCase();
+                    _rec.gr_remarks = _rec.gr_remarks.toUpperCase();
                 break;
             }
         }
@@ -663,27 +664,30 @@ export class QuotationComponent {
     RemoveRow(_id: string, _type: string) {
 
         if (_type == "REMARK") {
-            this.RecordRemList.splice(this.RecordRemList.findIndex(rec => rec.qtnm_pkid == _id), 1);
-            if (this.RecordRemList.length == 0)
+            this.Record.qtnm_remList.splice(this.Record.qtnm_remList.findIndex(rec => rec.gr_uid == _id), 1);
+            if (this.Record.qtnm_remList.length == 0)
                 this.NewRemarkRecord();
         } else {
-            this.RecordTermList.splice(this.RecordTermList.findIndex(rec => rec.qtnm_pkid == _id), 1);
-            if (this.RecordTermList.length == 0)
+            this.TermList.splice(this.TermList.findIndex(rec => rec.qtnm_pkid == _id), 1);
+            if (this.TermList.length == 0)
                 this.NewTermRecord();
         }
     }
 
     NewRemarkRecord() {
-        let _Rec: Mark_Qtnm = new Mark_Qtnm;
-        _Rec.qtnm_pkid = this.gs.getGuid();
-        _Rec.qtnm_remarks = '';
-        this.RecordRemList.push(_Rec);
+        let _Rec: GenRemarks = new GenRemarks;
+        _Rec.gr_uid = this.gs.getGuid();
+        _Rec.gr_pkid = this.pkid;
+        _Rec.gr_type = 'QUOTATION';
+        _Rec.gr_subtype = this.Record.qtnm_type;
+        _Rec.gr_remarks = '';
+        this.Record.qtnm_remList.push(_Rec);
     }
     NewTermRecord() {
         let _Rec: Mark_Qtnm = new Mark_Qtnm;
         _Rec.qtnm_pkid = this.gs.getGuid();
         _Rec.qtnm_remarks = '';
-        this.RecordTermList.push(_Rec);
+        this.TermList.push(_Rec);
     }
     Close() {
         this.gs.ClosePage('home');
@@ -773,7 +777,65 @@ export class QuotationComponent {
         this.Recorddet.qtnd_total = inramt;
     }
 
+
+    GetTerms() {
+        if (this.gs.isBlank(this.Record.qtnm_type))
+            return;
+
+        this.TermList = new Array<Mark_Qtnm>();
+        for (let rec of this.FullTermList.filter(rec => rec.qtnm_type == this.Record.qtnm_type)) {
+            this.TermList.push(rec);
+        }
+
+        if (this.gs.isBlank(this.TermList))
+            this.TermList = new Array<Mark_Qtnm>();
+        if (this.TermList.length == 0)
+            this.NewTermRecord();
+
+        // this.loading = true;
+        // let SearchData = {
+        //     type: this.Record.qtnm_type,
+        //     company_code: this.gs.globalVariables.comp_code,
+        //     branch_code: this.gs.globalVariables.branch_code
+        // };
+        // this.ErrorMessage = '';
+        // this.InfoMessage = '';
+        // this.mainService.GetTerms(SearchData)
+        //     .subscribe(response => {
+        //         this.loading = false;
+        //         this.TermList = response.list;
+        //         if (this.gs.isBlank(this.TermList))
+        //             this.TermList = new Array<Mark_Qtnm>();
+        //         if (this.TermList.length == 0)
+        //             this.NewTermRecord();
+        //     },
+        //         error => {
+        //             this.loading = false;
+        //             this.ErrorMessage = this.gs.getError(error);
+        //             alert(this.ErrorMessage);
+        //         });
+    }
+
     SaveTerms() {
+
+        let _saveData: SaveTermsData = new SaveTermsData;
+        _saveData.qtnm_termList = this.TermList;
+        _saveData.type = this.Record.qtnm_type;
+        _saveData._globalvariables = this.gs.globalVariables;
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.SaveTerms(_saveData)
+            .subscribe(response => {
+                this.loading = false;
+                this.InfoMessage = "Save Complete";
+                alert(this.InfoMessage);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
 
     }
 }

@@ -497,14 +497,14 @@
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
-                  <tr *ngFor="let rec of RecordRemList; let i = index">
+                  <tr *ngFor="let rec of Record.qtnm_remList; let i = index">
                     <td style="padding:0px 0px 0px 0px"><input type="text" name="desc"
-                        class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
-                        (blur)="OnBlur('qtnm_remarks',rec)" /></td>
+                        class="form-control form-control-sm" [(ngModel)]="rec.gr_remarks" required maxlength="300"
+                        (blur)="OnBlur('gr_remarks',rec)" /></td>
                     <td>
                       <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('REMARK')"></i>
                       <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                        (click)="RemoveRow(rec.qtnm_pkid,'REMARK')"></i>
+                        (click)="RemoveRow(rec.gr_uid,'REMARK')"></i>
                     </td>
                   </tr>
                 </tbody>
@@ -523,7 +523,7 @@
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
-                  <tr *ngFor="let rec of RecordTermList; let i = index">
+                  <tr *ngFor="let rec of TermList; let i = index">
                     <td style="padding:0px 0px 0px 0px"><input type="text"
                         [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="desc"
                         class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
@@ -531,8 +531,7 @@
                     <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
                       <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('TERM')"></i>
                       <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                        (click)="RemoveRow(rec.qtnm_pkid,'TERM')"></i>
-                      <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-link btn-sm">Update </button>
+                        (click)="RemoveRow(rec.qtnm_pkid,'TERM')"></i>                    
                     </td>
                   </tr>
                 </tbody>
@@ -540,15 +539,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="form-group row">
-          <label class="col-sm-12 col-form-label col-form-label-sm">TERMS & CONDITIONS</label>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <textarea disabled rows="3" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
-              maxlength="1000"></textarea>
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="page-box">
@@ -560,6 +550,11 @@
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div  *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
+            <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions </button>
           </div>
         </div>
       </div>
