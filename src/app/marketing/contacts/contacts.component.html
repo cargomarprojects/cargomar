@@ -10,11 +10,21 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"  (blur)="OnBlur('searchstring')" />
+      <label class="col-1">Search</label>
+      <div class="col-4">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+          (blur)="OnBlur('searchstring')" />
       </div>
-      <div class="col">
+      <label class="col-1">Lead.Source</label>
+      <div class="col-sm-4">
+        <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
+          <option [value]="'ALL'">ALL</option>
+          <option [value]="'NA'">NA</option>
+          <option [value]="'SELF'">SELF</option>
+          <option [value]="'HO-MARKETING'">HO-MARKETING</option>
+        </select>
+      </div>
+      <div class="col-2">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">EXCEL</button> -->
@@ -48,6 +58,8 @@
           <th>TEL</th>
           <th>MOBILE</th>
           <th>EMAIL</th>
+          <th>LEAD SOURCE</th>
+          <th>CONVERSION STATUS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -60,6 +72,8 @@
           <td>{{rec.cont_tel}}</td>
           <td>{{rec.cont_mobile}}</td>
           <td>{{rec.cont_email}}</td>
+          <td>{{rec.cont_lead_source}}</td>
+          <td>{{rec.cont_converted}}</td>
         </tr>
       </tbody>
     </table>
@@ -192,8 +206,8 @@
           <div class="col-4">
             <!-- <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
               required maxlength="60" (blur)="OnBlur('cont_country')" /> -->
-              <app-autocomplete #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+            <app-autocomplete #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
         </div>
 
@@ -295,7 +309,7 @@
             <label class="col-form-label col-form-label-sm mr-4">Air Import FWD</label>
           </div>
         </div> -->
- 
+
       </div>
 
       <div class="col-sm-6">
@@ -406,6 +420,25 @@
           </div>
         </div> -->
 
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Lead.Source</label>
+          <div class="col-4">
+            <select class="form-control form-control-sm" name="lsource" [(ngModel)]="Record.cont_lead_source">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'SELF'">SELF</option>
+              <option [value]="'HO-MARKETING'">HO-MARKETING</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Conversion.Status</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="Record.cont_converted">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'YES'">YES</option>
+              <option [value]="'NO'">NO</option>
+              <option [value]="'IN-PROGRESS'">IN-PROGRESS</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group row">
 
           <label class="col-2 col-form-label col-form-label-sm">Remarks</label>

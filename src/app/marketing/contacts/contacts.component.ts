@@ -31,7 +31,7 @@ export class ContactsComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  searchLeadSource = 'ALL';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -261,6 +261,7 @@ export class ContactsComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
+      leadsource: this.searchLeadSource,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -341,6 +342,8 @@ export class ContactsComponent {
     this.Record.cont_is_wh = false;
     this.Record.cont_is_tp = false;
     this.Record.cont_contact = '';
+    this.Record.cont_lead_source = 'NA';
+    this.Record.cont_converted = 'NA';
     this.Record.rec_mode = this.mode;
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
@@ -486,6 +489,8 @@ export class ContactsComponent {
       REC.cont_tel = this.Record.cont_tel;
       REC.cont_mobile = this.Record.cont_mobile;
       REC.cont_email = this.Record.cont_email;
+      REC.cont_lead_source = this.Record.cont_lead_source;
+      REC.cont_converted = this.Record.cont_converted;
     }
   }
 

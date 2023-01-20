@@ -25,7 +25,8 @@ export class MarkMarketingm {
     mark_time_visit: string;
     rec_category: string;
     mark_next_visit_status: string;
-
+    mark_lead_source:string ;
+    
     mobile: string;
     email: string;
     target: string;
