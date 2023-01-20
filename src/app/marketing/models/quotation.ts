@@ -5,6 +5,8 @@ export class Mark_Qtnm {
     qtnm_cfno: number;
     qtnm_no: string;
     qtnm_to_id: string;
+    qtnm_to_br_id: string;
+    qtnm_to_br_no: string;
     qtnm_to_code: string;
     qtnm_to_name: string;
     qtnm_to_addr1: string;
@@ -27,7 +29,9 @@ export class Mark_Qtnm {
     qtnm_pod_code: string;
     qtnm_pod_name: string;
     qtnm_pld_name: string;
-    qtnm_plfd_name: string;
+    qtnm_pofd_id: string;
+    qtnm_pofd_code: string;
+    qtnm_pofd_name: string;
     qtnm_commodity: string;
     qtnm_package: string;
     qtnm_type: string;
@@ -35,6 +39,7 @@ export class Mark_Qtnm {
     qtnm_lbs: number;
     qtnm_cbm: number;
     qtnm_cft: number;
+    qtnm_tot_famt: number;
     qtnm_tot_amt: number;
     qtnm_subjects: string;
     qtnm_remarks: string;
@@ -43,7 +48,7 @@ export class Mark_Qtnm {
     qtnm_transtime: string;
     qtnm_routing: string;
     qtnm_curr_code: string;
-
+    qtnm_exrate: number;
     qtnm_detList: Mark_Qtnd[] = [];
     qtnm_remList: GenRemarks[] = [];
 

@@ -44,6 +44,7 @@ export class QuotationComponent {
 
     bChanged: boolean;
     total_amt: number = 0;
+    total_famt: number = 0;
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -57,11 +58,9 @@ export class QuotationComponent {
     Record: Mark_Qtnm = new Mark_Qtnm;
     TermList: Mark_Qtnm[] = [];
     FullTermList: Mark_Qtnm[] = [];
-    // CATEGORYRECORD: SearchTable = new SearchTable();
-    // SALESMANRECORD: SearchTable = new SearchTable();
-    // CSDRECORD: SearchTable = new SearchTable();
-    // CNTRYRECORD: SearchTable = new SearchTable();
     Recorddet: Mark_Qtnd = new Mark_Qtnd;
+    CUSTRECORD: SearchTable = new SearchTable();
+    CUSTADDRECORD: SearchTable = new SearchTable();
 
     constructor(
         private modalService: NgbModal,
@@ -107,54 +106,36 @@ export class QuotationComponent {
         this.sub.unsubscribe();
     }
 
-
     InitLov() {
 
-        // this.CATEGORYRECORD = new SearchTable();
-        // this.CATEGORYRECORD.controlname = "CONTACT TYPE";
-        // this.CATEGORYRECORD.displaycolumn = "NAME";
-        // this.CATEGORYRECORD.type = "CONTACT TYPE";
-        // this.CATEGORYRECORD.id = "";
-        // this.CATEGORYRECORD.code = "";
-        // this.CATEGORYRECORD.name = "";
+        this.CUSTRECORD = new SearchTable();
+        this.CUSTRECORD.controlname = "QUOTE-TO";
+        this.CUSTRECORD.displaycolumn = "CODE";
+        this.CUSTRECORD.type = "CUSTOMER";
+        this.CUSTRECORD.where = "";
+        this.CUSTRECORD.id = "";
+        this.CUSTRECORD.code = "";
+        this.CUSTRECORD.name = "";
 
-        // this.SALESMANRECORD = new SearchTable();
-        // this.SALESMANRECORD.controlname = "SALESMAN";
-        // this.SALESMANRECORD.displaycolumn = "NAME";
-        // this.SALESMANRECORD.type = "SALESMAN";
-        // this.SALESMANRECORD.id = "";
-        // this.SALESMANRECORD.code = "";
-        // this.SALESMANRECORD.name = "";
-
-        // this.CSDRECORD = new SearchTable();
-        // this.CSDRECORD.controlname = "CSD";
-        // this.CSDRECORD.displaycolumn = "NAME";
-        // this.CSDRECORD.type = "SALESMAN";
-        // this.CSDRECORD.id = "";
-        // this.CSDRECORD.code = "";
-        // this.CSDRECORD.name = "";
-
-        // this.CNTRYRECORD = new SearchTable();
-        // this.CNTRYRECORD.controlname = "COUNTRY";
-        // this.CNTRYRECORD.displaycolumn = "NAME";
-        // this.CNTRYRECORD.type = "COUNTRY";
-        // this.CNTRYRECORD.id = "";
-        // this.CNTRYRECORD.code = "";
-        // this.CNTRYRECORD.name = "";
+        this.CUSTADDRECORD = new SearchTable();
+        this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
+        this.CUSTADDRECORD.displaycolumn = "CODE";
+        this.CUSTADDRECORD.type = "CUSTOMERADDRESS";
+        this.CUSTADDRECORD.id = "";
+        this.CUSTADDRECORD.code = "";
+        this.CUSTADDRECORD.name = "";
+        this.CUSTADDRECORD.parentid = "";
     }
 
     LoadCombo() {
-
         this.loading = true;
         let SearchData = {
             type: 'type',
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code
         };
-
         SearchData.comp_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
-
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.LoadDefault(SearchData)
@@ -173,10 +154,56 @@ export class QuotationComponent {
 
     LovSelected(_Record: any) {
 
+        // if (_Record.controlname == "SHIPPER") {
+
+        //     if (this.Record.bl_shipper_id != _Record.id) {
+        //       this.Record.bl_shipper_id = _Record.id;
+        //       this.Record.bl_shipper_code = _Record.code;
+        //       this.Record.bl_shipper_name = _Record.name;
+        //       this.Record.bl_shipper_add1 = '';
+        //       this.Record.bl_shipper_add2 = '';
+        //       this.Record.bl_shipper_add3 = '';
+        //       this.Record.bl_shipper_add4 = '';
+
+        //       this.SHPRADDRECORD = new SearchTable();
+        //       this.SHPRADDRECORD.controlname = "SHIPPERADDRESS";
+        //       this.SHPRADDRECORD.displaycolumn = "CODE";
+        //       this.SHPRADDRECORD.type = "CUSTOMERADDRESS";
+        //       this.SHPRADDRECORD.id = "";
+        //       this.SHPRADDRECORD.code = "";
+        //       this.SHPRADDRECORD.name = "";
+        //       this.SHPRADDRECORD.parentid = this.Record.bl_shipper_id;
+        //     }
+        //   }
+        //   else if (_Record.controlname == "SHIPPERADDRESS") {
+
+        //     this.Record.bl_shipper_br_id = _Record.id;
+        //     this.SearchRecord("SHIPPERADDRESS", this.Record.bl_shipper_br_id, this.Record.bl_shipper_id);
+        //   }
+
         if (_Record.controlname == "QUOTE-TO") {
-            this.Record.qtnm_to_id = _Record.id;
-            this.Record.qtnm_to_code = _Record.code;
-            this.Record.qtnm_to_name = _Record.name;
+            if (this.Record.qtnm_to_id != _Record.id) {
+                this.Record.qtnm_to_id = _Record.id;
+                this.Record.qtnm_to_code = _Record.code;
+                this.Record.qtnm_to_name = _Record.name;
+                this.Record.qtnm_to_addr1 = '';
+                this.Record.qtnm_to_addr2 = '';
+                this.Record.qtnm_to_addr3 = '';
+                this.Record.qtnm_to_addr4 = '';
+
+                this.CUSTADDRECORD = new SearchTable();
+                this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
+                this.CUSTADDRECORD.displaycolumn = "CODE";
+                this.CUSTADDRECORD.type = "CUSTOMERADDRESS";
+                this.CUSTADDRECORD.id = "";
+                this.CUSTADDRECORD.code = "";
+                this.CUSTADDRECORD.name = "";
+                this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+            }
+        }
+        if (_Record.controlname == "QUOTE-TO-ADDR") {
+            this.Record.qtnm_to_br_id = _Record.id;
+            this.SearchRecord("CUSTOMERADDRESS", this.Record.qtnm_to_br_id, this.Record.qtnm_to_id);
         }
 
         if (_Record.controlname == "SALESMAN") {
@@ -185,6 +212,8 @@ export class QuotationComponent {
         }
         if (_Record.controlname == "CURR") {
             this.Record.qtnm_curr_code = _Record.code;
+            this.Record.qtnm_exrate = _Record.rate;
+            this.FindListTotal();
         }
         if (_Record.controlname == "POR") {
             this.Record.qtnm_por_id = _Record.id;
@@ -201,17 +230,11 @@ export class QuotationComponent {
             this.Record.qtnm_pod_code = _Record.code;
             this.Record.qtnm_pod_name = _Record.name;
         }
-        // if (_Record.controlname == "CSD") {
-        //     this.Record.cont_csd_id = _Record.id;
-        //     this.Record.cont_csd_name = _Record.name;
-        // }
-
-        // if (_Record.controlname == "COUNTRY") {
-        //     this.Record.cont_country_id = _Record.id;
-        //     this.Record.cont_country_code = _Record.code;
-        //     this.Record.cont_country = _Record.name;
-        // }
-
+        if (_Record.controlname == "POFD") {
+            this.Record.qtnm_pofd_id = _Record.id;
+            this.Record.qtnm_pofd_code = _Record.code;
+            this.Record.qtnm_pofd_name = _Record.name;
+        }
         if (_Record.controlname == "ACCTM") {
             this.Recorddet.qtnd_acc_id = _Record.id;
             this.Recorddet.qtnd_acc_code = _Record.code;
@@ -222,16 +245,13 @@ export class QuotationComponent {
             this.Recorddet.qtnd_curr_code = _Record.code;
             this.Recorddet.qtnd_exrate = _Record.rate;
             this.bChanged = true;
-            this.OnBlur('inv_exrate');
+            this.OnBlur('qtnd_exrate');
         }
         if (_Record.controlname == "CNTRTYPE") {
             this.Recorddet.qtnd_cntr_type_id = _Record.id;
             this.Recorddet.qtnd_cntr_type_code = _Record.code;
         }
-
     }
-
-
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
@@ -257,7 +277,6 @@ export class QuotationComponent {
         }
     }
 
-
     ResetControls() {
         this.disableSave = true;
         if (!this.menu_record)
@@ -278,9 +297,7 @@ export class QuotationComponent {
 
     // Query List Data
     List(_type: string) {
-
         this.loading = true;
-
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -328,6 +345,8 @@ export class QuotationComponent {
         this.Record.qtnm_no = '';
         this.Record.qtnm_to_id = '';
         this.Record.qtnm_to_code = '';
+        this.Record.qtnm_to_br_id = '';
+        this.Record.qtnm_to_br_no = '';
         this.Record.qtnm_to_name = '';
         this.Record.qtnm_to_addr1 = '';
         this.Record.qtnm_to_addr2 = '';
@@ -349,7 +368,9 @@ export class QuotationComponent {
         this.Record.qtnm_pod_code = '';
         this.Record.qtnm_pod_name = '';
         this.Record.qtnm_pld_name = '';
-        this.Record.qtnm_plfd_name = '';
+        this.Record.qtnm_pofd_id = '';
+        this.Record.qtnm_pofd_code = '';
+        this.Record.qtnm_pofd_name = '';
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
         this.Record.qtnm_type = 'SEA EXPORT';
@@ -357,6 +378,7 @@ export class QuotationComponent {
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
         this.Record.qtnm_cft = 0;
+        this.Record.qtnm_tot_famt = 0;
         this.Record.qtnm_tot_amt = 0;
         this.Record.qtnm_subjects = '';
         this.Record.qtnm_remarks = '';
@@ -365,17 +387,17 @@ export class QuotationComponent {
         this.Record.qtnm_transtime = '';
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
+        this.Record.qtnm_exrate = 1;
         this.Record.rec_mode = this.mode;
         this.total_amt = 0;
-
-        // this.InitLov();
+        this.total_famt = 0;
+        this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         this.Record.qtnm_remList = new Array<GenRemarks>();
-
         this.TermList = new Array<Mark_Qtnm>();
         this.NewDetRecord();
         this.NewRemarkRecord();
-        this.GetTerms();
+        this.GetTermsAndConditions();
     }
 
     NewDetRecord() {
@@ -442,7 +464,14 @@ export class QuotationComponent {
         if (this.Record.qtnm_remList.length == 0)
             this.NewRemarkRecord();
         this.FindListTotal();
-        this.GetTerms();
+        this.GetTermsAndConditions();
+
+        this.InitLov();
+        this.CUSTRECORD.id = this.Record.qtnm_to_id;
+        this.CUSTRECORD.code = this.Record.qtnm_to_code;
+        this.CUSTADDRECORD.id = this.Record.qtnm_to_br_id;
+        this.CUSTADDRECORD.code = this.Record.qtnm_to_br_no;
+        this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
     }
 
 
@@ -458,6 +487,7 @@ export class QuotationComponent {
         this.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.qtnm_tot_amt = this.total_amt;
+        this.Record.qtnm_tot_famt = this.total_famt;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
@@ -504,6 +534,57 @@ export class QuotationComponent {
         return bret;
     }
 
+    SearchRecord(controlname: string, controlid: string, controlparentid: string) {
+        if (controlid.trim().length <= 0)
+            return;
+
+        this.loading = true;
+        let SearchData = {
+            table: 'customeraddress',
+            rowtype: this.type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            add_pkid: '',
+            add_parent_id: ''
+        };
+
+        SearchData.table = 'customeraddress';
+        SearchData.company_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+        SearchData.year_code = this.gs.globalVariables.year_code;
+        SearchData.add_pkid = controlid;
+        SearchData.add_parent_id = controlparentid;
+
+        this.ErrorMessage = '';
+        this.gs.SearchRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = '';
+                if (controlname == 'CUSTOMERADDRESS') {
+                    this.Record.qtnm_to_addr1 = '';
+                    this.Record.qtnm_to_addr2 = '';
+                    this.Record.qtnm_to_addr3 = '';
+                    this.Record.qtnm_to_addr4 = '';
+                }
+                if (response.customeraddress.length > 0) {
+
+                    if (controlname == 'CUSTOMERADDRESS') {
+                        this.Record.qtnm_to_addr1 = response.customeraddress[0].add_line1;
+                        this.Record.qtnm_to_addr2 = response.customeraddress[0].add_line2;
+                        this.Record.qtnm_to_addr3 = response.customeraddress[0].add_line3;
+                        this.Record.qtnm_to_addr4 = response.customeraddress[0].add_line4;
+                    }
+                }
+                else {
+                    this.ErrorMessage = 'Invalid Address';
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
     Isnumeric(i: any) {
 
         if (i >= 0 && i <= 9) {
@@ -537,8 +618,10 @@ export class QuotationComponent {
     }
     OnChange(field: string) {
         this.bChanged = true;
-        if (field == 'type')
-            this.GetTerms();
+        if (field == 'qtnm_type')
+            this.GetTermsAndConditions();
+        if (field == 'qtnm_exrate')
+            this.FindListTotal();
     }
 
     OnBlur(field: string, _rec: GenRemarks = null) {
@@ -593,8 +676,8 @@ export class QuotationComponent {
                 this.Record.qtnm_pld_name = this.Record.qtnm_pld_name.toUpperCase();
                 break;
             }
-            case 'qtnm_plfd_name': {
-                this.Record.qtnm_plfd_name = this.Record.qtnm_plfd_name.toUpperCase();
+            case 'qtnm_pofd_name': {
+                this.Record.qtnm_pofd_name = this.Record.qtnm_pofd_name.toUpperCase();
                 break;
             }
             case 'qtnm_transtime': {
@@ -616,6 +699,10 @@ export class QuotationComponent {
             }
             case 'qtnm_cbm': {
                 this.Record.qtnm_cbm = this.gs.roundNumber(this.Record.qtnm_cbm, 3);
+                break;
+            }
+            case 'qtnm_exrate': {
+                this.Record.qtnm_exrate = this.gs.roundNumber(this.Record.qtnm_exrate, 3);
                 break;
             }
             case 'qtnd_qty': {
@@ -708,6 +795,11 @@ export class QuotationComponent {
             this.total_amt += rec.qtnd_total;
         });
         this.total_amt = this.gs.roundNumber(this.total_amt, 2);
+
+        if (this.Record.qtnm_exrate <= 0)
+            this.Record.qtnm_exrate = 1;
+        this.total_famt = this.total_amt / this.Record.qtnm_exrate;
+        this.total_famt = this.gs.roundNumber(this.total_famt, 2);
     }
 
     AddRecord() {
@@ -777,7 +869,7 @@ export class QuotationComponent {
     }
 
 
-    GetTerms() {
+    GetTermsAndConditions() {
         if (this.gs.isBlank(this.Record.qtnm_type))
             return;
 

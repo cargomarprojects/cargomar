@@ -105,7 +105,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type" (change)="OnChange('type')">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type"
+              (change)="OnChange('qtnm_type')">
               <option [value]="'SEA EXPORT'">SEA EXPORT</option>
               <option [value]="'SEA IMPORT'">SEA IMPORT</option>
               <option [value]="'AIR EXPORT'">AIR EXPORT</option>
@@ -121,10 +122,20 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Quote.To</label>
-          <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'QUOTE-TO'" [tabletype]="'CUSTOMER'" [displaycolumn]="'CODE'"
+          <div class="col-sm-6">
+            <!-- <app-autocomplete3 [controlname]="'QUOTE-TO'" [tabletype]="'CUSTOMER'" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_to_code" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete3>
+            </app-autocomplete3> -->
+            <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm pr-0">Br#</label>
+          <div class="col-sm-3 pl-0">
+            <!-- <app-autocomplete3 [controlname]="'QUOTE-TO-BR'" [tabletype]="'CUSTOMERADDRESS'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.qtnm_to_br_no" [parentid]="Record.qtnm_to_id" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3> -->
+            <app-autocomplete #CustAddLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
           </div>
         </div>
         <div class="form-group row">
@@ -201,10 +212,16 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <app-autocomplete3 [controlname]="'CURR'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_curr_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
+          </div>
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_exrate"
+              (focus)="OnFocus('qtnm_exrate')" (change)="OnChange('qtnm_exrate')" (blur)="OnBlur('qtnm_exrate')"
+              required maxlength="10" />
           </div>
         </div>
       </div>
@@ -291,21 +308,29 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'POFD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.qtnm_pofd_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pofd_name"
+              (blur)="OnBlur('qtnm_pofd_name')" required maxlength="60" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Place.Delivery</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pld_name"
               (blur)="OnBlur('qtnm_pld_name')" required maxlength="60" />
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_plfd_name"
-              (blur)="OnBlur('qtnm_plfd_name')" required maxlength="60" />
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Transit Time</label>
           <div class="col-sm-10">
@@ -319,6 +344,15 @@
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_routing"
               (blur)="OnBlur('qtnm_routing')" required maxlength="60" />
           </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <label *ngIf="total_amt!=0&&Record.qtnm_curr_code!='INR'"
+          class="col-sm-10 col-form-label col-form-label-sm text-danger"><b>TOTAL :</b>
+          {{total_amt}}&nbsp;&nbsp;({{Record.qtnm_curr_code}}&nbsp;{{total_famt}})</label>
+          <label *ngIf="total_amt!=0&&Record.qtnm_curr_code=='INR'"
+          class="col-sm-10 col-form-label col-form-label-sm text-danger"><b>TOTAL :</b>
+          {{total_amt}}</label>
         </div>
       </div>
     </div>
@@ -429,8 +463,8 @@
           <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_exrate"
-              (focus)="OnFocus('qtnd_exrate')" (change)="OnChange('inv_exrate')" (blur)="OnBlur('qtnd_exrate')" required
-              maxlength="10" />
+              (focus)="OnFocus('qtnd_exrate')" (change)="OnChange('qtnd_exrate')" (blur)="OnBlur('qtnd_exrate')"
+              required maxlength="10" />
           </div>
         </div>
         <div class="form-group row">
@@ -452,8 +486,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
           <div class="col-sm-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_ftotal" required
-              maxlength="20" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_ftotal"
+              required maxlength="20" />
           </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
           <div class="col-sm-4">
@@ -477,8 +511,6 @@
         <div class="offset-2 col-sm-10">
           <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Add</button>
           <button [disabled]="loading" (click)="NewDetRecord()" class="btn btn-success btn-sm">New</button>
-          <label *ngIf="total_amt!=0" class="col-sm-5 col-form-label col-form-label-sm"><b>TOTAL :</b>
-            {{total_amt}}</label>
         </div>
       </div>
     </div>
@@ -492,8 +524,8 @@
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
                   <tr>
-                    <th width="90%" >REMARKS</th>
-                    <th width="10%" ></th>
+                    <th width="90%">REMARKS</th>
+                    <th width="10%"></th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
@@ -518,8 +550,8 @@
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
                   <tr>
-                    <th width="90%" >TERMS & CONDITIONS</th>
-                    <th  *ngIf="gs.globalVariables.user_code == 'ADMIN'"></th>
+                    <th width="90%">TERMS & CONDITIONS</th>
+                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'"></th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
@@ -531,7 +563,7 @@
                     <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
                       <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('TERM')"></i>
                       <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                        (click)="RemoveRow(rec.qtnm_pkid,'TERM')"></i>                    
+                        (click)="RemoveRow(rec.qtnm_pkid,'TERM')"></i>
                     </td>
                   </tr>
                 </tbody>
@@ -553,8 +585,9 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <div  *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
-            <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions </button>
+          <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
+            <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions
+            </button>
           </div>
         </div>
       </div>
