@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.581';
+  public software_version_string: string = '1.582';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -203,9 +203,9 @@ export class GlobalService {
   }
 
   public DownloadFileDirect(pkid: string) {
-    //this.gs.globalVariables.report_folder, 
-    //filename, 
-    //filetype, 
+    //this.gs.globalVariables.report_folder,
+    //filename,
+    //filetype,
     //filedisplayname
     let SearchData = {
       pkid: pkid,
@@ -228,11 +228,11 @@ export class GlobalService {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;
 
     window.open('https://software.cargomar.in/api/Admin/User/DownloadFile?' + body, "_blank");
-    /*     
+    /*
     if ( window.location.toString().toLowerCase().indexOf('https') >= 0)
       window.open('https://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
-    else 
-      window.open('http://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank"); 
+    else
+      window.open('http://cargomar.net/api/Admin/User/DownloadFile?' + body, "_blank");
     */
 
   }
@@ -530,7 +530,7 @@ export class GlobalService {
 
       this.InitdefaultValues2(response.settings);
 
-      //Air Export Job Default Loading 
+      //Air Export Job Default Loading
       this.defaultValues.air_job_place_receipt_id = airjob.job_place_receipt_id;
       this.defaultValues.air_job_place_receipt_code = airjob.job_place_receipt_code;
       this.defaultValues.air_job_place_receipt_name = airjob.job_place_receipt_name;
@@ -565,7 +565,7 @@ export class GlobalService {
       this.defaultValues.air_job_origin_country_name = airjob.job_origin_country_name;
 
 
-      //Sea Export Job Default Loading 
+      //Sea Export Job Default Loading
       this.defaultValues.sea_job_place_receipt_id = seajob.job_place_receipt_id;
       this.defaultValues.sea_job_place_receipt_code = seajob.job_place_receipt_code;
       this.defaultValues.sea_job_place_receipt_name = seajob.job_place_receipt_name;
