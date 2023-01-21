@@ -23,6 +23,7 @@ export class MarkContacts {
     cont_iscorporat: boolean;
     cont_saleman_id: string;
     cont_saleman_name: string;
+    cont_saleman_branch: string;
     cont_region: string;
     cont_remark: string;
     cont_iecode: string;

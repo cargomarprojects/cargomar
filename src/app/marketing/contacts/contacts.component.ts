@@ -32,6 +32,7 @@ export class ContactsComponent {
   loading = false;
   currentTab = 'LIST';
   searchLeadSource = 'ALL';
+  searchConvrtStatus = 'ALL';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -262,6 +263,7 @@ export class ContactsComponent {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       leadsource: this.searchLeadSource,
+      conversionstatus: this.searchConvrtStatus,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,

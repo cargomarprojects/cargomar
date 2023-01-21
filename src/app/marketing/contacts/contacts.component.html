@@ -10,24 +10,48 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <label class="col-1">Search</label>
-      <div class="col-4">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
-          (blur)="OnBlur('searchstring')" />
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+        </div>
       </div>
-      <label class="col-1">Lead.Source</label>
-      <div class="col-sm-4">
-        <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
-          <option [value]="'ALL'">ALL</option>
-          <option [value]="'NA'">NA</option>
-          <option [value]="'SELF'">SELF</option>
-          <option [value]="'HO-MARKETING'">HO-MARKETING</option>
-        </select>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'NA'">NA</option>
+              <option [value]="'SELF'">SELF</option>
+              <option [value]="'HO-MARKETING'">HO-MARKETING</option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="col-2">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Conversion.Status</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="searchConvrtStatus">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'NA'">NA</option>
+              <option [value]="'YES'">YES</option>
+              <option [value]="'NO'">NO</option>
+              <option [value]="'IN-PROGRESS'">IN-PROGRESS</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">EXCEL</button> -->
+        </div>
       </div>
     </div>
   </div>
@@ -35,9 +59,11 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
         </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
@@ -58,6 +84,8 @@
           <th>TEL</th>
           <th>MOBILE</th>
           <th>EMAIL</th>
+          <th>SALESPERSON</th>
+          <th>BRANCH</th>
           <th>LEAD SOURCE</th>
           <th>CONVERSION STATUS</th>
         </tr>
@@ -72,6 +100,8 @@
           <td>{{rec.cont_tel}}</td>
           <td>{{rec.cont_mobile}}</td>
           <td>{{rec.cont_email}}</td>
+          <td>{{rec.cont_saleman_name}}</td>
+          <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
           <td>{{rec.cont_converted}}</td>
         </tr>
@@ -82,9 +112,11 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
         </li>
-        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
