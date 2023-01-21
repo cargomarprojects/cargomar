@@ -164,6 +164,8 @@ export class ParamComponent {
 
     if (this.type == 'SALESMAN') {
       this.email = "e-Mail";
+      this.id5 = "Branch";
+      this.id5_lovtype = "BRANCH";
     }
 
 
@@ -580,6 +582,13 @@ export class ParamComponent {
 
     }
 
+    if (this.type == 'SALESMAN') {
+      if (this.gs.isBlank(this.Record.param_id5)) {
+        bret = false;
+        sError += "\n\r | Branch Cannot be blank";
+      }
+    }
+
 
     //if (this.Record.user_password.trim().length <= 0) {
     //    bret = false;
@@ -600,8 +609,10 @@ export class ParamComponent {
 
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

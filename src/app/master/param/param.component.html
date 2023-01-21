@@ -52,6 +52,7 @@
           <th *ngIf="type == 'USER HIERARCHY'">SUB USERS</th>
           <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
+          <th *ngIf="type == 'SALESMAN'">BRANCH</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
           <th *ngIf="type == 'SALESMAN'">LOCKED</th>
           <th *ngIf="type == 'COUNTRY'">REGION</th>
@@ -101,6 +102,7 @@
           <td *ngIf="type == 'USER HIERARCHY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
+          <td *ngIf="type == 'SALESMAN'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.rec_locked?'Y':'N'}}</td>
           <td *ngIf="type == 'COUNTRY'">{{rec.param_id1}}</td>
