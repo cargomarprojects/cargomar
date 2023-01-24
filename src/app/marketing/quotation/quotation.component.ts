@@ -934,6 +934,7 @@ export class QuotationComponent {
         this.loading = true;
         let SearchData = {
             pkid: this.Record.qtnm_pkid,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
