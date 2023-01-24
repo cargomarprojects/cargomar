@@ -291,7 +291,7 @@ export class PostingComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-  
+
 
   // Save Data
   Save() {
@@ -313,6 +313,7 @@ export class PostingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -352,8 +353,10 @@ export class PostingComponent {
       bret = false;
       sError += "| Fright Code Need To Be Selected";
     }
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

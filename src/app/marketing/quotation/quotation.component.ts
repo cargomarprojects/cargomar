@@ -929,4 +929,25 @@ export class QuotationComponent {
                 });
 
     }
+
+    PrintQuotation() {
+        this.loading = true;
+        let SearchData = {
+            pkid: this.Record.qtnm_pkid,
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.PrintQuotation(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
 }
