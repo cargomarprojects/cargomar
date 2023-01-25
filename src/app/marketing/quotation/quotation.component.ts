@@ -721,8 +721,8 @@ export class QuotationComponent {
                 break;
             }
             case 'gr_remarks': {
-                if (_rec != null)
-                    _rec.gr_remarks = _rec.gr_remarks.toUpperCase();
+                // if (_rec != null)
+                //     _rec.gr_remarks = _rec.gr_remarks.toUpperCase();
                 break;
             }
         }
@@ -934,7 +934,10 @@ export class QuotationComponent {
         this.loading = true;
         let SearchData = {
             pkid: this.Record.qtnm_pkid,
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_name:this.gs.globalVariables.user_name
         };
 
         this.ErrorMessage = '';
