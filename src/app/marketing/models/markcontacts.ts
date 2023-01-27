@@ -40,10 +40,10 @@ export class MarkContacts {
     rec_user_id: string;
     rec_date: string;
     rec_mode: string;
-    cont_contact:string;
-    cont_lead_source:string;
-    cont_converted:string;
-    
+    cont_contact: string;
+    cont_lead_source: string;
+    cont_converted: string;
+
     cont_is_seclr: boolean;
     cont_is_sefwd: boolean;
     cont_is_siclr: boolean;
@@ -55,7 +55,9 @@ export class MarkContacts {
     cont_is_pj: boolean;
     cont_is_wh: boolean;
     cont_is_tp: boolean;
-
+    rec_created_by: string;
+    rec_created_date: string;
+    
     _globalvariables: GlobalVariables;
 }
 

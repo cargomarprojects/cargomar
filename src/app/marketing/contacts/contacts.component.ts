@@ -48,6 +48,8 @@ export class ContactsComponent {
 
   mode = '';
   pkid = '';
+  fromdate = '';
+  todate = '';
   showclosebutton: boolean = true;
 
   // Array For Displaying List
@@ -109,6 +111,8 @@ export class ContactsComponent {
   }
 
   InitComponent() {
+    this.fromdate = "";
+    this.todate = "";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -264,6 +268,8 @@ export class ContactsComponent {
       searchstring: this.searchstring.toUpperCase(),
       leadsource: this.searchLeadSource,
       conversionstatus: this.searchConvrtStatus,
+      fromdate: this.fromdate,
+      todate: this.todate,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -361,6 +367,10 @@ export class ContactsComponent {
       this.CATEGORYRECORD.code = this.Record.cont_type_name;
       this.CATEGORYRECORD.name = this.Record.cont_type_name;
     }
+
+      this.SALESMANRECORD.id = this.gs.globalVariables.sman_id;
+      this.SALESMANRECORD.code = this.gs.globalVariables.sman_name;
+      this.SALESMANRECORD.name = this.gs.globalVariables.sman_name;
   }
 
 

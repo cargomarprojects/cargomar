@@ -10,16 +10,23 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">From</label>
           <div class="col-sm-8">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
-              (blur)="OnBlur('searchstring')" />
+            <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
+            </app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-8">
+            <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+            </app-date>
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
           <div class="col-sm-8">
@@ -31,8 +38,6 @@
             </select>
           </div>
         </div>
-      </div>
-      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Conversion.Status</label>
           <div class="col-sm-8">
@@ -46,11 +51,21 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-          <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
+          <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">EXCEL</button> -->
+          </div>
         </div>
       </div>
     </div>
@@ -88,6 +103,8 @@
           <th>BRANCH</th>
           <th>LEAD SOURCE</th>
           <th>CONVERSION STATUS</th>
+          <th>CREATED.BY</th>
+          <th>DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -104,6 +121,8 @@
           <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
           <td>{{rec.cont_converted}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
         </tr>
       </tbody>
     </table>
