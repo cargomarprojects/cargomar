@@ -387,7 +387,7 @@
             <td>{{rec.qtnd_type}}</td>
             <td>{{rec.qtnd_qty}}</td>
             <td>{{rec.qtnd_rate}}</td>
-            <td>{{rec.qtnd_ftotal}}</td>
+            <td>{{rec.qtnd_amt}}</td>
             <td>{{rec.qtnd_curr_code}}</td>
             <td>{{rec.qtnd_exrate}}</td>
             <td>{{rec.qtnd_total}}</td>
@@ -486,7 +486,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
           <div class="col-sm-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_ftotal"
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt"
               required maxlength="20" />
           </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
@@ -531,7 +531,7 @@
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of Record.qtnm_remList; let i = index">
                     <td style="padding:0px 0px 0px 0px"><input type="text" name="desc"
-                        class="form-control form-control-sm" [(ngModel)]="rec.gr_remarks" required maxlength="300"
+                        class="form-control form-control-sm" [(ngModel)]="rec.gr_remarks" required maxlength="140"
                         (blur)="OnBlur('gr_remarks',rec)" /></td>
                     <td>
                       <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('REMARK')"></i>
@@ -558,7 +558,7 @@
                   <tr *ngFor="let rec of TermList; let i = index">
                     <td style="padding:0px 0px 0px 0px"><input type="text"
                         [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="desc"
-                        class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="300"
+                        class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="140"
                         (blur)="OnBlur('qtnm_remarks',rec)" /></td>
                     <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
                       <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow('TERM')"></i>

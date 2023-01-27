@@ -70,9 +70,10 @@ export class Mark_Qtnd {
     qtnd_curr_code: string;
     qtnd_qty: number;
     qtnd_rate: number;
-    qtnd_ftotal: number;
+    qtnd_amt: number;
     qtnd_exrate: number;
     qtnd_total: number;
+    qtnd_ftotal: number;
     qtnd_remarks: string;
     qtnd_category_id: string;
     qtnd_category: string;

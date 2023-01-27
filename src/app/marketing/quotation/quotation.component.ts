@@ -153,34 +153,6 @@ export class QuotationComponent {
 
 
     LovSelected(_Record: any) {
-
-        // if (_Record.controlname == "SHIPPER") {
-
-        //     if (this.Record.bl_shipper_id != _Record.id) {
-        //       this.Record.bl_shipper_id = _Record.id;
-        //       this.Record.bl_shipper_code = _Record.code;
-        //       this.Record.bl_shipper_name = _Record.name;
-        //       this.Record.bl_shipper_add1 = '';
-        //       this.Record.bl_shipper_add2 = '';
-        //       this.Record.bl_shipper_add3 = '';
-        //       this.Record.bl_shipper_add4 = '';
-
-        //       this.SHPRADDRECORD = new SearchTable();
-        //       this.SHPRADDRECORD.controlname = "SHIPPERADDRESS";
-        //       this.SHPRADDRECORD.displaycolumn = "CODE";
-        //       this.SHPRADDRECORD.type = "CUSTOMERADDRESS";
-        //       this.SHPRADDRECORD.id = "";
-        //       this.SHPRADDRECORD.code = "";
-        //       this.SHPRADDRECORD.name = "";
-        //       this.SHPRADDRECORD.parentid = this.Record.bl_shipper_id;
-        //     }
-        //   }
-        //   else if (_Record.controlname == "SHIPPERADDRESS") {
-
-        //     this.Record.bl_shipper_br_id = _Record.id;
-        //     this.SearchRecord("SHIPPERADDRESS", this.Record.bl_shipper_br_id, this.Record.bl_shipper_id);
-        //   }
-
         if (_Record.controlname == "QUOTE-TO") {
             if (this.Record.qtnm_to_id != _Record.id) {
                 this.Record.qtnm_to_id = _Record.id;
@@ -378,8 +350,8 @@ export class QuotationComponent {
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
         this.Record.qtnm_cft = 0;
-        this.Record.qtnm_tot_famt = 0;
         this.Record.qtnm_tot_amt = 0;
+        this.Record.qtnm_tot_famt = 0;
         this.Record.qtnm_subjects = '';
         this.Record.qtnm_remarks = '';
         this.Record.qtnm_office_use = '';
@@ -416,12 +388,14 @@ export class QuotationComponent {
         this.Recorddet.qtnd_curr_code = '';
         this.Recorddet.qtnd_qty = 0;
         this.Recorddet.qtnd_rate = 0;
-        this.Recorddet.qtnd_ftotal = 0;
+        this.Recorddet.qtnd_amt = 0;
         this.Recorddet.qtnd_total = 0;
+        this.Recorddet.qtnd_ftotal = 0;
         this.Recorddet.qtnd_exrate = 1;
         this.Recorddet.qtnd_remarks = '';
         this.Initdefault();
     }
+
     Initdefault() {
         if (this.QtnCategoryList != null) {
             var REC = this.QtnCategoryList.find(rec => rec.param_name == 'CLEARING');
@@ -850,22 +824,36 @@ export class QuotationComponent {
                 this.Recorddet.qtnd_category = REC.param_name;
             }
         }
+        this.Findtotal();
         this.Record.qtnm_detList.push(this.Recorddet);
         this.FindListTotal()
         this.NewDetRecord();
     }
+
     Findtotal() {
         let amt: number;
-        let inramt: number;
+        let totamt: number;
+        let ftotamt: number;
 
         amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
         amt = this.gs.roundNumber(amt, 2);
 
-        inramt = amt * this.Recorddet.qtnd_exrate;
-        inramt = this.gs.roundNumber(inramt, 2);
+        totamt = amt * this.Recorddet.qtnd_exrate;
+        totamt = this.gs.roundNumber(totamt, 2);
 
-        this.Recorddet.qtnd_ftotal = amt;
-        this.Recorddet.qtnd_total = inramt;
+        if (this.Record.qtnm_curr_code == this.Recorddet.qtnd_curr_code) {
+            ftotamt = amt;
+        } else {
+
+            if (this.Record.qtnm_exrate < 1)
+                this.Record.qtnm_exrate = 1;
+            ftotamt = totamt / this.Record.qtnm_exrate;
+            ftotamt = this.gs.roundNumber(ftotamt, 5);
+        }
+
+        this.Recorddet.qtnd_amt = amt;
+        this.Recorddet.qtnd_total = totamt;
+        this.Recorddet.qtnd_ftotal = ftotamt;
     }
 
 
@@ -937,7 +925,7 @@ export class QuotationComponent {
             report_folder: this.gs.globalVariables.report_folder,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            user_name:this.gs.globalVariables.user_name
+            user_name: this.gs.globalVariables.user_name
         };
 
         this.ErrorMessage = '';
