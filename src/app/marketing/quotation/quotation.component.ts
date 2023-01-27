@@ -360,6 +360,7 @@ export class QuotationComponent {
         this.Record.qtnm_routing = '';
         this.Record.qtnm_curr_code = '';
         this.Record.qtnm_exrate = 1;
+        this.Record.qtnm_round_off = 0;
         this.Record.rec_mode = this.mode;
         this.total_amt = 0;
         this.total_famt = 0;
@@ -764,16 +765,21 @@ export class QuotationComponent {
     }
 
     FindListTotal() {
+        let _det_tot_famt: number = 0;
         this.total_amt = 0;
         this.Record.qtnm_detList.forEach(rec => {
             this.total_amt += rec.qtnd_total;
+            _det_tot_famt += rec.qtnd_ftotal;
         });
         this.total_amt = this.gs.roundNumber(this.total_amt, 2);
+        _det_tot_famt = this.gs.roundNumber(_det_tot_famt, 2);
 
         if (this.Record.qtnm_exrate <= 0)
             this.Record.qtnm_exrate = 1;
         this.total_famt = this.total_amt / this.Record.qtnm_exrate;
         this.total_famt = this.gs.roundNumber(this.total_famt, 2);
+
+        this.Record.qtnm_round_off=_det_tot_famt-this.total_famt;
     }
 
     AddRecord() {
@@ -922,7 +928,7 @@ export class QuotationComponent {
         this.loading = true;
         let SearchData = {
             pkid: this.Record.qtnm_pkid,
-            format:_format,
+            format: _format,
             report_folder: this.gs.globalVariables.report_folder,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,

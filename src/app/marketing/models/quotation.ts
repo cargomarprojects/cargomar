@@ -41,6 +41,8 @@ export class Mark_Qtnm {
     qtnm_cft: number;
     qtnm_tot_famt: number;
     qtnm_tot_amt: number;
+    qtnm_round_off:number;
+
     qtnm_subjects: string;
     qtnm_remarks: string;
     qtnm_office_use: string;
