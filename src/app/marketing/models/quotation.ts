@@ -53,7 +53,8 @@ export class Mark_Qtnm {
     qtnm_exrate: number;
     qtnm_detList: Mark_Qtnd[] = [];
     qtnm_remList: GenRemarks[] = [];
-
+    rec_created_by: string;
+    rec_created_date: string;
     rec_mode: String;
     _globalvariables: GlobalVariables;
 }

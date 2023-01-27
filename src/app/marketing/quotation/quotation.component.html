@@ -52,6 +52,8 @@
           <th>MOVE</th>
           <th>KGS</th>
           <th>CBM</th>
+          <th>CREATED.BY</th>
+          <th>DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -67,6 +69,8 @@
           <td>{{rec.qtnm_move_type}}</td>
           <td>{{rec.qtnm_kgs | number : '1.3-3'}}</td>
           <td>{{rec.qtnm_cbm | number : '1.3-3'}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
         </tr>
       </tbody>
     </table>
