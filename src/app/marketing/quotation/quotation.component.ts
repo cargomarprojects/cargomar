@@ -918,10 +918,11 @@ export class QuotationComponent {
 
     }
 
-    PrintQuotation() {
+    PrintQuotation(_format: string) {
         this.loading = true;
         let SearchData = {
             pkid: this.Record.qtnm_pkid,
+            format:_format,
             report_folder: this.gs.globalVariables.report_folder,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,

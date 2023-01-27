@@ -211,28 +211,14 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
-          <div class="col-sm-4">
-            <app-autocomplete3 [controlname]="'CURR'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
-              [displaydata]="Record.qtnm_curr_code" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete3>
-          </div>
-          <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_exrate"
-              (focus)="OnFocus('qtnm_exrate')" (change)="OnChange('qtnm_exrate')" (blur)="OnBlur('qtnm_exrate')"
-              required maxlength="10" />
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_commodity"
               (blur)="OnBlur('qtnm_commodity')" required maxlength="60" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Package</label>
           <div class="col-sm-10">
@@ -252,6 +238,20 @@
           <div class="col-sm-10">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cbm"
               (blur)="OnBlur('qtnm_cbm')" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'CURR'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.qtnm_curr_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Ex.Rate</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_exrate"
+              (focus)="OnFocus('qtnm_exrate')" (change)="OnChange('qtnm_exrate')" (blur)="OnBlur('qtnm_exrate')"
+              required maxlength="10" />
           </div>
         </div>
       </div>
@@ -486,8 +486,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
           <div class="col-sm-4">
-            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt"
-              required maxlength="20" />
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt" required
+              maxlength="20" />
           </div>
           <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
           <div class="col-sm-4">
@@ -581,8 +581,10 @@
               class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation()"
-              class="btn btn-success btn-sm">Print</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
+              class="btn btn-success btn-sm">Print Detail</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('SUMMARY')"
+              class="btn btn-success btn-sm">Print Summary</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
