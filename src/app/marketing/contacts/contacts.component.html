@@ -101,8 +101,9 @@
           <th>EMAIL</th>
           <th>SALESPERSON</th>
           <th>BRANCH</th>
-          <th>LEAD SOURCE</th>
-          <th>CONVERSION STATUS</th>
+          <th>LEAD</th>
+          <th>CONV.STATUS</th>
+          <th>REMARKS</th>
           <th>CREATED.BY</th>
           <th>DATE</th>
         </tr>
@@ -121,6 +122,7 @@
           <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
           <td>{{rec.cont_converted}}</td>
+          <td>{{rec.cont_remark}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -163,11 +165,11 @@
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Category</label>
-          <div class="col-4">
+          <div class="col-10">
             <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
+          <!-- <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
           <div class="col-4">
             <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
               <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
@@ -175,20 +177,8 @@
               <option value="REPEAT BUYERS">REPEAT BUYERS</option>
               <option value="SUSPECTS">SUSPECTS</option>
             </select>
-          </div>
+          </div> -->
         </div>
-
-        <!-- <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Type</label>
-          <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
-              <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
-              <option value="PROSPECTS">PROSPECTS</option>
-              <option value="REPEAT BUYERS">REPEAT BUYERS</option>
-              <option value="SUSPECTS">SUSPECTS</option>
-            </select>
-          </div>
-        </div> -->
 
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Address</label>

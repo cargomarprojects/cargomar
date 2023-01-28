@@ -336,7 +336,7 @@ export class ContactsComponent {
     this.Record.cont_cha_name = '';
     this.Record.cont_csd_id = '';
     this.Record.cont_csd_name = '';
-    this.Record.cont_type_2 = '';
+    this.Record.cont_type_2 = 'PROSPECTS';
     this.Record.cont_target_market = '';
     this.Record.cont_is_seclr = false;
     this.Record.cont_is_sefwd = false;

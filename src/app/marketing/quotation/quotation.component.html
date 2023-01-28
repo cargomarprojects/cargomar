@@ -54,6 +54,7 @@
           <th>CBM</th>
           <th>CREATED.BY</th>
           <th>DATE</th>
+          <th>COPY</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -71,6 +72,7 @@
           <td>{{rec.qtnm_cbm | number : '1.3-3'}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
+          <td  class="hlink" (click)="CopyQuotation(rec.qtnm_pkid,rec.qtnm_no)">NEW</td>
         </tr>
       </tbody>
     </table>
@@ -409,12 +411,6 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
           <div class="col-sm-10">
-            <!-- <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_category"
-              (change)="OnChange('qtnd_category')">
-              <option [value]="'CLEARING'">CLEARING</option>
-              <option [value]="'FORWARDING'">FORWARDING</option>
-              <option [value]="'TRANSPORTATION'">TRANSPORTATION</option>
-            </select> -->
             <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_category_id">
               <option *ngFor="let rec of QtnCategoryList" [value]="rec.param_pkid">{{rec.param_name}}</option>
             </select>
@@ -424,13 +420,13 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Code</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
-              [branchcode]="gs.globalVariables.branch_code" [displaydata]="Recorddet.qtnd_acc_code"
+              [branchcode]="gs.globalVariables.branch_code" [where]="acc_sWhere" [displaydata]="Recorddet.qtnd_acc_code"
               (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Desc</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_acc_name"
               (blur)="OnBlur('qtnd_acc_name')" required maxlength="60" />
@@ -448,6 +444,7 @@
               <option value="GRWT">GRWT</option>
               <option value="NTWT">NTWT</option>
               <option value="CNTR">CNTR</option>
+              <option value="NOS">NOS</option>
             </select>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
@@ -528,13 +525,13 @@
               <table class="table  table-hover table-sm mb-1">
                 <thead class="page-body-thead">
                   <tr>
-                    <th width="90%">REMARKS</th>
+                    <th width="90%">NOTES</th>
                     <th width="10%"></th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of Record.qtnm_remList; let i = index">
-                    <td style="padding:0px 0px 0px 0px"><input type="text" name="desc"
+                    <td style="padding:0px 0px 0px 0px"><input type="text" autocomplete="off" name="desc"
                         class="form-control form-control-sm" [(ngModel)]="rec.gr_remarks" required maxlength="140"
                         (blur)="OnBlur('gr_remarks',rec)" /></td>
                     <td>
@@ -560,7 +557,7 @@
                 </thead>
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of TermList; let i = index">
-                    <td style="padding:0px 0px 0px 0px"><input type="text"
+                    <td style="padding:0px 0px 0px 0px"><input type="text" autocomplete="off"
                         [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="desc"
                         class="form-control form-control-sm" [(ngModel)]="rec.qtnm_remarks" required maxlength="140"
                         (blur)="OnBlur('qtnm_remarks',rec)" /></td>
