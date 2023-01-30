@@ -21,6 +21,7 @@ export class VisitReportComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
+    @Input() customer_name: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
 
@@ -29,6 +30,7 @@ export class VisitReportComponent {
     loading = false;
     currentTab = 'LIST';
     currentPage = "ROOT";
+    invokeByMenu = true;
     selectedRowIndex = 0;
 
     searchstring = '';
@@ -42,6 +44,7 @@ export class VisitReportComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
+    // hyperlinkStyle = "'hlink'";
 
     report_type = 'SALES PERSON';
     search_report_type = 'SALES PERSON';
@@ -82,18 +85,23 @@ export class VisitReportComponent {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
-                this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
-                this.type = options.type;
-                this.InitComponent();
+                if (this.menuid == "MARKVISITREPORT") {
+                    this.type = options.type;
+                    this.InitComponent();
+                } else {
+                    // this.hyperlinkStyle = "hlink3";
+                    this.invokeByMenu = false;
+                    this.report_type = 'CUSTOMER'; //if calling from contact master detail
+                }
             }
         });
-        this.List('NEW', 'SCREEN');
     }
 
     // Init Will be called After executing Constructor
     ngOnInit() {
+        this.searchstring = this.customer_name;
         if (!this.InitCompleted) {
             this.InitComponent();
         }
@@ -116,6 +124,8 @@ export class VisitReportComponent {
                 this.bPrint = true;
         }
         this.LoadCombo();
+        this.List('NEW', 'SCREEN');
+        this.InitCompleted = true;
     }
 
     // Destroy Will be called when this component is closed

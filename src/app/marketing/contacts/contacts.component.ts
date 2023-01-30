@@ -51,7 +51,9 @@ export class ContactsComponent {
   pkid = '';
   fromdate = '';
   todate = '';
+  cust_name = '';
   showclosebutton: boolean = true;
+  showDetails: boolean = true;
 
   // Array For Displaying List
   RecordList: MarkContacts[] = [];
@@ -216,7 +218,7 @@ export class ContactsComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
+  ActionHandler(action: string, id: string, _name: string = '') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -235,6 +237,7 @@ export class ContactsComponent {
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
+      this.cust_name = _name;
       this.GetRecord(id);
     }
   }
@@ -242,6 +245,7 @@ export class ContactsComponent {
 
   ResetControls() {
     this.disableSave = true;
+    this.showDetails = true; 
     if (!this.menu_record)
       return;
 
@@ -370,9 +374,9 @@ export class ContactsComponent {
       this.CATEGORYRECORD.name = this.Record.cont_type_name;
     }
 
-      this.SALESMANRECORD.id = this.gs.globalVariables.sman_id;
-      this.SALESMANRECORD.code = this.gs.globalVariables.sman_name;
-      this.SALESMANRECORD.name = this.gs.globalVariables.sman_name;
+    this.SALESMANRECORD.id = this.gs.globalVariables.sman_id;
+    this.SALESMANRECORD.code = this.gs.globalVariables.sman_name;
+    this.SALESMANRECORD.name = this.gs.globalVariables.sman_name;
   }
 
 
@@ -597,4 +601,7 @@ export class ContactsComponent {
     this.modal = this.modalService.open(content);
   }
 
+  ShowHide() {
+    this.showDetails = !this.showDetails;
+  }
 }

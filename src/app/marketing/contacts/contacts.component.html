@@ -4,6 +4,8 @@
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
     <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
+    <button *ngIf="!showDetails" [disabled]="loading" (click)="ShowHide()" class="btn btn-primary btn-sm ml-2">Show
+      Contact</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -55,8 +57,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Salesperson</label>
           <div class="col-sm-8">
-            <input type="text" class="col form-control form-control-sm" name="Searchsperson" [(ngModel)]="searchSalesperson"
-              (blur)="OnBlur('searchSalesperson')" />
+            <input type="text" class="col form-control form-control-sm" name="Searchsperson"
+              [(ngModel)]="searchSalesperson" (blur)="OnBlur('searchSalesperson')" />
           </div>
         </div>
         <div class="form-group row">
@@ -120,7 +122,7 @@
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
-          <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid)">{{rec.cont_name}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name)">{{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
           <td>{{rec.cont_state}}</td>
           <td>{{rec.cont_country}}</td>
@@ -158,7 +160,7 @@
 </div>
 
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="currentTab=='DETAILS' && showDetails" class="page-details">
   <div class="page-box">
     <div class="row">
 
@@ -519,11 +521,16 @@
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+          <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide
+            Contact</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="!showDetails">
+  <hr>
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
@@ -532,4 +539,11 @@
 </div>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
+</div>
+
+<div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'">
+  <h6 style="color: white;background-color: steelblue; padding: 5px;" class="my-1">VISIT DETAILS</h6>
+  <div>
+    <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="''" [customer_name]="cust_name"></app-visitreport>
+  </div>
 </div>

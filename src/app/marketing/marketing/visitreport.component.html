@@ -1,5 +1,5 @@
 <div *ngIf="currentPage=='ROOT'">
-    <div class="page-header">
+    <div *ngIf="invokeByMenu" class="page-header">
         <div class="col">
             <label class="col-form-label">{{title}}</label>
             <button (click)="Close()" class="btn btn-primary btn-sm">Close</button>
@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="page-list">
-        <div class="page-search">
+        <div *ngIf="invokeByMenu" class="page-search">
             <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group row">
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="page-pager">
+        <div *ngIf="invokeByMenu" class="page-pager">
             <div *ngIf="page_count">
                 <ul class="pagination pagination-sm">
                     <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
@@ -88,72 +88,73 @@
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JAN')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;"
+                                (click)="ShowReport(rec,'JAN')">
                                 <a>{{rec.jan}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'FEB')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'FEB')">
                                 <a>{{rec.feb}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'MAR')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'MAR')">
                                 <a>{{rec.mar}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'APR')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'APR')">
                                 <a>{{rec.apr}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'MAY')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'MAY')">
                                 <a>{{rec.may}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JUN')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'JUN')">
                                 <a>{{rec.jun}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'JUL')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'JUL')">
                                 <a>{{rec.jul}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'AUG')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'AUG')">
                                 <a>{{rec.aug}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'SEP')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'SEP')">
                                 <a>{{rec.sep}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'OCT')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'OCT')">
                                 <a>{{rec.oct}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'NOV')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'NOV')">
                                 <a>{{rec.nov}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'DEC')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'DEC')">
                                 <a>{{rec.dec}}</a>
                             </div>
                         </td>
                         <td>
-                            <div style="color:red;text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.total}}</a>
                             </div>
                         </td>
@@ -161,7 +162,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="page-pager">
+        <div *ngIf="invokeByMenu" class="page-pager">
             <div *ngIf="page_count">
                 <ul class="pagination pagination-sm">
                     <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
