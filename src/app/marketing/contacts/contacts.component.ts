@@ -33,6 +33,7 @@ export class ContactsComponent {
   currentTab = 'LIST';
   searchLeadSource = 'ALL';
   searchConvrtStatus = 'ALL';
+  searchSalesperson = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -266,6 +267,7 @@ export class ContactsComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
+      searchsalesperson: this.searchSalesperson,
       leadsource: this.searchLeadSource,
       conversionstatus: this.searchConvrtStatus,
       fromdate: this.fromdate,
@@ -582,7 +584,9 @@ export class ContactsComponent {
     if (field == 'searchstring') {
       this.searchstring = this.searchstring.toUpperCase().trim();
     }
-
+    if (field == 'searchSalesperson') {
+      this.searchSalesperson = this.searchSalesperson.toUpperCase().trim();
+    }
   }
 
   Close() {

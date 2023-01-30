@@ -10,7 +10,7 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
           <div class="col-sm-8">
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
           <div class="col-sm-8">
@@ -51,7 +51,14 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Salesperson</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Searchsperson" [(ngModel)]="searchSalesperson"
+              (blur)="OnBlur('searchSalesperson')" />
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-8">
@@ -59,6 +66,8 @@
               (blur)="OnBlur('searchstring')" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
