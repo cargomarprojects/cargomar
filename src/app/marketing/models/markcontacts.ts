@@ -58,6 +58,8 @@ export class MarkContacts {
     rec_created_by: string;
     rec_created_date: string;
     
+    rec_locked: boolean;
+    
     _globalvariables: GlobalVariables;
 }
 

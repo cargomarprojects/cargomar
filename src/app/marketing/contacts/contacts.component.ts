@@ -54,6 +54,7 @@ export class ContactsComponent {
   cust_name = '';
   showclosebutton: boolean = true;
   showDetails: boolean = true;
+  IsAdmin: boolean = false;
 
   // Array For Displaying List
   RecordList: MarkContacts[] = [];
@@ -116,10 +117,12 @@ export class ContactsComponent {
   InitComponent() {
     this.fromdate = "";
     this.todate = "";
+    this.IsAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-
+      if (this.menu_record.rights_admin)
+        this.IsAdmin = true;
     }
     this.LoadCombo();
   }
@@ -245,7 +248,7 @@ export class ContactsComponent {
 
   ResetControls() {
     this.disableSave = true;
-    this.showDetails = true; 
+    this.showDetails = true;
     if (!this.menu_record)
       return;
 
@@ -359,6 +362,7 @@ export class ContactsComponent {
     this.Record.cont_lead_source = 'NA';
     this.Record.cont_converted = 'NA';
     this.Record.rec_mode = this.mode;
+    this.Record.rec_locked = false;
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
       if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {
@@ -509,6 +513,7 @@ export class ContactsComponent {
       REC.cont_email = this.Record.cont_email;
       REC.cont_lead_source = this.Record.cont_lead_source;
       REC.cont_converted = this.Record.cont_converted;
+      REC.rec_locked = this.Record.rec_locked;
     }
   }
 
