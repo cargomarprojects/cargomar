@@ -48,6 +48,8 @@ export class QuotationComponent {
     total_famt: number = 0;
     ErrorMessage = "";
     InfoMessage = "";
+    detailMode = "ADD";
+
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
     mode = '';
     pkid = '';
@@ -375,6 +377,7 @@ export class QuotationComponent {
     }
 
     NewDetRecord() {
+        this.detailMode = "ADD";
         let _preRecDet = this.Recorddet;
         this.Recorddet = new Mark_Qtnd();
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
@@ -382,7 +385,7 @@ export class QuotationComponent {
         this.Recorddet.qtnd_acc_id = '';
         this.Recorddet.qtnd_acc_code = '';
         this.Recorddet.qtnd_acc_name = '';
-        this.Recorddet.qtnd_qty = 0;
+        this.Recorddet.qtnd_qty = 1;
         this.Recorddet.qtnd_rate = 0;
         this.Recorddet.qtnd_amt = 0;
         this.Recorddet.qtnd_total = 0;
@@ -517,18 +520,14 @@ export class QuotationComponent {
         //   bret = false;
         //   sError = " | Name Cannot be Blank";
         // }
-
-        // if (this.gs.isBlank(this.Record.cont_type_2)) {
-        //   bret = false;
-        //   sError += " | Type Cannot be Blank";
-        // }
-
         // if (bret) {
         //     this.Record.cont_name = this.Record.cont_name.toUpperCase().trim();
         // }
 
         // if (bret === false)
+        // {
         //   this.ErrorMessage = sError;
+        // }
         return bret;
     }
 
@@ -784,6 +783,7 @@ export class QuotationComponent {
     RemoveList(event: any) {
         if (event.selected) {
             this.Record.qtnm_detList.splice(this.Record.qtnm_detList.findIndex(rec => rec.qtnd_pkid == event.id), 1);
+            this.NewDetRecord();
         }
     }
 
@@ -869,7 +869,30 @@ export class QuotationComponent {
             }
         }
         this.Findtotal();
-        this.Record.qtnm_detList.push(this.Recorddet);
+        if (this.detailMode == "ADD") {
+            this.Record.qtnm_detList.push(this.Recorddet);
+        }else{
+            var REC2 = this.Record.qtnm_detList.find(rec => rec.qtnd_pkid == this.Recorddet.qtnd_pkid);
+            if (REC2 != null) {
+                REC2.qtnd_acc_id = this.Recorddet.qtnd_acc_id;
+                REC2.qtnd_acc_code = this.Recorddet.qtnd_acc_code;
+                REC2.qtnd_acc_name = this.Recorddet.qtnd_acc_name;
+                REC2.qtnd_qty = this.Recorddet.qtnd_qty;
+                REC2.qtnd_rate = this.Recorddet.qtnd_rate;
+                REC2.qtnd_amt = this.Recorddet.qtnd_amt;
+                REC2.qtnd_total = this.Recorddet.qtnd_total;
+                REC2.qtnd_ftotal = this.Recorddet.qtnd_ftotal;
+                REC2.qtnd_remarks = this.Recorddet.qtnd_remarks;
+                REC2.qtnd_type = this.Recorddet.qtnd_type;
+                REC2.qtnd_cntr_type_id = this.Recorddet.qtnd_cntr_type_id;
+                REC2.qtnd_cntr_type_code = this.Recorddet.qtnd_cntr_type_code;
+                REC2.qtnd_curr_id = this.Recorddet.qtnd_curr_id;
+                REC2.qtnd_curr_code = this.Recorddet.qtnd_curr_code;
+                REC2.qtnd_category = this.Recorddet.qtnd_category;
+                REC2.qtnd_category_id = this.Recorddet.qtnd_category_id;
+                REC2.qtnd_exrate = this.Recorddet.qtnd_exrate;
+            }
+        }
         this.FindListTotal()
         this.isPrevDetails = true;
         this.NewDetRecord();
@@ -972,6 +995,30 @@ export class QuotationComponent {
         }
         this.ActionHandler('ADD', '');
         this.GetRecord(_id);
+    }
+
+    EditRecord(_rec: Mark_Qtnd) {
+        this.detailMode = "EDIT";
+        this.Recorddet = new Mark_Qtnd();
+        this.Recorddet.qtnd_pkid = _rec.qtnd_pkid;
+        this.Recorddet.qtnd_parent_id = this.pkid;
+        this.Recorddet.qtnd_acc_id = _rec.qtnd_acc_id;
+        this.Recorddet.qtnd_acc_code = _rec.qtnd_acc_code;
+        this.Recorddet.qtnd_acc_name = _rec.qtnd_acc_name;
+        this.Recorddet.qtnd_qty = _rec.qtnd_qty;
+        this.Recorddet.qtnd_rate = _rec.qtnd_rate;
+        this.Recorddet.qtnd_amt = _rec.qtnd_amt;
+        this.Recorddet.qtnd_total = _rec.qtnd_total;
+        this.Recorddet.qtnd_ftotal = _rec.qtnd_ftotal;
+        this.Recorddet.qtnd_remarks = _rec.qtnd_remarks;
+        this.Recorddet.qtnd_type = _rec.qtnd_type;
+        this.Recorddet.qtnd_cntr_type_id = _rec.qtnd_cntr_type_id;
+        this.Recorddet.qtnd_cntr_type_code = _rec.qtnd_cntr_type_code;
+        this.Recorddet.qtnd_curr_id = _rec.qtnd_curr_id;
+        this.Recorddet.qtnd_curr_code = _rec.qtnd_curr_code;
+        this.Recorddet.qtnd_category = _rec.qtnd_category;
+        this.Recorddet.qtnd_category_id = _rec.qtnd_category_id;
+        this.Recorddet.qtnd_exrate = _rec.qtnd_exrate;
     }
 
 }

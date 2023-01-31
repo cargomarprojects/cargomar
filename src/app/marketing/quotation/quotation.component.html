@@ -364,8 +364,8 @@
     </div>
   </div>
   <div class="page-box">
-    <div class="page-body table-responsive fixedTableHead" [style.height]="Record.qtnm_detList.length>5?'180px':'auto'"
-      [style.overflow-y]="Record.qtnm_detList.length>5?'scroll':'auto'">
+    <div class="page-body table-responsive fixedTableHead" [style.height]="Record.qtnm_detList.length>10?'360px':'auto'"
+      [style.overflow-y]="Record.qtnm_detList.length>10?'scroll':'auto'">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
@@ -386,7 +386,7 @@
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of Record.qtnm_detList; let i = index">
           <tr>
-            <td>{{i+1}}</td>
+            <td class="hlink" (click)="EditRecord(rec)" >{{i+1}}</td>
             <td>{{rec.qtnd_category}}</td>
             <td>{{rec.qtnd_acc_code}}</td>
             <td>{{rec.qtnd_acc_name}}</td>
@@ -510,7 +510,7 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="offset-2 col-sm-10">
-          <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Add</button>
+          <button [disabled]="loading" (click)="AddRecord()" class="btn btn-success btn-sm">Ok</button>
           <button [disabled]="loading" (click)="NewDetRecord()" class="btn btn-success btn-sm">New</button>
         </div>
       </div>
