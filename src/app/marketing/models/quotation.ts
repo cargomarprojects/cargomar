@@ -15,7 +15,7 @@ export class Mark_Qtnm {
     qtnm_to_addr4: string;
     qtnm_date: string;
     qtnm_quot_by: string;
-    qtnm_valid_date: string;
+    qtnm_validity: string;
     qtnm_salesman_id: string;
     qtnm_salesman_name: string;
     qtnm_move_type: string;

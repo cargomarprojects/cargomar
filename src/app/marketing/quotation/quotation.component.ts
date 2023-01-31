@@ -7,7 +7,7 @@ import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { GenRemarks } from '../../shared/models/genremarks';
-import { E } from '@angular/core/src/render3';
+ 
 
 @Component({
     selector: 'app-quotation',
@@ -329,7 +329,7 @@ export class QuotationComponent {
         this.Record.qtnm_to_addr4 = '';
         this.Record.qtnm_date = this.gs.defaultValues.today;
         this.Record.qtnm_quot_by = '';
-        this.Record.qtnm_valid_date = '';
+        this.Record.qtnm_validity = '';
         this.Record.qtnm_salesman_id = this.gs.globalVariables.sman_id;
         this.Record.qtnm_salesman_name = this.gs.globalVariables.sman_name;
         this.Record.qtnm_move_type = '';
@@ -470,7 +470,7 @@ export class QuotationComponent {
             this.Record.qtnm_cfno = 0;
             this.Record.qtnm_no = '';
             this.Record.qtnm_date = this.gs.defaultValues.today;
-            this.Record.qtnm_valid_date = '';
+            this.Record.qtnm_validity = '';
         }
 
     }
@@ -679,6 +679,10 @@ export class QuotationComponent {
             }
             case 'qtnm_transtime': {
                 this.Record.qtnm_transtime = this.Record.qtnm_transtime.toUpperCase();
+                break;
+            }
+            case 'qtnm_validity': {
+                this.Record.qtnm_validity = this.Record.qtnm_validity.toUpperCase();
                 break;
             }
             case 'qtnm_routing': {
