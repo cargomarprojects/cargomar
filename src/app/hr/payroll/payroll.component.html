@@ -400,7 +400,7 @@
                 <tr>
                   <td style="padding:10px,0,0,0">{{rec.d_caption1}}</td>
                   <td style="padding:0"> <input *ngIf="rec.d_visible1"
-                      [disabled]="(rec.d_code1=='D01' || rec.d_code1=='D02') ||((Record.sal_month >= 5 && Record.sal_year >= 2022)&& ( rec.d_code1=='D04'|| rec.d_code1=='D05'||
+                      [disabled]="(rec.d_code1=='D01' || rec.d_code1=='D02') ||(((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022)&& ( rec.d_code1=='D04'|| rec.d_code1=='D05'||
                        rec.d_code1=='D06'|| rec.d_code1=='D07'|| rec.d_code1=='D08'|| rec.d_code1=='D10'|| rec.d_code1=='D11'|| rec.d_code1=='D12'))" type="number"
                       class="form-control form-control-sm" [(ngModel)]="rec.d_amt1"
                       (focus)="OnFocusTableCell('DEDUCT',rec.d_code1,1)"
@@ -408,7 +408,7 @@
                       (blur)="OnBlurTableCell('DEDUCT',rec.d_code1,1)" required maxlength="14" /> </td>
                   <td style="padding:5px,0,0,0">{{rec.d_caption2}}</td>
                   <td style="padding:0"> <input *ngIf="rec.d_visible2"
-                      [disabled]="(rec.d_code2=='D14' || rec.d_code2=='D16')|| ((Record.sal_month >= 5 && Record.sal_year >= 2022) && rec.d_code2=='D15')"
+                      [disabled]="(rec.d_code2=='D14' || rec.d_code2=='D16')|| (((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022) && rec.d_code2=='D15')"
                       type="number" class="form-control form-control-sm" [(ngModel)]="rec.d_amt2"
                       (focus)="OnFocusTableCell('DEDUCT',rec.d_code2,2)"
                       (change)="OnChangeTableCell('DEDUCT',rec.d_code2,2)"
@@ -426,16 +426,8 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <div class="offset-1 col-sm-9">
-            <!-- <button *ngIf="(Record.sal_month >= 5 && Record.sal_year >= 2022)" [disabled]="loading"
-              (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
-            <button *ngIf="(!(Record.sal_month >= 5 && Record.sal_year >= 2022) || bPayrollSave)"
-              [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button> -->
-
-              <button *ngIf="(Record.sal_year >= 2022)" [disabled]="loading"
-                (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
-              <button *ngIf="(!(Record.sal_year >= 2022) || bPayrollSave)"
-                [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-
+            <button *ngIf="((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022)"  [disabled]="loading" (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
+            <button *ngIf="(!((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022) || bPayrollSave)"  [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               class="btn btn-success btn-sm">Documents</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
