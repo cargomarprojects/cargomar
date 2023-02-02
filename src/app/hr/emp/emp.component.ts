@@ -54,6 +54,10 @@ export class EmpComponent {
   page_rows = 0;
   page_rowcount = 0;
   ageinyears = '';
+  search_datetype = 'DOJ';
+  from_date = '';
+  to_date = '';
+  allbranch: boolean = false;
 
   lock_record: boolean = false;
   bPrint: boolean = false;
@@ -202,7 +206,7 @@ export class EmpComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
+  ActionHandler(action: string, id: string, brcode: string = '') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -220,6 +224,10 @@ export class EmpComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
+      if (brcode != this.gs.globalVariables.branch_code) {
+        alert("Cannot Show Details from another Branch");
+        return;
+      }
       if (this.type == "EMPLOYEE-DOCUMENTS")
         this.currentTab = 'DETAILS2';
       else
@@ -266,6 +274,10 @@ export class EmpComponent {
       emp_id: this.gs.globalVariables.emp_id,
       empstatus: this.radio_emp,
       isadmin: this.bAdmin,
+      search_datetype: this.search_datetype,
+      from_date: this.from_date,
+      to_date: this.to_date,
+      allbranch: this.allbranch,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
