@@ -52,6 +52,7 @@ export class ContactsComponent {
   fromdate = '';
   todate = '';
   cust_name = '';
+  sman_id = '';
   showclosebutton: boolean = true;
   showDetails: boolean = true;
   IsAdmin: boolean = false;
@@ -221,7 +222,7 @@ export class ContactsComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _name: string = '') {
+  ActionHandler(action: string, id: string, _name: string = '',_smanid:string='') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -241,6 +242,7 @@ export class ContactsComponent {
       this.ResetControls();
       this.pkid = id;
       this.cust_name = _name;
+      this.sman_id = _smanid;
       this.GetRecord(id);
     }
   }

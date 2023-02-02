@@ -22,6 +22,7 @@ export class VisitReportComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() customer_name: string = '';
+    @Input() sman_id: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
 
@@ -191,7 +192,7 @@ export class VisitReportComponent {
             file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,
-            sman_id: this.gs.globalVariables.sman_id,
+            sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
             searchstring: this.searchstring
         };
 
