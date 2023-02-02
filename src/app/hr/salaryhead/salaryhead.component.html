@@ -48,8 +48,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.sal_pkid)">
-          <td>{{rec.sal_code}}</td>
+        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid)">{{rec.sal_code}}</td>
           <td>{{rec.sal_desc}}</td>
           <td>{{rec.sal_head}}</td>
           <td>{{rec.sal_acc_code}}</td>

@@ -172,10 +172,10 @@
           (mousedown)="selectedRowIndex=i">
           <td><input type="checkbox" [(ngModel)]="rec.sal_selected"></td>
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_name}}</td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_do_joining}}</td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_grade}}</td>
-          <td (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_date}}</td>
+          <td >{{rec.sal_emp_name}}</td>
+          <td >{{rec.sal_emp_do_joining}}</td>
+          <td >{{rec.sal_emp_grade}}</td>
+          <td >{{rec.sal_date}}</td>
           <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
           <td *ngIf="bAdmin">{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>

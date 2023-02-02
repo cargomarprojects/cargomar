@@ -77,8 +77,8 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         (click)="ActionHandler('EDIT',rec.lev_pkid)">
-          <td>{{rec.lev_emp_code}}</td>
+         >
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.lev_pkid)">{{rec.lev_emp_code}}</td>
           <td>{{rec.lev_emp_name}}</td>
           <td>{{rec.lev_year}}</td>
           <td>{{rec.lev_pl}}</td>
