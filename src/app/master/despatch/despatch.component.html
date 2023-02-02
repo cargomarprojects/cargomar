@@ -275,93 +275,120 @@
               </div>
               <hr />
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_sbill_1">&nbsp;Shipping Bill#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_cfsinv_12">&nbsp;CFS Tax Invoice
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_cfs_taxno" (blur)="OnBlur('dm_cfs_taxno')" required maxlength="60" />
+                </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_exportercopy_11">&nbsp;Exporter Copy
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_fumicert_13">&nbsp;Fumigation Certificate
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_fumi_certno" (blur)="OnBlur('dm_fumi_certno')" required maxlength="60" />
+                </div>
               </div>
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_epcopy_5">&nbsp;E.P. Copy
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_degascert_14">&nbsp;Degassing Certificate
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_degas_certno" (blur)="OnBlur('dm_degas_certno')" required maxlength="60" />
+                </div>
               </div>
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_are1_6">&nbsp;ARE-1
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_pqcert_15">&nbsp;PQ Certificate
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_pq_certno" (blur)="OnBlur('dm_pq_certno')" required maxlength="60" />
+                </div>
               </div>
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_invoice_2">&nbsp;Invoice#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_gspcert_16">&nbsp;GSP Certificate
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_gsp_certno" (blur)="OnBlur('dm_gsp_certno')" required maxlength="60" />
+                </div>
               </div>
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_pkglst_3">&nbsp;Packing List
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_mccicert_17">&nbsp;MCCI/COO
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_mcci_no" (blur)="OnBlur('dm_mcci_no')" required maxlength="60" />
+                </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_servicebill_7">&nbsp;Service Bill#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_transcert_18">&nbsp;Transport Bill#
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_trans_billno" (blur)="OnBlur('dm_trans_billno')" required maxlength="60" />
+                </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_awb_4">&nbsp;MBL#/MAWB#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_linertaxcert_19">&nbsp;Liner Tax Invoice & Receipt
                 </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_liner_taxno" (blur)="OnBlur('dm_liner_taxno')" required maxlength="60" />
+                </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_bl_8">&nbsp;HBL#/HAWB#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_fumitaxcert_20">&nbsp;Fumigation Tax Invoice
+                </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_fumi_taxno" (blur)="OnBlur('dm_fumi_taxno')" required maxlength="60" />
                 </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_be_10">&nbsp;Bills of Entry#
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-8">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_othcert_21">&nbsp;Others
                 </div>
               </div>
 
               <div class="form-group row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 input-group input-group-sm">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_deec_9">&nbsp;DEEC/EPCG License#
                 </div>
                 <!--<div class="col-sm-6">

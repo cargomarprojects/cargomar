@@ -59,6 +59,16 @@ export class Despatchm {
   dm_is_fumitaxcert_20: boolean;
   dm_is_othcert_21: boolean;
 
+  dm_cfs_taxno: string;
+  dm_fumi_certno: string;
+  dm_degas_certno: string;
+  dm_pq_certno: string;
+  dm_gsp_certno: string;
+  dm_mcci_no: string;
+  dm_trans_billno: string;
+  dm_liner_taxno: string;
+  dm_fumi_taxno: string;
+
   rec_mode: string;
   rec_category: string;
   rec_created_by: string;

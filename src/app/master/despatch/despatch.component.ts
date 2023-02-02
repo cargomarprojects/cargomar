@@ -273,10 +273,10 @@ export class DespatchComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   NewRecord() {
@@ -338,6 +338,16 @@ export class DespatchComponent {
     this.Record.dm_is_linertaxcert_19 = false;
     this.Record.dm_is_fumitaxcert_20 = false;
     this.Record.dm_is_othcert_21 = false;
+    this.Record.dm_cfs_taxno = '';
+    this.Record.dm_fumi_certno = '';
+    this.Record.dm_degas_certno = '';
+    this.Record.dm_pq_certno = '';
+    this.Record.dm_gsp_certno = '';
+    this.Record.dm_mcci_no = '';
+    this.Record.dm_trans_billno = '';
+    this.Record.dm_liner_taxno = '';
+    this.Record.dm_fumi_taxno = '';
+
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -356,10 +366,10 @@ export class DespatchComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Despatchm) {
@@ -405,11 +415,11 @@ export class DespatchComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -466,6 +476,42 @@ export class DespatchComponent {
   OnBlur(field: string) {
     if (field == 'dm_cust_name') {
       this.Record.dm_cust_name = this.Record.dm_cust_name.toUpperCase();
+    }
+
+    if (field == 'dm_cfs_taxno') {
+      this.Record.dm_cfs_taxno = this.Record.dm_cfs_taxno.toUpperCase();
+    }
+
+    if (field == 'dm_fumi_certno') {
+      this.Record.dm_fumi_certno = this.Record.dm_fumi_certno.toUpperCase();
+    }
+
+    if (field == 'dm_degas_certno') {
+      this.Record.dm_degas_certno = this.Record.dm_degas_certno.toUpperCase();
+    }
+
+    if (field == 'dm_pq_certno') {
+      this.Record.dm_pq_certno = this.Record.dm_pq_certno.toUpperCase();
+    }
+
+    if (field == 'dm_gsp_certno') {
+      this.Record.dm_gsp_certno = this.Record.dm_gsp_certno.toUpperCase();
+    }
+
+    if (field == 'dm_mcci_no') {
+      this.Record.dm_mcci_no = this.Record.dm_mcci_no.toUpperCase();
+    }
+
+    if (field == 'dm_trans_billno') {
+      this.Record.dm_trans_billno = this.Record.dm_trans_billno.toUpperCase();
+    }
+
+    if (field == 'dm_liner_taxno') {
+      this.Record.dm_liner_taxno = this.Record.dm_liner_taxno.toUpperCase();
+    }
+
+    if (field == 'dm_fumi_taxno') {
+      this.Record.dm_fumi_taxno = this.Record.dm_fumi_taxno.toUpperCase();
     }
   }
 
@@ -559,10 +605,10 @@ export class DespatchComponent {
         } else
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -713,14 +759,14 @@ export class DespatchComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   ModifiedRecords(params: any) {
