@@ -15,7 +15,7 @@ import { TeuService } from '../services/teu.service';
 
 export class TeuComponent {
   title = 'Teu Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -27,7 +27,7 @@ export class TeuComponent {
   mode = '';
   pkid = '';
 
-  type_date: string ='SOB';
+  type_date: string = 'SOB';
   from_date: string = '';
   to_date: string = '';
   branch_name: string;
@@ -45,11 +45,12 @@ export class TeuComponent {
   pod_id: string;
   porttype: string;
   rec_category: string;
-  
+
   disableSave = true;
   bExcel = false;
   bCompany = false;
   all: boolean = false;
+  isSubtot: boolean = false;
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
@@ -74,11 +75,12 @@ export class TeuComponent {
     carrier_id: '',
     pol_id: '',
     pod_id: '',
-    rec_category:'',
+    rec_category: '',
     all: false,
+    issubtot: false
   };
 
-   
+
   // Array For Displaying List
   RecordList: Teu[] = [];
   // Single Record for add/edit/view details
@@ -112,7 +114,7 @@ export class TeuComponent {
         this.InitComponent();
       }
     });
-    
+
   }
 
   // Init Will be called After executing Constructor
@@ -239,11 +241,11 @@ export class TeuComponent {
 
     if (_Record.controlname == "SHIPPER") {
       this.shipper_id = _Record.id;
-     // this.shipper_name = _Record.name;
+      // this.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
       this.consignee_id = _Record.id;
-     // this.consignee_name = _Record.name;
+      // this.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
       this.agent_id = _Record.id;
@@ -265,7 +267,7 @@ export class TeuComponent {
       // this.pod_code = _Record.code;
       // this.pod_name = _Record.name;
     }
-    
+
   }
   LoadCombo() {
   }
@@ -314,7 +316,7 @@ export class TeuComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
       this.SearchData.branch_name = this.branch_name;
@@ -340,7 +342,7 @@ export class TeuComponent {
     this.SearchData.pod_id = this.pod_id;
     this.SearchData.all = this.all;
     this.SearchData.rec_category = this.rec_category;
-
+    this.SearchData.issubtot = this.isSubtot;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -351,11 +353,11 @@ export class TeuComponent {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
