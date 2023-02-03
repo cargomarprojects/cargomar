@@ -252,7 +252,7 @@ export class EsanchitDownloadComponent {
     this.bShowPasteData = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
   PasteDataClosed(cbdata: string) {
     this.bShowPasteData = false;

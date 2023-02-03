@@ -22,7 +22,8 @@ export class PayrollSetting {
   ps_bonus_amt:number;
   ps_esi_col_excluded:string
   ps_ptax_mon_included:string;
-  
+  ps_lwf_emplr: number;
+
   rec_mode: string;
 
   _globalvariables: GlobalVariables;

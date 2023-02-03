@@ -1501,6 +1501,11 @@ export class SettingsComponent {
           this.PayrollRecord.ps_esi_col_excluded = this.PayrollRecord.ps_esi_col_excluded.toUpperCase();
           break;
         }
+        case 'ps_lwf_emplr':
+        {
+          this.PayrollRecord.ps_lwf_emplr = this.gs.roundNumber(this.PayrollRecord.ps_lwf_emplr, 2);
+          break;
+        }
     }
   }
 
