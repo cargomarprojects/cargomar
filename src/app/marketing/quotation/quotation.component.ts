@@ -815,9 +815,9 @@ export class QuotationComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        if (this.Recorddet.qtnd_acc_id == '') {
+        if (this.Recorddet.qtnd_acc_name == '') {
             bret = false;
-            sError += " | Invalid A/c Code";
+            sError += " | Invalid Description";
         }
 
         if (this.Recorddet.qtnd_curr_id == '') {
