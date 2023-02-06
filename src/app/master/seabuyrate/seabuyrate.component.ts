@@ -25,7 +25,7 @@ export class SeaBuyRateComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   selectedRowIndex = 0;
-  
+
   ispercent = false;
   disableSave = true;
   loading = false;
@@ -240,6 +240,7 @@ export class SeaBuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -282,7 +283,8 @@ export class SeaBuyRateComponent {
     this.Record.sbr_remarks = '';
     this.Record.sbr_valid_from = '';
     this.Record.sbr_valid_to = '';
-
+    this.Record.sbr_gst_rate = 0;
+    this.Record.sbr_terms = 'PREPAID';
     this.ClearRates();
   }
 
@@ -702,6 +704,10 @@ export class SeaBuyRateComponent {
     if (field == 'sbr_40hc_isps') {
       this.Record.sbr_40hc_isps = this.gs.roundNumber(this.Record.sbr_40hc_isps, 2);
     }
+    if (field == 'sbr_gst_rate') {
+      this.Record.sbr_gst_rate = this.gs.roundNumber(this.Record.sbr_gst_rate, 2);
+    }
+
 
   }
 

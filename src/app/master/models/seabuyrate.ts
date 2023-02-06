@@ -73,6 +73,8 @@ export class SeaBuyRate {
   sbr_40_allin: number;
   sbr_40hc_allin: number;
   sbr_version: number;
+  sbr_gst_rate: number;
+  sbr_terms: string;
 
   rec_mode: string;
   _globalvariables: GlobalVariables;
