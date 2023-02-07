@@ -361,7 +361,7 @@ export class QuotationComponent {
         this.Record.rec_files_attached = '';
         this.Record.qtnm_transtime = '';
         this.Record.qtnm_routing = '';
-        this.Record.qtnm_curr_code = '';
+        this.Record.qtnm_curr_code = this.gs.defaultValues.param_curr_local_code;
         this.Record.qtnm_exrate = 1;
         this.Record.qtnm_round_off = 0;
         this.Record.rec_mode = this.mode;
@@ -394,8 +394,8 @@ export class QuotationComponent {
         this.Recorddet.qtnd_type = 'INVOICE';
         this.Recorddet.qtnd_cntr_type_id = '';
         this.Recorddet.qtnd_cntr_type_code = '';
-        this.Recorddet.qtnd_curr_id = '';
-        this.Recorddet.qtnd_curr_code = '';
+        this.Recorddet.qtnd_curr_id = this.gs.defaultValues.param_curr_local_id;
+        this.Recorddet.qtnd_curr_code = this.gs.defaultValues.param_curr_local_code;
         this.Recorddet.qtnd_category = '';
         this.Recorddet.qtnd_category_id = '';
         this.Recorddet.qtnd_exrate = 1;
