@@ -67,12 +67,17 @@ export class VisitReportChildComponent {
 
     From_Date: string = "";
     To_Date: string = "";
+    sSubject: string = '';
+    sMsg: string = '';
+    sHtml: string = '';
+    sTo_ids: string = '';
+    AttachList: any[] = [];
 
     filename: string = "";
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = true;
-
+    bEmail: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -129,6 +134,7 @@ export class VisitReportChildComponent {
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
+        this.bEmail = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -138,6 +144,8 @@ export class VisitReportChildComponent {
                 this.IsCompany = true;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
         }
         this.LoadCombo();
     }
@@ -351,14 +359,14 @@ export class VisitReportChildComponent {
                 });
     }
 
-    DownloadList() {
+    DownloadList(_type: string, mailsent: any) {
 
         this.searchdata.searchstring = this.searchstring.searchstring;
 
         this.loading = true;
 
         let SearchData = {
-            type: '',
+            type: _type,
             filter_source: 'REPORT',
             rowtype: this.type,
             searchstring: this.searchdata.searchstring,
@@ -389,7 +397,16 @@ export class VisitReportChildComponent {
         this.mainService.ProcessDownloadList(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                if (_type == 'EXCEL') {
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                } else if (_type == 'MAIL') {
+                    this.AttachList = new Array<any>();
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.sTo_ids = '';//default to ids
+                    this.open(mailsent);
+                }
             },
                 error => {
                     this.loading = false;
@@ -412,7 +429,7 @@ export class VisitReportChildComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
 }

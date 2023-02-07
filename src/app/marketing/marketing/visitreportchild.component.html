@@ -49,8 +49,10 @@
                     <div class="col-10">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm">Search</button>
-                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList()"
+                        <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList('EXCEL',null)"
                             class="btn btn-primary btn-sm">Print</button>
+                        <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL',mailsent)"
+                            class="btn btn-primary btn-sm">Mail</button>
                     </div>
                 </div>
             </div>
@@ -88,15 +90,18 @@
                     <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
                     <th>CUSTOMER</th>
+                    <th>CUST-REMARKS</th>
+                    <th>LEAD SOURCE</th>
+                    <th>CONV.STATUS</th>
                     <th>CONTACT PERSON</th>
                     <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>TARGET MARKET</th>
                     <th>COMMODITY</th>
                     <th>VISIT RESULT</th>
-                    <th>NEXT ACTION</th>     
+                    <th>NEXT ACTION</th>
                     <th>NEXT VISIT STATUS</th>
-                    <th>NEXT VISIT DATE</th>              
+                    <th>NEXT VISIT DATE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -108,6 +113,9 @@
                     <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_visit_date}}</td>
                     <td>{{rec.mark_customer_name}}</td>
+                    <td>{{rec.mark_cont_remarks}}</td>
+                    <td>{{rec.mark_lead_source}}</td>
+                    <td>{{rec.mark_cont_converted}}</td>
                     <td>{{rec.mark_contact_person}}</td>
                     <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>
@@ -119,7 +127,7 @@
                     <td>{{rec.mark_next_visit_date}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
-                    <td colspan="16">
+                    <td colspan="19">
                         <table width="100%">
                             <tr>
                                 <td>Deciding Person</td>
@@ -180,3 +188,15 @@
         </div>
     </div>
 </div>
+<ng-template #mailsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Message Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'VISIT-REPORT'" [defaultto_ids]="sTo_ids" [sHtml]="sHtml" [defaultmessage]="sMsg"
+            [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+    </div>
+</ng-template>
