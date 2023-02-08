@@ -227,6 +227,13 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pcs</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pcs"
+              (blur)="OnBlur('qtnm_pcs')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Package</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_package"
@@ -583,8 +590,8 @@
               class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('SUMMARY')"
-              class="btn btn-success btn-sm">Print Summary</button>
+            <!-- <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('SUMMARY')"
+              class="btn btn-success btn-sm">Print FC</button> -->
             <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
               class="btn btn-success btn-sm">Print Detail</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>

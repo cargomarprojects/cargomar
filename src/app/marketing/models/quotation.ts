@@ -34,6 +34,7 @@ export class Mark_Qtnm {
     qtnm_pofd_name: string;
     qtnm_commodity: string;
     qtnm_package: string;
+    qtnm_pcs: string;
     qtnm_type: string;
     qtnm_kgs: number;
     qtnm_lbs: number;

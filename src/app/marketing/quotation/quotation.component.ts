@@ -348,6 +348,7 @@ export class QuotationComponent {
         this.Record.qtnm_pofd_name = '';
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
+        this.Record.qtnm_pcs = '';
         this.Record.qtnm_type = 'SEA EXPORT';
         this.Record.qtnm_kgs = 0;
         this.Record.qtnm_lbs = 0;
@@ -692,6 +693,10 @@ export class QuotationComponent {
 
             case 'qtnm_package': {
                 this.Record.qtnm_package = this.Record.qtnm_package.toUpperCase();
+                break;
+            }
+            case 'qtnm_pcs': {
+                this.Record.qtnm_pcs = this.Record.qtnm_pcs.toUpperCase();
                 break;
             }
             case 'qtnm_kgs': {
