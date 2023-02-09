@@ -584,8 +584,8 @@
     </div>
     <div class="page-box">
       <div class="row">
-        <div class="col-sm-6">
-          <div class="offset-2 col-10">
+        <div class="col-sm-8">
+          <div class="offset-1 col-11">
             <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
               class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
@@ -594,10 +594,14 @@
               class="btn btn-success btn-sm">Print Summary</button>
             <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
               class="btn btn-success btn-sm">Print Detail</button>
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('SUMMARY-FC')"
+              class="btn btn-success btn-sm">Print FC Summary</button>
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('DETAIL-FC')"
+              class="btn btn-success btn-sm">Print FC Detail</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
             <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions
             </button>
