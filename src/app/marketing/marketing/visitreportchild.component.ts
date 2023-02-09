@@ -404,7 +404,7 @@ export class VisitReportChildComponent {
                     this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
                     this.sSubject = response.subject;
                     this.sMsg = response.message;
-                    this.sTo_ids = '';//default to ids
+                    this.sTo_ids = response.toids;
                     this.open(mailsent);
                 }
             },

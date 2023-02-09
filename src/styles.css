@@ -610,9 +610,10 @@ a {
 }
 
 .hlink {
-  color: red;
+  color: chocolate;
   text-decoration: underline;
   cursor:pointer;
+  font-weight: bold;
 }
 
 .hlink2 {
@@ -621,6 +622,13 @@ a {
   cursor:pointer;
 }
 
+ 
+
+.hlink_blue {
+  color: chocolate;
+  text-decoration: underline;
+  cursor:pointer;
+}
 
 
 

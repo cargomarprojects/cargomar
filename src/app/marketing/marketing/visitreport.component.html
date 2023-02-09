@@ -69,6 +69,7 @@
                     <tr>
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>
@@ -88,73 +89,92 @@
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                            <div class="hlink"
+                                (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
                             </div>
                         </td>
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.user_branch}}</a>
+                            </div>
+                        </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;"
+                            <div  class="hlink"
                                 (click)="ShowReport(rec,'JAN')">
                                 <a>{{rec.jan}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'FEB')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'FEB')">
                                 <a>{{rec.feb}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'MAR')">
+                            <div class="hlink"
+                                (click)="ShowReport(rec,'MAR')">
                                 <a>{{rec.mar}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'APR')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'APR')">
                                 <a>{{rec.apr}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'MAY')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'MAY')">
                                 <a>{{rec.may}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'JUN')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'JUN')">
                                 <a>{{rec.jun}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'JUL')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'JUL')">
                                 <a>{{rec.jul}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'AUG')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'AUG')">
                                 <a>{{rec.aug}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'SEP')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'SEP')">
                                 <a>{{rec.sep}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'OCT')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'OCT')">
                                 <a>{{rec.oct}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'NOV')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'NOV')">
                                 <a>{{rec.nov}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'DEC')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'DEC')">
                                 <a>{{rec.dec}}</a>
                             </div>
                         </td>
                         <td>
-                            <div [style.color]="invokeByMenu?'red':'blue'" style="text-decoration: underline;" (click)="ShowReport(rec,'ALL')">
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.total}}</a>
                             </div>
                         </td>
