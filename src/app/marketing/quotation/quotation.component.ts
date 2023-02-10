@@ -7,7 +7,7 @@ import { QuotationService } from '../services/quotation.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { GenRemarks } from '../../shared/models/genremarks';
- 
+
 
 @Component({
     selector: 'app-quotation',
@@ -49,6 +49,7 @@ export class QuotationComponent {
     ErrorMessage = "";
     InfoMessage = "";
     detailMode = "ADD";
+    str_total_amt = "";
 
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
     mode = '';
@@ -65,6 +66,11 @@ export class QuotationComponent {
     Recorddet: Mark_Qtnd = new Mark_Qtnd;
     CUSTRECORD: SearchTable = new SearchTable();
     CUSTADDRECORD: SearchTable = new SearchTable();
+    IsCompany: boolean = false;
+    IsAdmin: boolean = false;
+    bPrint: boolean = false;
+    bEmail: boolean = false;
+    bDocs: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -97,9 +103,24 @@ export class QuotationComponent {
     }
 
     InitComponent() {
+        this.IsAdmin = false;
+        this.IsCompany = false;
+        this.bPrint = false;
+        this.bEmail = false;
+        this.bDocs = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_admin)
+                this.IsAdmin = true;
+            if (this.menu_record.rights_company)
+                this.IsCompany = true;
+            if (this.menu_record.rights_print)
+                this.bPrint = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
         }
         this.LoadCombo();
     }
@@ -283,7 +304,11 @@ export class QuotationComponent {
             page_rowcount: this.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code
+            year_code: this.gs.globalVariables.year_code,
+            user_id: this.gs.globalVariables.user_pkid,
+            user_code: this.gs.globalVariables.user_code,
+            iscompany: this.IsCompany,
+            isadmin: this.IsAdmin
         };
 
         this.ErrorMessage = '';
@@ -366,8 +391,10 @@ export class QuotationComponent {
         this.Record.qtnm_exrate = 1;
         this.Record.qtnm_round_off = 0;
         this.Record.rec_mode = this.mode;
+        this.Record.qtnm_print_tot = false;
         this.total_amt = 0;
         this.total_famt = 0;
+        this.str_total_amt = '';
         this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         this.Record.qtnm_remList = new Array<GenRemarks>();
@@ -812,6 +839,13 @@ export class QuotationComponent {
         this.total_famt = this.gs.roundNumber(this.total_famt, 2);
 
         this.Record.qtnm_round_off = _det_tot_famt - this.total_famt;
+
+        this.str_total_amt = '';
+        if (this.total_amt != 0 && this.Record.qtnm_curr_code != 'INR')
+            this.str_total_amt = this.total_amt.toString() + ' (' + this.Record.qtnm_curr_code + ' ' + this.total_famt + ')';
+        if (this.total_amt != 0 && this.Record.qtnm_curr_code == 'INR')
+            this.str_total_amt = this.total_amt.toString();
+
     }
 
     AddRecord() {
@@ -836,20 +870,20 @@ export class QuotationComponent {
             sError += " | Invalid Qty";
         }
 
-        if (this.Recorddet.qtnd_rate <= 0) {
-            bret = false;
-            sError += " | Invalid Rate";
-        }
+        // if (this.Recorddet.qtnd_rate <= 0) {
+        //     bret = false;
+        //     sError += " | Invalid Rate";
+        // }
 
         if (this.Recorddet.qtnd_exrate <= 0) {
             bret = false;
             sError += " | Invalid Ex.Rate";
         }
 
-        if (this.Recorddet.qtnd_total <= 0) {
-            bret = false;
-            sError += " | Invalid Total Amount";
-        }
+        // if (this.Recorddet.qtnd_total <= 0) {
+        //     bret = false;
+        //     sError += " | Invalid Total Amount";
+        // }
 
         if (this.Recorddet.qtnd_curr_code == 'INR') {
 
@@ -880,7 +914,7 @@ export class QuotationComponent {
         this.Findtotal();
         if (this.detailMode == "ADD") {
             this.Record.qtnm_detList.push(this.Recorddet);
-        }else{
+        } else {
             var REC2 = this.Record.qtnm_detList.find(rec => rec.qtnd_pkid == this.Recorddet.qtnd_pkid);
             if (REC2 != null) {
                 REC2.qtnd_acc_id = this.Recorddet.qtnd_acc_id;

@@ -43,6 +43,7 @@ export class Mark_Qtnm {
     qtnm_tot_famt: number;
     qtnm_tot_amt: number;
     qtnm_round_off:number;
+    qtnm_print_tot:boolean;
 
     qtnm_subjects: string;
     qtnm_remarks: string;
@@ -56,6 +57,8 @@ export class Mark_Qtnm {
     qtnm_remList: GenRemarks[] = [];
     rec_created_by: string;
     rec_created_date: string;
+    rec_edited_by: string;
+    rec_edited_date: string;
     rec_mode: String;
     _globalvariables: GlobalVariables;
 }
