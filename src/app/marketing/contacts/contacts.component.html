@@ -4,8 +4,8 @@
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
     <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
-    <button *ngIf="!showDetails" [disabled]="loading" (click)="ShowHide()" class="btn btn-primary btn-sm ml-2">Show
-      Contact</button>
+    <!-- <button *ngIf="!showDetails" [disabled]="loading" (click)="ShowHide()" class="btn btn-primary btn-sm ml-2">Show
+      Contact</button> -->
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -112,7 +112,7 @@
           <th>EMAIL</th>
           <th>SALESPERSON</th>
           <th>BRANCH</th>
-          <th>LEAD</th>
+          <th>LEAD.SOURCE</th>
           <th>CONV.STATUS</th>
           <th>REMARKS</th>
           <th>LOCKED</th>
@@ -528,8 +528,8 @@
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-          <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide
-            Contact</button>
+          <!-- <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide
+            Contact</button> -->
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
