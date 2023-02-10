@@ -510,7 +510,7 @@ export class QuotationComponent {
             alert(this.ErrorMessage);
             return;
         }
-        this.FindListTotal();
+        this.findTotal2();
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
@@ -538,6 +538,15 @@ export class QuotationComponent {
                 });
     }
 
+    findTotal2() {
+        this.Recorddet = new Mark_Qtnd();
+        for (let rec of this.Record.qtnm_detList) {
+            this.Recorddet = rec;
+            this.Findtotal();
+        }
+        this.FindListTotal();
+        this.NewDetRecord(); 
+    }
     allvalid() {
         let sError: string = "";
         let bret: boolean = true;
