@@ -324,6 +324,8 @@ export class MarketingComponent {
         this.Record.mark_commodity = "";
         this.Record.mark_next_visit_status = "FOLLOW UP REQUIRED";
         this.Record.rec_mode = this.mode;
+        this.Record.rec_created_date = '';
+        this.Record.rec_created_by = '';
         this.InitLov();
     }
 
@@ -528,7 +530,7 @@ export class MarketingComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
 }
