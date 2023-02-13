@@ -324,7 +324,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Next Visit Date</label>
                     <div class="col-sm-8">
-                        <app-date [disabled]="Record.mark_next_visit_status=='NO IMMEDIATE FOLLOW UP REQUIRED'||Record.mark_next_visit_status=='FOLLOW UP NOT REQUIRED'" [inputdate]="Record.mark_next_visit_date"
+                        <app-date [disabled]="Record.mark_next_visit_status=='FOLLOW UP NOT REQUIRED'" [inputdate]="Record.mark_next_visit_date"
                             (ValueChanged)="Record.mark_next_visit_date=$event"></app-date>
                     </div>
                     <!-- <label class="col-4 col-form-label col-form-label-sm pl-0 pt-0" style="color:red">Required only if 'FOLLOW UP REQUIRED' is selected</label> -->
