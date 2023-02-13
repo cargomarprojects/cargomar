@@ -46,6 +46,7 @@ export class VisitReportChildComponent {
     InfoMessage = "";
     userCaption = "Sales Person";
     report_type = "SALES PERSON";
+    print_format = "DETAIL";
     mode = '';
     pkid = '';
     myTable = {
@@ -301,7 +302,8 @@ export class VisitReportChildComponent {
             filter_user_id: this.USERRECORD.id,
             filter_cust_id: this.CUSTRECORD.id,
             report_type: this.parentData.report_type,
-            sman_id: this.gs.globalVariables.sman_id
+            sman_id: this.gs.globalVariables.sman_id,
+            print_format:this.print_format
         };
 
         this.ErrorMessage = '';
@@ -389,7 +391,8 @@ export class VisitReportChildComponent {
             filter_cust_id: this.CUSTRECORD.id,
             filter_cust_name: this.CUSTRECORD.name,
             report_folder: this.gs.globalVariables.report_folder,
-            report_type: this.parentData.report_type
+            report_type: this.parentData.report_type,
+            print_format:this.print_format
         };
 
         this.ErrorMessage = '';

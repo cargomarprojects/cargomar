@@ -46,11 +46,18 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-10">
+                    <div class="col-4">
                         <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm">Search</button>
+                            class="btn btn-primary btn-sm mr-1">Search</button>
+                    </div>
+                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-4 input-group input-group-sm">
+                        <select class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
+                            <option value="DETAIL">GENERAL</option>
+                            <option value="SUMMARY">SUMMARY</option>
+                        </select>
                         <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList('EXCEL',null)"
-                            class="btn btn-primary btn-sm">Print</button>
+                            class="btn btn-primary btn-sm mr-1">Print</button>
                         <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL',mailsent)"
                             class="btn btn-primary btn-sm">Mail</button>
                     </div>
@@ -196,7 +203,8 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'VISIT-REPORT'" [defaultto_ids]="sTo_ids" [sHtml]="sHtml" [defaultmessage]="sMsg"
-            [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'VISIT-REPORT'" [defaultto_ids]="sTo_ids"
+            [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false
+            [AttachList]="AttachList"></app-mail>
     </div>
 </ng-template>
