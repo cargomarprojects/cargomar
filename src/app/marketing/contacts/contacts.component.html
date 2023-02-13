@@ -74,8 +74,8 @@
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <!-- <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
-          class="btn btn-primary btn-sm">EXCEL</button> -->
+            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+            class="btn btn-primary btn-sm mr-1">Print</button>
           </div>
         </div>
       </div>
@@ -123,7 +123,8 @@
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
-          <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name,rec.cont_saleman_id)">{{rec.cont_name}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name,rec.cont_saleman_id)">
+            {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
           <td>{{rec.cont_state}}</td>
           <td>{{rec.cont_country}}</td>
@@ -551,6 +552,7 @@
 <div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'">
   <h6 style="color: white;background-color: steelblue; padding: 5px;" class="my-1">VISIT DETAILS</h6>
   <div>
-    <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="''" [customer_name]="cust_name" [sman_id]="sman_id"></app-visitreport>
+    <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="''" [customer_name]="cust_name"
+      [sman_id]="sman_id"></app-visitreport>
   </div>
 </div>

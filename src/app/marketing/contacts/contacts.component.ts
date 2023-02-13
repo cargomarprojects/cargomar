@@ -56,7 +56,7 @@ export class ContactsComponent {
   showclosebutton: boolean = true;
   showDetails: boolean = true;
   IsAdmin: boolean = false;
-
+  bPrint: boolean = false;
   // Array For Displaying List
   RecordList: MarkContacts[] = [];
   // Single Record for add/edit/view details
@@ -119,11 +119,14 @@ export class ContactsComponent {
     this.fromdate = "";
     this.todate = "";
     this.IsAdmin = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.IsAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.LoadCombo();
   }
@@ -222,7 +225,7 @@ export class ContactsComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _name: string = '',_smanid:string='') {
+  ActionHandler(action: string, id: string, _name: string = '', _smanid: string = '') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -287,7 +290,8 @@ export class ContactsComponent {
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.ErrorMessage = '';
