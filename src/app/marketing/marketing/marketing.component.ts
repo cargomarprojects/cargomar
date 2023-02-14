@@ -55,7 +55,7 @@ export class MarketingComponent {
     RecordList: MarkMarketingm[] = [];
     // Single Record for add/edit/view details
     Record: MarkMarketingm = new MarkMarketingm;
-
+    print_format = "DETAIL";
 
     CUSTRECORD: SearchTable = new SearchTable();
     SALESMANRECORD: SearchTable = new SearchTable();
@@ -269,7 +269,8 @@ export class MarketingComponent {
             from_date: this.gs.globalData.mark_fromdate,
             to_date: this.gs.globalData.mark_todate,
             report_folder: this.gs.globalVariables.report_folder,
-            isheader: this.IsHeader
+            isheader: this.IsHeader,
+            print_format:this.print_format
         };
 
         this.ErrorMessage = '';

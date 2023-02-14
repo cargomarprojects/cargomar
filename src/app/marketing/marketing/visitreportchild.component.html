@@ -38,24 +38,26 @@
                     </div>
                 </div>
                 <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Customer</label>
-                    <div class="col-10">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-sm-10">
                         <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #ClientLov [inputdata]="CUSTRECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-4">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-4">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
                     </div>
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-4 input-group input-group-sm">
-                        <select class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
+                    <div *ngIf="bEmail||bPrint" class="col-sm-3">
+                        <select  class="form-control form-control-sm mr-1"
+                            [(ngModel)]="print_format">
                             <option value="DETAIL">GENERAL</option>
                             <option value="SUMMARY">SUMMARY</option>
                         </select>
+                    </div>
+                    <div class="col-sm-3 pl-0">
                         <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList('EXCEL',null)"
                             class="btn btn-primary btn-sm mr-1">Print</button>
                         <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL',mailsent)"
@@ -91,7 +93,7 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>SL#</th>
-                    <th>DATE</th>
+                    <th>ENTRY-DATE</th>
                     <th>BRANCH</th>
                     <th>SALES PERSON</th>
                     <th>JOINT VISIT WITH</th>
