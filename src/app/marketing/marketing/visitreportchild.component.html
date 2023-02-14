@@ -93,47 +93,49 @@
             <thead class="page-body-thead">
                 <tr>
                     <th>SL#</th>
-                    <th>ENTRY-DATE</th>
-                    <th>BRANCH</th>
                     <th>SALES PERSON</th>
-                    <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
+                    <th>NEXT VISIT STATUS</th>
+                    <th>NEXT VISIT DATE</th>
+                    <th>MODE</th>
                     <th>CUSTOMER</th>
                     <th>CUST-REMARKS</th>
-                    <th>LEAD SOURCE</th>
                     <th>CONV.STATUS</th>
+                    <th>COMMENTS ON VISIT</th>
+                    <th>NEXT ACTION</th>
+                    <th>BRANCH</th>
+                    <!-- <th>CREATED DATE</th>
+                    <th>JOINT VISIT WITH</th>
+                    <th>LEAD SOURCE</th>
                     <th>CONTACT PERSON</th>
                     <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>TARGET MARKET</th>
-                    <th>COMMODITY</th>
-                    <th>VISIT RESULT</th>
-                    <th>NEXT ACTION</th>
-                    <th>NEXT VISIT STATUS</th>
-                    <th>NEXT VISIT DATE</th>
+                    <th>COMMODITY</th> -->
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
                 <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.mark_id}}</td>
-                    <td>{{rec.rec_created_date}}</td>
-                    <td>{{rec.branch_name}}</td>
                     <td>{{rec.mark_user_name}}</td>
-                    <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_visit_date}}</td>
+                    <td>{{rec.mark_next_visit_status}}</td>
+                    <td>{{rec.mark_next_visit_date}}</td>
+                    <td>{{rec.mark_mode}}</td>
                     <td>{{rec.mark_customer_name}}</td>
                     <td>{{rec.mark_cont_remarks}}</td>
-                    <td>{{rec.mark_lead_source}}</td>
                     <td>{{rec.mark_cont_converted}}</td>
+                    <td>{{rec.mark_result}}</td>
+                    <td>{{rec.mark_next_action}}</td>
+                    <td>{{rec.branch_name}}</td>
+                    <!-- <td>{{rec.rec_created_date}}</td>
+                    <td>{{rec.mark_jointsalesman_name}}</td>
+                    <td>{{rec.mark_lead_source}}</td>
                     <td>{{rec.mark_contact_person}}</td>
                     <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>
                     <td>{{rec.target}}</td>
-                    <td>{{rec.mark_commodity}}</td>
-                    <td>{{rec.mark_result}}</td>
-                    <td>{{rec.mark_next_action}}</td>
-                    <td>{{rec.mark_next_visit_status}}</td>
-                    <td>{{rec.mark_next_visit_date}}</td>
+                    <td>{{rec.mark_commodity}}</td> -->
                 </tr>
                 <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
                     <td colspan="19">
