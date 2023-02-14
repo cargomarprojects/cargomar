@@ -49,7 +49,7 @@ export class MarketingComponent {
 
     mode = '';
     pkid = '';
-
+    clientid = '';
 
     // Array For Displaying List
     RecordList: MarkMarketingm[] = [];
@@ -270,7 +270,7 @@ export class MarketingComponent {
             to_date: this.gs.globalData.mark_todate,
             report_folder: this.gs.globalVariables.report_folder,
             isheader: this.IsHeader,
-            print_format:this.print_format
+            print_format: this.print_format
         };
 
         this.ErrorMessage = '';
@@ -529,6 +529,17 @@ export class MarketingComponent {
     Close() {
         this.gs.ClosePage('home');
     }
+
+    AddClient(content: any) {
+        this.clientid = '';
+        this.open(content);
+    }
+
+    EditClient(content: any) {
+        this.clientid = this.Record.mark_customer_id;
+        this.open(content);
+    }
+
 
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });

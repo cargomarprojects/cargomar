@@ -202,7 +202,9 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm"></label>
                     <div *ngIf="CanAddContacts" class="col-sm-4">
-                        <button (click)="open(content)" class="btn btn-link btn-sm hlink">(Click Here To Add New Client)
+                        <button (click)="AddClient(content)" class="btn btn-link btn-sm mr-1 hlink">(Add New Client)
+                        </button>
+                        <button *ngIf="Record.mark_customer_id" (click)="EditClient(content)" class="btn btn-link btn-sm hlink">(Edit Client)
                         </button>
                     </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_category}}</label>
@@ -399,7 +401,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'"></app-contacts>
+        <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'" [clientid]="clientid"></app-contacts>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>

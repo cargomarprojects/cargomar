@@ -21,6 +21,7 @@ export class ContactsComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() clientType: string = '';
+  @Input() clientid: string = '';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -104,7 +105,10 @@ export class ContactsComponent {
       this.InitComponent();
       this.showclosebutton = false;
       this.page_rows = 5;
-      this.ActionHandler('ADD', '');
+      if (this.gs.isBlank(this.clientid))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.clientid, '', '')
     }
     else {
 
