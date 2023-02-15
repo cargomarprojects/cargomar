@@ -32,8 +32,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr (click)="ActionHandler('EDIT',rec.pack_pkid)">
-          <td>{{rec.pack_job_no}}</td>
+        <tr>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.pack_pkid)">{{rec.pack_job_no}}</td>
           <td>{{rec.pack_pkg}}</td>
           <td>{{rec.pack_pcs}}</td>
           <td>{{rec.pack_ntwt}}</td>
