@@ -392,6 +392,7 @@ export class QuotationComponent {
         this.Record.qtnm_round_off = 0;
         this.Record.rec_mode = this.mode;
         this.Record.qtnm_print_tot = false;
+        this.Record.qtnm_cntr_size = '';
         this.total_amt = 0;
         this.total_famt = 0;
         this.str_total_amt = '';
@@ -726,7 +727,10 @@ export class QuotationComponent {
                 this.Record.qtnm_routing = this.Record.qtnm_routing.toUpperCase();
                 break;
             }
-
+            case 'qtnm_cntr_size': {
+                this.Record.qtnm_cntr_size = this.Record.qtnm_cntr_size.toUpperCase();
+                break;
+            }
             case 'qtnm_package': {
                 this.Record.qtnm_package = this.Record.qtnm_package.toUpperCase();
                 break;

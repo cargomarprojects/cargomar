@@ -44,8 +44,9 @@ export class Mark_Qtnm {
     qtnm_tot_amt: number;
     qtnm_round_off:number;
     qtnm_print_tot:boolean;
-
     qtnm_subjects: string;
+
+    qtnm_cntr_size: string;
     qtnm_remarks: string;
     qtnm_office_use: string;
     rec_files_attached: string;

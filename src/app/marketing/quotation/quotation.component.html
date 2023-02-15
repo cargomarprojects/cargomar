@@ -220,9 +220,14 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
               (blur)="OnBlur('qtnm_move_type')" required maxlength="25" />
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Size</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cntr_size"
+              (blur)="OnBlur('qtnm_cntr_size')" required maxlength="30" />
           </div>
         </div>
         <div class="form-group row">
@@ -373,7 +378,7 @@
   <div class="page-box">
     <div class="page-body table-responsive fixedTableHead" [style.height]="Record.qtnm_detList.length>10?'360px':'auto'"
       [style.overflow-y]="Record.qtnm_detList.length>10?'scroll':'auto'">
-      <table class="table table-hover table-sm">
+      <table class="table table-hover table-sm table-bordered">
         <thead class="page-body-thead">
           <tr>
             <th>SL#</th>
