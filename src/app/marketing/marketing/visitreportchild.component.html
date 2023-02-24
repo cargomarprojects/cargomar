@@ -94,6 +94,7 @@
                 <tr>
                     <th>SL#</th>
                     <th>SALES PERSON</th>
+                    <th>JOINT VISIT WITH</th>
                     <th>VISIT DATE</th>
                     <th>NEXT VISIT STATUS</th>
                     <th>NEXT VISIT DATE</th>
@@ -105,7 +106,6 @@
                     <th>NEXT ACTION</th>
                     <th>BRANCH</th>
                     <!-- <th>CREATED DATE</th>
-                    <th>JOINT VISIT WITH</th>
                     <th>LEAD SOURCE</th>
                     <th>CONTACT PERSON</th>
                     <th>MOBILE</th>
@@ -118,6 +118,7 @@
                 <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.mark_id}}</td>
                     <td>{{rec.mark_user_name}}</td>
+                    <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_visit_date}}</td>
                     <td>{{rec.mark_next_visit_status}}</td>
                     <td>{{rec.mark_next_visit_date}}</td>
@@ -129,7 +130,6 @@
                     <td>{{rec.mark_next_action}}</td>
                     <td>{{rec.branch_name}}</td>
                     <!-- <td>{{rec.rec_created_date}}</td>
-                    <td>{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_lead_source}}</td>
                     <td>{{rec.mark_contact_person}}</td>
                     <td>{{rec.mobile}}</td>

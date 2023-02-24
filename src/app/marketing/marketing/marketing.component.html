@@ -188,7 +188,10 @@
                             VISIT</label>&nbsp;&nbsp;
                         <input type="radio" name="mark_mode" id="telemarketing" [(ngModel)]="Record.mark_mode"
                             [value]="'TELE MARKETING'" />
-                        <label class="col-form-label col-form-label-sm" for="telemarketing">TELE MARKETING</label>
+                        <label class="col-form-label col-form-label-sm" for="telemarketing">TELE MARKETING</label>&nbsp;&nbsp;
+                        <input type="radio" name="mark_mode" id="emailmarketing" [(ngModel)]="Record.mark_mode"
+                            [value]="'EMAIL MARKETING'" />
+                        <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
                     </div>
                 </div>
 
@@ -206,7 +209,8 @@
                     <div *ngIf="CanAddContacts" class="col-sm-4 pr-0">
                         <button (click)="AddClient(content)" class="btn btn-link btn-sm mr-1 hlink">(Add New Client)
                         </button>
-                        <button *ngIf="Record.mark_customer_id" (click)="EditClient(content)" class="btn btn-link btn-sm hlink">(Edit Client)
+                        <button *ngIf="Record.mark_customer_id" (click)="EditClient(content)"
+                            class="btn btn-link btn-sm hlink">(Edit Client)
                         </button>
                     </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_category}}</label>

@@ -485,6 +485,14 @@ export class MarketingComponent {
             REC.mark_visit_date = this.mark_visit_date_ctrl.GetDisplayDate();
             REC.mark_customer_name = this.Record.mark_customer_name;
             REC.mark_contact_person = this.Record.mark_contact_person;
+
+            REC.mark_mode = this.Record.mark_mode;
+            REC.mark_customer_name = this.Record.mark_customer_name;
+            REC.mark_cont_remarks = this.Record.mark_cont_remarks;
+            REC.mark_lead_source = this.Record.mark_lead_source;
+            REC.mark_cont_converted = this.Record.mark_cont_converted;
+            REC.mark_commodity = this.Record.mark_commodity;
+            REC.mark_next_action = this.Record.mark_next_action;
         }
     }
 
