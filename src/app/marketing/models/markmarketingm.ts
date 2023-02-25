@@ -66,3 +66,15 @@ export class MarkReport {
     total: number;
     _globalvariables: GlobalVariables;
 }
+
+export class BizdevelopReport {
+    user_id: string;
+    user_name: string;
+    shipper_tot: number;
+    consignee_tot: number;
+    agent_tot: number;
+    carrier_tot: number;
+    buyingagent_tot: number;
+    total: number;
+    _globalvariables: GlobalVariables;
+}

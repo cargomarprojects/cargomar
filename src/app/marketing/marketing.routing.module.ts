@@ -7,6 +7,7 @@ import { SalesleadComponent } from './saleslead/saleslead.component';
 import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 import { NewCustComponent } from './newcustomer/newcust.component';
 import { QuotationComponent } from './quotation/quotation.component';
+import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
 
 const routes: Routes = [
     { path: 'markcontacts', component: ContactsComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'marksaleslead', component: SalesleadComponent },
     { path: 'marksalesvolume', component: SalesVolumeComponent },
     { path: 'quotation', component: QuotationComponent },
-    { path: 'newcustomer', component: NewCustComponent }
+    { path: 'newcustomer', component: NewCustComponent },
+    { path: 'bizdevtreport', component: BizDevtReportComponent }
 ];
 
 @NgModule({

@@ -48,5 +48,9 @@ export class MarkMarketingService {
     ProcessDownloadList(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/ProcessDownloadList', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    BizDevelopmentReport(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/BizDevelopmentReport', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

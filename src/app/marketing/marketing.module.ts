@@ -11,6 +11,7 @@ import { MarkMarketingService } from './services/markmarketing.service';
 import { SalesVolumeComponent } from './salesvolume/salesvolume.component';
 import { NewCustComponent } from './newcustomer/newcust.component';
 import { QuotationComponent } from './quotation/quotation.component';
+import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
  
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { QuotationComponent } from './quotation/quotation.component';
     ActionComponent,
     SalesVolumeComponent,
     NewCustComponent,
-    QuotationComponent
+    QuotationComponent,
+    BizDevtReportComponent
   ],
   providers: [
     MarkMarketingService
