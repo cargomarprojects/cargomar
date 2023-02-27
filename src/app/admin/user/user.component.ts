@@ -192,6 +192,7 @@ export class UserComponent {
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;
         this.Record.user_show_payroll = false;
+        this.Record.user_is_coreteam = false;
         this.Record.user_emp_id = '';
         this.Record.user_emp_code = '';
         this.Record.user_emp_name = '';

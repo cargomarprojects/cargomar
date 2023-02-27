@@ -76,7 +76,7 @@ export class BizDevtReportComponent {
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = true;
-    bCoreTeam: boolean = true;
+    bCoreTeam: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -115,12 +115,14 @@ export class BizDevtReportComponent {
     }
 
     InitComponent() {
+
         let d = new Date();
         this.iYear = d.getFullYear();
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
         this.IsAdmin = false;
         this.IsCompany = false;
+        this.bCoreTeam = false;
         this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
@@ -132,6 +134,7 @@ export class BizDevtReportComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
+        this.FindDefaultDate();
         this.LoadCombo();
         this.List('NEW', 'SCREEN');
         this.InitCompleted = true;
@@ -142,6 +145,35 @@ export class BizDevtReportComponent {
         this.sub.unsubscribe();
     }
 
+
+    FindDefaultDate() {
+        this.from_date = this.gs.defaultValues.monthbegindate;
+        this.to_date = this.gs.defaultValues.today;
+        var today = new Date();
+
+        if (this.searchDateType == "MONTHLY") {
+            let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            today.setDate(daysInMonth);
+            this.to_date = today.toISOString().slice(0, 10);
+        }
+
+        if (this.searchDateType == "WEEKLY") {
+            let dayOfWk: number = 0;
+            dayOfWk = today.getDay();
+            var wkday = today.getDate() - today.getDay() + 1;
+            var wkStart = new Date(today.setDate(wkday));
+            var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+            if (dayOfWk == 0) {
+                //if Sunday will show previous week
+                wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+                wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+            }
+            this.from_date = wkStart.toISOString().slice(0, 10);
+            this.to_date = wkEnd.toISOString().slice(0, 10);
+        }
+
+    }
 
     InitLov() {
 
@@ -178,7 +210,6 @@ export class BizDevtReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-
         this.search_report_type = this.report_type;
         this.loading = true;
         let SearchData = {
@@ -201,7 +232,10 @@ export class BizDevtReportComponent {
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
-            searchstring: this.searchstring
+            from_date: this.from_date,
+            to_date: this.to_date,
+            searchstring: this.searchstring,
+            iscoreteam: this.bCoreTeam
         };
 
         this.ErrorMessage = '';
@@ -249,35 +283,45 @@ export class BizDevtReportComponent {
 
     }
 
-    ShowReport(_rec: BizdevelopReport, _cont_type: string) {
+    OnChange(field: string) {
 
-        let user_id: string = '';
-        let user_name: string = '';
-        let cust_id: string = '';
-        let cust_name: string = '';
-        if (this.search_report_type == "SALES PERSON") {
-            user_id = _rec.user_id;
-            user_name = _rec.user_name;
-            cust_id = "";
-            cust_name = "";
-        } else { //Customer
-            user_id = "";
-            user_name = "";
-            cust_id = _rec.user_id;
-            cust_name = _rec.user_name;
+        if (field == 'searchDateType') {
+            this.FindDefaultDate();
         }
 
-        this.ChildRecord = {
-            type: 'Report',
-            user_id: user_id,
-            user_name: user_name,
-            year: this.iYear.toString(),
-            month: _cont_type,
-            report_type: this.search_report_type,
-            cust_id: cust_id,
-            cust_name: cust_name
-        };
-        this.currentPage = "VISIT-REPORT-CHILD";
+    }
+
+
+
+    ShowReport(_rec: BizdevelopReport, _cont_type: string) {
+        
+        // let user_id: string = '';
+        // let user_name: string = '';
+        // let cust_id: string = '';
+        // let cust_name: string = '';
+        // if (this.search_report_type == "SALES PERSON") {
+        //     user_id = _rec.user_id;
+        //     user_name = _rec.user_name;
+        //     cust_id = "";
+        //     cust_name = "";
+        // } else { //Customer
+        //     user_id = "";
+        //     user_name = "";
+        //     cust_id = _rec.user_id;
+        //     cust_name = _rec.user_name;
+        // }
+
+        // this.ChildRecord = {
+        //     type: 'Report',
+        //     user_id: user_id,
+        //     user_name: user_name,
+        //     year: this.iYear.toString(),
+        //     month: _cont_type,
+        //     report_type: this.search_report_type,
+        //     cust_id: cust_id,
+        //     cust_name: cust_name
+        // };
+        // this.currentPage = "VISIT-REPORT-CHILD";
     }
     pageChanged(stype: string) {
         this.currentPage = "ROOT";
