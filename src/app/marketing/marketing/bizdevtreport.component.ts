@@ -175,6 +175,82 @@ export class BizDevtReportComponent {
 
     }
 
+    FindPrevDate() {
+        // this.from_date = this.gs.defaultValues.monthbegindate;
+        // this.to_date = this.gs.defaultValues.today;
+        // var today = new Date();
+
+        if (this.gs.isBlank(this.from_date))
+            return;
+        if (this.searchDateType == "MONTHLY") {
+            // let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            // today.setDate(daysInMonth);
+            // this.to_date = today.toISOString().slice(0, 10);
+            var d1 = this.from_date.split('-');
+           
+            
+            // datet.setMonth(datet.getMonth());
+            // this.to_date = datet.toISOString().slice(0, 10);
+            // datet.setDate(1);
+            // this.from_date = datet.toISOString().slice(0, 10);
+            var datef = new Date(parseInt(d1[0]), parseInt(d1[1])-1, parseInt(d1[2]));
+            datef.setDate(0);
+            datef.setDate(1);
+
+            var date1 = new Date(datef.getFullYear(), datef.getMonth()+1, datef.getDay())
+            this.from_date = datef.getFullYear().toString()+"-"+ (datef.getMonth()+1).toString() +"-"+ datef.getDate().toString();
+            var datet = new Date(parseInt(d1[0]), parseInt(d1[1])-1, parseInt(d1[2]));
+             datet.setDate(0);
+            //  this.to_date = datet.getFullYear().toString()+"-"+ (datet.getMonth()+1).toString() +"-"+ datet.getDate().toString();
+             this.to_date = datet.getFullYear().toString()+"-"+ (datet.getMonth()+1).toString() +"-"+ datet.getDate().toString();
+        }
+
+        // if (this.searchDateType == "WEEKLY") {
+        //     let dayOfWk: number = 0;
+        //     dayOfWk = today.getDay();
+        //     var wkday = today.getDate() - today.getDay() + 1;
+        //     var wkStart = new Date(today.setDate(wkday));
+        //     var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+        //     if (dayOfWk == 0) {
+        //         //if Sunday will show previous week
+        //         wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+        //         wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+        //     }
+        //     this.from_date = wkStart.toISOString().slice(0, 10);
+        //     this.to_date = wkEnd.toISOString().slice(0, 10);
+        // }
+
+    }
+    FindNextDate() {
+        this.from_date = this.gs.defaultValues.monthbegindate;
+        this.to_date = this.gs.defaultValues.today;
+        var today = new Date();
+
+        if (this.searchDateType == "MONTHLY") {
+            let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            today.setDate(daysInMonth);
+            this.to_date = today.toISOString().slice(0, 10);
+        }
+
+        if (this.searchDateType == "WEEKLY") {
+            let dayOfWk: number = 0;
+            dayOfWk = today.getDay();
+            var wkday = today.getDate() - today.getDay() + 1;
+            var wkStart = new Date(today.setDate(wkday));
+            var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+            if (dayOfWk == 0) {
+                //if Sunday will show previous week
+                wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+                wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+            }
+            this.from_date = wkStart.toISOString().slice(0, 10);
+            this.to_date = wkEnd.toISOString().slice(0, 10);
+        }
+
+    }
+
     InitLov() {
 
     }
@@ -294,7 +370,7 @@ export class BizDevtReportComponent {
 
 
     ShowReport(_rec: BizdevelopReport, _cont_type: string) {
-        
+
         // let user_id: string = '';
         // let user_name: string = '';
         // let cust_id: string = '';
