@@ -47,6 +47,7 @@ export class VisitReportChildComponent {
     userCaption = "Sales Person";
     report_type = "SALES PERSON";
     print_format = "DETAIL";
+    cust_category = "ALL";
     mode = '';
     pkid = '';
     myTable = {
@@ -125,7 +126,7 @@ export class VisitReportChildComponent {
             this.CUSTRECORD.type = "MARKETING CONTACT";
             this.CUSTRECORD.id = this.parentData.cust_id;
             this.CUSTRECORD.name = this.parentData.cust_name;
-
+            this.cust_category = this.parentData.cust_category;
             this.AssignDate();
             this.List('NEW');
         }
@@ -204,6 +205,11 @@ export class VisitReportChildComponent {
             this.From_Date = this.parentData.year + "-12-01";
             this.To_Date = this.parentData.year + "-12-31";
         }
+        else if (this.parentData.month == "BIZDEVELOPMTRPT") {
+            this.From_Date = this.parentData.from_date;
+            this.To_Date = this.parentData.to_date;
+        }
+
 
     }
 
@@ -303,7 +309,8 @@ export class VisitReportChildComponent {
             filter_cust_id: this.CUSTRECORD.id,
             report_type: this.parentData.report_type,
             sman_id: this.gs.globalVariables.sman_id,
-            print_format:this.print_format
+            print_format: this.print_format,
+            cust_category: this.cust_category
         };
 
         this.ErrorMessage = '';
@@ -392,7 +399,7 @@ export class VisitReportChildComponent {
             filter_cust_name: this.CUSTRECORD.name,
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.parentData.report_type,
-            print_format:this.print_format
+            print_format: this.print_format
         };
 
         this.ErrorMessage = '';

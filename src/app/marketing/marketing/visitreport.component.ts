@@ -59,7 +59,10 @@ export class VisitReportComponent {
         month: '',
         report_type: 'SALES PERSON',
         cust_id: '',
-        cust_name: ''
+        cust_name: '',
+        from_date: '',
+        to_date: '',
+        cust_category: ''
     };
     iYear: number;
 
@@ -267,7 +270,10 @@ export class VisitReportComponent {
             month: _month,
             report_type: this.search_report_type,
             cust_id: cust_id,
-            cust_name: cust_name
+            cust_name: cust_name,
+            from_date: '',
+            to_date: '',
+            cust_category: 'ALL'
         };
         this.currentPage = "VISIT-REPORT-CHILD";
     }

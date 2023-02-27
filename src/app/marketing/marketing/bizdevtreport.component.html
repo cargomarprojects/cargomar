@@ -138,7 +138,7 @@
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
                         <td>
-                            <div class="hlink" (click)="ShowReport(rec,'SALESMAN')">
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
                             </div>
                         </td>

@@ -64,7 +64,10 @@ export class BizDevtReportComponent {
         month: '',
         report_type: 'SALES PERSON',
         cust_id: '',
-        cust_name: ''
+        cust_name: '',
+        from_date: '',
+        to_date: '',
+        cust_category: ''
     };
     iYear: number;
 
@@ -94,7 +97,7 @@ export class BizDevtReportComponent {
             if (params["parameter"] != "") {
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
-                if (this.menuid == "MARKVISITREPORT") {
+                if (this.menuid == "BIZDEVTREPORT") {
                     this.type = options.type;
                     this.InitComponent();
                 } else {
@@ -187,22 +190,22 @@ export class BizDevtReportComponent {
             // today.setDate(daysInMonth);
             // this.to_date = today.toISOString().slice(0, 10);
             var d1 = this.from_date.split('-');
-           
-            
+
+
             // datet.setMonth(datet.getMonth());
             // this.to_date = datet.toISOString().slice(0, 10);
             // datet.setDate(1);
             // this.from_date = datet.toISOString().slice(0, 10);
-            var datef = new Date(parseInt(d1[0]), parseInt(d1[1])-1, parseInt(d1[2]));
+            var datef = new Date(parseInt(d1[0]), parseInt(d1[1]) - 1, parseInt(d1[2]));
             datef.setDate(0);
             datef.setDate(1);
 
-            var date1 = new Date(datef.getFullYear(), datef.getMonth()+1, datef.getDay())
-            this.from_date = datef.getFullYear().toString()+"-"+ (datef.getMonth()+1).toString() +"-"+ datef.getDate().toString();
-            var datet = new Date(parseInt(d1[0]), parseInt(d1[1])-1, parseInt(d1[2]));
-             datet.setDate(0);
+            var date1 = new Date(datef.getFullYear(), datef.getMonth() + 1, datef.getDay())
+            this.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            var datet = new Date(parseInt(d1[0]), parseInt(d1[1]) - 1, parseInt(d1[2]));
+            datet.setDate(0);
             //  this.to_date = datet.getFullYear().toString()+"-"+ (datet.getMonth()+1).toString() +"-"+ datet.getDate().toString();
-             this.to_date = datet.getFullYear().toString()+"-"+ (datet.getMonth()+1).toString() +"-"+ datet.getDate().toString();
+            this.to_date = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString();
         }
 
         // if (this.searchDateType == "WEEKLY") {
@@ -371,33 +374,36 @@ export class BizDevtReportComponent {
 
     ShowReport(_rec: BizdevelopReport, _cont_type: string) {
 
-        // let user_id: string = '';
-        // let user_name: string = '';
-        // let cust_id: string = '';
-        // let cust_name: string = '';
-        // if (this.search_report_type == "SALES PERSON") {
-        //     user_id = _rec.user_id;
-        //     user_name = _rec.user_name;
-        //     cust_id = "";
-        //     cust_name = "";
-        // } else { //Customer
-        //     user_id = "";
-        //     user_name = "";
-        //     cust_id = _rec.user_id;
-        //     cust_name = _rec.user_name;
-        // }
+        let user_id: string = '';
+        let user_name: string = '';
+        let cust_id: string = '';
+        let cust_name: string = '';
+        if (this.search_report_type == "SALES PERSON") {
+            user_id = _rec.user_id;
+            user_name = _rec.user_name;
+            cust_id = "";
+            cust_name = "";
+        } else { //Customer
+            user_id = "";
+            user_name = "";
+            cust_id = _rec.user_id;
+            cust_name = _rec.user_name;
+        }
 
-        // this.ChildRecord = {
-        //     type: 'Report',
-        //     user_id: user_id,
-        //     user_name: user_name,
-        //     year: this.iYear.toString(),
-        //     month: _cont_type,
-        //     report_type: this.search_report_type,
-        //     cust_id: cust_id,
-        //     cust_name: cust_name
-        // };
-        // this.currentPage = "VISIT-REPORT-CHILD";
+        this.ChildRecord = {
+            type: 'Report',
+            user_id: user_id,
+            user_name: user_name,
+            year: this.iYear.toString(),
+            month: 'BIZDEVELOPMTRPT',
+            report_type: this.search_report_type,
+            cust_id: cust_id,
+            cust_name: cust_name,
+            from_date: this.from_date,
+            to_date: this.to_date,
+            cust_category: _cont_type
+        };
+        this.currentPage = "VISIT-REPORT-CHILD";
     }
     pageChanged(stype: string) {
         this.currentPage = "ROOT";
