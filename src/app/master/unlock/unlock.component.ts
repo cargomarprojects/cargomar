@@ -106,7 +106,7 @@ export class UnLockComponent {
   LoadCombo() {
     this.ModuleList = [
       { "code": "BP", "name": "Bank Payment" },
-      { "code": "JV-BP", "name": "Bank Payment HO" },
+      { "code": "JV-BP", "name": "Bank Payment HO(JV-BP)" },
       { "code": "BR", "name": "Bank Receipt" },
       { "code": "CP", "name": "Cash Payment" },
       { "code": "CR", "name": "Cash Receipt" },
@@ -114,7 +114,7 @@ export class UnLockComponent {
       { "code": "HO", "name": "Costing Journal Voucher" },
       { "code": "IN", "name": "Invoice" },
       { "code": "PN", "name": "MBL Invoice" },
-      { "code": "PN-JV", "name": "General Expense" },
+      { "code": "PN-JV", "name": "General Expense(PN-JV)" },
       { "code": "OP", "name": "Opening Balance" },
       { "code": "OI", "name": "Opening Invoice" },
       { "code": "OC", "name": "Costing Opening Invoice" },
