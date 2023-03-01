@@ -847,6 +847,8 @@ export class PayRollComponent {
         str = "Confirmed Employees";
       else if (this.empstatus == "UNCONFIRM")
         str = "Unconfirmed Employees";
+      else if (this.empstatus == "APPRENTICE")
+        str = "Apprentice";
       else
         str = "Consultant";
       Msg = "Send Payslip to ALL " + str + " of " + this.gs.globalVariables.branch_name;

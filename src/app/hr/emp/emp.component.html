@@ -37,10 +37,12 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div *ngIf="type!='EMPLOYEE-DOCUMENTS'" class="col-sm-8">
-            <input type="radio" [(ngModel)]="radio_emp" [value]="'EMPLOYEE'" />
-            <span>Employee</span>&nbsp;&nbsp;
-            <input type="radio" [(ngModel)]="radio_emp" [value]="'CONSULTANT'" />
-            <span>Consultant</span>
+            <input type="radio" [(ngModel)]="radio_emp" id="employee" [value]="'EMPLOYEE'" />
+            <label class="col-form-label col-form-label-sm" for="employee">Employee</label>&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="radio_emp" id="consultant" [value]="'CONSULTANT'" />
+            <label class="col-form-label col-form-label-sm" for="consultant">Consultant</label>&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="radio_emp" id="apprentice" [value]="'APPRENTICE'" />
+            <label class="col-form-label col-form-label-sm" for="apprentice">Apprentice</label>
           </div>
           <div *ngIf="type=='EMPLOYEE-DOCUMENTS'" class="col-sm-8">
             <label class="col-sm-4 col-form-label col-form-label-sm"></label>
