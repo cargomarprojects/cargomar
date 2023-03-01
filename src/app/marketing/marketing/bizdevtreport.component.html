@@ -21,25 +21,24 @@
                             </select>
                         </div>
                         <label class="col-sm-1 col-form-label col-form-label-sm"></label>
-                        <div class="col-sm-4 input-group input-group-sm">
-                            <!-- <button class="btn btn-info btn-sm mr-1"><span><i class="fa fa-arrow-left">
-                                    </i></span> </button>
-                            <button class="btn btn-info btn-sm"><span><i class="fa fa-arrow-right">
-                                    </i></span> </button> -->
-                            <button class="btn btn-info btn-sm mr-1" (click)="FindPrevDate()"><span>Prev</span> </button>
+                        <!-- <div class="col-sm-4 input-group input-group-sm">
+                            <button class="btn btn-info btn-sm mr-1" (click)="FindPrevDate()"><span>Prev</span>
+                            </button>
                             <button class="btn btn-info btn-sm" (click)="FindNextDate()"><span>Next</span> </button>
-                        </div>
-                        <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Select</label>
-                        <div class="col-sm-4">
-                            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="selectDateType">
-                                <option [value]="'PREVIOUS'">PREVIOUS</option>
-                                <option [value]="'NEXT'">NEXT</option>
-                            </select>
                         </div> -->
                     </div>
-
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label col-form-label-sm">Date.From</label>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">From</label>
+                        <div class="col-sm-2">
+                            <ul class="pagination pagination-sm my-0">
+                                <li class="page-item"><a class="page-link" (click)="FindPrevDate()"><span
+                                            class="fa fa-arrow-left"></span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" (click)="FindNextDate()"><span
+                                            class="fa fa-arrow-right"></span></a>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="col-sm-4">
                             <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
                         </div>
@@ -67,40 +66,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-sm-5">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label col-form-label-sm">Year</label>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control form-control-sm" [(ngModel)]="iYear"
-                                maxlength="4" />
-                        </div>
-                        <div class="col-sm-5">
-                            <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'SALES PERSON'" />
-                            <label class="col-form-label col-form-label-sm">Sales Person</label>&nbsp;&nbsp;
-                            <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'CUSTOMER'" />
-                            <label class="col-form-label col-form-label-sm">Customer</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label col-form-label-sm">{{report_type=='SALES PERSON'?'Sales
-                            Person':'Customer'}}</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="searchstring"
-                                maxlength="100" (blur)="OnBlur('searchstring')" />
-                        </div>
-                        <div class="col-sm-5">
-                            <button [disabled]="loading" (click)="List('NEW','SCREEN')"
-                                class="btn btn-primary btn-sm">Search</button>
-                            <button [disabled]="loading" *ngIf="bPrint" (click)="List('PRINT', 'EXCEL')"
-                                class="btn btn-primary btn-sm">Print</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                </div> -->
             </div>
         </div>
         <div class="page-pager">
@@ -127,9 +92,10 @@
                 <thead class="page-body-thead">
                     <tr>
                         <th>SALESMAN</th>
-                        <th>C.SHIPPER</th>
+                        <th>SHIPPER</th>
+                        <th>C/SHIPPER</th>
                         <th>CONSIGNEE</th>
-                        <th>AGENTS</th>
+                        <th>AGENT</th>
                         <th>CARRIER</th>
                         <th>BUYING AGENT</th>
                     </tr>
@@ -145,6 +111,11 @@
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'SHIPPER')">
                                 <a>{{rec.shipper_tot}}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="hlink" (click)="ShowReport(rec,'SHIPPER,ISCORPORAT')">
+                                <a>{{rec.c_shipper_tot}}</a>
                             </div>
                         </td>
                         <td>

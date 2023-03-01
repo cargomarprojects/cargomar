@@ -71,6 +71,7 @@ export class BizdevelopReport {
     user_id: string;
     user_name: string;
     shipper_tot: number;
+    c_shipper_tot:number;
     consignee_tot: number;
     agent_tot: number;
     carrier_tot: number;
