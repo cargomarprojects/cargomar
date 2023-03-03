@@ -56,6 +56,8 @@
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
               <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Print</button>
+                <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="UpdateBkmContainer()"
+                class="btn btn-primary btn-sm">UpdateBkmCntr</button>
             </div>
           </div>
         </div>

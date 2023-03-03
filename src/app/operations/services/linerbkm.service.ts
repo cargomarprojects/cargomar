@@ -63,5 +63,8 @@ export class LinerBkmService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/UpdateHblRecord', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    UpdateBkmContainer(SearchData: any) {   
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/UpdateBkmContainer', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

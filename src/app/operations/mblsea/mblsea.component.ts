@@ -1918,4 +1918,30 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  UpdateBkmContainer() {
+
+    if (!confirm("Update Booking Container?")) {
+      return;
+  }
+
+    this.loading = true;
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      from_date: this.gs.globalData.mbl_fromdate,
+      to_date: this.gs.globalData.mbl_todate
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.UpdateBkmContainer(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert("Save Complete");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }
