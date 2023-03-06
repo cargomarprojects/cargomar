@@ -41,6 +41,7 @@
             <select class="form-control form-control-sm" [(ngModel)]="mailformat">
               <option [value]="'DEFAULT'">Default Format</option>
               <option [value]="'TRACKING'">Tracking Format</option>
+              <option [value]="'NEWFORMAT'">New Format</option>
             </select>
           </div>
         </div>
@@ -119,7 +120,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="cntrpkid" [type]="'STUFFING-LOADING-DETAILS'" [sHtml]="sHtml" [defaultto_ids]="sTo_ids" [updateto_ids]=false [defaultsubject]="sSubject"></app-mail>
+    <app-mail [pkid]="cntrpkid" [type]="'STUFFING-LOADING-DETAILS'" [sHtml]="sHtml" [defaultto_ids]="sTo_ids" [updateto_ids]=false [defaultsubject]="sSubject" [defaultmessage]="sMsg" [AttachList]="AttachList"></app-mail>
   </div>
   <!--<div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
