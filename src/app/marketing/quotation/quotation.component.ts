@@ -766,9 +766,8 @@ export class QuotationComponent {
                 this.Findtotal();
                 break;
             }
-            case 'gr_remarks': {
-                // if (_rec != null)
-                //     _rec.gr_remarks = _rec.gr_remarks.toUpperCase();
+            case 'qtnm_remarks': {
+                this.Record.qtnm_remarks = this.Record.qtnm_remarks.toUpperCase();
                 break;
             }
         }

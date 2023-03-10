@@ -281,6 +281,13 @@
               required maxlength="10" />
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
+              (blur)="OnBlur('qtnm_remarks')" required maxlength="100" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
