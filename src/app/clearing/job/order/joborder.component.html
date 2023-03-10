@@ -22,7 +22,7 @@
               <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                 (click)="ActionHandler('EDIT', rec.ord_pkid,i)">
                 <td>{{rec.ord_invno}}</td>
-                <td>{{rec.ord_po}}</td>
+                <td class="hlink" >{{rec.ord_po}}</td>
                 <td>{{rec.ord_style}}</td>
                 <td>{{rec.ord_color}}</td>
                 <td>{{rec.ord_contractno}}</td>
