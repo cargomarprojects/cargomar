@@ -170,21 +170,21 @@
       <div class="col-sm-6">
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Name</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_name" required
               maxlength="60" (blur)="OnBlur('cont_name')" />
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Category</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
+          <div class="col-sm-10">
             <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <!-- <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
-          <div class="col-4">
+          <!-- <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
               <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
               <option value="PROSPECTS">PROSPECTS</option>
@@ -195,39 +195,36 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Address</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_add1" required
               maxlength="60" (blur)="OnBlur('cont_add1')" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="add2" [(ngModel)]="Record.cont_add2" required
               maxlength="60" (blur)="OnBlur('cont_add2')" />
           </div>
         </div>
         <div class="form-group row">
 
-          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
 
-          <div class="col-10">
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="add3" [(ngModel)]="Record.cont_add3" required
               maxlength="60" (blur)="OnBlur('cont_add3')" />
           </div>
         </div>
         <div class="form-group row">
-
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-4">
             <input type="text" disabled class="form-control form-control-sm" name="add4" [(ngModel)]="Record.cont_add4"
               required maxlength="60" (blur)="OnBlur('cont_add4')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-4">
             <input type="text" disabled class="form-control form-control-sm" name="add5" [(ngModel)]="Record.cont_add5"
               required maxlength="60" (blur)="OnBlur('cont_add5')" />
           </div>
@@ -240,25 +237,25 @@
           </div>
         </div> -->
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Location</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="location" [(ngModel)]="Record.cont_location"
               required maxlength="25" (blur)="OnBlur('cont_location')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Contact.Person</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Contact.Person</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="cperson" [(ngModel)]="Record.cont_contact"
               required maxlength="60" (blur)="OnBlur('cont_contact')" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">State</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="Record.cont_state"
               required maxlength="60" (blur)="OnBlur('cont_state')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm pl-0 pr-0">Country</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Country</label>
+          <div class="col-sm-4">
             <!-- <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
               required maxlength="60" (blur)="OnBlur('cont_country')" /> -->
             <app-autocomplete #cntryLov [inputdata]="CNTRYRECORD" (ValueChanged)="LovSelected($event)">
@@ -267,111 +264,68 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Mode</label>
-          <div class="col-4 pr-0">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-sm-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
             <label class="col-form-label col-form-label-sm">Sea Export CLR</label>
           </div>
-          <div class="col-3  pl-0 pr-0">
+          <div class="col-sm-3  pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
             <label class="col-form-label col-form-label-sm">Sea Export FWD</label>
           </div>
-          <div class="col-3 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
             <label class="col-form-label col-form-label-sm">Projects</label>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
             <label class="col-form-label col-form-label-sm">Sea Import CLR</label>
           </div>
-          <div class="col-3 pl-0 pr-0">
+          <div class="col-sm-3 pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
             <label class="col-form-label col-form-label-sm">Sea Import FWD</label>
           </div>
-          <div class="col-3 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
             <label class="col-form-label col-form-label-sm">Warehouse</label>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
             <label class="col-form-label col-form-label-sm">Air Export CLR</label>
           </div>
-          <div class="col-3 pl-0 pr-0">
+          <div class="col-sm-3 pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
             <label class="col-form-label col-form-label-sm">Air Export FWD</label>
           </div>
-          <div class="col-3 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
             <label class="col-form-label col-form-label-sm">Transport</label>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-4 pr-0">
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-4 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
             <label class="col-form-label col-form-label-sm">Air Import CLR</label>
           </div>
-          <div class="col-3 pl-0 pr-0">
+          <div class="col-sm-3 pl-0 pr-0">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
             <label class="col-form-label col-form-label-sm">Air Import FWD</label>
           </div>
         </div>
-        <!-- <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Mode</label>
-          <div class="col-10 input-group input-group-sm pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
-            <label class="col-form-label col-form-label-sm mr-4">Sea Export CLR&nbsp;</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
-            <label class="col-form-label col-form-label-sm mr-4">Sea Export FWD</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
-            <label class="col-form-label col-form-label-sm">Projects</label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-10 input-group input-group-sm pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
-            <label class="col-form-label col-form-label-sm mr-4">Sea Import CLR</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
-            <label class="col-form-label col-form-label-sm mr-4">Sea Import FWD</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
-            <label class="col-form-label col-form-label-sm">Warehouse</label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-10 input-group input-group-sm pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
-            <label class="col-form-label col-form-label-sm mr-4">Air Export CLR&nbsp;</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
-            <label class="col-form-label col-form-label-sm mr-4">Air Export FWD&nbsp;&nbsp;</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
-            <label class="col-form-label col-form-label-sm">Transport</label>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm"></label>
-          <div class="col-10 input-group input-group-sm pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
-            <label class="col-form-label col-form-label-sm mr-4">Air Import CLR</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
-            <label class="col-form-label col-form-label-sm mr-4">Air Import FWD</label>
-          </div>
-        </div> -->
-
       </div>
 
       <div class="col-sm-6">
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Region</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Region</label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="region" [(ngModel)]="Record.cont_region"
               required maxlength="40" (blur)="OnBlur('cont_region')" />
           </div>
@@ -380,20 +334,20 @@
 
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Target.Market</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Target.Market</label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="target"
               [(ngModel)]="Record.cont_target_market" required maxlength="50" (blur)="OnBlur('cont_target_market')" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Tel</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Tel</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="tel" [(ngModel)]="Record.cont_tel" required
               maxlength="60" (blur)="OnBlur('cont_tel')" />
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">Fax</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Fax</label>
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="fax" [(ngModel)]="Record.cont_fax" required
               maxlength="60" (blur)="OnBlur('cont_fax')" />
           </div>
@@ -408,9 +362,9 @@
         </div> -->
         <div class="form-group row">
 
-          <label class="col-2 col-form-label col-form-label-sm">Mobile</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Mobile</label>
 
-          <div class="col-10">
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="mobile" [(ngModel)]="Record.cont_mobile"
               required maxlength="60" (blur)="OnBlur('cont_mobile')" />
           </div>
@@ -418,9 +372,9 @@
 
         <div class="form-group row">
 
-          <label class="col-2 col-form-label col-form-label-sm">Email</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
 
-          <div class="col-10">
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="Record.cont_email"
               required maxlength="60" (blur)="OnBlur('cont_email')" />
           </div>
@@ -428,9 +382,9 @@
 
         <div class="form-group row">
 
-          <label class="col-2 col-form-label col-form-label-sm">Web</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Web</label>
 
-          <div class="col-10">
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="web" [(ngModel)]="Record.cont_web" required
               maxlength="60" (blur)="OnBlur('cont_web')" />
           </div>
@@ -438,32 +392,30 @@
 
         <div class="form-group row">
 
-          <label class="col-2 col-form-label col-form-label-sm">IE-Code</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">IE-Code</label>
 
-          <div class="col-10">
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="iecode" [(ngModel)]="Record.cont_iecode"
               required maxlength="15" (blur)="OnBlur('cont_iecode')" />
           </div>
         </div>
 
         <div class="form-group row">
-
-          <label class="col-2 col-form-label col-form-label-sm">CHA</label>
-
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">CHA</label>
+          <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="cha" [(ngModel)]="Record.cont_cha_name"
               required maxlength="60" (blur)="OnBlur('cont_cha_name')" />
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Salesman</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Salesman</label>
+          <div class="col-sm-4">
             <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <label class="col-2 col-form-label col-form-label-sm">CSD</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">CSD</label>
+          <div class="col-sm-4">
             <app-autocomplete #CsdLov [inputdata]="CSDRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
         </div>
@@ -476,8 +428,8 @@
         </div> -->
 
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">Lead.Source</label>
-          <div class="col-4">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Lead.Source</label>
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" name="lsource" [(ngModel)]="Record.cont_lead_source">
               <option [value]="'NA'">NA</option>
               <option [value]="'SELF'">SELF</option>
@@ -525,7 +477,7 @@
   <div class="page-box">
     <div class="row">
       <div class="col-sm-6">
-        <div class="offset-2 col-10">
+        <div class="offset-2 col-sm-10">
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>

@@ -1,5 +1,5 @@
 <div class="page-header">
-    <div class="col">
+    <div class="col-sm">
         <label>{{title}}</label>
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
@@ -392,7 +392,7 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
-                    <div class="col-sm">
+                    <div class="col-sm-4">
                         <app-autocomplete #polLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete>
                     </div>
@@ -471,7 +471,7 @@
     <div class="page-box">
         <div class="row">
             <div class="col-sm-6">
-                <div class="offset-2 col-10">
+                <div class="offset-2 col-sm-10">
                     <button [hidden]="disableSave"
                         [disabled]="loading || Record.rec_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                         class="btn btn-success btn-sm">Save</button>
