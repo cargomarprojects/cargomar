@@ -12,25 +12,25 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">From</label>
           <div class="col-sm-8">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
           <div class="col-sm-8">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
             </app-date>
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Lead.Source</label>
           <div class="col-sm-8">
             <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
               <option [value]="'ALL'">ALL</option>
@@ -52,8 +52,9 @@
             </select>
           </div>
         </div>
+        
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Salesperson</label>
           <div class="col-sm-8">
@@ -69,9 +70,45 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-6">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Shipper</label>
+          </div>
+          <div class="col-sm-6">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Consignee</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Agent</label>
+          </div>
+          <div class="col-sm-6">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Carrier</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Buying Agent</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <input type="checkbox"  [(ngModel)]="Record.cont_is_seclr">
+            <label class="col-form-label col-form-label-sm">Is Corporate</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+        <div class="form-group row">
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
@@ -242,7 +279,7 @@
             <input type="text" class="form-control form-control-sm" name="location" [(ngModel)]="Record.cont_location"
               required maxlength="25" (blur)="OnBlur('cont_location')" />
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Contact.Person</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Contact.Person</label>
           <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="cperson" [(ngModel)]="Record.cont_contact"
               required maxlength="60" (blur)="OnBlur('cont_contact')" />
@@ -254,7 +291,7 @@
             <input type="text" class="form-control form-control-sm" name="state" [(ngModel)]="Record.cont_state"
               required maxlength="60" (blur)="OnBlur('cont_state')" />
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Country</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-sm-4">
             <!-- <input type="text" class="form-control form-control-sm" name="country" [(ngModel)]="Record.cont_country"
               required maxlength="60" (blur)="OnBlur('cont_country')" /> -->
@@ -269,7 +306,7 @@
             <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
             <label class="col-form-label col-form-label-sm">Sea Export CLR</label>
           </div>
-          <div class="col-sm-3  pl-0 pr-0">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
             <label class="col-form-label col-form-label-sm">Sea Export FWD</label>
           </div>
@@ -284,7 +321,7 @@
             <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
             <label class="col-form-label col-form-label-sm">Sea Import CLR</label>
           </div>
-          <div class="col-sm-3 pl-0 pr-0">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
             <label class="col-form-label col-form-label-sm">Sea Import FWD</label>
           </div>
@@ -299,7 +336,7 @@
             <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
             <label class="col-form-label col-form-label-sm">Air Export CLR</label>
           </div>
-          <div class="col-sm-3 pl-0 pr-0">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
             <label class="col-form-label col-form-label-sm">Air Export FWD</label>
           </div>
@@ -314,7 +351,7 @@
             <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
             <label class="col-form-label col-form-label-sm">Air Import CLR</label>
           </div>
-          <div class="col-sm-3 pl-0 pr-0">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
             <label class="col-form-label col-form-label-sm">Air Import FWD</label>
           </div>
