@@ -63,6 +63,12 @@ export class ContactsComponent {
   // Single Record for add/edit/view details
   Record: MarkContacts = new MarkContacts;
 
+  cont_is_shipper: boolean = false;
+  cont_is_consignee: boolean = false;
+  cont_is_agent: boolean = false;
+  cont_is_carrier: boolean = false;
+  cont_is_buyingagent: boolean = false;
+  cont_is_corporate: boolean = false;
 
   CATEGORYRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
@@ -277,8 +283,32 @@ export class ContactsComponent {
   // Query List Data
   List(_type: string) {
 
-    this.loading = true;
+    let sCategory: string = "";
+    if (this.cont_is_shipper)
+      sCategory += "SHIPPER";
+    if (this.cont_is_consignee) {
+      if (sCategory != "")
+        sCategory += ",";
+      sCategory += "CONSIGNEE";
+    }
+    if (this.cont_is_agent) {
+      if (sCategory != "")
+        sCategory += ",";
+      sCategory += "COUNTERPART";
+    }
+    if (this.cont_is_carrier) {
+      if (sCategory != "")
+        sCategory += ",";
+      sCategory += "AIRLINE,LINER";
+    }
+    if (this.cont_is_buyingagent) {
+      if (sCategory != "")
+        sCategory += ",";
+      sCategory += "BUYINGAGENT";
+    }
 
+
+    this.loading = true;
     let SearchData = {
       type: _type,
       rowtype: this.type,
@@ -288,6 +318,8 @@ export class ContactsComponent {
       conversionstatus: this.searchConvrtStatus,
       fromdate: this.fromdate,
       todate: this.todate,
+      category: sCategory,
+      iscorporate: this.cont_is_corporate ? "Y" : "N",
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,

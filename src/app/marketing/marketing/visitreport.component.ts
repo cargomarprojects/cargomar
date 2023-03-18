@@ -192,6 +192,7 @@ export class VisitReportComponent {
             branchids: this.gs.globalVariables.branch_code,
             iYear: this.iYear.toString(),
             output_type: _output_type,
+            ispagewise: this.invokeByMenu == true ? true : false,
             file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,

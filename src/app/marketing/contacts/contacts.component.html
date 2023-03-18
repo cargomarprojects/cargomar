@@ -70,38 +70,32 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <div class="col-sm-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="cont_is_shipper">
             <label class="col-form-label col-form-label-sm">Shipper</label>
           </div>
-          <div class="col-sm-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="cont_is_consignee">
             <label class="col-form-label col-form-label-sm">Consignee</label>
           </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="cont_is_agent">
             <label class="col-form-label col-form-label-sm">Agent</label>
           </div>
-          <div class="col-sm-6">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="cont_is_carrier">
             <label class="col-form-label col-form-label-sm">Carrier</label>
           </div>
-        </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="cont_is_buyingagent">
             <label class="col-form-label col-form-label-sm">Buying Agent</label>
           </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <input type="checkbox"  [(ngModel)]="Record.cont_is_seclr">
+          <div class="col-sm-4">
+            <input type="checkbox"  [(ngModel)]="cont_is_corporate">
             <label class="col-form-label col-form-label-sm">Is Corporate</label>
           </div>
         </div>
@@ -147,6 +141,8 @@
           <th>TEL</th>
           <th>MOBILE</th>
           <th>EMAIL</th>
+          <th>CATEGORY</th>
+          <th>CORPORATE</th>
           <th>SALESPERSON</th>
           <th>BRANCH</th>
           <th>LEAD.SOURCE</th>
@@ -168,6 +164,8 @@
           <td>{{rec.cont_tel}}</td>
           <td>{{rec.cont_mobile}}</td>
           <td>{{rec.cont_email}}</td>
+          <td>{{rec.cont_type_name}}</td>
+          <td>{{rec.cont_iscorporat?'Y':'N'}}</td>
           <td>{{rec.cont_saleman_name}}</td>
           <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
