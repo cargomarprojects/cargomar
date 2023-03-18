@@ -246,6 +246,21 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">PO</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_orderno"
+                    (blur)="OnBlur('itm_orderno')" required maxlength="50" />
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Style#</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_styleno"
+                    (blur)="OnBlur('itm_styleno')" required maxlength="50" />
+                </div>
+              </div>
 
             </div>
 

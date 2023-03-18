@@ -100,7 +100,9 @@ export class Itemm {
     
     itm_sw: boolean;
     itm_rodtep: string;
-
+    itm_orderno: string;
+    itm_styleno: string;
+    
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

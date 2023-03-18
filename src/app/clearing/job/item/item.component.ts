@@ -648,7 +648,11 @@ export class ItemComponent {
 
     this.Record.itm_sw = false;
     this.Record.itm_rodtep = 'Y';
+    this.Record.itm_orderno = '';
+    this.Record.itm_styleno = '';
+
     this.Record.rec_mode = this.mode;
+
 
     this.InitLov();
 
@@ -873,7 +877,14 @@ export class ItemComponent {
         this.Record.itm_desc = this.Record.itm_desc.toUpperCase();
         break;
       }
-
+      case 'itm_orderno': {
+        this.Record.itm_orderno = this.Record.itm_orderno.toUpperCase();
+        break;
+      }
+      case 'itm_styleno': {
+        this.Record.itm_styleno = this.Record.itm_styleno.toUpperCase();
+        break;
+      }
       case 'itm_qty': {
         this.Record.itm_qty = this.gs.roundNumber(this.Record.itm_qty, 3);
         if (this.bValueChanged)
