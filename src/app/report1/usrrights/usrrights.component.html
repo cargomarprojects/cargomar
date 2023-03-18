@@ -1,0 +1,93 @@
+<div class="page-header">
+    <div class="col-sm">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label col-form-label-sm">User</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="col form-control form-control-sm" name="Searchusr"
+                                [(ngModel)]="searchuser" />
+                        </div>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">Menu</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="col form-control form-control-sm" name="Searchm"
+                                [(ngModel)]="searchmenu" />
+                        </div>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-sm-3">
+                            <app-autocomplete3 [controlname]="'BR'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+                            [displaydata]="branch_code" (ValueChanged)="LovSelected($event)">
+                          </app-autocomplete3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                                Report</button>
+                            <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                                class="btn btn-primary btn-sm">Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>USER</th>
+                    <th>BRANCH</th>
+                    <th>MENU</th>
+                    <th>COMPANY</th>
+                    <th>ADMIN</th>
+                    <th>ADD</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                    <th>PRINT</th>
+                    <th>EMAIL</th>
+                    <th>DOCS</th>
+                    <th>DOCS UPLOAD</th>
+                    <th>VIEW</th>
+                    <th>APPROVAL</th>
+                    <th>USER LOCKED</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.user_name}}</td>
+                    <td>{{rec.branch_code}}</td>
+                    <td>{{rec.menu_name}}</td>
+                    <td>{{rec.rights_company}}</td>
+                    <td>{{rec.rights_admin}}</td>
+                    <td>{{rec.rights_add}}</td>
+                    <td>{{rec.rights_edit}}</td>
+                    <td>{{rec.rights_delete}}</td>
+                    <td>{{rec.rights_print}}</td>
+                    <td>{{rec.rights_email}}</td>
+                    <td>{{rec.rights_docs}}</td>
+                    <td>{{rec.rights_docs_upload}}</td>
+                    <td>{{rec.rights_view}}</td>
+                    <td>{{rec.rights_approval}}</td>
+                    <td>{{rec.user_locked}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

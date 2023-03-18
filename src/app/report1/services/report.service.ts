@@ -162,5 +162,10 @@ export class RepService {
   ChangeInvStatus(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ChangeInvStatus', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  UserRightsList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UserRightsList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 
