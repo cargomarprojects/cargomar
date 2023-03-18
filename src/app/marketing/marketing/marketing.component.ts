@@ -310,6 +310,7 @@ export class MarketingComponent {
         this.Record.mark_next_action = "";
         this.Record.mark_next_visit_date = "";
         this.Record.mark_contact_person = "";
+        this.Record.mark_oldcustomer_id ="";
         this.Record.mark_customer_id = "";
         this.Record.mark_customer_name = "";
         this.Record.mark_user_id = this.gs.globalVariables.user_pkid;
@@ -429,6 +430,7 @@ export class MarketingComponent {
                     this.Record.mark_id = response.mark_id;
                     this.Record.branch_name = this.gs.globalVariables.branch_name;
                     this.Record.mark_user_name = this.gs.globalVariables.user_code;
+                    this.Record.mark_oldcustomer_id = this.Record.mark_customer_id;
                 }
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;

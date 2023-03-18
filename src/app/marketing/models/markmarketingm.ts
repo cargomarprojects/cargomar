@@ -3,6 +3,7 @@ export class MarkMarketingm {
     mark_id: string;
     mark_pkid: string;
     mark_visit_date: string;
+    mark_oldcustomer_id: string;
     mark_customer_id: string;
     mark_customer_name: string;
     mark_contact_person: string;
