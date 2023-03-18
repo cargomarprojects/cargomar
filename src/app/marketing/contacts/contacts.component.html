@@ -3,6 +3,7 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button  *ngIf="mode=='EDIT'||mode=='ADD'" [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
     <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
     <!-- <button *ngIf="!showDetails" [disabled]="loading" (click)="ShowHide()" class="btn btn-primary btn-sm ml-2">Show
       Contact</button> -->
