@@ -74,30 +74,30 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="cont_is_shipper">
-            <label class="col-form-label col-form-label-sm">Shipper</label>
+            <input type="checkbox" [(ngModel)]="cont_is_shipper" id="_chkshipper">
+            <label class="col-form-label col-form-label-sm"  for="_chkshipper">Shipper</label>
           </div>
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="cont_is_consignee">
-            <label class="col-form-label col-form-label-sm">Consignee</label>
+            <input type="checkbox" [(ngModel)]="cont_is_consignee" id="_chkconsignee">
+            <label class="col-form-label col-form-label-sm" for="_chkconsignee">Consignee</label>
           </div>
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="cont_is_agent">
-            <label class="col-form-label col-form-label-sm">Agent</label>
+            <input type="checkbox" [(ngModel)]="cont_is_agent" id="_chkagent">
+            <label class="col-form-label col-form-label-sm" for="_chkagent">Agent</label>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="cont_is_carrier">
-            <label class="col-form-label col-form-label-sm">Carrier</label>
+            <input type="checkbox" [(ngModel)]="cont_is_carrier" id="_chkcarrier">
+            <label class="col-form-label col-form-label-sm" for="_chkcarrier">Carrier</label>
           </div>
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="cont_is_buyingagent">
-            <label class="col-form-label col-form-label-sm">Buying Agent</label>
+            <input type="checkbox" [(ngModel)]="cont_is_buyingagent" id="_chkbuyingagent">
+            <label class="col-form-label col-form-label-sm" for="_chkbuyingagent">Buying Agent</label>
           </div>
           <div class="col-sm-4">
-            <input type="checkbox"  [(ngModel)]="cont_is_corporate">
-            <label class="col-form-label col-form-label-sm">Is Corporate</label>
+            <input type="checkbox"  [(ngModel)]="cont_is_corporate" id="_chkcorporate">
+            <label class="col-form-label col-form-label-sm" for="_chkcorporate">Is Corporate</label>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@
           <td>{{rec.cont_converted}}</td>
           <td>{{rec.cont_remark}}</td>
           <td>{{rec.rec_locked?'Y':'N'}}</td>
-          <td>{{rec.cont_visit_tot}}</td>
+          <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -304,57 +304,57 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
           <div class="col-sm-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr">
-            <label class="col-form-label col-form-label-sm">Sea Export CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_seclr" id="_seclr">
+            <label class="col-form-label col-form-label-sm" for="_seclr">Sea Export CLR</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd">
-            <label class="col-form-label col-form-label-sm">Sea Export FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd" id="_sefwd">
+            <label class="col-form-label col-form-label-sm" for="_sefwd">Sea Export FWD</label>
           </div>
           <div class="col-sm-3 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_pj">
-            <label class="col-form-label col-form-label-sm">Projects</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_pj" id="_pj">
+            <label class="col-form-label col-form-label-sm" for="_pj">Projects</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm"></label>
           <div class="col-sm-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_siclr">
-            <label class="col-form-label col-form-label-sm">Sea Import CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_siclr" id="_siclr">
+            <label class="col-form-label col-form-label-sm" for="_siclr">Sea Import CLR</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd">
-            <label class="col-form-label col-form-label-sm">Sea Import FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd" id="_sifwd">
+            <label class="col-form-label col-form-label-sm" for="_sifwd">Sea Import FWD</label>
           </div>
           <div class="col-sm-3 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_wh">
-            <label class="col-form-label col-form-label-sm">Warehouse</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_wh" id="_wh">
+            <label class="col-form-label col-form-label-sm" for="_wh">Warehouse</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm"></label>
           <div class="col-sm-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr">
-            <label class="col-form-label col-form-label-sm">Air Export CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr" id="_aeclr">
+            <label class="col-form-label col-form-label-sm" for="_aeclr">Air Export CLR</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd">
-            <label class="col-form-label col-form-label-sm">Air Export FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd" id="_aefwd">
+            <label class="col-form-label col-form-label-sm" for="_aefwd">Air Export FWD</label>
           </div>
           <div class="col-sm-3 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_tp">
-            <label class="col-form-label col-form-label-sm">Transport</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_tp" id="_tp">
+            <label class="col-form-label col-form-label-sm" for="_tp">Transport</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm"></label>
           <div class="col-sm-4 pr-0">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr">
-            <label class="col-form-label col-form-label-sm">Air Import CLR</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr" id="_aiclr">
+            <label class="col-form-label col-form-label-sm" for="_aiclr">Air Import CLR</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd">
-            <label class="col-form-label col-form-label-sm">Air Import FWD</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd" id="_aifwd">
+            <label class="col-form-label col-form-label-sm" for="_aifwd">Air Import FWD</label>
           </div>
         </div>
       </div>
@@ -497,13 +497,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm"></label>
           <div class="col-sm-6">
-            <label class="checkbox-inline">Is Corporate Customer</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_iscorporat">
+            <label class="checkbox-inline" for="_iscorporat">Is Corporate Customer</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_iscorporat" id="_iscorporat">
           </div>
           <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
           <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4">
-            <label class="checkbox-inline">Locked</label>
-            <input type="checkbox" [(ngModel)]="Record.rec_locked">
+            <label class="checkbox-inline" for="_locked">Locked</label>
+            <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
           </div>
         </div>
 

@@ -154,8 +154,8 @@ export class VisitReportChildComponent {
 
     AssignDate() {
         if (this.parentData.month == "ALL") {
-            this.From_Date = this.parentData.year + "-01-01";
-            this.To_Date = this.parentData.year + "-12-31";
+            this.From_Date = this.parentData.from_date;
+            this.To_Date = this.parentData.to_date;
         }
         else if (this.parentData.month == "JAN") {
             this.From_Date = this.parentData.year + "-01-01";
@@ -209,7 +209,10 @@ export class VisitReportChildComponent {
             this.From_Date = this.parentData.from_date;
             this.To_Date = this.parentData.to_date;
         }
-
+        else if (this.parentData.month == "PREV") {
+            this.From_Date = this.parentData.from_date;
+            this.To_Date = this.parentData.to_date;
+        }
 
     }
 

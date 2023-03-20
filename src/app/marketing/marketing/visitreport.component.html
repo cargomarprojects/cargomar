@@ -70,6 +70,7 @@
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
                         <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
+                        <th><{{iYearCaption}}</th>
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>
@@ -97,6 +98,12 @@
                         <td *ngIf="search_report_type=='SALES PERSON'">
                             <div  style="color: chocolate;font-weight: bold;">
                                 <a>{{rec.user_branch}}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div  class="hlink"
+                                (click)="ShowReport(rec,'PREV')">
+                                <a>{{rec.prev_total}}</a>
                             </div>
                         </td>
                         <td>

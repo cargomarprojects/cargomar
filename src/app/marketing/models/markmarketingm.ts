@@ -65,6 +65,8 @@ export class MarkReport {
     nov: number;
     dec: number;
     total: number;
+    prev_total:number;
+    min_visit_date:string;
     _globalvariables: GlobalVariables;
 }
 

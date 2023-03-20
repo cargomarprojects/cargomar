@@ -65,7 +65,7 @@ export class VisitReportComponent {
         cust_category: ''
     };
     iYear: number;
-
+    iYearCaption: number;
     // Array For Displaying List
     RecordList: MarkReport[] = [];
     // Single Record for add/edit/view details
@@ -114,6 +114,7 @@ export class VisitReportComponent {
     InitComponent() {
         let d = new Date();
         this.iYear = d.getFullYear();
+        this.iYearCaption=this.iYear;
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -173,7 +174,7 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-
+        this.iYearCaption=this.iYear;
         this.search_report_type = this.report_type;
         this.loading = true;
         let SearchData = {
@@ -251,6 +252,17 @@ export class VisitReportComponent {
         let user_name: string = '';
         let cust_id: string = '';
         let cust_name: string = '';
+        let from_date: string = '';
+        let to_date: string = '';
+        if (_month == "PREV" || _month == "ALL") {
+            from_date = _rec.min_visit_date;
+            to_date = this.iYear + "-12-31";
+            if (_month == "PREV") {
+                let prevyr = +this.iYear - 1;
+                to_date = prevyr + "-12-31";
+            }
+        }
+
         if (this.search_report_type == "SALES PERSON") {
             user_id = _rec.user_id;
             user_name = _rec.user_name;
@@ -272,8 +284,8 @@ export class VisitReportComponent {
             report_type: this.search_report_type,
             cust_id: cust_id,
             cust_name: cust_name,
-            from_date: '',
-            to_date: '',
+            from_date: from_date,
+            to_date: to_date,
             cust_category: 'ALL'
         };
         this.currentPage = "VISIT-REPORT-CHILD";
