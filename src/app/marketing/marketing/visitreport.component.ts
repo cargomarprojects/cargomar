@@ -114,7 +114,7 @@ export class VisitReportComponent {
     InitComponent() {
         let d = new Date();
         this.iYear = d.getFullYear();
-        this.iYearCaption=this.iYear;
+        this.iYearCaption = this.iYear;
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -174,7 +174,7 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-        this.iYearCaption=this.iYear;
+        this.iYearCaption = this.iYear;
         this.search_report_type = this.report_type;
         this.loading = true;
         let SearchData = {
@@ -259,6 +259,10 @@ export class VisitReportComponent {
             to_date = this.iYear + "-12-31";
             if (_month == "PREV") {
                 let prevyr = +this.iYear - 1;
+                var temparr = _rec.min_visit_date.split('-');
+                let tempyr: number = +temparr[0];
+                if (tempyr == this.iYear)
+                    from_date = '2001-01-01'
                 to_date = prevyr + "-12-31";
             }
         }
