@@ -130,13 +130,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Incoterm</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" maxlength="15"
-              (blur)="OnBlur('qtnm_incoterm')" />
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -227,14 +221,7 @@
             </app-autocomplete3>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
-          <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'CARRIER'" [displaycolumn]="'NAME'"
-              [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete3>
-          </div>
-        </div>
+
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
           <div class="col-sm-4">
@@ -247,9 +234,6 @@
               (blur)="OnBlur('qtnm_cntr_size')" required maxlength="30" />
           </div>
         </div>
-
-      </div>
-      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
           <div class="col-sm-10">
@@ -257,6 +241,8 @@
               (blur)="OnBlur('qtnm_commodity')" required maxlength="60" />
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pcs</label>
           <div class="col-sm-4">
@@ -305,6 +291,13 @@
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_exrate"
               (focus)="OnFocus('qtnm_exrate')" (change)="OnChange('qtnm_exrate')" (blur)="OnBlur('qtnm_exrate')"
               required maxlength="10" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Incoterm</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" maxlength="15"
+              (blur)="OnBlur('qtnm_incoterm')" />
           </div>
         </div>
         <div class="form-group row">
@@ -389,6 +382,14 @@
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pld_name"
               (blur)="OnBlur('qtnm_pld_name')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'CARRIER'" [displaycolumn]="'NAME'"
+              [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
