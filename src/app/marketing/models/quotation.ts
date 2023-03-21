@@ -42,10 +42,17 @@ export class Mark_Qtnm {
     qtnm_cft: number;
     qtnm_tot_famt: number;
     qtnm_tot_amt: number;
-    qtnm_round_off:number;
-    qtnm_print_tot:boolean;
+    qtnm_round_off: number;
+    qtnm_print_tot: boolean;
     qtnm_subjects: string;
-     
+    qtnm_incoterm: string;
+    qtnm_carrier_id: string;
+    qtnm_carrier_code: string;
+    qtnm_carrier_name: string;
+    qtnm_dimensions: string;
+    qtnm_chwt: number;
+
+
     qtnm_cntr_size: string;
     qtnm_remarks: string;
     qtnm_office_use: string;
@@ -90,8 +97,7 @@ export class Mark_Qtnd {
 
 export class SaveTermsData {
     qtnm_termList: Mark_Qtnm[] = [];
-    type:string;
+    type: string;
     rec_mode: String;
     _globalvariables: GlobalVariables;
 }
- 

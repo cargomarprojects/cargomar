@@ -247,6 +247,11 @@ export class QuotationComponent {
             this.Recorddet.qtnd_cntr_type_id = _Record.id;
             this.Recorddet.qtnd_cntr_type_code = _Record.code;
         }
+        if (_Record.controlname == "CARRIER") {
+            this.Record.qtnm_carrier_id = _Record.id;
+            this.Record.qtnm_carrier_code = _Record.code;
+            this.Record.qtnm_carrier_name = _Record.name;
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
@@ -393,6 +398,13 @@ export class QuotationComponent {
         this.Record.rec_mode = this.mode;
         this.Record.qtnm_print_tot = false;
         this.Record.qtnm_cntr_size = '';
+        this.Record.qtnm_incoterm = '';
+        this.Record.qtnm_carrier_id = '';
+        this.Record.qtnm_carrier_code = '';
+        this.Record.qtnm_carrier_name = '';
+        this.Record.qtnm_dimensions = '';
+        this.Record.qtnm_chwt = 0;
+
         this.total_amt = 0;
         this.total_famt = 0;
         this.str_total_amt = '';
@@ -743,6 +755,10 @@ export class QuotationComponent {
                 this.Record.qtnm_kgs = this.gs.roundNumber(this.Record.qtnm_kgs, 3);
                 break;
             }
+            case 'qtnm_chwt': {
+                this.Record.qtnm_chwt = this.gs.roundNumber(this.Record.qtnm_chwt, 3);
+                break;
+            }
             case 'qtnm_cbm': {
                 this.Record.qtnm_cbm = this.gs.roundNumber(this.Record.qtnm_cbm, 3);
                 break;
@@ -770,6 +786,15 @@ export class QuotationComponent {
                 this.Record.qtnm_remarks = this.Record.qtnm_remarks.toUpperCase();
                 break;
             }
+            case 'qtnm_incoterm': {
+                this.Record.qtnm_incoterm = this.Record.qtnm_incoterm.toUpperCase();
+                break;
+            }
+            case 'qtnm_dimensions': {
+                this.Record.qtnm_dimensions = this.Record.qtnm_dimensions.toUpperCase();
+                break;
+            }
+
         }
 
         if (field == 'qtnd_remarks') {

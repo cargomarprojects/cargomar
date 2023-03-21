@@ -129,6 +129,15 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Incoterm</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" maxlength="15"
+              (blur)="OnBlur('qtnm_incoterm')" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="page-box">
@@ -144,7 +153,7 @@
             </app-autocomplete>
           </div>
           <label class="col-sm-1 col-form-label col-form-label-sm pr-0">Br#</label>
-          <div class="col-sm-3 pl-0">
+          <div class="col-sm-3">
             <!-- <app-autocomplete3 [controlname]="'QUOTE-TO-BR'" [tabletype]="'CUSTOMERADDRESS'" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_to_br_no" [parentid]="Record.qtnm_to_id" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3> -->
@@ -219,6 +228,14 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'CARRIER'" [displaycolumn]="'NAME'"
+              [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
           <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
@@ -230,6 +247,9 @@
               (blur)="OnBlur('qtnm_cntr_size')" required maxlength="30" />
           </div>
         </div>
+
+      </div>
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
           <div class="col-sm-10">
@@ -237,32 +257,38 @@
               (blur)="OnBlur('qtnm_commodity')" required maxlength="60" />
           </div>
         </div>
-      </div>
-      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pcs</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pcs"
               (blur)="OnBlur('qtnm_pcs')" required maxlength="60" />
           </div>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Package</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_package"
               (blur)="OnBlur('qtnm_package')" required maxlength="60" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">KGS</label>
-          <div class="col-sm-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">GrWt</label>
+          <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_kgs"
               (blur)="OnBlur('qtnm_kgs')" required maxlength="15" />
           </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">ChWt</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_chwt"
+              (blur)="OnBlur('qtnm_chwt')" required maxlength="15" />
+          </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Dimensions</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_dimensions"
+              (blur)="OnBlur('qtnm_dimensions')" required maxlength="15" />
+          </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">CBM</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cbm"
               (blur)="OnBlur('qtnm_cbm')" required maxlength="15" />
           </div>
