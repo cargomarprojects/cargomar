@@ -373,6 +373,11 @@ export class VisitReportChildComponent {
 
     DownloadList(_type: string, mailsent: any) {
 
+        if (_type == "MAIL2") {
+            if (!confirm('SEND MAILS TO ALL SALESMAN ?'))
+                return;
+        }
+
         this.searchdata.searchstring = this.searchstring.searchstring;
 
         this.loading = true;
@@ -419,6 +424,8 @@ export class VisitReportChildComponent {
                     this.sMsg = response.message;
                     this.sTo_ids = response.toids;
                     this.open(mailsent);
+                } else if (_type == 'MAIL2') {
+                    alert(response.error)
                 }
             },
                 error => {

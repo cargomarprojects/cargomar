@@ -48,11 +48,11 @@
                         <select class="form-control form-control-sm" [(ngModel)]="cust_category">
                             <option value="ALL">ALL</option>
                             <option value="COUNTERPART">AGENT</option>
-                            <option value="BUYINGAGENT">BUYING AGENT</option>                         
+                            <option value="BUYINGAGENT">BUYING AGENT</option>
                             <option value="AIRLINE,LINER">CARRIER</option>
-                            <option value="CONSIGNEE">CONSIGNEE</option>    
+                            <option value="CONSIGNEE">CONSIGNEE</option>
                             <option value="SHIPPER,ISCORPORAT">C/SHIPPER</option>
-                            <option value="SHIPPER">SHIPPER</option>                      
+                            <option value="SHIPPER">SHIPPER</option>
                         </select>
                     </div>
                 </div>
@@ -73,6 +73,8 @@
                             class="btn btn-primary btn-sm mr-1">Print</button>
                         <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL',mailsent)"
                             class="btn btn-primary btn-sm">Mail</button>
+                        <!-- <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL2',null)"
+                            class="btn btn-primary btn-sm">MailALL</button> -->
                     </div>
                 </div>
             </div>
