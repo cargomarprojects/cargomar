@@ -50,7 +50,7 @@ export class QuotationComponent {
     InfoMessage = "";
     detailMode = "ADD";
     str_total_amt = "";
-
+    carrier_lov = "CARRIER";
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
     mode = '';
     pkid = '';
@@ -108,6 +108,10 @@ export class QuotationComponent {
         this.bPrint = false;
         this.bEmail = false;
         this.bDocs = false;
+        if (this.type == "AIR")
+            this.carrier_lov = "AIR CARRIER";
+        else
+            this.carrier_lov = "CARRIER";
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -379,7 +383,7 @@ export class QuotationComponent {
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
         this.Record.qtnm_pcs = '';
-        this.Record.qtnm_type = 'SEA EXPORT';
+        this.Record.qtnm_type = this.type == 'GENERAL' ? 'SEA EXPORT' : 'EXPORT';
         this.Record.qtnm_kgs = 0;
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
@@ -404,7 +408,7 @@ export class QuotationComponent {
         this.Record.qtnm_carrier_name = '';
         this.Record.qtnm_dimensions = '';
         this.Record.qtnm_chwt = 0;
-
+        this.Record.rec_category = this.type;
         this.total_amt = 0;
         this.total_famt = 0;
         this.str_total_amt = '';
@@ -527,6 +531,7 @@ export class QuotationComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        this.Record.rec_category = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.qtnm_tot_amt = this.total_amt;
         this.Record.qtnm_tot_famt = this.total_famt;
@@ -558,7 +563,7 @@ export class QuotationComponent {
             this.Findtotal();
         }
         this.FindListTotal();
-        this.NewDetRecord(); 
+        this.NewDetRecord();
     }
     allvalid() {
         let sError: string = "";
@@ -669,6 +674,8 @@ export class QuotationComponent {
             this.GetTermsAndConditions();
         if (field == 'qtnm_exrate')
             this.FindListTotal();
+        if (field == 'qtnd_type')
+            this.Findtotal();
     }
 
     OnBlur(field: string, _rec: GenRemarks = null) {
@@ -984,6 +991,12 @@ export class QuotationComponent {
         let ftotamt: number;
 
         amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
+        if (this.type == "AIR") {
+            if (this.Recorddet.qtnd_type == "GRWT")
+                amt = amt * this.Record.qtnm_kgs;
+            if (this.Recorddet.qtnd_type == "CHWT")
+                amt = amt * this.Record.qtnm_chwt;
+        }
         amt = this.gs.roundNumber(amt, 2);
 
         totamt = amt * this.Recorddet.qtnd_exrate;

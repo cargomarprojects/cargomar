@@ -67,6 +67,7 @@ export class Mark_Qtnm {
     rec_created_date: string;
     rec_edited_by: string;
     rec_edited_date: string;
+    rec_category: String;
     rec_mode: String;
     _globalvariables: GlobalVariables;
 }

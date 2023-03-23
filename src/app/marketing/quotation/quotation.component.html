@@ -118,13 +118,20 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-          <div class="col-sm-10">
+          <div *ngIf="type == 'GENERAL'"  class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type"
               (change)="OnChange('qtnm_type')">
               <option [value]="'SEA EXPORT'">SEA EXPORT</option>
               <option [value]="'SEA IMPORT'">SEA IMPORT</option>
               <option [value]="'AIR EXPORT'">AIR EXPORT</option>
               <option [value]="'AIR IMPORT'">AIR IMPORT</option>
+            </select>
+          </div>
+          <div *ngIf="type == 'AIR'" class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type"
+              (change)="OnChange('qtnm_type')">
+              <option [value]="'EXPORT'">EXPORT</option>
+              <option [value]="'IMPORT'">IMPORT</option>
             </select>
           </div>
         </div>
@@ -222,7 +229,7 @@
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="type == 'GENERAL'" class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
           <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
@@ -387,7 +394,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'CARRIER'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
               [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -513,7 +520,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type">
+            <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type" (change)="OnChange('qtnd_type')">
               <option value="INVOICE">INVOICE</option>
               <option value="CBM">CBM</option>
               <option value="QTY">QTY</option>
@@ -524,8 +531,8 @@
               <option value="NOS">NOS</option>
             </select>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
-          <div class="col-sm-4">
+          <label *ngIf="type == 'GENERAL'"  class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
+          <div *ngIf="type == 'GENERAL'"  class="col-sm-4">
             <app-autocomplete3 [controlname]="'CNTRTYPE'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
               [displaydata]="Recorddet.qtnd_cntr_type_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
