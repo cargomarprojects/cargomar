@@ -436,7 +436,7 @@ export class QuotationComponent {
         this.Recorddet.qtnd_total = 0;
         this.Recorddet.qtnd_ftotal = 0;
         this.Recorddet.qtnd_remarks = '';
-        this.Recorddet.qtnd_type = 'INVOICE';
+        this.Recorddet.qtnd_type = this.type == "AIR" ? 'NOS' : 'INVOICE';
         this.Recorddet.qtnd_cntr_type_id = '';
         this.Recorddet.qtnd_cntr_type_code = '';
         this.Recorddet.qtnd_curr_id = this.gs.defaultValues.param_curr_local_id;
@@ -760,16 +760,14 @@ export class QuotationComponent {
             }
             case 'qtnm_kgs': {
                 this.Record.qtnm_kgs = this.gs.roundNumber(this.Record.qtnm_kgs, 3);
-                if(this.type=="AIR"&& this.bChanged)
-                {
+                if (this.type == "AIR" && this.bChanged) {
                     this.findTotal2();
                 }
                 break;
             }
             case 'qtnm_chwt': {
                 this.Record.qtnm_chwt = this.gs.roundNumber(this.Record.qtnm_chwt, 3);
-                if(this.type=="AIR"&& this.bChanged)
-                {
+                if (this.type == "AIR" && this.bChanged) {
                     this.findTotal2();
                 }
                 break;

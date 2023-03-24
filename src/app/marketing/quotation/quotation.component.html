@@ -523,14 +523,14 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type" (change)="OnChange('qtnd_type')">
-              <option value="INVOICE">INVOICE</option>
               <option value="CBM">CBM</option>
-              <option value="QTY">QTY</option>
-              <option value="GRWT">GRWT</option>
               <option value="CHWT">CHWT</option>
-              <option value="NTWT">NTWT</option>
               <option value="CNTR">CNTR</option>
+              <option value="GRWT">GRWT</option>
+              <option value="INVOICE">INVOICE</option>
               <option value="NOS">NOS</option>
+              <option value="NTWT">NTWT</option>
+              <option value="QTY">QTY</option>
             </select>
           </div>
           <label *ngIf="type == 'GENERAL'"  class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
