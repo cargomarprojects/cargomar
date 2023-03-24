@@ -674,8 +674,18 @@ export class QuotationComponent {
             this.GetTermsAndConditions();
         if (field == 'qtnm_exrate')
             this.FindListTotal();
-        if (field == 'qtnd_type')
+        if (field == 'qtnd_type') {
+            if (this.type == "AIR") {
+                if (this.Recorddet.qtnd_type == "GRWT")
+                    this.Recorddet.qtnd_qty = this.Record.qtnm_kgs;
+                if (this.Recorddet.qtnd_type == "CHWT")
+                    this.Recorddet.qtnd_qty = this.Record.qtnm_chwt;
+                if (this.Recorddet.qtnd_type == "CBM")
+                    this.Recorddet.qtnd_qty = this.Record.qtnm_cbm;
+            }
             this.Findtotal();
+        }
+
     }
 
     OnBlur(field: string, _rec: GenRemarks = null) {
@@ -760,16 +770,10 @@ export class QuotationComponent {
             }
             case 'qtnm_kgs': {
                 this.Record.qtnm_kgs = this.gs.roundNumber(this.Record.qtnm_kgs, 3);
-                if (this.type == "AIR" && this.bChanged) {
-                    this.findTotal2();
-                }
                 break;
             }
             case 'qtnm_chwt': {
                 this.Record.qtnm_chwt = this.gs.roundNumber(this.Record.qtnm_chwt, 3);
-                if (this.type == "AIR" && this.bChanged) {
-                    this.findTotal2();
-                }
                 break;
             }
             case 'qtnm_cbm': {
@@ -997,12 +1001,6 @@ export class QuotationComponent {
         let ftotamt: number;
 
         amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
-        if (this.type == "AIR") {
-            if (this.Recorddet.qtnd_type == "GRWT")
-                amt = amt * this.Record.qtnm_kgs;
-            if (this.Recorddet.qtnd_type == "CHWT")
-                amt = amt * this.Record.qtnm_chwt;
-        }
         amt = this.gs.roundNumber(amt, 2);
 
         totamt = amt * this.Recorddet.qtnd_exrate;
