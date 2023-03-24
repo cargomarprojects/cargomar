@@ -760,10 +760,18 @@ export class QuotationComponent {
             }
             case 'qtnm_kgs': {
                 this.Record.qtnm_kgs = this.gs.roundNumber(this.Record.qtnm_kgs, 3);
+                if(this.type=="AIR"&& this.bChanged)
+                {
+                    this.findTotal2();
+                }
                 break;
             }
             case 'qtnm_chwt': {
                 this.Record.qtnm_chwt = this.gs.roundNumber(this.Record.qtnm_chwt, 3);
+                if(this.type=="AIR"&& this.bChanged)
+                {
+                    this.findTotal2();
+                }
                 break;
             }
             case 'qtnm_cbm': {

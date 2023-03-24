@@ -266,12 +266,14 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">GrWt</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_kgs"
-              (blur)="OnBlur('qtnm_kgs')" required maxlength="15" />
+              (blur)="OnBlur('qtnm_kgs')" (change)="OnChange('qtnm_kgs')"
+              (focus)="OnFocus('qtnm_kgs')"  required maxlength="15" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">ChWt</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_chwt"
-              (blur)="OnBlur('qtnm_chwt')" required maxlength="15" />
+              (blur)="OnBlur('qtnm_chwt')" (change)="OnChange('qtnm_chwt')"
+              (focus)="OnFocus('qtnm_chwt')"  required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
