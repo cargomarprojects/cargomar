@@ -229,15 +229,15 @@
           </div>
         </div>
 
-        <div *ngIf="type == 'GENERAL'" class="form-group row">
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
+            <input [disabled]="type == 'AIR'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_move_type"
               (blur)="OnBlur('qtnm_move_type')" required maxlength="25" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Size</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cntr_size"
+            <input [disabled]="type == 'AIR'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cntr_size"
               (blur)="OnBlur('qtnm_cntr_size')" required maxlength="30" />
           </div>
         </div>
@@ -250,6 +250,20 @@
         </div>
       </div>
       <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Incoterm</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" maxlength="15"
+              (blur)="OnBlur('qtnm_incoterm')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
+              (blur)="OnBlur('qtnm_remarks')" required maxlength="90" />
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pcs</label>
           <div class="col-sm-4">
@@ -271,7 +285,7 @@
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">ChWt</label>
           <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_chwt"
+            <input [disabled]="type == 'GENERAL'" type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_chwt"
               (blur)="OnBlur('qtnm_chwt')" (change)="OnChange('qtnm_chwt')"
               (focus)="OnFocus('qtnm_chwt')"  required maxlength="15" />
           </div>
@@ -279,7 +293,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Dimensions</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_dimensions"
+            <input [disabled]="type == 'GENERAL'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_dimensions"
               (blur)="OnBlur('qtnm_dimensions')" required maxlength="15" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">CBM</label>
@@ -300,20 +314,6 @@
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_exrate"
               (focus)="OnFocus('qtnm_exrate')" (change)="OnChange('qtnm_exrate')" (blur)="OnBlur('qtnm_exrate')"
               required maxlength="10" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Incoterm</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" maxlength="15"
-              (blur)="OnBlur('qtnm_incoterm')" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_remarks"
-              (blur)="OnBlur('qtnm_remarks')" required maxlength="90" />
           </div>
         </div>
       </div>
