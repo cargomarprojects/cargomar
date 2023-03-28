@@ -3,7 +3,8 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    <button  *ngIf="mode=='EDIT'||mode=='ADD'" [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
+    <button *ngIf="mode=='EDIT'||mode=='ADD'" [disabled]="loading" (click)="ActionHandler('LIST','')"
+      class="btn btn-primary btn-sm">Return</button>
     <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
     <!-- <button *ngIf="!showDetails" [disabled]="loading" (click)="ShowHide()" class="btn btn-primary btn-sm ml-2">Show
       Contact</button> -->
@@ -53,7 +54,7 @@
             </select>
           </div>
         </div>
-        
+
       </div>
       <div class="col-sm-2">
         <div class="form-group row">
@@ -75,7 +76,7 @@
         <div class="form-group row">
           <div class="col-sm-4">
             <input type="checkbox" [(ngModel)]="cont_is_shipper" id="_chkshipper">
-            <label class="col-form-label col-form-label-sm"  for="_chkshipper">Shipper</label>
+            <label class="col-form-label col-form-label-sm" for="_chkshipper">Shipper</label>
           </div>
           <div class="col-sm-4">
             <input type="checkbox" [(ngModel)]="cont_is_consignee" id="_chkconsignee">
@@ -96,7 +97,7 @@
             <label class="col-form-label col-form-label-sm" for="_chkbuyingagent">Buying Agent</label>
           </div>
           <div class="col-sm-4">
-            <input type="checkbox"  [(ngModel)]="cont_is_corporate" id="_chkcorporate">
+            <input type="checkbox" [(ngModel)]="cont_is_corporate" id="_chkcorporate">
             <label class="col-form-label col-form-label-sm" for="_chkcorporate">Is Corporate</label>
           </div>
         </div>
@@ -107,7 +108,7 @@
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-            class="btn btn-primary btn-sm mr-1">Print</button>
+              class="btn btn-primary btn-sm mr-1">Print</button>
           </div>
         </div>
       </div>
@@ -143,6 +144,7 @@
           <th>MOBILE</th>
           <th>EMAIL</th>
           <th>CATEGORY</th>
+          <th>INITIAL.CATEGORY</th>
           <th>CORPORATE</th>
           <th>SALESPERSON</th>
           <th>BRANCH</th>
@@ -167,6 +169,7 @@
           <td>{{rec.cont_mobile}}</td>
           <td>{{rec.cont_email}}</td>
           <td>{{rec.cont_type_name}}</td>
+          <td>{{rec.cont_type_2}}</td>
           <td>{{rec.cont_iscorporat?'Y':'N'}}</td>
           <td>{{rec.cont_saleman_name}}</td>
           <td>{{rec.cont_saleman_branch}}</td>
@@ -221,17 +224,7 @@
             <app-autocomplete #CatgoryLov [inputdata]="CATEGORYRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <!-- <label class="col-sm-2 col-form-label col-form-label-sm pl-0 pr-0">Type</label>
-          <div class="col-sm-4">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
-              <option value="FIRST TIME BUYERS">FIRST TIME BUYERS</option>
-              <option value="PROSPECTS">PROSPECTS</option>
-              <option value="REPEAT BUYERS">REPEAT BUYERS</option>
-              <option value="SUSPECTS">SUSPECTS</option>
-            </select>
-          </div> -->
         </div>
-
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
           <div class="col-sm-10">
@@ -402,13 +395,19 @@
 
           <label class="col-sm-2 col-form-label col-form-label-sm">Mobile</label>
 
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="mobile" [(ngModel)]="Record.cont_mobile"
               required maxlength="60" (blur)="OnBlur('cont_mobile')" />
           </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="Record.cont_email"
+              required maxlength="60" (blur)="OnBlur('cont_email')" />
+          </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
 
           <label class="col-sm-2 col-form-label col-form-label-sm">Email</label>
 
@@ -416,7 +415,7 @@
             <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="Record.cont_email"
               required maxlength="60" (blur)="OnBlur('cont_email')" />
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
 
@@ -484,6 +483,22 @@
             </select>
           </div>
         </div>
+        
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Initial.Customer.Category </label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
+              <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
+              <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
+              <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Category.Info</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_type2_remarks" required
+              maxlength="100" (blur)="OnBlur('cont_type2_remarks')" autocomplete="off" />
+          </div>
+        </div>
         <div class="form-group row">
 
           <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
@@ -493,7 +508,6 @@
               required maxlength="60" (blur)="OnBlur('cont_remark')" />
           </div>
         </div>
-
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm"></label>
           <div class="col-sm-6">

@@ -387,7 +387,8 @@ export class ContactsComponent {
     this.Record.cont_cha_name = '';
     this.Record.cont_csd_id = '';
     this.Record.cont_csd_name = '';
-    this.Record.cont_type_2 = 'PROSPECTS';
+    this.Record.cont_type_2 = 'TARGET CUSTOMER';
+    this.Record.cont_type2_remarks = '';
     this.Record.cont_target_market = '';
     this.Record.cont_is_seclr = false;
     this.Record.cont_is_sefwd = false;
@@ -637,6 +638,9 @@ export class ContactsComponent {
     }
     if (field == 'searchSalesperson') {
       this.searchSalesperson = this.searchSalesperson.toUpperCase().trim();
+    }
+    if (field == 'cont_type2_remarks') {
+      this.Record.cont_type2_remarks = this.Record.cont_type2_remarks.toUpperCase();
     }
   }
 
