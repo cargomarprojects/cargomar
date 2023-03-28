@@ -387,7 +387,7 @@ export class ContactsComponent {
     this.Record.cont_cha_name = '';
     this.Record.cont_csd_id = '';
     this.Record.cont_csd_name = '';
-    this.Record.cont_type_2 = 'TARGET CUSTOMER';
+    this.Record.cont_type_2 = 'NA';
     this.Record.cont_type2_remarks = '';
     this.Record.cont_target_market = '';
     this.Record.cont_is_seclr = false;
