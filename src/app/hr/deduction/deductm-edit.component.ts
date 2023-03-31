@@ -297,11 +297,11 @@ export class DeductmEditComponent {
 
     OnBlur(field: string) {
         if (field == 'ded_paid_amt') {
-            this.Record.ded_paid_amt = this.gs.roundNumber(this.Record.ded_paid_amt, 2);
+            this.Record.ded_paid_amt = this.gs.roundNumber(this.Record.ded_paid_amt, 0);
             this.FindInstallments();
         }
         if (field == 'ded_mon_amt') {
-            this.Record.ded_mon_amt = this.gs.roundNumber(this.Record.ded_mon_amt, 2);
+            this.Record.ded_mon_amt = this.gs.roundNumber(this.Record.ded_mon_amt, 0);
             this.FindInstallments();
         }
         if (field == 'ded_tot_months') {
