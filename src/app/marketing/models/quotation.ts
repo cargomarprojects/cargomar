@@ -94,6 +94,12 @@ export class Mark_Qtnd {
     qtnd_category_id: string;
     qtnd_category: string;
     rec_mode: string;
+    qtnd_carrier_id: string;
+    qtnd_carrier_code: string;
+    qtnd_carrier_name: string;
+    qtnd_frequency: string;
+    qtnd_routing: string;
+    qtnd_transitdays: string;
 }
 
 export class SaveTermsData {
