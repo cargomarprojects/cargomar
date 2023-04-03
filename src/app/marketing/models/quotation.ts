@@ -51,7 +51,10 @@ export class Mark_Qtnm {
     qtnm_carrier_name: string;
     qtnm_dimensions: string;
     qtnm_chwt: number;
-
+    qtnm_Length: number;
+    qtnm_breadth: number;
+    qtnm_height: number;
+    qtnm_dim_unit: string;
 
     qtnm_cntr_size: string;
     qtnm_remarks: string;

@@ -407,6 +407,10 @@ export class QuotationAirComponent {
         this.Record.qtnm_carrier_name = '';
         this.Record.qtnm_dimensions = '';
         this.Record.qtnm_chwt = 0;
+        this.Record.qtnm_Length = 0;
+        this.Record.qtnm_breadth = 0;
+        this.Record.qtnm_height = 0;
+        this.Record.qtnm_dim_unit = '';
         this.Record.rec_category = this.type;
         this.total_amt = 0;
         this.total_famt = 0;
@@ -534,6 +538,9 @@ export class QuotationAirComponent {
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.qtnm_tot_amt = this.total_amt;
         this.Record.qtnm_tot_famt = this.total_famt;
+        this.Record.qtnm_dimensions = '';
+        if (this.Record.qtnm_Length != 0 && this.Record.qtnm_breadth != 0 && this.Record.qtnm_height != 0)
+            this.Record.qtnm_dimensions = this.Record.qtnm_Length.toString() + "X" + this.Record.qtnm_breadth.toString() + "X" + this.Record.qtnm_height.toString();
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
@@ -808,6 +815,25 @@ export class QuotationAirComponent {
             }
             case 'qtnm_dimensions': {
                 this.Record.qtnm_dimensions = this.Record.qtnm_dimensions.toUpperCase();
+                break;
+            }
+            case 'qtnm_dim_unit': {
+                this.Record.qtnm_dim_unit = this.Record.qtnm_dim_unit.toUpperCase();
+                break;
+            }
+            case 'qtnm_Length': {
+                this.Record.qtnm_Length = this.gs.roundNumber(this.Record.qtnm_Length, 0);
+                this.FindCBM();
+                break;
+            }
+            case 'qtnm_breadth': {
+                this.Record.qtnm_breadth = this.gs.roundNumber(this.Record.qtnm_breadth, 0);
+                this.FindCBM();
+                break;
+            }
+            case 'qtnm_height': {
+                this.Record.qtnm_height = this.gs.roundNumber(this.Record.qtnm_height, 2);
+                this.FindCBM();
                 break;
             }
 
@@ -1116,5 +1142,12 @@ export class QuotationAirComponent {
         this.Recorddet.qtnd_category_id = _rec.qtnd_category_id;
         this.Recorddet.qtnd_exrate = _rec.qtnd_exrate;
     }
-
+    FindCBM() {
+        let cbm: number;
+        if (this.bChanged) {
+            cbm = this.Record.qtnm_Length * this.Record.qtnm_breadth * this.Record.qtnm_height;
+            cbm = this.gs.roundNumber(cbm, 3);
+            this.Record.qtnm_cbm = cbm;
+        }
+    }
 }
