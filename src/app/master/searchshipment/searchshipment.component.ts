@@ -36,6 +36,7 @@ export class SearchShipmentComponent {
   from_date: string = '';
   to_date: string = '';
   hbltype: string = 'ALL';
+  report_format: string = 'GENERAL-SEARCH';
 
   page_count = 0;
   page_current = 0;
@@ -72,8 +73,8 @@ export class SearchShipmentComponent {
     from_date: '',
     to_date: '',
     all: false,
-    hbltype: ''
-
+    hbltype: '',
+    report_format: ''
   };
 
   // Array For Displaying List
@@ -125,7 +126,7 @@ export class SearchShipmentComponent {
   }
 
   Init() {
-    this.hbltype="ALL";
+    this.hbltype = "ALL";
     this.job_type = "ALL";
     this.RecordList = null;
     this.shipper = "";
@@ -233,7 +234,7 @@ export class SearchShipmentComponent {
     this.SearchData.page_rows = this.page_rows;
     this.SearchData.page_rowcount = this.page_rowcount;
     this.SearchData.hbltype = this.hbltype;
-
+    this.SearchData.report_format = this.report_format;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {

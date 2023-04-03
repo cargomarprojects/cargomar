@@ -10,25 +10,31 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-
-        <div class="col-3">
+        <div class="col-sm-3">
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
-            <div class="col-8">
-              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            <label class="col-sm-3 col-form-label col-form-label-sm">Format</label>
+            <div class="col-sm-9">
+              <select class="form-control form-control-sm" name="reportformat" [(ngModel)]="report_format" (change)="OnChange('report_format')">
+                <option [value]="'GENERAL-SEARCH'">GENERAL SEARCH</option>
+                <option [value]="'JOB-COUNT'">JOB COUNT</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-8">
+            <label class="col-sm-3 col-form-label col-form-label-sm">From</label>
+            <div class="col-sm-4">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+            <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-4">
               <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-3">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <input type="text" class="col form-control form-control-sm" name="Search1" [(ngModel)]="shipper" />
             </div>
           </div>
@@ -39,16 +45,16 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-3">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <input type="text" class="col form-control form-control-sm" name="Search3" [(ngModel)]="agent" />
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <select class="form-control form-control-sm" name="hbltype" [(ngModel)]="hbltype">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'JOB'">JOB</option>
@@ -66,16 +72,16 @@
           </div>
 
         </div>
-        <div class="col-3">
+        <div class="col-sm-3">
           <div class="form-group row">
             <label *ngIf="bCompany" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div *ngIf="bCompany" class="col-7">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
             <div *ngIf="bCompany" class="col-sm-3">
-                <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-                <span> All</span>
-              </div>
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <span> All</span>
+            </div>
           </div>
           <div class="form-group row">
             <!-- <div *ngIf="bCompany" class="col-sm-3">
@@ -107,7 +113,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive">
+  <div  *ngIf="report_format=='GENERAL-SEARCH'"  class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
@@ -161,7 +167,26 @@
       </tbody>
     </table>
   </div>
-
+  <div  *ngIf="report_format=='JOB-COUNT'"   class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CATEGORY</th>
+          <th>CLEARING</th>
+          <th>FORWARDING</th>
+          <th>BOTH</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.category}}</td>
+          <td>{{rec.clr_nos}}</td>
+          <td>{{rec.fwd_nos}}</td>
+          <td>{{rec.both_nos}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
