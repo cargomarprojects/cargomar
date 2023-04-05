@@ -39,7 +39,7 @@ export class LedgerComponent {
    Ajith 29/06/2019 A label will show near save button  if allocation exist
   */
 
-  // Local Variables 
+  // Local Variables
   title = 'Ledger Details';
 
   @Input() menuid: string = '';
@@ -136,7 +136,7 @@ export class LedgerComponent {
     this.page_current = 0;
 
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -975,7 +975,7 @@ export class LedgerComponent {
       if (Code_Other_Than_Courier_Code_Found) {
         bret = false;
         sError += " |Only code 1205030/1105033/1105040/1526 can be used";
-      }      
+      }
       if (iTotalRows != 2) {
         bret = false;
         sError += " |Only two rows can be entered";

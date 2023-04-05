@@ -28,8 +28,10 @@
           </div>
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button [disabled]="loading" *ngIf="bMail&&(type=='BP'||type=='JV-BP')" (click)="Showmail(mailsent)"  class="btn btn-primary btn-sm">Mail</button>
-            <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll()" class="btn btn-primary btn-sm">Generate
+            <button [disabled]="loading" *ngIf="bMail&&(type=='BP'||type=='JV-BP')" (click)="Showmail(mailsent)"
+              class="btn btn-primary btn-sm">Mail</button>
+            <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll()"
+              class="btn btn-primary btn-sm">Generate
               All</button>
           </div>
         </div>
@@ -92,8 +94,9 @@
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
-          <td *ngIf="bMail&&(type=='BP'||type=='JV-BP')"><input type="checkbox" [disabled]="rec.rec_aprvd_status==''||rec.rec_aprvd=='Y'"
-            [(ngModel)]="rec.jvh_selected" (change)="OnCheckedChange($event, rec)"></td>
+          <td *ngIf="bMail&&(type=='BP'||type=='JV-BP')"><input type="checkbox"
+              [disabled]="rec.rec_aprvd_status==''||rec.rec_aprvd=='Y'" [(ngModel)]="rec.jvh_selected"
+              (change)="OnCheckedChange($event, rec)"></td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)">{{rec.jvh_reference}}</td>
@@ -110,7 +113,9 @@
             {{rec.rec_aprvd_by}}</td>
           <td *ngIf="type=='BP'" align='center'>{{rec.jvh_chq_printed}}</td>
           <td class="text-center" *ngIf="gs.globalVariables.user_code == 'ADMIN'">
-            <App-Dialog *ngIf="rec.jvh_pkid" [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}" (result)="DeleteRecord($event)"></App-Dialog>
+            <App-Dialog *ngIf="rec.jvh_pkid"
+              [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}"
+              (result)="DeleteRecord($event)"></App-Dialog>
           </td>
         </tr>
       </tbody>
@@ -917,6 +922,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'BP-APPROVAL'" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true  [AttachList] ="AttachList" (ModifiedRecords)="MailCallback($event)" ></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'BP-APPROVAL'" [sHtml]="sHtml" [defaultmessage]="sMsg"
+      [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"
+      (ModifiedRecords)="MailCallback($event)"></app-mail>
   </div>
 </ng-template>
