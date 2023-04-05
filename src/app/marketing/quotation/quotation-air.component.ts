@@ -858,6 +858,15 @@ export class QuotationAirComponent {
         if (field == 'qtnd_acc_name') {
             this.Recorddet.qtnd_acc_name = this.Recorddet.qtnd_acc_name.toUpperCase();
         }
+        if (field == 'qtnd_routing') {
+            this.Recorddet.qtnd_routing = this.Recorddet.qtnd_routing.toUpperCase();
+        }
+        if (field == 'qtnd_transitdays') {
+            this.Recorddet.qtnd_transitdays = this.Recorddet.qtnd_transitdays.toUpperCase();
+        }
+        if (field == 'qtnd_frequency') {
+            this.Recorddet.qtnd_frequency = this.Recorddet.qtnd_frequency.toUpperCase();
+        }
     }
     OnFocus(field: string) {
         this.bChanged = false;
@@ -1026,6 +1035,12 @@ export class QuotationAirComponent {
                 REC2.qtnd_category = this.Recorddet.qtnd_category;
                 REC2.qtnd_category_id = this.Recorddet.qtnd_category_id;
                 REC2.qtnd_exrate = this.Recorddet.qtnd_exrate;
+                REC2.qtnd_carrier_id = this.Recorddet.qtnd_carrier_id;
+                REC2.qtnd_carrier_code = this.Recorddet.qtnd_carrier_code;
+                REC2.qtnd_carrier_name = this.Recorddet.qtnd_carrier_name;
+                REC2.qtnd_frequency = this.Recorddet.qtnd_frequency;
+                REC2.qtnd_routing = this.Recorddet.qtnd_routing;
+                REC2.qtnd_transitdays = this.Recorddet.qtnd_transitdays;
             }
         }
         this.FindListTotal()
@@ -1154,6 +1169,14 @@ export class QuotationAirComponent {
         this.Recorddet.qtnd_category = _rec.qtnd_category;
         this.Recorddet.qtnd_category_id = _rec.qtnd_category_id;
         this.Recorddet.qtnd_exrate = _rec.qtnd_exrate;
+
+        this.Recorddet.qtnd_carrier_id = _rec.qtnd_carrier_id;
+        this.Recorddet.qtnd_carrier_code = _rec.qtnd_carrier_code;
+        this.Recorddet.qtnd_carrier_name = _rec.qtnd_carrier_name;
+        this.Recorddet.qtnd_frequency = _rec.qtnd_frequency;
+        this.Recorddet.qtnd_routing = _rec.qtnd_routing;
+        this.Recorddet.qtnd_transitdays = _rec.qtnd_transitdays;
+
     }
     FindCBM() {
         let cbm: number;
