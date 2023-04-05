@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccountsComponent } from './accounts.component';
 import { AcctmComponent } from './acctm/acctm.component';
 
-import { LedgerComponent } from './ledger/ledger.component';
+import { LedgerComponent } from './ledger/Ledger.component';
 
 import { ArApComponent } from './ledger/arap.component';
 

@@ -12,7 +12,7 @@ import { AcgroupmComponent } from './acgroupm/acgroupm.component';
 
 import { TaxmComponent } from './taxm/taxm.component';
 
-import { LedgerComponent } from './ledger/ledger.component';
+import { LedgerComponent } from './ledger/Ledger.component';
 import { ArApComponent } from './ledger/arap.component';
 
 import { costCenterComponent } from './ledger/cc.component';
@@ -81,10 +81,10 @@ import { Trialreducer } from './trial/trial.reducer';
 import { Pandlreducer } from './pandl/pandl.reducer';
 import { LedgerReportreducer } from './ledgerbal/ledgerbal.reducer';
 
-import { TransDetComponent} from './transdet/transdet.report';
+import { TransDetComponent } from './transdet/transdet.report';
 
 import { MoneyTransferComponent } from './moneytransfer/moneytransfer.component';
-import { MtReportComponent} from './moneytransfer/mtreport.component';
+import { MtReportComponent } from './moneytransfer/mtreport.component';
 import { CashBookReportreducer } from './cashbook/cashbook.reducer';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
@@ -96,10 +96,10 @@ import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.comp
   imports: [
     SharedModule,
     AccountsRoutingModule,
-    StoreModule.forFeature('trial',Trialreducer),
-    StoreModule.forFeature('pandl',Pandlreducer),
-    StoreModule.forFeature('ledgerreport',LedgerReportreducer),
-    StoreModule.forFeature('cashbook', CashBookReportreducer ),
+    StoreModule.forFeature('trial', Trialreducer),
+    StoreModule.forFeature('pandl', Pandlreducer),
+    StoreModule.forFeature('ledgerreport', LedgerReportreducer),
+    StoreModule.forFeature('cashbook', CashBookReportreducer),
   ],
   declarations: [
     AccountsComponent,
