@@ -56,8 +56,8 @@ import { OscrAgingComponent } from './oscraging/oscraging.component';
 import { PayRequestComponent } from './payrequest/payrequest.component';
 import { SetlmntComponent } from './setlmnt/setlmnt.component';
 
-import { TransDetComponent} from './transdet/transdet.report';
-import { MtReportComponent} from './moneytransfer/mtreport.component';
+import { TransDetComponent } from './transdet/transdet.report';
+import { MtReportComponent } from './moneytransfer/mtreport.component';
 import { CashBookComponent } from './cashbook/cashbook.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
@@ -97,7 +97,7 @@ const routes: Routes = [
   { path: 'oscraging', component: OscrAgingComponent },
   { path: 'payrequest', component: PayRequestComponent },
   { path: 'setlmnt', component: SetlmntComponent },
-  { path: 'mtreport', component: MtReportComponent},
+  { path: 'mtreport', component: MtReportComponent },
   { path: 'cashbook', component: CashBookComponent },
   { path: 'collection', component: CollectionComponent },
   { path: 'dailyexp', component: DailyExpComponent },
