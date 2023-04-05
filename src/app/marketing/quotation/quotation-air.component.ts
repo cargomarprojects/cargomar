@@ -3,7 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Mark_Qtnm, Mark_Qtnd, SaveTermsData } from '../models/quotation';
-import { QuotationService } from '../services/quotation.service';
+import { QuotationAirService } from '../services/quotationair.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { GenRemarks } from '../../shared/models/genremarks';
@@ -11,7 +11,7 @@ import { GenRemarks } from '../../shared/models/genremarks';
 @Component({
     selector: 'app-quotation-air',
     templateUrl: './quotation-air.component.html',
-    providers: [QuotationService]
+    providers: [QuotationAirService]
 })
 export class QuotationAirComponent {
 
@@ -73,7 +73,7 @@ export class QuotationAirComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: QuotationService,
+        private mainService: QuotationAirService,
         private route: ActivatedRoute,
         public gs: GlobalService
     ) {
@@ -254,6 +254,11 @@ export class QuotationAirComponent {
             this.Record.qtnm_carrier_id = _Record.id;
             this.Record.qtnm_carrier_code = _Record.code;
             this.Record.qtnm_carrier_name = _Record.name;
+        }
+        if (_Record.controlname == "CARRIER-DETAIL") {
+            this.Recorddet.qtnd_carrier_id = _Record.id;
+            this.Recorddet.qtnd_carrier_code = _Record.code;
+            this.Recorddet.qtnd_carrier_name = _Record.name;
         }
     }
 
@@ -447,6 +452,14 @@ export class QuotationAirComponent {
         this.Recorddet.qtnd_category = '';
         this.Recorddet.qtnd_category_id = '';
         this.Recorddet.qtnd_exrate = 1;
+        this.Recorddet.qtnd_carrier_id = '';
+        this.Recorddet.qtnd_carrier_code = '';
+        this.Recorddet.qtnd_carrier_name = '';
+        this.Recorddet.qtnd_frequency = '';
+        this.Recorddet.qtnd_routing = '';
+        this.Recorddet.qtnd_transitdays = '';
+
+
         this.Initdefault();
 
         if (this.isPrevDetails) {

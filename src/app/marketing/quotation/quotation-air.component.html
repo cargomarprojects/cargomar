@@ -403,7 +403,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Airline</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'CARRIER-DETAIL'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
               [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -530,7 +530,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Airline</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'CNTRTYPE'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'CODE'"
+            <app-autocomplete3 [controlname]="'CARRIER-DETAIL'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'CODE'"
               [displaydata]="Recorddet.qtnd_carrier_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -544,7 +544,6 @@
               (change)="OnChange('qtnd_type')">
               <option value="CBM">CBM</option>
               <option value="CHWT">CHWT</option>
-              <option value="CNTR">CNTR</option>
               <option value="GRWT">GRWT</option>
               <option value="INVOICE">INVOICE</option>
               <option value="NOS">NOS</option>
