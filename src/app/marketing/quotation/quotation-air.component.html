@@ -281,31 +281,34 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Length</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_Length"
-            (focus)="OnFocus('qtnm_Length')" (change)="OnChange('qtnm_Length')" (blur)="OnBlur('qtnm_Length')" required maxlength="15" />
+              (focus)="OnFocus('qtnm_Length')" (change)="OnChange('qtnm_Length')" (blur)="OnBlur('qtnm_Length')"
+              required maxlength="15" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Breadth</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_breadth"
-            (focus)="OnFocus('qtnm_breadth')" (change)="OnChange('qtnm_breadth')"  (blur)="OnBlur('qtnm_breadth')" required maxlength="15" />
+              (focus)="OnFocus('qtnm_breadth')" (change)="OnChange('qtnm_breadth')" (blur)="OnBlur('qtnm_breadth')"
+              required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Height</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_height"
-            (focus)="OnFocus('qtnm_height')" (change)="OnChange('qtnm_height')" (blur)="OnBlur('qtnm_height')" required maxlength="15" />
+              (focus)="OnFocus('qtnm_height')" (change)="OnChange('qtnm_height')" (blur)="OnBlur('qtnm_height')"
+              required maxlength="15" />
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Unit.(LXBXH)</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_dim_unit"
-            (blur)="OnBlur('qtnm_dim_unit')" required maxlength="15" />
-          </div>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">CBM</label>
           <div class="col-sm-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_cbm"
               (blur)="OnBlur('qtnm_cbm')" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Unit.(CBM)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_dim_unit"
+              (blur)="OnBlur('qtnm_dim_unit')" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
@@ -400,7 +403,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Airline</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'CARRIER-DETAIL'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
               [displaydata]="Record.qtnm_carrier_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
