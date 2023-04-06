@@ -220,9 +220,10 @@ export class ArApComponent {
       //FRTRATECHANGE
       if (this.type == 'IN')
         this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001','1105111','1205111','1405111') )";
-      if (this.type == 'PN' || this.type == 'PN-JV')
+      if (this.type == 'PN')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
-
+      if (this.type == 'PN-JV')
+        this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name in ('CREDITORS','ASSET')) ";
     }
     if (saction == 'PARTYADDRESS' || saction == '') {
       this.PARTYADDRECORD = new SearchTable();
