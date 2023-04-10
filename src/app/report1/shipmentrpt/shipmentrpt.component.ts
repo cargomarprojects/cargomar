@@ -48,6 +48,7 @@ export class ShipmentReportComponent {
     pol_id: string;
     pod_id: string;
     porttype: string;
+    category: string;
 
     bExcel = false;
     disableSave = true;
@@ -82,7 +83,8 @@ export class ShipmentReportComponent {
         pol_id: '',
         pod_id: '',
         all: false,
-        showpending: this.showpending
+        showpending: this.showpending,
+        category: ''
     };
 
     sSubject: string = '';
@@ -137,6 +139,11 @@ export class ShipmentReportComponent {
         this.bExcel = false;
         this.bCompany = false;
         this.bAdmin = false;
+
+        if (this.gs.globalVariables.branch_code.endsWith("AF"))
+            this.category = 'AIR EXPORT';
+        else
+            this.category = 'SEA EXPORT';
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -354,6 +361,7 @@ export class ShipmentReportComponent {
         this.SearchData.pod_id = this.pod_id;
         this.SearchData.all = this.all;
         this.SearchData.showpending = this.showpending;
+        this.SearchData.category = this.category;
 
         this.SearchData.page_count = this.page_count;
         this.SearchData.page_current = this.page_current;
