@@ -361,7 +361,7 @@ export class ShipmentReportComponent {
         this.SearchData.page_rowcount = this.page_rowcount;
 
         this.ErrorMessage = '';
-        this.mainService.ShipTrackList(this.SearchData)
+        this.mainService.ShipmentReport(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
                 // if (_type == 'EXCEL')

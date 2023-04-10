@@ -166,6 +166,8 @@ export class RepService {
   UserRightsList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UserRightsList', SearchData, this.gs.headerparam2('authorized'));
   }
-
+  ShipmentReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ShipmentReport', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
