@@ -69,6 +69,7 @@ import { ShipDataComponent } from './shipdata/shipdata.component';
 import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { ShipReportComponent } from './shipdata/shipreport.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
+import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import { UsrRightsComponent } from './usrrights/usrrights.component';
     ShipDataComponent,
     ShipDataParentComponent,
     ShipReportComponent,
-    UsrRightsComponent
+    UsrRightsComponent,
+    ShipmentReportComponent
   ],
   providers: [
   ],

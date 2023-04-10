@@ -36,6 +36,7 @@ import { SalesFollowupComponent } from './salesfollowup/salesfollowup.component'
 import { AddReportsComponent } from './addreports/addreports.component';
 import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
+import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -70,7 +71,8 @@ const routes: Routes = [
   { path: 'salesfollowup', component: SalesFollowupComponent },
   { path: 'addreports', component: AddReportsComponent },
   { path: 'shipmentdata', component: ShipDataParentComponent },
-  { path: 'usrrights', component: UsrRightsComponent }
+  { path: 'usrrights', component: UsrRightsComponent },
+  { path: 'shipmentreport', component: ShipmentReportComponent }
 ];
 
 @NgModule({
