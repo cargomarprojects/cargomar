@@ -14,5 +14,6 @@ export class ShipmentReport {
     jexp_inv_amt: number;
     opr_sbill_no: string;
     opr_sbill_date: string;
+    branch_code: string;
     _globalvariables: GlobalVariables;
 }
