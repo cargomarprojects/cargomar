@@ -207,7 +207,7 @@
             <span>GST</span>
           </div>
           <div class="col-sm-2">
-            <input type="checkbox" [disabled]="editdoc=='Y'" (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
+            <input type="checkbox" [disabled]="editdoc=='Y'||type=='PN-CI'" (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
             <span>RC</span>
           </div>
 
