@@ -438,6 +438,7 @@
             <th>CATEGORY</th>
             <th>CODE</th>
             <th>NAME</th>
+            <th>AIRLINE</th>
             <th>TYPE</th>
             <th>QTY</th>
             <th>RATE</th>
@@ -445,6 +446,9 @@
             <th>CURR</th>
             <th>EXRATE</th>
             <th>TOTAL</th>
+            <th>FREQUENCY</th>
+            <th>ROUTING</th>
+            <th>TRANSIT.DAYS</th>
             <th>PER</th>
             <th>DELETE</th>
           </tr>
@@ -455,6 +459,7 @@
             <td>{{rec.qtnd_category}}</td>
             <td>{{rec.qtnd_acc_code}}</td>
             <td>{{rec.qtnd_acc_name}}</td>
+            <td>{{rec.qtnd_carrier_code}}</td>
             <td>{{rec.qtnd_type}}</td>
             <td>{{rec.qtnd_qty}}</td>
             <td>{{rec.qtnd_rate}}</td>
@@ -462,6 +467,9 @@
             <td>{{rec.qtnd_curr_code}}</td>
             <td>{{rec.qtnd_exrate}}</td>
             <td>{{rec.qtnd_total}}</td>
+            <td>{{rec.qtnd_frequency}}</td>
+            <td>{{rec.qtnd_routing}}</td>
+            <td>{{rec.qtnd_transitdays}}</td>
             <td>{{rec.qtnd_remarks}}</td>
             <td>
               <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.qtnd_pkid,name:i+1}"
