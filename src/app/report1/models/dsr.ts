@@ -117,7 +117,7 @@ export class Dsr {
   mbl_ap_invnos: string;
   mbl_ap_invamt: number;
   mbl_pkid: string;
-  
+
   hbl_shipper: string;
   hbl_consignee: string;
   hbl_notify: string;
@@ -127,7 +127,12 @@ export class Dsr {
   mbl_pod_eta: string;
   mbl_status: string;
   hsn_code: string;
-
+  hbl_cf_date:string;
+  
+  trans_shipment: string;
+  pickup_location: string;
+  pickup_date: string;
+  incoterm: string;
 
   _globalvariables: GlobalVariables;
 }

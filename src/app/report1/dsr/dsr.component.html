@@ -466,22 +466,28 @@
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
-          <th>HAWB NO.</th>
-          <th>AWB NO.</th>
+          <th>SI#</th>
+          <th>SI-DATE</th>
+          <th>HAWB#</th>
+          <th>AWB#.</th>
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
           <th>NOTIFY</th>
           <th>INV-NO</th>
           <th>COMMODITY</th>
-          <th>HSN CODE</th>
+          <th>HSN-CODE</th>
+          <th>INCOTERM</th>
+          <th>PICK-UP-LOC</th>
+          <th>PICK-UP-DATE</th>
           <th class="text-right">GRWT</th>
           <th class="text-right">CHWT</th>
-          <th>SHIPPING BILL NO. </th>
+          <th>SHIPPING-BILL# </th>
           <th>POL</th>
           <th>POD</th>
           <th>CARRIER</th>
           <th>FLIGHT NO.</th>
           <th>ETD</th>
+          <th>T/S OR DIRECT</th>
           <th>ETA</th>
           <th>STATUS</th>
         </tr>
@@ -489,6 +495,8 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
         <tr  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="all">{{rec.branch}}</td>
+          <td>{{rec.hbl_no}}</td>
+          <td>{{rec.hbl_cf_date}}</td>
           <td>{{rec.hbl_bl_no}}</td>
           <td>{{rec.mbl_bl_no}}</td>
           <td>{{rec.hbl_shipper}}</td>
@@ -497,6 +505,9 @@
           <td>{{rec.job_invoice_nos}}</td>
           <td>{{rec.hbl_commodity}}</td>
           <td>{{rec.hsn_code}}</td>
+          <td>{{rec.incoterm}}</td>
+          <td>{{rec.pickup_location}}</td>
+          <td>{{rec.pickup_date}}</td>
           <td align='right'>{{rec.mbl_grwt | number : '1.3-3'}}</td>
           <td align='right'>{{rec.mbl_chwt | number : '1.3-3'}}</td>
           <td>{{rec.opr_sbill_no}}</td>
@@ -505,6 +516,7 @@
           <td>{{rec.mbl_carrier}}</td>
           <td>{{rec.mbl_flight_no}}</td>
           <td>{{rec.mbl_pol_etd}}</td>
+          <td>{{rec.trans_shipment}}</td>
           <td>{{rec.mbl_pod_eta}}</td>
           <td>{{rec.mbl_status}}</td>
         </tr>
