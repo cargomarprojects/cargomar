@@ -30,7 +30,7 @@ export class DsrComponent {
   sub: any;
   urlid: string;
   selectedRowIndex = 0;
-  
+
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -57,6 +57,8 @@ export class DsrComponent {
   pod_id: string;
   porttype: string;
 
+  search_bookingrpt: boolean = false;
+  bookingrpt: boolean = false;
   bExcel = false;
   disableSave = true;
   bCompany = false;
@@ -92,7 +94,8 @@ export class DsrComponent {
     pol_id: '',
     pod_id: '',
     all: false,
-    format_type: ''
+    format_type: '',
+    bookingrpt: false
   };
 
   // Array For Displaying List
@@ -332,6 +335,7 @@ export class DsrComponent {
   // Query List Data
   List(_type: string) {
 
+    this.search_bookingrpt = this.bookingrpt;
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -382,7 +386,8 @@ export class DsrComponent {
     this.SearchData.pod_id = this.pod_id;
     this.SearchData.all = this.all;
     this.SearchData.format_type = this.format_type;
-
+    this.SearchData.bookingrpt = this.bookingrpt;
+    
     this.ErrorMessage = '';
     this.mainService.DsrList(this.SearchData)
       .subscribe(response => {

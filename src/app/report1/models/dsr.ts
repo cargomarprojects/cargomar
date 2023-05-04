@@ -117,6 +117,17 @@ export class Dsr {
   mbl_ap_invnos: string;
   mbl_ap_invamt: number;
   mbl_pkid: string;
+  
+  hbl_shipper: string;
+  hbl_consignee: string;
+  hbl_notify: string;
+  hbl_commodity: string;
+  mbl_carrier: string;
+  mbl_flight_no: string;
+  mbl_pod_eta: string;
+  mbl_status: string;
+  hsn_code: string;
+
 
   _globalvariables: GlobalVariables;
 }
