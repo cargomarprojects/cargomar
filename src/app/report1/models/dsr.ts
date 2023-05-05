@@ -127,12 +127,13 @@ export class Dsr {
   mbl_pod_eta: string;
   mbl_status: string;
   hsn_code: string;
-  hbl_cf_date:string;
-  
+  hbl_cf_date: string;
+
   trans_shipment: string;
   pickup_location: string;
   pickup_date: string;
   incoterm: string;
-
+  po_no: string;
+  
   _globalvariables: GlobalVariables;
 }

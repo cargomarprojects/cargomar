@@ -145,7 +145,7 @@
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
             </div>
-            <div *ngIf="rec_category=='AIR EXPORT'"  class="col-sm-2">
+            <div *ngIf="rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT'"  class="col-sm-2">
               <input type="checkbox" [(ngModel)]="bookingrpt" (change)="OnChange('bookingrpt')">
               <span> Booking</span>
             </div>
@@ -461,13 +461,14 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="rec_category=='AIR EXPORT' && search_bookingrpt" class="page-body table-responsive">
+  <div *ngIf="(rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT')&& search_bookingrpt" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
           <th>SI#</th>
           <th>SI-DATE</th>
+          <th>PO#</th>
           <th>HAWB#</th>
           <th>AWB#.</th>
           <th>SHIPPER</th>
@@ -497,6 +498,7 @@
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
           <td>{{rec.hbl_cf_date}}</td>
+          <td>{{rec.po_no}}</td>
           <td>{{rec.hbl_bl_no}}</td>
           <td>{{rec.mbl_bl_no}}</td>
           <td>{{rec.hbl_shipper}}</td>
@@ -616,7 +618,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='AIR IMPORT'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='AIR IMPORT'&& !search_bookingrpt" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
