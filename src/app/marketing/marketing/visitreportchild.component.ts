@@ -48,6 +48,7 @@ export class VisitReportChildComponent {
     report_type = "SALES PERSON";
     print_format = "DETAIL";
     cust_category = "ALL";
+    init_cust_category="ALL";
     mode = '';
     pkid = '';
     myTable = {
@@ -313,7 +314,8 @@ export class VisitReportChildComponent {
             report_type: this.parentData.report_type,
             sman_id: this.gs.globalVariables.sman_id,
             print_format: this.print_format,
-            cust_category: this.cust_category
+            cust_category: this.cust_category,
+            init_cust_category:this.init_cust_category
         };
 
         this.ErrorMessage = '';

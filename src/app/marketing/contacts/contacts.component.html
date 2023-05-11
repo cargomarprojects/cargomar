@@ -162,7 +162,7 @@
           <th>SALESPERSON</th>
           <th>BRANCH</th>
           <th>LEAD.SOURCE</th>
-          <th>CONV.STATUS</th>
+          <!-- <th>CONV.STATUS</th> -->
           <th>REMARKS</th>
           <th>LOCKED</th>
           <th>VISIT.TOT</th>
@@ -187,7 +187,7 @@
           <td>{{rec.cont_saleman_name}}</td>
           <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
-          <td>{{rec.cont_converted}}</td>
+          <!-- <td>{{rec.cont_converted}}</td> -->
           <td>{{rec.cont_remark}}</td>
           <td>{{rec.rec_locked?'Y':'N'}}</td>
           <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
@@ -479,14 +479,14 @@
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Lead.Source</label>
-          <div class="col-sm-4">
+          <div class="col-sm-10">
             <select class="form-control form-control-sm" name="lsource" [(ngModel)]="Record.cont_lead_source">
               <option [value]="'NA'">NA</option>
               <option [value]="'SELF'">SELF</option>
               <option [value]="'HO-MARKETING'">HO-MARKETING</option>
             </select>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Conversion.Status</label>
+          <!-- <label class="col-sm-2 col-form-label col-form-label-sm">Conversion.Status</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="Record.cont_converted">
               <option [value]="'NA'">NA</option>
@@ -494,7 +494,7 @@
               <option [value]="'NO'">NO</option>
               <option [value]="'IN-PROGRESS'">IN-PROGRESS</option>
             </select>
-          </div>
+          </div> -->
         </div>
         
         <div class="form-group row">

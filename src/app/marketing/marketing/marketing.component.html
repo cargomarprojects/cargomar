@@ -30,9 +30,10 @@
                             <option [value]="'BRANCH'">BRANCH</option>
                             <option [value]="'COMMODITY'">COMMODITY </option>
                             <option [value]="'CUSTOMER'">CUSTOMER</option>
+                            <option [value]="'INITIAL-CUSTOMER-CATEGORY'">INITIAL CUSTOMER CATEGORY</option>
                             <option [value]="'JOIN-VISIT-WITH'">JOINT VISIT WITH</option>
-                            <option [value]="'SALES-PERSON'">SALES PERSON </option>
                             <option [value]="'LEAD-SOURCE'">LEAD SOURCE </option>
+                            <option [value]="'SALES-PERSON'">SALES PERSON </option>
                         </select>
                     </div>
                     <div class="col-sm-2">
@@ -95,7 +96,8 @@
                     <th>CUSTOMER</th>
                     <th>CUST-REMARKS</th>
                     <th>LEAD SOURCE</th>
-                    <th>CONV.STATUS</th>
+                    <th>INIT.CUST.CATEGORY</th>
+                    <!-- <th>CONV.STATUS</th> -->
                     <th>CONTACT PERSON</th>
                     <!-- <th>MOBILE</th>
                     <th>EMAIL</th>
@@ -118,7 +120,8 @@
                     <td>{{rec.mark_customer_name}}</td>
                     <td>{{rec.mark_cont_remarks}}</td>
                     <td>{{rec.mark_lead_source}}</td>
-                    <td>{{rec.mark_cont_converted}}</td>
+                    <td>{{rec.mark_cont_type_2}}</td>
+                    <!-- <td>{{rec.mark_cont_converted}}</td> -->
                     <td>{{rec.mark_contact_person}}</td>
                     <!-- <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>

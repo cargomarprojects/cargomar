@@ -29,7 +29,8 @@ export class MarkMarketingm {
     mark_lead_source: string;
     mark_cont_converted: string;
     mark_cont_remarks: string;
-
+    mark_cont_type_2:string;
+    
     mobile: string;
     email: string;
     target: string;
