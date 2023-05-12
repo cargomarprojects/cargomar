@@ -479,7 +479,7 @@
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Lead.Source</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" name="lsource" [(ngModel)]="Record.cont_lead_source">
               <option [value]="'NA'">NA</option>
               <option [value]="'SELF'">SELF</option>
@@ -503,6 +503,8 @@
             <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
               <option value="NA">NA</option>
               <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
+              <option value="ALMOST CUSTOMER">ALMOST CUSTOMER</option>
+              <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
               <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
               <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
             </select>
@@ -528,8 +530,11 @@
             <label class="checkbox-inline" for="_iscorporat">Is Corporate Customer</label>
             <input type="checkbox" [(ngModel)]="Record.cont_iscorporat" id="_iscorporat">
           </div>
-          <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
-          <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4">
+          <!-- <div class="col-sm-4">
+              <label class="checkbox-inline" for="_is_project">Is Projects Customer</label>
+            <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
+          </div> -->
+          <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-2">
             <label class="checkbox-inline" for="_locked">Locked</label>
             <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
           </div>

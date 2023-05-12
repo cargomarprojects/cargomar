@@ -8,7 +8,7 @@
 <div class="page-list">
     <div class="page-search">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">From</label>
                     <div class="col-sm-10">
@@ -23,34 +23,30 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-10">
                         <app-autocomplete [inputdata]="BRANCHRECORD"
-                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                    </div>
-                    <label *ngIf="IsCompany||IsAdmin||report_type=='SALES PERSON'"
-                        class="col-sm-2 col-form-label col-form-label-sm">Sales Person</label>
-                    <div *ngIf="IsCompany||IsAdmin||report_type=='SALES PERSON'" class="col-sm-4">
-                        <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #UsrLov [inputdata]="USERRECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <!-- <div *ngIf="IsCompany||IsAdmin||report_type=='SALES PERSON'" class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Sales Person</label>
-                    <div class="col-sm-10">
+            <div class="col-sm-4">
+                <div *ngIf="IsCompany||IsAdmin||report_type=='SALES PERSON'" class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Sales Person</label>
+                    <div class="col-sm-8">
                         <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #UsrLov [inputdata]="USERRECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
-                </div> -->
+                </div>
                 <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
-                    <div class="col-sm-4">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-sm-8">
                         <app-autocomplete [disabled]="!IsAdmin && !IsCompany" #ClientLov [inputdata]="CUSTRECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>
                     </div>
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Category</label>
-                    <div class="col-sm-3 pl-0">
+                </div>
+                <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Category</label>
+                    <div class="col-sm-8">
                         <select class="form-control form-control-sm" [(ngModel)]="cust_category">
                             <option value="ALL">ALL</option>
                             <option value="COUNTERPART">AGENT</option>
@@ -62,9 +58,12 @@
                         </select>
                     </div>
                 </div>
-                <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Init.Cust.Category</label>
-                    <div class="col-sm-10">
+            </div>
+
+            <div class="col-sm-4">
+                <div  class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><span *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'">Init.Cust.Category</span> </label>
+                    <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="col-sm-4">
                         <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="init_cust_category">
                             <option [value]="'ALL'">ALL</option>
                             <option value="NA">NA</option>
@@ -73,20 +72,27 @@
                             <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-4">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm">Search</button>
+                    </div>
+                </div>
+                <!-- <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
                     </div>
-                    <div *ngIf="bEmail||bPrint" class="col-sm-3">
+                </div> -->
+                <div *ngIf="bEmail||bPrint" class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
+                    <div  class="col-sm-4">
                         <select class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
                             <option value="DETAIL">GENERAL</option>
                             <option value="SUMMARY">SUMMARY</option>
                         </select>
                     </div>
-                    <div class="col-sm-3 pl-0">
+                    <div class="col-sm-4 ">
                         <button [disabled]="loading" *ngIf="bPrint" (click)="DownloadList('EXCEL',null)"
                             class="btn btn-primary btn-sm mr-1">Print</button>
                         <button [disabled]="loading" *ngIf="bEmail" (click)="DownloadList('MAIL',mailsent)"
