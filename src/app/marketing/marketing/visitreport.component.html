@@ -17,10 +17,10 @@
                                 maxlength="4" />
                         </div>
                         <div class="col-sm-5">
-                            <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'SALES PERSON'" />
-                            <label class="col-form-label col-form-label-sm">Sales Person</label>&nbsp;&nbsp;
-                            <input type="radio" name="mark_mode" [(ngModel)]="report_type" [value]="'CUSTOMER'" />
-                            <label class="col-form-label col-form-label-sm">Customer</label>
+                            <input type="radio" name="mark_mode" id="sperson" [(ngModel)]="report_type" [value]="'SALES PERSON'" />
+                            <label class="col-form-label col-form-label-sm" for="sperson">Sales Person</label>&nbsp;&nbsp;
+                            <input type="radio" name="mark_mode"  id="scustomer" [(ngModel)]="report_type" [value]="'CUSTOMER'" />
+                            <label class="col-form-label col-form-label-sm"  for="scustomer">Customer</label>
                         </div>
                     </div>
                 </div>
