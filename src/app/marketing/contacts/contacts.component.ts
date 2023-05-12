@@ -246,6 +246,8 @@ export class ContactsComponent {
     else if (action === 'ADD') {
       this.currentTab = 'DETAILS';
       this.mode = 'ADD';
+      this.cust_name = '';
+      this.sman_id = '';
       this.ResetControls();
       this.NewRecord();
     }
@@ -491,6 +493,8 @@ export class ContactsComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
+        if (this.mode == 'ADD')
+          this.cust_name = this.Record.cont_name;//visit report searching
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.InfoMessage = "Save Complete";
