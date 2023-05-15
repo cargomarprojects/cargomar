@@ -14,18 +14,20 @@ import { LedgerReport } from '../models/ledgerreport';
 })
 
 export class OsRemComponent {
-  // Local Variables 
+  // Local Variables
   title = '';
 
   @Input() isadmin: boolean = false;
   @Input() record: LedgerReport;
 
+  @Input() adminText = '';
+
   pkid: string = '';
-  type: string ='';
+  type: string = '';
   remarks: string = '';
   remarks2: string = '';
-      
-  
+
+
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -40,19 +42,19 @@ export class OsRemComponent {
 
   sub: any;
   urlid: string;
-  
+
   ErrorMessage = "";
   InfoMessage = "";
 
   mode = '';
-  
+
   SearchData = {
     pkid: '',
     type: '',
     remarks: '',
-    remarks2: ''    
+    remarks2: ''
   }
-  
+
   // Array For Displaying List
 
   // Single Record for add/edit/view details
@@ -78,7 +80,7 @@ export class OsRemComponent {
   }
 
   InitComponent() {
-    
+
   }
 
 
@@ -89,6 +91,16 @@ export class OsRemComponent {
       return;
     */
     this.ErrorMessage = '';
+
+
+    if (this.adminText != "ADMIN") {
+      if (this.type != '') {
+        alert('You can select the type as NA only');
+        return;
+      }
+    }
+
+
     if (this.remarks == '') {
       this.ErrorMessage = 'Remarks Cannot Be Empty';
       return;
@@ -115,10 +127,10 @@ export class OsRemComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   allvalid() {
@@ -126,7 +138,7 @@ export class OsRemComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     if (this.remarks.toString().length <= 0) {
       bret = false;
       sError = " | Remarks Cannot Be Blank";

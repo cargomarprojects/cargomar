@@ -19,7 +19,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 
 export class OsComponent {
-  // Local Variables 
+  // Local Variables
   title = 'Os Report';
 
   @Input() menuid: string = '';
@@ -50,7 +50,9 @@ export class OsComponent {
   do_not_use_credit_date: boolean = false;
 
   to_date: string;
-  
+
+  adminText = '';
+
 
   ACCRECORD: SearchTable = new SearchTable();
 
@@ -69,7 +71,7 @@ export class OsComponent {
     year_code: '',
     searchstring: '',
     to_date: '',
-    acc_id:'',
+    acc_id: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
@@ -77,10 +79,10 @@ export class OsComponent {
     all: false,
     do_not_use_credit_date: false,
     legalonly: false,
-    hidetotal:false
+    hidetotal: false
   };
 
-  
+
   // Array For Displaying List
   RecordList: LedgerReport[] = [];
   // Single Record for add/edit/view details
@@ -93,7 +95,7 @@ export class OsComponent {
   ) {
 
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -126,6 +128,8 @@ export class OsComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      this.adminText = this.menu_record.rights_approval;
+
     }
     this.to_date = this.gs.defaultValues.today;
 
@@ -135,10 +139,10 @@ export class OsComponent {
 
   }
   Init() {
-   
+
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -151,11 +155,11 @@ export class OsComponent {
     this.ACCRECORD.controlname = "ACCTM";
     this.ACCRECORD.displaycolumn = "CODE";
     this.ACCRECORD.type = "ACCTM";
-    this.ACCRECORD.where  = "";
+    this.ACCRECORD.where = "";
     this.ACCRECORD.id = "";
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
-    this.ACCRECORD.showlocked =true;
+    this.ACCRECORD.showlocked = true;
 
 
     this.BRRECORD = new SearchTable();
@@ -164,7 +168,7 @@ export class OsComponent {
     this.BRRECORD.type = "BRANCH";
     this.BRRECORD.id = "";
     this.BRRECORD.code = this.gs.globalVariables.branch_code;
-   
+
 
   }
 
@@ -256,15 +260,15 @@ export class OsComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-        this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -293,6 +297,6 @@ export class OsComponent {
       rec.displayed = !rec.displayed;
     }
   }
-  
+
 
 }
