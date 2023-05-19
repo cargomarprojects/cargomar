@@ -14,6 +14,8 @@
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
+              <button class="btn btn-primary btn-sm" (click)="Mail('OS-HISTORY',mailsent)"
+              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/History</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
             <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
