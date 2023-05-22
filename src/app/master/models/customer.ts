@@ -85,7 +85,9 @@ export class Customerm {
     cust_uploaded_docs: string;
     cust_caseno: string;
     cust_alert: boolean;
-    
+    cust_sb_name: string;
+    cust_sb_address: string;
+
     _globalvariables: GlobalVariables;
 
     AddressList: Addressm[] = [];

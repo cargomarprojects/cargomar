@@ -439,6 +439,8 @@ export class CustomerComponent {
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
 
+    this.Record.cust_sb_name = '';
+    this.Record.cust_sb_address = '';
 
     this.Record.rec_mode = this.mode;
 
@@ -729,6 +731,12 @@ export class CustomerComponent {
     }
     if (field == 'cust_branch_remarks') {
       this.Record.cust_branch_remarks = this.Record.cust_branch_remarks.toUpperCase();
+    }
+    if (field == 'cust_sb_name') {
+      this.Record.cust_sb_name = this.Record.cust_sb_name.toUpperCase();
+    }
+    if (field == 'cust_sb_address') {
+      this.Record.cust_sb_address = this.Record.cust_sb_address.toUpperCase();
     }
   }
 
