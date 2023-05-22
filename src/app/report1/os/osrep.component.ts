@@ -314,7 +314,8 @@ export class OsRepComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       email_type: _type,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      os_history_sent_on: 'MONDAY'
     };
 
 
