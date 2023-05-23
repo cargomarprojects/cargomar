@@ -613,7 +613,7 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">S/B Consignee Name</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"  [(ngModel)]="Record.cust_sb_name" (blur)="OnBlur('cust_sb_name')"  required
+              <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable||mode == 'ADD'"  [(ngModel)]="Record.cust_sb_name" (blur)="OnBlur('cust_sb_name')"  required
                 maxlength="34" />
 
             </div>
@@ -621,7 +621,7 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Address</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"  [(ngModel)]="Record.cust_sb_address" (blur)="OnBlur('cust_sb_address')"  required
+              <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable||mode == 'ADD'"  [(ngModel)]="Record.cust_sb_address" (blur)="OnBlur('cust_sb_address')"  required
                 maxlength="80" />
 
             </div>
