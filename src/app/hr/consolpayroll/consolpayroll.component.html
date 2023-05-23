@@ -157,6 +157,7 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">INCENTIVE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -224,6 +225,7 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_incentive}}</td>
         </tr>
       </tbody>
     </table>
