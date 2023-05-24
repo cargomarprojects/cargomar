@@ -9,6 +9,7 @@ import { NewCustComponent } from './newcustomer/newcust.component';
 import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationAirComponent } from './quotation/quotation-air.component';
 import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
+import { QuotationFclComponent } from './quotation/quotation-fcl.component';
 
 const routes: Routes = [
     { path: 'markcontacts', component: ContactsComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'quotation', component: QuotationComponent },
     { path: 'newcustomer', component: NewCustComponent },
     { path: 'quotationair', component: QuotationAirComponent },
+    { path: 'quotationfcl', component: QuotationFclComponent },
     { path: 'bizdevtreport', component: BizDevtReportComponent }
 ];
 

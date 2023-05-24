@@ -13,6 +13,7 @@ import { NewCustComponent } from './newcustomer/newcust.component';
 import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationAirComponent } from './quotation/quotation-air.component';
 import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
+import { QuotationFclComponent } from './quotation/quotation-fcl.component';
  
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
     NewCustComponent,
     QuotationComponent,
     BizDevtReportComponent,
-    QuotationAirComponent
+    QuotationAirComponent,
+    QuotationFclComponent
   ],
   providers: [
     MarkMarketingService
