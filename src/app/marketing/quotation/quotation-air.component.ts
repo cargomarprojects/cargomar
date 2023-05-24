@@ -471,6 +471,10 @@ export class QuotationAirComponent {
             this.Recorddet.qtnd_category = _preRecDet.qtnd_category;
             this.Recorddet.qtnd_category_id = _preRecDet.qtnd_category_id;
             this.Recorddet.qtnd_exrate = _preRecDet.qtnd_exrate;
+            this.Recorddet.qtnd_frequency = _preRecDet.qtnd_frequency;
+            this.Recorddet.qtnd_routing = _preRecDet.qtnd_routing;
+            this.Recorddet.qtnd_transitdays = _preRecDet.qtnd_transitdays;
+            this.Recorddet.qtnd_remarks = _preRecDet.qtnd_remarks;
         }
     }
 
