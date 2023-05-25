@@ -127,6 +127,13 @@
                 <option [value]="'AIR IMPORT'">AIR IMPORT</option>
               </select>
             </div>
+            <div *ngIf="type == 'FCL'" class="col-sm-10">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type"
+                (change)="OnChange('qtnm_type')">
+                <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+                <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+              </select>
+            </div>
             <div *ngIf="type == 'AIR'" class="col-sm-10">
               <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_type"
                 (change)="OnChange('qtnm_type')">
@@ -231,15 +238,15 @@
   
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Movmt</label>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
               <input [disabled]="type == 'AIR'" type="text" class="form-control form-control-sm"
                 [(ngModel)]="Record.qtnm_move_type" (blur)="OnBlur('qtnm_move_type')" required maxlength="25" />
             </div>
-            <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Size</label>
+            <!-- <label class="col-sm-2 col-form-label col-form-label-sm">Cntr.Size</label>
             <div class="col-sm-4">
               <input [disabled]="type == 'AIR'" type="text" class="form-control form-control-sm"
                 [(ngModel)]="Record.qtnm_cntr_size" (blur)="OnBlur('qtnm_cntr_size')" required maxlength="30" />
-            </div>
+            </div> -->
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
@@ -429,12 +436,10 @@
               <th>CODE</th>
               <th>NAME</th>
               <th>TYPE</th>
-              <th>QTY</th>
-              <th>RATE</th>
-              <th>AMOUNT</th>
+              <th>RATE.20</th>
+              <th>RATE.40</th>
               <th>CURR</th>
               <th>EXRATE</th>
-              <th>TOTAL</th>
               <th>PER</th>
               <th>DELETE</th>
             </tr>
@@ -446,13 +451,11 @@
               <td>{{rec.qtnd_acc_code}}</td>
               <td>{{rec.qtnd_acc_name}}</td>
               <td>{{rec.qtnd_type}}</td>
-              <td>{{rec.qtnd_qty}}</td>
-              <td>{{rec.qtnd_rate}}</td>
-              <td>{{rec.qtnd_amt}}</td>
+              <td>{{rec.qtnd_rate_20}}</td>
+              <td>{{rec.qtnd_rate_40}}</td>
               <td>{{rec.qtnd_curr_code}}</td>
               <td>{{rec.qtnd_exrate}}</td>
-              <td>{{rec.qtnd_total}}</td>
-              <td>{{rec.qtnd_remarks}}</td>
+             <td>{{rec.qtnd_remarks}}</td>
               <td>
                 <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.qtnd_pkid,name:i+1}"
                   (result)="RemoveList($event)"></App-Dialog>
@@ -463,23 +466,15 @@
       </div>
       <div class="row">
         <div class="offset-8 col-sm-4">
-          <!-- <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-            <label *ngIf="total_amt!=0&&Record.qtnm_curr_code!='INR'"
-              class="col-sm-6 col-form-label col-form-label-sm text-danger"><b>TOTAL :</b>
-              {{total_amt}}&nbsp;&nbsp;({{Record.qtnm_curr_code}}&nbsp;{{total_famt}})</label>
-            <label *ngIf="total_amt!=0&&Record.qtnm_curr_code=='INR'"
-              class="col-sm-6 col-form-label col-form-label-sm text-danger"><b>TOTAL :</b>
-              {{total_amt}}</label>
-            <div class="col-sm-4">
-              <input class="my-1" type="checkbox" [(ngModel)]="Record.qtnm_print_tot">
-              <label class="col-form-label col-form-label-sm">Print Total Y/N</label>
-            </div>
-          </div> -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label  col-form-label-sm">Total</label>
-            <div class="col-sm-6">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="str_total_amt" required
+            <label class="col-sm-1 col-form-label  col-form-label-sm">Tot.20</label>
+            <div class="col-sm-3">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="total_amt_20" required
+                maxlength="100" />
+            </div>
+            <label class="col-sm-1 col-form-label  col-form-label-sm">Tot.40</label>
+            <div class="col-sm-3">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="total_amt_40" required
                 maxlength="100" />
             </div>
             <div class="col-sm-4">
@@ -521,7 +516,7 @@
         <div class="col-sm-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
               <select class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_type"
                 (change)="OnChange('qtnd_type')">
                 <option value="CBM">CBM</option>
@@ -534,11 +529,25 @@
                 <option value="QTY">QTY</option>
               </select>
             </div>
-            <label  class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
+            <!-- <label  class="col-sm-2 col-form-label col-form-label-sm">Cntr.Type</label>
             <div  class="col-sm-4">
               <app-autocomplete3 [disabled]="type=='AIR'" [controlname]="'CNTRTYPE'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
                 [displaydata]="Recorddet.qtnd_cntr_type_code" (ValueChanged)="LovSelected($event)">
               </app-autocomplete3>
+            </div> -->
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Rate-20</label>
+            <div class="col-sm-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_rate_20"
+                (focus)="OnFocus('qtnd_rate_20')" (change)="OnChange('qtnd_rate_20')" (blur)="OnBlur('qtnd_rate_20')" required
+                maxlength="15" />
+            </div>
+            <label class="col-sm-2 col-form-label  col-form-label-sm">Rate-40</label>
+            <div class="col-sm-4">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_rate_40"
+                (focus)="OnFocus('qtnd_rate_40')" (change)="OnChange('qtnd_rate_40')" (blur)="OnBlur('qtnd_rate_40')" required
+                maxlength="15" />
             </div>
           </div>
           <div class="form-group row">
@@ -555,23 +564,10 @@
                 required maxlength="10" />
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label  col-form-label-sm">Qty</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_qty"
-                (focus)="OnFocus('qtnd_qty')" (change)="OnChange('inv_qty')" (blur)="OnBlur('qtnd_qty')" required
-                maxlength="20" />
-            </div>
-            <label class="col-sm-2 col-form-label  col-form-label-sm">Rate</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_rate"
-                (focus)="OnFocus('qtnd_rate')" (change)="OnChange('inv_rate')" (blur)="OnBlur('qtnd_rate')" required
-                maxlength="20" />
-            </div>
-          </div>
+          
         </div>
         <div class="col-sm-4">
-          <div class="form-group row">
+          <!-- <div class="form-group row">
             <label class="col-sm-2 col-form-label  col-form-label-sm">Amount</label>
             <div class="col-sm-4">
               <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_amt" required
@@ -582,7 +578,7 @@
               <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.qtnd_total"
                 required maxlength="20" />
             </div>
-          </div>
+          </div> -->
           <div class="form-group row">
             <label class="col-sm-2 col-form-label  col-form-label-sm">PER</label>
             <div class="col-sm-10">

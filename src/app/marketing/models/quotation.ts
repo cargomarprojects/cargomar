@@ -55,6 +55,8 @@ export class Mark_Qtnm {
     qtnm_breadth: number;
     qtnm_height: number;
     qtnm_dim_unit: string;
+    qtnm_tot_amt_20: number;
+    qtnm_tot_amt_40: number;
 
     qtnm_cntr_size: string;
     qtnm_remarks: string;
@@ -72,6 +74,7 @@ export class Mark_Qtnm {
     rec_edited_date: string;
     rec_category: String;
     rec_mode: String;
+
     _globalvariables: GlobalVariables;
 }
 
@@ -103,6 +106,8 @@ export class Mark_Qtnd {
     qtnd_frequency: string;
     qtnd_routing: string;
     qtnd_transitdays: string;
+    qtnd_rate_20: number;
+    qtnd_rate_40: number;
 }
 
 export class SaveTermsData {

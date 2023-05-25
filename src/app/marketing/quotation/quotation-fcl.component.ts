@@ -44,8 +44,10 @@ export class QuotationFclComponent {
     urlid: string;
 
     bChanged: boolean;
-    total_amt: number = 0;
-    total_famt: number = 0;
+    total_amt_20: number = 0;
+    total_famt_20: number = 0;
+    total_amt_40: number = 0;
+    total_famt_40: number = 0;
     ErrorMessage = "";
     InfoMessage = "";
     detailMode = "ADD";
@@ -247,10 +249,10 @@ export class QuotationFclComponent {
             this.bChanged = true;
             this.OnBlur('qtnd_exrate');
         }
-        if (_Record.controlname == "CNTRTYPE") {
-            this.Recorddet.qtnd_cntr_type_id = _Record.id;
-            this.Recorddet.qtnd_cntr_type_code = _Record.code;
-        }
+        // if (_Record.controlname == "CNTRTYPE") {
+        //     this.Recorddet.qtnd_cntr_type_id = _Record.id;
+        //     this.Recorddet.qtnd_cntr_type_code = _Record.code;
+        // }
         if (_Record.controlname == "CARRIER") {
             this.Record.qtnm_carrier_id = _Record.id;
             this.Record.qtnm_carrier_code = _Record.code;
@@ -409,8 +411,10 @@ export class QuotationFclComponent {
         this.Record.qtnm_dimensions = '';
         this.Record.qtnm_chwt = 0;
         this.Record.rec_category = this.type;
-        this.total_amt = 0;
-        this.total_famt = 0;
+        this.total_amt_20 = 0;
+        this.total_famt_20 = 0;
+        this.total_amt_40 = 0;
+        this.total_famt_40 = 0;
         this.str_total_amt = '';
         this.InitLov();
         this.Record.qtnm_detList = new Array<Mark_Qtnd>();
@@ -436,7 +440,7 @@ export class QuotationFclComponent {
         this.Recorddet.qtnd_total = 0;
         this.Recorddet.qtnd_ftotal = 0;
         this.Recorddet.qtnd_remarks = '';
-        this.Recorddet.qtnd_type = this.type == "AIR" ? 'NOS' : 'INVOICE';
+        this.Recorddet.qtnd_type = 'CNTR';
         this.Recorddet.qtnd_cntr_type_id = '';
         this.Recorddet.qtnd_cntr_type_code = '';
         this.Recorddet.qtnd_curr_id = this.gs.defaultValues.param_curr_local_id;
@@ -444,12 +448,14 @@ export class QuotationFclComponent {
         this.Recorddet.qtnd_category = '';
         this.Recorddet.qtnd_category_id = '';
         this.Recorddet.qtnd_exrate = 1;
+        this.Recorddet.qtnd_rate_20 = 0;
+        this.Recorddet.qtnd_rate_40 = 0;
         this.Initdefault();
 
         if (this.isPrevDetails) {
             this.Recorddet.qtnd_type = _preRecDet.qtnd_type;
-            this.Recorddet.qtnd_cntr_type_id = _preRecDet.qtnd_cntr_type_id;
-            this.Recorddet.qtnd_cntr_type_code = _preRecDet.qtnd_cntr_type_code;
+            // this.Recorddet.qtnd_cntr_type_id = _preRecDet.qtnd_cntr_type_id;
+            // this.Recorddet.qtnd_cntr_type_code = _preRecDet.qtnd_cntr_type_code;
             this.Recorddet.qtnd_curr_id = _preRecDet.qtnd_curr_id;
             this.Recorddet.qtnd_curr_code = _preRecDet.qtnd_curr_code;
             this.Recorddet.qtnd_category = _preRecDet.qtnd_category;
@@ -533,8 +539,9 @@ export class QuotationFclComponent {
         this.InfoMessage = '';
         this.Record.rec_category = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
-        this.Record.qtnm_tot_amt = this.total_amt;
-        this.Record.qtnm_tot_famt = this.total_famt;
+        this.Record.qtnm_tot_amt_20 = this.total_amt_20;
+        this.Record.qtnm_tot_amt_40 = this.total_amt_40;
+        // this.Record.qtnm_tot_famt = this.total_famt;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
@@ -560,7 +567,7 @@ export class QuotationFclComponent {
         this.Recorddet = new Mark_Qtnd();
         for (let rec of this.Record.qtnm_detList) {
             this.Recorddet = rec;
-            this.Findtotal();
+            // this.Findtotal();
         }
         this.FindListTotal();
         this.NewDetRecord();
@@ -675,14 +682,6 @@ export class QuotationFclComponent {
         if (field == 'qtnm_exrate')
             this.FindListTotal();
         if (field == 'qtnd_type') {
-            if (this.type == "AIR") {
-                if (this.Recorddet.qtnd_type == "GRWT")
-                    this.Recorddet.qtnd_qty = this.Record.qtnm_kgs;
-                if (this.Recorddet.qtnd_type == "CHWT")
-                    this.Recorddet.qtnd_qty = this.Record.qtnm_chwt;
-                if (this.Recorddet.qtnd_type == "CBM")
-                    this.Recorddet.qtnd_qty = this.Record.qtnm_cbm;
-            }
             this.Findtotal();
         }
 
@@ -784,13 +783,13 @@ export class QuotationFclComponent {
                 this.Record.qtnm_exrate = this.gs.roundNumber(this.Record.qtnm_exrate, 3);
                 break;
             }
-            case 'qtnd_qty': {
-                this.Recorddet.qtnd_qty = this.gs.roundNumber(this.Recorddet.qtnd_qty, 3);
+            case 'qtnd_rate_20': {
+                this.Recorddet.qtnd_rate_20 = this.gs.roundNumber(this.Recorddet.qtnd_rate_20, 2);
                 this.Findtotal();
                 break;
             }
-            case 'qtnd_rate': {
-                this.Recorddet.qtnd_rate = this.gs.roundNumber(this.Recorddet.qtnd_rate, 2);
+            case 'qtnd_rate_40': {
+                this.Recorddet.qtnd_rate_40 = this.gs.roundNumber(this.Recorddet.qtnd_rate_40, 2);
                 this.Findtotal();
                 break;
             }
@@ -878,27 +877,24 @@ export class QuotationFclComponent {
     }
 
     FindListTotal() {
-        let _det_tot_famt: number = 0;
-        this.total_amt = 0;
+        // let _det_tot_famt: number = 0;
+        this.total_amt_20 = 0;this.total_amt_40 = 0;
         this.Record.qtnm_detList.forEach(rec => {
-            this.total_amt += rec.qtnd_total;
-            _det_tot_famt += rec.qtnd_ftotal;
+            this.total_amt_20 += rec.qtnd_rate_20;
+            this.total_amt_40 += rec.qtnd_rate_40;
+            // _det_tot_famt += rec.qtnd_ftotal;
         });
-        this.total_amt = this.gs.roundNumber(this.total_amt, 2);
-        _det_tot_famt = this.gs.roundNumber(_det_tot_famt, 2);
+        this.total_amt_20 = this.gs.roundNumber(this.total_amt_20, 2);
+        this.total_amt_40 = this.gs.roundNumber(this.total_amt_40, 2);
+        // _det_tot_famt = this.gs.roundNumber(_det_tot_famt, 2);
 
         if (this.Record.qtnm_exrate <= 0)
             this.Record.qtnm_exrate = 1;
-        this.total_famt = this.total_amt / this.Record.qtnm_exrate;
-        this.total_famt = this.gs.roundNumber(this.total_famt, 2);
+        this.total_famt_20 = this.total_amt_20 / this.Record.qtnm_exrate;
+        this.total_famt_20 = this.gs.roundNumber(this.total_famt_20, 2);
 
-        this.Record.qtnm_round_off = _det_tot_famt - this.total_famt;
-
-        this.str_total_amt = '';
-        if (this.total_amt != 0 && this.Record.qtnm_curr_code != 'INR')
-            this.str_total_amt = this.total_amt.toString() + ' (' + this.Record.qtnm_curr_code + ' ' + this.total_famt + ')';
-        if (this.total_amt != 0 && this.Record.qtnm_curr_code == 'INR')
-            this.str_total_amt = this.total_amt.toString();
+        this.total_famt_40 = this.total_amt_40 / this.Record.qtnm_exrate;
+        this.total_famt_40 = this.gs.roundNumber(this.total_famt_40, 2);
 
     }
 
@@ -988,6 +984,8 @@ export class QuotationFclComponent {
                 REC2.qtnd_category = this.Recorddet.qtnd_category;
                 REC2.qtnd_category_id = this.Recorddet.qtnd_category_id;
                 REC2.qtnd_exrate = this.Recorddet.qtnd_exrate;
+                REC2.qtnd_rate_20 = this.Recorddet.qtnd_rate_20;
+                REC2.qtnd_rate_40 = this.Recorddet.qtnd_rate_40;
             }
         }
         this.FindListTotal()
@@ -996,25 +994,25 @@ export class QuotationFclComponent {
     }
 
     Findtotal() {
-        let amt: number;
-        let totamt: number;
-        let ftotamt: number;
+        let amt: number = 0;
+        let totamt: number = 0;
+        let ftotamt: number = 0;
 
-        amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
-        amt = this.gs.roundNumber(amt, 2);
+        // amt = this.Recorddet.qtnd_qty * this.Recorddet.qtnd_rate;
+        // amt = this.gs.roundNumber(amt, 2);
 
-        totamt = amt * this.Recorddet.qtnd_exrate;
-        totamt = this.gs.roundNumber(totamt, 2);
+        // totamt = amt * this.Recorddet.qtnd_exrate;
+        // totamt = this.gs.roundNumber(totamt, 2);
 
-        if (this.Record.qtnm_curr_code == this.Recorddet.qtnd_curr_code) {
-            ftotamt = amt;
-        } else {
+        // if (this.Record.qtnm_curr_code == this.Recorddet.qtnd_curr_code) {
+        //     ftotamt = amt;
+        // } else {
 
-            if (this.Record.qtnm_exrate < 1)
-                this.Record.qtnm_exrate = 1;
-            ftotamt = totamt / this.Record.qtnm_exrate;
-            ftotamt = this.gs.roundNumber(ftotamt, 5);
-        }
+        //     if (this.Record.qtnm_exrate < 1)
+        //         this.Record.qtnm_exrate = 1;
+        //     ftotamt = totamt / this.Record.qtnm_exrate;
+        //     ftotamt = this.gs.roundNumber(ftotamt, 5);
+        // }
 
         this.Recorddet.qtnd_amt = amt;
         this.Recorddet.qtnd_total = totamt;
@@ -1116,6 +1114,8 @@ export class QuotationFclComponent {
         this.Recorddet.qtnd_category = _rec.qtnd_category;
         this.Recorddet.qtnd_category_id = _rec.qtnd_category_id;
         this.Recorddet.qtnd_exrate = _rec.qtnd_exrate;
+        this.Recorddet.qtnd_rate_20 = _rec.qtnd_rate_20;
+        this.Recorddet.qtnd_rate_40 = _rec.qtnd_rate_40;
     }
 
 }
