@@ -436,8 +436,8 @@
             <th>CODE</th>
             <th>NAME</th>
             <th>TYPE</th>
-            <th>RATE.20</th>
-            <th>RATE.40</th>
+            <th>{{Record.qtnm_curr_code}}/RATE.20</th>
+            <th>{{Record.qtnm_curr_code}}/RATE.40</th>
             <!-- <th>CURR</th>
             <th>EXRATE</th> -->
             <th>PER</th>
@@ -467,17 +467,17 @@
     <div class="row">
       <div class="offset-8 col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label  col-form-label-sm">Tot.20</label>
+          <label class="col-sm-1 col-form-label  col-form-label-sm pl-0"><b>{{Record.qtnm_curr_code}}</b></label>
+          <label class="col-sm-1 col-form-label  col-form-label-sm"><b>Tot.20</b></label>
           <div class="col-sm-3">
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="total_amt_20" required
               maxlength="100" />
           </div>
-          <label class="col-sm-1 col-form-label  col-form-label-sm">Tot.40</label>
+          <label class="col-sm-1 col-form-label  col-form-label-sm"><b>Tot.40</b></label>
           <div class="col-sm-3">
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="total_amt_40" required
               maxlength="100" />
           </div>
-          <label class="col-sm-1 col-form-label  col-form-label-sm pl-0">{{Record.qtnm_curr_code}}</label>
           <div class="col-sm-3">
             <input class="my-1" type="checkbox" id="printtot" [(ngModel)]="Record.qtnm_print_tot">
             <label for="printtot" class="col-form-label col-form-label-sm">Print Total Y/N</label>
@@ -669,15 +669,7 @@
               class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('SUMMARY')"
-              class="btn btn-success btn-sm">Print Summary</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
-              class="btn btn-success btn-sm">Print Detail</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('SUMMARY-FC')"
-              class="btn btn-success btn-sm">Print FC Summary</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('DETAIL-FC')"
-              class="btn btn-success btn-sm">Print FC Detail</button>
-            <button *ngIf="mode=='EDIT' && type=='AIR'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
               class="btn btn-success btn-sm">Print</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>

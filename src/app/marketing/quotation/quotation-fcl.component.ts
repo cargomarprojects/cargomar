@@ -52,7 +52,7 @@ export class QuotationFclComponent {
     InfoMessage = "";
     detailMode = "ADD";
     str_total_amt = "";
-    carrier_lov = "CARRIER";
+    carrier_lov = "SEA CARRIER";
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
     mode = '';
     pkid = '';
@@ -110,10 +110,7 @@ export class QuotationFclComponent {
         this.bPrint = false;
         this.bEmail = false;
         this.bDocs = false;
-        if (this.type == "AIR")
-            this.carrier_lov = "AIR CARRIER";
-        else
-            this.carrier_lov = "CARRIER";
+        this.carrier_lov = "SEA CARRIER";
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -385,7 +382,7 @@ export class QuotationFclComponent {
         this.Record.qtnm_commodity = '';
         this.Record.qtnm_package = '';
         this.Record.qtnm_pcs = '';
-        this.Record.qtnm_type = this.type == 'GENERAL' ? 'SEA EXPORT' : 'EXPORT';
+        this.Record.qtnm_type = 'SEA EXPORT';
         this.Record.qtnm_kgs = 0;
         this.Record.qtnm_lbs = 0;
         this.Record.qtnm_cbm = 0;
@@ -440,7 +437,7 @@ export class QuotationFclComponent {
         this.Recorddet.qtnd_total = 0;
         this.Recorddet.qtnd_ftotal = 0;
         this.Recorddet.qtnd_remarks = '';
-        this.Recorddet.qtnd_type = 'CNTR';
+        this.Recorddet.qtnd_type = 'INVOICE';
         this.Recorddet.qtnd_cntr_type_id = '';
         this.Recorddet.qtnd_cntr_type_code = '';
         this.Recorddet.qtnd_curr_id = this.gs.defaultValues.param_curr_local_id;
@@ -909,46 +906,46 @@ export class QuotationFclComponent {
             sError += " | Invalid Description";
         }
 
-        if (this.Recorddet.qtnd_curr_id == '') {
-            bret = false;
-            sError += " | Invalid Currency";
-        }
+        // if (this.Recorddet.qtnd_curr_id == '') {
+        //     bret = false;
+        //     sError += " | Invalid Currency";
+        // }
 
 
-        if (this.Recorddet.qtnd_qty <= 0) {
-            bret = false;
-            sError += " | Invalid Qty";
-        }
+        // if (this.Recorddet.qtnd_qty <= 0) {
+        //     bret = false;
+        //     sError += " | Invalid Qty";
+        // }
 
         // if (this.Recorddet.qtnd_rate <= 0) {
         //     bret = false;
         //     sError += " | Invalid Rate";
         // }
 
-        if (this.Recorddet.qtnd_exrate <= 0) {
-            bret = false;
-            sError += " | Invalid Ex.Rate";
-        }
+        // if (this.Recorddet.qtnd_exrate <= 0) {
+        //     bret = false;
+        //     sError += " | Invalid Ex.Rate";
+        // }
 
         // if (this.Recorddet.qtnd_total <= 0) {
         //     bret = false;
         //     sError += " | Invalid Total Amount";
         // }
 
-        if (this.Recorddet.qtnd_curr_code == 'INR') {
+        // if (this.Recorddet.qtnd_curr_code == 'INR') {
 
-            if (this.Recorddet.qtnd_exrate != 1) {
-                bret = false;
-                sError += " | Invalid Ex.Rate or Currency";
-            }
-        }
+        //     if (this.Recorddet.qtnd_exrate != 1) {
+        //         bret = false;
+        //         sError += " | Invalid Ex.Rate or Currency";
+        //     }
+        // }
 
-        if (this.Recorddet.qtnd_exrate == 1 && this.Recorddet.qtnd_curr_id != '') {
-            if (this.Recorddet.qtnd_curr_code != 'INR') {
-                bret = false;
-                sError += " | Invalid Currency or Ex.Rate";
-            }
-        }
+        // if (this.Recorddet.qtnd_exrate == 1 && this.Recorddet.qtnd_curr_id != '') {
+        //     if (this.Recorddet.qtnd_curr_code != 'INR') {
+        //         bret = false;
+        //         sError += " | Invalid Currency or Ex.Rate";
+        //     }
+        // }
 
         if (bret === false) {
             alert(sError);
