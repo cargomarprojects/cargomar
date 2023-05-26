@@ -31,7 +31,7 @@ export class CustomerComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   bCreditLimit: boolean = false;
   showalert = false;
   CrList: any[];
@@ -64,7 +64,7 @@ export class CustomerComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
-
+  emailPerRow: number = 50;
   mode = '';
   pkid = '';
 
@@ -939,6 +939,46 @@ export class CustomerComponent {
         this.loading = false;
         this.InfoMessage = response.mailerror;
         alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+
+  EmailList() {
+
+    if (!confirm("Download Email List ")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      searchstring: this.searchstring.toUpperCase(),
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      Is_Shipper: this.Is_Shipper,
+      Is_Consignee: this.Is_Consignee,
+      Is_Agent: this.Is_Agent,
+      Is_Cha_Forwarder: this.Is_Cha_Forwarder,
+      Is_Creditor: this.Is_Creditor,
+      Is_Others: this.Is_Others,
+      Is_Incomplete: this.Is_Incomplete,
+      Last_Bill_date: this.Last_Bill_date,
+      Is_Locked: this.Is_Locked,
+      report_folder: this.gs.globalVariables.report_folder,
+      rec_category: this.rec_category,
+      email_perrow: this.emailPerRow
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.EmailList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;

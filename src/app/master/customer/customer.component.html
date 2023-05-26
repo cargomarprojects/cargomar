@@ -61,15 +61,26 @@
   <div class="page-search">
     <div class="row">
       <label class="col-2">Search</label>
-      <div class="col">
+      <div class="col-4">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col">
+      <div class="col-4">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
           class="btn btn-primary btn-sm">EXCEL</button>
         <button *ngIf="bAdmin2" [disabled]="loading" (click)="MailIncomplete()" class="btn btn-primary btn-sm">Mail
           Incomplete</button>
+      </div>
+      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-2">
+        <div class="form-group row">
+          <div class="col-3">
+            <button [disabled]="loading" (click)="EmailList()" class="btn btn-primary btn-sm">EMAIL</button>
+          </div>
+          <label class="col-5 col-form-label  col-form-label-sm">Emails Per Batch</label>
+          <div class="col-4">
+            <input type="number" class="col form-control form-control-sm" name="Search" [(ngModel)]="emailPerRow" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -613,8 +624,9 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">S/B Consignee Name</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable||mode == 'ADD'"  [(ngModel)]="Record.cust_sb_name" (blur)="OnBlur('cust_sb_name')"  required
-                maxlength="34" />
+              <input type="text" class="form-control form-control-sm"
+                [disabled]="!Record.cust_is_editable||mode == 'ADD'" [(ngModel)]="Record.cust_sb_name"
+                (blur)="OnBlur('cust_sb_name')" required maxlength="34" />
 
             </div>
           </div>

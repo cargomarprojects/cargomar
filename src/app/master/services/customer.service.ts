@@ -45,6 +45,9 @@ export class CustomerService {
     MailApproval(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/MailApproval', SearchData, this.gs.headerparam2('authorized'));
     }
-
+    
+    EmailList(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Customer/EmailList', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
