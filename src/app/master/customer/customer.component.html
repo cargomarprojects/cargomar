@@ -13,45 +13,45 @@
   <div class="page-search">
     <div class="row">
 
-      <div class="col-2">
+      <div class="col-sm-2">
         <input type="checkbox" [(ngModel)]="Is_Shipper" />
         <span>Shipper</span>
       </div>
 
-      <div class="col-2">
+      <div class="col-sm-2">
         <input type="checkbox" [(ngModel)]="Is_Consignee" />
         <span>Consignee</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Agent" />
         <span>Agent</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Cha_Forwarder" />
         <span>Cha/Forwarder</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Creditor" />
         <span>Creditor</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Others" />
         <span>Others</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Incomplete" />
         <span>Incomplete</span>
       </div>
-      <div class="col-1">
+      <div class="col-sm-1">
         <input type="checkbox" [(ngModel)]="Is_Locked" />
         <span>Locked</span>
       </div>
-      <div *ngIf="bAdmin2" class="col-2">
+      <div *ngIf="bAdmin2" class="col-sm-2">
         <input type="checkbox" [(ngModel)]="Last_Bill_date" />
         <span>Last Billed Date</span>
       </div>
@@ -60,25 +60,25 @@
   </div>
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col-4">
+      <label class="col-sm-2">Search</label>
+      <div class="col-sm-4">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col-4">
+      <div class="col-sm-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
         <button *ngIf="bAdmin2" [disabled]="loading" (click)="List('EXCEL')"
-          class="btn btn-primary btn-sm">EXCEL</button>
+          class="btn btn-primary btn-sm">Excel</button>
         <button *ngIf="bAdmin2" [disabled]="loading" (click)="MailIncomplete()" class="btn btn-primary btn-sm">Mail
           Incomplete</button>
       </div>
-      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-2">
+      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-sm-3">
         <div class="form-group row">
-          <div class="col-3">
-            <button [disabled]="loading" (click)="EmailList()" class="btn btn-primary btn-sm">EMAIL</button>
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Email Nos</label>
+          <div class="col-sm-4">
+            <input type="number" class="col form-control form-control-sm" name="Search2" [(ngModel)]="emailPerRow" />
           </div>
-          <label class="col-5 col-form-label  col-form-label-sm">Emails Per Batch</label>
-          <div class="col-4">
-            <input type="number" class="col form-control form-control-sm" name="Search" [(ngModel)]="emailPerRow" />
+          <div class="col-sm-4">
+            <button [disabled]="loading" (click)="EmailList()" class="btn btn-primary btn-sm">Email</button>
           </div>
         </div>
       </div>
