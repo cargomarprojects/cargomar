@@ -37,6 +37,7 @@ export class JobComponent {
   currentPage = 'ROOTPAGE';
 
   disableNatureofCargo = false;
+  checklistVerify = false;
 
   job_edi_no = "";
   job_no = "";
@@ -1565,6 +1566,7 @@ export class JobComponent {
       user_name: '',
       user_email: '',
       user_dsc_slno: '',
+      checklist_verify: this.checklistVerify
     }
 
     SearchData.pkid = this.pkid;
@@ -1578,6 +1580,7 @@ export class JobComponent {
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_email = this.gs.globalVariables.user_email;
     SearchData.user_dsc_slno = this.gs.globalVariables.user_dsc_slno;
+    SearchData.checklist_verify = this.checklistVerify;
 
     this.ErrorMessage = '';
     this.mainService.GenerateEdi(SearchData)

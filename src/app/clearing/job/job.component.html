@@ -1099,6 +1099,9 @@
             <hr />
             <br />
             <div>
+              <div>
+                <input type="checkbox" [(ngModel)]="checklistVerify"> Verify             
+              </div>
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('CHECKLIST','PDF')"
                 class="btn btn-success btn-sm">Check-List</button>
             </div>
