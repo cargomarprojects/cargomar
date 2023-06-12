@@ -312,7 +312,7 @@ export class GlobalService {
       user: "",
     };
     // a service is installed in local iis server and checked whether it is accessible
-    this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
+    await this.http2.post<any>(this.baseLocalServerUrl + "/api/values/GetVersion", SearchData, this.headerparam2('anonymous')).toPromise().then((response) => {
       if (response == "OK")
         bRet = 0;
       else
