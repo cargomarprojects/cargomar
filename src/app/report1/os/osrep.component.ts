@@ -332,6 +332,9 @@ export class OsRepComponent {
         } else {
           this.AttachList = new Array<any>();
           this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+          if (!this.gs.isBlank(response.filename2)) {
+            this.AttachList.push({ filename: response.filename2, filetype: response.filetype2, filedisplayname: response.filedisplayname2 });
+          }
           this.sSubject = response.subject;
           this.sHtml = response.message;
           this.open(mailsent);
