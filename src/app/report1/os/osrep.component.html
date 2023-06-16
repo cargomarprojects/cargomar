@@ -5,10 +5,10 @@
         <div class="form-group row">
           <div class="col-sm-8">
             <label>{{title}}</label>
-            <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">BRANCH WISE</button>
-            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">SALESMAN WISE</button>
-            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','PARTYLIST')">PARTY WISE</button>
-            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">LEGAL</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN', 'OSLIST')">Branch Wise</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','SMANLIST')">Salesman Wise</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','PARTYLIST')">Party Wise</button>
+            <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">Legal</button>
             <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
             <!-- <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
@@ -22,11 +22,6 @@
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
             <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
               *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Branch</button>
-            <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="btn btn-primary btn-sm"
-              (click)="List('EXCEL','EXCEL-ALL')">Excel/ALL</button>
-            <label class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
-              <input type="checkbox" [(ngModel)]="IsHeader"> Header
-            </label>
             <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
@@ -41,10 +36,15 @@
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
-              <button class="btn btn-primary btn-sm" (click)="Mail('OS-HISTORY',mailsent)"
+            <button class="btn btn-primary btn-sm" (click)="Mail('OS-HISTORY',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/History</button>
-              <button class="btn btn-primary btn-sm" (click)="Mail('OS-INVOICE',mailsent)"
+            <button class="btn btn-primary btn-sm" (click)="Mail('OS-INVOICE',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Invoice</button>
+            <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="btn btn-primary btn-sm"
+              (click)="List('EXCEL','EXCEL-ALL')">Excel/ALL</button>
+            <label class="mt-1" *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+              <input type="checkbox" [(ngModel)]="IsHeader"> Header
+            </label>
           </div>
           <div class="col-sm-4">
           </div>
@@ -148,12 +148,12 @@
   <div class="page-header">
     <div class="col">
       <label>Air Line Payment</label>
-      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH')">BRANCH WISE</button>
-      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'CARRIER')">CARRIER WISE</button>
-      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'SALESMAN')">SALESMAN WISE</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH')">Branch Wise</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'CARRIER')">Carrier Wise</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'SALESMAN')">Salesman Wise</button>
       <button class="btn btn-primary btn-sm"
-        (click)="AirListReport('SCREEN', 'BRANCH-SALESMAN')">BRANCH/SALESMAN</button>
-      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-CARRIER')">BRANCH/CARRIER</button>
+        (click)="AirListReport('SCREEN', 'BRANCH-SALESMAN')">Branch/Salesman</button>
+      <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH-CARRIER')">Branch/Carrier</button>
 
       <label>{{period}}</label>
       <i *ngIf="loading2" class="fa fa-spinner"></i>
@@ -236,7 +236,7 @@
   <div class="page-header">
     <div class="col">
       <label>O/S Against AirLine Payment</label>
-      <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">FIND</button>
+      <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">Find</button>
       <i *ngIf="loading3" class="fa fa-spinner"></i>
     </div>
   </div>
