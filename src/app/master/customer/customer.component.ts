@@ -70,6 +70,7 @@ export class CustomerComponent {
 
   cust_linked: boolean = false;
   Is_Shipper: boolean = false;
+  Is_Foreigner: boolean = false;
   Is_Consignee: boolean = false;
   Is_Agent: boolean = false;
   Is_Cha_Forwarder: boolean = false;
@@ -331,6 +332,7 @@ export class CustomerComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       Is_Shipper: this.Is_Shipper,
+      Is_Foreigner:this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
@@ -923,6 +925,7 @@ export class CustomerComponent {
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid,
       Is_Shipper: this.Is_Shipper,
+      Is_Foreigner:this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
@@ -960,6 +963,7 @@ export class CustomerComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       Is_Shipper: this.Is_Shipper,
+      Is_Foreigner:this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
