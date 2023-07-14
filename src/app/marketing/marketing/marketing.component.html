@@ -191,7 +191,8 @@
                             VISIT</label>&nbsp;&nbsp;
                         <input type="radio" name="mark_mode" id="telemarketing" [(ngModel)]="Record.mark_mode"
                             [value]="'TELE MARKETING'" />
-                        <label class="col-form-label col-form-label-sm" for="telemarketing">TELE MARKETING</label>&nbsp;&nbsp;
+                        <label class="col-form-label col-form-label-sm" for="telemarketing">TELE
+                            MARKETING</label>&nbsp;&nbsp;
                         <input type="radio" name="mark_mode" id="emailmarketing" [(ngModel)]="Record.mark_mode"
                             [value]="'EMAIL MARKETING'" />
                         <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
@@ -380,6 +381,8 @@
                         <button [hidden]="disableSave"
                             [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
+                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                            class="btn btn-success btn-sm">Documents</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-success btn-sm">Return</button>
                         <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_created_by"> Created By:
@@ -414,5 +417,19 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+    </div>
+</ng-template>
+<ng-template #doc let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Documents</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'"></app-upload>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>

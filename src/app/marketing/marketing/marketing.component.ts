@@ -28,6 +28,7 @@ export class MarketingComponent {
     modal: any;
     disableSave = true;
     loading = false;
+    bDocs: boolean = false;
 
     currentTab = 'LIST';
 
@@ -108,6 +109,7 @@ export class MarketingComponent {
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
+        this.bDocs = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -117,6 +119,8 @@ export class MarketingComponent {
                 this.IsCompany = true;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
         }
         this.menu_contact_record = this.gs.getMenu("MARKCONTACTS");
         if (this.menu_contact_record) {
@@ -310,7 +314,7 @@ export class MarketingComponent {
         this.Record.mark_next_action = "";
         this.Record.mark_next_visit_date = "";
         this.Record.mark_contact_person = "";
-        this.Record.mark_oldcustomer_id ="";
+        this.Record.mark_oldcustomer_id = "";
         this.Record.mark_customer_id = "";
         this.Record.mark_customer_name = "";
         this.Record.mark_user_id = this.gs.globalVariables.user_pkid;
@@ -553,6 +557,11 @@ export class MarketingComponent {
 
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
+
+    ShowDocuments(doc: any) {
+        this.ErrorMessage = '';
+        this.open(doc);
     }
 
 }

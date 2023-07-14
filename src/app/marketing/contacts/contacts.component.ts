@@ -47,6 +47,7 @@ export class ContactsComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
+  bDocs: boolean = false;
 
   mode = '';
   pkid = '';
@@ -130,6 +131,7 @@ export class ContactsComponent {
     this.todate = "";
     this.IsAdmin = false;
     this.bPrint = false;
+    this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -137,6 +139,8 @@ export class ContactsComponent {
         this.IsAdmin = true;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.LoadCombo();
   }
@@ -654,10 +658,16 @@ export class ContactsComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   ShowHide() {
     this.showDetails = !this.showDetails;
+  }
+
+
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
   }
 }
