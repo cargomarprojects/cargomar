@@ -13,40 +13,44 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
-            <div class="col-8">
+            <label class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-sm-8">
               <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-8">
+            <label class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-sm-8">
               <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <input type="checkbox" [(ngModel)]="allbranch">
               <span> All</span>
               </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-            <div class="col-8">
+            <div class="col-sm-4">
               <input type="checkbox" [(ngModel)]="final">
               <span> Final</span>
             </div>
+            <div class="col-sm-4">
+              <input type="checkbox" [(ngModel)]="address">
+              <span> Address</span>
+            </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
 
             <div class="col-sm-4">

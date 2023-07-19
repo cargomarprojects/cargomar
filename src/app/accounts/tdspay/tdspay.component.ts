@@ -25,6 +25,7 @@ export class TdsPayComponent {
   InitCompleted: boolean = false;
   final: boolean = false;
   allbranch: boolean = false;
+  address:  boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
@@ -63,6 +64,7 @@ export class TdsPayComponent {
     code: '',
     final: false,
     allbranch: false,
+    address: false,
     show_payroll: false
   };
 
@@ -214,6 +216,7 @@ export class TdsPayComponent {
     this.SearchData.final = this.final;
     this.SearchData.allbranch = this.allbranch;
     this.SearchData.show_payroll = this.gs.globalVariables.user_show_payroll == 'Y' ? true : false;
+    this.SearchData.address = this.address;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
