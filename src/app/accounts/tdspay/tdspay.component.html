@@ -1,5 +1,3 @@
-
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -34,9 +32,9 @@
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
             <div class="col-sm-2">
-                <input type="checkbox" [(ngModel)]="allbranch">
+              <input type="checkbox" [(ngModel)]="allbranch">
               <span> All</span>
-              </div>
+            </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
@@ -60,7 +58,8 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process Report</button>
+              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
           </div>
@@ -81,7 +80,7 @@
           <th>PAN</th>
           <th>NAME</th>
           <th>LOCATION</th>
-          
+
           <th class="text-right">AMOUNT PAID/CREDITED</th>
           <th class="text-right">DEDUCTION RATE</th>
           <th class="text-right">DEDUCTED AND DEPOSTIED TAX</th>
@@ -129,10 +128,8 @@
 
 <br />
 
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
 
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
-
