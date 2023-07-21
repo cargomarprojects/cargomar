@@ -48,7 +48,7 @@ export class ContactsComponent {
   ErrorMessage = "";
   InfoMessage = "";
   bDocs: boolean = false;
-
+  bDocsUpload: boolean = false;
   mode = '';
   pkid = '';
   fromdate = '';
@@ -413,7 +413,7 @@ export class ContactsComponent {
     this.Record.rec_mode = this.mode;
     this.Record.rec_locked = false;
     this.Record.cont_is_project = false;
-    this.Record.cont_doc_attached='N';
+    this.Record.cont_doc_attached = 'N';
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
       if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {
@@ -667,8 +667,13 @@ export class ContactsComponent {
   }
 
 
-  ShowDocuments(doc: any) {
+  ShowDocuments(doc: any, _rec: MarkContacts = null) {
     this.ErrorMessage = '';
+    this.bDocsUpload = true;
+    if (_rec != null) {
+      this.pkid = _rec.cont_pkid;
+      this.bDocsUpload = false;
+    }
     this.open(doc);
   }
 }
