@@ -30,6 +30,7 @@ export class MarkMarketingm {
     mark_cont_converted: string;
     mark_cont_remarks: string;
     mark_cont_type_2:string;
+    mark_doc_attached:string;
     
     mobile: string;
     email: string;

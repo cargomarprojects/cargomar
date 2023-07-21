@@ -104,6 +104,7 @@
                     <th>TARGET MARKET</th> -->
                     <th>COMMODITY</th>
                     <th>NEXT ACTION</th>
+                    <th>DOCS</th>
                     <th>CREATED DATE</th>
                 </tr>
             </thead>
@@ -128,6 +129,7 @@
                     <td>{{rec.target}}</td> -->
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_next_action}}</td>
+                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
                 </tr>
             </tbody>
@@ -381,7 +383,7 @@
                         <button [hidden]="disableSave"
                             [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"  [style.color]="Record.mark_doc_attached=='Y'?'red':'white'"
                             class="btn btn-success btn-sm">Documents</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-success btn-sm">Return</button>
@@ -427,7 +429,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'"></app-upload>
+        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'"  [canupload]="bDocsUpload"></app-upload>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>

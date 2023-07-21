@@ -29,7 +29,8 @@ export class MarketingComponent {
     disableSave = true;
     loading = false;
     bDocs: boolean = false;
-
+    bDocsUpload: boolean = false;
+    
     currentTab = 'LIST';
 
     searchby = "";
@@ -559,8 +560,13 @@ export class MarketingComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-    ShowDocuments(doc: any) {
+    ShowDocuments(doc: any, _rec: MarkMarketingm = null) {
         this.ErrorMessage = '';
+        this.bDocsUpload = true;
+    if (_rec != null) {
+      this.pkid = _rec.mark_pkid;
+      this.bDocsUpload = false;
+    }
         this.open(doc);
     }
 
