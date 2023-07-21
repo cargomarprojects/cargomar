@@ -551,7 +551,7 @@
         <div class="offset-2 col-sm-10">
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" [style.color]="Record.cont_doc_attached=='Y'?'red':'white'" (click)="ShowDocuments(doc)"
             class="btn btn-success btn-sm">Documents</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
           <!-- <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide

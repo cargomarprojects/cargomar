@@ -58,6 +58,7 @@ export class MarkContacts {
     cont_is_tp: boolean;
     cont_visit_tot:number;
     cont_type2_remarks:string;
+    cont_doc_attached:string;
     
     rec_created_by: string;
     rec_created_date: string;

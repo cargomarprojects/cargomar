@@ -413,6 +413,7 @@ export class ContactsComponent {
     this.Record.rec_mode = this.mode;
     this.Record.rec_locked = false;
     this.Record.cont_is_project = false;
+    this.Record.cont_doc_attached='N';
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
       if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {
