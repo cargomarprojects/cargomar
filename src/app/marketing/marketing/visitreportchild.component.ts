@@ -31,6 +31,7 @@ export class VisitReportChildComponent {
     loading = false;
     currentTab = 'LIST';
     selectedRowIndex = 0;
+    bDocsUpload: boolean = false;
 
     page_count = 0;
     page_current = 0;
@@ -48,7 +49,7 @@ export class VisitReportChildComponent {
     report_type = "SALES PERSON";
     print_format = "DETAIL";
     cust_category = "ALL";
-    init_cust_category="ALL";
+    init_cust_category = "ALL";
     mode = '';
     pkid = '';
     myTable = {
@@ -315,7 +316,7 @@ export class VisitReportChildComponent {
             sman_id: this.gs.globalVariables.sman_id,
             print_format: this.print_format,
             cust_category: this.cust_category,
-            init_cust_category:this.init_cust_category
+            init_cust_category: this.init_cust_category
         };
 
         this.ErrorMessage = '';
@@ -454,4 +455,10 @@ export class VisitReportChildComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+    ShowDocuments(doc: any, _rec: MarkMarketingm = null) {
+        this.ErrorMessage = '';
+        this.bDocsUpload = false;
+        this.pkid = _rec.mark_pkid;
+        this.open(doc);
+    }
 }
