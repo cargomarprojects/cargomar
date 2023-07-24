@@ -4,7 +4,9 @@
   <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <label style="color: brown;padding: 1px;font-weight: bold;font-size: 10px;"
-        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1" (click)="editRecord(rec.msld_pkid)" style="color: red;font-weight: bold;font-size: 10px;"  class="btn btn-link pointer m-0 p-0 hlink">EDIT</button></label>
+        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1" (click)="editRecord(rec.msld_pkid)" style="color: red;font-weight: bold;font-size: 10px;"  class="btn btn-link pointer m-0 p-0 hlink">EDIT</button>
+        &nbsp;<i class="fa fa-file fa-md pointer" [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i>
+      </label>
     </div>
     <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS</h6>
     <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_remarks}}</p>

@@ -160,13 +160,13 @@
           <th>INITIAL.CATEGORY</th>
           <th>CORPORATE</th>
           <th>SALESPERSON</th>
-          <th>DOCS</th>
           <th>BRANCH</th>
           <th>LEAD.SOURCE</th>
           <!-- <th>CONV.STATUS</th> -->
           <th>REMARKS</th>
           <th>LOCKED</th>
           <th>VISIT.TOT</th>
+          <th>DOCS</th>
           <th>CREATED.BY</th>
           <th>CREATED.DATE</th>
         </tr>
@@ -186,14 +186,13 @@
           <td>{{rec.cont_type_2}}</td>
           <td>{{rec.cont_iscorporat?'Y':'N'}}</td>
           <td>{{rec.cont_saleman_name}}</td>
-          <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
           <td>{{rec.cont_saleman_branch}}</td>
           <td>{{rec.cont_lead_source}}</td>
           <!-- <td>{{rec.cont_converted}}</td> -->
           <td>{{rec.cont_remark}}</td>
           <td>{{rec.rec_locked?'Y':'N'}}</td>
           <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
-          
+          <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>

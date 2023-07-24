@@ -132,7 +132,6 @@
                     <th>SL#</th>
                     <th>SALES PERSON</th>
                     <th>JOINT VISIT WITH</th>
-                    <th>DOCS</th>
                     <th>VISIT DATE</th>
                     <th>NEXT VISIT STATUS</th>
                     <th>NEXT VISIT DATE</th>
@@ -143,7 +142,7 @@
                     <th>COMMENTS ON VISIT</th>
                     <th>NEXT ACTION</th>
                     <th>BRANCH</th>
-                    
+                    <th>DOCS</th>
                     <!-- <th>CREATED DATE</th>
                     <th>LEAD SOURCE</th>
                     <th>CONTACT PERSON</th>
@@ -158,7 +157,6 @@
                     <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.mark_id}}</td>
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.mark_jointsalesman_name}}</td>
-                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.mark_visit_date}}</td>
                     <td>{{rec.mark_next_visit_status}}</td>
                     <td>{{rec.mark_next_visit_date}}</td>
@@ -169,6 +167,7 @@
                     <td>{{rec.mark_result}}</td>
                     <td>{{rec.mark_next_action}}</td>
                     <td>{{rec.branch_name}}</td>
+                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <!-- <td>{{rec.rec_created_date}}</td>
                     <td>{{rec.mark_lead_source}}</td>
                     <td>{{rec.mark_contact_person}}</td>

@@ -91,7 +91,6 @@
                     <th>SALES PERSON</th>
                     <th>BRANCH</th>
                     <th>JOINT VISIT WITH</th>
-                    <th>DOCS</th>
                     <th>NEXT VISIT DATE</th>
                     <th>MODE</th>
                     <th>CUSTOMER</th>
@@ -105,7 +104,7 @@
                     <th>TARGET MARKET</th> -->
                     <th>COMMODITY</th>
                     <th>NEXT ACTION</th>
-                    
+                    <th>DOCS</th>
                     <th>CREATED DATE</th>
                 </tr>
             </thead>
@@ -117,7 +116,6 @@
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.branch_name}}</td>
                     <td>{{rec.mark_jointsalesman_name}}</td>
-                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.mark_next_visit_date}}</td>
                     <td>{{rec.mark_mode}}</td>
                     <td>{{rec.mark_customer_name}}</td>
@@ -131,6 +129,7 @@
                     <td>{{rec.target}}</td> -->
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_next_action}}</td>
+                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
                 </tr>
             </tbody>
