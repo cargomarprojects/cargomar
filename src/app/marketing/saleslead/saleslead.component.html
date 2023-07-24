@@ -483,8 +483,8 @@
                     <button *ngIf="bEmail && mode=='EDIT'" [disabled]="loading"
                         (click)="PrintSaleslead(Record.msl_pkid,'MAIL', mailsent)"
                         class="btn btn-success btn-sm">Mail</button>
-                    <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
-                        class="btn btn-success btn-sm">Documents</button>
+                    <!-- <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                        class="btn btn-success btn-sm">Documents</button> -->
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>
