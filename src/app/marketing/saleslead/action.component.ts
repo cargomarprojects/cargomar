@@ -44,6 +44,7 @@ export class ActionComponent {
 
     mode = 'ADD';
     pkid = '';
+    uploadpkid = '';
     followupcount: string = '';
     // Array For Displaying List
     RecordList: MarkSalesleadd[] = [];
@@ -57,6 +58,7 @@ export class ActionComponent {
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = true;
+    bDocs: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -93,7 +95,7 @@ export class ActionComponent {
     }
 
     newRecord() {
-        this.mode='ADD';
+        this.mode = 'ADD';
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadd();
@@ -107,6 +109,7 @@ export class ActionComponent {
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
+        this.bDocs = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -116,6 +119,8 @@ export class ActionComponent {
                 this.IsCompany = true;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
         }
         this.LoadCombo();
     }
@@ -319,4 +324,9 @@ export class ActionComponent {
         this.Record.msld_action_plan = _Record.msld_action_plan;
     }
 
+    ShowDocuments(doc: any, _rec: MarkSalesleadd = null) {
+        this.ErrorMessage = '';
+        this.uploadpkid = _rec.msld_pkid;
+        this.open(doc);
+    }
 }
