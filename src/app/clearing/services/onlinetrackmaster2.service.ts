@@ -18,6 +18,10 @@ export class OnlineTrackMaster2Service {
   TrackingList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OnlineTrackMaster2/TrackingList', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  LoadDefault(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/OnlineTrackMaster2/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
 

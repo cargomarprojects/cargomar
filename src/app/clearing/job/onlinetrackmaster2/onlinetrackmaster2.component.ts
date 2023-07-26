@@ -221,28 +221,28 @@ export class OnlineTrackMaster2Component {
       { "colheadername": "AGENT,SHIPPER,PO", "colname": "agent.cust_name,exp.cust_name,ord_po" }
     ];
 
-    // this.loading = true;
-    // let SearchData = {
-    //   type: 'ORDER',
-    //   comp_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code
-    // };
+    this.loading = true;
+    let SearchData = {
+      type: 'TPLIST',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
 
-    // SearchData.comp_code = this.gs.globalVariables.comp_code;
-    // SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
 
-    // this.ErrorMessage = '';
-    // this.InfoMessage = '';
-    // this.mainService.LoadDefault(SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.OrdColList = response.ordercolumns;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.TpList = response.tplist;
 
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ErrorMessage = this.gs.getError(error);
-    //     });
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 
