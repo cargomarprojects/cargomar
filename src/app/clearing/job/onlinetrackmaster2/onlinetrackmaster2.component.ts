@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Joborderm } from '../../models/joborder';
 import { JobOrder_VM } from '../../models/joborder';
-import { OnlineTrackMasterService } from '../../services/onlinetrackmaster.service';
+import { OnlineTrackMaster2Service } from '../../services/onlinetrackmaster2.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { User } from '../../../admin/models/user';
 
 @Component({
   selector: 'app-onlinetrackmaster2',
   templateUrl: './onlinetrackmaster2.component.html',
-  providers: [OnlineTrackMasterService]
+  providers: [OnlineTrackMaster2Service]
 })
 export class OnlineTrackMaster2Component {
   // Local Variables 
@@ -36,6 +37,8 @@ export class OnlineTrackMaster2Component {
   sub: any;
   urlid: string;
 
+  opr_type: string = "AIR EXPORT,SEA EXPORT";
+  tp_codes:string = "ALL";
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
@@ -77,7 +80,8 @@ export class OnlineTrackMaster2Component {
   LIST_EXPRECORD: SearchTable = new SearchTable();
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
-
+  
+  TpList: User[] = [];
   OrdColList: any[] = [];
   AttachList: any[] = [];
   SortList: any[] = [];
@@ -91,7 +95,7 @@ export class OnlineTrackMaster2Component {
 
   constructor(
     private modalService: NgbModal,
-    private mainService: OnlineTrackMasterService,
+    private mainService: OnlineTrackMaster2Service,
     private route: ActivatedRoute,
     private gs: GlobalService
 

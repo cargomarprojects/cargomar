@@ -2,13 +2,13 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, 
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Joborderm } from '../../models/joborder';
-import { OnlineTrackMasterService } from '../../services/onlinetrackmaster.service';
+import { OnlineTrackMaster2Service } from '../../services/onlinetrackmaster2.service';
 import { Trackingm } from '../../../operations/models/tracking';
 
 @Component({
   selector: 'app-onlinetrackmasterdet2',
   templateUrl: './onlinetrackmasterdet2.component.html',
-  providers: [OnlineTrackMasterService]
+  providers: [OnlineTrackMaster2Service]
 })
 
 export class OnlineTrackMasterDet2Component {
@@ -57,7 +57,7 @@ export class OnlineTrackMasterDet2Component {
 
 
   constructor(
-    private mainService: OnlineTrackMasterService,
+    private mainService: OnlineTrackMaster2Service,
     private route: ActivatedRoute,
     private gs: GlobalService
 
