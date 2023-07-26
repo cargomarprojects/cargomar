@@ -9,6 +9,7 @@ import { WeekPlanningComponent } from './job/weekplanning/weekplanning.component
 import {EdiOrderComponent } from './job/ediorder/ediorder.component';
 import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
 import { OnlineTrackMasterComponent } from './job/onlinetrackmaster/onlinetrackmaster.component';
+import { OnlineTrackMaster2Component } from './job/onlinetrackmaster2/onlinetrackmaster2.component';
 
 const routes: Routes = [
   { path: 'clearing', component: ClearingComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'weekplanning', component: WeekPlanningComponent },
   { path: 'ediorders', component: EdiOrderComponent },
   { path: 'onlinetrack', component: OnlineTrackComponent },
-  { path: 'onlinetrackmaster', component: OnlineTrackMasterComponent }
+  { path: 'onlinetrackmaster', component: OnlineTrackMasterComponent },
+  { path: 'onlinetrackmaster2', component: OnlineTrackMaster2Component }
 ];
 
 @NgModule({

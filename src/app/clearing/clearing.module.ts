@@ -31,6 +31,8 @@ import { OnlineTrackMasterComponent } from './job/onlinetrackmaster/onlinetrackm
 import { OnlineTrackMasterDetComponent } from './job/onlinetrackmaster/onlinetrackmasterdet.component';
 import { BlDataComponent } from './job/bldata/bldata.component';
 import { ItemCessComponent } from './job/itemcess/itemcess.component';
+import { OnlineTrackMaster2Component } from './job/onlinetrackmaster2/onlinetrackmaster2.component';
+import { OnlineTrackMasterDet2Component } from './job/onlinetrackmaster2/onlinetrackmasterdet2.component';
 
 @NgModule({
   imports: [
@@ -66,7 +68,9 @@ import { ItemCessComponent } from './job/itemcess/itemcess.component';
     OnlineTrackMasterComponent,
     OnlineTrackMasterDetComponent,
     BlDataComponent,
-    ItemCessComponent
+    ItemCessComponent,
+    OnlineTrackMaster2Component,
+    OnlineTrackMasterDet2Component
   ],
   providers: [
   ],
