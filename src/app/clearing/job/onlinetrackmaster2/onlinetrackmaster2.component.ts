@@ -125,8 +125,8 @@ export class OnlineTrackMaster2Component {
   }
 
   InitComponent() {
-    this.from_date = this.gs.getNewdate(15);
-    this.to_date = this.gs.defaultValues.today;
+    this.from_date = this.gs.getNewdate(60);
+    this.to_date = "";
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
