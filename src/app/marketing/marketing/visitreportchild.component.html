@@ -167,7 +167,8 @@
                     <td>{{rec.mark_result}}</td>
                     <td>{{rec.mark_next_action}}</td>
                     <td>{{rec.branch_name}}</td>
-                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
+                    <td *ngIf="rec.mark_doc_attached=='Y'"  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="'chocolate'" aria-hidden="true"></i></td>
+                    <td *ngIf="rec.mark_doc_attached!='Y'"></td>
                     <!-- <td>{{rec.rec_created_date}}</td>
                     <td>{{rec.mark_lead_source}}</td>
                     <td>{{rec.mark_contact_person}}</td>
