@@ -41,6 +41,7 @@ export class IncLetterComponent {
   folderid = "";
   uploadfilename = "";
   uploadfiledispname = "";
+  incentive_format = "FORMAT-2022";
   ctr: number;
   jobdisabled = false;
   sub: any;
@@ -195,7 +196,8 @@ export class IncLetterComponent {
       uploadfileid: this.uploadfilename,
       print_date: this.print_date,
       effective_date: this.effective_date,
-      incentive_effective_date: this.incentive_effective_date
+      incentive_effective_date: this.incentive_effective_date,
+      incentive_format: this.incentive_format
     };
 
     this.ErrorMessage = '';
