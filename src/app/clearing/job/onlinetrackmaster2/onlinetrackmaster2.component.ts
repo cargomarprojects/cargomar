@@ -263,7 +263,7 @@ export class OnlineTrackMaster2Component {
 
     let SearchData = {
       type: _type,
-      rowtype: this.type,
+      rowtype: this.opr_type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
