@@ -37,8 +37,8 @@ export class OnlineTrackMaster2Component {
   sub: any;
   urlid: string;
 
-  opr_type: string = "AIR EXPORT,SEA EXPORT";
-  tp_codes:string = "ALL";
+  list_opr_type: string = "AIR EXPORT,SEA EXPORT";
+  list_tp_code:string = "ALL";
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
@@ -263,7 +263,7 @@ export class OnlineTrackMaster2Component {
 
     let SearchData = {
       type: _type,
-      rowtype: this.opr_type,
+      rowtype: this.list_opr_type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -290,7 +290,8 @@ export class OnlineTrackMaster2Component {
       tp_code: this.gs.globalVariables.tp_code,
       tp_name: this.gs.globalVariables.tp_name,
       istp: this.gs.globalVariables.istp,
-      root_folder: this.gs.defaultValues.root_folder
+      root_folder: this.gs.defaultValues.root_folder,
+      list_tp_code:this.list_tp_code
     };
 
     this.ErrorMessage = '';
