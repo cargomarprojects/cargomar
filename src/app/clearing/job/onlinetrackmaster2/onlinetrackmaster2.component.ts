@@ -38,7 +38,7 @@ export class OnlineTrackMaster2Component {
   urlid: string;
 
   list_opr_type: string = "AIR EXPORT,SEA EXPORT";
-  list_tp_code:string = "ALL";
+  list_tp_code: string = "ALL";
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
@@ -80,7 +80,7 @@ export class OnlineTrackMaster2Component {
   LIST_EXPRECORD: SearchTable = new SearchTable();
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
-  
+
   TpList: User[] = [];
   OrdColList: any[] = [];
   AttachList: any[] = [];
@@ -127,6 +127,8 @@ export class OnlineTrackMaster2Component {
   InitComponent() {
     this.from_date = this.gs.getNewdate(60);
     this.to_date = "";
+    if (this.gs.globalVariables.istp)
+      this.list_tp_code = this.gs.globalVariables.tp_code;
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -291,7 +293,7 @@ export class OnlineTrackMaster2Component {
       tp_name: this.gs.globalVariables.tp_name,
       istp: this.gs.globalVariables.istp,
       root_folder: this.gs.defaultValues.root_folder,
-      list_tp_code:this.list_tp_code
+      list_tp_code: this.list_tp_code
     };
 
     this.ErrorMessage = '';
@@ -352,8 +354,8 @@ export class OnlineTrackMaster2Component {
     //   this.MailOrders('','MULTIPLE','CHECK-LIST');
     // }
   }
-  
-  ShowFile(id : string) {
+
+  ShowFile(id: string) {
     this.gs.DownloadFileDirect(id);
   }
 

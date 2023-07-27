@@ -55,7 +55,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">TP.Codes</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="list_tp_code">
+            <select [disabled]="gs.globalVariables.istp" class="form-control form-control-sm" [(ngModel)]="list_tp_code">
               <option *ngFor="let rec of TpList" [value]="rec.user_tp_code">
                 {{rec.user_tp_name}}
               </option>
@@ -144,7 +144,7 @@
           <!-- <td class="hlink" (click)="ShowFile(rec.hbl_pod_inv_doc_id)">{{rec.hbl_pod_inv_doc_id?'YES':''}}</td> -->
         </tr>
         <tr *ngIf="rec.row_displayed">
-          <td colspan="14">
+          <td colspan="16">
             <div style="border-style:solid;border-color:green" class="page-details">
               <div class="row">
                 <div class="col-sm-12">
