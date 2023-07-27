@@ -82,11 +82,14 @@ export class Joborderm {
 
   job_date:string;
   job_docno: string;
+  job_cntr: string;
   ord_mbl_id:string;
   ord_hbl_id:string;
   ord_etd:string;
   ord_eta:string;
-  
+  ord_sbno:string;
+  ord_vessel:string;
+
   ord_etd_confirm:boolean;
   ord_eta_confirm:boolean;
 
