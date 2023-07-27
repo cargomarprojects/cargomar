@@ -383,7 +383,7 @@
                         <button [hidden]="disableSave"
                             [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"  [style.color]="Record.mark_doc_attached=='Y'?'red':'white'"
+                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"  [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
                             class="btn btn-success btn-sm">Documents</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-success btn-sm">Return</button>
