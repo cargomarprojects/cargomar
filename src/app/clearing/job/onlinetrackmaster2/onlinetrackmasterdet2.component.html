@@ -10,7 +10,7 @@
                     </font>
                     <font color="black">
                         <strong>
-                            MAWB#&nbsp;
+                            {{(type=='SEA EXPORT'||type=='SEA IMPORT')?'MBL':'MAWB'}}#&nbsp;
                         </strong>
                     </font>
                     <font color="blue">
@@ -20,7 +20,7 @@
                     </font>
                     <font color="black">
                         <strong>
-                            HAWB#&nbsp;
+                            {{(type=='SEA EXPORT'||type=='SEA IMPORT')?'HBL':'HAWB'}}#&nbsp;
                         </strong>
                     </font>
                     <font color="blue">
@@ -38,8 +38,8 @@
                 <thead class="page-body-thead">
                     <tr>
                         <th>SL#</th>
-                        <th>AIRLINE</th>
-                        <th>FLIGHT#</th>
+                        <th>{{(type=='SEA EXPORT'||type=='SEA IMPORT')?'VESSEL':'AIRLINE'}}</th>
+                        <th>{{(type=='SEA EXPORT'||type=='SEA IMPORT')?'VOYAGE':'FLIGHT#'}}</th>
                         <th>POL</th>
                         <th>ETD</th>
                         <th class="text-center">CONFIRM</th>
