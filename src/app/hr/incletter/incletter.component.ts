@@ -41,7 +41,7 @@ export class IncLetterComponent {
   folderid = "";
   uploadfilename = "";
   uploadfiledispname = "";
-  incentive_format = "FORMAT-2022";
+  incentive_format = "FORMAT-2023";
   ctr: number;
   jobdisabled = false;
   sub: any;
