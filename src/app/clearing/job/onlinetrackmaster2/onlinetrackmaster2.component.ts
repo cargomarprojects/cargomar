@@ -14,11 +14,11 @@ import { User } from '../../../admin/models/user';
   providers: [OnlineTrackMaster2Service]
 })
 export class OnlineTrackMaster2Component {
-  // Local Variables 
+  // Local Variables
   title = 'Tracking List';
 
   @Input() menuid: string = '';
-  @Input() type: string = '';
+  @Input() type: string = "NA";
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -104,7 +104,7 @@ export class OnlineTrackMaster2Component {
     this.page_rows = 30;
     this.page_current = 0;
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
