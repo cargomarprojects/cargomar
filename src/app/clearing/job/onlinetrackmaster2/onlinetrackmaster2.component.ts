@@ -301,6 +301,7 @@ export class OnlineTrackMaster2Component {
       sort_colname: this.sort_colname,
       tp_code: this.gs.globalVariables.tp_code,
       tp_name: this.gs.globalVariables.tp_name,
+      tp_type: this.gs.globalVariables.tp_type,
       istp: this.gs.globalVariables.istp,
       root_folder: this.gs.defaultValues.root_folder,
       list_tp_code: this.list_tp_code

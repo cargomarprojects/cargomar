@@ -18,6 +18,7 @@ export class GlobalVariables {
 
     tp_code: string;
     tp_name: string;
+    tp_type: string;
 
     user_dsc_slno: string;
 
