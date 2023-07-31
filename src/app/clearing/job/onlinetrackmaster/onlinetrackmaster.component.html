@@ -12,11 +12,11 @@
         <div class="row">
           <div class="col-6">
             <div class="form-group row">
-              <label class="col-2 col-form-label col-form-label-sm">FROM.DATE</label>
+              <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
               <div class="col-4">
                 <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
               </div>
-              <label class="col-2 col-form-label col-form-label-sm">TO.DATE</label>
+              <label class="col-2 col-form-label col-form-label-sm">To.Date</label>
               <div class="col-4">
                 <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
               </div>
@@ -24,12 +24,12 @@
           </div>
           <div class="col-6">
             <div class="form-group row">
-              <label class="col-2 col-form-label col-form-label-sm">MAWB#</label>
+              <label class="col-2 col-form-label col-form-label-sm">Mawb#</label>
               <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no"
                   (blur)="OnBlur('master_no')" required maxlength="60" />
               </div>
-              <label class="col-2 col-form-label col-form-label-sm">HAWB#</label>
+              <label class="col-2 col-form-label col-form-label-sm">Hawb#</label>
               <div class="col-4">
                 <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no"
                   (blur)="OnBlur('house_no')" required maxlength="60" />
@@ -67,7 +67,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>MAWB#</th>

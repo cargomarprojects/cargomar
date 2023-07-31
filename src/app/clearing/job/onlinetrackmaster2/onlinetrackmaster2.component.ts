@@ -25,6 +25,7 @@ export class OnlineTrackMaster2Component {
   modal: any;
 
   bAdmin = false;
+  bPrint = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -38,7 +39,7 @@ export class OnlineTrackMaster2Component {
   urlid: string;
 
   list_opr_type: string = "AIR EXPORT,SEA EXPORT";
-  list_tp_code: string = "ALL";
+  list_tp_code: string = "";
   ord_trkids: string = "";
   ord_trkpos: string = "";
   job_docno: string = "";
@@ -130,11 +131,14 @@ export class OnlineTrackMaster2Component {
     if (this.gs.globalVariables.istp)
       this.list_tp_code = this.gs.globalVariables.tp_code;
     this.bAdmin = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.LoadCombo();
     this.initLov();
@@ -227,7 +231,10 @@ export class OnlineTrackMaster2Component {
     let SearchData = {
       type: 'TPLIST',
       comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      tp_code: this.gs.globalVariables.tp_code,
+      tp_name: this.gs.globalVariables.tp_name,
+      istp: this.gs.globalVariables.istp
     };
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
@@ -239,7 +246,10 @@ export class OnlineTrackMaster2Component {
       .subscribe(response => {
         this.loading = false;
         this.TpList = response.tplist;
-
+        if (!this.gs.isBlank(this.TpList)) {
+          if (this.TpList.length > 0)
+            this.list_tp_code = this.TpList[0].user_tp_code;
+        }
       },
         error => {
           this.loading = false;

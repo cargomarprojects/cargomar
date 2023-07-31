@@ -17,7 +17,7 @@ export class OnlineTrackMasterDet2Component {
 
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() record: Joborderm;
-  @Input() type: '';
+  @Input() type: string = "";
 
   pkid: string = '';
   remarks: string = '';

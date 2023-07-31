@@ -24,38 +24,22 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">MAWB#</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no" (blur)="OnBlur('master_no')"
-              required maxlength="60" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">HAWB#</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no" (blur)="OnBlur('house_no')"
-              required maxlength="60" />
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
           <div class="col-sm-8">
             <select class="form-control form-control-sm" [(ngModel)]="list_opr_type">
-              <option [value]="'AIR EXPORT'">AIR EXPORT</option>
-              <option [value]="'SEA EXPORT'">SEA EXPORT</option>
               <option [value]="'AIR EXPORT,SEA EXPORT'">EXPORT</option>
-              <option [value]="'AIR IMPORT'">AIR IMPORT</option>
-              <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+              <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+              <option [value]="'AIR EXPORT'">AIR EXPORT</option>
               <option [value]="'AIR IMPORT,SEA IMPORT'">IMPORT</option>
+              <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+              <option [value]="'AIR IMPORT'">AIR IMPORT</option>
             </select>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">TP.Codes</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Customer</label>
           <div class="col-sm-8">
-            <select [disabled]="gs.globalVariables.istp" class="form-control form-control-sm" [(ngModel)]="list_tp_code">
+            <select class="form-control form-control-sm" [(ngModel)]="list_tp_code">
               <option *ngFor="let rec of TpList" [value]="rec.user_tp_code">
                 {{rec.user_tp_name}}
               </option>
@@ -65,9 +49,25 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Mawb#</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no" (blur)="OnBlur('master_no')"
+              required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Hawb#</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no" (blur)="OnBlur('house_no')"
+              required maxlength="60" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
           <div class="offset-4 col-sm-8">
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <!-- <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button> -->
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button  *ngIf='bPrint'  [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
   </div>
 
   <div class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>JOB.DATE</th>
