@@ -25,6 +25,7 @@ export class User {
     user_emp_name: string;
     user_show_payroll: boolean;
     user_is_coreteam: boolean;
+    user_tp_type: string;
 
     rec_mode: string;
     rec_locked: boolean;

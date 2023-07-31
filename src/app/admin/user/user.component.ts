@@ -198,6 +198,7 @@ export class UserComponent {
         this.Record.user_emp_name = '';
         this.Record.rec_locked = false;
         this.Record.user_remarks = '';
+        this.Record.user_tp_type = '';
         this.InitLov();
     }
 
