@@ -74,6 +74,8 @@ export class Joborderm {
 
   hbl_pod_proof_doc_id : string ;
   hbl_pod_inv_doc_id : string ;
+  hbl_igmno:string;
+  hbl_igmdate:string;
 
   ord_pickup_date:string;
   flight_schedule:string;
@@ -89,6 +91,8 @@ export class Joborderm {
   ord_eta:string;
   ord_sbno:string;
   ord_vessel:string;
+  ord_carrier_code:string;
+  ord_carrier_name:string;
 
   ord_etd_confirm:boolean;
   ord_eta_confirm:boolean;
