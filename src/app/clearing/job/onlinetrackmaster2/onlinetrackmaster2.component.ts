@@ -38,6 +38,7 @@ export class OnlineTrackMaster2Component {
   sub: any;
   urlid: string;
 
+  list_trk_exist: boolean = true;
   list_opr_type: string = "AIR EXPORT,SEA EXPORT";
   list_tp_code: string = "";
   ord_trkids: string = "";
@@ -272,6 +273,10 @@ export class OnlineTrackMaster2Component {
     this.loading = true;
     this.selectcheck = false;
     this.selectcheckbox = false;
+    if (this.list_opr_type.includes('EXPORT'))
+      this.list_trk_exist = true;
+    else
+      this.list_trk_exist = false;
 
     let SearchData = {
       type: _type,

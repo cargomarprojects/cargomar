@@ -136,7 +136,8 @@
           <td>{{rec.job_cntr}}</td>
           <td>{{rec.ord_carrier_name}}</td>
           <td *ngIf="list_opr_type.includes('IMPORT')">{{rec.hbl_igmno}}</td>
-          <td class="hlink" (click)="ShowPage(rec)">{{rec.ord_mbl_no}}</td>
+          <td *ngIf="list_trk_exist" class="hlink" (click)="ShowPage(rec)">{{rec.ord_mbl_no}}</td>
+          <td *ngIf="!list_trk_exist">{{rec.ord_mbl_no}}</td>
           <td>{{rec.ord_hbl_no}}</td>
           <td>{{rec.ord_pod}}</td>
           <td>{{rec.ord_vessel}}</td>
