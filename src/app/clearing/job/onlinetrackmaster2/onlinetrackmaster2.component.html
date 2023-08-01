@@ -102,9 +102,11 @@
           <th>MODE</th>
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
-          <th>INVOICE#</th>
-          <th>SB#</th>
+          <th *ngIf="list_opr_type.includes('EXPORT')">INVOICE#</th>
+          <th *ngIf="list_opr_type.includes('EXPORT')">SB#</th>
           <th>CONTAINER#</th>
+          <th>CARRIER</th>
+          <th *ngIf="list_opr_type.includes('IMPORT')">IGM#</th>
           <th>MASTER#</th>
           <th>HOUSE#</th>
           <th>POD</th>
@@ -113,6 +115,7 @@
           <th>CONFM</th>
           <th>ETA</th>
           <th>CONFM</th>
+          <th *ngIf="list_opr_type.includes('IMPORT')">DO.ISSUED</th>
           <!-- <th>DELV.PLACE</th>
           <th>DELV.DATE</th>
           <th>CONFM</th>
@@ -128,9 +131,11 @@
           <td>{{rec.rec_category}}</td>
           <td>{{rec.ord_exp_name}}</td>
           <td>{{rec.ord_imp_name}}</td>
-          <td>{{rec.ord_invno}}</td>
-          <td>{{rec.ord_sbno}}</td>
+          <td *ngIf="list_opr_type.includes('EXPORT')">{{rec.ord_invno}}</td>
+          <td *ngIf="list_opr_type.includes('EXPORT')">{{rec.ord_sbno}}</td>
           <td>{{rec.job_cntr}}</td>
+          <td>{{rec.ord_carrier_name}}</td>
+          <td *ngIf="list_opr_type.includes('IMPORT')">{{rec.hbl_igmno}}</td>
           <td class="hlink" (click)="ShowPage(rec)">{{rec.ord_mbl_no}}</td>
           <td>{{rec.ord_hbl_no}}</td>
           <td>{{rec.ord_pod}}</td>
@@ -139,6 +144,7 @@
           <td>{{rec.ord_etd_confirm==true?'Y':'-'}}</td>
           <td>{{rec.ord_eta}}</td>
           <td>{{rec.ord_eta_confirm==true?'Y':'-'}}</td>
+          <td *ngIf="list_opr_type.includes('IMPORT')">{{rec.ord_deliv_date}}</td>
           <!-- <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_deliv_date}}</td>
           <td>{{rec.ord_deliv_confirm==true?'Y':'-'}}</td>
