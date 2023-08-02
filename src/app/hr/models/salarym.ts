@@ -118,6 +118,9 @@ export class Salarym {
   sal_sl: number;
   sal_ot: number;
   sal_lp: number;
+  sal_admin_emply: number;
+  sal_edli_emply: number;
+  sal_esi_emplr: number;
   
   sal_emp_status:string;
   sal_edit_code:string;

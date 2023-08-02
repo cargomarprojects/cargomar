@@ -29,7 +29,7 @@ export class ConsolPayrollComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  selectedRowIndex = 0;
   searchstring = '';
 
   page_count = 0;

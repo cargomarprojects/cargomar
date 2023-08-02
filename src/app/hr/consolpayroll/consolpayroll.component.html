@@ -160,10 +160,15 @@
           <th *ngIf="prtype=='CONSOL PAY ROLL'">GR.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">DEDUS.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">NET.INCENT</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">PF.EMPLR</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">ESI.EMPLR</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">ADMIN.CHRG</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">EDLI.CHRG</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr [class.active]="i == selectedRowIndex"
+        (mousedown)="selectedRowIndex=i">
           <td *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">{{rec.rec_branch_code}}</td>
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
@@ -230,6 +235,10 @@
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_gr_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_ded_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_net_incentive}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_pf_emplr_share}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_esi_emplr}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_admin_emply}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_edli_emply}}</td>
         </tr>
       </tbody>
     </table>
