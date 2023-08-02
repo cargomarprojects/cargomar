@@ -787,7 +787,7 @@ export class ImpHblSeaAirComponent {
       bret = false;
       sError = " | Date Cannot Be Blank";
     }
-    if (this.gs.isBlank(this.Record.hbl_date)) {
+    if (!this.gs.isBlank(this.Record.hbl_bl_no)&&this.gs.isBlank(this.Record.hbl_date)) {
       bret = false;
       sError += "\n\r | Hbl Date Cannot Be Blank";
     }
