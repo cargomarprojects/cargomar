@@ -23,7 +23,7 @@ export class OnlineTrackMaster2Component {
   menu_record: any;
 
   modal: any;
-
+  selectedRowIndex = 0;
   bAdmin = false;
   bPrint = false;
   disableSave = true;

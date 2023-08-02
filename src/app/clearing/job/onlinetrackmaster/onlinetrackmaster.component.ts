@@ -22,7 +22,7 @@ export class OnlineTrackMasterComponent {
   menu_record: any;
 
   modal: any;
-
+  selectedRowIndex = 0;
   bAdmin = false;
   disableSave = true;
   loading = false;
