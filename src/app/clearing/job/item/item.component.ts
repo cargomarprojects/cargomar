@@ -935,6 +935,10 @@ export class ItemComponent {
       }
       case 'itm_dbk_qty': {
         this.Record.itm_dbk_qty = this.gs.roundNumber(this.Record.itm_dbk_qty, 3);
+        let qDiff: number = this.Record.itm_qty - this.Record.itm_dbk_qty;
+        if (qDiff != 0) {
+          alert('Item qty mismatch with drawback qty');
+        }
         break;
       }
       case 'itm_hawb': {
