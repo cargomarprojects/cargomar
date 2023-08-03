@@ -24,6 +24,7 @@ export class OnlineTrackMaster2Component {
 
   modal: any;
   selectedRowIndex = 0;
+  bMail: boolean = false;
   bAdmin = false;
   bPrint = false;
   disableSave = true;
@@ -39,7 +40,8 @@ export class OnlineTrackMaster2Component {
   urlid: string;
 
   list_trk_exist: boolean = true;
-  list_opr_type: string = "AIR EXPORT,SEA EXPORT";
+  search_list_opr_type: string = "SEA EXPORT,AIR EXPORT";
+  list_opr_type: string = "SEA EXPORT,AIR EXPORT";
   list_tp_code: string = "";
   ord_trkids: string = "";
   ord_trkpos: string = "";
@@ -83,6 +85,9 @@ export class OnlineTrackMaster2Component {
   LIST_IMPRECORD: SearchTable = new SearchTable();
   LIST_AGENTRECORD: SearchTable = new SearchTable();
 
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
   TpList: User[] = [];
   OrdColList: any[] = [];
   AttachList: any[] = [];
@@ -131,6 +136,7 @@ export class OnlineTrackMaster2Component {
     this.to_date = "";
     if (this.gs.globalVariables.istp)
       this.list_tp_code = this.gs.globalVariables.tp_code;
+    this.bMail = false;
     this.bAdmin = false;
     this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -140,10 +146,12 @@ export class OnlineTrackMaster2Component {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      if (this.menu_record.rights_email)
+        this.bMail = true;
     }
     this.LoadCombo();
     this.initLov();
-    // this.List("NEW");
+    // this.List("NEW",'');
   }
 
   //// Destroy Will be called when this component is closed
@@ -269,18 +277,20 @@ export class OnlineTrackMaster2Component {
 
 
   //// Query List Data
-  List(_type: string) {
+  List(_type: string, mailsent: any) {
+
+    this.search_list_opr_type = this.list_opr_type;
     this.loading = true;
     this.selectcheck = false;
     this.selectcheckbox = false;
-    if (this.list_opr_type.includes('EXPORT'))
+    if (this.search_list_opr_type.includes('EXPORT'))
       this.list_trk_exist = true;
     else
       this.list_trk_exist = false;
 
     let SearchData = {
       type: _type,
-      rowtype: this.list_opr_type,
+      rowtype: this.search_list_opr_type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -312,6 +322,10 @@ export class OnlineTrackMaster2Component {
       list_tp_code: this.list_tp_code
     };
 
+    if (_type == "MAIL")
+      SearchData.type = "EXCEL";
+    else
+      SearchData.type = _type;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
@@ -319,6 +333,13 @@ export class OnlineTrackMaster2Component {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          this.sSubject = response.subject;
+          this.sMsg = response.message;
+          this.open(mailsent);
+        }
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;
@@ -375,5 +396,7 @@ export class OnlineTrackMaster2Component {
     this.gs.DownloadFileDirect(id);
   }
 
-
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 }
