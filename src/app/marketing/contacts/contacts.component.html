@@ -192,7 +192,8 @@
           <td>{{rec.cont_remark}}</td>
           <td>{{rec.rec_locked?'Y':'N'}}</td>
           <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
-          <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
+          <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
+              [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -227,11 +228,12 @@
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Name</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_name" required
+          <div class="col-sm-10 input-group input-group-sm">
+            <input type="text" class="form-control form-control-sm mr-1" [(ngModel)]="Record.cont_name" required
               maxlength="60" (blur)="OnBlur('cont_name')" />
+            <button *ngIf="mode=='ADD'" [disabled]="loading" (click)="SearchRecord('cont_name')" class="btn btn-primary btn-sm">Fill</button>
           </div>
-        </div>
+       </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
@@ -498,7 +500,7 @@
             </select>
           </div> -->
         </div>
-        
+
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Initial.Customer.Category </label>
           <div class="col-sm-4">
@@ -513,8 +515,8 @@
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Category.Info</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_type2_remarks" required
-              maxlength="100" (blur)="OnBlur('cont_type2_remarks')" autocomplete="off" />
+            <input type="text" class="form-control form-control-sm" name="add1" [(ngModel)]="Record.cont_type2_remarks"
+              required maxlength="100" (blur)="OnBlur('cont_type2_remarks')" autocomplete="off" />
           </div>
         </div>
         <div class="form-group row">
@@ -551,9 +553,10 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="offset-2 col-sm-10">
-          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" 
+          <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" [style.color]="Record.cont_doc_attached=='Y'?'darkred':'white'" (click)="ShowDocuments(doc)"
+          <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs"
+            [style.color]="Record.cont_doc_attached=='Y'?'darkred':'white'" (click)="ShowDocuments(doc)"
             class="btn btn-success btn-sm">Documents</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
           <!-- <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide

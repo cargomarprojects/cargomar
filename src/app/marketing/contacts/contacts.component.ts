@@ -462,7 +462,12 @@ export class ContactsComponent {
   LoadData(_Record: MarkContacts) {
     this.Record = _Record;
     this.Record.rec_mode = "EDIT";
+    if (this.mode == "ADD") {
+      this.Record.cont_pkid = this.pkid;
+      this.Record.rec_mode = "ADD";
+    }
 
+    
     this.InitLov();
 
     this.CATEGORYRECORD.id = this.Record.cont_type_id.toString();
@@ -675,5 +680,45 @@ export class ContactsComponent {
       this.bDocsUpload = false;
     }
     this.open(doc);
+  }
+
+  SearchRecord(controlname: string) {
+    this.ErrorMessage = '';
+    if (this.Record.cont_name.trim().length <= 0) {
+      this.ErrorMessage = 'Please Enter Customer Name and Continue......';
+      return;
+    }
+    this.loading = true;
+    let SearchData = {
+      table: 'contactname',
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      cont_name: ''
+    };
+
+    SearchData.table = 'contactname';
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.cont_name = this.Record.cont_name;
+
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        this.ErrorMessage = '';
+        if (!this.gs.isBlank(response.contactname.cont_pkid)) {
+          this.GetRecord(response.contactname.cont_pkid);
+        }
+        else {
+          this.ErrorMessage = 'Contact Name not Found';
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }
