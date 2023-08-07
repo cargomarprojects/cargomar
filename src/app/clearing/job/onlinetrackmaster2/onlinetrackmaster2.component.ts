@@ -22,6 +22,7 @@ export class OnlineTrackMaster2Component {
   InitCompleted: boolean = false;
   menu_record: any;
 
+  is_both: boolean = true;
   modal: any;
   selectedRowIndex = 0;
   bMail: boolean = false;
@@ -319,7 +320,8 @@ export class OnlineTrackMaster2Component {
       tp_type: this.gs.globalVariables.tp_type,
       istp: this.gs.globalVariables.istp,
       root_folder: this.gs.defaultValues.root_folder,
-      list_tp_code: this.list_tp_code
+      list_tp_code: this.list_tp_code,
+      is_both: this.is_both
     };
 
     if (_type == "MAIL")
