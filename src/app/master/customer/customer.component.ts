@@ -62,6 +62,8 @@ export class CustomerComponent {
   urlid: string;
 
 
+  fromdate = "";
+  todate = "";
   ErrorMessage = "";
   InfoMessage = "";
   emailPerRow: number = 50;
@@ -332,7 +334,7 @@ export class CustomerComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       Is_Shipper: this.Is_Shipper,
-      Is_Foreigner:this.Is_Foreigner,
+      Is_Foreigner: this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
@@ -343,6 +345,8 @@ export class CustomerComponent {
       Is_Locked: this.Is_Locked,
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
+      fromdate: this.fromdate,
+      todate: this.todate
     };
 
     this.ErrorMessage = '';
@@ -925,7 +929,7 @@ export class CustomerComponent {
       user_name: this.gs.globalVariables.user_name,
       user_pkid: this.gs.globalVariables.user_pkid,
       Is_Shipper: this.Is_Shipper,
-      Is_Foreigner:this.Is_Foreigner,
+      Is_Foreigner: this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,
@@ -963,7 +967,7 @@ export class CustomerComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       Is_Shipper: this.Is_Shipper,
-      Is_Foreigner:this.Is_Foreigner,
+      Is_Foreigner: this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
       Is_Agent: this.Is_Agent,
       Is_Cha_Forwarder: this.Is_Cha_Forwarder,

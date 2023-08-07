@@ -65,9 +65,27 @@
   </div>
   <div class="page-search">
     <div class="row">
-      <label class="col-sm-2">Search</label>
-      <div class="col-sm-4">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">From.Date</label>
+            <div class="col-sm-4">
+              <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
+              </app-date>
+            </div>
+            <label class="col-sm-2 col-form-label col-form-label-sm">To.Date</label>
+            <div class="col-sm-4">
+              <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+              </app-date>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4">Search</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
