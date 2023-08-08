@@ -93,6 +93,7 @@ export class OnlineTrackMaster2Component {
   OrdColList: any[] = [];
   AttachList: any[] = [];
   SortList: any[] = [];
+  FileList: any[] = [];
   // Array For Displaying List
   RecordList: Joborderm[] = [];
   // Single Record for add/edit/view details
@@ -333,11 +334,26 @@ export class OnlineTrackMaster2Component {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        if (_type == 'EXCEL') {
+          this.FileList = response.filelist;
+          if (this.gs.isBlank(this.FileList)) {
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          } else {
+            for (let rec of this.FileList) {
+              this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+            }
+          }
+        }
         else if (_type == 'MAIL') {
+          this.FileList = response.filelist;
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          if (this.gs.isBlank(this.FileList)) {
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          } else {
+            for (let rec of this.FileList) {
+              this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
+            }
+          }
           this.sSubject = response.subject;
           this.sMsg = response.message;
           this.open(mailsent);
