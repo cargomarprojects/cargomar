@@ -12,24 +12,38 @@
 
   <div class="page-search">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">FromDate</label>
-          <div class="col-sm-2">
+          <label class="col-sm-2 col-form-label col-form-label-sm">From</label>
+          <div class="col-sm-4">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
             </app-date>
           </div>
-          <label class="col-sm-1 col-form-label col-form-label-sm">ToDate</label>
-          <div class="col-sm-2">
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-4">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
             </app-date>
           </div>
-          <div class="col-sm-2">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="sort_by">
+              <option [value]="'s.rec_created_date'">CREATED-DATE</option>
+              <option [value]="'sbr_pol_name'">POL</option>
+              <option [value]="'sbr_pod_name'">POD</option>
+            </select>
+          </div>
+          <div class="offset-1 col-sm-5">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
           </div>
         </div>
+      </div>
+      <div class="col-sm-4">
       </div>
     </div>
   </div>
@@ -76,8 +90,9 @@
           <th *ngIf='bDelete' align="center">DELETE</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.sbr_tradelane_name}}</td>
@@ -99,7 +114,7 @@
           <td>{{rec.sbr_valid_from}}</td>
           <td>{{rec.sbr_valid_to}}</td>
           <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-            (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
+              (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -200,7 +215,7 @@
           <label class="col-2 col-form-label col-form-label-sm">Gst%</label>
           <div class="col-4">
             <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sbr_gst_rate"
-            (blur)="OnBlur('sbr_gst_rate')" required maxlength="14" />
+              (blur)="OnBlur('sbr_gst_rate')" required maxlength="14" />
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Terms</label>
           <div class="col-4">
@@ -391,7 +406,7 @@
             <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">
               Eg: If day of week is Monday then put "DAY" as 1 <br>
               If multiple days say Monday and Friday then put "DAY" as 1 & 5
-              </label>
+            </label>
           </div>
         </div>
       </div>
@@ -401,7 +416,7 @@
   </div>
   <div class="page-box">
     <div class="col-sm-6">
-      <button  [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>

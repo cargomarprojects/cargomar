@@ -32,6 +32,7 @@ export class SeaBuyRateComponent {
   currentTab = 'LIST';
   bPrint = false;
   bDelete = false;
+  bAdmin = false;
 
   dbkmode = '';
   searchstring = '';
@@ -47,6 +48,7 @@ export class SeaBuyRateComponent {
   todate: string = "";
   ErrorMessage = "";
   InfoMessage = "";
+  sort_by = "s.rec_created_date";
 
   mode = '';
   pkid = '';
@@ -101,6 +103,7 @@ export class SeaBuyRateComponent {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
       this.bDelete = this.menu_record.rights_delete;
+      this.bAdmin = this.menu_record.rights_admin;
     }
     this.LoadCombo();
   }
@@ -220,7 +223,9 @@ export class SeaBuyRateComponent {
       branch_code: this.gs.globalVariables.branch_code,
       from_date: this.fromdate,
       to_date: this.todate,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      sort_by: this.sort_by,
+      is_admin:this.bAdmin
     };
 
     this.ErrorMessage = '';
