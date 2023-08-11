@@ -337,7 +337,8 @@ export class OnlineTrackMaster2Component {
         if (_type == 'EXCEL') {
           this.FileList = response.filelist;
           if (this.gs.isBlank(this.FileList)) {
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            if (response.filename)
+              this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
           } else {
             for (let rec of this.FileList) {
               this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
