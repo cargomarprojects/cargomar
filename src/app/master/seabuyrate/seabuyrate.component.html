@@ -31,9 +31,11 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" [(ngModel)]="sort_by">
-              <option [value]="'s.rec_created_date'">CREATED-DATE</option>
+              <option [value]="'s.rec_created_date'">ENTRY-DATE</option>
+              <option [value]="'sbr_tradelane_name'">TRADELANE</option>
               <option [value]="'sbr_pol_name'">POL</option>
               <option [value]="'sbr_pod_name'">POD</option>
+              <option [value]="'sbr_carrier_name'">LINER</option>
             </select>
           </div>
           <div class="offset-1 col-sm-5">
