@@ -290,6 +290,7 @@ export class SeaBuyRateComponent {
     this.Record.sbr_valid_to = '';
     this.Record.sbr_gst_rate = 0;
     this.Record.sbr_terms = 'PREPAID';
+    this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.ClearRates();
   }
 
