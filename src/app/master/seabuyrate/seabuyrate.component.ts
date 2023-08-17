@@ -46,9 +46,18 @@ export class SeaBuyRateComponent {
   modal: any;
   fromdate: string = "";
   todate: string = "";
+  search_validdate: string = "";
+  search_tradelane: string = "";
+  search_pol: string = "";
+  search_pod: string = "";
+  search_liner: string = "";
+
+  sort_by = "s.rec_created_date";
+
+
   ErrorMessage = "";
   InfoMessage = "";
-  sort_by = "s.rec_created_date";
+
 
   mode = '';
   pkid = '';
@@ -225,7 +234,12 @@ export class SeaBuyRateComponent {
       to_date: this.todate,
       report_folder: this.gs.globalVariables.report_folder,
       sort_by: this.sort_by,
-      is_admin:this.bAdmin
+      is_admin: this.bAdmin,
+      search_validdate: this.search_validdate,
+      search_tradelane: this.search_tradelane,
+      search_pol: this.search_pol,
+      search_pod: this.search_pod,
+      search_liner: this.search_liner
     };
 
     this.ErrorMessage = '';
@@ -714,6 +728,18 @@ export class SeaBuyRateComponent {
       this.Record.sbr_gst_rate = this.gs.roundNumber(this.Record.sbr_gst_rate, 2);
     }
 
+    if (field == 'search_tradelane') {
+      this.search_tradelane = this.search_tradelane.toUpperCase();
+    }
+    if (field == 'search_pol') {
+      this.search_pol = this.search_pol.toUpperCase();
+    }
+    if (field == 'search_pod') {
+      this.search_pod = this.search_pod.toUpperCase();
+    }
+    if (field == 'search_liner') {
+      this.search_liner = this.search_liner.toUpperCase();
+    }
 
   }
 
