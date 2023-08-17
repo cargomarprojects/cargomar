@@ -11,9 +11,9 @@
   <div class="page-search">
     <div class="row">
 
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-4">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
@@ -22,15 +22,26 @@
             <button [disabled]="loading" (click)="Generate('LIST',bongenerate)"
               class="btn btn-primary btn-sm">Generate</button>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <input type="checkbox" [(ngModel)]="bRelived"> Relieved
           </div>
-          <div *ngIf="bAdmin" class="col-sm-2">
-            <input type="checkbox" [(ngModel)]="allbranch"> All.Branch
+
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div *ngIf="bAdmin" class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm mr-1">Branch</label>
+          <div class="col-sm-5">
+            <app-autocompletemulti [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [subtype]="''" [where]="''"
+              [displaycolumn]="'NAME'" [displaydata]="displaydata" (ValueChanged)="LovSelected($event)">
+            </app-autocompletemulti>
+          </div>
+          <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="allbranch"> All
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="form-group row">
           <div class="col-sm-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
@@ -78,8 +89,8 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.bon_pkid)">
-          <td>{{rec.bon_emp_code}}</td>
+          (mousedown)="selectedRowIndex=i" >
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_code}}</td>
           <td>{{rec.bon_emp_name}}</td>
           <td>{{rec.bon_days_worked}}</td>
           <td>{{rec.bon_gross_wages}}</td>

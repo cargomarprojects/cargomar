@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Bonusm } from '../models/Bonusm';
 import { BonusService } from '../services/bonus.service';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-bonus',
@@ -34,6 +35,8 @@ export class BonusComponent {
   currentTab = 'LIST';
   modal: any;
   searchstring = '';
+  displaydata = this.gs.globalVariables.branch_code;
+  branch_code: string = '';
 
   page_count = 0;
   page_current = 0;
@@ -85,6 +88,8 @@ export class BonusComponent {
   }
 
   InitComponent() {
+    this.branch_code = this.gs.globalVariables.branch_code;
+    this.displaydata = this.branch_code;
     this.bPrint = false;
     this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -110,7 +115,11 @@ export class BonusComponent {
 
   }
 
-
+  LovSelected(_Record: SearchTable) {
+    if (_Record.controlname == "BRANCH") {
+      this.branch_code = _Record.code;
+    }
+  }
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -152,6 +161,14 @@ export class BonusComponent {
 
   // Query List Data
   List(_type: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    if (this.branch_code.trim().length <= 0) {
+      this.ErrorMessage = "Branch Code Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
 
     if (_type == 'CSV')
       if (!confirm("Confirm all the staff need to be included before proceed payment.")) {
@@ -165,7 +182,7 @@ export class BonusComponent {
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       company_name: this.gs.globalVariables.comp_name,
-      branch_code: this.gs.globalVariables.branch_code,
+      branch_code: this.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
       folderid: this.gs.getGuid(),
@@ -174,11 +191,10 @@ export class BonusComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       brelived: this.bRelived,
-      allbranch:this.allbranch
+      allbranch: this.allbranch
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -250,9 +266,9 @@ export class BonusComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == "UPDATE-ALL") {
-           alert('Save Complete');
-           for (let rec of this.RecordList) {
-            rec.bon_paid_date =  this.gs.ConvertDate2DisplayFormat(this.Record.bon_paid_date);
+          alert('Save Complete');
+          for (let rec of this.RecordList) {
+            rec.bon_paid_date = this.gs.ConvertDate2DisplayFormat(this.Record.bon_paid_date);
           }
         } else {
           this.InfoMessage = "Save Complete";
