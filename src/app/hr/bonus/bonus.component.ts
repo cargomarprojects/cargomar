@@ -24,11 +24,13 @@ export class BonusComponent {
   lock_record: boolean = false;
   bRelived = false;
   bPrint: boolean = false;
+  bAdmin: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bChanged: boolean;
   disableSave = true;
   loading = false;
+  allbranch: boolean = false;
   currentTab = 'LIST';
   modal: any;
   searchstring = '';
@@ -84,11 +86,12 @@ export class BonusComponent {
 
   InitComponent() {
     this.bPrint = false;
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      // if (this.menu_record.rights_admin)
-      //   this.bAdmin = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
       // if (this.menu_record.rights_company)
       //   this.bCompany = true;
       if (this.menu_record.rights_print)
@@ -170,7 +173,8 @@ export class BonusComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      brelived: this.bRelived
+      brelived: this.bRelived,
+      allbranch:this.allbranch
     };
 
     this.ErrorMessage = '';

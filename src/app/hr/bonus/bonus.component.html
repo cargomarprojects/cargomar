@@ -30,6 +30,7 @@
       <div class="col-sm-6">
         <div class="form-group row">
           <div class="col-sm-12">
+            <input *ngIf="bAdmin"  class="form-check-input mr-1 mt-2" type="checkbox" [(ngModel)]="allbranch"><span>All</span>
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
