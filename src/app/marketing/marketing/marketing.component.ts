@@ -35,6 +35,7 @@ export class MarketingComponent {
 
     searchby = "";
     searchstring = '';
+    search_datetype = 'VISIT-DATE';
 
     page_count = 0;
     page_current = 0;
@@ -275,7 +276,8 @@ export class MarketingComponent {
             to_date: this.gs.globalData.mark_todate,
             report_folder: this.gs.globalVariables.report_folder,
             isheader: this.IsHeader,
-            print_format: this.print_format
+            print_format: this.print_format,
+            search_datetype: this.search_datetype
         };
 
         this.ErrorMessage = '';

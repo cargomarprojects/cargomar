@@ -40,6 +40,7 @@ export class VisitReportChildComponent {
 
     sub: any;
     urlid: string;
+    search_datetype = 'VISIT-DATE';
 
     searchstring = { searchstring: '' };
     searchdata = { searchstring: '' };
@@ -316,7 +317,8 @@ export class VisitReportChildComponent {
             sman_id: this.gs.globalVariables.sman_id,
             print_format: this.print_format,
             cust_category: this.cust_category,
-            init_cust_category: this.init_cust_category
+            init_cust_category: this.init_cust_category,
+            search_datetype: this.search_datetype
         };
 
         this.ErrorMessage = '';

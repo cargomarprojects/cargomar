@@ -12,19 +12,25 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group row">
-                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
-                    <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                    <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label> -->
+                    <div class="col-sm-1">
+                        <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
+                            <option [value]="'VISIT-DATE'">Visit-From</option>
+                            <option [value]="'ENTRY-DATE'">Entry-From</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
                         <app-date [inputdate]="gs.globalData.mark_fromdate"
                             (ValueChanged)="gs.globalData.mark_fromdate=$event">
                         </app-date>
                     </div>
-                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-                    <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+                    <div class="col-sm-1">
                         <app-date [inputdate]="gs.globalData.mark_todate"
                             (ValueChanged)="gs.globalData.mark_todate=$event">
                         </app-date>
                     </div>
-                    <div class="col-sm-2" style="padding-right:0px">
+                    <div class="col-sm-2">
                         <select class="form-control form-control-sm" [(ngModel)]="searchby">
                             <option [value]="'NA'">NA</option>
                             <option [value]="'BRANCH'">BRANCH</option>
@@ -129,7 +135,8 @@
                     <td>{{rec.target}}</td> -->
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_next_action}}</td>
-                    <td  style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer" [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
+                    <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
+                            [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
                 </tr>
             </tbody>
@@ -383,7 +390,8 @@
                         <button [hidden]="disableSave"
                             [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"  [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
+                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                            [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
                             class="btn btn-success btn-sm">Documents</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-success btn-sm">Return</button>
@@ -429,7 +437,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'"  [canupload]="bDocsUpload"></app-upload>
+        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'" [canupload]="bDocsUpload"></app-upload>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
