@@ -128,6 +128,7 @@ export class Mblm {
 
   mbl_cf_date: string;
   mbl_teu:number;
+  mbl_track_comments:string;
   
   lock_record: boolean;
 

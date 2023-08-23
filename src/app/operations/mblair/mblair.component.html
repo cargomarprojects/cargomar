@@ -94,8 +94,9 @@
             <th>CARRIER INVNOS</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" >
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.mbl_pkid)">{{rec.mbl_bookslno}}</td>
             <!-- <td>{{rec.rec_created_date}}</td> -->
             <td>{{rec.mbl_book_no}}</td>
@@ -296,7 +297,8 @@
                     <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                   </label>
                   <div class="col-4">
-                    <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'" [inputdate]="Record.mbl_folder_sent_date"
+                    <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+                      [inputdate]="Record.mbl_folder_sent_date"
                       (ValueChanged)="Record.mbl_folder_sent_date=$event"></app-date>
                   </div>
                 </div>
@@ -416,7 +418,7 @@
                     </div>
                     <div class="col-sm-2 ">
                       <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_flight_no"
-                      (blur)="OnBlur('mbl_flight_no')" required maxlength="25" />
+                        (blur)="OnBlur('mbl_flight_no')" required maxlength="25" />
                     </div>
                   </div>
 
@@ -458,7 +460,7 @@
                       </div>
                     </div>
                     <div class="col-sm-2">
-                      
+
                     </div>
 
                   </div>
@@ -523,12 +525,16 @@
                         </label>
                       </div>
                     </div> -->
-                  
-                    <div class="col-sm-4 input-group input-group-sm">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">Track.Remarks</label>
+                    <div class="col-sm-3  pr-0">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_track_comments"
+                        (blur)="OnBlur('mbl_track_comments')" required maxlength="150" />
+                    </div>
+                    <div class="col-sm-3 input-group input-group-sm">
+                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                        (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
                       <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
-                        class="btn btn-success btn-sm mr-1">Tracking</button>
-                        <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update</button>
+                        class="btn btn-success btn-sm">Tracking</button>
                     </div>
                   </div>
                 </div>

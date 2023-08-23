@@ -563,6 +563,7 @@ export class MblAirComponent {
     this.Record.mbl_pol_eta = '';
     this.Record.mbl_pol_eta_confirm = false;
     this.Record.mbl_deliv_date_confirm = false;
+    this.Record.mbl_track_comments = '';
     this.InitLov();
     this.Record.rec_mode = this.mode;
     this.Record.TransitList = new Array<Trackingm>();
@@ -794,6 +795,11 @@ export class MblAirComponent {
       case 'searchstring':
         {
           this.searchstring = this.searchstring.toUpperCase();
+          break;
+        } 
+        case 'mbl_track_comments':
+        {
+          this.Record.mbl_track_comments = this.Record.mbl_track_comments.toUpperCase();
           break;
         }
 

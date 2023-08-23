@@ -726,10 +726,10 @@
                       (blur)="OnBlur('book_track_comments')" required maxlength="150" />
                   </div>
                   <div class="col-sm-5">
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
                     <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
                       class="btn btn-success btn-sm">Container Tracking</button>
-                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update Tracking</button>
                   </div>
                 </div>
               </div>
