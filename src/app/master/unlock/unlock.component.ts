@@ -144,6 +144,7 @@ export class UnLockComponent {
       { "code": "HR-EMPLOYEE-MASTER", "name": "Employee Master" },
       { "code": "HR-SALARY-MASTER", "name": "Salary Master" },
       { "code": "HR-PAYROLL", "name": "Payroll" },
+      { "code": "HR-BONUS", "name": "Bonus" },
       { "code": "HR-PAYSLIP-MAIL", "name": "Payslip Mail" },
       { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
       { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" },
