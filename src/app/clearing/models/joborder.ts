@@ -76,7 +76,8 @@ export class Joborderm {
   hbl_pod_inv_doc_id : string ;
   hbl_igmno:string;
   hbl_igmdate:string;
-
+  hbl_track_comments:string ;
+  
   ord_pickup_date:string;
   flight_schedule:string;
   ord_pkg_unit:string;

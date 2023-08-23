@@ -129,6 +129,7 @@
           <th>ETA</th>
           <th>CONF</th>
           <th *ngIf="search_list_opr_type.includes('IMPORT')">DO.ISSUED</th>
+          <th *ngIf="search_list_opr_type.includes('EXPORT')">REMARKS</th>
           <!-- <th>DELV.PLACE</th>
           <th>DELV.DATE</th>
           <th>CONF</th>
@@ -159,6 +160,7 @@
           <td>{{rec.ord_eta}}</td>
           <td>{{rec.ord_eta_confirm==true?'Y':'-'}}</td>
           <td *ngIf="search_list_opr_type.includes('IMPORT')">{{rec.ord_deliv_date}}</td>
+          <td *ngIf="search_list_opr_type.includes('EXPORT')">{{rec.hbl_track_comments}}</td>
           <!-- <td>{{rec.ord_deliv_place}}</td>
           <td>{{rec.ord_deliv_date}}</td>
           <td>{{rec.ord_deliv_confirm==true?'Y':'-'}}</td>
