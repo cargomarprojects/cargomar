@@ -675,6 +675,7 @@ export class MblSeaComponent {
     this.Record.book_si_cutoff = '';
     this.Record.book_cy_cutoff = '';
     this.Record.book_vgmwt = 0;
+    this.Record.book_track_comments = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -850,7 +851,7 @@ export class MblSeaComponent {
       this.Record.book_si_cutoff = '';
       this.Record.book_cy_cutoff = '';
       this.Record.book_vgmwt = 0;
-
+      this.Record.book_track_comments = '';
       this.VESSELRECORD.id = '';
       this.VESSELRECORD.code = '';
       this.VESSELRECORD.name = '';
@@ -1146,6 +1147,9 @@ export class MblSeaComponent {
     }
     if (field == 'book_vgmwt') {
       this.Record.book_vgmwt = this.gs.roundWeight(this.Record.book_vgmwt, "GRWT");
+    }
+    if (field == 'book_track_comments') {
+      this.Record.book_track_comments = this.Record.book_track_comments.toUpperCase();
     }
   }
 

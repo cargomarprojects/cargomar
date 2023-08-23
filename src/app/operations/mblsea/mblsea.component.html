@@ -56,8 +56,8 @@
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
               <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Print</button>
-                <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="UpdateBkmContainer()"
-                class="btn btn-primary btn-sm">UpdateBkmCntr</button>
+              <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                (click)="UpdateBkmContainer()" class="btn btn-primary btn-sm">UpdateBkmCntr</button>
             </div>
           </div>
         </div>
@@ -715,11 +715,21 @@
                     <!-- <input type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confirm -->
                   </div>
                   <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Port.Cut.Off</label> -->
-                  <div class="col-sm-3 input-group input-group-sm">
+                  <div class="col-sm-3">
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-1 col-form-label col-form-label-sm">Track.Remarks</label>
+                  <div class="col-sm-4  pr-0">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_track_comments"
+                      (blur)="OnBlur('book_track_comments')" required maxlength="150" />
+                  </div>
+                  <div class="col-sm-5">
                     <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
-                      class="btn btn-success btn-sm mr-1">Container Tracking</button>
+                      class="btn btn-success btn-sm">Container Tracking</button>
                     <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update</button>
+                      (click)="UpdateTracking()" class="btn btn-success btn-sm">Update Tracking</button>
                   </div>
                 </div>
               </div>
@@ -774,9 +784,9 @@
                         <div class="form-group row">
                           <div class="col-12">
                             <div class="page-list">
-                                <div class="page-body table-responsive">
-                                  <div class="fixedTableHead" [style.height]="Record.BkmCntrList.length>4?'165px':'auto'"
-                                    [style.overflow-y]="Record.BkmCntrList.length>4?'scroll':'auto'">
+                              <div class="page-body table-responsive">
+                                <div class="fixedTableHead" [style.height]="Record.BkmCntrList.length>4?'165px':'auto'"
+                                  [style.overflow-y]="Record.BkmCntrList.length>4?'scroll':'auto'">
                                   <table class="table  table-hover table-sm my-0">
                                     <thead class="page-body-thead">
                                       <tr>

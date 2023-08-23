@@ -150,6 +150,7 @@ export class LinerBkm {
   book_si_cutoff:string;
   book_cy_cutoff:string;  
   book_vgmwt: number;
+  book_track_comments:string;  
 
   rec_category: string;
   rec_mode: string;
