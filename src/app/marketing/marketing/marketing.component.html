@@ -52,7 +52,7 @@
                     <label class="col-sm-3 col-form-label col-form-label-sm">Salesperson</label>
                     <div class="col-sm-9">
                         <app-autocomplete3 [controlname]="'USER'" [tabletype]="'USER'" [displaycolumn]="'NAME'"
-                            [displaydata]="search_user_name" (ValueChanged)="LovSelected($event)">
+                            [displaydata]="search_user_name"  [where]="'user_sman_id is not null'"  (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div>
                 </div>
