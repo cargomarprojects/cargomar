@@ -30,12 +30,22 @@ export class MarketingComponent {
     loading = false;
     bDocs: boolean = false;
     bDocsUpload: boolean = false;
-    
+
     currentTab = 'LIST';
 
     searchby = "";
     searchstring = '';
     search_datetype = 'VISIT-DATE';
+    search_branch_code = '';
+    search_cust_name = '';
+    search_cust_id = '';
+    search_user_name = '';
+    search_user_id = '';
+    search_salesman_name = '';
+    search_salesman_id = '';
+    search_leadsource = 'ALL';
+    search_convrtstatus = 'ALL';
+    search_commodity = '';
 
     page_count = 0;
     page_current = 0;
@@ -198,6 +208,23 @@ export class MarketingComponent {
             this.Record.mark_customer_name = _Record.name;
             this.Record.mark_contact_person = _Record.col5;
         }
+
+        if (_Record.controlname == "BR") {
+            this.search_branch_code = _Record.code;
+        }
+        if (_Record.controlname == "CONTACT") {
+            this.search_cust_id = _Record.id;
+            this.search_cust_name = _Record.name;
+        }
+        if (_Record.controlname == "USER") {
+            this.search_user_id = _Record.id;
+            this.search_user_name = _Record.name;
+        }
+        if (_Record.controlname == "SMAN") {
+            this.search_salesman_id = _Record.id;
+            this.search_salesman_name = _Record.name;
+        }
+
     }
 
 
@@ -277,7 +304,17 @@ export class MarketingComponent {
             report_folder: this.gs.globalVariables.report_folder,
             isheader: this.IsHeader,
             print_format: this.print_format,
-            search_datetype: this.search_datetype
+            search_datetype: this.search_datetype,
+            search_branch_code: this.search_branch_code,
+            search_cust_id: this.search_cust_id,
+            search_cust_name: this.search_cust_name,
+            search_user_id: this.search_user_id,
+            search_user_name: this.search_user_name,
+            search_salesman_id: this.search_salesman_id,
+            search_salesman_name: this.search_salesman_name,
+            search_commodity: this.search_commodity,
+            search_leadsource: this.search_leadsource,
+            search_convrtstatus: this.search_convrtstatus
         };
 
         this.ErrorMessage = '';
@@ -541,6 +578,9 @@ export class MarketingComponent {
         if (field == 'searchstring') {
             this.searchstring = this.searchstring.toUpperCase();
         }
+        if (field == 'search_commodity') {
+            this.search_commodity = this.search_commodity.toUpperCase();
+        }
     }
 
     Close() {
@@ -565,10 +605,10 @@ export class MarketingComponent {
     ShowDocuments(doc: any, _rec: MarkMarketingm = null) {
         this.ErrorMessage = '';
         this.bDocsUpload = true;
-    if (_rec != null) {
-      this.pkid = _rec.mark_pkid;
-      this.bDocsUpload = false;
-    }
+        if (_rec != null) {
+            this.pkid = _rec.mark_pkid;
+            this.bDocsUpload = false;
+        }
         this.open(doc);
     }
 
