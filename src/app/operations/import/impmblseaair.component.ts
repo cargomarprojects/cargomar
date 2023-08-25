@@ -595,6 +595,7 @@ export class ImpMblSeaAirComponent {
     this.Record.mbl_coloader_name = '';
     this.Record.mbl_ship_conf_date = '';
     this.Record.mbl_cargo_handover_date = '';
+    this.Record.mbl_track_comments = '';
 
     this.InitDefault();
     this.InitLov();
@@ -865,6 +866,9 @@ export class ImpMblSeaAirComponent {
     }
     if (field == 'mbl_chwt') {
       this.Record.mbl_chwt = this.gs.roundWeight(this.Record.mbl_chwt, "CHWT");
+    }
+    if (field == 'mbl_track_comments') {
+      this.Record.mbl_track_comments = this.Record.mbl_track_comments.toUpperCase();
     }
   }
 
