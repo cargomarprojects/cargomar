@@ -134,7 +134,8 @@ export class OnlineTrackMaster2Component {
   }
 
   InitComponent() {
-    this.from_date = this.gs.getNewdate(60);
+    // this.from_date = this.gs.getNewdate(60);
+    this.from_date = this.gs.globalVariables.year_start_date;
     this.to_date = "";
     if (this.gs.globalVariables.istp)
       this.list_tp_code = this.gs.globalVariables.tp_code;
