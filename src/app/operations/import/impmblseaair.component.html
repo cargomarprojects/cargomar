@@ -260,27 +260,63 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">DespatchDate</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">Co.Loader</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #coLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-sm-5" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.mbl_coloader_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Despatch.Date</label>
                 <div class="col-sm-4">
                   <app-date [inputdate]="Record.mbl_despatchdate" (ValueChanged)="Record.mbl_despatchdate=$event">
                   </app-date>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">SalesRep.</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">Shipment.Conf.Date</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.mbl_ship_conf_date" (ValueChanged)="Record.mbl_ship_conf_date=$event">
+                  </app-date>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Cargo.Handover.Date</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.mbl_cargo_handover_date" (ValueChanged)="Record.mbl_cargo_handover_date=$event">
+                  </app-date>
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">SalesRep.</label>
                 <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
-                <div class="col-sm-5" style="padding-left:0">
+                <div class="col-sm-6" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm"
                     [(ngModel)]="Record.mbl_salesman_name" />
                 </div>
               </div>
-            </div>
-
-            <div class="col-sm-4">
-
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-sm-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.mbl_factloc_name" />
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Job.Type</label>
                 <div class="col-4">
@@ -299,20 +335,10 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Location</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="FACTORYLOCRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.mbl_factloc_name" />
-                </div>
-              </div>
+              
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Nomination</label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                   <select class="form-control form-control-sm" [(ngModel)]="Record.mbl_nomination">
                     <option [value]="'NA'">NA</option>
                     <option [value]="'NOMINATION'">NOMINATION</option>
@@ -320,15 +346,21 @@
                     <option [value]="'FREEHAND'">FREEHAND</option>
                   </select>
                 </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm"  style="padding-left:0">Status</label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.mbl_status_id">
+                    <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group row">
+              <!-- <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Status</label>
                 <div class="col-sm-10">
                   <select class="form-control form-control-sm" [(ngModel)]="Record.mbl_status_id">
                     <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-sm">Folder#</label>
                 <div class="col-4">

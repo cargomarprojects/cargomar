@@ -129,7 +129,12 @@ export class Mblm {
   mbl_cf_date: string;
   mbl_teu:number;
   mbl_track_comments:string;
-  
+  mbl_coloader_id:string;
+  mbl_coloader_code:string;
+  mbl_coloader_name:string;
+  mbl_ship_conf_date:string;
+  mbl_cargo_handover_date:string;
+
   lock_record: boolean;
 
   rec_mode: string;

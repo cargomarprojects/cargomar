@@ -83,6 +83,7 @@ export class ImpMblSeaAirComponent {
   SALESMANRECORD: SearchTable = new SearchTable();
   FORWARDERRECORD: SearchTable = new SearchTable();
   COUNTRYORGRECORD: SearchTable = new SearchTable();
+  COLOADERRECORD: SearchTable = new SearchTable();
 
   constructor(
     private mainService: ImpMblService,
@@ -307,6 +308,14 @@ export class ImpMblSeaAirComponent {
     this.COUNTRYORGRECORD.id = "";
     this.COUNTRYORGRECORD.code = "";
     this.COUNTRYORGRECORD.name = "";
+
+    this.COLOADERRECORD = new SearchTable();
+    this.COLOADERRECORD.controlname = "COLOADER";
+    this.COLOADERRECORD.displaycolumn = "CODE";
+    this.COLOADERRECORD.type = "CUSTOMER";
+    this.COLOADERRECORD.id = "";
+    this.COLOADERRECORD.code = "";
+    this.COLOADERRECORD.name = "";
   }
 
   LovSelected(_Record: SearchTable) {
@@ -413,6 +422,11 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_origin_country_id = _Record.id;
       this.Record.mbl_origin_country_code = _Record.code;
       this.Record.mbl_origin_country_name = _Record.name;
+    }
+    if (_Record.controlname == "COLOADER") {
+      this.Record.mbl_coloader_id = _Record.id;
+      this.Record.mbl_coloader_code = _Record.code;
+      this.Record.mbl_coloader_name = _Record.name;
     }
   }
 
@@ -576,6 +590,11 @@ export class ImpMblSeaAirComponent {
     this.Record.mbl_origin_country_code = '';
     this.Record.mbl_origin_country_name = '';
     this.Record.mbl_cf_date = this.gs.defaultValues.today;
+    this.Record.mbl_coloader_id = '';
+    this.Record.mbl_coloader_code = '';
+    this.Record.mbl_coloader_name = '';
+    this.Record.mbl_ship_conf_date = '';
+    this.Record.mbl_cargo_handover_date = '';
 
     this.InitDefault();
     this.InitLov();
@@ -680,6 +699,10 @@ export class ImpMblSeaAirComponent {
     this.COUNTRYORGRECORD.id = this.Record.mbl_origin_country_id;
     this.COUNTRYORGRECORD.code = this.Record.mbl_origin_country_code;
     this.COUNTRYORGRECORD.name = this.Record.mbl_origin_country_name;
+
+    this.COLOADERRECORD.id = this.Record.mbl_coloader_id;
+    this.COLOADERRECORD.code = this.Record.mbl_coloader_code;
+    this.COLOADERRECORD.name = this.Record.mbl_coloader_name;
 
     this.Record.rec_mode = this.mode;
   }
