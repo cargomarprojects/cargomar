@@ -120,3 +120,62 @@
     </div>
 
 </div>
+<div *ngIf="type=='AIR IMPORT'" class="row">
+    <div class="col-sm-8">
+        <div class="form-group row">
+            <div class="col-sm-1">
+                <label style="background-color:lightgray;" class="col-form-label col-form-label-sm">TRANSIT</label>
+            </div>
+            <div class="col-sm-2 pr-2">
+                <app-autocomplete #POLLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+            </div>
+            <div class="col-sm-2 pl-0">
+                <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="mRecord.trk_pol_name" />
+            </div>
+            <div class="col-sm-2 pr-2">
+                <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                </app-autocomplete>
+            </div>
+            <div class="col-sm-3 pl-0">
+                <input [style.color]="mRecord.row_colour" type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="mRecord.trk_vsl_name" />
+            </div>
+            <div class="col-sm-2">
+                <input [style.color]="mRecord.row_colour" type="text" class="form-control form-control-sm"
+                    [(ngModel)]="mRecord.trk_voyage" (blur)="OnBlur('trk_voyage')" required maxlength="15" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group row">
+            <div class="col-sm-3 ">
+                <app-date [inputdate]="mRecord.trk_pol_etd" (ValueChanged)="mRecord.trk_pol_etd=$event"></app-date>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="mRecord.trk_pol_etd_confirm">
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <app-date [inputdate]="mRecord.trk_pod_eta" (ValueChanged)="mRecord.trk_pod_eta=$event">
+                </app-date>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="mRecord.trk_pod_eta_confirm">
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <i class="fa fa-plus fa-md pointer pt-2" aria-hidden="true" (click)="AddRow()"></i>&nbsp;
+                <i class="fa fa-trash fa-md pointer pt-2" aria-hidden="true" (click)="RemoveRow()"></i>
+            </div>
+        </div>
+    </div>
+
+</div>

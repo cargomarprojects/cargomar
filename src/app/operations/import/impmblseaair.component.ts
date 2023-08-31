@@ -5,6 +5,7 @@ import { Mblm } from '../models/mbl';
 import { ImpMblService } from '../services/impmbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
+import { Trackingm } from '../models/tracking';
 
 //EDIT-AJITH-01-12-2021
 
@@ -601,6 +602,8 @@ export class ImpMblSeaAirComponent {
     this.InitLov();
     this.Record.lock_record = false;
     this.Record.rec_mode = this.mode;
+    this.Record.TransitList = new Array<Trackingm>();
+    this.NewTransitRecord();
   }
 
   InitDefault() {
@@ -706,6 +709,8 @@ export class ImpMblSeaAirComponent {
     this.COLOADERRECORD.name = this.Record.mbl_coloader_name;
 
     this.Record.rec_mode = this.mode;
+    if (this.Record.TransitList.length == 0)
+      this.NewTransitRecord();
   }
 
   // Save Data
@@ -1066,5 +1071,57 @@ export class ImpMblSeaAirComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  NewTransitRecord() {
+    let Rec: Trackingm = new Trackingm;
+    Rec.trk_pkid = this.gs.getGuid();
+    Rec.trk_parent_id = this.Record.mbl_pkid;
+    Rec.rec_category = this.type;
+    Rec.trk_vsl_id = '';
+    Rec.trk_vsl_code = '';
+    Rec.trk_vsl_name = '';
+    Rec.trk_voyage = '';
+    Rec.trk_pol_id = '';
+    Rec.trk_pol_code = '';
+    Rec.trk_pol_name = '';
+    Rec.trk_pol_etd = '';
+    Rec.trk_pol_etd_confirm = false;
+    Rec.trk_pod_id = '';
+    Rec.trk_pod_code = '';
+    Rec.trk_pod_name = '';
+    Rec.trk_pod_eta = '';
+    Rec.trk_pod_eta_confirm = false;
+    this.Record.TransitList.push(Rec);
+  }
+  ModifiedRecords(params: any) {
+    if (params.type == "TRANSIT") {
+      if (params.saction == "ADD")
+        this.NewTransitRecord();
+      if (params.saction == "REMOVE") {
+        this.Record.TransitList.splice(this.Record.TransitList.findIndex(rec => rec.trk_pkid == params.sid), 1);
+        if (this.Record.TransitList.length == 0)
+          this.NewTransitRecord();
+      }
+    }
+  }
+
+  UpdateTracking() {
+    // this.loading = true;
+    // this.ErrorMessage = '';
+    // this.InfoMessage = '';
+    // this.Record.rec_category = this.type;
+    // this.Record._globalvariables = this.gs.globalVariables;
+    // this.mainService.UpdateTracking(this.Record)
+    //   .subscribe(response => {
+    //     this.loading = false;
+    //     this.InfoMessage = "Save Complete";
+    //     alert(this.InfoMessage);
+    //   },
+    //     error => {
+    //       this.loading = false;
+    //       this.ErrorMessage = this.gs.getError(error);
+    //       alert(this.ErrorMessage);
+    //     });
   }
 }

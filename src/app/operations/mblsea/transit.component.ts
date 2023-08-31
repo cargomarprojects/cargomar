@@ -79,7 +79,7 @@ export class TransitComponent {
     this.POLRECORD = new SearchTable();
     this.POLRECORD.controlname = "POL";
     this.POLRECORD.displaycolumn = "CODE";
-    if (this.type === "SEA EXPORT")
+    if (this.type === "SEA EXPORT"||this.type === "SEA IMPORT")
       this.POLRECORD.type = 'SEA PORT';
     else
       this.POLRECORD.type = 'AIR PORT';
@@ -98,7 +98,7 @@ export class TransitComponent {
     this.VESSELRECORD = new SearchTable();
     this.VESSELRECORD.controlname = "VSL";
     this.VESSELRECORD.displaycolumn = "CODE";
-    if (this.type === "SEA EXPORT")
+    if (this.type === "SEA EXPORT"||this.type === "SEA IMPORT")
       this.VESSELRECORD.type = 'VESSEL';
     else
       this.VESSELRECORD.type = 'AIR CARRIER';
