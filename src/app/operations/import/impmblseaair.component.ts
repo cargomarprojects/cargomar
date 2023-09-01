@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Mblm } from '../models/mbl';
@@ -27,7 +28,7 @@ export class ImpMblSeaAirComponent {
 
   bAdmin = false;
   bDocs = false;
-
+  modal: any;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -87,6 +88,7 @@ export class ImpMblSeaAirComponent {
   COLOADERRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: ImpMblService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -1104,6 +1106,13 @@ export class ImpMblSeaAirComponent {
           this.NewTransitRecord();
       }
     }
+  }
+  ShowModal(trk: any) {
+    this.ErrorMessage = '';
+    this.open(trk);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   UpdateTracking() {

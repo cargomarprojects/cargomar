@@ -5,8 +5,8 @@
       <thead class="page-body-thead">
         <tr>
           <th>SL#</th>
-          <th><span *ngIf="type=='SEA EXPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'">AIRLINE</span></th>
-          <th><span *ngIf="type=='SEA EXPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'">FLIGHT#</span></th>
+          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">AIRLINE</span></th>
+          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">FLIGHT#</span></th>
           <th>POL.CODE</th>
           <th>POL.NAME</th>
           <th>ETD</th>
@@ -15,7 +15,7 @@
           <th>POD.NAME</th>
           <th>ETA</th>
           <th>CONFIRM</th>
-          <th *ngIf="type=='AIR EXPORT'">DELETE</th>
+          <!-- <th *ngIf="type=='AIR EXPORT'">DELETE</th> -->
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -31,9 +31,9 @@
           <td>{{rec.trk_pod_name}}</td>
           <td>{{rec.trk_pod_eta}}</td>
           <td>{{rec.trk_pod_eta_confirm ? 'YES' : 'NO'}}</td>
-          <td *ngIf="type=='AIR EXPORT'">
+          <!-- <td *ngIf="type=='AIR EXPORT'">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.trk_pkid,name:i+1}" (result)="RemoveList($event)"></App-Dialog>
-          </td>
+          </td> -->
 
         </tr>
       </tbody>

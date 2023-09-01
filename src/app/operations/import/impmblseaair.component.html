@@ -231,7 +231,7 @@
             </div>
 
             <div class="col-sm-4">
-              <div class="form-group row">
+              <div *ngIf="type=='SEA IMPORT'" class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Carrier</label>
                 <div class="col-4">
                   <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
@@ -855,3 +855,15 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #tracking let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Tracking</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history> -->
+    <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
+  </div>
+</ng-template>
