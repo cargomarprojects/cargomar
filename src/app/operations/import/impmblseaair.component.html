@@ -417,7 +417,7 @@
               </div>
             </div>
           </div>
-          <hr />
+          <hr style="padding-bottom: 2px;" />
           <div class="row">
             <div class="col-sm-4">
               <div class=" form-group row">
@@ -434,12 +434,12 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
                 <div class="col-sm-4">
                   <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
-                <div class="col-sm-6" style="padding-left:0">
+                <div class="col-sm-5" style="padding-left:0">
                   <input type="text" disabled class="form-control form-control-sm"
                     [(ngModel)]="Record.mbl_commodity_name" />
                 </div>
@@ -455,21 +455,10 @@
               </div>
             </div>
           </div>
-          <hr />
+          <!-- <hr />
           <div class="row">
             <div class="col-sm-4">
               <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-              <!-- <div class=" form-group row">
-                <label class="col-3 col-form-label col-form-label-sm">Origin.Country</label>
-                <div class="col-4">
-                  <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYORGRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.mbl_origin_country_name" />
-                </div>
-              </div> -->
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
                 <div class="col-sm-4">
@@ -589,9 +578,9 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
         </div>
-        <!-- <div class="page-box">
+        <div class="page-box">
           <div class="row">
             <div class="col-sm-8">
               <div class="form-group row mx-0">
@@ -600,9 +589,13 @@
                   class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
                 <label style="background-color:lightgray;"
                   class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
-                <label style="background-color:lightgray;"
+                <label *ngIf="type=='SEA IMPORT'" style="background-color:lightgray;"
+                  class="col-sm-5  col-form-label col-form-label-sm">VESSEL</label>
+                <label *ngIf="type=='AIR IMPORT'" style="background-color:lightgray;"
                   class="col-sm-5  col-form-label col-form-label-sm">AIRLINE</label>
-                <label style="background-color:lightgray;"
+                <label *ngIf="type=='SEA IMPORT'" style="background-color:lightgray;"
+                  class="col-sm-2 col-form-label col-form-label-sm pl-4">VOYAGE</label>
+                <label *ngIf="type=='AIR IMPORT'" style="background-color:lightgray;"
                   class="col-sm-2 col-form-label col-form-label-sm pl-4">FLIGHT#</label>
               </div>
               <div class="form-group row">
@@ -614,7 +607,11 @@
                 <div class="col-sm-2 pl-0">
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mbl_pol_name" />
                 </div>
-                <div class="col-sm-2 pr-2">
+                <div *ngIf="type=='SEA IMPORT'" class="col-sm-2 pr-2">
+                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div *ngIf="type=='AIR IMPORT'" class="col-sm-2 pr-2">
                   <app-autocomplete #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
@@ -623,8 +620,8 @@
                     [(ngModel)]="Record.mbl_carrier_name" />
                 </div>
                 <div class="col-sm-2 ">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_flight_no"
-                    (blur)="OnBlur('mbl_flight_no')" required maxlength="25" />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_vessel_no"
+                    (blur)="OnBlur('mbl_vessel_no')" required maxlength="25" />
                 </div>
               </div>
 
@@ -724,10 +721,23 @@
                     </label>
                   </div>
                 </div>
-                 
+                <div class="col-sm-2 input-group input-group-sm">
+                  <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                    (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
+                  <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
+                    class="btn btn-success btn-sm">Tracking</button>
+                </div>
+
               </div>
             </div>
             <div class="col-sm-4">
+              <div *ngIf="type=='SEA IMPORT'" class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Vessel.ETA</label>
+                <div class="col-sm-4">
+                  <app-date [inputdate]="Record.mbl_vessel_eta" (ValueChanged)="Record.mbl_vessel_eta=$event" disabled>
+                  </app-date>
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Track.Remarks</label>
                 <div class="col-sm-10">
@@ -735,18 +745,9 @@
                     (blur)="OnBlur('mbl_track_comments')" required maxlength="150" />
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
-                <div class="col-sm-10">
-                  <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                    (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
-                  <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
-                    class="btn btn-success btn-sm">Tracking</button>
-                </div>
-              </div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="page-box">
           <div>
             <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
