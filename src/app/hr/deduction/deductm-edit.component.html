@@ -73,7 +73,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Closed</label>
                     <div class="col-sm-4">
-                        <select class="form-control form-control-sm" disabled name="clsd"
+                        <select class="form-control form-control-sm" [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="clsd"
                             [(ngModel)]="Record.ded_closed">
                             <option [value]="'N'">NO</option>
                             <option [value]="'Y'">YES</option>
