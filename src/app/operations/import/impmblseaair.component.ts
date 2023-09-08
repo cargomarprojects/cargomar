@@ -1116,21 +1116,21 @@ export class ImpMblSeaAirComponent {
   }
 
   UpdateTracking() {
-    // this.loading = true;
-    // this.ErrorMessage = '';
-    // this.InfoMessage = '';
-    // this.Record.rec_category = this.type;
-    // this.Record._globalvariables = this.gs.globalVariables;
-    // this.mainService.UpdateTracking(this.Record)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.InfoMessage = "Save Complete";
-    //     alert(this.InfoMessage);
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ErrorMessage = this.gs.getError(error);
-    //       alert(this.ErrorMessage);
-    //     });
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record.rec_category = this.type;
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.UpdateTracking(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Save Complete";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }

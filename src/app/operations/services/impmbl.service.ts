@@ -41,5 +41,10 @@ export class ImpMblService {
     GenerateFolderNumber(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/GenerateFolderNumber', SearchData, this.gs.headerparam2('authorized'))
     }
+    
+    UpdateTracking(Record: Mblm) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/ImpMbl/UpdateTracking', Record, this.gs.headerparam2('authorized'));
+    }
+
 }
 
