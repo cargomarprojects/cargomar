@@ -67,7 +67,7 @@ export class ImpHblSeaAirComponent {
 
   bCreditLimit: boolean = false;
   showalert = false;
-  CrList : any[];
+  CrList: any[];
 
 
 
@@ -126,10 +126,9 @@ export class ImpHblSeaAirComponent {
   InitComponent() {
     this.searchby = "ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
-    {
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      this.bDocs =this.menu_record.rights_docs;
+      this.bDocs = this.menu_record.rights_docs;
     }
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -547,7 +546,7 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_billto_id = '';
     this.Record.hbl_billto_code = '';
     this.Record.hbl_billto_name = '';
-    
+
     this.Record.hbl_unlockid = '';
 
     if (this.type == "SEA IMPORT")
@@ -732,15 +731,15 @@ export class ImpHblSeaAirComponent {
 
   Save() {
     try {
-        if (this.old_importer_id != this.Record.hbl_imp_id || this.old_billto_id != this.Record.hbl_billto_id)
-            this.CheckCrLimit(true);
-        else
-            this.SaveFinal();
+      if (this.old_importer_id != this.Record.hbl_imp_id || this.old_billto_id != this.Record.hbl_billto_id)
+        this.CheckCrLimit(true);
+      else
+        this.SaveFinal();
     }
     catch (error) {
-        alert(error.message);
+      alert(error.message);
     }
-}
+  }
 
 
 
@@ -787,7 +786,7 @@ export class ImpHblSeaAirComponent {
       bret = false;
       sError = " | Date Cannot Be Blank";
     }
-    if (!this.gs.isBlank(this.Record.hbl_bl_no)&&this.gs.isBlank(this.Record.hbl_date)) {
+    if (!this.gs.isBlank(this.Record.hbl_bl_no) && this.gs.isBlank(this.Record.hbl_date)) {
       bret = false;
       sError += "\n\r | Hbl Date Cannot Be Blank";
     }
@@ -815,7 +814,7 @@ export class ImpHblSeaAirComponent {
 
     this.loading = true;
     let SearchData = {
-      type : 'SI ' + this.type,      
+      type: 'SI ' + this.type,
       searchfrom: 'SI-IMPORT',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -981,7 +980,10 @@ export class ImpHblSeaAirComponent {
       book_slno: '',
       pkid: '',
       hbl_beno: '',
-      hbl_bedate: ''
+      hbl_bedate: '',
+      hbl_deliv_place: '',
+      hbl_deliv_orderissued: '',
+      hbl_deliv_date: ''
     };
     if (controlname == 'hbl_mbl_bookslno') {
       SearchData.rowtype = this.type;
@@ -996,6 +998,9 @@ export class ImpHblSeaAirComponent {
       SearchData.pkid = this.Record.hbl_pkid;
       SearchData.hbl_beno = this.Record.hbl_beno;
       SearchData.hbl_bedate = this.Record.hbl_bedate;
+      SearchData.hbl_deliv_place = this.Record.hbl_deliv_place;
+      SearchData.hbl_deliv_orderissued = this.Record.hbl_deliv_orderissued;
+      SearchData.hbl_deliv_date = this.Record.hbl_deliv_date;
     }
 
     this.gs.SearchRecord(SearchData)

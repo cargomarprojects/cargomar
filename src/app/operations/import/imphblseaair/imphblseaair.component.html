@@ -30,8 +30,10 @@
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'SINO'">SI#</option>
-                <option [value]="'MBLNO'"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></option>
-                <option [value]="'HBLNO'"><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></option>
+                <option [value]="'MBLNO'"><span *ngIf="type=='SEA IMPORT'">MBL#</span><span
+                    *ngIf="type=='AIR IMPORT'">MAWB#</span></option>
+                <option [value]="'HBLNO'"><span *ngIf="type=='SEA IMPORT'">HBL#</span><span
+                    *ngIf="type=='AIR IMPORT'">HAWB#</span></option>
                 <option [value]="'SHIPPER'">EXPORTER</option>
                 <option [value]="'CONSIGNEE'">IMPORTER</option>
                 <option [value]="'BENO'">BENO</option>
@@ -92,8 +94,9 @@
             <th *ngIf="type == 'SEA IMPORT'">CONTAINER</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" >
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
             <td>{{rec.hbl_cf_date}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
@@ -298,12 +301,12 @@
 
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label  col-form-label-sm">BE No</label>
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">{{!Record.lock_record?'BE No':'*BE No'}}</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_beno"
                       (blur)="OnBlur('hbl_beno')" required maxlength="60" />
                   </div>
-                  <label class="col-sm-2 col-form-label col-form-label-sm">BE.Date</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">{{!Record.lock_record?'BE.Date':'*BE.Date'}}</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.hbl_bedate" (ValueChanged)="Record.hbl_bedate=$event"></app-date>
                   </div>
@@ -351,7 +354,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label  col-form-label-sm">Deliv.Place</label>
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">{{!Record.lock_record?'Deliv.Place':'*Deliv.Place'}}</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_deliv_place"
                       (blur)="OnBlur('hbl_deliv_place')" required maxlength="60" />
@@ -359,7 +362,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Deliv.Ord.Issued</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">{{!Record.lock_record?'Deliv.Ord.Issued':'*Deliv.Ord.Issued'}}</label>
                   <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_deliv_orderissued">
                       <option [value]="'NA'">NA</option>
@@ -367,7 +370,7 @@
                       <option [value]="'NO'">NO</option>
                     </select>
                   </div>
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Deliv.Date</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">{{!Record.lock_record?'Deliv.Date':'*Deliv.Date'}}</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.hbl_deliv_date" (ValueChanged)="Record.hbl_deliv_date=$event">
                     </app-date>
@@ -605,7 +608,7 @@
                   </div>
                   <div class="col-4">
                     <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">Update</button>
+                      (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">*Update</button>
                   </div>
                 </div>
               </div>
@@ -689,5 +692,5 @@
 </div>-->
 
 
-<app-crlimit [visible]="showalert"  [msg]= "ErrorMessage" [RecordList]="CrList"  (hidealert)="showalert=$event" ></app-crlimit>
-
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList"
+  (hidealert)="showalert=$event"></app-crlimit>
