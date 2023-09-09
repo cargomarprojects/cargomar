@@ -48,7 +48,7 @@
           <th>VRNO</th>
           <th>DATE</th>
           <th>CATEGORY</th>
-          <th *ngIf="type=='IN'">ADDRESS</th>
+          <th *ngIf="type=='IN'||type=='CN'">ADDRESS</th>
           <th>CODE</th>
           <th>NAME</th>
           <th>PARTY</th>
@@ -70,7 +70,7 @@
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_docno}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_date}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_category}}</td>
-          <td *ngIf="type=='IN'" (click)="OpenAddressUpdate(rec)" style="cursor:pointer">
+          <td *ngIf="type=='IN'||type=='CN'" (click)="OpenAddressUpdate(rec)" style="cursor:pointer">
             {{rec.jvh_company_add_slno>0?rec.jvh_company_add_slno:''}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_code}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_cc_name}}</td>
