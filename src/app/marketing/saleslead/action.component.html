@@ -1,17 +1,22 @@
-
 <!-- <h6 style="color: green" class="my-3">ADD/EDIT FOLLOW UP DETAILS</h6> -->
 <h6 style="color: green" class="my-3 ml-1">{{parentData.title}}</h6>
 <div class="list-group" *ngFor="let rec of RecordList; let i = index">
   <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <label style="color: brown;padding: 1px;font-weight: bold;font-size: 10px;"
-        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1" (click)="editRecord(rec.msld_pkid)" style="color: red;font-weight: bold;font-size: 10px;"  class="btn btn-link pointer m-0 p-0 hlink">EDIT</button>
-        &nbsp;<i *ngIf="bDocs" class="fa fa-file fa-md pointer" [style.color]="rec.msld_doc_attached=='Y'?'red':'chocolate'" (click)="ShowDocuments(doc,rec)" aria-hidden="true"></i>
+        class="mb-1">{{rec.msld_user_name}}&nbsp;-&nbsp;{{rec.msld_date}} &nbsp; <button *ngIf="i==RecordList.length-1"
+          (click)="editRecord(rec.msld_pkid)" style="color: red;font-weight: bold;font-size: 10px;"
+          class="btn btn-link pointer m-0 p-0 hlink">EDIT</button>
+        &nbsp;<i *ngIf="bDocs" class="fa fa-file fa-md pointer"
+          [style.color]="rec.msld_doc_attached=='Y'?'red':'chocolate'" (click)="ShowDocuments(doc,rec)"
+          aria-hidden="true"></i>
       </label>
     </div>
-    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS</h6>
+    <h6 *ngIf="!parentData.hide_rem_caption" style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">
+      REMARKS</h6>
     <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_remarks}}</p>
-    <h6 *ngIf="!parentData.hide_plan" style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">PLAN</h6>
+    <h6 *ngIf="!parentData.hide_plan" style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">PLAN
+    </h6>
     <p *ngIf="!parentData.hide_plan" style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_action_plan}}</p>
   </a>
 </div>
@@ -27,14 +32,15 @@
         </div>
       </div>
     </div> -->
-    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode=='ADD'?'ADD TO FOLLOW UP':'EDIT FOLLOW UP'}}</h6>
+    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode=='ADD'?'ADD TO FOLLOW UP':'EDIT
+      FOLLOW UP'}}</h6>
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="form-group row">
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Remarks</label>
           <div class="col-sm-12">
             <textarea style="resize: vertical" class="form-control form-control-sm" [(ngModel)]="Record.msld_remarks"
-              maxlength="500" (blur)="OnBlur('msld_remarks')" >  </textarea>
+              maxlength="500" (blur)="OnBlur('msld_remarks')">  </textarea>
           </div>
         </div>
       </div>
@@ -46,7 +52,7 @@
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Action Plan</label>
           <div class="col-12">
             <textarea style="resize: vertical" class="form-control form-control-sm"
-              [(ngModel)]="Record.msld_action_plan" maxlength="500" (blur)="OnBlur('msld_action_plan')" >  </textarea>
+              [(ngModel)]="Record.msld_action_plan" maxlength="500" (blur)="OnBlur('msld_action_plan')">  </textarea>
           </div>
         </div>
       </div>
@@ -55,7 +61,8 @@
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="form-group row">
           <div class="col-12">
-            <button [disabled]="loading || rec_user_id != gs.globalVariables.user_pkid" (click)="Save()" class="btn btn-primary btn-sm my-1">Save</button>
+            <button [disabled]="loading || (rec_user_id != gs.globalVariables.user_pkid && !parentData.save_everyone)"
+              (click)="Save()" class="btn btn-primary btn-sm my-1">Save</button>
             <button [disabled]="loading" (click)="newRecord()" class="btn btn-primary btn-sm my-1">Add</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
@@ -69,15 +76,15 @@
 </div>
 <ng-template #doc let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Documents</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <app-upload [pkid]="uploadpkid" [type]="'SALES-LEAD-ACTION'"></app-upload>
+    <app-upload [pkid]="uploadpkid" [type]="'SALES-LEAD-ACTION'"></app-upload>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>

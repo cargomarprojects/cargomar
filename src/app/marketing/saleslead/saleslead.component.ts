@@ -42,7 +42,9 @@ export class SalesleadComponent {
     ActionsRecord = {
         parent_id: '',
         title: 'ADD/EDIT FOLLOW UP DETAILS',
-        hide_plan: false
+        hide_rem_caption: false,
+        hide_plan: false,
+        save_everyone: false
     };
 
     ErrorMessage = "";

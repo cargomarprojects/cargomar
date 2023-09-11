@@ -63,7 +63,9 @@ export class MarketingComponent {
     ActionsRecord = {
         parent_id: '',
         title: 'FOLLOW UP DETAILS',
-        hide_plan: true
+        hide_rem_caption:true,
+        hide_plan: true,
+        save_everyone: true
     };
     mode = '';
     pkid = '';
