@@ -60,6 +60,11 @@ export class MarketingComponent {
     ErrorMessage = "";
     InfoMessage = "";
 
+    ActionsRecord = {
+        parent_id: '',
+        title: 'FOLLOW UP DETAILS',
+        hide_plan: true
+    };
     mode = '';
     pkid = '';
     clientid = '';
@@ -243,6 +248,7 @@ export class MarketingComponent {
             this.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
+            this.ActionsRecord.parent_id = this.pkid;
         }
         else if (action === 'EDIT') {
             this.currentTab = 'DETAILS';
@@ -250,6 +256,7 @@ export class MarketingComponent {
             this.ResetControls();
             this.pkid = id;
             this.GetRecord(id);
+            this.ActionsRecord.parent_id = id;
         }
     }
 
@@ -610,6 +617,16 @@ export class MarketingComponent {
             this.bDocsUpload = false;
         }
         this.open(doc);
+    }
+
+    actionsChanged(comments: any, _rec: MarkMarketingm) {
+        // if (comments.saction == "CLOSE")
+        //     _rec.rowdisplayed = false;
+        // if (comments.saction == "SAVE") {
+        //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
+        //         rec.msl_followupcount = comments.sfollowupcount;
+        //     }
+        // }
     }
 
 }

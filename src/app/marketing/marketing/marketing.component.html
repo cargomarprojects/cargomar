@@ -550,3 +550,12 @@
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
+<div *ngIf="mode=='EDIT'">
+    <div class="row">
+        <div class="col-sm-12">
+            <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="Record.mark_user_id"
+                (actionsChanged)="actionsChanged($event,Record)">
+            </app-action>
+        </div>
+    </div>
+</div>

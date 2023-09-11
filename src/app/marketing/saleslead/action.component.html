@@ -1,5 +1,6 @@
 
-<h6 style="color: green" class="my-3">ADD/EDIT FOLLOW UP DETAILS</h6>
+<!-- <h6 style="color: green" class="my-3">ADD/EDIT FOLLOW UP DETAILS</h6> -->
+<h6 style="color: green" class="my-3 ml-1">{{parentData.title}}</h6>
 <div class="list-group" *ngFor="let rec of RecordList; let i = index">
   <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
@@ -10,8 +11,8 @@
     </div>
     <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS</h6>
     <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_remarks}}</p>
-    <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">PLAN</h6>
-    <p style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_action_plan}}</p>
+    <h6 *ngIf="!parentData.hide_plan" style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">PLAN</h6>
+    <p *ngIf="!parentData.hide_plan" style="color: black;font-size: 12px;" class="mb-1">{{rec.msld_action_plan}}</p>
   </a>
 </div>
 <div class="page-details">
@@ -39,7 +40,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div *ngIf="!parentData.hide_plan" class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="form-group row">
           <label style="color:black" class="col-12 col-form-label col-form-label-sm">Action Plan</label>
