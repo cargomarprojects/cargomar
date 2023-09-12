@@ -556,7 +556,7 @@
     <div class="page-details">
         <div class="row">
             <div class="col-sm-12">
-                <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="Record.mark_user_id"
+                <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
                     (actionsChanged)="actionsChanged($event,Record)">
                 </app-action>
             </div>

@@ -605,3 +605,14 @@
       [sman_id]="sman_id"></app-visitreport>
   </div>
 </div>
+<div *ngIf="mode=='EDIT'">
+  <div class="page-details">
+      <div class="row">
+          <div class="col-sm-12">
+              <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
+                  (actionsChanged)="actionsChanged($event,Record)">
+              </app-action>
+          </div>
+      </div>
+  </div>
+</div>

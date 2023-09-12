@@ -44,6 +44,13 @@ export class ContactsComponent {
   sub: any;
   urlid: string;
 
+  ActionsRecord = {
+    parent_id: '',
+    title: 'FOLLOW UP DETAILS',
+    hide_rem_caption: true,
+    hide_plan: true,
+    save_everyone: true
+  };
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -254,6 +261,7 @@ export class ContactsComponent {
       this.sman_id = '';
       this.ResetControls();
       this.NewRecord();
+      this.ActionsRecord.parent_id = this.pkid;
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -263,6 +271,7 @@ export class ContactsComponent {
       this.cust_name = _name;
       this.sman_id = _smanid;
       this.GetRecord(id);
+      this.ActionsRecord.parent_id = id;
     }
   }
 
@@ -467,7 +476,7 @@ export class ContactsComponent {
       this.Record.rec_mode = "ADD";
     }
 
-    
+
     this.InitLov();
 
     this.CATEGORYRECORD.id = this.Record.cont_type_id.toString();
@@ -720,5 +729,15 @@ export class ContactsComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  actionsChanged(comments: any, _rec: MarkContacts) {
+    // if (comments.saction == "CLOSE")
+    //     _rec.rowdisplayed = false;
+    // if (comments.saction == "SAVE") {
+    //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
+    //         rec.msl_followupcount = comments.sfollowupcount;
+    //     }
+    // }
   }
 }

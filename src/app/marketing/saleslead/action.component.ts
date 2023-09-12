@@ -268,7 +268,13 @@ export class ActionComponent {
 
         if (str.trim().length <= 0) {
             bret = false;
-            sError += "| Remarks or Plan Cannot Be Blank ";
+            if (this.parentData != null) {
+                if (this.parentData.hide_plan)
+                    sError += "| Remarks Cannot Be Blank ";
+                else
+                    sError += "| Remarks or Plan Cannot Be Blank ";
+            } else
+                sError += "| Remarks or Plan Cannot Be Blank ";
         }
 
         if (bret === false)
