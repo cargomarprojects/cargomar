@@ -19,6 +19,8 @@ export class MarketingComponent {
     title = 'Visit Detail';
 
     @ViewChild('_mark_visit_date') private mark_visit_date_ctrl: DateComponent;
+    @ViewChild('_tabset') tabsetCtrl: any;
+
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -62,8 +64,18 @@ export class MarketingComponent {
 
     ActionsRecord = {
         parent_id: '',
-        title: 'FOLLOW UP DETAILS',
-        hide_rem_caption:true,
+        title: '',
+        mode_title: ' TO FOLLOW UP',
+        hide_rem_caption: true,
+        hide_plan: true,
+        save_everyone: true
+    };
+
+    ActionsRecordContact = {
+        parent_id: '',
+        title: '',
+        mode_title: ' TO CUSTOMER INFO',
+        hide_rem_caption: true,
         hide_plan: true,
         save_everyone: true
     };
@@ -214,6 +226,7 @@ export class MarketingComponent {
             this.Record.mark_customer_id = _Record.id;
             this.Record.mark_customer_name = _Record.name;
             this.Record.mark_contact_person = _Record.col5;
+            this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
         }
 
         if (_Record.controlname == "BR") {
@@ -420,6 +433,7 @@ export class MarketingComponent {
 
         this.CUSTRECORD.id = this.Record.mark_customer_id.toString();
         this.CUSTRECORD.name = this.Record.mark_customer_name;
+        this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
     }
 
     loadVisit() {
@@ -488,6 +502,10 @@ export class MarketingComponent {
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 this.InfoMessage = "Save Complete";
+
+                if (!this.gs.isBlank(this.tabsetCtrl))
+                    this.tabsetCtrl.select('FollowUp');
+                
                 this.RefreshList();
             },
                 error => {
@@ -630,5 +648,13 @@ export class MarketingComponent {
         //     }
         // }
     }
-
+    actionsChanged2(comments: any) {
+        // if (comments.saction == "CLOSE")
+        //     _rec.rowdisplayed = false;
+        // if (comments.saction == "SAVE") {
+        //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
+        //         rec.msl_followupcount = comments.sfollowupcount;
+        //     }
+        // }
+    }
 }

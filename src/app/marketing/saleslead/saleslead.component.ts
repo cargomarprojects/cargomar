@@ -42,6 +42,7 @@ export class SalesleadComponent {
     ActionsRecord = {
         parent_id: '',
         title: 'ADD/EDIT FOLLOW UP DETAILS',
+        mode_title: ' TO FOLLOW UP',
         hide_rem_caption: false,
         hide_plan: false,
         save_everyone: false
