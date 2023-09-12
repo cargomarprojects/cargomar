@@ -46,7 +46,7 @@ export class ContactsComponent {
 
   ActionsRecord = {
     parent_id: '',
-    title: 'CUSTOMER INFO',
+    title: '',
     mode_title: ' TO CUSTOMER INFO',
     hide_rem_caption: true,
     hide_plan: true,

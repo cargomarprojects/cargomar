@@ -552,7 +552,7 @@
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
-<div *ngIf="mode=='EDIT'" class="page-details">
+<div *ngIf="mode=='EDIT'&&IsAdmin" class="page-details">
     <ngb-tabset #_tabset>
         <ngb-tab title="Follow Up Details" id="FollowUp">
             <ng-template ngbTabContent>

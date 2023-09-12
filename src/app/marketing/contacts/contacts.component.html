@@ -598,16 +598,18 @@
   {{ErrorMessage}}
 </div>
 
-<div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'">
-  <h6 style="color: white;background-color: steelblue; padding: 5px;" class="my-1">VISIT DETAILS</h6>
+<div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'" class="page-details">
+  <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">VISIT DETAILS</h6>
   <div>
     <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="''" [customer_name]="cust_name"
       [sman_id]="sman_id"></app-visitreport>
   </div>
 </div>
-<div *ngIf="mode=='EDIT'" class="page-details">
+<div *ngIf="mode=='EDIT'&&IsAdmin" class="page-details">
+  <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">CUSTOMER INFO</h6>
   <div class="page-details">
       <div class="row">
+       
           <div class="col-sm-12">
               <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
                   (actionsChanged)="actionsChanged($event,Record)">
