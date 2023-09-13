@@ -33,8 +33,8 @@ export class SeaBuyRateComponent {
   bPrint = false;
   bDelete = false;
   bAdmin = false;
-  all = false;
-  
+  allbr = false;
+
   dbkmode = '';
   searchstring = '';
   page_count = 0;
@@ -53,8 +53,11 @@ export class SeaBuyRateComponent {
   search_pod: string = "";
   search_liner: string = "";
   search_branch_code: string = "";
-  sort_by = "s.rec_created_date";
-
+  sort_by = "sbr_valid_from,sbr_valid_to";
+  search_tradelane_id: string = "";
+  search_pol_id: string = "";
+  search_pod_id: string = "";
+  search_liner_id: string = "";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -116,6 +119,8 @@ export class SeaBuyRateComponent {
       this.bDelete = this.menu_record.rights_delete;
       this.bAdmin = this.menu_record.rights_admin;
     }
+    if (this.bAdmin)
+      this.allbr = true;
     this.LoadCombo();
   }
 
@@ -177,6 +182,23 @@ export class SeaBuyRateComponent {
 
     if (_Record.controlname == "BRANCH") {
       this.search_branch_code = _Record.code;
+    }
+
+    if (_Record.controlname == "SEARCHPOL") {
+      this.search_pol_id = _Record.id;
+      this.search_pol = _Record.name;
+    }
+    if (_Record.controlname == "SEARCHPOD") {
+      this.search_pod_id = _Record.id;
+      this.search_pod = _Record.name;
+    }
+    if (_Record.controlname == "SEARCHLINER") {
+      this.search_liner_id = _Record.id;
+      this.search_liner = _Record.name;
+    }
+    if (_Record.controlname == "SEARCHTRADELANE") {
+      this.search_tradelane_id = _Record.id;
+      this.search_tradelane = _Record.name;
     }
   }
 
@@ -245,7 +267,12 @@ export class SeaBuyRateComponent {
       search_tradelane: this.search_tradelane,
       search_pol: this.search_pol,
       search_pod: this.search_pod,
-      search_liner: this.search_liner
+      search_liner: this.search_liner,
+      search_tradelane_id: this.search_tradelane_id,
+      search_pol_id: this.search_pol_id,
+      search_pod_id: this.search_pod_id,
+      search_liner_id: this.search_liner_id,
+      allbr: this.allbr
     };
 
     this.ErrorMessage = '';
@@ -310,6 +337,7 @@ export class SeaBuyRateComponent {
     this.Record.sbr_valid_to = '';
     this.Record.sbr_gst_rate = 0;
     this.Record.sbr_terms = 'PREPAID';
+    this.Record.sbr_cntr_type = 'STANDARD';
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.ClearRates();
   }
@@ -401,7 +429,10 @@ export class SeaBuyRateComponent {
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pod_id, code: this.Record.sbr_pod_code, name: this.Record.sbr_pod_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.sbr_carrier_id, code: this.Record.sbr_carrier_code, name: this.Record.sbr_carrier_name };
     this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: this.Record.sbr_tradelane_id, code: this.Record.sbr_tradelane_code, name: this.Record.sbr_tradelane_name };
-
+    //Fill Duplicate buyrate
+    if (this.mode == "ADD") {
+      this.Record.sbr_pkid = this.pkid;
+    }
   }
 
   // Save Data
@@ -748,6 +779,9 @@ export class SeaBuyRateComponent {
     }
 
   }
+  OnChange(field: string) {
+
+  }
 
   Close() {
     this.gs.ClosePage('home');
@@ -829,5 +863,14 @@ export class SeaBuyRateComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
+
+  DuplicateBuyrate(_id: string) {
+    if (!confirm("Copy Selected Record ?")) {
+      return;
+    }
+    this.ActionHandler('ADD', '');
+    this.GetRecord(_id);
+  }
+
 
 }

@@ -3,7 +3,10 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <button class="btn btn-primary btn-sm mr-2" (click)="Close()">Close</button>
+    <label *ngIf="currentTab=='DETAILS'" class="col-form-label col-form-label-sm" style="color:red">
+      {{mode=='ADD'?'NEW':'EDIT'}}&nbsp;RECORD
+    </label>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -14,22 +17,22 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Entry Date</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Entry.Date</label>
+          <div class="col-sm-10">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-10">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Valid Date</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Valid Date</label>
+          <div class="col-sm-10">
             <app-date [inputdate]="search_validdate" (ValueChanged)="search_validdate=$event">
             </app-date>
           </div>
@@ -37,24 +40,33 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Tradelane</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_tradelane"
-              (blur)="OnBlur('search_tradelane')" />
+          <label class="col-sm-2 col-form-label col-form-label-sm">Tradelane</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_tradelane"
+              (blur)="OnBlur('search_tradelane')" /> -->
+              <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
+              [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Pol</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pol"
-              (blur)="OnBlur('search_pol')" />
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pol"
+              (blur)="OnBlur('search_pol')" /> -->
+              <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+              [displaydata]="search_pol" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Pod</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pod"
-              (blur)="OnBlur('search_pod')" />
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pod"
+              (blur)="OnBlur('search_pod')" /> -->
+              <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+              [displaydata]="search_pod" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
 
@@ -62,29 +74,43 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Liner</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_liner"
-              (blur)="OnBlur('search_liner')" />
+          <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_liner"
+              (blur)="OnBlur('search_liner')" /> -->
+              <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
+              [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Sort.By</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
+          <div class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="sort_by">
               <option [value]="'s.rec_created_date'">ENTRY DATE</option>
               <option [value]="'sbr_tradelane_name'">TRADELANE</option>
               <option [value]="'sbr_pol_name'">POL</option>
               <option [value]="'sbr_pod_name'">POD</option>
               <option [value]="'sbr_carrier_name'">LINER</option>
+              <option [value]="'sbr_valid_from,sbr_valid_to'">VALIDITY</option>
             </select>
           </div>
         </div>
         <div class="form-group row">
-          <div class="offset-4 col-sm-8">
+          <label class="col-sm-2 col-form-label col-form-label-sm">{{bAdmin?'Branch':''}}</label>
+          <div  *ngIf="bAdmin" class="col-sm-4">
+            <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+              [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+          <div  *ngIf="bAdmin" class="col-sm-2 mt-1">
+            <input type="checkbox" [(ngModel)]="allbr" (change)="OnChange('allbr')">
+             All 
+          </div>
+          <div class="col-sm-4">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-              class="btn btn-primary btn-sm mr-1">Print</button>
+              class="btn btn-primary btn-sm">Print</button>
           </div>
         </div>
       </div>
@@ -111,9 +137,12 @@
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
+          
           <th>USER</th>
           <th *ngIf="bAdmin">BRANCH</th>
           <th>ENTRY-DATE</th>
+          <th>VALID-FROM</th>
+          <th>VALID-TO</th>
           <th>TRADELANE</th>
           <th>POL</th>
           <!-- <th>COUNTRY</th> -->
@@ -130,8 +159,7 @@
           <th>ACD/ENS-20</th>
           <th>ACD/ENS-40</th>
           <th>ACD/ENS-40HC</th>
-          <th>VALID-FROM</th>
-          <th>VALID-TO</th>
+          <th>COPY</th>
           <th *ngIf='bDelete' align="center">DELETE</th>
         </tr>
       </thead>
@@ -141,6 +169,8 @@
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
           <td *ngIf="bAdmin">{{rec.rec_branch_code}}</td>
           <td>{{rec.rec_created_date}}</td>
+          <td>{{rec.sbr_valid_from}}</td>
+          <td>{{rec.sbr_valid_to}}</td>
           <td>{{rec.sbr_tradelane_name}}</td>
           <td>{{rec.sbr_pol_name}}</td>
           <!-- <td>{{rec.sbr_country_name}}</td> -->
@@ -157,8 +187,7 @@
           <td>{{rec.sbr_20_acd}}</td>
           <td>{{rec.sbr_40_acd}}</td>
           <td>{{rec.sbr_40hc_acd}}</td>
-          <td>{{rec.sbr_valid_from}}</td>
-          <td>{{rec.sbr_valid_to}}</td>
+          <td class="hlink" (click)="DuplicateBuyrate(rec.sbr_pkid)">COPY</td>
           <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
               (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
         </tr>
@@ -197,7 +226,7 @@
             </app-autocomplete2>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
               (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
           </div>
         </div>
@@ -209,7 +238,7 @@
             </app-autocomplete2>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
               (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
           </div>
         </div>
@@ -220,7 +249,7 @@
             </app-autocomplete2>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
               (blur)="OnBlur('sbr_carrier_name')" required maxlength="60" />
           </div>
         </div>
@@ -232,7 +261,7 @@
             </app-autocomplete2>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
+            <input type="text" disabled  class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
               (blur)="OnBlur('sbr_tradelane_name')" required maxlength="100" />
           </div>
         </div>
@@ -268,6 +297,7 @@
             <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_terms">
               <option [value]="'COLLECT'">COLLECT</option>
               <option [value]="'PREPAID'">PREPAID</option>
+              <option [value]="'BOTH'">BOTH</option>
             </select>
           </div>
         </div>
@@ -283,6 +313,15 @@
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_remarks"
               (blur)="OnBlur('sbr_remarks')" required maxlength="100" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Rate.Type</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_cntr_type">
+              <option [value]="'STANDARD'">STANDARD</option>
+              <option [value]="'REEFER'">REEFER</option>
+            </select>
           </div>
         </div>
       </div>
@@ -463,6 +502,7 @@
   <div class="page-box">
     <div class="col-sm-6">
       <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)" class="btn btn-success btn-sm">Copy</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
