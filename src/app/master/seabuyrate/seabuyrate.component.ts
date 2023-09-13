@@ -33,7 +33,8 @@ export class SeaBuyRateComponent {
   bPrint = false;
   bDelete = false;
   bAdmin = false;
-
+  all = false;
+  
   dbkmode = '';
   searchstring = '';
   page_count = 0;
@@ -51,7 +52,7 @@ export class SeaBuyRateComponent {
   search_pol: string = "";
   search_pod: string = "";
   search_liner: string = "";
-
+  search_branch_code: string = "";
   sort_by = "s.rec_created_date";
 
 
@@ -105,6 +106,7 @@ export class SeaBuyRateComponent {
   }
 
   InitComponent() {
+    this.search_branch_code = this.gs.globalVariables.branch_code;
     this.fromdate = this.gs.defaultValues.monthbegindate;
     this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -172,6 +174,10 @@ export class SeaBuyRateComponent {
       this.Record.sbr_tradelane_code = _Record.code;
       this.Record.sbr_tradelane_name = _Record.name;
     }
+
+    if (_Record.controlname == "BRANCH") {
+      this.search_branch_code = _Record.code;
+    }
   }
 
 
@@ -229,7 +235,7 @@ export class SeaBuyRateComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,
+      branch_code: this.search_branch_code,
       from_date: this.fromdate,
       to_date: this.todate,
       report_folder: this.gs.globalVariables.report_folder,
