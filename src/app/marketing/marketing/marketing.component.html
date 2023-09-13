@@ -552,9 +552,9 @@
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
-<div *ngIf="mode=='EDIT'&&IsAdmin" class="page-details">
+<div *ngIf="mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)" class="page-details">
     <ngb-tabset #_tabset>
-        <ngb-tab title="Follow Up Details" id="FollowUp">
+        <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details" id="FollowUp">
             <ng-template ngbTabContent>
                 <div class="page-details">
                     <div class="row">
@@ -568,7 +568,7 @@
                 </div>
             </ng-template>
         </ngb-tab>
-        <ngb-tab title="Customer Info" id="CustomerInfo">
+        <ngb-tab *ngIf="IsAdmin" title="Customer Info" id="CustomerInfo">
             <ng-template ngbTabContent>
                 <div class="page-details">
                     <div class="row">
