@@ -119,8 +119,10 @@ export class SeaBuyRateComponent {
       this.bDelete = this.menu_record.rights_delete;
       this.bAdmin = this.menu_record.rights_admin;
     }
-    if (this.bAdmin)
+    if (this.bAdmin) {
+      this.search_branch_code = '';
       this.allbr = true;
+    }
     this.LoadCombo();
   }
 
@@ -246,8 +248,13 @@ export class SeaBuyRateComponent {
   // Query List Data
   List(_type: string) {
 
+    if (!this.allbr) {
+      if (this.gs.isBlank(this.search_branch_code)) {
+        alert('Enter the Branch or Select All');
+        return;
+      }
+    }
     this.loading = true;
-
     let SearchData = {
       type: _type,
       rowtype: this.type,
@@ -780,7 +787,10 @@ export class SeaBuyRateComponent {
 
   }
   OnChange(field: string) {
-
+    if (this.allbr)
+      this.search_branch_code = '';
+    else
+      this.search_branch_code = this.gs.globalVariables.branch_code;
   }
 
   Close() {
