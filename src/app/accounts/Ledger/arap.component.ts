@@ -1024,7 +1024,7 @@ export class ArApComponent {
       */
     }
 
-    console.log('Date ', this.Record.jvh_date);
+
 
     if (Igst_Only_Code_Found) {
       if (this.Record.jvh_gst_type != 'INTER-STATE') {
