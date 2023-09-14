@@ -937,7 +937,7 @@ export class LedgerComponent {
         Courier_Code_Found = true;
       }
 
-      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+      if (this.gs.IsIgstCode(rec.jv_acc_code, this.Record.jvh_date)) {
         Igst_Only_Code_Found = true;
       }
 

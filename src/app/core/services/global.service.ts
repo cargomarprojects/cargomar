@@ -938,7 +938,8 @@ export class GlobalService {
       return false;
   }
 
-  public IsIgstCode(jv_acc_code: string) {
+  public IsIgstCode(jv_acc_code: string, docdate: string) {
+    let isIgstCode = false;
     if (jv_acc_code == '1105111'
       || jv_acc_code == '1205111'
       || jv_acc_code == '1205112'
@@ -950,11 +951,22 @@ export class GlobalService {
       || jv_acc_code == '1205138'
       || jv_acc_code == '1205142'
     )
-      return true;
+      isIgstCode = true;
     else
-      return false;
+      isIgstCode = false;
+
+    // As per new GST Act after export freight is
+    let ctype = this.CompareDate(docdate, "2023-09-30");
+    if (ctype == ">")
+      isIgstCode = false;
+
+    return isIgstCode;
 
   }
+
+
+
+
 
   public IsWrongDrCode(jv_acc_code: string) {
     if (jv_acc_code == '195'

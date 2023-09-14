@@ -30,7 +30,7 @@ export class BuyRateComponent {
   /*
   Ajith 05/06/2019 MBL No validation
   */
-  // Local Variables 
+  // Local Variables
   title = 'BUY RATE';
   @Input() parentid: string = '';
   @Input() menuid: string = '';
@@ -901,7 +901,7 @@ export class BuyRateComponent {
         Courier_Code_Found = true;
       }
 
-      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+      if (this.gs.IsIgstCode(rec.jv_acc_code, this.Record.jvh_date)) {
         Igst_Only_Code_Found = true;
       }
 
@@ -2324,7 +2324,7 @@ export class BuyRateComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-  
+
   LoadExpBooking() {
 
     if (!this.gs.isBlank(this.Record.LedgerList)) {

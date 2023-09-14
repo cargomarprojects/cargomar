@@ -27,7 +27,7 @@ import { DateComponent } from '../../shared/date/date.component';
 
 
 export class BillingComponent {
-  // Local Variables 
+  // Local Variables
   // title = 'Billing Details';
   title = 'Invoice';
   @ViewChild('jvh_date') private jvh_date: DateComponent;
@@ -866,7 +866,7 @@ export class BillingComponent {
           Courier_Code_Found = true;
         }
 
-        if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+        if (this.gs.IsIgstCode(rec.jv_acc_code, this.Record.jvh_date)) {
           Igst_Only_Code_Found = true;
         }
 
@@ -951,6 +951,8 @@ export class BillingComponent {
       }
     */
     }
+
+    console.log(this.Record.jvh_date);
 
     if (Igst_Only_Code_Found) {
       if (this.Record.jvh_gst_type != 'INTER-STATE') {

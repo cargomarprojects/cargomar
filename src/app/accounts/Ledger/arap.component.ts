@@ -31,7 +31,7 @@ import { AddressUpdateComponent } from './addressupdate.component';
 })
 
 export class ArApComponent {
-  // Local Variables 
+  // Local Variables
   title = 'Ledger Details';
 
   @ViewChild('jvh_date') private jvh_date: DateComponent;
@@ -133,7 +133,7 @@ export class ArApComponent {
 
     this.page_current = 0;
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
 
@@ -983,7 +983,7 @@ export class ArApComponent {
         Courier_Code_Found = true;
       }
 
-      if (this.gs.IsIgstCode(rec.jv_acc_code)) {
+      if (this.gs.IsIgstCode(rec.jv_acc_code, this.Record.jvh_date)) {
         Igst_Only_Code_Found = true;
       }
 
@@ -1016,13 +1016,15 @@ export class ArApComponent {
       if (Code_Other_Than_Courier_Code_Found) {
         bret = false;
         sError += " |Only code 1205030/1105033/1105040/1526 can be used";
-      }      
+      }
       if (rowCount != 1) {
         bret = false;
         sError += " |Only one row can be entered";
       }
       */
     }
+
+    console.log('Date ', this.Record.jvh_date);
 
     if (Igst_Only_Code_Found) {
       if (this.Record.jvh_gst_type != 'INTER-STATE') {
@@ -2557,7 +2559,7 @@ export class ArApComponent {
   PasteDataClosed(cbdata: string) {
     this.bShowPasteData = false;
     //var strdata = cbdata.split('\n');
-    // this.ChangeInvoiceList(true, 'NEW');        
+    // this.ChangeInvoiceList(true, 'NEW');
     this.modal.close();
   }
 
