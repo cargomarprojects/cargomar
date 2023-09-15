@@ -1,0 +1,85 @@
+
+import { GlobalVariables } from '../../core/models/globalvariables';
+
+export class AirBuyRate {
+  sbr_pkid: string;
+  sbr_pol_id: string;
+  sbr_pol_code: string;
+  sbr_pod_id: string;
+  sbr_pod_code: string;
+  sbr_tradelane_id: string;
+  sbr_tradelane_code: string;
+  sbr_carrier_id: string;
+  sbr_carrier_code: string;
+  sbr_valid_from: string;
+  sbr_valid_to: string;
+  sbr_transit: string;
+  sbr_pol_name: string;
+  sbr_pod_name: string;
+  sbr_carrier_name: string;
+  sbr_tradelane_name: string;
+  sbr_routing: string;
+  sbr_remarks: string;
+  sbr_frequency: string;
+  sbr_vsl_cutoff: string;
+  sbr_sail_day: string;
+  sbr_country_name: string;
+  sbr_20: number;
+  sbr_40: number;
+  sbr_40hc: number;
+  sbr_20_baf: number;
+  sbr_20_caf: number;
+  sbr_20_ddc: number;
+  sbr_20_pss: number;
+  sbr_20_ebf: number;
+  sbr_20_chassis: number;
+  sbr_20_suez: number;
+  sbr_20_piracy: number;
+  sbr_20_ihc: number;
+  sbr_20_ifs: number;
+  sbr_20_other: number;
+  sbr_20_acd: number;
+  sbr_20_isps: number;
+  sbr_40_baf: number;
+  sbr_40_caf: number;
+  sbr_40_ddc: number;
+  sbr_40_pss: number;
+  sbr_40_ebf: number;
+  sbr_40_chassis: number;
+  sbr_40_suez: number;
+  sbr_40_piracy: number;
+  sbr_40_ihc: number;
+  sbr_40_ifs: number;
+  sbr_40_other: number;
+  sbr_40_acd: number;
+  sbr_40_isps: number;
+  sbr_40hc_baf: number;
+  sbr_40hc_caf: number;
+  sbr_40hc_ddc: number;
+  sbr_40hc_pss: number;
+  sbr_40hc_ebf: number;
+  sbr_40hc_chassis: number;
+  sbr_40hc_suez: number;
+  sbr_40hc_piracy: number;
+  sbr_40hc_ihc: number;
+  sbr_40hc_ifs: number;
+  sbr_40hc_other: number;
+  sbr_40hc_acd: number;
+  sbr_40hc_isps: number;
+  sbr_20_tot: number;
+  sbr_40_tot: number;
+  sbr_40hc_tot: number;
+  sbr_20_allin: number;
+  sbr_40_allin: number;
+  sbr_40hc_allin: number;
+  sbr_version: number;
+  sbr_gst_rate: number;
+  sbr_terms: string;
+  sbr_cntr_type:string;
+  rec_branch_code:string;
+  
+  rec_mode: string;
+  _globalvariables: GlobalVariables;
+
+}
+

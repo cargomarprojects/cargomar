@@ -28,9 +28,10 @@ import { BankInfoComponent } from './bankinfo/bankinfo.component';
 import { EsanchitComponent } from './esanchit/esanchit.component';
 import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { MailListComponent } from './maillist/maillist.component';
-import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { LocalChargeComponent } from './localcharge/localcharge.component';
 import { EfileUploadComponent } from './efileupload/efileupload.component';
+import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
+import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
     { path: 'seabuyrate', component: SeaBuyRateComponent },
     { path: 'localcharge', component: LocalChargeComponent },
     { path: 'efileupload', component: EfileUploadComponent },
+    { path: 'airbuyrate', component: AirBuyRateComponent },
 ];
 
 @NgModule({

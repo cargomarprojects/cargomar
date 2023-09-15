@@ -38,11 +38,12 @@ import { JobTransferComponent } from './jobtransfer/jobtransfer.component';
 import { AddbookdelComponent  } from './customer/addbookdel.component';
 import { BenfComponent   } from './customer/benf.component';
 import { MailListComponent } from './maillist/maillist.component';
-import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { LocalChargeComponent } from './localcharge/localcharge.component';
 import { UnlockJobComponent } from './customer/unlockjob.component';
 import { BankInfo2Component } from './bankinfo/bankinfo2.component';
 import { EfileUploadComponent } from './efileupload/efileupload.component';
+import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
+import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { EfileUploadComponent } from './efileupload/efileupload.component';
     LocalChargeComponent,
     UnlockJobComponent,
     BankInfo2Component,
-    EfileUploadComponent
+    EfileUploadComponent,
+    AirBuyRateComponent
   ],
   providers: [
   ],
