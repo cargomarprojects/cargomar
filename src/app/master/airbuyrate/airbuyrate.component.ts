@@ -70,6 +70,7 @@ export class AirBuyRateComponent {
   PODRECORD: any = {};
   LINERRECORD: any = {};
   TRADELANERECORD: any = {};
+  CURRRECORD: any = {};
 
   // Array For Displaying List
   RecordList: AirBuyRate[] = [];
@@ -202,6 +203,10 @@ export class AirBuyRateComponent {
       this.search_tradelane_id = _Record.id;
       this.search_tradelane = _Record.name;
     }
+    if (_Record.controlname == "CURR") {
+      this.search_tradelane_id = _Record.id;
+      this.search_tradelane = _Record.name;
+    }
   }
 
 
@@ -322,6 +327,7 @@ export class AirBuyRateComponent {
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: '', code: '', name: '' };
+    this.CURRRECORD = { 'controlname': 'CURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: '', name: '' };
   }
 
   Init() {
@@ -436,6 +442,7 @@ export class AirBuyRateComponent {
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pod_id, code: this.Record.sbr_pod_code, name: this.Record.sbr_pod_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.sbr_carrier_id, code: this.Record.sbr_carrier_code, name: this.Record.sbr_carrier_name };
     this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: this.Record.sbr_tradelane_id, code: this.Record.sbr_tradelane_code, name: this.Record.sbr_tradelane_name };
+    this.TRADELANERECORD = { 'controlname': 'CURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: this.Record.sbr_tradelane_id, code: this.Record.sbr_tradelane_code, name: this.Record.sbr_tradelane_name };
     //Fill Duplicate buyrate
     if (this.mode == "ADD") {
       this.Record.sbr_pkid = this.pkid;

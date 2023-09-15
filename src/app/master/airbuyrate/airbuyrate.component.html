@@ -1,509 +1,525 @@
 <div class="page-header">
-    <div class="col">
-      <label>{{title}}</label>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-      <button class="btn btn-primary btn-sm mr-2" (click)="Close()">Close</button>
-      <label *ngIf="currentTab=='DETAILS'" class="col-form-label col-form-label-sm" style="color:red">
-        {{mode=='ADD'?'NEW':'EDIT'}}&nbsp;RECORD
-      </label>
-      <i *ngIf="loading" class="fa fa-spinner"></i>
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm mr-2" (click)="Close()">Close</button>
+    <label *ngIf="currentTab=='DETAILS'" class="col-form-label col-form-label-sm" style="color:red">
+      {{mode=='ADD'?'NEW':'EDIT'}}&nbsp;RECORD
+    </label>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Entry.Date</label>
+          <div class="col-sm-10">
+            <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
+            </app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-10">
+            <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+            </app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Valid.Date</label>
+          <div class="col-sm-10">
+            <app-date [inputdate]="search_validdate" (ValueChanged)="search_validdate=$event">
+            </app-date>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Tradelane</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
+              [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+              [displaydata]="search_pol" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+              [displaydata]="search_pod" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
+              [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="sort_by">
+              <option [value]="'s.rec_created_date'">ENTRY DATE</option>
+              <option [value]="'sbr_tradelane_name'">TRADELANE</option>
+              <option [value]="'sbr_pol_name'">POL</option>
+              <option [value]="'sbr_pod_name'">POD</option>
+              <option [value]="'sbr_carrier_name'">LINER</option>
+              <option [value]="'sbr_valid_from,sbr_valid_to'">VALIDITY</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">{{bAdmin?'Branch':''}}</label>
+          <div *ngIf="bAdmin" class="col-sm-4">
+            <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+              [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+          <div *ngIf="bAdmin" class="col-sm-2 mt-1">
+            <input type="checkbox" [(ngModel)]="allbr" (change)="OnChange('allbr')">
+            All
+          </div>
+          <div class="col-sm-4">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm">Print</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  
-  <div *ngIf="currentTab=='LIST'" class="page-list">
-  
-    <div class="page-search">
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Entry.Date</label>
-            <div class="col-sm-10">
-              <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
-              </app-date>
-            </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+
+          <th>USER</th>
+          <th *ngIf="bAdmin">BRANCH</th>
+          <th>ENTRY-DATE</th>
+          <th>VALID-FROM</th>
+          <th>VALID-TO</th>
+          <th>TRADELANE</th>
+          <th>POL</th>
+          <th>POD</th>
+          <th>LINER</th>
+          <th>FREQUENCY</th>
+          <th>ROUTING/SERVICE</th>
+          <th>VESSEL-CUT-OFF</th>
+          <th>DAY-OF-SAILING</th>
+          <th>TRANSIT-TIME</th>
+          <th>ALL.IN-20</th>
+          <th>ALL.IN-40</th>
+          <th>ALL.IN-40HC</th>
+          <th>ACD/ENS-20</th>
+          <th>ACD/ENS-40</th>
+          <th>ACD/ENS-40HC</th>
+          <th>COPY</th>
+          <th *ngIf='bDelete' align="center">DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
+          <td *ngIf="bAdmin">{{rec.rec_branch_code}}</td>
+          <td>{{rec.rec_created_date}}</td>
+          <td>{{rec.sbr_valid_from}}</td>
+          <td>{{rec.sbr_valid_to}}</td>
+          <td>{{rec.sbr_tradelane_name}}</td>
+          <td>{{rec.sbr_pol_name}}</td>
+          <td>{{rec.sbr_pod_name}}</td>
+          <td>{{rec.sbr_carrier_name}}</td>
+          <td>{{rec.sbr_frequency}}</td>
+          <td>{{rec.sbr_routing}}</td>
+          <td>{{rec.sbr_vsl_cutoff}}</td>
+          <td>{{rec.sbr_sail_day}}</td>
+          <td>{{rec.sbr_transit}}</td>
+          <td>{{rec.sbr_20_allin}}</td>
+          <td>{{rec.sbr_40_allin}}</td>
+          <td>{{rec.sbr_40hc_allin}}</td>
+          <td>{{rec.sbr_20_acd}}</td>
+          <td>{{rec.sbr_40_acd}}</td>
+          <td>{{rec.sbr_40hc_acd}}</td>
+          <td class="hlink" (click)="DuplicateBuyrate(rec.sbr_pkid)">COPY</td>
+          <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+              (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="page-box p-1">
+
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
+          <div class="col-sm-4">
+            <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
-            <div class="col-sm-10">
-              <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
-              </app-date>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Valid.Date</label>
-            <div class="col-sm-10">
-              <app-date [inputdate]="search_validdate" (ValueChanged)="search_validdate=$event">
-              </app-date>
-            </div>
+          <div class="col-sm-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
+              (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Tradelane</label>
-            <div class="col-sm-10">
-                <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
-                [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3>
-            </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
+          <div class="col-sm-4">
+            <app-autocomplete2 #DestPortLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
-            <div class="col-sm-10">
-                <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
-                [displaydata]="search_pol" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
-            <div class="col-sm-10">
-                <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
-                [displaydata]="search_pod" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3>
-            </div>
+          <div class="col-sm-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
+              (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
-            <div class="col-sm-10">
-                <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
-                [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3>
-            </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+          <div class="col-sm-4">
+            <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
-            <div class="col-sm-10">
-              <select class="form-control form-control-sm" [(ngModel)]="sort_by">
-                <option [value]="'s.rec_created_date'">ENTRY DATE</option>
-                <option [value]="'sbr_tradelane_name'">TRADELANE</option>
-                <option [value]="'sbr_pol_name'">POL</option>
-                <option [value]="'sbr_pod_name'">POD</option>
-                <option [value]="'sbr_carrier_name'">LINER</option>
-                <option [value]="'sbr_valid_from,sbr_valid_to'">VALIDITY</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">{{bAdmin?'Branch':''}}</label>
-            <div  *ngIf="bAdmin" class="col-sm-4">
-              <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
-                [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3>
-            </div>
-            <div  *ngIf="bAdmin" class="col-sm-2 mt-1">
-              <input type="checkbox" [(ngModel)]="allbr" (change)="OnChange('allbr')">
-               All 
-            </div>
-            <div class="col-sm-4">
-              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-                class="btn btn-primary btn-sm">Print</button>
-            </div>
+          <div class="col-sm-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
+              (blur)="OnBlur('sbr_carrier_name')" required maxlength="60" />
           </div>
         </div>
-  
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
+          <div class="col-sm-4">
+            <app-autocomplete2 #TradeLaneLov [inputdata]="TRADELANERECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2>
+          </div>
+          <div class="col-sm-6" style="padding-left:0">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
+              (blur)="OnBlur('sbr_tradelane_name')" required maxlength="100" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Effective.Date</label>
+          <div class="col-sm-4">
+            <app-date #_sbr_valid_from [inputdate]="Record.sbr_valid_from"
+              (ValueChanged)="Record.sbr_valid_from=$event"></app-date>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Validity.Date</label>
+          <div class="col-sm-4">
+            <app-date #_sbr_valid_to [inputdate]="Record.sbr_valid_to" (ValueChanged)="Record.sbr_valid_to=$event">
+            </app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
+          <div class="col-sm-4">
+          <app-autocomplete2 #CurrLov [inputdata]="CURRRECORD" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete2>
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Ex-Rate</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_sail_day"
+              (blur)="OnBlur('sbr_sail_day')" required maxlength="10" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Gst%</label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sbr_gst_rate"
+              (blur)="OnBlur('sbr_gst_rate')" required maxlength="14" />
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Terms</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_terms">
+              <option [value]="'COLLECT'">COLLECT</option>
+              <option [value]="'PREPAID'">PREPAID</option>
+              <option [value]="'BOTH'">BOTH</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_remarks"
+              (blur)="OnBlur('sbr_remarks')" required maxlength="100" />
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">RATE</label>
+          <label style="padding-right:0" class="col-5 col-form-label col-form-label-sm">Minimum</label>
+          <label style="padding-right:0;padding-left:1px" class="col-5 col-form-label col-form-label-sm">Normal</label>
+        </div>
+        <div class="form-group row">
+          <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">FRT</label>
+          <div style="padding-right:0" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
+              (blur)="OnBlur('charges0')" required maxlength="55" />
+          </div>
+          <div style="padding-left:1px" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
+              (blur)="OnBlur('weight0')" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">MCC</label>
+          <div style="padding-right:0" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
+              (blur)="OnBlur('charges0')" required maxlength="55" />
+          </div>
+          <div style="padding-left:1px" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
+              (blur)="OnBlur('weight0')" required maxlength="15" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">SRC</label>
+          <div style="padding-right:0" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
+              (blur)="OnBlur('charges0')" required maxlength="55" />
+          </div>
+          <div style="padding-left:1px" class="col-5">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
+              (blur)="OnBlur('weight0')" required maxlength="15" />
+          </div>
+        </div>
       </div>
     </div>
-  
-    <div class="page-pager">
-      <div *ngIf="page_count">
-        <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-        </ul>
-      </div>
-    </div>
-  
+  </div>
+  <div class="page-box p-1">
     <div class="page-body table-responsive">
-      <table class="table table-hover table-sm table-bordered table-striped">
+      <table class="table  table-hover table-sm my-0">
         <thead class="page-body-thead">
           <tr>
-            
-            <th>USER</th>
-            <th *ngIf="bAdmin">BRANCH</th>
-            <th>ENTRY-DATE</th>
-            <th>VALID-FROM</th>
-            <th>VALID-TO</th>
-            <th>TRADELANE</th>
-            <th>POL</th>
-            <th>POD</th>
-            <th>LINER</th>
-            <th>FREQUENCY</th>
-            <th>ROUTING/SERVICE</th>
-            <th>VESSEL-CUT-OFF</th>
-            <th>DAY-OF-SAILING</th>
-            <th>TRANSIT-TIME</th>
-            <th>ALL.IN-20</th>
-            <th>ALL.IN-40</th>
-            <th>ALL.IN-40HC</th>
-            <th>ACD/ENS-20</th>
-            <th>ACD/ENS-40</th>
-            <th>ACD/ENS-40HC</th>
-            <th>COPY</th>
-            <th *ngIf='bDelete' align="center">DELETE</th>
+            <th></th>
+            <th>ALL.IN</th>
+            <th>+45KGS</th>
+            <th>+100KGS</th>
+            <th>+300KGS</th>
+            <th>+500KGS</th>
+            <th>+1000KGS</th>
+            <th>FSC/KG</th>
+            <th>WSC/KG</th>
+            <th>SRC/KG</th>
+            <th>MCC/KG</th>
+            <th>MCC/MIN</th>
+            <th>SSC/KG</th>
+            <th>XRAY/KG</th>
+            <th>XRAY/MIN</th>
+            <th>ENS</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-            (mousedown)="selectedRowIndex=i">
-            <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
-            <td *ngIf="bAdmin">{{rec.rec_branch_code}}</td>
-            <td>{{rec.rec_created_date}}</td>
-            <td>{{rec.sbr_valid_from}}</td>
-            <td>{{rec.sbr_valid_to}}</td>
-            <td>{{rec.sbr_tradelane_name}}</td>
-            <td>{{rec.sbr_pol_name}}</td>
-            <td>{{rec.sbr_pod_name}}</td>
-            <td>{{rec.sbr_carrier_name}}</td>
-            <td>{{rec.sbr_frequency}}</td>
-            <td>{{rec.sbr_routing}}</td>
-            <td>{{rec.sbr_vsl_cutoff}}</td>
-            <td>{{rec.sbr_sail_day}}</td>
-            <td>{{rec.sbr_transit}}</td>
-            <td>{{rec.sbr_20_allin}}</td>
-            <td>{{rec.sbr_40_allin}}</td>
-            <td>{{rec.sbr_40hc_allin}}</td>
-            <td>{{rec.sbr_20_acd}}</td>
-            <td>{{rec.sbr_40_acd}}</td>
-            <td>{{rec.sbr_40hc_acd}}</td>
-            <td class="hlink" (click)="DuplicateBuyrate(rec.sbr_pkid)">COPY</td>
-            <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
+          <tr>
+            <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
+              <span><strong>PUBLISHED</strong></span>
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_allin" (blur)="OnBlur('sbr_20_allin')" required maxlength="14" /> </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20" (blur)="OnBlur('sbr_20')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_baf" (blur)="OnBlur('sbr_20_baf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_caf" (blur)="OnBlur('sbr_20_caf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_pss" (blur)="OnBlur('sbr_20_pss')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_ebf" (blur)="OnBlur('sbr_20_ebf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_chassis" (blur)="OnBlur('sbr_20_chassis')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_suez" (blur)="OnBlur('sbr_20_suez')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_piracy" (blur)="OnBlur('sbr_20_piracy')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_ihc" (blur)="OnBlur('sbr_20_ihc')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_ifs" (blur)="OnBlur('sbr_20_ifs')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_other" (blur)="OnBlur('sbr_20_other')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_isps" (blur)="OnBlur('sbr_20_isps')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_20_acd" (blur)="OnBlur('sbr_20_acd')" required maxlength="14" /></td>
+          </tr>
+          <tr>
+            <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
+              <span><strong>INFORMED</strong></span>
+            </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_allin" (blur)="OnBlur('sbr_40_allin')" required maxlength="14" /> </td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40" (blur)="OnBlur('sbr_40')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_baf" (blur)="OnBlur('sbr_40_baf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_caf" (blur)="OnBlur('sbr_40_caf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_pss" (blur)="OnBlur('sbr_40_pss')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_ebf" (blur)="OnBlur('sbr_40_ebf')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_chassis" (blur)="OnBlur('sbr_40_chassis')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_suez" (blur)="OnBlur('sbr_40_suez')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_piracy" (blur)="OnBlur('sbr_40_piracy')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_ihc" (blur)="OnBlur('sbr_40_ihc')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_ifs" (blur)="OnBlur('sbr_40_ifs')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_other" (blur)="OnBlur('sbr_40_other')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_isps" (blur)="OnBlur('sbr_40_isps')" required maxlength="14" /></td>
+            <td style="padding:0px"><input type="number" class="form-control form-control-sm"
+                [(ngModel)]="Record.sbr_40_acd" (blur)="OnBlur('sbr_40_acd')" required maxlength="14" /></td>
           </tr>
         </tbody>
       </table>
     </div>
-  
-    <div class="page-pager">
-      <div *ngIf="page_count">
-        <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-        </ul>
-      </div>
-    </div>
-  
   </div>
-  
-  
-  <div *ngIf="currentTab=='DETAILS'" class="page-details">
-  
-    <div class="page-box">
-  
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
-            <div class="col-sm-4">
-              <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete2>
-            </div>
-            <div class="col-sm-6" style="padding-left:0">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
-                (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
-            </div>
-          </div>
-  
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
-            <div class="col-sm-4">
-              <app-autocomplete2 #DestPortLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete2>
-            </div>
-            <div class="col-sm-6" style="padding-left:0">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
-                (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
-            <div class="col-sm-4">
-              <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete2>
-            </div>
-            <div class="col-sm-6" style="padding-left:0">
-              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
-                (blur)="OnBlur('sbr_carrier_name')" required maxlength="60" />
-            </div>
-          </div>
-  
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Tradelane</label>
-            <div class="col-sm-4">
-              <app-autocomplete2 #TradeLaneLov [inputdata]="TRADELANERECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete2>
-            </div>
-            <div class="col-sm-6" style="padding-left:0">
-              <input type="text" disabled  class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
-                (blur)="OnBlur('sbr_tradelane_name')" required maxlength="100" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">TransitTime</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_transit"
-                (blur)="OnBlur('sbr_transit')" required maxlength="100" />
-            </div>
+  <div class="page-box p-1">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Routing</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_routing"
+              (blur)="OnBlur('sbr_routing')" required maxlength="100" />
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Valid-From</label>
-            <div class="col-sm-4">
-              <app-date #_sbr_valid_from [inputdate]="Record.sbr_valid_from"
-                (ValueChanged)="Record.sbr_valid_from=$event"></app-date>
-            </div>
-            <label class="col-sm-2 col-form-label col-form-label-sm">Valid-To</label>
-            <div class="col-sm-4">
-              <app-date #_sbr_valid_to [inputdate]="Record.sbr_valid_to" (ValueChanged)="Record.sbr_valid_to=$event">
-              </app-date>
-            </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Flight ON</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_vsl_cutoff"
+              (blur)="OnBlur('sbr_vsl_cutoff')" required maxlength="10" />
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Gst%</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sbr_gst_rate"
-                (blur)="OnBlur('sbr_gst_rate')" required maxlength="14" />
-            </div>
-            <label class="col-sm-2 col-form-label col-form-label-sm">Terms</label>
-            <div class="col-sm-4">
-              <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_terms">
-                <option [value]="'COLLECT'">COLLECT</option>
-                <option [value]="'PREPAID'">PREPAID</option>
-                <option [value]="'BOTH'">BOTH</option>
-              </select>
-            </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Transit</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_transit"
+              (blur)="OnBlur('sbr_transit')" required maxlength="100" />
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Routing/Service</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_routing"
-                (blur)="OnBlur('sbr_routing')" required maxlength="100" />
-            </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Service</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_cntr_type">
+              <option [value]="'DIRECT'">DIRECT</option>
+              <option [value]="'INDIRECT'">INDIRECT</option>
+            </select>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_remarks"
-                (blur)="OnBlur('sbr_remarks')" required maxlength="100" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Rate.Type</label>
-            <div class="col-sm-10">
-              <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_cntr_type">
-                <option [value]="'STANDARD'">STANDARD</option>
-                <option [value]="'REEFER'">REEFER</option>
-              </select>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Surcharges.Based</label>
+          <div class="col-sm-10">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_frequency">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'ALL ON CH. WT'">ALL ON CH. WT</option>
+              <option [value]="'FSC & SSC ON GR. WT. OTHERS ON CH. WT'">FSC & SSC ON GR. WT. OTHERS ON CH. WT</option>
+            </select>
           </div>
         </div>
       </div>
-    </div>
-    <div class="page-box">
-      <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-          <thead class="page-body-thead">
-            <tr>
-              <th></th>
-              <th>ALL.IN</th>
-              <th>FRT</th>
-              <th>BAF</th>
-              <th>CAF</th>
-              <th>DDC</th>
-              <th>PSS</th>
-              <th>EBF</th>
-              <th>CHASSIS</th>
-              <th>SUEZ</th>
-              <th>PIRACY</th>
-              <th>IHC</th>
-              <th>IFS</th>
-              <th>OTHER</th>
-              <th>ISPS</th>
-              <th>ACD/ENS</th>
-            </tr>
-          </thead>
-          <tbody class="page-body-tbody">
-            <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>20&nbsp;&nbsp;</strong></span>
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_allin" (blur)="OnBlur('sbr_20_allin')" required maxlength="14" /> </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20" (blur)="OnBlur('sbr_20')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_baf" (blur)="OnBlur('sbr_20_baf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_caf" (blur)="OnBlur('sbr_20_caf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_pss" (blur)="OnBlur('sbr_20_pss')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ebf" (blur)="OnBlur('sbr_20_ebf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_chassis" (blur)="OnBlur('sbr_20_chassis')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_suez" (blur)="OnBlur('sbr_20_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_piracy" (blur)="OnBlur('sbr_20_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ihc" (blur)="OnBlur('sbr_20_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_ifs" (blur)="OnBlur('sbr_20_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_other" (blur)="OnBlur('sbr_20_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_isps" (blur)="OnBlur('sbr_20_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_20_acd" (blur)="OnBlur('sbr_20_acd')" required maxlength="14" /></td>
-            </tr>
-            <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>40&nbsp;&nbsp;</strong></span>
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_allin" (blur)="OnBlur('sbr_40_allin')" required maxlength="14" /> </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40" (blur)="OnBlur('sbr_40')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_baf" (blur)="OnBlur('sbr_40_baf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_caf" (blur)="OnBlur('sbr_40_caf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_pss" (blur)="OnBlur('sbr_40_pss')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ebf" (blur)="OnBlur('sbr_40_ebf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_chassis" (blur)="OnBlur('sbr_40_chassis')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_suez" (blur)="OnBlur('sbr_40_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_piracy" (blur)="OnBlur('sbr_40_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ihc" (blur)="OnBlur('sbr_40_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_ifs" (blur)="OnBlur('sbr_40_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_other" (blur)="OnBlur('sbr_40_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_isps" (blur)="OnBlur('sbr_40_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40_acd" (blur)="OnBlur('sbr_40_acd')" required maxlength="14" /></td>
-            </tr>
-            <tr>
-              <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
-                <span><strong>40HC&nbsp;&nbsp;</strong></span>
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_allin" (blur)="OnBlur('sbr_40hc_allin')" required maxlength="14" /> </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc" (blur)="OnBlur('sbr_40hc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_baf" (blur)="OnBlur('sbr_40hc_baf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_caf" (blur)="OnBlur('sbr_40hc_caf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ddc" (blur)="OnBlur('sbr_40hc_ddc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_pss" (blur)="OnBlur('sbr_40hc_pss')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ebf" (blur)="OnBlur('sbr_40hc_ebf')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_chassis" (blur)="OnBlur('sbr_40hc_chassis')" required maxlength="14" />
-              </td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_suez" (blur)="OnBlur('sbr_40hc_suez')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_piracy" (blur)="OnBlur('sbr_40hc_piracy')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ihc" (blur)="OnBlur('sbr_40hc_ihc')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_ifs" (blur)="OnBlur('sbr_40hc_ifs')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_other" (blur)="OnBlur('sbr_40hc_other')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_isps" (blur)="OnBlur('sbr_40hc_isps')" required maxlength="14" /></td>
-              <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                  [(ngModel)]="Record.sbr_40hc_acd" (blur)="OnBlur('sbr_40hc_acd')" required maxlength="14" /></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="row mx-0 px-0">
-          <div class="col-sm-6  mx-0 px-0">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label col-form-label-sm">Frequency</label>
-              <div class="col-sm-4">
-                <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_frequency">
-                  <option [value]="'ONCE IN A WEEK'">ONCE IN A WEEK</option>
-                  <option [value]="'TWICE IN A WEEK'">TWICE IN A WEEK</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label col-form-label-sm">Day of Vessel Cut Off</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_vsl_cutoff"
-                  (blur)="OnBlur('sbr_vsl_cutoff')" required maxlength="10" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label col-form-label-sm">Day of Sailing from Origin Port</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_sail_day"
-                  (blur)="OnBlur('sbr_sail_day')" required maxlength="10" />
-              </div>
-            </div>
-          </div>
-  
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">
-                Eg: If day of week is Monday then put "DAY" as 1 <br>
-                If multiple days say Monday and Friday then put "DAY" as 1 & 5
-              </label>
-            </div>
-          </div>
-        </div>
-  
-  
-      </div>
-    </div>
-    <div class="page-box">
+
       <div class="col-sm-6">
-        <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-        <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)" class="btn btn-success btn-sm">Copy</button>
-        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
+        <!-- <div class="form-group row">
+        <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">
+          Eg: If day of week is Monday then put "DAY" as 1 <br>
+          If multiple days say Monday and Friday then put "DAY" as 1 & 5
+        </label>
+      </div> -->
       </div>
     </div>
-    <br>
   </div>
- <br />
-  
-  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-  
-  <div *ngIf="InfoMessage" class="alert alert-success">
-    {{InfoMessage}}
+  <div class="page-box">
+    <div class="col-sm-6">
+      <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)"
+        class="btn btn-success btn-sm">Copy</button>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
   </div>
-  <div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
-  </div>
+  <br>
+</div>
+<br />
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

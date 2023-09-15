@@ -107,7 +107,7 @@
             <input type="checkbox" [(ngModel)]="allbr" (change)="OnChange('allbr')">
              All 
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-4 pr-0">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
