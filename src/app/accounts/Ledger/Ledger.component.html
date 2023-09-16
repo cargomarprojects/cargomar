@@ -28,8 +28,13 @@
           </div>
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+
+            <button [disabled]="loading" *ngIf="type=='BR'" (click)="PasteData(pastedata)"
+              class="btn btn-primary btn-sm">Import Data</button>
+
             <button [disabled]="loading" *ngIf="bMail&&(type=='BP'||type=='JV-BP')" (click)="Showmail(mailsent)"
               class="btn btn-primary btn-sm">Mail</button>
+
             <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll()"
               class="btn btn-primary btn-sm">Generate
               All</button>
@@ -837,7 +842,7 @@
 </div>
 <br />
 
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
 
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
@@ -914,6 +919,7 @@
       (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
   </div>
 </ng-template>
+
 <ng-template #mailsent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Message Details</h4>
@@ -925,5 +931,18 @@
     <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'BP-APPROVAL'" [sHtml]="sHtml" [defaultmessage]="sMsg"
       [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"
       (ModifiedRecords)="MailCallback($event)"></app-mail>
+  </div>
+</ng-template>
+
+
+<ng-template #pastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Bank Import</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <App-BankImport [msg]="'Please Wait'" (CloseClicked)="ClipBoardClosed($event)"></App-BankImport>
   </div>
 </ng-template>

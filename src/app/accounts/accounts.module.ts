@@ -91,6 +91,7 @@ import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
 import { AddressUpdateComponent } from './ledger/addressupdate.component';
 import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
+import { BankImportComponent } from './ledger/bankImport.component';
 
 @NgModule({
   imports: [
@@ -146,7 +147,8 @@ import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.comp
     CollectionComponent,
     DailyExpComponent,
     AddressUpdateComponent,
-    AgentPayHistoryComponent
+    AgentPayHistoryComponent,
+    BankImportComponent
   ],
   providers: [
   ],

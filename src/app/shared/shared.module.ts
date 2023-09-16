@@ -60,6 +60,7 @@ import { GenFileUploadComponent } from './genfileupload/genfileupload.component'
 import { MailDirectComponent } from './mail-direct/mail-direct.component';
 import { ApprovedDetComponent } from './approveddet/approveddet.component';
 import { ApprovedDetService } from './services/approveddet.service';
+import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -83,6 +84,7 @@ import { ApprovedDetService } from './services/approveddet.service';
     FileUploadComponent,
     GenerateDocComponent,
     ClipBoardComponent,
+    ClipBoard2Component,
     QtnComponent,
     LoadQtnComponent,
     MailComponent,
@@ -120,6 +122,7 @@ import { ApprovedDetService } from './services/approveddet.service';
     FileUploadComponent,
     GenerateDocComponent,
     ClipBoardComponent,
+    ClipBoard2Component,
     QtnComponent,
     LoadQtnComponent,
     MailComponent,

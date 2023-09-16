@@ -58,6 +58,8 @@ export class LedgerComponent {
   bAdmin: boolean = false;
   modal: any;
 
+
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -129,7 +131,8 @@ export class LedgerComponent {
     private modalService: NgbModal,
     private mainService: LedgerService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    private gs: GlobalService,
+
   ) {
     this.page_count = 0;
     this.page_rows = 20;
@@ -2916,6 +2919,20 @@ export class LedgerComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  PasteData(content: any) {
+    this.modal = this.modalService.open(content);
+  }
+
+  ClipBoardClosed(data: any) {
+    console.log(data.data);
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.modal.close();
+
   }
 
 }

@@ -993,4 +993,23 @@ export class GlobalService {
       return false;
 
   }
+
+
+  public CSVToJSON(csv: string): any[] {
+    const lines = csv.split('\n');
+    const _keys = lines[0].split('\t');
+
+    let keys = _keys.map(col => {
+      return col.replace(" ", "").toLowerCase();
+    });
+
+    return lines.slice(1).map(line => {
+      return line.split('\t').reduce((acc, cur, i) => {
+        const toAdd = {};
+        toAdd[keys[i]] = cur;
+        return { ...acc, ...toAdd };
+      }, {});
+    });
+  };
+
 }
