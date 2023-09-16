@@ -40,7 +40,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Tradelane</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
               [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
@@ -66,7 +66,7 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Liner</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
               [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
@@ -131,23 +131,20 @@
           <th>USER</th>
           <th *ngIf="bAdmin">BRANCH</th>
           <th>ENTRY-DATE</th>
-          <th>VALID-FROM</th>
-          <th>VALID-TO</th>
-          <th>TRADELANE</th>
+          <th>EFFECTIVE-DATE</th>
+          <th>VALIDITY-DATE</th>
+          <th>COUNTRY</th>
           <th>POL</th>
           <th>POD</th>
-          <th>LINER</th>
-          <th>FREQUENCY</th>
-          <th>ROUTING/SERVICE</th>
-          <th>VESSEL-CUT-OFF</th>
-          <th>DAY-OF-SAILING</th>
-          <th>TRANSIT-TIME</th>
-          <th>ALL.IN-20</th>
-          <th>ALL.IN-40</th>
-          <th>ALL.IN-40HC</th>
-          <th>ACD/ENS-20</th>
-          <th>ACD/ENS-40</th>
-          <th>ACD/ENS-40HC</th>
+          <th>CARRIER</th>
+          <th>ROUTING</th>
+          <th>FLIGHT-ON</th>
+          <th>TRANSIT</th>
+          <th>SERVICE</th>
+          <th>CURR</th>
+          <th>EX-RATE</th>
+          <th>ALL.IN-PUB</th>
+          <th>ALL.IN-INFO</th>
           <th>COPY</th>
           <th *ngIf='bDelete' align="center">DELETE</th>
         </tr>
@@ -158,26 +155,23 @@
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
           <td *ngIf="bAdmin">{{rec.rec_branch_code}}</td>
           <td>{{rec.rec_created_date}}</td>
-          <td>{{rec.sbr_valid_from}}</td>
-          <td>{{rec.sbr_valid_to}}</td>
-          <td>{{rec.sbr_tradelane_name}}</td>
-          <td>{{rec.sbr_pol_name}}</td>
-          <td>{{rec.sbr_pod_name}}</td>
-          <td>{{rec.sbr_carrier_name}}</td>
-          <td>{{rec.sbr_frequency}}</td>
-          <td>{{rec.sbr_routing}}</td>
-          <td>{{rec.sbr_vsl_cutoff}}</td>
-          <td>{{rec.sbr_sail_day}}</td>
-          <td>{{rec.sbr_transit}}</td>
-          <td>{{rec.sbr_20_allin}}</td>
-          <td>{{rec.sbr_40_allin}}</td>
-          <td>{{rec.sbr_40hc_allin}}</td>
-          <td>{{rec.sbr_20_acd}}</td>
-          <td>{{rec.sbr_40_acd}}</td>
-          <td>{{rec.sbr_40hc_acd}}</td>
-          <td class="hlink" (click)="DuplicateBuyrate(rec.sbr_pkid)">COPY</td>
+          <td>{{rec.abr_effective_date}}</td>
+          <td>{{rec.abr_validity_date}}</td>
+          <td>{{rec.abr_country_code}}</td>
+          <td>{{rec.abr_pol_code}}</td>
+          <td>{{rec.abr_pod_code}}</td>
+          <td>{{rec.abr_carrier_code}}</td>
+          <td>{{rec.abr_routing}}</td>
+          <td>{{rec.abr_flights}}</td>
+          <td>{{rec.abr_transit}}</td>
+          <td>{{rec.abr_service}}</td>
+          <td>{{rec.abr_currency}}</td>
+          <td>{{rec.abr_ex_rate}}</td>
+          <td>{{rec.abr_published_allin}}</td>
+          <td>{{rec.abr_informed_allin}}</td>
+          <td class="hlink" (click)="DuplicateBuyrate(rec.abr_pkid)">COPY</td>
           <td *ngIf='bDelete' align="center"><i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-              (click)="RemoveRecord(rec.sbr_pkid)"></i></td>
+              (click)="RemoveRecord(rec.abr_pkid)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -210,47 +204,57 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
           <div class="col-sm-4">
-            <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete2>
+            <!-- <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2> -->
+            <app-autocomplete3 [controlname]="'POL'" [tabletype]="'AIR PORT'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.abr_pol_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
-              (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.abr_pol_name"
+              (blur)="OnBlur('abr_pol_name')" required maxlength="60" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
           <div class="col-sm-4">
-            <app-autocomplete2 #DestPortLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete2>
+            <!-- <app-autocomplete2 #DestPortLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2> -->
+            <app-autocomplete3 [controlname]="'POD'" [tabletype]="'AIR PORT'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.abr_pod_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
-              (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.abr_pod_name"
+              (blur)="OnBlur('abr_pod_name')" required maxlength="60" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
           <div class="col-sm-4">
-            <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete2>
+            <!-- <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete2> -->
+            <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.abr_carrier_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
-              (blur)="OnBlur('sbr_carrier_name')" required maxlength="60" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.abr_carrier_name"
+              (blur)="OnBlur('abr_carrier_name')" required maxlength="60" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-sm-4">
-            <app-autocomplete2 #TradeLaneLov [inputdata]="TRADELANERECORD" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete2>
+            <app-autocomplete3 [controlname]="'COUNTRY'" [tabletype]="'COUNTRY'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.abr_country_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
           <div class="col-sm-6" style="padding-left:0">
-            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
-              (blur)="OnBlur('sbr_tradelane_name')" required maxlength="100" />
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.abr_country_name"
+              (blur)="OnBlur('abr_country_name')" required maxlength="100" />
           </div>
         </div>
       </div>
@@ -258,36 +262,38 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Effective.Date</label>
           <div class="col-sm-4">
-            <app-date #_sbr_valid_from [inputdate]="Record.sbr_valid_from"
-              (ValueChanged)="Record.sbr_valid_from=$event"></app-date>
+            <app-date #_sbr_valid_from [inputdate]="Record.abr_effective_date"
+              (ValueChanged)="Record.abr_effective_date=$event"></app-date>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Validity.Date</label>
           <div class="col-sm-4">
-            <app-date #_sbr_valid_to [inputdate]="Record.sbr_valid_to" (ValueChanged)="Record.sbr_valid_to=$event">
+            <app-date #_sbr_valid_to [inputdate]="Record.abr_validity_date"
+              (ValueChanged)="Record.abr_validity_date=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
           <div class="col-sm-4">
-          <app-autocomplete2 #CurrLov [inputdata]="CURRRECORD" (ValueChanged)="LovSelected($event)">
-          </app-autocomplete2>
+            <app-autocomplete3 [controlname]="'CURR'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
+              [displaydata]="Record.abr_currency" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Ex-Rate</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_sail_day"
-              (blur)="OnBlur('sbr_sail_day')" required maxlength="10" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_ex_rate"
+              (blur)="OnBlur('abr_ex_rate')" required maxlength="10" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Gst%</label>
           <div class="col-sm-4">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.sbr_gst_rate"
-              (blur)="OnBlur('sbr_gst_rate')" required maxlength="14" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_gst_rate"
+              (blur)="OnBlur('abr_gst_rate')" required maxlength="14" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Terms</label>
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_terms">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.abr_terms">
               <option [value]="'COLLECT'">COLLECT</option>
               <option [value]="'PREPAID'">PREPAID</option>
               <option [value]="'BOTH'">BOTH</option>
@@ -298,8 +304,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_remarks"
-              (blur)="OnBlur('sbr_remarks')" required maxlength="100" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_remarks"
+              (blur)="OnBlur('abr_remarks')" required maxlength="100" />
           </div>
         </div>
 
@@ -313,34 +319,34 @@
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">FRT</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
-              (blur)="OnBlur('charges0')" required maxlength="55" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_freight_min_rate"
+              (blur)="OnBlur('abr_freight_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
-              (blur)="OnBlur('weight0')" required maxlength="15" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_freight_norm_rate"
+              (blur)="OnBlur('abr_freight_norm_rate')" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">MCC</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
-              (blur)="OnBlur('charges0')" required maxlength="55" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_mcc_min_rate"
+              (blur)="OnBlur('abr_mcc_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
-              (blur)="OnBlur('weight0')" required maxlength="15" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_mcc_norm_rate"
+              (blur)="OnBlur('abr_mcc_norm_rate')" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">SRC</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].charges"
-              (blur)="OnBlur('charges0')" required maxlength="55" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_src_min_rate"
+              (blur)="OnBlur('abr_src_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="ChargesAgent[0].weight"
-              (blur)="OnBlur('weight0')" required maxlength="15" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_src_norm_rate"
+              (blur)="OnBlur('abr_src_norm_rate')" required maxlength="15" />
           </div>
         </div>
       </div>
@@ -375,70 +381,70 @@
               <span><strong>PUBLISHED</strong></span>
             </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_allin" (blur)="OnBlur('sbr_20_allin')" required maxlength="14" /> </td>
+                [(ngModel)]="Record.abr_published_allin" (blur)="OnBlur('abr_published_allin')" required maxlength="14" /> </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20" (blur)="OnBlur('sbr_20')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_45kg" (blur)="OnBlur('abr_published_45kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_baf" (blur)="OnBlur('sbr_20_baf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_100kg" (blur)="OnBlur('abr_published_100kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_caf" (blur)="OnBlur('sbr_20_caf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_300kg" (blur)="OnBlur('abr_published_300kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_ddc" (blur)="OnBlur('sbr_20_ddc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_500kg" (blur)="OnBlur('abr_published_500kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_pss" (blur)="OnBlur('sbr_20_pss')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_1000kg" (blur)="OnBlur('abr_published_1000kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_ebf" (blur)="OnBlur('sbr_20_ebf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_fsckg" (blur)="OnBlur('abr_published_fsckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_chassis" (blur)="OnBlur('sbr_20_chassis')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_wsckg" (blur)="OnBlur('abr_published_wsckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_suez" (blur)="OnBlur('sbr_20_suez')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_srckg" (blur)="OnBlur('abr_published_srckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_piracy" (blur)="OnBlur('sbr_20_piracy')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_mcckg" (blur)="OnBlur('abr_published_mcckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_ihc" (blur)="OnBlur('sbr_20_ihc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_mccmin" (blur)="OnBlur('abr_published_mccmin')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_ifs" (blur)="OnBlur('sbr_20_ifs')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_ssckg" (blur)="OnBlur('abr_published_ssckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_other" (blur)="OnBlur('sbr_20_other')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_xraykg" (blur)="OnBlur('abr_published_xraykg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_isps" (blur)="OnBlur('sbr_20_isps')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_xraymin" (blur)="OnBlur('abr_published_xraymin')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_20_acd" (blur)="OnBlur('sbr_20_acd')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_ens" (blur)="OnBlur('abr_published_ens')" required maxlength="14" /></td>
           </tr>
           <tr>
             <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
               <span><strong>INFORMED</strong></span>
             </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_allin" (blur)="OnBlur('sbr_40_allin')" required maxlength="14" /> </td>
+                [(ngModel)]="Record.abr_informed_allin" (blur)="OnBlur('abr_informed_allin')" required maxlength="14" /> </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40" (blur)="OnBlur('sbr_40')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_45kg" (blur)="OnBlur('abr_informed_45kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_baf" (blur)="OnBlur('sbr_40_baf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_100kg" (blur)="OnBlur('abr_informed_100kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_caf" (blur)="OnBlur('sbr_40_caf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_300kg" (blur)="OnBlur('abr_informed_300kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_ddc" (blur)="OnBlur('sbr_40_ddc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_500kg" (blur)="OnBlur('abr_informed_500kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_pss" (blur)="OnBlur('sbr_40_pss')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_1000kg" (blur)="OnBlur('abr_informed_1000kg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_ebf" (blur)="OnBlur('sbr_40_ebf')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_fsckg" (blur)="OnBlur('abr_informed_fsckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_chassis" (blur)="OnBlur('sbr_40_chassis')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_wsckg" (blur)="OnBlur('abr_informed_wsckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_suez" (blur)="OnBlur('sbr_40_suez')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_srckg" (blur)="OnBlur('abr_informed_srckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_piracy" (blur)="OnBlur('sbr_40_piracy')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_mcckg" (blur)="OnBlur('abr_informed_mcckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_ihc" (blur)="OnBlur('sbr_40_ihc')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_mccmin" (blur)="OnBlur('abr_informed_mccmin')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_ifs" (blur)="OnBlur('sbr_40_ifs')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_ssckg" (blur)="OnBlur('abr_informed_ssckg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_other" (blur)="OnBlur('sbr_40_other')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_xraykg" (blur)="OnBlur('abr_informed_xraykg')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_isps" (blur)="OnBlur('sbr_40_isps')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_xraymin" (blur)="OnBlur('abr_informed_xraymin')" required maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.sbr_40_acd" (blur)="OnBlur('sbr_40_acd')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_ens" (blur)="OnBlur('abr_informed_ens')" required maxlength="14" /></td>
           </tr>
         </tbody>
       </table>
