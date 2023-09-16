@@ -15,7 +15,7 @@ export class ClipBoard2Component implements OnInit {
 
   @ViewChild('content') private content: any;
 
-  @Output() CloseClicked = new EventEmitter<{ records: any[], data: string }>()
+  @Output() CloseClicked = new EventEmitter<string>()
 
   @Input() msg: string;
 
@@ -65,22 +65,15 @@ export class ClipBoard2Component implements OnInit {
   }
 
   process() {
+
+    if (this.cbdata == "")
+      return;
     if (this.CloseClicked != null) {
-      this.ConvertData();
-      this.CloseClicked.emit({ records: this.json, data: this.cbdata });
+      this.CloseClicked.emit(this.cbdata);
     }
   }
 
 
-  searchRecord() {
-    this.ConvertData();
-    console.log(this.json);
-  }
-
-  ConvertData() {
-    this.json = this.gs.CSVToJSON(this.cbdata);
-    this.jsonString = JSON.stringify(this.json);
-  }
 
 
 

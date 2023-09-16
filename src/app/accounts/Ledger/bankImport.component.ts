@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GlobalService } from '../../core/services/global.service';
 import { PayRequestComponent } from '../payrequest/payrequest.component';
+import { NavigationCancel } from '@angular/router';
 
 
 
@@ -64,10 +65,18 @@ export class BankImportComponent implements OnInit {
     this.RecordList = [];
   }
 
+  PasteDataClosed(cbdata: string) {
+    this.cbdata = cbdata;
+    this.Verify();
+  }
+
+  cancel() {
+    this.currentTab = "PASTEDATA";
+  }
+
   process() {
     if (this.CloseClicked != null) {
       this.ConvertData();
-      //this.CloseClicked.emit({ records: this.json, data: this.cbdata });
     }
   }
 
@@ -88,8 +97,11 @@ export class BankImportComponent implements OnInit {
 
     this.RecordList = list.reduce((acc: any[], rec: any) => {
       const len = Object.keys(rec).length;
-      if (len == 10)
-        acc.push({ ...rec, remarks: '' });
+      if (len == 10) {
+        const amt = rec["credit"];
+        if (amt != "")
+          acc.push({ ...rec, remarks: '' });
+      }
       return acc;
     }, []);
 

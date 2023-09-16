@@ -1,10 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PasteDatam, PasteDatad } from '../models/pastedata';
-import { SearchTable } from '../models/searchtable';
 import { GlobalService } from '../../core/services/global.service';
-import { forEach } from '@angular/router/src/utils/collection';
-
 
 @Component({
   selector: 'App-PasteData',
@@ -274,7 +271,7 @@ export class PasteDataComponent implements OnInit {
         return;
       }
     }
-    
+
     let dRow: PasteDatad = new PasteDatad;
     this.Record = new PasteDatam;
     this.Record.hdr_pkid = this.gs.getGuid();
