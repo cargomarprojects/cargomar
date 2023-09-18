@@ -192,11 +192,11 @@ export class AirBuyRateComponent {
       this.search_pod_id = _Record.id;
       this.search_pod = _Record.name;
     }
-    if (_Record.controlname == "SEARCHLINER") {
+    if (_Record.controlname == "SEARCHCARRIER") {
       this.search_carrier_id = _Record.id;
       this.search_carrier = _Record.name;
     }
-    if (_Record.controlname == "SEARCHTRADELANE") {
+    if (_Record.controlname == "SEARCHCOUNTRY") {
       this.search_country_id = _Record.id;
       this.search_country = _Record.name;
     }
@@ -310,7 +310,6 @@ export class AirBuyRateComponent {
   NewRecord() {
 
     this.pkid = this.gs.getGuid();
-
     this.Record = new AirBuyRate();
     this.Record.abr_pkid = this.pkid;
     this.Record.rec_mode = this.mode;
@@ -320,27 +319,31 @@ export class AirBuyRateComponent {
 
   Init() {
     // lblStatus.Text = "";
-    this.Record.abr_pkid = '';
     this.Record.abr_pol_id = '';
+    this.Record.abr_pol_code = '';
+    this.Record.abr_pol_name = '';
     this.Record.abr_pod_id = '';
+    this.Record.abr_pod_code = '';
+    this.Record.abr_pod_name = '';
     this.Record.abr_carrier_id = '';
+    this.Record.abr_carrier_code = '';
+    this.Record.abr_carrier_name = '';
     this.Record.abr_country_id = '';
+    this.Record.abr_country_code = '';
+    this.Record.abr_country_name = '';
     this.Record.abr_effective_date = '';
     this.Record.abr_validity_date = '';
-    this.Record.abr_currency = '';
-    this.Record.abr_ex_rate = 0;
+    this.Record.abr_currency = 'INR';
+    this.Record.abr_ex_rate = 1;
     this.Record.abr_gst_rate = 0;
     this.Record.abr_terms = '';
     this.Record.abr_routing = '';
     this.Record.abr_flights = '';
     this.Record.abr_transit = '';
-    this.Record.abr_service = '';
-    this.Record.abr_surchrg_based = '';
+    this.Record.abr_service = 'DIRECT';
+    this.Record.abr_surchrg_based = 'NA';
     this.Record.abr_remarks = '';
-    this.Record.abr_country_code = '';
-    this.Record.abr_pod_code = '';
-    this.Record.abr_pol_code = '';
-    this.Record.abr_carrier_code = '';
+    
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.ClearRates();
   }
@@ -552,6 +555,10 @@ export class AirBuyRateComponent {
 
     if (field == 'abr_routing') {
       this.Record.abr_routing = this.Record.abr_routing.toUpperCase();
+    }
+
+    if (field == 'abr_flights') {
+      this.Record.abr_flights = this.Record.abr_flights.toUpperCase();
     }
 
     if (field == 'abr_remarks') {

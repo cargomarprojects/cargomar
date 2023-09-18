@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Valid.Date</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Validity.Date</label>
           <div class="col-sm-10">
             <app-date [inputdate]="search_validdate" (ValueChanged)="search_validdate=$event">
             </app-date>
@@ -42,7 +42,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHCOUNTRY'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
               [displaydata]="search_country" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -68,7 +68,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHCARRIER'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'NAME'"
               [displaydata]="search_carrier" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -77,11 +77,11 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
           <div class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="sort_by">
-              <option [value]="'s.rec_created_date'">ENTRY DATE</option>
-              <option [value]="'abr_country_name'">COUNTRY</option>
-              <option [value]="'abr_pol_name'">POL</option>
-              <option [value]="'abr_pod_name'">POD</option>
-              <option [value]="'abr_carrier_name'">LINER</option>
+              <option [value]="'a.rec_created_date'">ENTRY DATE</option>
+              <option [value]="'abr_country_code'">COUNTRY</option>
+              <option [value]="'abr_pol_code'">POL</option>
+              <option [value]="'abr_pod_code'">POD</option>
+              <option [value]="'abr_carrier_code'">CARRIER</option>
               <option [value]="'abr_effective_date,abr_validity_date'">VALIDITY</option>
             </select>
           </div>
@@ -152,7 +152,7 @@
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
-          <td class="hlink" (click)="ActionHandler('EDIT',rec.sbr_pkid)">{{rec.rec_created_by}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.abr_pkid)">{{rec.rec_created_by}}</td>
           <td *ngIf="bAdmin">{{rec.rec_branch_code}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.abr_effective_date}}</td>
@@ -487,7 +487,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Routing</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_routing"
-              (blur)="OnBlur('abr_routing')" required maxlength="100" />
+              (blur)="OnBlur('abr_routing')" required maxlength="30" />
           </div>
         </div>
 
@@ -495,7 +495,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Flight ON</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_flights"
-              (blur)="OnBlur('abr_flights')" required maxlength="10" />
+              (blur)="OnBlur('abr_flights')" required maxlength="30" />
           </div>
         </div>
 
@@ -503,7 +503,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Transit</label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_transit"
-              (blur)="OnBlur('abr_transit')" required maxlength="100" />
+              (blur)="OnBlur('abr_transit')" required maxlength="30" />
           </div>
         </div>
 
