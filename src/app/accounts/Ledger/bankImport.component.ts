@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { GlobalService } from '../../core/services/global.service';
+import { LedgerService } from '../services/ledger.service';
+import { Ledgerh } from '../models/ledgerh';
+import { CostCentert } from '../models/costcentert';
+import { pendinglist } from '../models/pendinglist';
+import { Ledgert } from '../models/ledgert';
 
 @Component({
   selector: 'App-BankImport',
@@ -16,7 +21,10 @@ export class BankImportComponent implements OnInit {
   jsonString: any;
   currentTab = 'PASTEDATA';
 
-  constructor(private gs: GlobalService) {
+  constructor(
+    private mainService: LedgerService,
+    private gs: GlobalService
+  ) {
   }
 
   ngOnInit() {
@@ -55,7 +63,6 @@ export class BankImportComponent implements OnInit {
       alert('This option can be used only in Bank Receipt, Invalid Type ' + this.type);
       return;
     }
-
     this.StartProcess();
   }
 
@@ -63,11 +70,13 @@ export class BankImportComponent implements OnInit {
     const data = this.RecordList.find(f => f.status == '');
     if (data) {
       data.status = 'completed';
-      console.log(data);
     }
     else {
       alert('All Completed');
     }
   }
 
+
 }
+
+

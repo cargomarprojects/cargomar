@@ -665,6 +665,21 @@ export class GlobalService {
     return retdate;
   }
 
+
+  ConvertDate(strDate: string) {
+    try {
+      const dt = new Date(strDate);
+      const m = dt.getMonth() + 1;
+      const d = dt.getDate();
+      const y = dt.getFullYear();
+      const retDate = y + "-" + m + '-' + d;
+      return retDate;
+    }
+    catch (err) {
+      return '';
+    }
+  }
+
   public getGstType(_gstin: string, _gstin_state_code: string, isSez: boolean, bISGT_Exception = false) {
     let _type: string = '';
     if (_gstin.length == 15) {
@@ -956,12 +971,12 @@ export class GlobalService {
       isIgstCode = false;
 
     // As per new GST Act after export freight is
-    let ctype = this.CompareDate(docdate, "2023-09-30");
-    if (ctype == ">")
-      isIgstCode = false;
-
+    if (isIgstCode) {
+      let ctype = this.CompareDate(docdate, "2023-09-30");
+      if (ctype == ">")
+        isIgstCode = false;
+    }
     return isIgstCode;
-
   }
 
 
