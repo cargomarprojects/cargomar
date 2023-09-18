@@ -2925,14 +2925,10 @@ export class LedgerComponent {
     this.modal = this.modalService.open(content);
   }
 
-  ClipBoardClosed(data: any) {
-    console.log(data.data);
-    this.closeModal();
-  }
 
-  closeModal() {
-    this.modal.close();
+  closeModel(){
 
   }
+
 
 }
