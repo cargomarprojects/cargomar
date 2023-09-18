@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { GlobalService } from '../../core/services/global.service';
 import { LedgerService } from '../services/ledger.service';
-import { Ledgerh } from '../models/ledgerh';
-import { CostCentert } from '../models/costcentert';
-import { pendinglist } from '../models/pendinglist';
-import { Ledgert } from '../models/ledgert';
 
 @Component({
   selector: 'App-BankImport',
