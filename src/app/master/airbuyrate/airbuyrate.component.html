@@ -43,7 +43,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
-              [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
+              [displaydata]="search_country" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -69,7 +69,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
           <div class="col-sm-10">
             <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
-              [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
+              [displaydata]="search_carrier" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -78,11 +78,11 @@
           <div class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="sort_by">
               <option [value]="'s.rec_created_date'">ENTRY DATE</option>
-              <option [value]="'sbr_tradelane_name'">TRADELANE</option>
-              <option [value]="'sbr_pol_name'">POL</option>
-              <option [value]="'sbr_pod_name'">POD</option>
-              <option [value]="'sbr_carrier_name'">LINER</option>
-              <option [value]="'sbr_valid_from,sbr_valid_to'">VALIDITY</option>
+              <option [value]="'abr_country_name'">COUNTRY</option>
+              <option [value]="'abr_pol_name'">POL</option>
+              <option [value]="'abr_pod_name'">POD</option>
+              <option [value]="'abr_carrier_name'">LINER</option>
+              <option [value]="'abr_effective_date,abr_validity_date'">VALIDITY</option>
             </select>
           </div>
         </div>
@@ -319,33 +319,33 @@
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">FRT</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_freight_min_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_freight_min_rate"
               (blur)="OnBlur('abr_freight_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_freight_norm_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_freight_norm_rate"
               (blur)="OnBlur('abr_freight_norm_rate')" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">MCC</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_mcc_min_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_mcc_min_rate"
               (blur)="OnBlur('abr_mcc_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_mcc_norm_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_mcc_norm_rate"
               (blur)="OnBlur('abr_mcc_norm_rate')" required maxlength="15" />
           </div>
         </div>
         <div class="form-group row">
           <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">SRC</label>
           <div style="padding-right:0" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_src_min_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_src_min_rate"
               (blur)="OnBlur('abr_src_min_rate')" required maxlength="55" />
           </div>
           <div style="padding-left:1px" class="col-5">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="abr_src_norm_rate"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.abr_src_norm_rate"
               (blur)="OnBlur('abr_src_norm_rate')" required maxlength="15" />
           </div>
         </div>
@@ -381,70 +381,100 @@
               <span><strong>PUBLISHED</strong></span>
             </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_allin" (blur)="OnBlur('abr_published_allin')" required maxlength="14" /> </td>
+                [(ngModel)]="Record.abr_published_allin" (blur)="OnBlur('abr_published_allin')" required
+                maxlength="14" /> </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_45kg" (blur)="OnBlur('abr_published_45kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_45kg" (blur)="OnBlur('abr_published_45kg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_100kg" (blur)="OnBlur('abr_published_100kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_100kg" (blur)="OnBlur('abr_published_100kg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_300kg" (blur)="OnBlur('abr_published_300kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_300kg" (blur)="OnBlur('abr_published_300kg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_500kg" (blur)="OnBlur('abr_published_500kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_500kg" (blur)="OnBlur('abr_published_500kg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_1000kg" (blur)="OnBlur('abr_published_1000kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_1000kg" (blur)="OnBlur('abr_published_1000kg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_fsckg" (blur)="OnBlur('abr_published_fsckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_fsckg" (blur)="OnBlur('abr_published_fsckg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_wsckg" (blur)="OnBlur('abr_published_wsckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_wsckg" (blur)="OnBlur('abr_published_wsckg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_srckg" (blur)="OnBlur('abr_published_srckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_srckg" (blur)="OnBlur('abr_published_srckg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_mcckg" (blur)="OnBlur('abr_published_mcckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_mcckg" (blur)="OnBlur('abr_published_mcckg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_mccmin" (blur)="OnBlur('abr_published_mccmin')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_mccmin" (blur)="OnBlur('abr_published_mccmin')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_ssckg" (blur)="OnBlur('abr_published_ssckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_ssckg" (blur)="OnBlur('abr_published_ssckg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_xraykg" (blur)="OnBlur('abr_published_xraykg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_xraykg" (blur)="OnBlur('abr_published_xraykg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_xraymin" (blur)="OnBlur('abr_published_xraymin')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_xraymin" (blur)="OnBlur('abr_published_xraymin')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_published_ens" (blur)="OnBlur('abr_published_ens')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_published_ens" (blur)="OnBlur('abr_published_ens')" required maxlength="14" />
+            </td>
           </tr>
           <tr>
             <td style="padding-left:0;padding-top: 4px;padding-bottom: 0;padding-right: 0;">
               <span><strong>INFORMED</strong></span>
             </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_allin" (blur)="OnBlur('abr_informed_allin')" required maxlength="14" /> </td>
+                [(ngModel)]="Record.abr_informed_allin" (blur)="OnBlur('abr_informed_allin')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_45kg" (blur)="OnBlur('abr_informed_45kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_45kg" (blur)="OnBlur('abr_informed_45kg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_100kg" (blur)="OnBlur('abr_informed_100kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_100kg" (blur)="OnBlur('abr_informed_100kg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_300kg" (blur)="OnBlur('abr_informed_300kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_300kg" (blur)="OnBlur('abr_informed_300kg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_500kg" (blur)="OnBlur('abr_informed_500kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_500kg" (blur)="OnBlur('abr_informed_500kg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_1000kg" (blur)="OnBlur('abr_informed_1000kg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_1000kg" (blur)="OnBlur('abr_informed_1000kg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_fsckg" (blur)="OnBlur('abr_informed_fsckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_fsckg" (blur)="OnBlur('abr_informed_fsckg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_wsckg" (blur)="OnBlur('abr_informed_wsckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_wsckg" (blur)="OnBlur('abr_informed_wsckg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_srckg" (blur)="OnBlur('abr_informed_srckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_srckg" (blur)="OnBlur('abr_informed_srckg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_mcckg" (blur)="OnBlur('abr_informed_mcckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_mcckg" (blur)="OnBlur('abr_informed_mcckg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_mccmin" (blur)="OnBlur('abr_informed_mccmin')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_mccmin" (blur)="OnBlur('abr_informed_mccmin')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_ssckg" (blur)="OnBlur('abr_informed_ssckg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_ssckg" (blur)="OnBlur('abr_informed_ssckg')" required maxlength="14" />
+            </td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_xraykg" (blur)="OnBlur('abr_informed_xraykg')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_xraykg" (blur)="OnBlur('abr_informed_xraykg')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_xraymin" (blur)="OnBlur('abr_informed_xraymin')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_xraymin" (blur)="OnBlur('abr_informed_xraymin')" required
+                maxlength="14" /></td>
             <td style="padding:0px"><input type="number" class="form-control form-control-sm"
-                [(ngModel)]="Record.abr_informed_ens" (blur)="OnBlur('abr_informed_ens')" required maxlength="14" /></td>
+                [(ngModel)]="Record.abr_informed_ens" (blur)="OnBlur('abr_informed_ens')" required maxlength="14" />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -456,31 +486,31 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Routing</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_routing"
-              (blur)="OnBlur('sbr_routing')" required maxlength="100" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_routing"
+              (blur)="OnBlur('abr_routing')" required maxlength="100" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Flight ON</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_vsl_cutoff"
-              (blur)="OnBlur('sbr_vsl_cutoff')" required maxlength="10" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_flights"
+              (blur)="OnBlur('abr_flights')" required maxlength="10" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Transit</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_transit"
-              (blur)="OnBlur('sbr_transit')" required maxlength="100" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.abr_transit"
+              (blur)="OnBlur('abr_transit')" required maxlength="100" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Service</label>
           <div class="col-sm-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_cntr_type">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.abr_service">
               <option [value]="'DIRECT'">DIRECT</option>
               <option [value]="'INDIRECT'">INDIRECT</option>
             </select>
@@ -489,7 +519,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Surcharges.Based</label>
           <div class="col-sm-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sbr_frequency">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.abr_surchrg_based">
               <option [value]="'NA'">NA</option>
               <option [value]="'ALL ON CH. WT'">ALL ON CH. WT</option>
               <option [value]="'FSC & SSC ON GR. WT. OTHERS ON CH. WT'">FSC & SSC ON GR. WT. OTHERS ON CH. WT</option>
@@ -511,7 +541,7 @@
   <div class="page-box">
     <div class="col-sm-6">
       <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)"
+      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.abr_pkid)"
         class="btn btn-success btn-sm">Copy</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
