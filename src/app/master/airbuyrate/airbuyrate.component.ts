@@ -48,16 +48,16 @@ export class AirBuyRateComponent {
   fromdate: string = "";
   todate: string = "";
   search_validdate: string = "";
-  search_tradelane: string = "";
+  search_country: string = "";
   search_pol: string = "";
   search_pod: string = "";
-  search_liner: string = "";
+  search_carrier: string = "";
   search_branch_code: string = "";
   sort_by = "abr_effective_date,abr_validity_date";
-  search_tradelane_id: string = "";
+  search_country_id: string = "";
   search_pol_id: string = "";
   search_pod_id: string = "";
-  search_liner_id: string = "";
+  search_carrier_id: string = "";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -193,12 +193,12 @@ export class AirBuyRateComponent {
       this.search_pod = _Record.name;
     }
     if (_Record.controlname == "SEARCHLINER") {
-      this.search_liner_id = _Record.id;
-      this.search_liner = _Record.name;
+      this.search_carrier_id = _Record.id;
+      this.search_carrier = _Record.name;
     }
     if (_Record.controlname == "SEARCHTRADELANE") {
-      this.search_tradelane_id = _Record.id;
-      this.search_tradelane = _Record.name;
+      this.search_country_id = _Record.id;
+      this.search_country = _Record.name;
     }
 
   }
@@ -270,14 +270,14 @@ export class AirBuyRateComponent {
       sort_by: this.sort_by,
       is_admin: this.bAdmin,
       search_validdate: this.search_validdate,
-      search_country: this.search_tradelane,
+      search_country: this.search_country,
       search_pol: this.search_pol,
       search_pod: this.search_pod,
-      search_carrier: this.search_liner,
-      search_tradelane_id: this.search_tradelane_id,
+      search_carrier: this.search_carrier,
+      search_country_id: this.search_country_id,
       search_pol_id: this.search_pol_id,
       search_pod_id: this.search_pod_id,
-      search_carrier_id: this.search_liner_id,
+      search_carrier_id: this.search_carrier_id,
       allbr: this.allbr
     };
 
@@ -533,226 +533,206 @@ export class AirBuyRateComponent {
   }
 
   OnBlur(field: string) {
-    /*
-        if (field == 'sbr_pol_name') {
-          this.Record.sbr_pol_name = this.Record.sbr_pol_name.toUpperCase();
-        }
-        if (field == 'sbr_pod_name') {
-          this.Record.sbr_pod_name = this.Record.sbr_pod_name.toUpperCase();
-        }
-        if (field == 'sbr_carrier_name') {
-          this.Record.sbr_carrier_name = this.Record.sbr_carrier_name.toUpperCase();
-        }
-        if (field == 'sbr_tradelane_name') {
-          this.Record.sbr_tradelane_name = this.Record.sbr_tradelane_name.toUpperCase();
-        }
-        if (field == 'sbr_transit') {
-          this.Record.sbr_transit = this.Record.sbr_transit.toUpperCase();
-        }
-    
-        if (field == 'sbr_routing') {
-          this.Record.sbr_routing = this.Record.sbr_routing.toUpperCase();
-        }
-    
-        if (field == 'sbr_remarks') {
-          this.Record.sbr_remarks = this.Record.sbr_remarks.toUpperCase();
-        }
-    
-        if (field == 'sbr_vsl_cutoff') {
-          this.Record.sbr_vsl_cutoff = this.Record.sbr_vsl_cutoff.toUpperCase();
-        }
-    
-        if (field == 'sbr_sail_day') {
-          this.Record.sbr_sail_day = this.Record.sbr_sail_day.toUpperCase();
-        }
-    
-    
-        if (field == 'sbr_20') {
-          this.Record.sbr_20 = this.gs.roundNumber(this.Record.sbr_20, 2);
-        }
-    
-    
-    
-        if (field == 'sbr_40') {
-          this.Record.sbr_40 = this.gs.roundNumber(this.Record.sbr_40, 2);
-        }
-    
-        if (field == 'sbr_40hc') {
-          this.Record.sbr_40hc = this.gs.roundNumber(this.Record.sbr_40hc, 2);
-        }
-    
-        if (field == 'sbr_20_baf') {
-          this.Record.sbr_20_baf = this.gs.roundNumber(this.Record.sbr_20_baf, 2);
-        }
-    
-        if (field == 'sbr_20_caf') {
-          this.Record.sbr_20_caf = this.gs.roundNumber(this.Record.sbr_20_caf, 2);
-        }
-    
-        if (field == 'sbr_20_ddc') {
-          this.Record.sbr_20_ddc = this.gs.roundNumber(this.Record.sbr_20_ddc, 2);
-        }
-    
-        if (field == 'sbr_20_pss') {
-          this.Record.sbr_20_pss = this.gs.roundNumber(this.Record.sbr_20_pss, 2);
-        }
-    
-        if (field == 'sbr_20_ebf') {
-          this.Record.sbr_20_ebf = this.gs.roundNumber(this.Record.sbr_20_ebf, 2);
-        }
-    
-        if (field == 'sbr_20_chassis') {
-          this.Record.sbr_20_chassis = this.gs.roundNumber(this.Record.sbr_20_chassis, 2);
-        }
-    
-        if (field == 'sbr_20_suez') {
-          this.Record.sbr_20_suez = this.gs.roundNumber(this.Record.sbr_20_suez, 2);
-        }
-    
-        if (field == 'sbr_20_piracy') {
-          this.Record.sbr_20_piracy = this.gs.roundNumber(this.Record.sbr_20_piracy, 2);
-        }
-    
-        if (field == 'sbr_20_ihc') {
-          this.Record.sbr_20_ihc = this.gs.roundNumber(this.Record.sbr_20_ihc, 2);
-        }
-    
-        if (field == 'sbr_20_ifs') {
-          this.Record.sbr_20_ifs = this.gs.roundNumber(this.Record.sbr_20_ifs, 2);
-        }
-    
-        if (field == 'sbr_20_other') {
-          this.Record.sbr_20_other = this.gs.roundNumber(this.Record.sbr_20_other, 2);
-        }
-    
-        if (field == 'sbr_20_acd') {
-          this.Record.sbr_20_acd = this.gs.roundNumber(this.Record.sbr_20_acd, 2);
-        }
-    
-        if (field == 'sbr_20_isps') {
-          this.Record.sbr_20_isps = this.gs.roundNumber(this.Record.sbr_20_isps, 2);
-        }
-    
-        if (field == 'sbr_40_baf') {
-          this.Record.sbr_40_baf = this.gs.roundNumber(this.Record.sbr_40_baf, 2);
-        }
-    
-        if (field == 'sbr_40_caf') {
-          this.Record.sbr_40_caf = this.gs.roundNumber(this.Record.sbr_40_caf, 2);
-        }
-    
-        if (field == 'sbr_40_ddc') {
-          this.Record.sbr_40_ddc = this.gs.roundNumber(this.Record.sbr_40_ddc, 2);
-        }
-    
-        if (field == 'sbr_40_pss') {
-          this.Record.sbr_40_pss = this.gs.roundNumber(this.Record.sbr_40_pss, 2);
-        }
-    
-        if (field == 'sbr_40_ebf') {
-          this.Record.sbr_40_ebf = this.gs.roundNumber(this.Record.sbr_40_ebf, 2);
-        }
-    
-        if (field == 'sbr_40_chassis') {
-          this.Record.sbr_40_chassis = this.gs.roundNumber(this.Record.sbr_40_chassis, 2);
-        }
-    
-        if (field == 'sbr_40_suez') {
-          this.Record.sbr_40_suez = this.gs.roundNumber(this.Record.sbr_40_suez, 2);
-        }
-    
-        if (field == 'sbr_40_piracy') {
-          this.Record.sbr_40_piracy = this.gs.roundNumber(this.Record.sbr_40_piracy, 2);
-        }
-    
-        if (field == 'sbr_40_ihc') {
-          this.Record.sbr_40_ihc = this.gs.roundNumber(this.Record.sbr_40_ihc, 2);
-        }
-    
-        if (field == 'sbr_40_ifs') {
-          this.Record.sbr_40_ifs = this.gs.roundNumber(this.Record.sbr_40_ifs, 2);
-        }
-    
-        if (field == 'sbr_40_other') {
-          this.Record.sbr_40_other = this.gs.roundNumber(this.Record.sbr_40_other, 2);
-        }
-    
-        if (field == 'sbr_40_acd') {
-          this.Record.sbr_40_acd = this.gs.roundNumber(this.Record.sbr_40_acd, 2);
-        }
-    
-        if (field == 'sbr_40_isps') {
-          this.Record.sbr_40_isps = this.gs.roundNumber(this.Record.sbr_40_isps, 2);
-        }
-    
-        if (field == 'sbr_40hc_baf') {
-          this.Record.sbr_40hc_baf = this.gs.roundNumber(this.Record.sbr_40hc_baf, 2);
-        }
-    
-        if (field == 'sbr_40hc_caf') {
-          this.Record.sbr_40hc_caf = this.gs.roundNumber(this.Record.sbr_40hc_caf, 2);
-        }
-    
-        if (field == 'sbr_40hc_ddc') {
-          this.Record.sbr_40hc_ddc = this.gs.roundNumber(this.Record.sbr_40hc_ddc, 2);
-        }
-    
-        if (field == 'sbr_40hc_pss') {
-          this.Record.sbr_40hc_pss = this.gs.roundNumber(this.Record.sbr_40hc_pss, 2);
-        }
-    
-        if (field == 'sbr_40hc_ebf') {
-          this.Record.sbr_40hc_ebf = this.gs.roundNumber(this.Record.sbr_40hc_ebf, 2);
-        }
-    
-        if (field == 'sbr_40hc_chassis') {
-          this.Record.sbr_40hc_chassis = this.gs.roundNumber(this.Record.sbr_40hc_chassis, 2);
-        }
-    
-        if (field == 'sbr_40hc_suez') {
-          this.Record.sbr_40hc_suez = this.gs.roundNumber(this.Record.sbr_40hc_suez, 2);
-        }
-    
-        if (field == 'sbr_40hc_piracy') {
-          this.Record.sbr_40hc_piracy = this.gs.roundNumber(this.Record.sbr_40hc_piracy, 2);
-        }
-    
-        if (field == 'sbr_40hc_ihc') {
-          this.Record.sbr_40hc_ihc = this.gs.roundNumber(this.Record.sbr_40hc_ihc, 2);
-        }
-    
-        if (field == 'sbr_40hc_ifs') {
-          this.Record.sbr_40hc_ifs = this.gs.roundNumber(this.Record.sbr_40hc_ifs, 2);
-        }
-    
-        if (field == 'sbr_40hc_other') {
-          this.Record.sbr_40hc_other = this.gs.roundNumber(this.Record.sbr_40hc_other, 2);
-        }
-    
-        if (field == 'sbr_40hc_acd') {
-          this.Record.sbr_40hc_acd = this.gs.roundNumber(this.Record.sbr_40hc_acd, 2);
-        }
-    
-        if (field == 'sbr_40hc_isps') {
-          this.Record.sbr_40hc_isps = this.gs.roundNumber(this.Record.sbr_40hc_isps, 2);
-        }
-        if (field == 'sbr_gst_rate') {
-          this.Record.sbr_gst_rate = this.gs.roundNumber(this.Record.sbr_gst_rate, 2);
-        }
-    
-        if (field == 'search_tradelane') {
-          this.search_tradelane = this.search_tradelane.toUpperCase();
-        }
-        if (field == 'search_pol') {
-          this.search_pol = this.search_pol.toUpperCase();
-        }
-        if (field == 'search_pod') {
-          this.search_pod = this.search_pod.toUpperCase();
-        }
-        if (field == 'search_liner') {
-          this.search_liner = this.search_liner.toUpperCase();
-        }
-    */
+
+    if (field == 'abr_pol_name') {
+      this.Record.abr_pol_name = this.Record.abr_pol_name.toUpperCase();
+    }
+    if (field == 'abr_pod_name') {
+      this.Record.abr_pod_name = this.Record.abr_pod_name.toUpperCase();
+    }
+    if (field == 'abr_carrier_name') {
+      this.Record.abr_carrier_name = this.Record.abr_carrier_name.toUpperCase();
+    }
+    if (field == 'abr_country_name') {
+      this.Record.abr_country_name = this.Record.abr_country_name.toUpperCase();
+    }
+    if (field == 'abr_transit') {
+      this.Record.abr_transit = this.Record.abr_transit.toUpperCase();
+    }
+
+    if (field == 'abr_routing') {
+      this.Record.abr_routing = this.Record.abr_routing.toUpperCase();
+    }
+
+    if (field == 'abr_remarks') {
+      this.Record.abr_remarks = this.Record.abr_remarks.toUpperCase();
+    }
+
+    // if (field == 'sbr_vsl_cutoff') {
+    //   this.Record.sbr_vsl_cutoff = this.Record.sbr_vsl_cutoff.toUpperCase();
+    // }
+
+    // if (field == 'sbr_sail_day') {
+    //   this.Record.sbr_sail_day = this.Record.sbr_sail_day.toUpperCase();
+    // }
+
+    if (field == 'abr_gst_rate') {
+      this.Record.abr_gst_rate = this.gs.roundNumber(this.Record.abr_gst_rate, 2);
+    }
+
+    if (field == 'abr_ex_rate') {
+      this.Record.abr_ex_rate = this.gs.roundNumber(this.Record.abr_ex_rate, 2);
+    }
+
+
+    if (field == 'abr_freight_min_rate') {
+      this.Record.abr_freight_min_rate = this.gs.roundNumber(this.Record.abr_freight_min_rate, 2);
+    }
+
+    if (field == 'abr_freight_norm_rate') {
+      this.Record.abr_freight_norm_rate = this.gs.roundNumber(this.Record.abr_freight_norm_rate, 2);
+    }
+
+    if (field == 'abr_mcc_min_rate') {
+      this.Record.abr_mcc_min_rate = this.gs.roundNumber(this.Record.abr_mcc_min_rate, 2);
+    }
+
+    if (field == 'abr_mcc_norm_rate') {
+      this.Record.abr_mcc_norm_rate = this.gs.roundNumber(this.Record.abr_mcc_norm_rate, 2);
+    }
+
+    if (field == 'abr_src_min_rate') {
+      this.Record.abr_src_min_rate = this.gs.roundNumber(this.Record.abr_src_min_rate, 2);
+    }
+
+    if (field == 'abr_src_norm_rate') {
+      this.Record.abr_src_norm_rate = this.gs.roundNumber(this.Record.abr_src_norm_rate, 2);
+    }
+
+    if (field == 'abr_published_allin') {
+      this.Record.abr_published_allin = this.gs.roundNumber(this.Record.abr_published_allin, 2);
+    }
+
+    if (field == 'abr_published_45kg') {
+      this.Record.abr_published_45kg = this.gs.roundNumber(this.Record.abr_published_45kg, 2);
+    }
+
+    if (field == 'abr_published_100kg') {
+      this.Record.abr_published_100kg = this.gs.roundNumber(this.Record.abr_published_100kg, 2);
+    }
+
+    if (field == 'abr_published_300kg') {
+      this.Record.abr_published_300kg = this.gs.roundNumber(this.Record.abr_published_300kg, 2);
+    }
+
+    if (field == 'abr_published_500kg') {
+      this.Record.abr_published_500kg = this.gs.roundNumber(this.Record.abr_published_500kg, 2);
+    }
+
+    if (field == 'abr_published_1000kg') {
+      this.Record.abr_published_1000kg = this.gs.roundNumber(this.Record.abr_published_1000kg, 2);
+    }
+
+    if (field == 'abr_published_fsckg') {
+      this.Record.abr_published_fsckg = this.gs.roundNumber(this.Record.abr_published_fsckg, 2);
+    }
+
+    if (field == 'abr_published_wsckg') {
+      this.Record.abr_published_wsckg = this.gs.roundNumber(this.Record.abr_published_wsckg, 2);
+    }
+
+    if (field == 'abr_published_srckg') {
+      this.Record.abr_published_srckg = this.gs.roundNumber(this.Record.abr_published_srckg, 2);
+    }
+
+    if (field == 'abr_published_mcckg') {
+      this.Record.abr_published_mcckg = this.gs.roundNumber(this.Record.abr_published_mcckg, 2);
+    }
+
+    if (field == 'abr_published_mccmin') {
+      this.Record.abr_published_mccmin = this.gs.roundNumber(this.Record.abr_published_mccmin, 2);
+    }
+
+    if (field == 'abr_published_ssckg') {
+      this.Record.abr_published_ssckg = this.gs.roundNumber(this.Record.abr_published_ssckg, 2);
+    }
+
+    if (field == 'abr_published_xraykg') {
+      this.Record.abr_published_xraykg = this.gs.roundNumber(this.Record.abr_published_xraykg, 2);
+    }
+
+    if (field == 'abr_published_xraymin') {
+      this.Record.abr_published_xraymin = this.gs.roundNumber(this.Record.abr_published_xraymin, 2);
+    }
+
+    if (field == 'abr_published_ens') {
+      this.Record.abr_published_ens = this.gs.roundNumber(this.Record.abr_published_ens, 2);
+    }
+
+    if (field == 'abr_informed_allin') {
+      this.Record.abr_informed_allin = this.gs.roundNumber(this.Record.abr_informed_allin, 2);
+    }
+
+    if (field == 'abr_informed_45kg') {
+      this.Record.abr_informed_45kg = this.gs.roundNumber(this.Record.abr_informed_45kg, 2);
+    }
+
+    if (field == 'abr_informed_100kg') {
+      this.Record.abr_informed_100kg = this.gs.roundNumber(this.Record.abr_informed_100kg, 2);
+    }
+
+    if (field == 'abr_informed_300kg') {
+      this.Record.abr_informed_300kg = this.gs.roundNumber(this.Record.abr_informed_300kg, 2);
+    }
+
+    if (field == 'abr_informed_500kg') {
+      this.Record.abr_informed_500kg = this.gs.roundNumber(this.Record.abr_informed_500kg, 2);
+    }
+
+    if (field == 'abr_informed_1000kg') {
+      this.Record.abr_informed_1000kg = this.gs.roundNumber(this.Record.abr_informed_1000kg, 2);
+    }
+
+    if (field == 'abr_informed_fsckg') {
+      this.Record.abr_informed_fsckg = this.gs.roundNumber(this.Record.abr_informed_fsckg, 2);
+    }
+
+    if (field == 'abr_informed_wsckg') {
+      this.Record.abr_informed_wsckg = this.gs.roundNumber(this.Record.abr_informed_wsckg, 2);
+    }
+
+    if (field == 'abr_informed_srckg') {
+      this.Record.abr_informed_srckg = this.gs.roundNumber(this.Record.abr_informed_srckg, 2);
+    }
+
+    if (field == 'abr_informed_mcckg') {
+      this.Record.abr_informed_mcckg = this.gs.roundNumber(this.Record.abr_informed_mcckg, 2);
+    }
+
+    if (field == 'abr_informed_mccmin') {
+      this.Record.abr_informed_mccmin = this.gs.roundNumber(this.Record.abr_informed_mccmin, 2);
+    }
+
+    if (field == 'abr_informed_ssckg') {
+      this.Record.abr_informed_ssckg = this.gs.roundNumber(this.Record.abr_informed_ssckg, 2);
+    }
+
+    if (field == 'abr_informed_xraykg') {
+      this.Record.abr_informed_xraykg = this.gs.roundNumber(this.Record.abr_informed_xraykg, 2);
+    }
+
+    if (field == 'abr_informed_xraymin') {
+      this.Record.abr_informed_xraymin = this.gs.roundNumber(this.Record.abr_informed_xraymin, 2);
+    }
+
+    if (field == 'abr_informed_ens') {
+      this.Record.abr_informed_ens = this.gs.roundNumber(this.Record.abr_informed_ens, 2);
+    }
+
+
+    if (field == 'search_country') {
+      this.search_country = this.search_country.toUpperCase();
+    }
+    if (field == 'search_pol') {
+      this.search_pol = this.search_pol.toUpperCase();
+    }
+    if (field == 'search_pod') {
+      this.search_pod = this.search_pod.toUpperCase();
+    }
+    if (field == 'search_carrier') {
+      this.search_carrier = this.search_carrier.toUpperCase();
+    }
+
   }
   OnChange(field: string) {
     if (this.allbr)
