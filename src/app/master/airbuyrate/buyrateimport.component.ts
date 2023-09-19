@@ -49,7 +49,7 @@ export class BuyrateImportComponent implements OnInit {
 
     this.Records = list.reduce((acc: any[], rec: any) => {
       const len = Object.keys(rec).length;
-      if (len == 23) {
+      if (len == 29) {
         // const amt = rec["credit"];
         // if (amt != "")
           acc.push({ ...rec, status: '' });

@@ -336,7 +336,7 @@ export class AirBuyRateComponent {
     this.Record.abr_currency = 'INR';
     this.Record.abr_ex_rate = 1;
     this.Record.abr_gst_rate = 0;
-    this.Record.abr_terms = '';
+    this.Record.abr_terms = 'PREPAID';
     this.Record.abr_routing = '';
     this.Record.abr_flights = '';
     this.Record.abr_transit = '';
