@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index">
+          <tr *ngFor="let rec of Records; let i = index">
             <td>{{i+1}}</td>
             <td>{{rec.date}}</td>
             <td>{{rec.valuedate}}</td>
@@ -45,7 +45,7 @@
 
   <div class="text-center my-1">
     <button class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
-    <button class="btn btn-primary btn-sm" (click)="process()">Save</button>
+    <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="bSave">Save</button>
   </div>
 
 
