@@ -826,7 +826,7 @@ export class AirBuyRateComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   DuplicateBuyrate(_id: string) {
@@ -837,5 +837,8 @@ export class AirBuyRateComponent {
     this.GetRecord(_id);
   }
 
+  PasteData(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 
 }

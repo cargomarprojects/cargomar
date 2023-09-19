@@ -100,7 +100,9 @@
           <div class="offset-2 col-sm-10">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-              class="btn btn-primary btn-sm">Print</button>
+              class="btn btn-primary btn-sm mr-1">Print</button>
+            <button [disabled]="loading" (click)="PasteData(brpastedata)" class="btn btn-primary btn-sm">Import
+              Data</button>
           </div>
         </div>
       </div>
@@ -559,3 +561,14 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #brpastedata let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Buy Rate Import</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-buyrateimport [type]="'AIR'"></app-buyrateimport>
+  </div>
+</ng-template>

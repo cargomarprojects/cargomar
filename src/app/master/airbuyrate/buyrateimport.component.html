@@ -1,0 +1,98 @@
+<div *ngIf="currentTab=='PASTEDATA'">
+    <App-ClipBoard2 [msg]="'Please Wait'" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
+
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>SL#</th>
+                        <th>POL</th>
+                        <th>COUNTRY</th>
+                        <th>POD</th>
+                        <th>CARRIER</th>
+                        <th>ROUTING</th>
+                        <th>SERVICE</th>
+                        <th>TRANSIT</th>
+                        <th>FREQUENCY</th>
+                        <th>CURRENCY</th>
+                        <th>EX_RATE</th>
+                        <th>MIN_RATE</th>
+                        <th>NORM_RATE</th>
+                        <th>45KG</th>
+                        <th>100KG</th>
+                        <th>300KG</th>
+                        <th>500KG</th>
+                        <th>1000KG</th>
+                        <th>FSCKG</th>
+                        <th>SSCKG</th>
+                        <th>MCCKG</th>
+                        <th>MCCMIN</th>
+                        <th>XRAYKG</th>
+                        <th>XRAYMIN</th>
+                        <th>ALLIN</th>
+                        <th>ENS</th>
+                        <th>SURCHRG_BASED</th>
+                        <th>EFFECTIVE_DATE</th>
+                        <th>VALIDITY_DATE</th>
+                        <th>REMARKS</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of Records; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{rec.abr_pol_code}}</td>
+                        <td>{{rec.abr_country_code}}</td>
+                        <td>{{rec.abr_pod_code}}</td>
+                        <td>{{rec.abr_carrier_code}}</td>
+                        <td>{{rec.abr_routing}}</td>
+                        <td>{{rec.abr_service}}</td>
+                        <td>{{rec.abr_transit}}</td>
+                        <td>{{rec.abr_flights}}</td>
+                        <td>{{rec.abr_currency}}</td>
+                        <td>{{rec.abr_ex_rate}}</td>
+                        <td>{{rec.abr_freight_min_rate}}</td>
+                        <td>{{rec.abr_freight_norm_rate}}</td>
+                        <td>{{rec.abr_informed_45kg}}</td>
+                        <td>{{rec.abr_informed_100kg}}</td>
+                        <td>{{rec.abr_informed_300kg}}</td>
+                        <td>{{rec.abr_informed_500kg}}</td>
+                        <td>{{rec.abr_informed_1000kg}}</td>
+                        <td>{{rec.abr_informed_fsckg}}</td>
+                        <td>{{rec.abr_informed_ssckg}}</td>
+                        <td>{{rec.abr_informed_mcckg}}</td>
+                        <td>{{rec.abr_informed_mccmin}}</td>
+                        <td>{{rec.abr_informed_xraykg}}</td>
+                        <td>{{rec.abr_informed_xraymin}}</td>
+                        <td>{{rec.abr_informed_allin}}</td>
+                        <td>{{rec.abr_informed_ens}}</td>
+                        <td>{{rec.abr_surchrg_based}}</td>
+                        <td>{{rec.abr_effective_date}}</td>
+                        <td>{{rec.abr_validity_date}}</td>
+                        <td>{{rec.abr_remarks}}</td>
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+
+
+    <div class="text-center my-1">
+        <button class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="bSave">Save</button>
+    </div>
+
+
+</div>
+
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>
