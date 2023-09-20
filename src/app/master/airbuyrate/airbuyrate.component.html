@@ -18,18 +18,23 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Entry.Date</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
             </app-date>
           </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-4">
+            <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+            </app-date>
+          </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
           <div class="col-sm-10">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
             </app-date>
           </div>
-        </div>
+        </div> -->
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Validity.Date</label>
           <div class="col-sm-10">
@@ -37,43 +42,62 @@
             </app-date>
           </div>
         </div>
-      </div>
-      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Country</label>
-          <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'SEARCHCOUNTRY'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'SEARCHCOUNTRY'" [tabletype]="'COUNTRY'" [displaycolumn]="'CODE'"
               [displaydata]="search_country" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
+          <div class="col-sm-6 pl-0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_country_code"
+              (blur)="OnBlur('search_country_code')" required maxlength="200" />
+          </div>
         </div>
+      </div>
+      <div class="col-sm-4">
+      
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
-          <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'AIR PORT'" [displaycolumn]="'CODE'"
               [displaydata]="search_pol" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
+          </div>
+          <div class="col-sm-6 pl-0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pol_code"
+              (blur)="OnBlur('search_pol_code')" required maxlength="200" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
-          <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'AIR PORT'" [displaycolumn]="'CODE'"
               [displaydata]="search_pod" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
+          </div>
+          <div class="col-sm-6 pl-0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pod_code"
+              (blur)="OnBlur('search_pod_code')" required maxlength="200" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+          <div class="col-sm-4">
+            <app-autocomplete3 [controlname]="'SEARCHCARRIER'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'CODE'"
+              [displaydata]="search_carrier" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+          <div class="col-sm-6 pl-0">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="search_carrier_code"
+              (blur)="OnBlur('search_carrier_code')" required maxlength="200" />
           </div>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
-          <div class="col-sm-4">
-            <app-autocomplete3 [controlname]="'SEARCHCARRIER'" [tabletype]="'AIR CARRIER'" [displaycolumn]="'NAME'"
-              [displaydata]="search_carrier" (ValueChanged)="LovSelected($event)">
-            </app-autocomplete3>
-          </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
-          <div class="col-sm-4">
+          <div class="col-sm-10">
             <select class="form-control form-control-sm" [(ngModel)]="sort_by">
               <option [value]="'a.rec_created_date'">ENTRY DATE</option>
               <option [value]="'abr_country_code'">COUNTRY</option>
@@ -569,6 +593,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-buyrateimport [type]="'AIR'"></app-buyrateimport>
+    <app-buyrateimport [type]="'AIR'" (CloseClicked)="CallbackBuyrateImport($event)"></app-buyrateimport>
   </div>
 </ng-template>

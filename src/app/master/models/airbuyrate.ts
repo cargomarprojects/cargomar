@@ -71,3 +71,47 @@ export class AirBuyRate {
 
 }
 
+export class BuyrateImport {
+  pol_codes: string;
+  pod_codes: string;
+  carrier_codes: string;
+  country_codes: string;
+  records: BuyrateImportDet[];
+  rec_created_by: string;
+  rec_created_date: string;
+  _globalvariables: GlobalVariables;
+}
+
+export class BuyrateImportDet {
+  pol_code: string;
+  country_code: string;
+  pod_code: string;
+  carrier_code: string;
+  routing: string;
+  service: string;
+  transit: string;
+  flights: string;
+  currency: string;
+  ex_rate: number;
+  min_rate: number;
+  norm_rate: number;
+  informed_45kg: number;
+  informed_100kg: number;
+  informed_300kg: number;
+  informed_500kg: number;
+  informed_1000kg: number;
+  informed_fsckg: number;
+  informed_ssckg: number;
+  informed_mcckg: number;
+  informed_mccmin: number;
+  informed_xraykg: number;
+  informed_xraymin: number;
+  informed_allin: number;
+  informed_ens: number;
+  surchrg_based: string;
+  effective_date: string;
+  validity_date: string;
+  gst_rate: number;
+  terms: string;
+  remarks: string;
+}

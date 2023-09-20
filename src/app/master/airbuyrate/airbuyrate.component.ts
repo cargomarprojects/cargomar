@@ -58,6 +58,10 @@ export class AirBuyRateComponent {
   search_pol_id: string = "";
   search_pod_id: string = "";
   search_carrier_id: string = "";
+  search_country_code: string = "";
+  search_pol_code: string = "";
+  search_pod_code: string = "";
+  search_carrier_code: string = "";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -186,19 +190,23 @@ export class AirBuyRateComponent {
 
     if (_Record.controlname == "SEARCHPOL") {
       this.search_pol_id = _Record.id;
-      this.search_pol = _Record.name;
+      this.search_pol = _Record.code;
+      this.search_pol_code = _Record.code;
     }
     if (_Record.controlname == "SEARCHPOD") {
       this.search_pod_id = _Record.id;
-      this.search_pod = _Record.name;
+      this.search_pod = _Record.code;
+      this.search_pod_code = _Record.code;
     }
     if (_Record.controlname == "SEARCHCARRIER") {
       this.search_carrier_id = _Record.id;
-      this.search_carrier = _Record.name;
+      this.search_carrier = _Record.code;
+      this.search_carrier_code = _Record.code;
     }
     if (_Record.controlname == "SEARCHCOUNTRY") {
       this.search_country_id = _Record.id;
-      this.search_country = _Record.name;
+      this.search_country = _Record.code;
+      this.search_country_code = _Record.code;
     }
 
   }
@@ -270,10 +278,10 @@ export class AirBuyRateComponent {
       sort_by: this.sort_by,
       is_admin: this.bAdmin,
       search_validdate: this.search_validdate,
-      search_country: this.search_country,
-      search_pol: this.search_pol,
-      search_pod: this.search_pod,
-      search_carrier: this.search_carrier,
+      search_country_code: this.search_country_code,
+      search_pol_code: this.search_pol_code,
+      search_pod_code: this.search_pod_code,
+      search_carrier_code: this.search_carrier_code,
       search_country_id: this.search_country_id,
       search_pol_id: this.search_pol_id,
       search_pod_id: this.search_pod_id,
@@ -343,7 +351,7 @@ export class AirBuyRateComponent {
     this.Record.abr_service = 'DIRECT';
     this.Record.abr_surchrg_based = 'NA';
     this.Record.abr_remarks = '';
-    
+
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
     this.ClearRates();
   }
@@ -740,6 +748,20 @@ export class AirBuyRateComponent {
       this.search_carrier = this.search_carrier.toUpperCase();
     }
 
+    if (field == 'search_country_code') {
+      this.search_country_code = this.search_country_code.toUpperCase();
+    }
+    if (field == 'search_pol_code') {
+      this.search_pol_code = this.search_pol_code.toUpperCase();
+    }
+    if (field == 'search_pod_code') {
+      this.search_pod_code = this.search_pod_code.toUpperCase();
+    }
+    if (field == 'search_carrier_code') {
+      this.search_carrier_code = this.search_carrier_code.toUpperCase();
+    }
+
+
   }
   OnChange(field: string) {
     if (this.allbr)
@@ -841,4 +863,7 @@ export class AirBuyRateComponent {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
+  CallbackBuyrateImport(param: any) {
+    this.modal.close();
+  }
 }
