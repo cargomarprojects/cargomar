@@ -46,6 +46,7 @@ export class ActionComponent {
     pkid = '';
     uploadpkid = '';
     followupcount: string = '';
+    category: string = "";
     // Array For Displaying List
     RecordList: MarkSalesleadd[] = [];
     // Single Record for add/edit/view details
@@ -122,6 +123,11 @@ export class ActionComponent {
             if (this.menu_record.rights_docs)
                 this.bDocs = true;
         }
+        this.category = 'SALESLEAD';
+        if (this.menuid == 'MARKCONTACTS')
+            this.category = 'CONTACTS';
+        else if (this.menuid == 'MARKMARKETING')
+            this.category = 'VISITDETAILS';
         this.LoadCombo();
     }
 
@@ -222,6 +228,7 @@ export class ActionComponent {
         this.Record.msld_action_plan = this.Record.msld_action_plan.toUpperCase();
         this.Record.msld_user_id = this.gs.globalVariables.user_pkid;
         this.Record.msld_user_name = this.gs.globalVariables.user_name;
+        this.Record.msld_category=this.category;
 
         this.mainService.SaveSalesleadActions(this.Record)
             .subscribe(response => {
