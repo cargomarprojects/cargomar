@@ -640,14 +640,13 @@ export class MarketingComponent {
     }
 
     actionsChanged(comments: any, _rec: MarkMarketingm) {
-        // if (comments.saction == "CLOSE")
-        //     _rec.rowdisplayed = false;
-        // if (comments.saction == "SAVE") {
-        //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
-        //         rec.msl_followupcount = comments.sfollowupcount;
-        //     }
-        // }
+        if (comments.saction == "SAVE") {
+            for (let rec of this.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
+                rec.mark_followupcount = comments.sfollowupcount;
+            }
+        }
     }
+    
     actionsChanged2(comments: any) {
         // if (comments.saction == "CLOSE")
         //     _rec.rowdisplayed = false;

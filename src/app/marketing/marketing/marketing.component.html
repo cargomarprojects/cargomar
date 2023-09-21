@@ -219,6 +219,8 @@
                     <th>TARGET MARKET</th> -->
                     <th>COMMODITY</th>
                     <th>NEXT ACTION</th>
+                    <th>FOLLOW.UP</th>
+                    <th>CUST.INFO</th>
                     <th>DOCS</th>
                     <th>CREATED DATE</th>
                 </tr>
@@ -244,6 +246,8 @@
                     <td>{{rec.target}}</td> -->
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_next_action}}</td>
+                    <td >{{rec.mark_followupcount}}</td>
+                    <td>{{rec.mark_cust_infocount?'Y':''}}</td>
                     <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
                             [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
