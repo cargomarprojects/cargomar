@@ -228,7 +228,8 @@ export class ActionComponent {
         this.Record.msld_action_plan = this.Record.msld_action_plan.toUpperCase();
         this.Record.msld_user_id = this.gs.globalVariables.user_pkid;
         this.Record.msld_user_name = this.gs.globalVariables.user_name;
-        this.Record.msld_category=this.category;
+        this.Record.msld_category = this.category;
+        this.Record.msld_status = this.parentData.followupstatus;
 
         this.mainService.SaveSalesleadActions(this.Record)
             .subscribe(response => {
@@ -246,7 +247,7 @@ export class ActionComponent {
                     this.newRecord();
                     this.followupcount = this.RecordList.length.toString();
                     if (this.actionsChanged != null)
-                        this.actionsChanged.emit({ saction: 'SAVE', sfollowupcount: this.followupcount });
+                        this.actionsChanged.emit({ saction: 'SAVE', sfollowupcount: this.followupcount, sfollowupstatus: this.parentData.followupstatus });
                 }
             },
                 error => {

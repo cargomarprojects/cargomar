@@ -33,6 +33,7 @@ export class MarkMarketingm {
     mark_doc_attached:string;
     mark_followupcount:string;
     mark_cust_infocount:string;
+    mark_followupstatus:string;
     
     mobile: string;
     email: string;

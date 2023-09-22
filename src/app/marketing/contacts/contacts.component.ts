@@ -50,7 +50,8 @@ export class ContactsComponent {
     mode_title: ' TO CUSTOMER INFO',
     hide_rem_caption: true,
     hide_plan: true,
-    save_everyone: true
+    save_everyone: true,
+    followupstatus: ''
   };
 
   ErrorMessage = "";
