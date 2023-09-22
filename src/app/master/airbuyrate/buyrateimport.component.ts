@@ -49,6 +49,7 @@ export class BuyrateImportComponent implements OnInit {
   }
 
   ConvertData() {
+    this.ErrorMessage = '';
     const list = this.gs.CSVToJSON(this.cbdata);
     this.pol_codes = "";
     this.pod_codes = "";

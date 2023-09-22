@@ -866,4 +866,25 @@ export class AirBuyRateComponent {
   CallbackBuyrateImport(param: any) {
     this.modal.close();
   }
+
+  ExcelFormat() {
+    this.loading = true;
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.search_branch_code,
+      report_folder: this.gs.globalVariables.report_folder,
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ExcelFormat(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

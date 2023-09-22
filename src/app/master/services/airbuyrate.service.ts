@@ -41,5 +41,8 @@ export class AirBuyRateService {
     SaveBuyrateImport(Record: BuyrateImport) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/AirBuyRate/SaveBuyrateImport', Record, this.gs.headerparam2('authorized'));
     }
-
+    
+    ExcelFormat(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/AirBuyRate/ExcelFormat', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
