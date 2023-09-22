@@ -29,7 +29,7 @@
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
 
-            <button [disabled]="loading" *ngIf="type=='BR'" (click)="PasteData(pastedata)"
+            <button [disabled]="loading" *ngIf="bImport" (click)="PasteData(pastedata)"
               class="btn btn-primary btn-sm">Import Data</button>
 
             <button [disabled]="loading" *ngIf="bMail&&(type=='BP'||type=='JV-BP')" (click)="Showmail(mailsent)"

@@ -59,6 +59,8 @@ export class LedgerComponent {
   modal: any;
 
 
+  bImport = false;
+
 
   disableSave = true;
   loading = false;
@@ -165,6 +167,7 @@ export class LedgerComponent {
     this.bMail = false;
     this.bAdmin = false;
     this.bChqprint = true;
+    this.bImport = false;
     if (this.gs.defaultValues.print_cheque_only_after_ho_approved == 'Y')
       this.bChqprint = false;
 
@@ -182,6 +185,8 @@ export class LedgerComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      if (this.menu_record.rights_approval.toString() == "{IMPORT}")
+        this.bImport = true;
     }
     this.InitLov();
     this.LoadCombo();
@@ -2926,7 +2931,7 @@ export class LedgerComponent {
   }
 
 
-  closeModel(){
+  closeModel() {
 
   }
 
