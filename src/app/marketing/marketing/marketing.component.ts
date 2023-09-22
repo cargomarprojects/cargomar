@@ -48,7 +48,7 @@ export class MarketingComponent {
     search_leadsource = 'ALL';
     search_convrtstatus = 'ALL';
     search_commodity = '';
-    status_color1 = 'purple';
+    status_color1 = 'magenta';
     status_color2 = 'red';
 
     page_count = 0;
