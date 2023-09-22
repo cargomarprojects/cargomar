@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-      
+
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
           <div class="col-sm-4">
@@ -125,10 +125,10 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
+            <button [disabled]="loading" (click)="ExcelFormat()" class="btn btn-primary btn-sm">Excel
+              Format</button>
             <button [disabled]="loading" (click)="PasteData(brpastedata)" class="btn btn-primary btn-sm">Import
               Data</button>
-              <button [disabled]="loading" (click)="ExcelFormat()" class="btn btn-primary btn-sm">Excel
-                Format</button>
           </div>
         </div>
       </div>
