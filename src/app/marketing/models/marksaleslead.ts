@@ -67,7 +67,9 @@ export class MarkSalesleadd {
     msld_remarks: string;
     msld_action_plan: string;
     msld_doc_attached:string;
-    
+    msld_category: string;
+    msld_status: string;
+
     rec_mode: string;
     _globalvariables: GlobalVariables;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { GlobalService } from '../../core/services/global.service';
-import { AirBuyRate } from '../models/airbuyrate';
+import { AirBuyRate, BuyrateImport, BuyrateImportDet } from '../models/airbuyrate';
 import { AirBuyRateService } from '../services/airbuyrate.service';
 
 @Component({
@@ -9,15 +9,19 @@ import { AirBuyRateService } from '../services/airbuyrate.service';
 })
 export class BuyrateImportComponent implements OnInit {
 
-  @Output() CloseClicked = new EventEmitter<{ records: any[], data: string }>()
+  @Output() CloseClicked = new EventEmitter<any>()
   @Input() msg: string;
   @Input() type: string;
   ErrorMessage: string = '';
   cbdata: string = '';
-  Record: AirBuyRate;
+  Record: BuyrateImport;
   Records: any[];
   jsonString: any;
   currentTab = 'PASTEDATA';
+  pol_codes: string = "";
+  pod_codes: string = "";
+  carrier_codes: string = "";
+  country_codes: string = "";
 
   bSave = false;
 
@@ -45,54 +49,74 @@ export class BuyrateImportComponent implements OnInit {
   }
 
   ConvertData() {
+    this.ErrorMessage = '';
     const list = this.gs.CSVToJSON(this.cbdata);
+    this.pol_codes = "";
+    this.pod_codes = "";
+    this.carrier_codes = "";
+    this.country_codes = "";
 
-    this.Records = list.reduce((acc: any[], rec: any) => {
+    this.Records = list.reduce((buyrates: any[], rec: any) => {
       const len = Object.keys(rec).length;
-      if (len == 29) {
-        // const amt = rec["credit"];
-        // if (amt != "")
-          acc.push({ ...rec, status: '' });
+      if (len == 31) {
+        if (!this.pol_codes.includes(rec["pol_code"])) {
+          if (this.pol_codes != "")
+            this.pol_codes += ",";
+          this.pol_codes += rec["pol_code"];
+        }
+        if (!this.pod_codes.includes(rec["pod_code"])) {
+          if (this.pod_codes != "")
+            this.pod_codes += ",";
+          this.pod_codes += rec["pod_code"];
+        }
+        if (!this.carrier_codes.includes(rec["carrier_code"])) {
+          if (this.carrier_codes != "")
+            this.carrier_codes += ",";
+          this.carrier_codes += rec["carrier_code"];
+        }
+        if (!this.country_codes.includes(rec["country_code"])) {
+          if (this.country_codes != "")
+            this.country_codes += ",";
+          this.country_codes += rec["country_code"];
+        }
+
+        buyrates.push({ ...rec, status: '' });
       }
-      return acc;
+      return buyrates;
     }, []);
 
     this.jsonString = JSON.stringify(this.Records);
 
-    // this.Record = new BankStmt();
-    // this.Record.records = <BankStmtDet[]>this.Records;
+    this.Record = new BuyrateImport();
+    this.Record.pol_codes = this.pol_codes;
+    this.Record.pod_codes = this.pod_codes;
+    this.Record.carrier_codes = this.carrier_codes;
+    this.Record.country_codes = this.country_codes;
+    this.Record.records = <BuyrateImportDet[]>this.Records;
   }
 
   save() {
-    // if (this.type != "BR") {
-    //   alert('This option can be used only in Bank Receipt, Invalid Type ' + this.type);
-    //   return;
-    // }
+    if (this.gs.isBlank(this.Records)) {
+      alert('Records not found');
+      return;
+    }
+    this.bSave = true;
+    this.ErrorMessage = '';
+    this.Record._globalvariables = this.gs.globalVariables;
+    this.mainService.SaveBuyrateImport(this.Record)
+      .subscribe(response => {
+        // this.Records = response.Records;
+        this.bSave = false;
 
-    // const rec = this.Records.find(f => f.status != "");
-    // if (rec) {
-    //   alert('Records Already Saved');
-    //   return;
-    // }
+        if (this.CloseClicked != null)
+          this.CloseClicked.emit({ saction: 'SAVE' })
 
-
-    // this.bSave = true;
-
-    // this.ErrorMessage = '';
-
-    // this.Record.jvh_type = this.type;
-    // this.Record._globalvariables = this.gs.globalVariables;
-
-    // this.mainService.SaveBankImport(this.Record)
-    //   .subscribe(response => {
-    //     this.Records = response.Records;
-    //     this.bSave = false;
-    //     alert("Save Completed");
-    //   }, error => {
-    //     this.ErrorMessage = this.gs.getError(error);
-    //     this.bSave = false;
-    //     alert(this.ErrorMessage);
-    //   });
+        // alert("Save Completed");
+      }, error => {
+        this.ErrorMessage = this.gs.getError(error);
+        this.bSave = false;
+        alert(this.ErrorMessage);
+      });
   }
 
 }

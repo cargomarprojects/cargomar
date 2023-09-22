@@ -59,6 +59,7 @@ export class MarkContacts {
     cont_visit_tot:number;
     cont_type2_remarks:string;
     cont_doc_attached:string;
+    cont_infocount:string;
     
     rec_created_by: string;
     rec_created_date: string;

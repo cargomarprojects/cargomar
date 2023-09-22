@@ -45,7 +45,8 @@ export class SalesleadComponent {
         mode_title: ' TO FOLLOW UP',
         hide_rem_caption: false,
         hide_plan: false,
-        save_everyone: false
+        save_everyone: false,
+        followupstatus: ''
     };
 
     ErrorMessage = "";

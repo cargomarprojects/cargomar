@@ -50,7 +50,8 @@ export class ContactsComponent {
     mode_title: ' TO CUSTOMER INFO',
     hide_rem_caption: true,
     hide_plan: true,
-    save_everyone: true
+    save_everyone: true,
+    followupstatus: ''
   };
 
   ErrorMessage = "";
@@ -733,12 +734,11 @@ export class ContactsComponent {
   }
 
   actionsChanged(comments: any, _rec: MarkContacts) {
-    // if (comments.saction == "CLOSE")
-    //     _rec.rowdisplayed = false;
-    // if (comments.saction == "SAVE") {
-    //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
-    //         rec.msl_followupcount = comments.sfollowupcount;
-    //     }
-    // }
+     
+    if (comments.saction == "SAVE") {
+        for (let rec of this.RecordList.filter(rec => rec.cont_pkid == _rec.cont_pkid)) {
+            rec.cont_infocount = comments.sfollowupcount;
+        }
+    }
   }
 }

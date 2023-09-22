@@ -48,6 +48,8 @@ export class MarketingComponent {
     search_leadsource = 'ALL';
     search_convrtstatus = 'ALL';
     search_commodity = '';
+    status_color1 = 'magenta';
+    status_color2 = 'red';
 
     page_count = 0;
     page_current = 0;
@@ -68,7 +70,8 @@ export class MarketingComponent {
         mode_title: ' TO FOLLOW UP',
         hide_rem_caption: true,
         hide_plan: true,
-        save_everyone: true
+        save_everyone: true,
+        followupstatus: ''
     };
 
     ActionsRecordContact = {
@@ -77,7 +80,8 @@ export class MarketingComponent {
         mode_title: ' TO CUSTOMER INFO',
         hide_rem_caption: true,
         hide_plan: true,
-        save_everyone: true
+        save_everyone: true,
+        followupstatus: ''
     };
     mode = '';
     pkid = '';
@@ -264,6 +268,7 @@ export class MarketingComponent {
             this.ResetControls();
             this.NewRecord();
             this.ActionsRecord.parent_id = this.pkid;
+            this.ActionsRecord.followupstatus = this.status_color1;
         }
         else if (action === 'EDIT') {
             this.currentTab = 'DETAILS';
@@ -397,15 +402,14 @@ export class MarketingComponent {
         this.InitLov();
     }
 
-
-
-
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
 
         this.loading = true;
         let SearchData = {
             pkid: Id,
+            user_pkid: this.gs.globalVariables.user_pkid,
+            status_color1: this.status_color1
         };
 
         this.ErrorMessage = '';
@@ -414,6 +418,9 @@ export class MarketingComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
+                for (let rec of this.RecordList.filter(rec => rec.mark_pkid == Id)) {
+                    rec.mark_followupstatus = response.followupstatus;
+                }
             },
                 error => {
                     this.loading = false;
@@ -434,6 +441,10 @@ export class MarketingComponent {
         this.CUSTRECORD.id = this.Record.mark_customer_id.toString();
         this.CUSTRECORD.name = this.Record.mark_customer_name;
         this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
+        if (this.Record.mark_user_id == this.gs.globalVariables.user_pkid)
+            this.ActionsRecord.followupstatus = this.status_color1;
+        else
+            this.ActionsRecord.followupstatus = this.status_color2;
     }
 
     loadVisit() {
@@ -505,7 +516,7 @@ export class MarketingComponent {
 
                 if (!this.gs.isBlank(this.tabsetCtrl))
                     this.tabsetCtrl.select('FollowUp');
-                
+
                 this.RefreshList();
             },
                 error => {
@@ -640,21 +651,20 @@ export class MarketingComponent {
     }
 
     actionsChanged(comments: any, _rec: MarkMarketingm) {
-        // if (comments.saction == "CLOSE")
-        //     _rec.rowdisplayed = false;
-        // if (comments.saction == "SAVE") {
-        //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
-        //         rec.msl_followupcount = comments.sfollowupcount;
-        //     }
-        // }
+        if (comments.saction == "SAVE") {
+            for (let rec of this.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
+                rec.mark_followupcount = comments.sfollowupcount;
+                if (comments.sfollowupstatus)
+                    rec.mark_followupstatus = comments.sfollowupstatus;
+            }
+        }
     }
-    actionsChanged2(comments: any) {
-        // if (comments.saction == "CLOSE")
-        //     _rec.rowdisplayed = false;
-        // if (comments.saction == "SAVE") {
-        //     for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
-        //         rec.msl_followupcount = comments.sfollowupcount;
-        //     }
-        // }
+
+    actionsChanged2(comments: any, _rec: MarkMarketingm) {
+        if (comments.saction == "SAVE") {
+            for (let rec of this.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
+                rec.mark_cust_infocount = comments.sfollowupcount;
+            }
+        }
     }
 }

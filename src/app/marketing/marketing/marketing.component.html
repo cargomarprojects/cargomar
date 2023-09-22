@@ -219,6 +219,8 @@
                     <th>TARGET MARKET</th> -->
                     <th>COMMODITY</th>
                     <th>NEXT ACTION</th>
+                    <th>FOLLOW.UP</th>
+                    <th>CUST.INFO</th>
                     <th>DOCS</th>
                     <th>CREATED DATE</th>
                 </tr>
@@ -230,7 +232,7 @@
                     <td>{{rec.mark_visit_date}}</td>
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.branch_name}}</td>
-                    <td>{{rec.mark_jointsalesman_name}}</td>
+                    <td >{{rec.mark_jointsalesman_name}}</td>
                     <td>{{rec.mark_next_visit_date}}</td>
                     <td>{{rec.mark_mode}}</td>
                     <td>{{rec.mark_customer_name}}</td>
@@ -244,6 +246,8 @@
                     <td>{{rec.target}}</td> -->
                     <td>{{rec.mark_commodity}}</td>
                     <td>{{rec.mark_next_action}}</td>
+                    <td [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
+                    <td>{{rec.mark_cust_infocount?'Y':''}}</td>
                     <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
                             [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
@@ -575,7 +579,7 @@
                         <div class="col-sm-12">
                             <app-action [menuid]="'MARKCONTACTS'" [parentData]="ActionsRecordContact"
                                 [rec_user_id]="gs.globalVariables.user_pkid"
-                                (actionsChanged)="actionsChanged2($event)">
+                                (actionsChanged)="actionsChanged2($event,Record)">
                             </app-action>
                         </div>
                     </div>

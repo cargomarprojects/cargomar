@@ -31,6 +31,9 @@ export class MarkMarketingm {
     mark_cont_remarks: string;
     mark_cont_type_2:string;
     mark_doc_attached:string;
+    mark_followupcount:string;
+    mark_cust_infocount:string;
+    mark_followupstatus:string;
     
     mobile: string;
     email: string;
