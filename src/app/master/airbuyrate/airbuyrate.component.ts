@@ -865,6 +865,7 @@ export class AirBuyRateComponent {
 
   CallbackBuyrateImport(param: any) {
     this.modal.close();
+    this.List("NEW");
   }
 
   ExcelFormat() {
