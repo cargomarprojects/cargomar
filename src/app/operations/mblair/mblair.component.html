@@ -707,6 +707,8 @@
                   (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                   class="btn btn-success btn-sm">MAWB</button>
+                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode()"
+                  class="btn btn-success btn-sm">Barcode</button>
                 <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                   <font color="RED">
                     <strong>

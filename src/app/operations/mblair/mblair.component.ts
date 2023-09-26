@@ -796,8 +796,8 @@ export class MblAirComponent {
         {
           this.searchstring = this.searchstring.toUpperCase();
           break;
-        } 
-        case 'mbl_track_comments':
+        }
+      case 'mbl_track_comments':
         {
           this.Record.mbl_track_comments = this.Record.mbl_track_comments.toUpperCase();
           break;
@@ -1023,6 +1023,33 @@ export class MblAirComponent {
         this.loading = false;
         this.InfoMessage = "Save Complete";
         alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  PrintBarcode() {
+    this.folder_id = this.gs.getGuid();
+    this.loading = true;
+    let SearchData = {
+      pkid: '',
+      report_folder: '',
+      branch_code: '',
+      comp_code: ''
+    };
+    SearchData.pkid = this.pkid;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.PrintBarcode(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
