@@ -33,6 +33,7 @@
                     *ngIf="type=='AIR EXPORT'">MAWB#</span></option>
                 <option [value]="'HBLNO'"><span *ngIf="type=='SEA EXPORT'">HBL#</span><span
                     *ngIf="type=='AIR EXPORT'">HAWB#</span></option>
+                <option *ngIf="type=='SEA EXPORT'" [value]="'FCRNO'">FCR#</option>
                 <option [value]="'AGENT'">AGENT</option>
                 <option [value]="'SHIPPER'">SHIPPER</option>
                 <option [value]="'CONSIGNEE'">CONSIGNEE</option>

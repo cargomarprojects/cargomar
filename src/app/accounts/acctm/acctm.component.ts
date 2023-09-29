@@ -308,6 +308,7 @@ export class AcctmComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -359,6 +360,7 @@ export class AcctmComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -398,7 +400,7 @@ export class AcctmComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
-
+                    alert(this.ErrorMessage);
                 });
     }
 
