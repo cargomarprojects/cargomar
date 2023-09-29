@@ -1654,7 +1654,8 @@ export class LedgerComponent {
     }
 
     if (this.Recorddet.jv_drcr == 'DR') {
-      if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
+      //if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
+      if (this.gs.isTdsPaidAccount(this.Recorddet.jv_acc_code)) {
         if (this.Recorddet.jv_tan_id.toString() == '' || this.Recorddet.jv_tan_party_id.toString() == '' || this.Recorddet.jv_gross_bill_amt <= 0) {
           this.ErrorMessage = 'Invalid Tan / Tan Party / Gross Bill Amt ';
           alert(this.ErrorMessage);
@@ -2928,6 +2929,11 @@ export class LedgerComponent {
 
   PasteData(content: any) {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+
+  public isTdsPaidAccount(acc_code: string) {
+    return this.gs.isTdsPaidAccount(acc_code);
   }
 
 

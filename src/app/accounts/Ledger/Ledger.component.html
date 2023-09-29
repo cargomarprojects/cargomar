@@ -666,11 +666,11 @@
 
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Tan#<i
-                *ngIf="this.Recorddet.jv_tan_update&&this.Recorddet.jv_acc_code == 'TDSPAID'"
+                *ngIf="this.Recorddet.jv_tan_update &&  isTdsPaidAccount(this.Recorddet.jv_acc_code)"
                 class="fa fa-edit fa-lg pointer" aria-hidden="true" (click)="SearchRecord('tanupdate')"></i></label>
             <div class="col-4">
-              <app-autocomplete #LinerLov [disabled]="this.Recorddet.jv_acc_code != 'TDSPAID'" [inputdata]="TANRECORD"
-                (ValueChanged)="LovSelected($event)">
+              <app-autocomplete #LinerLov [disabled]="!isTdsPaidAccount(this.Recorddet.jv_acc_code)"
+                [inputdata]="TANRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
             <div class="col-6">
@@ -681,8 +681,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm">Tan.Party</label>
             <div class="col-4">
-              <app-autocomplete #CsdLov [disabled]="this.Recorddet.jv_acc_code != 'TDSPAID'" [inputdata]="TPRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #CsdLov [disabled]="!isTdsPaidAccount(this.Recorddet.jv_acc_code)"
+                [inputdata]="TPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
             <div class="col-6">
               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tan_party_name"
@@ -693,7 +693,7 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Gross.Amt</label>
             <div class="col-4">
-              <input type="text" [disabled]="this.Recorddet.jv_acc_code != 'TDSPAID'"
+              <input type="text" [disabled]="!isTdsPaidAccount(this.Recorddet.jv_acc_code)"
                 class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_gross_bill_amt"
                 (blur)="OnBlur('jv_gross_bill_amt')" maxlength="15" />
             </div>
