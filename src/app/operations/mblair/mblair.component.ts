@@ -66,7 +66,8 @@ export class MblAirComponent {
 
   mode = '';
   pkid = '';
-
+  
+  FileList: any[] = [];
   StatusList: Param[] = [];
   // Array For Displaying List
   RecordList: Mblm[] = [];
@@ -1049,7 +1050,12 @@ export class MblAirComponent {
     this.mainService.PrintBarcode(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+        this.FileList = response.filelist;
+        for (let rec of this.FileList) {
+            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+        }
+       
       },
         error => {
           this.loading = false;
