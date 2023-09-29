@@ -980,6 +980,14 @@ export class GlobalService {
   }
 
 
+  public isTdsPaidAccount(acc_code: string = '') {
+    let bRet = false;
+    if (acc_code == 'TDSPAID' || acc_code == 'TDSPAIDC/F') {
+      bRet = true;
+    }
+    return bRet;
+  }
+
 
 
 

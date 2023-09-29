@@ -1678,7 +1678,8 @@ export class ArApComponent {
     }
 
     if (this.Recorddet.jv_drcr == 'DR') {
-      if (this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
+      //if (  this.Recorddet.jv_acc_code == 'TDS' || this.Recorddet.jv_acc_code == 'TDSPAID') {
+      if (this.gs.isTdsPaidAccount(this.Recorddet.jv_acc_code)) {
         if (this.Recorddet.jv_tan_id.toString() == '' || this.Recorddet.jv_tan_party_id.toString() == '' || this.Recorddet.jv_gross_bill_amt <= 0) {
           this.ErrorMessage = 'Invalid Tan / Tan Party / Gross Bill Amt ';
           alert(this.ErrorMessage);
