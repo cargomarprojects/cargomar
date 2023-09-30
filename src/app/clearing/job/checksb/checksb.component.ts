@@ -266,7 +266,8 @@ export class CheckSbComponent {
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
       root_folder: this.gs.defaultValues.root_folder,
-      sub_folder: this.gs.defaultValues.sub_folder
+      sub_folder: this.gs.defaultValues.sub_folder,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     SearchData.type = _type;
