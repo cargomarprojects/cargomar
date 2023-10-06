@@ -361,7 +361,7 @@
                 <label class="col-4 col-form-label col-form-label-sm">Credit Days</label>
                 <div class="col-3">
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
-                    [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="10" />
+                    [(ngModel)]="Record.cust_crdays" (blur)="OnBlur('cust_crdays')" required maxlength="3" />
                 </div>
                 <div class="col-5">
                   <div class="form-check form-check-inline">
