@@ -45,6 +45,7 @@ import { EfileUploadComponent } from './efileupload/efileupload.component';
 import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { BuyrateImportComponent } from './airbuyrate/buyrateimport.component';
+import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import { BuyrateImportComponent } from './airbuyrate/buyrateimport.component';
     BankInfo2Component,
     EfileUploadComponent,
     AirBuyRateComponent,
-    BuyrateImportComponent
+    BuyrateImportComponent,
+    ChemCatgComponent
   ],
   providers: [
   ],

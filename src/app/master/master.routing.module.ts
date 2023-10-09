@@ -32,6 +32,7 @@ import { LocalChargeComponent } from './localcharge/localcharge.component';
 import { EfileUploadComponent } from './efileupload/efileupload.component';
 import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
+import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -58,6 +59,7 @@ const routes: Routes = [
     { path: 'localcharge', component: LocalChargeComponent },
     { path: 'efileupload', component: EfileUploadComponent },
     { path: 'airbuyrate', component: AirBuyRateComponent },
+    { path: 'chemcatg', component: ChemCatgComponent }
 ];
 
 @NgModule({
