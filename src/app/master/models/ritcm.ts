@@ -1,8 +1,8 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
- 
+
 export class Ritcm {
-  
+
   ritc_pkid: string;
   ritc_code: string;
   ritc_name: string;
@@ -12,6 +12,8 @@ export class Ritcm {
   ritc_cap: number;
 
   ritc_notify_date: string;
+  ritc_info_code: boolean;
+
   rec_locked: boolean;
   rec_mode: string;
 

@@ -221,6 +221,7 @@ export class RitcmComponent {
       this.Record.ritc_cap = _rec.ritc_cap;
     }
     this.Record.rec_locked = false;
+    this.Record.ritc_info_code = false;
     this.mode = 'ADD';
     this.Record.rec_mode = this.mode;
   }
