@@ -373,6 +373,17 @@
                 </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Chemical Category</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="CHEMCATGRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-sm-5 pl-0">
+                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_cess_code" />
+                </div>
+              </div>
+
             </div>
 
             <div class="col-sm-4">

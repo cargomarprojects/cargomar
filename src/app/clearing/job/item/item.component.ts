@@ -84,6 +84,7 @@ export class ItemComponent {
   STATERECORD: SearchTable = new SearchTable();
   DISTRECORD: SearchTable = new SearchTable();
   TARECORD: SearchTable = new SearchTable();
+  CHEMCATGRECORD: SearchTable = new SearchTable();
   InvoiceList: JobInvoicem[] = [];
 
   constructor(
@@ -271,6 +272,16 @@ export class ItemComponent {
       this.TARECORD.code = "";
       this.TARECORD.name = "";
       this.TARECORD.parentid = "";
+    }
+    if (action == '' || action == 'CHEMCATG') {
+      this.CHEMCATGRECORD = new SearchTable();
+      this.CHEMCATGRECORD.controlname = "CHEMCATG";
+      this.CHEMCATGRECORD.displaycolumn = "CODE";
+      this.CHEMCATGRECORD.type = "CHEMICAL-CATEGORY";
+      this.CHEMCATGRECORD.id = "";
+      this.CHEMCATGRECORD.code = "";
+      this.CHEMCATGRECORD.name = "";
+      this.CHEMCATGRECORD.parentid = "";
     }
   }
 
@@ -764,6 +775,10 @@ export class ItemComponent {
     this.TARECORD.code = this.Record.itm_ta_code;
     this.TARECORD.name = this.Record.itm_ta_name;
 
+    // this.CHEMCATGRECORD.id = this.Record.itm_ritc_id;
+    // this.CHEMCATGRECORD.code = this.Record.itm_ritc_code;
+    // this.CHEMCATGRECORD.name = this.Record.itm_ritc_name;
+
     this.Record.rec_mode = this.mode;
 
     // if (!this.gs.isBlank(this._tabset))
@@ -1143,6 +1158,11 @@ export class ItemComponent {
         this.InitLov('DBK');
         this.DBKRECORD.code = this.Record.itm_dbk_code;
         this.DBKRECORD.name = this.Record.itm_dbk_name;
+
+        // this.InitLov('CHEMCATG');
+        // this.CHEMCATGRECORD.id = this.Record.itm_ritc_id;
+        // this.CHEMCATGRECORD.code = this.Record.itm_ritc_code;
+        // this.CHEMCATGRECORD.name = this.Record.itm_ritc_name;
 
         this.SearchRecord('dbk');
       },
