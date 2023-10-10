@@ -84,6 +84,8 @@ export class ItemComponent {
   STATERECORD: SearchTable = new SearchTable();
   DISTRECORD: SearchTable = new SearchTable();
   TARECORD: SearchTable = new SearchTable();
+  CHEMCATEGORYRECORD: SearchTable = new SearchTable();
+
   InvoiceList: JobInvoicem[] = [];
 
   constructor(
@@ -272,9 +274,21 @@ export class ItemComponent {
       this.TARECORD.name = "";
       this.TARECORD.parentid = "";
     }
+    if (action == '' || action == 'CHEMCATEGORY') {
+      this.CHEMCATEGORYRECORD = new SearchTable();
+      this.CHEMCATEGORYRECORD.controlname = "CHEMCATEGORY";
+      this.CHEMCATEGORYRECORD.displaycolumn = "CODE";
+      this.CHEMCATEGORYRECORD.type = "CHEMICAL CATEGORY";
+      this.CHEMCATEGORYRECORD.id = "";
+      this.CHEMCATEGORYRECORD.code = "";
+      this.CHEMCATEGORYRECORD.name = "";
+      this.CHEMCATEGORYRECORD.parentid = "";
+    }
   }
 
   LovSelected(_Record: SearchTable) {
+
+    let bchange: boolean = false;
 
     if (_Record.controlname == "SCHEME") {
       this.Record.itm_scheme_id = _Record.id;
@@ -282,6 +296,10 @@ export class ItemComponent {
       this.Record.itm_scheme_name = _Record.name;
     }
     if (_Record.controlname == "RITC") {
+      bchange = false;
+      if (this.Record.itm_ritc_id != _Record.id)
+        bchange = true;
+
       this.Record.itm_ritc_id = _Record.id;
       this.Record.itm_ritc_code = _Record.code;
       this.Record.itm_ritc_name = _Record.name;
@@ -297,6 +315,13 @@ export class ItemComponent {
         return;
       }
 
+      if (bchange) {
+        this.InitLov('CHEMCATEGORY');
+        this.Record.itm_chemcategory_id = '';
+        this.Record.itm_chemcategory_code = '';
+        this.Record.itm_chemcategory_name = '';
+        this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
+      }
     }
     if (_Record.controlname == "UNITTYPE") {
       this.Record.itm_unit_id = _Record.id;
@@ -317,8 +342,6 @@ export class ItemComponent {
       this.Record.itm_end_use = _Record.code;
       this.Record.itm_end_use_name = _Record.name;
     }
-
-    let bchange: boolean = false;
 
     if (_Record.controlname == "THRDSHPR") {
 
@@ -386,6 +409,12 @@ export class ItemComponent {
       this.Record.itm_ta_id = _Record.id;
       this.Record.itm_ta_code = _Record.code;
       this.Record.itm_ta_name = _Record.name;
+    }
+
+    if (_Record.controlname == "CHEMCATEGORY") {
+      this.Record.itm_chemcategory_id = _Record.id;
+      this.Record.itm_chemcategory_code = _Record.code;
+      this.Record.itm_chemcategory_name = _Record.name;
     }
 
   }
@@ -508,13 +537,7 @@ export class ItemComponent {
   }
 
   List(_type: string) {
-
-
-
     this.loading = true;
-
-
-
     let SearchData = {
       type: _type,
       rowtype: this.type,
@@ -651,6 +674,9 @@ export class ItemComponent {
     this.Record.itm_orderno = '';
     this.Record.itm_styleno = '';
 
+    this.Record.itm_chemcategory_id = '';
+    this.Record.itm_chemcategory_code = '';
+    this.Record.itm_chemcategory_name = '';
     this.Record.rec_mode = this.mode;
 
 
@@ -682,6 +708,11 @@ export class ItemComponent {
       this.TARECORD.code = this.Record.itm_ta_code;
       this.TARECORD.name = this.Record.itm_ta_name;
 
+      this.CHEMCATEGORYRECORD.id = this.Record.itm_chemcategory_id;
+      this.CHEMCATEGORYRECORD.code = this.Record.itm_chemcategory_code;
+      this.CHEMCATEGORYRECORD.name = this.Record.itm_chemcategory_name;
+      this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
+
     } else {
       this.Record.itm_state_id = this.job_org_state_id;
       this.Record.itm_state_code = this.job_org_state_code;
@@ -694,6 +725,12 @@ export class ItemComponent {
       this.DISTRECORD.code = this.Record.itm_district_code;
       this.DISTRECORD.name = this.Record.itm_district_name;
       this.DISTRECORD.parentid = this.Record.itm_state_code;
+
+      this.CHEMCATEGORYRECORD.id = this.Record.itm_chemcategory_id;
+      this.CHEMCATEGORYRECORD.code = this.Record.itm_chemcategory_code;
+      this.CHEMCATEGORYRECORD.name = this.Record.itm_chemcategory_name;
+      this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
+
     }
   }
 
@@ -763,6 +800,11 @@ export class ItemComponent {
     this.TARECORD.id = this.Record.itm_ta_id;
     this.TARECORD.code = this.Record.itm_ta_code;
     this.TARECORD.name = this.Record.itm_ta_name;
+
+    this.CHEMCATEGORYRECORD.id = this.Record.itm_chemcategory_id;
+    this.CHEMCATEGORYRECORD.code = this.Record.itm_chemcategory_code;
+    this.CHEMCATEGORYRECORD.name = this.Record.itm_chemcategory_name;
+    this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
 
     this.Record.rec_mode = this.mode;
 
@@ -1143,6 +1185,12 @@ export class ItemComponent {
         this.InitLov('DBK');
         this.DBKRECORD.code = this.Record.itm_dbk_code;
         this.DBKRECORD.name = this.Record.itm_dbk_name;
+
+        this.InitLov('CHEMCATEGORY');
+        this.CHEMCATEGORYRECORD.id = this.Record.itm_chemcategory_id;
+        this.CHEMCATEGORYRECORD.code = this.Record.itm_chemcategory_code;
+        this.CHEMCATEGORYRECORD.name = this.Record.itm_chemcategory_name;
+        this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
 
         this.SearchRecord('dbk');
       },

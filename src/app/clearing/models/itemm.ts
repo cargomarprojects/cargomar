@@ -30,7 +30,7 @@ export class Itemm {
     itm_grwt: number;
     itm_ntwt: number;
     itm_total_cartons: number;
-  
+
     itm_dbk_code: string;
     itm_dbk_name: string;
     itm_dbk_qty: number;
@@ -91,18 +91,21 @@ export class Itemm {
     itm_ta_name: string;
 
     itm_ritc_unit: string;
-    itm_ritc_qty:number;
-    itm_gst_cess:number;
+    itm_ritc_qty: number;
+    itm_gst_cess: number;
 
-    itm_rodtep_rate :number;
-    itm_rodtep_cap :number;
-    itm_rodtep_amt :number;
-    
+    itm_rodtep_rate: number;
+    itm_rodtep_cap: number;
+    itm_rodtep_amt: number;
+
     itm_sw: boolean;
     itm_rodtep: string;
     itm_orderno: string;
     itm_styleno: string;
-    
+    itm_chemcategory_id: string;
+    itm_chemcategory_code: string;
+    itm_chemcategory_name: string;
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;
