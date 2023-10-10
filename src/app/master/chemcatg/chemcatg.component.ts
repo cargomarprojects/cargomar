@@ -210,6 +210,10 @@ export class ChemCatgComponent {
         this.Record.chem_desc = '';
         this.Record.chem_ritc_id = '';
         this.Record.chem_ritc_code = '';
+        this.Record.chem_type = 'SW_CONST';
+        this.Record.chem_info_type = '';
+        this.Record.chem_info_qualifier = '';
+        this.Record.chem_category = 'MEDICINAL PLANT';
         this.Record.rec_locked = false;
         this.mode = 'ADD';
         this.Record.rec_mode = this.mode;
@@ -288,6 +292,10 @@ export class ChemCatgComponent {
             bret = false;
             sError = " | RITC Code Cannot Be Blank";
         }
+        if (this.Record.chem_type.trim().length <= 0) {
+            bret = false;
+            sError = " | Type Cannot Be Blank";
+        }
 
         if (bret === false)
             this.ErrorMessage = sError;
@@ -306,6 +314,9 @@ export class ChemCatgComponent {
             REC.chem_code = this.Record.chem_code;
             REC.chem_desc = this.Record.chem_desc;
             REC.chem_ritc_code = this.Record.chem_ritc_code;
+            REC.chem_info_type = this.Record.chem_info_type;
+            REC.chem_info_qualifier = this.Record.chem_info_qualifier;
+            REC.chem_category = this.Record.chem_category;
         }
     }
 
@@ -320,6 +331,25 @@ export class ChemCatgComponent {
         }
         if (field == 'chem_desc') {
             this.Record.chem_desc = this.Record.chem_desc.toUpperCase();
+        }
+        if (field == 'chem_info_type') {
+            this.Record.chem_info_type = this.Record.chem_info_type.toUpperCase();
+        }
+        if (field == 'chem_info_qualifier') {
+            this.Record.chem_info_qualifier = this.Record.chem_info_qualifier.toUpperCase();
+        }
+    }
+
+    OnChange(field: string) {
+
+        if (field == "chem_type" && this.mode == "ADD") {
+            this.Record.chem_info_type = '';
+            this.Record.chem_info_qualifier = '';
+            if(this.Record.chem_type=="SW_INFO_TYPE")
+            {
+                this.Record.chem_info_type = 'CHR';
+                this.Record.chem_info_qualifier = 'SMC';
+            }
         }
     }
     GetSpaceTrim(str: string) {

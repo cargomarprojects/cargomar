@@ -45,16 +45,22 @@
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>CODE</th>
-                    <th>DESC</th>
                     <th>RITC-CODE</th>
+                    <th>CATEGORY</th>
+                    <th>DESC</th>
+                    <th>CODE</th>
+                    <th>INFO.TYPE</th>
+                    <th>QUALIFIER</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                 <tr (click)="ActionHandler('EDIT',rec.chem_pkid)">
-                    <td>{{rec.chem_code}}</td>
-                    <td>{{rec.chem_desc}}</td>
                     <td>{{rec.chem_ritc_code}}</td>
+                    <td>{{rec.chem_category}}</td>
+                    <td>{{rec.chem_desc}}</td>
+                    <td>{{rec.chem_code}}</td>
+                    <td>{{rec.chem_info_type}}</td>
+                    <td>{{rec.chem_info_qualifier}}</td>
                 </tr>
             </tbody>
         </table>
@@ -90,10 +96,25 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Code</label>
-                    <div class="col-sm-4 pr-0">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_code"
-                            (blur)="OnBlur('chem_code')" required maxlength="15" />
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Ritc</label>
+                    <div class="col-sm-3 pr-0">
+                        <app-autocomplete3 [controlname]="'RITC'" [tabletype]="'RITCM'" [displaycolumn]="'CODE'"
+                            [displaydata]="Record.chem_ritc_code" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete3>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.chem_ritc_name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Category</label>
+                    <div class="col-sm-3 pr-0">
+                        <select class="form-control form-control-sm pl-1" name="jcatg" [(ngModel)]="Record.chem_category">
+                            <option [value]="'MEDICINAL PLANT'">MEDICINAL PLANT</option>
+                            <option [value]="'FORMULATION'">FORMULATION</option>
+                            <option [value]="'SURFACE MATERIAL IN CONTACT'">SURFACE MATERIAL IN CONTACT</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -103,19 +124,37 @@
                             (blur)="OnBlur('chem_desc')" required maxlength="250" />
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label  col-form-label-sm">Ritc</label>
-                    <div class="col-sm-4 pr-0">
-                        <app-autocomplete3 [controlname]="'RITC'" [tabletype]="'RITCM'" [displaycolumn]="'CODE'"
-                            [displaydata]="Record.chem_ritc_code" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.chem_ritc_name" />
+                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Code</label>
+                    <div class="col-sm-3 pr-0">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_code"
+                            (blur)="OnBlur('chem_code')" required maxlength="15" />
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Table Type</label>
+                    <div class="col-sm-3 pr-0">
+                        <select class="form-control form-control-sm pl-1" name="jtype" [(ngModel)]="Record.chem_type"   (change)="OnChange('chem_type')">
+                            <option [value]="'SW_INFO_TYPE'">SW_INFO_TYPE</option>
+                            <option [value]="'SW_CONST'">SW_CONST</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Info Type</label>
+                    <div class="col-sm-3 pr-0">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_info_type"
+                            (blur)="OnBlur('chem_info_type')" required maxlength="5" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm" (click)="focus()">Qualifier</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_info_qualifier"
+                            (blur)="OnBlur('chem_info_qualifier')" required maxlength="5" />
+                    </div>
+                </div>
+
             </div>
 
         </div>
