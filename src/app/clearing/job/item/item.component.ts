@@ -61,6 +61,7 @@ export class ItemComponent {
   bValueChanged: boolean = false;
   Prev_item_name = '';
 
+  EnableAddInfo: boolean = false;
 
   bShowPasteData: boolean = false;
 
@@ -308,7 +309,9 @@ export class ItemComponent {
       this.Record.itm_rodtep_amt = 0;
       this.Record.itm_rodtep_rate = +_Record.col2;
       this.Record.itm_rodtep_cap = +_Record.col3;
-
+      this.EnableAddInfo = false;
+      if (_Record.col4 == "Y")
+        this.EnableAddInfo = true;
 
       if (this.gs.isZero(this.Record.itm_rodtep_rate)) {
         alert('No RODTEP Rate Is Provided');
@@ -575,6 +578,7 @@ export class ItemComponent {
 
   NewRecord() {
 
+    this.EnableAddInfo = false;
     this.pkid = this.gs.getGuid();
     this.Record = new Itemm();
     this.Record.itm_pkid = this.pkid;
@@ -678,6 +682,7 @@ export class ItemComponent {
     this.Record.itm_chemcategory_code = '';
     this.Record.itm_chemcategory_name = '';
     this.Record.rec_mode = this.mode;
+
 
 
     this.InitLov();
@@ -807,6 +812,10 @@ export class ItemComponent {
     this.CHEMCATEGORYRECORD.parentid = this.Record.itm_ritc_id;
 
     this.Record.rec_mode = this.mode;
+
+    this.EnableAddInfo = false;
+    if (this.Record.itm_ritc_info_code == "Y")
+      this.EnableAddInfo = true;
 
     // if (!this.gs.isBlank(this._tabset))
     //   this._tabset.select('Detail');

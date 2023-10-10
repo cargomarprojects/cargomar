@@ -376,7 +376,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Additional Info</label>
                 <div class="col-sm-4">
-                  <app-autocomplete #Liner2Lov [inputdata]="CHEMCATEGORYRECORD" (ValueChanged)="LovSelected($event)">
+                  <app-autocomplete [disabled]="!EnableAddInfo" #Liner2Lov [inputdata]="CHEMCATEGORYRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
                 <div class="col-sm-5 pl-0">

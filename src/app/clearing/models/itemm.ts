@@ -15,6 +15,7 @@ export class Itemm {
     itm_ritc_id: string;
     itm_ritc_code: string;
     itm_ritc_name: string;
+    itm_ritc_info_code: string;
 
     itm_unit_id: string;
     itm_unit_code: string;
