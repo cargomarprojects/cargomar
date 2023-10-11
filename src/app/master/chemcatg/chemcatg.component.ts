@@ -53,7 +53,7 @@ export class ChemCatgComponent {
 
     ) {
         this.page_count = 0;
-        this.page_rows = 10;
+        this.page_rows = 15;
         this.page_current = 0;
 
 
