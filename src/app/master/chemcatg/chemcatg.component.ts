@@ -338,6 +338,9 @@ export class ChemCatgComponent {
         if (field == 'chem_info_qualifier') {
             this.Record.chem_info_qualifier = this.Record.chem_info_qualifier.toUpperCase();
         }
+        if (field == "searchstring") {
+            this.searchstring = this.searchstring.toUpperCase();
+        }
     }
 
     OnChange(field: string) {
@@ -345,8 +348,7 @@ export class ChemCatgComponent {
         if (field == "chem_type" && this.mode == "ADD") {
             this.Record.chem_info_type = '';
             this.Record.chem_info_qualifier = '';
-            if(this.Record.chem_type=="SW_INFO_TYPE")
-            {
+            if (this.Record.chem_type == "SW_INFO_TYPE") {
                 this.Record.chem_info_type = 'CHR';
                 this.Record.chem_info_qualifier = 'SMC';
             }

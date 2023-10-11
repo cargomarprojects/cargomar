@@ -13,7 +13,7 @@
         <div class="row">
             <label class="col-sm-2">Search</label>
             <div class="col-sm-4">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"  />
             </div>
             <div class="col-sm-2">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Category</label>
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Category</label>
                     <div class="col-sm-3 pr-0">
                         <select class="form-control form-control-sm pl-1" name="jcatg" [(ngModel)]="Record.chem_category">
                             <option [value]="'MEDICINAL PLANT'">MEDICINAL PLANT</option>
@@ -125,7 +125,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Code</label>
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
                     <div class="col-sm-3 pr-0">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_code"
                             (blur)="OnBlur('chem_code')" required maxlength="15" />
@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Table Type</label>
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Table Type</label>
                     <div class="col-sm-3 pr-0">
                         <select class="form-control form-control-sm pl-1" name="jtype" [(ngModel)]="Record.chem_type"   (change)="OnChange('chem_type')">
                             <option [value]="'SW_INFO_TYPE'">SW_INFO_TYPE</option>
@@ -143,12 +143,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Info Type</label>
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Info Type</label>
                     <div class="col-sm-3 pr-0">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_info_type"
                             (blur)="OnBlur('chem_info_type')" required maxlength="5" />
                     </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm" (click)="focus()">Qualifier</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Qualifier</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.chem_info_qualifier"
                             (blur)="OnBlur('chem_info_qualifier')" required maxlength="5" />
