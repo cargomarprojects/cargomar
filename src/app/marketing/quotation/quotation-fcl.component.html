@@ -153,19 +153,18 @@
       <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Quote.To</label>
-          <div class="col-sm-6">
-            <!-- <app-autocomplete3 [controlname]="'QUOTE-TO'" [tabletype]="'CUSTOMER'" [displaycolumn]="'CODE'"
-                [displaydata]="Record.qtnm_to_code" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3> -->
+          <div class="col-sm-4 pr-0">
             <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
-          <label class="col-sm-1 col-form-label col-form-label-sm pr-0">Br#</label>
-          <div class="col-sm-3">
-            <!-- <app-autocomplete3 [controlname]="'QUOTE-TO-BR'" [tabletype]="'CUSTOMERADDRESS'" [displaycolumn]="'CODE'"
-                [displaydata]="Record.qtnm_to_br_no" [parentid]="Record.qtnm_to_id" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete3> -->
+          <!-- <label class="col-sm-1 col-form-label col-form-label-sm pr-0">Br#</label> -->
+          <div class="col-sm-2 pr-0">
             <app-autocomplete #CustAddLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Contacts</label>
+          <div class="col-sm-3">
+            <app-autocomplete #ContLov [inputdata]="CONTRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
         </div>
