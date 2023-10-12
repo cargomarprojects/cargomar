@@ -233,31 +233,33 @@ export class QuotationComponent {
             if (this.Record.qtnm_cont_id != _Record.id) {
                 this.Record.qtnm_cont_id = _Record.id;
                 this.Record.qtnm_cont_code = _Record.code;
-                this.Record.qtnm_to_name = _Record.name;
-                this.Record.qtnm_to_addr1 = _Record.col1;
-                this.Record.qtnm_to_addr2 = _Record.col2;
-                this.Record.qtnm_to_addr3 = _Record.col3;
-                this.Record.qtnm_to_addr4 = '';
+                if (this.Record.qtnm_cont_id) {
+                    this.Record.qtnm_to_name = _Record.name;
+                    this.Record.qtnm_to_addr1 = _Record.col1;
+                    this.Record.qtnm_to_addr2 = _Record.col2;
+                    this.Record.qtnm_to_addr3 = _Record.col3;
+                    this.Record.qtnm_to_addr4 = '';
 
-                this.Record.qtnm_to_id = '';
-                this.Record.qtnm_to_code = '';
-                this.CUSTRECORD = new SearchTable();
-                this.CUSTRECORD.controlname = "QUOTE-TO";
-                this.CUSTRECORD.displaycolumn = "CODE";
-                this.CUSTRECORD.type = "CUSTOMER";
-                this.CUSTRECORD.where = "";
-                this.CUSTRECORD.id = "";
-                this.CUSTRECORD.code = "";
-                this.CUSTRECORD.name = "";
-                this.Record.qtnm_to_br_id = '';
-                this.CUSTADDRECORD = new SearchTable();
-                this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
-                this.CUSTADDRECORD.displaycolumn = "CODE";
-                this.CUSTADDRECORD.type = "CUSTOMERADDRESS";
-                this.CUSTADDRECORD.id = "";
-                this.CUSTADDRECORD.code = "";
-                this.CUSTADDRECORD.name = "";
-                this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+                    this.Record.qtnm_to_id = '';
+                    this.Record.qtnm_to_code = '';
+                    this.CUSTRECORD = new SearchTable();
+                    this.CUSTRECORD.controlname = "QUOTE-TO";
+                    this.CUSTRECORD.displaycolumn = "CODE";
+                    this.CUSTRECORD.type = "CUSTOMER";
+                    this.CUSTRECORD.where = "";
+                    this.CUSTRECORD.id = "";
+                    this.CUSTRECORD.code = "";
+                    this.CUSTRECORD.name = "";
+                    this.Record.qtnm_to_br_id = '';
+                    this.CUSTADDRECORD = new SearchTable();
+                    this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
+                    this.CUSTADDRECORD.displaycolumn = "CODE";
+                    this.CUSTADDRECORD.type = "CUSTOMERADDRESS";
+                    this.CUSTADDRECORD.id = "";
+                    this.CUSTADDRECORD.code = "";
+                    this.CUSTADDRECORD.name = "";
+                    this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+                }
             }
         }
         if (_Record.controlname == "SALESMAN") {
