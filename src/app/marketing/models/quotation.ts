@@ -75,6 +75,9 @@ export class Mark_Qtnm {
     rec_category: String;
     rec_mode: String;
 
+    qtnm_cont_id: string;
+    qtnm_cont_code: string;
+
     _globalvariables: GlobalVariables;
 }
 

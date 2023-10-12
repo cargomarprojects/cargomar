@@ -66,6 +66,8 @@ export class QuotationComponent {
     Recorddet: Mark_Qtnd = new Mark_Qtnd;
     CUSTRECORD: SearchTable = new SearchTable();
     CUSTADDRECORD: SearchTable = new SearchTable();
+    CONTRECORD: SearchTable = new SearchTable();
+
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = false;
@@ -153,6 +155,15 @@ export class QuotationComponent {
         this.CUSTADDRECORD.code = "";
         this.CUSTADDRECORD.name = "";
         this.CUSTADDRECORD.parentid = "";
+
+        this.CONTRECORD = new SearchTable();
+        this.CONTRECORD.controlname = "CONTACTS";
+        this.CONTRECORD.displaycolumn = "CODE";
+        this.CONTRECORD.type = "MARKETING CONTACT";
+        this.CONTRECORD.where = "";
+        this.CONTRECORD.id = "";
+        this.CONTRECORD.code = "";
+        this.CONTRECORD.name = "";
     }
 
     LoadCombo() {
@@ -185,12 +196,60 @@ export class QuotationComponent {
             if (this.Record.qtnm_to_id != _Record.id) {
                 this.Record.qtnm_to_id = _Record.id;
                 this.Record.qtnm_to_code = _Record.code;
+                if (this.Record.qtnm_to_id) {
+                    this.Record.qtnm_to_name = _Record.name;
+                    this.Record.qtnm_to_addr1 = '';
+                    this.Record.qtnm_to_addr2 = '';
+                    this.Record.qtnm_to_addr3 = '';
+                    this.Record.qtnm_to_addr4 = '';
+
+                    this.CUSTADDRECORD = new SearchTable();
+                    this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
+                    this.CUSTADDRECORD.displaycolumn = "CODE";
+                    this.CUSTADDRECORD.type = "CUSTOMERADDRESS";
+                    this.CUSTADDRECORD.id = "";
+                    this.CUSTADDRECORD.code = "";
+                    this.CUSTADDRECORD.name = "";
+                    this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+
+                    this.Record.qtnm_cont_id = '';
+                    this.Record.qtnm_cont_code = '';
+                    this.CONTRECORD = new SearchTable();
+                    this.CONTRECORD.controlname = "CONTACTS";
+                    this.CONTRECORD.displaycolumn = "CODE";
+                    this.CONTRECORD.type = "MARKETING CONTACT";
+                    this.CONTRECORD.where = "";
+                    this.CONTRECORD.id = "";
+                    this.CONTRECORD.code = "";
+                    this.CONTRECORD.name = "";
+                }
+            }
+        }
+        if (_Record.controlname == "QUOTE-TO-ADDR") {
+            this.Record.qtnm_to_br_id = _Record.id;
+            this.SearchRecord("CUSTOMERADDRESS", this.Record.qtnm_to_br_id, this.Record.qtnm_to_id);
+        }
+        if (_Record.controlname == "CONTACTS") {
+            if (this.Record.qtnm_cont_id != _Record.id) {
+                this.Record.qtnm_cont_id = _Record.id;
+                this.Record.qtnm_cont_code = _Record.code;
                 this.Record.qtnm_to_name = _Record.name;
-                this.Record.qtnm_to_addr1 = '';
-                this.Record.qtnm_to_addr2 = '';
-                this.Record.qtnm_to_addr3 = '';
+                this.Record.qtnm_to_addr1 = _Record.col1;
+                this.Record.qtnm_to_addr2 = _Record.col2;
+                this.Record.qtnm_to_addr3 = _Record.col3;
                 this.Record.qtnm_to_addr4 = '';
 
+                this.Record.qtnm_to_id = '';
+                this.Record.qtnm_to_code = '';
+                this.CUSTRECORD = new SearchTable();
+                this.CUSTRECORD.controlname = "QUOTE-TO";
+                this.CUSTRECORD.displaycolumn = "CODE";
+                this.CUSTRECORD.type = "CUSTOMER";
+                this.CUSTRECORD.where = "";
+                this.CUSTRECORD.id = "";
+                this.CUSTRECORD.code = "";
+                this.CUSTRECORD.name = "";
+                this.Record.qtnm_to_br_id = '';
                 this.CUSTADDRECORD = new SearchTable();
                 this.CUSTADDRECORD.controlname = "QUOTE-TO-ADDR";
                 this.CUSTADDRECORD.displaycolumn = "CODE";
@@ -201,11 +260,6 @@ export class QuotationComponent {
                 this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
             }
         }
-        if (_Record.controlname == "QUOTE-TO-ADDR") {
-            this.Record.qtnm_to_br_id = _Record.id;
-            this.SearchRecord("CUSTOMERADDRESS", this.Record.qtnm_to_br_id, this.Record.qtnm_to_id);
-        }
-
         if (_Record.controlname == "SALESMAN") {
             this.Record.qtnm_salesman_id = _Record.id;
             this.Record.qtnm_salesman_name = _Record.name;
@@ -361,6 +415,8 @@ export class QuotationComponent {
         this.Record.qtnm_to_addr2 = '';
         this.Record.qtnm_to_addr3 = '';
         this.Record.qtnm_to_addr4 = '';
+        this.Record.qtnm_cont_id = '';
+        this.Record.qtnm_cont_code = '';
         this.Record.qtnm_date = this.gs.defaultValues.today;
         this.Record.qtnm_quot_by = '';
         this.Record.qtnm_validity = '';
@@ -508,6 +564,8 @@ export class QuotationComponent {
         this.CUSTADDRECORD.id = this.Record.qtnm_to_br_id;
         this.CUSTADDRECORD.code = this.Record.qtnm_to_br_no;
         this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+        this.CONTRECORD.id = this.Record.qtnm_cont_id;
+        this.CONTRECORD.code = this.Record.qtnm_cont_code;
 
         //Fill Duplicate Quotation
         if (this.mode == "ADD") {
