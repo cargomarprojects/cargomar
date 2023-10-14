@@ -7,14 +7,19 @@
 </div>
 
 <div *ngIf="currentTab=='LIST'" class="page-list">
-
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
-            <div class="col-8">
+            <!-- <label class="col-4 col-form-label col-form-label-sm">From Date</label> -->
+            <div class="col-sm-4">
+              <select class="form-control form-control-sm" [(ngModel)]="type_date">
+                <option [value]="'SOB'">SOB</option>
+                <option [value]="'CREATED'">CREATED DATE</option>
+              </select>
+            </div>
+            <div class="col-sm-8">
               <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
           </div>
@@ -78,19 +83,24 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-8">
-              <select class="form-control form-control-sm" [(ngModel)]="type_date">
-                <option [value]="'SOB'">SOB</option>
-                <option [value]="'CREATED'">CREATED DATE</option>
-              </select>
-            </div>
-          </div>
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div class="col-8">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
+            <div class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="report_format">
+                <option [value]="'GENERAL'">GENERAL</option>
+                <option [value]="'BRANCH WISE'">BRANCH WISE</option>
+                <option [value]="'CUSTOMER WISE'">CUSTOMER WISE</option>
+                <option [value]="'CONSIGNEE WISE'">CONSIGNEE WISE</option>
+                <option [value]="'AGENT WISE'">AGENT WISE</option>
+                <option [value]="'POL WISE'">POL WISE</option>
+                <option [value]="'POD WISE'">POD WISE</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
@@ -116,7 +126,7 @@
     </div>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -151,8 +161,9 @@
           <th class="text-right">CBM</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
@@ -187,6 +198,47 @@
     </table>
   </div>
 
+  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='BRANCH WISE'" class="page-body table-responsive">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th *ngIf="ColNames.length>0" >{{ColNames[0]}}</th>
+          <th *ngIf="ColNames.length>1" >{{ColNames[1]}}</th>
+          <th *ngIf="ColNames.length>2" >{{ColNames[2]}}</th>
+          <th *ngIf="ColNames.length>3" >{{ColNames[3]}}</th>
+          <th *ngIf="ColNames.length>4" >{{ColNames[4]}}</th>
+          <th *ngIf="ColNames.length>5" >{{ColNames[5]}}</th>
+          <th *ngIf="ColNames.length>6" >{{ColNames[6]}}</th>
+          <th *ngIf="ColNames.length>7" >{{ColNames[7]}}</th>
+          <th *ngIf="ColNames.length>8" >{{ColNames[8]}}</th>
+          <th *ngIf="ColNames.length>9" >{{ColNames[9]}}</th>
+          <th *ngIf="ColNames.length>10" >{{ColNames[10]}}</th>
+          <th *ngIf="ColNames.length>11" >{{ColNames[11]}}</th>
+          <th class="text-right">TEU</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+          <td>{{rec.branch}}</td>
+          <td *ngIf="ColNames.length>0" >{{rec[ColNames[0]]}}</td>
+          <td *ngIf="ColNames.length>1" >{{rec[ColNames[1]]}}</td>
+          <td *ngIf="ColNames.length>2" >{{rec[ColNames[2]]}}</td>
+          <td *ngIf="ColNames.length>3" >{{rec[ColNames[3]]}}</td>
+          <td *ngIf="ColNames.length>4" >{{rec[ColNames[4]]}}</td>
+          <td *ngIf="ColNames.length>5" >{{rec[ColNames[5]]}}</td>
+          <td *ngIf="ColNames.length>6" >{{rec[ColNames[6]]}}</td>
+          <td *ngIf="ColNames.length>7" >{{rec[ColNames[7]]}}</td>
+          <td *ngIf="ColNames.length>8" >{{rec[ColNames[8]]}}</td>
+          <td *ngIf="ColNames.length>9" >{{rec[ColNames[9]]}}</td>
+          <td *ngIf="ColNames.length>10" >{{rec[ColNames[10]]}}</td>
+          <td *ngIf="ColNames.length>11" >{{rec[ColNames[11]]}}</td>
+          <td align='right'>{{ rec.cntr_teu | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div *ngIf="rec_category=='TEU-IMPORT'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
@@ -219,8 +271,9 @@
           <th class="text-right">CBM</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>

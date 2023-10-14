@@ -34,5 +34,18 @@ export class Teu {
   branch: string;
   hbl_nomination: string;
 
+  JAN: string;
+  FEB: string;
+  MAR: string;
+  APR: string;
+  MAY: string;
+  JUN: string;
+  JUL: string;
+  AUG: string;
+  SEP: string;
+  OCT: string;
+  NOV: string;
+  DEC: string;
+
   _globalvariables: GlobalVariables;
 }

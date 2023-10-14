@@ -27,6 +27,8 @@ export class TeuComponent {
   mode = '';
   pkid = '';
 
+  list_format: string = 'GENERAL';
+  report_format: string = 'GENERAL';
   type_date: string = 'SOB';
   from_date: string = '';
   to_date: string = '';
@@ -45,6 +47,7 @@ export class TeuComponent {
   pod_id: string;
   porttype: string;
   rec_category: string;
+  ColNames: any[] = [];
 
   disableSave = true;
   bExcel = false;
@@ -77,7 +80,8 @@ export class TeuComponent {
     pod_id: '',
     rec_category: '',
     all: false,
-    issubtot: false
+    issubtot: false,
+    report_format: this.report_format
   };
 
 
@@ -146,6 +150,7 @@ export class TeuComponent {
 
   Init() {
     this.type_date = "SOB";
+    this.report_format = "GENERAL";
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
     this.from_date = this.gs.defaultValues.lastmonthdate;
@@ -301,6 +306,7 @@ export class TeuComponent {
   // Query List Data
   List(_type: string) {
 
+    this.list_format = this.report_format;
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -343,6 +349,7 @@ export class TeuComponent {
     this.SearchData.all = this.all;
     this.SearchData.rec_category = this.rec_category;
     this.SearchData.issubtot = this.isSubtot;
+    this.SearchData.report_format = this.report_format;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -351,6 +358,7 @@ export class TeuComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          this.ColNames = response.colnames;
         }
       },
         error => {
