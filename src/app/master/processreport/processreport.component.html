@@ -41,15 +41,15 @@
                                     <th>SL#</th>
                                     <th>TYPE</th>
                                     <th>REFERESH</th>
-                                    <th>REFERESH.BY</th>
-                                    <th>REFERESH.DATE</th>
+                                    <th>NAME</th>
+                                    <th>DATE</th>
                                 </tr>
                             </thead>
                             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                                 <tr>
                                     <td>{{rec.ar_slno}}</td>
-                                    <td>{{rec.ar_type}}</td>
-                                    <td style="padding:0px 0px 0px 0px" (click)="Process('EXPORT TEU')" > <button [disabled]="loading" class="btn btn-primary btn-sm">REFERESH </button></td>
+                                    <td>{{rec.ar_name}}</td>
+                                    <td style="padding:0px 0px 0px 0px" (click)="Process(rec.ar_name)" > <button [disabled]="loading" class="btn btn-primary btn-sm pt-0 pb-0">Referesh</button></td>
                                     <td>{{rec.referesh_by}}</td>
                                     <td>{{rec.referesh_date}}</td>
                                 </tr>

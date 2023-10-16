@@ -154,19 +154,20 @@ export class ProcessReportComponent {
             report_folder: this.gs.globalVariables.report_folder,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
             year_code: this.finyear,
             type: _type
         };
 
         SearchData.report_folder = this.gs.globalVariables.report_folder;
         SearchData.company_code = this.gs.globalVariables.comp_code;
-        SearchData.type = _type;
+        SearchData.type = _type.toUpperCase();
         SearchData.year_code = this.finyear;
 
         this.mainService.Process(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = response.savemsg;
+                this.List('NEW');
             },
                 error => {
                     this.loading = false;
@@ -174,9 +175,6 @@ export class ProcessReportComponent {
                     alert(this.ErrorMessage);
                 });
     }
-
-
-
 
     Close() {
         this.gs.ClosePage('home');
