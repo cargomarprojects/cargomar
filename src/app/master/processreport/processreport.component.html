@@ -1,0 +1,68 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-6">
+            <!-- <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">FinYear</label>
+                <div class="col-4">
+                    <input type="text" class="col form-control form-control-sm" name="fyr" [(ngModel)]="finyear" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm"></label>
+                <div class="col-2">
+                    <button [disabled]="loading" (click)="Process('EXPORT TEU')" class="btn btn-primary btn-sm">
+                        ExportTeu</button>
+                </div>
+                <div class="col-sm-8">
+                    <label class="col-2 col-form-label col-form-label-sm">{{process_msg}}</label>
+                </div>
+            </div> -->
+
+            <div class="page-box">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label col-form-label-sm">FinYear</label>
+                    <div class="col-4">
+                        <input type="text" class="col form-control form-control-sm" name="fyr" [(ngModel)]="finyear" />
+                    </div>
+                </div>
+                <div>
+                    <div class="page-body table-responsive">
+                        <table class="table  table-hover table-sm my-0">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th>SL#</th>
+                                    <th>TYPE</th>
+                                    <th>REFERESH</th>
+                                    <th>REFERESH.BY</th>
+                                    <th>REFERESH.DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                                <tr>
+                                    <td>{{rec.ar_slno}}</td>
+                                    <td>{{rec.ar_type}}</td>
+                                    <td style="padding:0px 0px 0px 0px" (click)="Process('EXPORT TEU')" > <button [disabled]="loading" class="btn btn-primary btn-sm">REFERESH </button></td>
+                                    <td>{{rec.referesh_by}}</td>
+                                    <td>{{rec.referesh_date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<br />
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>
