@@ -198,43 +198,43 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='BRANCH WISE'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='SUMMARY'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th>BRANCH</th>
-          <th *ngIf="ColNames.length>0" >{{ColNames[0]}}</th>
-          <th *ngIf="ColNames.length>1" >{{ColNames[1]}}</th>
-          <th *ngIf="ColNames.length>2" >{{ColNames[2]}}</th>
-          <th *ngIf="ColNames.length>3" >{{ColNames[3]}}</th>
-          <th *ngIf="ColNames.length>4" >{{ColNames[4]}}</th>
-          <th *ngIf="ColNames.length>5" >{{ColNames[5]}}</th>
-          <th *ngIf="ColNames.length>6" >{{ColNames[6]}}</th>
-          <th *ngIf="ColNames.length>7" >{{ColNames[7]}}</th>
-          <th *ngIf="ColNames.length>8" >{{ColNames[8]}}</th>
-          <th *ngIf="ColNames.length>9" >{{ColNames[9]}}</th>
-          <th *ngIf="ColNames.length>10" >{{ColNames[10]}}</th>
-          <th *ngIf="ColNames.length>11" >{{ColNames[11]}}</th>
+          <th>{{ColNames.length>0?ColNames[0]:''}}</th>
+          <th *ngIf="ColNames.length>2">{{ColNames[2]}}</th>
+          <th *ngIf="ColNames.length>3">{{ColNames[3]}}</th>
+          <th *ngIf="ColNames.length>4">{{ColNames[4]}}</th>
+          <th *ngIf="ColNames.length>5">{{ColNames[5]}}</th>
+          <th *ngIf="ColNames.length>6">{{ColNames[6]}}</th>
+          <th *ngIf="ColNames.length>7">{{ColNames[7]}}</th>
+          <th *ngIf="ColNames.length>8">{{ColNames[8]}}</th>
+          <th *ngIf="ColNames.length>9">{{ColNames[9]}}</th>
+          <th *ngIf="ColNames.length>10">{{ColNames[10]}}</th>
+          <th *ngIf="ColNames.length>11">{{ColNames[11]}}</th>
+          <th *ngIf="ColNames.length>12">{{ColNames[12]}}</th>
+          <th *ngIf="ColNames.length>13">{{ColNames[13]}}</th>
           <th class="text-right">TEU</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
-          <td>{{rec.branch}}</td>
-          <td *ngIf="ColNames.length>0" >{{rec[ColNames[0]]}}</td>
-          <td *ngIf="ColNames.length>1" >{{rec[ColNames[1]]}}</td>
-          <td *ngIf="ColNames.length>2" >{{rec[ColNames[2]]}}</td>
-          <td *ngIf="ColNames.length>3" >{{rec[ColNames[3]]}}</td>
-          <td *ngIf="ColNames.length>4" >{{rec[ColNames[4]]}}</td>
-          <td *ngIf="ColNames.length>5" >{{rec[ColNames[5]]}}</td>
-          <td *ngIf="ColNames.length>6" >{{rec[ColNames[6]]}}</td>
-          <td *ngIf="ColNames.length>7" >{{rec[ColNames[7]]}}</td>
-          <td *ngIf="ColNames.length>8" >{{rec[ColNames[8]]}}</td>
-          <td *ngIf="ColNames.length>9" >{{rec[ColNames[9]]}}</td>
-          <td *ngIf="ColNames.length>10" >{{rec[ColNames[10]]}}</td>
-          <td *ngIf="ColNames.length>11" >{{rec[ColNames[11]]}}</td>
-          <td align='right'>{{ rec.cntr_teu | number : '1.2-2' }}</td>
+          <td>{{ColNames.length>0?rec[ColNames[1]]:''}}</td>
+          <td *ngIf="ColNames.length>2">{{rec[ColNames[2]]}}</td>
+          <td *ngIf="ColNames.length>3">{{rec[ColNames[3]]}}</td>
+          <td *ngIf="ColNames.length>4">{{rec[ColNames[4]]}}</td>
+          <td *ngIf="ColNames.length>5">{{rec[ColNames[5]]}}</td>
+          <td *ngIf="ColNames.length>6">{{rec[ColNames[6]]}}</td>
+          <td *ngIf="ColNames.length>7">{{rec[ColNames[7]]}}</td>
+          <td *ngIf="ColNames.length>8">{{rec[ColNames[8]]}}</td>
+          <td *ngIf="ColNames.length>9">{{rec[ColNames[9]]}}</td>
+          <td *ngIf="ColNames.length>10">{{rec[ColNames[10]]}}</td>
+          <td *ngIf="ColNames.length>11">{{rec[ColNames[11]]}}</td>
+          <td *ngIf="ColNames.length>12">{{rec[ColNames[12]]}}</td>
+          <td *ngIf="ColNames.length>13">{{rec[ColNames[13]]}}</td>
+          <td class="text-right">{{ rec.cntr_teu | number : '1.2-2' }}</td>
         </tr>
       </tbody>
     </table>

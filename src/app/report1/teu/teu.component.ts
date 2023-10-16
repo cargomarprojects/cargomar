@@ -307,6 +307,10 @@ export class TeuComponent {
   List(_type: string) {
 
     this.list_format = this.report_format;
+    if (this.report_format == "BRANCH WISE" || this.report_format == "CUSTOMER WISE" || this.report_format == "CONSIGNEE WISE" ||
+      this.report_format == "AGENT WISE" || this.report_format == "POL WISE" || this.report_format == "POD WISE")
+      this.list_format = "SUMMARY";
+
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -365,6 +369,7 @@ export class TeuComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
