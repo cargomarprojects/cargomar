@@ -198,7 +198,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='SUMMARY'" class="page-body table-responsive">
+  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -240,7 +240,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-IMPORT'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
