@@ -149,7 +149,10 @@ export class TeuComponent {
   }
 
   Init() {
-    this.type_date = "SOB";
+    if (this.type == "TEU-IMPORT")
+      this.type_date = "ETA";
+    else
+      this.type_date = "SOB";
     this.report_format = "GENERAL";
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;

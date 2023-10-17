@@ -17,6 +17,7 @@
               <select class="form-control form-control-sm" [(ngModel)]="type_date">
                 <option [value]="'SOB'">SOB</option>
                 <option [value]="'CREATED'">CREATED DATE</option>
+                <option *ngIf="rec_category=='TEU-IMPORT'" [value]="'ETA'">ETA</option>
               </select>
             </div>
             <div class="col-sm-8">
