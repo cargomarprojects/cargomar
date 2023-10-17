@@ -119,22 +119,22 @@ export class ProcessReportComponent {
     List(_type: string) {
         this.loading = true;
         let SearchData = {
-          type: _type,
-          company_code: this.gs.globalVariables.comp_code,
-          branch_code: this.gs.globalVariables.branch_code,
-          year_code: this.gs.globalVariables.year_code,
+            type: _type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
         };
         this.ErrorMessage = '';
         this.mainService.List(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.RecordList = response.list;
-          },
-          error => {
-            this.loading = false;
-            this.ErrorMessage = this.gs.getError(error);
-          });
-      }
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList = response.list;
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
 
 
     Process(_type: string) {
@@ -168,6 +168,7 @@ export class ProcessReportComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.List('NEW');
+                alert('Process Complete');
             },
                 error => {
                     this.loading = false;
