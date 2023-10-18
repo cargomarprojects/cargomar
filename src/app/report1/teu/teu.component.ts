@@ -32,6 +32,7 @@ export class TeuComponent {
   type_date: string = 'SOB';
   from_date: string = '';
   to_date: string = '';
+  year_code: string = '';
   branch_name: string;
   branch_code: string;
   shipper_id: string;
@@ -48,6 +49,7 @@ export class TeuComponent {
   porttype: string;
   rec_category: string;
   ColNames: any[] = [];
+  YearList: any[] = [];
 
   disableSave = true;
   bExcel = false;
@@ -277,7 +279,30 @@ export class TeuComponent {
     }
 
   }
+
   LoadCombo() {
+    this.loading = true;
+
+    let SearchData2 = {
+      type: 'YEAR',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData2.comp_code = this.gs.globalVariables.comp_code;
+    SearchData2.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.mainService.LoadDefault(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        this.YearList = response.yearlist;
+        this.year_code = this.gs.globalVariables.year_code;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -339,12 +364,18 @@ export class TeuComponent {
       this.SearchData.branch_name = this.gs.globalVariables.branch_name;
 
     }
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    //this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.year_code = this.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
+    if (this.type_date == 'FIN-YEAR') {
+      this.SearchData.from_date = this.gs.globalVariables.year_start_date;
+      this.SearchData.to_date = this.gs.globalVariables.year_end_date;
+    } else {
+      this.SearchData.from_date = this.from_date;
+      this.SearchData.to_date = this.to_date;
+    }
     this.SearchData.shipper_id = this.shipper_id;
     this.SearchData.consignee_id = this.consignee_id;
     this.SearchData.agent_id = this.agent_id;

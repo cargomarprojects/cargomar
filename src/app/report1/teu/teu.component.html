@@ -1,5 +1,5 @@
 <div class="page-header">
-  <div class="col">
+  <div class="col-sm">
     <label>{{title}}</label>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -13,86 +13,98 @@
         <div class="col-sm-4">
           <div class="form-group row">
             <!-- <label class="col-4 col-form-label col-form-label-sm">From Date</label> -->
-            <div class="col-sm-4">
-              <select class="form-control form-control-sm" [(ngModel)]="type_date">
+            <div class="col-sm-3">
+              <select class="form-control form-control-sm pl-0" [(ngModel)]="type_date">
                 <option [value]="'SOB'">SOB</option>
                 <option [value]="'CREATED'">CREATED DATE</option>
                 <option *ngIf="rec_category=='TEU-IMPORT'" [value]="'ETA'">ETA</option>
+                <option [value]="'FIN-YEAR'">FIN-YEAR</option>
               </select>
             </div>
-            <div class="col-sm-8">
+            <div *ngIf="type_date!='FIN-YEAR'" class="col-sm-4">
               <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-8">
+            <label *ngIf="type_date!='FIN-YEAR'" class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div *ngIf="type_date!='FIN-YEAR'" class="col-sm-4">
               <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
+            <div *ngIf="type_date=='FIN-YEAR'" class="col-sm-9">
+              <select class="form-control form-control-sm" [(ngModel)]="year_code">
+                <option *ngFor="let rec of YearList" [value]="rec.year_code">{{rec.year_name}}</option>
+              </select>
+            </div>
           </div>
+          <!-- <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">To Date</label>
+            <div class="col-sm-9">
+              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div> -->
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
-            <div *ngIf="rec_category=='TEU-EXPORT'" class="col-8">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
+            <div *ngIf="rec_category=='TEU-EXPORT'" class="col-sm-9">
               <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
-            <div *ngIf="rec_category=='TEU-IMPORT'" class="col-8">
+            <div *ngIf="rec_category=='TEU-IMPORT'" class="col-sm-9">
               <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
-            <div *ngIf="rec_category=='TEU-EXPORT'" class="col-8">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
+            <div *ngIf="rec_category=='TEU-EXPORT'" class="col-sm-9">
               <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
-            <div *ngIf="rec_category=='TEU-IMPORT'" class="col-8">
+            <div *ngIf="rec_category=='TEU-IMPORT'" class="col-sm-9">
               <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
-        </div>
-        <div class="col-4">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
-            <div class="col-8">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
+            <div class="col-sm-9">
               <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
+        </div>
+        <div class="col-sm-4">
+         
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
-            <div class="col-8">
+            <div class="col-sm-10">
               <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
-            <div class="col-8">
+            <div class="col-sm-10">
               <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
-            <div class="col-8">
+            <div class="col-sm-10">
               <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
           </div>
-        </div>
-        <div class="col-4">
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div class="col-8">
+            <div class="col-sm-10">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
+        </div>
+        <div class="col-sm-4">
+          
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <select class="form-control form-control-sm" [(ngModel)]="report_format">
                 <option [value]="'GENERAL'">GENERAL</option>
                 <option [value]="'BRANCH WISE'">BRANCH WISE</option>
@@ -106,7 +118,7 @@
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-            <div *ngIf="bCompany" class="col-8">
+            <div *ngIf="bCompany" class="col-sm-10">
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
               <input type="checkbox" [(ngModel)]="isSubtot" (change)="OnChange('isSubtot')">
