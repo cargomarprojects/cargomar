@@ -718,9 +718,15 @@ export class MailComponent {
       _newfsize = this.gs.roundNumber(_newfsize, 2);
       _newfsize = Math.ceil(_newfsize);
       if (_newfsize < 1024)
+      {
         strsize = _newfsize.toString() + "KB";
-      else
+      }
+      else {
+        _newfsize = (_newfsize / 1024.00);
+        _newfsize = this.gs.roundNumber(_newfsize, 2);
+        _newfsize = Math.ceil(_newfsize);
         strsize = _newfsize.toString() + "MB";
+      }
     }
     return " " + strsize;
   }
