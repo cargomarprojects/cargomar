@@ -15,7 +15,7 @@ import { TonnageService } from '../services/tonnage.service';
 
 export class TonnageComponent {
   title = 'Tonnage Report'
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -28,11 +28,14 @@ export class TonnageComponent {
   pkid = '';
   selectedRowIndex = 0;
 
-  type_date: string ='MAWB DATE';
+  list_format: string = 'GENERAL';
+  report_format: string = 'GENERAL';
+  type_date: string = 'MAWB DATE';
   from_date: string = '';
   to_date: string = '';
   branch_name: string;
   branch_code: string;
+  year_code: string = '';
 
   shipper_id: string;
   shipper_name: string;
@@ -82,9 +85,11 @@ export class TonnageComponent {
     pod_id: '',
     rec_category: '',
     all: false,
+    report_format: this.report_format
   };
 
-   
+  ColNames: any[] = [];
+  YearList: any[] = [];
   // Array For Displaying List
   RecordList: Tonnage[] = [];
   // Single Record for add/edit/view details
@@ -114,7 +119,7 @@ export class TonnageComponent {
         this.InitComponent();
       }
     });
-    
+
   }
 
   // Init Will be called After executing Constructor
@@ -146,7 +151,11 @@ export class TonnageComponent {
   }
 
   Init() {
-    this.type_date = "MAWB DATE";
+    if (this.type == "AIR IMPORT")
+      this.type_date = "ETA";
+    else
+      this.type_date = "MAWB DATE";
+    this.report_format = "GENERAL";
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
     this.from_date = this.gs.defaultValues.monthbegindate;
@@ -158,7 +167,7 @@ export class TonnageComponent {
     this.carrier_id = '';
     this.pol_id = '';
     this.pod_id = '';
-   
+
   }
 
   // Destroy Will be called when this component is closed
@@ -270,9 +279,32 @@ export class TonnageComponent {
       // this.pod_name = _Record.name;
     }
 
-    
+
   }
   LoadCombo() {
+
+    this.loading = true;
+
+    let SearchData2 = {
+      type: 'YEAR',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    SearchData2.comp_code = this.gs.globalVariables.comp_code;
+    SearchData2.branch_code = this.gs.globalVariables.branch_code;
+
+    this.ErrorMessage = '';
+    this.mainService.LoadDefault(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        this.YearList = response.yearlist;
+        this.year_code = this.gs.globalVariables.year_code;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -304,6 +336,11 @@ export class TonnageComponent {
   // Query List Data
   List(_type: string) {
 
+    this.list_format = this.report_format;
+    if (this.report_format == "BRANCH WISE" || this.report_format == "CUSTOMER WISE" || this.report_format == "CONSIGNEE WISE" ||
+      this.report_format == "AGENT WISE" || this.report_format == "POL WISE" || this.report_format == "POD WISE")
+      this.list_format = "SUMMARY";
+
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
@@ -319,7 +356,7 @@ export class TonnageComponent {
     this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    
+
     if (this.bCompany) {
       this.SearchData.branch_code = this.branch_code;
       this.SearchData.branch_name = this.branch_name;
@@ -329,14 +366,18 @@ export class TonnageComponent {
       this.SearchData.branch_name = this.gs.globalVariables.branch_name;
 
     }
-
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    //this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.year_code = this.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-
+    if (this.type_date == 'FIN-YEAR') {
+      this.SearchData.from_date = this.gs.globalVariables.year_start_date;
+      this.SearchData.to_date = this.gs.globalVariables.year_end_date;
+    } else {
+      this.SearchData.from_date = this.from_date;
+      this.SearchData.to_date = this.to_date;
+    }
     this.SearchData.shipper_id = this.shipper_id;
     this.SearchData.consignee_id = this.consignee_id;
     this.SearchData.agent_id = this.agent_id;
@@ -347,6 +388,7 @@ export class TonnageComponent {
     this.SearchData.pod_id = this.pod_id;
     this.SearchData.all = this.all;
     this.SearchData.rec_category = this.rec_category;
+    this.SearchData.report_format = this.report_format;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
@@ -356,13 +398,14 @@ export class TonnageComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          this.ColNames = response.colnames;
         }
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.RecordList = null;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

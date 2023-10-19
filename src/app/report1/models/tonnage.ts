@@ -21,6 +21,18 @@ export class Tonnage {
 
   hbl_pol_name: string;
   branch: string;
+  JAN: string;
+  FEB: string;
+  MAR: string;
+  APR: string;
+  MAY: string;
+  JUN: string;
+  JUL: string;
+  AUG: string;
+  SEP: string;
+  OCT: string;
+  NOV: string;
+  DEC: string;
 
-    _globalvariables: GlobalVariables;
+  _globalvariables: GlobalVariables;
 }

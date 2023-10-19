@@ -40,7 +40,7 @@ export class ProcessReportComponent {
     branch_name: string;
     branch_code: string;
     branch_number: number;
-    finyear: string;
+    finyear: string = '';
 
     RecordList: AllReport[] = [];
     FileList: FileDetails[] = [];
@@ -144,7 +144,7 @@ export class ProcessReportComponent {
             return;
         }
 
-        if (!confirm("Process " + _type)) {
+        if (!confirm("Process " + _type + " - " + this.finyear)) {
             return;
         }
 
