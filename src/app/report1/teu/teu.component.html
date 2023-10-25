@@ -320,6 +320,23 @@
     </table>
   </div>
 
+  <div *ngIf="list_format=='BRANCH YEAR WISE'" class="page-body table-responsive">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngFor="let rec of HeaderList" class="{{rec.col_class_style}}">{{rec.col_header_name}}</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index"  [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+          <td>{{rec.branch}}</td>
+          <td *ngFor="let rec2 of rec.TableDataList" class="{{rec2.col_class_style}}">{{rec2.col_field_value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <br />

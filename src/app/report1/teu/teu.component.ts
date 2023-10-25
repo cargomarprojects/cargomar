@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { Teu } from '../models/teu';
+import { Teu, TblColumns } from '../models/teu';
 
 import { TeuService } from '../services/teu.service';
 
@@ -88,6 +88,7 @@ export class TeuComponent {
 
 
   // Array For Displaying List
+  HeaderList: TblColumns[] = [];
   RecordList: Teu[] = [];
   // Single Record for add/edit/view details
   Record: Teu = new Teu;
@@ -397,6 +398,7 @@ export class TeuComponent {
         else {
           this.RecordList = response.list;
           this.ColNames = response.colnames;
+          this.HeaderList = response.headerlist;
         }
       },
         error => {

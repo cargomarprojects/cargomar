@@ -47,5 +47,14 @@ export class Teu {
   NOV: string;
   DEC: string;
 
+  TableDataList: TblColumns[] = [];
+
   _globalvariables: GlobalVariables;
+}
+
+export class TblColumns {
+  col_header_name: string;
+  col_field_name: string;
+  col_class_style: string;
+  col_field_value: number;
 }
