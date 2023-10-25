@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { Tonnage } from '../models/tonnage';
+import { Tonnage,TblColumns } from '../models/tonnage';
 
 import { TonnageService } from '../services/tonnage.service';
 
@@ -90,6 +90,7 @@ export class TonnageComponent {
 
   ColNames: any[] = [];
   YearList: any[] = [];
+  HeaderList: TblColumns[] = [];
   // Array For Displaying List
   RecordList: Tonnage[] = [];
   // Single Record for add/edit/view details
@@ -399,6 +400,7 @@ export class TonnageComponent {
         else {
           this.RecordList = response.list;
           this.ColNames = response.colnames;
+          this.HeaderList = response.headerlist;
         }
       },
         error => {
