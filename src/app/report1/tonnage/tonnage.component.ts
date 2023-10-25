@@ -337,8 +337,8 @@ export class TonnageComponent {
   List(_type: string) {
 
     this.list_format = this.report_format;
-    if (this.report_format == "BRANCH WISE" || this.report_format == "CUSTOMER WISE" || this.report_format == "CONSIGNEE WISE" ||
-      this.report_format == "AGENT WISE" || this.report_format == "POL WISE" || this.report_format == "POD WISE")
+    if (this.report_format == "BRANCH MONTH WISE" || this.report_format == "CUSTOMER MONTH WISE" || this.report_format == "CONSIGNEE MONTH WISE" ||
+      this.report_format == "AGENT MONTH WISE" || this.report_format == "POL MONTH WISE" || this.report_format == "POD MONTH WISE")
       this.list_format = "SUMMARY";
 
     this.ErrorMessage = '';
