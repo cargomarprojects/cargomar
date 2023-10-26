@@ -193,6 +193,22 @@ export class SearchShipmentComponent {
   // Query List Data
   List(_type: string) {
 
+    if (_type != 'EXCEL') {
+      if (this.report_format == "SBBE-COUNT" || this.report_format == "BL-COUNT") {
+        this.ErrorMessage = "Please use Excel option......... ";
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
+
+    if (this.report_format == "SBBE-COUNT" || this.report_format == "BL-COUNT") {
+      if (this.gs.isBlank(this.from_date)) {
+        this.from_date = this.gs.globalVariables.year_start_date;
+      }
+      if (this.gs.isBlank(this.to_date)) {
+        this.to_date = this.gs.globalVariables.year_end_date;
+      }
+    }
     this.ErrorMessage = '';
     // if (this.shipper.trim().length <= 0 && this.consignee.trim().length <= 0 && this.agent.trim().length <= 0) {
     //   this.RecordList = null;
@@ -252,6 +268,7 @@ export class SearchShipmentComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
