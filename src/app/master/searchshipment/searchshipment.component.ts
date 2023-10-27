@@ -203,10 +203,14 @@ export class SearchShipmentComponent {
 
     if (this.report_format == "SBBE-COUNT" || this.report_format == "BL-COUNT") {
       if (this.gs.isBlank(this.from_date)) {
-        this.from_date = this.gs.globalVariables.year_start_date;
+        this.ErrorMessage = "From date cannot be blank ";
+        alert(this.ErrorMessage);
+        return;
       }
       if (this.gs.isBlank(this.to_date)) {
-        this.to_date = this.gs.globalVariables.year_end_date;
+        this.ErrorMessage = "To date cannot be blank ";
+        alert(this.ErrorMessage);
+        return;
       }
     }
     this.ErrorMessage = '';
