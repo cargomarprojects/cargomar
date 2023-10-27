@@ -1288,7 +1288,7 @@ export class BlComponent {
     this.AttchRecord.bl_marks = '';
     this.AttchRecord.bl_desc = '';
   }
-
+  
   RemoveList(event: any) {
     if (event.selected) {
       this.ActionHandler('REMOVE', event.id)
