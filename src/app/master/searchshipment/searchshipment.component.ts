@@ -194,14 +194,14 @@ export class SearchShipmentComponent {
   List(_type: string) {
 
     if (_type != 'EXCEL') {
-      if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL"|| this.report_format == "AIRBL") {
+      if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL" || this.report_format == "AIRBL") {
         this.ErrorMessage = "Please use Excel option......... ";
         alert(this.ErrorMessage);
         return;
       }
     }
 
-    if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL"|| this.report_format == "AIRBL") {
+    if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL" || this.report_format == "AIRBL") {
       if (this.gs.isBlank(this.from_date)) {
         this.ErrorMessage = "From date cannot be blank ";
         alert(this.ErrorMessage);
@@ -281,6 +281,14 @@ export class SearchShipmentComponent {
   }
   OnChange(field: string) {
     this.RecordList = null;
+    this.page_count=0;
+    if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL" || this.report_format == "AIRBL") {
+      this.from_date = this.gs.globalVariables.year_start_date;
+      this.to_date = this.gs.defaultValues.today;
+    } else {
+      this.from_date = '';
+      this.to_date = '';
+    }
 
   }
   Close() {
