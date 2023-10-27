@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { Tonnage,TblColumns } from '../models/tonnage';
+import { Tonnage, TblColumns } from '../models/tonnage';
 
 import { TonnageService } from '../services/tonnage.service';
 
@@ -395,12 +395,12 @@ export class TonnageComponent {
     this.mainService.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.ColNames = response.colnames;
+        this.HeaderList = response.headerlist;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-          this.ColNames = response.colnames;
-          this.HeaderList = response.headerlist;
         }
       },
         error => {

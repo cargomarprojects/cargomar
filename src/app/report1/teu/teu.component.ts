@@ -393,12 +393,12 @@ export class TeuComponent {
     this.mainService.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.ColNames = response.colnames;
+        this.HeaderList = response.headerlist;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-          this.ColNames = response.colnames;
-          this.HeaderList = response.headerlist;
         }
       },
         error => {
