@@ -157,6 +157,8 @@
           <th>SALARY</th>
           <th>DEDUCTIONS</th>
           <th>NET</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">OTH.INCENT</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">TDS.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">GR.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">DEDUS.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">NET.INCENT</th>
@@ -232,8 +234,10 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
-          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_gr_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_ded_incentive}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_tds_incentive}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_gr_incentive}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_tot_ded_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_net_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_pf_emplr_share}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_esi_emplr}}</td>
