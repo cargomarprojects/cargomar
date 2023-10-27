@@ -194,14 +194,14 @@ export class SearchShipmentComponent {
   List(_type: string) {
 
     if (_type != 'EXCEL') {
-      if (this.report_format == "SBBE-COUNT" || this.report_format == "BL-COUNT") {
+      if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL"|| this.report_format == "AIRBL") {
         this.ErrorMessage = "Please use Excel option......... ";
         alert(this.ErrorMessage);
         return;
       }
     }
 
-    if (this.report_format == "SBBE-COUNT" || this.report_format == "BL-COUNT") {
+    if (this.report_format == "SBBE-COUNT" || this.report_format == "SEABL"|| this.report_format == "AIRBL") {
       if (this.gs.isBlank(this.from_date)) {
         this.ErrorMessage = "From date cannot be blank ";
         alert(this.ErrorMessage);
