@@ -391,6 +391,7 @@ export class EmpComponent {
 
   }
 
+  
   Initdefault() {
     this.Record.emp_blood_group = 'N/A';
 
