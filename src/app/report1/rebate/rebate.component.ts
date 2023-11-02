@@ -434,22 +434,29 @@ export class RebateComponent {
         });
   }
 
-  ClearRebateInvJv(rec: Rebate) {
-    let msg = "Clear Rebate JV-" + rec.inv_rebate_jvno + " Y/N?";
+  ClearRebateInvJv(_rec: Rebate) {
+    let msg = "Clear Rebate JV-" + _rec.inv_rebate_jvno + " Y/N?";
     if (!confirm(msg)) {
       return;
     }
     let SaveData = {
-      "inv_pkid": rec.inv_pkid,
-      "inv_rebate_jvid": rec.inv_rebate_jvid
+      "inv_pkid": _rec.inv_pkid,
+      "inv_rebate_jvid": _rec.inv_rebate_jvid
     }
     this.ErrorMessage = '';
     this.mainService.ClearRebateInvJv(SaveData)
       .subscribe(response => {
         if (response.errormsg)
           alert(response.errormsg);
-        else
+        else {
+          if (this.RecordList != null) {
+            var REC = this.RecordList.find(rec => rec.inv_pkid == _rec.inv_pkid);
+            if (REC != null) {
+              REC.inv_rebate_jvno = '';
+            }
+          }
           alert('Rebate JV cleared successfully');
+        }
       },
         error => {
           this.ErrorMessage = this.gs.getError(error);
