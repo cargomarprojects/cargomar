@@ -21,13 +21,15 @@ import { isNull } from 'util';
 //EDIT-AJITH-05-01-2022
 //EDIT-AJITH-02-11-2023
 
+//TEST-JOY
+
 @Component({
   selector: 'app-mblsea',
   templateUrl: './mblsea.component.html',
   providers: [LinerBkmService, PreAlertReportService]
 })
 export class MblSeaComponent {
-  // Local Variables 
+  // Local Variables
   title = 'BOOKING MASTER';
 
   @Input() menuid: string = '';
@@ -122,7 +124,7 @@ export class MblSeaComponent {
     this.page_count = 0;
     this.page_rows = 10;
     this.page_current = 0;
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -700,9 +702,9 @@ export class MblSeaComponent {
         this.Record.book_status_id = REC.param_pkid;
       }
     }
-    //  
+    //
   }
-  // Load a single Record for VIEW/EDIT 
+  // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;
     let SearchData = {
@@ -1013,7 +1015,7 @@ export class MblSeaComponent {
 
     //if (this.Record.book_pod_id.trim().length > 0 && this.Record.book_eta.trim().length <= 0) {
     //  bret = false;
-    //  sError += "\n\r | ETA Cannot Be Blank"; 
+    //  sError += "\n\r | ETA Cannot Be Blank";
     //}
 
     //if (this.Record.book_pofd_id.trim().length > 0 && this.Record.book_pofd_eta.trim().length <= 0) {
@@ -1928,7 +1930,7 @@ export class MblSeaComponent {
 
     if (!confirm("Update Booking Container?")) {
       return;
-  }
+    }
 
     this.loading = true;
     let SearchData = {
