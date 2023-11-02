@@ -92,7 +92,7 @@ export class RebateComponent {
     private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -433,7 +433,30 @@ export class RebateComponent {
           alert(this.ErrorMessage);
         });
   }
- 
+
+  ClearRebateInvJv(rec: Rebate) {
+    let msg = "Clear Rebate JV-" + rec.inv_rebate_jvno + " Y/N?";
+    if (!confirm(msg)) {
+      return;
+    }
+    let SaveData = {
+      "inv_pkid": rec.inv_pkid,
+      "inv_rebate_jvid": rec.inv_rebate_jvid
+    }
+    this.ErrorMessage = '';
+    this.mainService.ClearRebateInvJv(SaveData)
+      .subscribe(response => {
+        if (response.errormsg)
+          alert(response.errormsg);
+        else
+          alert('Rebate JV cleared successfully');
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
 }
 

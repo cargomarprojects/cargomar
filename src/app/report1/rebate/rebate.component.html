@@ -133,6 +133,8 @@
             <button *ngIf="rec.inv_pkid && (rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)"
               [disabled]="rec.inv_rebate_inv_recvd && bEditInvRebate!='EDIT-INV-REBATE'" (click)="OnInvRecvdChange(rec)"
               class="btn btn-info btn-sm mb-0">{{rec.inv_rebate_inv_recvd?'YES':'NO'}}</button>
+            <button *ngIf="gs.globalVariables.user_code == 'ADMIN' && rec.inv_pkid && !(rec.inv_rebate_jvno==''||rec.inv_rebate_jvno==undefined)"
+              (click)="ClearRebateInvJv(rec)" class="btn btn-info btn-sm mb-0">CLR-JV</button>
           </td>
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.inv_no}}</td>
