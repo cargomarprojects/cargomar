@@ -18,4 +18,6 @@ export class GlobalData {
     ledger_todate: string;
     mark_fromdate: string;
     mark_todate: string;
+    arap_fromdate: string;
+    arap_todate: string;
 }

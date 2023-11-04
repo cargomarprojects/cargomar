@@ -86,6 +86,8 @@ export class ArApComponent {
   remarks: boolean = false;
   mode = '';
   pkid = '';
+  fromdate: string = "";
+  todate: string = "";
 
   bPrint = false;
   modeDetail = '';
@@ -171,6 +173,8 @@ export class ArApComponent {
   }
 
   InitComponent() {
+    this.fromdate = this.gs.globalData.arap_fromdate;
+    this.todate = this.gs.globalData.arap_todate;
     this.bapprovalstatus = "";
     this.bDocs = false
     this.bAdmin = false;
@@ -512,7 +516,9 @@ export class ArApComponent {
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_rowcount: this.page_rowcount,
+      from_date: this.fromdate,
+      to_date: this.todate
     };
 
 
@@ -1335,6 +1341,9 @@ export class ArApComponent {
     }
     if (field == 'jv_remarks') {
       this.Recorddet.jv_remarks = this.Recorddet.jv_remarks.toUpperCase();
+    }
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase();
     }
   }
 
@@ -2584,6 +2593,73 @@ export class ArApComponent {
         });
 
   }
+
+  GenerateAll(_type: string) {
+    this.ErrorMessage = '';
+
+    let msg: string = "";
+    msg = "Generate ALL Invoice of " + this.gs.globalVariables.branch_name;
+    msg += " From ";
+    if (this.gs.isBlank(this.fromdate))
+      msg += this.gs.ConvertDate2DisplayFormat(this.gs.globalVariables.year_start_date);
+    else
+      msg += this.gs.ConvertDate2DisplayFormat(this.fromdate);
+    msg += " To ";
+    if (this.gs.isBlank(this.todate))
+      msg += this.gs.ConvertDate2DisplayFormat(this.gs.globalVariables.year_end_date);
+    else
+      msg += this.gs.ConvertDate2DisplayFormat(this.todate);
+    if (!confirm(msg)) {
+      return;
+    }
+
+    let SearchData = {
+      type: '',
+      araptype: '',
+      pkid: '',
+      report_folder: '',
+      folderid: '',
+      company_code: '',
+      branch_code: '',
+      report_caption: '',
+      report_format: '',
+      menuadmin: '',
+      from_date: this.fromdate,
+      to_date: this.todate,
+      year_code: '',
+      print_in_temp: false,
+      user_code: ''
+    }
+
+    SearchData.type = this.type;
+    SearchData.pkid = '';
+    SearchData.report_format = _type;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.folderid = '';
+    SearchData.report_caption = this.title;
+    SearchData.menuadmin = this.bAdmin == true ? "Y" : "N";
+    SearchData.from_date = this.fromdate;
+    SearchData.to_date = this.todate;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.print_in_temp = false;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+
+    this.loading = true;
+    this.mainService.GenerateAllInvoice(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = "Generate Complete (Reports/INVOICE/" + this.gs.globalVariables.branch_code + "/" + this.gs.globalVariables.year_code + ")";
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
 }
 

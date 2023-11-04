@@ -357,6 +357,9 @@ export class GlobalService {
 
     this.globalData.mark_fromdate = this.defaultValues.monthbegindate;
     this.globalData.mark_todate = this.defaultValues.today;
+
+    this.globalData.arap_fromdate = this.defaultValues.lastmonthdate;
+    this.globalData.arap_todate = this.defaultValues.today;
   }
 
   InitdefaultValues2(settingslist: Settings[]) {
