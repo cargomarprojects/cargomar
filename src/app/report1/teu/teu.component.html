@@ -263,12 +263,13 @@
           <th *ngIf="all">BRANCH</th>
           <th>CONTAINER</th>
           <th>TYPE</th>
-
+          <th>ETA</th>
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
           <th>AGENT</th>
           <th>CARRIER</th>
           <th>SALESMAN</th>
+          <th>NOMINATION</th>
           <th>POL</th>
           <th>POD</th>
           <th>POFD</th>
@@ -293,12 +294,13 @@
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
-
+          <td>{{rec.mbl_pod_eta}}</td>
           <td>{{rec.hbl_exp_name}}</td>
           <td>{{rec.hbl_imp_name}}</td>
           <td>{{rec.hbl_agent_name}}</td>
           <td>{{rec.hbl_carrier_name}}</td>
           <td>{{rec.sman_name}}</td>
+          <td>{{rec.hbl_nomination}}</td>
           <td>{{rec.hbl_pol_name}}</td>
           <td>{{rec.hbl_pod_name}}</td>
           <td>{{rec.hbl_pofd_name}}</td>

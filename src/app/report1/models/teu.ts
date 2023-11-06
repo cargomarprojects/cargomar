@@ -33,7 +33,8 @@ export class Teu {
   hbl_pofd_name: string;
   branch: string;
   hbl_nomination: string;
-
+  mbl_pod_eta: string;
+  
   JAN: string;
   FEB: string;
   MAR: string;
