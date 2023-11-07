@@ -546,7 +546,7 @@ export class ImpMblSeaAirComponent {
     this.Record.mbl_imp_id = '';
     this.Record.mbl_imp_code = '';
     this.Record.mbl_imp_name = '';
-    this.Record.mbl_nomination = '';
+    this.Record.mbl_nomination = 'NA';
     this.Record.mbl_commodity_id = '';
     this.Record.mbl_commodity_code = '';
     this.Record.mbl_commodity_name = '';
@@ -611,6 +611,10 @@ export class ImpMblSeaAirComponent {
   InitDefault() {
     if (this.StatusList == null)
       return;
+      var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
+      if (REC != null) {
+        this.Record.mbl_status_id = REC.param_pkid;
+      }
   }
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
