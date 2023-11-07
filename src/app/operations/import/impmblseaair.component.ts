@@ -772,10 +772,7 @@ export class ImpMblSeaAirComponent {
       else
         sError += "\n\r | MAWB Date Cannot Be Blank";
     }
-    if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
-      bret = false;
-      sError += "\n\r | Carrier Cannot Be Blank";
-    }
+    
     if (this.gs.isBlank(this.Record.mbl_agent_id)) {
       bret = false;
       sError += "\n\r | Agent Cannot Be Blank";
@@ -789,6 +786,12 @@ export class ImpMblSeaAirComponent {
       bret = false;
       sError += "\n\r | POL Cannot Be Blank";
     }
+
+    if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
+      bret = false;
+      sError += "\n\r | Carrier Cannot Be Blank";
+    }
+
     if (this.Record.mbl_pod_id.trim().length <= 0) {
       bret = false;
       sError += "\n\r | POD Cannot Be Blank";
