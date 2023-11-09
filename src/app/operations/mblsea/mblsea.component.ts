@@ -1612,13 +1612,13 @@ export class MblSeaComponent {
         });
   }
 
-  MailFtp(ftpsent: any) {
+  MailFtp(ftpsent: any, _includeISF: string = "N") {
     this.default_ftptype = 'BL-FTP';
     this.default_mailftp_rootpage = 'MAILPAGE';
     if (this.Record.book_cntr.trim().length > 11) {
       // var cntrarry = this.Record.book_cntr.split('/');
       // this.PrealertList(cntrarry[0].toString(), ftpsent);
-      this.PrealertList(this.Record.book_cntr.toString(), ftpsent);
+      this.PrealertList(this.Record.book_cntr.toString(), ftpsent, _includeISF);
     } else {
       this.GenerateXml(ftpsent);
     }
@@ -1747,7 +1747,7 @@ export class MblSeaComponent {
     this.open(history);
   }
 
-  PrealertList(_cntrno: string, ftpsent: any) {
+  PrealertList(_cntrno: string, ftpsent: any, _includeISF: string = "N") {
     this.loading = true;
     let SearchData = {
       type: '',
@@ -1759,7 +1759,8 @@ export class MblSeaComponent {
       searchcontainer: '',
       root_folder: this.gs.defaultValues.root_folder,
       docattach: 'Y',
-      mbl_id: ''
+      mbl_id: '',
+      include_isf: 'N'
     };
     SearchData.pkid = this.gs.getGuid();
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1771,6 +1772,7 @@ export class MblSeaComponent {
     SearchData.docattach = "Y";
     SearchData.root_folder = this.gs.defaultValues.root_folder;
     SearchData.mbl_id = this.Record.book_pkid;
+    SearchData.include_isf = _includeISF;
 
     this.ErrorMessage = '';
     this.prealertService.PreAlertBookingSea(SearchData)

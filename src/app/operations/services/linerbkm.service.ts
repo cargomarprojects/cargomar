@@ -66,5 +66,6 @@ export class LinerBkmService {
     UpdateBkmContainer(SearchData: any) {   
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/UpdateBkmContainer', SearchData, this.gs.headerparam2('authorized'));
     }
+    
 }
 

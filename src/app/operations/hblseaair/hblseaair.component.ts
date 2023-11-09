@@ -866,7 +866,7 @@ export class HblSeaAirComponent {
             //REC.job_terms = this.Record.job_terms;
             //REC.job_status = this.Record.job_status;
             REC.hbl_cf_date = this.Record.hbl_cf_date;
-            REC.hbl_sidate=this.gs.ConvertDate2DisplayFormat(this.Record.hbl_cf_date);
+            REC.hbl_sidate = this.gs.ConvertDate2DisplayFormat(this.Record.hbl_cf_date);
         }
     }
 
@@ -1117,6 +1117,7 @@ export class HblSeaAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {

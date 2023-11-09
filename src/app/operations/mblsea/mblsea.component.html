@@ -896,10 +896,12 @@
             <div class="col">
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
                 class="btn btn-success btn-sm">Save</button>
-              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent)"
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'N')"
                 class="btn btn-success btn-sm">Mail/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
                 class="btn btn-success btn-sm">Booking/FTP</button>
+                <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
+                class="btn btn-success btn-sm">ISF/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
                 class="btn btn-success btn-sm">FTPHistory</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
