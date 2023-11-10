@@ -1778,7 +1778,12 @@ export class MblSeaComponent {
     this.prealertService.PreAlertBookingSea(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.sSubject = "PRE-ALERT FOR " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+        if (_includeISF == "Y") {
+          this.sSubject = "ISF FOR " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+        }
+        else {
+          this.sSubject = "PRE-ALERT FOR " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+        }
         let _hblnos: string = '';
         for (let rec of this.Record.HblList) {
           if (_hblnos != '')
@@ -1786,17 +1791,36 @@ export class MblSeaComponent {
           _hblnos += rec.hbl_bl_no;
         }
 
-        this.mMsg = "Dear Sir/Madam, ";
-        this.mMsg += " \n\n";
-        this.mMsg += " VESSEL: " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
-        this.mMsg += " \n\n";
-        this.mMsg += " CNTR# " + this.Record.book_cntr;
-        this.mMsg += " \n\n";
-        this.mMsg += " HBL# " + _hblnos;
-        this.mMsg += " \n\n";
-        this.mMsg += " MBL# " + this.Record.book_mblno;
-        this.mMsg += " \n\n";
-        this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
+        if (_includeISF == "Y") {
+          this.mMsg = "Dear Sir/Madam, ";
+          this.mMsg += " \n\n";
+          this.mMsg += " VESSEL: " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+          this.mMsg += " \n\n";
+          this.mMsg += " CNTR# " + this.Record.book_cntr;
+          this.mMsg += " \n\n";
+          this.mMsg += " MBL# " + this.Record.book_mblno;
+          this.mMsg += " \n\n";
+          this.mMsg += " HBL# - PO#";
+          this.mMsg += " \n";
+          for (let rec of this.Record.HblList) {
+            this.mMsg += rec.hbl_bl_no + ' - ' + rec.hbl_itm_po;
+            this.mMsg += " \n";
+          }
+          this.mMsg += " \n";
+          this.mMsg += " We here by attach the ISF files for your kind reference";
+        } else {
+          this.mMsg = "Dear Sir/Madam, ";
+          this.mMsg += " \n\n";
+          this.mMsg += " VESSEL: " + this.Record.book_vessel_name + "/" + this.Record.book_vessel_no;
+          this.mMsg += " \n\n";
+          this.mMsg += " CNTR# " + this.Record.book_cntr;
+          this.mMsg += " \n\n";
+          this.mMsg += " HBL# " + _hblnos;
+          this.mMsg += " \n\n";
+          this.mMsg += " MBL# " + this.Record.book_mblno;
+          this.mMsg += " \n\n";
+          this.mMsg += " We here by attach the Pre-Alert and HBL copy for your kind reference";
+        }
 
         this.AttachList = new Array<any>();
         // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: '', fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: response.filesize });

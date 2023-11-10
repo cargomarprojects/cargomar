@@ -79,13 +79,13 @@
             </div>
           </div>
           <div *ngIf="AttachList.length > 0" class="form-group row">
-            <label class="col-sm-1 col-form-label col-form-label-sm pt-0">Attachments{{lbl_msgattachfz}}</label>
+            <label class="col-sm-1 col-form-label col-form-label-sm pt-0 pr-0">Attch.{{lbl_msgattachfz}}</label>
             <div class="col-sm-11">
               <div style="padding: 0%" class="page-details">
-                <label *ngFor="let rec of AttachList">
+                <label  class="col-form-label col-form-label-sm p-0" *ngFor="let rec of AttachList">
                   <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
-                    class="btn btn-link pointer">{{rec.filedisplayname}}</button>
-                  <i class="fa fa-trash pointer" aria-hidden="true" (click)="RemoveAttachment(rec.filename,'MAIL')"></i>
+                    class="btn btn-link pointer p-0 mr-1">{{rec.filedisplayname}}</button>
+                  <i class="fa fa-trash pointer mr-1" aria-hidden="true" (click)="RemoveAttachment(rec.filename,'MAIL')"></i>
                 </label>
               </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="col-sm-11">
               <div class="page-details py-1">
                 <div class="form-group row">
-                  <div class="col-7">
+                  <div class="col-sm-7">
                     <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
                   </div>
                 </div>
