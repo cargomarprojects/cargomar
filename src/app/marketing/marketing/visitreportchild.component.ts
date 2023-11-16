@@ -414,7 +414,11 @@ export class VisitReportChildComponent {
             filter_cust_name: this.CUSTRECORD.name,
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.parentData.report_type,
-            print_format: this.print_format
+            print_format: this.print_format,
+            cust_category: this.cust_category,
+            init_cust_category: this.init_cust_category,
+            search_datetype: this.search_datetype,
+            mark_mode: this.mark_mode
         };
 
         this.ErrorMessage = '';
