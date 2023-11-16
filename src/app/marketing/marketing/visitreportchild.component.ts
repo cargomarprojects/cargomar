@@ -49,8 +49,9 @@ export class VisitReportChildComponent {
     userCaption = "Sales Person";
     report_type = "SALES PERSON";
     print_format = "DETAIL";
-    cust_category = "ALL";
-    init_cust_category = "ALL";
+    cust_category: string = "ALL";
+    init_cust_category: string = "ALL";
+    mark_mode: string = "ALL";
     mode = '';
     pkid = '';
     myTable = {
@@ -318,7 +319,8 @@ export class VisitReportChildComponent {
             print_format: this.print_format,
             cust_category: this.cust_category,
             init_cust_category: this.init_cust_category,
-            search_datetype: this.search_datetype
+            search_datetype: this.search_datetype,
+            mark_mode: this.mark_mode
         };
 
         this.ErrorMessage = '';
