@@ -68,22 +68,8 @@
 
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
-                    <div class="col-sm-4">
-                        <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
-                            <option [value]="'ALL'">ALL</option>
-                            <option value="PERSONAL VISIT">PERSONAL VISIT</option>
-                            <option value="TELE MARKETING">TELE MARKETING</option>
-                            <option value="EMAIL MARKETING">EMAIL MARKETING</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><span
-                            *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'">Init.Cust.Category</span> </label>
+                    <label *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'"
+                        class="col-sm-4 col-form-label col-form-label-sm"> Init.Cust.Category</label>
                     <div *ngIf="IsCompany||IsAdmin||report_type=='CUSTOMER'" class="col-sm-4">
                         <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="init_cust_category">
                             <option [value]="'ALL'">ALL</option>
@@ -96,10 +82,25 @@
                         </select>
                     </div>
                     <div class="col-sm-4">
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
+                            <option [value]="'ALL'">ALL</option>
+                            <option value="PERSONAL VISIT">PERSONAL VISIT</option>
+                            <option value="TELE MARKETING">TELE MARKETING</option>
+                            <option value="EMAIL MARKETING">EMAIL MARKETING</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm">Search</button>
                     </div>
                 </div>
+
                 <div *ngIf="bEmail||bPrint" class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
                     <div class="col-sm-4">
@@ -184,7 +185,8 @@
                     <td>{{rec.mark_next_action}}</td>
                     <td>{{rec.branch_name}}</td>
                     <td *ngIf="rec.mark_doc_attached=='Y'" style="text-align:center" (click)="ShowDocuments(doc,rec)">
-                        <i class="fa fa-file fa-md pointer" [style.color]="'red'" aria-hidden="true"></i></td>
+                        <i class="fa fa-file fa-md pointer" [style.color]="'red'" aria-hidden="true"></i>
+                    </td>
                     <td *ngIf="rec.mark_doc_attached!='Y'"></td>
                     <!-- <td>{{rec.rec_created_date}}</td>
                     <td>{{rec.mark_lead_source}}</td>

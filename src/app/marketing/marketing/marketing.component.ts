@@ -50,7 +50,7 @@ export class MarketingComponent {
     search_commodity = '';
     status_color1 = 'blue';
     status_color2 = 'red';
-
+    mark_mode: string = "ALL";
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -341,7 +341,8 @@ export class MarketingComponent {
             search_salesman_name: this.search_salesman_name,
             search_commodity: this.search_commodity,
             search_leadsource: this.search_leadsource,
-            search_convrtstatus: this.search_convrtstatus
+            search_convrtstatus: this.search_convrtstatus,
+            mark_mode: this.mark_mode
         };
 
         this.ErrorMessage = '';
