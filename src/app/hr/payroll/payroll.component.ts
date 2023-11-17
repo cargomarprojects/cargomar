@@ -1042,7 +1042,12 @@ export class PayRollComponent {
 
   }
 
-
+  DownloadPaySlip(_salid: string, _empnam: string, _saldate: string) {
+    if (!confirm("Do you want to Download Payslip of " + _empnam + ", Dated " + _saldate)) {
+      return;
+    }
+     
+  }
 
 
   Removepayroll(_salid: string, _empnam: string, _saldate: string) {

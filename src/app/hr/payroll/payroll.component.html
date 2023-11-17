@@ -165,7 +165,8 @@
           <th>DEDUCTIONS</th>
           <th>NET</th>
           <th>PAY.DATE</th>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
+          <th  class="text-center" *ngIf="bPrint">PAYSLIP</th>
+          <th  class="text-center" *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -173,10 +174,10 @@
           (mousedown)="selectedRowIndex=i">
           <td><input type="checkbox" [(ngModel)]="rec.sal_selected"></td>
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
-          <td >{{rec.sal_emp_name}}</td>
-          <td >{{rec.sal_emp_do_joining}}</td>
-          <td >{{rec.sal_emp_grade}}</td>
-          <td >{{rec.sal_date}}</td>
+          <td>{{rec.sal_emp_name}}</td>
+          <td>{{rec.sal_emp_do_joining}}</td>
+          <td>{{rec.sal_emp_grade}}</td>
+          <td>{{rec.sal_date}}</td>
           <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
           <td *ngIf="bAdmin">{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
@@ -233,7 +234,9 @@
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
           <td class="hlink" (click)="ShowPayDate(rec.sal_pkid,paydate)">{{rec.sal_pay_date}}</td>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+          <td *ngIf="bPrint" class="text-center" (click)="DownloadPaySlip(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"><i class="fa fa fa-download  fa-lg pointer" aria-hidden="true"
+              ></i></td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
               (click)="Removepayroll(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"></i></td>
         </tr>
       </tbody>
@@ -427,8 +430,12 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <div class="offset-1 col-sm-9">
-            <button *ngIf="((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022)"  [disabled]="loading" (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch Deductions</button>
-            <button *ngIf="(!((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022) || bPayrollSave)"  [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button *ngIf="((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022)"
+              [disabled]="loading" (click)="DeductionsList(deductd)" class="btn btn-success btn-sm">Branch
+              Deductions</button>
+            <button
+              *ngIf="(!((Record.sal_month >= 5 && Record.sal_year >= 2022) || Record.sal_year > 2022) || bPayrollSave)"
+              [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               class="btn btn-success btn-sm">Documents</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','','')"
