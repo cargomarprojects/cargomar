@@ -58,9 +58,13 @@ export class PayRollService {
   DeductionList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Deduction/DeductionList', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   UpdateDeduction(Record: Deductm) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Payroll/UpdateDeduction', Record, this.gs.headerparam2('authorized'));
+  }
+
+  PayslipDownload(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + "/api/Email/PayslipDownload", SearchData, this.gs.headerparam2('authorized'));
   }
 
 }

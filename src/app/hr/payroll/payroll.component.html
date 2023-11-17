@@ -234,7 +234,7 @@
           <td>{{rec.sal_gross_deduct}}</td>
           <td>{{rec.sal_net}}</td>
           <td class="hlink" (click)="ShowPayDate(rec.sal_pkid,paydate)">{{rec.sal_pay_date}}</td>
-          <td *ngIf="bPrint" class="text-center" (click)="DownloadPaySlip(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"><i class="fa fa fa-download  fa-lg pointer" aria-hidden="true"
+          <td *ngIf="bPrint" class="text-center" (click)="DownloadPaySlip(rec)"><i class="fa fa fa-download  fa-lg pointer" aria-hidden="true"
               ></i></td>
           <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
               (click)="Removepayroll(rec.sal_pkid,rec.sal_emp_name,rec.sal_date)"></i></td>

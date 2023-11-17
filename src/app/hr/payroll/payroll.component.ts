@@ -1042,11 +1042,37 @@ export class PayRollComponent {
 
   }
 
-  DownloadPaySlip(_salid: string, _empnam: string, _saldate: string) {
-    if (!confirm("Do you want to Download Payslip of " + _empnam + ", Dated " + _saldate)) {
+  DownloadPaySlip( _rec:Salarym) {
+   
+    if (!confirm("Do you want to Download Payslip of " + _rec.sal_emp_name + ", Dated " + _rec.sal_date)) {
       return;
     }
-     
+
+    let eSearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      salmonth: this.salmonth,
+      salyear: this.salyear,
+      empstatus: this.empstatus,
+      salpkid: ''
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.PayslipDownload(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
