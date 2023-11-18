@@ -1056,10 +1056,10 @@ export class PayRollComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      salmonth: this.salmonth,
+      salmonth: _rec.sal_month,
       salyear: this.salyear,
       empstatus: this.empstatus,
-      salpkid: ''
+      salpkid: _rec.sal_pkid
     };
 
     this.ErrorMessage = '';
