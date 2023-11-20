@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Bonusm } from '../models/Bonusm';
+import { Bonusm } from '../models/bonusm';
 import { BonusService } from '../services/bonus.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -194,7 +194,7 @@ export class BonusComponent {
       allbranch: this.allbranch
     };
 
-    
+
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -217,6 +217,7 @@ export class BonusComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -240,6 +241,7 @@ export class BonusComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -280,7 +282,7 @@ export class BonusComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
