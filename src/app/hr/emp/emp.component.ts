@@ -200,6 +200,7 @@ export class EmpComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -301,6 +302,7 @@ export class EmpComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -431,6 +433,7 @@ export class EmpComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -476,6 +479,7 @@ export class EmpComponent {
         if (this.Record.emp_do_birth != null) {
           this.ageinyears = this.GetAge().ageyears + "Yrs";
         }
+        alert(this.InfoMessage);
         this.RefreshList();
       },
         error => {
@@ -897,6 +901,7 @@ export class EmpComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }

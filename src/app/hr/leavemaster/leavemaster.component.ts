@@ -216,6 +216,7 @@ export class LeaveMasterComponent {
             error => {
                 this.loading = false;
                 this.ErrorMessage = this.gs.getError(error);
+                alert(this.ErrorMessage);
             });
     }
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -265,6 +266,7 @@ export class LeaveMasterComponent {
             error => {
                 this.loading = false;
                 this.ErrorMessage = this.gs.getError(error);
+                alert(this.ErrorMessage);
             });
     }
 
@@ -302,7 +304,7 @@ export class LeaveMasterComponent {
           error => {
             this.loading = false;
               this.ErrorMessage = this.gs.getError(error);
-               
+              alert(this.ErrorMessage);
             });
     }
 
@@ -332,7 +334,10 @@ export class LeaveMasterComponent {
       }
       
       if (bret === false)
+      {
         this.ErrorMessage = sError;
+        alert(this.ErrorMessage);
+      }
       return bret;
     }
 
@@ -421,6 +426,7 @@ export class LeaveMasterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
     }
     FindTotPL() {

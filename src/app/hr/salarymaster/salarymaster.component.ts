@@ -192,6 +192,7 @@ export class SalaryMasterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -216,6 +217,7 @@ export class SalaryMasterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -250,7 +252,7 @@ export class SalaryMasterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -397,7 +399,7 @@ export class SalaryMasterComponent {
     }
     if (field == 'sal_increment') {
       this.Record.sal_increment = this.gs.roundNumber(this.Record.sal_increment, 2);
-    }    
+    }
     if (field == 'sal_incentive') {
       this.Record.sal_incentive = this.gs.roundNumber(this.Record.sal_incentive, 2);
     }
@@ -530,7 +532,7 @@ export class SalaryMasterComponent {
     let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
     let ESI_Amt: number = 0;
     let ESI_ExcludedAmt: number = 0;//CONVEYANCE (A06) not included in ESI Calculation
-    if (this.Record.sal_emp_status == "CONSULTANT"||this.Record.sal_emp_status == "APPRENTICE") {
+    if (this.Record.sal_emp_status == "CONSULTANT" || this.Record.sal_emp_status == "APPRENTICE") {
       this.Record.sal_esi_emply_per = 0;
       this.Record.sal_pf_per = 0;
     } else {
@@ -585,7 +587,7 @@ export class SalaryMasterComponent {
     this.Record.sal_gross_deduct = TotDeductn;
     this.Record.sal_net = (TotEarning - TotDeductn);
   }
-  
+
   ShowDocuments(doc: any) {
     this.ErrorMessage = '';
     this.open(doc);
