@@ -520,6 +520,7 @@ export class HblSeaAirComponent {
             }, error => {
                 this.loading = false;
                 this.ErrorMessage = this.gs.getError(error);
+                alert(this.ErrorMessage);
             });
     }
 
@@ -628,6 +629,7 @@ export class HblSeaAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -798,7 +800,10 @@ export class HblSeaAirComponent {
         }
 
         if (bret === false)
+        {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -839,6 +844,7 @@ export class HblSeaAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -975,6 +981,7 @@ export class HblSeaAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
     Close() {
@@ -1036,6 +1043,7 @@ export class HblSeaAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
