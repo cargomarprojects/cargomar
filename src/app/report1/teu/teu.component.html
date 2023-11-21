@@ -142,7 +142,7 @@
     </div>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -214,7 +214,7 @@
     </table>
   </div>
 
-  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive">
+  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -256,7 +256,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -341,7 +341,7 @@
 
 </div>
 
-<br />
+<!-- <br /> -->
 
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
