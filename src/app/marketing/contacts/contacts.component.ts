@@ -697,6 +697,7 @@ export class ContactsComponent {
     this.ErrorMessage = '';
     if (this.Record.cont_name.trim().length <= 0) {
       this.ErrorMessage = 'Please Enter Customer Name and Continue......';
+      alert(this.ErrorMessage);
       return;
     }
     this.loading = true;
@@ -725,11 +726,13 @@ export class ContactsComponent {
         }
         else {
           this.ErrorMessage = 'Contact Name not Found';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
