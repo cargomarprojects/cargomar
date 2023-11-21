@@ -162,7 +162,7 @@
     </div>
   </div>
 
-  <div *ngIf="rec_category=='SEA EXPORT'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='SEA EXPORT'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr *ngIf="format_type=='GENERAL'||format_type=='PENDING'">
@@ -363,7 +363,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='AIR EXPORT'&& !search_bookingrpt" class="page-body table-responsive">
+  <div *ngIf="rec_category=='AIR EXPORT'&& !search_bookingrpt" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -461,7 +461,7 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="(rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT')&& search_bookingrpt" class="page-body table-responsive">
+  <div *ngIf="(rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT')&& search_bookingrpt" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -526,7 +526,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='SEA IMPORT'" class="page-body table-responsive">
+  <div *ngIf="rec_category=='SEA IMPORT'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -618,7 +618,7 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='AIR IMPORT'&& !search_bookingrpt" class="page-body table-responsive">
+  <div *ngIf="rec_category=='AIR IMPORT'&& !search_bookingrpt" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -717,7 +717,7 @@
 
 </div>
 
-<br />
+<!-- <br /> -->
 
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
