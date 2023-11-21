@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div *ngIf="category_type=='SUMMARY'" class="page-body table-responsive">
+  <div *ngIf="category_type=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 265px);">
     <table class="table table-bordered table-hover table-sm table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -72,7 +72,7 @@
     </table>
   </div>
 
-  <div *ngIf="category_type=='AGING'" class="page-body table-responsive">
+  <div *ngIf="category_type=='AGING'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 265px);">
     <table class="table table-bordered table-hover table-sm table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -112,7 +112,7 @@
 </div>
 
 
-<br />
+<!-- <br /> -->
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}

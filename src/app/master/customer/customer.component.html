@@ -162,7 +162,7 @@
 
   <div class="page-pager">
     <div *ngIf="page_count">
-      <ul class="pagination pagination-sm">
+      <ul class="pagination pagination-sm mb-1">
         <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
@@ -175,7 +175,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive">
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -227,7 +227,7 @@
 
   <div class="page-pager">
     <div *ngIf="page_count">
-      <ul class="pagination pagination-sm">
+      <ul class="pagination pagination-sm mb-1">
         <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
@@ -787,7 +787,7 @@
     </ngb-tab>
   </ngb-tabset>
 </div>
-<br />
+<!-- <br /> -->
 
 
 
