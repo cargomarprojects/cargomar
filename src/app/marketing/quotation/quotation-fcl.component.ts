@@ -693,11 +693,13 @@ export class QuotationFclComponent {
                 }
                 else {
                     this.ErrorMessage = 'Invalid Address';
+                    alert(this.ErrorMessage);
                 }
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
     Isnumeric(i: any) {
