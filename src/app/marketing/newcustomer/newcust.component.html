@@ -97,7 +97,7 @@
     </div>
     <div class="page-pager">
         <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
+            <ul class="pagination pagination-sm mb-1">
                 <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
                         (Records-{{page_rowcount}})</a>
                 </li>
@@ -114,7 +114,7 @@
             </ul>
         </div>
     </div>
-    <div *ngIf="searchType=='ALL'" class="page-body table-responsive">
+    <div *ngIf="searchType=='ALL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 345px);">
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
@@ -151,7 +151,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="searchType=='SHIPPER'" class="page-body table-responsive">
+    <div *ngIf="searchType=='SHIPPER'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 345px);">
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
@@ -184,7 +184,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="searchType=='CONSIGNEE'" class="page-body table-responsive">
+    <div *ngIf="searchType=='CONSIGNEE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 345px);">
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
@@ -219,7 +219,7 @@
     </div>
     <div class="page-pager">
         <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
+            <ul class="pagination pagination-sm mb-1">
                 <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
                         (Records-{{page_rowcount}})</a>
                 </li>
