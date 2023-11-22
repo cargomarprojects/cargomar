@@ -116,8 +116,8 @@
     </div>
   </div>
 
-  <div *ngIf="display_format_type=='GSTR1'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='GSTR1'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -171,8 +171,8 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -227,8 +227,8 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="display_format_type=='INVOICE-DETAILS'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='INVOICE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -298,8 +298,8 @@
     </table>
   </div>
 
-  <div *ngIf="display_format_type=='PURCHASE'||display_format_type=='PURCHASE-RATE-WISE'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='PURCHASE'||display_format_type=='PURCHASE-RATE-WISE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -356,8 +356,8 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="display_format_type=='PURCHASE-DETAILS'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='PURCHASE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -432,8 +432,8 @@
 
 
 
-  <div *ngIf="display_format_type=='FORM 3B'" class="page-body table-responsive">
-    <table class="table table-hover table-sm">
+  <div *ngIf="display_format_type=='FORM 3B'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>DESCRIPTION</th>
@@ -458,8 +458,8 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="display_format_type=='FORM 3B-RATE WISE'" class="page-body table-responsive">
-    <table class="table table-hover table-sm">
+  <div *ngIf="display_format_type=='FORM 3B-RATE WISE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>DESCRIPTION</th>
@@ -486,8 +486,8 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -555,8 +555,8 @@
     </table>
   </div>
 
-  <div *ngIf="display_format_type=='GSTR2B'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="display_format_type=='GSTR2B'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>TYPE</th>
@@ -648,7 +648,7 @@
   
 </div>
 
-<br />
+<!-- <br /> -->
 
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
