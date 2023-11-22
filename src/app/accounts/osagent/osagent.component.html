@@ -78,8 +78,8 @@
     </div>
   </div>
 
-  <div *ngIf="category_type=='DETAIL'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="category_type=='DETAIL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
 
@@ -124,8 +124,8 @@
   </div>
 
 
-  <div *ngIf="category_type=='INVOICE'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="category_type=='INVOICE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
 
@@ -182,8 +182,8 @@
 
 
 
-  <div *ngIf="category_type=='SUMMERY'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="category_type=='SUMMERY'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
 
@@ -223,7 +223,7 @@
 </div>
 
 
-<br />
+<!-- <br /> -->
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
