@@ -189,16 +189,19 @@ export class PandLComponent {
   List(_type: string) {
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = 'From Date Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = 'To Date Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (_type == 'EXCEL') {
       if (this.gs.isBlank(this.RecordList)) {
         this.ErrorMessage = 'Process Report and Continue....';
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -242,6 +245,7 @@ export class PandLComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

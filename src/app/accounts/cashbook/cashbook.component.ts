@@ -301,14 +301,17 @@ export class CashBookComponent {
     List(_type: string) {
         if (this.from_date.trim().length <= 0) {
             this.ErrorMessage = 'From Date Cannot Be Blank';
+            alert(this.ErrorMessage);
             return;
         }
         if (this.to_date.trim().length <= 0) {
             this.ErrorMessage = 'To Date Cannot Be Blank';
+            alert(this.ErrorMessage);
             return;
         }
         if (this.branch_code.trim().length <= 0) {
             this.ErrorMessage = "Branch Code Cannot Be Blank";
+            alert(this.ErrorMessage);
             return;
         }
 
@@ -353,6 +356,7 @@ export class CashBookComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -394,10 +398,12 @@ export class CashBookComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ErrorMessage = "Generate All Ledger Complete";
+                alert(this.ErrorMessage);
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 }
