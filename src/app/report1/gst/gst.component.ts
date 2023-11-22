@@ -240,6 +240,7 @@ export class GstComponent {
 
       if (this.format_type != "GSTR1") {
         this.ErrorMessage = "Please Select  GSTR1 Type and Continue........";
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -294,6 +295,7 @@ export class GstComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
