@@ -81,8 +81,8 @@
     </div>
   </div>
 
-  <div *ngIf="type_date =='INVOICE' || type_date =='PURCHASE' " class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="type_date =='INVOICE' || type_date =='PURCHASE' " class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -136,8 +136,8 @@
   </div>
 
 
-  <div *ngIf="type_date == 'SEAEXPORT-TAXREPORT'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="type_date == 'SEAEXPORT-TAXREPORT'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -200,8 +200,8 @@
 
 
 
-  <div *ngIf="type_date == 'AIREXPORT-TAXREPORT'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="type_date == 'AIREXPORT-TAXREPORT'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="all">BRANCH</th>
@@ -255,8 +255,8 @@
   </div>
 
 
-  <div *ngIf="type_date == 'SEAEXPORT-TAXREPORT-2'" class="page-body table-responsive">
-    <table class="table  table-hover table-sm">
+  <div *ngIf="type_date == 'SEAEXPORT-TAXREPORT-2'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th width="10%" *ngIf="all">BRANCH</th>
@@ -322,7 +322,7 @@
 
 </div>
 
-<br />
+<!-- <br /> -->
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
