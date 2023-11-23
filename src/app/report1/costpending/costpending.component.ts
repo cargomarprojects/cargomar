@@ -23,7 +23,7 @@ export class CostPendingComponent {
   sub: any;
   urlid: string;
   selectedRowIndex = 0;
-  
+
   ErrorMessage = "";
   InfoMessage = "";
   mode = '';
@@ -38,7 +38,7 @@ export class CostPendingComponent {
 
   bCompany = false;
   bAdmin = false;
-  showamount =false;
+  showamount = false;
   disableSave = true;
   loading = false;
   all: boolean = false;
@@ -62,8 +62,8 @@ export class CostPendingComponent {
     all: false,
     bpending: true,
     user_code: '',
-    admin : false,
-    showamount : false,
+    admin: false,
+    showamount: false,
   };
 
   SortList: any[] = [];
@@ -126,7 +126,7 @@ export class CostPendingComponent {
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
     this.all = this.bCompany;
-    if (this.gs.globalVariables.branch_code == 'COKAF' || this.gs.globalVariables.branch_code == 'DELAF'|| this.gs.globalVariables.branch_code == 'BLRAF'
+    if (this.gs.globalVariables.branch_code == 'COKAF' || this.gs.globalVariables.branch_code == 'DELAF' || this.gs.globalVariables.branch_code == 'BLRAF'
       || this.gs.globalVariables.branch_code == 'CHNAF' || this.gs.globalVariables.branch_code == 'MBYAF')
       this.category = "MBL-AE";
   }
@@ -205,6 +205,7 @@ export class CostPendingComponent {
 
     if (this.branch_code.trim().length <= 0) {
       this.ErrorMessage = "Branch Code Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     // if (_type == "SCREEN" && this.all == true) {
@@ -234,7 +235,7 @@ export class CostPendingComponent {
     this.SearchData.all = this.all;
     this.SearchData.bpending = this.bpending;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
-    this.SearchData.admin  = this.showamount;
+    this.SearchData.admin = this.showamount;
 
     this.ErrorMessage = '';
     this.mainService.PendingList(this.SearchData)
