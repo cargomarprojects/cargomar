@@ -361,7 +361,8 @@ export class DrCrComponent {
     this.Record.cost_jv_agent_br_no = "";
     this.Record.cost_jv_agent_br_addr = "";
     this.Record.cost_jv_br_inv_id = '';
-
+    this.Record.cost_print_bank = false;
+    
     this.Record.rec_mode = this.mode;
     this.NewDetRecord(1);
     //this.InitDetList();
