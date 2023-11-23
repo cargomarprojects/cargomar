@@ -104,6 +104,7 @@ export class Costingm {
   cost_des_inc_hndg_cbm: number;
   cost_ddp: boolean;
   cost_einv_status: string;
+  cost_print_bank: boolean;
 
   rec_mode: string;
   rec_category: string;

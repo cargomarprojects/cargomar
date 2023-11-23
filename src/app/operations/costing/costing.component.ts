@@ -376,6 +376,7 @@ export class CostingComponent {
     this.Record.cost_book_cntr = '';
     this.Record.rec_mode = this.mode;
     this.Record.cost_jv_posted = false;
+    this.Record.cost_print_bank = false;
     //this.InitDetList();
     this.InitLov();
   }
