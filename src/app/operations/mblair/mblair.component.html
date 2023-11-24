@@ -707,6 +707,9 @@
                   (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                   class="btn btn-success btn-sm">MAWB</button>
+                  <label  *ngIf="mode == 'EDIT'"  class="col-form-label col-form-label-sm">
+                    <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span class="ml-4" >Express Mode</span>
+                  </label>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode()"
                   class="btn btn-success btn-sm">Barcode</button>
                 <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">

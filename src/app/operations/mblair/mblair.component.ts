@@ -38,6 +38,7 @@ export class MblAirComponent {
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
   folder_chk: boolean = false;
+  is_express_mode: boolean = false;
 
   disableSave = true;
   loading = false;
@@ -120,6 +121,7 @@ export class MblAirComponent {
   }
 
   InitComponent() {
+    this.is_express_mode = false;
     this.searchby = 'ALL';
     this.foldersent = false;
     this.chk_foldersent = false;
@@ -842,7 +844,7 @@ export class MblAirComponent {
       alert(this.ErrorMessage);
       return;
     }
-    
+
     this.sAgent_ID = _Record.mbl_agent_id;
     this.sCarrier_ID = _Record.mbl_carrier_id;
 
@@ -1041,12 +1043,14 @@ export class MblAirComponent {
       pkid: '',
       report_folder: '',
       branch_code: '',
-      comp_code: ''
+      comp_code: '',
+      is_express_mode: false
     };
     SearchData.pkid = this.pkid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.is_express_mode = this.is_express_mode;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.PrintBarcode(SearchData)
