@@ -6,10 +6,10 @@ import { GlobalService } from '../../../core/services/global.service';
   selector: 'app-costupdate',
   templateUrl: './costupdate.component.html',
 })
-export class CostUpdateComponent  {
+export class CostUpdateComponent {
   // Local Variables 
   title = 'Checking Details';
-  
+
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() public pkid: string;
@@ -33,7 +33,7 @@ export class CostUpdateComponent  {
     private gs: GlobalService
 
   ) {
-     
+
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -60,7 +60,7 @@ export class CostUpdateComponent  {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    
+
   }
 
   // Destroy Will be called when this component is closed
@@ -68,10 +68,9 @@ export class CostUpdateComponent  {
     this.sub.unsubscribe();
   }
 
-  LoadCombo()
-  {
-  this.ErrorMessage = '';
-  this.SearchRecord('checksentcosting', 'LIST');
+  LoadCombo() {
+    this.ErrorMessage = '';
+    this.SearchRecord('checksentcosting', 'LIST');
   }
 
   // Save Data
@@ -80,7 +79,7 @@ export class CostUpdateComponent  {
     if (!this.allvalid())
       return;
 
-    this.SearchRecord('checksentcosting','SAVE');
+    this.SearchRecord('checksentcosting', 'SAVE');
   }
 
   allvalid() {
@@ -93,28 +92,31 @@ export class CostUpdateComponent  {
       bret = false;
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
-  SearchRecord(controlname: string,_type:string) {
+  SearchRecord(controlname: string, _type: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
 
     this.loading = true;
     let SearchData = {
       pkid: this.pkid,
-      rowtype:this.type,
+      rowtype: this.type,
       costupdt_date: this.costupdt_date,
       table: 'checksentcosting',
       type: _type,
     };
-     
+
     SearchData.pkid = this.pkid;
     SearchData.costupdt_date = this.costupdt_date;
     SearchData.table = 'checksentcosting';
@@ -123,7 +125,7 @@ export class CostUpdateComponent  {
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = '';
-         
+
         if (_type == "LIST") {
           if (response.checksentcosting.length > 0)
             this.costupdt_date = response.checksentcosting;
@@ -132,15 +134,15 @@ export class CostUpdateComponent  {
         }
         else {
           if (this.ModifiedRecords != null)
-            this.ModifiedRecords.emit({ saction: this.type, sid: this.pkid, sdate: response.checksentcosting  });
+            this.ModifiedRecords.emit({ saction: this.type, sid: this.pkid, sdate: response.checksentcosting });
           this.InfoMessage = "Save Complete";
-           
+
         }
       },
-      error => {
-        this.loading = false;
-        this.InfoMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.InfoMessage = this.gs.getError(error);
+        });
   }
 
   Close() {

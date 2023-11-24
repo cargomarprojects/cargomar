@@ -773,6 +773,7 @@ export class AirCostingComponent {
           else {
             this.Record.cost_folderno = '';
             this.ErrorMessage = 'Invalid AWB No';
+            alert(this.ErrorMessage);
           }
         }
         if (controlname == 'releasecosting') {
@@ -781,6 +782,7 @@ export class AirCostingComponent {
             REC.cost_jv_posted = false;
           }
           this.InfoMessage = "Successfully Released";
+          alert(this.InfoMessage);
         }
       },
         error => {
@@ -1094,6 +1096,7 @@ export class AirCostingComponent {
     this.InfoMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1153,6 +1156,7 @@ export class AirCostingComponent {
     this.InfoMessage = '';
     if (_invid.trim().length <= 0) {
       this.ErrorMessage = "Invalid Invoice ID";
+      alert(this.ErrorMessage);
       return;
     }
 

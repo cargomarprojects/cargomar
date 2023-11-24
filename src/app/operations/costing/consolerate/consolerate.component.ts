@@ -225,6 +225,7 @@ export class ConsolerateComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -297,6 +298,7 @@ export class ConsolerateComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -338,6 +340,7 @@ export class ConsolerateComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

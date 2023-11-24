@@ -59,7 +59,7 @@ export class ContainerComponent {
   // Single Record for add/edit/view details
   Record: Containerm = new Containerm;
   CNTRTYPERECORD: SearchTable = new SearchTable();
-  SERVICECONTRACTRECORD:SearchTable = new SearchTable();
+  SERVICECONTRACTRECORD: SearchTable = new SearchTable();
 
   constructor(
     private mainService: ContainerService,
@@ -236,6 +236,7 @@ export class ContainerComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -265,9 +266,9 @@ export class ContainerComponent {
     this.Record.cntr_trafinsp = 'N';
     this.Record.cntr_inspsup = '';
     this.Record.cntr_inspin = '';
-    this.Record.cntr_service_contract_id ="";
-    this.Record.cntr_service_contract_code ="";
-    this.Record.cntr_service_contract_name ="";
+    this.Record.cntr_service_contract_id = "";
+    this.Record.cntr_service_contract_code = "";
+    this.Record.cntr_service_contract_name = "";
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -305,6 +306,7 @@ export class ContainerComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -351,6 +353,7 @@ export class ContainerComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -394,8 +397,10 @@ export class ContainerComponent {
       }
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -507,11 +512,13 @@ export class ContainerComponent {
         }
         else {
           this.ErrorMessage = 'Invalid Booking SL#';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

@@ -634,6 +634,7 @@ export class AgentInvoiceComponent {
           else {
             this.Record.cost_folderno = '';
             this.ErrorMessage = 'Invalid No';
+            alert(this.ErrorMessage);
           }
         }
         if (controlname == 'releasecosting') {
@@ -642,6 +643,7 @@ export class AgentInvoiceComponent {
             REC.cost_jv_posted = false;
           }
           this.InfoMessage = "Successfully Released";
+          alert(this.InfoMessage);
         }
       },
         error => {
@@ -759,6 +761,7 @@ export class AgentInvoiceComponent {
     this.InfoMessage = '';
     if (_invid.trim().length <= 0) {
       this.ErrorMessage = "Invalid Invoice ID";
+      alert(this.ErrorMessage);
       return;
     }
 

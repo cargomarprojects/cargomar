@@ -459,8 +459,10 @@ export class CostingComponent {
 
     this.Record.rec_mode = this.mode;
 
-    if (this.Record.cost_jv_posted)
+    if (this.Record.cost_jv_posted) {
       this.ErrorMessage = "Cannot Edit, Already Posted/Allocated";
+      alert(this.ErrorMessage);
+    }
 
   }
 
@@ -738,6 +740,7 @@ export class CostingComponent {
           else {
             this.Record.cost_folderno = '';
             this.ErrorMessage = 'Invalid Folder';
+            alert(this.ErrorMessage);
           }
         }
 
@@ -747,6 +750,7 @@ export class CostingComponent {
             REC.cost_jv_posted = false;
           }
           this.InfoMessage = "Successfully Released";
+          alert(this.InfoMessage);
         }
       },
         error => {
@@ -951,6 +955,7 @@ export class CostingComponent {
         this.loading = false;
         this.InfoMessage = "Deleted Successfully";
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cost_pkid == Id), 1);
+        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
@@ -972,6 +977,7 @@ export class CostingComponent {
     this.InfoMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1036,6 +1042,7 @@ export class CostingComponent {
     this.InfoMessage = '';
     if (_invid.trim().length <= 0) {
       this.ErrorMessage = "Invalid Invoice ID";
+      alert(this.ErrorMessage);
       return;
     }
 

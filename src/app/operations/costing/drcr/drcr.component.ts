@@ -697,6 +697,7 @@ export class DrCrComponent {
           else {
             this.Record.cost_folderno = '';
             this.ErrorMessage = 'Invalid No';
+            alert(this.ErrorMessage);
           }
         }
         if (controlname == 'releasecosting') {
@@ -705,6 +706,7 @@ export class DrCrComponent {
             REC.cost_jv_posted = false;
           }
           this.InfoMessage = "Successfully Released";
+          alert(this.InfoMessage);
         }
       },
         error => {
@@ -871,6 +873,7 @@ export class DrCrComponent {
     this.InfoMessage = '';
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -924,6 +927,7 @@ export class DrCrComponent {
     this.InfoMessage = '';
     if (_invid.trim().length <= 0) {
       this.ErrorMessage = "Invalid Invoice ID";
+      alert(this.ErrorMessage);
       return;
     }
 

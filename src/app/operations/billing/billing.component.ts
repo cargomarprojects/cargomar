@@ -194,6 +194,7 @@ export class BillingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -554,6 +555,7 @@ export class BillingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -601,6 +603,7 @@ export class BillingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -637,6 +640,7 @@ export class BillingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -693,8 +697,12 @@ export class BillingComponent {
 
     if (this.Record.jvh_rec_source != 'OP') {
       this.ErrorMessage = "Cannot Edit,Created in Another Module";
+      alert(this.ErrorMessage);
       return;
     }
+
+    if (this.ErrorMessage)
+      alert(this.ErrorMessage);
 
   }
 

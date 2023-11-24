@@ -205,6 +205,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -588,6 +589,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -615,6 +617,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -683,6 +686,8 @@ export class BuyRateComponent {
       alert("Cannot Edit,Created in Another Module");
     }
 
+    if (this.ErrorMessage)
+      alert(this.ErrorMessage);
   }
 
 
@@ -1493,18 +1498,22 @@ export class BuyRateComponent {
     this.ErrorMessage = '';
     if (this.Recorddet.jv_acc_against_invoice == "N") {
       this.ErrorMessage = 'Allocation option not set for this account';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Recorddet.jv_acc_against_invoice == "D" && this.Recorddet.jv_drcr == "DR") {
       this.ErrorMessage = 'Only Credit Entry can be Allocated';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Recorddet.jv_acc_against_invoice == "C" && this.Recorddet.jv_drcr == "CR") {
       this.ErrorMessage = 'Only Debit Entry can be Allocated';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Recorddet.jv_total <= 0) {
       this.ErrorMessage = 'Amount is not Entered';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1535,6 +1544,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1544,25 +1554,30 @@ export class BuyRateComponent {
 
     if (this.Recorddet.jv_qty <= 0) {
       this.ErrorMessage = 'Invalid Qty';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Recorddet.jv_rate <= 0) {
       this.ErrorMessage = 'Invalid Rate';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Recorddet.jv_ftotal <= 0 || this.Recorddet.jv_total <= 0) {
       this.ErrorMessage = 'Invalid Total';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.Recorddet.jv_curr_id == '') {
       this.ErrorMessage = 'Invalid Currency';
+      alert(this.ErrorMessage);
       return;
     }
 
 
     if (this.Recorddet.jv_exrate <= 0) {
       this.ErrorMessage = 'Invalid Ex.Rate';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1570,6 +1585,7 @@ export class BuyRateComponent {
       if (this.Recorddet.jv_acc_cost_centre == "Y") {
         if (this.CCList.length <= 0) {
           this.ErrorMessage = 'Cost Center Not Allocated';
+          alert(this.ErrorMessage);
           return;
         }
       }
@@ -1587,12 +1603,14 @@ export class BuyRateComponent {
 
         if (this.Recorddet.jv_taxable_amt <= 0) {
           this.ErrorMessage = 'Invalid Taxable Amount';
+          alert(this.ErrorMessage);
           return;
         }
         // Check GST Amt And Rate - INTRA-STATE
         if (this.Record.jvh_gst_type == "INTRA-STATE") {
           if (this.Recorddet.jv_cgst_amt <= 0 || this.Recorddet.jv_sgst_amt <= 0 || this.Recorddet.jv_cgst_rate <= 0 || this.Recorddet.jv_sgst_rate <= 0) {
             this.ErrorMessage = 'Invalid CGST/SGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1600,18 +1618,21 @@ export class BuyRateComponent {
         if (this.Record.jvh_gst_type == "INTER-STATE") {
           if (this.Recorddet.jv_igst_amt <= 0 || this.Recorddet.jv_igst_rate <= 0) {
             this.ErrorMessage = 'Invalid IGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
         if (this.Record.jvh_gst_type == "INTER-STATE") {
           if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_cgst_rate != 0 || this.Recorddet.jv_sgst_rate != 0) {
             this.ErrorMessage = 'Invalid CGST/SGST Amt/Rate';
+            alert(this.ErrorMessage);
             return;
           }
         }
         if (this.Record.jvh_gst_type == "INTRA-STATE") {
           if (this.Recorddet.jv_igst_amt != 0 || this.Recorddet.jv_igst_rate != 0) {
             this.ErrorMessage = 'Invalid IGST';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1619,6 +1640,7 @@ export class BuyRateComponent {
         if (!this.Recorddet.jv_is_taxable) {
           if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0 || this.Recorddet.jv_cgst_rate != 0 || this.Recorddet.jv_sgst_rate != 0 || this.Recorddet.jv_igst_rate != 0) {
             this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+            alert(this.ErrorMessage);
             return;
           }
         }
@@ -1630,12 +1652,14 @@ export class BuyRateComponent {
       if (this.Recorddet.jv_is_taxable) {
         if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0) {
           this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+          alert(this.ErrorMessage);
           return;
         }
       }
       if (!this.Recorddet.jv_is_taxable) {
         if (this.Recorddet.jv_cgst_amt != 0 || this.Recorddet.jv_sgst_amt != 0 || this.Recorddet.jv_igst_amt != 0) {
           this.ErrorMessage = 'GST Amt/Rate Should Be Blank';
+          alert(this.ErrorMessage);
           return;
         }
       }
@@ -1943,6 +1967,7 @@ export class BuyRateComponent {
       if (this.Record.jvh_brok_amt > 0) {
         if (this.Record.jvh_brok_exrate <= 0) {
           this.ErrorMessage = "Brokerage Exchange Rate Need To Be Entered";
+          alert(this.ErrorMessage);
           return;
         }
       }
@@ -2050,6 +2075,7 @@ export class BuyRateComponent {
           }
           else {
             this.ErrorMessage = 'Invalid Code';
+            alert(this.ErrorMessage);
           }
           this.InitLov('SAC')
           this.SACRECORD.id = this.Recorddet.jv_sac_id;
@@ -2070,11 +2096,13 @@ export class BuyRateComponent {
         }
         if (controlname == 'updatebrokerage') {
           this.ErrorMessage = 'Save Complete';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Onchange() {
@@ -2133,6 +2161,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -2164,6 +2193,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -2289,6 +2319,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   ProcessRemarks() {
@@ -2322,6 +2353,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -2378,6 +2410,7 @@ export class BuyRateComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }

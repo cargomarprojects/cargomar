@@ -224,6 +224,7 @@ export class PostingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -289,6 +290,7 @@ export class PostingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -308,7 +310,7 @@ export class PostingComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
