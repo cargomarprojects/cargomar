@@ -15,8 +15,8 @@
 </div>
 
 <div *ngIf="ms.currentTab=='LIST'" class="page-list">
-    <div class="page-body table-responsive">
-        <table class="table table-bordered table-hover table-sm">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 240px);">
+        <table class="table table-bordered table-striped table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
                     <th>REPORT LIST</th>
@@ -112,8 +112,8 @@
         <div class="col">
             <div *ngIf="ms.distinctTab=='SALESMAN'||ms.distinctTab=='BRANCH'||ms.distinctTab=='PARTY'"
                 class="page-list">
-                <div class="page-body table-responsive">
-                    <table class="table  table-bordered table-hover table-sm">
+                <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 260px);">
+                    <table class="table  table-bordered table-striped table-hover table-sm">
                         <thead class="page-body-thead">
                             <tr>
                                 <th>{{ms.distinctTab}}</th>
@@ -227,8 +227,8 @@
             <!-- <i *ngIf="ms.loading" class="fa fa-spinner"></i> -->
         </div>
     </div>
-    <div class="page-body table-responsive">
-        <table class="table  table-bordered table-hover table-sm ">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 240px);">
+        <table class="table  table-bordered table-striped table-hover table-sm ">
             <thead class="page-body-thead">
                 <tr>
                     <th>SALESMAN</th>
@@ -294,7 +294,7 @@
 
 
 
-<br />
+<!-- <br /> -->
 
 
 <App-Wait [visible]="ms.loading" [msg]="'Please Wait'"></App-Wait>

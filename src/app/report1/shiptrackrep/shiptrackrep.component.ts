@@ -390,6 +390,7 @@ export class ShipTrackComponent {
                     this.loading = false;
                     this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
     setMailBody(totteu: number, totteuday: number, tomonth: string) {

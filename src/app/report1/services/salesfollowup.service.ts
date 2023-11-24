@@ -237,6 +237,7 @@ export class SalesFollowupService {
           this.loading = false;
           this.ReportDateList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -300,6 +301,7 @@ export class SalesFollowupService {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -401,6 +403,7 @@ export class SalesFollowupService {
           this.loading = false;
           this.RecordDetList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   setMailBody(_category: string) {

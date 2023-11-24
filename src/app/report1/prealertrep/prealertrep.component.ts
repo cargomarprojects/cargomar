@@ -325,6 +325,7 @@ export class PreAlertRepComponent {
 
             if (!this.showpending) {
                 this.ErrorMessage = "Please Select Show Pending and Continue...";
+                alert(this.ErrorMessage);
                 return;
             }
 
@@ -402,6 +403,7 @@ export class PreAlertRepComponent {
                     this.loading = false;
                     this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
