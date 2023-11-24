@@ -125,15 +125,17 @@ export class AttendanceRegComponent {
     if (this.attendancedate.trim().length <= 0) {
       this.ErrorMessage += " | Date Cannot be Blank";
     }
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     let SearchData = {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      sort_colname : this.sort_colname,
+      sort_colname: this.sort_colname,
       attendancedate: this.attendancedate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
@@ -166,6 +168,7 @@ export class AttendanceRegComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -218,9 +221,9 @@ export class AttendanceRegComponent {
     //}
 
     if (field == 'searchstring') {
-       this.searchstring = this.searchstring.toUpperCase();
-      }
-    
+      this.searchstring = this.searchstring.toUpperCase();
+    }
+
   }
   OnChange(field: string) {
     this.RecordList = null;

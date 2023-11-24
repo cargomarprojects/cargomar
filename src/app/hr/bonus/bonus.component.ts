@@ -276,6 +276,7 @@ export class BonusComponent {
           this.InfoMessage = "Save Complete";
           this.mode = 'EDIT';
           this.Record.rec_mode = this.mode;
+          alert(this.InfoMessage);
           this.RefreshList();
         }
       },

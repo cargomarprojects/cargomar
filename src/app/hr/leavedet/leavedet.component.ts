@@ -227,6 +227,7 @@ export class LeaveDetComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -279,6 +280,7 @@ export class LeaveDetComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -320,6 +322,7 @@ export class LeaveDetComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
 
         });
   }
@@ -349,8 +352,10 @@ export class LeaveDetComponent {
       sError = "\n\r | Days worked cannot be less than Zero ";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -472,6 +477,7 @@ export class LeaveDetComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }

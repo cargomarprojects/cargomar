@@ -173,8 +173,10 @@ export class ConsolPayrollComponent {
       this.ErrorMessage += " | To print Branch Summary Please select type as Monthwise and Continue.....";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     let SearchData = {
@@ -275,8 +277,8 @@ export class ConsolPayrollComponent {
     //}
   }
   OnChange(field: string) {
-    this.bSalarySheet=false;
-    this.bBranchSummary=false;
+    this.bSalarySheet = false;
+    this.bBranchSummary = false;
     this.RecordList = null;
   }
 

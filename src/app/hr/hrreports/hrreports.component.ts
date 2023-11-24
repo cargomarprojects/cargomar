@@ -127,8 +127,10 @@ export class HrReportsComponent {
     if (this.salmonth <= 0 || this.salmonth > 12) {
       this.ErrorMessage += " | Invalid Month";
     }
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     let SearchData = {
@@ -165,6 +167,7 @@ export class HrReportsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

@@ -10,7 +10,7 @@ import { SearchTable } from '../../shared/models/searchtable';
   templateUrl: './taxplan.component.html',
   providers: [TaxplanService]
 })
-export class TaxPlanComponent  {
+export class TaxPlanComponent {
   // Local Variables 
   title = 'TaxPlan';
 
@@ -82,8 +82,8 @@ export class TaxPlanComponent  {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    
-   
+
+
     this.List("NEW");
   }
 
@@ -91,11 +91,11 @@ export class TaxPlanComponent  {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
   LovSelected(_Record: any) {
   }
 
-  
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -162,10 +162,11 @@ export class TaxPlanComponent  {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -182,7 +183,7 @@ export class TaxPlanComponent  {
     this.Record.tp_editable = false;
     this.Record.tp_bold = false;
     this.Record.rec_mode = this.mode;
-  
+
   }
 
 
@@ -203,10 +204,11 @@ export class TaxPlanComponent  {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: TaxPlan) {
@@ -214,7 +216,7 @@ export class TaxPlanComponent  {
     this.Record.rec_mode = this.mode;
   }
 
-  
+
   // Save Data
   Save() {
 
@@ -234,13 +236,13 @@ export class TaxPlanComponent  {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-       
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -248,7 +250,7 @@ export class TaxPlanComponent  {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     if (this.Record.tp_ctr <= 0) {
       bret = false;
       sError = "\n\r  Order Cannot Be Blank";
@@ -261,8 +263,10 @@ export class TaxPlanComponent  {
       bret = false;
       sError = "\n\r Description Cannot Be Blank";
     }
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -281,21 +285,20 @@ export class TaxPlanComponent  {
       REC.tp_editable = this.Record.tp_editable;
       REC.tp_group_ctr = this.Record.tp_group_ctr;
       REC.tp_limit = this.Record.tp_limit;
-     
+
     }
   }
 
 
   OnBlur(field: string) {
-    
+
     if (field == 'tp_desc') {
       this.Record.tp_desc = this.Record.tp_desc.toUpperCase();
     }
-    
+
   }
-  
-  LoadPreviousyear()
-  {
+
+  LoadPreviousyear() {
     this.loading = true;
     let SearchData = {
       company_code: this.gs.globalVariables.comp_code,
@@ -309,10 +312,11 @@ export class TaxPlanComponent  {
         this.loading = false;
         this.List('NEW');
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Close() {

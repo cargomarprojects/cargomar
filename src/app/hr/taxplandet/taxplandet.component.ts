@@ -84,7 +84,7 @@ export class TaxplanDetComponent {
   }
 
   InitComponent() {
-    this.title2 =  this.gs.globalVariables.user_name + '@' + this.gs.globalVariables.year_name;
+    this.title2 = this.gs.globalVariables.user_name + '@' + this.gs.globalVariables.year_name;
     this.bAdmin = false;
     this.new_userid = this.gs.globalVariables.user_pkid;
     this.new_usercode = this.gs.globalVariables.user_code;
@@ -133,9 +133,9 @@ export class TaxplanDetComponent {
   }
 
   LoadCombo() {
-    
+
   }
-  
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string, userid: string, user_name: string = '') {
     this.ErrorMessage = '';
@@ -152,7 +152,7 @@ export class TaxplanDetComponent {
       this.NewRecord();
       id = this.pkid;
       userid = this.new_userid;
-      this.GetRecord(id, userid,'');
+      this.GetRecord(id, userid, '');
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -160,7 +160,7 @@ export class TaxplanDetComponent {
       this.ResetControls();
       this.title2 = user_name + '@' + this.gs.globalVariables.year_name;
       this.pkid = id;
-      this.GetRecord(id, userid,'');
+      this.GetRecord(id, userid, '');
     }
   }
 
@@ -206,7 +206,7 @@ export class TaxplanDetComponent {
       file_pkid: this.gs.getGuid(),
       branch_name: this.gs.globalVariables.branch_name,
       year_name: this.gs.globalVariables.year_name
-     
+
 
     };
 
@@ -224,10 +224,11 @@ export class TaxplanDetComponent {
           this.page_rowcount = response.page_rowcount;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -254,7 +255,7 @@ export class TaxplanDetComponent {
 
     let SearchData = {
       pkid: Id,
-      action:this.mode,
+      action: this.mode,
       comp_code: this.gs.globalVariables.comp_code,
       branch_name: this.gs.globalVariables.branch_name,
       year: this.gs.globalVariables.year_code,
@@ -282,10 +283,11 @@ export class TaxplanDetComponent {
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: TaxPlanm) {
@@ -318,11 +320,12 @@ export class TaxplanDetComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-       
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+
+        });
   }
 
   allvalid() {
@@ -334,12 +337,14 @@ export class TaxplanDetComponent {
 
     if (this.Record.DetailList.length <= 0) {
 
-        bret = false;
-        sError += "\n\r| No Details to Save";
-    } 
+      bret = false;
+      sError += "\n\r| No Details to Save";
+    }
 
-    if (bret === false)
-        this.ErrorMessage = sError;
+    if (bret === false) {
+      this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -385,7 +390,7 @@ export class TaxplanDetComponent {
         TotAmt = REC.tpd_amt_invested + REC.tpd_amt_before_dec31;
         TotAmt = this.gs.roundNumber(TotAmt, 2);
         REC.tpd_amt_tot = TotAmt;
-       // this.FindTotal();
+        // this.FindTotal();
       }
       if (field == "tpd_amt_before_dec31") {
         REC.tpd_amt_before_dec31 = this.gs.roundNumber(REC.tpd_amt_before_dec31, 2);
