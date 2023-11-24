@@ -321,6 +321,7 @@ export class UnLockComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -330,16 +331,19 @@ export class UnLockComponent {
      
       if (this.refno.toString().trim().length <= 0) {
         this.ErrorMessage = " Reference# Cannot be blank ";
+        alert(this.ErrorMessage);
         return;
       }
 
       if (this.pkid.toString().trim().length <= 0) {
         this.ErrorMessage = " Invalid Reference ID ";
+        alert(this.ErrorMessage);
         return;
       }
     }
     if (this.remarks.toString().trim().length <= 0) {
       this.ErrorMessage = " Remarks Cannot be blank ";
+      alert(this.ErrorMessage);
       return;
     }
     this.SearchRecord(savetype);

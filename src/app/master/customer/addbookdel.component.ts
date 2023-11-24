@@ -119,6 +119,7 @@ export class AddbookdelComponent {
     this.ErrorMessage = '';
     if (this.addid.trim().length <= 0) {
       this.ErrorMessage = "Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -151,6 +152,7 @@ export class AddbookdelComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -168,6 +170,7 @@ export class AddbookdelComponent {
     this.ErrorMessage = '';
     if (this.RecordList.length > 0) {
       this.ErrorMessage = "Cannot Delete, Already Linked";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -194,6 +197,7 @@ export class AddbookdelComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

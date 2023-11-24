@@ -162,10 +162,12 @@ export class XmlComponent {
     this.ErrorMessage = '';
     if (this.agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.agent_name.indexOf("RITRA") < 0) {
       this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      alert(this.ErrorMessage);
       return;
     }
     if (!confirm("Generate " + _type + " Xml")) {
@@ -203,11 +205,12 @@ export class XmlComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -216,14 +219,17 @@ export class XmlComponent {
     this.ErrorMessage = '';
     if (this.agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.agent_name.indexOf("RITRA") < 0) {
       this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.senton_date.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Date Cannot be blank";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -266,10 +272,12 @@ export class XmlComponent {
     this.ErrorMessage = '';
     if (this.agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.agent_name.indexOf("RITRA") < 0) {
       this.ErrorMessage = "\n\r | Invalid Agent Selected";
+      alert(this.ErrorMessage);
       return;
     }
 

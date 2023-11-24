@@ -11,7 +11,7 @@ import { SearchTable } from '../../shared/models/searchtable';
   templateUrl: './drawback.component.html',
   providers: [DrawbackService]
 })
-export class DrawbackComponent  {
+export class DrawbackComponent {
   // Local Variables 
   title = 'Drawback Details';
 
@@ -26,8 +26,8 @@ export class DrawbackComponent  {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
-  ispercent=false;
+
+  ispercent = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -87,7 +87,7 @@ export class DrawbackComponent  {
   }
 
   InitComponent() {
-    this.dbkmode='A';
+    this.dbkmode = 'A';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
@@ -99,11 +99,11 @@ export class DrawbackComponent  {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  
+
 
 
   LoadCombo() {
-    
+
     //this.loading = true;
     //let SearchData = {
     //  type: 'type',
@@ -116,7 +116,7 @@ export class DrawbackComponent  {
     //this.mainService.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
-       
+
     //    this.List("NEW");
     //  },
     //  error => {
@@ -126,7 +126,7 @@ export class DrawbackComponent  {
 
     this.List("NEW");
   }
-  
+
 
   LovSelected(_Record: any) {
   }
@@ -199,10 +199,11 @@ export class DrawbackComponent  {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -211,7 +212,7 @@ export class DrawbackComponent  {
     this.pkid = this.gs.getGuid();
 
     this.Record = new Drawback();
-    this.Record.dbk_id = this.pkid;     
+    this.Record.dbk_id = this.pkid;
     this.Record.dbk_slno = '';
     this.Record.dbk_name = '';
     this.Record.dbk_unit = '';
@@ -223,7 +224,7 @@ export class DrawbackComponent  {
     this.Record.dbk_ctl_rt = 0;
     this.Record.dbk_ctl_valuecap = 0;
     this.Record.rec_mode = this.mode;
-  
+
   }
 
 
@@ -244,10 +245,11 @@ export class DrawbackComponent  {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Drawback) {
@@ -255,7 +257,7 @@ export class DrawbackComponent  {
     this.Record.rec_mode = this.mode;
   }
 
-  
+
   // Save Data
   Save() {
 
@@ -276,11 +278,11 @@ export class DrawbackComponent  {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -292,9 +294,11 @@ export class DrawbackComponent  {
       bret = false;
       sError = " | Drawback Code Cannot Be Blank";
     }
-       
-    if (bret === false)
+
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -302,7 +306,7 @@ export class DrawbackComponent  {
 
     if (this.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.dbk_id == this.Record. dbk_id);
+    var REC = this.RecordList.find(rec => rec.dbk_id == this.Record.dbk_id);
     if (REC == null) {
       this.RecordList.push(this.Record);
     }
@@ -364,7 +368,7 @@ export class DrawbackComponent  {
     this.loading = true;
     let SearchData = {
       pkid: '',
-      parentid:'',
+      parentid: '',
       table: 'DBK-UPDATE-FILE'
     };
 
@@ -377,40 +381,42 @@ export class DrawbackComponent  {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if(response.serror.length>0)
-        this.ErrorMessage = response.serror;
-        else 
+        if (response.serror.length > 0)
         {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
+        else {
           let strmsg: string = "";
-          strmsg = "PROCESS DBK RATES  \n\n FILE NAME : " + response.filename +" \n\n UPLOADED ON : " + response.uploaddate;
+          strmsg = "PROCESS DBK RATES  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
           if (confirm(strmsg)) {
             this.ProcessDbkRates();
           }
         }
       },
-      error => {
-        this.loading = false;
-        this.InfoMessage = this.gs.getError(error);
-      });
-    }
+        error => {
+          this.loading = false;
+          this.InfoMessage = this.gs.getError(error);
+        });
+  }
 
-  ProcessDbkRates(){
+  ProcessDbkRates() {
     this.loading = true;
     let SearchData = {
       pkid: '',
-      dbkmode:'',
-      comp_code:'',
-      user_code:'',
-      ispercent:'N',
-      root_folder:''
+      dbkmode: '',
+      comp_code: '',
+      user_code: '',
+      ispercent: 'N',
+      root_folder: ''
     };
 
-    SearchData.dbkmode=this.dbkmode;
-    SearchData.comp_code=this.gs.globalVariables.comp_code;
-    SearchData.user_code=this.gs.globalVariables.user_code;
-    SearchData.ispercent= this.ispercent == true?'Y':'N';
-    SearchData.root_folder=this.gs.defaultValues.root_folder;
-    
+    SearchData.dbkmode = this.dbkmode;
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.ispercent = this.ispercent == true ? 'Y' : 'N';
+    SearchData.root_folder = this.gs.defaultValues.root_folder;
+
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -420,10 +426,11 @@ export class DrawbackComponent  {
         this.InfoMessage = "Process Complete";
         alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
 
   }
   ShowDocuments(doc: any) {

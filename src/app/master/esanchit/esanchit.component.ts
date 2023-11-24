@@ -12,16 +12,16 @@ import { Param } from '../../master/models/param';
   templateUrl: './esanchit.component.html',
   providers: [EsanchitService]
 })
-export class EsanchitComponent  {
+export class EsanchitComponent {
   // Local Variables 
   title = 'Esanchit';
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
   selectedRowIndex = 0;
-  
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -53,7 +53,7 @@ export class EsanchitComponent  {
   // Single Record for add/edit/view details
   Record: Esanchit = new Esanchit;
 
-  
+
   constructor(
     private modalService: NgbModal,
     private mainService: EsanchitService,
@@ -93,7 +93,7 @@ export class EsanchitComponent  {
       this.title = this.menu_record.menu_name;
     this.upload_date = this.gs.defaultValues.today;
     this.InitLov();
-   // this.LoadCombo();
+    // this.LoadCombo();
     this.List("NEW");
   }
 
@@ -103,7 +103,7 @@ export class EsanchitComponent  {
   }
 
   LoadCombo() {
-    
+
     //this.loading = true;
     //let SearchData = {
     //  type: 'type',
@@ -117,7 +117,7 @@ export class EsanchitComponent  {
     //  .subscribe(response => {
     //    this.loading = false;
     //    this.esanchitdoclist = response.esanchitdoclist;
-        
+
     //  },
     //  error => {
     //    this.loading = false;
@@ -142,11 +142,11 @@ export class EsanchitComponent  {
     if (_Record.controlname == "ESANCHITDOCTYPE") {
       this.Record.doc_type_code = _Record.code;
       this.Record.doc_type_name = _Record.name;
-      
+
     }
   }
 
-  
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -168,7 +168,7 @@ export class EsanchitComponent  {
       this.ResetControls();
       this.pkid = id;
       this.GetRecord(id);
-     
+
     }
   }
 
@@ -195,7 +195,7 @@ export class EsanchitComponent  {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-     
+
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -218,10 +218,11 @@ export class EsanchitComponent  {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   GetBeneficiary(Id: string) {
@@ -229,8 +230,8 @@ export class EsanchitComponent  {
 
     let SearchData = {
       branch_code: this.gs.globalVariables.branch_code,
-      code : this.Record.doc_type_code,
-      date : this.Record.doc_upload_date
+      code: this.Record.doc_type_code,
+      date: this.Record.doc_upload_date
     };
 
     this.ErrorMessage = '';
@@ -239,16 +240,17 @@ export class EsanchitComponent  {
       .subscribe(response => {
         this.loading = false;
         var _Rec = response.record as Esanchit;
-        this.Record.doc_ben_name =   _Rec.doc_ben_name;
-        this.Record.doc_ben_add1 =   _Rec.doc_ben_add1;
-        this.Record.doc_ben_add2 =   _Rec.doc_ben_add2;
-        this.Record.doc_ben_city =   _Rec.doc_ben_city;
-        this.Record.doc_ben_pin =   _Rec.doc_ben_pin;
+        this.Record.doc_ben_name = _Rec.doc_ben_name;
+        this.Record.doc_ben_add1 = _Rec.doc_ben_add1;
+        this.Record.doc_ben_add2 = _Rec.doc_ben_add2;
+        this.Record.doc_ben_city = _Rec.doc_ben_city;
+        this.Record.doc_ben_pin = _Rec.doc_ben_pin;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -268,7 +270,7 @@ export class EsanchitComponent  {
     this.Record.doc_ref_no = '';
     this.Record.doc_type_code = '';
     this.Record.doc_issued_at = '';
-    this.Record.doc_issued_date ='';
+    this.Record.doc_issued_date = '';
     this.Record.doc_issuer_name = '';
     this.Record.doc_issuer_code = '';
     this.Record.doc_issuer_add1 = '';
@@ -290,7 +292,7 @@ export class EsanchitComponent  {
     this.Record.doc_type_name = '';
     this.Record.doc_all_drn_selected = true;
     this.Record.rec_mode = this.mode;
-    
+
     this.InitLov();
   }
 
@@ -309,12 +311,13 @@ export class EsanchitComponent  {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Esanchit) {
@@ -325,8 +328,8 @@ export class EsanchitComponent  {
     this.DOCUMENTTYPERECORD.name = this.Record.doc_type_name;
   }
 
- 
-  
+
+
   // Save Data
   Save() {
 
@@ -346,13 +349,13 @@ export class EsanchitComponent  {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-        
+
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -365,7 +368,7 @@ export class EsanchitComponent  {
       bret = false;
       sError = "Document Type Cannot Be Blank";
     }
-    
+
     if (this.Record.doc_irn.trim().length <= 0) {
       bret = false;
       sError = " IRN Cannot Be Blank";
@@ -374,10 +377,12 @@ export class EsanchitComponent  {
       bret = false;
       sError = " DRN Cannot Be Blank";
     }
-    
-   
-    if (bret === false)
+
+
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -385,28 +390,28 @@ export class EsanchitComponent  {
 
     if (this.RecordList == null)
       return;
-    
+
     var REC = this.RecordList.find(rec => rec.doc_pkid == this.Record.doc_pkid);
     if (REC == null) {
       var tempdate = this.gs.defaultValues.today.split('-');
       let upyr: string = tempdate[0];
       let upmn: string = tempdate[1];
       let updy: string = tempdate[2];
-      
+
       let upload_date = updy + "/" + upmn + "/" + upyr;
       this.Record.doc_upload_date = upload_date.toUpperCase().toString();
-      
+
       this.RecordList.push(this.Record);
     }
     else {
-    //  REC.doc_upload_date = this.Record.doc_upload_date;
+      //  REC.doc_upload_date = this.Record.doc_upload_date;
       REC.doc_drn = this.Record.doc_drn;
       REC.doc_irn = this.Record.doc_irn;
       REC.doc_type_code = this.Record.doc_type_code;
       REC.doc_type_name = this.Record.doc_type_name;
       REC.doc_file_name = this.Record.doc_file_name;
       REC.doc_ref_no = this.Record.doc_ref_no;
-      REC.doc_issuer_name = this.Record.doc_issuer_name;   
+      REC.doc_issuer_name = this.Record.doc_issuer_name;
       REC.doc_ben_name = this.Record.doc_ben_name;
       REC.rec_category = this.Record.rec_category;
       REC.doc_job_no = this.Record.doc_job_no;
@@ -414,10 +419,10 @@ export class EsanchitComponent  {
     }
   }
 
-  
+
 
   OnBlur(field: string) {
-    
+
     if (field == 'doc_drn') {
       this.Record.doc_drn = this.Record.doc_drn.toUpperCase();
     }
@@ -439,8 +444,8 @@ export class EsanchitComponent  {
     if (field == 'doc_file_type') {
       this.Record.doc_file_type = this.Record.doc_file_type.toUpperCase();
     }
-   
-   
+
+
     if (field == 'doc_issued_at') {
       this.Record.doc_issued_at = this.Record.doc_issued_at.toUpperCase();
     }
@@ -462,7 +467,7 @@ export class EsanchitComponent  {
     if (field == 'doc_issuer_pin') {
       this.Record.doc_issuer_pin = this.Record.doc_issuer_pin.toUpperCase();
     }
-   
+
     if (field == 'doc_ben_name') {
       this.Record.doc_ben_name = this.Record.doc_ben_name.toUpperCase();
     }
@@ -481,18 +486,20 @@ export class EsanchitComponent  {
     if (field == 'doc_ben_pin') {
       this.Record.doc_ben_pin = this.Record.doc_ben_pin.toUpperCase();
     }
-    
+
   }
-  
+
   // Upload Data
   Update() {
-    
+
     if (this.Record.rec_category.trim().length <= 0) {
       this.ErrorMessage = "Category Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Record.doc_job_no.trim().length <= 0) {
       this.ErrorMessage = "Job# Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -515,10 +522,10 @@ export class EsanchitComponent  {
           //this.Record.doc_issuer_code = response.record.doc_issuer_code;
           this.Record.doc_issuer_name = response.record.doc_issuer_name;
           this.Record.doc_issuer_add1 = response.record.doc_issuer_add1;
-         this.Record.doc_issuer_add2 = response.record.doc_issuer_add2;
+          this.Record.doc_issuer_add2 = response.record.doc_issuer_add2;
           this.Record.doc_issuer_city = response.record.doc_issuer_city;
           this.Record.doc_issuer_pin = response.record.doc_issuer_pin;
-        //  this.Record.doc_ben_code = response.record.doc_ben_code;
+          //  this.Record.doc_ben_code = response.record.doc_ben_code;
           this.Record.doc_ben_name = response.record.doc_ben_name;
           this.Record.doc_ben_add1 = response.record.doc_ben_add1;
           this.Record.doc_ben_add2 = response.record.doc_ben_add2;
@@ -526,11 +533,11 @@ export class EsanchitComponent  {
           this.Record.doc_ben_pin = response.record.doc_ben_pin;
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   ClearLink() {
@@ -561,12 +568,13 @@ export class EsanchitComponent  {
         else
           this.InfoMessage = "Successfully Removed Link to IRN " + this.Record.doc_irn;
         this.RefreshList();
+        alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Close() {

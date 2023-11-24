@@ -697,6 +697,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -735,6 +736,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1072,10 +1074,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1092,10 +1096,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1171,8 +1177,10 @@ export class SettingsComponent {
       sError = "BL Issued Cannot Be Blank";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -1231,8 +1239,10 @@ export class SettingsComponent {
       sError = "Code Cannot Be Blank";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -1252,10 +1262,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1295,11 +1307,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1330,7 +1343,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
 
   }
@@ -1353,7 +1366,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1366,11 +1379,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
   Close() {
@@ -1393,6 +1407,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   SavePayroll() {
@@ -1403,11 +1418,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = "Save Complete";
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1501,7 +1517,7 @@ export class SettingsComponent {
           this.PayrollRecord.ps_esi_col_excluded = this.PayrollRecord.ps_esi_col_excluded.toUpperCase();
           break;
         }
-        case 'ps_lwf_emplr':
+      case 'ps_lwf_emplr':
         {
           this.PayrollRecord.ps_lwf_emplr = this.gs.roundNumber(this.PayrollRecord.ps_lwf_emplr, 2);
           break;
@@ -1525,6 +1541,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1557,8 +1574,10 @@ export class SettingsComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (response.serror.length > 0)
+        if (response.serror.length > 0) {
           this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
         else {
           let strmsg: string = "";
           strmsg = "PROCESS 26AS (" + this.gs.globalVariables.year_name + ")  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
@@ -1570,6 +1589,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1586,8 +1606,10 @@ export class SettingsComponent {
     this.mainService.Process(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (response.serror.length > 0)
+        if (response.serror.length > 0) {
           this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
         else
           this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
         alert(this.ErrorMessage);
@@ -1595,6 +1617,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1615,11 +1638,12 @@ export class SettingsComponent {
       .subscribe(response => {
         this.loading = false;
         this.ErrorMessage = response.savemsg;
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
 
   }
@@ -1641,6 +1665,7 @@ export class SettingsComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

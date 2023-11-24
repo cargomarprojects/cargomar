@@ -384,6 +384,7 @@ export class ParamComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -433,6 +434,7 @@ export class ParamComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -462,11 +464,12 @@ export class ParamComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 

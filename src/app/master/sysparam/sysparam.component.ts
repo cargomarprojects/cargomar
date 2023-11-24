@@ -188,6 +188,7 @@ export class SysParamComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -213,6 +214,7 @@ export class SysParamComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -234,10 +236,12 @@ export class SysParamComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.RefreshList();
+        alert(this.ErrorMessage);
       },
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

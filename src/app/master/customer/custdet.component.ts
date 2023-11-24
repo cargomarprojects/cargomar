@@ -99,7 +99,7 @@ export class CustdetComponent {
       this.Record.det_branch_id = _Record.id;
       this.Record.det_branch_code = _Record.code;
       this.Record.det_branch_name = _Record.name;
-     
+
     }
 
     if (_Record.controlname == "SALESMAN") {
@@ -161,10 +161,11 @@ export class CustdetComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -178,7 +179,7 @@ export class CustdetComponent {
     this.Record.det_sman_id = '';
     this.Record.det_sman_name = '';
     this.InitLov();
-   
+
 
   }
 
@@ -197,10 +198,11 @@ export class CustdetComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Custdet) {
@@ -238,10 +240,11 @@ export class CustdetComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -280,10 +283,11 @@ export class CustdetComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.det_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
   allvalid() {
     let sError: string = "";
@@ -299,8 +303,10 @@ export class CustdetComponent {
       sError += "\n\r | Salesman Cannot Be Blank";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

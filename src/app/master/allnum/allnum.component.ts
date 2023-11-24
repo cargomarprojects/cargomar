@@ -169,6 +169,7 @@ export class AllnumComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -202,6 +203,7 @@ export class AllnumComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -226,10 +228,12 @@ export class AllnumComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -253,8 +257,10 @@ export class AllnumComponent {
 
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

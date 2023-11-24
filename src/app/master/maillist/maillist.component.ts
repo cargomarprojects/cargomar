@@ -127,6 +127,7 @@ export class MailListComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = JSON.parse(error._body).Message;
+                    alert(this.ErrorMessage);
                 });
 
     }
@@ -219,6 +220,7 @@ export class MailListComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -266,6 +268,7 @@ export class MailListComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -302,6 +305,7 @@ export class MailListComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -316,8 +320,10 @@ export class MailListComponent {
             sError = " | Mail IDs not Found";
         }
 
-        if (bret === false)
+        if (bret === false) {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -354,7 +360,7 @@ export class MailListComponent {
         if (field == 'ml_remarks') {
             this.Record.ml_remarks = this.Record.ml_remarks.toUpperCase();
         }
-        
+
 
     }
     OnChange(field: string) {

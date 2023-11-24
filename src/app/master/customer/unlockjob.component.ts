@@ -131,6 +131,7 @@ export class UnlockJobComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -162,6 +163,7 @@ export class UnlockJobComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -196,6 +198,7 @@ export class UnlockJobComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -210,8 +213,10 @@ export class UnlockJobComponent {
             sError += "| Branch Code Cannot Be Blank";
         }
 
-        if (bret === false)
+        if (bret === false) {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -251,6 +256,7 @@ export class UnlockJobComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 

@@ -249,6 +249,7 @@ export class BlFormaterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -283,6 +284,7 @@ export class BlFormaterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -331,7 +333,7 @@ export class BlFormaterComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -346,8 +348,10 @@ export class BlFormaterComponent {
       sError = " | Invalid Type";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 

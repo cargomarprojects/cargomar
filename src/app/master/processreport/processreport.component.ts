@@ -133,6 +133,7 @@ export class ProcessReportComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -141,6 +142,7 @@ export class ProcessReportComponent {
         this.ErrorMessage = '';
         if (this.finyear.trim().length <= 0) {
             this.ErrorMessage = "\n\r | Financial Year Cannot Be Blank";
+            alert(this.ErrorMessage);
             return;
         }
 

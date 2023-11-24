@@ -134,6 +134,7 @@ export class BankInfoComponent {
       error => {
         this.ErrorMessage = this.gs.getError(error);
         this.loading = false;
+        alert(this.ErrorMessage);
       });
   }
 
@@ -180,6 +181,7 @@ export class BankInfoComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

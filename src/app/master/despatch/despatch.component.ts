@@ -276,6 +276,7 @@ export class DespatchComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -369,6 +370,7 @@ export class DespatchComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -418,6 +420,7 @@ export class DespatchComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
 
         });
   }
@@ -442,8 +445,10 @@ export class DespatchComponent {
       sError += " | Customer Address Cannot be Blank ";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -541,8 +546,10 @@ export class DespatchComponent {
       this.ErrorMessage = "\n\r | Invalid ID";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     if (_type == "MAIL") {
 
@@ -608,6 +615,7 @@ export class DespatchComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -619,6 +627,7 @@ export class DespatchComponent {
     if (controlname == 'DESPATCHDEFAULT') {
       if (this.Record.dm_si_nos.trim().length <= 0) {
         this.ErrorMessage = " SI# cannot be blank ";
+        alert(this.ErrorMessage);
         return;
       }
     } else {
@@ -678,6 +687,7 @@ export class DespatchComponent {
           }
           else {
             this.ErrorMessage = 'Invalid Address';
+            alert(this.ErrorMessage);
           }
         } else if (controlname == 'DESPATCHDEFAULT') {
 
@@ -756,12 +766,14 @@ export class DespatchComponent {
           }
           else {
             this.ErrorMessage = ' Invalid SI NOS ';
+            alert(this.ErrorMessage);
           }
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

@@ -67,7 +67,7 @@ export class AddbookComponent {
   AcTypeList: any[] = [];
 
 
-  
+
 
 
 
@@ -151,10 +151,11 @@ export class AddbookComponent {
         this.fStateList = response.fstatelist;
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -245,10 +246,11 @@ export class AddbookComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -283,10 +285,11 @@ export class AddbookComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Customerm) {
@@ -322,11 +325,11 @@ export class AddbookComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -355,8 +358,10 @@ export class AddbookComponent {
       this.Record.cust_name = this.Record.cust_name.toUpperCase().trim();
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
