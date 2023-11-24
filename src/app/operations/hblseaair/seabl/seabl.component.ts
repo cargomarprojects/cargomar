@@ -294,6 +294,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -310,8 +311,10 @@ export class BlComponent {
       //   }
       // }
     }
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     this.folder_id = this.gs.getGuid();
@@ -478,9 +481,10 @@ export class BlComponent {
     //    bret = false;
     //    sError += "\n\rAmount Cannot Be Blank";
     //}
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
-
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -1249,11 +1253,13 @@ export class BlComponent {
         }
         else {
           this.ErrorMessage = 'Invalid Address';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1288,7 +1294,7 @@ export class BlComponent {
     this.AttchRecord.bl_marks = '';
     this.AttchRecord.bl_desc = '';
   }
-  
+
   RemoveList(event: any) {
     if (event.selected) {
       this.ActionHandler('REMOVE', event.id)
@@ -1378,6 +1384,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -1641,6 +1648,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1669,6 +1677,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -1721,6 +1730,7 @@ export class BlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 }

@@ -30,10 +30,10 @@ export class ImpJobComponent {
   pkid = '';
 
   ctr: number;
- 
+
 
   // Array For Displaying List
-  RecordList:ImpJobm[] = [];
+  RecordList: ImpJobm[] = [];
   // Single Record for add/edit/view details
   Record: ImpJobm = new ImpJobm;
 
@@ -101,7 +101,7 @@ export class ImpJobComponent {
   }
 
   ResetControls() {
-     
+
   }
   List(_type: string) {
 
@@ -125,10 +125,11 @@ export class ImpJobComponent {
         this.RecordList = response.list;
         this.title = response.containerno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -154,7 +155,7 @@ export class ImpJobComponent {
     this.Record.impj_remarks = '';
 
     this.InitLov();
-    
+
   }
 
   // Load a single Record for VIEW/EDIT
@@ -178,10 +179,11 @@ export class ImpJobComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: ImpJobm) {
@@ -207,11 +209,13 @@ export class ImpJobComponent {
         this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
+        alert(this.InfoMessage);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -226,8 +230,10 @@ export class ImpJobComponent {
       sError += "\n\r Parent ID Cannot Be Blank";
     }
 
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -247,13 +253,14 @@ export class ImpJobComponent {
     this.mainService.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-       this.RecordList.splice(this.RecordList.findIndex(rec => rec.impj_parent_id == this.pkid), 1);
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.impj_parent_id == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -289,5 +296,5 @@ export class ImpJobComponent {
           break;
         }
     }
-  }  
+  }
 }

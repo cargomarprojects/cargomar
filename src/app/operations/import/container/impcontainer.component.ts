@@ -136,10 +136,11 @@ export class ImpContainerComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -177,10 +178,11 @@ export class ImpContainerComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Containerm) {
@@ -213,10 +215,11 @@ export class ImpContainerComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -237,8 +240,10 @@ export class ImpContainerComponent {
       sError += "\n\r | Container Type Cannot Be Blank";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -276,10 +281,11 @@ export class ImpContainerComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.cntr_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Close() {
@@ -299,41 +305,41 @@ export class ImpContainerComponent {
     switch (field) {
 
       case 'cntr_no':
-          {
+        {
           this.Record.cntr_no = this.Record.cntr_no.replace(oldChar, '').toUpperCase().trim();
-              break;
-          }
+          break;
+        }
       case 'cntr_asealno':
-          {
+        {
           this.Record.cntr_asealno = this.Record.cntr_asealno.toUpperCase();
-              break;
-          }
+          break;
+        }
       case 'cntr_cbm':
-          {
+        {
           this.Record.cntr_cbm = this.gs.roundWeight(this.Record.cntr_cbm, "CBM");
-              break;
-          }
+          break;
+        }
       case 'cntr_pcs':
-          {
+        {
           this.Record.cntr_pcs = this.gs.roundWeight(this.Record.cntr_pcs, "PCS");
-              break;
-          }
-     
+          break;
+        }
+
       case 'cntr_grwt':
-          {
+        {
           this.Record.cntr_grwt = this.gs.roundWeight(this.Record.cntr_grwt, "GRWT");
-              break;
-          }
+          break;
+        }
       case 'cntr_ntwt':
-          {
+        {
           this.Record.cntr_ntwt = this.gs.roundWeight(this.Record.cntr_ntwt, "NTWT");
-              break;
-          }
+          break;
+        }
     }
   }
 
   FillContainer() {
-     
+
     this.loading = true;
     let SearchData = {
       usercode: this.gs.globalVariables.user_code,
@@ -349,10 +355,11 @@ export class ImpContainerComponent {
         this.loading = false;
         this.List("NEW");
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 }

@@ -176,6 +176,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
     //this.List("NEW");
@@ -611,10 +612,10 @@ export class ImpMblSeaAirComponent {
   InitDefault() {
     if (this.StatusList == null)
       return;
-      var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
-      if (REC != null) {
-        this.Record.mbl_status_id = REC.param_pkid;
-      }
+    var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
+    if (REC != null) {
+      this.Record.mbl_status_id = REC.param_pkid;
+    }
   }
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
@@ -633,6 +634,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -772,7 +774,7 @@ export class ImpMblSeaAirComponent {
       else
         sError += "\n\r | MAWB Date Cannot Be Blank";
     }
-    
+
     if (this.gs.isBlank(this.Record.mbl_agent_id)) {
       bret = false;
       sError += "\n\r | Agent Cannot Be Blank";
@@ -830,8 +832,10 @@ export class ImpMblSeaAirComponent {
         sError += "\n\r | HAWB List not proper, please Click the find button";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -899,8 +903,10 @@ export class ImpMblSeaAirComponent {
       this.ErrorMessage += "\n\r | Carrier Cannot Be Blank";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.sAgent_ID = _Record.mbl_agent_id;
     this.sCarrier_ID = _Record.mbl_carrier_id;
@@ -927,6 +933,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -977,6 +984,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1034,6 +1042,7 @@ export class ImpMblSeaAirComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   FolderSent() {

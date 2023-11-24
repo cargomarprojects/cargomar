@@ -21,7 +21,7 @@ export class GenJobComponent {
   menu_record: any;
 
   selectedRowIndex = 0;
-  
+
   disableSave = true;
   //hideLRno = true;
   //  disablecategory = true;
@@ -299,6 +299,7 @@ export class GenJobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -360,8 +361,8 @@ export class GenJobComponent {
     this.Record.gj_pack_list_no = '';
     this.Record.gj_refno = ''
     this.Record.gj_driver_name = '';
-    this.Record.hbl_beno='';
-    this.Record.hbl_bedate='';
+    this.Record.hbl_beno = '';
+    this.Record.hbl_bedate = '';
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -383,6 +384,7 @@ export class GenJobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -436,10 +438,12 @@ export class GenJobComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -468,8 +472,10 @@ export class GenJobComponent {
       sError += "\n\r | Shipper Cannot Be Blank";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -638,7 +644,7 @@ export class GenJobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -650,8 +656,10 @@ export class GenJobComponent {
       this.ErrorMessage = "\n\r | Invalid ID";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
 
     this.loading = true;
@@ -682,6 +690,7 @@ export class GenJobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

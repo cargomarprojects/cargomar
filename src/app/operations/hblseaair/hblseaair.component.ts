@@ -799,8 +799,7 @@ export class HblSeaAirComponent {
             sError += "\n\r | Job List not proper, please Click the find button";
         }
 
-        if (bret === false)
-        {
+        if (bret === false) {
             this.ErrorMessage = sError;
             alert(this.ErrorMessage);
         }
@@ -919,6 +918,7 @@ export class HblSeaAirComponent {
         } else if (controlname == 'hbl_no') {
             if (this.hbl_no.trim().length <= 0) {
                 this.ErrorMessage = 'Please Enter a  SI Number and Continue......';
+                alert(this.ErrorMessage);
                 return;
             }
         }
@@ -968,6 +968,7 @@ export class HblSeaAirComponent {
                     }
                     else {
                         this.ErrorMessage = 'Invalid Booking';
+                        alert(this.ErrorMessage);
                     }
                 } else if (controlname == 'hbl_no') {
                     if (response.hblm.length > 0) {
@@ -975,6 +976,7 @@ export class HblSeaAirComponent {
                     }
                     else {
                         this.ErrorMessage = 'Invalid SI#';
+                        alert(this.ErrorMessage);
                     }
                 }
             },
@@ -1015,8 +1017,10 @@ export class HblSeaAirComponent {
             this.ErrorMessage += "\n\r | Importer Cannot Be Blank";
         }
 
-        if (this.ErrorMessage)
+        if (this.ErrorMessage) {
+            alert(this.ErrorMessage);
             return;
+        }
 
         this.sExp_ID = _Record.hbl_exp_id;
         this.sImp_ID = _Record.hbl_imp_id;

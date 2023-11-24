@@ -268,6 +268,7 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -284,9 +285,10 @@ export class AirBlComponent {
         }
       }
     }
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
-
+    }
     this.folder_id = this.gs.getGuid();
     let _bSideprint: string = "N";
     if (this.backside_print)
@@ -307,7 +309,7 @@ export class AirBlComponent {
       footerlist: this.FootNotes,
       bSideprint: _bSideprint,
       invokefrm: this.invokefrom,
-      user_code:this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.mainService.GetRecord(SearchData)
@@ -328,6 +330,7 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -450,6 +453,7 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -498,8 +502,10 @@ export class AirBlComponent {
     //    bret = false;
     //    sError += "\n\rAmount Cannot Be Blank";
     //}
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
 
     return bret;
   }
@@ -1460,11 +1466,13 @@ export class AirBlComponent {
         }
         else {
           this.ErrorMessage = 'Invalid Address';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1526,7 +1534,6 @@ export class AirBlComponent {
     this.InfoMessage = '';
     if (_type == "AIRBL" && this.Record.hbl_date.trim().length <= 0) {
       this.ErrorMessage = "\n\r | AWB Date Cannot Be Blank";
-      alert(this.ErrorMessage);
     }
 
     if (_type == 'AIRBL') {
@@ -1535,13 +1542,14 @@ export class AirBlComponent {
         if (REC != null) {
           if (REC.table_name == "NA") {
             this.ErrorMessage += "\n\r | Please select AWB Sequence format and continue....";
-            alert(this.ErrorMessage);
           }
         }
       }
     }
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.loading = true;
     let SearchData = {
@@ -1598,6 +1606,7 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -1626,11 +1635,11 @@ export class AirBlComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      deliv_place:'',
-      deliv_date:'',
-      deliv_date_confirm:false,
-      user_code:this.gs.globalVariables.user_code,
-      blno:this.Record.hbl_bl_no
+      deliv_place: '',
+      deliv_date: '',
+      deliv_date_confirm: false,
+      user_code: this.gs.globalVariables.user_code,
+      blno: this.Record.hbl_bl_no
     }
 
     SearchData.pkid = this.parentid;
@@ -1650,12 +1659,13 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
 
   GetBlDraft() {
-   
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.loading = true;
@@ -1679,6 +1689,7 @@ export class AirBlComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
