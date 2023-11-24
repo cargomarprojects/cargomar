@@ -185,6 +185,7 @@ export class QuotationAirComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -711,6 +712,7 @@ export class QuotationAirComponent {
                 }
                 else {
                     this.ErrorMessage = 'Invalid Address';
+                    alert(this.ErrorMessage);
                 }
             },
                 error => {
