@@ -3,7 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { TdsCertm } from '../models/tdscertm';
-import { TdsCertd } from '../models/tdscertd';
+import { TdsCertd } from '../models/TdsCertd';
 import { TdsCertReportService } from '../services/tdscertreport.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -88,11 +88,11 @@ export class TdsCertReportComponent {
   InitComponent() {
     this.bDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-      if (this.menu_record) {
-        this.title = this.menu_record.menu_name;
-        if (this.menu_record.rights_docs)
-          this.bDocs = true;
-      }
+    if (this.menu_record) {
+      this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
+    }
     this.InitLov();
     this.LoadCombo();
   }
@@ -228,6 +228,7 @@ export class TdsCertReportComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -246,7 +247,7 @@ export class TdsCertReportComponent {
     this.Record.tds_amt = 0;
 
     this.TotTdsAmt = 0;
-    this.TotTdsCertAmt =0;
+    this.TotTdsCertAmt = 0;
 
     this.InitLov();
     this.Record.rec_mode = this.mode;
@@ -274,6 +275,7 @@ export class TdsCertReportComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -319,7 +321,7 @@ export class TdsCertReportComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-
+          alert(this.ErrorMessage);
         });
   }
 
@@ -490,6 +492,7 @@ export class TdsCertReportComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -497,7 +500,7 @@ export class TdsCertReportComponent {
     this.ErrorMessage = '';
     this.open(doc);
   }
- open(content: any) {
+  open(content: any) {
     this.modal = this.modalService.open(content);
   }
 }

@@ -209,6 +209,7 @@ export class OscrComponent {
 
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = 'To Date Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -254,6 +255,7 @@ export class OscrComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
