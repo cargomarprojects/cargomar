@@ -198,10 +198,12 @@ export class AgentPayHistoryComponent {
 
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = 'To Date Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = 'From Date Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -236,6 +238,7 @@ export class AgentPayHistoryComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
