@@ -519,6 +519,7 @@ export class ContactsComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.InfoMessage = "Save Complete";
+        alert(this.InfoMessage);
         this.RefreshList();
       },
         error => {
@@ -737,11 +738,11 @@ export class ContactsComponent {
   }
 
   actionsChanged(comments: any, _rec: MarkContacts) {
-     
+
     if (comments.saction == "SAVE") {
-        for (let rec of this.RecordList.filter(rec => rec.cont_pkid == _rec.cont_pkid)) {
-            rec.cont_infocount = comments.sfollowupcount;
-        }
+      for (let rec of this.RecordList.filter(rec => rec.cont_pkid == _rec.cont_pkid)) {
+        rec.cont_infocount = comments.sfollowupcount;
+      }
     }
   }
 }
