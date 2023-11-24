@@ -328,6 +328,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -421,6 +422,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -503,6 +505,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -562,6 +565,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -592,8 +596,10 @@ export class OrderListComponent {
 
 
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
 
   }
@@ -1116,19 +1122,23 @@ export class OrderListComponent {
     if (this.mList.length <= 0) {
       this.InfoMessage = '';
       this.ErrorMessage = 'Data Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.AGENTRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Agent Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.EXPRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Shipper Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.IMPRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Consignee Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1153,6 +1163,7 @@ export class OrderListComponent {
         }
         else {
           this.ErrorMessage = "Cannot Insert, All These PO's Already Exist!";
+          alert(this.ErrorMessage);
         }
 
 
@@ -1179,6 +1190,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1291,6 +1303,7 @@ export class OrderListComponent {
 
     if (this.pkid.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
     if (POID_Is_Blank) {
@@ -1332,11 +1345,11 @@ export class OrderListComponent {
             this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
           this.AttachList = new Array<any>();
           if (this.ftpTransfertype == 'ORDERLIST') {
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize,fileftptype: 'PO-FTP'  });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize, fileftptype: 'PO-FTP' });
             if (response.filenameack)
-              this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack,fileftptype: 'PO-FTP'  });
+              this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack, fileftptype: 'PO-FTP' });
           } else //TRACKING CARGO PROCESS
-            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize,fileftptype: 'PO-FTP'  });
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize, fileftptype: 'PO-FTP' });
           this.open(ftpsent);
         }
       },
@@ -1402,6 +1415,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1449,6 +1463,7 @@ export class OrderListComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }

@@ -346,6 +346,7 @@ export class JobInvoiceComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -467,6 +468,7 @@ export class JobInvoiceComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -539,6 +541,7 @@ export class JobInvoiceComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -593,7 +596,10 @@ export class JobInvoiceComponent {
             sError += "\n\r | Rate Includes Cannot Be Blank";
         }
         if (bret === false)
+        {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -632,6 +638,7 @@ export class JobInvoiceComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
@@ -813,6 +820,7 @@ export class JobInvoiceComponent {
 
         if (this.parentid.trim().length <= 0 || this.jobexporterid.trim().length <= 0) {
             this.ErrorMessage = "Invalid ID";
+            alert(this.ErrorMessage);
             return;
         }
         this.loading = true;
@@ -850,6 +858,7 @@ export class JobInvoiceComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 

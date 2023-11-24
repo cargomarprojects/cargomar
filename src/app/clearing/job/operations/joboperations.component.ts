@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../../core/services/global.service';
 
-import { JobOperationsm  } from '../../models/joboperations';
+import { JobOperationsm } from '../../models/joboperations';
 
 import { JobOperationsService } from '../../services/joboperations.service';
 
@@ -31,7 +31,7 @@ export class JobOperationsComponent {
   loading = false;
   currentTab = 'LIST';
 
-  
+
   ErrorMessage = "";
   InfoMessage = "";
   mode = 'ADD';
@@ -162,10 +162,11 @@ export class JobOperationsComponent {
         this.RecordList = response.list;
         this.title = response.containerno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -242,10 +243,11 @@ export class JobOperationsComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: JobOperationsm) {
@@ -270,10 +272,11 @@ export class JobOperationsComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -288,8 +291,10 @@ export class JobOperationsComponent {
       sError += "\n\r Parent ID Cannot Be Blank";
     }
 
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -312,10 +317,11 @@ export class JobOperationsComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.opr_job_id == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -436,6 +442,7 @@ export class JobOperationsComponent {
         return;
       if (this.parentid.trim().length <= 0) {
         this.ErrorMessage = "Invalid ID";
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -494,10 +501,11 @@ export class JobOperationsComponent {
         }
 
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   //GetBrAddress(straddress: string) {
@@ -511,5 +519,5 @@ export class JobOperationsComponent {
   //  }
   //  return AddressSplit;
   //}
-  
+
 }

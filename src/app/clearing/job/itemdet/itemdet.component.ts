@@ -59,7 +59,7 @@ export class ItemDetComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    
+
   }
 
   // Destroy Will be called when this component is closed
@@ -68,13 +68,13 @@ export class ItemDetComponent {
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-      for (let propName in changes) {
-          let changedProp = changes[propName];
-          let from = changedProp.previousValue;
-          if (propName == 'parentid') {
-              this.ActionHandler("EDIT", this.parentid);
-          }
+    for (let propName in changes) {
+      let changedProp = changes[propName];
+      let from = changedProp.previousValue;
+      if (propName == 'parentid') {
+        this.ActionHandler("EDIT", this.parentid);
       }
+    }
   }
 
 
@@ -112,23 +112,23 @@ export class ItemDetComponent {
 
   LovSelected(_Record: SearchTable) {
 
-     if (_Record.controlname == "COUNTRY") {
-       this.Record.itm_prod_country_id = _Record.id;
-       this.Record.itm_prod_country_name = _Record.name;
+    if (_Record.controlname == "COUNTRY") {
+      this.Record.itm_prod_country_id = _Record.id;
+      this.Record.itm_prod_country_name = _Record.name;
     }
-     if (_Record.controlname == "STATE") {
-       this.Record.itm_prod_state_id = _Record.id;
-       this.Record.itm_prod_state_code = _Record.code;
-     }
-     if (_Record.controlname == "TRANSCOUNTRY") {
-       this.Record.itm_prod_transit_country_id = _Record.id;
-       this.Record.itm_prod_transit_country_name = _Record.name;
-     }
-     if (_Record.controlname == "DFIA-UNIT") {
-       this.Record.itm_dfia_unit_id = _Record.id;
-       this.Record.itm_dfia_unit_code = _Record.code;
-       this.Record.itm_dfia_unit_name = _Record.name;
-     }
+    if (_Record.controlname == "STATE") {
+      this.Record.itm_prod_state_id = _Record.id;
+      this.Record.itm_prod_state_code = _Record.code;
+    }
+    if (_Record.controlname == "TRANSCOUNTRY") {
+      this.Record.itm_prod_transit_country_id = _Record.id;
+      this.Record.itm_prod_transit_country_name = _Record.name;
+    }
+    if (_Record.controlname == "DFIA-UNIT") {
+      this.Record.itm_dfia_unit_id = _Record.id;
+      this.Record.itm_dfia_unit_code = _Record.code;
+      this.Record.itm_dfia_unit_name = _Record.name;
+    }
   }
 
 
@@ -191,10 +191,11 @@ export class ItemDetComponent {
         this.RecordList = response.list;
         this.title = response.containerno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -233,8 +234,8 @@ export class ItemDetComponent {
     this.Record.itm_dfia_characteristics = '';
     this.Record.itm_dfia_filenumber = '';
     this.Record.itm_dfia_licno = '';
-    
-    
+
+
     this.InitLov();
     //this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;
     //this.PKGUNITRECORD.code = this.Record.pack_pkg_unit_code;
@@ -261,10 +262,11 @@ export class ItemDetComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: ItemDet) {
@@ -301,10 +303,11 @@ export class ItemDetComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -319,8 +322,10 @@ export class ItemDetComponent {
       sError += "\n\r Parent ID Cannot Be Blank";
     }
 
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -343,10 +348,11 @@ export class ItemDetComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.itm_parent_id == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 

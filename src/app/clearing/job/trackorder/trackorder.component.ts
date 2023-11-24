@@ -113,6 +113,7 @@ export class TrackOrderComponent  {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -128,6 +129,7 @@ export class TrackOrderComponent  {
     this.InfoMessage = '';
     if (this.Record.ord_pkid.trim().length <= 0) {
       this.ErrorMessage = " Cannot Save Invalid ID";
+      alert(this.ErrorMessage);
       return;
     }
       
@@ -143,6 +145,7 @@ export class TrackOrderComponent  {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
@@ -190,6 +193,7 @@ export class TrackOrderComponent  {
     if (controlname == 'cost_folderno') {
       if (this.Record.ord_pkid.trim().length <= 0) {
         this.ErrorMessage = " Cannot Update Invalid ID";
+        alert(this.ErrorMessage);
         return;
       }
     }
@@ -223,6 +227,7 @@ export class TrackOrderComponent  {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   
     }

@@ -100,6 +100,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -174,6 +175,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -208,7 +210,7 @@ export class JobOrderComponent {
     this.Record.ord_source = '';
     this.Record.ord_deliv_place = '';
     this.Record.ord_pkg_unit = '';
-    this.Record.ord_uid =0;
+    this.Record.ord_uid = 0;
     this.Record.rec_mode = this.mode;
     this.InitLov();
 
@@ -244,6 +246,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -276,6 +279,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -298,8 +302,10 @@ export class JobOrderComponent {
     */
 
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -347,6 +353,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -505,6 +512,7 @@ export class JobOrderComponent {
     }
     if (OrdPkids == "") {
       this.ErrorMessage = "Please select PO and Continue.....";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -881,6 +889,7 @@ export class JobOrderComponent {
     if (this.mList.length <= 0) {
       this.InfoMessage = '';
       this.ErrorMessage = 'Data Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -902,6 +911,7 @@ export class JobOrderComponent {
         }
         else {
           this.ErrorMessage = "Cannot Insert, All These PO's Already Exist!";
+          alert(this.ErrorMessage);
         }
 
         for (var i = 0; i < this.mList.length; i++) {
@@ -931,6 +941,7 @@ export class JobOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   GetColIndex(SourceCol: string, TargetCol: string, indx: number) {

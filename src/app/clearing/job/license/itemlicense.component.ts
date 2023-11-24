@@ -21,7 +21,7 @@ export class ItemLicenseComponent {
 
   @ViewChild('lic_reg_no') private lic_reg_no: ElementRef;
   @ViewChild('lic_slno_partc') private lic_slno_partc: ElementRef;
-  
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
@@ -49,7 +49,7 @@ export class ItemLicenseComponent {
   Record: ItemLicense = new ItemLicense;
 
   LICUNITRECORD: SearchTable = new SearchTable();
- 
+
   constructor(
     private mainService: ItemLicenseService,
     private route: ActivatedRoute,
@@ -97,11 +97,11 @@ export class ItemLicenseComponent {
       this.Record.lic_unit_code = _Record.code;
       this.Record.lic_unit_name = _Record.name;
     }
-    
+
   }
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1 ) {
+  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -116,7 +116,7 @@ export class ItemLicenseComponent {
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-        this.selectedRowIndex = _selectedRowIndex;
+      this.selectedRowIndex = _selectedRowIndex;
       this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
@@ -153,10 +153,11 @@ export class ItemLicenseComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -189,7 +190,7 @@ export class ItemLicenseComponent {
     this.Record.lic_unit_id = '';
     this.Record.lic_unit_code = '';
     this.Record.lic_unit_name = '';
-     
+
 
     this.Record.rec_mode = this.mode;
     this.InitLov();
@@ -198,7 +199,7 @@ export class ItemLicenseComponent {
     this.LICUNITRECORD.code = this.gs.defaultValues.param_unit_pcs_code;
     this.Record.lic_unit_id = this.LICUNITRECORD.id;
     this.Record.lic_unit_code = this.LICUNITRECORD.code;
-     
+
     if (this.Record.lic_reg_no == '')
       this.lic_reg_no.nativeElement.focus();
     else
@@ -220,10 +221,11 @@ export class ItemLicenseComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: ItemLicense) {
@@ -232,7 +234,7 @@ export class ItemLicenseComponent {
     this.LICUNITRECORD.id = this.Record.lic_unit_id;
     this.LICUNITRECORD.code = this.Record.lic_unit_code;
     this.LICUNITRECORD.name = this.Record.lic_unit_name;
-    
+
     this.Record.rec_mode = this.mode;
     this.lic_reg_no.nativeElement.focus();
   }
@@ -256,10 +258,11 @@ export class ItemLicenseComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -272,15 +275,17 @@ export class ItemLicenseComponent {
       bret = false;
       sError += "\n\r | Item ID Cannot Be Blank";
     }
-    
+
     if (this.jobid.trim().length <= 0) {
       bret = false;
       sError += "\n\r | Job ID Cannot Be Blank";
     }
 
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -325,10 +330,11 @@ export class ItemLicenseComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.lic_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 

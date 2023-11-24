@@ -330,6 +330,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -406,12 +407,12 @@ export class OnlineTrackComponent {
       file_pkid: this.gs.getGuid(),
       ord_status: this.ord_status,
       sort_colname: this.sort_colname,
-      tp_code:this.gs.globalVariables.tp_code,
-      tp_name:this.gs.globalVariables.tp_name,
-      istp:this.gs.globalVariables.istp
+      tp_code: this.gs.globalVariables.tp_code,
+      tp_name: this.gs.globalVariables.tp_name,
+      istp: this.gs.globalVariables.istp
     };
 
-    this.ErrorMessage = ''; 
+    this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
@@ -428,6 +429,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -509,6 +511,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -564,6 +567,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -594,8 +598,10 @@ export class OnlineTrackComponent {
 
 
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
 
   }
@@ -750,12 +756,12 @@ export class OnlineTrackComponent {
           this.Record.ord_pod = this.Record.ord_pod.toUpperCase();
           break;
         }
-        case 'master_no':
+      case 'master_no':
         {
           this.master_no = this.master_no.toUpperCase();
           break;
         }
-        case 'house_no': 
+      case 'house_no':
         {
           this.house_no = this.house_no.toUpperCase();
           break;
@@ -1118,19 +1124,23 @@ export class OnlineTrackComponent {
     if (this.mList.length <= 0) {
       this.InfoMessage = '';
       this.ErrorMessage = 'Data Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
     if (this.AGENTRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Agent Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.EXPRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Shipper Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.IMPRECORD.id.trim().length <= 0) {
       this.ErrorMessage = 'Consignee Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1155,6 +1165,7 @@ export class OnlineTrackComponent {
         }
         else {
           this.ErrorMessage = "Cannot Insert, All These PO's Already Exist!";
+          alert(this.ErrorMessage);
         }
 
 
@@ -1181,6 +1192,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1232,122 +1244,122 @@ export class OnlineTrackComponent {
     this.open(approvedorder);
   }
 
-//   MailOrders(ftpsent: any, sType: string, _filetype: string = "") {
-//     this.InfoMessage = '';
-//     this.ErrorMessage = '';
-//     this.ftp_agent_code = '';
-//     this.ftp_agent_name = '';
-//     let ord_ids: string = '';
-//     let ord_id_POs: string = '';
-//     let pre_data: string = '';
-//     let POID_Is_Blank: Boolean = false;
-//     let Multiple_Agent_Found: Boolean = false;
-//     if (sType == 'MULTIPLE') {
-//       ord_ids = "";
-//       ord_id_POs = "";
-//       pre_data = "";
-//       for (let rec of this.RecordList) {
-//         if (rec.ord_selected) {
+  //   MailOrders(ftpsent: any, sType: string, _filetype: string = "") {
+  //     this.InfoMessage = '';
+  //     this.ErrorMessage = '';
+  //     this.ftp_agent_code = '';
+  //     this.ftp_agent_name = '';
+  //     let ord_ids: string = '';
+  //     let ord_id_POs: string = '';
+  //     let pre_data: string = '';
+  //     let POID_Is_Blank: Boolean = false;
+  //     let Multiple_Agent_Found: Boolean = false;
+  //     if (sType == 'MULTIPLE') {
+  //       ord_ids = "";
+  //       ord_id_POs = "";
+  //       pre_data = "";
+  //       for (let rec of this.RecordList) {
+  //         if (rec.ord_selected) {
 
-//           if (pre_data === "")
-//             pre_data = rec.ord_agent_code;
-//           if (pre_data != rec.ord_agent_code)
-//             Multiple_Agent_Found = true;
+  //           if (pre_data === "")
+  //             pre_data = rec.ord_agent_code;
+  //           if (pre_data != rec.ord_agent_code)
+  //             Multiple_Agent_Found = true;
 
-//           if (ord_ids != "")
-//             ord_ids += ",";
-//           ord_ids += rec.ord_pkid;
+  //           if (ord_ids != "")
+  //             ord_ids += ",";
+  //           ord_ids += rec.ord_pkid;
 
-//           if (ord_id_POs != "")
-//             ord_id_POs += ",";
-//           ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
+  //           if (ord_id_POs != "")
+  //             ord_id_POs += ",";
+  //           ord_id_POs += rec.ord_pkid + "~PO-" + rec.ord_po;
 
-//           if (this.ftpTransfertype == 'TRACKING')
-//             if (rec.ord_uid == 0 && rec.ord_agent_code=="TRANSPORTE-MX")
-//               POID_Is_Blank = true;
+  //           if (this.ftpTransfertype == 'TRACKING')
+  //             if (rec.ord_uid == 0 && rec.ord_agent_code=="TRANSPORTE-MX")
+  //               POID_Is_Blank = true;
 
-//           this.ftp_agent_code = rec.ord_agent_code;
-//           this.ftp_agent_name = rec.ord_agent_name;
-//         }
-//       }
-//       if (Multiple_Agent_Found) {
-//         this.ErrorMessage = " Different Agent Found in selected List....";
-//         alert(this.ErrorMessage);
-//         return;
-//       }
-//       if (ord_ids == "") {
-//         this.ErrorMessage = " Please select PO and continue.....";
-//         alert(this.ErrorMessage);
-//         return;
-//       }
-//       this.pkid = ord_ids;
-//     } else {
-//       for (let rec of this.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
-//         this.ftp_agent_code = rec.ord_agent_code;
-//         this.ftp_agent_name = rec.ord_agent_name;
-//         if (this.ftpTransfertype == 'TRACKING' && rec.ord_uid == 0)
-//           POID_Is_Blank = true;
-//       }
-//     }
+  //           this.ftp_agent_code = rec.ord_agent_code;
+  //           this.ftp_agent_name = rec.ord_agent_name;
+  //         }
+  //       }
+  //       if (Multiple_Agent_Found) {
+  //         this.ErrorMessage = " Different Agent Found in selected List....";
+  //         alert(this.ErrorMessage);
+  //         return;
+  //       }
+  //       if (ord_ids == "") {
+  //         this.ErrorMessage = " Please select PO and continue.....";
+  //         alert(this.ErrorMessage);
+  //         return;
+  //       }
+  //       this.pkid = ord_ids;
+  //     } else {
+  //       for (let rec of this.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
+  //         this.ftp_agent_code = rec.ord_agent_code;
+  //         this.ftp_agent_name = rec.ord_agent_name;
+  //         if (this.ftpTransfertype == 'TRACKING' && rec.ord_uid == 0)
+  //           POID_Is_Blank = true;
+  //       }
+  //     }
 
 
-//     if (this.pkid.trim().length <= 0) {
-//       this.ErrorMessage = "\n\r | Invalid ID";
-//       return;
-//     }
-//     if (POID_Is_Blank) {
-//       this.ErrorMessage = " PO.ID Not Found ";
-//       alert(this.ErrorMessage);
-//       return;
-//     }
+  //     if (this.pkid.trim().length <= 0) {
+  //       this.ErrorMessage = "\n\r | Invalid ID";
+  //       return;
+  //     }
+  //     if (POID_Is_Blank) {
+  //       this.ErrorMessage = " PO.ID Not Found ";
+  //       alert(this.ErrorMessage);
+  //       return;
+  //     }
 
-//     this.loading = true;
-//     this.ErrorMessage = '';
-//     let SearchData = {
-//       report_folder: this.gs.globalVariables.report_folder,
-//       company_code: this.gs.globalVariables.comp_code,
-//       branch_code: this.gs.globalVariables.branch_code,
-//       rowtype: _filetype,
-//       type: '',
-//       pkid: '',
-//       filedisplayname: '',
-//       agent_code:''
-//     };
+  //     this.loading = true;
+  //     this.ErrorMessage = '';
+  //     let SearchData = {
+  //       report_folder: this.gs.globalVariables.report_folder,
+  //       company_code: this.gs.globalVariables.comp_code,
+  //       branch_code: this.gs.globalVariables.branch_code,
+  //       rowtype: _filetype,
+  //       type: '',
+  //       pkid: '',
+  //       filedisplayname: '',
+  //       agent_code:''
+  //     };
 
-//     SearchData.report_folder = this.gs.globalVariables.report_folder;
-//     SearchData.branch_code = this.gs.globalVariables.branch_code;
-//     SearchData.company_code = this.gs.globalVariables.comp_code;
-//     SearchData.type = this.ftpTransfertype;
-//     SearchData.pkid = this.pkid;
-//     SearchData.rowtype = _filetype;
-//     SearchData.filedisplayname = '';
-//     SearchData.agent_code = this.ftp_agent_code;
-//     this.mainService.GenerateXmlEdiMexico(SearchData)
-//       .subscribe(response => {
-//         this.loading = false;
-//         if (_filetype == 'CHECK-LIST') {
-//           this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
-//         } else {
-//           this.sSubject = response.subject;
-//           this.ftpUpdtSql = response.updatesql;
-//           if (sType == 'MULTIPLE')
-//             this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
-//           this.AttachList = new Array<any>();
-//           if (this.ftpTransfertype == 'ORDERLIST') {
-//             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
-//             if (response.filenameack)
-//             this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
-//           } else //TRACKING CARGO PROCESS
-//             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
-//           this.open(ftpsent);
-//         }
-//       },
-//         error => {
-//           this.loading = false;
-//           this.ErrorMessage = this.gs.getError(error);
-//           alert(this.ErrorMessage);
-//         });
-//   }
+  //     SearchData.report_folder = this.gs.globalVariables.report_folder;
+  //     SearchData.branch_code = this.gs.globalVariables.branch_code;
+  //     SearchData.company_code = this.gs.globalVariables.comp_code;
+  //     SearchData.type = this.ftpTransfertype;
+  //     SearchData.pkid = this.pkid;
+  //     SearchData.rowtype = _filetype;
+  //     SearchData.filedisplayname = '';
+  //     SearchData.agent_code = this.ftp_agent_code;
+  //     this.mainService.GenerateXmlEdiMexico(SearchData)
+  //       .subscribe(response => {
+  //         this.loading = false;
+  //         if (_filetype == 'CHECK-LIST') {
+  //           this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
+  //         } else {
+  //           this.sSubject = response.subject;
+  //           this.ftpUpdtSql = response.updatesql;
+  //           if (sType == 'MULTIPLE')
+  //             this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
+  //           this.AttachList = new Array<any>();
+  //           if (this.ftpTransfertype == 'ORDERLIST') {
+  //             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+  //             if (response.filenameack)
+  //             this.AttachList.push({ filename: response.filenameack, filetype: response.filetypeack, filedisplayname: response.filedisplaynameack, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE-ACK', fileisack: 'Y', fileprocessid: response.processid, filesize: response.filesizeack });
+  //           } else //TRACKING CARGO PROCESS
+  //             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'CARGO PROCESS', fileftpfolder: 'FTP-FOLDER-PO-DATA', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize });
+  //           this.open(ftpsent);
+  //         }
+  //       },
+  //         error => {
+  //           this.loading = false;
+  //           this.ErrorMessage = this.gs.getError(error);
+  //           alert(this.ErrorMessage);
+  //         });
+  //   }
 
   ShowHistory(history: any) {
     this.ErrorMessage = '';
@@ -1404,6 +1416,7 @@ export class OnlineTrackComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

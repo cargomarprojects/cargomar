@@ -34,7 +34,7 @@ export class EdiOrderComponent {
 
   loading = false;
   currentTab = 'LIST';
-   
+
   chk_all_pol: boolean = false;
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
@@ -180,7 +180,7 @@ export class EdiOrderComponent {
       user_code: this.gs.globalVariables.user_code,
       update_type: this.update_type,
       chkallpol: this.chk_all_pol == true ? "Y" : "N",
-      ord_po_aprvd:this.ord_po_aprvd
+      ord_po_aprvd: this.ord_po_aprvd
     };
 
     this.ErrorMessage = '';
@@ -197,6 +197,7 @@ export class EdiOrderComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -423,6 +424,7 @@ export class EdiOrderComponent {
   Update(_type: string) {
     if (this.agent_id == "") {
       this.ErrorMessage = "Please Select Agent and Continue.....";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -470,6 +472,9 @@ export class EdiOrderComponent {
             this.InfoMessage = "No Errors Found";
           if (_type == 'CREATE-PO')
             this.InfoMessage = "Save Complete";
+          
+          if (this.InfoMessage)
+            alert(this.InfoMessage);
         }
       },
         error => {

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../../core/services/global.service';
 
-import { JobPackinglist} from '../../models/jobpackinglist';
+import { JobPackinglist } from '../../models/jobpackinglist';
 
 import { JobPackingListService } from '../../services/jobpackinglist.service';
 
@@ -40,7 +40,7 @@ export class JobPackingListComponent {
   pkid = '';
 
   ctr: number;
-  
+
   // Array For Displaying List
   RecordList: JobPackinglist[] = [];
   // Single Record for add/edit/view details
@@ -54,13 +54,13 @@ export class JobPackingListComponent {
     private gs: GlobalService
   ) {
     this.InitLov();
-    
+
   }
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-      this.List("NEW");
-      this.ActionHandler("ADD", null);
+    this.List("NEW");
+    this.ActionHandler("ADD", null);
   }
 
   // Destroy Will be called when this component is closed
@@ -87,7 +87,7 @@ export class JobPackingListComponent {
   }
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1 ) {
+  ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -140,10 +140,11 @@ export class JobPackingListComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -165,7 +166,7 @@ export class JobPackingListComponent {
 
     this.PKGUNITRECORD.id = this.Record.pack_type_id;
     this.PKGUNITRECORD.code = this.Record.pack_type_code;
-     
+
     this.pack_from.nativeElement.focus();
   }
 
@@ -184,10 +185,11 @@ export class JobPackingListComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: JobPackinglist) {
@@ -220,10 +222,11 @@ export class JobPackingListComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -241,8 +244,10 @@ export class JobPackingListComponent {
       sError += "\n\r | Invalid Cartons";
     }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -281,10 +286,11 @@ export class JobPackingListComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.pack_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -312,7 +318,7 @@ export class JobPackingListComponent {
     //      this.Record.ord_exp_name = this.Record.ord_exp_name.toUpperCase();
     //      break;
     //    }
-    
+
     //}
   }
 

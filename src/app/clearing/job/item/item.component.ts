@@ -130,6 +130,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -463,6 +464,7 @@ export class ItemComponent {
         if (controlname == 'itemmaster') {
           this.InfoMessage = 'Item Master Updated For Code ';
           this.InfoMessage += response.itemmaster;
+          alert(this.InfoMessage);
         }
         if (controlname == 'dbk') {
           this.Record.itm_dbk_type = '';
@@ -492,6 +494,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -568,6 +571,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -757,6 +761,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -857,8 +862,10 @@ export class ItemComponent {
       bret = false;
       sError = "Description Cannot Be Blank";
     }
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -914,6 +921,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1139,10 +1147,12 @@ export class ItemComponent {
     this.InfoMessage = '';
     if (this.itm_code == '') {
       this.ErrorMessage = " Code Cannot be Blank. ";
+      alert(this.ErrorMessage);
       return;
     }
     if (this.Record.itm_dbk_code == null || this.Record.itm_dbk_code == undefined) {
       this.ErrorMessage = " Drawback Code Cannot be Blank. ";
+      alert(this.ErrorMessage);
       return;
     }
     this.SearchRecord('itemmaster');
@@ -1206,6 +1216,7 @@ export class ItemComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

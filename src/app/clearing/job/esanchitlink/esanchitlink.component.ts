@@ -117,6 +117,7 @@ export class EsanchitLinkComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
     
@@ -135,6 +136,7 @@ export class EsanchitLinkComponent {
 
     if (DocPkid == "") {
       this.ErrorMessage = "Please Select and Continue.....";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -185,6 +187,7 @@ export class EsanchitLinkComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

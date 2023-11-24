@@ -129,10 +129,11 @@ export class JobContainerComponent {
                 this.loading = false;
                 this.RecordList = response.list;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 
     NewRecord() {
@@ -154,7 +155,7 @@ export class JobContainerComponent {
 
         this.Record.rec_mode = this.mode;
         this.InitLov();
-      
+
         this.cntr_no.nativeElement.focus();
     }
 
@@ -173,10 +174,11 @@ export class JobContainerComponent {
                 this.loading = false;
                 this.LoadData(response.record);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 
     LoadData(_Record: JobContainer) {
@@ -188,26 +190,27 @@ export class JobContainerComponent {
 
     // Save Data
     Save() {
-      if (!this.allvalid())
-        return;
-      this.loading = true;
-      this.ErrorMessage = '';
-      this.InfoMessage = '';
-      this.Record.cntr_job_id = this.parentid;
-      this.Record._globalvariables = this.gs.globalVariables;
-      this.mainService.Save(this.Record)
-        .subscribe(response => {
-          this.loading = false;
-          this.InfoMessage = "Save Complete";
-          this.mode = 'EDIT';
-          this.Record.rec_mode = this.mode;
-          this.RefreshList();
-          this.ActionHandler('ADD', null);
-        },
-        error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-        });
+        if (!this.allvalid())
+            return;
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.Record.cntr_job_id = this.parentid;
+        this.Record._globalvariables = this.gs.globalVariables;
+        this.mainService.Save(this.Record)
+            .subscribe(response => {
+                this.loading = false;
+                this.InfoMessage = "Save Complete";
+                this.mode = 'EDIT';
+                this.Record.rec_mode = this.mode;
+                this.RefreshList();
+                this.ActionHandler('ADD', null);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 
     allvalid() {
@@ -217,8 +220,8 @@ export class JobContainerComponent {
         this.InfoMessage = '';
 
         if (this.Record.cntr_no.trim().length <= 0) {
-          bret = false;
-          sError += "\n\r | Container Number Cannot Be Blank";
+            bret = false;
+            sError += "\n\r | Container Number Cannot Be Blank";
         }
 
         if (this.Record.cntr_size.trim().length <= 0) {
@@ -227,8 +230,10 @@ export class JobContainerComponent {
         }
 
 
-        if (bret === false)
+        if (bret === false) {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -256,9 +261,9 @@ export class JobContainerComponent {
     }
 
     RemoveList(event: any) {
-      if (event.selected) {
-        this.ActionHandler('REMOVE', event.id)
-      }
+        if (event.selected) {
+            this.ActionHandler('REMOVE', event.id)
+        }
     }
     RemoveRecord(Id: string) {
         this.loading = true;
@@ -275,10 +280,11 @@ export class JobContainerComponent {
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.cntr_pkid == this.pkid), 1);
                 this.ActionHandler('ADD', null);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 
 
@@ -296,11 +302,11 @@ export class JobContainerComponent {
     }
 
     OnBlur(field: string) {
-      var oldChar = / /gi;//replace all blank space in a string
+        var oldChar = / /gi;//replace all blank space in a string
         switch (field) {
             case 'cntr_no':
                 {
-              this.Record.cntr_no = this.Record.cntr_no.replace(oldChar, '').toUpperCase();
+                    this.Record.cntr_no = this.Record.cntr_no.replace(oldChar, '').toUpperCase();
                     break;
                 }
             case 'cntr_sealno':

@@ -97,8 +97,10 @@ export class EdiOrdUpdateComponent {
             bret = false;
         }
 
-        if (bret === false)
+        if (bret === false) {
             this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
@@ -107,6 +109,7 @@ export class EdiOrdUpdateComponent {
         this.ErrorMessage = '';
         if (this.pkid.trim().length <= 0) {
             this.ErrorMessage = "Invalid ID";
+            alert(this.ErrorMessage);
             return;
         }
 
@@ -151,7 +154,8 @@ export class EdiOrdUpdateComponent {
             },
                 error => {
                     this.loading = false;
-                    this.InfoMessage = this.gs.getError(error);
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
