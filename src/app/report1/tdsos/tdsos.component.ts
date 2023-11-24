@@ -203,6 +203,7 @@ Ajith 06/06/2019 Excel print for branch wise implemented
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
