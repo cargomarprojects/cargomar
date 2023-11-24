@@ -156,6 +156,7 @@ export class StuffingComponent {
   List(_type: string, mailsent: any) {
     if (this.searchstring.trim().length <= 0) {
       this.ErrorMessage = 'Container Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -199,6 +200,7 @@ export class StuffingComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

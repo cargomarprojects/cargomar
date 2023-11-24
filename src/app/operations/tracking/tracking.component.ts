@@ -22,7 +22,7 @@ export class TrackingComponent {
   //@ViewChild('VesselLov') private VesselLov: ElementRef;
 
   @ViewChild('VesselLov') private VesselLov: AutoCompleteComponent;
-  
+
   @ViewChild('trk_pol_etd') private trk_pol_etd: DateComponent;
   @ViewChild('trk_pod_eta') private trk_pod_eta: DateComponent;
 
@@ -188,10 +188,11 @@ export class TrackingComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -247,10 +248,11 @@ export class TrackingComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: Trackingm) {
@@ -294,10 +296,11 @@ export class TrackingComponent {
         this.RefreshList();
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -336,15 +339,17 @@ export class TrackingComponent {
       bret = false;
       sError += "\n\r | ETA Cannot Be Blank";
     }
-   
+
     // if(this.Record.trk_pkid == this.parentid && this.RecordList.length==1)
     // {
     //   bret = false;
     //   sError = "\n\r | Update tracking in Basic Details if there is no Transit Shipment";
     // }
 
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -362,7 +367,7 @@ export class TrackingComponent {
       REC.trk_vsl_name = this.Record.trk_vsl_name;
       REC.trk_voyage = this.Record.trk_voyage;
       REC.trk_pol_name = this.Record.trk_pol_name;
-      REC.trk_pol_etd =  this.trk_pol_etd.GetDisplayDate();
+      REC.trk_pol_etd = this.trk_pol_etd.GetDisplayDate();
       REC.trk_pol_etd_confirm = this.Record.trk_pol_etd_confirm;
       REC.trk_pod_name = this.Record.trk_pod_name;
       REC.trk_pod_eta = this.trk_pod_eta.GetDisplayDate();
@@ -386,10 +391,11 @@ export class TrackingComponent {
         this.RecordList.splice(this.RecordList.findIndex(rec => rec.trk_pkid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Close() {

@@ -1235,8 +1235,10 @@ export class MblSeaComponent {
       this.ErrorMessage += "\n\r | Liner Cannot Be Blank";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
+    }
 
     this.sAgent_ID = _Record.book_agent_id;
     this.sAgent_ID2 = _Record.book_agent2_id;
@@ -1320,11 +1322,14 @@ export class MblSeaComponent {
       .subscribe(response => {
         this.loading = false;
         if (controlname == 'updatemaster') {
-          if (response.serror.length > 0)
+          if (response.serror.length > 0) {
             this.ErrorMessage = response.serror;
+            alert(this.ErrorMessage);
+          }
           else {
             this.foldersent = response.foldersent;
             this.InfoMessage = 'Save Complete';
+            alert(this.InfoMessage);
           }
         }
         if (controlname == 'bookno') {
@@ -1563,6 +1568,7 @@ export class MblSeaComponent {
     this.ErrorMessage = '';
     if (this.Record.book_agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -1627,6 +1633,7 @@ export class MblSeaComponent {
     this.ErrorMessage = '';
     if (this.Record.book_agent_id.trim().length <= 0) {
       this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
       return;
     }
     // if (this.Record.book_agent_name.indexOf("RITRA") < 0) {

@@ -158,6 +158,7 @@ export class JobIncomeComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
   }
@@ -319,6 +320,7 @@ export class JobIncomeComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -428,7 +430,7 @@ export class JobIncomeComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
-        
+
         if (this.gs.globalVariables.user_code == "ADMIN") {
           this.lock_record = false;
           this.Record.inv_rebate2_posted = false;
@@ -440,6 +442,7 @@ export class JobIncomeComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -573,10 +576,10 @@ export class JobIncomeComponent {
     }
 
 
-
-    if (bret === false)
+    if (bret === false) {
       this.ErrorMessage = sError;
-
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -627,6 +630,7 @@ export class JobIncomeComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -667,7 +671,7 @@ export class JobIncomeComponent {
 
   ChangeAccList() {
     let sWhere: string = '';
-    
+
     if (this.type == 'SEA EXPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
         sWhere = " (acc_main_code in ('1101','1103','1104') or acc_code in ('1102003','1102004') )";
@@ -689,7 +693,7 @@ export class JobIncomeComponent {
       if (this.Record.inv_source == 'EX-WORK') {
         sWhere = " (acc_main_code in ('1301', '1303', '1304','1305','1306') or acc_code in('1302003','1302004','1307003','1307004','1307005') )";
       }
-    }    
+    }
 
     if (this.type == 'AIR EXPORT') {
       if (this.Record.inv_source == 'CLEARING INCOME') {
@@ -858,6 +862,7 @@ export class JobIncomeComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

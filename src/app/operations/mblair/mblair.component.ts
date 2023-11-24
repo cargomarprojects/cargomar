@@ -66,7 +66,7 @@ export class MblAirComponent {
 
   mode = '';
   pkid = '';
-  
+
   FileList: any[] = [];
   StatusList: Param[] = [];
   // Array For Displaying List
@@ -838,9 +838,11 @@ export class MblAirComponent {
       this.ErrorMessage += "\n\r | Carrier Cannot Be Blank";
     }
 
-    if (this.ErrorMessage.length > 0)
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
       return;
-
+    }
+    
     this.sAgent_ID = _Record.mbl_agent_id;
     this.sCarrier_ID = _Record.mbl_carrier_id;
 
@@ -1053,9 +1055,9 @@ export class MblAirComponent {
 
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
         }
-       
+
       },
         error => {
           this.loading = false;

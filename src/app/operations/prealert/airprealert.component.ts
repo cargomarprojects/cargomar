@@ -144,10 +144,12 @@ export class AirPreAlertComponent {
   List(_type: string) {
     if (this.searchmawb_no.trim().length <= 0) {
       this.ErrorMessage = 'MAWB-NO Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     if (this.types.trim().length <= 0) {
       this.ErrorMessage = 'TYPE Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
     this.loading = true;
@@ -174,6 +176,7 @@ export class AirPreAlertComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 

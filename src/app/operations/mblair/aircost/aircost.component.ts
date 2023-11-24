@@ -35,7 +35,7 @@ export class AirCostComponent {
   pkid = '';
 
   ctr: number;
- 
+
 
   // Array For Displaying List
   RecordList: AirCostm[] = [];
@@ -106,7 +106,7 @@ export class AirCostComponent {
   }
 
   ResetControls() {
-     
+
   }
   List(_type: string) {
 
@@ -130,10 +130,11 @@ export class AirCostComponent {
         this.RecordList = response.list;
         this.title = response.containerno;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   NewRecord() {
@@ -166,9 +167,9 @@ export class AirCostComponent {
     this.Record.air_other_chg_exp = 0;
     this.Record.air_counter_informed = 0;
     this.Record.air_publish_rate = 0;
-    
+
     this.InitLov();
-    
+
   }
 
   // Load a single Record for VIEW/EDIT
@@ -192,10 +193,11 @@ export class AirCostComponent {
           this.LoadData(response.record);
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   LoadData(_Record: AirCostm) {
@@ -223,10 +225,11 @@ export class AirCostComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   allvalid() {
@@ -241,8 +244,10 @@ export class AirCostComponent {
       sError += "\n\r Parent ID Cannot Be Blank";
     }
 
-    if (bret == false)
+    if (bret == false) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -262,13 +267,14 @@ export class AirCostComponent {
     this.mainService.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-       this.RecordList.splice(this.RecordList.findIndex(rec => rec.air_mblid == this.pkid), 1);
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.air_mblid == this.pkid), 1);
         this.ActionHandler('ADD', null);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
@@ -278,10 +284,6 @@ export class AirCostComponent {
 
   OnBlur(field: string) {
     switch (field) {
-
-
-
-
 
       case 'air_rebate_payable':
         {
@@ -401,12 +403,12 @@ export class AirCostComponent {
           this.Record.air_counter_informed = this.gs.roundNumber(this.Record.air_counter_informed, 2);
           break;
         }
-      case 'air_publish_rate': 
+      case 'air_publish_rate':
         {
           this.Record.air_publish_rate = this.gs.roundNumber(this.Record.air_publish_rate, 2);
           break;
         }
     }
   }
-  
+
 }

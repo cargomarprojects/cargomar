@@ -144,6 +144,7 @@ export class PreAlertComponent {
   List(_type: string) {
     if (this.searchcontainer.trim().length <= 0) {
       this.ErrorMessage = 'Container Cannot Be Blank';
+      alert(this.ErrorMessage);
       return;
     }
 
@@ -171,6 +172,7 @@ export class PreAlertComponent {
       error => {
         this.loading = false;
         this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
   }
 
