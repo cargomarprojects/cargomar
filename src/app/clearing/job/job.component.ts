@@ -1041,6 +1041,7 @@ export class JobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1359,7 +1360,10 @@ export class JobComponent {
     }
 
     if (bret === false)
+    {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -1659,6 +1663,7 @@ export class JobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
   FillInfo(_Record: Jobm) {
@@ -1715,6 +1720,7 @@ export class JobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1760,6 +1766,7 @@ export class JobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
 
@@ -1788,6 +1795,7 @@ export class JobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -1804,6 +1812,7 @@ export class JobComponent {
     this.ErrorMessage = '';
     if (this.job_no.trim().length <= 0) {
       this.ErrorMessage = 'Please Enter a  Job Number and Continue......';
+      alert(this.ErrorMessage);
       return;
     }
     this.loading = true;
@@ -1832,11 +1841,13 @@ export class JobComponent {
         }
         else {
           this.ErrorMessage = 'Invalid Job#';
+          alert(this.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
