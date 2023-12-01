@@ -120,7 +120,7 @@ export class LeaveReqComponent {
     }
 
     if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
-      this.approvalstatus = 'APPROVED,REJECTED,SANCTIONED'
+      this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED'
     this.InitLov();
     this.LoadCombo();
   }
@@ -432,6 +432,10 @@ export class LeaveReqComponent {
     // if (field == 'lev_days_worked') {
     //   this.FindLpDays();
     // }
+
+    if (field == 'lr_remarks') {
+      this.Record.lr_remarks = this.Record.lr_remarks.toUpperCase();
+    }
   }
 
 

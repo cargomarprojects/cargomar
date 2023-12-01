@@ -69,17 +69,19 @@ export class ApprovedDetComponent {
 
     }
     LoadCombo() {
-
+        let _adStatus: string = "APPROVED,SANCTIONED,REJECTED";
         this.StatusList = new Array<any>();
         if (!this.gs.isBlank(this.approvalstatus)) {
             let rec = new SearchTable();
             var temparr = this.approvalstatus.split(',');
             for (let itm of temparr) {
-                if (this.gs.isBlank(this.Record.ad_status))
-                    this.Record.ad_status = itm;
-                rec = new SearchTable();
-                rec.name = itm;
-                this.StatusList.push(rec)
+                if (_adStatus.includes(itm)) {
+                    if (this.gs.isBlank(this.Record.ad_status))
+                        this.Record.ad_status = itm;
+                    rec = new SearchTable();
+                    rec.name = itm;
+                    this.StatusList.push(rec)
+                }
             }
         }
     }
@@ -200,8 +202,7 @@ export class ApprovedDetComponent {
             bret = false;
             sError += "\n\r | Approved Status Cannot be Blank";
         }
-        if (bret === false)
-        {
+        if (bret === false) {
             this.ErrorMessage = sError;
             alert(this.ErrorMessage);
         }
