@@ -854,6 +854,7 @@ export class MblSeaComponent {
       this.Record.book_cy_cutoff = '';
       this.Record.book_vgmwt = 0;
       this.Record.book_track_comments = '';
+      this.Record.book_released_date = '';
       this.VESSELRECORD.id = '';
       this.VESSELRECORD.code = '';
       this.VESSELRECORD.name = '';
