@@ -33,6 +33,8 @@ export class LeaveReqComponent {
   fromdate: string;
   todate: string;
 
+  levcaption1: string = "Full Day";
+  levcaption2: string = "Half Day";
   levyear = 0;
   levmonth = 0;
   lev_pl_tkn = 0;
@@ -277,6 +279,9 @@ export class LeaveReqComponent {
     this.Record.lr_sl_half_days = 0;
     this.Record.lr_lop_days = 0;
     this.Record.lr_lop_half_days = 0;
+    this.Record.lr_is_travelling = false;
+    this.Record.lr_travelling_days = 0;
+    this.Record.lr_travelling_half_days = 0;
     this.Record.rec_category = this.gs.globalVariables.emp_status;
     this.lock_record = false;
     this.InitLov();
@@ -351,6 +356,7 @@ export class LeaveReqComponent {
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
+    let _num = 0;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.gs.isBlank(this.Record.lr_emp_id)) {
@@ -371,15 +377,33 @@ export class LeaveReqComponent {
       bret = false;
       sError += "\n\r | Joining Date Cannot be Blank ";
     }
+    _num = this.Record.lr_travelling_days + this.Record.lr_travelling_half_days;
+    if (this.Record.lr_is_travelling) {
+      if (_num <= 0) {
+        bret = false;
+        sError += "\n\r | Value required for travelling days ";
+      }
+    }
+    if (_num > 0 && !this.Record.lr_is_travelling) {
+      bret = false;
+      sError += "\n\r | Please select Travelling to enter travelling days";
+    }
 
-    let _num = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
+    _num = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
     _num += this.Record.lr_sl_days + this.Record.lr_sl_half_days;
     _num += this.Record.lr_cl_days + this.Record.lr_cl_half_days;
     _num += this.Record.lr_lop_days + this.Record.lr_lop_half_days;
-    if (_num == 0) {
+    _num += this.Record.lr_travelling_days + this.Record.lr_travelling_half_days;
+    if (_num <= 0) {
       bret = false;
-      sError += "\n\r | Value required for atleast one leave category";
+      sError += "\n\r | Value required for atleast one leave category or travelling days";
     }
+
+    if (this.gs.isBlank(this.Record.lr_remarks)) {
+      bret = false;
+      sError += "\n\r | Reason Cannot be Blank ";
+    }
+
     if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
