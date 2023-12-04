@@ -21,7 +21,7 @@ export class ApprovedDetComponent {
     @Input() type: string = '';
     @Input() parentid: string = '';
     @Input() approvalstatus: string = '';
-
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     selectedRowIndex: number = -1;
 
@@ -32,6 +32,7 @@ export class ApprovedDetComponent {
     loading = false;
     currentTab = 'LIST';
 
+    CanDelete = false;
     bChanged: boolean;
 
     ErrorMessage = "";
@@ -54,6 +55,8 @@ export class ApprovedDetComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
+        if (this.gs.globalVariables.user_code == "ADMIN")
+            this.CanDelete = true;
         this.InitLov();
         this.ActionHandler("ADD", null);
     }
@@ -143,6 +146,7 @@ export class ApprovedDetComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                this.showDelete();
             },
                 error => {
                     this.loading = false;
@@ -150,6 +154,16 @@ export class ApprovedDetComponent {
                 });
     }
 
+    showDelete() {
+        if (!this.gs.isBlank(this.RecordList)) {
+            for (let rec of this.RecordList) {
+                if (rec.rec_created_by == this.gs.globalVariables.user_code) {
+                    this.CanDelete = true;
+                    break;
+                }
+            }
+        }
+    }
     NewRecord() {
         this.pkid = this.gs.getGuid();
         this.Record = new ApprovedDet();
@@ -184,6 +198,9 @@ export class ApprovedDetComponent {
                 this.Record.rec_mode = this.mode;
                 this.RefreshList();
                 this.ActionHandler('ADD', null);
+                this.showDelete();
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ stype: 'SAVE', sid: this.parentid, approved_by: response.approved_by, sanctioned_by: response.sanctioned_by, rejected_by: response.rejected_by });
             },
                 error => {
                     this.loading = false;
@@ -215,6 +232,7 @@ export class ApprovedDetComponent {
             return;
         var REC = this.RecordList.find(rec => rec.ad_pkid == this.Record.ad_pkid);
         if (REC == null) {
+            this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.Record.rec_created_date);
             this.RecordList.push(this.Record);
         }
     }
@@ -251,7 +269,40 @@ export class ApprovedDetComponent {
 
     }
 
+    RemoveApproval(_ad_pkid: string, _ad_status: string, _statusby: string) {
+        if (!confirm("Do you want to Delete Record " + _ad_status + "  by " + _statusby)) {
+            return;
+        }
 
+        this.loading = true;
+        let SearchData = {
+            rowtype: this.type,
+            type: '',
+            pkid: _ad_pkid,
+            parentid: this.parentid,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+            ad_status: _ad_status
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.ad_pkid == _ad_pkid), 1);
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ stype: 'DELETE', sid: this.parentid, approved_by: response.approved_by, sanctioned_by: response.sanctioned_by, rejected_by: response.rejected_by });
+                alert("Removed Successfully");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+
+    }
 
 
 }

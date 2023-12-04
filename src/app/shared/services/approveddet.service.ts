@@ -22,7 +22,9 @@ export class ApprovedDetService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/ApprovedDet/Save', Record, this.gs.headerparam2('authorized'));
   }
 
- 
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/ApprovedDet/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
 
 
 }

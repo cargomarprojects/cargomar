@@ -35,6 +35,8 @@ export class LeaveReqComponent {
 
   levcaption1: string = "Full Day";
   levcaption2: string = "Half Day";
+  levcaption3: string = "Leave Taken";
+  levcaption4: string = "Leave Balance";
   levyear = 0;
   levmonth = 0;
   lev_pl_tkn = 0;
@@ -164,7 +166,7 @@ export class LeaveReqComponent {
     this.EMPRECORD.controlname = "EMPLOYEE";
     this.EMPRECORD.displaycolumn = "CODE";
     this.EMPRECORD.type = "EMPLOYEE";
-    this.EMPRECORD.where = "";
+    this.EMPRECORD.where = " a.rec_branch_code ='" + this.gs.globalVariables.branch_code + "' ";
     this.EMPRECORD.id = this.gs.globalVariables.emp_id;
     this.EMPRECORD.code = this.gs.globalVariables.emp_code;
     this.EMPRECORD.name = this.gs.globalVariables.emp_name;
@@ -507,5 +509,19 @@ export class LeaveReqComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  ModifiedRecords(params: any) {
+    // var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
+    // if (REC != null) {
+    //   if (params.stype == "BP" || params.stype == "JV-BP" || params.stype == "CP") {
+    //     if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
+    //       REC.rec_aprvd_status = params.mstatus;
+    //       REC.rec_aprvd_remark = params.mremarks;
+    //       REC.rec_aprvd_by = this.gs.globalVariables.user_code;
+    //     }
+    //   }
+    // }
+    // this.modal.close();
   }
 }
