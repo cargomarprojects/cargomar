@@ -512,16 +512,11 @@ export class LeaveReqComponent {
   }
 
   ModifiedRecords(params: any) {
-    // var REC = this.RecordList.find(rec => rec.jvh_pkid == params.sid);
-    // if (REC != null) {
-    //   if (params.stype == "BP" || params.stype == "JV-BP" || params.stype == "CP") {
-    //     if (params.mstatus.length > 0) {//if master updated then mstatus length greater than zero
-    //       REC.rec_aprvd_status = params.mstatus;
-    //       REC.rec_aprvd_remark = params.mremarks;
-    //       REC.rec_aprvd_by = this.gs.globalVariables.user_code;
-    //     }
-    //   }
-    // }
-    // this.modal.close();
+    var REC = this.RecordList.find(rec => rec.lr_pkid == params.sid);
+    if (REC != null) {
+      REC.lr_approved_by = params.approved_by;
+      REC.lr_sanctioned_by = params.sanctioned_by;
+      REC.lr_rejected_by = params.rejected_by;
+    }
   }
 }
