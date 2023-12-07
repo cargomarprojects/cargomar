@@ -168,7 +168,7 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="Record.lr_is_travelling"><span class="ml-1">Travelling</span>
+            <input type="checkbox" [(ngModel)]="Record.lr_is_travelling" id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling</label>
           </div>
         </div>
         <div class="form-group row">
@@ -292,6 +292,7 @@
         <div class="form-group row">
           <div class="offset-1 col-sm-10">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading"  *ngIf="mode=='EDIT'"  (click)="MailLeaveRequest()" class="btn btn-success btn-sm">Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">

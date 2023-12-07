@@ -519,4 +519,34 @@ export class LeaveReqComponent {
       REC.lr_rejected_by = params.rejected_by;
     }
   }
+
+  MailLeaveRequest() {
+    if (!confirm("Do you want to Sent Request Mail")) {
+      return;
+    }
+    this.loading = true;
+    let SearchData = {
+      pkid: this.Record.lr_pkid,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      user_pkid: this.gs.globalVariables.user_pkid
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.MailLeaveRequest(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = response.mailmsg;
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 }
