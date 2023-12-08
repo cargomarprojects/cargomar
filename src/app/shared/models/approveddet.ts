@@ -11,5 +11,6 @@ export class ApprovedDet {
     rec_category:string;
     rec_created_by: string;
     rec_created_date: string;
+    rec_created_name: string;
     _globalvariables: GlobalVariables;
 }

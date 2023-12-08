@@ -60,6 +60,7 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
+          <th *ngIf="bCompany">BRANCH</th>
           <th>APPLIED.ON</th>
           <th>FROM</th>
           <th>TO</th>
@@ -85,6 +86,7 @@
           (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.lr_pkid)">
           <td>{{rec.lr_emp_code}}</td>
           <td>{{rec.lr_emp_name}}</td>
+          <td *ngIf="bCompany">{{rec.lr_emp_branch_name}}</td>
           <td>{{rec.lr_apply_date}}</td>
           <td>{{rec.lr_from_date}}</td>
           <td>{{rec.lr_to_date}}</td>

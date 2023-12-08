@@ -14,7 +14,7 @@
                 <tr *ngFor="let rec of RecordList;let i = index" [class.active]="i == selectedRowIndex">
                     <td>{{rec.ad_status}}</td>
                     <td>{{rec.rec_created_date}}</td>
-                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.rec_created_name}}</td>
                     <td>{{rec.ad_remarks}}</td>
                     <td class="text-center" *ngIf="CanDelete"><i *ngIf="gs.globalVariables.user_code == 'ADMIN'||gs.globalVariables.user_code == rec.rec_created_by" class="fa fa-trash  fa-lg pointer" aria-hidden="true"
                         (click)="RemoveApproval(rec.ad_pkid,rec.ad_status,rec.rec_created_by)"></i></td>

@@ -239,6 +239,7 @@ export class LeaveReqComponent {
       todate: this.todate,
       is_admin: this.bAdmin,
       is_company: this.bCompany,
+      report_folder: this.gs.globalVariables.report_folder,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -250,10 +251,14 @@ export class LeaveReqComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
@@ -261,7 +266,9 @@ export class LeaveReqComponent {
           alert(this.ErrorMessage);
         });
   }
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   NewRecord() {
     this.pkid = this.gs.getGuid();
     this.Record = new LeaveReq();
@@ -450,9 +457,8 @@ export class LeaveReqComponent {
   OnChange(field: string) {
     if (field == 'lev_year' || field == 'lev_month')
       this.bChanged = true;
-    else if(field=='lr_is_travelling')
-    {
-      
+    else if (field == 'lr_is_travelling') {
+
     }
   }
   OnBlur(field: string) {
@@ -468,6 +474,50 @@ export class LeaveReqComponent {
     // if (field == 'lev_days_worked') {
     //   this.FindLpDays();
     // }
+
+
+    if (field == 'lr_pl_days') {
+      this.Record.lr_pl_days = this.gs.roundNumber(this.Record.lr_pl_days, 0);
+    }
+    if (field == 'lr_cl_days') {
+      this.Record.lr_cl_days = this.gs.roundNumber(this.Record.lr_cl_days, 0);
+    }
+    if (field == 'lr_sl_days') {
+      this.Record.lr_sl_days = this.gs.roundNumber(this.Record.lr_sl_days, 0);
+    }
+    if (field == 'lr_lop_days') {
+      this.Record.lr_lop_days = this.gs.roundNumber(this.Record.lr_lop_days, 0);
+    }
+    if (field == 'lr_travelling_days') {
+      this.Record.lr_travelling_days = this.gs.roundNumber(this.Record.lr_travelling_days, 0);
+    }
+
+    if (field == 'lr_pl_half_days') {
+      this.Record.lr_pl_half_days = this.gs.roundNumber(this.Record.lr_pl_half_days, 0);
+    }
+    if (field == 'lr_cl_half_days') {
+      this.Record.lr_cl_half_days = this.gs.roundNumber(this.Record.lr_cl_half_days, 0);
+    }
+    if (field == 'lr_sl_half_days') {
+      this.Record.lr_sl_half_days = this.gs.roundNumber(this.Record.lr_sl_half_days, 0);
+    }
+    if (field == 'lr_lop_half_days') {
+      this.Record.lr_lop_half_days = this.gs.roundNumber(this.Record.lr_lop_half_days, 0);
+    }
+    if (field == 'lr_travelling_half_days') {
+      this.Record.lr_travelling_half_days = this.gs.roundNumber(this.Record.lr_travelling_half_days, 0);
+    }
+
+
+
+    //sql += " select lr_pkid,lr_emp_id,lr_apply_date,lr_from_date, ";
+    //sql += " lr_to_date,lr_join_date,lr_cl_days,lr_cl_half_days, ";
+    //sql += " lr_sl_days,lr_sl_half_days,lr_pl_days,lr_pl_half_days, ";
+    //sql += " lr_lop_days,lr_lop_half_days,lr_remarks, ";
+    //sql += " lr_approved_by,lr_approved_date,lr_sanctioned_by,lr_sanctioned_date,";
+    //sql += " lr_rejected_by,lr_rejected_date,lr_is_travelling,lr_travelling_days,lr_travelling_half_days";
+    //sql += " ,emp_no,emp_name,c.comp_name as branch_name ";
+    //sql += " ,row_number() over(order by emp_no,lr_apply_date) rn ";
 
     if (field == 'lr_remarks') {
       this.Record.lr_remarks = this.Record.lr_remarks.toUpperCase();

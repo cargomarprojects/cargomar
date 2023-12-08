@@ -233,6 +233,7 @@ export class ApprovedDetComponent {
         var REC = this.RecordList.find(rec => rec.ad_pkid == this.Record.ad_pkid);
         if (REC == null) {
             this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.Record.rec_created_date);
+            this.Record.rec_created_name = this.gs.globalVariables.user_name;
             this.RecordList.push(this.Record);
         }
     }
