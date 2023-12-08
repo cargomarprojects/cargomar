@@ -359,6 +359,7 @@ export class LeaveReqComponent {
     let sError: string = "";
     let bret: boolean = true;
     let _num = 0;
+    let _num2 = 0;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.gs.isBlank(this.Record.lr_emp_id)) {
@@ -391,14 +392,18 @@ export class LeaveReqComponent {
       sError += "\n\r | Please select Travelling to enter travelling days";
     }
 
-    _num = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
-    _num += this.Record.lr_sl_days + this.Record.lr_sl_half_days;
-    _num += this.Record.lr_cl_days + this.Record.lr_cl_half_days;
-    _num += this.Record.lr_lop_days + this.Record.lr_lop_half_days;
-    _num += this.Record.lr_travelling_days + this.Record.lr_travelling_half_days;
-    if (_num <= 0) {
+    _num2 = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
+    _num2 += this.Record.lr_sl_days + this.Record.lr_sl_half_days;
+    _num2 += this.Record.lr_cl_days + this.Record.lr_cl_half_days;
+    _num2 += this.Record.lr_lop_days + this.Record.lr_lop_half_days;
+    if (_num2 <= 0 && !this.Record.lr_is_travelling) {
       bret = false;
-      sError += "\n\r | Value required for atleast one leave category or travelling days";
+      sError += "\n\r | Value required for atleast one leave category";
+    }
+
+    if (_num > 0 && _num2 > 0) {
+      bret = false;
+      sError += "\n\r | Both leave and travel cannot be applied together. ";
     }
 
     if (this.gs.isBlank(this.Record.lr_remarks)) {
@@ -441,9 +446,14 @@ export class LeaveReqComponent {
     if (field == 'lev_year' || field == 'lev_month')
       this.bChanged = false;
   }
+
   OnChange(field: string) {
     if (field == 'lev_year' || field == 'lev_month')
       this.bChanged = true;
+    else if(field=='lr_is_travelling')
+    {
+      
+    }
   }
   OnBlur(field: string) {
     // if (field == 'lev_year') {
@@ -518,6 +528,8 @@ export class LeaveReqComponent {
       REC.lr_sanctioned_by = params.sanctioned_by;
       REC.lr_rejected_by = params.rejected_by;
     }
+    if (params.stype == "SAVE")
+      this.lock_record = true;
   }
 
   MailLeaveRequest() {

@@ -36,93 +36,92 @@
         </div>
       </div>
     </div>
-
-    <div class="page-pager">
-      <div *ngIf="page_count">
-        <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-              (Records-{{page_rowcount}})</a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-        </ul>
-      </div>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
     </div>
+  </div>
 
-    <div class="page-body table-responsive">
-      <table class="table table-hover table-sm table-bordered table-striped">
-        <thead class="page-body-thead">
-          <tr>
-            <th>CODE</th>
-            <th>NAME</th>
-            <th>APPLIED.ON</th>
-            <th>FROM</th>
-            <th>TO</th>
-            <th>JOINING</th>
-            <th>PL/FD</th>
-            <th>PL/HD</th>
-            <th>CL/FD</th>
-            <th>CL/HD</th>
-            <th>SL/FD</th>
-            <th>SL/HD</th>
-            <th>LOP/FD</th>
-            <th>LOP/HD</th>
-            <th>TRAVEL/FD</th>
-            <th>TRAVEL/HD</th>
-            <th>REASONS</th>
-            <th>APPROVED</th>
-            <th>SANCTIONED</th>
-            <th>REJECTED</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-            (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.lr_pkid)">
-            <td>{{rec.lr_emp_code}}</td>
-            <td>{{rec.lr_emp_name}}</td>
-            <td>{{rec.lr_apply_date}}</td>
-            <td>{{rec.lr_from_date}}</td>
-            <td>{{rec.lr_to_date}}</td>
-            <td>{{rec.lr_join_date}}</td>
-            <td>{{rec.lr_pl_days}}</td>
-            <td>{{rec.lr_pl_half_days}}</td>
-            <td>{{rec.lr_cl_days}}</td>
-            <td>{{rec.lr_cl_half_days}}</td>
-            <td>{{rec.lr_sl_days}}</td>
-            <td>{{rec.lr_sl_half_days}}</td>
-            <td>{{rec.lr_lop_days}}</td>
-            <td>{{rec.lr_lop_half_days}}</td>
-            <td>{{rec.lr_travelling_days}}</td>
-            <td>{{rec.lr_travelling_half_days}}</td>
-            <td>{{rec.lr_remarks}}</td>
-            <td>{{rec.lr_approved_by}}</td>
-            <td>{{rec.lr_sanctioned_by}}</td>
-            <td>{{rec.lr_rejected_by}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>APPLIED.ON</th>
+          <th>FROM</th>
+          <th>TO</th>
+          <th>JOINING</th>
+          <th>PL/FD</th>
+          <th>PL/HD</th>
+          <th>CL/FD</th>
+          <th>CL/HD</th>
+          <th>SL/FD</th>
+          <th>SL/HD</th>
+          <th>LOP/FD</th>
+          <th>LOP/HD</th>
+          <th>TRAVEL/FD</th>
+          <th>TRAVEL/HD</th>
+          <th>REASONS</th>
+          <th>APPROVED</th>
+          <th>SANCTIONED</th>
+          <th>REJECTED</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.lr_pkid)">
+          <td>{{rec.lr_emp_code}}</td>
+          <td>{{rec.lr_emp_name}}</td>
+          <td>{{rec.lr_apply_date}}</td>
+          <td>{{rec.lr_from_date}}</td>
+          <td>{{rec.lr_to_date}}</td>
+          <td>{{rec.lr_join_date}}</td>
+          <td>{{rec.lr_pl_days}}</td>
+          <td>{{rec.lr_pl_half_days}}</td>
+          <td>{{rec.lr_cl_days}}</td>
+          <td>{{rec.lr_cl_half_days}}</td>
+          <td>{{rec.lr_sl_days}}</td>
+          <td>{{rec.lr_sl_half_days}}</td>
+          <td>{{rec.lr_lop_days}}</td>
+          <td>{{rec.lr_lop_half_days}}</td>
+          <td>{{rec.lr_travelling_days}}</td>
+          <td>{{rec.lr_travelling_half_days}}</td>
+          <td>{{rec.lr_remarks}}</td>
+          <td>{{rec.lr_approved_by}}</td>
+          <td>{{rec.lr_sanctioned_by}}</td>
+          <td>{{rec.lr_rejected_by}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="page-pager">
-      <div *ngIf="page_count">
-        <ul class="pagination pagination-sm">
-          <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-              (Records-{{page_rowcount}})</a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
-        </ul>
-      </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
     </div>
   </div>
 </div>
@@ -134,8 +133,7 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Employee</label>
           <div class="col-sm-4">
-            <app-autocomplete #EmpLov [inputdata]="EMPRECORD" [disabled]="!bAdmin"
-              (ValueChanged)="LovSelected($event)">
+            <app-autocomplete #EmpLov [inputdata]="EMPRECORD" [disabled]="!bAdmin" (ValueChanged)="LovSelected($event)">
             </app-autocomplete>
           </div>
           <label class="col-sm-1 col-form-label col-form-label-sm">Date</label>
@@ -168,7 +166,8 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
           <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="Record.lr_is_travelling" id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling</label>
+            <input type="checkbox" (change)="OnChange('lr_is_travelling')" [(ngModel)]="Record.lr_is_travelling"
+              id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling</label>
           </div>
         </div>
         <div class="form-group row">
@@ -292,7 +291,8 @@
         <div class="form-group row">
           <div class="offset-1 col-sm-10">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading"  *ngIf="mode=='EDIT'"  (click)="MailLeaveRequest()" class="btn btn-success btn-sm">Mail</button>
+            <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="MailLeaveRequest()"
+              class="btn btn-success btn-sm">Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -308,11 +308,12 @@
   </div>
   <div *ngIf="mode=='EDIT'" class="page-box">
     <h6 style="color: green" class="my-1">Leave Approval</h6>
-    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus" (ModifiedRecords)="ModifiedRecords($event)">
+    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus"
+      (ModifiedRecords)="ModifiedRecords($event)">
     </app-approveddet>
   </div>
 </div>
-<br />
+<!-- <br /> -->
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}
