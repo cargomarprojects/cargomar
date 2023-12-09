@@ -59,6 +59,7 @@ export class LeaveReqComponent {
   bPrint: boolean = false;
   bAdmin: boolean = false;
   bCompany: boolean = false;
+  bEmail: boolean = false;
   porttype = 'PORT';
 
 
@@ -111,6 +112,7 @@ export class LeaveReqComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bCompany = false;
+    this.bEmail = false;
     this.fromdate = this.gs.globalVariables.year_start_date;
     this.todate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -121,6 +123,8 @@ export class LeaveReqComponent {
       this.bCompany = this.menu_record.rights_company;
       if (this.menu_record.rights_approval.length > 0)
         this.approvalstatus = this.menu_record.rights_approval.toString().trim();
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
     }
 
     if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
@@ -224,6 +228,12 @@ export class LeaveReqComponent {
   // Query List Data
   List(_type: string) {
 
+    if (_type == "MAIL") {
+      if (!confirm("Do you want to Sent Mail Leave List")) {
+        return;
+      }
+    }
+
     this.loading = true;
     let SearchData = {
       type: _type,
@@ -253,6 +263,10 @@ export class LeaveReqComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          if (response.msg)
+            alert(response.msg);
+        }
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;

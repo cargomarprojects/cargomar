@@ -32,6 +32,8 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
+              <button *ngIf='bEmail' [disabled]="loading" (click)="List('MAIL')"
+              class="btn btn-primary btn-sm mr-1">Mail</button>
           </div>
         </div>
       </div>

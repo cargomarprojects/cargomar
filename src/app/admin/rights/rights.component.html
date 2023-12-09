@@ -108,9 +108,9 @@
       <span>&nbsp;</span>
     </div>
   </div>
-
-  <div class="table-responsive fixedTableHead" style="border:1px solid grey; margin-bottom:1px; height:650px;">
-    <table class="table table-hover table-sm">
+  <!-- style="border:1px solid grey; margin-bottom:1px; height:650px;" -->
+  <div class="table-responsive fixedTableHead  my-0 p-0"  style="height: calc(100vh - 380px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th>Module</th>
@@ -130,7 +130,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr *ngIf="rec.module_name == module_name">
-          <td>{{rec.module_name}}</td>
+          <td >{{rec.module_name}}</td>
           <td>{{rec.menu_name}}</td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_company"></td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_admin"></td>
