@@ -250,6 +250,7 @@ export class LeaveReqComponent {
       is_admin: this.bAdmin,
       is_company: this.bCompany,
       report_folder: this.gs.globalVariables.report_folder,
+      lev_mail_date:this.gs.defaultValues.today,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
