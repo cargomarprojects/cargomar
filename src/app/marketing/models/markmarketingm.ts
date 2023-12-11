@@ -29,15 +29,17 @@ export class MarkMarketingm {
     mark_lead_source: string;
     mark_cont_converted: string;
     mark_cont_remarks: string;
-    mark_cont_type_2:string;
-    mark_doc_attached:string;
-    mark_followupcount:string;
-    mark_cust_infocount:string;
-    mark_followupstatus:string;
-    
+    mark_cont_type_2: string;
+    mark_doc_attached: string;
+    mark_followupcount: string;
+    mark_cust_infocount: string;
+    mark_followupstatus: string;
+
     mobile: string;
     email: string;
     target: string;
+    mark_visited: string;
+    mark_source: string;
 
     rec_company_code: string;
     rec_branch_code: string;
@@ -70,8 +72,8 @@ export class MarkReport {
     nov: number;
     dec: number;
     total: number;
-    prev_total:number;
-    min_visit_date:string;
+    prev_total: number;
+    min_visit_date: string;
     _globalvariables: GlobalVariables;
 }
 
@@ -79,7 +81,7 @@ export class BizdevelopReport {
     user_id: string;
     user_name: string;
     shipper_tot: number;
-    c_shipper_tot:number;
+    c_shipper_tot: number;
     consignee_tot: number;
     agent_tot: number;
     carrier_tot: number;

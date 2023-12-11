@@ -375,6 +375,7 @@ export class MarketingComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new MarkMarketingm();
         this.Record.mark_pkid = this.pkid;
+        this.Record.mark_source = this.type;
         this.Record.mark_mode = "PERSONAL VISIT";
         this.Record.rec_category = "";
         this.Record.mark_visit_date = "";
@@ -500,6 +501,7 @@ export class MarketingComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        this.Record.mark_source = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
 
         this.mainService.Save(this.Record)
