@@ -86,6 +86,7 @@ export class MarketingComponent {
     mode = '';
     pkid = '';
     clientid = '';
+    lock_chk_visited: boolean = false;
 
     // Array For Displaying List
     RecordList: MarkMarketingm[] = [];
@@ -371,7 +372,7 @@ export class MarketingComponent {
     }
 
     NewRecord() {
-
+        this.lock_chk_visited = false;
         this.pkid = this.gs.getGuid();
         this.Record = new MarkMarketingm();
         this.Record.mark_pkid = this.pkid;
@@ -401,7 +402,11 @@ export class MarketingComponent {
         this.Record.rec_mode = this.mode;
         this.Record.rec_created_date = '';
         this.Record.rec_created_by = '';
-        this.Record.mark_visited_b = false;
+        if (this.type == 'VISIT')
+            this.Record.mark_visited_b = true;
+        else
+            this.Record.mark_visited_b = false;
+
         this.InitLov();
     }
 
@@ -448,6 +453,11 @@ export class MarketingComponent {
             this.ActionsRecord.followupstatus = this.status_color1;
         else
             this.ActionsRecord.followupstatus = this.status_color2;
+
+        if (this.Record.mark_visited == 'Y')
+            this.lock_chk_visited = true;
+        else
+            this.lock_chk_visited = false;
     }
 
     loadVisit() {
@@ -520,6 +530,8 @@ export class MarketingComponent {
 
                 if (!this.gs.isBlank(this.tabsetCtrl))
                     this.tabsetCtrl.select('FollowUp');
+                if (this.type == 'PLANNING')
+                    this.lock_chk_visited = response.mark_visited_b;
 
                 this.RefreshList();
             },

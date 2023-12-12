@@ -61,7 +61,7 @@ export class LeaveReqComponent {
   bCompany: boolean = false;
   bEmail: boolean = false;
   porttype = 'PORT';
-
+  mail_date: string;
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -115,6 +115,7 @@ export class LeaveReqComponent {
     this.bEmail = false;
     this.fromdate = this.gs.globalVariables.year_start_date;
     this.todate = this.gs.defaultValues.today;
+    this.mail_date = this.todate;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -229,6 +230,10 @@ export class LeaveReqComponent {
   List(_type: string) {
 
     if (_type == "MAIL") {
+      if (this.gs.isBlank(this.mail_date)) {
+        alert('Mailing Date Cannot be Blank');
+        return;
+      }
       if (!confirm("Do you want to Sent Mail Leave List")) {
         return;
       }
@@ -250,7 +255,7 @@ export class LeaveReqComponent {
       is_admin: this.bAdmin,
       is_company: this.bCompany,
       report_folder: this.gs.globalVariables.report_folder,
-      lev_mail_date:this.gs.defaultValues.today,
+      lev_mail_date: this.mail_date,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -598,6 +603,7 @@ export class LeaveReqComponent {
   }
 
   MailLeaveRequest() {
+
     if (!confirm("Do you want to Sent Request Mail")) {
       return;
     }

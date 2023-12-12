@@ -69,7 +69,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
                     <div class="col-sm-9">
-                        <input type="text" [disabled]="type!='VISIT'" class="col form-control form-control-sm"
+                        <input type="text" class="col form-control form-control-sm"
                             name="Search" [(ngModel)]="search_commodity" (blur)="OnBlur('search_commodity')" />
                     </div>
                 </div>
@@ -373,7 +373,7 @@
                             maxlength="100" (blur)="OnBlur('mark_contact_person')" />
                     </div>
                     <div *ngIf="mode == 'EDIT'" class="col-sm-4">
-                        <input type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
+                        <input [disabled]="lock_chk_visited" type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
                             class="col-form-label col-form-label-sm ml-1" for="visited">Visited</label>
                     </div>
                 </div>
@@ -381,7 +381,7 @@
 
             <div class="col-sm-6">
 
-                <div *ngIf="type=='VISIT'">
+                <div *ngIf="Record.mark_visited_b">
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label col-form-label-sm"></label>
@@ -449,7 +449,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="type=='VISIT'" class="page-box">
+    <div *ngIf="Record.mark_visited_b" class="page-box">
         <div class="row">
             <div class="col-sm-12">
 
@@ -500,7 +500,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="type=='VISIT'" class="page-box">
+    <div *ngIf="Record.mark_visited_b" class="page-box">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
             <div class="col-sm-10 padding-left-0">
@@ -579,7 +579,7 @@
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
-<div *ngIf="type=='VISIT'&&mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
+<div *ngIf="Record.mark_visited_b&&mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
     class="page-details">
     <ngb-tabset #_tabset>
         <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details"
