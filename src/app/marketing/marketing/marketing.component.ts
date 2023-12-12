@@ -401,6 +401,7 @@ export class MarketingComponent {
         this.Record.rec_mode = this.mode;
         this.Record.rec_created_date = '';
         this.Record.rec_created_by = '';
+        this.Record.mark_visited_b = false;
         this.InitLov();
     }
 

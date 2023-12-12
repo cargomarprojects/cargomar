@@ -69,8 +69,8 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
                     <div class="col-sm-9">
-                        <input type="text" class="col form-control form-control-sm" name="Search"
-                            [(ngModel)]="search_commodity" (blur)="OnBlur('search_commodity')" />
+                        <input type="text" [disabled]="type!='VISIT'" class="col form-control form-control-sm"
+                            name="Search" [(ngModel)]="search_commodity" (blur)="OnBlur('search_commodity')" />
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
                     <th>SALES PERSON</th>
                     <th>BRANCH</th>
                     <th>JOINT VISIT WITH</th>
-                    <th>NEXT VISIT DATE</th>
+                    <th *ngIf="type=='VISIT'">NEXT VISIT DATE</th>
                     <th>MODE</th>
                     <th>CUSTOMER</th>
                     <th>CUST-REMARKS</th>
@@ -226,10 +226,10 @@
                     <!-- <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>TARGET MARKET</th> -->
-                    <th>COMMODITY</th>
-                    <th>NEXT ACTION</th>
-                    <th>FOLLOW.UP</th>
-                    <th>CUST.INFO</th>
+                    <th *ngIf="type=='VISIT'">COMMODITY</th>
+                    <th *ngIf="type=='VISIT'">NEXT ACTION</th>
+                    <th *ngIf="type=='VISIT'">FOLLOW.UP</th>
+                    <th *ngIf="type=='VISIT'">CUST.INFO</th>
                     <th>DOCS</th>
                     <th>CREATED DATE</th>
                 </tr>
@@ -242,7 +242,7 @@
                     <td>{{rec.mark_user_name}}</td>
                     <td>{{rec.branch_name}}</td>
                     <td>{{rec.mark_jointsalesman_name}}</td>
-                    <td>{{rec.mark_next_visit_date}}</td>
+                    <td *ngIf="type=='VISIT'">{{rec.mark_next_visit_date}}</td>
                     <td>{{rec.mark_mode}}</td>
                     <td>{{rec.mark_customer_name}}</td>
                     <td>{{rec.mark_cont_remarks}}</td>
@@ -253,10 +253,10 @@
                     <!-- <td>{{rec.mobile}}</td>
                     <td>{{rec.email}}</td>
                     <td>{{rec.target}}</td> -->
-                    <td>{{rec.mark_commodity}}</td>
-                    <td>{{rec.mark_next_action}}</td>
-                    <td [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
-                    <td>{{rec.mark_cust_infocount?'Y':''}}</td>
+                    <td *ngIf="type=='VISIT'">{{rec.mark_commodity}}</td>
+                    <td *ngIf="type=='VISIT'">{{rec.mark_next_action}}</td>
+                    <td *ngIf="type=='VISIT'" [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
+                    <td *ngIf="type=='VISIT'">{{rec.mark_cust_infocount?'Y':''}}</td>
                     <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
                             [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
                     <td>{{rec.rec_created_date}}</td>
@@ -359,83 +359,97 @@
                         </app-autocomplete>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div *ngIf="type=='VISIT'" class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
                             maxlength="100" (blur)="OnBlur('mark_contact_person')" />
                     </div>
                 </div>
+                <div *ngIf="type!='VISIT'" class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
+                            maxlength="100" (blur)="OnBlur('mark_contact_person')" />
+                    </div>
+                    <div *ngIf="mode == 'EDIT'" class="col-sm-4">
+                        <input type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
+                            class="col-form-label col-form-label-sm ml-1" for="visited">Visited</label>
+                    </div>
+                </div>
             </div>
 
             <div class="col-sm-6">
 
+                <div *ngIf="type=='VISIT'">
 
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-8">
-                        <!-- <a (click)="loadVisit()" style="cursor: pointer;">(Click Here To Fill Visit Details)</a> -->
-                        <button (click)="loadVisit()" class="btn btn-link btn-sm hlink">(Click Here To Fill Visit
-                            Details)
-                        </button>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-8">
+                            <!-- <a (click)="loadVisit()" style="cursor: pointer;">(Click Here To Fill Visit Details)</a> -->
+                            <button (click)="loadVisit()" class="btn btn-link btn-sm hlink">(Click Here To Fill Visit
+                                Details)
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Deciding Person</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm"
-                            [(ngModel)]="Record.mark_deciding_person" maxlength="100"
-                            (blur)="OnBlur('mark_deciding_person')" />
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Deciding Person</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm"
+                                [(ngModel)]="Record.mark_deciding_person" maxlength="100"
+                                (blur)="OnBlur('mark_deciding_person')" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Present Agent</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_agent_name"
-                            maxlength="100" (blur)="OnBlur('mark_agent_name')" />
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Present Agent</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_agent_name"
+                                maxlength="100" (blur)="OnBlur('mark_agent_name')" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Commodity</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_commodity"
-                            maxlength="60" (blur)="OnBlur('mark_commodity')" />
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Commodity</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_commodity"
+                                maxlength="60" (blur)="OnBlur('mark_commodity')" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Competition</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_competition"
-                            maxlength="100" (blur)="OnBlur('mark_competition')" />
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Competition</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm"
+                                [(ngModel)]="Record.mark_competition" maxlength="100"
+                                (blur)="OnBlur('mark_competition')" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
+                    <div class="form-group row">
 
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Nomination</label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Nomination</label>
 
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_nomination"
-                            maxlength="100" (blur)="OnBlur('mark_nomination')" />
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_nomination"
+                                maxlength="100" (blur)="OnBlur('mark_nomination')" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Last Shipment</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_last_shipment"
-                            maxlength="100" (blur)="OnBlur('mark_last_shipment')" />
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Last Shipment</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm"
+                                [(ngModel)]="Record.mark_last_shipment" maxlength="100"
+                                (blur)="OnBlur('mark_last_shipment')" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="page-box">
+    <div *ngIf="type=='VISIT'" class="page-box">
         <div class="row">
             <div class="col-sm-12">
 
@@ -486,7 +500,7 @@
             </div>
         </div>
     </div>
-    <div class="page-box">
+    <div *ngIf="type=='VISIT'" class="page-box">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
             <div class="col-sm-10 padding-left-0">
@@ -565,7 +579,8 @@
         <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
-<div *ngIf="mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)" class="page-details">
+<div *ngIf="type=='VISIT'&&mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
+    class="page-details">
     <ngb-tabset #_tabset>
         <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details"
             id="FollowUp">

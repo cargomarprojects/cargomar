@@ -40,6 +40,7 @@ export class MarkMarketingm {
     target: string;
     mark_visited: string;
     mark_source: string;
+    mark_visited_b: boolean;
 
     rec_company_code: string;
     rec_branch_code: string;
