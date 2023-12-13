@@ -349,8 +349,10 @@ export class MailComponent {
         else if (_type == "LIST") {
           if (response.to_ids.length > 0 && this.updateto_ids)
             this.to_ids = response.to_ids;
-          else if (response.to_ids.length > 0 && this.defaultto_ids)
-            this.to_ids = response.to_ids + ',' + this.defaultto_ids;
+          else if (response.to_ids.length > 0 && this.defaultto_ids) {
+            if (response.to_ids.toString().indexOf(this.defaultto_ids) < 0)
+              this.to_ids = response.to_ids + ',' + this.defaultto_ids;
+          }
           if (response.cc_ids.length > 0)
             this.cc_ids = response.cc_ids;
           if (response.bcc_ids.length > 0)
