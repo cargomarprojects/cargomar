@@ -112,10 +112,10 @@
     <div class="page-box">
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Category</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm" (click)="focus()">Category</label>
+                    <div class="col-sm-9">
                         <select class="form-control form-control-sm" [(ngModel)]="Record.ml_type"
                             [disabled]="mode=='EDIT'">
                             <!-- <option [value]="'SHIPMENT-TRACKING'">SHIPMENT TRACKING</option> -->
@@ -125,8 +125,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-2 col-form-label  col-form-label-sm">Type</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Type</label>
+                    <div class="col-sm-9">
                         <select class="form-control form-control-sm" [(ngModel)]="Record.ml_cust_type"
                             (change)="OnChange('ml_cust_type')">
                             <option [value]="'CUSTOMER'">CUSTOMER</option>
@@ -138,8 +138,8 @@
 
                 <div class="form-group row">
 
-                    <label class="col-2 col-form-label col-form-label-sm">Name</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Name</label>
+                    <div class="col-sm-9">
                         <!-- <app-autocomplete3 [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype"
                             [where]="where" [displaycolumn]="'CODE'" [displaydata]="displaydata"
                             (ValueChanged)="LovSelected($event)">
@@ -150,44 +150,51 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ml_cust_name"
                             (blur)="OnBlur('ml_cust_name')" required maxlength="60" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">TO.IDs</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">From UserID</label>
+                    <div class="col-sm-9">
+                        <app-autocomplete #CustLov [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">TO.IDs</label>
+                    <div class="col-sm-9">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_to_ids"
                             (blur)="OnBlur('ml_to_ids')" required maxlength="500"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">CC.IDs</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">CC.IDs</label>
+                    <div class="col-sm-9">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_cc_ids"
                             (blur)="OnBlur('ml_cc_ids')" required maxlength="500"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">BCC.IDs</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">BCC.IDs</label>
+                    <div class="col-sm-9">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_bcc_ids"
                             (blur)="OnBlur('ml_bcc_ids')" required maxlength="500"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
-                    <div class="col-10">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-sm-9">
                         <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.ml_remarks"
                             (blur)="OnBlur('ml_remarks')" required maxlength="200"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-4">
+                    <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-4">
                         <input type="checkbox" [(ngModel)]="Record.rec_locked" />
                         <span>Disable</span>
                     </div>
@@ -196,9 +203,9 @@
         </div>
     </div>
     <div class="page-box">
-        <div class="col-sm-4 mt-0 p-0">
+        <div class="col-sm-5 mt-0 p-0">
             <div class="form-group row">
-                <div class="offset-2 col-10">
+                <div class="offset-3 col-sm-9">
                     <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-success btn-sm">Return</button>

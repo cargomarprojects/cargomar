@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LeaveReq } from '../models/leavereq';
@@ -25,9 +26,18 @@ export class LeaveReqComponent {
 
   selectedRowIndex = 0;
 
+  sDisplayName: string = '';
+  sToids: string = '';
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
+  modal: any;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+
 
   searchstring = '';
   fromdate: string;
@@ -77,6 +87,7 @@ export class LeaveReqComponent {
   EMPRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: LeaveReqService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -602,11 +613,11 @@ export class LeaveReqComponent {
       this.lock_record = true;
   }
 
-  MailLeaveRequest() {
+  MailLeaveRequest(_mailreq: any) {
 
-    if (!confirm("Do you want to Sent Request Mail")) {
-      return;
-    }
+    // if (!confirm("Do you want to Sent Request Mail")) {
+    //   return;
+    // }
     this.loading = true;
     let SearchData = {
       pkid: this.Record.lr_pkid,
@@ -622,14 +633,27 @@ export class LeaveReqComponent {
     this.mainService.MailLeaveRequest(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = response.mailmsg;
-        alert(this.InfoMessage);
+        if (response.Msg)
+          alert(response.Msg)
+        else {
+          this.sDisplayName = response.emaildispname;
+          this.sToids = response.toids;
+          this.sSubject = response.subject;
+          this.sHtml = response.message;
+          this.open(_mailreq);
+          // this.InfoMessage = response.mailmsg;
+          // alert(this.InfoMessage);
+        }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 }

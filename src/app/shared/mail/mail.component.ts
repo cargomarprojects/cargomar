@@ -3,9 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { stringify } from '@angular/core/src/render3/util';
-import { concat } from 'rxjs/operator/concat';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 //EDIT-AJITH-20-12-2021
 
 @Component({
@@ -39,6 +36,7 @@ export class MailComponent {
   @Input() public PoFtpError: string = '';
   @Input() public default_ftptype: string = '';
   @Input() public updatetype: string = '';
+  @Input() public emaildisplayname: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -76,6 +74,8 @@ export class MailComponent {
   poftptype_id: string = '';
   PoFtpTypeList: any[] = [];
   innerHtmlHt: string = '';
+
+  EmailFromUserID: string = '';
 
   customer_name: string = '';
   ErrorMessage = "";
@@ -304,7 +304,8 @@ export class MailComponent {
       user_code: this.gs.globalVariables.user_code,
       update_toids: '',
       canftp: 'N',
-      updatetype: ''
+      updatetype: '',
+      email_display_name: ''
     };
 
     SearchData.table = controlname;
@@ -320,13 +321,16 @@ export class MailComponent {
     SearchData.type = _type;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
-    SearchData.user_pkid = this.gs.globalVariables.user_pkid;
+    if (this.gs.isBlank(this.EmailFromUserID))
+      SearchData.user_pkid = this.gs.globalVariables.user_pkid;
+    else
+      SearchData.user_pkid = this.EmailFromUserID;
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.update_toids = (this.updateto_ids == true) ? "Y" : "N";
     SearchData.canftp = (this.canftp == true) ? "Y" : "N";
     SearchData.updatetype = this.updatetype;
-
+    SearchData.email_display_name = this.emaildisplayname;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -345,10 +349,15 @@ export class MailComponent {
         else if (_type == "LIST") {
           if (response.to_ids.length > 0 && this.updateto_ids)
             this.to_ids = response.to_ids;
+          else if (response.to_ids.length > 0 && this.defaultto_ids)
+            this.to_ids = response.to_ids + ',' + this.defaultto_ids;
           if (response.cc_ids.length > 0)
             this.cc_ids = response.cc_ids;
           if (response.bcc_ids.length > 0)
             this.bcc_ids = response.bcc_ids;
+          if (response.from_user_pkid)
+            this.EmailFromUserID = response.from_user_pkid;
+
           this.message += response.mailsignature;
 
           //Ftp Dropdown 
@@ -717,8 +726,7 @@ export class MailComponent {
       let _newfsize = (_fsize / 1024.00);
       _newfsize = this.gs.roundNumber(_newfsize, 2);
       _newfsize = Math.ceil(_newfsize);
-      if (_newfsize < 1024)
-      {
+      if (_newfsize < 1024) {
         strsize = _newfsize.toString() + "KB";
       }
       else {

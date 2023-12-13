@@ -53,6 +53,7 @@ export class MailListComponent {
     pkid = '';
 
     CUSTRECORD: SearchTable = new SearchTable();
+    USERRECORD: SearchTable = new SearchTable();
     // Array For Displaying List
     RecordList: MailList[] = [];
     // Single Record for add/edit/view details
@@ -140,12 +141,26 @@ export class MailListComponent {
         this.CUSTRECORD.id = "";
         this.CUSTRECORD.code = "";
         this.CUSTRECORD.name = "";
+
+        this.USERRECORD = new SearchTable();
+        this.USERRECORD.controlname = "USER";
+        this.USERRECORD.displaycolumn = "NAME";
+        this.USERRECORD.type = "USER";
+        this.USERRECORD.id = "";
+        this.USERRECORD.code = "";
+        this.USERRECORD.name = "";
     }
 
     LovSelected(_Record: any) {
-        this.Record.ml_cust_id = _Record.id;
-        this.Record.ml_cust_code = _Record.code;
-        this.Record.ml_cust_name = _Record.name;
+        if (_Record.controlname == "USER") {
+            this.Record.ml_from_user_id = _Record.id;
+            this.Record.ml_from_user_code = _Record.code;
+            this.Record.ml_from_user_name = _Record.name;
+        } else {
+            this.Record.ml_cust_id = _Record.id;
+            this.Record.ml_cust_code = _Record.code;
+            this.Record.ml_cust_name = _Record.name;
+        }
     }
 
 
@@ -239,6 +254,9 @@ export class MailListComponent {
         this.Record.ml_to_ids = '';
         this.Record.ml_cc_ids = '';
         this.Record.ml_bcc_ids = '';
+        this.Record.ml_from_user_code = '';
+        this.Record.ml_from_user_id = '';
+        this.Record.ml_from_user_name = '';
         this.Record.rec_mode = this.mode;
         this.Record.rec_locked = false;
         this.Record.ml_remarks = '';
@@ -281,6 +299,9 @@ export class MailListComponent {
         this.CUSTRECORD.id = this.Record.ml_cust_id;
         this.CUSTRECORD.code = this.Record.ml_cust_code;
         this.CUSTRECORD.name = this.Record.ml_cust_name;
+        this.USERRECORD.id = this.Record.ml_from_user_id;
+        this.USERRECORD.code = this.Record.ml_from_user_code;
+        this.USERRECORD.name = this.Record.ml_from_user_name;
     }
 
 

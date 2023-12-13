@@ -14,6 +14,9 @@ export class MailList {
   ml_cust_name: string;
   ml_cust_type: string;
   ml_remarks: string;
+  ml_from_user_id: string;
+  ml_from_user_code: string;
+  ml_from_user_name: string;
 
   rec_mode: string;
   rec_locked: boolean;

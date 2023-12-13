@@ -297,7 +297,7 @@
         <div class="form-group row">
           <div class="offset-1 col-sm-10">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="MailLeaveRequest()"
+            <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="MailLeaveRequest(mailreq)"
               class="btn btn-success btn-sm">Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
@@ -327,3 +327,15 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #mailreq let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'EMPLOYEE-LEAVE-REQUEST'" [emaildisplayname]="sDisplayName" [defaultto_ids]="sToids" [sHtml]="sHtml" [defaultmessage]="sMsg"
+      [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
