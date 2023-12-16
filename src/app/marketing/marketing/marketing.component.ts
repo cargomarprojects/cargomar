@@ -122,8 +122,9 @@ export class MarketingComponent {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
-                this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
+                if (this.type != options.type)
+                    this.InitCompleted = false;
                 this.menuid = options.menuid;
                 this.type = options.type;
                 this.InitComponent();
@@ -146,6 +147,10 @@ export class MarketingComponent {
         this.IsCompany = false;
         this.bPrint = false;
         this.bDocs = false;
+        if (this.type == "VISIT")
+            this.gs.globalData.mark_todate = this.gs.defaultValues.today;
+        else
+            this.gs.globalData.mark_todate = this.getFuturedate(30);
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -165,6 +170,7 @@ export class MarketingComponent {
         }
 
         this.LoadCombo();
+        this.InitCompleted = true;
     }
 
     // Destroy Will be called when this component is closed
@@ -683,4 +689,11 @@ export class MarketingComponent {
             }
         }
     }
+
+    getFuturedate(_days: number) {
+        var nDate = new Date();
+        nDate.setDate(nDate.getDate() + _days);
+        return nDate.toISOString().slice(0, 10);
+    }
+
 }
