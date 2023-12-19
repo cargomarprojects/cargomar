@@ -182,7 +182,7 @@ export class LeaveReqComponent {
     this.EMPRECORD.controlname = "EMPLOYEE";
     this.EMPRECORD.displaycolumn = "CODE";
     this.EMPRECORD.type = "EMPLOYEE";
-    this.EMPRECORD.where = " a.rec_branch_code ='" + this.gs.globalVariables.branch_code + "' and a.emp_in_payroll='Y' ";
+    this.EMPRECORD.where = " a.rec_branch_code ='" + this.gs.globalVariables.branch_code + "'";
     this.EMPRECORD.id = this.gs.globalVariables.emp_id;
     this.EMPRECORD.code = this.gs.globalVariables.emp_code;
     this.EMPRECORD.name = this.gs.globalVariables.emp_name;
