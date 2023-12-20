@@ -317,6 +317,8 @@ export class LeaveReqComponent {
     this.Record.lr_cl_half_days = 0;
     this.Record.lr_sl_days = 0;
     this.Record.lr_sl_half_days = 0;
+    this.Record.lr_spl_days = 0;
+    this.Record.lr_spl_half_days = 0;
     this.Record.lr_lop_days = 0;
     this.Record.lr_lop_half_days = 0;
     this.Record.lr_is_travelling = false;
@@ -434,6 +436,7 @@ export class LeaveReqComponent {
     _num2 += this.Record.lr_sl_days + this.Record.lr_sl_half_days;
     _num2 += this.Record.lr_cl_days + this.Record.lr_cl_half_days;
     _num2 += this.Record.lr_lop_days + this.Record.lr_lop_half_days;
+    _num2 += this.Record.lr_spl_days + this.Record.lr_spl_half_days;
     if (_num2 <= 0 && !this.Record.lr_is_travelling) {
       bret = false;
       sError += "\n\r | Value required for atleast one leave category";
@@ -475,6 +478,8 @@ export class LeaveReqComponent {
       REC.lr_cl_half_days = this.Record.lr_cl_half_days;
       REC.lr_sl_days = this.Record.lr_sl_days;
       REC.lr_sl_half_days = this.Record.lr_sl_half_days;
+      REC.lr_spl_days = this.Record.lr_spl_days;
+      REC.lr_spl_half_days = this.Record.lr_spl_half_days;
       REC.lr_lop_days = this.Record.lr_lop_days;
       REC.lr_lop_half_days = this.Record.lr_lop_half_days;
     }
@@ -516,6 +521,9 @@ export class LeaveReqComponent {
     if (field == 'lr_sl_days') {
       this.Record.lr_sl_days = this.gs.roundNumber(this.Record.lr_sl_days, 0);
     }
+    if (field == 'lr_spl_days') {
+      this.Record.lr_spl_days = this.gs.roundNumber(this.Record.lr_spl_days, 0);
+    }
     if (field == 'lr_lop_days') {
       this.Record.lr_lop_days = this.gs.roundNumber(this.Record.lr_lop_days, 0);
     }
@@ -532,23 +540,15 @@ export class LeaveReqComponent {
     if (field == 'lr_sl_half_days') {
       this.Record.lr_sl_half_days = this.gs.roundNumber(this.Record.lr_sl_half_days, 0);
     }
+    if (field == 'lr_spl_half_days') {
+      this.Record.lr_spl_half_days = this.gs.roundNumber(this.Record.lr_spl_half_days, 0);
+    }
     if (field == 'lr_lop_half_days') {
       this.Record.lr_lop_half_days = this.gs.roundNumber(this.Record.lr_lop_half_days, 0);
     }
     if (field == 'lr_travelling_half_days') {
       this.Record.lr_travelling_half_days = this.gs.roundNumber(this.Record.lr_travelling_half_days, 0);
     }
-
-
-
-    //sql += " select lr_pkid,lr_emp_id,lr_apply_date,lr_from_date, ";
-    //sql += " lr_to_date,lr_join_date,lr_cl_days,lr_cl_half_days, ";
-    //sql += " lr_sl_days,lr_sl_half_days,lr_pl_days,lr_pl_half_days, ";
-    //sql += " lr_lop_days,lr_lop_half_days,lr_remarks, ";
-    //sql += " lr_approved_by,lr_approved_date,lr_sanctioned_by,lr_sanctioned_date,";
-    //sql += " lr_rejected_by,lr_rejected_date,lr_is_travelling,lr_travelling_days,lr_travelling_half_days";
-    //sql += " ,emp_no,emp_name,c.comp_name as branch_name ";
-    //sql += " ,row_number() over(order by emp_no,lr_apply_date) rn ";
 
     if (field == 'lr_remarks') {
       this.Record.lr_remarks = this.Record.lr_remarks.toUpperCase();
