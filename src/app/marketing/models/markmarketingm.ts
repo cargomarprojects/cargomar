@@ -34,7 +34,8 @@ export class MarkMarketingm {
     mark_followupcount: string;
     mark_cust_infocount: string;
     mark_followupstatus: string;
-
+    mark_parent_id:string;
+    
     mobile: string;
     email: string;
     target: string;
