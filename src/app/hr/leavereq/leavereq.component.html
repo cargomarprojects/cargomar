@@ -79,8 +79,8 @@
           <th>SPL/HD</th>
           <th>LOP/FD</th>
           <th>LOP/HD</th>
-          <th>TRAVEL/FD</th>
-          <th>TRAVEL/HD</th>
+          <th>TRAVEL.DUTY/FD</th>
+          <th>TRAVEL.DUTY/HD</th>
           <th>REASONS</th>
           <th>APPROVED</th>
           <th>SANCTIONED</th>
@@ -175,9 +175,9 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-          <div class="col-sm-4">
+          <div class="col-sm-9">
             <input type="checkbox" (change)="OnChange('lr_is_travelling')" [(ngModel)]="Record.lr_is_travelling"
-              id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling</label>
+              id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling/On Duty</label>
           </div>
         </div>
         <div class="form-group row">
@@ -234,7 +234,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Travelling</label>
+          <label class="col-sm-3 col-form-label col-form-label-sm">Travelling/Duty</label>
           <div class="col-sm-9 input-group input-group-sm">
             <input type="number" [disabled]="!Record.lr_is_travelling" class="form-control form-control-sm mr-1"
               [(ngModel)]="Record.lr_travelling_days" (blur)="OnBlur('lr_travelling_days')" required maxlength="5" />
