@@ -37,6 +37,7 @@ export class MailComponent {
   @Input() public default_ftptype: string = '';
   @Input() public updatetype: string = '';
   @Input() public emaildisplayname: string = '';
+  @Input() public sHtmlHeight: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -111,7 +112,7 @@ export class MailComponent {
     if (this.type == 'BP-APPROVAL')
       this.innerHtmlHt = '200px';
     else
-      this.innerHtmlHt = '';
+      this.innerHtmlHt = this.sHtmlHeight;
     this.ftptype = this.default_ftptype;
     this.to_ids = this.defaultto_ids;
     this.subject = this.defaultsubject;
