@@ -534,6 +534,8 @@ export class MarketingComponent {
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 this.InfoMessage = "Save Complete";
+                if (response.savemsg)
+                    this.InfoMessage += response.savemsg;
 
                 if (!this.gs.isBlank(this.tabsetCtrl))
                     this.tabsetCtrl.select('FollowUp');
@@ -541,6 +543,7 @@ export class MarketingComponent {
                     this.lock_chk_visited = response.mark_visited_b;
 
                 this.RefreshList();
+                alert(this.InfoMessage);
             },
                 error => {
                     this.loading = false;
