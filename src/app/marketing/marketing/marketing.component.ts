@@ -359,7 +359,7 @@ export class MarketingComponent {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-                else {
+                else { 
                     this.RecordList = response.list;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
@@ -544,7 +544,7 @@ export class MarketingComponent {
 
                 this.RefreshList();
                 alert(this.InfoMessage);
-            },
+            }, 
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
