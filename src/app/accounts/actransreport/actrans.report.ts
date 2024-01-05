@@ -36,6 +36,7 @@ export class AcTransComponent {
     to_date: string = '';
     category: string = '';
     vrnos: string = '';
+    narration: string = '';
 
     page_count = 0;
     page_current = 0;
@@ -74,7 +75,8 @@ export class AcTransComponent {
         page_rowcount: 0,
         all: false,
         hide_ho_entries: '',
-        vrnos: ''
+        vrnos: '',
+        narration: ''
     };
 
     // Array For Displaying List
@@ -87,7 +89,7 @@ export class AcTransComponent {
 
     items: string[] = ['ALL', 'BP', 'BR', 'CI', 'CN', 'CP', 'CR', 'DI', 'DN', 'HO', 'IN', 'IN-ES', 'JV', 'OB', 'OC', 'OI', 'OP', 'PN', 'RB'];
 
-    myitems : string [] = [];
+    myitems: string[] = [];
 
 
     constructor(
@@ -127,13 +129,13 @@ export class AcTransComponent {
             if (this.menu_record.rights_company)
                 this.bCompany = true;
 
-            if (this.menu_record.rights_admin || this.gs.globalVariables.user_code == 'ADMIN' || this.menu_record.rights_approval == 'ALL') 
-                this.myitems =  this.items;
-            else{
+            if (this.menu_record.rights_admin || this.gs.globalVariables.user_code == 'ADMIN' || this.menu_record.rights_approval == 'ALL')
+                this.myitems = this.items;
+            else {
 
-                
-                this.myitems =  this.menu_record.rights_approval.split(',');
-                if ( this.myitems.length >0 )
+
+                this.myitems = this.menu_record.rights_approval.split(',');
+                if (this.myitems.length > 0)
                     this.category = this.myitems[0];
 
             }
@@ -148,9 +150,10 @@ export class AcTransComponent {
 
     Init() {
         this.vrnos = '';
+        this.narration = '';
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
-        
+
         this.type_date = "jvh_date";
         this.RecordList = null;
         this.branch_code = this.gs.globalVariables.branch_code;
@@ -248,6 +251,7 @@ export class AcTransComponent {
         this.SearchData.page_rowcount = this.page_rowcount;
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
         this.SearchData.vrnos = this.vrnos;
+        this.SearchData.narration = this.narration;
 
         this.ErrorMessage = '';
         this.mainService.List(this.SearchData)
@@ -276,6 +280,15 @@ export class AcTransComponent {
     OnChange(field: string) {
         this.RecordList = null;
 
+    }
+    OnBlur(field: string) {
+        switch (field) {
+            case 'narration':
+                {
+                    this.narration = this.narration.trim().toUpperCase();
+                    break;
+                }
+        }
     }
     Close() {
         this.gs.ClosePage('home');

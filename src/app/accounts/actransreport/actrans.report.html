@@ -9,22 +9,22 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">From.Date</label>
-            <div class="col-4">
+            <label class="col-sm-2 col-form-label col-form-label-sm">From.Date</label>
+            <div class="col-sm-4">
               <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
-            <label class="col-2 col-form-label col-form-label-sm">To.Date</label>
-            <div class="col-4">
+            <label class="col-sm-2 col-form-label col-form-label-sm">To.Date</label>
+            <div class="col-sm-4">
               <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-4">
+            <div class="col-sm-4">
               <select class="form-control form-control-sm" [(ngModel)]="type_date">
                 <option [value]="'jvh_date'">JV DATE</option>
                 <option [value]="'rec_created_date'">CREATED DATE</option>
@@ -32,35 +32,41 @@
               </select>
             </div>
             <label class="col-sm-2 col-form-label col-form-label-sm">Category</label>
-            <div class="col-4">
+            <div class="col-sm-4">
               <select class="form-control form-control-sm" [(ngModel)]="category">
                 <option *ngFor="let str of myitems" [value]="str">{{str}}</option>
               </select>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-8">
+        <div class="col-sm-8">
           <div class="form-group row">
             <label class="col-sm-1 col-form-label col-form-label-sm">Vr.Nos</label>
             <div class="col-sm-11">
               <input type="text" class="col form-control form-control-sm" name="Vrno" [(ngModel)]="vrnos" />
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Narration</label>
+            <div class="col-sm-11">
+              <input type="text" class="col form-control form-control-sm" name="narratn" [(ngModel)]="narration"  (blur)="OnBlur('narration')" />
+            </div>
+          </div>
         </div>
         <div class="col-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
               <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
             </div>
@@ -80,7 +86,7 @@
       </ul>
     </div>
   </div>
-  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 350px);">
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 375px);">
     <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -91,6 +97,7 @@
           <th>NAME</th>
           <th class="text-right">DEBIT</th>
           <th class="text-right">CREDIT</th>
+          <th>NARRATION</th>
           <th>CREATED-BY</th>
           <th>CREATED-DATE</th>
           <th>EDITED-BY</th>
@@ -107,6 +114,7 @@
           <td>{{rec.acc_name}}</td>
           <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_credit | number : '1.2-2'}}</td>
+          <td>{{rec.narration}}</td>
           <td>{{rec.rec_createdby}}</td>
           <td>{{rec.rec_createddate}}</td>
           <td>{{rec.rec_editedby}}</td>
