@@ -35,6 +35,7 @@ export class LeaveMasterComponent {
   page_rows = 0;
   page_rowcount = 0;
 
+  bDelete = false;
   lock_record: boolean = false;
   bChanged: boolean = false;
   sub: any;
@@ -81,8 +82,10 @@ export class LeaveMasterComponent {
 
   InitComponent() {
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      this.bDelete = this.menu_record.rights_delete;
+    }
     this.InitLov();
     this.LoadCombo();
     this.levyear = +this.gs.globalVariables.year_code;
@@ -432,5 +435,33 @@ export class LeaveMasterComponent {
   FindTotPL() {
     this.tot_pl = this.Record.lev_pl + this.Record.lev_pl_carry;
     this.tot_pl = this.gs.roundNumber(this.tot_pl, 1);
+  }
+
+  DeleteRecord(_rec: Leavem) {
+    if (!confirm("Do you want to Delete Leave Master of " + _rec.lev_emp_name)) {
+      return;
+    }
+    this.loading = true;
+    let SearchData = {
+      pkid: _rec.lev_pkid,
+      emp_id: _rec.lev_emp_id,
+      fin_year: _rec.lev_fin_year,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.lev_pkid == _rec.lev_pkid), 1);
+        alert("Deleted Successfully");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }

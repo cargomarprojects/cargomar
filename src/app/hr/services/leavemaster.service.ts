@@ -32,5 +32,9 @@ export class LeaveMasterService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveMaster/Generate', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/LeaveMaster/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

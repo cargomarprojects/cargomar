@@ -73,11 +73,11 @@
           <th width="5%">CL.BAL</th>
           <th width="5%">SL.TKN</th>
           <th width="5%">SL.BAL</th>
+          <th  class="text-center" *ngIf="bDelete">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.lev_pkid)">{{rec.lev_emp_code}}</td>
           <td>{{rec.lev_emp_name}}</td>
           <td>{{rec.lev_year}}</td>
@@ -91,6 +91,8 @@
           <td>{{rec.lev_cl_bal}}</td>
           <td>{{rec.lev_sl_tkn}}</td>
           <td>{{rec.lev_sl_bal}}</td>
+          <td *ngIf="bDelete" class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+            (click)="DeleteRecord(rec)"></i></td>
         </tr>
       </tbody>
     </table>
