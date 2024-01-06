@@ -37,6 +37,9 @@ export class AcTransComponent {
     category: string = '';
     vrnos: string = '';
     narration: string = '';
+    created_by: string = '';
+    edited_by: string = '';
+
 
     page_count = 0;
     page_current = 0;
@@ -76,7 +79,9 @@ export class AcTransComponent {
         all: false,
         hide_ho_entries: '',
         vrnos: '',
-        narration: ''
+        narration: '',
+        created_by: '',
+        edited_by: ''
     };
 
     // Array For Displaying List
@@ -151,6 +156,8 @@ export class AcTransComponent {
     Init() {
         this.vrnos = '';
         this.narration = '';
+        this.created_by = '';
+        this.edited_by = '';
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
 
@@ -252,6 +259,8 @@ export class AcTransComponent {
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
         this.SearchData.vrnos = this.vrnos;
         this.SearchData.narration = this.narration;
+        this.SearchData.created_by = this.created_by;
+        this.SearchData.edited_by = this.edited_by;
 
         this.ErrorMessage = '';
         this.mainService.List(this.SearchData)
@@ -286,6 +295,16 @@ export class AcTransComponent {
             case 'narration':
                 {
                     this.narration = this.narration.trim().toUpperCase();
+                    break;
+                }
+            case 'created_by':
+                {
+                    this.created_by = this.created_by.trim().toUpperCase();
+                    break;
+                }
+            case 'edited_by':
+                {
+                    this.edited_by = this.edited_by.trim().toUpperCase();
                     break;
                 }
         }
