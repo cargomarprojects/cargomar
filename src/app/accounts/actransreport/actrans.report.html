@@ -128,15 +128,21 @@
         <div class="col-sm-4">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Created.By</label>
-            <div class="col-sm-10">
+            <!-- <div class="col-sm-10">
               <input type="text" class="col form-control form-control-sm" name="created_by" [(ngModel)]="created_by" (blur)="OnBlur('created_by')" />
+            </div> -->
+            <div class="col-sm-10">
+              <app-autocomplete #User1Lov [inputdata]="USERCREATERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Edited.By</label>
-            <div class="col-sm-10">
+            <!-- <div class="col-sm-10">
               <input type="text" class="col form-control form-control-sm" name="editedby" [(ngModel)]="edited_by"
                 (blur)="OnBlur('edited_by')" />
+            </div> -->
+            <div class="col-sm-10">
+              <app-autocomplete #User2Lov [inputdata]="USEREDITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
           <div class="form-group row">

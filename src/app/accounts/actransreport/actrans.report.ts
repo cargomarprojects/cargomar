@@ -90,7 +90,8 @@ export class AcTransComponent {
     Record: AcTransReport = new AcTransReport;
 
     BRRECORD: SearchTable = new SearchTable();
-
+    USERCREATERECORD: SearchTable = new SearchTable();
+    USEREDITRECORD: SearchTable = new SearchTable();
 
     items: string[] = ['ALL', 'BP', 'BR', 'CI', 'CN', 'CP', 'CR', 'DI', 'DN', 'HO', 'IN', 'IN-ES', 'JV', 'OB', 'OC', 'OI', 'OP', 'PN', 'RB'];
 
@@ -183,6 +184,20 @@ export class AcTransComponent {
         this.BRRECORD.type = "BRANCH";
         this.BRRECORD.id = "";
         this.BRRECORD.code = this.gs.globalVariables.branch_code;
+
+        this.USERCREATERECORD = new SearchTable();
+        this.USERCREATERECORD.controlname = "USER-CREATE";
+        this.USERCREATERECORD.displaycolumn = "NAME";
+        this.USERCREATERECORD.type = "USER";
+        this.USERCREATERECORD.id = "";
+        this.USERCREATERECORD.code = "";
+
+        this.USEREDITRECORD = new SearchTable();
+        this.USEREDITRECORD.controlname = "USER-EDIT";
+        this.USEREDITRECORD.displaycolumn = "NAME";
+        this.USEREDITRECORD.type = "USER";
+        this.USEREDITRECORD.id = "";
+        this.USEREDITRECORD.code = "";
     }
 
     LovSelected(_Record: SearchTable) {
@@ -191,6 +206,12 @@ export class AcTransComponent {
             this.branch_code = _Record.code;
             this.branch_name = _Record.name;
 
+        }
+        if (_Record.controlname == "USER-CREATE") {
+         this.created_by=_Record.code;
+        }
+        if (_Record.controlname == "USER-EDIT") {
+            this.edited_by = _Record.code;
         }
     }
     LoadCombo() {
