@@ -5,6 +5,7 @@ import { Linkm2 } from '../models/linkm2';
 import { Linkm2Service } from '../services/linkm2.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { targetlistm } from '../models/targetlistm';
+import { Param } from '../../master/models/param';
 @Component({
   selector: 'app-linkm2',
   templateUrl: './linkm2.component.html',
@@ -30,6 +31,7 @@ export class Linkm2Component {
   page_current = 0;
   page_rows = 0;
   page_rowcount = 0;
+  selectedRowIndex = 0;
 
   sub: any;
   urlid: string;
@@ -45,6 +47,7 @@ export class Linkm2Component {
   source_table = 'MEXICO-TMM';
   source_type = 'SHIPPER';
   source_typedet = 'SHIPPER';
+  TradingPartnerList: Param[] = [];
 
   PARTYRECORD: SearchTable = new SearchTable();
 
@@ -83,7 +86,7 @@ export class Linkm2Component {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    this.List('NEW');
+    // this.List('NEW');
   }
 
   InitComponent() {
@@ -107,9 +110,9 @@ export class Linkm2Component {
       this.PARTYRECORD.code = "";
       this.PARTYRECORD.name = "";
       this.PARTYRECORD.parentid = "";
-      this.Record.sourcename = "";
+      // this.Record.sourcename = "";
     }
-    if (_type == 'CONTAINER') {
+    else if (_type == 'CONTAINER') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "CONTAINER";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -119,9 +122,9 @@ export class Linkm2Component {
       this.PARTYRECORD.code = "";
       this.PARTYRECORD.name = "";
       this.PARTYRECORD.parentid = "";
-      this.Record.sourcename = "";
+      // this.Record.sourcename = "";
     }
-    if (_type == 'SEA CARRIER') {
+    else if (_type == 'SEA CARRIER') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "SEA CARRIER";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -131,7 +134,31 @@ export class Linkm2Component {
       this.PARTYRECORD.code = "";
       this.PARTYRECORD.name = "";
       this.PARTYRECORD.parentid = "";
-      this.Record.sourcename = "";
+      // this.Record.sourcename = "";
+    }
+    else if (_type == 'AIR CARRIER') {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = "AIR CARRIER";
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = "AIR CARRIER";
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      // this.Record.sourcename = "";
+    }
+    else {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = _type;
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = _type;
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      // this.Record.sourcename = "";
     }
   }
 
@@ -144,40 +171,45 @@ export class Linkm2Component {
 
   LoadCombo() {
 
-    //this.loading = true;
-    //let SearchData = {
-    //  type: 'type',
-    //  comp_code: this.gs.globalVariables.comp_code,
-    //  branch_code: this.gs.globalVariables.branch_code
-    //};
+    this.loading = true;
+    let SearchData = {
+      type: 'type',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
 
-    //this.ErrorMessage = '';
-    //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
-    //  .subscribe(response => {
-    //    this.loading = false;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.TradingPartnerList = response.tplist;
 
-    //    this.List("NEW");
-    //  },
-    //  error => {
-    //    this.loading = false;
-    //    this.ErrorMessage = JSON.parse(error._body).Message;
-    //  });
+        this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = JSON.parse(error._body).Message;
+        });
 
 
   }
 
 
   LovSelected(_Record: any) {
-    if (_Record.controlname == "CUSTOMER" || _Record.controlname == "CONTAINER" || _Record.controlname == "SEA CARRIER") {
-      this.Record.sourceid = _Record.id;
-      this.Record.sourcecode = _Record.code;
-      this.Record.sourcename = _Record.name;
-    }
+    // if (_Record.controlname == "CUSTOMER" || _Record.controlname == "CONTAINER" || _Record.controlname == "SEA CARRIER") {
+    //   this.Record.sourceid = _Record.id;
+    //   this.Record.sourcecode = _Record.code;
+    //   this.Record.sourcename = _Record.name;
+    // }
+
+    this.Record.sourceid = _Record.id;
+    this.Record.sourcecode = _Record.code;
+    this.Record.sourcename = _Record.name;
   }
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
+  ActionHandler(action: string, id: string, _sourceType: string = '') {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -190,13 +222,14 @@ export class Linkm2Component {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-      this.initlov('CUSTOMER');
+
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
       this.mode = 'EDIT';
       this.ResetControls();
       this.pkid = id;
+      this.GetRecord(id, _sourceType);
       this.initlov('CUSTOMER');
     }
   }
@@ -254,16 +287,53 @@ export class Linkm2Component {
     this.Record = new Linkm2();
     this.Record.pkid = this.pkid;
     this.Record.branchcode = "";
+    this.Record.sourceid = "";
+    this.Record.sourcecode = "";
+    this.Record.sourcename = "";
+    this.Record.targetid = "";
+    this.Record.targetdesc = "";
     this.Record.sourcetable = this.source_table;
     this.Record.sourcetype = this.source_typedet;
     this.Record.rec_mode = this.mode;
+    if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+      this.initlov('CUSTOMER');
+    else
+      this.initlov(this.Record.sourcetype);
+  }
 
+  //  Load a single Record for VIEW/EDIT
+  GetRecord(Id: string, _sourceType: string = '') {
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+      source_type: _sourceType
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.LoadData(response.record);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 
   LoadData(_Record: Linkm2) {
     this.Record = _Record;
     this.Record.rec_mode = this.mode;
+    if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+      this.initlov('CUSTOMER');
+    else
+      this.initlov(this.Record.sourcetype);
+    this.PARTYRECORD.id = this.Record.sourceid;
+    this.PARTYRECORD.code = this.Record.sourcecode;
+    this.PARTYRECORD.name = this.Record.sourcename;
   }
 
 
@@ -355,10 +425,11 @@ export class Linkm2Component {
     if (field == 'sourcetype') {
       this.RecordList2 = new Array<targetlistm>();
       this.source_typedet = this.Record.sourcetype;
-      if (this.Record.sourcetype == "CONTAINER" || this.Record.sourcetype == "SEA CARRIER")
-        this.initlov(this.Record.sourcetype);
-      else
+      if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
         this.initlov('CUSTOMER');
+      else
+        this.initlov(this.Record.sourcetype);
+
     }
   }
 

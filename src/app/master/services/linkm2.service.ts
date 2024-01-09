@@ -18,6 +18,10 @@ export class Linkm2Service {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Link2/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    GetRecord(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Link2/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
     Save(Record: Linkm2) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Link2/Save', Record, this.gs.headerparam2('authorized'));
     }

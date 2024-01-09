@@ -19,8 +19,11 @@
 
           <label class="col-1 col-form-label col-form-label-sm" (click)="focus()">Group</label>
           <div class="col-2">
-            <select class="form-control form-control-sm" [(ngModel)]="source_table">
+            <!-- <select class="form-control form-control-sm" [(ngModel)]="source_table">
               <option value="MEXICO-TMM">MEXICO-TMM</option>
+            </select> -->
+            <select class="form-control form-control-sm" [(ngModel)]="source_table">
+              <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
           </div>
 
@@ -59,7 +62,8 @@
           <th>REMOVE</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList" [class.active]="i == selectedRowIndex"
+        (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">
         <tr>
           <td>{{rec.sourcetable}}</td>
           <td>{{rec.sourcetype}}</td>
@@ -92,9 +96,13 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Group</label>
           <div class="col-10">
-            <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
+            <!-- <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
               <option value="MEXICO-TMM">MEXICO-TMM</option>
               <option value="DESCARTES">DESCARTES</option>
+            </select> -->
+            <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.sourcetable">
+              <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
           </div>
         </div>
