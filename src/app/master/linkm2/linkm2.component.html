@@ -100,7 +100,7 @@
               <option value="MEXICO-TMM">MEXICO-TMM</option>
               <option value="DESCARTES">DESCARTES</option>
             </select> -->
-            <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            <select [disabled]="mode=='EDIT'" class="form-control form-control-sm"
               [(ngModel)]="Record.sourcetable">
               <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
@@ -110,7 +110,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label  col-form-label-sm">Type</label>
           <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.sourcetype"
+            <select  [disabled]="mode=='EDIT'"  class="form-control form-control-sm" [(ngModel)]="Record.sourcetype"
               (change)="OnChange('sourcetype')">
               <option value="SHIPPER">SHIPPER</option>
               <option value="CONSIGNEE">CONSIGNEE</option>
@@ -169,7 +169,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-sm-6">
         <div class="page-box">
           <div class="row">
             <div class="col-sm-12">
