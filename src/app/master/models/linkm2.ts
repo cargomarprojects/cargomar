@@ -5,6 +5,9 @@ export class Linkm2 {
   pkid: string;
   sourcetable: string;
   sourcetype: string;
+  searchstring: string;
+  searchvalue1: string;
+  searchvalue2: string;
   sourceid: string;  
   sourcecode: string;  
   sourcename: string;  

@@ -104,7 +104,10 @@ export class Linkm2Component {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "CUSTOMER";
       this.PARTYRECORD.displaycolumn = "CODE";
-      this.PARTYRECORD.type = "CUSTOMER";
+      if (this.Record.sourcetable == "JOB")
+        this.PARTYRECORD.type = "CUSTOMER PLUS ADDRESS";
+      else
+        this.PARTYRECORD.type = "CUSTOMER";
       this.PARTYRECORD.where = "";
       this.PARTYRECORD.id = "";
       this.PARTYRECORD.code = "";
@@ -202,10 +205,13 @@ export class Linkm2Component {
     //   this.Record.sourcecode = _Record.code;
     //   this.Record.sourcename = _Record.name;
     // }
-
     this.Record.sourceid = _Record.id;
     this.Record.sourcecode = _Record.code;
     this.Record.sourcename = _Record.name;
+    if (this.Record.sourcetable == "JOB") {
+      this.Record.targetid = _Record.code;
+      this.Record.targetdesc = _Record.name;
+    }
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -287,6 +293,7 @@ export class Linkm2Component {
     this.Record = new Linkm2();
     this.Record.pkid = this.pkid;
     this.Record.branchcode = "";
+    this.Record.searchstring = "";
     this.Record.sourceid = "";
     this.Record.sourcecode = "";
     this.Record.sourcename = "";
@@ -407,6 +414,11 @@ export class Linkm2Component {
       case 'targetdesc':
         {
           this.Record.targetdesc = this.Record.targetdesc.toUpperCase();
+          break;
+        }
+        case 'searchstring':
+        {
+          this.Record.searchstring = this.Record.searchstring.toUpperCase();
           break;
         }
       case 'targetcode':
