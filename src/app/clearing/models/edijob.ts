@@ -41,7 +41,9 @@ export class EdiJob {
   forex_ac_number: string;
   ad_code: string;
   nfei: string;
-  job_selected:boolean;
-  processed:string;
-  invoice_nos:string;
+  job_selected: boolean;
+  processed: string;
+  invoice_nos: string;
+  invoice_dt: string;
+  invoice_count: string;
 }
