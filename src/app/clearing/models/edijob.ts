@@ -1,6 +1,44 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class EdiJob {
-  job_pkid: string;
-  job_docno: string;
+  pkid: string;
+  file_id: string;
+  source_table: string;
+  job_slno: string;
+  job_date: string;
+  shipper_name: string;
+  shipper_branch_slno: string;
+  shipper_address: string;
+  billed_to: string;
+  consignee_name: string;
+  consignee_address: string;
+  consignee_zip_code: string;
+  buyersameasconsignee: string;
+  buyer_name: string;
+  buyer_address: string;
+  buyer_zip_code: string;
+  origin_country: string;
+  origin_state: string;
+  load_port: string;
+  discharge_port: string;
+  destination_port: string;
+  commodity: string;
+  cargo_movement: string;
+  freight_terms: string;
+  cargo_nature: string;
+  total_pkgs: string;
+  pkgs_unit: string;
+  loose_pkgs: string;
+  nt_wt: string;
+  gr_wt: string;
+  ch_wt: string;
+  wt_unit: string;
+  cbm: string;
+  rbi_waiver_no: string;
+  rbi_waiver_date: string;
+  bank_name: string;
+  ac_number: string;
+  forex_ac_number: string;
+  ad_code: string;
+  nfei: string;
 }

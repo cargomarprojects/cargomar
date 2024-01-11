@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SearchTable } from '../../../shared/models/searchtable';
-import { EdiJob} from '../../models/edijob';
+import { EdiJob } from '../../models/edijob';
 import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
 
@@ -29,11 +29,12 @@ export class EdijobComponent {
     modal: any;
 
     selectedRowIndex = 0;
+    InfoMessage = "";
     ErrorMessage = "";
     mode = '';
     pkid = '';
 
-     
+
     bExcel = false;
     bCompany = false;
     bAdmin = false;
@@ -41,25 +42,15 @@ export class EdijobComponent {
     currentTab = 'LIST';
     searchstring = '';
 
-    SearchData = {
-        type: '',
-        pkid: '',
-        report_folder: '',
-        company_code: '',
-        branch_code: '',
-        branch_name: '',
-        year_code: '',
-        from_date: '',
-        to_date: '',
-        user_pkid: this.gs.globalVariables.user_pkid,
-        user_code: this.gs.globalVariables.user_code,
-        auto_mail: "N"
-    };
+    page_count = 0;
+    page_current = 0;
+    page_rows = 0;
+    page_rowcount = 0;
 
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
-    sMailType: string = 'MIS-WEEKLY-VOLUME-REPORT';
+
     AttachList: any[] = [];
     FileList: any[] = [];
     // Array For Displaying List
@@ -74,6 +65,9 @@ export class EdijobComponent {
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
+        this.page_count = 0;
+        this.page_rows = 15;
+        this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -114,7 +108,7 @@ export class EdijobComponent {
     }
 
     Init() {
-         
+
     }
 
     // // Destroy Will be called when this component is closed
@@ -152,7 +146,7 @@ export class EdijobComponent {
     }
 
     // // Query List Data
-    List(_type: string, mailsent: any) {
+    List(_type: string) {
 
         this.ErrorMessage = '';
         //if (this.from_date.trim().length <= 0) {
@@ -165,41 +159,39 @@ export class EdijobComponent {
         //}
 
         this.loading = true;
-        this.pkid = this.gs.getGuid();
-        this.SearchData.type = _type;
-        this.SearchData.pkid = this.pkid;
-        this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-        this.SearchData.company_code = this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-        this.SearchData.branch_name = this.gs.globalVariables.branch_name;
-        this.SearchData.year_code = this.gs.globalVariables.year_code;
-        
+        let SearchData = {
+            type: _type,
+            rowtype: this.type,
+            searchstring: this.searchstring.toUpperCase(),
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
+            page_count: this.page_count,
+            page_current: this.page_current,
+            page_rows: this.page_rows,
+            page_rowcount: this.page_rowcount,
+            report_folder: this.gs.globalVariables.report_folder
+        };
 
         this.ErrorMessage = '';
-        this.mainService.List(this.SearchData)
+        this.InfoMessage = '';
+        this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-
-                if (_type == 'MAIL') {
-                    this.FileList = response.filelist;
-                    this.AttachList = new Array<any>();
-                    for (let rec of this.FileList) {
-                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
-                    }
-                    
-                }
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.FileList = response.filelist;
-                    for (let rec of this.FileList) {
-                        this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
-                    }
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
                 }
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
+            }, error => {
+                this.loading = false;
+                this.ErrorMessage = this.gs.getError(error);
+                alert(this.ErrorMessage);
+            });
     }
 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -219,7 +211,7 @@ export class EdijobComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-    
+
     /* 
     AutoEmail()
     {
