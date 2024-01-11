@@ -263,7 +263,7 @@ export class EdijobComponent {
             .subscribe(response => {
                 this.loading = false;
 
-                alert('Download Complete');
+                // alert('Download Complete');
             },
                 error => {
                     this.loading = false;
