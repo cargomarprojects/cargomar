@@ -34,7 +34,8 @@ export class EdijobComponent {
     mode = '';
     pkid = '';
 
-
+    chkallselected: boolean = false;
+    selectdeselect: boolean = false;
     bExcel = false;
     bCompany = false;
     bAdmin = false;
@@ -128,6 +129,7 @@ export class EdijobComponent {
 
     }
     LoadCombo() {
+        this.List('NEW');
     }
 
 
@@ -179,6 +181,8 @@ export class EdijobComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.chkallselected = false;
+        this.selectdeselect = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
@@ -211,7 +215,13 @@ export class EdijobComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-
+    SelectDeselect() {
+        this.selectdeselect = !this.selectdeselect;
+        for (let rec of this.RecordList) {
+          rec.job_selected = this.selectdeselect;
+        }
+      }
+    
     /* 
     AutoEmail()
     {

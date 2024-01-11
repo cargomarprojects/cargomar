@@ -19,9 +19,12 @@
                                         <button [disabled]="loading" (click)="List('SCREEN','')"
                                             class="btn btn-primary btn-sm mr-1">Download</button>
                                             <button [disabled]="loading" (click)="List('SCREEN','')"
-                                            class="btn btn-primary btn-sm mr-1">Transfer</button>
+                                            class="btn btn-primary btn-sm mr-1">Find Missing Data</button>
                                             <button [disabled]="loading" (click)="List('SCREEN','')"
                                             class="btn btn-primary btn-sm mr-1">Validate</button>
+                                            <button [disabled]="loading" (click)="List('SCREEN','')"
+                                            class="btn btn-primary btn-sm mr-1">Transfer</button>
+                                          
                                         <button [disabled]="loading" (click)="List('NEW')"
                                             class="btn btn-primary btn-sm">Search</button>
                                     </div>
@@ -49,8 +52,10 @@
                         <table class="table table-hover table-sm table-bordered table-striped">
                           <thead class="page-body-thead">
                             <tr>
+                              <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
                               <th>JOB#</th>
                               <th>DATE</th>
+                              <th>PROCESSED</th>
                               <th>SHIPPER</th>
                               <th>CONSIGNEE</th>
                               <th>POL</th>
@@ -66,8 +71,10 @@
                           <tbody class="page-body-tbody">
                             <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                               (mousedown)="selectedRowIndex=i">
+                              <td><input type="checkbox" [(ngModel)]="rec.job_selected"></td>
                               <td>{{rec.job_slno}}</td>
                               <td>{{rec.job_date}}</td>
+                              <td>{{rec.processed}}</td>
                               <td>{{rec.shipper_name}}</td>
                               <td>{{rec.consignee_name}}</td>
                               <td>{{rec.load_port}}</td>
