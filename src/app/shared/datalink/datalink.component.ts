@@ -40,7 +40,8 @@ export class DatalinkComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-
+    bpending: boolean = true;
+    bAdmin: boolean = false;
     tl_pkid = '';
     mode = '';
     pkid = '';
@@ -88,18 +89,23 @@ export class DatalinkComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
-        
+
+        if (this.type)
+            this.source_table = this.type;
         // this.List('NEW');
-        if (this.link_pkid) {
-            this.ActionHandler('EDIT', this.link_pkid, this.link_type)
-        }
+        // if (this.link_pkid) {
+        //     this.ActionHandler('EDIT', this.link_pkid, this.link_type)
+        // }
     }
 
     InitComponent() {
-
+        this.bAdmin = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_admin)
+                this.bAdmin = true;
+        }
 
         this.LoadCombo();
 
@@ -274,7 +280,8 @@ export class DatalinkComponent {
             company_code: this.gs.globalVariables.comp_code,
             source_table: this.source_table,
             source_type: this.source_type,
-            branch_code: ''
+            branch_code: '',
+            bpending: this.bpending
         };
 
         this.ErrorMessage = '';

@@ -7,7 +7,7 @@ import { SearchTable } from '../../../shared/models/searchtable';
 import { EdiJob } from '../../models/edijob';
 import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
-import { Linkm2 } from '../../../master/models/linkm2';
+// import { Linkm2 } from '../../../master/models/linkm2';
  
 @Component({
     selector: 'app-edijob',
@@ -59,7 +59,7 @@ export class EdijobComponent {
     RecordList: EdiJob[] = [];
     //  Single Record for add/edit/view details
     Record: EdiJob = new EdiJob;
-    RecordList2: Linkm2[] = [];
+    // RecordList2: Linkm2[] = [];
 
     constructor(
         private modalService: NgbModal,
@@ -240,7 +240,7 @@ export class EdijobComponent {
         this.mainService.FindMissingData(eSearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList2 = response.list;
+                // this.RecordList2 = response.list;
                   if (!this.gs.isBlank(this.tabsetCtrl))
                     this.tabsetCtrl.select('tab2');
             },

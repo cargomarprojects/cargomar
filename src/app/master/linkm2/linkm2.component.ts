@@ -32,7 +32,7 @@ export class Linkm2Component {
   page_rows = 0;
   page_rowcount = 0;
   selectedRowIndex = 0;
-
+  bAdmin: boolean = false;
   sub: any;
   urlid: string;
 
@@ -90,11 +90,13 @@ export class Linkm2Component {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+    }
     // this.LoadCombo();
 
   }

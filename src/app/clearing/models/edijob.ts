@@ -43,4 +43,5 @@ export class EdiJob {
   nfei: string;
   job_selected:boolean;
   processed:string;
+  invoice_nos:string;
 }
