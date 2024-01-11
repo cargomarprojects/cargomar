@@ -431,6 +431,11 @@ export class Linkm2Component {
           this.targetname = this.targetname.toUpperCase();
           break;
         }
+        case 'searchstring2':
+        {
+          this.searchstring = this.searchstring.toUpperCase();
+          break;
+        }
     }
   }
   OnChange(field: string) {
