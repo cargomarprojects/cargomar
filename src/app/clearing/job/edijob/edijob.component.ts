@@ -151,15 +151,6 @@ export class EdijobComponent {
     List(_type: string) {
 
         this.ErrorMessage = '';
-        //if (this.from_date.trim().length <= 0) {
-        //  this.ErrorMessage = "From Date Cannot Be Blank";
-        //  return;
-        //}
-        //if (this.to_date.trim().length <= 0) {
-        //  this.ErrorMessage = "To Date Cannot Be Blank";
-        //  return;
-        //}
-
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -182,7 +173,7 @@ export class EdijobComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.chkallselected = false;
-        this.selectdeselect = false;
+                this.selectdeselect = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
@@ -218,10 +209,46 @@ export class EdijobComponent {
     SelectDeselect() {
         this.selectdeselect = !this.selectdeselect;
         for (let rec of this.RecordList) {
-          rec.job_selected = this.selectdeselect;
+            rec.job_selected = this.selectdeselect;
         }
-      }
-    
+    }
+
+    FindMissingData() {
+
+        let sPkids: string = "";
+        for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
+            if (sPkids != "")
+                sPkids += ",";
+            sPkids += rec.pkid;
+        }
+
+        if (sPkids == "") {
+            this.ErrorMessage = "Please Select and Continue.....";
+            alert(this.ErrorMessage);
+            return;
+        }
+
+        this.loading = true;
+        let eSearchData = {
+            pkid: sPkids,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.FindMissingData(eSearchData)
+            .subscribe(response => {
+                this.loading = false;
+                alert('Update Complete');
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
+
+
     /* 
     AutoEmail()
     {
