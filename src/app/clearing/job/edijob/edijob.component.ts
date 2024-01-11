@@ -248,6 +248,29 @@ export class EdijobComponent {
     }
 
 
+    ImportData() {
+        this.loading = true;
+        let eSearchData = {
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
+            report_folder: this.gs.globalVariables.report_folder
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.ImportData(eSearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+                alert('Download Complete');
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
 
     /* 
     AutoEmail()
