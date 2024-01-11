@@ -61,6 +61,7 @@ import { MailDirectComponent } from './mail-direct/mail-direct.component';
 import { ApprovedDetComponent } from './approveddet/approveddet.component';
 import { ApprovedDetService } from './services/approveddet.service';
 import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
+import { DatalinkComponent } from './datalink/datalink.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -104,7 +105,8 @@ import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
     GenRemarks2Component,
     GenFileUploadComponent,
     MailDirectComponent,
-    ApprovedDetComponent
+    ApprovedDetComponent,
+    DatalinkComponent
   ],
   exports: [
     CommonModule,
@@ -142,7 +144,8 @@ import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
     GenRemarks2Component,
     GenFileUploadComponent,
     MailDirectComponent,
-    ApprovedDetComponent
+    ApprovedDetComponent,
+    DatalinkComponent
   ],
   providers: [
     AlertService,

@@ -95,10 +95,11 @@ export class Linkm2Component {
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
 
-    this.LoadCombo();
+    // this.LoadCombo();
 
   }
 
+  /*
   initlov(_type: string) {
     if (_type == 'CUSTOMER') {
       this.PARTYRECORD = new SearchTable();
@@ -556,5 +557,5 @@ export class Linkm2Component {
   Settargetvalue(_rec: targetlistm) {
     this.Record.targetid = _rec.tl_code;
     this.Record.targetdesc = _rec.tl_name;
-  }
+  }*/
 }

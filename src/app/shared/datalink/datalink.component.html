@@ -1,0 +1,272 @@
+<div class="page-header">
+    <div class="col">
+      <label>{{title}}</label>
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+  </div>
+  
+  <div *ngIf="currentTab=='LIST'" class="page-list">
+  
+    <div class="page-search">
+      <div class="row">
+  
+        <div class="col-sm-12">
+  
+          <div class="form-group row">
+  
+            <label class="col-1 col-form-label col-form-label-sm" (click)="focus()">Group</label>
+            <div class="col-2">
+              <!-- <select class="form-control form-control-sm" [(ngModel)]="source_table">
+                <option value="MEXICO-TMM">MEXICO-TMM</option>
+              </select> -->
+              <select class="form-control form-control-sm" [(ngModel)]="source_table">
+                <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
+              </select>
+            </div>
+  
+            <label class="col-1 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-2">
+              <select class="form-control form-control-sm" [(ngModel)]="source_type">
+                <!-- <option value="SHIPPER">SHIPPER</option>
+                <option value="CONSIGNEE">CONSIGNEE</option>
+                <option value="CONTAINER">CONTAINER</option>
+                <option value="SEA CARRIER">SEA CARRIER</option> -->
+                <option value="SHIPPER">SHIPPER</option>
+                <option value="CONSIGNEE">CONSIGNEE</option>
+                <option value="BILLED-TO">BILLED-TO</option>
+                <option value="BUYER">BUYER</option>
+                <option value="COUNTRY">COUNTRY</option>
+                <option value="STATE">STATE</option>
+                <option value="PORT">PORT</option>
+                <option value="USPORT">USPORT</option>
+                <option value="COMMODITY">COMMODITY</option>
+                <option value="UNIT">UNIT</option>
+                <option value="SHIPPER-GROUP">SHIPPER-GROUP</option>
+                <option value="CONTAINER">CONTAINER</option>
+                <option value="CONTAINER TYPE">CONTAINER TYPE</option>
+                <option value="CONTAINER SERVICE CODE">CONTAINER SERVICE CODE</option>
+                <option value="AIR CARRIER">AIR CARRIER</option>
+                <option value="SEA CARRIER">SEA CARRIER</option>            
+              </select>
+            </div>
+  
+            <label class="col-1">Search</label>
+            <div class="col-3">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"  (blur)="OnBlur('searchstring2')"/>
+            </div>
+            <div class="col-2">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>GROUP</th>
+            <th>TYPE</th>
+            <th>SEARCH</th>
+            <th>CODE</th>
+            <th>NAME</th>
+            <th>VALUE</th>
+            <th>DESCRIPTION</th>
+            <th>REMOVE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">
+          <tr>
+            <td>{{rec.sourcetable}}</td>
+            <td>{{rec.sourcetype}}</td>
+            <td>{{rec.searchstring}}</td>
+            <td>{{rec.sourcecode}}</td>
+            <td>{{rec.sourcename}}</td>
+            <td>{{rec.targetid}}</td>
+            <td>{{rec.targetdesc}}</td>
+            <td>
+              <span>
+                <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.targetid}"
+                  (result)="RemoveList($event)"></App-Dialog>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  
+  </div>
+  
+  
+  <div *ngIf="currentTab=='DETAILS'" class="page-details">
+  
+    <div class="page-box">
+  
+      <div class="row">
+        <div class="col-sm-6">
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Group</label>
+            <div class="col-10">
+              <!-- <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
+                <option value="MEXICO-TMM">MEXICO-TMM</option>
+                <option value="DESCARTES">DESCARTES</option>
+              </select> -->
+              <select [disabled]="mode=='EDIT'" class="form-control form-control-sm"
+                [(ngModel)]="Record.sourcetable" (change)="OnChange('sourcetype')">
+                <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Type</label>
+            <div class="col-10">
+              <select  [disabled]="mode=='EDIT'"  class="form-control form-control-sm" [(ngModel)]="Record.sourcetype"
+                (change)="OnChange('sourcetype')">
+                <option value="SHIPPER">SHIPPER</option>
+                <option value="CONSIGNEE">CONSIGNEE</option>
+                <option value="BILLED-TO">BILLED-TO</option>
+                <option value="BUYER">BUYER</option>
+                <option value="COUNTRY">COUNTRY</option>
+                <option value="STATE">STATE</option>
+                <option value="PORT">PORT</option>
+                <option value="USPORT">USPORT</option>
+                <option value="COMMODITY">COMMODITY</option>
+                <option value="UNIT">UNIT</option>
+                <option value="SHIPPER-GROUP">SHIPPER-GROUP</option>
+                <option value="CONTAINER">CONTAINER</option>
+                <option value="CONTAINER TYPE">CONTAINER TYPE</option>
+                <option value="CONTAINER SERVICE CODE">CONTAINER SERVICE CODE</option>
+                <option value="AIR CARRIER">AIR CARRIER</option>
+                <option value="SEA CARRIER">SEA CARRIER</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Search</label>
+            <div class="col-10">
+              <input  type="text" class="form-control form-control-sm" [(ngModel)]="Record.searchstring"
+                (blur)="OnBlur('searchstring')" required maxlength="100" />
+            </div>
+          </div>
+          <div class="form-group row" style="color:black">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Value1</label>
+            <div class="col-sm-10">
+              <app-autocomplete #Party [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-10">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sourcename" />
+            </div>
+          </div>
+  
+  
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Value2</label>
+            <div class="col-10">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetid"
+                (blur)="OnBlur('targetid')" required maxlength="100" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Description</label>
+            <div class="col-10">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.targetdesc"
+                (blur)="OnBlur('targetdesc')" required maxlength="200" />
+            </div>
+          </div>
+  
+          <div class="page-box">
+            <div class="col-sm-6">
+  
+              <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-success btn-sm">Return</button>
+  
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-sm-6">
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group row">
+                  <label class="col-2 col-form-label col-form-label-sm">Code/Name</label>
+                  <div style="padding-right: 0" class="col-2">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="targetcode"
+                      (blur)="OnBlur('targetcode')" required [maxlength]="100" />
+                  </div>
+                  <div style="padding-left: 2px" class="col-5">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="targetname"
+                      (blur)="OnBlur('targetname')" required [maxlength]="100" />
+                  </div>
+                  <div *ngIf="gs.globalVariables.user_code=='ADMIN'" class="col-1">
+                    <button [disabled]="loading" (click)="SearchRecord('targetlistm','SAVE')"
+                      class="btn btn-success btn-sm">Save</button>
+                  </div>
+                  <div class="col-sm-2">
+                    <button [disabled]="loading" (click)="SearchRecord('targetlistm','LIST')"
+                      class="btn btn-primary btn-sm">Search</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div style="height: 400px; overflow-y: scroll;">
+                <div class="page-body table-responsive">
+                  <table class="table table-hover table-sm">
+                    <thead class="page-body-thead">
+                      <tr>
+                        <th width="10%">TYPE</th>
+                        <th width="10%">CODE</th>
+                        <th width="30%">NAME</th>
+                        <th width="10%">DELETE</th>
+                        <th width="40%"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+                      <tr>
+                        <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_sourcetype}}</td>
+                        <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_code}}</td>
+                        <td (click)="Settargetvalue(rec)" style="padding:0px ">{{rec.tl_name}}</td>
+                        <td style="padding:5px 0px 0px 10px"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                            (click)="Remove(rec.tl_pkid,rec.tl_code)"></i></td>
+                        <td style="padding:0px "></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <br />
+  
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>

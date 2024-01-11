@@ -1,4 +1,7 @@
-<div class="page-header">
+<div class="col-sm-12">
+  <app-datalink [type]="''" [menuid]="'LINKM2'"></app-datalink>
+</div>
+<!-- <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
@@ -19,9 +22,7 @@
 
           <label class="col-1 col-form-label col-form-label-sm" (click)="focus()">Group</label>
           <div class="col-2">
-            <!-- <select class="form-control form-control-sm" [(ngModel)]="source_table">
-              <option value="MEXICO-TMM">MEXICO-TMM</option>
-            </select> -->
+           
             <select class="form-control form-control-sm" [(ngModel)]="source_table">
               <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
@@ -30,10 +31,7 @@
           <label class="col-1 col-form-label  col-form-label-sm">Type</label>
           <div class="col-2">
             <select class="form-control form-control-sm" [(ngModel)]="source_type">
-              <!-- <option value="SHIPPER">SHIPPER</option>
-              <option value="CONSIGNEE">CONSIGNEE</option>
-              <option value="CONTAINER">CONTAINER</option>
-              <option value="SEA CARRIER">SEA CARRIER</option> -->
+               
               <option value="SHIPPER">SHIPPER</option>
               <option value="CONSIGNEE">CONSIGNEE</option>
               <option value="BILLED-TO">BILLED-TO</option>
@@ -114,10 +112,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Group</label>
           <div class="col-10">
-            <!-- <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
-              <option value="MEXICO-TMM">MEXICO-TMM</option>
-              <option value="DESCARTES">DESCARTES</option>
-            </select> -->
+            
             <select [disabled]="mode=='EDIT'" class="form-control form-control-sm"
               [(ngModel)]="Record.sourcetable" (change)="OnChange('sourcetype')">
               <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
@@ -269,4 +264,4 @@
 </div>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
-</div>
+</div> -->
