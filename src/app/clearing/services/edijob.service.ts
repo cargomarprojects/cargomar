@@ -20,6 +20,10 @@ export class EdijobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/FindMissingData', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  TransferData(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/TransferData', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   FileList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/xml/InwardEdiFiles/List', SearchData, this.gs.headerparam2('authorized'));
   }

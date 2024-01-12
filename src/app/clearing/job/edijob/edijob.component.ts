@@ -275,6 +275,48 @@ export class EdijobComponent {
     }
 
 
+
+    ValidateData()
+    {
+
+    }
+
+    TransferData() {
+
+        let sPkids: string = "";
+        for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
+            if (sPkids != "")
+                sPkids += ",";
+            sPkids += rec.pkid;
+        }
+
+        // if (sPkids == "") {
+        //     this.ErrorMessage = "Please Select and Continue.....";
+        //     alert(this.ErrorMessage);
+        //     return;
+        // }
+
+        this.loading = true;
+        let eSearchData = {
+            pkid: sPkids,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.TransferData(eSearchData)
+            .subscribe(response => {
+                this.loading = false;
+                // this.RecordList2 = response.list;
+                //   if (!this.gs.isBlank(this.tabsetCtrl))
+                //     this.tabsetCtrl.select('tab2');
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
     /* 
     AutoEmail()
     {
