@@ -15,6 +15,7 @@ export class Linkm2 {
   targetdesc:string;
   
   branchcode: string;  
+  rec_branch_code:string;
   
   rowdisplayed: boolean;
   rec_mode: string;

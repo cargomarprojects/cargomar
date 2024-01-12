@@ -49,6 +49,7 @@ export class DatalinkComponent {
     targetcode: string = "";
     targetname: string = "";
     source_table = 'MEXICO-TMM';
+    search_source_table = 'MEXICO-TMM';
     source_type = 'ALL';
     source_typedet = 'ALL';
     SourceTypeList: any[] = [];
@@ -90,6 +91,7 @@ export class DatalinkComponent {
     ngOnInit() {
         if (this.type) {
             this.source_table = this.type;
+            this.search_source_table = this.source_table;
             this.InitCompleted = false;
         }
 
@@ -124,10 +126,7 @@ export class DatalinkComponent {
             this.PARTYRECORD = new SearchTable();
             this.PARTYRECORD.controlname = "CUSTOMER";
             this.PARTYRECORD.displaycolumn = "CODE";
-            if (this.Record.sourcetable == "JOB")
-                this.PARTYRECORD.type = "CUSTOMER PLUS ADDRESS";
-            else
-                this.PARTYRECORD.type = "CUSTOMER";
+            this.PARTYRECORD.type = "CUSTOMER";
             this.PARTYRECORD.where = "";
             this.PARTYRECORD.id = "";
             this.PARTYRECORD.code = "";
@@ -164,6 +163,18 @@ export class DatalinkComponent {
             this.PARTYRECORD.controlname = "AIR CARRIER";
             this.PARTYRECORD.displaycolumn = "CODE";
             this.PARTYRECORD.type = "AIR CARRIER";
+            this.PARTYRECORD.where = "";
+            this.PARTYRECORD.id = "";
+            this.PARTYRECORD.code = "";
+            this.PARTYRECORD.name = "";
+            this.PARTYRECORD.parentid = "";
+            // this.Record.sourcename = "";
+        }
+        if (_type == 'CUSTOMER PLUS ADDRESS') {
+            this.PARTYRECORD = new SearchTable();
+            this.PARTYRECORD.controlname = "CUSTOMER";
+            this.PARTYRECORD.displaycolumn = "CODE";
+            this.PARTYRECORD.type = "CUSTOMER PLUS ADDRESS";
             this.PARTYRECORD.where = "";
             this.PARTYRECORD.id = "";
             this.PARTYRECORD.code = "";
@@ -278,10 +289,8 @@ export class DatalinkComponent {
 
     // Query List Data
     List(_type: string) {
-
-
+        this.search_source_table = this.source_table;
         this.loading = true;
-
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -324,10 +333,7 @@ export class DatalinkComponent {
         this.Record.sourcetable = this.source_table;
         this.Record.sourcetype = this.source_typedet;
         this.Record.rec_mode = this.mode;
-        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
-            this.initlov('CUSTOMER');
-        else
-            this.initlov(this.Record.sourcetype);
+        this.setLovType();
     }
 
     //  Load a single Record for VIEW/EDIT
@@ -356,10 +362,22 @@ export class DatalinkComponent {
     LoadData(_Record: Linkm2) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
-        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
-            this.initlov('CUSTOMER');
-        else
-            this.initlov(this.Record.sourcetype);
+
+        if (this.Record.sourcetable == "JOB") {
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BUYER")
+                this.initlov('CUSTOMER PLUS ADDRESS');
+            else if (this.Record.sourcetype == "BILLED-TO")
+                this.initlov('CUSTOMER');
+            else
+                this.initlov(this.Record.sourcetype);
+        } else {
+
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+                this.initlov('CUSTOMER');
+            else
+                this.initlov(this.Record.sourcetype);
+        }
+
         this.PARTYRECORD.id = this.Record.sourceid;
         this.PARTYRECORD.code = this.Record.sourcecode;
         this.PARTYRECORD.name = this.Record.sourcename;
@@ -466,11 +484,7 @@ export class DatalinkComponent {
         if (field == 'sourcetype') {
             this.RecordList2 = new Array<targetlistm>();
             this.source_typedet = this.Record.sourcetype;
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
-                this.initlov('CUSTOMER');
-            else
-                this.initlov(this.Record.sourcetype);
-
+            this.setLovType();
             this.Value1TypeList = new Array<any>();
             if (this.Record.sourcetype == "CARGO-MOVEMENT" || this.Record.sourcetype == "FREIGHT-TERMS" || this.Record.sourcetype == "CARGO-NATURE" || this.Record.sourcetype == "NFEI") {
                 this.FillValue1TypeList(this.Record.sourcetype);
@@ -478,15 +492,29 @@ export class DatalinkComponent {
         } else if (field == 'source_table') {
             this.RecordList2 = new Array<targetlistm>();
             this.source_typedet = this.Record.sourcetype;
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
-                this.initlov('CUSTOMER');
-            else
-                this.initlov(this.Record.sourcetype);
+            this.setLovType();
             this.FillSourceTypeList(_type)
         } else if (field == 'sourceid') {
             this.Record.targetid = this.Record.sourceid;
         }
 
+    }
+
+    setLovType() {
+        if (this.Record.sourcetable == "JOB") {
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BUYER")
+                this.initlov('CUSTOMER PLUS ADDRESS');
+            else if (this.Record.sourcetype == "BILLED-TO")
+                this.initlov('CUSTOMER');
+            else
+                this.initlov(this.Record.sourcetype);
+        } else {
+
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+                this.initlov('CUSTOMER');
+            else
+                this.initlov(this.Record.sourcetype);
+        }
     }
 
     FillSourceTypeList(_type: string) {
