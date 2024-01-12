@@ -362,22 +362,7 @@ export class DatalinkComponent {
     LoadData(_Record: Linkm2) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
-
-        if (this.Record.sourcetable == "JOB") {
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BUYER")
-                this.initlov('CUSTOMER PLUS ADDRESS');
-            else if (this.Record.sourcetype == "BILLED-TO")
-                this.initlov('CUSTOMER');
-            else
-                this.initlov(this.Record.sourcetype);
-        } else {
-
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
-                this.initlov('CUSTOMER');
-            else
-                this.initlov(this.Record.sourcetype);
-        }
-
+        this.setLovType();
         this.PARTYRECORD.id = this.Record.sourceid;
         this.PARTYRECORD.code = this.Record.sourcecode;
         this.PARTYRECORD.name = this.Record.sourcename;
@@ -441,7 +426,11 @@ export class DatalinkComponent {
         else {
             REC.sourcetable = this.Record.sourcetable;
             REC.sourcetype = this.Record.sourcetype;
-
+            REC.searchstring = this.Record.searchstring;
+            if (this.Record.sourcetable == "JOB") {
+                REC.sourcecode = this.Record.targetid;
+                REC.sourcename = this.Record.targetdesc;
+            }
         }
     }
 
