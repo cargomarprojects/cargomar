@@ -249,7 +249,7 @@ export class EdifileComponent {
         this.mainService.InwardEdiEmailDownload(eSearchData)
             .subscribe(response => {
                 this.loading = false;
-
+                this.List('NEW');
                 // alert('Download Complete');
             },
                 error => {
