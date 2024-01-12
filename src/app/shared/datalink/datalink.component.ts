@@ -42,16 +42,18 @@ export class DatalinkComponent {
     InfoMessage = "";
     bpending: boolean = true;
     bAdmin: boolean = false;
+    bDelete: boolean = false;
     tl_pkid = '';
     mode = '';
     pkid = '';
     targetcode: string = "";
     targetname: string = "";
     source_table = 'MEXICO-TMM';
-    source_type = 'SHIPPER';
-    source_typedet = 'SHIPPER';
+    source_type = 'ALL';
+    source_typedet = 'ALL';
+    SourceTypeList: any[] = [];
     TradingPartnerList: Param[] = [];
-
+    Value1TypeList: any[] = [];
     PARTYRECORD: SearchTable = new SearchTable();
 
     RecordList2: targetlistm[] = [];
@@ -92,6 +94,7 @@ export class DatalinkComponent {
 
         if (this.type)
             this.source_table = this.type;
+        this.FillSourceTypeList(this.source_table);
         // this.List('NEW');
         // if (this.link_pkid) {
         //     this.ActionHandler('EDIT', this.link_pkid, this.link_type)
@@ -100,11 +103,13 @@ export class DatalinkComponent {
 
     InitComponent() {
         this.bAdmin = false;
+        this.bDelete = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_admin)
                 this.bAdmin = true;
+            this.bDelete = this.menu_record.rights_delete;
         }
 
         this.LoadCombo();
@@ -271,6 +276,7 @@ export class DatalinkComponent {
     // Query List Data
     List(_type: string) {
 
+
         this.loading = true;
 
         let SearchData = {
@@ -354,6 +360,8 @@ export class DatalinkComponent {
         this.PARTYRECORD.id = this.Record.sourceid;
         this.PARTYRECORD.code = this.Record.sourcecode;
         this.PARTYRECORD.name = this.Record.sourcename;
+        this.FillSourceTypeList(this.Record.sourcetable);
+        this.FillValue1TypeList(this.Record.sourcetype);
     }
 
 
@@ -451,7 +459,7 @@ export class DatalinkComponent {
                 }
         }
     }
-    OnChange(field: string) {
+    OnChange(field: string, _type: string = "") {
         if (field == 'sourcetype') {
             this.RecordList2 = new Array<targetlistm>();
             this.source_typedet = this.Record.sourcetype;
@@ -460,9 +468,92 @@ export class DatalinkComponent {
             else
                 this.initlov(this.Record.sourcetype);
 
+            this.Value1TypeList = new Array<any>();
+            if (this.Record.sourcetype == "CARGO-MOVEMENT" || this.Record.sourcetype == "FREIGHT-TERMS" || this.Record.sourcetype == "CARGO-NATURE" || this.Record.sourcetype == "NFEI") {
+                this.FillValue1TypeList(this.Record.sourcetype);
+            }
+        } else if (field == 'source_table') {
+            this.RecordList2 = new Array<targetlistm>();
+            this.source_typedet = this.Record.sourcetype;
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+                this.initlov('CUSTOMER');
+            else
+                this.initlov(this.Record.sourcetype);
+            this.FillSourceTypeList(_type)
+        } else if (field == 'sourceid') {
+            this.Record.targetid = this.Record.sourceid;
+        }
+
+    }
+
+    FillSourceTypeList(_type: string) {
+        this.SourceTypeList = new Array<any>();
+        if (_type == "JOB") {
+            this.SourceTypeList = [
+                { "code": "ALL", "name": "ALL" },
+                { "code": "SHIPPER", "name": "SHIPPER" },
+                { "code": "CONSIGNEE", "name": "CONSIGNEE" },
+                { "code": "BILLED-TO", "name": "BILLED-TO" },
+                { "code": "BUYER", "name": "BUYER" },
+                { "code": "COUNTRY", "name": "COUNTRY" },
+                { "code": "STATE", "name": "STATE" },
+                { "code": "PORT", "name": "PORT" },
+                { "code": "COMMODITY", "name": "COMMODITY" },
+                { "code": "UNIT", "name": "UNIT" },
+                { "code": "CARGO-MOVEMENT", "name": "CARGO-MOVEMENT" },
+                { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
+                { "code": "CARGO-NATURE", "name": "CARGO-NATURE" },
+                { "code": "NFEI", "name": "NFEI" }
+            ];
+
+        } else {
+
+            this.SourceTypeList = [
+                { "code": "ALL", "name": "ALL" },
+                { "code": "SHIPPER", "name": "SHIPPER" },
+                { "code": "CONSIGNEE", "name": "CONSIGNEE" },
+                { "code": "USPORT", "name": "USPORT" },
+                { "code": "SHIPPER-GROUP", "name": "SHIPPER-GROUP" },
+                { "code": "CONTAINER", "name": "CONTAINER" },
+                { "code": "CONTAINER SERVICE CODE", "name": "CONTAINER SERVICE CODE" },
+                { "code": "AIR CARRIER", "name": "AIR CARRIER" },
+                { "code": "SEA CARRIER", "name": "SEA CARRIER" }
+            ];
         }
     }
 
+    FillValue1TypeList(_type: string) {
+        this.Value1TypeList = new Array<any>();
+        if (_type == "CARGO-MOVEMENT") {
+            this.Value1TypeList = [
+                { "code": "FCL/FCL", "name": "FCL/FCL" },
+                { "code": "FCL/LCL", "name": "FCL/LCL" },
+                { "code": "LCL", "name": "LCL" },
+                { "code": "LCL/FCL", "name": "LCL/FCL" },
+                { "code": "LCL/LCL", "name": "LCL/LCL" }
+            ];
+        } else if (_type == "FREIGHT-TERMS") {
+            this.Value1TypeList = [
+                { "code": "EX-WORK", "name": "EX-WORK" },
+                { "code": "FREIGHT COLLECT", "name": "FREIGHT COLLECT" },
+                { "code": "FREIGHT PREPAID", "name": "FREIGHT PREPAID" }
+            ];
+        } else if (_type == "CARGO-NATURE") {
+            this.Value1TypeList = [
+                { "code": "N", "name": "NA" },
+                { "code": "C", "name": "Containerized Cargo" },
+                { "code": "CP", "name": "Containerized & Packaged cargo" },
+                { "code": "P", "name": "Packaged Cargo" },
+                { "code": "LB", "name": "Liquid Bulk" },
+                { "code": "DB", "name": "Dry Bulk" }
+            ];
+        } else if (_type == "NFEI") {
+            this.Value1TypeList = [
+                { "code": "Y", "name": "YES" },
+                { "code": "N", "name": "NO" }
+            ];
+        }
+    }
     RemoveList(event: any) {
         if (event.selected) {
             this.RemoveRecord(event.id);
