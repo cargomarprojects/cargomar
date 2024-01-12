@@ -88,12 +88,15 @@ export class DatalinkComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
+        if (this.type) {
+            this.source_table = this.type;
+            this.InitCompleted = false;
+        }
+
         if (!this.InitCompleted) {
             this.InitComponent();
         }
 
-        if (this.type)
-            this.source_table = this.type;
         this.FillSourceTypeList(this.source_table);
         // this.List('NEW');
         // if (this.link_pkid) {

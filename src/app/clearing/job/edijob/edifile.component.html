@@ -14,12 +14,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-10">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm mr-1">Search</button>
+                       
                         <button [disabled]="loading" (click)="DownloadData()" class="btn btn-primary btn-sm mr-1">Download
                             File</button>
                         <button [disabled]="loading" (click)="ImportData()"
                             class="btn btn-primary btn-sm mr-1">Process File</button>
+                            <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm mr-1">Search</button>
                     </div>
                 </div>
             </div>
@@ -50,25 +51,29 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>FILE FOLDER</th>
                     <th>FILE NAME</th>
-                    <th>PROCESSED</th>
                     <th>FROM</th>
                     <th>TO</th>
                     <th>SUBJECT</th>
                     <th>DATE</th>
                     <th>REMARKS</th>
+                    <th>TYPE</th>
+                    <th>PROCESSED</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.file_folder}}</td>
                     <td>{{rec.file_name}}</td>
-                    <td>{{rec.processed}}</td>
                     <td>{{rec.msg_from_id}}</td>
                     <td>{{rec.msg_to_id}}</td>
                     <td>{{rec.msg_subject}}</td>
                     <td>{{rec.msg_date}}</td>
                     <td>{{rec.remarks}}</td>
+                    <td>{{rec.caption}}</td>
+                    <td>{{rec.processed}}</td>
                 </tr>
             </tbody>
         </table>
