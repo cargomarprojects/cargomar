@@ -130,6 +130,14 @@
             </div>
           </div>
           <div class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
+            <div class="col-10">
+              <input disabled type="text"
+                class="form-control form-control-sm" [(ngModel)]="Record.rec_branch_code"  
+                required maxlength="100" />
+            </div>
+          </div>
+          <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Search</label>
             <div class="col-10">
               <input [disabled]="mode=='EDIT' && gs.globalVariables.user_code != 'ADMIN'" type="text"
