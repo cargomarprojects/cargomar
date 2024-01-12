@@ -324,7 +324,7 @@ export class DatalinkComponent {
         this.Record.sourcetable = this.source_table;
         this.Record.sourcetype = this.source_typedet;
         this.Record.rec_mode = this.mode;
-        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
             this.initlov('CUSTOMER');
         else
             this.initlov(this.Record.sourcetype);
@@ -356,7 +356,7 @@ export class DatalinkComponent {
     LoadData(_Record: Linkm2) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
-        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+        if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
             this.initlov('CUSTOMER');
         else
             this.initlov(this.Record.sourcetype);
@@ -466,7 +466,7 @@ export class DatalinkComponent {
         if (field == 'sourcetype') {
             this.RecordList2 = new Array<targetlistm>();
             this.source_typedet = this.Record.sourcetype;
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
                 this.initlov('CUSTOMER');
             else
                 this.initlov(this.Record.sourcetype);
@@ -478,7 +478,7 @@ export class DatalinkComponent {
         } else if (field == 'source_table') {
             this.RecordList2 = new Array<targetlistm>();
             this.source_typedet = this.Record.sourcetype;
-            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE")
+            if (this.Record.sourcetype == "SHIPPER" || this.Record.sourcetype == "CONSIGNEE" || this.Record.sourcetype == "BILLED-TO" || this.Record.sourcetype == "BUYER")
                 this.initlov('CUSTOMER');
             else
                 this.initlov(this.Record.sourcetype);
