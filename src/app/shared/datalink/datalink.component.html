@@ -73,10 +73,10 @@
       </thead>
       <tbody>
         <tr class="page-body-tbody" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">
+          (mousedown)="selectedRowIndex=i">
           <td>{{rec.sourcetable}}</td>
           <td>{{rec.sourcetype}}</td>
-          <td>{{rec.searchstring}}</td>
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">{{rec.searchstring}}</td>
           <td>{{rec.sourcecode}}</td>
           <td>{{rec.sourcename}}</td>
           <td *ngIf="search_source_table!='JOB'">{{rec.targetid}}</td>
