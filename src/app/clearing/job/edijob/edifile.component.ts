@@ -4,22 +4,19 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SearchTable } from '../../../shared/models/searchtable';
-import { EdiJob } from '../../models/edijob';
+import { XmlJobHeader } from '../../models/xmljobheader';
 import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
-// import { Linkm2 } from '../../../master/models/linkm2';
- 
+
 @Component({
-    selector: 'app-edijob',
-    templateUrl: './edijob.component.html',
+    selector: 'app-edifile',
+    templateUrl: './edifile.component.html',
     providers: [EdijobService]
 })
 
-export class EdijobComponent {
-    title = 'Edi Jobs'
+export class EdifileComponent {
+    title = 'Edi Files'
 
-    @ViewChild('_tabset') tabsetCtrl: any;
-    @ViewChild('todate') private todate: DateComponent;
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -35,8 +32,6 @@ export class EdijobComponent {
     mode = '';
     pkid = '';
 
-    chkallselected: boolean = false;
-    selectdeselect: boolean = false;
     bExcel = false;
     bCompany = false;
     bAdmin = false;
@@ -56,9 +51,9 @@ export class EdijobComponent {
     AttachList: any[] = [];
     FileList: any[] = [];
     // Array For Displaying List
-    RecordList: EdiJob[] = [];
+    RecordList: XmlJobHeader[] = [];
     //  Single Record for add/edit/view details
-    Record: EdiJob = new EdiJob;
+    Record: XmlJobHeader = new XmlJobHeader;
     // RecordList2: Linkm2[] = [];
 
     constructor(
@@ -156,7 +151,7 @@ export class EdijobComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
+            searchstring: this.searchstring,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -170,11 +165,9 @@ export class EdijobComponent {
 
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.mainService.FileList(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.chkallselected = false;
-                this.selectdeselect = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
@@ -194,9 +187,20 @@ export class EdijobComponent {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
 
+
+
     OnChange(field: string) {
         this.RecordList = null;
 
+    }
+    OnBlur(field: string) {
+        switch (field) {
+            case 'searchstring':
+                {
+                    this.searchstring = this.searchstring.toUpperCase();
+                    break;
+                }
+        }
     }
 
     Close() {
@@ -206,50 +210,6 @@ export class EdijobComponent {
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
-
-    SelectDeselect() {
-        this.selectdeselect = !this.selectdeselect;
-        for (let rec of this.RecordList) {
-            rec.job_selected = this.selectdeselect;
-        }
-    }
-
-    FindMissingData() {
-
-        let sPkids: string = "";
-        for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
-            if (sPkids != "")
-                sPkids += ",";
-            sPkids += rec.pkid;
-        }
-
-        // if (sPkids == "") {
-        //     this.ErrorMessage = "Please Select and Continue.....";
-        //     alert(this.ErrorMessage);
-        //     return;
-        // }
-
-        this.loading = true;
-        let eSearchData = {
-            pkid: sPkids,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code
-        };
-
-        this.ErrorMessage = '';
-        this.mainService.FindMissingData(eSearchData)
-            .subscribe(response => {
-                this.loading = false;
-                // this.RecordList2 = response.list;
-                //   if (!this.gs.isBlank(this.tabsetCtrl))
-                //     this.tabsetCtrl.select('tab2');
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
-    }
-
 
     ImportData() {
         this.loading = true;
@@ -274,60 +234,29 @@ export class EdijobComponent {
                 });
     }
 
-
-    /* 
-    AutoEmail()
-    {
-          this.loading = true; //MIS report
+    DownloadData() {
+        this.loading = true;
         let eSearchData = {
-            user_pkid: "C2AD01C8-0585-403D-83D7-4C2E8854EE5C",
-            user_code: "ADMIN",
             company_code: this.gs.globalVariables.comp_code,
-            type: 'MAIL',
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
             report_folder: this.gs.globalVariables.report_folder,
-            auto_mail: "Y",
-            from_date: "2022-11-28",
-            to_date: "2022-12-04"
-          };
+            caption :'SB-SHIPPER-INVOICE'
+        };
 
         this.ErrorMessage = '';
-        this.mainService.SalesReport(eSearchData)
+        this.mainService.InwardEdiEmailDownload(eSearchData)
             .subscribe(response => {
                 this.loading = false;
 
-                if(response.retvalue)
-                alert('Sent')
+                // alert('Download Complete');
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
                 });
-    }
-    AutoEmail1()
-    {
-        this.loading = true; //Volume report
-        let eSearchData = {
-            user_pkid: "C2AD01C8-0585-403D-83D7-4C2E8854EE5C",
-            user_code: "ADMIN",
-            company_code: this.gs.globalVariables.comp_code,
-            type: 'MAIL',
-            report_folder: this.gs.globalVariables.report_folder,
-            auto_mail: "Y",
-            to_date: "2022-11-28"
-          };
 
-        this.ErrorMessage = '';
-        this.mainService.List(eSearchData)
-            .subscribe(response => {
-                this.loading = false;
-
-                if(response.retvalue)
-                alert('Sent')
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
     }
-     */
+
 }

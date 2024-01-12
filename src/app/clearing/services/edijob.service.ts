@@ -20,9 +20,16 @@ export class EdijobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/FindMissingData', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  FileList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/xml/InwardEdiFiles/List', SearchData, this.gs.headerparam2('authorized'));
+  }
 
   ImportData(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/xml/job/ImportData', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  InwardEdiEmailDownload(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Email/InwardEdiEmailDownload', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 

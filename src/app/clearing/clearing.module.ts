@@ -34,6 +34,7 @@ import { ItemCessComponent } from './job/itemcess/itemcess.component';
 import { OnlineTrackMaster2Component } from './job/onlinetrackmaster2/onlinetrackmaster2.component';
 import { OnlineTrackMasterDet2Component } from './job/onlinetrackmaster2/onlinetrackmasterdet2.component';
 import { EdijobComponent } from './job/edijob/edijob.component';
+import { EdifileComponent } from './job/edijob/edifile.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { EdijobComponent } from './job/edijob/edijob.component';
     ItemCessComponent,
     OnlineTrackMaster2Component,
     OnlineTrackMasterDet2Component,
-    EdijobComponent
+    EdijobComponent,
+    EdifileComponent
   ],
   providers: [
   ],
