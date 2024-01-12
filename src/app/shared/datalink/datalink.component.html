@@ -63,11 +63,11 @@
           <th>GROUP</th>
           <th>TYPE</th>
           <th>SEARCH</th>
-          <th>VALUE1</th>
-          <th>DESCRIPTION1</th>
+          <th>VALUE</th>
+          <th>DESCRIPTION</th>
           <th *ngIf="search_source_table!='JOB'">VALUE2</th>
           <th *ngIf="search_source_table!='JOB'">DESCRIPTION2</th>
-          <th>BRANCH</th>
+          <th>CREATED.AT</th>
           <th *ngIf="bDelete">REMOVE</th>
         </tr>
       </thead>
@@ -130,14 +130,6 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label  col-form-label-sm">Branch</label>
-            <div class="col-10">
-              <input disabled type="text"
-                class="form-control form-control-sm" [(ngModel)]="Record.rec_branch_code"  
-                required maxlength="100" />
-            </div>
-          </div>
-          <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Search</label>
             <div class="col-10">
               <input [disabled]="mode=='EDIT' && gs.globalVariables.user_code != 'ADMIN'" type="text"
@@ -154,7 +146,7 @@
           <div
             *ngIf="!(Record.sourcetype == 'CARGO-MOVEMENT' || Record.sourcetype == 'FREIGHT-TERMS' || Record.sourcetype == 'CARGO-NATURE' || Record.sourcetype == 'NFEI')">
             <div class="form-group row" style="color:black">
-              <label class="col-sm-2 col-form-label col-form-label-sm">Value1</label>
+              <label class="col-sm-2 col-form-label col-form-label-sm">Value</label>
               <div class="col-sm-10">
                 <app-autocomplete #Party [inputdata]="PARTYRECORD"
                   (ValueChanged)="LovSelected($event)"></app-autocomplete>
@@ -162,7 +154,7 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+              <label class="col-sm-2 col-form-label col-form-label-sm">Description</label>
               <div class="col-10">
                 <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sourcename" />
               </div>
@@ -171,7 +163,7 @@
           <div
             *ngIf="Record.sourcetype == 'CARGO-MOVEMENT' || Record.sourcetype == 'FREIGHT-TERMS' || Record.sourcetype == 'CARGO-NATURE' || Record.sourcetype == 'NFEI'"
             class="form-group row" style="color:black">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Value1</label>
+            <label class="col-sm-2 col-form-label col-form-label-sm">Value</label>
             <div class="col-sm-10">
               <select class="form-control form-control-sm" [(ngModel)]="Record.sourceid"
                 (change)="OnChange('sourceid')">
@@ -260,11 +252,12 @@
     </div>
   </div>
   <div class="page-box">
-    <div class="col-sm-6">
-
+    <div class="col-sm-12">
       <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-
+      <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_branch_code"> Created At:
+        {{Record.rec_branch_code}}
+      </label>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
   </div>
