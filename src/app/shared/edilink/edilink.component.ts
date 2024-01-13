@@ -473,7 +473,8 @@ export class EdilinkComponent {
   isComboList(_type: string) {
     if (_type == "CARGO-MOVEMENT" || _type == "FREIGHT-TERMS"
       || _type == "CARGO-NATURE" || _type == "NFEI"
-      || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE")
+      || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE"
+      || _type == "IGST-PAYMENT-STATUS")
       return true;
     else
       return false;
@@ -531,6 +532,7 @@ export class EdilinkComponent {
         { "code": "CONTRACT-NATURE", "name": "CONTRACT-NATURE" },
         { "code": "COUNTRY", "name": "COUNTRY" },
         { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
+        { "code": "IGST-PAYMENT-STATUS", "name": "IGST-PAYMENT-STATUS" },
         { "code": "JOB-TYPE", "name": "JOB-TYPE" },
         { "code": "NFEI", "name": "NFEI" },
         { "code": "PLACE-OF-RECEIPT", "name": "PLACE-OF-RECEIPT" },
@@ -586,8 +588,8 @@ export class EdilinkComponent {
       ];
     } else if (_type == "NFEI") {
       this.Value1TypeList = [
-        { "code": "Y", "name": "YES" },
-        { "code": "N", "name": "NO" }
+        { "code": "Y", "name": "Y" },
+        { "code": "N", "name": "N" }
       ];
     } else if (_type == "PAYMENT-TYPE") {
       this.Value1TypeList = [
@@ -605,6 +607,11 @@ export class EdilinkComponent {
         { "code": "CI", "name": "CI" },
         { "code": "CIF", "name": "CIF" },
 
+      ];
+    } else if (_type == "IGST-PAYMENT-STATUS") {
+      this.Value1TypeList = [
+        { "code": "LUT", "name": "LUT" },
+        { "code": "P", "name": "PAYMENT" },
       ];
     }
 
