@@ -182,6 +182,18 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "";
       // this.Record.sourcename = "";
     }
+    if (_type == 'DISTRICT') {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = "DISTRICT";
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = "DISTRICT";
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      // this.Record.sourcename = "";
+    }
     else {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = _type;
@@ -531,6 +543,9 @@ export class EdilinkComponent {
         { "code": "CONSIGNEE", "name": "CONSIGNEE" },
         { "code": "CONTRACT-NATURE", "name": "CONTRACT-NATURE" },
         { "code": "COUNTRY", "name": "COUNTRY" },
+        { "code": "CURRENCY", "name": "CURRENCY" },
+        { "code": "DISTRICT", "name": "DISTRICT" },
+        { "code": "DRAWBACK", "name": "DRAWBACK" },
         { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
         { "code": "IGST-PAYMENT-STATUS", "name": "IGST-PAYMENT-STATUS" },
         { "code": "JOB-TYPE", "name": "JOB-TYPE" },
@@ -542,6 +557,7 @@ export class EdilinkComponent {
         { "code": "SHIPPER", "name": "SHIPPER" },
         { "code": "STATE", "name": "STATE" },
         { "code": "STUFFED-AT", "name": "STUFFED-AT" },
+        { "code": "TRADE AGREMENTS", "name": "TRADE AGREMENTS" },
         { "code": "UNIT", "name": "UNIT" }
       ];
 
