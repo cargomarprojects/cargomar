@@ -7,7 +7,7 @@ import { EdiLinkm } from '../models/edilinkm';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
-export class DatalinkService {
+export class EdilinkService {
 
   constructor(
     private http2: HttpClient,

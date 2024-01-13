@@ -11,7 +11,7 @@ import { GenerateDocService } from './services/generatedoc.service';
 import { GenService } from './services/gen.services';
 import { GenRemarksService } from './services/genremarks.service';
 import { MailDirectService } from './services/maildirect.service';
-
+import { EdilinkService } from './services/edilink.service';
 
 import { AlertComponent } from './alert/alert.component';
 import { AutoCompleteComponent } from './autocomplete/autocomplete.component';
@@ -62,6 +62,7 @@ import { ApprovedDetComponent } from './approveddet/approveddet.component';
 import { ApprovedDetService } from './services/approveddet.service';
 import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
 import { DatalinkComponent } from './datalink/datalink.component';
+import { EdilinkComponent } from './edilink/edilink.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -106,7 +107,8 @@ import { DatalinkComponent } from './datalink/datalink.component';
     GenFileUploadComponent,
     MailDirectComponent,
     ApprovedDetComponent,
-    DatalinkComponent
+    DatalinkComponent,
+    EdilinkComponent
   ],
   exports: [
     CommonModule,
@@ -145,7 +147,8 @@ import { DatalinkComponent } from './datalink/datalink.component';
     GenFileUploadComponent,
     MailDirectComponent,
     ApprovedDetComponent,
-    DatalinkComponent
+    DatalinkComponent,
+    EdilinkComponent
   ],
   providers: [
     AlertService,
@@ -153,7 +156,8 @@ import { DatalinkComponent } from './datalink/datalink.component';
     GenerateDocService,
     GenRemarksService,
     MailDirectService,
-    ApprovedDetService
+    ApprovedDetService,
+    EdilinkService
   ]
 })
 export class SharedModule { }
