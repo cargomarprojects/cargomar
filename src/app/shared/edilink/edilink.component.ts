@@ -191,7 +191,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.id = "";
       this.PARTYRECORD.code = "";
       this.PARTYRECORD.name = "";
-      this.PARTYRECORD.parentid = "";
+      this.PARTYRECORD.parentid = "EDI";
       // this.Record.sourcename = "";
     }
     else {
