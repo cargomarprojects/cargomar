@@ -511,19 +511,23 @@ export class DatalinkComponent {
         if (_type == "JOB") {
             this.SourceTypeList = [
                 { "code": "ALL", "name": "ALL" },
-                { "code": "SHIPPER", "name": "SHIPPER" },
-                { "code": "CONSIGNEE", "name": "CONSIGNEE" },
                 { "code": "BILLED-TO", "name": "BILLED-TO" },
                 { "code": "BUYER", "name": "BUYER" },
-                { "code": "COUNTRY", "name": "COUNTRY" },
-                { "code": "STATE", "name": "STATE" },
-                { "code": "PORT", "name": "PORT" },
-                { "code": "COMMODITY", "name": "COMMODITY" },
-                { "code": "UNIT", "name": "UNIT" },
                 { "code": "CARGO-MOVEMENT", "name": "CARGO-MOVEMENT" },
-                { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
                 { "code": "CARGO-NATURE", "name": "CARGO-NATURE" },
-                { "code": "NFEI", "name": "NFEI" }
+                { "code": "COMMODITY", "name": "COMMODITY" },
+                { "code": "CONSIGNEE", "name": "CONSIGNEE" },
+                { "code": "COUNTRY", "name": "COUNTRY" },
+                { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
+                { "code": "JOB-TYPE", "name": "JOB-TYPE" },
+                { "code": "NFEI", "name": "NFEI" },
+                { "code": "PLACE-OF-RECEIPT", "name": "PLACE-OF-RECEIPT" },
+                { "code": "PORT", "name": "PORT" },
+                { "code": "PRE-CARRIAGE", "name": "PRE-CARRIAGE" },
+                { "code": "SHIPPER", "name": "SHIPPER" },
+                { "code": "STATE", "name": "STATE" },
+                { "code": "STUFFED-AT", "name": "STUFFED-AT" },
+                { "code": "UNIT", "name": "UNIT" }
             ];
 
         } else {
