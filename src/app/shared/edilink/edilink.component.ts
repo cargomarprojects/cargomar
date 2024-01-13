@@ -475,7 +475,10 @@ export class EdilinkComponent {
       this.source_typedet = this.Record.sourcetype;
       this.setLovType();
       this.Value1TypeList = new Array<any>();
-      if (this.Record.sourcetype == "CARGO-MOVEMENT" || this.Record.sourcetype == "FREIGHT-TERMS" || this.Record.sourcetype == "CARGO-NATURE" || this.Record.sourcetype == "NFEI") {
+      if (this.Record.sourcetype == "CARGO-MOVEMENT" || this.Record.sourcetype == "FREIGHT-TERMS"
+        || this.Record.sourcetype == "CARGO-NATURE" || this.Record.sourcetype == "NFEI"
+        || this.Record.sourcetype == "PAYMENT-TYPE" || this.Record.sourcetype == "CONTRACT-NATURE"
+      ) {
         this.FillValue1TypeList(this.Record.sourcetype);
       }
     } else if (field == 'source_table') {
@@ -517,11 +520,13 @@ export class EdilinkComponent {
         { "code": "CARGO-NATURE", "name": "CARGO-NATURE" },
         { "code": "COMMODITY", "name": "COMMODITY" },
         { "code": "CONSIGNEE", "name": "CONSIGNEE" },
+        { "code": "CONTRACT-NATURE", "name": "CONTRACT-NATURE" },
         { "code": "COUNTRY", "name": "COUNTRY" },
         { "code": "FREIGHT-TERMS", "name": "FREIGHT-TERMS" },
         { "code": "JOB-TYPE", "name": "JOB-TYPE" },
         { "code": "NFEI", "name": "NFEI" },
         { "code": "PLACE-OF-RECEIPT", "name": "PLACE-OF-RECEIPT" },
+        { "code": "PAYMENT-TYPE", "name": "PAYMENT-TYPE" },
         { "code": "PORT", "name": "PORT" },
         { "code": "PRE-CARRIAGE", "name": "PRE-CARRIAGE" },
         { "code": "SHIPPER", "name": "SHIPPER" },
