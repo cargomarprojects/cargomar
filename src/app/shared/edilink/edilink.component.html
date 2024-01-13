@@ -143,8 +143,7 @@
             <label style="color:red" class="col-12 col-form-label col-form-label-sm">Linked Values</label>
           </div>
           <hr class="p-1" />
-          <div
-            *ngIf="!(Record.sourcetype == 'CARGO-MOVEMENT' || Record.sourcetype == 'FREIGHT-TERMS' || Record.sourcetype == 'CARGO-NATURE' || Record.sourcetype == 'NFEI' || this.Record.sourcetype == 'PAYMENT-TYPE' || this.Record.sourcetype=='CONTRACT-NATURE' )">
+          <div *ngIf="!( isComboList(Record.sourcetype))">
             <div class="form-group row" style="color:black">
               <label class="col-sm-2 col-form-label col-form-label-sm">Value</label>
               <div class="col-sm-10">
@@ -160,9 +159,7 @@
               </div>
             </div>
           </div>
-          <div
-            *ngIf="Record.sourcetype == 'CARGO-MOVEMENT' || Record.sourcetype == 'FREIGHT-TERMS' || Record.sourcetype == 'CARGO-NATURE' || Record.sourcetype == 'NFEI' || this.Record.sourcetype == 'PAYMENT-TYPE' || this.Record.sourcetype=='CONTRACT-NATURE'"
-            class="form-group row" style="color:black">
+          <div *ngIf="isComboList(Record.sourcetype)" class="form-group row" style="color:black">
             <label class="col-sm-2 col-form-label col-form-label-sm">Value</label>
             <div class="col-sm-10">
               <select class="form-control form-control-sm" [(ngModel)]="Record.sourceid"

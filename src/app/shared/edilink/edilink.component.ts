@@ -469,15 +469,23 @@ export class EdilinkComponent {
         }
     }
   }
+
+  isComboList(_type: string) {
+    if (_type == "CARGO-MOVEMENT" || _type == "FREIGHT-TERMS"
+      || _type == "CARGO-NATURE" || _type == "NFEI"
+      || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE")
+      return true;
+    else
+      return false;
+  }
+
   OnChange(field: string, _type: string = "") {
     if (field == 'sourcetype') {
       this.RecordList2 = new Array<targetlistm>();
       this.source_typedet = this.Record.sourcetype;
       this.setLovType();
       this.Value1TypeList = new Array<any>();
-      if (this.Record.sourcetype == "CARGO-MOVEMENT" || this.Record.sourcetype == "FREIGHT-TERMS"
-        || this.Record.sourcetype == "CARGO-NATURE" || this.Record.sourcetype == "NFEI"
-        || this.Record.sourcetype == "PAYMENT-TYPE" || this.Record.sourcetype == "CONTRACT-NATURE"
+      if (this.isComboList(this.Record.sourcetype)
       ) {
         this.FillValue1TypeList(this.Record.sourcetype);
       }
