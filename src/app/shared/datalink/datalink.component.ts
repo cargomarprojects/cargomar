@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Linkm2 } from '../../master/models/linkm2';
-import { Linkm2Service } from '../../master/services/linkm2.service';
+import { EdiLinkm } from '../models/edilinkm';
+import { DatalinkService } from '../services/datalink.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { targetlistm } from '../../master/models/targetlistm';
 import { Param } from '../../master/models/param';
 @Component({
     selector: 'app-datalink',
     templateUrl: './datalink.component.html',
-    providers: [Linkm2Service]
+    providers: [DatalinkService]
 })
 export class DatalinkComponent {
     // Local Variables 
@@ -60,11 +60,11 @@ export class DatalinkComponent {
     RecordList2: targetlistm[] = [];
 
     // Array For Displaying List
-    RecordList: Linkm2[] = [];
+    RecordList: EdiLinkm[] = [];
     // Single Record for add/edit/view details
-    Record: Linkm2 = new Linkm2;
+    Record: EdiLinkm = new EdiLinkm;
     constructor(
-        private mainService: Linkm2Service,
+        private mainService: DatalinkService,
         private route: ActivatedRoute,
         private gs: GlobalService
 
@@ -321,7 +321,7 @@ export class DatalinkComponent {
     NewRecord() {
 
         this.pkid = this.gs.getGuid();
-        this.Record = new Linkm2();
+        this.Record = new EdiLinkm();
         this.Record.pkid = this.pkid;
         this.Record.branchcode = "";
         this.Record.searchstring = "";
@@ -359,7 +359,7 @@ export class DatalinkComponent {
     }
 
 
-    LoadData(_Record: Linkm2) {
+    LoadData(_Record: EdiLinkm) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
         this.setLovType();
