@@ -5,9 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { EdiJob } from '../../models/edijob';
+import { EdiRecord } from '../../models/edirecord';
 import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
 // import { Linkm2 } from '../../../master/models/linkm2';
+
 
 @Component({
   selector: 'app-edijob',
@@ -306,10 +308,6 @@ export class EdijobComponent {
     this.mainService.TransferData(eSearchData)
       .subscribe(response => {
         this.loading = false;
-        console.log(response);
-        if (response.error != "") {
-          alert(response.error);
-        }
         // this.RecordList2 = response.list;
         //   if (!this.gs.isBlank(this.tabsetCtrl))
         //     this.tabsetCtrl.select('tab2');
@@ -317,7 +315,6 @@ export class EdijobComponent {
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
         });
   }
 
