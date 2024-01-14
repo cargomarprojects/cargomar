@@ -46,4 +46,5 @@ export class EdiJob {
   invoice_nos: string;
   invoice_dt: string;
   invoice_count: string;
+  remarks: string;
 }
