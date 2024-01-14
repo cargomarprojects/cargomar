@@ -486,7 +486,8 @@ export class EdilinkComponent {
     if (_type == "CARGO-MOVEMENT" || _type == "FREIGHT-TERMS"
       || _type == "CARGO-NATURE" || _type == "NFEI"
       || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE"
-      || _type == "IGST-PAYMENT-STATUS")
+      || _type == "JOB-TYPE" || _type == "TRANSPORT-MODE"
+      || _type == "IGST-PAYMENT-STATUS"||_type == "STUFFED-AT")
       return true;
     else
       return false;
@@ -558,6 +559,7 @@ export class EdilinkComponent {
         { "code": "STATE", "name": "STATE" },
         { "code": "STUFFED-AT", "name": "STUFFED-AT" },
         { "code": "TRADE AGREMENTS", "name": "TRADE AGREMENTS" },
+        { "code": "TRANSPORT-MODE", "name": "TRANSPORT-MODE" },
         { "code": "UNIT", "name": "UNIT" }
       ];
 
@@ -628,6 +630,22 @@ export class EdilinkComponent {
       this.Value1TypeList = [
         { "code": "LUT", "name": "LUT" },
         { "code": "P", "name": "PAYMENT" },
+      ];
+    }else if (_type == "STUFFED-AT") {
+      this.Value1TypeList = [
+        { "code": "DOCK", "name": "DOCK" },
+        { "code": "FACTORY", "name": "FACTORY" },
+      ];
+    }else if (_type == "JOB-TYPE") {
+      this.Value1TypeList = [
+        { "code": "BOTH", "name": "BOTH" },
+        { "code": "CLEARING", "name": "CLEARING" },
+        { "code": "FORWARDING", "name": "FORWARDING" },
+      ];
+    }else if (_type == "TRANSPORT-MODE") {
+      this.Value1TypeList = [
+        { "code": "AIR EXPORT", "name": "AIR EXPORT" },
+        { "code": "SEA EXPORT", "name": "SEA EXPORT" },
       ];
     }
 
