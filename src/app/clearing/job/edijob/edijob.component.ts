@@ -291,19 +291,20 @@ export class EdijobComponent {
       sPkids += rec.pkid;
     }
 
-    // if (sPkids == "") {
-    //     this.ErrorMessage = "Please Select and Continue.....";
-    //     alert(this.ErrorMessage);
-    //     return;
-    // }
+    if (sPkids == "") {
+      this.ErrorMessage = "Please select a job and continue.....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (sPkids.includes(",")) {
+      this.ErrorMessage = "Please select single job and continue.....";
+      alert(this.ErrorMessage);
+      return;
+    }
+
 
     this.loading = true;
-    // let eSearchData = {
-    //   pkid: sPkids,
-    //   company_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code
-    // };
-
     saveRecord.pkid = sPkids;
     saveRecord.save = "Y";
     saveRecord._globalvariables = this.gs.globalVariables;
