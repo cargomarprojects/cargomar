@@ -283,7 +283,7 @@ export class EdijobComponent {
   }
 
   TransferData() {
-
+    let saveRecord: EdiRecord = new EdiRecord;
     let sPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
       if (sPkids != "")
@@ -298,14 +298,18 @@ export class EdijobComponent {
     // }
 
     this.loading = true;
-    let eSearchData = {
-      pkid: sPkids,
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
-    };
+    // let eSearchData = {
+    //   pkid: sPkids,
+    //   company_code: this.gs.globalVariables.comp_code,
+    //   branch_code: this.gs.globalVariables.branch_code
+    // };
+
+    saveRecord.pkid = sPkids;
+    saveRecord.save = "Y";
+    saveRecord._globalvariables = this.gs.globalVariables;
 
     this.ErrorMessage = '';
-    this.mainService.TransferData(eSearchData)
+    this.mainService.TransferData(saveRecord)
       .subscribe(response => {
         this.loading = false;
         // this.RecordList2 = response.list;
