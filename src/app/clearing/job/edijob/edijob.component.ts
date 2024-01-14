@@ -315,10 +315,13 @@ export class EdijobComponent {
         // this.RecordList2 = response.list;
         //   if (!this.gs.isBlank(this.tabsetCtrl))
         //     this.tabsetCtrl.select('tab2');
+        if (response.error)
+          alert(response.error);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
