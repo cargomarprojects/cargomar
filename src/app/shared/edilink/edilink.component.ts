@@ -194,6 +194,18 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "EDI";
       // this.Record.sourcename = "";
     }
+    if (_type == 'PLACE-OF-RECEIPT') {
+      this.PARTYRECORD = new SearchTable();
+      this.PARTYRECORD.controlname = "PLACE-OF-RECEIPT";
+      this.PARTYRECORD.displaycolumn = "CODE";
+      this.PARTYRECORD.type = "CITY";
+      this.PARTYRECORD.where = "";
+      this.PARTYRECORD.id = "";
+      this.PARTYRECORD.code = "";
+      this.PARTYRECORD.name = "";
+      this.PARTYRECORD.parentid = "";
+      // this.Record.sourcename = "";
+    }
     else {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = _type;
@@ -209,7 +221,7 @@ export class EdilinkComponent {
   }
 
 
-  // Destroy Will be called when this component is closed
+  // Destroy Will be called when this component is closed PLACE-OF-RECEIPT
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -554,7 +566,7 @@ export class EdilinkComponent {
         { "code": "PLACE-OF-RECEIPT", "name": "PLACE-OF-RECEIPT" },
         { "code": "PAYMENT-TYPE", "name": "PAYMENT-TYPE" },
         { "code": "PORT", "name": "PORT" },
-        { "code": "PRE-CARRIAGE", "name": "PRE-CARRIAGE" },
+        { "code": "PRE CARRIAGE", "name": "PRE CARRIAGE" },
         { "code": "SHIPPER", "name": "SHIPPER" },
         { "code": "STATE", "name": "STATE" },
         { "code": "STUFFED-AT", "name": "STUFFED-AT" },
