@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { Jobm } from '../models/job';
+import { EdiRecord } from '../models/edirecord';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -20,8 +20,8 @@ export class EdijobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/FindMissingData', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  TransferData(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/TransferData', SearchData, this.gs.headerparam2('authorized'));
+  TransferData(Record: EdiRecord) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/TransferData', Record, this.gs.headerparam2('authorized'));
   }
 
   FileList(SearchData: any) {

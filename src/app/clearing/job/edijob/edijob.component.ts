@@ -5,10 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { EdiJob } from '../../models/edijob';
+import { EdiRecord } from '../../models/edirecord';
 import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
 // import { Linkm2 } from '../../../master/models/linkm2';
- 
+
 @Component({
     selector: 'app-edijob',
     templateUrl: './edijob.component.html',
@@ -60,6 +61,7 @@ export class EdijobComponent {
     //  Single Record for add/edit/view details
     Record: EdiJob = new EdiJob;
     // RecordList2: Linkm2[] = [];
+
 
     constructor(
         private modalService: NgbModal,
@@ -276,13 +278,13 @@ export class EdijobComponent {
 
 
 
-    ValidateData()
-    {
+    ValidateData() {
 
     }
 
     TransferData() {
 
+        let ediRecord: EdiRecord = new EdiRecord;
         let sPkids: string = "";
         for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
             if (sPkids != "")
@@ -297,14 +299,17 @@ export class EdijobComponent {
         // }
 
         this.loading = true;
-        let eSearchData = {
-            pkid: sPkids,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code
-        };
+        // let eSearchData = {
+        //     pkid: sPkids,
+        //     company_code: this.gs.globalVariables.comp_code,
+        //     branch_code: this.gs.globalVariables.branch_code
+        // };
 
+        ediRecord.pkid = sPkids;
+        ediRecord.save = "Y";
+        ediRecord._globalvariables = this.gs.globalVariables;
         this.ErrorMessage = '';
-        this.mainService.TransferData(eSearchData)
+        this.mainService.TransferData(ediRecord)
             .subscribe(response => {
                 this.loading = false;
                 // this.RecordList2 = response.list;
