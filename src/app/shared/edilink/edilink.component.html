@@ -65,8 +65,6 @@
           <th>SEARCH</th>
           <th>VALUE</th>
           <th>DESCRIPTION</th>
-          <th *ngIf="search_source_table!='JOB'">VALUE2</th>
-          <th *ngIf="search_source_table!='JOB'">DESCRIPTION2</th>
           <th>CREATED.AT</th>
           <th *ngIf="bDelete">REMOVE</th>
         </tr>
@@ -79,12 +77,11 @@
           <td class="hlink" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">{{rec.searchstring}}</td>
           <td>{{rec.sourcecode}}</td>
           <td>{{rec.sourcename}}</td>
-          <td *ngIf="search_source_table!='JOB'">{{rec.targetid}}</td>
-          <td *ngIf="search_source_table!='JOB'">{{rec.targetdesc}}</td>
           <td>{{rec.rec_branch_code}}</td>
           <td *ngIf="bDelete">
             <span>
-              <App-Dialog [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.targetid}"
+              <App-Dialog
+                [id]="{msg:'Remove Linking Y/N', buttons:'yn', selected :false,id:rec.pkid,name:rec.sourcecode}"
                 (result)="RemoveList($event)"></App-Dialog>
             </span>
           </td>
@@ -109,10 +106,6 @@
           <div class="form-group row">
             <label class="col-2 col-form-label col-form-label-sm" (click)="focus()">Group</label>
             <div class="col-10">
-              <!-- <select [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable">
-                  <option value="MEXICO-TMM">MEXICO-TMM</option>
-                  <option value="DESCARTES">DESCARTES</option>
-                </select> -->
               <select [disabled]="mode=='EDIT'" class="form-control form-control-sm" [(ngModel)]="Record.sourcetable"
                 (change)="OnChange('source_table',Record.sourcetable)">
                 <option *ngFor="let rec of TradingPartnerList" [value]="rec.param_code">{{rec.param_name}}</option>
@@ -143,7 +136,7 @@
             <label style="color:red" class="col-12 col-form-label col-form-label-sm">Linked Values</label>
           </div>
           <hr class="p-1" />
-          <div *ngIf="!( isComboList(Record.sourcetype))">
+          <div *ngIf="!(isComboList(Record.sourcetype))">
             <div class="form-group row" style="color:black">
               <label class="col-sm-2 col-form-label col-form-label-sm">Value</label>
               <div class="col-sm-10">
@@ -169,7 +162,7 @@
             </div>
           </div>
 
-          <div *ngIf="Record.sourcetable!='JOB'">
+          <!-- <div *ngIf="Record.sourcetable!='JOB'">
             <div class="form-group row">
               <label class="col-2 col-form-label  col-form-label-sm">Value2</label>
               <div class="col-10">
@@ -184,7 +177,7 @@
                   (blur)="OnBlur('targetdesc')" required maxlength="200" />
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-sm-6">
