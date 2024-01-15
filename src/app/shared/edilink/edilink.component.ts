@@ -451,10 +451,8 @@ export class EdilinkComponent {
       REC.sourcetable = this.Record.sourcetable;
       REC.sourcetype = this.Record.sourcetype;
       REC.searchstring = this.Record.searchstring;
-      if (this.Record.sourcetable == "JOB") {
-        REC.sourcecode = this.Record.targetid;
-        REC.sourcename = this.Record.targetdesc;
-      }
+      REC.sourcecode = this.Record.targetid;
+      REC.sourcename = this.Record.targetdesc;
     }
   }
 
