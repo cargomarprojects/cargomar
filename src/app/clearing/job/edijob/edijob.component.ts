@@ -296,7 +296,7 @@ export class EdijobComponent {
     }
 
     if (sPkids.includes(",")) {
-      this.ErrorMessage = "Please select single job and continue.....";
+      this.ErrorMessage = "Multiple selection not allowed.";
       alert(this.ErrorMessage);
       return;
     }
