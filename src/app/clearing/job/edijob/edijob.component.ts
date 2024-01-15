@@ -278,11 +278,9 @@ export class EdijobComponent {
 
 
 
-  ValidateData() {
+   
 
-  }
-
-  TransferData() {
+  TransferData(_type: string) {
     let saveRecord: EdiRecord = new EdiRecord;
     let sPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
@@ -306,7 +304,7 @@ export class EdijobComponent {
 
     this.loading = true;
     saveRecord.pkid = sPkids;
-    saveRecord.save = "Y";
+    saveRecord.save = _type == "SAVE" ? "Y" : "N";
     saveRecord._globalvariables = this.gs.globalVariables;
 
     this.ErrorMessage = '';

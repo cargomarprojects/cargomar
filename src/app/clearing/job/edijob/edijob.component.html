@@ -35,9 +35,9 @@
                   <button [disabled]="loading" (click)="FindMissingData()" class="btn btn-primary btn-sm mr-1">Validate
                     Data Mapping
                   </button>
-                  <button [disabled]="loading" (click)="ValidateData()" class="btn btn-primary btn-sm mr-1">Validate
+                  <button [disabled]="loading" (click)="TransferData('VALIDATE')" class="btn btn-primary btn-sm mr-1">Validate
                     Data</button>
-                  <button [disabled]="loading" (click)="TransferData()" class="btn btn-primary btn-sm mr-1">Transfer
+                  <button [disabled]="loading" (click)="TransferData('SAVE')" class="btn btn-primary btn-sm mr-1">Transfer
                     Data</button>
                   <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
                 </div>
