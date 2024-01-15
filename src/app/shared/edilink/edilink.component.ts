@@ -170,7 +170,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "";
       // this.Record.sourcename = "";
     }
-    if (_type == 'CUSTOMER PLUS ADDRESS') {
+    else  if (_type == 'CUSTOMER PLUS ADDRESS') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "CUSTOMER";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -182,7 +182,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "";
       // this.Record.sourcename = "";
     }
-    if (_type == 'DISTRICT') {
+    else  if (_type == 'DISTRICT') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "DISTRICT";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -194,7 +194,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "EDI";
       // this.Record.sourcename = "";
     }
-    if (_type == 'PLACE-OF-RECEIPT') {
+    else if (_type == 'PLACE-OF-RECEIPT') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "PLACE-OF-RECEIPT";
       this.PARTYRECORD.displaycolumn = "CODE";
