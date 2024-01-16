@@ -9,255 +9,257 @@ import { EdijobService } from '../../services/edijob.service';
 import { DateComponent } from '../../../shared/date/date.component';
 
 @Component({
-    selector: 'app-edifile',
-    templateUrl: './edifile.component.html',
-    providers: [EdijobService]
+  selector: 'app-edifile',
+  templateUrl: './edifile.component.html',
+  providers: [EdijobService]
 })
 
 export class EdifileComponent {
-    title = 'Edi Files'
+  title = 'Edi Files'
 
-    @Input() menuid: string = '';
-    @Input() type: string = '';
-    InitCompleted: boolean = false;
-    menu_record: any;
-    sub: any;
-    urlid: string;
+  @Input() menuid: string = '';
+  @Input() type: string = '';
+  InitCompleted: boolean = false;
+  menu_record: any;
+  sub: any;
+  urlid: string;
 
-    modal: any;
+  modal: any;
 
-    selectedRowIndex = 0;
-    InfoMessage = "";
-    ErrorMessage = "";
-    mode = '';
-    pkid = '';
+  selectedRowIndex = 0;
+  InfoMessage = "";
+  ErrorMessage = "";
+  mode = '';
+  pkid = '';
 
-    bExcel = false;
-    bCompany = false;
-    bAdmin = false;
-    loading = false;
-    currentTab = 'LIST';
-    searchstring = '';
+  bExcel = false;
+  bCompany = false;
+  bAdmin = false;
+  loading = false;
+  currentTab = 'LIST';
+  searchstring = '';
 
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+  page_count = 0;
+  page_current = 0;
+  page_rows = 0;
+  page_rowcount = 0;
 
-    sSubject: string = '';
-    sMsg: string = '';
-    sHtml: string = '';
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
 
-    AttachList: any[] = [];
-    FileList: any[] = [];
-    // Array For Displaying List
-    RecordList: XmlJobHeader[] = [];
-    //  Single Record for add/edit/view details
-    Record: XmlJobHeader = new XmlJobHeader;
-    // RecordList2: Linkm2[] = [];
+  AttachList: any[] = [];
+  FileList: any[] = [];
+  // Array For Displaying List
+  RecordList: XmlJobHeader[] = [];
+  //  Single Record for add/edit/view details
+  Record: XmlJobHeader = new XmlJobHeader;
+  // RecordList2: Linkm2[] = [];
 
-    constructor(
-        private modalService: NgbModal,
-        private mainService: EdijobService,
-        private route: ActivatedRoute,
-        private gs: GlobalService
-    ) {
-        this.page_count = 0;
-        this.page_rows = 15;
-        this.page_current = 0;
-        // URL Query Parameter 
-        this.sub = this.route.queryParams.subscribe(params => {
-            if (params["parameter"] != "") {
-                this.InitCompleted = true;
-                var options = JSON.parse(params["parameter"]);
-                this.menuid = options.menuid;
-                this.type = options.type;
-                this.InitComponent();
-            }
+  constructor(
+    private modalService: NgbModal,
+    private mainService: EdijobService,
+    private route: ActivatedRoute,
+    private gs: GlobalService
+  ) {
+    this.page_count = 0;
+    this.page_rows = 15;
+    this.page_current = 0;
+    // URL Query Parameter
+    this.sub = this.route.queryParams.subscribe(params => {
+      if (params["parameter"] != "") {
+        this.InitCompleted = true;
+        var options = JSON.parse(params["parameter"]);
+        this.menuid = options.menuid;
+        this.type = options.type;
+        this.InitComponent();
+      }
+    });
+
+  }
+
+  // Init Will be called After executing Constructor
+  ngOnInit() {
+    if (!this.InitCompleted) {
+      this.InitComponent();
+    }
+  }
+
+  InitComponent() {
+    this.bExcel = false;
+    this.bCompany = false;
+    this.bAdmin = false;
+    this.menu_record = this.gs.getMenu(this.menuid);
+    if (this.menu_record) {
+      this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_company)
+        this.bCompany = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bExcel = true;
+    }
+    this.Init();
+    this.initLov();
+    this.LoadCombo();
+  }
+
+  Init() {
+
+  }
+
+  // // Destroy Will be called when this component is closed
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  initLov(caption: string = '') {
+
+
+
+
+  }
+
+  LovSelected(_Record: SearchTable) {
+
+
+  }
+  LoadCombo() {
+    this.List('NEW');
+  }
+
+
+  //function for handling LIST/NEW/EDIT Buttons
+  ActionHandler(action: string, id: string) {
+    this.ErrorMessage = '';
+    if (action == 'LIST') {
+      this.mode = '';
+      this.pkid = '';
+      this.currentTab = 'LIST';
+    }
+  }
+
+  ResetControls() {
+
+  }
+
+  // // Query List Data
+  List(_type: string) {
+
+    this.ErrorMessage = '';
+    this.loading = true;
+    let SearchData = {
+      type: _type,
+      rowtype: this.type,
+      searchstring: this.searchstring,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      page_count: this.page_count,
+      page_current: this.page_current,
+      page_rows: this.page_rows,
+      page_rowcount: this.page_rowcount,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.FileList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
+      }, error => {
+        this.loading = false;
+        this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
+      });
+  }
+
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
+
+
+  OnChange(field: string) {
+    this.RecordList = null;
+
+  }
+  OnBlur(field: string) {
+    switch (field) {
+      case 'searchstring':
+        {
+          this.searchstring = this.searchstring.toUpperCase();
+          break;
+        }
+    }
+  }
+
+  Close() {
+    this.gs.ClosePage('home');
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+  ImportData() {
+    this.loading = true;
+    let eSearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.ImportData(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+        if (response.error)
+          alert(response.error);
+        // alert('Download Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  DownloadData() {
+    this.loading = true;
+    let eSearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      caption: 'SB-SHIPPER-INVOICE'
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.InwardEdiEmailDownload(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List('NEW');
+        // alert('Download Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
 
-    }
-
-    // Init Will be called After executing Constructor
-    ngOnInit() {
-        if (!this.InitCompleted) {
-            this.InitComponent();
-        }
-    }
-
-    InitComponent() {
-        this.bExcel = false;
-        this.bCompany = false;
-        this.bAdmin = false;
-        this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record) {
-            this.title = this.menu_record.menu_name;
-            if (this.menu_record.rights_company)
-                this.bCompany = true;
-            if (this.menu_record.rights_admin)
-                this.bAdmin = true;
-            if (this.menu_record.rights_print)
-                this.bExcel = true;
-        }
-        this.Init();
-        this.initLov();
-        this.LoadCombo();
-    }
-
-    Init() {
-
-    }
-
-    // // Destroy Will be called when this component is closed
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
-    initLov(caption: string = '') {
-
-
-
-
-    }
-
-    LovSelected(_Record: SearchTable) {
-
-
-    }
-    LoadCombo() {
-        this.List('NEW');
-    }
-
-
-    //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
-        if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
-        }
-    }
-
-    ResetControls() {
-
-    }
-
-    // // Query List Data
-    List(_type: string) {
-
-        this.ErrorMessage = '';
-        this.loading = true;
-        let SearchData = {
-            type: _type,
-            rowtype: this.type,
-            searchstring: this.searchstring,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
-            report_folder: this.gs.globalVariables.report_folder
-        };
-
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.FileList(SearchData)
-            .subscribe(response => {
-                this.loading = false;
-                if (_type == 'EXCEL')
-                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-                else {
-                    this.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
-                }
-            }, error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-                alert(this.ErrorMessage);
-            });
-    }
-
-    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
-        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
-    }
-
-
-
-    OnChange(field: string) {
-        this.RecordList = null;
-
-    }
-    OnBlur(field: string) {
-        switch (field) {
-            case 'searchstring':
-                {
-                    this.searchstring = this.searchstring.toUpperCase();
-                    break;
-                }
-        }
-    }
-
-    Close() {
-        this.gs.ClosePage('home');
-    }
-
-    open(content: any) {
-        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
-    }
-
-    ImportData() {
-        this.loading = true;
-        let eSearchData = {
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            report_folder: this.gs.globalVariables.report_folder
-        };
-
-        this.ErrorMessage = '';
-        this.mainService.ImportData(eSearchData)
-            .subscribe(response => {
-                this.loading = false;
-
-                // alert('Download Complete');
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
-    }
-
-    DownloadData() {
-        this.loading = true;
-        let eSearchData = {
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code,
-            user_code: this.gs.globalVariables.user_code,
-            report_folder: this.gs.globalVariables.report_folder,
-            caption :'SB-SHIPPER-INVOICE'
-        };
-
-        this.ErrorMessage = '';
-        this.mainService.InwardEdiEmailDownload(eSearchData)
-            .subscribe(response => {
-                this.loading = false;
-                this.List('NEW');
-                // alert('Download Complete');
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
-                });
-
-    }
+  }
 
 }
