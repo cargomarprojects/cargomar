@@ -1,6 +1,6 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
- 
+
 export class Drawback {
   dbk_id: string;
   dbk_slno: string;
@@ -17,6 +17,10 @@ export class Drawback {
   dbk_ctl_valuecap: number;
   dbk_notdt: string;
   dbk_rosl_notdt: string;
+  dbk_is_verified: string;
+  dbk_verified_by: string;
+  dbk_verified_date: string;
+
   rec_mode: string;
 
   _globalvariables: GlobalVariables;

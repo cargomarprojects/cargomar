@@ -33,5 +33,8 @@ export class RitcmService {
     ProcessData(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Ritcm/ProcessData', SearchData, this.gs.headerparam2('authorized'));
     }
+    VerifiedRecord(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Ritcm/VerifiedRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

@@ -214,6 +214,10 @@ export class RitcmComponent {
     this.Record.ritc_rate = 0;
     this.Record.ritc_cap = 0;
     this.Record.ritc_notify_date = '';
+    this.Record.ritc_is_rodtep = '';
+    this.Record.ritc_is_verified = 'N';
+    this.Record.ritc_verified_by = '';
+    this.Record.ritc_verified_date = '';
 
     if (this.mode == 'EDIT') {
       this.Record.ritc_name = _rec.ritc_name;
@@ -397,4 +401,35 @@ export class RitcmComponent {
         });
   }
 
+  VerifiedRecord() {
+
+    if (!confirm("Details Verified")) {
+      return
+    }
+
+    let SearchData = {
+      pkid: this.Record.ritc_pkid,
+      branch_code: this.gs.globalVariables.branch_code,
+      company_code: this.gs.globalVariables.comp_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.VerifiedRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.status == "OK") {
+          this.Record.ritc_is_verified = 'Y';
+          alert('Successfully Verified');
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

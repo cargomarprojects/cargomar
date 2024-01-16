@@ -14,6 +14,12 @@ export class Ritcm {
   ritc_notify_date: string;
   ritc_info_code: boolean;
 
+  ritc_is_rodtep: string;
+  ritc_is_verified: string;
+  ritc_verified_by: string;
+  ritc_verified_date: string;
+
+
   rec_locked: boolean;
   rec_mode: string;
 
