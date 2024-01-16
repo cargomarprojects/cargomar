@@ -305,6 +305,7 @@ export class EdijobComponent {
 
     this.loading = true;
     saveRecord.pkid = sPkids;
+    saveRecord.root_folder = this.gs.defaultValues.root_folder;
     saveRecord.save = _type == "SAVE" ? "Y" : "N";
     saveRecord._globalvariables = this.gs.globalVariables;
 

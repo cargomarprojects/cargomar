@@ -1,7 +1,8 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class EdiRecord {
-    pkid:string;
+    pkid: string;
+    root_folder: string;
     save: string;
     _globalvariables: GlobalVariables;
 }
