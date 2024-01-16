@@ -223,6 +223,9 @@ export class DrawbackComponent {
     this.Record.dbk_state_valuecap = 0;
     this.Record.dbk_ctl_rt = 0;
     this.Record.dbk_ctl_valuecap = 0;
+    this.Record.dbk_is_verified = 'N';
+    this.Record.dbk_verified_by = '';
+    this.Record.dbk_verified_date = '';
     this.Record.rec_mode = this.mode;
 
   }
@@ -440,6 +443,38 @@ export class DrawbackComponent {
 
   open(content: any) {
     this.modal = this.modalService.open(content);
+  }
+  
+  VerifiedRecord() {
+
+    if (!confirm("Details Verified")) {
+      return
+    }
+
+    let SearchData = {
+      pkid: this.Record.dbk_id,
+      branch_code: this.gs.globalVariables.branch_code,
+      company_code: this.gs.globalVariables.comp_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.VerifiedRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.status == "OK") {
+          this.Record.dbk_is_verified = 'Y';
+          alert('Successfully Verified');
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 }

@@ -33,5 +33,9 @@ export class DrawbackService {
     ProcessDrawbackRates(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/ProcessDrawbackRates', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    VerifiedRecord(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Drawback/VerifiedRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
