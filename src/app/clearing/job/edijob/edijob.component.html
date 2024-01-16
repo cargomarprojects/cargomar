@@ -35,9 +35,11 @@
                   <button [disabled]="loading" (click)="FindMissingData()" class="btn btn-primary btn-sm mr-1">Validate
                     Data Mapping
                   </button>
-                  <button [disabled]="loading" (click)="TransferData('VALIDATE')" class="btn btn-primary btn-sm mr-1">Validate
+                  <button [disabled]="loading" (click)="TransferData('VALIDATE')"
+                    class="btn btn-primary btn-sm mr-1">Validate
                     Data</button>
-                  <button [disabled]="loading" (click)="TransferData('SAVE')" class="btn btn-primary btn-sm mr-1">Transfer
+                  <button [disabled]="loading" (click)="TransferData('SAVE')"
+                    class="btn btn-primary btn-sm mr-1">Transfer
                     Data</button>
                   <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
                 </div>
@@ -71,8 +73,10 @@
               <tr>
                 <!-- <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th> -->
                 <th></th>
-                <th>JOB#</th>
-                <th>DATE</th>
+
+                <th>JOB-SL#</th>
+                <th>REFNO</th>
+                <th>REFDATE</th>
                 <th>PROCESSED</th>
                 <th>SHIPPER</th>
                 <th>SHPR-BR#</th>
@@ -98,7 +102,8 @@
                 (mousedown)="selectedRowIndex=i">
                 <td><input type="checkbox" [(ngModel)]="rec.job_selected"></td>
                 <td>{{rec.job_slno}}</td>
-                <td>{{rec.job_date}}</td>
+                <td>{{rec.job_ref_no}}</td>
+                <td>{{rec.job_ref_date}}</td>
                 <td>{{rec.processed}}</td>
                 <td>{{rec.shipper_name}}</td>
                 <td>{{rec.shipper_branch_slno}}</td>
