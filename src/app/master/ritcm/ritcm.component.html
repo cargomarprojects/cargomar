@@ -51,6 +51,7 @@
           <th>RODTEP-CAP</th>
           <th>NOTIFY-DATE</th>
           <th>INFO-CODE</th>
+          <th>VERIFIED</th>
           <th>LOCKED</th>
         </tr>
       </thead>
@@ -63,6 +64,7 @@
           <td>{{rec.ritc_cap}}</td>
           <td>{{rec.ritc_notify_date}}</td>
           <td>{{rec.ritc_info_code?'Y':'N'}}</td>
+          <td>{{rec.ritc_is_verified}}</td>
           <td>{{rec.rec_locked?'Y':'N'}}</td>
         </tr>
       </tbody>
@@ -99,7 +101,8 @@
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ritc_code"
               (blur)="OnBlur('ritc_code')" required maxlength="8" />
           </div>
-          <label *ngIf="mode=='EDIT'" style="color:red" class="col-sm-4 col-form-label col-form-label-sm">VERIFIED - {{Record.ritc_is_verified=='Y'?'YES':'NO'}}</label>
+          <label *ngIf="mode=='EDIT'" style="color:red" class="col-sm-4 col-form-label col-form-label-sm">VERIFIED -
+            {{Record.ritc_is_verified=='Y'?'YES':'NO'}}</label>
         </div>
 
         <div class="form-group row">
@@ -117,7 +120,16 @@
               (blur)="OnBlur('ritc_unit')" required maxlength="3" />
           </div>
         </div>
-
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Rodtep</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.ritc_is_rodtep">
+              <option [value]="''">NA</option>
+              <option [value]="'Y'">YES</option>
+              <option [value]="'N'">NO</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Rodtep-Rate</label>
           <div class="col-sm-9">
@@ -141,16 +153,7 @@
               (blur)="OnBlur('ritc_notify_date')" required maxlength="50" />
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Rodtep</label>
-          <div class="col-sm-9">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.ritc_is_rodtep">
-              <option [value]="''">NA</option>
-              <option [value]="'Y'">YES</option>
-              <option [value]="'N'">NO</option>
-            </select>
-          </div>
-        </div>
+
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
           <div class="col-sm-9">
@@ -174,7 +177,8 @@
 
       <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
-      <button  *ngIf="mode=='EDIT' && Record.ritc_is_verified=='N'" [disabled]="loading" (click)="VerifiedRecord()" class="btn btn-success btn-sm">Verified</button>
+      <button *ngIf="mode=='EDIT' && Record.ritc_is_verified=='N'" [disabled]="loading" (click)="VerifiedRecord()"
+        class="btn btn-success btn-sm">Verify</button>
       <label class="col-form-label col-form-label-sm" *ngIf="Record.ritc_verified_by"> Verified By:
         {{Record.ritc_verified_by}}
         /
