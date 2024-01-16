@@ -7,6 +7,7 @@ export class EdiJob {
   job_slno: string;
   job_ref_no: string;
   job_ref_date: string;
+  job_docno: string;
   shipper_name: string;
   shipper_branch_slno: string;
   shipper_address: string;

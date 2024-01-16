@@ -225,9 +225,10 @@ export class EdifileComponent {
     this.mainService.ImportData(eSearchData)
       .subscribe(response => {
         this.loading = false;
-
+        this.List('NEW');
         if (response.error)
           alert(response.error);
+
         // alert('Download Complete');
       },
         error => {
