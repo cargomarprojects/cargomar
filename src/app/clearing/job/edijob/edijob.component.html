@@ -94,6 +94,7 @@
                 <th align='right'>GR.WT</th>
                 <th align='right'>NT.WT</th>
                 <th align='right'>CBM</th>
+                <th>FILES</th>
                 <th>REMARKS</th>
               </tr>
             </thead>
@@ -121,8 +122,8 @@
                 <td align='right'>{{rec.gr_wt | number : '1.3-3'}}</td>
                 <td align='right'>{{rec.nt_wt | number : '1.3-3'}}</td>
                 <td align='right'>{{rec.cbm | number : '1.3-3'}}</td>
+                <td class="hlink" (click)="SignFiles(rec.pkid)">SIGN FILES</td>
                 <td>{{rec.remarks}}</td>
-
               </tr>
             </tbody>
           </table>

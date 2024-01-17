@@ -35,5 +35,10 @@ export class EdijobService {
   InwardEdiEmailDownload(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Email/InwardEdiEmailDownload', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  SignFiles(Record: EdiRecord) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/SignFiles', Record, this.gs.headerparam2('authorized'));
+  }
+
 }
 

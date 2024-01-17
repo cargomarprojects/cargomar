@@ -279,7 +279,7 @@ export class EdijobComponent {
 
 
 
-   
+
 
   TransferData(_type: string) {
     let saveRecord: EdiRecord = new EdiRecord;
@@ -327,6 +327,29 @@ export class EdijobComponent {
         });
   }
 
+  SignFiles(_jobId: string ) {
+
+    let saveRecord: EdiRecord = new EdiRecord;
+    saveRecord.pkid = _jobId;
+    saveRecord.root_folder = this.gs.defaultValues.root_folder;
+    saveRecord.sub_folder = this.gs.defaultValues.sub_folder;
+    saveRecord.save = "N";
+    saveRecord._globalvariables = this.gs.globalVariables;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.SignFiles(saveRecord)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error)
+          alert(response.error);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
   /*
   AutoEmail()
   {
