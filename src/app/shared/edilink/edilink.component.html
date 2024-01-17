@@ -56,6 +56,22 @@
       </div>
     </div>
   </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="page-body table-responsive">
     <table class="table  table-hover  table-sm table-bordered table-striped">
       <thead class="page-body-thead">
@@ -88,6 +104,22 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 

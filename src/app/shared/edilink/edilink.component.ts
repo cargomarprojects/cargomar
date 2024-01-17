@@ -70,9 +70,8 @@ export class EdilinkComponent {
 
   ) {
     this.page_count = 0;
-    this.page_rows = 10;
+    this.page_rows = 15;
     this.page_current = 0;
-
 
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
@@ -170,7 +169,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "";
       // this.Record.sourcename = "";
     }
-    else  if (_type == 'CUSTOMER PLUS ADDRESS') {
+    else if (_type == 'CUSTOMER PLUS ADDRESS') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "CUSTOMER";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -182,7 +181,7 @@ export class EdilinkComponent {
       this.PARTYRECORD.parentid = "";
       // this.Record.sourcename = "";
     }
-    else  if (_type == 'DISTRICT') {
+    else if (_type == 'DISTRICT') {
       this.PARTYRECORD = new SearchTable();
       this.PARTYRECORD.controlname = "DISTRICT";
       this.PARTYRECORD.displaycolumn = "CODE";
@@ -323,6 +322,10 @@ export class EdilinkComponent {
       source_table: this.source_table,
       source_type: this.source_type,
       branch_code: '',
+      page_count: this.page_count,
+      page_current: this.page_current,
+      page_rows: this.page_rows,
+      page_rowcount: this.page_rowcount,
       bpending: this.bpending
     };
 
@@ -332,6 +335,9 @@ export class EdilinkComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
+        this.page_count = response.page_count;
+        this.page_current = response.page_current;
+        this.page_rowcount = response.page_rowcount;
       },
         error => {
           this.loading = false;
