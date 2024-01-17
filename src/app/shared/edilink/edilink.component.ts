@@ -28,6 +28,7 @@ export class EdilinkComponent {
   loading = false;
   currentTab = 'LIST';
 
+  searchpending: string = 'ALL';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -106,6 +107,7 @@ export class EdilinkComponent {
   }
 
   InitComponent() {
+    this.searchpending = "ALL";
     this.bAdmin = false;
     this.bDelete = false;
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -326,7 +328,8 @@ export class EdilinkComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      bpending: this.bpending
+      bpending: this.bpending,
+      searchpending: this.searchpending
     };
 
     this.ErrorMessage = '';

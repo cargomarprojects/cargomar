@@ -45,9 +45,17 @@
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
-          <div class="col-sm-6">
+          <!-- <div class="col-sm-6">
             <input type="checkbox" [(ngModel)]="bpending" id="_chkpending">
             <label class="col-form-label col-form-label-sm" for="_chkpending">Pending</label>
+          </div> -->
+          <label class="col-sm-2 col-form-label col-form-label-sm">Pending</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="searchpending">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'Y'">YES</option>
+              <option [value]="'N'">NO</option>
+            </select>
           </div>
           <div class="col-sm-6">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
