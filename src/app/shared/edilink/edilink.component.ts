@@ -579,7 +579,7 @@ export class EdilinkComponent {
         { "code": "SHIPPER", "name": "SHIPPER" },
         { "code": "STATE", "name": "STATE" },
         { "code": "STUFFED-AT", "name": "STUFFED-AT" },
-        { "code": "TRADE AGREMENTS", "name": "TRADE AGREMENTS" },
+        { "code": "TRADE AGREEMENTS", "name": "TRADE AGREEMENTS" },
         { "code": "TRANSPORT-MODE", "name": "TRANSPORT-MODE" },
         { "code": "UNIT", "name": "UNIT" }
       ];
