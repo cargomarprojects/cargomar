@@ -294,16 +294,16 @@ export class EdijobComponent {
     }
 
     if (sPkids == "") {
-      this.ErrorMessage = "Please select a job and continue.....";
+      this.ErrorMessage = "No Records are selected";
       alert(this.ErrorMessage);
       return;
     }
 
-    if (sPkids.includes(",")) {
-      this.ErrorMessage = "Multiple selection not allowed.";
-      alert(this.ErrorMessage);
-      return;
-    }
+    // if (sPkids.includes(",")) {
+    //   this.ErrorMessage = "Multiple selection not allowed.";
+    //   alert(this.ErrorMessage);
+    //   return;
+    // }
 
 
     this.loading = true;
