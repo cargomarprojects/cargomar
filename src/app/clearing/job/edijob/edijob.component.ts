@@ -299,18 +299,23 @@ export class EdijobComponent {
       return;
     }
 
-    // if (sPkids.includes(",")) {
-    //   this.ErrorMessage = "Multiple selection not allowed.";
-    //   alert(this.ErrorMessage);
-    //   return;
-    // }
+    if (_type == "RE-SAVE" && sPkids.includes(",")) {
+      this.ErrorMessage = "Multiple selection not allowed.";
+      alert(this.ErrorMessage);
+      return;
+    }
 
 
     this.loading = true;
     saveRecord.pkid = sPkids;
     saveRecord.root_folder = this.gs.defaultValues.root_folder;
     saveRecord.sub_folder = this.gs.defaultValues.sub_folder;
-    saveRecord.save = _type == "SAVE" ? "Y" : "N";
+    if (_type == "SAVE")
+      saveRecord.save = "Y";
+    else if (_type == "RE-SAVE")
+      saveRecord.save = "R";
+    else
+      saveRecord.save = "N";
     saveRecord._globalvariables = this.gs.globalVariables;
 
     this.ErrorMessage = '';
@@ -330,11 +335,11 @@ export class EdijobComponent {
         });
   }
 
-  SignFiles(_jobId: string ) {
+  SignFiles(_jobId: string) {
 
 
 
-    
+
     let saveRecord: EdiRecord = new EdiRecord;
     saveRecord.pkid = _jobId;
     saveRecord.root_folder = this.gs.defaultValues.root_folder;

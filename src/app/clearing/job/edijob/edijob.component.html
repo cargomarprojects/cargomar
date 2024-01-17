@@ -48,7 +48,10 @@
                     Data</button>
                   <button [disabled]="loading" (click)="TransferData('SAVE')"
                     class="btn btn-primary btn-sm mr-1">Transfer
-                    Data</button>
+                    </button>
+                    <button [disabled]="loading" (click)="TransferData('RE-SAVE')"
+                    class="btn btn-primary btn-sm mr-1">Re-Transfer
+                    </button>
                   <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
                 </div>
               </div>
