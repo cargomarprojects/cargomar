@@ -49,4 +49,9 @@ export class EdiJob {
   invoice_dt: string;
   invoice_count: string;
   remarks: string;
+
+  msg_from_id: string;
+  msg_to_id: string;
+  msg_subject: string;
+  msg_date: string;
 }
