@@ -86,7 +86,6 @@
                 <th>REFNO</th>
                 <th>REFDATE</th>
                 <th>JOB-NO</th>
-                <th>PROCESSED</th>
                 <th>SHIPPER</th>
                 <th>SHPR-BR#</th>
                 <th>BILLED-TO</th>
@@ -103,6 +102,7 @@
                 <th align='right'>NT.WT</th>
                 <th align='right'>CBM</th>
                 <th>SIGN-FILES</th>
+                <th>PROCESSED</th>
                 <th>REMARKS</th>
               </tr>
             </thead>
@@ -114,7 +114,6 @@
                 <td>{{rec.job_ref_no}}</td>
                 <td>{{rec.job_ref_date}}</td>
                 <td>{{rec.job_docno}}</td>
-                <td>{{rec.processed}}</td>
                 <td>{{rec.shipper_name}}</td>
                 <td>{{rec.shipper_branch_slno}}</td>
                 <td>{{rec.billed_to}}</td>
@@ -131,6 +130,7 @@
                 <td align='right'>{{rec.nt_wt | number : '1.3-3'}}</td>
                 <td align='right'>{{rec.cbm | number : '1.3-3'}}</td>
                 <td class="hlink" (click)="SignFiles(rec.pkid)">SIGN FILE</td>
+                <td>{{rec.processed}}</td>
                 <td>{{rec.remarks}}</td>
               </tr>
             </tbody>
