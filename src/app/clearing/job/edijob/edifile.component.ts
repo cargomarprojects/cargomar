@@ -38,6 +38,7 @@ export class EdifileComponent {
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
+  searchprocessed: string = 'ALL';
 
   page_count = 0;
   page_current = 0;
@@ -86,6 +87,7 @@ export class EdifileComponent {
   }
 
   InitComponent() {
+    this.searchprocessed = "ALL";
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
@@ -160,7 +162,8 @@ export class EdifileComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      searchprocessed: this.searchprocessed
     };
 
     this.ErrorMessage = '';
