@@ -337,8 +337,9 @@ export class EdijobComponent {
 
   SignFiles(_jobId: string) {
 
-
-
+    if (!confirm("Do you want Sign Files ")) {
+      return;
+    }
 
     let saveRecord: EdiRecord = new EdiRecord;
     saveRecord.pkid = _jobId;
