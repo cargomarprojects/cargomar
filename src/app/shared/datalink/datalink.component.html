@@ -62,7 +62,6 @@
         <tr>
           <th>GROUP</th>
           <th>TYPE</th>
-          <th>SEARCH</th>
           <th>VALUE</th>
           <th>DESCRIPTION</th>
           <th *ngIf="search_source_table!='JOB'">VALUE2</th>
@@ -76,7 +75,6 @@
           (mousedown)="selectedRowIndex=i">
           <td>{{rec.sourcetable}}</td>
           <td>{{rec.sourcetype}}</td>
-          <td class="hlink" (click)="ActionHandler('EDIT',rec.pkid,rec.sourcetype)">{{rec.searchstring}}</td>
           <td>{{rec.sourcecode}}</td>
           <td>{{rec.sourcename}}</td>
           <td *ngIf="search_source_table!='JOB'">{{rec.targetid}}</td>
