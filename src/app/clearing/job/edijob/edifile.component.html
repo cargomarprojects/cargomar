@@ -74,7 +74,7 @@
           <td>{{rec.msg_date}}</td>
           <td>{{rec.caption}}</td>
           <td>{{rec.file_folder}}</td>
-          <td>{{rec.file_name}}</td>
+          <td  class="hlink" (click)="ProcessDocuments(rec.file_pkid)">{{rec.file_name}}</td>
           <td>{{rec.remarks}}</td>
           <td>{{rec.processed}}</td>
         </tr>

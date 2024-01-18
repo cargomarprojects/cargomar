@@ -266,4 +266,30 @@ export class EdifileComponent {
 
   }
 
+  ProcessDocuments(_file_id) {
+
+    this.loading = true;
+    let eSearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      file_pkid:_file_id
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.ProcessDocuments(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error)
+          alert(response.error);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 }
