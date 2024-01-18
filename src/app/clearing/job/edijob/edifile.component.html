@@ -61,6 +61,7 @@
           <th>TYPE</th>
           <th>FOLDER</th>
           <th>FILE NAME</th>
+          <th>PROCESS</th>
           <th>REMARKS</th>
           <th>PROCESSED</th>
         </tr>
@@ -74,7 +75,8 @@
           <td>{{rec.msg_date}}</td>
           <td>{{rec.caption}}</td>
           <td>{{rec.file_folder}}</td>
-          <td  class="hlink" (click)="ProcessDocuments(rec.file_pkid)">{{rec.file_name}}</td>
+          <td >{{rec.file_name}}</td>
+          <td  class="hlink" (click)="ProcessDocuments(rec.file_pkid)">FILES</td>
           <td>{{rec.remarks}}</td>
           <td>{{rec.processed}}</td>
         </tr>
