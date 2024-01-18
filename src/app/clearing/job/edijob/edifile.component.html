@@ -64,6 +64,7 @@
           <th>PROCESS</th>
           <th>REMARKS</th>
           <th>PROCESSED</th>
+          <th *ngIf="bDelete">REMOVE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -75,10 +76,17 @@
           <td>{{rec.msg_date}}</td>
           <td>{{rec.caption}}</td>
           <td>{{rec.file_folder}}</td>
-          <td >{{rec.file_name}}</td>
-          <td  class="hlink" (click)="ProcessDocuments(rec.file_pkid)">FILES</td>
+          <td>{{rec.file_name}}</td>
+          <td class="hlink" (click)="ProcessDocuments(rec.file_pkid)">FILES</td>
           <td>{{rec.remarks}}</td>
           <td>{{rec.processed}}</td>
+          <td *ngIf="bDelete">
+            <span *ngIf="rec.processed=='N'||(gs.globalVariables.user_code == 'ADMIN')" >
+              <App-Dialog
+                [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.file_pkid,name:rec.file_name}"
+                (result)="RemoveList($event)"></App-Dialog>
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>

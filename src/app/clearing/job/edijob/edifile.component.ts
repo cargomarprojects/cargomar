@@ -35,6 +35,7 @@ export class EdifileComponent {
   bExcel = false;
   bCompany = false;
   bAdmin = false;
+  bDelete = false;
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
@@ -61,7 +62,7 @@ export class EdifileComponent {
     private modalService: NgbModal,
     private mainService: EdijobService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 15;
@@ -91,6 +92,7 @@ export class EdifileComponent {
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
+    this.bDelete = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -100,6 +102,7 @@ export class EdifileComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      this.bDelete = this.menu_record.rights_delete;
     }
     this.Init();
     this.initLov();
@@ -275,7 +278,8 @@ export class EdifileComponent {
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
       report_folder: this.gs.globalVariables.report_folder,
-      file_pkid:_file_id
+      file_pkid: _file_id,
+      printcsv: 'Y'
     };
 
     this.ErrorMessage = '';
@@ -284,11 +288,39 @@ export class EdifileComponent {
         this.loading = false;
         if (response.error)
           alert(response.error);
+
+        if (response.filename)
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
+        });
+  }
+
+  RemoveList(event: any) {
+    if (event.selected) {
+      this.RemoveRecord(event.id);
+    }
+  }
+
+  RemoveRecord(Id: string) {
+    this.loading = true;
+    let SearchData = {
+      pkid: Id
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.file_pkid == Id), 1);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
         });
   }
 

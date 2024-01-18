@@ -36,6 +36,10 @@ export class EdijobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/xml/job/ProcessDocuments', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/xml/job/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   InwardEdiEmailDownload(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Email/InwardEdiEmailDownload', SearchData, this.gs.headerparam2('authorized'));
   }
