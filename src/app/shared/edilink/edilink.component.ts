@@ -333,13 +333,13 @@ export class EdilinkComponent {
       searchpending: this.searchpending,
       search_value1: this.search_value1
     };
-
-    this.search_value1 = '';
+    
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.search_value1 = '';
         this.RecordList = response.list;
         this.page_count = response.page_count;
         this.page_current = response.page_current;

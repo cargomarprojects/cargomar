@@ -40,18 +40,18 @@
               <div class="form-group row">
                 <label class="col-sm-1 col-form-label col-form-label-sm"></label>
                 <div class="col-sm-10">
-                  <button [disabled]="loading" (click)="FindMissingData()" class="btn btn-primary btn-sm mr-1">Validate
+                  <button [disabled]="loading" (click)="FindMissingData('')" class="btn btn-primary btn-sm mr-1">Validate
                     Data Mapping
                   </button>
-                  <button [disabled]="loading" (click)="TransferData('VALIDATE')"
+                  <button [disabled]="loading" (click)="TransferData('VALIDATE','')"
                     class="btn btn-primary btn-sm mr-1">Validate
                     Data</button>
-                  <button [disabled]="loading" (click)="TransferData('SAVE')"
+                  <button [disabled]="loading" (click)="TransferData('SAVE',datamapping)"
                     class="btn btn-primary btn-sm mr-1">Transfer
-                    </button>
-                    <button [disabled]="loading" (click)="TransferData('RE-SAVE')"
+                  </button>
+                  <button [disabled]="loading" (click)="TransferData('RE-SAVE',datamapping)"
                     class="btn btn-primary btn-sm mr-1">Re-Transfer
-                    </button>
+                  </button>
                   <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
                 </div>
               </div>
@@ -182,6 +182,18 @@
 <!-- <br /> -->
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<ng-template #datamapping let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Data Mapping</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-edilink [type]="'JOB'" [search_value1]="searchValue1" [menuid]="'LINKM2'"></app-edilink>
+  </div>
+</ng-template>
 
 <!-- <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}

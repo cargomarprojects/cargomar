@@ -220,7 +220,7 @@ export class EdijobComponent {
     }
   }
 
-  FindMissingData() {
+  FindMissingData(datamap: any) {
 
     let sPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
@@ -249,8 +249,13 @@ export class EdijobComponent {
 
         this.searchValue1 = response.searchvalue1;
         if (this.searchValue1) {
-          if (!this.gs.isBlank(this.tabsetCtrl))
-            this.tabsetCtrl.select('tab2');
+          {
+            if (datamap)
+              this.open(datamap)
+            else
+              if (!this.gs.isBlank(this.tabsetCtrl))
+                this.tabsetCtrl.select('tab2');
+          }
         }
       },
         error => {
@@ -288,7 +293,7 @@ export class EdijobComponent {
 
 
 
-  TransferData(_type: string) {
+  TransferData(_type: string, datamap: any) {
     let saveRecord: EdiRecord = new EdiRecord;
     let sPkids: string = "";
     for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
@@ -329,8 +334,10 @@ export class EdijobComponent {
         // this.RecordList2 = response.list;
         //   if (!this.gs.isBlank(this.tabsetCtrl))
         //     this.tabsetCtrl.select('tab2');
-        if (response.error)
+        if (response.error) {
           alert(response.error);
+          this.FindMissingData(datamap);
+        }
       },
         error => {
           this.loading = false;
