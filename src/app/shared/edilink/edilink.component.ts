@@ -21,6 +21,7 @@ export class EdilinkComponent {
   @Input() type: string = '';
   @Input() link_type: string = '';
   @Input() link_pkid: string = '';
+  @Input() search_value1: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -329,9 +330,11 @@ export class EdilinkComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       bpending: this.bpending,
-      searchpending: this.searchpending
+      searchpending: this.searchpending,
+      search_value1: this.search_value1
     };
 
+    this.search_value1 = '';
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)

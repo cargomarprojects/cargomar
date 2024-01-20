@@ -36,6 +36,7 @@ export class EdijobComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
+  searchValue1 = "";
 
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
@@ -245,9 +246,12 @@ export class EdijobComponent {
     this.mainService.FindMissingData(eSearchData)
       .subscribe(response => {
         this.loading = false;
-        // this.RecordList2 = response.list;
-        //   if (!this.gs.isBlank(this.tabsetCtrl))
-        //     this.tabsetCtrl.select('tab2');
+
+        this.searchValue1 = response.searchvalue1;
+        if (this.searchValue1) {
+          if (!this.gs.isBlank(this.tabsetCtrl))
+            this.tabsetCtrl.select('tab2');
+        }
       },
         error => {
           this.loading = false;
