@@ -40,6 +40,7 @@ export class EdilinkComponent {
   sub: any;
   urlid: string;
 
+  showCloseBtn: boolean = false;
   ErrorMessage = "";
   InfoMessage = "";
   bpending: boolean = true;
@@ -82,6 +83,8 @@ export class EdilinkComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        if (this.menuid == "LINKM2")
+          this.showCloseBtn = true;
         this.InitComponent();
       }
     });
@@ -333,7 +336,7 @@ export class EdilinkComponent {
       searchpending: this.searchpending,
       search_value1: this.search_value1
     };
-    
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
@@ -426,6 +429,7 @@ export class EdilinkComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
+        this.ActionHandler('LIST', '');
       },
         error => {
           this.loading = false;

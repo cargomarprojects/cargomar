@@ -4,7 +4,7 @@
     <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" *ngIf="bAdmin" (click)="ActionHandler('ADD','')"
       class="btn btn-primary btn-sm">New</button>
-    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <button  *ngIf="showCloseBtn" class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
