@@ -335,8 +335,8 @@ export class EdijobComponent {
         //   if (!this.gs.isBlank(this.tabsetCtrl))
         //     this.tabsetCtrl.select('tab2');
         if (response.error) {
-          alert(response.error);
           this.FindMissingData(datamap);
+          alert(response.error);
         }
       },
         error => {
