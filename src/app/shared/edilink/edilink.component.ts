@@ -582,6 +582,7 @@ export class EdilinkComponent {
         { "code": "PAYMENT-TYPE", "name": "PAYMENT-TYPE" },
         { "code": "PORT", "name": "PORT" },
         { "code": "PRE CARRIAGE", "name": "PRE CARRIAGE" },
+        { "code": "RITCM", "name": "RITCM" },
         { "code": "SCHEME CODE", "name": "SCHEME CODE" },
         { "code": "SHIPPER", "name": "SHIPPER" },
         { "code": "STATE", "name": "STATE" },
