@@ -227,6 +227,8 @@ export class EdijobComponent {
       if (sPkids != "")
         sPkids += ",";
       sPkids += rec.pkid;
+
+      
     }
 
     // if (sPkids == "") {
