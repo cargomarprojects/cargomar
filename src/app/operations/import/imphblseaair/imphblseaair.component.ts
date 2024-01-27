@@ -38,6 +38,7 @@ export class ImpHblSeaAirComponent {
   loading = false;
   currentTab = 'LIST';
   JobTab = 'LIST';
+  bPrint = false;
 
   searchby = "";
   searchstring = '';
@@ -124,11 +125,13 @@ export class ImpHblSeaAirComponent {
   }
 
   InitComponent() {
+    this.bPrint = false;
     this.searchby = "ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       this.bDocs = this.menu_record.rights_docs;
+      this.bPrint = this.menu_record.rights_print
     }
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -489,7 +492,8 @@ export class ImpHblSeaAirComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.hbl_fromdate,
-      to_date: this.gs.globalData.hbl_todate
+      to_date: this.gs.globalData.hbl_todate,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.ErrorMessage = '';
@@ -497,10 +501,14 @@ export class ImpHblSeaAirComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
