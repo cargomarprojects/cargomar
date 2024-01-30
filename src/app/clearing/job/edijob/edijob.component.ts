@@ -228,7 +228,7 @@ export class EdijobComponent {
         sPkids += ",";
       sPkids += rec.pkid;
 
-      
+
     }
 
     // if (sPkids == "") {
@@ -248,15 +248,18 @@ export class EdijobComponent {
     this.mainService.FindMissingData(eSearchData)
       .subscribe(response => {
         this.loading = false;
-
-        this.searchValue1 = response.searchvalue1;
-        if (this.searchValue1) {
-          {
-            if (datamap)
-              this.open(datamap)
-            else
-              if (!this.gs.isBlank(this.tabsetCtrl))
-                this.tabsetCtrl.select('tab2');
+        if (response.error)
+          alert(response.error);
+        else {
+          this.searchValue1 = response.searchvalue1;
+          if (this.searchValue1) {
+            {
+              if (datamap)
+                this.open(datamap)
+              else
+                if (!this.gs.isBlank(this.tabsetCtrl))
+                  this.tabsetCtrl.select('tab2');
+            }
           }
         }
       },
