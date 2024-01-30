@@ -49,7 +49,7 @@
                   <button [disabled]="loading" (click)="TransferData('SAVE',datamapping)"
                     class="btn btn-primary btn-sm mr-1">Transfer
                   </button>
-                  <button [disabled]="loading" (click)="TransferData('RE-SAVE',datamapping)"
+                  <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="TransferData('RE-SAVE',datamapping)"
                     class="btn btn-primary btn-sm mr-1">Re-Transfer
                   </button>
                   <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
