@@ -21,6 +21,8 @@ export class EdijobEditComponent {
     @Input() type: string = '';
     @Input() pkid: string = '';
     @Input() parentid: string = '';
+    @Output() ModifiedRecords = new EventEmitter<any>();
+
     selectedRowIndex: number = -1;
 
     modal: any;
@@ -101,7 +103,8 @@ export class EdijobEditComponent {
                 this.InfoMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
-                this.RefreshList();
+                if (this.ModifiedRecords != null)
+                this.ModifiedRecords.emit({ saction: 'SAVE', sid: this.pkid, _rec: this.Record });
             },
                 error => {
                     this.loading = false;
@@ -135,24 +138,7 @@ export class EdijobEditComponent {
         }
         return bret;
     }
-
-    RefreshList() {
-
-        if (this.RecordList == null)
-            return;
-        var REC = this.RecordList.find(rec => rec.pkid == this.pkid);
-        if (REC != null) {
-            REC.job_ref_date = this.Record.job_ref_date;
-            REC.job_ref_no = this.Record.job_ref_no;
-            // REC.ord_style = this.Record.ord_style;
-            // REC.ord_cargo_status = this.Record.ord_cargo_status;
-            // REC.ord_desc = this.Record.ord_desc;
-            // REC.ord_color = this.Record.ord_color;
-            // REC.ord_contractno = this.Record.ord_contractno;
-        }
-    }
-
-
+ 
     Close() {
         this.gs.ClosePage('home');
     }
@@ -176,4 +162,5 @@ export class EdijobEditComponent {
 
         }
     }
+    
 }

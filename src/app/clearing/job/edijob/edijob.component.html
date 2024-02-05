@@ -203,7 +203,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-edijob-edit [type]="'JOB'" [pkid]="pkid" [menuid]="menuid"></app-edijob-edit>
+    <app-edijob-edit [type]="'JOB'" [pkid]="pkid" [menuid]="menuid" (ModifiedRecords)="ModifiedRecords($event)"></app-edijob-edit>
   </div>
 </ng-template>
 <!-- <div *ngIf="ErrorMessage" class="alert alert-danger">

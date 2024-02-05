@@ -389,8 +389,19 @@ export class EdijobComponent {
   }
 
   editRecord(_id: string, editjob: any) {
-    this.pkid=_id;
+    this.pkid = _id;
     this.open(editjob);
+  }
+
+  ModifiedRecords(params: any) {
+    if (params.saction == "SAVE") {
+      for (let rec of this.RecordList.filter(rec => rec.pkid == params.sid)) {
+        rec.job_ref_no = params._rec.job_ref_no;
+        rec.job_ref_date = params._rec.job_ref_date;
+      }
+    }
+
+    this.modal.close();
   }
 
   /*
