@@ -387,6 +387,12 @@ export class EdijobComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  editRecord(_id: string, editjob: any) {
+    this.pkid=_id;
+    this.open(editjob);
+  }
+
   /*
   AutoEmail()
   {

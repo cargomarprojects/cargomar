@@ -123,7 +123,7 @@
                 <td>{{rec.msg_date}}</td>
 
                 <td>{{rec.job_slno}}</td>
-                <td>{{rec.job_ref_no}}</td>
+                <td class="hlink" (click)="editRecord(rec.pkid,jobedit)">{{rec.job_ref_no}}</td>
                 <td>{{rec.job_ref_date}}</td>
                 <td>{{rec.job_docno}}</td>
                 <td>{{rec.shipper_name}}</td>
@@ -195,6 +195,17 @@
   </div>
 </ng-template>
 
+<ng-template #jobedit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Job Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-edijob-edit [type]="'JOB'" [pkid]="pkid" [menuid]="menuid"></app-edijob-edit>
+  </div>
+</ng-template>
 <!-- <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div> -->

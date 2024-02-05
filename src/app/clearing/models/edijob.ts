@@ -55,4 +55,7 @@ export class EdiJob {
   msg_to_id: string;
   msg_subject: string;
   msg_date: string;
+
+  rec_mode:string;
+  _globalvariables: GlobalVariables;
 }

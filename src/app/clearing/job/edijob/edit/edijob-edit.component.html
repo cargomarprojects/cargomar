@@ -1,0 +1,23 @@
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Ref#</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_invno"
+                        (blur)="OnBlur('ord_invno')" required maxlength="30" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Ref.Date</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ord_invno"
+                        (blur)="OnBlur('ord_invno')" required maxlength="30" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-box">
+    <div class="col-sm">
+        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
+    </div>
+</div>
