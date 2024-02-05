@@ -342,6 +342,15 @@ export class EdijobComponent {
         if (response.error) {
           this.FindMissingData(datamap);
           alert(response.error);
+        } else {
+
+          if (!this.gs.isBlank(response.joblist)) {
+            for (let rec1 of response.joblist) {
+              for (let rec of this.RecordList.filter(rec => rec.pkid == rec1.pkid)) {
+                rec.job_docno = rec1.job_docno;
+              }
+            }
+          }
         }
       },
         error => {
