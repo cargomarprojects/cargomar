@@ -11,38 +11,37 @@
     <div class="page-list">
         <div class="page-search">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group row">
-                        <label class="col-4 col-form-label col-form-label-sm">Code</label>
-                        <div class="col-8">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Code</label>
+                        <div class="col-sm-4">
                             <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
                                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
                         </div>
-                        <!-- <div class="form-group row">
-                <label class="col-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
-              </div> -->
+                        <label class="col-sm-6 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-sm-4">
                     <div *ngIf="bCompany" class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
-                        <div class="col-8">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-sm-4">
                             <app-autocomplete #BrLov [inputdata]="BRRECORD"
                                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
                         </div>
+                        <!-- <label class="col-sm-6 col-form-label col-form-label-sm">{{BRRECORD.name}}</label> -->
                     </div>
                 </div>
 
-                <div class="col-2">
+                <!-- <div class="col-2">
                     <div class="form-group row">
                         <div *ngIf="bCompany" class="col-sm-12">
                             <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
                             <span> All</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-2">
+                <div class="col-sm-2">
 
                     <div class="form-group row">
 
@@ -60,7 +59,7 @@
         </div>
     </div>
 
-    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 260px);">
         <table class="table  table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
@@ -84,8 +83,9 @@
                     <th class="text-right">BAL-CR</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr [style.color]="rec.rowcolor">
+            <tbody class="page-body-tbody" >
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                (mousedown)="selectedRowIndex=i">
                     <td>{{rec.main_group}}</td>
                     <td>{{rec.sub_group}}</td>
                     <td>{{rec.acc_code}}</td>
@@ -94,10 +94,10 @@
                     <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
-                    <td align='right'>{{ rec.aug | number : '1.2-2'  }}</td>
-                    <td align='right'>{{ rec.sep | number : '1.2-2'  }}</td>
-                    <td align='right'>{{ rec.oct | number : '1.2-2'  }}</td>
-                    <td align='right'>{{ rec.nov | number : '1.2-2'  }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
                     <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>

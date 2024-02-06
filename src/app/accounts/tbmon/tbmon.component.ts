@@ -25,7 +25,7 @@ export class TbMonComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  selectedRowIndex = -1;
   searchstring = '';
 
   sub: any;
@@ -56,6 +56,7 @@ export class TbMonComponent {
     hide_ho_entries: '',
     searchstring: '',
     acc_id: '',
+    acc_code: '',
     acc_name: '',
     branch_code: '',
     branch_name: '',
@@ -195,7 +196,7 @@ export class TbMonComponent {
 
   // Query List Data
   List(_type: string) {
-     
+
     this.loading = true;
 
     this.pkid = this.gs.getGuid();
@@ -216,7 +217,9 @@ export class TbMonComponent {
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.all = this.all;
     this.SearchData.acc_id = this.ACCRECORD.id;
+    this.SearchData.acc_code = this.ACCRECORD.code;
     this.SearchData.acc_name = this.ACCRECORD.name;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
 
     this.ErrorMessage = '';
     this.mainService.TbMonReport(this.SearchData)
@@ -254,7 +257,7 @@ export class TbMonComponent {
     this.gs.ClosePage('home');
   }
 
-  
+
 
 
 }
