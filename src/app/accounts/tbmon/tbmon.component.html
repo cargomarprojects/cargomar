@@ -1,0 +1,118 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+    <div class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">Code</label>
+                        <div class="col-8">
+                            <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                        <!-- <div class="form-group row">
+                <label class="col-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
+              </div> -->
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div *ngIf="bCompany" class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-8">
+                            <app-autocomplete #BrLov [inputdata]="BRRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="form-group row">
+                        <div *ngIf="bCompany" class="col-sm-12">
+                            <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+                            <span> All</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-12">
+                            <button *ngIf="!all" [disabled]="loading" (click)="List('NEW')"
+                                class="btn btn-primary btn-sm">Process
+                                Report</button>
+                            <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                                class="btn btn-primary btn-sm">Excel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+        <table class="table  table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>GROUP</th>
+                    <th>SUB-GROUP</th>
+                    <th>A/C CODE</th>
+                    <th>A/C NAME</th>
+                    <th class="text-right">APR</th>
+                    <th class="text-right">MAY</th>
+                    <th class="text-right">JUN</th>
+                    <th class="text-right">JUL</th>
+                    <th class="text-right">AUG</th>
+                    <th class="text-right">SEP</th>
+                    <th class="text-right">OCT</th>
+                    <th class="text-right">NOV</th>
+                    <th class="text-right">DEC</th>
+                    <th class="text-right">JAN</th>
+                    <th class="text-right">FEB</th>
+                    <th class="text-right">MAR</th>
+                    <th class="text-right">BAL-DR</th>
+                    <th class="text-right">BAL-CR</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr [style.color]="rec.rowcolor">
+                    <td>{{rec.main_group}}</td>
+                    <td>{{rec.sub_group}}</td>
+                    <td>{{rec.acc_code}}</td>
+                    <td>{{rec.acc_name}}</td>
+                    <td align='right'>{{ rec.apr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.may | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jun | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jul | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.aug | number : '1.2-2'  }}</td>
+                    <td align='right'>{{ rec.sep | number : '1.2-2'  }}</td>
+                    <td align='right'>{{ rec.oct | number : '1.2-2'  }}</td>
+                    <td align='right'>{{ rec.nov | number : '1.2-2'  }}</td>
+                    <td align='right'>{{ rec.dec | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.jan | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.feb | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.mar | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.tot_dr | number : '1.2-2' }}</td>
+                    <td align='right'>{{ rec.tot_cr | number : '1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>

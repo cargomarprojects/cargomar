@@ -92,6 +92,7 @@ import { DailyExpComponent } from './dailyexp/dailyexp.component';
 import { AddressUpdateComponent } from './ledger/addressupdate.component';
 import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
 import { BankImportComponent } from './ledger/bankImport.component';
+import { TbMonComponent } from './tbmon/tbmon.component';
 
 @NgModule({
   imports: [
@@ -148,7 +149,8 @@ import { BankImportComponent } from './ledger/bankImport.component';
     DailyExpComponent,
     AddressUpdateComponent,
     AgentPayHistoryComponent,
-    BankImportComponent
+    BankImportComponent,
+    TbMonComponent
   ],
   providers: [
   ],
