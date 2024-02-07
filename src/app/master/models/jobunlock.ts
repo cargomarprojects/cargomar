@@ -6,7 +6,8 @@ export class JobUnlock {
     ul_type: string;
     ul_ctr: number;
     ul_remarks: string;
-    
+    ul_comments: string;
+    ul_remarks_id: string;
     rec_mode: string;
 
     rec_company_code: string;
