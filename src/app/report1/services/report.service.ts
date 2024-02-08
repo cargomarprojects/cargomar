@@ -173,5 +173,9 @@ export class RepService {
   ClearRebateInvJv(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ClearRebateInvJv', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  UnlockJobReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UnlockJobReport', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

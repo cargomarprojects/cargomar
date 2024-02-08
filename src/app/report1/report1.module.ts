@@ -70,7 +70,7 @@ import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { ShipReportComponent } from './shipdata/shipreport.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
-
+import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
 
 @NgModule({
   imports: [
@@ -125,7 +125,8 @@ import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
     ShipDataParentComponent,
     ShipReportComponent,
     UsrRightsComponent,
-    ShipmentReportComponent
+    ShipmentReportComponent,
+    UnlockJobrptComponent
   ],
   providers: [
   ],
