@@ -11,6 +11,7 @@ export class JobUnlock {
     shipper_name: string;
     consignee_name: string;
     billto_name: string;
+    cust_name: string;
     rec_mode: string;
 
     rec_company_code: string;

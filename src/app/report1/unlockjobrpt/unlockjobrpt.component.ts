@@ -121,7 +121,7 @@ export class UnlockJobrptComponent {
         this.BRRECORD.displaycolumn = "CODE";
         this.BRRECORD.type = "BRANCH";
         this.BRRECORD.id = "";
-        this.BRRECORD.code = "";
+        this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
 
         this.EXPRECORD = new SearchTable();

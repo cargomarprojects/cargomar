@@ -38,6 +38,7 @@ export class EdijobComponent {
   pkid = '';
   searchValue1 = "";
 
+  selectedCount = 0;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bExcel = false;
@@ -155,7 +156,7 @@ export class EdijobComponent {
 
   // // Query List Data
   List(_type: string) {
-
+    this.selectedCount = 0;
     this.ErrorMessage = '';
     this.loading = true;
     let SearchData = {
@@ -201,8 +202,8 @@ export class EdijobComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
-
+    if (field == 'job_selected')
+      this.FindSelectedCount();
   }
 
   Close() {
@@ -214,10 +215,25 @@ export class EdijobComponent {
   }
 
   SelectDeselect() {
+    this.selectedCount = 0;
     this.selectdeselect = !this.selectdeselect;
     for (let rec of this.RecordList) {
       rec.job_selected = this.selectdeselect;
+      if (rec.job_selected)
+        this.selectedCount++;
     }
+  }
+
+  FindSelectedCount() {
+    this.selectedCount = 0;
+    for (let rec of this.RecordList.filter(rec => rec.job_selected == true)) {
+      this.selectedCount++;
+    }
+  }
+
+  chkReset(_rec: EdiJob) {
+    _rec.job_selected = !_rec.job_selected;
+    this.FindSelectedCount();
   }
 
   FindMissingData(datamap: any) {
