@@ -40,6 +40,7 @@ export class ImpHblSeaAirComponent {
   JobTab = 'LIST';
   bPrint = false;
 
+  hbl_no = "";
   searchby = "";
   searchstring = '';
   jobtype = 'BOTH';
@@ -127,6 +128,7 @@ export class ImpHblSeaAirComponent {
   InitComponent() {
     this.bPrint = false;
     this.searchby = "ALL";
+    this.hbl_no = "";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -522,7 +524,7 @@ export class ImpHblSeaAirComponent {
 
     this.old_importer_id = '';
     this.old_billto_id = '';
-
+    this.hbl_no = "";
 
     this.pkid = this.gs.getGuid();
     this.Record = new Hblm();
@@ -734,6 +736,51 @@ export class ImpHblSeaAirComponent {
     this.old_importer_id = this.Record.hbl_imp_id;
     this.old_billto_id = this.Record.hbl_billto_id;
 
+    //Fill Duplicate Job
+    if (this.mode == "ADD") {
+      this.old_importer_id = '';
+      this.old_billto_id = '';
+      this.Record.hbl_pkid = this.pkid;
+      this.Record.hbl_no = null;
+      this.Record.hbl_cf_date = this.gs.defaultValues.today;
+      this.Record.hbl_mbl_id = '';
+      this.Record.hbl_mbl_no = '';
+      this.Record.hbl_mbl_bookslno = '';
+      this.Record.hbl_mbl_bookno = '';
+      this.Record.hbl_bl_no = '';
+      this.Record.hbl_date = this.gs.defaultValues.today;
+      this.Record.hbl_beno ='';
+      this.Record.hbl_bedate ='';
+      this.Record.lock_record = false;
+
+      this.Record.hbl_pkg = 0;
+      // this.Record.hbl_pkg_unit_id = '';
+      // this.Record.hbl_pkg_unit_code = '';
+      // this.Record.hbl_pkg_unit_name = '';
+      this.Record.hbl_pcs = 0;
+      this.Record.hbl_ntwt = 0;
+      // this.Record.hbl_ntwt_unit_id = '';
+      // this.Record.hbl_ntwt_unit_code = '';
+      // this.Record.hbl_ntwt_unit_name = '';
+      this.Record.hbl_grwt = 0;
+      // this.Record.hbl_grwt_unit_id = '';
+      // this.Record.hbl_grwt_unit_code = '';
+      // this.Record.hbl_grwt_unit_name = '';
+      this.Record.hbl_cbm = 0;
+      this.Record.hbl_chwt = 0;
+      this.Record.hbl_frt_amt = 0;
+      this.Record.hbl_frt_curr_id = '';
+      this.Record.hbl_frt_curr_code = '';
+      this.Record.hbl_frt_curr_name = '';
+      this.Record.hbl_frt_ex_rate = 0;
+      this.Record.hbl_insu_amt = 0;
+      this.Record.hbl_insu_curr_id = '';
+      this.Record.hbl_insu_curr_code = '';
+      this.Record.hbl_insu_curr_name = '';
+      this.Record.hbl_insu_ex_rate = 0;
+      this.Record.hbl_invoice_nos = '';
+      this.Record.hbl_remarks = '';
+    }
 
   }
 
@@ -982,6 +1029,12 @@ export class ImpHblSeaAirComponent {
     if (controlname == 'hbl_mbl_bookslno' && this.Record.hbl_mbl_bookslno.trim().length <= 0)
       return;
 
+    if (controlname == 'fillimphouse' && this.hbl_no.trim().length <= 0) {
+      this.ErrorMessage = 'Please Enter a  SI Number and Continue......';
+      alert(this.ErrorMessage);
+      return;
+    }
+
     this.loading = true;
     let SearchData = {
       rowtype: this.type,
@@ -995,7 +1048,8 @@ export class ImpHblSeaAirComponent {
       hbl_bedate: '',
       hbl_deliv_place: '',
       hbl_deliv_orderissued: '',
-      hbl_deliv_date: ''
+      hbl_deliv_date: '',
+      hbl_no: ''
     };
     if (controlname == 'hbl_mbl_bookslno') {
       SearchData.rowtype = this.type;
@@ -1015,12 +1069,30 @@ export class ImpHblSeaAirComponent {
       SearchData.hbl_deliv_date = this.Record.hbl_deliv_date;
     }
 
+    if (controlname == 'fillimphouse') {
+      SearchData.table = 'fillimphouse';
+      SearchData.rowtype = this.type;
+      SearchData.company_code = this.gs.globalVariables.comp_code;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.year_code = this.gs.globalVariables.year_code;
+      SearchData.hbl_no = this.hbl_no;
+    }
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (controlname == 'updatehouse') {
           this.InfoMessage = 'Save Complete';
-        } else {
+        } else if (controlname == 'fillimphouse') {
+          if (response.hblid.length > 0) {
+            this.GetRecord(response.hblid);
+          }
+          else {
+            this.ErrorMessage = 'Invalid SI#';
+            alert(this.ErrorMessage);
+          }
+        }
+        else {
           this.Record.hbl_mbl_id = '';
           this.ErrorMessage = '';
           if (response.linerbkm.length > 0) {
