@@ -182,6 +182,12 @@ export class UnlockJobComponent {
     Save() {
         if (!this.allvalid())
             return;
+        if (this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
+            if (!confirm("Unlock requested by  " + this.Record.rec_branch_code)) {
+                return;
+            }
+        }
+
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
