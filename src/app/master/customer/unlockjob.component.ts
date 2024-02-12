@@ -182,7 +182,7 @@ export class UnlockJobComponent {
     Save() {
         if (!this.allvalid())
             return;
-        if (this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
+        if ((this.Record.rec_branch_code != this.gs.globalVariables.branch_code) || this.Record.rec_branch_code == 'HOCPL') {
             if (!confirm("Unlock requested by  " + this.Record.rec_branch_code)) {
                 return;
             }
