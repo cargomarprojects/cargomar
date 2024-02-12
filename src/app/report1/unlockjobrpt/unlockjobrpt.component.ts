@@ -200,6 +200,33 @@ export class UnlockJobrptComponent {
         this.gs.ClosePage('home');
     }
 
+    // AutoMail(_type: string) {
+    //     this.InfoMessage = "";
+    //     this.ErrorMessage = '';
+    //     this.pkid = this.gs.getGuid();
+    //     this.loading = true;
+    //     let SearchData = {
+    //         type: _type,
+    //         report_folder: this.gs.globalVariables.report_folder,
+    //         comp_code: this.gs.globalVariables.comp_code,
+    //         from_date: this.from_date,
+    //         to_date: this.to_date,
+    //         auto_mail: "Y"
+    //     };
+
+    //     this.ErrorMessage = '';
+    //     this.mainService.UnlockJobReport(SearchData)
+    //         .subscribe(response => {
+    //             this.loading = false;
+    //             
+    //         },
+    //             error => {
+    //                 this.loading = false;
+    //                 this.RecordList = null;
+    //                 this.ErrorMessage = this.gs.getError(error);
+    //             });
+    // }
+
     List(_type: string, mailsent: any) {
         this.InfoMessage = "";
         this.ErrorMessage = '';
@@ -228,7 +255,8 @@ export class UnlockJobrptComponent {
             consignee_id: this.consignee_id,
             consignee_name: this.consignee_name,
             billto_id: this.billto_id,
-            billto_name: this.billto_name
+            billto_name: this.billto_name,
+            auto_mail: "N"
         };
 
         if (this.bCompany) {
@@ -250,7 +278,8 @@ export class UnlockJobrptComponent {
                     this.AttachList = new Array<any>();
                     this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
                     this.sSubject = response.subject;
-                    this.sMsg = response.message;
+                    this.sMsg = '';
+                    this.sHtml = response.message;
                     this.open(mailsent);
                 }
                 else {
