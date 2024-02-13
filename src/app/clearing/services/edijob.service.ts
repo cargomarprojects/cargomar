@@ -48,5 +48,9 @@ export class EdijobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJob/SignFiles', Record, this.gs.headerparam2('authorized'));
   }
 
+  ProcessSb(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Common/EdiSb/ProcessSb', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

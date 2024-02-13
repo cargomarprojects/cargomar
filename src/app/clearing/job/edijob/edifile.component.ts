@@ -324,4 +324,29 @@ export class EdifileComponent {
         });
   }
 
+  AutoFill() {
+    this.loading = true;
+    let eSearchData = {
+      company_code: 'CPL',
+      branch_code: 'CHNSF',
+      user_code: 'ADMIN',
+      report_folder: this.gs.globalVariables.report_folder,
+      caption: 'SB-SHIPPER-INVOICE'
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.ProcessSb(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error)
+          alert(response.error);
+
+        // alert('Download Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 }
