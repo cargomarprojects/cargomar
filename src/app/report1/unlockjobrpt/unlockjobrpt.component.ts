@@ -36,7 +36,7 @@ export class UnlockJobrptComponent {
     pkid: string;
     searchstring: string = '';
     //searchuser: string = '';
-    searchtype: string = 'JOB SEA EXPORT';
+    searchtype: string = 'ALL';
     //searchmodule: string = '';
     //searchbranch: string = '';
     //searchaction: string = '';
@@ -128,7 +128,7 @@ export class UnlockJobrptComponent {
         this.EXPRECORD.controlname = "SHIPPER";
         this.EXPRECORD.displaycolumn = "NAME";
         this.EXPRECORD.type = "CUSTOMER";
-        this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+        this.EXPRECORD.where = "";
         this.EXPRECORD.id = "";
         this.EXPRECORD.code = "";
         this.EXPRECORD.name = "";
@@ -139,7 +139,7 @@ export class UnlockJobrptComponent {
         this.IMPRECORD.controlname = "CONSIGNEE";
         this.IMPRECORD.displaycolumn = "NAME";
         this.IMPRECORD.type = "CUSTOMER";
-        this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+        this.IMPRECORD.where = "";
         this.IMPRECORD.id = "";
         this.IMPRECORD.code = "";
         this.IMPRECORD.name = "";
@@ -160,9 +160,6 @@ export class UnlockJobrptComponent {
         if (_Record.controlname == "BRANCH") {
             this.branch_code = _Record.code;
             this.branch_name = _Record.name;
-            this.shipper_id = ''; this.shipper_name = '';
-            this.consignee_id = ''; this.consignee_name = '';
-            this.billto_id = ''; this.billto_name = '';
         }
         if (_Record.controlname == "SHIPPER") {
             this.shipper_id = _Record.id;
