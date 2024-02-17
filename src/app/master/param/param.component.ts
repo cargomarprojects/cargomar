@@ -464,7 +464,7 @@ export class ParamComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-        alert(this.ErrorMessage);
+          // alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
