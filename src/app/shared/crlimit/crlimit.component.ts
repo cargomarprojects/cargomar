@@ -26,6 +26,8 @@ export class CrLimitComponent {
 
   modalref: any;
 
+  hbl_exp_name="";
+  
   constructor(
     private modalService: NgbModal,
     private route: ActivatedRoute,
