@@ -28,13 +28,13 @@
       </div>
 
       <div class="center-content">
-        <button class="btn btn-sm btn-primary" (click)="close1()">Close</button>
+        <!-- <button class="btn btn-sm btn-primary" (click)="close1()">Close</button> -->
       </div>
 
     </div>
     <hr class="mt-1">
     <div class="row mt-1">
-        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST</label>
+        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST - {{customername}}</label>
     </div>
     <hr class="mt-1">
     <div class="row mt-2">
@@ -42,30 +42,60 @@
         <div class="form-group row">
           <label class="col-sm-6 col-form-label col-form-label-sm">Expected Billing Amount</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_exp_name" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-6 col-form-label col-form-label-sm">Firm Commitment Date </label>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_exp_name" />
+            <app-date [inputdate]="Record2.ul_firm_commited_date" (ValueChanged)="Record2.ul_firm_commited_date=$event"></app-date>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-6 col-form-label col-form-label-sm">Required Job Nos</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_exp_name" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" />
           </div>
         </div>
-
       </div>
+      <!-- <div class="col-sm-6 mx-0 p-0">
+        <div class="page-box">
+          <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">PREVIOUS UNLOCK
+            REQUEST</label>
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>BRANCH</th>
+                  <th>CREATED-BY</th>
+                  <th>CREATED-DATE</th>
+                  <th>BILL-AMT</th>
+                  <th>COMMIT-DATE</th>
+                  <th>COMMENTS</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList2;let i = index" [class.active]="i == selectedRowIndex">
+                  <td>{{rec.rec_branch_code}}</td>
+                  <td>{{rec.rec_created_by}}</td>
+                  <td>{{rec.rec_created_date}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> -->
     </div>
     <hr class="mt-1">
     <div class="center-content mt-1">
-      <button class="btn btn-sm btn-primary mr-1" (click)="close1()">Save</button>
-      <button class="btn btn-sm btn-primary" (click)="close1()">Mail</button>
+      <button class="btn btn-sm btn-primary mr-1" (click)="Save()">Save</button>
+      <button class="btn btn-sm btn-primary" (click)="close1()">Close</button>
+      <!-- <button class="btn btn-sm btn-primary" (click)="close1()">Mail</button> -->
     </div>
     <hr class="mt-1">
   </div>

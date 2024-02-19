@@ -59,7 +59,8 @@ export class JobComponent {
   page_rows = 0;
   page_rowcount = 0;
 
-
+  unlockcustomername = '';
+  unlockparentid = '';
   old_shipper_id = '';
   old_billto_id = '';
 
@@ -1359,8 +1360,7 @@ export class JobComponent {
       sError += "\n\r | Status Cannot Be Blank";
     }
 
-    if (bret === false)
-    {
+    if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }
@@ -1702,6 +1702,8 @@ export class JobComponent {
         this.loading = false;
         this.CrList = response.list;
         this.bCreditLimit = response.retvalue;
+        this.unlockparentid = response.unlockparentid;
+        this.unlockcustomername = response.unlockcustomername;
 
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;

@@ -141,7 +141,7 @@ export class UnlockJobComponent {
         this.Record.ul_pkid = this.pkid;
         this.Record.ul_type = 'JOB SEA EXPORT';
         this.Record.ul_remarks = '';
-        this, this.Record.ul_comments = '';
+        this.Record.ul_comments = '';
         this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
