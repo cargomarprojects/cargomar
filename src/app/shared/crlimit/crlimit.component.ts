@@ -175,7 +175,7 @@ export class CrLimitComponent {
     this.Record2.ul_remarks = '';
     this.Record2.ul_comments = '';
     this.Record2.ul_from_email_id = this.gs.globalVariables.user_email;
-    this.Record2.ul_firm_commited_date = '';
+    this.Record2.ul_firm_commited_date = this.gs.defaultValues.today;
     this.Record2.ul_expected_bill_amt = 0;
     this.Record2.ul_job_nos_required = 1;
     this.Record2.rec_branch_code = this.gs.globalVariables.branch_code;
@@ -202,10 +202,10 @@ export class CrLimitComponent {
     this.mainService.Save(this.Record2)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record2.rec_mode = this.mode;
         this.Record2.ul_ctr = response.ul_ctr;
+        alert('Save Complete');
       },
         error => {
           this.loading = false;
@@ -224,8 +224,8 @@ export class CrLimitComponent {
       _totOverDueAmt += rec.overdueamt;
       _totOverDueDays += rec.overduedays;
     }
-    sComments = "TotBal: " + _totBal.toString() + " TotOverDueAmt: " + _totOverDueAmt.toString() + " TotOverDuedays: " + _totOverDueDays.toString();
-    sComments += ", ErrorMsg: " + this.msg;
+    sComments = "TotBal: " + _totBal.toString() + ", TotOverDueAmt: " + _totOverDueAmt.toString() + ", TotOverDuedays: " + _totOverDueDays.toString();
+    sComments += ", LockMsg: " + this.msg;
     return sComments;
   }
 
@@ -243,11 +243,47 @@ export class CrLimitComponent {
       bret = false;
       sError += "| Firm Commitment Date Cannot Be Blank";
     }
+    if (this.Record2.ul_job_nos_required <= 0) {
+      bret = false;
+      sError += "| Required Job Numbers Cannot Be Blank";
+    }
     if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
     }
     return bret;
+  }
+
+  MailCreditLimitRequest() {
+
+    if (!confirm("Do you want to Sent Credit Limit Request")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: this.pkid,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      user_pkid: this.gs.globalVariables.user_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.MailCreditLimitRequest(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
 

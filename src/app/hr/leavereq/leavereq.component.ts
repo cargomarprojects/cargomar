@@ -245,7 +245,7 @@ export class LeaveReqComponent {
         alert('Mailing Date Cannot be Blank');
         return;
       }
-      if (!confirm("Do you want to Sent Mail Leave List")) {
+      if (!confirm("Do you want to Sent Leave List")) {
         return;
       }
     }

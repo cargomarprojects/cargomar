@@ -27,5 +27,10 @@ export class JobUnlockService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Master/JobUnlock/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  MailCreditLimitRequest(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/JobUnlock/MailCreditLimitRequest', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
 }
 
