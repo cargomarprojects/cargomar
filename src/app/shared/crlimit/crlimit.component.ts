@@ -312,6 +312,7 @@ export class CrLimitComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.ul_pkid == Id), 1);
+        this.ActionHandler("ADD", null);
         alert("Removed Successfully");
       },
         error => {

@@ -834,6 +834,7 @@ export class HblSeaAirComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.bCreditLimit = response.retvalue;
+                this.CrList = response.list;
                 this.unlockparentid = response.unlockparentid;
                 this.unlockcustomername = response.unlockcustomername;
 

@@ -890,6 +890,7 @@ export class ImpHblSeaAirComponent {
     this.mainService.GetCreditLimit(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.CrList = response.list;
         this.bCreditLimit = response.retvalue;
         this.unlockparentid = response.unlockparentid;
         this.unlockcustomername = response.unlockcustomername;
