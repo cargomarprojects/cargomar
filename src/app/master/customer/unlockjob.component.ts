@@ -146,6 +146,12 @@ export class UnlockJobComponent {
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
         this.Record.rec_mode = this.mode;
+        this.Record.ul_from_email_id = this.gs.globalVariables.user_email;
+        this.Record.ul_firm_commited_date = '';
+        this.Record.ul_expected_bill_amt = 0;
+        this.Record.ul_job_nos_required = 1;
+        this.Record.ul_locked = 'N';
+
         this.InitLov();
     }
 
