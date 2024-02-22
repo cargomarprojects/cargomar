@@ -182,6 +182,7 @@ export class CrLimitComponent {
     this.Record2.rec_created_by = this.gs.globalVariables.user_code;
     this.Record2.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
     this.Record2.rec_mode = this.mode;
+    this.Record2.ul_locked = 'P';
     this.InitLov();
   }
 
@@ -224,8 +225,8 @@ export class CrLimitComponent {
       _totOverDueAmt += rec.overdueamt;
       _totOverDueDays += rec.overduedays;
     }
-    sComments = "TotBal: " + _totBal.toString() + ", TotOverDueAmt: " + _totOverDueAmt.toString() + ", TotOverDuedays: " + _totOverDueDays.toString();
-    sComments += ", LockMsg: " + this.msg;
+    sComments = "Balance: " + _totBal.toString() + ", Overdue Amount: " + _totOverDueAmt.toString() + ", Overdue days: " + _totOverDueDays.toString();
+    sComments += ", Lock Message: " + this.msg;
     return sComments;
   }
 
@@ -278,6 +279,38 @@ export class CrLimitComponent {
       .subscribe(response => {
         this.loading = false;
 
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+
+  DeleteRow(Id: string) {
+
+    if (!confirm("Do you want to Delete")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      type: '',
+      pkid: Id,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList2.splice(this.RecordList2.findIndex(rec => rec.ul_pkid == Id), 1);
+        alert("Removed Successfully");
       },
         error => {
           this.loading = false;
