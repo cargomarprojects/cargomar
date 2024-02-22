@@ -61,6 +61,9 @@ export class HblSeaAirComponent {
     sHtml: string = '';
     AttachList: any[] = [];
 
+    CrLimitType = 'SI SEA EXPORT';
+    unlockcustomername = '';
+    unlockparentid = '';
     old_shipper_id = '';
     old_billto_id = '';
 
@@ -156,6 +159,7 @@ export class HblSeaAirComponent {
                 if (this.buysell_record.rights_add || this.buysell_record.rights_view)
                     this.bbuysellrate = true;
             }
+            this.CrLimitType = "SI SEA EXPORT";
         }
 
         if (this.type.toString() == "AIR EXPORT") {
@@ -168,6 +172,7 @@ export class HblSeaAirComponent {
                 if (this.buysell_record.rights_add || this.buysell_record.rights_view)
                     this.bbuysellrate = true;
             }
+            this.CrLimitType = "SI AIR EXPORT";
         }
 
         this.menu_record = this.gs.getMenu(this.menuid);
@@ -829,6 +834,9 @@ export class HblSeaAirComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.bCreditLimit = response.retvalue;
+                this.unlockparentid = response.unlockparentid;
+                this.unlockcustomername = response.unlockcustomername;
+
                 if (!this.bCreditLimit) {
                     this.ErrorMessage = response.message;
                     this.showalert = true;

@@ -731,5 +731,5 @@
   </div>
 </ng-template>
 
-<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" (hidealert)="showalert=$event">
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType" [parentid]="unlockparentid" [customername]="unlockcustomername"  (hidealert)="showalert=$event">
 </app-crlimit>

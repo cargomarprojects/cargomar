@@ -220,10 +220,12 @@ export class CrLimitComponent {
     let _totBal = 0;
     let _totOverDueAmt = 0;
     let _totOverDueDays = 0;
-    for (let rec of this.RecordList) {
-      _totBal += rec.creditamt;
-      _totOverDueAmt += rec.overdueamt;
-      _totOverDueDays += rec.overduedays;
+    if (!this.gs.isBlank(this.RecordList)) {
+      for (let rec of this.RecordList) {
+        _totBal += rec.creditamt;
+        _totOverDueAmt += rec.overdueamt;
+        _totOverDueDays += rec.overduedays;
+      }
     }
     sComments = "Balance: " + _totBal.toString() + ", Overdue Amount: " + _totOverDueAmt.toString() + ", Overdue days: " + _totOverDueDays.toString();
     sComments += ", Lock Message: " + this.msg;

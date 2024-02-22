@@ -64,6 +64,9 @@ export class ImpHblSeaAirComponent {
   mode = '';
   pkid = '';
 
+  CrLimitType = 'SI SEA IMPORT';
+  unlockcustomername = '';
+  unlockparentid = '';
   old_importer_id = '';
   old_billto_id = '';
 
@@ -140,12 +143,14 @@ export class ImpHblSeaAirComponent {
       this.lblhblname = "HBL#";
       this.lblhbldate = "HBL Date";
       this.carriertype = "SEA CARRIER";
+      this.CrLimitType = "SI SEA IMPORT";
     }
     else {
       this.porttype = "AIR PORT";
       this.lblhblname = "HAWB#";
       this.lblhbldate = "HAWB Date";
       this.carriertype = "AIR CARRIER";
+      this.CrLimitType = "SI AIR IMPORT";
     }
     this.InitLov();
     this.LoadCombo();
@@ -749,8 +754,8 @@ export class ImpHblSeaAirComponent {
       this.Record.hbl_mbl_bookno = '';
       this.Record.hbl_bl_no = '';
       this.Record.hbl_date = this.gs.defaultValues.today;
-      this.Record.hbl_beno ='';
-      this.Record.hbl_bedate ='';
+      this.Record.hbl_beno = '';
+      this.Record.hbl_bedate = '';
       this.Record.lock_record = false;
 
       this.Record.hbl_pkg = 0;
@@ -886,6 +891,8 @@ export class ImpHblSeaAirComponent {
       .subscribe(response => {
         this.loading = false;
         this.bCreditLimit = response.retvalue;
+        this.unlockparentid = response.unlockparentid;
+        this.unlockcustomername = response.unlockcustomername;
         if (!this.bCreditLimit) {
           this.ErrorMessage = response.message;
           this.showalert = true;
