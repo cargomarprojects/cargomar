@@ -29,9 +29,13 @@ export class UnlockJobrptComponent {
     bCompany = false;
     bAdmin = false;
     bEmail = false;
+    bApprove = false;
+    bPending: boolean = true;
 
     modal: any;
     selectedRowIndex = 0;
+    chkallselected: boolean = false;
+    selectdeselect: boolean = false;
 
     pkid: string;
     searchstring: string = '';
@@ -78,7 +82,7 @@ export class UnlockJobrptComponent {
         private gs: GlobalService
     ) {
         this.page_count = 0;
-        this.page_rows = 50;
+        this.page_rows = 20;
         this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -111,6 +115,10 @@ export class UnlockJobrptComponent {
                 this.bExcel = true;
             if (this.menu_record.rights_email)
                 this.bEmail = true;
+            if (this.menu_record.rights_approval.length > 0) {
+                if (this.menu_record.rights_approval.toString().indexOf('{APPROVE}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+                    this.bApprove = true;
+            }
         }
         this.InitLov();
     }
@@ -183,6 +191,12 @@ export class UnlockJobrptComponent {
     LoadCombo() {
     }
 
+    chkReset(_rec: JobUnlock) {
+        _rec.ul_selected = !_rec.ul_selected;
+    }
+    OnChange(field: string) {
+
+    }
     // Save Data
     OnBlur(field: string) {
         // if (field == 'searchuser') {
@@ -253,6 +267,7 @@ export class UnlockJobrptComponent {
             consignee_name: this.consignee_name,
             billto_id: this.billto_id,
             billto_name: this.billto_name,
+            bpending: this.bPending,
             auto_mail: "N"
         };
 
@@ -269,6 +284,8 @@ export class UnlockJobrptComponent {
         this.mainService.UnlockJobReport(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.chkallselected = false;
+                this.selectdeselect = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else if (_type == 'MAIL') {
@@ -300,4 +317,59 @@ export class UnlockJobrptComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+    SelectDeselect() {
+        this.selectdeselect = !this.selectdeselect;
+        for (let rec of this.RecordList) {
+            rec.ul_selected = this.selectdeselect;
+        }
+    }
+
+    ApproveCrLimitRequest() {
+
+        let sPkids: string = "";
+        for (let rec of this.RecordList.filter(rec => rec.ul_selected == true)) {
+            if (sPkids != "")
+                sPkids += ",";
+            sPkids += rec.ul_pkid;
+        }
+
+        if (sPkids == "") {
+            this.ErrorMessage = "No records selected";
+            alert(this.ErrorMessage);
+            return;
+        }
+
+        if (!confirm("Approve Credit Limit Request")) {
+            return;
+        }
+
+        this.loading = true;
+        let SearchData = {
+            pkid: sPkids,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            branch_name: this.gs.globalVariables.branch_name,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
+            user_name: this.gs.globalVariables.user_name,
+            user_pkid: this.gs.globalVariables.user_pkid
+        };
+
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.ApproveCrLimitRequest(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                for (let rec of this.RecordList.filter(rec => rec.ul_selected == true)) {
+                    rec.ul_locked = 'N';
+                }
+                this.InfoMessage = response.error;
+                alert(this.InfoMessage);
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }

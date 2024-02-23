@@ -8,7 +8,7 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
     <div class="page-search">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Date</label>
                     <div class="col-sm-8">
@@ -21,8 +21,6 @@
                         <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
                     <div class="col-sm-8">
@@ -30,6 +28,8 @@
                             [disabled]="!bCompany"></app-autocomplete>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
                     <div class="col-sm-8">
@@ -44,8 +44,6 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Shipper</label>
                     <div class="col-sm-8">
@@ -61,12 +59,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Billed.To</label>
                     <div class="col-sm-8">
                         <app-autocomplete #ExporterLov3 [inputdata]="BILLTORECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" [(ngModel)]="bPending" id="ponly" (change)="OnChange('bPending')">
+                        <label class="col-form-label col-form-label-sm" for="ponly">Pending Only</label>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -77,11 +82,11 @@
                             class="btn btn-primary btn-sm mr-1">Excel</button>
                         <button *ngIf="bEmail" [disabled]="loading" (click)="List('MAIL', mailsent)"
                             class="btn btn-primary btn-sm ">Mail</button>
+                        <button *ngIf="bApprove" [disabled]="loading" (click)="ApproveCrLimitRequest()"
+                            class="btn btn-primary btn-sm ">Approve</button>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
@@ -103,37 +108,53 @@
     </div>
 </div>
 
-<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 375px);">
     <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
             <tr>
                 <!-- <th>CODE</th> -->
+                <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
                 <th>BRANCH</th>
                 <th>ISSUED-BY</th>
                 <th>ISSUED-DATE</th>
                 <th>CUSTOMER</th>
+                <th>SALESPERSON</th>
+                <th>EXPECT-AMT</th>
+                <th>COMMIT-DATE</th>
+                <th>REQ-JOB-NOS</th>
                 <th>COMMENTS</th>
                 <th>TYPE</th>
                 <th>JOB#</th>
                 <th>SHIPPER</th>
                 <th>CONSIGNEE</th>
                 <th>BILL-TO</th>
+                <th>APPROVED</th>
+                <th>APPROVED-BY</th>
+                <th>APPROVED-ON</th>
             </tr>
         </thead>
         <tbody class="page-body-tbody">
             <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                 (mousedown)="selectedRowIndex=i">
                 <!-- <td>{{rec.ul_ctr}}</td> -->
+                <td (click)="chkReset(rec)"><input type="checkbox" [(ngModel)]="rec.ul_selected" (change)="OnChange('ul_selected')" ></td>
                 <td>{{rec.rec_branch_code}}</td>
                 <td>{{rec.rec_created_by}}</td>
                 <td>{{rec.rec_created_date}}</td>
                 <td>{{rec.cust_name}}</td>
+                <td>{{rec.ul_sman_name}}</td>
+                <td align='right'>{{rec.ul_expected_bill_amt | number : '1.2-2'}}</td>
+                <td>{{rec.ul_firm_commited_date}}</td>
+                <td>{{rec.ul_job_nos_required}}</td>
                 <td>{{rec.ul_comments}}</td>
                 <td>{{rec.ul_type}}</td>
                 <td>{{rec.ul_remarks}}</td>
                 <td>{{rec.shipper_name}}</td>
                 <td>{{rec.consignee_name}}</td>
                 <td>{{rec.billto_name}}</td>
+                <td>{{rec.ul_locked=='P'?'NO':'YES'}}</td>
+                <td>{{rec.ul_approved_by}}</td>
+                <td>{{rec.ul_approved_date}}</td>
             </tr>
         </tbody>
     </table>

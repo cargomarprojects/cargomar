@@ -18,7 +18,11 @@ export class JobUnlock {
     ul_job_nos_required: number;
     ul_locked: string;
     ul_sman_id: string;
-
+    ul_sman_code: string;
+    ul_sman_name: string;
+    ul_selected: boolean;
+    ul_approved_by: string;
+    ul_approved_date: string;
     rec_mode: string;
 
     rec_company_code: string;

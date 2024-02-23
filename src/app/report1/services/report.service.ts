@@ -177,5 +177,9 @@ export class RepService {
   UnlockJobReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UnlockJobReport', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  ApproveCrLimitRequest(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ApproveCrLimitRequest', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

@@ -280,7 +280,8 @@ export class CrLimitComponent {
     this.mainService.MailCreditLimitRequest(SearchData)
       .subscribe(response => {
         this.loading = false;
-
+        this.InfoMessage = response.error;
+        alert(this.InfoMessage);
       },
         error => {
           this.loading = false;
