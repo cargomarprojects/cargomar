@@ -1,7 +1,7 @@
 <div *ngIf="currentPage=='ROOTPAGE'">
   <div class="page-header">
     <div class="col">
-      <label>{{title}}</label>
+      <label>{{title}}{{mode=='EDIT'?-Record.hbl_no:''}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
       <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -154,7 +154,7 @@
   <div *ngIf="currentTab=='DETAILS'" class="page-details">
 
     <ngb-tabset>
-      <ngb-tab title="Basic Details">
+      <ngb-tab title="Basic Details" >
         <ng-template ngbTabContent>
 
           <div class="page-box">
@@ -657,9 +657,9 @@
           <app-upload [pkid]="pkid" [type]="type=='AIR EXPORT'?'HBL-AE':'HBL-SE'" [defaultdoctype]="'HBL/HAWB'">
           </app-upload>
         </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
+      </ngb-tab>   
 
+    </ngb-tabset>
     <!-- <br /> -->
   </div>
 

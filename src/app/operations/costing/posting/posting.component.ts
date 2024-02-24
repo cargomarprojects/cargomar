@@ -47,7 +47,7 @@ export class PostingComponent {
 
   mode = '';
 
-
+  jv_date = '';
 
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
@@ -255,7 +255,7 @@ export class PostingComponent {
     this.AGENTRECORD.name = this.Record.jv_agent_name;
 
     this.Record.rec_mode = this.mode;
-
+    this.jv_date = this.gs.ConvertDate2DisplayFormat(this.Record.jv_date);
   }
 
 
