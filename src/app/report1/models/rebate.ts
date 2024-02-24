@@ -69,6 +69,7 @@ export class Rebate {
   inv_date_original: string;
   inv_rebate_jvdate_original: string;
 
+  hbl_cntr: string;
 
   paid_vrno: string;
   paid_date: string;
