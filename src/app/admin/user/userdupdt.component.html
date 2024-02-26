@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">SB FILING</label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm">DSC SL#</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="record.user_dsc_slno"
                                 (blur)="OnBlur('user_dsc_slno')" required maxlength="100" />
@@ -20,7 +20,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label col-form-label-sm">ICEGATE PWD</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="record.user_icegate_pwd"
+                            <input type="password" class="form-control form-control-sm" [(ngModel)]="record.user_icegate_pwd"
                                 (blur)="OnBlur('user_icegate_pwd')" required maxlength="100" />
                         </div>
                     </div>

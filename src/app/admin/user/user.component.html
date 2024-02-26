@@ -249,7 +249,7 @@
                 <th>BRANCH</th>
                 <th>DSC-SL#</th>
                 <th>ICEGATE-ID</th>
-                <th>ICEGATE-PWD</th>
+                <!-- <th>ICEGATE-PWD</th> -->
               </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordDet">
@@ -260,7 +260,7 @@
                     aria-hidden="true" (click)="ShowUpdate(dscupdt,rec)"></i></td>
                 <td>{{rec.user_dsc_slno}}</td>
                 <td>{{rec.user_icegate_id}}</td>
-                <td>{{rec.user_icegate_pwd}}</td>
+                <!-- <td>{{rec.user_icegate_pwd}}</td> -->
               </tr>
             </tbody>
           </table>
@@ -289,7 +289,7 @@
 
 <ng-template #dscupdt let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">DSC DETAILS</h4>
+    <h4 class="modal-title">SB SETTINGS</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
