@@ -26,7 +26,8 @@
       </div>
       <div class="col-2">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-        <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
+        <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+          class="btn btn-primary btn-sm mr-1">Print</button>
       </div>
     </div>
   </div>
@@ -246,13 +247,20 @@
                 <th>SELECTED</th>
                 <th>DEFAULT</th>
                 <th>BRANCH</th>
+                <th>DSC-SL#</th>
+                <th>ICEGATE-ID</th>
+                <th>ICEGATE-PWD</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordDet">
               <tr>
                 <td><input type="checkbox" [(ngModel)]="rec.user_selected" /></td>
                 <td><input type="checkbox" [(ngModel)]="rec.user_default_branch_id" /></td>
-                <td>{{rec.user_branch_name}}</td>
+                <td>{{rec.user_branch_name}}&nbsp;<i *ngIf="rec.user_selected" class="fa fa-edit fa-lg pointer"
+                    aria-hidden="true" (click)="ShowUpdate(dscupdt,rec)"></i></td>
+                <td>{{rec.user_dsc_slno}}</td>
+                <td>{{rec.user_icegate_id}}</td>
+                <td>{{rec.user_icegate_pwd}}</td>
               </tr>
             </tbody>
           </table>
@@ -278,3 +286,19 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
+
+<ng-template #dscupdt let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">DSC DETAILS</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <app-userdupdt [record]="RecDet"  (ModifiedRecords)="ModifiedRecords($event)"></app-userdupdt>
+      </div>
+    </div>
+  </div>
+</ng-template>

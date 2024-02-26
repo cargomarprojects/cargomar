@@ -1,0 +1,46 @@
+<div class="page-details">
+    <!-- <div class="col-sm-12">
+        <div class="page-details"> -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">SB FILING</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="record.user_dsc_slno"
+                                (blur)="OnBlur('user_dsc_slno')" required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">ICEGATE ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="record.user_icegate_id"
+                                (blur)="OnBlur('user_icegate_id')" required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">ICEGATE PWD</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="record.user_icegate_pwd"
+                                (blur)="OnBlur('user_icegate_pwd')" required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-4 col-sm-8">
+                            <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Ok</button>
+                            <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+                            <i *ngIf="loading" class="fa fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </div>
+    </div> -->
+</div>
+<br />
+
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

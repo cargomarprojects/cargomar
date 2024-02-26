@@ -9,7 +9,7 @@ import { CompanyComponent } from './company/company.component';
 import { MenuComponent } from './menu/menu.component';
 import { ModuleComponent } from './module/module.component';
 import { RightsComponent } from './rights/rights.component';
-
+import { UserdUpdtComponent } from './user/userdupdt.component';
 
 import { NewYearComponent } from './newyear/newyear.component';
 
@@ -25,7 +25,8 @@ import { NewYearComponent } from './newyear/newyear.component';
         MenuComponent,
         ModuleComponent,
         RightsComponent,
-        NewYearComponent
+        NewYearComponent,
+        UserdUpdtComponent
    ],
     providers: [
     ],

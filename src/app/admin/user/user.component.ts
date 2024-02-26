@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -33,6 +33,7 @@ export class UserComponent {
     page_rowcount = 0;
     lockstatus: string = "BOTH";
 
+    modal: any;
     sub: any;
     urlid: string;
 
@@ -47,11 +48,13 @@ export class UserComponent {
     Record: User = new User;
 
     RecordDet: Userd[] = [];
+    RecDet: Userd = new Userd;
 
     SALESMANRECORD: SearchTable = new SearchTable();
     EMPRECORD: SearchTable = new SearchTable();
 
     constructor(
+        private modalService: NgbModal,
         private mainService: UserService,
         private location: Location,
         private route: ActivatedRoute,
@@ -138,7 +141,7 @@ export class UserComponent {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
             comp_code: this.gs.globalVariables.comp_code,
-            branch_code:this.gs.globalVariables.branch_code,
+            branch_code: this.gs.globalVariables.branch_code,
             report_folder: this.gs.globalVariables.report_folder,
             lockstatus: this.lockstatus,
             page_count: this.page_count,
@@ -316,5 +319,21 @@ export class UserComponent {
     Close() {
         this.gs.ClosePage('home');
     }
- 
+
+    ShowUpdate(dscupdt: any, _rec: Userd) {
+        this.ErrorMessage = '';
+        this.RecDet = _rec;
+        this.open(dscupdt);
+    }
+
+    ModifiedRecords(params: any) {
+
+        if (params.saction == "SAVE") {
+
+        }
+        this.modal.close();
+    }
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+      }
 }
