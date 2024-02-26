@@ -529,6 +529,8 @@ export class GlobalService {
 
       this.globalVariables.report_folder = data.report_folder;
 
+      if (data.user_dsc_slno.length > 0) //Otherwise from usermaster
+        this.globalVariables.user_dsc_slno = data.user_dsc_slno;
 
       this.InitdefaultValues();
 
