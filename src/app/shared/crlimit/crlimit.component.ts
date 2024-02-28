@@ -282,6 +282,8 @@ export class CrLimitComponent {
         this.loading = false;
         this.InfoMessage = response.error;
         alert(this.InfoMessage);
+        if (response.retvalue)
+          this.close1();
       },
         error => {
           this.loading = false;
