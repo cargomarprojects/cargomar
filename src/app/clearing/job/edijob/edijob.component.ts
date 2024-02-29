@@ -335,6 +335,9 @@ export class EdijobComponent {
       return;
     }
 
+    if (!confirm("Do you want to Transfer Data")) {
+      return;
+    }
 
     this.loading = true;
     saveRecord.pkid = sPkids;
