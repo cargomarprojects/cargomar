@@ -63,7 +63,7 @@ export class EmpComponent {
   bPrint: boolean = false;
   bAdmin: boolean = false;
   bDocs: boolean = false;
-
+  bRelieved: boolean = false;
   sub: any;
   urlid: string;
   // type: string;
@@ -279,6 +279,7 @@ export class EmpComponent {
       from_date: this.from_date,
       to_date: this.to_date,
       allbranch: this.allbranch,
+      brelieved:this.bRelieved,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,

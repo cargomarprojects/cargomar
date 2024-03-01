@@ -60,13 +60,17 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
-            <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+            <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="allbranch" id="rbr">
+            <label *ngIf="bAdmin" class="col-form-label col-form-label-sm" for="rbr">All Branch</label>
+            <input type="checkbox" [(ngModel)]="bRelieved" id="ronly">
+            <label class="col-form-label col-form-label-sm" for="ronly">Include Relieved</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
-            <input *ngIf="bAdmin" class="form-check-input mt-2 mr-1" type="checkbox" [(ngModel)]="allbranch"><span *ngIf="bAdmin" >ALL</span>
+            <!-- <input *ngIf="bAdmin" class="form-check-input mt-2 mr-1" type="checkbox" [(ngModel)]="allbranch"><span
+              *ngIf="bAdmin">ALL</span> -->
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button [disabled]="loading" *ngIf="bPrint && type!='EMPLOYEE-DOCUMENTS'" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
@@ -139,7 +143,7 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" >
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.emp_pkid,rec.rec_branch_code)">{{rec.emp_no}}</td>
           <td>{{rec.emp_name}}</td>
           <td>{{rec.emp_branch_name}}</td>
