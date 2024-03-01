@@ -1,9 +1,6 @@
 <div class="modal-css" *ngIf="visible">
-
   <div class="modal-body-css">
-
     <div class="table-responsive">
-
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
@@ -22,84 +19,85 @@
           </tr>
         </tbody>
       </table>
-
       <div class="center-content">
         {{msg}}
       </div>
-
-      <div class="center-content">
-        <!-- <button class="btn btn-sm btn-primary" (click)="close1()">Close</button> -->
-      </div>
-
-    </div>
-    <hr class="mt-1">
-    <div class="row mt-1">
-      <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST -
-        {{customername}}</label>
-    </div>
-    <hr class="mt-1">
-    <div class="row mt-2">
-      <div class="col-sm-12">
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Expected Billing Amount</label>
-          <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Firm Commitment Date </label>
-          <div class="col-sm-3">
-            <app-date [inputdate]="Record2.ul_firm_commited_date"
-              (ValueChanged)="Record2.ul_firm_commited_date=$event"></app-date>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Required Job Nos</label>
-          <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" />
-          </div>
-          <div class="col-sm-6">
-            <button class="btn btn-sm btn-primary mr-1" (click)="Save()">Save</button>
-            <button *ngIf="mode=='EDIT'" class="btn btn-sm btn-primary mr-1"
-              (click)="MailCreditLimitRequest()">Mail</button>
-            <button class="btn btn-sm btn-primary mr-1" (click)="close1()">Close</button>
-          </div>
-        </div>
+      <div *ngIf="!type" class="center-content">
+        <button class="btn btn-sm btn-primary" (click)="close1()">Close</button>
       </div>
     </div>
-    <hr class="mt-1">
-    <div class="center-content mt-1">
-      <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">PREVIOUS REQUEST </label>
-    </div>
-    <hr class="mt-1">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="page-body table-responsive">
-          <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-              <tr>
-                <th>ISSUED-BY</th>
-                <th>ISSUED-DATE</th>
-                <th>BILL-AMT</th>
-                <th>COMMIT-DATE</th>
-                <th>APPROVED</th>
-                <th>COMMENTS</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-              <tr *ngFor="let rec of RecordList2;let i = index" [class.active]="i == selectedRowIndex">
-                <td>{{rec.rec_created_by}}</td>
-                <td>{{rec.rec_created_date}}</td>
-                <td>{{rec.ul_expected_bill_amt}}</td>
-                <td>{{rec.ul_firm_commited_date}}</td>
-                <td>{{rec.ul_locked=='P'?'NO':'YES'}}</td>
-                <td>{{rec.ul_comments}}</td>
-                <td><i *ngIf="rec.ul_locked=='P'" class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="DeleteRow(rec.ul_pkid)"></i></td>
-              </tr>
-            </tbody>
-          </table>
+    <div *ngIf="type"  style="background-color: beige;">
+      <hr class="mt-1">
+      <div class="row mt-1">
+        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST -
+          {{customername}}</label>
+      </div>
+      <hr class="mt-1">
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Expected Billing Amount</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Firm Commitment Date </label>
+            <div class="col-sm-3">
+              <app-date [inputdate]="Record2.ul_firm_commited_date"
+                (ValueChanged)="Record2.ul_firm_commited_date=$event"></app-date>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Required Job Nos</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" />
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-sm btn-primary mr-1" (click)="Save()">Save</button>
+              <button *ngIf="mode=='EDIT'" class="btn btn-sm btn-primary mr-1"
+                (click)="MailCreditLimitRequest()">Mail</button>
+              <button class="btn btn-sm btn-primary mr-1" (click)="close1()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt-1">
+      <div class="center-content mt-1">
+        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">PREVIOUS REQUEST
+        </label>
+      </div>
+      <hr class="mt-1">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>ISSUED-BY</th>
+                  <th>ISSUED-DATE</th>
+                  <th>BILL-AMT</th>
+                  <th>COMMIT-DATE</th>
+                  <th>APPROVED</th>
+                  <th>COMMENTS</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList2;let i = index" [class.active]="i == selectedRowIndex">
+                  <td>{{rec.rec_created_by}}</td>
+                  <td>{{rec.rec_created_date}}</td>
+                  <td>{{rec.ul_expected_bill_amt}}</td>
+                  <td>{{rec.ul_firm_commited_date}}</td>
+                  <td>{{rec.ul_locked=='P'?'NO':'YES'}}</td>
+                  <td>{{rec.ul_comments}}</td>
+                  <td><i *ngIf="rec.ul_locked=='P'" class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                      (click)="DeleteRow(rec.ul_pkid)"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
