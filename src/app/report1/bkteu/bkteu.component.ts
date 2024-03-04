@@ -370,6 +370,7 @@ export class BkTeuComponent {
         this.ErrorMessage = this.gs.getError(error);
       });
   }
+  
   setMailBody(totteu: number, totteuday: number,tomonth:string) {
 
     this.sSubject = "LINER BOOKING REPORT";

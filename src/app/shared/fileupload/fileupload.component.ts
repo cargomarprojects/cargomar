@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -46,7 +46,17 @@ export class FileUploadComponent {
   myFiles: string[] = [];
   sMsg: string = '';
 
+  mailType: string = '';
+  sSubject: string = '';
+  sMessage: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
+  modal: any;
+  chkallselected: boolean = false;
+  selectdeselect: boolean = false;
+
   constructor(
+    private modalService: NgbModal,
     public gs: GlobalService,
     private lovService: LovService,
     private alertService: AlertService,
@@ -75,6 +85,7 @@ export class FileUploadComponent {
     this.qrJson.type = this.type;
     this.qrJson.catg = this.catg_id;
     this.QrData = JSON.stringify(this.qrJson);
+    this.mailType = this.type + '-DOCMAIL';
   }
 
   onChangeData(mid, _type) {
@@ -290,6 +301,8 @@ export class FileUploadComponent {
     this.lovService.DocumentList(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.chkallselected = false;
+        this.selectdeselect = false;
         this.RecordList = response.list;
         // for (let rec of this.RecordList) {
         //   rec.row_displayed=false;
@@ -441,6 +454,53 @@ export class FileUploadComponent {
         strsize = _newfsize.toString() + "GB";
     }
     return " " + strsize;
+  }
+
+  MailDocument(mailmodal: any) {
+    this.AttachList = new Array<any>();
+    let _dSize = 0;
+    for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
+      _dSize = this.getFsize(rec.doc_file_size);
+      this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+    }
+    this.setMailBody();
+    this.open(mailmodal);
+  }
+
+  setMailBody() {
+
+    this.sSubject = "DOCUMENTS";
+
+    this.sMessage = "Dear Sir/Madam,";
+    this.sMessage += " \n\n";
+    this.sMessage += "Please find the attached documents;";
+
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+  chkReset(_rec: documentm) {
+    _rec.doc_selected = !_rec.doc_selected;
+  }
+
+  SelectDeselect() {
+    this.selectdeselect = !this.selectdeselect;
+    for (let rec of this.RecordList) {
+      rec.doc_selected = this.selectdeselect;
+    }
+  }
+
+  getFsize(_size: string) {
+    let _newSize: number = 0;
+    try {
+      var temparr = _size.split(' ');
+      _newSize = +temparr[0]*1024;
+    } catch (Error) {
+      _newSize = 0;
+    }
+    return _newSize;
   }
 
 }

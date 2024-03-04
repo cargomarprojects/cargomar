@@ -3,6 +3,7 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="List('LIST')" class="btn btn-primary btn-sm">Refresh</button>
     <button [disabled]="loading" (click)="List('LIST','DELETED')" class="btn btn-primary btn-sm">Show Deleted</button>
+    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="MailDocument(mailsent)" class="btn btn-primary btn-sm">Mail</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -13,6 +14,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'"><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
           <th>UPLOAD-FROM</th>
@@ -28,6 +30,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" (click)="chkReset(rec)"><input type="checkbox" [(ngModel)]="rec.doc_selected" ></td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>
@@ -64,7 +67,8 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Type</label>
         <div class="col-10">
-          <select class="form-control form-control-sm" [(ngModel)]="catg_id" (ngModelChange)="onChangeData(catg_id,'catg')">
+          <select class="form-control form-control-sm" [(ngModel)]="catg_id"
+            (ngModelChange)="onChangeData(catg_id,'catg')">
             <option *ngFor="let rec of DocTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
           </select>
         </div>
@@ -72,9 +76,10 @@
       <br />
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm" >Description</label>
+        <label class="col-2 col-form-label col-form-label-sm">Description</label>
         <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="desc" required maxlength="200" (ngModelChange)="onChangeData(desc,'desc')"/>
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="desc" required maxlength="200"
+            (ngModelChange)="onChangeData(desc,'desc')" />
         </div>
       </div>
       <br />
@@ -192,3 +197,19 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="mailType" [sHtml]="sHtml" [defaultmessage]="sMessage"
+      [defaultsubject]="sSubject" [AttachList]="AttachList"></app-mail>
+  </div>
+  <!--<div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>-->
+</ng-template>
