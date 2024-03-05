@@ -229,6 +229,8 @@ export class CrLimitComponent {
     }
     sComments = "Balance: " + _totBal.toString() + ", Overdue Amount: " + _totOverDueAmt.toString() + ", Overdue days: " + _totOverDueDays.toString();
     sComments += ", Lock Message: " + this.msg;
+    if (sComments.length > 250)
+      sComments = sComments.substring(0, 250);
     return sComments;
   }
 
