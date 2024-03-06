@@ -47,7 +47,8 @@ export class SettingsComponent {
 
   mode = '';
   pkid = '';
-
+  doc_parent_type: string = "26AS-UPDATE";
+  doc_parent_id: string = "BCFAFC91-B127-4D7F-908A-0C7180D1345F";
   code_length: number = 10;
 
 
@@ -1546,13 +1547,22 @@ export class SettingsComponent {
   }
 
 
-  ShowDocuments(doc: any) {
+  ShowDocuments(_type: string, doc: any) {
     this.ErrorMessage = '';
+    if (_type == "GSTR-2B") {
+      this.doc_parent_type = _type;
+      this.doc_parent_id = "5E943D94-8B49-4F90-B966-18C067754C1E";
+    }
+    else //26AS-UPDATE-FILE
+    {
+      this.doc_parent_type = _type;
+      this.doc_parent_id = "BCFAFC91-B127-4D7F-908A-0C7180D1345F";
+    }
     this.open(doc);
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 
@@ -1567,8 +1577,13 @@ export class SettingsComponent {
 
     if (controlname == '26AS-UPDATE-FILE') {
       SearchData.pkid = '';
-      SearchData.parentid = '';
+      SearchData.parentid = 'BCFAFC91-B127-4D7F-908A-0C7180D1345F';
       SearchData.table = '26as-update-file';
+    }
+    if (controlname == 'GSTR-2B') {
+      SearchData.pkid = '';
+      SearchData.parentid = '5E943D94-8B49-4F90-B966-18C067754C1E';
+      SearchData.table = 'GSTR-2B';
     }
 
     this.gs.SearchRecord(SearchData)
@@ -1578,9 +1593,15 @@ export class SettingsComponent {
           this.ErrorMessage = response.serror;
           alert(this.ErrorMessage);
         }
-        else {
+        else if (controlname == '26AS-UPDATE-FILE') {
           let strmsg: string = "";
           strmsg = "PROCESS 26AS (" + this.gs.globalVariables.year_name + ")  \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
+          if (confirm(strmsg)) {
+            this.Process26AS();
+          }
+        } else if (controlname == 'GSTR-2B') {
+          let strmsg: string = "";
+          strmsg = "PROCESS GSTR-2B \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
           if (confirm(strmsg)) {
             this.Process26AS();
           }
