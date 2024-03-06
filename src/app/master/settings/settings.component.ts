@@ -1603,7 +1603,7 @@ export class SettingsComponent {
           let strmsg: string = "";
           strmsg = "PROCESS GSTR-2B \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
           if (confirm(strmsg)) {
-            this.Process26AS();
+            this.ProcessGSTR2B();
           }
         }
       },
@@ -1625,6 +1625,34 @@ export class SettingsComponent {
     };
     this.ErrorMessage = '';
     this.mainService.Process(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
+        else
+          this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
+        alert(this.ErrorMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  ProcessGSTR2B() {
+    this.ErrorMessage = "";
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+    this.ErrorMessage = '';
+    this.mainService.ImportData(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (response.serror.length > 0) {

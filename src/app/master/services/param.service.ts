@@ -87,5 +87,9 @@ export class ParamService {
     UpdateCCSchedule(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/UpdateCCSchedule', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    ImportData(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/xml/Gstr2b/ImportData', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
