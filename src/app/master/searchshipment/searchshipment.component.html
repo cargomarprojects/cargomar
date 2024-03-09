@@ -20,6 +20,7 @@
                 <option [value]="'SBBE-COUNT'">SB/BE COUNT</option>
                 <option [value]="'AIRBL'">AIR B/L ISSUED COUNT</option>
                 <option [value]="'SEABL'">SEA B/L ISSUED COUNT</option>
+                <option [value]="'LEDGER'">LEDGER VALIDATION</option>
               </select>
             </div>
           </div>
@@ -188,6 +189,24 @@
           <td>{{rec.clr_nos}}</td>
           <td>{{rec.fwd_nos}}</td>
           <td>{{rec.both_nos}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div  *ngIf="report_format=='LEDGER'"   class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th>DOCNO</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td>{{rec.branch}}</td>
+          <td>{{rec.job_docno}}</td>
+          <td>{{rec.commodity_name}}</td>
         </tr>
       </tbody>
     </table>
