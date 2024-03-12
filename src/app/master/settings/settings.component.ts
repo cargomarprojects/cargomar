@@ -1631,9 +1631,10 @@ export class SettingsComponent {
           this.ErrorMessage = response.serror;
           alert(this.ErrorMessage);
         }
-        else
+        else {
           this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
-        alert(this.ErrorMessage);
+          alert(this.ErrorMessage);
+        }
       },
         error => {
           this.loading = false;
@@ -1659,9 +1660,10 @@ export class SettingsComponent {
           this.ErrorMessage = response.serror;
           alert(this.ErrorMessage);
         }
-        else
+        else {
           this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
-        alert(this.ErrorMessage);
+          alert(this.ErrorMessage);
+        }
       },
         error => {
           this.loading = false;
