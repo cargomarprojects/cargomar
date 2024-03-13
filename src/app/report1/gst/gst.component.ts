@@ -42,6 +42,7 @@ export class GstComponent {
   BranchList: Companym[] = [];
   all: boolean = false;
   gst_only: boolean = true;
+  print_new_format: boolean = true;
 
   controlname = '';
   tabletype = '';
@@ -61,7 +62,8 @@ export class GstComponent {
     to_date: '',
     format_type: '',
     all: false,
-    gst_only: true
+    gst_only: true,
+    print_new_format:true
   };
 
   SearchData2 = {
@@ -278,6 +280,7 @@ export class GstComponent {
     this.SearchData.format_type = this.format_type;
     this.SearchData.all = this.all;
     this.SearchData.gst_only = this.gst_only;
+    this.SearchData.print_new_format = this.print_new_format;
 
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)

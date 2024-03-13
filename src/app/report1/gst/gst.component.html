@@ -50,9 +50,9 @@
               <option [value]="'CI'">INWARD CREDIT NOTE</option>
               <option [value]="'GSTR2B'">GSTR2B</option>
             </select>
-            <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'" class="form-check">
-              <input type="checkbox" class="form-check-input" [(ngModel)]="gst_only">
-              <span> GST Only</span>
+            <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'" class="ml-1">
+              <input type="checkbox" [(ngModel)]="gst_only" id="_chkgstonly">
+              <label class="col-form-label col-form-label-sm" for="_chkgstonly">GST Only</label>
             </div>
           </div>
         </div>
@@ -66,17 +66,14 @@
       <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Branch
-            <div *ngIf="bCompany">
-              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-              <span> All</span>
-            </div>
           </label>
           <div class="col-sm-10">
             <!-- <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete> -->
-             <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'"
-                [displaydata]="displaydata" (ValueChanged)="LovSelected($event)" >
-              </app-autocompletemulti>
+            <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
+              [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
+              (ValueChanged)="LovSelected($event)">
+            </app-autocompletemulti>
           </div>
           <!-- <div *ngIf="bCompany" class="col-sm-10">
             <div style="height: 80px; overflow-y: scroll;">
@@ -96,6 +93,19 @@
             </div>
           </div> -->
         </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm"></label>
+          <div class="col-10">
+            <div>
+              <input *ngIf="bCompany" type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkallbr">
+              <label *ngIf="bCompany" class="col-form-label col-form-label-sm" for="_chkallbr"> All
+                Branch&nbsp;&nbsp;</label>
+              <input *ngIf="format_type=='PURCHASE-RATE-WISE'" type="checkbox" [(ngModel)]="print_new_format" id="_chknewformat">
+              <label *ngIf="format_type=='PURCHASE-RATE-WISE'" class="col-form-label col-form-label-sm" for="_chknewformat">New Format</label>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
@@ -113,512 +123,521 @@
           </div>
         </div>
       </div>
+
     </div>
+
+    <div *ngIf="display_format_type=='GSTR1'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>INVOICE#</th>
+
+            <th>DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC</th>
+            <th>INV-TYPE</th>
+            <th>ECOM-GSTN</th>
+            <th class="text-right">GST%</th>
+            <th class="text-right">INV-AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CESS</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <td>{{rec.jvh_invoice_type}}</td>
+            <td>{{rec.ecomgstn}}</td>
+            <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.inv_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.cess | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>INVOICE#</th>
+            <th>DATE</th>
+            <th>EINV-STATUS</th>
+            <th>ACK-NO</th>
+            <th>ACK-DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC</th>
+            <th>INV-TYPE</th>
+            <th>EXP-INV</th>
+            <th class="text-right">INV-AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_einv_status}}</td>
+            <td>{{rec.ack_no}}</td>
+            <td>{{rec.ack_date}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <td>{{rec.jvh_invoice_type}}</td>
+            <td>{{rec.jvh_is_export}}</td>
+            <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='INVOICE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>INVOICE#</th>
+            <th>DATE</th>
+            <th>EINV-STATUS</th>
+            <th>ACK-NO</th>
+            <th>ACK-DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC</th>
+            <th>INV-TYPE</th>
+            <th>EXP-INV</th>
+            <th>SAC-CODE</th>
+            <th>ACC-CODE</th>
+            <th>ACC-NAME</th>
+            <th class="text-right">INV-AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST%</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST%</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST%</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST%</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_einv_status}}</td>
+            <td>{{rec.ack_no}}</td>
+            <td>{{rec.ack_date}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <td>{{rec.jvh_invoice_type}}</td>
+            <td>{{rec.jvh_is_export}}</td>
+            <td>{{rec.jv_sac_code}}</td>
+            <td>{{rec.jv_acc_code}}</td>
+            <td>{{rec.jv_acc_name}}</td>
+            <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="display_format_type=='PURCHASE'||display_format_type=='PURCHASE-RATE-WISE'"
+      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>OUR-REF#</th>
+            <th>DATE</th>
+            <th>REF#</th>
+            <th>DATE</th>
+            <th>SUP-INV#</th>
+            <th>DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC[Y/N]</th>
+            <th>INV-TYPE</th>
+            <th class="text-right">INV-AMT</th>
+            <th *ngIf="display_format_type=='PURCHASE-RATE-WISE'" class="text-right">RATE</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_reference}}</td>
+            <td>{{rec.jvh_reference_date}}</td>
+            <td>{{rec.jvh_org_invno}}</td>
+            <td>{{rec.jvh_org_invdt}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <td>{{rec.jvh_invoice_type}}</td>
+            <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+            <td *ngIf="display_format_type=='PURCHASE-RATE-WISE'" align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}
+            </td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='PURCHASE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>OUR-REF#</th>
+            <th>DATE</th>
+            <th>TYPE</th>
+            <th>REF#</th>
+            <th>DATE</th>
+            <th>SUP-INV#</th>
+            <th>DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>CC-TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC[Y/N]</th>
+            <th>INV-TYPE</th>
+            <th>SAC-CODE</th>
+            <th>ACC-CODE</th>
+            <th>ACC-NAME</th>
+            <th class="text-right">INV-AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST%</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST%</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST%</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST%</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_type}}</td>
+            <td>{{rec.jvh_reference}}</td>
+            <td>{{rec.jvh_reference_date}}</td>
+            <td>{{rec.jvh_org_invno}}</td>
+            <td>{{rec.jvh_org_invdt}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <td>{{rec.jvh_invoice_type}}</td>
+            <td>{{rec.jv_sac_code}}</td>
+            <td>{{rec.jv_acc_code}}</td>
+            <td>{{rec.jv_acc_name}}</td>
+            <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+    <div *ngIf="display_format_type=='FORM 3B'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>DESCRIPTION</th>
+            <th>STATE</th>
+            <th class="text-right">TAXABLE</th>
+            <th class="text-right">CGST</th>
+            <th class="text-right">SGST</th>
+            <th class="text-right">IGST</th>
+            <th class="text-right">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='FORM 3B-RATE WISE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>DESCRIPTION</th>
+            <th>STATE</th>
+            <th class="text-right">TAXABLE</th>
+            <th class="text-right">RATE</th>
+            <th class="text-right">CGST</th>
+            <th class="text-right">SGST</th>
+            <th class="text-right">IGST</th>
+            <th class="text-right">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'"
+      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th *ngIf="all">BRANCH</th>
+            <th>VRNO</th>
+            <th>DATE</th>
+            <th>REF#</th>
+            <th>REF.DATE</th>
+            <th>ORG.INV#</th>
+            <th>ORG.DATE</th>
+            <th>EINV-STATUS</th>
+            <th>ACK-NO</th>
+            <th>ACK-DATE</th>
+            <th>GSTIN</th>
+            <th>CUSTOMER</th>
+            <th>TYPE</th>
+            <th>SEZ</th>
+            <th>PLACE</th>
+            <th>GST-TYPE</th>
+            <th>GST[Y/N]</th>
+            <th>RC</th>
+            <!-- <th>INV-TYPE</th> -->
+            <th>SAC-CODE</th>
+            <th>ACC-CODE</th>
+            <th>ACC-NAME</th>
+            <th class="text-right">AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST%</th>
+            <th class="text-right">CGST-AMT</th>
+            <th class="text-right">SGST%</th>
+            <th class="text-right">SGST-AMT</th>
+            <th class="text-right">IGST%</th>
+            <th class="text-right">IGST-AMT</th>
+            <th class="text-right">GST%</th>
+            <th class="text-right">GST-AMT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td *ngIf="all">{{rec.branch}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_reference}}</td>
+            <td>{{rec.jvh_reference_date}}</td>
+            <td>{{rec.jvh_org_invno}}</td>
+            <td>{{rec.jvh_org_invdt}}</td>
+            <td>{{rec.jvh_einv_status}}</td>
+            <td>{{rec.ack_no}}</td>
+            <td>{{rec.ack_date}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_cc_category}}</td>
+            <td>{{rec.jvh_sez}}</td>
+            <td>{{rec.jvh_state_name}}</td>
+            <td>{{rec.jvh_gst_type}}</td>
+            <td>{{rec.jvh_gst}}</td>
+            <td>{{rec.rc}}</td>
+            <!-- <td>{{rec.jvh_invoice_type}}</td> -->
+            <td>{{rec.jv_sac_code}}</td>
+            <td>{{rec.jv_acc_code}}</td>
+            <td>{{rec.jv_acc_name}}</td>
+            <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="display_format_type=='GSTR2B'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>TYPE</th>
+            <th>GSTIN</th>
+            <th>CGSTIN</th>
+            <th>CUSTOMER</th>
+            <th>POS</th>
+            <th>INV#</th>
+            <th>DATE</th>
+            <th class="text-right">INV-AMT</th>
+            <th class="text-right">TAXABLE-AMT</th>
+            <th class="text-right">CGST</th>
+            <th class="text-right">SGST</th>
+            <th class="text-right">IGST</th>
+            <th class="text-right">CESS</th>
+            <th class="text-right">TOT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+          <tr [style.color]="rec.row_colour">
+            <td>{{rec.jvh_type}}</td>
+            <td>{{rec.jvh_gstin}}</td>
+            <td>{{rec.jvh_reference}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_state_code}}</td>
+            <td>{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_cess_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <div *ngIf="display_format_type=='GSTR1'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>INVOICE#</th>
+  <div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
+    <h5>GSTR2B Processing</h5>
 
-          <th>DATE</th>
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC</th>
-          <th>INV-TYPE</th>
-          <th>ECOM-GSTN</th>
-          <th class="text-right">GST%</th>
-          <th class="text-right">INV-AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CESS</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <td>{{rec.jvh_invoice_type}}</td>
-          <td>{{rec.ecomgstn}}</td>
-          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.inv_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.cess | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="display_format_type=='INVOICE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>INVOICE#</th>
-          <th>DATE</th>
-          <th>EINV-STATUS</th>
-          <th>ACK-NO</th>
-          <th>ACK-DATE</th>
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC</th>
-          <th>INV-TYPE</th>
-          <th>EXP-INV</th>
-          <th class="text-right">INV-AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_einv_status}}</td>
-          <td>{{rec.ack_no}}</td>
-          <td>{{rec.ack_date}}</td>
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <td>{{rec.jvh_invoice_type}}</td>
-          <td>{{rec.jvh_is_export}}</td>
-          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="display_format_type=='INVOICE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>INVOICE#</th>
-          <th>DATE</th>
-          <th>EINV-STATUS</th>
-          <th>ACK-NO</th>
-          <th>ACK-DATE</th>          
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC</th>
-          <th>INV-TYPE</th>
-          <th>EXP-INV</th>
-          <th>SAC-CODE</th>
-          <th>ACC-CODE</th>
-          <th>ACC-NAME</th>
-          <th class="text-right">INV-AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST%</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST%</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST%</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST%</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_einv_status}}</td>
-          <td>{{rec.ack_no}}</td>
-          <td>{{rec.ack_date}}</td>          
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <td>{{rec.jvh_invoice_type}}</td>
-          <td>{{rec.jvh_is_export}}</td>
-          <td>{{rec.jv_sac_code}}</td>
-          <td>{{rec.jv_acc_code}}</td>
-          <td>{{rec.jv_acc_name}}</td>
-          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="display_format_type=='PURCHASE'||display_format_type=='PURCHASE-RATE-WISE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>OUR-REF#</th>
-          <th>DATE</th>
-          <th>REF#</th>
-          <th>DATE</th>
-          <th>SUP-INV#</th>
-          <th>DATE</th>
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC[Y/N]</th>
-          <th>INV-TYPE</th>
-          <th class="text-right">INV-AMT</th>
-          <th *ngIf="display_format_type=='PURCHASE-RATE-WISE'" class="text-right">RATE</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_reference}}</td>
-          <td>{{rec.jvh_reference_date}}</td>
-          <td>{{rec.jvh_org_invno}}</td>
-          <td>{{rec.jvh_org_invdt}}</td>
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <td>{{rec.jvh_invoice_type}}</td>
-          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
-          <td *ngIf="display_format_type=='PURCHASE-RATE-WISE'" align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="display_format_type=='PURCHASE-DETAILS'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>OUR-REF#</th>
-          <th>DATE</th>
-          <th>TYPE</th>
-          <th>REF#</th>
-          <th>DATE</th>
-          <th>SUP-INV#</th>
-          <th>DATE</th>
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>CC-TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC[Y/N]</th>
-          <th>INV-TYPE</th>
-          <th>SAC-CODE</th>
-          <th>ACC-CODE</th>
-          <th>ACC-NAME</th>
-          <th class="text-right">INV-AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST%</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST%</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST%</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST%</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_type}}</td>
-          <td>{{rec.jvh_reference}}</td>
-          <td>{{rec.jvh_reference_date}}</td>
-          <td>{{rec.jvh_org_invno}}</td>
-          <td>{{rec.jvh_org_invdt}}</td>
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <td>{{rec.jvh_invoice_type}}</td>
-          <td>{{rec.jv_sac_code}}</td>
-          <td>{{rec.jv_acc_code}}</td>
-          <td>{{rec.jv_acc_name}}</td>
-          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-
-
-
-  <div *ngIf="display_format_type=='FORM 3B'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th>DESCRIPTION</th>
-          <th>STATE</th>
-          <th class="text-right">TAXABLE</th>
-          <th class="text-right">CGST</th>
-          <th class="text-right">SGST</th>
-          <th class="text-right">IGST</th>
-          <th class="text-right">TOTAL</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="display_format_type=='FORM 3B-RATE WISE'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th>DESCRIPTION</th>
-          <th>STATE</th>
-          <th class="text-right">TAXABLE</th>
-          <th class="text-right">RATE</th>
-          <th class="text-right">CGST</th>
-          <th class="text-right">SGST</th>
-          <th class="text-right">IGST</th>
-          <th class="text-right">TOTAL</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th>VRNO</th>
-          <th>DATE</th>
-          <th>REF#</th>
-          <th>REF.DATE</th>
-          <th>ORG.INV#</th>
-          <th>ORG.DATE</th>
-          <th>EINV-STATUS</th>
-          <th>ACK-NO</th>
-          <th>ACK-DATE</th>          
-          <th>GSTIN</th>
-          <th>CUSTOMER</th>
-          <th>TYPE</th>
-          <th>SEZ</th>
-          <th>PLACE</th>
-          <th>GST-TYPE</th>
-          <th>GST[Y/N]</th>
-          <th>RC</th>
-          <!-- <th>INV-TYPE</th> -->
-          <th>SAC-CODE</th>
-          <th>ACC-CODE</th>
-          <th>ACC-NAME</th>
-          <th class="text-right">AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST%</th>
-          <th class="text-right">CGST-AMT</th>
-          <th class="text-right">SGST%</th>
-          <th class="text-right">SGST-AMT</th>
-          <th class="text-right">IGST%</th>
-          <th class="text-right">IGST-AMT</th>
-          <th class="text-right">GST%</th>
-          <th class="text-right">GST-AMT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td>{{rec.jvh_reference}}</td>
-          <td>{{rec.jvh_reference_date}}</td>
-          <td>{{rec.jvh_org_invno}}</td>
-          <td>{{rec.jvh_org_invdt}}</td>
-          <td>{{rec.jvh_einv_status}}</td>
-          <td>{{rec.ack_no}}</td>
-          <td>{{rec.ack_date}}</td>          
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_cc_category}}</td>
-          <td>{{rec.jvh_sez}}</td>
-          <td>{{rec.jvh_state_name}}</td>
-          <td>{{rec.jvh_gst_type}}</td>
-          <td>{{rec.jvh_gst}}</td>
-          <td>{{rec.rc}}</td>
-          <!-- <td>{{rec.jvh_invoice_type}}</td> -->
-          <td>{{rec.jv_sac_code}}</td>
-          <td>{{rec.jv_acc_code}}</td>
-          <td>{{rec.jv_acc_name}}</td>
-          <td align='right'>{{ rec.jv_net_total | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_rate | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="display_format_type=='GSTR2B'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
-    <table class="table  table-hover table-sm table-bordered table-striped">
-      <thead class="page-body-thead">
-        <tr>
-          <th>TYPE</th>
-          <th>GSTIN</th>
-          <th>CGSTIN</th>
-          <th>CUSTOMER</th>
-          <th>POS</th>
-          <th>INV#</th>
-          <th>DATE</th>
-          <th class="text-right">INV-AMT</th>
-          <th class="text-right">TAXABLE-AMT</th>
-          <th class="text-right">CGST</th>
-          <th class="text-right">SGST</th>
-          <th class="text-right">IGST</th>
-          <th class="text-right">CESS</th>
-          <th class="text-right">TOT</th>
-        </tr>
-      </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
-          <td>{{rec.jvh_type}}</td>
-          <td>{{rec.jvh_gstin}}</td>
-          <td>{{rec.jvh_reference}}</td>
-          <td>{{rec.jvh_party_name}}</td>
-          <td>{{rec.jvh_state_code}}</td>
-          <td>{{rec.jvh_docno}}</td>
-          <td>{{rec.jvh_date}}</td>
-          <td align='right'>{{ rec.jvh_tot_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_taxable_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_cess_amt | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.jv_gst_amt  | number : '1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-<div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
-  <h5>GSTR2B Processing</h5>
-  
     <div class="row">
       <div class="col-md-4">
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">State</label>
           <div class="col-6">
-            <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'"
-              [displaycolumn]="'NAME'" 
-              [displaydata]="state_name" 
-              (ValueChanged)="LovSelected2($event)">
+            <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
+              [displaydata]="state_name" (ValueChanged)="LovSelected2($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -626,14 +645,14 @@
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">Return Period(MMYYYY)</label>
           <div class="col-6">
-            <input type="text" class="col form-control form-control-sm"  [(ngModel)]="retn_period" />
+            <input type="text" class="col form-control form-control-sm" [(ngModel)]="retn_period" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-6 col-form-label col-form-label-sm">OTP</label>
           <div class="col-6">
-            <input type="text" class="col form-control form-control-sm"  [(ngModel)]="otp" />
+            <input type="text" class="col form-control form-control-sm" [(ngModel)]="otp" />
           </div>
         </div>
 
@@ -642,10 +661,12 @@
         <div class="form-group row mt-1">
           <label class="col-6 col-form-label col-form-label-sm"></label>
           <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')" class="btn btn-primary btn-sm">Process</button>
+            <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')"
+              class="btn btn-primary btn-sm">Process</button>
           </div>
           <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate OTP</button>
+            <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate
+              OTP</button>
           </div>
         </div>
 
@@ -653,14 +674,14 @@
 
       </div>
     </div>
-  
-</div>
 
-<!-- <br /> -->
+  </div>
+
+  <!-- <br /> -->
 
 
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
