@@ -63,7 +63,8 @@ export class GstComponent {
     format_type: '',
     all: false,
     gst_only: true,
-    print_new_format:true
+    print_new_format: true,
+    user_code: ''
   };
 
   SearchData2 = {
@@ -74,10 +75,10 @@ export class GstComponent {
     branch_code: '',
     year_code: '',
     searchstring: '',
-    state_code :'',
-    return_period : '',
-    user_code : '',
-    otp : ''
+    state_code: '',
+    return_period: '',
+    user_code: '',
+    otp: ''
   };
 
 
@@ -281,13 +282,15 @@ export class GstComponent {
     this.SearchData.all = this.all;
     this.SearchData.gst_only = this.gst_only;
     this.SearchData.print_new_format = this.print_new_format;
-
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'RECONCILE-EXP-DATA')
+          alert(response.generatemsg);
         else {
           this.RecordList = response.list;
           if (_type == "GSTR1" || _type == "NEW-GSTR1")
@@ -344,7 +347,7 @@ export class GstComponent {
       return;
     }
 
-    if (_type == "GSTR2B"){
+    if (_type == "GSTR2B") {
       if (this.otp.trim().length <= 0) {
         this.ErrorMessage = "OTP Cannot Be Blank";
         alert(this.ErrorMessage);
@@ -369,17 +372,17 @@ export class GstComponent {
     this.mainService.ProcessGSTRApi(this.SearchData2)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL') 
+        if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'OTP' || _type == 'GSTR2B') {
-          if ( response.status != "")
-            alert(response.status);  
+          if (response.status != "")
+            alert(response.status);
         }
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
-          alert( this.ErrorMessage);
+          alert(this.ErrorMessage);
         });
   }
 

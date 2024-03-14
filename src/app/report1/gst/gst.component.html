@@ -50,7 +50,8 @@
               <option [value]="'CI'">INWARD CREDIT NOTE</option>
               <option [value]="'GSTR2B'">GSTR2B</option>
             </select>
-            <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'" class="ml-1">
+            <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
+              class="ml-1">
               <input type="checkbox" [(ngModel)]="gst_only" id="_chkgstonly">
               <label class="col-form-label col-form-label-sm" for="_chkgstonly">GST Only</label>
             </div>
@@ -101,8 +102,10 @@
               <input *ngIf="bCompany" type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkallbr">
               <label *ngIf="bCompany" class="col-form-label col-form-label-sm" for="_chkallbr"> All
                 Branch&nbsp;&nbsp;</label>
-              <input *ngIf="format_type=='PURCHASE-RATE-WISE'" type="checkbox" [(ngModel)]="print_new_format" id="_chknewformat">
-              <label *ngIf="format_type=='PURCHASE-RATE-WISE'" class="col-form-label col-form-label-sm" for="_chknewformat">New Format</label>
+              <input *ngIf="format_type=='PURCHASE-RATE-WISE'" type="checkbox" [(ngModel)]="print_new_format"
+                id="_chknewformat">
+              <label *ngIf="format_type=='PURCHASE-RATE-WISE'" class="col-form-label col-form-label-sm"
+                for="_chknewformat">New Format</label>
             </div>
           </div>
         </div>
@@ -120,6 +123,8 @@
             <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Process
               Report</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
+            <button *ngIf="bCompany&&all&&gst_only&&format_type=='PURCHASE-RATE-WISE'" [disabled]="loading"
+              (click)="List('RECONCILE-EXP-DATA')" class="btn btn-primary btn-sm">Reconcile Export Data</button>
           </div>
         </div>
       </div>
