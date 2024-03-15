@@ -99,7 +99,7 @@ export class CustomerComponent {
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
 
-
+  PARENTREC: any = {};
   SMANREC: any = {};
   CSDREC: any = {};
   COMPRECORD: SearchTable = new SearchTable();
@@ -230,6 +230,11 @@ export class CustomerComponent {
       this.Record.cust_branch_code = _Record.code;
     }
 
+    if (_Record.controlname == "PARENT") {
+      this.Record.cust_parent_id = _Record.id;
+      this.Record.cust_parent_code = _Record.code;
+      this.Record.cust_parent_name = _Record.name;
+    }
   }
 
 
@@ -446,10 +451,12 @@ export class CustomerComponent {
     this.Record.cust_caseno = '';
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: '', code: '', name: '' };
-
+    this.PARENTREC = { 'controlname': 'PARENT', 'type': 'CUSTOMER', displaycolumn: 'NAME', id: '', code: '', name: '' };
     this.Record.cust_sb_name = '';
     this.Record.cust_sb_address = '';
-
+    this.Record.cust_parent_id = '';
+    this.Record.cust_parent_code = '';
+    this.Record.cust_parent_name = '';
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
@@ -494,6 +501,7 @@ export class CustomerComponent {
 
     this.SMANREC = { 'controlname': 'SALESMAN', 'type': 'SALESMAN', displaycolumn: 'NAME', id: this.Record.cust_sman_id, code: '', name: this.Record.cust_sman_name };
     this.CSDREC = { 'controlname': 'CSD', 'type': 'SALESMAN', displaycolumn: 'NAME', id: this.Record.cust_csd_id, code: '', name: this.Record.cust_csd_name };
+    this.PARENTREC = { 'controlname': 'PARENT', 'type': 'CUSTOMER', displaycolumn: 'NAME', id: this.Record.cust_parent_id, code: this.Record.cust_parent_code, name: this.Record.cust_parent_name };
 
     this.Record.rec_mode = this.mode;
 
@@ -723,6 +731,7 @@ export class CustomerComponent {
       REC.rec_locked = this.Record.rec_locked;
       REC.cust_is_complete = this.Record.cust_is_incomplete == true ? 'N' : 'Y';
       REC.cust_incomplete_remarks = this.Record.cust_incomplete_remarks;
+      REC.cust_parent_name = this.Record.cust_parent_name;
     }
   }
 

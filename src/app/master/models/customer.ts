@@ -87,6 +87,9 @@ export class Customerm {
     cust_alert: boolean;
     cust_sb_name: string;
     cust_sb_address: string;
+    cust_parent_id: string;
+    cust_parent_code: string;
+    cust_parent_name: string;
 
     _globalvariables: GlobalVariables;
 

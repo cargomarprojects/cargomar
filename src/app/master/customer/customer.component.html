@@ -109,7 +109,7 @@
           </div>
         </div>
         <div class="form-group row mt-1">
-         
+
           <div class="col-sm-2 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Creditor" />
             <span>Creditor</span>
@@ -118,7 +118,7 @@
             <input type="checkbox" [(ngModel)]="Is_Others" />
             <span>Others</span>
           </div>
-    
+
           <div class="col-sm-2 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Incomplete" />
             <span>Incomplete</span>
@@ -134,7 +134,7 @@
 
         </div>
       </div>
-    
+
       <div class="col-sm-3">
         <div class="form-group row">
           <div class="col-sm-12">
@@ -146,10 +146,11 @@
           </div>
         </div>
         <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
-         
+
           <div class="col-sm-8 input-group input-group-sm">
             <label class="col-form-label  col-form-label-sm mr-1">Email.Nos</label>
-            <input type="number" class="col form-control form-control-sm mr-1" name="Search2" [(ngModel)]="emailPerRow" />
+            <input type="number" class="col form-control form-control-sm mr-1" name="Search2"
+              [(ngModel)]="emailPerRow" />
             <button [disabled]="loading" (click)="EmailList()" class="btn btn-primary btn-sm">Email</button>
           </div>
           <!-- <div class="col-sm-4">
@@ -269,6 +270,12 @@
                 <div class="col-4">
                   <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
                     [(ngModel)]="Record.cust_iecode" required maxlength="10" />
+                </div>
+                <label *ngIf="gs.globalVariables.user_code == 'ADMIN'"
+                  class="col-2 col-form-label col-form-label-sm">Parent</label>
+                <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-4">
+                  <app-autocomplete2 #parent [inputdata]="PARENTREC"
+                    (ValueChanged)="LovSelected($event)"></app-autocomplete2>
                 </div>
               </div>
               <div class="form-group row">
