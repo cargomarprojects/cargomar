@@ -411,8 +411,8 @@ export class LedgerComponent {
       }
 
       if (this.type == "BP") {
-        if (this.Recorddet.jv_acc_type_name == "BANK")
-          this.Recorddet.jv_doc_type = "CHEQUE";
+        // if (this.Recorddet.jv_acc_type_name == "BANK") //Remarked on 16/03/2024 by benny request
+        //   this.Recorddet.jv_doc_type = "CHEQUE";
       }
 
       this.ValidateDrCr();
