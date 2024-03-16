@@ -244,7 +244,7 @@ export class MtReportComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   ShowMoneyTransfer(moneytransfer: any, _jvid: string = "") {

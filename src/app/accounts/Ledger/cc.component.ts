@@ -278,7 +278,7 @@ export class costCenterComponent {
 
   PasteData( content : any ) {
     this.bShowClipBoard = true;
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   ClipBoardClosed(cbdata: SearchTable[]) {

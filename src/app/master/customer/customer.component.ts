@@ -763,7 +763,7 @@ export class CustomerComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
   ShowHistory(history: any) {
     this.ErrorMessage = '';

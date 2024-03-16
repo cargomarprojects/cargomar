@@ -366,7 +366,7 @@ export class MoneyTransferComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   onLostFocus(field: string) {
