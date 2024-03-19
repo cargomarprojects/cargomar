@@ -34,6 +34,8 @@ export class GstComponent {
   to_date: string = '';
   searchstring = '';
   display_format_type: string = '';
+  reconcile_state_name: string = "KERALA";
+  reconcile_state_code: string = "32";
 
   bCompany = false;
   disableSave = true;
@@ -64,7 +66,9 @@ export class GstComponent {
     all: false,
     gst_only: true,
     print_new_format: true,
-    user_code: ''
+    user_code: '',
+    state_name: '',
+    state_code: ''
   };
 
   SearchData2 = {
@@ -86,7 +90,6 @@ export class GstComponent {
   RecordList: GstReport[] = [];
   //  Single Record for add/edit/view details
   Record: GstReport = new GstReport;
-
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
@@ -153,11 +156,16 @@ export class GstComponent {
     this.tabletype = "BRANCH";
     this.subtype = "";
     this.displaydata = this.gs.globalVariables.branch_code;
+
   }
 
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "BRANCH") {
       this.branch_code = _Record.code;
+    }
+    if (_Record.controlname == "STATE") {
+      this.reconcile_state_code = _Record.code;
+      this.reconcile_state_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -283,6 +291,8 @@ export class GstComponent {
     this.SearchData.gst_only = this.gst_only;
     this.SearchData.print_new_format = this.print_new_format;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.state_code = this.reconcile_state_code;
+    this.SearchData.state_name = this.reconcile_state_name;
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
       .subscribe(response => {

@@ -44,7 +44,7 @@ export class GstReport {
   inv_amt: number;
   taxable_amt: number;
   branch: string;
-
+  gstr2b_row_type:string;
 
   ack_no: string;
   ack_date: string;

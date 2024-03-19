@@ -19,19 +19,15 @@
     <div class="row">
       <div class="col-sm-3">
         <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">FromDate</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">FromDate</label>
+          <div class="col-sm-4">
             <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label col-form-label-sm">ToDate</label>
-          <div class="col-10">
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-4">
             <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
           </div>
         </div>
-      </div>
-      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-10 input-group input-group-sm">
@@ -49,6 +45,7 @@
               <option [value]="'DI'">INWARD DEBIT NOTE</option>
               <option [value]="'CI'">INWARD CREDIT NOTE</option>
               <option [value]="'GSTR2B'">GSTR2B</option>
+              <option [value]="'RECONCILE'">RECONCILE</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -57,12 +54,23 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Search</label>
           <div class="col-10">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
         </div>
+        <div class=" form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
+          <div class="col-sm-10">
+            <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
+            [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete3>
+          </div>
+        </div>
+        
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
@@ -76,25 +84,7 @@
               (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>
           </div>
-          <!-- <div *ngIf="bCompany" class="col-sm-10">
-            <div style="height: 80px; overflow-y: scroll;">
-              <div class="page-body table-responsive">
-                <table class="table table-hover table-sm table-bordered">
-                  <tbody class="page-body-tbody">
-                    <tr *ngFor="let rec of BranchList">
-                      <td (click)="SelectBranch(rec)">
-                        <div class="form-check"> <input type="checkbox" class="form-check-input"
-                            [(ngModel)]="rec.comp_checked"><span>{{rec.comp_name}}</span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div> -->
         </div>
-
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
@@ -109,6 +99,7 @@
             </div>
           </div>
         </div>
+       
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
@@ -629,7 +620,29 @@
         </tbody>
       </table>
     </div>
-
+    <div *ngIf="display_format_type=='RECONCILE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 310px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>TYPE</th>
+          <!-- <th>STATE</th> -->
+          <th class="text-right">IGST</th>
+          <th class="text-right">CGST</th>
+          <th class="text-right">SGST</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td>{{rec.gstr2b_row_type}}</td>
+          <!-- <td>{{rec.jvh_state_name}}</td> -->
+          <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   </div>
 
   <div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
