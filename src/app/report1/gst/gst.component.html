@@ -634,12 +634,17 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr [style.color]="rec.row_colour">
-          <td>{{rec.gstr2b_row_type}}</td>
+          <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.gstr2b_row_type}}</td>
           <!-- <td>{{rec.jvh_state_name}}</td> -->
           <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
         </tr>
+        <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
+          <td colspan="4">
+            <app-gstdet [menuid]="menuid" [RecordList]="rec.gstr2b_List" [type]="type"></app-gstdet>
+          </td>
+      </tr>
       </tbody>
     </table>
   </div>

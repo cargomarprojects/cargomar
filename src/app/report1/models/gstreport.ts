@@ -1,5 +1,6 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
+import { Gstr2bDownload } from '../models/gstr2bdownload';
 
 export class GstReport {
 
@@ -44,13 +45,14 @@ export class GstReport {
   inv_amt: number;
   taxable_amt: number;
   branch: string;
-  gstr2b_row_type:string;
+  gstr2b_row_type: string;
 
   ack_no: string;
   ack_date: string;
   jvh_einv_status: string;
-  jvh_beinv_status: boolean;  
-
-
+  jvh_beinv_status: boolean;
+  row_displayed: boolean;
+  
+  gstr2b_List: Gstr2bDownload[] = [];
   _globalvariables: GlobalVariables;
 }

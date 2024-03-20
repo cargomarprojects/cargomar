@@ -71,6 +71,7 @@ import { ShipReportComponent } from './shipdata/shipreport.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
+import { GstDetComponent } from './gst/gstdet.component';
 
 @NgModule({
   imports: [
@@ -126,7 +127,8 @@ import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
     ShipReportComponent,
     UsrRightsComponent,
     ShipmentReportComponent,
-    UnlockJobrptComponent
+    UnlockJobrptComponent,
+    GstDetComponent
   ],
   providers: [
   ],

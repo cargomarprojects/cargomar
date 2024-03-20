@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { GstReport } from '../models/gstreport';
 import { Companym } from '../../core/models/company';
-
+import { Gstr2bDownload } from '../models/gstr2bdownload';
 import { RepService } from '../services/report.service';
 
 @Component({
@@ -396,7 +396,9 @@ export class GstComponent {
         });
   }
 
-
+  ShowHideRecord(_rec: GstReport) {
+    _rec.row_displayed = !_rec.row_displayed;
+}
 
 
 }
