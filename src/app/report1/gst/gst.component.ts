@@ -90,6 +90,7 @@ export class GstComponent {
   RecordList: GstReport[] = [];
   //  Single Record for add/edit/view details
   Record: GstReport = new GstReport;
+  RecordList2: Gstr2bDownload[] = [];
   BRRECORD: SearchTable = new SearchTable();
 
   constructor(
@@ -303,6 +304,7 @@ export class GstComponent {
           alert(response.generatemsg);
         else {
           this.RecordList = response.list;
+          this.RecordList2 = response.list2;
           if (_type == "GSTR1" || _type == "NEW-GSTR1")
             alert(response.generatemsg);
         }
