@@ -10,6 +10,7 @@ export class Gstr2bDownload {
     invoice_type: string;
     note_type: string;
     invoice_date: string;
+    invoice_ref_date: string;
     invoice_value: number;
     place_supply: string;
     reverse_charge: string;
