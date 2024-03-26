@@ -662,9 +662,9 @@
           <th>REF.DATE</th>
           <th>RC</th>
           <th>COUNT</th>
-          <th class="text-right">RATE</th>
           <th class="text-right">INV.AMT</th>
           <th class="text-right">TAXABLE.AMT</th>
+          <th class="text-right">RATE</th>
           <th class="text-right">IGST</th>
           <th class="text-right">CGST</th>
           <th class="text-right">SGST</th>
@@ -676,9 +676,9 @@
           <th>G-INV.DATE</th>
           <th>G-REF.DATE</th>
           <th>G-RC</th>
-          <th class="text-right">G-RATE</th>
           <th class="text-right">G-INV.AMT</th>
           <th class="text-right">G-TAXABLE.AMT</th>
+          <th class="text-right">G-RATE</th>
           <th class="text-right">G-IGST</th>
           <th class="text-right">G-CGST</th>
           <th class="text-right">G-SGST</th>
@@ -697,9 +697,9 @@
           <td>{{rec.p_invoice_ref_date}}</td>
           <td>{{rec.p_reverse_charge}}</td>
           <td>{{rec.tot_rows}}</td>
-          <td class="text-right">{{ rec.p_rate | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.p_invoice_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.p_taxable_amt | number : '1.2-2' }}</td>
+          <td class="text-right">{{ rec.p_rate | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.p_igst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.p_cgst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.p_sgst_amt | number : '1.2-2' }}</td>
@@ -711,9 +711,9 @@
           <td>{{rec.g_invoice_date}}</td>
           <td>{{rec.g_invoice_ref_date}}</td>
           <td>{{rec.g_reverse_charge}}</td>
-          <td class="text-right">{{ rec.g_rate | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_invoice_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_taxable_amt | number : '1.2-2' }}</td>
+          <td class="text-right">{{ rec.g_rate | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_igst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_cgst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_sgst_amt | number : '1.2-2' }}</td>
