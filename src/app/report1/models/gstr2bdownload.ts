@@ -64,4 +64,7 @@ export class Gstr2bDownload {
     g_igst_amt: number;
     g_cgst_amt: number;
     g_sgst_amt: number;
+    display_order: string;
+    match_gst: string;
+    match_period: string;
 }

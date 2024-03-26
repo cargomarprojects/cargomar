@@ -682,6 +682,8 @@
           <th class="text-right">G-IGST</th>
           <th class="text-right">G-CGST</th>
           <th class="text-right">G-SGST</th>
+          <th>MATCH-GST.AMT</th>
+          <th>MATCH-PERIOD</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
@@ -715,6 +717,8 @@
           <td class="text-right">{{ rec.g_igst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_cgst_amt | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.g_sgst_amt | number : '1.2-2' }}</td>
+          <td>{{rec.match_gst}}</td>
+          <td>{{rec.match_period}}</td>
         </tr>
       </tbody>
     </table>
