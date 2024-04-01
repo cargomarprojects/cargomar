@@ -39,7 +39,8 @@ export class AddReportsComponent {
 
     sales_from_date: string = '';
     sales_to_date: string = '';
-
+    
+    full_year: boolean = false;
     bExcel = false;
     bCompany = false;
     bAdmin = false;
@@ -59,7 +60,8 @@ export class AddReportsComponent {
         to_date: '',
         user_pkid: this.gs.globalVariables.user_pkid,
         user_code: this.gs.globalVariables.user_code,
-        auto_mail: "N"
+        auto_mail: "N",
+        full_year:false
     };
 
     sSubject: string = '';
@@ -198,6 +200,7 @@ export class AddReportsComponent {
         this.SearchData.branch_name = this.gs.globalVariables.branch_name;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.to_date = this.to_date;
+        this.SearchData.full_year = this.full_year;
 
         this.ErrorMessage = '';
         this.mainService.List(this.SearchData)

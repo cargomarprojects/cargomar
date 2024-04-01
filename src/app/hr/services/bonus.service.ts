@@ -29,5 +29,10 @@ export class BonusService {
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

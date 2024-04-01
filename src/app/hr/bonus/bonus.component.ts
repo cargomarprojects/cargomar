@@ -26,6 +26,7 @@ export class BonusComponent {
   bRelived = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
+  bDelete: boolean = false;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   bChanged: boolean;
@@ -92,6 +93,7 @@ export class BonusComponent {
     this.displaydata = this.branch_code;
     this.bPrint = false;
     this.bAdmin = false;
+    this.bDelete = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -101,6 +103,7 @@ export class BonusComponent {
       //   this.bCompany = true;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      this.bDelete = this.menu_record.rights_delete;
     }
     this.InitLov();
     this.List("NEW");
@@ -496,5 +499,35 @@ export class BonusComponent {
     for (let rec of this.RecordList2) {
       rec.bon_selected = this.selectdeselect;
     }
+  }
+
+  RemoveBonus(_bon_pkid: string, _empnam: string) {
+    if (!confirm("Do you want to Delete Bonus of " + _empnam)) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      rowtype: this.type,
+      type: '',
+      pkid: _bon_pkid,
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.RecordList.splice(this.RecordList.findIndex(rec => rec.bon_pkid == _bon_pkid), 1);
+        alert("Removed Successfully");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }

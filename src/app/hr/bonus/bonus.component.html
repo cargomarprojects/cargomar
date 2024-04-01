@@ -85,6 +85,7 @@
           <th>NET</th>
           <th>PAID</th>
           <th>DATE</th>
+          <th *ngIf="bDelete">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -99,6 +100,8 @@
           <td>{{rec.bon_net_amount}}</td>
           <td>{{rec.bon_actual_paid}}</td>
           <td>{{rec.bon_paid_date}}</td>
+          <td *ngIf="bDelete"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+            (click)="RemoveBonus(rec.bon_pkid,rec.bon_emp_name)"></i></td>
         </tr>
       </tbody>
     </table>
