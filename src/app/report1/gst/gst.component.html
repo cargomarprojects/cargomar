@@ -45,7 +45,8 @@
               <option [value]="'DI'">INWARD DEBIT NOTE</option>
               <option [value]="'CI'">INWARD CREDIT NOTE</option>
               <option [value]="'GSTR2B'">GSTR2B</option>
-              <option [value]="'RECONCILE'">RECONCILE</option>
+              <option [value]="'RECONCILE-PURCHASE'">RECONCILE PURCHASE</option>
+              <option [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -65,7 +66,7 @@
         <div class=" form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [disabled]="format_type!='RECONCILE'" [controlname]="'STATE'" [tabletype]="'STATE'"
+            <app-autocomplete3 [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'" [controlname]="'STATE'" [tabletype]="'STATE'"
               [displaycolumn]="'NAME'" [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -648,7 +649,7 @@
         </tbody>
       </table>
     </div> -->
-    <div *ngIf="display_format_type=='RECONCILE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    <div *ngIf="display_format_type=='RECONCILE-PURCHASE'||display_format_type=='RECONCILE-GSTR2B'" class="page-body table-responsive fixedTableHead my-0 p-0"
     style="height: calc(100vh - 310px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
