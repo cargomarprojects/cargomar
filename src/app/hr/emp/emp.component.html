@@ -187,7 +187,7 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no" required maxlength="30" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"  [disabled]="mode=='EDIT'" required maxlength="30" />
         </div>
         <!-- <label class="col-sm-2 col-form-label  col-form-label-sm"></label> -->
         <div class="col-sm-3">

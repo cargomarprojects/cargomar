@@ -67,4 +67,5 @@ export class Gstr2bDownload {
     display_order: string;
     match_gst: string;
     match_period: string;
+    reconcile_status:string;
 }
