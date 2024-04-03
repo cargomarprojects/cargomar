@@ -1371,10 +1371,15 @@ export class SettingsComponent {
         });
   }
 
-  SaveLock() {
+  SaveLock(_type: string = "") {
+
+    if (_type == "ALL-BRANCH" && !confirm("Save ALL Branches")) {
+      return;
+    }
     this.loading = true;
     this.ErrorMessage = '';
     this.LockRecord.lock_pkid = this.gs.getGuid();
+    this.LockRecord.lock_all_branch = _type == "ALL-BRANCH" ? true : false;
     this.LockRecord._globalvariables = this.gs.globalVariables;
     this.mainService.SaveLockings(this.LockRecord)
       .subscribe(response => {

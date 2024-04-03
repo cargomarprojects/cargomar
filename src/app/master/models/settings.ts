@@ -35,7 +35,8 @@ export class Lockingm {
   lock_rb: string;
   lock_einvoice: string;
   lock_jv_bp: string;
-
+  lock_all_branch: boolean;
+  
   _globalvariables: GlobalVariables;
 }
 

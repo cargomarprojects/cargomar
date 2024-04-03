@@ -685,7 +685,8 @@
 
 <div *ngIf="currentTab=='BRANCH'" class="page-box">
   <div class="col">
-    <button [disabled]="loading" (click)="SaveLock()" class="btn btn-success btn-sm">SAVE</button>
+    <button [disabled]="loading" (click)="SaveLock('BRANCH')" class="btn btn-success btn-sm mr-1">SAVE</button>
+    <button [disabled]="loading" (click)="SaveLock('ALL-BRANCH')" class="btn btn-success btn-sm">SAVE-ALL BRANCH</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
