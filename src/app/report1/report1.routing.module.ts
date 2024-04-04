@@ -38,6 +38,7 @@ import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
+import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -74,7 +75,8 @@ const routes: Routes = [
   { path: 'shipmentdata', component: ShipDataParentComponent },
   { path: 'usrrights', component: UsrRightsComponent },
   { path: 'shipmentreport', component: ShipmentReportComponent },
-  { path: 'unlockjob', component: UnlockJobrptComponent }
+  { path: 'unlockjob', component: UnlockJobrptComponent },
+  { path: 'costgst', component: CostGstRptComponent }
 ];
 
 @NgModule({

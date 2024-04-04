@@ -1,0 +1,109 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+                        <div class="col-8">
+                            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+                        <div class="col-8">
+                            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Costing Agent</label>
+                        <div class="col-8">
+                            <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                        <div class="col-8">
+                            <input type="text" class="col form-control form-control-sm" name="Search"
+                                [(ngModel)]="searchstring" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+                                Report</button>
+                            <button [disabled]="loading" (click)="List('EXCEL')"
+                                class="btn btn-primary btn-sm">Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>DATE</th>
+                    <th>REFERENCE</th>
+                    <th>TYPE</th>
+                    <th>BRANCH</th>
+                    <th>MBL-AGENT</th>
+                    <th>COSTING-AGENT</th>
+                    <th>BLNO</th>
+                    <th>DESCRIPTION</th>
+                    <th>REMARKS</th>
+                    <th class="text-right">SELL-RATE</th>
+                    <th class="text-right">BUY-RATE</th>
+                    <th class="text-right">SPLIT</th>
+                    <th class="text-right">QTY</th>
+                    <th class="text-right">RATE</th>
+                    <th class="text-right">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index"
+                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.costing_date}}</td>
+                    <td>{{rec.refno}}</td>
+                    <td>{{rec.costing_type}}</td>
+                    <td>{{rec.branch}}</td>
+                    <td>{{rec.mbl_agent_name}}</td>
+                    <td>{{rec.costing_agent_name}}</td>
+                    <td>{{rec.blno}}</td>
+                    <td>{{rec.description}}</td>
+                    <td>{{rec.remarks}}</td>
+                    <td class="text-right">{{rec.sell_rate | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.buy_rate | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.split | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.qty | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.rate | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.amount | number : '1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- <br /> -->
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>
