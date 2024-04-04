@@ -33,16 +33,24 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
                         <div class="col-8">
-                            <input type="text" class="col form-control form-control-sm" name="Search"
-                                [(ngModel)]="searchstring" />
+                            <app-autocomplete #BrLov [inputdata]="BRRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group row">
-                        <div class="col-sm-10">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Description</label>
+                        <div class="col-8">
+                            <input type="text" class="col form-control form-control-sm" name="Search"
+                                [(ngModel)]="searchstring" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-8">
                             <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
                                 Report</button>
                             <button [disabled]="loading" (click)="List('EXCEL')"
@@ -58,10 +66,10 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>BRANCH</th>
                     <th>DATE</th>
                     <th>REFERENCE</th>
                     <th>TYPE</th>
-                    <th>BRANCH</th>
                     <th>MBL-AGENT</th>
                     <th>COSTING-AGENT</th>
                     <th>BLNO</th>
@@ -78,10 +86,10 @@
             <tbody class="page-body-tbody">
                 <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index"
                     [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.branch}}</td>
                     <td>{{rec.costing_date}}</td>
                     <td>{{rec.refno}}</td>
                     <td>{{rec.costing_type}}</td>
-                    <td>{{rec.branch}}</td>
                     <td>{{rec.mbl_agent_name}}</td>
                     <td>{{rec.costing_agent_name}}</td>
                     <td>{{rec.blno}}</td>

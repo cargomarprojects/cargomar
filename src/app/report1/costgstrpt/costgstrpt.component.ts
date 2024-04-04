@@ -29,8 +29,8 @@ export class CostGstRptComponent {
 
     from_date: string = '';
     to_date: string = '';
-    branch_name: string;
-    branch_code: string;
+    branch_name: string = '';
+    branch_code: string = '';
 
     agent_id: string;
     agent_code: string;
@@ -55,7 +55,8 @@ export class CostGstRptComponent {
         searchstring: '',
         from_date: '',
         to_date: '',
-        agent_id: ''
+        agent_id: '',
+        agent_name: ''
     };
 
     // Array For Displaying List
@@ -66,7 +67,7 @@ export class CostGstRptComponent {
     // BRRECORD: SearchTable = new SearchTable();
 
     AGENTRECORD: SearchTable = new SearchTable();
-
+    BRRECORD: SearchTable = new SearchTable();
     constructor(
         private mainService: RepService,
         private route: ActivatedRoute,
@@ -109,8 +110,6 @@ export class CostGstRptComponent {
     Init() {
 
         this.RecordList = null;
-        this.branch_code = this.gs.globalVariables.branch_code;
-        this.branch_name = this.gs.globalVariables.branch_name;
         this.from_date = this.gs.defaultValues.monthbegindate;
         this.to_date = this.gs.defaultValues.today;
         this.agent_id = '';
@@ -134,6 +133,13 @@ export class CostGstRptComponent {
         this.AGENTRECORD.code = "";
         this.AGENTRECORD.name = "";
 
+        this.BRRECORD = new SearchTable();
+        this.BRRECORD.controlname = "BRANCH";
+        this.BRRECORD.displaycolumn = "CODE";
+        this.BRRECORD.type = "BRANCH";
+        this.BRRECORD.id = "";
+        this.BRRECORD.code = "";
+        this.BRRECORD.name = "";
     }
 
     LovSelected(_Record: SearchTable) {
@@ -143,7 +149,10 @@ export class CostGstRptComponent {
             this.agent_code = _Record.code;
             this.agent_name = _Record.name;
         }
-
+        if (_Record.controlname == "BRANCH") {
+            this.branch_code = _Record.code;
+            this.branch_name = _Record.name;
+        }
     }
     LoadCombo() {
     }
@@ -194,14 +203,20 @@ export class CostGstRptComponent {
         this.SearchData.pkid = this.pkid;
         this.SearchData.report_folder = this.gs.globalVariables.report_folder;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-        this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+        if (this.branch_code) {
+            this.SearchData.branch_code = this.branch_code;
+            this.SearchData.branch_name = this.branch_name;
+        } else {
+            this.SearchData.branch_code = '';
+            this.SearchData.branch_name = '';
+        }
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.type = _type;
         this.SearchData.from_date = this.from_date;
         this.SearchData.to_date = this.to_date;
         this.SearchData.agent_id = this.agent_id;
+        this.SearchData.agent_name = this.agent_name;
 
         this.ErrorMessage = '';
         this.mainService.CostGstList(this.SearchData)
@@ -217,6 +232,7 @@ export class CostGstRptComponent {
                     this.loading = false;
                     this.RecordList = null;
                     this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
                 });
     }
 
