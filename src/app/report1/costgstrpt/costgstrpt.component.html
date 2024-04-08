@@ -81,6 +81,8 @@
                     <th class="text-right">QTY</th>
                     <th class="text-right">RATE</th>
                     <th class="text-right">AMOUNT</th>
+                    <th class="text-right">EX-RATE</th>
+                    <th class="text-right">AMOUNT(USD)</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -101,6 +103,8 @@
                     <td class="text-right">{{rec.qty | number : '1.2-2'}}</td>
                     <td class="text-right">{{rec.rate | number : '1.2-2'}}</td>
                     <td class="text-right">{{rec.amount | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.exrate | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.famount | number : '1.2-2'}}</td>
                 </tr>
             </tbody>
         </table>
