@@ -20,6 +20,9 @@ export class CostGstRpt {
     qty: number;
     rate: number;
     amount: number;
-
+    exrate: number;
+    famount: number;
+    cost_exrate:number;
+    
     _globalvariables: GlobalVariables;
 }
