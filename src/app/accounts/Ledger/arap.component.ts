@@ -629,7 +629,10 @@ export class ArApComponent {
     this.Record.jvh_credit = 0;
 
     this.Record.jvh_diff = 0;
-    this.Record.jvh_banktype = 'NA';
+    if (this.gs.globalVariables.comp_code == 'SGT')
+      this.Record.jvh_banktype = 'SE';
+    else
+      this.Record.jvh_banktype = 'NA';
     this.Record.jvh_crdays = 0;
 
     this.ProcessPendingList = false;

@@ -33,6 +33,10 @@ export class ApprovalComponent {
   rule_index: number = 0;
   activePanelId: string = "panel3";
 
+  RefNo: string = "";
+  PayAmt: string = "";
+  TransferAmt: string = "";
+
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Approvalm[] = [];
@@ -143,6 +147,9 @@ export class ApprovalComponent {
 
         this.RecordList = response.list;
         this.rule_index = response.ruleindex;
+        this.RefNo = response.mtrefno;
+        this.TransferAmt = response.mtamt;
+        this.PayAmt = response.mtjvamt;
         if (_type == "SAVE") {
           if (this.ModifiedRecords != null)
             this.ModifiedRecords.emit({ stype: this.type, sid: this.pkid, mstatus: response.mstatus, mremarks: response.mremarks });

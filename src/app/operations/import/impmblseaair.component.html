@@ -205,7 +205,7 @@
                 <!-- <label class="col-3 col-form-label col-form-label-sm"></label> -->
                 <div class="col-sm-3">
                   <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">Update</button>
+                    (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
                 </div>
                 <div class="col-9">
                   <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mbl_agent_br_addr"
@@ -377,7 +377,7 @@
                 </div>
                 <!--<label class="col-2 col-form-label col-form-label-sm">Sent.Date</label>-->
                 <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">
-                  Sent.On
+                  *Sent.On
                   <input [disabled]=" foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                 </label>
                 <div class="col-4">
@@ -387,12 +387,12 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">IGM#</label>
+                <label class="col-2 col-form-label col-form-label-sm">*IGM#</label>
                 <div class="col-4">
                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_igmno"
                     (blur)="OnBlur('mbl_igmno')" required maxlength="15" />
                 </div>
-                <label style="padding-left:0" class="col-2 col-form-label col-form-label-sm">IGM.Date</label>
+                <label style="padding-left:0" class="col-2 col-form-label col-form-label-sm">*IGM.Date</label>
                 <div class="col-4">
                   <app-date [inputdate]="Record.mbl_igmdate" (ValueChanged)="Record.mbl_igmdate=$event"></app-date>
                 </div>
