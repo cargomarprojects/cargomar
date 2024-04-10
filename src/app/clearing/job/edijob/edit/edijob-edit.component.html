@@ -1,23 +1,38 @@
 <div class="page-details">
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Ref#</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_ref_no"
-                        (blur)="OnBlur('job_ref_no')" required maxlength="30" />
+    <ngb-tabset>
+        <ngb-tab title="Basic Details">
+            <ng-template ngbTabContent>
+                <div class="page-details">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Ref#</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.job_ref_no" (blur)="OnBlur('job_ref_no')" required
+                                        maxlength="30" />
+                                </div>
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Ref.Date</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.job_ref_date" (blur)="OnBlur('job_ref_date')" required
+                                        maxlength="30" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Ref.Date</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_ref_date"
-                        (blur)="OnBlur('job_ref_date')" required maxlength="30" />
+                <div class="page-box">
+                    <div class="col-sm">
+                        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="page-box">
-    <div class="col-sm">
-        <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">SAVE</button>
-    </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Packing List">
+            <ng-template ngbTabContent>
+    
+            </ng-template>
+          </ngb-tab>
+    </ngb-tabset>
 </div>
