@@ -56,6 +56,19 @@ export class EdiJob {
   msg_subject: string;
   msg_date: string;
 
-  rec_mode:string;
+  job_type: string;
+  transport_mode: string;
+  place_of_receipt: string;
+  pre_carriage: string;
+  discharge_country: string;
+  destination_country: string;
+  stuffed_at: string;
+  total_containers: string;
+  sb_remarks: string;
+  shipping_bill_no: string;
+  shipping_bill_date: string;
+  isconsbuyersame: boolean;
+  
+  rec_mode: string;
   _globalvariables: GlobalVariables;
 }

@@ -19,6 +19,327 @@
                                         maxlength="30" />
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.job_type" (blur)="OnBlur('job_type')" required
+                                        maxlength="30" />
+                                </div>
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.transport_mode" (blur)="OnBlur('transport_mode')" required
+                                        maxlength="30" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Shipper</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.shipper_name" (blur)="OnBlur('shipper_name')" required
+                                        maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Branch#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.shipper_branch_slno" (blur)="OnBlur('shipper_branch_slno')"
+                                        required maxlength="30" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.shipper_address" (blur)="OnBlur('shipper_address')" required
+                                        maxlength="500" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">BilledTo</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.billed_to" (blur)="OnBlur('billed_to')" required
+                                        maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.consignee_name" (blur)="OnBlur('consignee_name')" required
+                                        maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.consignee_address" (blur)="OnBlur('consignee_address')"
+                                        required maxlength="500" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">ZipCode</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.consignee_zip_code" (blur)="OnBlur('consignee_zip_code')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" [(ngModel)]="Record.isconsbuyersame"> Is Buyer And Consignee
+                                    Same
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Buyer</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.buyer_name" (blur)="OnBlur('buyer_name')" required
+                                        maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.buyer_address" (blur)="OnBlur('buyer_address')" required
+                                        maxlength="500" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">ZipCode</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.buyer_zip_code" (blur)="OnBlur('buyer_zip_code')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">AD.Code</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ad_code"
+                                        (blur)="OnBlur('ad_code')" required maxlength="60" />
+                                </div>
+                                <label class="col-sm-2 col-form-label col-form-label-sm">NFEI</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.nfei"
+                                        (blur)="OnBlur('nfei')" required maxlength="1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Place.Receipt</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.place_of_receipt" (blur)="OnBlur('place_of_receipt')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Pre.Carriage</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.pre_carriage" (blur)="OnBlur('pre_carriage')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Origin.Country</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.origin_country" (blur)="OnBlur('origin_country')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Origin.State</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.origin_state" (blur)="OnBlur('origin_state')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Load.Port</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.load_port" (blur)="OnBlur('load_port')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Discharge.Port</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.discharge_port" (blur)="OnBlur('discharge_port')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Disch.Country</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.discharge_country" (blur)="OnBlur('discharge_country')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Destination.Port</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.destination_port" (blur)="OnBlur('destination_port')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Dest.Country</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.destination_country" (blur)="OnBlur('destination_country')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Commodity</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.commodity" (blur)="OnBlur('commodity')" required
+                                        maxlength="250" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Movement</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.cargo_movement" (blur)="OnBlur('cargo_movement')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Freight</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.freight_terms" (blur)="OnBlur('freight_terms')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Nature</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.cargo_nature" (blur)="OnBlur('cargo_nature')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Total.Container</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.total_containers" (blur)="OnBlur('total_containers')"
+                                        required maxlength="15" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">StuffedAt</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.stuffed_at" (blur)="OnBlur('stuffed_at')" required
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Total.Pkgs</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.total_pkgs" (blur)="OnBlur('total_pkgs')" required
+                                        maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">loose.Pkgs</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.loose_pkgs" (blur)="OnBlur('loose_pkgs')" required
+                                        maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Pkgs.Unit</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.pkgs_unit" (blur)="OnBlur('pkgs_unit')" required
+                                        maxlength="60" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Nt.Wt</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.nt_wt"
+                                        (blur)="OnBlur('nt_wt')" required maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Gr.Wt</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.gr_wt"
+                                        (blur)="OnBlur('gr_wt')" required maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Ch.Wt</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ch_wt"
+                                        (blur)="OnBlur('ch_wt')" required maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Wt.Unit</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.wt_unit"
+                                        (blur)="OnBlur('wt_unit')" required maxlength="60" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">Cbm</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cbm"
+                                        (blur)="OnBlur('cbm')" required maxlength="15" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">SB.Remarks</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.sb_remarks" (blur)="OnBlur('sb_remarks')" required
+                                        maxlength="500" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">SB#</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.shipping_bill_no" (blur)="OnBlur('shipping_bill_no')"
+                                        required maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm">SB.Date</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.shipping_bill_date" (blur)="OnBlur('shipping_bill_date')"
+                                        required maxlength="30" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -31,8 +352,8 @@
         </ngb-tab>
         <ngb-tab title="Packing List">
             <ng-template ngbTabContent>
-    
+
             </ng-template>
-          </ngb-tab>
+        </ngb-tab>
     </ngb-tabset>
 </div>
