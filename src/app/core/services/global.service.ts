@@ -1040,4 +1040,17 @@ export class GlobalService {
     });
   };
 
+  public isInLatestFinancialYear(): boolean {
+
+    var currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentFinancialYear = currentMonth > 2 ? currentYear : currentYear - 1;
+
+    if (this.globalVariables.year_code == currentFinancialYear.toString())
+      return true;
+    else
+      return false;
+  };
+
 }
