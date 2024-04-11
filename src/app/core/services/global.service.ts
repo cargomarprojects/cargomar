@@ -1044,8 +1044,8 @@ export class GlobalService {
 
     var currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const currentFinancialYear = currentMonth > 2 ? currentYear : currentYear - 1;
+    const currentMonth = currentDate.getMonth() + 1; //one is added to getexact month 
+    const currentFinancialYear = currentMonth > 3 ? currentYear : currentYear - 1; //if after march (>3) then current year other wise previous year
 
     if (this.globalVariables.year_code == currentFinancialYear.toString())
       return true;

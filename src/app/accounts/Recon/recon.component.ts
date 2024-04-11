@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 
 
-import{ReconReport}from '../models/reconreport';
+import { ReconReport } from '../models/reconreport';
 
 import { ReconService } from '../services/recon.service';
 
@@ -20,7 +20,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 export class ReconComponent {
     // Local Variables 
-  title = 'Bank Reconciliation';
+    title = 'Bank Reconciliation';
 
 
     @Input() menuid: string = '';
@@ -45,7 +45,7 @@ export class ReconComponent {
     sub: any;
     urlid: string;
 
-    
+
     from_date: string;
     to_date: string;
     reconciled: boolean = false;
@@ -79,13 +79,13 @@ export class ReconComponent {
         page_rows: 0,
         page_rowcount: 0,
         basedonreconcileddate: false,
-        hide_ho_entries : '',
-        user_code : ''
+        hide_ho_entries: '',
+        user_code: ''
     };
 
 
-    
-    
+
+
 
 
 
@@ -96,7 +96,7 @@ export class ReconComponent {
     Record: ReconReport = new ReconReport;
 
     constructor(
-      private mainService: ReconService,
+        private mainService: ReconService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
@@ -132,12 +132,15 @@ export class ReconComponent {
             this.title = this.menu_record.menu_name;
 
         this.from_date = this.gs.globalVariables.year_start_date;
-        this.to_date = this.gs.defaultValues.today;
+        if (this.gs.isLatestFinancialYear())
+            this.to_date = this.gs.defaultValues.today;
+        else
+            this.to_date = this.gs.globalVariables.year_end_date;
 
         this.InitLov();
 
         this.LoadCombo();
-        
+
 
     }
 
@@ -186,7 +189,7 @@ export class ReconComponent {
         this.ACCRECORD.id = "";
         this.ACCRECORD.code = "";
         this.ACCRECORD.name = "";
-        this.ACCRECORD.where = " acc_type_id in(select actype_pkid from actypem where actype_name = 'BANK' and rec_company_code = '" + this.gs.globalVariables.comp_code +"') ";
+        this.ACCRECORD.where = " acc_type_id in(select actype_pkid from actypem where actype_name = 'BANK' and rec_company_code = '" + this.gs.globalVariables.comp_code + "') ";
 
     }
 
@@ -210,19 +213,19 @@ export class ReconComponent {
             return;
         }
         if (this.ACCRECORD.id.length <= 0) {
-          this.ErrorMessage = 'A/c code Cannot Be Blank';
-          return;
+            this.ErrorMessage = 'A/c code Cannot Be Blank';
+            return;
         }
 
         this.SearchData.user_code = "";
-        if ( _type =="EXCEL2"){
+        if (_type == "EXCEL2") {
             _type = "EXCEL";
             this.SearchData.user_code = this.gs.globalVariables.user_code;
         }
 
         this.loading = true;
 
-        if (_type == "NEW"  || _type == "EXCEL") {
+        if (_type == "NEW" || _type == "EXCEL") {
             this.pkid = this.gs.getGuid();
             this.SearchData.pkid = this.pkid;
             this.SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -238,13 +241,13 @@ export class ReconComponent {
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
         this.SearchData.type = _type;
         if (this.reconciled)
-          this.SearchData.reconciled = "Y";
+            this.SearchData.reconciled = "Y";
         else
-          this.SearchData.reconciled = "N";
+            this.SearchData.reconciled = "N";
         if (this.unreconciled)
-          this.SearchData.unreconciled = "Y";
+            this.SearchData.unreconciled = "Y";
         else
-          this.SearchData.unreconciled = "N";
+            this.SearchData.unreconciled = "N";
 
         this.SearchData.subtype = '';
         this.SearchData.page_count = this.page_count;
@@ -252,11 +255,11 @@ export class ReconComponent {
         this.SearchData.page_rows = this.page_rows;
         this.SearchData.page_rowcount = this.page_rowcount;
 
-        
+
 
         this.SearchData.basedonreconcileddate = this.basedonreconcileddate;
 
-        
+
 
 
         this.ErrorMessage = '';
@@ -264,7 +267,7 @@ export class ReconComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
-                this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+                    this.Downloadfile(response.reportfile, _type, response.filedisplayname);
                 else {
                     this.RecordList = response.list;
                     this.page_count = response.page_count;
@@ -272,10 +275,10 @@ export class ReconComponent {
                     this.page_rowcount = response.page_rowcount;
                 }
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -286,26 +289,26 @@ export class ReconComponent {
     // }
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
-      }
+    }
 
     showhiderow(rec: ReconReport) {
-      rec.rowdisplayed = !rec.rowdisplayed;
-      if (rec.jvh_not_over_chq == "Y") {
-        rec.rowdisplayed = false;
-        alert('Cannot Edit, Not Over Chq');
-      }
+        rec.rowdisplayed = !rec.rowdisplayed;
+        if (rec.jvh_not_over_chq == "Y") {
+            rec.rowdisplayed = false;
+            alert('Cannot Edit, Not Over Chq');
+        }
     }
-  
+
     RetData(params: any, rec: ReconReport) {
-      if (params.saction == "CLOSE")
-        rec.rowdisplayed = false;
-      if (params.saction == "SAVE") {
-        rec.recon_date = params.inputdate;
-        rec.recon_display_date = params.displaydate;
-        rec.rowdisplayed = false;
-      }
+        if (params.saction == "CLOSE")
+            rec.rowdisplayed = false;
+        if (params.saction == "SAVE") {
+            rec.recon_date = params.inputdate;
+            rec.recon_display_date = params.displaydate;
+            rec.rowdisplayed = false;
+        }
     }
-  
+
     Close() {
         this.gs.ClosePage('home');
     }
