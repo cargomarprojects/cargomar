@@ -1040,7 +1040,7 @@ export class GlobalService {
     });
   };
 
-  public isInLatestFinancialYear(): boolean {
+  public isLatestFinancialYear(): boolean {
 
     var currentDate = new Date();
     const currentYear = currentDate.getFullYear();
