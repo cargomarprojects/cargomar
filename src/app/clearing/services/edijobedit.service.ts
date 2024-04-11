@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
-import { EdiJob } from '../models/edijob';
+import { EdiJob, EdiJobPacking } from '../models/edijob';
 
 @Injectable()
 export class EdijobEditService {
@@ -19,6 +19,10 @@ export class EdijobEditService {
   Save(Record: EdiJob) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJobEdit/Save', Record, this.gs.headerparam2('authorized'));
   }
+
+UpdatePackingRecord(Record: EdiJobPacking) {
+  return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/EdiJobEdit/UpdatePackingRecord', Record, this.gs.headerparam2('authorized'));
+}
 
 }
 

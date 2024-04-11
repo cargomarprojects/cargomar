@@ -68,7 +68,20 @@ export class EdiJob {
   shipping_bill_no: string;
   shipping_bill_date: string;
   isconsbuyersame: boolean;
-  
+
+  PackingList: EdiJobPacking[] = [];
   rec_mode: string;
   _globalvariables: GlobalVariables;
 }
+
+export class EdiJobPacking {
+  pkid: string;
+  pack_slno:string;
+  pack_from: string;
+  pack_to: string;
+  pack_unit: string;
+
+  rec_mode: string;
+  _globalvariables: GlobalVariables;
+}
+

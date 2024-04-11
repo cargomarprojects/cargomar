@@ -36,6 +36,7 @@ import { OnlineTrackMasterDet2Component } from './job/onlinetrackmaster2/onlinet
 import { EdijobComponent } from './job/edijob/edijob.component';
 import { EdifileComponent } from './job/edijob/edifile.component';
 import { EdijobEditComponent } from './job/edijob/edit/edijob-edit.component';
+import { EdiJobpackingEditComponent } from './job/edijob/edit/edijobpacking-edit.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { EdijobEditComponent } from './job/edijob/edit/edijob-edit.component';
     OnlineTrackMasterDet2Component,
     EdijobComponent,
     EdifileComponent,
-    EdijobEditComponent
+    EdijobEditComponent,
+    EdiJobpackingEditComponent
   ],
   providers: [
   ],

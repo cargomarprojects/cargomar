@@ -1,0 +1,34 @@
+<div class="page-box">
+
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th width="10%">SLNO</th>
+                    <th width="15%">FROM</th>
+                    <th width="15%">TO</th>
+                    <th width="15%">UNIT</th>
+                    <th width="45%">UPDATE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.pack_slno}}</td>
+                    <td style="padding:0px 0px 0px 0px"><input type="text" name="packfrm"
+                            class="form-control form-control-sm" [(ngModel)]="rec.pack_from" required maxlength="60" />
+                    </td>
+                    <td style="padding:0px 0px 0px 0px"><input type="text" name="packto"
+                            class="form-control form-control-sm" [(ngModel)]="rec.pack_to" required maxlength="60" />
+                    </td>
+                    <td style="padding:0px 0px 0px 0px"><input type="text" name="packunit"
+                            class="form-control form-control-sm" [(ngModel)]="rec.pack_unit" required maxlength="60" />
+                    </td>
+                    <td class="hlink" (click)="UpdateRecord(rec)">
+                        UPDATE
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
