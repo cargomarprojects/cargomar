@@ -331,7 +331,7 @@ export class CrLimitComponent {
   OnBlur(field: string) {
     
     if (field == 'ul_user_remarks') {
-      this.Record2.ul_user_remarks = this.Record2.ul_user_remarks.toUpperCase();
+      // this.Record2.ul_user_remarks = this.Record2.ul_user_remarks.toUpperCase();
     }
 
   }
