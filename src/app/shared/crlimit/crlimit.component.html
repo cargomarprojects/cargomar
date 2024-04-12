@@ -26,7 +26,7 @@
         <button class="btn btn-sm btn-primary" (click)="close1()">Close</button>
       </div>
     </div>
-    <div *ngIf="type"  style="background-color: beige;">
+    <div *ngIf="type" style="background-color: beige;">
       <hr class="mt-1">
       <div class="row mt-1">
         <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST -
@@ -34,27 +34,39 @@
       </div>
       <hr class="mt-1">
       <div class="row mt-2">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label col-form-label-sm">Expected Billing Amount</label>
-            <div class="col-sm-3">
+            <label class="col-sm-8 col-form-label col-form-label-sm">Expected Billing Amount</label>
+            <div class="col-sm-4">
               <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" />
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label col-form-label-sm">Firm Commitment Date </label>
-            <div class="col-sm-3">
+            <label class="col-sm-8 col-form-label col-form-label-sm">Firm Commitment Date </label>
+            <div class="col-sm-4">
               <app-date [inputdate]="Record2.ul_firm_commited_date"
                 (ValueChanged)="Record2.ul_firm_commited_date=$event"></app-date>
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label col-form-label-sm">Required Job Nos</label>
-            <div class="col-sm-3">
+            <label class="col-sm-8 col-form-label col-form-label-sm">Required Job Nos</label>
+            <div class="col-sm-4">
               <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" />
             </div>
-            <div class="col-sm-6">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+            <div class="col-sm-10">
+              <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record2.ul_user_remarks" (blur)="OnBlur('ul_user_remarks')"
+                 maxlength="250"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-10">
               <button class="btn btn-sm btn-primary mr-1" (click)="Save()">Save</button>
               <button *ngIf="mode=='EDIT'" class="btn btn-sm btn-primary mr-1"
                 (click)="MailCreditLimitRequest()">Mail</button>

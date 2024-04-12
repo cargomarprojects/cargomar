@@ -178,6 +178,7 @@ export class CrLimitComponent {
     this.Record2.ul_firm_commited_date = this.gs.defaultValues.today;
     this.Record2.ul_expected_bill_amt = 0;
     this.Record2.ul_job_nos_required = 1;
+    this.Record2.ul_user_remarks = '';
     this.Record2.rec_branch_code = this.gs.globalVariables.branch_code;
     this.Record2.rec_created_by = this.gs.globalVariables.user_code;
     this.Record2.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
@@ -326,5 +327,15 @@ export class CrLimitComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  OnBlur(field: string) {
+    
+    if (field == 'ul_user_remarks') {
+      this.Record2.ul_user_remarks = this.Record2.ul_user_remarks.toUpperCase();
+    }
+
+  }
+
+
 }
 

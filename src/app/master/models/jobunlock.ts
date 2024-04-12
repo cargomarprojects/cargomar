@@ -23,6 +23,8 @@ export class JobUnlock {
     ul_selected: boolean;
     ul_approved_by: string;
     ul_approved_date: string;
+    ul_user_remarks:string;
+    
     rec_mode: string;
 
     rec_company_code: string;
