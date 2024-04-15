@@ -17,14 +17,18 @@ export class LedgerReport {
   cc_remarks: string;
   jv_remarks: string;
 
+  jvh_org_invno: string;
+  jv_org_invdt: string;
+  jv_ref_date: string;
 
+  jv_paid_date:string;
   jv_vrno: string;
   jv_type: string;
   jv_year: string;
   rec_category: string;
   rec_company_code: string;
   rec_branch_code: string;
-  
+
 
   jv_od_type: string;
   jv_od_remarks: string;
