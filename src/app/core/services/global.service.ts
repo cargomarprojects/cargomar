@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.628';
+  public software_version_string: string = '1.629';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -1044,7 +1044,7 @@ export class GlobalService {
 
     var currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; //one is added to getexact month 
+    const currentMonth = currentDate.getMonth() + 1; //one is added to getexact month
     const currentFinancialYear = currentMonth > 3 ? currentYear : currentYear - 1; //if after march (>3) then current year other wise previous year
 
     if (this.globalVariables.year_code == currentFinancialYear.toString())
