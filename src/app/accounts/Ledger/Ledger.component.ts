@@ -2011,6 +2011,8 @@ export class LedgerComponent {
       REC.jv_igst_rate = this.Recorddet.jv_igst_rate;
       REC.jv_igst_amt = this.Recorddet.jv_igst_amt;
 
+      REC.jv_gst_rate = this.Recorddet.jv_gst_rate;
+
       REC.jv_gst_amt = REC.jv_cgst_amt + REC.jv_sgst_amt + REC.jv_igst_amt;
       REC.jv_net_total = this.Recorddet.jv_total + REC.jv_gst_amt;
 
