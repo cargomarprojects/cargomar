@@ -43,7 +43,7 @@ export class Gstr2bDownload {
     p_invoice_number: string;
     p_invoice_date: string;
     p_invoice_ref_date: string;
-    p_reverse_charge:string;
+    p_reverse_charge: string;
     p_invoice_amt: number;
     p_taxable_amt: number;
     p_rate: number;
@@ -57,7 +57,7 @@ export class Gstr2bDownload {
     g_invoice_number: string;
     g_invoice_date: string;
     g_invoice_ref_date: string;
-    g_reverse_charge:string;
+    g_reverse_charge: string;
     g_invoice_amt: number;
     g_taxable_amt: number;
     g_rate: number;
@@ -67,5 +67,6 @@ export class Gstr2bDownload {
     display_order: string;
     match_gst: string;
     match_period: string;
-    reconcile_status:string;
+    reconcile_status: string;
+    doc_vrno: string;
 }
