@@ -1765,7 +1765,12 @@ export class ArApComponent {
 
 
     if (!this.Recorddet.jv_is_taxable) {
-      this.Recorddet.jv_taxable_amt = 0;
+      if (this.subtype == 'AR')
+        this.Recorddet.jv_taxable_amt = 0;
+      if (this.subtype == 'AP') {
+        if (this.gs.isZero(this.Recorddet.jv_cgst_rate) && this.gs.isZero(this.Recorddet.jv_sgst_rate) && this.gs.isZero(this.Recorddet.jv_igst_rate))
+          this.Recorddet.jv_taxable_amt = 0;
+      }
     }
 
 
