@@ -496,11 +496,55 @@ export class FileUploadComponent {
     let _newSize: number = 0;
     try {
       var temparr = _size.split(' ');
-      _newSize = +temparr[0]*1024;
+      _newSize = +temparr[0] * 1024;
     } catch (Error) {
       _newSize = 0;
     }
     return _newSize;
+  }
+
+  DeleteRecords() {
+
+    var id = "";
+    for (let itm of this.RecordList) {
+      if (itm.doc_selected) {
+        if (id != "")
+          id += ",";
+        id += itm.doc_pkid ;
+      }
+    }
+
+    if (id == "") {
+      this.ErrorMessage = "No Records are selected";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm("Do you want to delete selected records")) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid: id,
+      type: this.type,
+      parentid: this.pkid,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.lovService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List("NEW");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+
   }
 
 }

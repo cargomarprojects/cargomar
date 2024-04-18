@@ -4,6 +4,7 @@
     <button [disabled]="loading" (click)="List('LIST')" class="btn btn-primary btn-sm">Refresh</button>
     <button [disabled]="loading" (click)="List('LIST','DELETED')" class="btn btn-primary btn-sm">Show Deleted</button>
     <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="MailDocument(mailsent)" class="btn btn-primary btn-sm">Mail</button>
+    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'&& type=='GSTR-2B'" [disabled]="loading" (click)="DeleteRecords()" class="btn btn-primary btn-sm">Delete</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
