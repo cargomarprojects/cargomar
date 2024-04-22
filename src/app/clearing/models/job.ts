@@ -146,6 +146,7 @@ export class Jobm {
   job_vsl_voy_no: string;
 
   job_invoice_nos : string ;
+  job_scheme_codes : string ;
 
   rec_mode: string;
   rec_category: string;

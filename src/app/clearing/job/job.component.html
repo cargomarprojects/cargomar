@@ -122,6 +122,7 @@
             <th><span *ngIf="type=='SEA EXPORT'">HBL</span><span *ngIf="type=='AIR EXPORT'">HAWB</span></th>
             <th>SB NO</th>
             <th>SB DATE</th>
+            <th>SCHEME</th>
             <th>JOB.BILL.TYPE</th>
             <th align='center'>DOCS</th>
             <th>REMARK</th>
@@ -155,6 +156,7 @@
             <td>{{rec.job_hblnos}}</td>
             <td>{{rec.job_opr_sbill_no}}</td>
             <td>{{rec.job_opr_sbill_date}}</td>
+            <td>{{rec.job_scheme_codes}}</td>
             <td>{{rec.job_billtype_name}}</td>
             <td align='center'>{{rec.job_docs}}</td>
             <td>{{rec.job_remarks}}</td>
