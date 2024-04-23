@@ -221,8 +221,8 @@
                   <div *ngIf="Record.job_prefix" class="col-4 input-group input-group-sm">
                     <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
                       required maxlength="65" />
-                      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="GenerateClrNo()"
-                      class="btn btn-primary btn-sm">ReGenerate</button>
+                    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                      (click)="GenerateClrNo()" class="btn btn-primary btn-sm">ReGenerate</button>
                   </div>
                 </div>
               </div>
@@ -644,6 +644,15 @@
                           <div class="col-8">
                             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_vsl_voy_no"
                               (blur)="OnBlur('job_vsl_voy_no')" required maxlength="20" />
+                          </div>
+                        </div>
+                        <div *ngIf="mode=='EDIT'" class="form-group row">
+                          <label class="col-4 col-form-label  col-form-label-sm"><span
+                              *ngIf="type=='SEA EXPORT'">MBL#</span><span
+                              *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
+                          <div class="col-8">
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_mbl_no" (blur)="OnBlur('job_mbl_no')" required maxlength="200" />
                           </div>
                         </div>
                       </div>
@@ -1103,7 +1112,7 @@
             <br />
             <div>
               <div>
-                <input type="checkbox" [(ngModel)]="checklistVerify"> Verify             
+                <input type="checkbox" [(ngModel)]="checklistVerify"> Verify
               </div>
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('CHECKLIST','PDF')"
                 class="btn btn-success btn-sm">Check-List</button>
@@ -1209,5 +1218,6 @@
 
 
 
-<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList"   [type]="Mail_type" [parentid]="unlockparentid" [customername]="unlockcustomername"  (hidealert)="showalert=$event">
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="Mail_type"
+  [parentid]="unlockparentid" [customername]="unlockcustomername" (hidealert)="showalert=$event">
 </app-crlimit>

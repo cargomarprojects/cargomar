@@ -148,6 +148,8 @@ export class Jobm {
   job_invoice_nos : string ;
   job_scheme_codes : string ;
 
+  job_mbl_no:string;
+  
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;

@@ -890,6 +890,7 @@ export class JobComponent {
     this.Record.job_order = false;
     this.Record.job_vsl_name = '';
     this.Record.job_vsl_voy_no = '';
+    this.Record.job_mbl_no = '';
 
     this.job_edi_no = '';
     this.Record.job_pkg_unit_id = this.gs.defaultValues.param_unit_ctn_id;
@@ -1183,6 +1184,7 @@ export class JobComponent {
       this.Record.job_grwt = 0;
       this.Record.job_cbm = 0;
       this.Record.job_chwt = 0;
+      this.Record.job_mbl_no = '';
     }
   }
 
