@@ -197,6 +197,7 @@
                 <th style="width:100px;text-align:left">INVOICE#</th>
                 <th style="width:100px;text-align:left">DATE</th>
                 <th style="width:200px;text-align:left">REF#</th>
+                <th style="width:100px;text-align:left">LOCATION</th>
                 <th style="width:100px;text-align:left" *ngIf ="showrem">REMARKS</th>
                 <th style="width:100px;text-align:left">VRNO</th>
                 <th style="width:100px;text-align:left">TYPE</th>
@@ -219,6 +220,7 @@
                 <td style="width:100px;text-align:left">{{rec.jv_docno}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_display_date}}</td>
                 <td style="width:200px;max-width:200px;text-align:left">{{rec.jv_reference}}</td>
+                <td style="width:100px;text-align:left">{{rec.jv_location}}</td>
                 <td style="width:100px;max-width:100px;text-align:left" *ngIf ="showrem">{{rec.jv_remarks}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_vrno}}</td>
                 <td style="width:100px;text-align:left">{{rec.jv_type}}</td>
