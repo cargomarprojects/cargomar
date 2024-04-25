@@ -112,7 +112,7 @@ export class OsSmanBranchComponent {
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-}
+  }
 
 
 
@@ -161,10 +161,10 @@ export class OsSmanBranchComponent {
         else
           this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -196,5 +196,38 @@ export class OsSmanBranchComponent {
     this.currentTab = 'CHILD';
   }
 
+  Mail() {
 
+    if (!confirm("Do you want to send Mail to " + this.ParentData.sman)) {
+      return;
+    }
+
+    this.loading = true;
+    let eSearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      email_type: "OS-SALESMAN-ALL",
+      report_folder: this.gs.globalVariables.report_folder,
+      os_history_sent_on: 'MONDAY',
+      single_mail: 'Y',
+      mail_sman_name: this.ParentData.sman,
+      test_mail: 'N'
+    };
+
+    this.ErrorMessage = '';
+    this.gs.SendEmail(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue)
+          alert('Mail Sent Successfully');
+        else
+          alert(response.error);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
 }
