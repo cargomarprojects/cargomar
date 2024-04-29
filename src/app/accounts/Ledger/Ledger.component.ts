@@ -185,7 +185,7 @@ export class LedgerComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
-      if (this.menu_record.rights_approval.toString() == "{IMPORT}")
+      if (this.menu_record.rights_approval.toString() == "{IMPORT}" || (this.type == "BR" && this.gs.globalVariables.user_code == 'ADMIN'))
         this.bImport = true;
     }
     this.InitLov();
