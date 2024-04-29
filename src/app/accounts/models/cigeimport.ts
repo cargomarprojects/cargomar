@@ -25,7 +25,7 @@ export class CiGeImportDet {
     igstamount: string;
     costcenter: string;
     costcentercode: string;
-    bank: string;
+    branch: string;
     status: string;
 
 }
