@@ -56,7 +56,7 @@ export class ArApComponent {
   cc_lock_status: string = '';
 
   selectedRowIndex = 0;
-
+  bImport = false;
   modal: any;
 
   CanShowDoc = true;
@@ -179,6 +179,7 @@ export class ArApComponent {
     this.bDocs = false
     this.bAdmin = false;
     this.bPrint = false;
+    this.bImport = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -189,6 +190,8 @@ export class ArApComponent {
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
       this.bPrint = this.menu_record.rights_print;
+      if (this.menu_record.rights_approval.toString() == "{IMPORT}" || (this.type == "PN-CI" && this.gs.globalVariables.user_code == 'ADMIN'))
+        this.bImport = true;
     }
     this.InitLov();
     this.LoadCombo();
@@ -2673,6 +2676,11 @@ export class ArApComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  ImportData(content: any) {
+    this.open(content);
+  }
+
 
 
 }

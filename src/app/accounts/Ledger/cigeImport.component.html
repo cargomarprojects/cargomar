@@ -1,0 +1,72 @@
+<div *ngIf="currentTab=='PASTEDATA'">
+    <App-ClipBoard2 [msg]="'Please Wait'" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
+
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>SL#</th>
+                        <th>ORIGINAL INVOICE NO</th>
+                        <th>ORIGINAL INVOICE DATE</th>
+                        <th>REFERENCE NO</th>
+                        <th>REFERENCE DATE</th>
+                        <th>DEBIT CODE</th>
+                        <th>DEBIT AMOUNT</th>
+                        <th>CREDIT CODE</th>
+                        <th>CREDIT AMOUNT</th>
+                        <th>CGST RATE</th>
+                        <th>CGST AMOUNT</th>
+                        <th>SGST RATE</th>
+                        <th>SGST AMOUNT</th>
+                        <th>IGST RATE</th>
+                        <th>IGST AMOUNT</th>
+                        <th>COST CENTER</th>
+                        <th>COST CENTER CODE</th>
+                        <th>BRANCH</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of Records; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{rec.originalinvoiceno}}</td>
+                        <td>{{rec.originalinvoicedate}}</td>
+                        <td>{{rec.referenceno}}</td>
+                        <td>{{rec.referencedate}}</td>
+                        <td>{{rec.debitcode}}</td>
+                        <td>{{rec.debitamount}}</td>
+                        <td>{{rec.creditcode}}</td>
+                        <td>{{rec.creditamount}}</td>
+                        <td>{{rec.cgstrate}}</td>
+                        <td>{{rec.cgstamount}}</td>
+                        <td>{{rec.sgstrate}}</td>
+                        <td>{{rec.sgstamount}}</td>
+                        <td>{{rec.igstrate}}</td>
+                        <td>{{rec.igstamount}}</td>
+                        <td>{{rec.costcenter}}</td>
+                        <td>{{rec.costcentercode}}</td>
+                        <td>{{rec.bank}}</td>
+                        <td>{{rec.status}}</td>
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+
+    <div class="text-center my-1">
+        <button class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="bSave">Save</button>
+    </div>
+
+</div>
+
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

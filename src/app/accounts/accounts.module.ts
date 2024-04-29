@@ -93,6 +93,7 @@ import { AddressUpdateComponent } from './ledger/addressupdate.component';
 import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
 import { BankImportComponent } from './ledger/bankImport.component';
 import { TbMonComponent } from './tbmon/tbmon.component';
+import { CiGeImportComponent } from './ledger/cigeImport.component';
 
 @NgModule({
   imports: [
@@ -150,7 +151,8 @@ import { TbMonComponent } from './tbmon/tbmon.component';
     AddressUpdateComponent,
     AgentPayHistoryComponent,
     BankImportComponent,
-    TbMonComponent
+    TbMonComponent,
+    CiGeImportComponent
   ],
   providers: [
   ],

@@ -1028,7 +1028,8 @@ export class GlobalService {
     const _keys = lines[0].split('\t');
 
     let keys = _keys.map(col => {
-      return col.replace(" ", "").toLowerCase();
+      // return col.replace(" ", "").toLowerCase();//replace one blank space in a string
+      return col.replace(/ /gi, "").toLowerCase();//replace all blank space in a string
     });
 
     return lines.slice(1).map(line => {

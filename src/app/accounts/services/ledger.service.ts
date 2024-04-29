@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Ledgerh } from '../models/ledgerh';
 import { GlobalService } from '../../core/services/global.service';
 import { BankStmt } from '../models/bankstmt';
+import { CiGeImport } from '../models/cigeimport';
 
 @Injectable()
 export class LedgerService {
@@ -74,5 +75,8 @@ export class LedgerService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveBankImport', Record, this.gs.headerparam2('authorized'));
   }
 
+  SaveCiGeImport(Record: CiGeImport) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveCiGeImport', Record, this.gs.headerparam2('authorized'));
+  }
 }
 
