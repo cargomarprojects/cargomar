@@ -9,23 +9,15 @@ export class CiGeImport {
 }
 
 export class CiGeImportDet {
-    originalinvoiceno: string;
-    originalinvoicedate: string;
-    referenceno: string;
-    referencedate: string;
+    orginvno: string;
+    orginvdate: string;
+    crnoterefno: string;
+    crnoterefdate: string;
     debitcode: string;
-    debitamount: string;
+    gstno: string;
+    amt: string;
     creditcode: string;
-    creditamount: string;
-    cgstrate: string;
-    cgstamount: string;
-    sgstrate: string;
-    sgstamount: string;
-    igstrate: string;
-    igstamount: string;
     costcenter: string;
     costcentercode: string;
-    branch: string;
     status: string;
-
 }

@@ -50,8 +50,8 @@ export class CiGeImportComponent implements OnInit {
 
         this.Records = list.reduce((acc: any[], rec: any) => {
             const len = Object.keys(rec).length;
-            if (len == 15) {
-                const amt = rec["debitamount"];
+            if (len == 10) {
+                const amt = rec["amt"];
                 if (amt != "")
                     acc.push({ ...rec, status: '' });
             }

@@ -1029,7 +1029,7 @@ export class GlobalService {
 
     let keys = _keys.map(col => {
       // return col.replace(" ", "").toLowerCase();//replace one blank space in a string
-      return col.replace(/ /gi, "").toLowerCase();//replace all blank space in a string
+      return col.replace(/ /gi, "").replace(/-/gi, "").toLowerCase();//replace all blank space in a string
     });
 
     return lines.slice(1).map(line => {
