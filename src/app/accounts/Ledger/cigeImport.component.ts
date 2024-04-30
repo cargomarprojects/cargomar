@@ -82,6 +82,7 @@ export class CiGeImportComponent implements OnInit {
         this.ErrorMessage = '';
 
         this.Record.jvh_type = this.type;
+        this.Record.branch_gstin_state_code = this.gs.defaultValues.gstin_state_code;
         this.Record._globalvariables = this.gs.globalVariables;
 
         this.mainService.SaveCiGeImport(this.Record)

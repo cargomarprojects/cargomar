@@ -2,6 +2,7 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class CiGeImport {
     jvh_type: string;
+    branch_gstin_state_code:string;
     records: CiGeImportDet[];
     rec_created_by: string;
     rec_created_date: string;
