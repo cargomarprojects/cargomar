@@ -2,7 +2,9 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class CiGeImport {
     jvh_type: string;
-    branch_gstin_state_code:string;
+    jvh_subtype: string;
+    jvh_headerdrcr: string;
+    branch_gstin_state_code: string;
     records: CiGeImportDet[];
     rec_created_by: string;
     rec_created_date: string;
@@ -15,10 +17,12 @@ export class CiGeImportDet {
     crnoterefno: string;
     crnoterefdate: string;
     debitcode: string;
-    gstno: string;
+    debitcodegstno: string;
     amt: string;
     creditcode: string;
     costcenter: string;
     costcentercode: string;
     status: string;
+    addressbrno: string;
+    gstper: string;
 }

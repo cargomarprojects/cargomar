@@ -50,7 +50,7 @@ export class CiGeImportComponent implements OnInit {
 
         this.Records = list.reduce((acc: any[], rec: any) => {
             const len = Object.keys(rec).length;
-            if (len == 10) {
+            if (len == 12) {
                 const amt = rec["amt"];
                 if (amt != "")
                     acc.push({ ...rec, status: '' });
@@ -82,6 +82,8 @@ export class CiGeImportComponent implements OnInit {
         this.ErrorMessage = '';
 
         this.Record.jvh_type = this.type;
+        this.Record.jvh_subtype = "AR";
+        this.Record.jvh_headerdrcr = "DR";
         this.Record.branch_gstin_state_code = this.gs.defaultValues.gstin_state_code;
         this.Record._globalvariables = this.gs.globalVariables;
 
