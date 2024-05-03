@@ -18,6 +18,7 @@ export class ClipBoard2Component implements OnInit {
   @Output() CloseClicked = new EventEmitter<string>()
 
   @Input() msg: string;
+  @Input() excelformat: string = '';
 
   //@Input() visible: boolean = false;
 
@@ -74,6 +75,34 @@ export class ClipBoard2Component implements OnInit {
   }
 
 
+  PrintFormat() {
+    if (this.excelformat == '')
+      return;
+   
+    let SearchData = {
+      type: this.excelformat,
+      table: "excelformat",
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
+    };
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = '';
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
 
 

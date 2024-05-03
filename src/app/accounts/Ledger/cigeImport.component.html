@@ -1,5 +1,5 @@
 <div *ngIf="currentTab=='PASTEDATA'">
-    <App-ClipBoard2 [msg]="'Please Wait'" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
+    <App-ClipBoard2 [msg]="'Please Wait'" [excelformat]="'PN-CI-GE2'" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
 </div>
 
 <div *ngIf="currentTab=='LIST'" class="page-list">

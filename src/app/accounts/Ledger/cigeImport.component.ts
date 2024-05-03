@@ -89,7 +89,7 @@ export class CiGeImportComponent implements OnInit {
 
         this.mainService.SaveCiGeImport(this.Record)
             .subscribe(response => {
-                this.Records = response.Records;
+                this.Records = response.Record;
                 this.bSave = false;
                 alert("Save Completed");
             }, error => {
