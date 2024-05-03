@@ -2681,7 +2681,11 @@ export class ArApComponent {
     this.open(content);
   }
 
-
+  CloseCiGeImport(params: any)
+  {
+    this.modal.close();
+    this.List("NEW");
+  }
 
 }
 

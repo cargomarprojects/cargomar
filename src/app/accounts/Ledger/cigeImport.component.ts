@@ -89,13 +89,15 @@ export class CiGeImportComponent implements OnInit {
 
         this.mainService.SaveCiGeImport(this.Record)
             .subscribe(response => {
-                this.Records = response.Record;
+                this.Records = response.record;
                 this.bSave = false;
-                alert("Save Completed");
+                if (this.CloseClicked != null)
+                    this.CloseClicked.emit({ records: this.Records, data: '' });
+                //alert("Save Completed");
             }, error => {
-                this.ErrorMessage = this.gs.getError(error);
+                // this.ErrorMessage = this.gs.getError(error);
                 this.bSave = false;
-                alert(this.ErrorMessage);
+                alert(this.gs.getError(error));
             });
     }
 

@@ -906,6 +906,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-cigeimport [type]="type"></App-cigeimport>
+    <App-cigeimport [type]="type" (CloseClicked)="CloseCiGeImport($event)" ></App-cigeimport>
   </div>
 </ng-template>
