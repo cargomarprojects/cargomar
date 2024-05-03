@@ -164,7 +164,7 @@ export class ProcessReportComponent {
         SearchData.report_folder = this.gs.globalVariables.report_folder;
         SearchData.company_code = this.gs.globalVariables.comp_code;
         SearchData.type = _type.toUpperCase();
-        SearchData.year_code = '';
+        SearchData.year_code = this.finyear;
 
         this.mainService.Process(SearchData)
             .subscribe(response => {
