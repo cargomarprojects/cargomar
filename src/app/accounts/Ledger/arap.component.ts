@@ -2681,6 +2681,7 @@ export class ArApComponent {
     this.open(content);
   }
 
+  // bulk import Inward Credit Note(GE)
   CloseCiGeImport(params: any)
   {
     this.modal.close();
