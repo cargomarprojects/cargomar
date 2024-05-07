@@ -60,6 +60,7 @@ export class XmlComponent {
   mMsg: string = "";
   mail_update_type: string = "";
   pkid: string = "";
+  booking_format:string ="TRANSPORT MULTIMODAL";
 
   constructor(
     private modalService: NgbModal,
@@ -377,6 +378,81 @@ export class XmlComponent {
       .subscribe(response => {
         this.loading = false;
         alert(response.savemsg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
+
+  GenerateBookingXls(ftpsent: any) {
+
+    this.ErrorMessage = '';
+    if (this.agent_id.trim().length <= 0) {
+      this.ErrorMessage = "\n\r | Agent Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+ 
+    // if (!confirm("Generate Booking Xml " + this.branch_name)) {
+    //   return;
+    // }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
+      branch_number: this.gs.globalVariables.branch_number,
+      agent_id: this.agent_id,
+      agent_code: this.agent_code,
+      agent_name: this.agent_name,
+      format:this.booking_format, 
+    };
+
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    if (this.bCompany) {
+      SearchData.branch_code = this.branch_code;
+      SearchData.branch_name = this.branch_name;
+      SearchData.branch_number = this.branch_number;
+    }
+    else {
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.branch_name = this.gs.globalVariables.branch_name;
+      SearchData.branch_number = this.gs.globalVariables.branch_number;
+    }
+    SearchData.agent_id = this.agent_id;
+    SearchData.agent_code = this.agent_code;
+    SearchData.agent_name = this.agent_name;
+    SearchData.format = this.booking_format;
+    
+    this.mainService.GenerateXlsBooking(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.FileList = response.filelist;
+         
+        this.canftp = false;
+        this.sSubject = "BOOKING - " + this.agent_name;
+        this.mMsg = "Dear Sir/Madam, ";
+        this.mMsg += " \n\n";
+        this.mMsg += " We here by attached the Booking report for your kind reference";
+        this.ftp_agent_code = this.agent_code;
+        this.ftp_agent_name = this.agent_name;
+        this.FtpAttachList = new Array<any>();
+        this.FileList = response.filelist;
+        this.AttachList = new Array<any>();
+        for (let rec of response.filelist) {
+          this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
+        }
+        
+
+        this.open(ftpsent);
+
       },
         error => {
           this.loading = false;

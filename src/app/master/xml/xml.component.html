@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -15,10 +14,10 @@
         <div class="col-5">
           <app-autocomplete #AgentLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
-          <label *ngIf="bCompany" class="col-1 col-form-label col-form-label-sm">Branch</label>
-          <div *ngIf="bCompany" class="col-4">
-            <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
+        <label *ngIf="bCompany" class="col-1 col-form-label col-form-label-sm">Branch</label>
+        <div *ngIf="bCompany" class="col-4">
+          <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        </div>
       </div>
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">House Nos</label>
@@ -29,12 +28,26 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm"></label>
         <div class="col-10">
-          <button [disabled]="loading" (click)="GenerateXml('SEA')" class="btn btn-primary btn-sm">Generate Sea Xml</button>
-          <button [disabled]="loading" (click)="GenerateXml('AIR')" class="btn btn-primary btn-sm">Generate Air Xml</button>
-          <button [disabled]="loading" (click)="GenerateBookingXml(ftpsent)" class="btn btn-primary btn-sm">Generate Booking Xml</button>
+          <button [disabled]="loading" (click)="GenerateXml('SEA')" class="btn btn-primary btn-sm">Generate Sea
+            Xml</button>
+          <button [disabled]="loading" (click)="GenerateXml('AIR')" class="btn btn-primary btn-sm">Generate Air
+            Xml</button>
+          <button [disabled]="loading" (click)="GenerateBookingXml(ftpsent)" class="btn btn-primary btn-sm">Generate
+            Booking Xml</button>
+
           <!-- <button [disabled]="loading" (click)="AutoBookingXmlFtp()" class="btn btn-primary btn-sm">Auto Booking Xml</button> -->
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">Format</label>
+        <div class="col-4">
+          <select class="form-control form-control-sm" name="bkfrt" [(ngModel)]="booking_format">
+            <option [value]="'TRANSPORT MULTIMODAL'">TRANSPORT MULTIMODAL</option>
+          </select>
+        </div>
+        <button [disabled]="loading" (click)="GenerateBookingXls(ftpsent)" class="btn btn-primary btn-sm">Generate
+          Booking Xls</button>
       </div>
     </div>
     <!--<div class="col-sm-6">
@@ -72,12 +85,33 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm"></label>
         <div class="col-4">
-          <button [disabled]="loading" (click)="GenerateCostingXml()" class="btn btn-primary btn-sm">Generate Costing Invoice</button>
+          <button [disabled]="loading" (click)="GenerateCostingXml()" class="btn btn-primary btn-sm">Generate Costing
+            Invoice</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Sea Xml Will direct generate Sea BL files in our server
+    xmldata folder</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Air Xml Will direct generate Air BL files in our server
+    xmldata folder</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xml Will generate Booking files and attached in
+    FTP Popup Window</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xls Will generate Booking files and attached in
+    FTP Popup Window</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Costing Invoice Will direct generate Costing Invoice
+    files in our server xmldata folder</label>
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
@@ -93,10 +127,22 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="pkid" [canftp]="canftp" [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="mMsg" [updatetype]="mail_update_type"
-      [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" 
-      [FtpAttachList]="FtpAttachList" [updatesql]="ftpUpdtSql" [rootpage]="canftp?'FTPPAGE':'MAILPAGE'" [disableBLftp]=true [default_ftptype]="'BOOKING-FTP'"
-      (ModifiedRecords)="ModifiedRecords($event)">
+    <app-mail [pkid]="pkid" [canftp]="canftp" [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="mMsg"
+      [updatetype]="mail_update_type" [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code"
+      [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList" [FtpAttachList]="FtpAttachList"
+      [updatesql]="ftpUpdtSql" [rootpage]="canftp?'FTPPAGE':'MAILPAGE'" [disableBLftp]=true
+      [default_ftptype]="'BOOKING-FTP'" (ModifiedRecords)="ModifiedRecords($event)">
     </app-mail>
   </div>
 </ng-template>
+
+
+
+<!-- <div class="modal-body">
+  <app-mail [pkid]="pkid" [canftp]="Record.book_ftp_agent" [ftpfolderblexist]="Record.book_ftp_agent_folder"
+    [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
+    [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
+    [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
+    [rootpage]="default_mailftp_rootpage" [PoFtpError]="PoFtpError" [default_ftptype]="default_ftptype"
+    (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+</div> -->
