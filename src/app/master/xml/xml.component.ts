@@ -60,7 +60,7 @@ export class XmlComponent {
   mMsg: string = "";
   mail_update_type: string = "";
   pkid: string = "";
-  booking_format:string ="TRANSPORT MULTIMODAL";
+  booking_format: string = "TRANSPORT MULTIMODAL";
 
   constructor(
     private modalService: NgbModal,
@@ -332,7 +332,7 @@ export class XmlComponent {
         // for (let rec of this.FileList) {
         //   this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
         // }
-         
+
         this.canftp = true;
         this.sSubject = "BOOKING - " + this.agent_name;
         this.ftp_agent_code = this.agent_code;
@@ -341,7 +341,7 @@ export class XmlComponent {
         this.FileList = response.filelist;
         this.AttachList = new Array<any>();
         for (let rec of this.FileList) {
-          this.FtpAttachList.push({  filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BOOKING-FTP'  });
+          this.FtpAttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: 'FTP-FOLDER', fileisack: 'N', fileprocessid: rec.fileprocessid, filesize: rec.filesize, fileftptype: 'BOOKING-FTP' });
         }
 
         this.open(ftpsent);
@@ -372,7 +372,7 @@ export class XmlComponent {
       company_code: this.gs.globalVariables.comp_code,
       agent_id: 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621',
       agent_code: 'RITRACARGO-NL',
-      auto_ftp:'Y'
+      auto_ftp: 'Y'
     };
     this.mainService.GenerateXmlBooking(SearchData)
       .subscribe(response => {
@@ -395,7 +395,7 @@ export class XmlComponent {
       alert(this.ErrorMessage);
       return;
     }
- 
+
     // if (!confirm("Generate Booking Xml " + this.branch_name)) {
     //   return;
     // }
@@ -411,7 +411,7 @@ export class XmlComponent {
       agent_id: this.agent_id,
       agent_code: this.agent_code,
       agent_name: this.agent_name,
-      format:this.booking_format, 
+      format: this.booking_format
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -430,12 +430,13 @@ export class XmlComponent {
     SearchData.agent_code = this.agent_code;
     SearchData.agent_name = this.agent_name;
     SearchData.format = this.booking_format;
-    
+
     this.mainService.GenerateXlsBooking(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.FileList = response.filelist;
-         
+
+        this.mail_update_type="BOOKING-REPORT-"+this.agent_code;
         this.canftp = false;
         this.sSubject = "BOOKING - " + this.agent_name;
         this.mMsg = "Dear Sir/Madam, ";
@@ -449,8 +450,8 @@ export class XmlComponent {
         for (let rec of response.filelist) {
           this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
-        
 
+        
         this.open(ftpsent);
 
       },
