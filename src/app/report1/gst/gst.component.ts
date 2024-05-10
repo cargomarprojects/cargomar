@@ -42,6 +42,7 @@ export class GstComponent {
   loading = false;
   currentTab = 'LIST';
   BranchList: Companym[] = [];
+  FileList: any[] = [];
   all: boolean = false;
   gst_only: boolean = true;
   print_new_format: boolean = true;
@@ -298,8 +299,15 @@ export class GstComponent {
     this.mainService.GstReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        if (_type == 'EXCEL') {
+          this.FileList = response.filelist;
+          if (!this.gs.isBlank(this.FileList)) {
+            for (let rec of this.FileList) {
+              this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+            }
+          } else
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
         else if (_type == 'RECONCILE-EXP-DATA')
           alert(response.generatemsg);
         else {
@@ -400,7 +408,7 @@ export class GstComponent {
 
   ShowHideRecord(_rec: GstReport) {
     _rec.row_displayed = !_rec.row_displayed;
-}
+  }
 
 
 }
