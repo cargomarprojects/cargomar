@@ -69,7 +69,8 @@ export class GstComponent {
     print_new_format: true,
     user_code: '',
     state_name: '',
-    state_code: ''
+    state_code: '',
+    hide_ho_entries: this.gs.globalVariables.hide_ho_entries
   };
 
   SearchData2 = {
@@ -295,6 +296,7 @@ export class GstComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.reconcile_state_code;
     this.SearchData.state_name = this.reconcile_state_name;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
       .subscribe(response => {
