@@ -83,7 +83,7 @@
           <div class="col-sm-10">
             <!-- <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete> -->
-            <app-autocompletemulti [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
+            <app-autocompletemulti #BrLov [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
               [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
               (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>

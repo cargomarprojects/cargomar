@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -7,6 +7,7 @@ import { GstReport } from '../models/gstreport';
 import { Companym } from '../../core/models/company';
 import { Gstr2bDownload } from '../models/gstr2bdownload';
 import { RepService } from '../services/report.service';
+import { AutoCompleteMultiComponent } from '../../shared/autocompletemulti/autocompletemulti.component';
 
 @Component({
   selector: 'app-gst',
@@ -19,6 +20,7 @@ export class GstComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @ViewChild('BrLov') private BrLovMulti: AutoCompleteMultiComponent;
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -223,6 +225,10 @@ export class GstComponent {
   // // Query List Data
   List(_type: string) {
 
+    if (_type == "EXCEL") {
+      if (!this.gs.isBlank(this.BrLovMulti))
+        this.BrLovMulti.Close();
+    }
     this.ErrorMessage = '';
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = "From Date Cannot Be Blank";
