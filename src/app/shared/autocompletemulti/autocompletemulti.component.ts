@@ -379,6 +379,10 @@ export class AutoCompleteMultiComponent {
     this.SelectedItem('', null);
   }
 
+  public Close() {
+    if (this.showDiv)
+      this.Cancel();
+  }
 }
 
 
