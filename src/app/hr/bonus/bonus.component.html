@@ -32,7 +32,7 @@
         <div *ngIf="bAdmin" class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm mr-1">Branch</label>
           <div class="col-sm-5">
-            <app-autocompletemulti [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [subtype]="''" [where]="''"
+            <app-autocompletemulti #BrLov [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [subtype]="''" [where]="''"
               [displaycolumn]="'NAME'" [displaydata]="displaydata" (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>
           </div>

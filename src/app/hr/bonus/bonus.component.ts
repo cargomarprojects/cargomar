@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Bonusm } from '../models/bonusm';
 import { BonusService } from '../services/bonus.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { AutoCompleteMultiComponent } from '../../shared/autocompletemulti/autocompletemulti.component';
 
 @Component({
   selector: 'app-bonus',
@@ -17,6 +18,7 @@ export class BonusComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @ViewChild('BrLov') private BrLovMulti: AutoCompleteMultiComponent;
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -166,6 +168,9 @@ export class BonusComponent {
   List(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    
+    if (!this.gs.isBlank(this.BrLovMulti))
+      this.BrLovMulti.Close();
 
     if (this.branch_code.trim().length <= 0) {
       this.ErrorMessage = "Branch Code Cannot Be Blank";

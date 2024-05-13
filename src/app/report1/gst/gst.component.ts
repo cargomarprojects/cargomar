@@ -225,10 +225,9 @@ export class GstComponent {
   // // Query List Data
   List(_type: string) {
 
-    if (_type == "EXCEL") {
-      if (!this.gs.isBlank(this.BrLovMulti))
-        this.BrLovMulti.Close();
-    }
+    if (!this.gs.isBlank(this.BrLovMulti))
+      this.BrLovMulti.Close();
+    
     this.ErrorMessage = '';
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = "From Date Cannot Be Blank";
