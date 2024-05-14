@@ -242,6 +242,13 @@ export class UnlockJobrptComponent {
     // }
 
     List(_type: string, mailsent: any) {
+
+        if (_type == 'MAIL') {
+            if (!confirm("Do you want to Sent Requested/Approved List")) {
+                return;
+            }
+        }
+
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
