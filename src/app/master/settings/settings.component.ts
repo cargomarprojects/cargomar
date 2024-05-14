@@ -198,7 +198,7 @@ export class SettingsComponent {
   BR_ACC_EMAIL: string = '';
   BR_CRLIMIT_ENABLED: boolean = false;
   BR_CRLIMIT_ENABLED_SI: boolean = false;
-
+  BR_EXEMPT_VALIDATION: string = '';
 
   GSTSTATERECORD: any;
   GSTSTATEREC: any = { id: '', code: '', name: '' };
@@ -1033,7 +1033,8 @@ export class SettingsComponent {
         this.BR_CRLIMIT_ENABLED = rec.name == "Y" ? true : false;
       if (rec.caption == "CREDIT-LIMIT-ENABLED_SI")
         this.BR_CRLIMIT_ENABLED_SI = rec.name == "Y" ? true : false;
-
+      if (rec.caption == "BR_EXEMPT_VALIDATION")
+        this.BR_EXEMPT_VALIDATION = rec.name;
 
 
       if (rec.caption == "FOLDER-SE-PREFIX")
@@ -1203,6 +1204,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'COST-AIR-PREFIX', '', '', this.BR_COST_AIR_PREFIX.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SEA-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_SEA.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'AIR-DEFAULT-JOB', '', '', this.BR_DEFAULT_JOB_AIR.toString().toUpperCase()));
+
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'BRACCODE', this.BRACREC.id, this.BRACREC.code, this.BRACREC.name));
 
     this.SaveList.push(this.addRec(_parentid, 'ACCTM', 'HOBANKACCODE', this.HOBANKREC.id, this.HOBANKREC.code, this.HOBANKREC.name));
@@ -1229,6 +1231,7 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'FOLDER-SI-PREFIX', '', '', this.BR_FLDR_SI_PREFIX.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR-SMAN-EMAIL', '', '', this.BR_SMAN_EMAIL.toString().toUpperCase()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR-ACC-EMAIL', '', '', this.BR_ACC_EMAIL.toString().toUpperCase()));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BR_EXEMPT_VALIDATION', '', '', this.BR_EXEMPT_VALIDATION.toString().toUpperCase()));
   }
   allvalidBranch() {
     let sError: string = "";

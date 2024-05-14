@@ -421,10 +421,6 @@
         </div>
       </div>
 
-
-    </div>
-
-    <div class="col-sm-4">
       <div class="form-group row">
         <label class="col-sm-4 col-form-label col-form-label-sm"></label>
         <div class="col-sm-8">
@@ -445,6 +441,10 @@
           <input type="checkbox" [(ngModel)]="BR_CRLIMIT_ENABLED_SI">&nbsp;Enable Credit Limit(SE-SI)
         </div>
       </div>
+
+    </div>
+
+    <div class="col-sm-4">
 
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">FolderPrefixSeaExport</label>
@@ -534,15 +534,19 @@
         </div>
       </div>
 
-
-
-
     </div>
-
-
-
-
-
+    <div class="col-sm-4">
+      <div class="form-group row">
+        <label class="col-12 col-form-label col-form-label-sm">Validation exempted in export for -&nbsp;<b>{{'{JOB-WT}'}}</b></label>
+      </div>
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Exempt-Validation </label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="BR_EXEMPT_VALIDATION" required
+            [maxlength]="100" />
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -686,7 +690,8 @@
 <div *ngIf="currentTab=='BRANCH'" class="page-box">
   <div class="col">
     <button [disabled]="loading" (click)="SaveLock('BRANCH')" class="btn btn-success btn-sm mr-1">SAVE</button>
-    <button [disabled]="loading" (click)="SaveLock('ALL-BRANCH')" class="btn btn-success btn-sm">SAVE-ALL BRANCH</button>
+    <button [disabled]="loading" (click)="SaveLock('ALL-BRANCH')" class="btn btn-success btn-sm">SAVE-ALL
+      BRANCH</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
