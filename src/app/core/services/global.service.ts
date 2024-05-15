@@ -1022,7 +1022,22 @@ export class GlobalService {
 
   }
 
+  public IsTdsPayableCode(jv_acc_code: string) {
+    if (jv_acc_code == '194A'
+      || jv_acc_code == '194B'
+      || jv_acc_code == '194C'
+      || jv_acc_code == '194H'
+      || jv_acc_code == '194I'
+      || jv_acc_code == '194IA'
+      || jv_acc_code == '194J'
+      || jv_acc_code == '192B'
+    )
+      return true;
+    else
+      return false;
+  }
 
+ 
   public CSVToJSON(csv: string): any[] {
     const lines = csv.split('\n');
     const _keys = lines[0].split('\t');

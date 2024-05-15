@@ -1643,10 +1643,7 @@ export class LedgerComponent {
     }
 
     if (this.Recorddet.jv_drcr == 'CR') {
-      if (this.Recorddet.jv_acc_code == '194A' || this.Recorddet.jv_acc_code == '194B' ||
-        this.Recorddet.jv_acc_code == '194C' || this.Recorddet.jv_acc_code == '194H' || this.Recorddet.jv_acc_code == '194I' ||
-        this.Recorddet.jv_acc_code == '194IA' || this.Recorddet.jv_acc_code == '194J' || this.Recorddet.jv_acc_code == '192B') {
-
+      if (this.gs.IsTdsPayableCode(this.Recorddet.jv_acc_code)) {
         if (this.Recorddet.jv_pan_id.toString() == '' && this.Recorddet.jv_tds_rate != 20) {
           this.ErrorMessage = 'Invalid Pan | Tds% ';
           alert(this.ErrorMessage);
