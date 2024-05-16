@@ -359,7 +359,7 @@ export class XmlComponent {
   }
 
   open(content: any) {
-    this.modal = this.modalService.open(content);
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
 
@@ -436,12 +436,10 @@ export class XmlComponent {
         this.loading = false;
         this.FileList = response.filelist;
 
-        this.mail_update_type="BOOKING-REPORT-"+this.agent_code;
+        this.mail_update_type = "BOOKING-REPORT-" + this.agent_code;
         this.canftp = false;
-        this.sSubject = "BOOKING - " + this.agent_name;
-        this.mMsg = "Dear Sir/Madam, ";
-        this.mMsg += " \n\n";
-        this.mMsg += " We here by attached the Booking report for your kind reference";
+        this.sSubject = response.subject;
+        this.mMsg = response.message;
         this.ftp_agent_code = this.agent_code;
         this.ftp_agent_name = this.agent_name;
         this.FtpAttachList = new Array<any>();
@@ -451,7 +449,6 @@ export class XmlComponent {
           this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filecategory: rec.filecategory, fileftpfolder: '', fileisack: 'N', fileprocessid: '', filesize: rec.filesize });
         }
 
-        
         this.open(ftpsent);
 
       },
