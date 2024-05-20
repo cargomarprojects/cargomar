@@ -225,7 +225,8 @@ export class CrLimitComponent {
       for (let rec of this.RecordList) {
         _totBal += rec.creditamt;
         _totOverDueAmt += rec.overdueamt;
-        _totOverDueDays += rec.overduedays;
+        if (rec.overduedays > _totOverDueDays)
+          _totOverDueDays = rec.overduedays;
       }
     }
     sComments = "Balance: " + _totBal.toString() + ", Overdue Amount: " + _totOverDueAmt.toString() + ", Overdue days: " + _totOverDueDays.toString();
@@ -329,7 +330,7 @@ export class CrLimitComponent {
   }
 
   OnBlur(field: string) {
-    
+
     if (field == 'ul_user_remarks') {
       // this.Record2.ul_user_remarks = this.Record2.ul_user_remarks.toUpperCase();
     }
