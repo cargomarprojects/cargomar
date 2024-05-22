@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.635';
+  public software_version_string: string = '1.636';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -1038,7 +1038,7 @@ export class GlobalService {
       return false;
   }
 
- 
+
   public CSVToJSON(csv: string): any[] {
     const lines = csv.split('\n');
     const _keys = lines[0].split('\t');
