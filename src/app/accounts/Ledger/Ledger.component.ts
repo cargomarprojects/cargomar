@@ -1671,6 +1671,11 @@ export class LedgerComponent {
           alert(this.ErrorMessage);
           return;
         }
+        if (this.Recorddet.jv_pay_reason.toString().trim().length <= 0) {
+          this.ErrorMessage = 'Pay Reason cannot be blank';
+          alert(this.ErrorMessage);
+          return;
+        }
       }
     }
 
