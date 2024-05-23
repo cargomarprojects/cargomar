@@ -73,6 +73,7 @@ import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
 import { GstDetComponent } from './gst/gstdet.component';
 import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
+import { GenReportComponent } from './genreport/genreport.component';
 
 @NgModule({
   imports: [
@@ -130,7 +131,8 @@ import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
     ShipmentReportComponent,
     UnlockJobrptComponent,
     GstDetComponent,
-    CostGstRptComponent
+    CostGstRptComponent,
+    GenReportComponent
   ],
   providers: [
   ],

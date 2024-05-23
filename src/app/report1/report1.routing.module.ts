@@ -39,6 +39,7 @@ import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
 import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
 import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
+import { GenReportComponent } from './genreport/genreport.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -76,7 +77,8 @@ const routes: Routes = [
   { path: 'usrrights', component: UsrRightsComponent },
   { path: 'shipmentreport', component: ShipmentReportComponent },
   { path: 'unlockjob', component: UnlockJobrptComponent },
-  { path: 'costgst', component: CostGstRptComponent }
+  { path: 'costgst', component: CostGstRptComponent },
+  { path: 'genreport', component: GenReportComponent }
 ];
 
 @NgModule({
