@@ -58,7 +58,8 @@ export class GenReportComponent {
     branch_code: '',
     year_code: '',
     from_date: '',
-    to_date: ''
+    to_date: '',
+    hide_ho_entries: this.gs.globalVariables.hide_ho_entries
   };
 
   // Array For Displaying List
@@ -212,6 +213,7 @@ export class GenReportComponent {
     this.SearchData.type = this.print_type;
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.ErrorMessage = '';
     this.mainService.PrintBusinessPromotion(this.SearchData)
       .subscribe(response => {
