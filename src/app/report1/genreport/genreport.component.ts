@@ -4,21 +4,18 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { BkTeu } from '../models/bkteu';
-import { BkTeuService } from '../services/bkteu.service';
+import { GenReportService } from '../services/genreport.service';
 import { DateComponent } from '../../shared/date/date.component';
-
 
 @Component({
   selector: 'app-genreport',
   templateUrl: './genreport.component.html',
-  providers: [BkTeuService]
+  providers: [GenReportService]
 })
 
 export class GenReportComponent {
-  title = 'BkTeu Report'
+  title = 'General Report'
 
-  @ViewChild('todate') private todate: DateComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -32,74 +29,45 @@ export class GenReportComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-   
+  radio_code: string = "";
+  radio_desc: string = "";
+  print_type: string = "";
 
-  type_date: string = 'SOB';
+  lbl_from_date: string = '';
   from_date: string = '';
+  lbl_to_date: string = '';
   to_date: string = '';
-  branch_name: string;
-  branch_code: string;
-  shipper_id: string;
-  consignee_id: string;
-  agent_id: string;
-  carrier_id: string;
-  carriertype: string;
-  pol_id: string;
-  pod_id: string;
-  porttype: string;
-
   bExcel = false;
   disableSave = true;
   bCompany = false;
-  all: boolean = false;
   bAdmin = false;
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
+  bapprovalstatus = "";
+
+  bAdditem1 = false;
+  bAdditem2 = false;
+  bAdditem3 = false;
+  bAdditem4 = false;
 
   SearchData = {
     type: '',
-    pkid: '',
     report_folder: '',
     company_code: '',
     branch_code: '',
-    branch_name: '',
     year_code: '',
-    searchstring: '',
     from_date: '',
-    to_date: '',
-    type_date: '',
-    shipper_id: '',
-    consignee_id: '',
-    agent_id:'',
-    carrier_id: '',
-    pol_id: '',
-    pod_id: '',
-    all: false,
-   
+    to_date: ''
   };
 
-  sSubject: string = '';
-  sMsg: string = '';
-  sHtml: string = '';
-  AttachList: any[] = [];
-
   // Array For Displaying List
-  RecordList: BkTeu[] = [];
- //  Single Record for add/edit/view details
-  Record: BkTeu = new BkTeu;
-
-  BRRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+  RecordList: any[] = [];
+  //  RecordList = [{ "code": "{1}", "name": "1. BUSINESS PROMOTION EXPENSE", "id": 1, "type": "BUSINESS-PROMOTION-EXPENSE" }];
 
   constructor(
     private modalService: NgbModal,
-    private mainService: BkTeuService,
+    private mainService: GenReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -121,13 +89,18 @@ export class GenReportComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    
+
   }
 
   InitComponent() {
+    this.bapprovalstatus = "";
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
+    this.bAdditem1 = true;
+    this.bAdditem2 = true;
+    this.bAdditem3 = true;
+    this.bAdditem4 = true;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -137,32 +110,44 @@ export class GenReportComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+      this.bapprovalstatus = this.menu_record.rights_approval.toString().trim();
+      if (this.bapprovalstatus.length > 0) {
+        this.bAdditem1 = false;
+        this.bAdditem2 = false;
+        this.bAdditem3 = false;
+        this.bAdditem4 = false;
+        if (this.bapprovalstatus.indexOf('{1}') >= 0)
+          this.bAdditem1 = true;
+        if (this.bapprovalstatus.indexOf('{2}') >= 0)
+          this.bAdditem2 = true;
+        if (this.bapprovalstatus.indexOf('{3}') >= 0)
+          this.bAdditem3 = true;
+        if (this.bapprovalstatus.indexOf('{4}') >= 0)
+          this.bAdditem4 = true;
+      }
     }
 
-    this.porttype = "SEA PORT";
-    this.carriertype = "SEA CARRIER";
-
+    this.LoadCombo();
     this.Init();
     this.initLov();
-    this.LoadCombo();
   }
 
   Init() {
-    this.type_date = "SOB";
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.shipper_id = '';
-    this.consignee_id = '';
-    this.agent_id = '';
-   
-    this.carrier_id = '';
-    this.pol_id = '';
-    this.pod_id = '';
+    this.lbl_from_date = "";
+    if (this.radio_code == "{1}")
+      this.lbl_from_date = "From Date";
+    this.lbl_to_date = "";
+    if (this.radio_code == "{1}")
+      this.lbl_to_date = "To Date";
+
+    if (this.lbl_from_date != "")
+      this.from_date = this.gs.defaultValues.monthbegindate;
+    if (this.lbl_to_date != "")
+      this.to_date = this.gs.defaultValues.today;
+
   }
 
- // // Destroy Will be called when this component is closed
+  // // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -170,236 +155,81 @@ export class GenReportComponent {
 
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
-
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
-
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
-
-
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
-
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
-
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
-
-
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
-
-
   }
 
   LovSelected(_Record: SearchTable) {
-    // Company Settings
-    if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
-    }
-    if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      // this.shipper_name = _Record.name;
-    }
-    if (_Record.controlname == "CONSIGNEE") {
-      this.consignee_id = _Record.id;
-      //  this.consignee_name = _Record.name;
-    }
-    if (_Record.controlname == "AGENT") {
-      this.agent_id = _Record.id;
-     // this.agent_code = _Record.code;
-     // this.agent_name = _Record.name;
-    }
-    if (_Record.controlname == "CARRIER") {
-      this.carrier_id = _Record.id;
-      // this.carrier_code = _Record.code;
-      // this.carrier_name = _Record.name;
-    }
-    if (_Record.controlname == "POL") {
-      this.pol_id = _Record.id;
-      // this.pol_code = _Record.code;
-      //  this.pol_name = _Record.name;
-    }
-    if (_Record.controlname == "POD") {
-      this.pod_id = _Record.id;
-      // this.pod_code = _Record.code;
-      // this.pod_name = _Record.name;
-    }
 
   }
   LoadCombo() {
-  }
-
-
-  //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+    if (this.bAdditem1)
+      this.RecordList.push({ "code": "{1}", "name": "1. BUSINESS PROMOTION EXPENSE", "id": 1, "type": "BUSINESS-PROMOTION-EXPENSE" });
+    if (this.bAdditem2)
+      this.RecordList.push({ "code": "{2}", "name": "2. CUSTOMS EXPENSES", "id": 2, "type": "CUSTOMS-EXPENSES" });
+    if (this.bAdditem3)
+      this.RecordList.push({ "code": "{3}", "name": "3. REBATE PAYABLE", "id": 3, "type": "REBATE-PAYABLE" });
+    if (this.bAdditem4)
+      this.RecordList.push({ "code": "{4}", "name": "4. TRAVELLING EXPENSE", "id": 4, "type": "TRAVELLING-EXPENSE" });
+    
+    for (let rec of this.RecordList) {
+      this.radio_code = rec.code;
+      this.radio_desc = rec.name;
+      this.print_type = rec.type;
+      break;
     }
   }
 
-  ResetControls() {
-    this.disableSave = true;
-    if (!this.menu_record)
-      return;
-
-    if (this.menu_record.rights_admin)
-      this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
-      this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
-      this.disableSave = false;
-
-    return this.disableSave;
+  cellChange(_rec: any) {
+    this.radio_desc = _rec.name;
+    this.print_type = _rec.type;
+    this.Init();
   }
 
- // // Query List Data
-  List(_type: string, mailsent: any) {
+  PrintExcel() {
+
+    if (this.print_type == "BUSINESS-PROMOTION-EXPENSE") {
+      this.PrintBusinessPromotion()
+    }
+
+  }
+
+  PrintBusinessPromotion() {
 
     this.ErrorMessage = '';
-    //if (this.from_date.trim().length <= 0) {
-    //  this.ErrorMessage = "From Date Cannot Be Blank";
-    //  return;
-    //}
-    //if (this.to_date.trim().length <= 0) {
-    //  this.ErrorMessage = "To Date Cannot Be Blank";
-    //  return;
-    //}
-    
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = "From Date Cannot Be Blank";
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = "To Date Cannot Be Blank";
+      return;
+    }
+
     this.loading = true;
-    this.pkid = this.gs.getGuid();
-    this.SearchData.pkid = this.pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-   
-    if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
-    }
-    else {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.branch_name = this.gs.globalVariables.branch_name;
-
-    }
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
-    if (_type == "MAIL")
-      this.SearchData.type = "EXCEL";
-    else
-      this.SearchData.type = _type;
-    this.SearchData.type_date = this.type_date;
+    this.SearchData.type = this.print_type;
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.all = this.all;
-
     this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.mainService.PrintBusinessPromotion(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'MAIL')
-        {
-          this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
-          this.setMailBody(response.totteu, response.totteuday, response.tomonth);
-           
-          this.open(mailsent);
-        }
-      else
-        {
-          this.RecordList = response.list;
-        }
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
-  setMailBody(totteu: number, totteuday: number,tomonth:string) {
 
-    this.sSubject = "LINER BOOKING REPORT";
-
-    this.sMsg = "Dear All,";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Please find the attached Daily Booking Report as on date;";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Bookings as on " + this.todate.GetDisplayDate() + "  : " + totteuday.toString() + " Teus";
-    this.sMsg += " \n\n";
-    this.sMsg += "  Bookings in the month of " + tomonth + " as on " + this.todate.GetDisplayDate();
-    this.sMsg += "  : " + totteu.toString() + " Teus ( Confirmed bookings )";
-    this.sMsg += " \n\n";
-  }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
-  }
-
-  OnChange(field: string) {
-    this.RecordList = null;
-
   }
 
   Close() {
     this.gs.ClosePage('home');
   }
 
-  open(content: any) {
-    this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
-  }
-  
 }
