@@ -135,10 +135,10 @@ export class GenReportComponent {
 
   Init() {
     this.lbl_from_date = "";
-    if (this.radio_code == "{1}")
+    if (this.radio_code == "{1}" || this.radio_code == "{3}")
       this.lbl_from_date = "From Date";
     this.lbl_to_date = "";
-    if (this.radio_code == "{1}")
+    if (this.radio_code == "{1}" || this.radio_code == "{3}")
       this.lbl_to_date = "To Date";
 
     if (this.lbl_from_date != "")
@@ -170,7 +170,7 @@ export class GenReportComponent {
       this.RecordList.push({ "code": "{3}", "name": "3. REBATE PAYABLE", "id": 3, "type": "REBATE-PAYABLE" });
     if (this.bAdditem4)
       this.RecordList.push({ "code": "{4}", "name": "4. TRAVELLING EXPENSE", "id": 4, "type": "TRAVELLING-EXPENSE" });
-    
+
     for (let rec of this.RecordList) {
       this.radio_code = rec.code;
       this.radio_desc = rec.name;
@@ -188,9 +188,13 @@ export class GenReportComponent {
   PrintExcel() {
 
     if (this.print_type == "BUSINESS-PROMOTION-EXPENSE") {
-      this.PrintBusinessPromotion()
+      this.PrintBusinessPromotion();
     }
-
+    else if (this.print_type == "REBATE-PAYABLE") {
+      this.PrintRebate();
+    } else {
+      alert('Option Not Available');
+    }
   }
 
   PrintBusinessPromotion() {
@@ -226,6 +230,39 @@ export class GenReportComponent {
         });
   }
 
+
+  PrintRebate() {
+
+    this.ErrorMessage = '';
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = "From Date Cannot Be Blank";
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = "To Date Cannot Be Blank";
+      return;
+    }
+
+    this.loading = true;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.type = this.print_type;
+    this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    this.ErrorMessage = '';
+    this.mainService.PrintRebate(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
