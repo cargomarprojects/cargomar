@@ -146,6 +146,29 @@ export class GenReportComponent {
     if (this.lbl_to_date != "")
       this.to_date = this.gs.defaultValues.today;
 
+    if (this.radio_code == "{1}" || this.radio_code == "{3}")
+      this.setPreWkDtMonday2Sunday();
+  }
+
+  setPreWkDtMonday2Sunday() {
+    let dayOfWk: number = 0;
+
+    var today = new Date();
+    dayOfWk = today.getDay();
+    var wkday = today.getDate() - today.getDay() + 1;
+    var wkStart = new Date(today.setDate(wkday));
+
+    this.to_date = wkStart.toISOString().slice(0, 10);
+    if (dayOfWk == 1) {
+      //if Monday will show previous week
+      wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+      var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+      this.from_date = wkStart.toISOString().slice(0, 10);
+      this.to_date = wkEnd.toISOString().slice(0, 10);
+    } else {
+      this.from_date = wkStart.toISOString().slice(0, 10);
+      this.to_date = this.gs.defaultValues.today;
+    }
   }
 
   // // Destroy Will be called when this component is closed
