@@ -18,6 +18,11 @@ export class GenReportService {
   PrintRebate(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GenReport/PrintRebate', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  PrintTravellingExp(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GenReport/PrintTravellingExp', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + 'api/Report1/GenReport/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
