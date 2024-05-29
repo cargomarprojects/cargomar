@@ -23,6 +23,10 @@ export class GenReportService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GenReport/PrintTravellingExp', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  PrintCustomExp(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GenReport/PrintCustomExp', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + 'api/Report1/GenReport/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }

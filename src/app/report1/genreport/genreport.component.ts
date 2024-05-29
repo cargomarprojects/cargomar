@@ -135,10 +135,10 @@ export class GenReportComponent {
 
   Init() {
     this.lbl_from_date = "";
-    if (this.radio_code == "{1}" || this.radio_code == "{3}" || this.radio_code == "{4}")
+    if (this.radio_code == "{1}" || this.radio_code == "{2}" || this.radio_code == "{3}" || this.radio_code == "{4}")
       this.lbl_from_date = "From Date";
     this.lbl_to_date = "";
-    if (this.radio_code == "{1}" || this.radio_code == "{3}" || this.radio_code == "{4}")
+    if (this.radio_code == "{1}" || this.radio_code == "{2}" || this.radio_code == "{3}" || this.radio_code == "{4}")
       this.lbl_to_date = "To Date";
 
     if (this.lbl_from_date != "")
@@ -146,7 +146,7 @@ export class GenReportComponent {
     if (this.lbl_to_date != "")
       this.to_date = this.gs.defaultValues.today;
 
-    if (this.radio_code == "{1}" || this.radio_code == "{3}" || this.radio_code == "{4}")
+    if (this.radio_code == "{1}" || this.radio_code == "{2}" || this.radio_code == "{3}" || this.radio_code == "{4}")
       this.setPreWkDtMonday2Sunday();
   }
 
@@ -215,6 +215,8 @@ export class GenReportComponent {
     }
     else if (this.print_type == "REBATE-PAYABLE") {
       this.PrintRebate();
+    } else if (this.print_type == "CUSTOMS-EXPENSES") {
+      this.PrintCustomExp();
     } else if (this.print_type == "TRAVELLING-EXPENSE") {
       this.PrintTravellingExp();
     } else {
@@ -312,6 +314,39 @@ export class GenReportComponent {
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.ErrorMessage = '';
     this.mainService.PrintTravellingExp(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  PrintCustomExp() {
+
+    this.ErrorMessage = '';
+    if (this.from_date.trim().length <= 0) {
+      this.ErrorMessage = "From Date Cannot Be Blank";
+      return;
+    }
+    if (this.to_date.trim().length <= 0) {
+      this.ErrorMessage = "To Date Cannot Be Blank";
+      return;
+    }
+
+    this.loading = true;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.type = this.print_type;
+    this.SearchData.from_date = this.from_date;
+    this.SearchData.to_date = this.to_date;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    this.ErrorMessage = '';
+    this.mainService.PrintCustomExp(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
