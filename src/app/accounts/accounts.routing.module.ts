@@ -63,6 +63,7 @@ import { CollectionComponent } from './collection/collection.component';
 import { DailyExpComponent } from './dailyexp/dailyexp.component';
 import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.component';
 import { TbMonComponent } from './tbmon/tbmon.component';
+import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
 
 const routes: Routes = [
   { path: 'accounts', component: AccountsComponent },
@@ -103,7 +104,8 @@ const routes: Routes = [
   { path: 'collection', component: CollectionComponent },
   { path: 'dailyexp', component: DailyExpComponent },
   { path: 'agentpayhistory', component: AgentPayHistoryComponent },
-  { path: 'tbmon', component: TbMonComponent }
+  { path: 'tbmon', component: TbMonComponent },
+  { path: 'tdsexempt', component: TdsExemptionComponent }
 ];
 
 @NgModule({

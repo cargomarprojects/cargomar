@@ -1,0 +1,206 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+    <div class="page-search">
+        <div class="row">
+            <label class="col-2">Search</label>
+            <div class="col">
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            </div>
+            <div class="col">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>CUSTOMER</th>
+                    <th>ACC.CODE</th>
+                    <th>ACC.NAME</th>
+                    <th>CERT#</th>
+                    <th>CERT.DATE</th>
+                    <th>RATE</th>
+                    <th>CERT.RATE</th>
+                    <th>VALID.FROM</th>
+                    <th>VALID.TO</th>
+                    <th>CR.LIMIT</th>
+                    <th>USED.AMT</th>
+                    <th>BAL.AMT</th>
+                    <th>DOC</th>
+                    <th>UPDATED.DT</th>
+                    <th>REMARKS</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                    (mousedown)="selectedRowIndex=i" (click)="ActionHandler('EDIT',rec.te_pkid)">
+                    <td>{{rec.te_cust_name}}</td>
+                    <td>{{rec.te_tds_acc_code}}</td>
+                    <td>{{rec.te_tds_acc_name}}</td>
+                    <td>{{rec.te_cert_no}}</td>
+                    <td>{{rec.te_cert_date}}</td>
+                    <td>{{rec.te_tds_rate}}</td>
+                    <td>{{rec.te_tds_cert_rate}}</td>
+                    <td>{{rec.te_valid_from}}</td>
+                    <td>{{rec.te_valid_to}}</td>
+                    <td>{{rec.te_cr_limit}}</td>
+                    <td>{{rec.te_used_amt}}</td>
+                    <td>{{rec.te_bal_amt}}</td>
+                    <td>{{rec.te_doc_count}}</td>
+                    <td>{{rec.te_updated_date}}</td>
+                    <td>{{rec.te_remarks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Certificate#</label>
+                <div class="col-sm-4 pr-2">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_cert_no"
+                        (blur)="OnBlur('te_cert_no')" maxlength="15" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.te_cert_date" (ValueChanged)="Record.te_cert_date=$event"></app-date>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
+                <div class="col-sm-4  pr-2">
+                    <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.te_cust_name"
+                        maxlength="60" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">A/c. Code</label>
+                <div class="col-sm-4  pr-2">
+                    <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
+                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                </div>
+                <div class="col-sm-6">
+                    <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_acc_name"
+                        maxlength="60" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Tds Rate</label>
+                <div class="col-sm-4  pr-2">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_rate"
+                        (blur)="OnBlur('te_tds_rate')" maxlength="15" />
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm ">Certificate Rate</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_cert_rate"
+                        (blur)="OnBlur('te_tds_cert_rate')" maxlength="15" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Valid From</label>
+                <div class="col-sm-4  pr-2">
+                    <app-date [inputdate]="Record.te_valid_from"
+                        (ValueChanged)="Record.te_valid_from=$event"></app-date>
+                </div>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Valid To</label>
+                <div class="col-sm-4">
+                    <app-date [inputdate]="Record.te_valid_to" (ValueChanged)="Record.te_valid_to=$event"></app-date>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Credit Limit</label>
+                <div class="col-sm-4 pr-2">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_cr_limit" required
+                        (blur)="OnBlur('te_cr_limit')" maxlength="15" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
+                        (blur)="OnBlur('te_remarks')" maxlength="100" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <div class="offset-2 col-sm-10">
+                    <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                        class="btn btn-primary btn-sm">Save</button>
+                    <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                        class="btn btn-primary btn-sm">Return</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>

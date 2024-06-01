@@ -94,6 +94,7 @@ import { AgentPayHistoryComponent } from './agentpayhistory/agentpayhistory.comp
 import { BankImportComponent } from './ledger/bankImport.component';
 import { TbMonComponent } from './tbmon/tbmon.component';
 import { CiGeImportComponent } from './ledger/cigeImport.component';
+import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
 
 @NgModule({
   imports: [
@@ -152,7 +153,8 @@ import { CiGeImportComponent } from './ledger/cigeImport.component';
     AgentPayHistoryComponent,
     BankImportComponent,
     TbMonComponent,
-    CiGeImportComponent
+    CiGeImportComponent,
+    TdsExemptionComponent
   ],
   providers: [
   ],
