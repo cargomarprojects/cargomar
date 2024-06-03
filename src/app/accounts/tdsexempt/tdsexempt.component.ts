@@ -118,7 +118,7 @@ export class TdsExemptionComponent {
         }
 
         if (_Record.controlname == "PARTY") {
-              this.Record.te_cust_code = _Record.id;
+              this.Record.te_cust_id = _Record.id;
               this.Record.te_cust_code = _Record.code;
               this.Record.te_cust_name = _Record.name;
           } 
