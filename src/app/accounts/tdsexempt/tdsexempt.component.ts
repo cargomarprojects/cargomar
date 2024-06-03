@@ -19,27 +19,27 @@ export class TdsExemptionComponent {
     @Input() type: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
-    selectedRowIndex = 0;
+    // selectedRowIndex = 0;
     disableSave = true;
     loading = false;
-    currentTab = 'LIST';
+    // currentTab = 'LIST';
 
-    searchstring = '';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    // searchstring = '';
+    // page_count = 0;
+    // page_current = 0;
+    // page_rows = 0;
+    // page_rowcount = 0;
 
     sub: any;
     urlid: string;
 
-    ErrorMessage = "";
+    // ErrorMessage = "";
     screen_id = '';
-    mode = '';
-    pkid = '';
+    // mode = '';
+    // pkid = '';
 
     // Array For Displaying List
-    RecordList: TdsExemption[] = [];
+    // RecordList: TdsExemption[] = [];
     // Single Record for add/edit/view details
     Record: TdsExemption = new TdsExemption;
     ACCRECORD: SearchTable = new SearchTable();
@@ -51,9 +51,9 @@ export class TdsExemptionComponent {
         private gs: GlobalService
     ) {
         this.InitLov();
-        this.page_count = 0;
-        this.page_rows = 2;
-        this.page_current = 0;
+        this.mainService.state.page_count = 0;
+        this.mainService.state.page_rows = 2;
+        this.mainService.state.page_current = 0;
 
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -136,7 +136,7 @@ export class TdsExemptionComponent {
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
+        this.mainService.state.ErrorMessage = '';
         if (action == 'LIST') {
             // this.mode = '';
             // this.pkid = '';
@@ -220,11 +220,11 @@ export class TdsExemptionComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            searchstring: this.mainService.state.searchstring.toUpperCase(),
+            page_count: this.mainService.state.page_count,
+            page_current: this.mainService.state.page_current,
+            page_rows: this.mainService.state.page_rows,
+            page_rowcount: this.mainService.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code
         };
         this.setState(SearchData);
@@ -277,7 +277,7 @@ export class TdsExemptionComponent {
             pkid: Id,
         };
 
-        this.ErrorMessage = '';
+        this.mainService.state.ErrorMessage = '';
         this.mainService.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
@@ -285,7 +285,7 @@ export class TdsExemptionComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
                 });
     }
 
@@ -310,13 +310,13 @@ export class TdsExemptionComponent {
         if (!this.allvalid())
             return;
         this.loading = true;
-        this.ErrorMessage = '';
+        this.mainService.state.ErrorMessage = '';
 
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = "Save Complete";
+                this.mainService.state.ErrorMessage = "Save Complete";
                 // this.mode = 'EDIT';
                 // this.Record.rec_mode = this.mode;
                 this.mainService.state.mode='EDIT';
@@ -325,7 +325,7 @@ export class TdsExemptionComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
 
                 });
     }
@@ -333,23 +333,23 @@ export class TdsExemptionComponent {
     allvalid() {
         let sError: string = "";
         let bret: boolean = true;
-        this.ErrorMessage = '';
+        this.mainService.state.ErrorMessage = '';
         if (this.Record.te_tds_acc_id.trim().length <= 0) {
             bret = false;
             sError = "A/c Code Need To Be Selected";
         }
         if (bret === false)
-            this.ErrorMessage = sError;
+            this.mainService.state.ErrorMessage = sError;
         return bret;
     }
 
     RefreshList() {
 
-        if (this.RecordList == null)
+        if (this.mainService.state.RecordList == null)
             return;
-        var REC = this.RecordList.find(rec => rec.te_pkid == this.Record.te_pkid);
+        var REC = this.mainService.state.RecordList.find(rec => rec.te_pkid == this.Record.te_pkid);
         if (REC == null) {
-            this.RecordList.push(this.Record);
+            this.mainService.state.RecordList.push(this.Record);
         }
         else {
             REC.te_cust_code = this.Record.te_cust_code;

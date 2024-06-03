@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="mainService.state.currentTab=='LIST'" class="page-list">
 
     <div class="page-search">
         <div class="row">
@@ -103,7 +103,7 @@
 </div>
 
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="mainService.state.currentTab=='DETAILS'" class="page-details">
 
     <div class="row">
         <div class="col-sm-6">
@@ -201,6 +201,6 @@
 </div>
 <br />
 
-<div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
+<div *ngIf="mainService.state.ErrorMessage" class="alert alert-info">
+    {{mainService.state.ErrorMessage}}
 </div>
