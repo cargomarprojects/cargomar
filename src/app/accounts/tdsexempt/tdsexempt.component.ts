@@ -227,7 +227,7 @@ export class TdsExemptionComponent {
             page_rowcount: this.mainService.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code
         };
-        this.setState(SearchData);
+        // this.setState(SearchData);
         this.mainService.getList(SearchData);
     }
 
