@@ -7,8 +7,7 @@ import { GlobalService } from '../../core/services/global.service';
 export class TdsExemptionService {
 
   private screen_id = '';
-  private state: iTdsExemptionModel = { ...initialState };
-
+  public state: iTdsExemptionModel = { ...initialState };
 
   constructor(
     private http2: HttpClient,
@@ -30,19 +29,22 @@ export class TdsExemptionService {
   }
 
   private setData(_data: any) {
-    this.state.errorMessage = '';
-    this.state.records = _data.list;
+    this.state.ErrorMessage = '';
+    this.state.RecordList = _data.list;
+    this.state.page_count = _data.page_count;
+    this.state.page_current = _data.page_current;
+    this.state.page_rowcount = _data.page_rowcount;
   }
   private setError(_data: any) {
-    this.state.errorMessage = _data.message;
-    this.state.records = [];
+    this.state.ErrorMessage = _data.message;
+    this.state.RecordList = [];
   }
 
   public UpdateList(record: TdsExemption, bAdd: boolean) {
     if (bAdd)
-      this.state.records.push({ ...record });
+      this.state.RecordList.push({ ...record });
     else {
-      this.state.records = this.state.records.map(m => {
+      this.state.RecordList = this.state.RecordList.map(m => {
         if (m.te_pkid == record.te_pkid)
           return record;
         else
@@ -51,30 +53,26 @@ export class TdsExemptionService {
     }
   }
 
-  public updateSearchQuery(_Record: iTdsExemptionSearch) {
-    this.state.searchQuery = { ..._Record };
-  }
-
+   
   public updateRowId(_id: number) {
-    this.state.selected_row_id = _id;
+    this.state.selectedRowIndex  = _id;
   }
 
   public getSelectedRow() {
-    return this.state.selected_row_id;
+    return this.state.selectedRowIndex;
   }
-
-  public getRecords() {
-    return this.state.records;
-  }
-
-  public getSearchQuery() {
-    return this.state.searchQuery
-  }
-
+   
   public getErrorMessage() {
-    return this.state.errorMessage;
+    return this.state.ErrorMessage;
   }
 
+  public setMode(_mode: string) {
+    this.state.mode = _mode;
+  }
+
+  public getMode() {
+    return this.state.mode;
+  }
 
   public getList(searchRecord: any) {
     this.List(searchRecord)

@@ -45,18 +45,35 @@ export interface iTdsExemptionSearch {
 }
 
 export interface iTdsExemptionModel {
-    selected_row_id: number;
-    records: TdsExemption[],
-    errorMessage: string,
-    searchQuery: iTdsExemptionSearch,
-    pageQuery: iPage
+    // filter Values
+    selectedRowIndex: number;
+    mode: string,
+    pkid: string,
+    currentTab: string;
+    RecordList: TdsExemption[],
+    ErrorMessage: string
+    // header search Values
+    type: string;
+    searchstring: string;
+    // Page Values
+    page_count: number;
+    page_current: number;
+    page_rows: number;
+    page_rowcount: number;
 };
 
 
 export const initialState: iTdsExemptionModel = {
-    selected_row_id: -1,
-    records: [],
-    searchQuery: <iTdsExemptionSearch>{ searchstring: '' },
-    pageQuery: <iPage>{ action: '', page_count: 0, page_current: 0, page_rows: 0, page_rowcount: 0 },
-    errorMessage: ''
-  }
+    selectedRowIndex: 0,
+    mode: '',
+    pkid: '',
+    currentTab: 'LIST',
+    RecordList: [],
+    ErrorMessage: '',
+    type:'',
+    searchstring: '',
+    page_count: 0,
+    page_current: 0,
+    page_rows: 0,
+    page_rowcount: 0
+}

@@ -52,7 +52,7 @@ export class TdsExemptionComponent {
     ) {
         this.InitLov();
         this.page_count = 0;
-        this.page_rows = 15;
+        this.page_rows = 2;
         this.page_current = 0;
 
         // URL Query Parameter 
@@ -75,6 +75,12 @@ export class TdsExemptionComponent {
         }
 
         this.mainService.init(this.screen_id);
+        if (this.mainService.state.currentTab == "LIST")
+            this.ActionHandler('LIST', '');
+
+
+        // if (this.mainService.getMode() == "EDIT")
+        //     this.ActionHandler('EDIT','')
     }
 
     InitComponent() {
@@ -121,10 +127,10 @@ export class TdsExemptionComponent {
         }
 
         if (_Record.controlname == "PARTY") {
-              this.Record.te_cust_id = _Record.id;
-              this.Record.te_cust_code = _Record.code;
-              this.Record.te_cust_name = _Record.name;
-          } 
+            this.Record.te_cust_id = _Record.id;
+            this.Record.te_cust_code = _Record.code;
+            this.Record.te_cust_name = _Record.name;
+        }
     }
 
 
@@ -132,21 +138,29 @@ export class TdsExemptionComponent {
     ActionHandler(action: string, id: string) {
         this.ErrorMessage = '';
         if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
+            // this.mode = '';
+            // this.pkid = '';
+            // this.currentTab = 'LIST';
+            this.mainService.state.mode = '';
+            this.mainService.state.pkid = '';
+            this.mainService.state.currentTab = 'LIST';
         }
         else if (action === 'ADD') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'ADD';
+            // this.currentTab = 'DETAILS';
+            // this.mode = 'ADD';
+            this.mainService.state.currentTab = 'DETAILS';
+            this.mainService.state.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
         }
         else if (action === 'EDIT') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'EDIT';
+            // this.currentTab = 'DETAILS';
+            // this.mode = 'EDIT';
+            this.mainService.state.currentTab = 'DETAILS';
+            this.mainService.state.mode = 'EDIT';
             this.ResetControls();
-            this.pkid = id;
+            //this.pkid = id;
+            this.mainService.state.pkid = id;
             this.GetRecord(id);
         }
     }
@@ -159,9 +173,14 @@ export class TdsExemptionComponent {
 
         if (this.menu_record.rights_admin)
             this.disableSave = false;
-        if (this.mode == "ADD" && this.menu_record.rights_add)
+        // if (this.mode == "ADD" && this.menu_record.rights_add)
+        //     this.disableSave = false;
+        // if (this.mode == "EDIT" && this.menu_record.rights_edit)
+        //     this.disableSave = false;
+
+        if (this.mainService.getMode() == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
-        if (this.mode == "EDIT" && this.menu_record.rights_edit)
+        if (this.mainService.getMode() == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
@@ -208,14 +227,26 @@ export class TdsExemptionComponent {
             page_rowcount: this.page_rowcount,
             company_code: this.gs.globalVariables.comp_code
         };
+        this.setState(SearchData);
         this.mainService.getList(SearchData);
+    }
+
+    setState(_searchData: any) {
+        this.mainService.state.type = _searchData.type;
+        this.mainService.state.searchstring = _searchData.searchstring;
+        this.mainService.state.page_count = _searchData.page_count;
+        this.mainService.state.page_current = _searchData.page_current;
+        this.mainService.state.page_rows = _searchData.page_rows;
+        this.mainService.state.page_rowcount = _searchData.page_rowcount;
     }
 
     NewRecord() {
 
-        this.pkid = this.gs.getGuid();
+        // this.pkid = this.gs.getGuid();
+        this.mainService.state.pkid = this.gs.getGuid();
         this.Record = new TdsExemption();
-        this.Record.te_pkid = this.pkid;
+        // this.Record.te_pkid = this.pkid;
+        this.Record.te_pkid = this.mainService.state.pkid;
         this.Record.te_cert_no = '';
         this.Record.te_cert_date = this.gs.defaultValues.today;
         this.Record.te_cust_id = '';
@@ -232,7 +263,8 @@ export class TdsExemptionComponent {
         this.Record.te_cr_limit = 0;
         this.Record.te_used_amt = 0;
         this.Record.te_remarks = '';
-        this.Record.rec_mode = this.mode;
+        // this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.mainService.state.mode;
 
         this.InitLov();
     }
@@ -268,7 +300,8 @@ export class TdsExemptionComponent {
         this.PARTYRECORD.code = this.Record.te_cust_code;
         this.PARTYRECORD.name = this.Record.te_cust_name;
 
-        this.Record.rec_mode = this.mode;
+        // this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.mainService.state.mode;
     }
 
 
@@ -284,8 +317,10 @@ export class TdsExemptionComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ErrorMessage = "Save Complete";
-                this.mode = 'EDIT';
-                this.Record.rec_mode = this.mode;
+                // this.mode = 'EDIT';
+                // this.Record.rec_mode = this.mode;
+                this.mainService.state.mode='EDIT';
+                this.Record.rec_mode = this.mainService.state.mode;
                 this.RefreshList();
             },
                 error => {
@@ -337,16 +372,16 @@ export class TdsExemptionComponent {
     }
 
     OnBlur(controlname: string) {
-        
+
         if (controlname == 'te_tds_rate') {
-            this.Record.te_tds_rate = this.gs.roundNumber( this.Record.te_tds_rate, 2);
+            this.Record.te_tds_rate = this.gs.roundNumber(this.Record.te_tds_rate, 2);
         }
         if (controlname == 'te_tds_cert_rate') {
-            this.Record.te_tds_cert_rate = this.gs.roundNumber( this.Record.te_tds_cert_rate, 2);
+            this.Record.te_tds_cert_rate = this.gs.roundNumber(this.Record.te_tds_cert_rate, 2);
         }
 
         if (controlname == 'te_cr_limit') {
-            this.Record.te_cr_limit = this.gs.roundNumber( this.Record.te_cr_limit, 2);
+            this.Record.te_cr_limit = this.gs.roundNumber(this.Record.te_cr_limit, 2);
         }
         if (controlname == 'te_cert_no') {
             this.Record.te_cert_no = this.Record.te_cert_no.toUpperCase();
