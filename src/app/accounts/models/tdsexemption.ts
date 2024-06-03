@@ -27,7 +27,36 @@ export class TdsExemption {
     te_doc_count: number;
     te_remarks: string;
 
-    rec_mode:string;
+    rec_mode: string;
     _globalvariables: GlobalVariables;
 
 }
+
+export interface iPage {
+    action: string;
+    page_count: number;
+    page_current: number;
+    page_rows: number;
+    page_rowcount: number;
+}
+
+export interface iTdsExemptionSearch {
+    searchstring: string;
+}
+
+export interface iTdsExemptionModel {
+    selected_row_id: number;
+    records: TdsExemption[],
+    errorMessage: string,
+    searchQuery: iTdsExemptionSearch,
+    pageQuery: iPage
+};
+
+
+export const initialState: iTdsExemptionModel = {
+    selected_row_id: -1,
+    records: [],
+    searchQuery: <iTdsExemptionSearch>{ searchstring: '' },
+    pageQuery: <iPage>{ action: '', page_count: 0, page_current: 0, page_rows: 0, page_rowcount: 0 },
+    errorMessage: ''
+  }

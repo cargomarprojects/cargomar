@@ -34,7 +34,7 @@ export class TdsExemptionComponent {
     urlid: string;
 
     ErrorMessage = "";
-
+    screen_id = '';
     mode = '';
     pkid = '';
 
@@ -46,7 +46,7 @@ export class TdsExemptionComponent {
     PARTYRECORD: SearchTable = new SearchTable();
 
     constructor(
-        private mainService: TdsExemptionService,
+        public mainService: TdsExemptionService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
@@ -62,6 +62,7 @@ export class TdsExemptionComponent {
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
                 this.type = options.type;
+                this.screen_id = this.menuid;
                 this.InitComponent();
             }
         });
@@ -72,6 +73,8 @@ export class TdsExemptionComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
+
+        this.mainService.init(this.screen_id);
     }
 
     InitComponent() {
@@ -165,9 +168,36 @@ export class TdsExemptionComponent {
     }
 
     // Query List Data
-    List(_type: string) {
+    // List(_type: string) {
 
-        this.loading = true;
+    //     this.loading = true;
+    //     let SearchData = {
+    //         type: _type,
+    //         rowtype: this.type,
+    //         searchstring: this.searchstring.toUpperCase(),
+    //         page_count: this.page_count,
+    //         page_current: this.page_current,
+    //         page_rows: this.page_rows,
+    //         page_rowcount: this.page_rowcount,
+    //         company_code: this.gs.globalVariables.comp_code
+    //     };
+
+    //     this.ErrorMessage = '';
+    //     this.mainService.List(SearchData)
+    //         .subscribe(response => {
+    //             this.loading = false;
+    //             this.RecordList = response.list;
+    //             this.page_count = response.page_count;
+    //             this.page_current = response.page_current;
+    //             this.page_rowcount = response.page_rowcount;
+    //         },
+    //             error => {
+    //                 this.loading = false;
+    //                 this.ErrorMessage = this.gs.getError(error);
+    //             });
+    // }
+
+    List(_type: string) {
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -178,20 +208,7 @@ export class TdsExemptionComponent {
             page_rowcount: this.page_rowcount,
             company_code: this.gs.globalVariables.comp_code
         };
-
-        this.ErrorMessage = '';
-        this.mainService.List(SearchData)
-            .subscribe(response => {
-                this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
-            },
-                error => {
-                    this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                });
+        this.mainService.getList(SearchData);
     }
 
     NewRecord() {

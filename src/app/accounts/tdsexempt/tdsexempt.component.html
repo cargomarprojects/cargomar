@@ -61,7 +61,7 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                <tr *ngFor="let rec of mainService.getRecords(); let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>

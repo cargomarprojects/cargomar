@@ -37,7 +37,7 @@ export class GlobalService {
   public baseUrl: string = "http://localhost:5000";
   //public baseUrl: string = "";
 
-
+  public readonly appStates: { [key: string]: any } = {};
 
   // change this is false in production and update
   public isolderror: boolean = false;
