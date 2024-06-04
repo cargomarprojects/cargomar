@@ -70,7 +70,7 @@
                     (mousedown)="mainService.state.selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
-                    <td>{{rec.te_cust_name}}</td>
+                    <td class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">{{rec.te_cust_name}}</td>
                     <td>{{rec.te_tds_acc_code}}</td>
                     <td>{{rec.te_tds_acc_name}}</td>
                     <td>{{rec.te_valid_from}}</td>
@@ -110,98 +110,106 @@
 
 
 <div *ngIf="mainService.state.currentTab=='DETAILS'" class="page-details">
+    <div class="page-box">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Certificate#</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_cert_no"
+                            (blur)="OnBlur('te_cert_no')" maxlength="15" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Date</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.te_cert_date"
+                            (ValueChanged)="Record.te_cert_date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Customer</label>
+                    <div class="col-sm-4">
+                        <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.te_cust_name" maxlength="60" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">A/c. Code</label>
+                    <div class="col-sm-4">
+                        <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
+                            (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                    <div class="col-sm-6">
+                        <input disabled type="text" class="form-control form-control-sm"
+                            [(ngModel)]="Record.te_tds_acc_name" maxlength="60" />
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Certificate#</label>
-                <div class="col-sm-4 pr-2">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_cert_no"
-                        (blur)="OnBlur('te_cert_no')" maxlength="15" />
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Valid From</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.te_valid_from"
+                            (ValueChanged)="Record.te_valid_from=$event"></app-date>
+                    </div>
                 </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
-                <div class="col-sm-4">
-                    <app-date [inputdate]="Record.te_cert_date" (ValueChanged)="Record.te_cert_date=$event"></app-date>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Valid To</label>
+                    <div class="col-sm-4">
+                        <app-date [inputdate]="Record.te_valid_to"
+                            (ValueChanged)="Record.te_valid_to=$event"></app-date>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
-                <div class="col-sm-4  pr-2">
-                    <app-autocomplete #PartyLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Tds Rate</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_rate"
+                            (blur)="OnBlur('te_tds_rate')" maxlength="15" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.te_cust_name"
-                        maxlength="60" />
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Cert.Tds Rate</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_cert_rate"
+                            (blur)="OnBlur('te_tds_cert_rate')" maxlength="15" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">A/c. Code</label>
-                <div class="col-sm-4  pr-2">
-                    <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
-                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Credit Limit</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_cr_limit"
+                            required (blur)="OnBlur('te_cr_limit')" maxlength="15" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <input disabled type="text" class="form-control form-control-sm"
-                        [(ngModel)]="Record.te_tds_acc_name" maxlength="60" />
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Valid From</label>
-                <div class="col-sm-4  pr-2">
-                    <app-date [inputdate]="Record.te_valid_from"
-                        (ValueChanged)="Record.te_valid_from=$event"></app-date>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Remarks</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
+                            (blur)="OnBlur('te_remarks')" maxlength="100" />
+                    </div>
                 </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm">Valid To</label>
-                <div class="col-sm-4">
-                    <app-date [inputdate]="Record.te_valid_to" (ValueChanged)="Record.te_valid_to=$event"></app-date>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Tds Rate</label>
-                <div class="col-sm-4  pr-2">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_rate"
-                        (blur)="OnBlur('te_tds_rate')" maxlength="15" />
-                </div>
-                <label class="col-sm-2 col-form-label col-form-label-sm ">Certificate Rate</label>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_cert_rate"
-                        (blur)="OnBlur('te_tds_cert_rate')" maxlength="15" />
-                </div>
             </div>
-
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Credit Limit</label>
-                <div class="col-sm-4 pr-2">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_cr_limit" required
-                        (blur)="OnBlur('te_cr_limit')" maxlength="15" />
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                        (blur)="OnBlur('te_remarks')" maxlength="100" />
-                </div>
-            </div>
-
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group row">
-                <div class="offset-2 col-sm-10">
-                    <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
-                        class="btn btn-primary btn-sm">Save</button>
-                        <button [disabled]="loading" *ngIf="mainService.state.mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
-                        class="btn btn-primary btn-sm">Documents</button>
-                    <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                        class="btn btn-primary btn-sm">Return</button>
-                    <i *ngIf="loading" class="fa fa-spinner"></i>
+    <div class="page-box">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="offset-2 col-sm-10">
+                        <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                            class="btn btn-primary btn-sm">Save</button>
+                        <button [disabled]="loading" *ngIf="mainService.state.mode == 'EDIT' && bDocs"
+                            (click)="ShowDocuments(doc)" class="btn btn-primary btn-sm">Documents</button>
+                        <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                            class="btn btn-primary btn-sm">Return</button>
+                        <i *ngIf="loading" class="fa fa-spinner"></i>
+                    </div>
                 </div>
             </div>
         </div>

@@ -27,6 +27,19 @@ export class TdsExemptionComponent {
     urlid: string;
     modal: any;
 
+    //selectedRowIndex = 0;
+    // currentTab = 'LIST';
+    // searchstring = '';
+    // page_count = 0;
+    // page_current = 0;
+    // page_rows = 0;
+    // page_rowcount = 0;
+    // ErrorMessage = "";
+    // mode = '';
+    // pkid = '';
+    // // Array For Displaying List
+    // RecordList: TdsExemption[] = [];
+
     // Single Record for add/edit/view details
     Record: TdsExemption = new TdsExemption;
     ACCRECORD: SearchTable = new SearchTable();
@@ -397,4 +410,45 @@ export class TdsExemptionComponent {
     }
 
 
+    // // Query List Data
+    GstPurchaseReport(_cust_name: string) {
+        this.mainService.state.ErrorMessage = '';
+
+        let SearchData = {
+            type: 'EXCEL',
+            pkid: this.gs.getGuid(),
+            report_folder: this.gs.globalVariables.report_folder,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            searchstring: _cust_name,
+            from_date: this.gs.globalVariables.year_start_date,
+            to_date: this.gs.globalVariables.year_end_date,
+            format_type: 'PURCHASE',
+            all: true,
+            gst_only: true,
+            print_new_format: true,
+            user_code: this.gs.globalVariables.user_code,
+            state_name: '',
+            state_code: '',
+            hide_ho_entries: this.gs.globalVariables.hide_ho_entries
+        };
+
+        this.loading = true;
+        this.mainService.GstReport(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            },
+                error => {
+                    this.loading = false;
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.mainService.state.ErrorMessage);
+                });
+    }
+
+
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
 }
