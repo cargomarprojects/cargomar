@@ -19,27 +19,12 @@ export class TdsExemptionComponent {
     @Input() type: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
-    // selectedRowIndex = 0;
     disableSave = true;
     loading = false;
-    // currentTab = 'LIST';
-
-    // searchstring = '';
-    // page_count = 0;
-    // page_current = 0;
-    // page_rows = 0;
-    // page_rowcount = 0;
-
     sub: any;
     urlid: string;
-
-    // ErrorMessage = "";
     screen_id = '';
-    // mode = '';
-    // pkid = '';
 
-    // Array For Displaying List
-    // RecordList: TdsExemption[] = [];
     // Single Record for add/edit/view details
     Record: TdsExemption = new TdsExemption;
     ACCRECORD: SearchTable = new SearchTable();
@@ -75,12 +60,12 @@ export class TdsExemptionComponent {
         }
 
         this.mainService.init(this.screen_id);
-        if (this.mainService.state.currentTab == "LIST")
+        if (this.mainService.state.mode == "ADD")
+            this.ActionHandler('ADD', '');
+        else if (this.mainService.state.mode == "EDIT")
+            this.ActionHandler('EDIT', this.mainService.state.pkid)
+        else
             this.ActionHandler('LIST', '');
-
-
-        // if (this.mainService.getMode() == "EDIT")
-        //     this.ActionHandler('EDIT','')
     }
 
     InitComponent() {
@@ -178,45 +163,18 @@ export class TdsExemptionComponent {
         // if (this.mode == "EDIT" && this.menu_record.rights_edit)
         //     this.disableSave = false;
 
-        if (this.mainService.getMode() == "ADD" && this.menu_record.rights_add)
+        if (this.mainService.state.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
-        if (this.mainService.getMode() == "EDIT" && this.menu_record.rights_edit)
+        if (this.mainService.state.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
     }
 
     // Query List Data
-    // List(_type: string) {
-
-    //     this.loading = true;
-    //     let SearchData = {
-    //         type: _type,
-    //         rowtype: this.type,
-    //         searchstring: this.searchstring.toUpperCase(),
-    //         page_count: this.page_count,
-    //         page_current: this.page_current,
-    //         page_rows: this.page_rows,
-    //         page_rowcount: this.page_rowcount,
-    //         company_code: this.gs.globalVariables.comp_code
-    //     };
-
-    //     this.ErrorMessage = '';
-    //     this.mainService.List(SearchData)
-    //         .subscribe(response => {
-    //             this.loading = false;
-    //             this.RecordList = response.list;
-    //             this.page_count = response.page_count;
-    //             this.page_current = response.page_current;
-    //             this.page_rowcount = response.page_rowcount;
-    //         },
-    //             error => {
-    //                 this.loading = false;
-    //                 this.ErrorMessage = this.gs.getError(error);
-    //             });
-    // }
-
     List(_type: string) {
+
+        this.loading = true;
         let SearchData = {
             type: _type,
             rowtype: this.type,
@@ -227,19 +185,21 @@ export class TdsExemptionComponent {
             page_rowcount: this.mainService.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code
         };
-        // this.setState(SearchData);
-        this.mainService.getList(SearchData);
+        this.mainService.state.ErrorMessage = '';
+        this.mainService.List(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.mainService.state.RecordList = response.list;
+                this.mainService.state.page_count = response.page_count;
+                this.mainService.state.page_current = response.page_current;
+                this.mainService.state.page_rowcount = response.page_rowcount;
+            },
+                error => {
+                    this.loading = false;
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                });
     }
-
-    setState(_searchData: any) {
-        this.mainService.state.type = _searchData.type;
-        this.mainService.state.searchstring = _searchData.searchstring;
-        this.mainService.state.page_count = _searchData.page_count;
-        this.mainService.state.page_current = _searchData.page_current;
-        this.mainService.state.page_rows = _searchData.page_rows;
-        this.mainService.state.page_rowcount = _searchData.page_rowcount;
-    }
-
+ 
     NewRecord() {
 
         // this.pkid = this.gs.getGuid();
@@ -319,7 +279,7 @@ export class TdsExemptionComponent {
                 this.mainService.state.ErrorMessage = "Save Complete";
                 // this.mode = 'EDIT';
                 // this.Record.rec_mode = this.mode;
-                this.mainService.state.mode='EDIT';
+                this.mainService.state.mode = 'EDIT';
                 this.Record.rec_mode = this.mainService.state.mode;
                 this.RefreshList();
             },
