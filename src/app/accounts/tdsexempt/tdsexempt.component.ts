@@ -36,9 +36,9 @@ export class TdsExemptionComponent {
         private gs: GlobalService
     ) {
         this.InitLov();
-        this.mainService.state.page_count = 0;
-        this.mainService.state.page_rows = 2;
-        this.mainService.state.page_current = 0;
+        // this.mainService.state.page_count = 0;
+        // this.mainService.state.page_rows = 2;
+        // this.mainService.state.page_current = 0;
 
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
