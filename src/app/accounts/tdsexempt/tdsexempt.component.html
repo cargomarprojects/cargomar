@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="col">
-        <label>{{title}}</label>
+        <label>{{title}}{{mainService.state.mode==''?'':'-'+mainService.state.mode}}</label>
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -14,7 +14,8 @@
         <div class="row">
             <label class="col-2">Search</label>
             <div class="col">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="mainService.state.searchstring"  (blur)="OnBlur('searchstring')" />
+                <input type="text" class="col form-control form-control-sm" name="Search"
+                    [(ngModel)]="mainService.state.searchstring" (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -25,7 +26,8 @@
     <div class="page-pager">
         <div *ngIf="mainService.state.page_count">
             <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{mainService.state.page_current}}/{{mainService.state.page_count}}
+                <li class="page-item"><a class="page-link">Page
+                        {{mainService.state.page_current}}/{{mainService.state.page_count}}
                         (Records-{{mainService.state.page_rowcount}})</a></li>
                 <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                             class="fa fa-backward"></span></a></li>
@@ -61,7 +63,8 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of mainService.state.RecordList; let i = index" [class.active]="i == mainService.state.selectedRowIndex"
+                <tr *ngFor="let rec of mainService.state.RecordList; let i = index"
+                    [class.active]="i == mainService.state.selectedRowIndex"
                     (mousedown)="mainService.state.selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
@@ -86,7 +89,8 @@
     <div class="page-pager">
         <div *ngIf="mainService.state.page_count">
             <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{mainService.state.page_current}}/{{mainService.state.page_count}}
+                <li class="page-item"><a class="page-link">Page
+                        {{mainService.state.page_current}}/{{mainService.state.page_count}}
                         (Records-{{mainService.state.page_rowcount}})</a></li>
                 <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                             class="fa fa-backward"></span></a></li>
@@ -136,8 +140,8 @@
                         (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
                 <div class="col-sm-6">
-                    <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_tds_acc_name"
-                        maxlength="60" />
+                    <input disabled type="text" class="form-control form-control-sm"
+                        [(ngModel)]="Record.te_tds_acc_name" maxlength="60" />
                 </div>
             </div>
 

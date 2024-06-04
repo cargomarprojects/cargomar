@@ -37,7 +37,7 @@ export class GlobalService {
   public baseUrl: string = "http://localhost:5000";
   //public baseUrl: string = "";
 
-  public readonly appStates: { [key: string]: any } = {};
+  public appStates: { [key: string]: any } = {};
 
   // change this is false in production and update
   public isolderror: boolean = false;
@@ -62,9 +62,13 @@ export class GlobalService {
 
   public CreateAppId() {
     this.appid = UUID.UUID();
+    this.resetState();
   }
 
-
+  public resetState() {
+    this.appStates = {};
+  }
+  
   public getPagetitle(menucode: string): string {
     return this.MenuList.find(f => f.menu_code == menucode).menu_name;
   }

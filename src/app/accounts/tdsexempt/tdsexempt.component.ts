@@ -42,11 +42,11 @@ export class TdsExemptionComponent {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
-                this.InitCompleted = true;
+                // this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
                 this.type = options.type;
-                this.InitComponent();
+                // this.InitComponent();
             }
         });
     }
@@ -54,6 +54,7 @@ export class TdsExemptionComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         if (!this.InitCompleted) {
+            this.InitCompleted=true;
             this.InitComponent();
         }
 
@@ -62,8 +63,7 @@ export class TdsExemptionComponent {
             this.ActionHandler('ADD', '');
         else if (this.mainService.state.mode == "EDIT")
             this.ActionHandler('EDIT', this.mainService.state.pkid)
-        else if(this.gs.isBlank(this.mainService.state.RecordList))
-            this.List("NEW");
+         
     }
 
     InitComponent() {
