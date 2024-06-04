@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { TdsExemption } from '../models/tdsexemption';
@@ -21,8 +22,10 @@ export class TdsExemptionComponent {
     menu_record: any;
     disableSave = true;
     loading = false;
+    bDocs: boolean = false;
     sub: any;
     urlid: string;
+    modal: any;
 
     // Single Record for add/edit/view details
     Record: TdsExemption = new TdsExemption;
@@ -30,6 +33,7 @@ export class TdsExemptionComponent {
     PARTYRECORD: SearchTable = new SearchTable();
 
     constructor(
+        private modalService: NgbModal,
         public mainService: TdsExemptionService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -54,7 +58,7 @@ export class TdsExemptionComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         if (!this.InitCompleted) {
-            this.InitCompleted=true;
+            this.InitCompleted = true;
             this.InitComponent();
         }
 
@@ -63,14 +67,17 @@ export class TdsExemptionComponent {
             this.ActionHandler('ADD', '');
         else if (this.mainService.state.mode == "EDIT")
             this.ActionHandler('EDIT', this.mainService.state.pkid)
-         
+
     }
 
     InitComponent() {
+        this.bDocs = false;
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
-
+            if (this.menu_record.rights_docs)
+                this.bDocs = true;
+        }
         this.LoadCombo();
         // this.List("NEW");
     }
@@ -171,7 +178,7 @@ export class TdsExemptionComponent {
 
     // Query List Data
     List(_type: string) {
-        
+
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -210,8 +217,8 @@ export class TdsExemptionComponent {
         this.Record.te_cust_id = '';
         this.Record.te_cust_code = '';
         this.Record.te_cust_name = '';
-        this.Record.te_valid_from = '';
-        this.Record.te_valid_to = '';
+        this.Record.te_valid_from = this.gs.defaultValues.today;
+        this.Record.te_valid_to = this.gs.globalVariables.year_end_date;
         this.Record.te_year = 0;
         this.Record.te_tds_acc_id = '';
         this.Record.te_tds_acc_code = '';
@@ -325,9 +332,46 @@ export class TdsExemptionComponent {
         }
     }
 
+    UpdateTdsExemption() {
+
+        if (!confirm("Update Amount")) {
+            return;
+        }
+
+        this.loading = true;
+        let SearchData = {
+            report_folder: this.gs.globalVariables.report_folder,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+            year_code: this.gs.globalVariables.year_code
+        };
+
+        this.mainService.state.ErrorMessage = '';
+        this.mainService.Update(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.List("NEW");
+            },
+                error => {
+                    this.loading = false;
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                });
+    }
+
     Close() {
         this.gs.ClosePage('home');
     }
+
+    ShowDocuments(doc: any) {
+        this.mainService.state.ErrorMessage = '';
+        this.open(doc);
+    }
+
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
+
 
     OnBlur(controlname: string) {
 

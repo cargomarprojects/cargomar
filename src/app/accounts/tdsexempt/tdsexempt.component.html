@@ -12,13 +12,15 @@
 
     <div class="page-search">
         <div class="row">
-            <label class="col-2">Search</label>
-            <div class="col">
+            <label class="col-sm-2">Search</label>
+            <div class="col-sm-6">
                 <input type="text" class="col form-control form-control-sm" name="Search"
                     [(ngModel)]="mainService.state.searchstring" (blur)="OnBlur('searchstring')" />
             </div>
-            <div class="col">
-                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <div class="col-sm-4">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+                <button [disabled]="loading" (click)="UpdateTdsExemption()" class="btn btn-primary btn-sm">Update
+                    Amount</button>
             </div>
         </div>
     </div>
@@ -195,6 +197,8 @@
                 <div class="offset-2 col-sm-10">
                     <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
                         class="btn btn-primary btn-sm">Save</button>
+                        <button [disabled]="loading" *ngIf="mainService.state.mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                        class="btn btn-primary btn-sm">Documents</button>
                     <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                         class="btn btn-primary btn-sm">Return</button>
                     <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -208,3 +212,17 @@
 <div *ngIf="mainService.state.ErrorMessage" class="alert alert-info">
     {{mainService.state.ErrorMessage}}
 </div>
+<ng-template #doc let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Documents</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-upload [pkid]="mainService.state.pkid" [type]="'TDS-EXEMPTION-CERT'"></app-upload>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

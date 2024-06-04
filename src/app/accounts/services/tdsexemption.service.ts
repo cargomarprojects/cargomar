@@ -42,6 +42,10 @@ export class TdsExemptionService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/TdsExemption/Save', Record, this.gs.headerparam2('authorized'));
   }
 
+  Update(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/TdsExemption/Update', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Taxm/TdsExemption', SearchData, this.gs.headerparam2('authorized'));
   }
