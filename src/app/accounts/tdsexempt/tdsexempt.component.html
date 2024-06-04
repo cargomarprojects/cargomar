@@ -14,7 +14,7 @@
         <div class="row">
             <label class="col-2">Search</label>
             <div class="col">
-                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="mainService.state.searchstring" />
+                <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="mainService.state.searchstring"  (blur)="OnBlur('searchstring')" />
             </div>
             <div class="col">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>

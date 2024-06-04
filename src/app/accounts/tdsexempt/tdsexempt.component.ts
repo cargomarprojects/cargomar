@@ -64,8 +64,6 @@ export class TdsExemptionComponent {
             this.ActionHandler('ADD', '');
         else if (this.mainService.state.mode == "EDIT")
             this.ActionHandler('EDIT', this.mainService.state.pkid)
-        else
-            this.ActionHandler('LIST', '');
     }
 
     InitComponent() {
@@ -74,7 +72,7 @@ export class TdsExemptionComponent {
             this.title = this.menu_record.menu_name;
 
         this.LoadCombo();
-        this.List("NEW");
+        // this.List("NEW");
     }
 
     // Destroy Will be called when this component is closed
@@ -199,7 +197,7 @@ export class TdsExemptionComponent {
                     this.mainService.state.ErrorMessage = this.gs.getError(error);
                 });
     }
- 
+
     NewRecord() {
 
         // this.pkid = this.gs.getGuid();
@@ -348,6 +346,9 @@ export class TdsExemptionComponent {
         }
         if (controlname == 'te_remarks') {
             this.Record.te_remarks = this.Record.te_remarks.toUpperCase();
+        }
+        if (controlname == 'searchstring') {
+            this.mainService.state.searchstring = this.mainService.state.searchstring.toUpperCase();
         }
     }
 
