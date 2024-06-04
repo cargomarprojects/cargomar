@@ -32,18 +32,6 @@ export class TdsExemption {
 
 }
 
-export interface iPage {
-    action: string;
-    page_count: number;
-    page_current: number;
-    page_rows: number;
-    page_rowcount: number;
-}
-
-export interface iTdsExemptionSearch {
-    searchstring: string;
-}
-
 export interface iTdsExemptionModel {
     // filter Values
     selectedRowIndex: number;
@@ -61,7 +49,6 @@ export interface iTdsExemptionModel {
     page_rows: number;
     page_rowcount: number;
 };
-
 
 export const initialState: iTdsExemptionModel = {
     selectedRowIndex: 0,

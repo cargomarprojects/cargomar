@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TdsExemption, iTdsExemptionSearch, iTdsExemptionModel, initialState } from '../models/tdsexemption';
+import { TdsExemption, iTdsExemptionModel, initialState } from '../models/tdsexemption';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
