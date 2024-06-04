@@ -61,8 +61,8 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of mainService.state.RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    (mousedown)="selectedRowIndex=i">
+                <tr *ngFor="let rec of mainService.state.RecordList; let i = index" [class.active]="i == mainService.state.selectedRowIndex"
+                    (mousedown)="mainService.state.selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
                     <td>{{rec.te_cust_name}}</td>
