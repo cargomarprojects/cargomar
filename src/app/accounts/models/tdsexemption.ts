@@ -35,11 +35,11 @@ export class TdsExemption {
 export interface iTdsExemptionModel {
     // filter Values
     selectedRowIndex: number;
-    mode: string,
-    pkid: string,
+    mode: string;
+    pkid: string;
     currentTab: string;
-    RecordList: TdsExemption[],
-    ErrorMessage: string
+    RecordList: TdsExemption[];
+    ErrorMessage: string;
     // header search Values
     type: string;
     searchstring: string;
@@ -57,7 +57,7 @@ export const initialState: iTdsExemptionModel = {
     currentTab: 'LIST',
     RecordList: [],
     ErrorMessage: '',
-    type:'',
+    type: '',
     searchstring: '',
     page_count: 0,
     page_current: 0,

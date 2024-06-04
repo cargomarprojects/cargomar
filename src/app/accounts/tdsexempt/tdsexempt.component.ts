@@ -23,7 +23,6 @@ export class TdsExemptionComponent {
     loading = false;
     sub: any;
     urlid: string;
-    screen_id = '';
 
     // Single Record for add/edit/view details
     Record: TdsExemption = new TdsExemption;
@@ -47,7 +46,6 @@ export class TdsExemptionComponent {
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
                 this.type = options.type;
-                this.screen_id = this.menuid;
                 this.InitComponent();
             }
         });
@@ -59,11 +57,13 @@ export class TdsExemptionComponent {
             this.InitComponent();
         }
 
-        this.mainService.init(this.screen_id);
+        this.mainService.init(this.menuid);
         if (this.mainService.state.mode == "ADD")
             this.ActionHandler('ADD', '');
         else if (this.mainService.state.mode == "EDIT")
             this.ActionHandler('EDIT', this.mainService.state.pkid)
+        else if(this.gs.isBlank(this.mainService.state.RecordList))
+            this.List("NEW");
     }
 
     InitComponent() {
@@ -171,7 +171,7 @@ export class TdsExemptionComponent {
 
     // Query List Data
     List(_type: string) {
-
+        
         this.loading = true;
         let SearchData = {
             type: _type,
