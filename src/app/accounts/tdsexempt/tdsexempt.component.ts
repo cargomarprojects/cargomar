@@ -220,6 +220,7 @@ export class TdsExemptionComponent {
                 error => {
                     this.loading = false;
                     this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.mainService.state.ErrorMessage);
                 });
     }
 
@@ -269,6 +270,7 @@ export class TdsExemptionComponent {
                 error => {
                     this.loading = false;
                     this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.mainService.state.ErrorMessage);
                 });
     }
 
@@ -305,11 +307,12 @@ export class TdsExemptionComponent {
                 this.mainService.state.mode = 'EDIT';
                 this.Record.rec_mode = this.mainService.state.mode;
                 this.RefreshList();
+                alert(this.mainService.state.ErrorMessage);
             },
                 error => {
                     this.loading = false;
                     this.mainService.state.ErrorMessage = this.gs.getError(error);
-
+                    alert(this.mainService.state.ErrorMessage);
                 });
     }
 
@@ -321,8 +324,10 @@ export class TdsExemptionComponent {
             bret = false;
             sError = "A/c Code Need To Be Selected";
         }
-        if (bret === false)
+        if (bret === false) {
             this.mainService.state.ErrorMessage = sError;
+            alert(this.mainService.state.ErrorMessage);
+        }
         return bret;
     }
 

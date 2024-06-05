@@ -62,6 +62,6 @@ export const initialState: iTdsExemptionModel = {
     searchstring: '',
     page_count: 0,
     page_current: 0,
-    page_rows: 2,
+    page_rows: 15,
     page_rowcount: 0
 }
