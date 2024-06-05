@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Print</button>
+                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
                 <button [disabled]="loading" (click)="UpdateTdsExemption()" class="btn btn-primary btn-sm">Update
                     Amount</button>
             </div>
@@ -57,7 +57,7 @@
                     <th>VALID.TO</th>
                     <th>RATE</th>
                     <th>CERT.RATE</th>
-                    <th>CR.LIMIT</th>
+                    <th>CERT.LIMIT</th>
                     <th>USED.AMT</th>
                     <th>BAL.AMT</th>
                     <th>DOC</th>
@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Credit Limit</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Cert. Limit</label>
                     <div class="col-sm-4">
                         <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_cr_limit"
                             required (blur)="OnBlur('te_cr_limit')" maxlength="15" />

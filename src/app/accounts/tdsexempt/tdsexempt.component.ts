@@ -201,16 +201,21 @@ export class TdsExemptionComponent {
             page_current: this.mainService.state.page_current,
             page_rows: this.mainService.state.page_rows,
             page_rowcount: this.mainService.state.page_rowcount,
-            company_code: this.gs.globalVariables.comp_code
+            company_code: this.gs.globalVariables.comp_code,
+            report_folder: this.gs.globalVariables.report_folder
         };
         this.mainService.state.ErrorMessage = '';
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.mainService.state.RecordList = response.list;
-                this.mainService.state.page_count = response.page_count;
-                this.mainService.state.page_current = response.page_current;
-                this.mainService.state.page_rowcount = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.reportfile, _type, response.filedisplayname);
+                else {
+                    this.mainService.state.RecordList = response.list;
+                    this.mainService.state.page_count = response.page_count;
+                    this.mainService.state.page_current = response.page_current;
+                    this.mainService.state.page_rowcount = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
