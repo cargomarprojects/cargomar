@@ -737,6 +737,8 @@ export class CustomerComponent {
 
 
   OnBlur(field: string) {
+    var oldChar = / /gi;//replace all blank space in a string
+
     if (field == 'cust_crdays') {
       this.Record.cust_crdays = this.Record.cust_crdays;
     }
@@ -756,6 +758,12 @@ export class CustomerComponent {
     if (field == 'cust_sb_address') {
       this.Record.cust_sb_address = this.Record.cust_sb_address.toUpperCase();
     }
+
+    if (field == 'cust_code') {
+      // this.Record.cust_code = this.Record.cust_code.replace(oldChar, '').toUpperCase();
+      this.Record.cust_code = this.Record.cust_code.toUpperCase();
+    }
+
   }
 
   Close() {

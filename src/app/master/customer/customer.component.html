@@ -242,9 +242,7 @@
   </div>
 </div>
 
-
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
-
   <ngb-tabset>
     <ngb-tab title="Basic Details">
       <ng-template ngbTabContent>
@@ -255,7 +253,7 @@
                 <label class="col-2 col-form-label col-form-label-sm">Code</label>
                 <div class="col-4">
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
-                    [(ngModel)]="Record.cust_code" required maxlength="15" />
+                    [(ngModel)]="Record.cust_code" required maxlength="15" (blur)="OnBlur('cust_code')"  />
                 </div>
               </div>
               <div class="form-group row">
