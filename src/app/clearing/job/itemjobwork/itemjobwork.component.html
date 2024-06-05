@@ -1,0 +1,117 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th>BE#</th>
+            <th>DATE</th>
+            <th>INV.SLNO</th>
+            <th>INV#</th>
+            <th>ITM.SLNO</th>
+            <th>IMPORTED.AT</th>
+            <th>QTY</th>
+            <th>UNIT</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.jw_pkid,i)">
+            <td>{{rec.jw_be_no}}</td>
+            <td>{{rec.jw_be_date}}</td>
+            <td>{{rec.jw_be_inv_slno}}</td>
+            <td>{{rec.jw_be_inv_no}}</td>
+            <td>{{rec.jw_be_itm_slno}}</td>
+            <td>{{rec.jw_be_port_name}}</td>
+            <td>{{rec.jw_be_qty}}</td>
+            <td>{{rec.jw_be_unit_code}}</td>
+            <td>
+              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jw_pkid,name:rec.jw_be_no}" (result)="RemoveList($event)"></App-Dialog>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="page-details">
+    <div class="row">
+  
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">BE No</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Invoice.Slno</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Invoice#</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Item.Slno</label>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jw_be_no" (blur)="OnBlur('jw_be_no')" required maxlength="7" #je_beno />
+          </div>
+          <div class="col-sm-2">
+            <app-date [inputdate]="Record.jw_be_date" (ValueChanged)="Record.jw_be_date=$event"></app-date>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jw_be_inv_slno" (blur)="OnBlur('jw_be_inv_slno')" required maxlength="2" />
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jw_be_inv_no" (blur)="OnBlur('jw_be_inv_no')" required maxlength="16" />
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jw_be_itm_slno" (blur)="OnBlur('jw_be_itm_slno')" required maxlength="4" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label col-form-label-sm">Imported At</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Qty</label>
+          <label class="col-sm 2 col-form-label col-form-label-sm">Unit</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <app-autocomplete #portLov [inputdata]="PORTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.jw_be_port_name"  required maxlength="100" />
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jw_be_qty" (blur)="OnBlur('jw_be_qty')" required maxlength="14" />
+          </div>
+          <div class="col-sm-2">
+            <app-autocomplete #pkgUnitLov [inputdata]="QTYUNITRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+            <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+  
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-sm-2">
+  
+        <div class="col">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+          <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+        </div>
+  
+      </div>-->
+    </div>
+  </div>
+  
+  <!--<div class="page-box">
+    <div class="col">
+      <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
+  
+    </div>
+  </div>-->
+  <br />
+  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+  <div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+  </div>
+  <div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+  </div>
+  
+  
