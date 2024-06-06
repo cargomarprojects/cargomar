@@ -31,7 +31,7 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
-  public software_version_string: string = '1.637';
+  public software_version_string: string = '1.638';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -68,7 +68,7 @@ export class GlobalService {
   public resetState() {
     this.appStates = {};
   }
-  
+
   public getPagetitle(menucode: string): string {
     return this.MenuList.find(f => f.menu_code == menucode).menu_name;
   }
