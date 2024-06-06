@@ -54,7 +54,7 @@
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
           <th *ngIf="type == 'SALESMAN'">BRANCH</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
-          <th *ngIf="type == 'SALESMAN'">LOCKED</th>
+          <th *ngIf="type == 'SALESMAN'||type == 'TAN'||type == 'PAN'">LOCKED</th>
           <th *ngIf="type == 'COUNTRY'">REGION</th>
           <th *ngIf="type == 'APP-DOC-TYPES'">REGION</th>
           <th *ngIf="type == 'CONTAINER TYPE'">DESCRIPTION</th>
@@ -104,7 +104,7 @@
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
-          <td *ngIf="type == 'SALESMAN'">{{rec.rec_locked?'Y':'N'}}</td>
+          <td *ngIf="type == 'SALESMAN'||type == 'TAN'||type == 'PAN'">{{rec.rec_locked?'Y':'N'}}</td>
           <td *ngIf="type == 'COUNTRY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'APP-DOC-TYPES'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CONTAINER TYPE'">{{rec.param_id3}}</td>
@@ -248,7 +248,7 @@
 
 
 
-      <div *ngIf="type=='SALESMAN' || type =='ESANCHITDOC' || type =='TAN'" class="form-group row">
+      <div *ngIf="type=='SALESMAN' || type =='ESANCHITDOC' || type =='TAN'|| type =='PAN'" class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Locked</label>
         <div class="col-10">
           <input type="checkbox" [(ngModel)]="Record.rec_locked">
