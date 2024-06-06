@@ -287,11 +287,12 @@ export class ItemJobworkComponent {
             return;
         var REC = this.RecordList.find(rec => rec.jw_pkid == this.Record.jw_pkid);
         if (REC == null) {
+            this.Record.jw_be_date = this.gs.ConvertDate2DisplayFormat(this.Record.jw_be_date);
             this.RecordList.push(this.Record);
         }
         else {
             REC.jw_be_no = this.Record.jw_be_no;
-            REC.jw_be_date = this.Record.jw_be_date;
+            REC.jw_be_date = this.gs.ConvertDate2DisplayFormat(this.Record.jw_be_date);
             REC.jw_be_inv_slno = this.Record.jw_be_inv_slno;
             REC.jw_be_inv_no = this.Record.jw_be_inv_no;
             REC.jw_be_itm_slno = this.Record.jw_be_itm_slno;
