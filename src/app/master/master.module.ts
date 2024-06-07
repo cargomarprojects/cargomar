@@ -47,6 +47,7 @@ import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { BuyrateImportComponent } from './airbuyrate/buyrateimport.component';
 import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 import { ProcessReportComponent } from './processreport/processreport.component';
+import { CustdetConsigneeComponent } from './customer/custdetconsignee.component';
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { ProcessReportComponent } from './processreport/processreport.component'
     AirBuyRateComponent,
     BuyrateImportComponent,
     ChemCatgComponent,
-    ProcessReportComponent
+    ProcessReportComponent,
+    CustdetConsigneeComponent
   ],
   providers: [
   ],
