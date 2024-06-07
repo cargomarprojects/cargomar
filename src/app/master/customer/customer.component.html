@@ -253,7 +253,7 @@
                 <label class="col-2 col-form-label col-form-label-sm">Code</label>
                 <div class="col-4">
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
-                    [(ngModel)]="Record.cust_code" required maxlength="15" (blur)="OnBlur('cust_code')"  />
+                    [(ngModel)]="Record.cust_code" required maxlength="15" (blur)="OnBlur('cust_code')" />
                 </div>
               </div>
               <div class="form-group row">
@@ -740,7 +740,10 @@
 
     <ngb-tab title="Salesman" *ngIf="mode == 'EDIT' && bAdmin2">
       <ng-template ngbTabContent>
-        <app-custdet [parentid]="pkid"></app-custdet>
+        <div>
+          <h6 style="color: red" class="my-1">SHIPPER:&nbsp;{{Record.cust_name}}</h6>
+          <app-custdet [parentid]="pkid"></app-custdet>
+        </div>
       </ng-template>
     </ngb-tab>
 
