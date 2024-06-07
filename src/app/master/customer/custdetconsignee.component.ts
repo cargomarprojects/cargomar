@@ -42,6 +42,7 @@ export class CustdetConsigneeComponent {
     Record: CustdetConsignee = new CustdetConsignee;
     BRRECORD: SearchTable = new SearchTable();
     SALESMANRECORD: SearchTable = new SearchTable();
+    PARTYRECORD: SearchTable = new SearchTable();
 
     constructor(
         private mainService: CustdetConsigneeService,
@@ -86,6 +87,14 @@ export class CustdetConsigneeComponent {
         this.SALESMANRECORD.code = '';
         this.SALESMANRECORD.name = '';
 
+        this.PARTYRECORD = new SearchTable();
+        this.PARTYRECORD.controlname = "PARTY";
+        this.PARTYRECORD.displaycolumn = "NAME";
+        this.PARTYRECORD.type = "CUSTOMER";
+        this.PARTYRECORD.id = "";
+        this.PARTYRECORD.code = "";
+        this.PARTYRECORD.name = "";
+        this.PARTYRECORD.parentid = "";
     }
 
     LovSelected(_Record: SearchTable) {
@@ -100,6 +109,12 @@ export class CustdetConsigneeComponent {
         if (_Record.controlname == "SALESMAN") {
             this.Record.det_sman_id = _Record.id;
             this.Record.det_sman_name = _Record.name;
+        }
+
+        if (_Record.controlname == "PARTY") {
+            this.Record.det_consignee_id = _Record.id;
+            this.Record.det_consignee_code = _Record.code;
+            this.Record.det_consignee_name = _Record.name;
         }
     }
 
@@ -212,6 +227,10 @@ export class CustdetConsigneeComponent {
         this.BRRECORD.name = this.Record.det_branch_name;
         this.SALESMANRECORD.id = this.Record.det_sman_id;
         this.SALESMANRECORD.name = this.Record.det_sman_name;
+
+        this.PARTYRECORD.id = this.Record.det_consignee_id;
+        this.PARTYRECORD.code = this.Record.det_consignee_code;
+        this.PARTYRECORD.name = this.Record.det_consignee_name;
 
         this.Record.rec_mode = this.mode;
 
