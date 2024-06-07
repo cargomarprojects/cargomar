@@ -106,6 +106,7 @@
           <tr>
             <th width="100px;" class="text-left">DATE</th>
             <th width="150px;" class="text-left">REF#</th>
+            <th width="100px;" class="text-left">LOCATION</th>
             <th width="150px;" class="text-left">REMARKS</th>
             <th width="100px;" class="text-left">CATEGORY</th>
             <th width="100px;" class="text-right">DR</th>
@@ -122,6 +123,7 @@
           <tr *ngFor="let rec of PendingList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
             <td width="100px;" align='left'>{{rec.jv_display_date}}</td>
             <td width="150px;" align='left'>{{rec.jv_reference}}</td>
+            <td width="100px;" align='left'>{{rec.jv_location}}</td>
             <td width="150px;" align='left'>{{rec.jv_remarks}}</td>
             <td width="100px;" align='left'>{{rec.rec_category}}</td>
             <td width="100px;" align='right'>{{ rec.dr | number : '1.2-2' }}</td>
