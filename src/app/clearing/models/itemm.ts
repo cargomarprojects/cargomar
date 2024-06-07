@@ -106,6 +106,7 @@ export class Itemm {
     itm_chemcategory_id: string;
     itm_chemcategory_code: string;
     itm_chemcategory_name: string;
+    itm_jobwork_no: string;
 
     rec_mode: string;
     rec_category: string;

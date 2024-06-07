@@ -685,6 +685,7 @@ export class ItemComponent {
     this.Record.itm_chemcategory_id = '';
     this.Record.itm_chemcategory_code = '';
     this.Record.itm_chemcategory_name = '';
+    this.Record.itm_jobwork_no = '';
     this.Record.rec_mode = this.mode;
 
 
@@ -1040,6 +1041,10 @@ export class ItemComponent {
       }
       case 'itm_ritc_unit': {
         this.Record.itm_ritc_unit = this.Record.itm_ritc_unit.toUpperCase();
+        break;
+      }
+      case 'itm_jobwork_no': {
+        this.Record.itm_jobwork_no = this.Record.itm_jobwork_no.toUpperCase();
         break;
       }
     }

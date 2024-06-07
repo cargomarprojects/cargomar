@@ -574,7 +574,13 @@
                   <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_ta_name" />
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm pr-0">JobWork.Notn#</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.itm_jobwork_no"
+                    (blur)="OnBlur('itm_jobwork_no')" required maxlength="10" />
+                </div>
+              </div>
             </div>
 
           </div>
