@@ -186,6 +186,8 @@ export class CustdetConsigneeComponent {
         this.Record.det_cust_id = this.parentid;
         this.Record.rec_mode = this.mode;
         this.Record.det_branch_id = '';
+        this.Record.det_branch_code = '';
+        this.Record.det_branch_name = '';
         this.Record.det_sman_id = '';
         this.Record.det_sman_name = '';
         this.Record.det_consignee_id = '';

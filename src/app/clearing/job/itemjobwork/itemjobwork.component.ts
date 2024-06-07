@@ -358,7 +358,7 @@ export class ItemJobworkComponent {
                 }
             case 'jw_be_qty':
                 {
-                    this.Record.jw_be_qty = this.gs.roundNumber(this.Record.jw_be_qty, 6);
+                    this.Record.jw_be_qty = this.gs.roundNumber(this.Record.jw_be_qty, 3);
                     break;
                 }
             case 'jw_be_inv_slno':
