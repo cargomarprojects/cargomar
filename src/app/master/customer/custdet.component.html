@@ -1,6 +1,7 @@
-<div class="page-box">
-  <h6 style="color: green" class="my-1">SHIPPER + BRANCH WISE SALESMAN</h6>
+<div style="border-style:solid;border-color:green" class="page-box">
   <div class="page-list">
+    <label style="background-color: lightblue;color: black;font: size 8px;" class="col-12 col-form-label  col-form-label-sm mt-1 ">SHIPPER + BRANCH
+      WISE SALESMAN</label>
     <div class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
@@ -49,11 +50,11 @@
     </div>
   </div>
 </div>
-<!-- <hr class="my-2" style="border: 0.5;"> -->
-<div class="page-box mt-1">
-  <h6 style="color: green" class="my-1">SHIPPER + CONSIGNEE WISE SALESMAN(*OPTIONAL BRANCH)</h6>
+<hr class="my-2" style="border: 0.5;">
+<div style="border-style:solid;border-color:green" class="page-box mt-1">
   <app-custdetconsignee [parentid]="parentid"></app-custdetconsignee>
-  <label class="col-sm-12 col-form-label col-form-label-sm" style="color:red">*If branch is blank, then salesman updated in house will be applicable for all the branches </label>
+  <label class="col-sm-12 col-form-label col-form-label-sm" style="color:red">*Branch is not required, if it is company
+    wise </label>
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>

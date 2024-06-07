@@ -1,18 +1,20 @@
 <div class="page-list">
+  <label style="background-color: lightblue;color: black;font: size 8px;" class="col-12 col-form-label  col-form-label-sm mt-1 ">SHIPPER +
+    CONSIGNEE WISE SALESMAN(*OPTIONAL BRANCH)</label>
     <div class="page-body table-responsive">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
-            <th>CONSIGNEE</th>
             <th>BRANCH</th>
+            <th>CONSIGNEE</th>
             <th>SALESMAN</th>
             <th>DELETE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
           <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.det_pkid,i)">
-            <td>{{rec.det_consignee_name}}</td>
             <td>{{rec.det_branch_name}}</td>
+            <td>{{rec.det_consignee_name}}</td>
             <td>{{rec.det_sman_name}}</td>
             <td>
               <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.det_pkid}" (result)="RemoveList($event)"></App-Dialog>
@@ -26,13 +28,13 @@
     <div class="row">
       <div class="col-sm-8">
         <div class="form-group row">
-          <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Consignee</label>
-          <div class="col-sm-3">
-            <app-autocomplete #custLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-          </div>
           <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
           <div class="col-sm-3">
             <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+          <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Consignee</label>
+          <div class="col-sm-3">
+            <app-autocomplete #custLov [inputdata]="PARTYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
           <label class="col-sm-1 col-form-label  col-form-label-sm">Salesman</label>
           <div class="col-sm-3">
