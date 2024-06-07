@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-4">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
-                <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
+                <button [disabled]="loading" *ngIf="bExcel" (click)="List('EXCEL')" class="btn btn-primary btn-sm mr-1">Print</button>
                 <button [disabled]="loading" (click)="UpdateTdsExemption()" class="btn btn-primary btn-sm">Update
                     Amount</button>
             </div>
@@ -71,7 +71,8 @@
                     (mousedown)="mainService.state.selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
-                    <td class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">{{rec.te_cust_name}}</td>
+                    <td *ngIf="!bExcel">{{rec.te_cust_name}}</td>
+                    <td *ngIf="bExcel" class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">{{rec.te_cust_name}}</td>
                     <td>{{rec.te_tds_acc_code}}</td>
                     <td>{{rec.te_tds_acc_name}}</td>
                     <td>{{rec.te_valid_from}}</td>

@@ -23,6 +23,7 @@ export class TdsExemptionComponent {
     disableSave = true;
     loading = false;
     bDocs: boolean = false;
+    bExcel: boolean = false;
     sub: any;
     urlid: string;
     modal: any;
@@ -85,11 +86,14 @@ export class TdsExemptionComponent {
 
     InitComponent() {
         this.bDocs = false;
+        this.bExcel = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_docs)
                 this.bDocs = true;
+            if (this.menu_record.rights_print)
+                this.bExcel = true;
         }
         this.LoadCombo();
         // this.List("NEW");
