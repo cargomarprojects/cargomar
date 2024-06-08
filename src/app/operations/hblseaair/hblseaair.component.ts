@@ -681,14 +681,16 @@ export class HblSeaAirComponent {
         this.LOCATIONRECORD.id = this.Record.hbl_location_id;
         this.LOCATIONRECORD.code = this.Record.hbl_location_code;
         this.LOCATIONRECORD.name = this.Record.hbl_location_name;
-
-        this.SALESMANRECORD.id = this.Record.hbl_salesman_id;
-        this.SALESMANRECORD.code = this.Record.hbl_salesman_code;
-        this.SALESMANRECORD.name = this.Record.hbl_salesman_name;
-
+        
         this.COLOADERRECORD.id = this.Record.hbl_coloader_id;
         this.COLOADERRECORD.code = this.Record.hbl_coloader_code;
         this.COLOADERRECORD.name = this.Record.hbl_coloader_name;
+
+        if (this.mode == "EDIT") {
+            this.SALESMANRECORD.id = this.Record.hbl_salesman_id;
+            this.SALESMANRECORD.code = this.Record.hbl_salesman_code;
+            this.SALESMANRECORD.name = this.Record.hbl_salesman_name;
+        }
 
         this.old_shipper_id = this.Record.hbl_exp_id;
         this.old_billto_id = this.Record.hbl_billto_id;
@@ -707,6 +709,12 @@ export class HblSeaAirComponent {
             this.Record.hbl_mbl_bookno = '';
             this.Record.hbl_bl_no = '';
             this.Record.hbl_date = '';
+            this.Record.hbl_salesman_id = '';
+            this.Record.hbl_salesman_code = '';
+            this.Record.hbl_salesman_name = '';
+            this.SALESMANRECORD.id = this.Record.hbl_salesman_id;
+            this.SALESMANRECORD.code = this.Record.hbl_salesman_code;
+            this.SALESMANRECORD.name = this.Record.hbl_salesman_name;
             this.Record.lock_record = false;
             this.Record.JobList = new Array<any>();
             this.JobList(this.Record);
