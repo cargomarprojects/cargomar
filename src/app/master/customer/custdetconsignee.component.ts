@@ -291,7 +291,7 @@ export class CustdetConsigneeComponent {
         this.loading = true;
         let SearchData = {
             pkid: Id,
-            // parentid: this.parentid
+            parentid: this.parentid
         };
 
         this.ErrorMessage = '';
