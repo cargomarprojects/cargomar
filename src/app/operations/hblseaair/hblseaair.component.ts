@@ -611,7 +611,8 @@ export class HblSeaAirComponent {
         this.Record.lock_record = false;
         this.Record.hbl_released_date = '';
         this.Record.hbl_cf_date = this.gs.defaultValues.today;
-
+        this.Record.hbl_old_exp_id = '';
+        this.Record.hbl_old_imp_id = '';
         this.InitLov();
         this.Record.rec_mode = this.mode;
     }
@@ -681,7 +682,7 @@ export class HblSeaAirComponent {
         this.LOCATIONRECORD.id = this.Record.hbl_location_id;
         this.LOCATIONRECORD.code = this.Record.hbl_location_code;
         this.LOCATIONRECORD.name = this.Record.hbl_location_name;
-        
+
         this.COLOADERRECORD.id = this.Record.hbl_coloader_id;
         this.COLOADERRECORD.code = this.Record.hbl_coloader_code;
         this.COLOADERRECORD.name = this.Record.hbl_coloader_name;
@@ -694,12 +695,15 @@ export class HblSeaAirComponent {
 
         this.old_shipper_id = this.Record.hbl_exp_id;
         this.old_billto_id = this.Record.hbl_billto_id;
-
+        this.Record.hbl_old_exp_id = this.Record.hbl_exp_id;
+        this.Record.hbl_old_imp_id = this.Record.hbl_imp_id;
 
         //Fill Duplicate Job
         if (this.mode == "ADD") {
             this.old_shipper_id = '';
             this.old_billto_id = '';
+            this.Record.hbl_old_exp_id = '';
+            this.Record.hbl_old_imp_id = '';
             this.Record.hbl_pkid = this.pkid;
             this.Record.hbl_no = null;
             this.Record.hbl_cf_date = this.gs.defaultValues.today;
@@ -759,7 +763,8 @@ export class HblSeaAirComponent {
 
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
-
+                this.Record.hbl_old_exp_id = this.Record.hbl_exp_id;
+                this.Record.hbl_old_imp_id = this.Record.hbl_imp_id;
                 //if (this.Record.hbl_mbl_bookslno != null)
                 //  if (this.Record.hbl_mbl_bookslno.length > 0)
                 //    this.disableBookslno = true;

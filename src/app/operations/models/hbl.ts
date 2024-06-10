@@ -153,6 +153,9 @@ export class Hblm {
   hbl_cf_date: string;
   hbl_itm_po:string;
   
+  hbl_old_exp_id: string;
+  hbl_old_imp_id: string;
+
   hbl_unlockid : string;
   hbl_book_slno: number;
   _globalvariables: GlobalVariables;
