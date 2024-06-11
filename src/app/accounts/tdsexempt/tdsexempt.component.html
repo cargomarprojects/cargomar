@@ -51,8 +51,8 @@
                     <th>CERT#</th>
                     <th>CERT.DATE</th>
                     <th>CUSTOMER</th>
-                    <th>ACC.CODE</th>
-                    <th>ACC.NAME</th>
+                    <th>TDS.CODE</th>
+                    <th>TDS.NAME</th>
                     <th>VALID.FROM</th>
                     <th>VALID.TO</th>
                     <th>RATE</th>
@@ -63,6 +63,7 @@
                     <th>DOC</th>
                     <th>UPDATED.DT</th>
                     <th>REMARKS</th>
+                    <th *ngIf="bExcel" >REPORT</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -71,8 +72,7 @@
                     (mousedown)="mainService.state.selectedRowIndex=i">
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
-                    <td *ngIf="!bExcel">{{rec.te_cust_name}}</td>
-                    <td *ngIf="bExcel" class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">{{rec.te_cust_name}}</td>
+                    <td >{{rec.te_cust_name}}</td>
                     <td>{{rec.te_tds_acc_code}}</td>
                     <td>{{rec.te_tds_acc_name}}</td>
                     <td>{{rec.te_valid_from}}</td>
@@ -85,6 +85,7 @@
                     <td>{{rec.te_doc_count}}</td>
                     <td>{{rec.te_updated_date}}</td>
                     <td>{{rec.te_remarks}}</td>
+                    <td *ngIf="bExcel" class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">PRINT</td>
                 </tr>
             </tbody>
         </table>
@@ -141,7 +142,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">A/c. Code</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Tds Code</label>
                     <div class="col-sm-4">
                         <app-autocomplete #CsdLov [inputdata]="ACCRECORD"
                             (ValueChanged)="LovSelected($event)"></app-autocomplete>

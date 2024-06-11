@@ -427,6 +427,10 @@ export class TdsExemptionComponent {
     // // Query List Data
     GstPurchaseReport(_cust_name: string) {
         this.mainService.state.ErrorMessage = '';
+    
+        if (!confirm("Download the purchase report for "+_cust_name)) {
+            return;
+        }
 
         let SearchData = {
             type: 'EXCEL',
