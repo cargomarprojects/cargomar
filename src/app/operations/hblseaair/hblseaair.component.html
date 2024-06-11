@@ -495,7 +495,7 @@
                   <div class="form-group row">
                     <label class="col-3 col-form-label col-form-label-sm">Salesman</label>
                     <div class="col-9">
-                      <app-autocomplete #SmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+                      <app-autocomplete #SmanLov [disabled]="true" [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete>
                     </div>
                   </div>
