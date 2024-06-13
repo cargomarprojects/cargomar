@@ -1068,7 +1068,7 @@ export class BuyRateComponent {
     }
   }
 
-  onFocusout(field: string) {
+  onFocusout(field: string, _content: any = null) {
     if (field == 'jvh_reference') {
       if (!this.gs.isBlank(this.Record.jvh_reference)) {
         this.IsDupliation(this.Record.jvh_reference);
@@ -1077,6 +1077,11 @@ export class BuyRateComponent {
     if (field == 'jvh_org_invno') {
       if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
         this.IsDupliation(this.Record.jvh_org_invno);
+      }
+    }
+    if (field == 'jvh_org_invdt') {
+      if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_org_invdt)) {
+        this.IsDatesInSameMonth(_content);
       }
     }
   }
@@ -1956,7 +1961,6 @@ export class BuyRateComponent {
       this.Record.jvh_cc_name = 'Invalid CostCenter';
       this.ChangeAccList();
     }
-
   }
 
 
@@ -2413,6 +2417,38 @@ export class BuyRateComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  IsDatesInSameMonth(_content: any) {
+
+    let SearchData = {
+      table: 'DATES-IN-SAME-MONTH',
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      jvh_date: this.Record.jvh_date,
+      jvh_org_invdt: this.Record.jvh_org_invdt
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (!response.retvalue) {
+          this.ErrorMessage = response.retstring;
+          // alert(this.ErrorMessage);
+          this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 }
 
 

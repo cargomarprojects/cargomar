@@ -94,6 +94,7 @@ export class ArApComponent {
 
   diff: number = 0;
 
+
   mSubject: string = '';
   mMsg: string = '';
   sHtml: string = '';
@@ -1195,7 +1196,7 @@ export class ArApComponent {
 
   }
 
-  onFocusout(field: string) {
+  onFocusout(field: string, _content: any = null) {
     if (field == 'jvh_reference') {
       if (!this.gs.isBlank(this.Record.jvh_reference)) {
         this.IsDupliation(this.Record.jvh_reference);
@@ -1208,9 +1209,9 @@ export class ArApComponent {
     }
 
     if (field == 'jvh_org_invdt') {
-      if (this.type == 'PN') {
+      if (this.type == 'PN' || this.type == 'PN-JV') {
         if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_org_invdt)) {
-          this.IsDatesInSameMonth();
+          this.IsDatesInSameMonth(_content);
         }
       }
     }
@@ -2705,7 +2706,7 @@ export class ArApComponent {
     this.List("NEW");
   }
 
-  IsDatesInSameMonth() {
+  IsDatesInSameMonth(_content: any) {
 
     let SearchData = {
       table: 'DATES-IN-SAME-MONTH',
@@ -2724,13 +2725,15 @@ export class ArApComponent {
         this.loading = false;
         if (!response.retvalue) {
           this.ErrorMessage = response.retstring;
-          alert(this.ErrorMessage);
+          // alert(this.ErrorMessage);
+          this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
         }
 
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

@@ -30,7 +30,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-8">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"  (blur)="OnBlur('searchstring')"/>
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
           </div>
         </div>
         <div class="form-group row">
@@ -39,7 +40,7 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
-              <button [disabled]="loading" *ngIf="bImport" (click)="ImportData(cigeimport)"
+            <button [disabled]="loading" *ngIf="bImport" (click)="ImportData(cigeimport)"
               class="btn btn-primary btn-sm">Import Data</button>
           </div>
         </div>
@@ -49,7 +50,7 @@
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
             <button [disabled]="loading" *ngIf="bAdmin&&type=='IN'" (click)="GenerateAll('SUMMARY')"
-            class="btn btn-primary btn-sm">Generate All(Summary)</button>
+              class="btn btn-primary btn-sm">Generate All(Summary)</button>
           </div>
         </div>
         <div class="form-group row">
@@ -199,7 +200,8 @@
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"  (focusout)="onFocusout('jvh_org_invdt')" ></app-date>
+            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"
+              (focusout)="onFocusout('jvh_org_invdt',invdatevalid)"></app-date>
           </div>
         </div>
 
@@ -922,6 +924,21 @@
     </button>
   </div>
   <div class="modal-body">
-    <App-cigeimport [type]="type" (CloseClicked)="CloseCiGeImport($event)" ></App-cigeimport>
+    <App-cigeimport [type]="type" (CloseClicked)="CloseCiGeImport($event)"></App-cigeimport>
+  </div>
+</ng-template>
+
+<ng-template #invdatevalid let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{title}}&nbsp;Warning Message</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h1 style="font-family: Calibri; color: red;text-align: center;">{{ErrorMessage}}</h1>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="d('N')">Ok</button>
   </div>
 </ng-template>

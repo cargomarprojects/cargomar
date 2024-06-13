@@ -99,7 +99,8 @@
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
+            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"
+              (focusout)="onFocusout('jvh_org_invdt',invdatevalid)"></app-date>
           </div>
         </div>
 
@@ -216,7 +217,8 @@
 
           <div class="col-12">
             <button [disabled]="loading" (click)="FindTotal()" class="btn btn-success btn-sm mr-1">Re-Calculate</button>
-            <button *ngIf="cc_category == 'MAWB AIR EXPORT'" [disabled]="loading" (click)="LoadExpBooking()" class="btn btn-success btn-sm mr-1">Load Expense/Booking</button>
+            <button *ngIf="cc_category == 'MAWB AIR EXPORT'" [disabled]="loading" (click)="LoadExpBooking()"
+              class="btn btn-success btn-sm mr-1">Load Expense/Booking</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
 
@@ -683,5 +685,19 @@
   <div class="modal-body">
     <app-approval [pkid]="pkid" [type]="type" [status]="bapprovalstatus" (ModifiedRecords)="ModifiedRecords($event)">
     </app-approval>
+  </div>
+</ng-template>
+<ng-template #invdatevalid let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{title}}&nbsp;Warning Message</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h1 style="font-family: Calibri; color: red;text-align: center;">{{ErrorMessage}}</h1>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="d('N')">Ok</button>
   </div>
 </ng-template>
