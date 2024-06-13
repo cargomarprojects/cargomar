@@ -1206,6 +1206,14 @@ export class ArApComponent {
         this.IsDupliation(this.Record.jvh_org_invno);
       }
     }
+
+    if (field == 'jvh_org_invdt') {
+      if (this.type == 'PN') {
+        if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_org_invdt)) {
+          this.IsDatesInSameMonth();
+        }
+      }
+    }
   }
 
   OnFocus(field: string) {
@@ -2696,6 +2704,36 @@ export class ArApComponent {
     this.modal.close();
     this.List("NEW");
   }
+
+  IsDatesInSameMonth() {
+
+    let SearchData = {
+      table: 'DATES-IN-SAME-MONTH',
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      jvh_date: this.Record.jvh_date,
+      jvh_org_invdt: this.Record.jvh_org_invdt
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.retvalue) {
+          this.ErrorMessage = response.retstring;
+          alert(this.ErrorMessage);
+        }
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
 
 }
 

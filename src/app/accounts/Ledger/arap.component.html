@@ -199,7 +199,7 @@
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"></app-date>
+            <app-date [inputdate]="Record.jvh_org_invdt" (ValueChanged)="Record.jvh_org_invdt=$event"  (focusout)="onFocusout('jvh_org_invdt')" ></app-date>
           </div>
         </div>
 
