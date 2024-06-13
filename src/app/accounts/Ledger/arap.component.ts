@@ -1704,7 +1704,20 @@ export class ArApComponent {
     }
 
 
-
+    if (this.type == "PN-JV" && this.Recorddet.jv_drcr == "DR") {
+      if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE' || this.Recorddet.jv_acc_type_name == 'INDIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'INDIRECT EXPENSE') {
+        if (this.Recorddet.jv_paid_to.toString().trim().length <= 0) {
+          this.ErrorMessage = 'Paid to cannot be blank';
+          alert(this.ErrorMessage);
+          return;
+        }
+        if (this.Recorddet.jv_pay_reason.toString().trim().length <= 0) {
+          this.ErrorMessage = 'Pay Reason cannot be blank';
+          alert(this.ErrorMessage);
+          return;
+        }
+      }
+    }
 
 
     if (this.Recorddet.jv_qty <= 0) {
