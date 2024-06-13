@@ -1199,19 +1199,27 @@ export class ArApComponent {
   onFocusout(field: string, _content: any = null) {
     if (field == 'jvh_reference') {
       if (!this.gs.isBlank(this.Record.jvh_reference)) {
-        this.IsDupliation(this.Record.jvh_reference);
+        this.IsDupliation(this.Record.jvh_reference, _content);
       }
     }
     if (field == 'jvh_org_invno') {
       if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
-        this.IsDupliation(this.Record.jvh_org_invno);
+        this.IsDupliation(this.Record.jvh_org_invno, _content);
       }
     }
 
-    if (field == 'jvh_org_invdt') {
+    if (field === 'jvh_reference_date') {
+      if (this.type == 'PN' || this.type == 'PN-JV') {
+        if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_reference_date)) {
+          this.IsDatesInSameMonth(this.Record.jvh_reference_date, _content);
+        }
+      }
+    }
+
+    if (field === 'jvh_org_invdt') {
       if (this.type == 'PN' || this.type == 'PN-JV') {
         if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_org_invdt)) {
-          this.IsDatesInSameMonth(_content);
+          this.IsDatesInSameMonth(this.Record.jvh_org_invdt, _content);
         }
       }
     }
@@ -2562,7 +2570,7 @@ export class ArApComponent {
     // }
   }
 
-  IsDupliation(_searchString: string) {
+  IsDupliation(_searchString: string, _content: any = null) {
 
     let SearchData = {
       pkid: '',
@@ -2587,7 +2595,9 @@ export class ArApComponent {
         this.loading = false;
         if (response.retvalue) {
           this.ErrorMessage = response.retstring;
-          alert(this.ErrorMessage);
+          //alert(this.ErrorMessage);
+          if (this.ErrorMessage)
+            this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
         }
 
       },
@@ -2706,7 +2716,7 @@ export class ArApComponent {
     this.List("NEW");
   }
 
-  IsDatesInSameMonth(_content: any) {
+  IsDatesInSameMonth(_date: string, _content: any) {
 
     let SearchData = {
       table: 'DATES-IN-SAME-MONTH',
@@ -2715,7 +2725,7 @@ export class ArApComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       jvh_date: this.Record.jvh_date,
-      jvh_org_invdt: this.Record.jvh_org_invdt
+      jvh_org_invdt: _date
     };
 
     this.loading = true;
@@ -2726,7 +2736,8 @@ export class ArApComponent {
         if (!response.retvalue) {
           this.ErrorMessage = response.retstring;
           // alert(this.ErrorMessage);
-          this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+          if (this.ErrorMessage)
+            this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
         }
 
       },

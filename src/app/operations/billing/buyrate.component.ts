@@ -1079,9 +1079,16 @@ export class BuyRateComponent {
         this.IsDupliation(this.Record.jvh_org_invno);
       }
     }
-    if (field == 'jvh_org_invdt') {
+
+    if (field === 'jvh_reference_date') {
+      if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_reference_date)) {
+        this.IsDatesInSameMonth(this.Record.jvh_reference_date, _content);
+      }
+    }
+
+    if (field === 'jvh_org_invdt') {
       if (!this.gs.isBlank(this.Record.jvh_date) && !this.gs.isBlank(this.Record.jvh_org_invdt)) {
-        this.IsDatesInSameMonth(_content);
+        this.IsDatesInSameMonth(this.Record.jvh_org_invdt, _content);
       }
     }
   }
@@ -2418,7 +2425,7 @@ export class BuyRateComponent {
         });
   }
 
-  IsDatesInSameMonth(_content: any) {
+  IsDatesInSameMonth(_date: string, _content: any) {
 
     let SearchData = {
       table: 'DATES-IN-SAME-MONTH',
@@ -2427,7 +2434,7 @@ export class BuyRateComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       jvh_date: this.Record.jvh_date,
-      jvh_org_invdt: this.Record.jvh_org_invdt
+      jvh_org_invdt: _date
     };
 
     this.loading = true;
