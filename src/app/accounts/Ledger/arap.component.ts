@@ -2722,7 +2722,7 @@ export class ArApComponent {
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (response.retvalue) {
+        if (!response.retvalue) {
           this.ErrorMessage = response.retstring;
           alert(this.ErrorMessage);
         }
