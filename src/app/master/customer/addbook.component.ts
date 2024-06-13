@@ -48,7 +48,7 @@ export class AddbookComponent {
   pkid = '';
 
   cust_linked: boolean = false;
-
+  bAdmin: boolean = false;
 
   // Array For Displaying List
   RecordList: Customerm[] = [];
@@ -106,13 +106,13 @@ export class AddbookComponent {
   }
 
   InitComponent() {
-
+    this.bAdmin = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-
+      this.bAdmin = this.menu_record.rights_admin;
+    }
     this.LoadCombo();
-
   }
 
   // Destroy Will be called when this component is closed
