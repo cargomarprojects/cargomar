@@ -1197,14 +1197,16 @@ export class ArApComponent {
   }
 
   onFocusout(field: string, _content: any = null) {
+
     if (field == 'jvh_reference') {
       if (!this.gs.isBlank(this.Record.jvh_reference)) {
-        this.IsDupliation(this.Record.jvh_reference, _content);
+        this.IsDupliation(this.Record.jvh_reference);
       }
     }
+
     if (field == 'jvh_org_invno') {
       if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
-        this.IsDupliation(this.Record.jvh_org_invno, _content);
+        this.IsDupliation(this.Record.jvh_org_invno);
       }
     }
 
@@ -2570,7 +2572,7 @@ export class ArApComponent {
     // }
   }
 
-  IsDupliation(_searchString: string, _content: any = null) {
+  IsDupliation(_searchString: string) {
 
     let SearchData = {
       pkid: '',
@@ -2595,9 +2597,7 @@ export class ArApComponent {
         this.loading = false;
         if (response.retvalue) {
           this.ErrorMessage = response.retstring;
-          //alert(this.ErrorMessage);
-          if (this.ErrorMessage)
-            this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+          alert(this.ErrorMessage);
         }
 
       },
@@ -2736,8 +2736,10 @@ export class ArApComponent {
         if (!response.retvalue) {
           this.ErrorMessage = response.retstring;
           // alert(this.ErrorMessage);
-          if (this.ErrorMessage)
-            this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+          this.modal = this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+        } else {
+          if (!this.gs.isBlank(this.modal))
+            this.modal.close();
         }
 
       },

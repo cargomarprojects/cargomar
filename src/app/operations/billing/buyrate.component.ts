@@ -2445,7 +2445,10 @@ export class BuyRateComponent {
         if (!response.retvalue) {
           this.ErrorMessage = response.retstring;
           // alert(this.ErrorMessage);
-          this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+          this.modal = this.modalService.open(_content, { size: "sm", backdrop: 'static', keyboard: false, windowClass: 'modal-custom' })
+        } else {
+          if (!this.gs.isBlank(this.modal))
+            this.modal.close();
         }
 
       },
