@@ -46,6 +46,7 @@ export class UnLockComponent {
   remarks: string = "";
   chkresetfldr: boolean = false;
   chkbpreaprvd: boolean = false;
+  chkresetirn: boolean = false;
 
   // Array For Displaying List
   ModuleList: any[] = [];
@@ -78,6 +79,7 @@ export class UnLockComponent {
     this.moduletype = "JV";
     this.chkresetfldr = false;
     this.chkbpreaprvd = false;
+    this.chkresetirn = false;
     this.unlockdate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -193,10 +195,11 @@ export class UnLockComponent {
       this.refnodesc = '';
       this.chkresetfldr = false;
       this.chkbpreaprvd = false;
+      this.chkresetirn = false;
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" || this.moduletype == "PN-JV" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
-        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI"||this.moduletype == "PN-CI"|| this.moduletype == "JV-BP") {
+        this.moduletype == "DN" || this.moduletype == "CN" || this.moduletype == "DI" || this.moduletype == "CI" || this.moduletype == "PN-CI" || this.moduletype == "JV-BP") {
         this.refnotitle = "Vr.No";
       } else if (this.moduletype == "MBL-AE" || this.moduletype == "MBL-AI" ||
         this.moduletype == "MBL-SE" || this.moduletype == "MBL-SI") {
@@ -212,16 +215,16 @@ export class UnLockComponent {
         this.refnotitle = "Folder#";
       } else if (this.moduletype == "JOB-GN") {
         this.refnotitle = "Job#";
-      }else if (this.moduletype == "FUND-TRANSFER") {
+      } else if (this.moduletype == "FUND-TRANSFER") {
         this.refnotitle = "Ref#";
-      }else if (this.moduletype == "JOB-AE" || this.moduletype == "JOB-SE") {
+      } else if (this.moduletype == "JOB-AE" || this.moduletype == "JOB-SE") {
         this.refnotitle = "Job#";
       }
       else if (this.moduletype.indexOf('HR-') == 0) {
-        if(this.moduletype =="HR-RE-JVPOST")
-        this.refnotitle = "JV#";
+        if (this.moduletype == "HR-RE-JVPOST")
+          this.refnotitle = "JV#";
         else
-        this.refnotitle = "Employee#";
+          this.refnotitle = "Employee#";
       }
     }
   }
@@ -268,7 +271,8 @@ export class UnLockComponent {
       user_code: '',
       cntrltype: '',
       chkbpreaprvd: '',
-      unlockdate: ''
+      unlockdate: '',
+      chkresetirn:''
     };
 
     if (controlname == "save" || controlname == "lock")
@@ -291,6 +295,7 @@ export class UnLockComponent {
     SearchData.cntrltype = controlname;
     SearchData.chkbpreaprvd = this.chkbpreaprvd == true ? "Y" : "N";
     SearchData.unlockdate = this.unlockdate;
+    SearchData.chkresetirn = this.chkresetirn == true ? "Y" : "N";
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
@@ -328,7 +333,7 @@ export class UnLockComponent {
   UnlockRecord(savetype: string) {
 
     if (this.moduletype != "LOCK-ALL") {
-     
+
       if (this.refno.toString().trim().length <= 0) {
         this.ErrorMessage = " Reference# Cannot be blank ";
         alert(this.ErrorMessage);
