@@ -19,11 +19,11 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Release</label>
           <div class="col-sm-10">
-            <input type="checkbox" [(ngModel)]="chkdate">&nbsp;&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="checkbox" [(ngModel)]="chkcc">&nbsp;&nbsp;Cost Center&nbsp;&nbsp;&nbsp;&nbsp;
-            <label *ngIf="moduletype == 'MBL-AE' || moduletype == 'MBL-AI' || moduletype == 'MBL-SE' || moduletype == 'MBL-SI'"><input type="checkbox" [(ngModel)]="chkresetfldr">&nbsp;&nbsp;Reset Folder</label>
-            <label *ngIf="moduletype == 'BP'||moduletype == 'JV-BP'"><input type="checkbox" [(ngModel)]="chkbpreaprvd">&nbsp;&nbsp;Reapproval</label>
-            <label><input type="checkbox" [(ngModel)]="chkresetirn">&nbsp;&nbsp;IRN</label>
+            <input type="checkbox" [(ngModel)]="chkdate">&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" [(ngModel)]="chkcc">&nbsp;Cost Center&nbsp;&nbsp;&nbsp;&nbsp;
+            <label *ngIf="moduletype == 'MBL-AE' || moduletype == 'MBL-AI' || moduletype == 'MBL-SE' || moduletype == 'MBL-SI'"><input type="checkbox" [(ngModel)]="chkresetfldr">&nbsp;Reset Folder&nbsp;&nbsp;</label>
+            <label *ngIf="moduletype == 'BP'||moduletype == 'JV-BP'"><input type="checkbox" [(ngModel)]="chkbpreaprvd">&nbsp;Reapproval&nbsp;&nbsp;</label>
+            <label><input type="checkbox" [(ngModel)]="chkresetirn">&nbsp;IRN</label>
           </div>
         </div>
         <!--<div class="form-group row">
