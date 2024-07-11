@@ -62,10 +62,12 @@
   <div class="col-sm-12">
     <div class="form-group row">
       <div class="col-sm-4 input-group input-group-sm">
-        <select class="form-control form-control-sm mr-1" [(ngModel)]="incentive_format">
+        <!-- <select class="form-control form-control-sm mr-1" [(ngModel)]="incentive_format">
           <option value="FORMAT-2022">FORMAT 2022</option>
           <option value="FORMAT-2023">FORMAT 2023</option>
-        </select>
+        </select> -->
+        <label class="col-sm-1 col-form-label col-form-label-sm">Year</label>
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="incentive_format" />
         <button [disabled]="loading" (click)="ProcessIncrementLetter('INCENTIVE-LETTER')"
           class="btn btn-primary btn-sm mr-1">Incentive Letter</button>
       </div>

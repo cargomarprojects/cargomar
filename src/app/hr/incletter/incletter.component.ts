@@ -41,7 +41,7 @@ export class IncLetterComponent {
   folderid = "";
   uploadfilename = "";
   uploadfiledispname = "";
-  incentive_format = "FORMAT-2023";
+  incentive_format = "2023";
   ctr: number;
   jobdisabled = false;
   sub: any;
@@ -80,6 +80,9 @@ export class IncLetterComponent {
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
     }
+
+    var dt = new Date();
+    this.incentive_format = dt.getFullYear().toString();
   }
 
   // Init Will be called After executing Constructor
@@ -179,6 +182,12 @@ export class IncLetterComponent {
         alert(this.ErrorMessage);
         return;
       }
+      if (this.incentive_format.length <= 0) {
+        this.ErrorMessage = " | Incentive Year Cannot be blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+
     }
 
     this.folderid = this.gs.getGuid();
@@ -197,7 +206,7 @@ export class IncLetterComponent {
       print_date: this.print_date,
       effective_date: this.effective_date,
       incentive_effective_date: this.incentive_effective_date,
-      incentive_format: this.incentive_format
+      incentive_format: "FORMAT-" + this.incentive_format
     };
 
     this.ErrorMessage = '';
