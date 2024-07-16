@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Costreco } from '../models/costreco';
-import { CostRecoService } from '../services/costreco.Service';
+import { CostRecoService } from '../services/costreco.service';
 
 @Component({
   selector: 'app-costreco',
@@ -14,8 +14,6 @@ import { CostRecoService } from '../services/costreco.Service';
 
 export class CostrecoComponent {
   title = 'Costreco Report'
-
-
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -45,6 +43,7 @@ export class CostrecoComponent {
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
+  mblno = '';
 
   coldr0 = '';
   colcr0 = '';
@@ -71,7 +70,8 @@ export class CostrecoComponent {
     code: '',
     main_code: false,
     format2: false,
-    hide_ho_entries: ''
+    hide_ho_entries: '',
+    mblno: ''
   };
 
   // Array For Displaying List
@@ -185,7 +185,7 @@ export class CostrecoComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.searchstring = this.searchstring.trim().toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.rec_category = this.rec_category;
     this.SearchData.type_date = this.type_date;
@@ -196,6 +196,7 @@ export class CostrecoComponent {
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
 
     this.SearchData.format2 = this.format2;
+    this.SearchData.mblno = this.mblno.trim();
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
@@ -240,6 +241,19 @@ export class CostrecoComponent {
     this.gs.ClosePage('home');
   }
 
-
+  OnBlur(field: string) {
+    switch (field) {
+      case 'searchstring':
+        {
+          this.searchstring = this.searchstring.toUpperCase();
+          break;
+        }
+      case 'mblno':
+        {
+          this.mblno = this.mblno.toUpperCase();
+          break;
+        }
+    }
+  }
 
 }
