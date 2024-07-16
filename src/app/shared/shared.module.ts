@@ -63,6 +63,7 @@ import { ApprovedDetService } from './services/approveddet.service';
 import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
 import { DatalinkComponent } from './datalink/datalink.component';
 import { EdilinkComponent } from './edilink/edilink.component';
+import { WarningAlertComponent } from './warningalert/warningalert.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -108,7 +109,8 @@ import { EdilinkComponent } from './edilink/edilink.component';
     MailDirectComponent,
     ApprovedDetComponent,
     DatalinkComponent,
-    EdilinkComponent
+    EdilinkComponent,
+    WarningAlertComponent
   ],
   exports: [
     CommonModule,
@@ -148,7 +150,8 @@ import { EdilinkComponent } from './edilink/edilink.component';
     MailDirectComponent,
     ApprovedDetComponent,
     DatalinkComponent,
-    EdilinkComponent
+    EdilinkComponent,
+    WarningAlertComponent
   ],
   providers: [
     AlertService,

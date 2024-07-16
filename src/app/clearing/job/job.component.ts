@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { Jobm } from '../models/job';
 import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 //EDIT-AJITH-20-11-2021
 
@@ -17,6 +17,8 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class JobComponent {
   // Local Variables 
   title = 'JOB MASTER';
+
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -73,6 +75,7 @@ export class JobComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
+  WarningMessage = "";
 
   mode = '';
   pkid = '';
@@ -463,6 +466,7 @@ export class JobComponent {
 
   LovSelected(_Record: SearchTable) {
     let bchange: boolean = false;
+    this.WarningMessage = "";
 
     if (_Record.controlname == "SHIPPER") {
       bchange = false;
@@ -483,6 +487,11 @@ export class JobComponent {
         this.EXPADDRECORD.name = "";
         this.EXPADDRECORD.parentid = this.Record.job_exp_id;
         this.Record.job_exp_br_addr = "";
+
+        if (_Record.col1.includes("-N")) {
+          this.WarningMessage = "DOCUMENT STATUS :- " + _Record.col1;
+          this._WarnMsg.show();
+        }
       }
     }
     else if (_Record.controlname == "SHIPPERADDRESS") {
@@ -1886,4 +1895,6 @@ export class JobComponent {
           alert(this.ErrorMessage);
         });
   }
+
+
 }

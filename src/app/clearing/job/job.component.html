@@ -1221,3 +1221,5 @@
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="Mail_type"
   [parentid]="unlockparentid" [customername]="unlockcustomername" (hidealert)="showalert=$event">
 </app-crlimit>
+
+<app-warningalert #WarnMsg [WarningMessage]="WarningMessage" ></app-warningalert>
