@@ -6,6 +6,7 @@ export class Salarym {
   sal_emp_id: string;
   sal_emp_code: string;
   sal_emp_name: string;
+  sal_emp_pan: string;
   sal_emp_bank_acno:string;
   sal_date: string;
   sal_month: number;
@@ -112,7 +113,7 @@ export class Salarym {
   sal_tot_ded_incentive:number;
   sal_gr_incentive : number;
   sal_net_incentive : number;
-
+   
   sal_pl: number;
   sal_cl: number;
   sal_sl: number;

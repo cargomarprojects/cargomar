@@ -84,6 +84,9 @@
               <input type="checkbox" [(ngModel)]="bSalarySheet">Salary Sheet&nbsp;
               <input type="checkbox" [(ngModel)]="bBranchSummary">Branch Summary
             </span>
+            <span *ngIf="bPrint && prtype=='CONSOL PAY ROLL'">
+              <input type="checkbox" [(ngModel)]="bSalesIncentive">Sales Incentive
+            </span>
           </div>
         </div>
       </div>
@@ -97,6 +100,7 @@
           <th *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
+          <th>PAN</th>
           <th *ngIf="prtype=='PAY ROLL'">DOJ</th>
           <th *ngIf="prtype=='PAY ROLL'">DOB</th>
           <th *ngIf="prtype=='PAY ROLL'">GRADE</th>
@@ -166,14 +170,15 @@
           <th *ngIf="prtype=='CONSOL PAY ROLL'">ESI.EMPLR</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">ADMIN.CHRG</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">EDLI.CHRG</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">SALES.INCENT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-        <tr [class.active]="i == selectedRowIndex"
-        (mousedown)="selectedRowIndex=i">
+        <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">{{rec.rec_branch_code}}</td>
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
+          <td>{{rec.sal_emp_pan}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_do_joining}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_do_birth}}</td>
           <td *ngIf="prtype=='PAY ROLL'">{{rec.sal_emp_grade}}</td>
@@ -243,6 +248,7 @@
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_esi_emplr}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_admin_emply}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_edli_emply}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_sales_incentive}}</td>
         </tr>
       </tbody>
     </table>

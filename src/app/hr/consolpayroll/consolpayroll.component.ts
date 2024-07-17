@@ -47,6 +47,7 @@ export class ConsolPayrollComponent {
   salmonth = 0;
   bSalarySheet = false;
   bBranchSummary = false;
+  bSalesIncentive = false;
 
   fromdate: string = '';
   todate: string = '';
@@ -166,13 +167,16 @@ export class ConsolPayrollComponent {
     }
 
     if (this.bSalarySheet && this.prtype != 'PAY ROLL') {
-      this.ErrorMessage += " | To print Salary Sheet Please select type as Monthwise and Continue.....";
+      this.ErrorMessage += " | To print Salary Sheet Please select type as Month Wise and Continue.....";
     }
 
     if (this.bBranchSummary && this.prtype != 'PAY ROLL') {
-      this.ErrorMessage += " | To print Branch Summary Please select type as Monthwise and Continue.....";
+      this.ErrorMessage += " | To print Branch Summary Please select type as Month Wise and Continue.....";
     }
 
+    if (this.bSalesIncentive && this.prtype != 'CONSOL PAY ROLL') {
+      this.ErrorMessage += " | To print Sales Incentive Please select type as Period Wise and Continue.....";
+    }
     if (this.ErrorMessage.length > 0) {
       alert(this.ErrorMessage);
       return;
@@ -202,7 +206,8 @@ export class ConsolPayrollComponent {
       bsalarysheet: this.bSalarySheet,
       bbranchsummary: this.bBranchSummary,
       fromdate: this.fromdate,
-      todate: this.todate
+      todate: this.todate,
+      bsalesincentive: this.bSalesIncentive
     };
 
     if (this.bCompany) {
@@ -279,6 +284,7 @@ export class ConsolPayrollComponent {
   OnChange(field: string) {
     this.bSalarySheet = false;
     this.bBranchSummary = false;
+    this.bSalesIncentive = false;
     this.RecordList = null;
   }
 
