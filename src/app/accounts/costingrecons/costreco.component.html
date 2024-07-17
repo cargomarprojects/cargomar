@@ -129,6 +129,7 @@
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
+            <th>RECON-TYPE</th>
             <th>MBLSL#</th>
             <th>MBLNO</th>
             <th>BOOKING#</th>
@@ -163,6 +164,7 @@
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
           <tr [style.color]="rec.row_colour">
+            <td>{{rec.sql_type}}</td>
             <td>{{rec.mbl_no}}</td>
             <td>{{rec.mbl_bl_no}}</td>
             <td>{{rec.mbl_book_no}}</td>

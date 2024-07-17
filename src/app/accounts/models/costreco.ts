@@ -2,7 +2,7 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class Costreco {
-
+  sql_type:string;
   row_type: string;
   row_colour: string;
 
