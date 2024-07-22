@@ -159,7 +159,7 @@ export class EmpComponent {
     this.FuelList = [{ "name": "NIL" }, { "name": "PETROL" }, { "name": "DIESEL" }, { "name": "CNG" }];
     this.VehicleTypeList = [{ "id": "N", "name": "N/A" }, { "id": "T", "name": "2 Wheeler" }, { "id": "F", "name": "4 Wheeler" }, { "id": "B", "name": "Both" }];
     this.MaritalStatusList = [{ "id": "SINGLE", "name": "SINGLE" }, { "id": "MARRIED", "name": "MARRIED" }, { "id": "DIVORCED", "name": "DIVORCED" }];
-    this.GenderList = [{ "id": "M", "name": "MALE" }, { "id": "F", "name": "FEMALE" }];
+    this.GenderList = [{ "id": "N", "name": "N/A" }, { "id": "M", "name": "MALE" }, { "id": "F", "name": "FEMALE" }];
 
     //this.IncentiveTypeList = [{ "id": "NA", "name": "NA" }, { "id": "BIMONTHLY-A", "name": "BIMONTHLY-A" }, { "id": "BIMONTHLY-B", "name": "BIMONTHLY-B" }, { "id": "QUARTERLY", "name": "QUARTERLY" }];
 
@@ -279,7 +279,7 @@ export class EmpComponent {
       from_date: this.from_date,
       to_date: this.to_date,
       allbranch: this.allbranch,
-      brelieved:this.bRelieved,
+      brelieved: this.bRelieved,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -370,7 +370,7 @@ export class EmpComponent {
     this.Record.emp_in_payroll = false;
     this.Record.emp_in_csv = false;
     this.Record.emp_marital_status = 'SINGLE';
-    this.Record.emp_gender = 'M';
+    this.Record.emp_gender = 'N';
     this.Record.emp_comp_mediclaim = false;
     this.Record.emp_premium_amt = 0;
     this.Record.emp_mediclaim_provider = '';
@@ -394,7 +394,7 @@ export class EmpComponent {
 
   }
 
-  
+
   Initdefault() {
     this.Record.emp_blood_group = 'N/A';
 
@@ -469,6 +469,8 @@ export class EmpComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.emp_designation_name = this.getDesignation(this.Record.emp_designation_id);
+    this.Record.emp_department_name = this.getDepartment(this.Record.emp_department_id);
     this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record)
       .subscribe(response => {
@@ -904,6 +906,27 @@ export class EmpComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  getDepartment(_id: string) {
+    let str = "";
+    if (!this.gs.isBlank(this.DepartmentList)) {
+      var REC = this.DepartmentList.find(rec => rec.param_pkid == _id);
+      if (REC != null) {
+        str = REC.param_name;
+      }
+    }
+    return str;
+  }
+  getDesignation(_id: string) {
+    let str = "";
+    if (!this.gs.isBlank(this.DesignationList)) {
+      var REC = this.DesignationList.find(rec => rec.param_pkid == _id);
+      if (REC != null) {
+        str = REC.param_name;
+      }
+    }
+    return str;
   }
 }
 

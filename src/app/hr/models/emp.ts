@@ -76,7 +76,8 @@ export class Emp {
   emp_incentive_type: string;
   emp_incentive_type_id: string;
   emp_edit_code: string;
-
+  emp_department_name: string;
+  emp_designation_name: string;
   rec_mode: string;
   rec_branch_code: string;
 
