@@ -7,7 +7,7 @@ import { GlobalService } from './core/services/global.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnDestroy {
-  // edited : 24/07/2024 joy
+  // edited : 24/07/2024 joy, ajith
   title = 'Application Root Page';
   loading = false;
 
