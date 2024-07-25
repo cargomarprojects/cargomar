@@ -315,12 +315,19 @@ export class OsAgent2Component {
         if (_type == 'EXCEL')
           this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else if (_type == 'MAIL') {
-          // this.AttachList = new Array<any>();
-          // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
-          // this.sSubject = response.subject;
-          // this.sMsg = response.message;
+          this.AttachList = new Array<any>();
+          if (this.gs.isBlank(response.filelist)) {
+            this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          } else {
+            for (let rec of response.filelist) {
+              this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
+            }
+          }
+          this.sSubject = response.subject;
+          this.sMsg = response.message;
           // this.sTo_ids = response.toids;
-          // this.open(mailsent);
+          this.sTo_ids = '';
+          this.open(mailsent);
         }
         else {
           this.RecordList = response.list;

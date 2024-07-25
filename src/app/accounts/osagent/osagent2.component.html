@@ -40,7 +40,8 @@
                 class="btn btn-primary btn-sm mr-1">Process</button>
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL',category_type)"
                 class="btn btn-primary btn-sm mr-1">Excel</button>
-              <button *ngIf="bMail" [disabled]="loading" (click)="List('MAIL',category_type,mailsent)" class="btn btn-primary btn-sm">Mail</button>
+              <button *ngIf="bMail" [disabled]="loading" (click)="List('MAIL',category_type,mailsent)"
+                class="btn btn-primary btn-sm">Mail</button>
             </div>
           </div>
         </div>
@@ -127,14 +128,15 @@
 
 <ng-template #mailsent let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Message Details</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'AGENT-OS-AGING-REPORT'" [defaultto_ids]="sTo_ids"
-          [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true
-          [AttachList]="AttachList"></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid"
+      [type]="category_type=='AGING'?'AGENT-OS-AGING-REPORT':'AGENT-OS-SUMMARY-REPORT'" [defaultto_ids]="sTo_ids"
+      [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true
+      [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
