@@ -104,6 +104,8 @@
           <th>PARTY</th>
           <th>GSTIN</th>
           <th>TYPE</th>
+          <th>ORG.INV#</th>
+          <th>ORG.DATE</th>
           <th>AMT</th>
           <th>GST</th>
           <th>RC</th>
@@ -127,6 +129,8 @@
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_acc_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.jvh_pkid)" style="cursor:pointer">{{rec.jvh_gstin}}</td>
           <td>{{rec.jvh_gst_type}}</td>
+          <td>{{rec.jvh_org_invno}}</td>
+          <td>{{rec.jvh_org_invdt}}</td>
           <td>{{rec.jvh_tot_amt}}</td>
           <td>{{rec.jvh_gst_amt}}</td>
           <td>{{(rec.jvh_rc) ? 'Y' : 'N'}}</td>
