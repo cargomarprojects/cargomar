@@ -532,7 +532,8 @@ export class SalaryMasterComponent {
     let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
     let ESI_Amt: number = 0;
     let ESI_ExcludedAmt: number = 0;//CONVEYANCE (A06) not included in ESI Calculation
-    if (this.Record.sal_emp_status == "CONSULTANT" || this.Record.sal_emp_status == "APPRENTICE") {
+    // if (this.Record.sal_emp_status == "CONSULTANT" || this.Record.sal_emp_status == "APPRENTICE")
+    if (this.Record.sal_emp_pf_exempted) {
       this.Record.sal_esi_emply_per = 0;
       this.Record.sal_pf_per = 0;
     } else {

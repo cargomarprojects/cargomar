@@ -7,13 +7,13 @@ export class Salarym {
   sal_emp_code: string;
   sal_emp_name: string;
   sal_emp_pan: string;
-  sal_emp_bank_acno:string;
+  sal_emp_bank_acno: string;
   sal_date: string;
   sal_month: number;
   sal_year: number;
   sal_fin_year: number;
   sal_days_worked: number;
-  sal_emp_branch_group:number;
+  sal_emp_branch_group: number;
   a01: number;
   a02: number;
   a03: number;
@@ -97,7 +97,7 @@ export class Salarym {
   sal_work_days: number;
   sal_mail_sent: boolean;
   sal_emp_grade: string;
-  sal_emp_designation:string;
+  sal_emp_designation: string;
   sal_emp_do_joining: string;
   sal_emp_do_birth: string;
   sal_selected: boolean;
@@ -105,15 +105,15 @@ export class Salarym {
   sal_pf_per: number;
   sal_increment: number;
   sal_incentive: number;
-  
+
   sal_sales_incentive: number;
   sal_tds_sales_incentive: number;
-  sal_ded_incentive : number;
+  sal_ded_incentive: number;
   sal_tds_incentive: number;
-  sal_tot_ded_incentive:number;
-  sal_gr_incentive : number;
-  sal_net_incentive : number;
-   
+  sal_tot_ded_incentive: number;
+  sal_gr_incentive: number;
+  sal_net_incentive: number;
+
   sal_pl: number;
   sal_cl: number;
   sal_sl: number;
@@ -122,12 +122,13 @@ export class Salarym {
   sal_admin_emply: number;
   sal_edli_emply: number;
   sal_esi_emplr: number;
-  
-  sal_emp_status:string;
-  sal_edit_code:string;
+
+  sal_emp_status: string;
+  sal_edit_code: string;
   rec_mode: string;
-  rec_printed:boolean;
-  rec_branch_code:string;
+  rec_printed: boolean;
+  rec_branch_code: string;
+  sal_emp_pf_exempted: boolean;
   _globalvariables: GlobalVariables;
 
   DetList: SalDet[] = [];
