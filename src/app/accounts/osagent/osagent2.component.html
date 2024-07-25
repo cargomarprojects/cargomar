@@ -24,7 +24,7 @@
             <div *ngIf="category_type=='AGING'" class="col-sm-3">
               <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <label *ngIf="category_type=='SUMMARY'" class="col-sm-3 col-form-label col-form-label-sm">Curr.Value Above
+            <label *ngIf="category_type=='SUMMARY'" class="col-sm-3 col-form-label col-form-label-sm">Curr.Amt Above
             </label>
             <div *ngIf="category_type=='SUMMARY'" class="col-sm-3">
               <input type="number" class="col form-control form-control-sm" name="Search2"
