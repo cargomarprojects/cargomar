@@ -2,7 +2,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../core/services/global.service';
 
 import { OsAgentReport } from '../models/osagent';
@@ -36,7 +36,7 @@ export class OsAgent2Component {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-
+  modal: any;
   searchstring = '';
 
   sub: any;
@@ -51,9 +51,12 @@ export class OsAgent2Component {
   category_type: string;
   curr_id: string;
   curr_code: string;
+  curr_value_above: number = 4999;
 
   isoverdue: boolean = false;
   bCompany = false;
+  bExcel = false;
+  bMail = false;
   all: boolean = false;
 
   to_date: string;
@@ -68,6 +71,12 @@ export class OsAgent2Component {
 
   mode = '';
   pkid = '';
+
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  sTo_ids: string = '';
+  AttachList: any[] = [];
 
   SearchData = {
     type: '',
@@ -90,6 +99,7 @@ export class OsAgent2Component {
     category_type: '',
     isoverdue: false,
     all: false,
+    curr_value_above: this.curr_value_above
   };
 
 
@@ -99,6 +109,7 @@ export class OsAgent2Component {
   Record: OsAgentReport = new OsAgentReport;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: AccReportService,
     private route: ActivatedRoute,
     public gs: GlobalService
@@ -127,11 +138,17 @@ export class OsAgent2Component {
 
   InitComponent() {
     this.bCompany = false;
+    this.bExcel = false;
+    this.bMail = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_print)
+        this.bExcel = true;
+      if (this.menu_record.rights_email)
+        this.bMail = true;
     }
     this.to_date = this.gs.defaultValues.today;
 
@@ -248,7 +265,7 @@ export class OsAgent2Component {
   }
 
   // Query List Data
-  List(_type: string, _category_type: string) {
+  List(_type: string, _category_type: string, mailsent: any = null) {
 
     if (this.to_date.trim().length <= 0) {
       this.ErrorMessage = 'To Date Cannot Be Blank';
@@ -290,13 +307,21 @@ export class OsAgent2Component {
     this.SearchData.curr_code = this.curr_code;
     this.SearchData.category = this.category;
     this.SearchData.category_type = this.category_type;
-
+    this.SearchData.curr_value_above = this.curr_value_above;
     this.ErrorMessage = '';
     this.mainService.OsAgent2(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.reportfile, _type, response.filedisplayname);
+        else if (_type == 'MAIL') {
+          // this.AttachList = new Array<any>();
+          // this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          // this.sSubject = response.subject;
+          // this.sMsg = response.message;
+          // this.sTo_ids = response.toids;
+          // this.open(mailsent);
+        }
         else {
           this.RecordList = response.list;
         }
@@ -323,7 +348,10 @@ export class OsAgent2Component {
   Close() {
     this.gs.ClosePage('home');
   }
- 
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
   /*
   AutoEmail() {
     this.loading = true; //Agent Summary report

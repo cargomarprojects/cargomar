@@ -11,35 +11,40 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6">
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-            <div class="col-4">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
+            <div class="col-sm-3">
               <select class="form-control form-control-sm" [(ngModel)]="category_type" (change)="OnChange('all')">
                 <option [value]="'SUMMARY'">SUMMARY</option>
                 <option [value]="'AGING'">AGING</option>
               </select>
             </div>
-            <label *ngIf="category_type=='AGING'" class="col-2 col-form-label col-form-label-sm">Currency</label>
-            <div *ngIf="category_type=='AGING'" class="col-4">
+            <label *ngIf="category_type=='AGING'" class="col-sm-3 col-form-label col-form-label-sm">Currency</label>
+            <div *ngIf="category_type=='AGING'" class="col-sm-3">
               <app-autocomplete #CsdLov [inputdata]="CURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+            <label *ngIf="category_type=='SUMMARY'" class="col-sm-3 col-form-label col-form-label-sm">Curr.Value Above
+            </label>
+            <div *ngIf="category_type=='SUMMARY'" class="col-sm-3">
+              <input type="number" class="col form-control form-control-sm" name="Search2"
+                [(ngModel)]="curr_value_above" />
             </div>
           </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-sm-2">
           <div class="form-group row">
             <div class="col-sm-12">
               <button [disabled]="loading" (click)="List('NEW',category_type)"
-                class="btn btn-primary btn-sm">Process</button>
-              <button [disabled]="loading" (click)="List('EXCEL',category_type)"
-                class="btn btn-primary btn-sm">Excel</button>
-                <!-- <button [disabled]="loading" (click)="AutoEmail()"
-                class="btn btn-primary btn-sm">Mail</button> -->
+                class="btn btn-primary btn-sm mr-1">Process</button>
+              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL',category_type)"
+                class="btn btn-primary btn-sm mr-1">Excel</button>
+              <button *ngIf="bMail" [disabled]="loading" (click)="List('MAIL',category_type,mailsent)" class="btn btn-primary btn-sm">Mail</button>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <app-allreport [reportname]="title" [canrefresh]="gs.globalVariables.user_code == 'ADMIN'"
             [company_code]="gs.globalVariables.comp_code" [branch_code]='' [view_name]="'OS_AGENT'"></app-allreport>
         </div>
@@ -47,7 +52,8 @@
     </div>
   </div>
 
-  <div *ngIf="category_type=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 265px);">
+  <div *ngIf="category_type=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 265px);">
     <table class="table table-bordered table-hover table-sm table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -72,7 +78,8 @@
     </table>
   </div>
 
-  <div *ngIf="category_type=='AGING'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 265px);">
+  <div *ngIf="category_type=='AGING'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 265px);">
     <table class="table table-bordered table-hover table-sm table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -95,12 +102,12 @@
           <td>{{rec.curr_code}}</td>
           <td align='right'>{{ rec.G1 | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.G2 | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.G3 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.G4 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.G5 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.G6 | number : '1.2-2'  }}</td>
-          <td align='right'>{{ rec.advance | number : '1.2-2'  }}</td>  
-          <td align='right'>{{ rec.balance | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.G3 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G4 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G5 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.G6 | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.advance | number : '1.2-2' }}</td>
+          <td align='right'>{{ rec.balance | number : '1.2-2' }}</td>
         </tr>
       </tbody>
     </table>
@@ -117,3 +124,17 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
+
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Message Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'AGENT-OS-AGING-REPORT'" [defaultto_ids]="sTo_ids"
+          [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true
+          [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
