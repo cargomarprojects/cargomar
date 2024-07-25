@@ -389,6 +389,7 @@ export class EmpComponent {
     this.Record.rec_mode = this.mode;
     this.Record.emp_incentive_type = 'NA';
     this.Record.emp_incentive_type_id = '';
+    this.Record.emp_pf_exempted = false;
     this.lock_record = false;
     this.Initdefault();
 

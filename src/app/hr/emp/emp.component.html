@@ -186,18 +186,14 @@
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"  [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"
+            [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
         </div>
-        <!-- <label class="col-sm-2 col-form-label  col-form-label-sm"></label> -->
-        <div class="col-sm-3">
-          <span>In payroll</span>
-          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll">
-        </div>
-        <!-- <label class="col-sm-2 col-form-label  col-form-label-sm"></label> -->
-        <div class="col-sm-3">
-          <span>In CSV</span>
-          <input type="checkbox" [(ngModel)]="Record.emp_in_csv">
+        <div class="col-sm-7 pr-0">
+          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll"> <span>In payroll&nbsp;&nbsp;</span>
+          <input type="checkbox" [(ngModel)]="Record.emp_in_csv"> <span>In CSV&nbsp;&nbsp;</span>
+          <input type="checkbox" [(ngModel)]="Record.emp_pf_exempted"> <span>PF Exempted</span>
         </div>
       </div>
 

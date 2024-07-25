@@ -78,6 +78,7 @@ export class Emp {
   emp_edit_code: string;
   emp_department_name: string;
   emp_designation_name: string;
+  emp_pf_exempted: boolean;
   rec_mode: string;
   rec_branch_code: string;
 
