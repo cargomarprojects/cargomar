@@ -51,7 +51,7 @@ export class OsAgent2Component {
   category_type: string;
   curr_id: string;
   curr_code: string;
-  curr_value_above: number = 4999;
+  curr_amt_above: number = 4999;
 
   isoverdue: boolean = false;
   bCompany = false;
@@ -99,7 +99,7 @@ export class OsAgent2Component {
     category_type: '',
     isoverdue: false,
     all: false,
-    curr_value_above: this.curr_value_above
+    curr_amt_above: this.curr_amt_above
   };
 
 
@@ -307,7 +307,7 @@ export class OsAgent2Component {
     this.SearchData.curr_code = this.curr_code;
     this.SearchData.category = this.category;
     this.SearchData.category_type = this.category_type;
-    this.SearchData.curr_value_above = this.curr_value_above;
+    this.SearchData.curr_amt_above = this.curr_amt_above;
     this.ErrorMessage = '';
     this.mainService.OsAgent2(this.SearchData)
       .subscribe(response => {
