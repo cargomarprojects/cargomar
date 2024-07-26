@@ -79,7 +79,9 @@ export class OsComponent {
     all: false,
     do_not_use_credit_date: false,
     legalonly: false,
-    hidetotal: false
+    hidetotal: false,
+    menu_type: this.type,
+    sman_name: ''
   };
 
 
@@ -255,6 +257,8 @@ export class OsComponent {
 
     this.SearchData.legalonly = this.legal;
     this.SearchData.hidetotal = this.hidetotal;
+    this.SearchData.menu_type = this.type
+    this.SearchData.sman_name = this.gs.globalVariables.sman_name;
 
     this.ErrorMessage = '';
     this.mainService.OsReport(this.SearchData)
