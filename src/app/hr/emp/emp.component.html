@@ -191,9 +191,12 @@
             [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
         </div>
         <div class="col-sm-7 pr-0">
-          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll"> <span>In payroll&nbsp;&nbsp;</span>
-          <input type="checkbox" [(ngModel)]="Record.emp_in_csv"> <span>In CSV&nbsp;&nbsp;</span>
-          <input type="checkbox" [(ngModel)]="Record.emp_pf_exempted"> <span>PF Exempted</span>
+          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll" id="chkpayroll"> <label for="chkpayroll">In
+            Payroll&nbsp;&nbsp;</label>
+          <input type="checkbox" [(ngModel)]="Record.emp_in_csv" id="chkcsv"> <label for="chkcsv">In
+            CSV&nbsp;&nbsp;</label>
+          <input type="checkbox" [(ngModel)]="Record.emp_pf_exempted" id="chkpfexemptd"> <label for="chkpfexemptd">PF
+            Exempted</label>
         </div>
       </div>
 
@@ -302,8 +305,8 @@
           <input type="checkbox" [(ngModel)]="Record.emp_is_relieved">
         </div> -->
         <div class="col-sm-3">
-          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved"> Relieved&nbsp;&nbsp;&nbsp;
-          <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired"> <span *ngIf="bAdmin">Retired</span>
+          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved" id="chkrelived"> <label for="chkrelived">Relieved&nbsp;&nbsp;&nbsp;</label>
+          <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired" id="chkretired"> <label *ngIf="bAdmin" for="chkretired">Retired</label>
         </div>
 
         <label class="col-sm-3 col-form-label col-form-label-sm">Relieve Date</label>
