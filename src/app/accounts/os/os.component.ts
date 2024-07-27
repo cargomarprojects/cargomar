@@ -118,6 +118,10 @@ export class OsComponent {
   }
 
   InitComponent() {
+    if (this.type === 'OS-SMAN')
+      this.all = true;
+    else
+      this.all = false;
     this.bCompany = false;
     this.bAdmin = false;
     this.bExcel = false;
