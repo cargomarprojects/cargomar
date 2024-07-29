@@ -78,7 +78,7 @@ export class RitcdComponent {
             this.Record.ritcd_scheme_id = _Record.id;
             this.Record.ritcd_scheme_code = _Record.code;
             this.Record.ritcd_scheme_name = _Record.name;
-          }
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
@@ -147,16 +147,19 @@ export class RitcdComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new Ritcd();
         this.Record.ritcd_pkid = this.pkid;
+        this.Record.ritcd_parent_id = this.parentid;
         this.Record.ritcd_rate = 0;
         this.Record.ritcd_cap = 0;
         this.Record.ritcd_scheme_id = '';
         this.Record.ritcd_scheme_code = '';
         this.Record.ritcd_scheme_name = '';
-        this.Record.ritcd_valid_date = '';
+        this.Record.ritcd_effective_date = '';
+        this.Record.rec_created_by = this.gs.globalVariables.user_code;
+        this.Record.rec_created_date = this.gs.defaultValues.today;
         this.Record.rec_mode = this.mode;
 
         this.InitLov();
- 
+
         // this.pack_from.nativeElement.focus();
     }
 
@@ -252,7 +255,7 @@ export class RitcdComponent {
             REC.ritcd_scheme_name = this.Record.ritcd_scheme_name;
             REC.ritcd_rate = this.Record.ritcd_rate;
             REC.ritcd_cap = this.Record.ritcd_cap;
-            REC.ritcd_valid_date = this.Record.ritcd_valid_date;
+            REC.ritcd_effective_date = this.gs.ConvertDate2DisplayFormat(this.Record.ritcd_effective_date);
         }
     }
     RemoveList(event: any) {

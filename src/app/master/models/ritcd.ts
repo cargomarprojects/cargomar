@@ -10,8 +10,10 @@ export class Ritcd {
     ritcd_scheme_name: string;
     ritcd_rate: number;
     ritcd_cap: number;
-    ritcd_valid_date: string;
+    ritcd_effective_date: string;
 
+    rec_created_by: string;
+    rec_created_date: string;
     rec_locked: boolean;
     rec_mode: string;
 

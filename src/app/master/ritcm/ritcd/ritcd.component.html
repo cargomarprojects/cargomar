@@ -1,16 +1,18 @@
 <div class="page-list">
-    <label style="background-color: lightblue;color: black;font: size 8px;"
+    <label style="background-color: lightblue;color: black;font: size 8px;padding-left: 1px;"
         class="col-12 col-form-label  col-form-label-sm mt-1 ">SCHEME CODE
         WISE RATE</label>
     <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
                 <tr>
-                    <th>SCHEME.CODE</th>
-                    <th>SCHEME.NAME</th>
+                    <th>SCHEME CODE</th>
+                    <th>SCHEME NAME</th>
                     <th>RATE</th>
                     <th>CAP</th>
-                    <th>DATE</th>
+                    <th>EFFECTIVE DATE</th>
+                    <th>CREATED.BY</th>
+                    <th>CREATED.DATE</th>
                     <th>DELETE</th>
                 </tr>
             </thead>
@@ -21,7 +23,9 @@
                     <td>{{rec.ritcd_scheme_name}}</td>
                     <td>{{rec.ritcd_rate}}</td>
                     <td>{{rec.ritcd_cap}}</td>
-                    <td>{{rec.ritcd_valid_date}}</td>
+                    <td>{{rec.ritcd_effective_date}}</td>
+                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.rec_created_date}}</td>
                     <td>
                         <App-Dialog
                             [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ritcd_pkid,name:rec.ritcd_scheme_name}"
@@ -51,10 +55,10 @@
                     <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritcd_cap"
                         (blur)="OnBlur('ritcd_cap')" required maxlength="15" />
                 </div>
-                <label class="col-sm-1 col-form-label  col-form-label-sm">Date</label>
+                <label class="col-sm-1 col-form-label  col-form-label-sm">Effective.Date</label>
                 <div class="col-sm-2">
-                    <app-date [inputdate]="Record.ritcd_valid_date"
-                        (ValueChanged)="Record.ritcd_valid_date=$event"></app-date>
+                    <app-date [inputdate]="Record.ritcd_effective_date"
+                        (ValueChanged)="Record.ritcd_effective_date=$event"></app-date>
                 </div>
 
             </div>
