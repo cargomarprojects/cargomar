@@ -203,6 +203,7 @@ export class RitcdComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        this.Record.ritcd_parent_id = this.parentid;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {

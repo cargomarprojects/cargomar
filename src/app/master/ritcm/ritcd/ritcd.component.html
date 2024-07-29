@@ -1,85 +1,88 @@
-<div class="page-list">
+<div style="border-style:solid;border-color:green" class="page-box">
     <label style="background-color: lightblue;color: black;font: size 8px;padding-left: 1px;"
-        class="col-12 col-form-label  col-form-label-sm mt-1 ">SCHEME CODE
-        WISE RATE</label>
-    <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>SCHEME CODE</th>
-                    <th>SCHEME NAME</th>
-                    <th>RATE</th>
-                    <th>CAP</th>
-                    <th>EFFECTIVE DATE</th>
-                    <th>CREATED.BY</th>
-                    <th>CREATED.DATE</th>
-                    <th>DELETE</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    (click)="ActionHandler('EDIT', rec.ritcd_pkid,i)">
-                    <td>{{rec.ritcd_scheme_code}}</td>
-                    <td>{{rec.ritcd_scheme_name}}</td>
-                    <td>{{rec.ritcd_rate}}</td>
-                    <td>{{rec.ritcd_cap}}</td>
-                    <td>{{rec.ritcd_effective_date}}</td>
-                    <td>{{rec.rec_created_by}}</td>
-                    <td>{{rec.rec_created_date}}</td>
-                    <td>
-                        <App-Dialog
-                            [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ritcd_pkid,name:rec.ritcd_scheme_name}"
-                            (result)="RemoveList($event)"></App-Dialog>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        class="col-12 col-form-label  col-form-label-sm ">SCHEME WISE RODTEP RATE</label>
 </div>
-<div class="page-details">
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="form-group row">
-                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Scheme</label>
-                <div class="col-sm-2">
-                    <app-autocomplete #SchemeLov [inputdata]="SCHEMERECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                </div>
-                <label class="col-sm-1 col-form-label  col-form-label-sm">Rate</label>
-                <div class="col-sm-2">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritcd_rate"
-                        (blur)="OnBlur('ritcd_rate')" required maxlength="15" />
-                </div>
-                <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Cap</label>
-                <div class="col-sm-2">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritcd_cap"
-                        (blur)="OnBlur('ritcd_cap')" required maxlength="15" />
-                </div>
-                <label class="col-sm-1 col-form-label  col-form-label-sm">Effective.Date</label>
-                <div class="col-sm-2">
-                    <app-date [inputdate]="Record.ritcd_effective_date"
-                        (ValueChanged)="Record.ritcd_effective_date=$event"></app-date>
+<div style="border-style:solid;border-color:green" class="page-box">
+    <div class="page-list">
+        <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>SCHEME CODE</th>
+                        <th>SCHEME NAME</th>
+                        <th>RATE</th>
+                        <th>CAP</th>
+                        <th>EFFECTIVE DATE</th>
+                        <th>CREATED.BY</th>
+                        <th>CREATED.DATE</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                        (click)="ActionHandler('EDIT', rec.ritcd_pkid,i)">
+                        <td>{{rec.ritcd_scheme_code}}</td>
+                        <td>{{rec.ritcd_scheme_name}}</td>
+                        <td>{{rec.ritcd_rate}}</td>
+                        <td>{{rec.ritcd_cap}}</td>
+                        <td>{{rec.ritcd_effective_date}}</td>
+                        <td>{{rec.rec_created_by}}</td>
+                        <td>{{rec.rec_created_date}}</td>
+                        <td>
+                            <App-Dialog
+                                [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.ritcd_pkid,name:rec.ritcd_scheme_name}"
+                                (result)="RemoveList($event)"></App-Dialog>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page-details">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group row">
+                    <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Scheme</label>
+                    <div class="col-sm-2">
+                        <app-autocomplete #SchemeLov [inputdata]="SCHEMERECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                    <label class="col-sm-1 col-form-label  col-form-label-sm">Rate</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritcd_rate"
+                            (blur)="OnBlur('ritcd_rate')" required maxlength="15" />
+                    </div>
+                    <label style="padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Cap</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ritcd_cap"
+                            (blur)="OnBlur('ritcd_cap')" required maxlength="15" />
+                    </div>
+                    <label class="col-sm-1 col-form-label  col-form-label-sm">Effective.Date</label>
+                    <div class="col-sm-2">
+                        <app-date [inputdate]="Record.ritcd_effective_date"
+                            (ValueChanged)="Record.ritcd_effective_date=$event"></app-date>
+                    </div>
+
                 </div>
 
             </div>
+            <div class="col-sm-4">
 
-        </div>
-        <div class="col-sm-4">
+                <div class="col">
+                    <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
+                    <button [disabled]="loading" (click)="ActionHandler('ADD','')"
+                        class="btn btn-default btn-sm">NEW</button>
+                </div>
 
-            <div class="col">
-                <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
-                <button [disabled]="loading" (click)="ActionHandler('ADD','')"
-                    class="btn btn-default btn-sm">NEW</button>
             </div>
-
         </div>
     </div>
-</div>
-<br />
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="InfoMessage" class="alert alert-success">
-    {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
+    <br />
+    <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+    <div *ngIf="InfoMessage" class="alert alert-success">
+        {{InfoMessage}}
+    </div>
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+        {{ErrorMessage}}
+    </div>
 </div>
