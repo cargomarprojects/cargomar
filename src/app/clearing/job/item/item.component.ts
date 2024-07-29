@@ -296,6 +296,7 @@ export class ItemComponent {
       this.Record.itm_scheme_id = _Record.id;
       this.Record.itm_scheme_code = _Record.code;
       this.Record.itm_scheme_name = _Record.name;
+      this.GetRotepRate();
     }
     if (_Record.controlname == "RITC") {
       bchange = false;
@@ -314,10 +315,12 @@ export class ItemComponent {
       if (_Record.col4 == "Y")
         this.EnableAddInfo = true;
 
-      if (this.gs.isZero(this.Record.itm_rodtep_rate)) {
-        alert('No RODTEP Rate Is Provided');
-        return;
-      }
+      // if (this.gs.isZero(this.Record.itm_rodtep_rate)) {
+      //   alert('No RODTEP Rate Is Provided');
+      //   return;
+      // }
+
+      this.GetRotepRate();
 
       if (bchange) {
         this.InitLov('CHEMCATEGORY');
@@ -1287,5 +1290,32 @@ export class ItemComponent {
   }
 
 
+  GetRotepRate() {
+
+    this.loading = true;
+    let SearchData = {
+      scheme_id: this.Record.itm_scheme_id,
+      ritc_id: this.Record.itm_ritc_id
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetRotepRate(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.itm_rodtep_rate = response.rate;
+        this.Record.itm_rodtep_cap = response.cap;
+
+        if (this.gs.isZero(this.Record.itm_rodtep_rate)) {
+          alert('No RODTEP Rate Is Provided');
+          return;
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
 }
