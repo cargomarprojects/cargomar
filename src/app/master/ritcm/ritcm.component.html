@@ -198,3 +198,7 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+ 
+<div *ngIf="mode=='EDIT'" style="border-style:solid;border-color:green" class="page-box">
+  <app-ritcd [parentid]="pkid" [type]="type"></app-ritcd>
+</div>

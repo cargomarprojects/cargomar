@@ -48,6 +48,7 @@ import { BuyrateImportComponent } from './airbuyrate/buyrateimport.component';
 import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 import { ProcessReportComponent } from './processreport/processreport.component';
 import { CustdetConsigneeComponent } from './customer/custdetconsignee.component';
+import { RitcdComponent } from './ritcm/ritcd/ritcd.component';
 
 @NgModule({
   imports: [
@@ -90,7 +91,8 @@ import { CustdetConsigneeComponent } from './customer/custdetconsignee.component
     BuyrateImportComponent,
     ChemCatgComponent,
     ProcessReportComponent,
-    CustdetConsigneeComponent
+    CustdetConsigneeComponent,
+    RitcdComponent
   ],
   providers: [
   ],
