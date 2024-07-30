@@ -20,7 +20,8 @@
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
       </div>
       <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col">
-        <button [disabled]="loading" (click)="ProcessData()" class="btn btn-primary btn-sm">Update</button>
+        <button [disabled]="loading" (click)="ProcessData('GENERAL')" class="btn btn-primary btn-sm mr-1">Update General</button>
+        <button [disabled]="loading" (click)="ProcessData('SCHEME WISE')" class="btn btn-primary btn-sm mr-1">Update Scheme Wise</button>
       </div>
     </div>
   </div>

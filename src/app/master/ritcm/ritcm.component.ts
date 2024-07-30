@@ -374,13 +374,14 @@ export class RitcmComponent {
     this.gs.ClosePage('home');
   }
 
-  ProcessData() {
+  ProcessData(_type: string) {
 
-    if (!confirm("Update Rates")) {
+    if (!confirm("UPDATE RATES "+_type)) {
       return
     }
 
     let SearchData = {
+      type: _type,
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
       user_code: this.gs.globalVariables.user_code
