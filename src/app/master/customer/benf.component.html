@@ -1,5 +1,18 @@
 <div class="page-list">
-  <div class="page-body table-responsive fixedTableHead" [style.height]="RecordList.length>5?'404px':'auto'" [style.overflow-y]="RecordList.length>16?'scroll':'auto'">
+  <div class="my-1">
+    <div class="row pl-1">
+      <label class="col-sm-2">Search</label>
+      <div class="col-sm-4">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+          (blur)="OnBlur('searchstring')" />
+      </div>
+      <div class="col-sm-6">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="page-body table-responsive fixedTableHead" [style.height]="RecordList.length>5?'404px':'auto'"
+    [style.overflow-y]="RecordList.length>16?'scroll':'auto'">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
@@ -11,12 +24,13 @@
           <th>IFSC</th>
           <th>EMAIL</th>
           <th>MOB</th>
+          <th>CREATED.BY</th>
+          <th>CREATED.DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (click)="ActionHandler('EDIT', rec.ben_pkid,i)">
-          <td>{{rec.ben_code}}</td>
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+          <td class="hlink" (click)="ActionHandler('EDIT', rec.ben_pkid,i)">{{rec.ben_code}}</td>
           <td>{{rec.ben_code}}</td>
           <td>{{rec.ben_name}}</td>
           <td>{{rec.ben_acc_no}}</td>
@@ -24,6 +38,8 @@
           <td>{{rec.ben_ifsc}}</td>
           <td>{{rec.ben_email1}}</td>
           <td>{{rec.ben_mob}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
           <!-- <td>
               <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.pack_pkid,name:rec.pack_ctns}" (result)="RemoveList($event)"></App-Dialog>
             </td> -->
@@ -50,7 +66,7 @@
               (blur)="OnBlur('ben_name')" required maxlength="70" />
           </div>
         </div>
-          <div class="form-group row">
+        <div class="form-group row">
           <label class="col-sm-4 col-form-label  col-form-label-sm">Address</label>
           <div class="col-sm-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_addr1"
@@ -75,27 +91,27 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-8">
-              <app-autocomplete #StateLov [inputdata]="STATERECORD"
+            <app-autocomplete #StateLov [inputdata]="STATERECORD"
               (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
         </div>
       </div>
       <div class="col-sm-4">
-          <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">City</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_city"
-                  (blur)="OnBlur('ben_city')" required maxlength="25" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">Pin</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_pin" (blur)="OnBlur('ben_pin')" required
-                  maxlength="25" />
-              </div>
-            </div>
-            
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">City</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_city"
+              (blur)="OnBlur('ben_city')" required maxlength="25" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Pin</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_pin"
+              (blur)="OnBlur('ben_pin')" required maxlength="25" />
+          </div>
+        </div>
+
         <div class="form-group row">
           <label class="col-sm-4 col-form-label  col-form-label-sm">Bank Name</label>
           <div class="col-sm-8">
@@ -104,69 +120,69 @@
           </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">A/c Number</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_no"
-                (blur)="OnBlur('ben_acc_no')" required maxlength="26" />
-            </div>
+          <label class="col-sm-4 col-form-label col-form-label-sm">A/c Number</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_no"
+              (blur)="OnBlur('ben_acc_no')" required maxlength="26" />
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Category</label>
-            <div class="col-sm-8">
-              <select class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_type"
-                (change)="OnChange('ben_acc_type')">
-                <!-- <option [value]="''">NA</option> -->
-                <option [value]="'10'">10-SAVINGS BANK ACCOUNT</option>
-                <option [value]="'11'">11-CURRENT ACCOUNT</option>
-                <option [value]="'12'">12-OVERDRAFT ACCOUNT</option>
-                <option [value]="'13'">13-CASH CREDIT ACCOUNT</option>
-                <option [value]="'14'">14-ADVANCES</option>
-                <!-- <option [value]="'40'">40-NRE</option>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Category</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.ben_acc_type"
+              (change)="OnChange('ben_acc_type')">
+              <!-- <option [value]="''">NA</option> -->
+              <option [value]="'10'">10-SAVINGS BANK ACCOUNT</option>
+              <option [value]="'11'">11-CURRENT ACCOUNT</option>
+              <option [value]="'12'">12-OVERDRAFT ACCOUNT</option>
+              <option [value]="'13'">13-CASH CREDIT ACCOUNT</option>
+              <option [value]="'14'">14-ADVANCES</option>
+              <!-- <option [value]="'40'">40-NRE</option>
               <option [value]="'50'">50-REMITTANCE FOR ACCOUNT WITH</option>
               <option [value]="'51'">51-INDO NEPAL REMITTANCE</option>
               <option [value]="'52'">52-CARD PAYMENT</option> -->
-              </select>
-            </div>
+            </select>
           </div>
+        </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label  col-form-label-sm">IFSC</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_ifsc" (blur)="OnBlur('ben_ifsc')" required
-              maxlength="11" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_ifsc"
+              (blur)="OnBlur('ben_ifsc')" required maxlength="11" />
           </div>
         </div>
       </div>
       <div class="col-sm-4">
-          <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">Email1</label>
-              <div class="col-sm-8">
-                <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.ben_email1"
-                  (blur)="OnBlur('ben_email1')" required maxlength="250" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">Email2</label>
-              <div class="col-sm-8">
-                <input type="text"  class="form-control form-control-sm" [(ngModel)]="Record.ben_email2" (blur)="OnBlur('ben_email2')" required
-                  maxlength="250" />
-              </div>
-            </div>
-    
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">Mobile</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_mob"
-                  (blur)="OnBlur('ben_mob')" required maxlength="55" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label  col-form-label-sm">This Branch Only</label>
-              <div class="col-sm-8">
-                  <app-autocomplete #BrLov [inputdata]="BRRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'" 
-                  (ValueChanged)="LovSelected($event)"></app-autocomplete>
-              </div>
-            </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Email1</label>
+          <div class="col-sm-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.ben_email1" (blur)="OnBlur('ben_email1')" required maxlength="250" />
+          </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Email2</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_email2"
+              (blur)="OnBlur('ben_email2')" required maxlength="250" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">Mobile</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ben_mob"
+              (blur)="OnBlur('ben_mob')" required maxlength="55" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label  col-form-label-sm">This Branch Only</label>
+          <div class="col-sm-8">
+            <app-autocomplete #BrLov [inputdata]="BRRECORD" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="page-box">
@@ -176,7 +192,7 @@
     </div>
   </div>
 </div>
-<br />
+<!-- <br /> -->
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
   {{InfoMessage}}

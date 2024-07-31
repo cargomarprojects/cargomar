@@ -759,8 +759,8 @@
 
     <ngb-tab *ngIf="mode == 'EDIT'" title="Beneficiary">
       <ng-template ngbTabContent>
-        <div class="page-box">
-          <div class="col">
+        <div class="page-box p-1">
+          <div class="col  mx-0 px-0">
             <app-benf [parentid]="pkid" [cust_code]="Record.cust_code" [cust_name]="Record.cust_name" [type]="type">
             </app-benf>
           </div>

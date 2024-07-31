@@ -23,7 +23,8 @@ export class Benfm {
     ben_branch_code: string;
     ben_edit_code: string;
     ben_ctr: number;
-
+    rec_created_by:string;
+    rec_created_date:string;
  
     rec_mode: string;
 

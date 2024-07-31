@@ -36,7 +36,7 @@ export class BenfComponent {
     InfoMessage = "";
     mode = 'ADD';
     pkid = '';
-
+    searchstring = "";
     ctr: number;
 
     // Array For Displaying List
@@ -136,7 +136,8 @@ export class BenfComponent {
             parentid: this.parentid,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            year_code: this.gs.globalVariables.year_code
+            year_code: this.gs.globalVariables.year_code,
+            searchstring: this.searchstring
         };
 
         this.ErrorMessage = '';
@@ -423,6 +424,11 @@ export class BenfComponent {
             case 'ben_bank_name':
                 {
                     this.Record.ben_bank_name = this.Record.ben_bank_name.toUpperCase();
+                    break;
+                }
+                case 'searchstring':
+                {
+                    this.searchstring = this.searchstring.toUpperCase();
                     break;
                 }
         }
