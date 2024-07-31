@@ -170,6 +170,7 @@
           <th *ngIf="prtype=='CONSOL PAY ROLL'">ESI.EMPLR</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">ADMIN.CHRG</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">EDLI.CHRG</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'">BONUS.PAID</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">SALES.INCENT</th>
         </tr>
       </thead>
@@ -248,6 +249,7 @@
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_esi_emplr}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_admin_emply}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_edli_emply}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_bonus_paid}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_sales_incentive}}</td>
         </tr>
       </tbody>

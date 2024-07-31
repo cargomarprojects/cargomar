@@ -122,7 +122,8 @@ export class Salarym {
   sal_admin_emply: number;
   sal_edli_emply: number;
   sal_esi_emplr: number;
-
+  sal_bonus_paid:number;
+  
   sal_emp_status: string;
   sal_edit_code: string;
   rec_mode: string;
