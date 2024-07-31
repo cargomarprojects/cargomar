@@ -472,6 +472,7 @@ export class EmpComponent {
     this.InfoMessage = '';
     this.Record.emp_designation_name = this.getDesignation(this.Record.emp_designation_id);
     this.Record.emp_department_name = this.getDepartment(this.Record.emp_department_id);
+    this.Record.emp_status_name = this.getStatusName(this.Record.emp_status_id);
     this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record)
       .subscribe(response => {
@@ -923,6 +924,16 @@ export class EmpComponent {
     let str = "";
     if (!this.gs.isBlank(this.DesignationList)) {
       var REC = this.DesignationList.find(rec => rec.param_pkid == _id);
+      if (REC != null) {
+        str = REC.param_name;
+      }
+    }
+    return str;
+  }
+  getStatusName(_id: string) {
+    let str = "";
+    if (!this.gs.isBlank(this.StatusList)) {
+      var REC = this.StatusList.find(rec => rec.param_pkid == _id);
       if (REC != null) {
         str = REC.param_name;
       }
