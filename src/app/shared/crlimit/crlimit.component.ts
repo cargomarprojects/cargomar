@@ -184,6 +184,8 @@ export class CrLimitComponent {
     this.Record2.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
     this.Record2.rec_mode = this.mode;
     this.Record2.ul_locked = 'P';
+    this.Record2.ul_bal_amt = 0;
+    this.Record2.ul_overdue_amt = 0;
     this.InitLov();
   }
 
@@ -198,6 +200,8 @@ export class CrLimitComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record2.ul_bal_amt = 0; //value assigned during  getComments() function
+    this.Record2.ul_overdue_amt = 0;
     this.Record2.ul_comments = this.getComments();
     this.Record2.ul_parent_id = this.parentid;
     this.Record2._globalvariables = this.gs.globalVariables;
@@ -229,6 +233,10 @@ export class CrLimitComponent {
           _totOverDueDays = rec.overduedays;
       }
     }
+    _totBal = this.gs.roundNumber(_totBal, 2);
+    _totOverDueAmt = this.gs.roundNumber(_totOverDueAmt, 2);
+    this.Record2.ul_bal_amt = _totBal;
+    this.Record2.ul_overdue_amt = _totOverDueAmt;
     sComments = "Balance: " + _totBal.toString() + ", Overdue Amount: " + _totOverDueAmt.toString() + ", Overdue days: " + _totOverDueDays.toString();
     sComments += ", Lock Message: " + this.msg;
     if (sComments.length > 250)
