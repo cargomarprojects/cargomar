@@ -24,6 +24,9 @@ export class Deductm {
     monthly_deducted_amt: number;
     valid_deduction: string;
     pending_amt: number;
+    ded_pay_date: string;
+    ded_vrno: string;
+    ded_fin_year: number;
     rec_mode: string;
     _globalvariables: GlobalVariables;
     dedList: Deductd[] = [];

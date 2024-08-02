@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">EMI Start Date</label>
                     <div class="col-4">
                         <app-date [disabled]="Record.ded_alloc_exist && gs.globalVariables.user_code != 'ADMIN'"
                             [inputdate]="Record.ded_start_date" (ValueChanged)="Record.ded_start_date=$event">
@@ -49,6 +49,20 @@
                         {{Record.ded_bal_amt}}</label>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Disbursement Date</label>
+                    <div class="col-4">
+                        <app-date [inputdate]="Record.ded_pay_date" (ValueChanged)="Record.ded_pay_date=$event">
+                        </app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Vr.No.</label>
+                    <div class="col-4">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ded_vrno"
+                            (blur)="OnBlur('ded_vrno')" required [maxlength]="30" />
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Monthly Amount</label>
                     <div class="col-4">
                         <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.ded_mon_amt"
@@ -63,6 +77,7 @@
                             [maxlength]="3" />
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
                     <div class="col-4">
@@ -73,7 +88,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm">Closed</label>
                     <div class="col-sm-4">
-                        <select class="form-control form-control-sm" [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="clsd"
+                        <select class="form-control form-control-sm"
+                            [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="clsd"
                             [(ngModel)]="Record.ded_closed">
                             <option [value]="'N'">NO</option>
                             <option [value]="'Y'">YES</option>

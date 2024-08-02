@@ -165,6 +165,8 @@ export class DeductmEditComponent {
         this.Record.ded_remarks = '';
         this.lock_record = false;
         this.Record.ded_alloc_exist = false;
+        this.Record.ded_vrno = '';
+        this.Record.ded_pay_date = '';
         this.InitLov();
         this.Record.rec_mode = this.mode;
 
@@ -311,6 +313,9 @@ export class DeductmEditComponent {
         }
         if (field == 'ded_remarks') {
             this.Record.ded_remarks = this.Record.ded_remarks.toUpperCase();
+        }
+        if (field == 'ded_vrno') {
+            this.Record.ded_vrno = this.Record.ded_vrno.toUpperCase();
         }
     }
 
