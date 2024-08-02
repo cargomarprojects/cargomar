@@ -22,7 +22,7 @@
                     <div class="col-sm-12">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm">Search</button>
-                        <button [disabled]="loading" (click)="List('EXCEL')"
+                        <button  *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm">Print</button>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <th>LOAN AMOUNT PAID</th>
                     <th>PAYMENT DATE</th>
                     <th>EMI</th>
-                    <th>TOTAL DEDUCTION</th>
+                    <th>TOTAL DEDUCTION (FY&nbsp;{{gs.globalVariables.year_name}})</th>
                     <th>BALANCE</th>
                 </tr>
             </thead>

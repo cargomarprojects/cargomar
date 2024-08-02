@@ -22,6 +22,7 @@ export class LoanReportComponent {
 
     bAdmin: boolean = false;
     bRemove: boolean = false;
+    bExcel: boolean = false;
     bChanged: boolean;
     disableSave = true;
     loading = false;
@@ -37,7 +38,7 @@ export class LoanReportComponent {
     modal: any;
     sub: any;
     urlid: string;
-     
+
     ErrorMessage = "";
     InfoMessage = "";
 
@@ -79,11 +80,14 @@ export class LoanReportComponent {
     InitComponent() {
         this.bRemove = true;
         this.bAdmin = false;
+        this.bExcel = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_admin)
                 this.bAdmin = true;
+            if (this.menu_record.rights_print)
+                this.bExcel = true;
         }
         this.InitLov();
     }
@@ -123,6 +127,7 @@ export class LoanReportComponent {
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
+            year_name: this.gs.globalVariables.year_name,
             report_folder: this.gs.globalVariables.report_folder,
             branch_region: this.gs.defaultValues.pf_br_region,
             folderid: this.gs.getGuid(),
@@ -198,7 +203,7 @@ export class LoanReportComponent {
             this.searchstring = this.searchstring.toUpperCase();
         }
 
-        
+
     }
     OnChange(field: string) {
         this.RecordList = null;
