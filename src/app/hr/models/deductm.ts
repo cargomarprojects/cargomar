@@ -26,8 +26,9 @@ export class Deductm {
     pending_amt: number;
     ded_pay_date: string;
     ded_vrno: string;
-    ded_fin_year: number;
     rec_mode: string;
+    rec_branch_code: string;
+    ded_deduct_amt: number;
     _globalvariables: GlobalVariables;
     dedList: Deductd[] = [];
 }
@@ -53,4 +54,5 @@ export class Deductd {
     rec_edited_by: string;
     rec_edited_date: string;
     ded_remarks: string;
+    ded_fin_year: number;
 }
