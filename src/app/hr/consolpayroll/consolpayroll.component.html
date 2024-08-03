@@ -10,8 +10,8 @@
     <div class="row">
       <div *ngIf="bCompany" class="col-sm-3">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-          <div class="col-sm-4">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-8">
             <select class="form-control form-control-sm" name="etype" [(ngModel)]="prtype"
               (change)="OnChange('prtype')">
               <option [value]="'PAY ROLL'">Month Wise</option>
@@ -20,8 +20,10 @@
               <option [value]="'PROFESSIONAL TAX'">Professional Tax</option>
             </select>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Region</label>
-          <div class="col-sm-4">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Region</label>
+          <div class="col-sm-8">
             <select class="form-control form-control-sm" name="eregion" [(ngModel)]="empregion">
               <option [value]="'ALL'">All</option>
               <option [value]="'SOUTH'">South</option>
@@ -32,33 +34,37 @@
       </div>
       <div class="col-sm-3">
         <div *ngIf="prtype=='PAY ROLL'" class="form-group row">
-          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-3">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
+          <div class="col-sm-8">
             <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('salyear')"
               [(ngModel)]="salyear" />
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
-          <div style="padding-right:0px;padding-left:5px" class="col-sm-3">
+        </div>
+        <div *ngIf="prtype=='PAY ROLL'" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Month</label>
+          <div class="col-sm-8">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('salmonth')"
               [(ngModel)]="salmonth" />
           </div>
         </div>
 
         <div *ngIf="prtype !='PAY ROLL'" class="form-group row">
-          <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">FromDate</label>
-          <div style="padding-right:0px;padding-left:0px" class="col-sm-4">
+          <label class="col-sm-4 col-form-label col-form-label-sm">From</label>
+          <div class="col-sm-8">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event"></app-date>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">ToDate</label>
-          <div style="padding-right:0px;padding-left:5px" class="col-sm-4">
+        </div>
+        <div *ngIf="prtype !='PAY ROLL'" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-8">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event"></app-date>
           </div>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group row">
-          <label class="col-sm-1 col-form-label col-form-label-sm">Status</label>
-          <div class="col-sm-5">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Status</label>
+          <div class="col-sm-8">
             <select class="form-control form-control-sm" name="estatus" [(ngModel)]="empstatus">
               <option [value]="'BOTH'">Both(Confm/UnConfm)</option>
               <option [value]="'CONFIRMED'">Confirmed</option>
@@ -67,16 +73,25 @@
               <option [value]="'APPRENTICE'">Apprentice</option>
             </select>
           </div>
-          <label *ngIf="bCompany" class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
-          <div *ngIf="bCompany" class="col-5">
+        </div>
+        <div *ngIf="bCompany" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-sm-8">
             <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
           </div>
-
         </div>
       </div>
+
       <div class="col-sm-3">
+        <div *ngIf="prtype=='CONSOL PAY ROLL'" class="form-group row">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-10">
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')" name="Search"
+              [(ngModel)]="searchstring" />
+          </div>
+        </div>
         <div class="form-group row">
-          <div class="col-sm-12">
+          <div class="offset-2 col-sm-10">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Print</button>
@@ -85,7 +100,8 @@
               <input type="checkbox" [(ngModel)]="bBranchSummary">Branch Summary
             </span>
             <span *ngIf="bPrint && prtype=='CONSOL PAY ROLL'">
-              <input type="checkbox" [(ngModel)]="bSalesIncentive">Print Sales Incentive
+              <input type="checkbox" [(ngModel)]="bSalesIncentive">Print Sales Incentive&nbsp;
+              <input type="checkbox" [(ngModel)]="bDetails">Details
             </span>
           </div>
         </div>

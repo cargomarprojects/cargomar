@@ -48,6 +48,7 @@ export class ConsolPayrollComponent {
   bSalarySheet = false;
   bBranchSummary = false;
   bSalesIncentive = false;
+  bDetails = false;
 
   fromdate: string = '';
   todate: string = '';
@@ -207,7 +208,8 @@ export class ConsolPayrollComponent {
       bbranchsummary: this.bBranchSummary,
       fromdate: this.fromdate,
       todate: this.todate,
-      bsalesincentive: this.bSalesIncentive
+      bsalesincentive: this.bSalesIncentive,
+      bdetails: this.bDetails
     };
 
     if (this.bCompany) {
@@ -277,15 +279,17 @@ export class ConsolPayrollComponent {
     // if (field == 'sal_is_esi') {
     //   this.FindNetAmt();
     // }
-    //if (field == 'sal_head') {
-    //  this.Record.sal_head = this.Record.sal_head.toUpperCase();
-    //}
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase();
+    }
   }
   OnChange(field: string) {
     this.bSalarySheet = false;
     this.bBranchSummary = false;
     this.bSalesIncentive = false;
+    this.bDetails = false;
     this.RecordList = null;
+    this.searchstring = '';
   }
 
   Close() {
