@@ -20,6 +20,8 @@ export class LoanReportComponent {
     InitCompleted: boolean = false;
     menu_record: any;
 
+    selectedRowIndex = 0;
+    
     bAdmin: boolean = false;
     bRemove: boolean = false;
     bExcel: boolean = false;

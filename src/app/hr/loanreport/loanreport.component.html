@@ -22,7 +22,7 @@
                     <div class="col-sm-12">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm">Search</button>
-                        <button  *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm">Print</button>
                     </div>
                 </div>
@@ -43,8 +43,9 @@
                     <th>BALANCE</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr>
+            <tbody>
+                <tr class="page-body-tbody" *ngFor="let rec of RecordList; let i = index"
+                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{rec.rec_branch_code}}</td>
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_paid_amt}}</td>
