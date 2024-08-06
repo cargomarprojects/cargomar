@@ -17,7 +17,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
+                <div *ngIf="bCompany" class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-sm-10">
+                        <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+                        [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <button [disabled]="loading" (click)="List('NEW')"

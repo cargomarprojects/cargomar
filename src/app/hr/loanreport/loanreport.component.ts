@@ -21,16 +21,18 @@ export class LoanReportComponent {
     menu_record: any;
 
     selectedRowIndex = 0;
-    
+
     bAdmin: boolean = false;
     bRemove: boolean = false;
     bExcel: boolean = false;
+    bCompany: boolean = false;
     bChanged: boolean;
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
 
     searchstring = '';
+    search_branch_code: string = "";
 
     page_count = 0;
     page_current = 0;
@@ -83,6 +85,8 @@ export class LoanReportComponent {
         this.bRemove = true;
         this.bAdmin = false;
         this.bExcel = false;
+        this.bCompany = false;
+        this.search_branch_code = this.gs.globalVariables.branch_code;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -90,6 +94,8 @@ export class LoanReportComponent {
                 this.bAdmin = true;
             if (this.menu_record.rights_print)
                 this.bExcel = true;
+            if (this.menu_record.rights_company)
+                this.bCompany = true;
         }
         this.InitLov();
     }
@@ -101,6 +107,11 @@ export class LoanReportComponent {
 
     InitLov() {
 
+    }
+    LovSelected(_Record: any) {
+        if (_Record.controlname == "BRANCH") {
+            this.search_branch_code = _Record.code;
+        }
     }
 
 
@@ -127,7 +138,7 @@ export class LoanReportComponent {
             rowtype: this.type,
             searchstring: this.searchstring.toUpperCase(),
             company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
+            branch_code: this.search_branch_code,
             year_code: this.gs.globalVariables.year_code,
             year_name: this.gs.globalVariables.year_name,
             report_folder: this.gs.globalVariables.report_folder,
