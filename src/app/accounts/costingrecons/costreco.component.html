@@ -88,7 +88,14 @@
             <th>CHWT</th>
             <th>TEU</th>
             <th>CBM</th>
+            <th *ngIf="codecount >= 1" class="text-right">{{coldr0}}</th>
+            <th *ngIf="codecount >= 1" class="text-right">{{colcr0}}</th>
 
+            <th *ngIf="codecount >= 2" class="text-right">{{coldr1}}</th>
+            <th *ngIf="codecount >= 2" class="text-right">{{colcr1}}</th>
+
+            <th *ngIf="codecount >= 3" class="text-right">{{coldr2}}</th>
+            <th *ngIf="codecount >= 3" class="text-right">{{colcr2}}</th>
             <th>NARRATION</th>
           </tr>
         </thead>
@@ -112,8 +119,15 @@
             <td>{{rec.ntwt}}</td>
             <td>{{rec.teu}}</td>
             <td>{{rec.cbm}}</td>
+            
+            <td *ngIf="codecount >= 1" align='right'>{{rec.coldr0 | number : '1.2-2'}}</td>
+            <td *ngIf="codecount >= 1" align='right'>{{rec.colcr0 | number : '1.2-2'}}</td>
 
+            <td *ngIf="codecount >= 2" align='right'>{{rec.coldr1 | number : '1.2-2'}}</td>
+            <td *ngIf="codecount >= 2" align='right'>{{rec.colcr1 | number : '1.2-2'}}</td>
 
+            <td *ngIf="codecount >= 3" align='right'>{{rec.coldr2 | number : '1.2-2'}}</td>
+            <td *ngIf="codecount >= 3" align='right'>{{rec.colcr2 | number : '1.2-2'}}</td>
             <td>{{rec.jvh_narration}}</td>
           </tr>
         </tbody>
