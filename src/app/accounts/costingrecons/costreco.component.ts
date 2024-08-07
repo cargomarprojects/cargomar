@@ -209,6 +209,12 @@ export class CostrecoComponent {
           this.isclr = response.isclr;
           this.isimp = response.isimp;
           this.codecount = response.codecount
+          this.coldr0 = '';
+          this.colcr0 = '';
+          this.coldr1 = '';
+          this.colcr1 = '';
+          this.coldr2 = '';
+          this.colcr2 = '';
           if (this.codecount > 1) {
             var splitted = this.code.split(",");
             if (this.codecount >= 1) {
@@ -231,6 +237,7 @@ export class CostrecoComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 

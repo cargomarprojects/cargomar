@@ -68,8 +68,8 @@
 
   <div *ngIf="isclr">
 
-    <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 290px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
             <th>{{ (isimp) ? 'SI#' : 'JOB#' }}</th>
@@ -88,14 +88,14 @@
             <th>CHWT</th>
             <th>TEU</th>
             <th>CBM</th>
-            <th *ngIf="codecount >= 1" class="text-right">{{coldr0}}</th>
-            <th *ngIf="codecount >= 1" class="text-right">{{colcr0}}</th>
+            <th *ngIf="coldr0" class="text-right">{{coldr0}}</th>
+            <th *ngIf="colcr0" class="text-right">{{colcr0}}</th>
 
-            <th *ngIf="codecount >= 2" class="text-right">{{coldr1}}</th>
-            <th *ngIf="codecount >= 2" class="text-right">{{colcr1}}</th>
+            <th *ngIf="coldr1" class="text-right">{{coldr1}}</th>
+            <th *ngIf="colcr1" class="text-right">{{colcr1}}</th>
 
-            <th *ngIf="codecount >= 3" class="text-right">{{coldr2}}</th>
-            <th *ngIf="codecount >= 3" class="text-right">{{colcr2}}</th>
+            <th *ngIf="coldr2" class="text-right">{{coldr2}}</th>
+            <th *ngIf="colcr2" class="text-right">{{colcr2}}</th>
             <th>NARRATION</th>
           </tr>
         </thead>
@@ -119,15 +119,15 @@
             <td>{{rec.ntwt}}</td>
             <td>{{rec.teu}}</td>
             <td>{{rec.cbm}}</td>
-            
-            <td *ngIf="codecount >= 1" align='right'>{{rec.coldr0 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 1" align='right'>{{rec.colcr0 | number : '1.2-2'}}</td>
 
-            <td *ngIf="codecount >= 2" align='right'>{{rec.coldr1 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 2" align='right'>{{rec.colcr1 | number : '1.2-2'}}</td>
+            <td *ngIf="coldr0" align='right'>{{rec.coldr0 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr0" align='right'>{{rec.colcr0 | number : '1.2-2'}}</td>
 
-            <td *ngIf="codecount >= 3" align='right'>{{rec.coldr2 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 3" align='right'>{{rec.colcr2 | number : '1.2-2'}}</td>
+            <td *ngIf="coldr1" align='right'>{{rec.coldr1 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr1" align='right'>{{rec.colcr1 | number : '1.2-2'}}</td>
+
+            <td *ngIf="coldr2" align='right'>{{rec.coldr2 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr2" align='right'>{{rec.colcr2 | number : '1.2-2'}}</td>
             <td>{{rec.jvh_narration}}</td>
           </tr>
         </tbody>
@@ -139,8 +139,8 @@
   <div *ngIf="!isclr">
 
 
-    <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 290px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
             <th>MBLSL#</th>
@@ -160,14 +160,14 @@
             <th>TEU</th>
             <th>CBM</th>
 
-            <th *ngIf="codecount >= 1" class="text-right">{{coldr0}}</th>
-            <th *ngIf="codecount >= 1" class="text-right">{{colcr0}}</th>
+            <th *ngIf="coldr0" class="text-right">{{coldr0}}</th>
+            <th *ngIf="colcr0" class="text-right">{{colcr0}}</th>
 
-            <th *ngIf="codecount >= 2" class="text-right">{{coldr1}}</th>
-            <th *ngIf="codecount >= 2" class="text-right">{{colcr1}}</th>
+            <th *ngIf="coldr1" class="text-right">{{coldr1}}</th>
+            <th *ngIf="colcr1" class="text-right">{{colcr1}}</th>
 
-            <th *ngIf="codecount >= 3" class="text-right">{{coldr2}}</th>
-            <th *ngIf="codecount >= 3" class="text-right">{{colcr2}}</th>
+            <th *ngIf="coldr2" class="text-right">{{coldr2}}</th>
+            <th *ngIf="colcr2" class="text-right">{{colcr2}}</th>
 
             <th class="text-right">DEBIT</th>
             <th class="text-right">CREDIT</th>
@@ -197,14 +197,14 @@
             <td>{{rec.cbm}}</td>
 
 
-            <td *ngIf="codecount >= 1" align='right'>{{rec.coldr0 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 1" align='right'>{{rec.colcr0 | number : '1.2-2'}}</td>
+            <td *ngIf="coldr0" align='right'>{{rec.coldr0 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr0" align='right'>{{rec.colcr0 | number : '1.2-2'}}</td>
 
-            <td *ngIf="codecount >= 2" align='right'>{{rec.coldr1 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 2" align='right'>{{rec.colcr1 | number : '1.2-2'}}</td>
+            <td *ngIf="coldr1" align='right'>{{rec.coldr1 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr1" align='right'>{{rec.colcr1 | number : '1.2-2'}}</td>
 
-            <td *ngIf="codecount >= 3" align='right'>{{rec.coldr2 | number : '1.2-2'}}</td>
-            <td *ngIf="codecount >= 3" align='right'>{{rec.colcr2 | number : '1.2-2'}}</td>
+            <td *ngIf="coldr2" align='right'>{{rec.coldr2 | number : '1.2-2'}}</td>
+            <td *ngIf="colcr2" align='right'>{{rec.colcr2 | number : '1.2-2'}}</td>
 
 
             <td align='right'>{{rec.jv_debit | number : '1.2-2'}}</td>
