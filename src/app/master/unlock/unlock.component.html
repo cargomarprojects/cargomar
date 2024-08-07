@@ -23,7 +23,8 @@
             <input type="checkbox" [(ngModel)]="chkcc">&nbsp;Cost Center&nbsp;&nbsp;&nbsp;&nbsp;
             <label *ngIf="moduletype == 'MBL-AE' || moduletype == 'MBL-AI' || moduletype == 'MBL-SE' || moduletype == 'MBL-SI'"><input type="checkbox" [(ngModel)]="chkresetfldr">&nbsp;Reset Folder&nbsp;&nbsp;</label>
             <label *ngIf="moduletype == 'BP'||moduletype == 'JV-BP'"><input type="checkbox" [(ngModel)]="chkbpreaprvd">&nbsp;Reapproval&nbsp;&nbsp;</label>
-            <label><input type="checkbox" [(ngModel)]="chkresetirn">&nbsp;IRN</label>
+            <label *ngIf="moduletype == 'IN'||moduletype == 'DN'||moduletype == 'CN'"><input type="checkbox" [(ngModel)]="chkresetirn">&nbsp;IRN</label>
+            <label *ngIf="moduletype == 'JOB-AE'||moduletype == 'JOB-SE'"><input type="checkbox" [(ngModel)]="chkresetjobprefix">&nbsp;Reset REF#</label>
           </div>
         </div>
         <!--<div class="form-group row">

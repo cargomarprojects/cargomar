@@ -47,7 +47,7 @@ export class UnLockComponent {
   chkresetfldr: boolean = false;
   chkbpreaprvd: boolean = false;
   chkresetirn: boolean = false;
-
+  chkresetjobprefix: boolean = false;
   // Array For Displaying List
   ModuleList: any[] = [];
 
@@ -80,6 +80,7 @@ export class UnLockComponent {
     this.chkresetfldr = false;
     this.chkbpreaprvd = false;
     this.chkresetirn = false;
+    this.chkresetjobprefix = false;
     this.unlockdate = this.gs.defaultValues.today;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -196,6 +197,7 @@ export class UnLockComponent {
       this.chkresetfldr = false;
       this.chkbpreaprvd = false;
       this.chkresetirn = false;
+      this.chkresetjobprefix = false;
       if (this.moduletype == "BP" || this.moduletype == "BR" || this.moduletype == "CP" || this.moduletype == "CR" ||
         this.moduletype == "JV" || this.moduletype == "HO" || this.moduletype == "IN" || this.moduletype == "PN" || this.moduletype == "PN-JV" ||
         this.moduletype == "OP" || this.moduletype == "OI" || this.moduletype == "OC" || this.moduletype == "OB" ||
@@ -272,7 +274,8 @@ export class UnLockComponent {
       cntrltype: '',
       chkbpreaprvd: '',
       unlockdate: '',
-      chkresetirn:''
+      chkresetirn: '',
+      chkresetjobprefix: ''
     };
 
     if (controlname == "save" || controlname == "lock")
@@ -296,7 +299,8 @@ export class UnLockComponent {
     SearchData.chkbpreaprvd = this.chkbpreaprvd == true ? "Y" : "N";
     SearchData.unlockdate = this.unlockdate;
     SearchData.chkresetirn = this.chkresetirn == true ? "Y" : "N";
-
+    SearchData.chkresetjobprefix = this.chkresetjobprefix == true ? "Y" : "N";
+    
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
