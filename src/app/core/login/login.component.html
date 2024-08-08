@@ -36,7 +36,7 @@
               <div class="form-group">
                 <label for="branch">Company</label>
                 <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
-                  [(ngModel)]="company_code">
+                  [(ngModel)]="company_code" (change)="OnChange('comp_code')">
                   <option *ngFor="let rec of CompanyList" [value]="rec.comp_code">{{rec.comp_name}}</option>
                 </select>
               </div>

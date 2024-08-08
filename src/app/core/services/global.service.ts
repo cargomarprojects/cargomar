@@ -31,6 +31,9 @@ export class GlobalService {
   public appid = "";
   public reload_url = "";
 
+  public Topbar_Email = "";
+  public Topbar_Mob = "";
+
   public software_version_string: string = '1.646';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
@@ -49,7 +52,7 @@ export class GlobalService {
     private http2: HttpClient,
     private location: Location,
     private router: Router) {
-    this.Company_Name = "CARGOMAR (P) LTD";
+    this.Company_Name = "";
     this.globalVariables = new GlobalVariables;
     this.globalData = new GlobalData;
     this.InitdefaultValues();

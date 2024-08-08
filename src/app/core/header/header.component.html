@@ -1,77 +1,84 @@
 <section id="topBar">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="cntDetails">
-              <div class="emailAddress"><i class="fa fa-envelope-o"></i>softwaresupport@cargomar.in</div>
-              <div class=" mobileNumber"><i class="fa fa-phone"></i>+91-484-4131600</div>
-          </div>
-          <div class="userAccount">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="cntDetails">
+                <!-- <div class="emailAddress"><i class="fa fa-envelope-o"></i>softwaresupport@cargomar.in</div>
+                <div class="mobileNumber"><i class="fa fa-phone"></i>+91-484-4131600</div> -->
+                <div class="emailAddress"><i class="fa fa-envelope-o"></i>{{gs.Topbar_Email}}</div>
+                <div class="mobileNumber"><i class="fa fa-phone"></i>{{gs.Topbar_Mob}}</div>
+            </div>
+            <div class="userAccount">
 
-              <span class="userAC" *ngIf="gs.IsAuthenticated"><i
-                      class="fa fa-user"></i>{{gs.globalVariables.user_name}}</span>
-              <span class="lgOut" *ngIf="gs.IsAuthenticated"><i class="fa fa-sign-out"></i><a
-                      (click)="Logout()">Logout</a></span>
-              <span class="lgOut" *ngIf="!gs.IsAuthenticated"><i class="fa fa-sign-in"></i><a
-                      (click)="Login()">Login</a></span>
+                <span class="userAC" *ngIf="gs.IsAuthenticated"><i
+                        class="fa fa-user"></i>{{gs.globalVariables.user_name}}</span>
+                <span class="lgOut" *ngIf="gs.IsAuthenticated"><i class="fa fa-sign-out"></i><a
+                        (click)="Logout()">Logout</a></span>
+                <span class="lgOut" *ngIf="!gs.IsAuthenticated"><i class="fa fa-sign-in"></i><a
+                        (click)="Login()">Login</a></span>
 
 
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
 </section>
 <section id="menuSec">
-  <div class="container-fluid">
-      <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" (click)="home()" ><img src="assets/img/l.png">
-                  <!-- <h1 *ngIf="!gs.globalVariables.istp">{{gs.Company_Name}}</h1> -->
-                  <h1>{{gs.Company_Name}}</h1>
-              </a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse"
-                  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                  aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" (click)="home()"><img src="assets/img/l.png">
+                    <!-- <h1 *ngIf="!gs.globalVariables.istp">{{gs.Company_Name}}</h1> -->
+                    <h1>{{gs.Company_Name}}</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ">
 
-                      <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{rech.module_name}}
-                          </a>
-                          <div class="dropdown-menu submenuSec">
-                              <div class="container-fluid">
-                                  <div class="row">
-                                      <div class="col-md-12">
-                                              <div *ngFor="let rec of gs.MenuList" class="menulist">
+                        <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{rech.module_name}}
+                            </a>
+                            <div class="dropdown-menu submenuSec">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div *ngFor="let rec of gs.MenuList" class="menulist">
 
-                                                <div *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed && rec.menu_group_name" class="px-1">
-                                                  <a style="background-color:green;color: white; "
-                                                    class="dropdown-item border-bottom menu-group-name">{{rec.menu_group_name}}</a>
+                                                <div *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed && rec.menu_group_name"
+                                                    class="px-1">
+                                                    <a style="background-color:green;color: white; "
+                                                        class="dropdown-item border-bottom menu-group-name">{{rec.menu_group_name}}</a>
                                                 </div>
-                                                
-                                                  <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed" class="dropdown-item"  data-toggle="collapse" 
-                                                  data-target=".collapse.show" (click)="LoadPage(rec)">{{rec.menu_name}}</a>
-                                              </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                  </ul>
-                  <!--   <div class="userSec logged-out">   </div>  -->
-                  <div class="userSec logged-in">
 
-                      <span id="branchName" data-toggle="collapse" data-target=".collapse.show"*ngIf="!gs.globalVariables.istp && gs.IsAuthenticated">{{gs.globalVariables.branch_name}}</span>
-                      <span class="YearD" *ngIf="!gs.globalVariables.istp && gs.IsAuthenticated">{{gs.globalVariables.year_name}}</span>
+                                                <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed"
+                                                    class="dropdown-item" data-toggle="collapse"
+                                                    data-target=".collapse.show"
+                                                    (click)="LoadPage(rec)">{{rec.menu_name}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--   <div class="userSec logged-out">   </div>  -->
+                    <div class="userSec logged-in">
+
+                        <span id="branchName" data-toggle="collapse" data-target=".collapse.show"
+                            *ngIf="!gs.globalVariables.istp && gs.IsAuthenticated">{{gs.globalVariables.branch_name}}</span>
+                        <span class="YearD"
+                            *ngIf="!gs.globalVariables.istp && gs.IsAuthenticated">{{gs.globalVariables.year_name}}</span>
 
 
-                  </div>
-              </div>
-          </nav>
-      </div>
-  </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
 
 </section>

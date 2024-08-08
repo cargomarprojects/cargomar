@@ -20,12 +20,12 @@ export class LoginComponent {
 
   //username: string = '';
   //password: string = '';
-  
+
   //test - 2
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
 
-  
+
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
 
@@ -76,6 +76,15 @@ export class LoginComponent {
         });
         this.loading = false;
         this.showlogin = true;
+
+        if (this.company_code == 'DVT') {
+          this.gs.Topbar_Email = 'info@divitsoftlabs.com';
+          this.gs.Topbar_Mob = '+91-484-4131606';
+        } else {
+          this.gs.Topbar_Email = 'softwaresupport@cargomar.in';
+          this.gs.Topbar_Mob = '+91-484-4131600';
+        }
+        this.getCompanyName();
       },
         error => {
           this.loading = false;
@@ -121,6 +130,20 @@ export class LoginComponent {
 
   Logout1() {
     this.errorMessage = 'Pls Login';
+  }
+
+  OnChange(field: string) {
+    if (field === 'comp_code') {
+      this.getCompanyName();
+    }
+  }
+
+  getCompanyName() {
+    if (!this.gs.isBlank(this.CompanyList)) {
+      for (let rec of this.CompanyList.filter(rec => rec.comp_code == this.company_code)) {
+        this.gs.Company_Name = rec.comp_name;
+      }
+    }
   }
 
 }
