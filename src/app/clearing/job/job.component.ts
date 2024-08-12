@@ -1607,8 +1607,13 @@ export class JobComponent {
           }
         }
 
-        if (_type != 'SIGN' && _type != 'SIGNANDMAIL')
+        if (_type != 'SIGN' && _type != 'SIGNANDMAIL') {
+          if (!this.gs.isBlank(response.filename2)) {
+            alert('Special characters found, please refer to the warningmsg file for details');
+            this.Downloadfile(response.filename2, response.filetype2, response.filedisplayname2);
+          }
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
 
         if (response.invamtmismatch) {
           alert("Mismatch in Invoice Product Value And Item Wise Total ");
