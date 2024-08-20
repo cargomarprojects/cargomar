@@ -166,7 +166,7 @@ export class OsComponent {
     this.ACCRECORD.code = "";
     this.ACCRECORD.name = "";
     this.ACCRECORD.showlocked = true;
-
+    this.ACCRECORD.branchchecked = !this.bCompany;
 
     this.BRRECORD = new SearchTable();
     this.BRRECORD.controlname = "BRANCH";

@@ -19,7 +19,8 @@ export class SearchTable {
     col8: string;
     col9: string;
     colchecked: boolean;
-    showlocked:boolean;
+    showlocked: boolean;
+    branchchecked: boolean;
     constructor(_controlname: string = '',
         _type: string = '',
         _displaycolumn: string = '',
@@ -40,7 +41,8 @@ export class SearchTable {
         _col8: string = '',
         _col9: string = '',
         _colchecked: boolean = false,
-        _showlocked: boolean = false
+        _showlocked: boolean = false,
+        _branchchecked: boolean = true
     ) {
         this.controlname = _controlname;
         this.displaycolumn = _displaycolumn;
@@ -63,6 +65,7 @@ export class SearchTable {
         this.col9 = _col9;
         this.colchecked = _colchecked;
         this.showlocked = _showlocked;
+        this.branchchecked = _branchchecked;
     }
 }
 

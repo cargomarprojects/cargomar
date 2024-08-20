@@ -136,7 +136,8 @@ export class AutoCompleteComponent {
             where: this.inputdata.where,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
-            showlocked: this.inputdata.showlocked
+            showlocked: this.inputdata.showlocked,
+            branchchecked: this.inputdata.branchchecked
         };
 
         this.lovService.List(SearchData)
