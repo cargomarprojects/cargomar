@@ -119,17 +119,20 @@ export class HrReportsComponent {
   List(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.salyear <= 0) {
-      this.ErrorMessage += " | Invalid Year";
-    } else if (this.salyear < 100) {
-      this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
-    }
-    if (this.salmonth <= 0 || this.salmonth > 12) {
-      this.ErrorMessage += " | Invalid Month";
-    }
-    if (this.ErrorMessage.length > 0) {
-      alert(this.ErrorMessage);
-      return;
+
+    if (_type != "CONSOL-EXCEL") {
+      if (this.salyear <= 0) {
+        this.ErrorMessage += " | Invalid Year";
+      } else if (this.salyear < 100) {
+        this.ErrorMessage += " | YEAR FORMAT : - YYYY ";
+      }
+      if (this.salmonth <= 0 || this.salmonth > 12) {
+        this.ErrorMessage += " | Invalid Month";
+      }
+      if (this.ErrorMessage.length > 0) {
+        alert(this.ErrorMessage);
+        return;
+      }
     }
 
     this.loading = true;
@@ -158,7 +161,7 @@ export class HrReportsComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL')
+        if (_type == 'EXCEL' || _type == 'CONSOL-EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else
           this.RecordList = response.list;
