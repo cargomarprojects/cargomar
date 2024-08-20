@@ -21,6 +21,7 @@ export class HrReportsComponent {
 
   bAdmin: boolean = false;
   bRemove: boolean = false;
+  bPrint: boolean = false;
   bChanged: boolean;
   disableSave = true;
   loading = false;
@@ -89,6 +90,7 @@ export class HrReportsComponent {
     this.empstatus = 'BOTH';
     this.bRemove = true;
     this.bAdmin = false;
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -96,6 +98,8 @@ export class HrReportsComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
     }
     this.InitLov();
     if (this.gs.defaultValues.today.trim() != "") {

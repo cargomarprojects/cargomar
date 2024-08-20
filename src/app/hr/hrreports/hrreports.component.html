@@ -60,8 +60,8 @@
         <div class="form-group row">
           <div class="col-sm-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
-            <button [disabled]="loading" (click)="List('CONSOL-EXCEL')" class="btn btn-primary btn-sm">Print({{gs.globalVariables.year_name}})</button>
+            <button [disabled]="loading" *ngIf="bAdmin" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+            <button [disabled]="loading" *ngIf="bAdmin" (click)="List('CONSOL-EXCEL')" class="btn btn-primary btn-sm">Print({{gs.globalVariables.year_name}})</button>
           </div>
         </div>
       </div>
