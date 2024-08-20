@@ -38,7 +38,7 @@
           <div class="form-group row">
             <label class="col-sm-8 col-form-label col-form-label-sm">Expected Billing Amount</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" required maxlength="15" />
             </div>
           </div>
           <div class="form-group row">
@@ -52,7 +52,7 @@
           <div class="form-group row">
             <label class="col-sm-8 col-form-label col-form-label-sm">Required Job Nos</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" required maxlength="2" />
             </div>
           </div>
         </div>
