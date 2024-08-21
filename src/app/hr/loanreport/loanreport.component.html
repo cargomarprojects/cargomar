@@ -50,6 +50,7 @@
                     <th>PAYMENT DATE</th>
                     <th>EMI</th>
                     <th>TOTAL DEDUCTION (FY&nbsp;{{gs.globalVariables.year_name}})</th>
+                    <th>COLLECTED</th>
                     <th>BALANCE</th>
                 </tr>
             </thead>
@@ -62,6 +63,7 @@
                     <td>{{rec.ded_pay_date}}</td>
                     <td>{{rec.ded_mon_amt}}</td>
                     <td>{{rec.ded_deduct_amt}}</td>
+                    <td>{{rec.ded_collected_amt}}</td>
                     <td>{{rec.ded_bal_amt}}</td>
                 </tr>
             </tbody>
