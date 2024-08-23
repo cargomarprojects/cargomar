@@ -265,6 +265,8 @@ export class ParamComponent {
       this.idName = 'LUT#';
       this.id1 = 'GSTIN#';
       this.id2 = 'FIN-YEAR';
+      this.id5 = "STATE";
+      this.id5_lovtype = "STATE";
     }
     if (this.type == 'ANALYSIS-CITY') {
       this.id5 = "Region";

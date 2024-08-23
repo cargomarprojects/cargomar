@@ -84,6 +84,7 @@
           <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">FILE SIZE(KB)</th>
           <th *ngIf="type == 'EMPLOYEE DOCUMENTS'">ORDER</th>
           <th *ngIf="type == 'LUT'">GSTIN</th>
+          <th *ngIf="type == 'LUT'">STATE</th>
           <th *ngIf="type == 'LUT'">FIN-YEAR</th>
           <th *ngIf="type == 'ANALYSIS-CITY'">REGION</th>
           <th *ngIf="type == 'QUOTATION-CATEGORY'">ORDER</th>
@@ -134,6 +135,7 @@
           <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_id3}}</td>
           <td *ngIf="type == 'EMPLOYEE DOCUMENTS'">{{rec.param_rate}}</td>
           <td *ngIf="type == 'LUT'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'LUT'">{{rec.param_id5_name}}</td>
           <td *ngIf="type == 'LUT'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'ANALYSIS-CITY'">{{rec.param_id5_name}}</td>
           <td *ngIf="type == 'QUOTATION-CATEGORY'">{{rec.param_rate}}</td>
