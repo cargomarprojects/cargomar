@@ -109,7 +109,7 @@
     </div>
   </div>
   <!-- style="border:1px solid grey; margin-bottom:1px; height:650px;" -->
-  <div class="table-responsive fixedTableHead  my-0 p-0"  style="height: calc(100vh - 380px);">
+  <div class="table-responsive fixedTableHead  my-0 p-0" style="height: calc(100vh - 395px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -130,7 +130,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr *ngIf="rec.module_name == module_name">
-          <td >{{rec.module_name}}</td>
+          <td>{{rec.module_name}}</td>
           <td>{{rec.menu_name}}</td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_company"></td>
           <td> <input type="checkbox" [(ngModel)]="rec.rights_admin"></td>
@@ -157,10 +157,15 @@
   </div>
   <div>
     <p class="p-0 m-0">
-      Air Export - Master Air Export - Approvals <b> {{'{PP}{COST}{CL}'}} </b>PP-Prepaid Tab;COST- Air Cost Tab;CL-CheckList
-   </p>
+      Air Export - Master Air Export - Approvals <b> {{'{PP}{COST}{CL}'}} </b>PP-Prepaid Tab;COST- Air Cost
+      Tab;CL-CheckList
+    </p>
     <p class="p-0 m-0">
       Accounts - Inward Credit Note(GE) - Approvals <b> {{'{IMPDATA}'}} </b>IMPDATA-Paste Data
+    </p>
+    <p class="p-0 m-0">
+      Hr - HR Reports - Approvals <b> {{'EPF-S,EPF-N,ESI-S,ESI-N,JOIN-RELIV,JOIN-RELIV-ALL'}} </b> EPF SOUTH,EPF
+      NORTH,ESI SOUTH,ESI NORTH,JOINING RELIVED,JOINING RELIVED ALL BRANCHES
     </p>
   </div>
 </div>
