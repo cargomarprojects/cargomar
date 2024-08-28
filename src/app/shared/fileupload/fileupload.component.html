@@ -3,8 +3,10 @@
     <label>{{title}}</label>
     <button [disabled]="loading" (click)="List('LIST')" class="btn btn-primary btn-sm">Refresh</button>
     <button [disabled]="loading" (click)="List('LIST','DELETED')" class="btn btn-primary btn-sm">Show Deleted</button>
-    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="MailDocument(mailsent)" class="btn btn-primary btn-sm">Mail</button>
-    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'&& type=='GSTR-2B'" [disabled]="loading" (click)="DeleteRecords()" class="btn btn-primary btn-sm">Delete All</button>
+    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="MailDocument(mailsent)"
+      class="btn btn-primary btn-sm">Mail</button>
+    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'&& type=='GSTR-2B'" [disabled]="loading"
+      (click)="DeleteRecords()" class="btn btn-primary btn-sm">Delete All</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -15,7 +17,8 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'"><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'"><input type="checkbox" (click)="SelectDeselect()"
+              [(ngModel)]="chkallselected"></th>
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
           <th>UPLOAD-FROM</th>
@@ -31,7 +34,8 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" (click)="chkReset(rec)"><input type="checkbox" [(ngModel)]="rec.doc_selected" ></td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" (click)="chkReset(rec)"><input type="checkbox"
+              [(ngModel)]="rec.doc_selected"></td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>
@@ -66,8 +70,8 @@
     <div class="col-sm-6">
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Type</label>
-        <div class="col-10">
+        <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+        <div class="col-sm-11">
           <select class="form-control form-control-sm" [(ngModel)]="catg_id"
             (ngModelChange)="onChangeData(catg_id,'catg')">
             <option *ngFor="let rec of DocTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
@@ -77,26 +81,27 @@
       <br />
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Description</label>
-        <div class="col-10">
+        <label class="col-sm-1 col-form-label col-form-label-sm">Desc</label>
+        <div class="col-sm-11">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="desc" required maxlength="200"
             (ngModelChange)="onChangeData(desc,'desc')" />
         </div>
       </div>
       <br />
-
-
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">File</label>
-        <div class="col-10">
-          <input type="file" id="file" style="width: 600px" #fileinput (change)="getFileDetails($event)">
+        <label class="col-sm-1 col-form-label col-form-label-sm">File</label>
+        <div class="col-sm-6">
+          <input type="file" id="file" style="width: 600px;display: none;" #fileinput (change)="getFileDetails($event)">
+        </div>
+        <div class="col-sm-5 drag-drop-area mt-1 pointer" (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+          <p> {{dragFileName?dragFileName: 'Drag and drop files here'}}</p>
         </div>
       </div>
-
       <br />
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm"></label>
+        <label class="col-sm-1 col-form-label col-form-label-sm"></label>
         <div class="col-10">
           <button (click)="uploadFiles()">Upload</button>
         </div>
@@ -109,9 +114,7 @@
         <qrcode [qrdata]="QrData" [size]="256" [level]="'M'" usesvg="true"></qrcode>
       </div>
     </div>
-
   </div>
-
 </div>
 
 

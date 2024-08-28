@@ -54,6 +54,7 @@ export class FileUploadComponent {
   modal: any;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
+  dragFileName: string = '';
 
   constructor(
     private modalService: NgbModal,
@@ -141,8 +142,8 @@ export class FileUploadComponent {
 
 
 
-
-  getFileDetails(e: any) {
+  //Not used
+  OldgetFileDetails(e: any) {
     //console.log (e.target.files);
     this.ErrorMessage = "";
     let isValidFile = true;
@@ -189,6 +190,59 @@ export class FileUploadComponent {
     }
   }
 
+  getFileDetails(e: any) {
+    this.dragFileName = '';
+    this.getFileList(e.target.files);
+  }
+
+  getFileList(_files: any[] = []) {
+    if (this.gs.isBlank(_files)) {
+      return;
+    }
+    this.ErrorMessage = "";
+    let isValidFile = true;
+    let fname: string = '';
+    let fsize: number = 0;
+    this.filesSelected = false;
+    this.myFiles = [];
+    for (var i = 0; i < _files.length; i++) {
+      this.filesSelected = true;
+      fname = _files[i].name;
+      fsize = _files[i].size;
+      if (fname.indexOf('&') >= 0)
+        isValidFile = false;
+      if (fname.indexOf('%') >= 0)
+        isValidFile = false;
+      if (fname.indexOf('#') >= 0)
+        isValidFile = false;
+      if (fname.indexOf(',') >= 0)
+        isValidFile = false;
+      if (fname.indexOf('+') >= 0)
+        isValidFile = false;
+      this.myFiles.push(_files[i]);
+    }
+
+    if (!isValidFile) {
+      this.filesSelected = false;
+      alert('Invalid File Name - &%,+#');
+    }
+
+    if (!this.gs.isBlank(this.uploadfiletype) && this.filesSelected) {
+      let str = "." + this.uploadfiletype;
+      if (!fname.toUpperCase().endsWith(str)) {
+        this.ErrorMessage = "Invalid File Type, Only " + this.uploadfiletype + " File Allowed";
+        alert(this.ErrorMessage);
+      }
+    }
+
+    if (!this.gs.isZero(this.uploadfilesize) && this.filesSelected) {
+      let uplodfsize = this.uploadfilesize * 1024;
+      if (fsize > uplodfsize) {
+        this.ErrorMessage = "File Size must be less than or equal to " + this.ConvertKB2MB(this.uploadfilesize);
+        alert(this.ErrorMessage);
+      }
+    }
+  }
 
   uploadFiles() {
 
@@ -510,7 +564,7 @@ export class FileUploadComponent {
       if (itm.doc_selected) {
         if (id != "")
           id += ",";
-        id += itm.doc_pkid ;
+        id += itm.doc_pkid;
       }
     }
 
@@ -546,5 +600,36 @@ export class FileUploadComponent {
         });
 
   }
+
+  onDragOver(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    const dropArea = event.currentTarget as HTMLElement;
+    dropArea.classList.add('drag-over');
+  }
+
+  onDragLeave(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    const dropArea = event.currentTarget as HTMLElement;
+    dropArea.classList.remove('drag-over');
+  }
+
+  onDrop(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    const dropArea = event.currentTarget as HTMLElement;
+    dropArea.classList.remove('drag-over');
+
+    this.getFileList(event.dataTransfer.files);
+    
+    this.dragFileName = '';
+    for (var i = 0; i < event.dataTransfer.files.length; i++) {
+      this.dragFileName += event.dataTransfer.files[i].name
+    }
+    this.fileinput.nativeElement.value = '';
+    
+  }
+
 
 }
