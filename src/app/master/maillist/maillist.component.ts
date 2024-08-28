@@ -132,23 +132,27 @@ export class MailListComponent {
                 });
 
     }
-    InitLov() {
+    InitLov(_type: string = '') {
 
-        this.CUSTRECORD = new SearchTable();
-        this.CUSTRECORD.controlname = this.controlname;
-        this.CUSTRECORD.displaycolumn = "CODE";
-        this.CUSTRECORD.type = this.tabletype;
-        this.CUSTRECORD.id = "";
-        this.CUSTRECORD.code = "";
-        this.CUSTRECORD.name = "";
+        if (_type == '' || _type == 'CUST') {
+            this.CUSTRECORD = new SearchTable();
+            this.CUSTRECORD.controlname = this.controlname;
+            this.CUSTRECORD.displaycolumn = "CODE";
+            this.CUSTRECORD.type = this.tabletype;
+            this.CUSTRECORD.id = "";
+            this.CUSTRECORD.code = "";
+            this.CUSTRECORD.name = "";
+        }
 
-        this.USERRECORD = new SearchTable();
-        this.USERRECORD.controlname = "USER";
-        this.USERRECORD.displaycolumn = "NAME";
-        this.USERRECORD.type = "USER";
-        this.USERRECORD.id = "";
-        this.USERRECORD.code = "";
-        this.USERRECORD.name = "";
+        if (_type == '' || _type == 'USER') {
+            this.USERRECORD = new SearchTable();
+            this.USERRECORD.controlname = "USER";
+            this.USERRECORD.displaycolumn = "NAME";
+            this.USERRECORD.type = "USER";
+            this.USERRECORD.id = "";
+            this.USERRECORD.code = "";
+            this.USERRECORD.name = "";
+        }
     }
 
     LovSelected(_Record: any) {
@@ -391,7 +395,7 @@ export class MailListComponent {
             this.Record.ml_cust_name = '';
             this.controlname = this.Record.ml_cust_type;
             this.tabletype = this.Record.ml_cust_type;
-            this.InitLov();
+            this.InitLov('CUST');
         }
     }
     GetSpaceTrim(str: string) {
