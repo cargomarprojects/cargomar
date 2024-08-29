@@ -54,7 +54,7 @@ export class FileUploadComponent {
   modal: any;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
-  dragFileName: string = '';
+  uploadFileName: string = '';
 
   constructor(
     private modalService: NgbModal,
@@ -191,7 +191,6 @@ export class FileUploadComponent {
   }
 
   getFileDetails(e: any) {
-    this.dragFileName = '';
     this.getFileList(e.target.files);
   }
 
@@ -199,6 +198,7 @@ export class FileUploadComponent {
     if (this.gs.isBlank(_files)) {
       return;
     }
+    this.uploadFileName = '';
     this.ErrorMessage = "";
     let isValidFile = true;
     let fname: string = '';
@@ -220,6 +220,10 @@ export class FileUploadComponent {
       if (fname.indexOf('+') >= 0)
         isValidFile = false;
       this.myFiles.push(_files[i]);
+
+      if (this.uploadFileName != '')
+        this.uploadFileName += ', ';
+      this.uploadFileName += fname;
     }
 
     if (!isValidFile) {
@@ -319,6 +323,7 @@ export class FileUploadComponent {
           this.loading = false;
           this.filesSelected = false;
           this.fileinput.nativeElement.value = '';
+          this.uploadFileName = '';
           this.desc = '';
           this.List('NEW');
           alert('Upload Complete');
@@ -622,13 +627,13 @@ export class FileUploadComponent {
     dropArea.classList.remove('drag-over');
 
     this.getFileList(event.dataTransfer.files);
-    
-    this.dragFileName = '';
-    for (var i = 0; i < event.dataTransfer.files.length; i++) {
-      this.dragFileName += event.dataTransfer.files[i].name
-    }
-    this.fileinput.nativeElement.value = '';
-    
+
+    // this.dragFileName = '';
+    // for (var i = 0; i < event.dataTransfer.files.length; i++) {
+    //   this.dragFileName += event.dataTransfer.files[i].name
+    // }
+    // this.fileinput.nativeElement.value = '';
+
   }
 
 

@@ -721,9 +721,32 @@ a {
 }  
 
 
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: #4CAF50; /* Green background for custom button */
+  color: white;
+  border-radius: 2px; /* Rounded corners for button */
+}
 
+.custom-file-upload:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
 
+.drag-drop-area{
+  border: 1px solid black;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
 
+.drag-drop-area:dragging {
+  background-color: #45a049; /* Background color when dragging over */
+  border-color: #fff; /* Change border color on drag over */
+}
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575px) {
   .modal-dialog {
