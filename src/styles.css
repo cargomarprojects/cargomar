@@ -722,17 +722,17 @@ a {
 
 
 .custom-file-upload {
-  border: 1px solid #ccc;
+  border: 1px solid #413f3f;
   display: inline-block;
   padding: 4px 8px;
   cursor: pointer;
-  background-color: #4CAF50; /* Green background for custom button */
-  color: white;
-  border-radius: 2px; /* Rounded corners for button */
+  background-color: #e5e5e5;  
+  color: black;
+  border-radius: 2px;  
 }
 
 .custom-file-upload:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #ebebeb;  
 }
 
 .drag-drop-area{
@@ -743,10 +743,6 @@ a {
   justify-content: center;  
 }
 
-.drag-drop-area:dragging {
-  background-color: #45a049; /* Background color when dragging over */
-  border-color: #fff; /* Change border color on drag over */
-}
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575px) {
   .modal-dialog {

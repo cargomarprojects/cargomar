@@ -66,9 +66,7 @@
 <div class="page-details" *ngIf="canupload">
 
   <div class="row">
-
     <div class="col-sm-6">
-
       <div class="form-group row">
         <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
         <div class="col-sm-11 pr-0">
@@ -78,8 +76,7 @@
           </select>
         </div>
       </div>
-
-
+      <br>
       <div class="form-group row">
         <label class="col-sm-1 col-form-label col-form-label-sm">Desc</label>
         <div class="col-sm-11 pr-0">
@@ -87,33 +84,20 @@
             (ngModelChange)="onChangeData(desc,'desc')" />
         </div>
       </div>
-
+      <br>
       <div class="form-group row">
         <label class="col-sm-1 col-form-label col-form-label-sm">File</label>
-        <div class="col-sm-6 mt-1">
+        <div class="col-sm-11">
           <input type="file" id="customfileInput" style="width: 600px;display: none;" #fileinput
             (change)="getFileDetails($event)">
-          <label for="customfileInput" class="custom-file-upload">
-            Choose File
+          <label for="customfileInput" class="custom-file-upload" (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [style.background-color]="bDragged?'#45a049':''">
+            Choose a file or drag it here
           </label>
           <span>{{uploadFileName?uploadFileName: 'No file chosen'}}</span>
         </div>
-        <div class="col-sm-5 drag-drop-area mt-1 pointer"
-          (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-          <span>DRAG AND DROP FILES HERE</span>
-        </div>
       </div>
-
-
-      <!-- <div class="form-group row">
-        <label class="col-sm-1 col-form-label col-form-label-sm"></label>
-        <div class="col-10">
-          <button class="btn btn-info btn-sm" (click)="uploadFiles()">Upload</button>
-        </div>
-      </div> -->
-
     </div>
-
     <div class="col-sm-6">
       <div style="width:100px; height:100px;">
         <qrcode [qrdata]="QrData" [size]="256" [level]="'M'" usesvg="true"></qrcode>

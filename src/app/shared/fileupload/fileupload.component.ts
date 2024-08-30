@@ -55,6 +55,7 @@ export class FileUploadComponent {
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
   uploadFileName: string = '';
+  bDragged: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -611,6 +612,7 @@ export class FileUploadComponent {
     event.stopPropagation();
     const dropArea = event.currentTarget as HTMLElement;
     dropArea.classList.add('drag-over');
+    this.bDragged = true;
   }
 
   onDragLeave(event: any) {
@@ -618,6 +620,7 @@ export class FileUploadComponent {
     event.stopPropagation();
     const dropArea = event.currentTarget as HTMLElement;
     dropArea.classList.remove('drag-over');
+    this.bDragged = false;
   }
 
   onDrop(event: any) {
@@ -625,15 +628,13 @@ export class FileUploadComponent {
     event.stopPropagation();
     const dropArea = event.currentTarget as HTMLElement;
     dropArea.classList.remove('drag-over');
-
+    if (event.dataTransfer.files.length > 1) {
+      alert('Multiple files not allowed');
+      this.bDragged = false;
+      return;
+    }
     this.getFileList(event.dataTransfer.files);
-
-    // this.dragFileName = '';
-    // for (var i = 0; i < event.dataTransfer.files.length; i++) {
-    //   this.dragFileName += event.dataTransfer.files[i].name
-    // }
-    // this.fileinput.nativeElement.value = '';
-
+    this.bDragged = false;
   }
 
 
