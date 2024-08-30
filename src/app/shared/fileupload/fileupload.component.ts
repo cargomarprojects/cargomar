@@ -326,6 +326,7 @@ export class FileUploadComponent {
           this.fileinput.nativeElement.value = '';
           this.uploadFileName = '';
           this.desc = '';
+          this.bDragged = false;
           this.List('NEW');
           alert('Upload Complete');
         },
