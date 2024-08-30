@@ -1194,6 +1194,7 @@ export class JobComponent {
       this.Record.job_cbm = 0;
       this.Record.job_chwt = 0;
       this.Record.job_mbl_no = '';
+      this.Record.job_prefix = '';
     }
   }
 
