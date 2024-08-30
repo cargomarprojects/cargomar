@@ -229,12 +229,14 @@ export class FileUploadComponent {
 
     if (!isValidFile) {
       this.filesSelected = false;
+      this.uploadFileName = '';
       alert('Invalid File Name - &%,+#');
     }
 
     if (!this.gs.isBlank(this.uploadfiletype) && this.filesSelected) {
       let str = "." + this.uploadfiletype;
       if (!fname.toUpperCase().endsWith(str)) {
+        this.uploadFileName = '';
         this.ErrorMessage = "Invalid File Type, Only " + this.uploadfiletype + " File Allowed";
         alert(this.ErrorMessage);
       }
@@ -243,6 +245,7 @@ export class FileUploadComponent {
     if (!this.gs.isZero(this.uploadfilesize) && this.filesSelected) {
       let uplodfsize = this.uploadfilesize * 1024;
       if (fsize > uplodfsize) {
+        this.uploadFileName = '';
         this.ErrorMessage = "File Size must be less than or equal to " + this.ConvertKB2MB(this.uploadfilesize);
         alert(this.ErrorMessage);
       }
