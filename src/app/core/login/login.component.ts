@@ -76,14 +76,7 @@ export class LoginComponent {
         });
         this.loading = false;
         this.showlogin = true;
-
-        if (this.company_code == 'DVT') {
-          this.gs.Topbar_Email = 'info@divitsoftlabs.com';
-          this.gs.Topbar_Mob = '+91-484-4131606';
-        } else {
-          this.gs.Topbar_Email = 'softwaresupport@cargomar.in';
-          this.gs.Topbar_Mob = '+91-484-4131600';
-        }
+        this.gs.setTopbarContact(this.company_code);
         this.getCompanyName();
       },
         error => {

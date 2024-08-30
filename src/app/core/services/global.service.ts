@@ -540,7 +540,7 @@ export class GlobalService {
         this.globalVariables.user_dsc_slno = data.user_dsc_slno;
 
       this.InitdefaultValues();
-
+      this.setTopbarContact(this.globalVariables.comp_code); 
       this.InitdefaultValues2(response.settings);
 
       //Air Export Job Default Loading
@@ -1076,5 +1076,15 @@ export class GlobalService {
     else
       return false;
   };
+
+  public setTopbarContact(_comp_code: string) {
+    if (_comp_code == 'DVT') {
+      this.Topbar_Email = 'info@divitsoftlabs.com';
+      this.Topbar_Mob = '+91-484-4131606';
+    } else {
+      this.Topbar_Email = 'softwaresupport@cargomar.in';
+      this.Topbar_Mob = '+91-484-4131600';
+    }
+  }
 
 }
