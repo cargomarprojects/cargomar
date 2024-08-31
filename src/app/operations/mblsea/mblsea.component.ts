@@ -1992,6 +1992,5 @@ export class MblSeaComponent {
     if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
       this._ctrlblsurrendermail.showmail('BL Surrender', 'This is a test mail', 'BL-SURRENDER-MAIL');
     }
-
   }
 }
