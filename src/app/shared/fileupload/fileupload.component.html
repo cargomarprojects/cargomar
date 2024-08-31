@@ -17,8 +17,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'"><input type="checkbox" (click)="SelectDeselect()"
-              [(ngModel)]="chkallselected"></th>
+          <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
           <th>UPLOAD-FROM</th>
@@ -34,8 +33,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" (click)="chkReset(rec)"><input type="checkbox"
-              [(ngModel)]="rec.doc_selected"></td>
+          <td (click)="chkReset(rec)"><input type="checkbox" [(ngModel)]="rec.doc_selected"></td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>

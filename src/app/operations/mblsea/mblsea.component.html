@@ -900,7 +900,7 @@
                 class="btn btn-success btn-sm">Mail/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
                 class="btn btn-success btn-sm">Booking/FTP</button>
-                <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
+              <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
                 class="btn btn-success btn-sm">ISF/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
                 class="btn btn-success btn-sm">FTPHistory</button>
@@ -965,7 +965,19 @@
 
       <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
         <ng-template ngbTabContent>
-          <app-upload [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
+          <app-upload #blsurrendermail  [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
+          <div class="page-details">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+                  <div class="col-10">
+                    <button [disabled]="loading" (click)="SurrenderMail()" class="btn btn-info btn-sm">BL Surrender Mail</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </ng-template>
       </ngb-tab>
 
@@ -974,6 +986,13 @@
           <app-generatedoc [pkid]="pkid" [type]="'SEA EXPORT'"></app-generatedoc>
         </ng-template>
       </ngb-tab>
+      <!-- <ngb-tab title="BL Surrender Request" *ngIf="mode == 'EDIT' && bDocs">
+        <ng-template ngbTabContent>
+          <app-upload #surrdocmail [pkid]="pkid" [type]="'BL-SURRENDER-REQ'" [mailbody]="msgbody" ></app-upload>
+          <button [disabled]="loading" (click)="SurrenderMail()" class="btn btn-primary btn-sm">Surrender Mail</button>
+        </ng-template>
+
+      </ngb-tab> -->
       <ngb-tab *ngIf="mode == 'EDIT'" title="EDI">
         <ng-template ngbTabContent>
           <div class="page-box">

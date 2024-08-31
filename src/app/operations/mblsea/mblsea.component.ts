@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -16,6 +16,7 @@ import { HblBkmParty } from '../models/hblbkmparty';
 import { transition } from '@angular/core/src/animation/dsl';
 import { Hblm } from '../models/hbl';
 import { isNull } from 'util';
+import { FileUploadComponent } from '../../shared/fileupload/fileupload.component';
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
 //EDIT-AJITH-05-01-2022
@@ -30,6 +31,7 @@ import { isNull } from 'util';
 export class MblSeaComponent {
   // Local Variables
   title = 'BOOKING MASTER';
+  @ViewChild('blsurrendermail') _ctrlblsurrendermail: FileUploadComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -1984,5 +1986,12 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  SurrenderMail() {
+    if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
+      this._ctrlblsurrendermail.showmail('BL Surrender', 'This is a test mail', 'BL-SURRENDER-MAIL');
+    }
+
   }
 }

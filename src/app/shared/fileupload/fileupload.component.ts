@@ -13,6 +13,7 @@ import { documentm } from '../models/documentm';
   templateUrl: './fileupload.component.html'
 })
 export class FileUploadComponent {
+  @ViewChild('mailsent') _ctrlmailsent: any;
 
   @Input() public pkid: string = '';
   @Input() public groupid: string = '';
@@ -69,6 +70,7 @@ export class FileUploadComponent {
 
   @ViewChild('fileinput') private fileinput: ElementRef;
 
+
   RecordList: documentm[] = [];
 
   RecordList2: documentm[] = [];
@@ -76,8 +78,6 @@ export class FileUploadComponent {
   filesSelected: boolean = false;;
 
   show_docs_list: boolean = false;
-
-
 
 
   ngOnInit() {
@@ -520,14 +520,15 @@ export class FileUploadComponent {
     return " " + strsize;
   }
 
-  MailDocument(mailmodal: any) {
+  MailDocument(mailmodal: any, _setMsg: boolean = true) {
     this.AttachList = new Array<any>();
     let _dSize = 0;
     for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
       _dSize = this.getFsize(rec.doc_file_size);
       this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
     }
-    this.setMailBody();
+    if (_setMsg)
+      this.setMailBody();
     this.open(mailmodal);
   }
 
@@ -641,5 +642,11 @@ export class FileUploadComponent {
     this.bDragged = false;
   }
 
+  public showmail(_sub: string, _msg: string, _type: string) {
+    this.sSubject = _sub;
+    this.sMessage = _msg;
+    this.mailType = _type;
+    this.MailDocument(this._ctrlmailsent, false);
+  }
 
 }
