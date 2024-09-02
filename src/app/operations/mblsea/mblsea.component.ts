@@ -1988,9 +1988,29 @@ export class MblSeaComponent {
         });
   }
 
-  SurrenderMail() {
-    if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
-      this._ctrlblsurrendermail.showmail('BL Surrender', 'This is a test mail', 'BL-SURRENDER-MAIL');
-    }
+  BLSurrenderMail() {
+    this.loading = true;
+    let SearchData = {
+      mblid: this.pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.BlSurrenderMail(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.error)
+          alert(response.error)
+        else {
+          if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
+            this._ctrlblsurrendermail.showmail(response.subject, response.message, response.type);
+          }
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
