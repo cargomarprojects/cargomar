@@ -82,10 +82,11 @@
             <label class="col-sm-1 col-form-label col-form-label-sm pt-0 pr-0">Attch.{{lbl_msgattachfz}}</label>
             <div class="col-sm-11">
               <div style="padding: 0%" class="page-details">
-                <label  class="col-form-label col-form-label-sm p-0" *ngFor="let rec of AttachList">
+                <label class="col-form-label col-form-label-sm p-0" *ngFor="let rec of AttachList">
                   <button [disabled]="loading" (click)="Downloadfile(rec.filename,rec.filetype,rec.filedisplayname)"
                     class="btn btn-link pointer p-0 mr-1">{{rec.filedisplayname}}</button>
-                  <i class="fa fa-trash pointer mr-1" aria-hidden="true" (click)="RemoveAttachment(rec.filename,'MAIL')"></i>
+                  <i class="fa fa-trash pointer mr-1" aria-hidden="true"
+                    (click)="RemoveAttachment(rec.filename,'MAIL')"></i>
                 </label>
               </div>
             </div>
@@ -108,7 +109,7 @@
             <label class="col-sm-1 col-form-label col-form-label-sm">Message</label>
             <div class="col-sm-11">
               <div class="page-box" [style.height]="innerHtmlHt!=''?innerHtmlHt:'auto'"
-              [style.overflow-y]="innerHtmlHt!=''?'scroll':'auto'">
+                [style.overflow-y]="innerHtmlHt!=''?'scroll':'auto'">
                 <div [innerHTML]="sHtml"></div>
               </div>
             </div>

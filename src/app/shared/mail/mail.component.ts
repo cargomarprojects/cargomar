@@ -52,6 +52,11 @@ export class MailComponent {
   lbl_msgattachfz: string = '';
   lbl_poftpattachfz: string = '';
 
+  msgFontFamily: string = '';
+  msgFontSize: string = '';
+  msgForeground: string = '';
+  msgFontWeight: string = '';
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -191,7 +196,6 @@ export class MailComponent {
     this.ErrorMessage = '';
     if (!this.allvalid())
       return;
-
     this.SearchRecord('smtpmail', 'MAIL');
   }
 
@@ -315,7 +319,10 @@ export class MailComponent {
     SearchData.cc_ids = this.cc_ids;
     SearchData.bcc_ids = this.bcc_ids;
     SearchData.subject = this.subject;
-    SearchData.message = this.sHtml.concat(this.message);
+    if (controlname == 'smtpmail' && this.type == "BL-SURRENDER-MAIL") 
+      SearchData.message = this.getFormattedMsg();//will set font name, size ...
+    else
+      SearchData.message = this.sHtml.concat(this.message);
     SearchData.filename = filename;
     SearchData.filedisplayname = filedisplayname;
     SearchData.rowtype = this.type;
@@ -745,6 +752,20 @@ export class MailComponent {
   CheckList() {
     if (this.ModifiedRecords != null)
       this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid, type: 'MAIL-PO-CHECKLIST' });
+  }
+
+  getFormattedMsg() {
+    let sFormatMsg = "";
+    this.msgFontFamily = "Times New Roman";
+    this.msgFontSize = "14";
+    this.msgForeground = "";
+    this.msgFontWeight = "";
+
+    sFormatMsg = " <p style='font-family: " + this.msgFontFamily + "; font-size: " + this.msgFontSize + "pt;'>";
+    sFormatMsg += this.message.toString();
+    sFormatMsg += " </p>";
+
+    return sFormatMsg;
   }
 
 }
