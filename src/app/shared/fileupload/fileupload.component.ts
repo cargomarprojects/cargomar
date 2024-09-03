@@ -35,6 +35,7 @@ export class FileUploadComponent {
 
   ErrorMessage: string = '';
   InfoMessage: string = '';
+  emlfilepath: string = '';
 
   catg_id: string = '';
   desc: string = '';
@@ -521,11 +522,15 @@ export class FileUploadComponent {
   }
 
   MailDocument(mailmodal: any, _setMsg: boolean = true) {
+    this.emlfilepath = '';
     this.AttachList = new Array<any>();
     let _dSize = 0;
     for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
       _dSize = this.getFsize(rec.doc_file_size);
-      this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+      if (this.mailType == "BL-SURRENDER-MAIL" && rec.doc_file_name.toUpperCase().endsWith('.EML'))
+        this.emlfilepath = rec.doc_full_name;
+      else
+        this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
     }
     if (_setMsg)
       this.setMailBody();

@@ -38,6 +38,7 @@ export class MailComponent {
   @Input() public updatetype: string = '';
   @Input() public emaildisplayname: string = '';
   @Input() public sHtmlHeight: string = '';
+  @Input() public emlfilepath: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -310,7 +311,8 @@ export class MailComponent {
       update_toids: '',
       canftp: 'N',
       updatetype: '',
-      email_display_name: ''
+      email_display_name: '',
+      emlfilepath: ''
     };
 
     SearchData.table = controlname;
@@ -319,7 +321,7 @@ export class MailComponent {
     SearchData.cc_ids = this.cc_ids;
     SearchData.bcc_ids = this.bcc_ids;
     SearchData.subject = this.subject;
-    if (controlname == 'smtpmail' && this.type == "BL-SURRENDER-MAIL") 
+    if (controlname == 'smtpmail' && this.type == "BL-SURRENDER-MAIL")
       SearchData.message = this.getFormattedMsg();//will set font name, size ...
     else
       SearchData.message = this.sHtml.concat(this.message);
@@ -339,6 +341,7 @@ export class MailComponent {
     SearchData.canftp = (this.canftp == true) ? "Y" : "N";
     SearchData.updatetype = this.updatetype;
     SearchData.email_display_name = this.emaildisplayname;
+    SearchData.emlfilepath = this.emlfilepath;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
