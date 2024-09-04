@@ -312,7 +312,8 @@ export class MailComponent {
       canftp: 'N',
       updatetype: '',
       email_display_name: '',
-      emlfilepath: ''
+      emlfilepath: '',
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     SearchData.table = controlname;
@@ -342,6 +343,8 @@ export class MailComponent {
     SearchData.updatetype = this.updatetype;
     SearchData.email_display_name = this.emaildisplayname;
     SearchData.emlfilepath = this.emlfilepath;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -759,8 +762,8 @@ export class MailComponent {
 
   getFormattedMsg() {
     let sFormatMsg = "";
-    this.msgFontFamily = "Times New Roman";
-    this.msgFontSize = "14";
+    this.msgFontFamily = "Calibri";
+    this.msgFontSize = "12";
     this.msgForeground = "";
     this.msgFontWeight = "";
 
