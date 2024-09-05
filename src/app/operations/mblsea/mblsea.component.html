@@ -966,16 +966,18 @@
       <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
         <ng-template ngbTabContent>
           <app-upload #blsurrendermail [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
-          <div *ngIf="bSurrenderMail" class="page-details">
+          <div *ngIf="bSurrenderMailHO||bSurrenderMailAgent" class="page-details">
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group row">
                   <label class="col-sm-1 col-form-label col-form-label-sm"></label>
                   <div class="col-10">
-                    <button [disabled]="loading" (click)="BLSurrenderMail()" class="btn btn-info btn-sm mr-1">BL Surrender
+                    <button *ngIf="bSurrenderMailHO" [disabled]="loading" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO')"
+                      class="btn btn-info btn-sm mr-1">BL Surrender
                       Mail HO</button>
-                      <button [disabled]="loading" (click)="BLSurrenderMail()" class="btn btn-info btn-sm">BL Surrender
-                        Mail Agent</button>
+                    <button *ngIf="bSurrenderMailAgent" [disabled]="loading" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+Record.book_agent_code)"
+                      class="btn btn-info btn-sm">BL Surrender
+                      Mail Agent</button>
                   </div>
                 </div>
               </div>

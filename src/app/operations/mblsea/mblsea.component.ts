@@ -50,7 +50,8 @@ export class MblSeaComponent {
   bAdmin = false;
   bDocs = false;
   bPrint = false;
-  bSurrenderMail = false;
+  bSurrenderMailHO = false;
+  bSurrenderMailAgent = false;
   default_ftptype: string = 'BL-FTP';
   default_mailftp_rootpage: string = 'MAILPAGE';
 
@@ -154,7 +155,8 @@ export class MblSeaComponent {
     this.bAdmin = false;
     this.bDocs = false;
     this.bPrint = false;
-    this.bSurrenderMail = false;
+    this.bSurrenderMailHO = false;
+    this.bSurrenderMailAgent = false;
     this.AttachList = new Array<any>();
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -166,10 +168,14 @@ export class MblSeaComponent {
         this.bDocs = true;
       this.bPrint = this.menu_record.rights_print
       if (this.menu_record.rights_approval.length > 0) {
-        if (this.menu_record.rights_approval.toString().indexOf('{MAIL-SURR}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
-          this.bSurrenderMail = true;
-      } else
-        this.bSurrenderMail = this.gs.globalVariables.user_code == "ADMIN";
+        if (this.menu_record.rights_approval.toString().indexOf('{MAIL-SURR-HO}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bSurrenderMailHO = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{MAIL-SURR-AGENT}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bSurrenderMailAgent = true;
+      } else {
+        this.bSurrenderMailHO = this.gs.globalVariables.user_code == "ADMIN";
+        this.bSurrenderMailAgent = this.gs.globalVariables.user_code == "ADMIN";
+      }
     }
     this.InitLov();
     this.LoadCombo();
@@ -1994,10 +2000,11 @@ export class MblSeaComponent {
         });
   }
 
-  BLSurrenderMail() {
+  BLSurrenderMail(_type: string) {
     this.loading = true;
     let SearchData = {
-      mblid: this.pkid
+      mblid: this.pkid,
+      type: _type
     };
 
     this.ErrorMessage = '';
@@ -2009,7 +2016,7 @@ export class MblSeaComponent {
           alert(response.error)
         else {
           if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
-            this._ctrlblsurrendermail.showmail(response.subject, response.message, response.type);
+            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type);
           }
         }
       },

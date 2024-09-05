@@ -39,6 +39,7 @@ export class MailComponent {
   @Input() public emaildisplayname: string = '';
   @Input() public sHtmlHeight: string = '';
   @Input() public emlfilepath: string = '';
+  @Input() public companywise: boolean = false;
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -220,6 +221,18 @@ export class MailComponent {
       bret = false;
     }
 
+    if (this.type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+      if (this.gs.isBlank(this.AttachList)) {
+        if (this.AttachList == null) {
+          sError += " | Attachment not Found";
+          bret = false;
+        } else if (this.AttachList.length == 0) {
+          sError += " | Attachment not Found";
+          bret = false;
+        }
+      }
+    }
+
     if (bret === false) {
       this.ErrorMessage = sError;
       alert(this.ErrorMessage);
@@ -313,7 +326,8 @@ export class MailComponent {
       updatetype: '',
       email_display_name: '',
       emlfilepath: '',
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      companywise: false
     };
 
     SearchData.table = controlname;
@@ -322,7 +336,7 @@ export class MailComponent {
     SearchData.cc_ids = this.cc_ids;
     SearchData.bcc_ids = this.bcc_ids;
     SearchData.subject = this.subject;
-    if (controlname == 'smtpmail' && this.type == "BL-SURRENDER-MAIL")
+    if (controlname == 'smtpmail' && this.type.indexOf('BL-SURRENDER-MAIL-') >= 0)
       SearchData.message = this.getFormattedMsg();//will set font name, size ...
     else
       SearchData.message = this.sHtml.concat(this.message);
@@ -344,7 +358,8 @@ export class MailComponent {
     SearchData.email_display_name = this.emaildisplayname;
     SearchData.emlfilepath = this.emlfilepath;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
-    
+    SearchData.companywise = this.companywise;
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
