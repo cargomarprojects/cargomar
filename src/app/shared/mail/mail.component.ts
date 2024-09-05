@@ -222,6 +222,11 @@ export class MailComponent {
     }
 
     if (this.type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+
+      if (this.gs.isBlank(this.emlfilepath)) {
+        sError += " | PREALERT-EMAIL Not selected";
+        bret = false;
+      }
       if (this.gs.isBlank(this.AttachList)) {
         if (this.AttachList == null) {
           sError += " | Attachment not Found";
@@ -327,7 +332,9 @@ export class MailComponent {
       email_display_name: '',
       emlfilepath: '',
       report_folder: this.gs.globalVariables.report_folder,
-      companywise: false
+      companywise: false,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder
     };
 
     SearchData.table = controlname;
@@ -359,6 +366,8 @@ export class MailComponent {
     SearchData.emlfilepath = this.emlfilepath;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.companywise = this.companywise;
+    SearchData.root_folder = this.gs.defaultValues.root_folder;
+    SearchData.sub_folder = this.gs.defaultValues.sub_folder;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
