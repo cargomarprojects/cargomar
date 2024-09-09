@@ -34,7 +34,7 @@ export class GlobalService {
   public Topbar_Email = "";
   public Topbar_Mob = "";
 
-  public software_version_string: string = '1.647';
+  public software_version_string: string = '1.648';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -540,7 +540,7 @@ export class GlobalService {
         this.globalVariables.user_dsc_slno = data.user_dsc_slno;
 
       this.InitdefaultValues();
-      this.setTopbarContact(this.globalVariables.comp_code); 
+      this.setTopbarContact(this.globalVariables.comp_code);
       this.InitdefaultValues2(response.settings);
 
       //Air Export Job Default Loading
