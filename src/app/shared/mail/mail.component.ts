@@ -376,7 +376,8 @@ export class MailComponent {
         if (_type == "MAIL") {
           this.InfoMessage = response.smtpmail;
           if (this.ModifiedRecords != null && (this.type == "DESPATCH-DETAILS" || this.type == "BP-APPROVAL"))
-            this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
+            if (!this.InfoMessage.trim().toUpperCase().startsWith("MAIL SENT FAILURE"))
+              this.ModifiedRecords.emit({ saction: this.InfoMessage, sid: this.pkid });
 
           // Auto ftp Sent
           if (this.InfoMessage.trim().toUpperCase() == "MAIL SENT SUCCESSFULLY" && this.canftp && this.ftpfolderblexist) {
