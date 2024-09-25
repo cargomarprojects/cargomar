@@ -117,6 +117,7 @@
                     <th>MODULE</th>
                     <th>USER</th>
                     <th>TYPE</th>
+                    <th>REFNO</th>
                     <th>ACTION</th>
                     <th>REMARKS</th>
                     <!-- <th></th> -->
@@ -129,6 +130,7 @@
                     <td>{{rec.audit_module}}</td>
                     <td>{{rec.audit_user_code}}</td>
                     <td>{{rec.audit_type}}</td>
+                    <td>{{rec.audit_refno}}</td>
                     <td>{{rec.audit_action}}</td>
                     <td (click)="openWebSite(rec.audit_type,rec.audit_remarks)"
                         [style.cursor]="(rec.audit_type=='USER-LOGIN'||rec.audit_type=='BRANCH-LOGIN')?'pointer':''">
