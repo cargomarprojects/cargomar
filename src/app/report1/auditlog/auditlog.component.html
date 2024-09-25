@@ -48,10 +48,135 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-10">
+                    <!-- <div class="col-10">
                         <input type="text" class="col form-control form-control-sm" name="Search3"
                             [(ngModel)]="searchtype" (blur)="OnBlur('searchtype')" />
+                    </div> -->
+                    <div class="col-10">
+                        <input type="text" class="col form-control form-control-sm" name="stype"
+                            [(ngModel)]="searchtype" (blur)="OnBlur('searchtype')" list="searchtype"
+                            placeholder="Type or Select" />
+                        <datalist id="searchtype">
+                            <option value="BP"></option>
+                            <option value="BR"></option>
+                            <option value="CI"></option>
+                            <option value="CN"></option>
+                            <option value="CP"></option>
+                            <option value="CR"></option>
+                            <option value="DI"></option>
+                            <option value="DN"></option>
+                            <option value="IN"></option>
+                            <option value="IN-ES"></option>
+                            <option value="JV"></option>
+                            <option value="JV-BP"></option>
+                            <option value="OB"></option>
+                            <option value="OC"></option>
+                            <option value="OI"></option>
+                            <option value="OP"></option>
+                            <option value="PN"></option>
+                            <option value="PN-CI"></option>
+                            <option value="PN-JV"></option>
+                            <option value="RB"></option>
+                            <!-- <option value="AGENT INVOICE"></option>
+                            <option value="AIR EXPORT"></option>
+                            <option value="AIR EXPORT COSTING"></option>
+                            <option value="AIR+EXPORT"></option>
+                            <option value="AMTUPDATE"></option>
+                            <option value="ANOOP-SHIPMENT-DATA-MARKETING"></option>
+                            <option value="ARRIVAL NOTICE"></option>
+                            <option value="BL-SURRENDER-MAIL-HO"></option>
+                            <option value="BL-UPDATE"></option>
+                            <option value="BOOKING TEU"></option>
+                            <option value="BP"></option>
+                            <option value="BP-APPROVAL"></option>
+                            <option value="BR"></option>
+                            <option value="BRANCH-LOGIN"></option>
+                            <option value="CI"></option>
+                            <option value="CN"></option>
+                            <option value="CP"></option>
+                            <option value="CR"></option>
+                            <option value="DESPATCH-DETAILS"></option>
+                            <option value="DI"></option>
+                            <option value="DN"></option>
+                            <option value="DRCR ISSUE"></option>
+                            <option value="FUND-TRANSFER"></option>
+                            <option value="GENERATE"></option>
+                            <option value="GENERATE-FOLDER"></option>
+                            <option value="HBL"></option>
+                            <option value="HBL-AE"></option>
+                            <option value="HBL-AI"></option>
+                            <option value="HBL-SE"></option>
+                            <option value="HBL-SI"></option>
+                            <option value="HO"></option>
+                            <option value="HR-BONUS"></option>
+                            <option value="HR-EMPLOYEE-MASTER"></option>
+                            <option value="HR-LEAVE-DETAILS"></option>
+                            <option value="HR-LEAVE-MASTER"></option>
+                            <option value="HR-PAYROLL"></option>
+                            <option value="HR-PAYSLIP-MAIL"></option>
+                            <option value="HR-RE-JVPOST"></option>
+                            <option value="HR-SALARY-MASTER"></option>
+                            <option value="IN"></option>
+                            <option value="IN-ES"></option>
+                            <option value="INVOICE"></option>
+                            <option value="ISF"></option>
+                            <option value="JOB"></option>
+                            <option value="JOB SEA EXPORT"></option>
+                            <option value="JOB UNLOCK CREDIT LIMIT"></option>
+                            <option value="JOB-AE"></option>
+                            <option value="JOB-GN"></option>
+                            <option value="JOB-SE"></option>
+                            <option value="JV"></option>
+                            <option value="JV-BP"></option>
+                            <option value="LOCK-ALL"></option>
+                            <option value="MAIL"></option>
+                            <option value="MBL"></option>
+                            <option value="MBL-AE"></option>
+                            <option value="MBL-AI"></option>
+                            <option value="MBL-SE"></option>
+                            <option value="MBL-SE-ACTIONFXT-GB"></option>
+                            <option value="MBL-SE-INFINITRAN-US"></option>
+                            <option value="MBL-SE-MOTHERLINES-US"></option>
+                            <option value="MBL-SE-RITRACARGO-NL"></option>
+                            <option value="MBL-SE-TRANSPORTE-MX"></option>
+                            <option value="MBL-SI"></option>
+                            <option value="MIS-WEEKLY-SALES-REPORT"></option>
+                            <option value="MIS-WEEKLY-VOLUME-REPORT"></option>
+                            <option value="OB"></option>
+                            <option value="OC"></option>
+                            <option value="OI"></option>
+                            <option value="OP"></option>
+                            <option value="ORDERLIST"></option>
+                            <option value="OS-ALL"></option>
+                            <option value="OS-DELHI"></option>
+                            <option value="OS-HISTORY"></option>
+                            <option value="OS-INVOICE"></option>
+                            <option value="OS-SALESMAN-ALL"></option>
+                            <option value="PAYSLIP-ALL"></option>
+                            <option value="PENDING"></option>
+                            <option value="PLANNING"></option>
+                            <option value="PN"></option>
+                            <option value="PN-CI"></option>
+                            <option value="PN-JV"></option>
+                            <option value="RB"></option>
+                            <option value="REFNO"></option>
+                            <option value="SALES-LEAD"></option>
+                            <option value="SALESFOLLOWUP"></option>
+                            <option value="SAVE"></option>
+                            <option value="SE CONSOLE COSTING"></option>
+                            <option value="SEA EXPORT"></option>
+                            <option value="SEA EXPORT COSTING"></option>
+                            <option value="SEA+EXPORT"></option>
+                            <option value="SHIPMENT-DATA-MARKETING"></option>
+                            <option value="STUFFING-LOADING-DETAILS"></option>
+                            <option value="TRACKING"></option>
+                            <option value="TRKUPDATE"></option>
+                            <option value="UPDATE"></option>
+                            <option value="USER-LOGOUT"></option>
+                            <option value="VISIT-REPORT"></option> -->
+                        </datalist>
                     </div>
+
                 </div>
 
             </div>
