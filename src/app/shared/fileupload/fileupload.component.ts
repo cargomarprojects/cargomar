@@ -526,13 +526,23 @@ export class FileUploadComponent {
     this.emlfilepath = '';
     this.AttachList = new Array<any>();
     let _dSize = 0;
-    for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
-      _dSize = this.getFsize(rec.doc_file_size);
-      if (this.mailType.indexOf('BL-SURRENDER-MAIL-') >= 0 && rec.doc_catg_name == "PREALERT-EMAIL" && rec.doc_file_name.toUpperCase().endsWith('.EML'))
-        this.emlfilepath = rec.doc_full_name;
-      else
+    if (this.mailType.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+      for (let rec of this.RecordList) {
+        if (rec.doc_catg_name == "PREALERT-EMAIL" || rec.doc_catg_name == "SURRENDER HBL" || rec.doc_catg_name == "SURRENDER LETTER") {
+          _dSize = this.getFsize(rec.doc_file_size);
+          if (rec.doc_catg_name == "PREALERT-EMAIL" && rec.doc_file_name.toUpperCase().endsWith('.EML'))
+            this.emlfilepath = rec.doc_full_name;
+          else
+            this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+        }
+      }
+    } else {
+      for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
+        _dSize = this.getFsize(rec.doc_file_size);
         this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+      }
     }
+
     if (_setMsg)
       this.setMailBody();
     this.open(mailmodal);
