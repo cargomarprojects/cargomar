@@ -53,6 +53,7 @@ export class OsRepComponent {
   isadmin = false;
   IsHeader = false;
   category: string = 'OSLIST';
+  canRefresh = false;
 
   PayTab = '';
 
@@ -169,12 +170,22 @@ export class OsRepComponent {
     if (!this.menu_record)
       return;
 
+    this.canRefresh = false;
     this.iscompany = false;
     this.isadmin = false;
     if (this.menu_record.rights_company)
       this.iscompany = true;
     if (this.menu_record.rights_admin)
       this.isadmin = true;
+    if (this.menu_record.rights_admin)
+      this.isadmin = true;
+
+    if (this.menu_record.rights_approval.length > 0) {
+      if (this.menu_record.rights_approval.indexOf('{REFRESH}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+        this.canRefresh = true;
+    } else
+      if (this.gs.globalVariables.user_code == "ADMIN")
+        this.canRefresh = true;
 
   }
 
