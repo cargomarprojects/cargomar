@@ -1,6 +1,7 @@
 
 export class documentm {
   doc_pkid: string;
+  doc_catg_code: string;
   doc_catg_name: string;
   doc_desc: string;
   doc_file_name: string;

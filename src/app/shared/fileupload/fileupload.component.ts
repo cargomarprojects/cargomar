@@ -528,7 +528,7 @@ export class FileUploadComponent {
     let _dSize = 0;
     if (this.mailType.indexOf('BL-SURRENDER-MAIL-') >= 0) {
       for (let rec of this.RecordList) {
-        if (rec.doc_catg_name == "PREALERT-EMAIL" || rec.doc_catg_name == "SURRENDER HBL" || rec.doc_catg_name == "SURRENDER LETTER") {
+        if (rec.doc_catg_code == "PREALERT-EMAIL" || rec.doc_catg_code == "SURRLETTER") {
           _dSize = this.getFsize(rec.doc_file_size);
           if (rec.doc_catg_name == "PREALERT-EMAIL" && rec.doc_file_name.toUpperCase().endsWith('.EML'))
             this.emlfilepath = rec.doc_full_name;
