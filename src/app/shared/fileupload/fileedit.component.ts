@@ -132,6 +132,7 @@ export class FileEditComponent {
               var REC = this.DocTypeList.find(rec => rec.param_pkid == SearchData.catgid);
               if (REC != null) {
                 this.record.doc_catg_name = REC.param_name;
+                this.record.doc_catg_code = REC.param_code;
               }
             }
             this.record.doc_full_name = response.newfilename;
