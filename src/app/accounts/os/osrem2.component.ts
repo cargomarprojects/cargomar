@@ -188,6 +188,8 @@ export class OsRemarkComponent {
             alert(this.ErrorMessage);
             return;
         }
+        let _type: string = "";
+        let _remarks: string = "";
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
@@ -201,18 +203,24 @@ export class OsRemarkComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ErrorMessage = "";
+                _type = "";
+                _remarks = "";
                 if (response.mode == "EDIT") {
                     for (let rec of this.RecordList.filter(rec => rec.rem_pkid == this.pkid)) {
-                        rec.rem_type = this.Record.rem_type
+                        rec.rem_type = this.gs.isBlank(this.Record.rem_type) ? 'NA' : this.Record.rem_type;
                         rec.rem_remarks = this.Record.rem_remarks;
+                        _type = this.Record.rem_type;
+                        _remarks = this.Record.rem_remarks;
                     }
                     this.newRecord();
                 } else {
+                    _type = this.Record.rem_type;
+                    _remarks = this.Record.rem_remarks;
                     this.RecordList.push(this.Record);
                     this.newRecord();
-                    if (this.ModifiedRecords != null)
-                        this.ModifiedRecords.emit({ saction: 'SAVE', remarks: this.Record.rem_remarks });
                 }
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ saction: 'SAVE', type: _type , remarks: _remarks });
             },
                 error => {
                     this.loading = false;
@@ -227,9 +235,16 @@ export class OsRemarkComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
+        if (this.adminText != "ADMIN") {
+            if (this.Record.rem_type != '') {
+                bret = false;
+                sError += " | You can select the type as NA only ";
+            }
+        }
+
         if (this.gs.isBlank(this.Record.rem_remarks)) {
             bret = false;
-            sError = " | Remarks Cannot Be Blank ";
+            sError += " | Remarks Cannot Be Blank ";
         }
 
         if (bret === false)
@@ -245,7 +260,7 @@ export class OsRemarkComponent {
 
     Close() {
         if (this.ModifiedRecords != null)
-            this.ModifiedRecords.emit({ saction: 'CLOSE', remarks: this.Record.rem_remarks });
+            this.ModifiedRecords.emit({ saction: 'CLOSE', type: this.Record.rem_type, remarks: this.Record.rem_remarks });
     }
 
     open(content: any) {
@@ -281,5 +296,5 @@ export class OsRemarkComponent {
         this.Record.rem_remarks = _Record.rem_remarks;
     }
 
-   
+
 }

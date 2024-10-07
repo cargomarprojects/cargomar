@@ -9,9 +9,9 @@
                     class="btn btn-link pointer m-0 p-0 hlink">EDIT</button>
             </label>
         </div>
-        <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">
+        <h6 *ngIf="IsAdmin" style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">
             TYPE</h6>
-        <p style="color: black;font-size: 12px;" class="mb-1">{{rec.rem_type}}</p>
+        <p *ngIf="IsAdmin" style="color: black;font-size: 12px;" class="mb-1">{{rec.rem_type}}</p>
         <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS
         </h6>
         <p style="color: black;font-size: 12px;" class="mb-1">{{rec.rem_remarks}}</p>
@@ -21,12 +21,12 @@
     <div class="col-sm-12 col-md-12 col-lg-12">
         <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode}}
         </h6>
-        <div class="row">
+        <div *ngIf="IsAdmin" class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group row">
                     <label style="color:black" class="col-12 col-form-label col-form-label-sm">Type</label>
                     <div class="col-sm-12">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.rem_type">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.rem_type" [disabled]="mode == 'EDIT' && adminText != 'ADMIN'">
                             <option [value]="''">NA</option>
                             <option [value]="'LEGAL'">LEGAL</option>
                             <option [value]="'STAFF-DEBIT'">STAFF-DEBIT</option>

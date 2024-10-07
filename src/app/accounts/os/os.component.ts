@@ -312,8 +312,10 @@ export class OsComponent {
     if (params.saction == "CLOSE")
       _rec.displayed = false;
     if (params.saction == "SAVE") {
+      _rec.jv_od_type = params.type;
       _rec.jv_od_remarks = params.remarks;
       // for (let rec of this.RecordList.filter(rec => rec.pkid == _rec.pkid)) {
+      //   rec.jv_od_type = params.type;
       //   rec.jv_od_remarks = params.remarks;
       // }
     }
