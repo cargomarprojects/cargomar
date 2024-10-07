@@ -158,8 +158,10 @@
 
         </tr>
         <tr *ngIf="rec.displayed">
-          <td colspan="20">
-            <app-osrem [isadmin]="bAdmin" [adminText]="adminText" [record]="rec"></app-osrem>
+          <td colspan="100%" >
+            <!-- <app-osrem [isadmin]="bAdmin" [adminText]="adminText" [record]="rec"></app-osrem> -->
+            <app-osrem2 [menuid]="menuid" [parentid]="rec.pkid"
+              (ModifiedRecords)="ModifiedRecords($event,rec)"></app-osrem2>
           </td>
         </tr>
       </tbody>

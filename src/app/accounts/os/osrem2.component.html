@@ -1,0 +1,69 @@
+<h6 style="color: green" class="my-3 ml-1">ADD/EDIT REMARKS</h6>
+<div class="list-group" *ngFor="let rec of RecordList; let i = index">
+    <a style="padding: 5px" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <label style="color: brown;padding: 1px;font-weight: bold;font-size: 10px;"
+                class="mb-1">{{rec.rec_created_by}}&nbsp;-&nbsp;{{rec.rec_created_date}} &nbsp; <button
+                    *ngIf="i==RecordList.length-1" (click)="editRecord(rec.rem_pkid)"
+                    style="color: red;font-weight: bold;font-size: 10px;"
+                    class="btn btn-link pointer m-0 p-0 hlink">EDIT</button>
+            </label>
+        </div>
+        <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">
+            TYPE</h6>
+        <p style="color: black;font-size: 12px;" class="mb-1">{{rec.rem_type}}</p>
+        <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">REMARKS
+        </h6>
+        <p style="color: black;font-size: 12px;" class="mb-1">{{rec.rem_remarks}}</p>
+    </a>
+</div>
+<div class="page-details">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode}}
+        </h6>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group row">
+                    <label style="color:black" class="col-12 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-sm-12">
+                        <select class="form-control form-control-sm" [(ngModel)]="Record.rem_type">
+                            <option [value]="''">NA</option>
+                            <option [value]="'LEGAL'">LEGAL</option>
+                            <option [value]="'STAFF-DEBIT'">STAFF-DEBIT</option>
+                            <option [value]="'DISPUTE'">DISPUTE</option>
+                            <option [value]="'INCENTIVE'">INCENTIVE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <div class="form-group row">
+                    <label style="color:black" class="col-12 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-sm-12">
+                        <textarea style="resize: vertical" class="form-control form-control-sm"
+                            [(ngModel)]="Record.rem_remarks" maxlength="120"
+                            (blur)="OnBlur('rem_remarks')">  </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm my-1">Save</button>
+                        <button [disabled]="loading" (click)="newRecord()"
+                            class="btn btn-primary btn-sm my-1">Add</button>
+                        <i *ngIf="loading" class="fa fa-spinner"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-info" *ngIf="ErrorMessage">
+    {{ErrorMessage}}
+</div>

@@ -95,6 +95,7 @@ import { BankImportComponent } from './ledger/bankImport.component';
 import { TbMonComponent } from './tbmon/tbmon.component';
 import { CiGeImportComponent } from './ledger/cigeImport.component';
 import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
+import { OsRemarkComponent } from './os/osrem2.component';
 
 @NgModule({
   imports: [
@@ -154,7 +155,8 @@ import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
     BankImportComponent,
     TbMonComponent,
     CiGeImportComponent,
-    TdsExemptionComponent
+    TdsExemptionComponent,
+    OsRemarkComponent
   ],
   providers: [
   ],
