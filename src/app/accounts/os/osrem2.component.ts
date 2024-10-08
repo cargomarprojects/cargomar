@@ -216,11 +216,12 @@ export class OsRemarkComponent {
                 } else {
                     _type = this.Record.rem_type;
                     _remarks = this.Record.rem_remarks;
+                    this.Record.rem_type = this.gs.isBlank(this.Record.rem_type) ? 'NA' : this.Record.rem_type;
                     this.RecordList.push(this.Record);
                     this.newRecord();
                 }
                 if (this.ModifiedRecords != null)
-                    this.ModifiedRecords.emit({ saction: 'SAVE', type: _type , remarks: _remarks });
+                    this.ModifiedRecords.emit({ saction: 'SAVE', type: _type, remarks: _remarks });
             },
                 error => {
                     this.loading = false;

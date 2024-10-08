@@ -18,11 +18,11 @@
     </a>
 </div>
 <div class="page-details">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <h6 style="color: mediumblue;font-weight: bold;font-size: 12px;" class="my-1">{{mode}}
         </h6>
         <div *ngIf="IsAdmin" class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-6">
                 <div class="form-group row">
                     <label style="color:black" class="col-12 col-form-label col-form-label-sm">Type</label>
                     <div class="col-sm-12">
@@ -38,8 +38,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-
+            <div class="col-sm-12">
                 <div class="form-group row">
                     <label style="color:black" class="col-12 col-form-label col-form-label-sm">Remarks</label>
                     <div class="col-sm-12">
@@ -58,7 +57,7 @@
                     <div class="col-12">
                         <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm my-1">Save</button>
                         <button [disabled]="loading" (click)="newRecord()"
-                            class="btn btn-primary btn-sm my-1">Add</button>
+                            class="btn btn-primary btn-sm my-1">New</button>
                             <button [disabled]="loading" (click)="Close()"
                             class="btn btn-primary btn-sm my-1">Close</button>
                         <!-- <i *ngIf="loading" class="fa fa-spinner"></i> -->
@@ -68,6 +67,6 @@
         </div>
     </div>
 </div>
-<div class="alert alert-info" *ngIf="ErrorMessage">
+<!-- <div class="alert alert-info" *ngIf="ErrorMessage">
     {{ErrorMessage}}
-</div>
+</div> -->
