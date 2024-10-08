@@ -323,6 +323,7 @@ export class MailComponent {
       type: _type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
       user_pkid: this.gs.globalVariables.user_pkid,
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
