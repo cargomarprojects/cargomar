@@ -224,7 +224,7 @@ export class MailComponent {
     if (this.type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
 
       if (this.gs.isBlank(this.emlfilepath)) {
-        sError += " | PREALERT-EMAIL Not selected";
+        sError += " | PREALERT-EMAIL Not attached";
         bret = false;
       }
       if (this.gs.isBlank(this.AttachList)) {

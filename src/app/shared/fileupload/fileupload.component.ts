@@ -530,7 +530,7 @@ export class FileUploadComponent {
       for (let rec of this.RecordList) {
         if (rec.doc_catg_code == "PREALERT-EMAIL" || rec.doc_catg_code == "SURRLETTER") {
           _dSize = this.getFsize(rec.doc_file_size);
-          if (rec.doc_catg_name == "PREALERT-EMAIL" && rec.doc_file_name.toUpperCase().endsWith('.EML'))
+          if (rec.doc_catg_name == "PREALERT-EMAIL" && (rec.doc_file_name.toUpperCase().endsWith('.EML') ))//|| rec.doc_file_name.toUpperCase().endsWith('.MSG')
             this.emlfilepath = rec.doc_full_name;
           else
             this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
