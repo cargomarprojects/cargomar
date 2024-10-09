@@ -188,6 +188,7 @@
           <th *ngIf="prtype=='CONSOL PAY ROLL'">EDLI.CHRG</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">BONUS.PAID</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">SALES.INCENT</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">TDS.SALES.INCENT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -267,6 +268,7 @@
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_edli_emply}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_bonus_paid}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_sales_incentive}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_tds_sales_incentive}}</td>
         </tr>
       </tbody>
     </table>
