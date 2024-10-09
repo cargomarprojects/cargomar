@@ -8,6 +8,7 @@ export class LedgertRemarks {
     rem_type: string;
     rem_remarks: string;
     rem_ctr: number;
+    rem_can_update_status: boolean;
 
     _globalvariables: GlobalVariables;
 

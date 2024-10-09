@@ -91,6 +91,7 @@ export class OsRemarkComponent {
         this.Record.rec_created_date = this.gs.defaultValues.today;
         this.Record.rem_remarks = "";
         this.Record.rem_type = "";
+        this.Record.rem_can_update_status = false;
     }
 
     InitComponent() {
@@ -199,6 +200,7 @@ export class OsRemarkComponent {
         this.Record.rem_remarks = this.Record.rem_remarks.toUpperCase();
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.defaultValues.today;
+        this.Record.rem_can_update_status = this.adminText == "ADMIN" ? true : false;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
@@ -221,7 +223,7 @@ export class OsRemarkComponent {
                     this.newRecord();
                 }
                 if (this.ModifiedRecords != null)
-                    this.ModifiedRecords.emit({ saction: 'SAVE', type: _type, remarks: _remarks });
+                    this.ModifiedRecords.emit({ saction: 'SAVE', type: _type, remarks: _remarks, can_update_status: this.adminText == "ADMIN" ? true : false });
             },
                 error => {
                     this.loading = false;
@@ -261,7 +263,7 @@ export class OsRemarkComponent {
 
     Close() {
         if (this.ModifiedRecords != null)
-            this.ModifiedRecords.emit({ saction: 'CLOSE', type: this.Record.rem_type, remarks: this.Record.rem_remarks });
+            this.ModifiedRecords.emit({ saction: 'CLOSE', type: this.Record.rem_type, remarks: this.Record.rem_remarks, can_update_status: false});
     }
 
     open(content: any) {
