@@ -2004,7 +2004,8 @@ export class MblSeaComponent {
     this.loading = true;
     let SearchData = {
       mblid: this.pkid,
-      type: _type
+      type: _type,
+      root_folder: this.gs.defaultValues.root_folder
     };
 
     this.ErrorMessage = '';
