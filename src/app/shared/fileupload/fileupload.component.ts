@@ -528,12 +528,12 @@ export class FileUploadComponent {
     let _dSize = 0;
     if (this.mailType.indexOf('BL-SURRENDER-MAIL-') >= 0) {
       for (let rec of this.RecordList) {
-        if (rec.doc_catg_code == "PREALERT-EMAIL" || rec.doc_catg_code == "SURRLETTER") {
+        if (rec.doc_catg_code == "PREALERT-EMAIL" && (rec.doc_file_name.toUpperCase().endsWith('.EML'))) { //|| rec.doc_file_name.toUpperCase().endsWith('.MSG')
+          this.emlfilepath = rec.doc_full_name;
+        }
+        else if (rec.doc_selected && rec.doc_catg_code == "SURRLETTER") {
           _dSize = this.getFsize(rec.doc_file_size);
-          if (rec.doc_catg_name == "PREALERT-EMAIL" && (rec.doc_file_name.toUpperCase().endsWith('.EML') ))//|| rec.doc_file_name.toUpperCase().endsWith('.MSG')
-            this.emlfilepath = rec.doc_full_name;
-          else
-            this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+          this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
         }
       }
     } else {
@@ -659,12 +659,25 @@ export class FileUploadComponent {
   }
 
   public showmail(_sub: string, _msg: string, _type: string) {
+    let bOk = false;
     this.sSubject = _sub;
     this.sMessage = _msg;
     this.mailType = _type;
     this.companywise = false;
     if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0)
       this.companywise = true;
+
+    for (let rec of this.RecordList) {
+      if (rec.doc_selected) {
+        bOk = true;
+        break;
+      }
+    }
+
+    if (!bOk && _type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+      alert('No attachements selected');
+      return;
+    }
     this.MailDocument(this._ctrlmailsent, false);
   }
 
