@@ -15,17 +15,18 @@ export class HistoryComponent {
   */
   // Local Variables 
   title = 'History Details';
-  
+
   @Input() public pkid: string;
   @Input() public type: string = '';
-  
+
   InitCompleted: boolean = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
   sub: any;
   urlid: string;
-  
+
+  listHtmlHt: string = '';
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Auditlog[] = [];
@@ -38,6 +39,10 @@ export class HistoryComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
+    if (this.type.indexOf('BL-SURRENDER-MAIL-') >= 0)
+      this.listHtmlHt = 'auto';
+    else
+      this.listHtmlHt = '400px';
     this.LoadCombo();
     this.SearchRecord("history");
   }
@@ -48,29 +53,29 @@ export class HistoryComponent {
 
   InitLov() {
 
-   
+
   }
   LovSelected(_Record: SearchTable) {
-   
+
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-   // this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   LoadCombo() {
-   
-   
+
+
   }
-  
+
   // Save Data
   OnBlur(field: string) {
 
   }
   Close() {
-    
+
   }
-  
+
   SearchRecord(controlname: string) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
@@ -82,7 +87,7 @@ export class HistoryComponent {
       this.ErrorMessage = "Invalid Type";
       return;
     }
-     
+
     this.loading = true;
     let SearchData = {
       table: controlname,
@@ -106,9 +111,9 @@ export class HistoryComponent {
         this.InfoMessage = '';
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 }

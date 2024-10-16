@@ -966,39 +966,39 @@
       <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
         <ng-template ngbTabContent>
           <app-upload #blsurrendermail [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
-          <div *ngIf="bSurrenderMailHO||bSurrenderMailAgent" class="page-details mt-2">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group row">
-                  <label class="col-sm-1 col-form-label col-form-label-sm"></label>
-                  <div class="col-10">
-                    <button *ngIf="bSurrenderMailHO" [disabled]="loading"
-                      (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO')" class="btn btn-info btn-sm mr-1">BL Surrender
-                      Mail To HO</button>
-                    <button *ngIf="bSurrenderMailAgent" [disabled]="loading"
-                      (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+Record.book_agent_code)"
-                      class="btn btn-info btn-sm">BL Surrender
-                      Mail To Agent</button>
+          <div *ngIf="bSurrenderMailHO||bSurrenderMailAgent" class="mt-2">
+            <div class="page-details">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+                    <div class="col-10">
+                      <button *ngIf="bSurrenderMailHO" [disabled]="loading"
+                        (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO')" class="btn btn-info btn-sm mr-1">BL Surrender
+                        Mail To HO</button>
+                      <button *ngIf="bSurrenderMailAgent" [disabled]="loading"
+                        (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+Record.book_agent_code)"
+                        class="btn btn-info btn-sm">BL Surrender
+                        Mail To Agent</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <h6 style="color: green" class="my-1">SURRENDER MAIL TO HO</h6>
-                <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-HO'"></app-history>
+            <div class="page-details">
+              <div *ngIf="bSurrenderMailHO" class="row">
+                <div class="col-sm-12">
+                  <h6 style="color: green" class="my-1">HISTORY( TO HO )</h6>
+                  <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-HO'"></app-history>
+                </div>
               </div>
-              <div class="col-sm-6">
-                <h6 style="color: green" class="my-1">SURRENDER MAIL TO AGENT</h6>
-                <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-'+Record.book_agent_code"></app-history>
+              <div *ngIf="bSurrenderMailAgent" class="row">
+                <div class="col-sm-12">
+                  <h6 style="color: green" class="my-1">HISTORY( TO AGENT )</h6>
+                  <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-'+Record.book_agent_code"></app-history>
+                </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-sm-12">
-                <h6 style="color: green" class="my-1">SURRENDER MAIL TO AGENT</h6>
-                <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-'+Record.book_agent_code"></app-history>
-              </div>
-            </div> -->
           </div>
         </ng-template>
       </ngb-tab>
