@@ -266,7 +266,8 @@
               <div class="form-group row">
                 <div class="offset-2 col-10">
                   <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print Dr/Cr</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Excel Dr/Cr</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('PDF')" class="btn btn-success btn-sm">Pdf Dr/Cr</button>
                   <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="PrintInvoice('SUMMARY','PDF',Record.cost_jv_br_inv_id)" class="btn btn-success btn-sm">Invoice</button>
                   <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
