@@ -17,7 +17,9 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'"><input *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'"><input
+              *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox" (click)="SelectDeselect()"
+              [(ngModel)]="chkallselected"></th>
           <th>UPLOAD-BY</th>
           <th>UPLOAD-DATE</th>
           <th>UPLOAD-FROM</th>
@@ -33,7 +35,9 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'" ><input *ngIf="gs.globalVariables.user_code == 'ADMIN'||rec.doc_catg_code == 'SURRLETTER'" type="checkbox" (click)="chkReset(rec)" [(ngModel)]="rec.doc_selected"></td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'"><input
+              *ngIf="gs.globalVariables.user_code == 'ADMIN'||rec.doc_catg_code == 'SURRLETTER'" type="checkbox"
+              (click)="chkReset(rec)" [(ngModel)]="rec.doc_selected"></td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_date}}</td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.doc_app_name}}</td>
@@ -95,6 +99,12 @@
           <span>{{uploadFileName?uploadFileName: 'No file chosen'}}</span>
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+        <div class="col-10">
+          <button class="btn btn-success btn-sm" (click)="uploadFiles()">Upload</button>
+        </div>
+      </div>
     </div>
     <div class="col-sm-6">
       <div style="width:100px; height:100px;">
@@ -103,7 +113,7 @@
     </div>
   </div>
 </div>
-<div class="page-details" *ngIf="canupload">
+<!-- <div class="page-details" *ngIf="canupload">
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group row">
@@ -114,7 +124,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div *ngIf="type == 'ACC-LEDGER'">
 
@@ -208,8 +218,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="pkid" [type]="mailType" [sHtml]="sHtml" [defaultmessage]="sMessage"
-      [defaultsubject]="sSubject" [AttachList]="AttachList" [updateto_ids]="true" [companywise]="companywise"
+    <app-mail [pkid]="pkid" [type]="mailType" [sHtml]="sHtml" [defaultmessage]="sMessage" [defaultsubject]="sSubject"
+      [AttachList]="AttachList" [updateto_ids]="true" [companywise]="companywise"
       [emlfilepath]="emlfilepath"></app-mail>
   </div>
   <!--<div class="modal-footer">
