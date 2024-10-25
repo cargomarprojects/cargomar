@@ -50,6 +50,7 @@ import { Linkm2Component } from './amsedi/linkm2.component';
 import { ShipTrackComponent } from './mblsea/shiptrack.component';
 import {  TransitTrackingRptComponent } from './transittrackingrpt/transittrackingrpt.component';
 import { HblBkmPartyComponent } from './mblsea/hblbkmparty.component';
+import { BlSurrenderComponent } from './mblsea/blsurrender.component';
 
 @NgModule({
   imports: [
@@ -99,7 +100,8 @@ import { HblBkmPartyComponent } from './mblsea/hblbkmparty.component';
     Linkm2Component,
     ShipTrackComponent,
     TransitTrackingRptComponent,
-    HblBkmPartyComponent
+    HblBkmPartyComponent,
+    BlSurrenderComponent
   ],
   providers: [
   ],

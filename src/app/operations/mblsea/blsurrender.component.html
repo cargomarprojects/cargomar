@@ -1,0 +1,64 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SL#</th>
+                    <th>HBL#</th>
+                    <th>MAIL-HO</th>
+                    <th>STATUS-HO</th>
+                    <th>HISTORY-HO</th>
+                    <th>MAIL-AGENT</th>
+                    <th>STATUS-AGENT</th>
+                    <th>HISTORY-AGENT</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+                    <td>{{i}}</td>
+                    <td>{{rec.bls_type_name}}</td>
+                    <td><button [disabled]="loading" class="btn btn-info btn-sm">MAIL</button></td>
+                    <td>{{rec.bls_br_mail_status}}</td>
+                    <td><button [disabled]="loading" class="btn btn-info btn-sm">HISTORY</button></td>
+                    <td><button [disabled]="loading" class="btn btn-info btn-sm">MAIL</button></td>
+                    <td>{{rec.bls_ho_mail_status}}</td>
+                    <td><button [disabled]="loading" class="btn btn-info btn-sm">HISTORY</button></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">BL Surrender</label>
+                <div class="col-sm-8">
+                    <app-autocompletemulti #BrLov [controlname]="'BRANCH'" [tabletype]="'HBLNOS'" [subtype]="''"
+                        [where]="sWhere" [displaycolumn]="'NAME'" [displaydata]="displaydata"
+                        (ValueChanged)="LovSelected($event)">
+                    </app-autocompletemulti>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="col-sm">
+                <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">ADD</button>
+                <!-- <button [disabled]="loading" (click)="ActionHandler('ADD','')"
+                    class="btn btn-success btn-sm">NEW</button> -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<br />
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

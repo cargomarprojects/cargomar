@@ -117,7 +117,7 @@ export class AutoCompleteMultiComponent {
 
   bShowMore = true;
 
-
+  _displaydataid: string = '';
 
 
   loading = false;
@@ -232,67 +232,20 @@ export class AutoCompleteMultiComponent {
 
 
   SelectedItem(_source: string, _Record: SearchTable) {
-    // if (_Record == null) {
-    //   this.inputdata.controlname = this._controlname;
-    //   this.inputdata.uid = this._uid;
-    //   this.inputdata.id = "";
-    //   this.inputdata.code = "";
-    //   this.inputdata.name = "";
-    //   this.inputdata.rate = 0;
-
-    //   this.inputdata.col1 = '';
-    //   this.inputdata.col2 = '';
-    //   this.inputdata.col3 = '';
-    //   this.inputdata.col4 = '';
-    //   this.inputdata.col5 = '';
-    //   this.inputdata.col6 = '';
-
-    //   this.inputdata.col7 = '';
-
-    //   this.displaydata = '';
-    //   this.parentid = '';
-
-
-    // }
-    // else {
-    //   this.inputdata.controlname = this._controlname;
-    //   this.inputdata.uid = this._uid;
-    //   this.inputdata.id = _Record.id;
-    //   this.inputdata.code = _Record.code;
-    //   this.inputdata.name = _Record.name;
-    //   this.inputdata.rate = _Record.rate;
-
-    //   if (this._displaycolumn == "CODE")
-    //     this._displaydata = _Record.code;
-    //   if (this._displaycolumn == "NAME")
-    //     this._displaydata = _Record.name;
-
-
-    //   this._parentid = _Record.parentid;
-
-
-    //   this.inputdata.col1 = _Record.col1;
-    //   this.inputdata.col2 = _Record.col2;
-    //   this.inputdata.col3 = _Record.col3;
-    //   this.inputdata.col4 = _Record.col4;
-    //   this.inputdata.col5 = _Record.col5;
-    //   this.inputdata.col6 = _Record.col6;
-    //   this.inputdata.col7 = _Record.col7;
-
-    // }
-
-
-    // this.showDiv = false;
-    // this.ValueChanged.emit(this.inputdata);
-    // this.RecList = [];
-
     let itms: string = "";
+    let itmsid: string = "";
     if (this.RecList != null && this.RecList != undefined) {
       this.RecList.forEach(Rec => {
         if (Rec.colchecked) {
           if (itms.trim() != "")
             itms += ",";
           itms += Rec.code;
+
+          if (!this.gs.isBlank(Rec.code)) {
+            if (itmsid.trim() != "")
+              itmsid += ",";
+            itmsid += Rec.id + "~" + Rec.code;
+          }
           // if (this._displaycolumn == "CODE")
           //   itms += Rec.code;
           // if (this._displaycolumn == "NAME")
@@ -301,6 +254,7 @@ export class AutoCompleteMultiComponent {
       })
     }
     this._displaydata = itms;
+    this._displaydataid = itmsid;
   }
 
   onfocus() {
@@ -347,7 +301,7 @@ export class AutoCompleteMultiComponent {
 
     this.inputdata.controlname = this._controlname;
     this.inputdata.uid = this._uid;
-    this.inputdata.id = "";
+    this.inputdata.id = this._displaydataid;
     this.inputdata.code = this._displaydata;
     this.inputdata.name = this._displaydata;
     this.inputdata.rate = 0;
