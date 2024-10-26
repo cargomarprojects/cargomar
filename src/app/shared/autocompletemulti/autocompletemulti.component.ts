@@ -194,7 +194,7 @@ export class AutoCompleteMultiComponent {
       .subscribe(response => {
         this.loading = false;
 
-        if (response.list == null)
+        if (this.gs.isBlank(response.list))
           this.bShowMore = false;
 
         this.RecList.push(...response.list);

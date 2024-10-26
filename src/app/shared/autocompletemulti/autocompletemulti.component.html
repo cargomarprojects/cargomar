@@ -23,7 +23,7 @@
         <tbody class="page-body-tbody">
           <tr *ngFor="let rec of RecList">
             <td (click)="SelectItem(rec)">
-              <div class="form-check"> <input type="checkbox" class="form-check-input"
+              <div *ngIf="rec.name"  class="form-check"> <input type="checkbox" class="form-check-input"
                   [(ngModel)]="rec.colchecked"><span>{{rec.name}}</span>
               </div>
             </td>
@@ -32,8 +32,8 @@
       </table>
     </div>
 
-    <ul *ngIf="bShowMore">
-      <li><a (click)="More()">More...</a>&nbsp;&nbsp;<a (click)="Close()">Close</a></li>
+    <ul>
+      <li><a *ngIf="bShowMore" (click)="More()">More...</a>&nbsp;&nbsp;<a (click)="Close()">Close</a></li>
     </ul>
   </div>
 
