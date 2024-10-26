@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { BlSurrender } from '../models/blsurrender';
 import { BlSurrenderService } from '../services/blsurrender.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { AutoCompleteMultiComponent } from '../../shared/autocompletemulti/autocompletemulti.component';
 
 @Component({
     selector: 'app-blsurrender',
@@ -18,6 +19,7 @@ export class BlSurrenderComponent {
     @Input() type: string = '';
     @Input() parentid: string = '';
 
+    @ViewChild('BlLov') private BlLovMulti: AutoCompleteMultiComponent;
     selectedRowIndex: number = -1;
 
     loading = false;
@@ -134,8 +136,9 @@ export class BlSurrenderComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new BlSurrender();
         this.Record.bls_pkid = this.pkid;
-        this.Record.bls_type_id = this.gs.defaultValues.param_unit_ctn_id;
-        this.Record.bls_type_code = this.gs.defaultValues.param_unit_ctn_code;;
+        this.Record.bls_type_id = '';
+        this.Record.bls_type_code = '';
+        this.Record.bls_type_name = '';
         this.Record.rec_mode = this.mode;
     }
 
@@ -145,6 +148,8 @@ export class BlSurrenderComponent {
 
     // Save Data
     Save() {
+        if (!this.gs.isBlank(this.BlLovMulti))
+            this.BlLovMulti.Close();
         if (!this.allvalid())
             return;
         this.loading = true;
@@ -174,19 +179,19 @@ export class BlSurrenderComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
 
-        // if (this.Record.pack_type_id.trim().length <= 0) {
-        //   bret = false;
-        //   sError += "\n\r | Pack Type Cannot Be Blank";
-        // }
-        // if (this.Record.pack_ctns <= 0) {
-        //   bret = false;
-        //   sError += "\n\r | Invalid Cartons";
-        // }
+        if (this.gs.isBlank(this.Record.bls_pkid)) {
+            bret = false;
+            sError += "\n\r | Invalid ID ";
+        }
+        if (this.gs.isBlank(this.Record.bls_type_id)) {
+            bret = false;
+            sError += "\n\r | Please select HBL to Surrender ";
+        }
 
-        // if (bret === false) {
-        //   this.ErrorMessage = sError;
-        //   alert(this.ErrorMessage);
-        // }
+        if (bret === false) {
+            this.ErrorMessage = sError;
+            alert(this.ErrorMessage);
+        }
         return bret;
     }
 
