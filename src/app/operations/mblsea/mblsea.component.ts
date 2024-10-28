@@ -1572,6 +1572,10 @@ export class MblSeaComponent {
         //   this.NewHblBkmRecord();
       }
     }
+
+    if (params.saction == "BL-SURRENDER-MAIL") {
+      this.BLSurrenderMail(params.type);
+    }
   }
 
   open(content: any) {

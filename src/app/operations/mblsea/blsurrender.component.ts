@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { BlSurrender } from '../models/blsurrender';
@@ -18,18 +19,23 @@ export class BlSurrenderComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() parentid: string = '';
+    @Input() agentcode: string = '';
+    @Input() mailho: boolean = false;
+    @Input() mailagent: boolean = false;
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     @ViewChild('BlLov') private BlLovMulti: AutoCompleteMultiComponent;
     selectedRowIndex: number = -1;
 
     loading = false;
     currentTab = 'LIST';
-
+    modal: any;
     ErrorMessage = "";
     InfoMessage = "";
     mode = 'ADD';
     pkid = '';
     sWhere = "";
+    historyType = "";
     ctr: number;
 
     // Array For Displaying List
@@ -40,6 +46,7 @@ export class BlSurrenderComponent {
 
 
     constructor(
+        private modalService: NgbModal,
         private mainService: BlSurrenderService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -50,6 +57,11 @@ export class BlSurrenderComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.sWhere = "hbl_mbl_id='" + this.parentid + "'";
+        this.sWhere += " and hbl_pkid not in (";
+        this.sWhere += " select bls_type_id from bl_surrender a ";
+        this.sWhere += " where bls_mbl_id='" + this.parentid + "' and nvl(bls_type,'')='HBL'";
+        this.sWhere += " ) ";
+
         this.List("NEW");
         this.ActionHandler("ADD", null);
     }
@@ -95,11 +107,6 @@ export class BlSurrenderComponent {
             this.pkid = id;
             this.GetRecord(id);
         }
-        else if (action === 'REMOVE') {
-            this.currentTab = 'DETAILS';
-            this.pkid = id;
-            this.RemoveRecord(id);
-        }
     }
 
     ResetControls() {
@@ -112,7 +119,7 @@ export class BlSurrenderComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            parentid: this.parentid,
+            mblid: this.parentid,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code
@@ -160,9 +167,8 @@ export class BlSurrenderComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                this.RecordList = response.list;
                 this.InfoMessage = "Save Complete";
-                this.mode = 'EDIT';
-                this.Record.rec_mode = this.mode;
                 this.RefreshList();
                 this.ActionHandler('ADD', null);
             },
@@ -181,16 +187,16 @@ export class BlSurrenderComponent {
 
         if (this.gs.isBlank(this.Record.bls_pkid)) {
             bret = false;
-            sError += "\n\r | Invalid ID ";
+            sError += "\n| Invalid ID ";
         }
         if (this.gs.isBlank(this.Record.bls_type_id)) {
             bret = false;
-            sError += "\n\r | Please select HBL to Surrender ";
+            sError += "\n| Please select HBL to Surrender ";
         }
 
         if (bret === false) {
-            this.ErrorMessage = sError;
-            alert(this.ErrorMessage);
+            // this.ErrorMessage = sError;
+            alert(sError);
         }
         return bret;
     }
@@ -210,25 +216,33 @@ export class BlSurrenderComponent {
         //   REC.pack_ctns = this.Record.pack_ctns;
         // }
     }
-    RemoveList(event: any) {
-        if (event.selected) {
-            this.ActionHandler('REMOVE', event.id)
+
+    DeleteRecord(_rec: BlSurrender) {
+        let sremark = "";
+        if (!confirm("Delete HBL" + _rec.bls_type_name)) {
+            return;
         }
-    }
-    RemoveRecord(Id: string) {
+
+        sremark = "MAIL STATUS BR:" + _rec.bls_br_mail_status;
+        sremark += ", MAIL STATUS HO:" + _rec.bls_ho_mail_status;
+
         this.loading = true;
         let SearchData = {
-            pkid: Id,
-            parentid: this.parentid
+            pkid: _rec.bls_pkid,
+            mblid: _rec.bls_mbl_id,
+            hblno: _rec.bls_type_name,
+            remarks: sremark,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
         };
-
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.mainService.DeleteRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList.splice(this.RecordList.findIndex(rec => rec.bls_pkid == this.pkid), 1);
-                this.ActionHandler('ADD', null);
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.bls_pkid == _rec.bls_pkid), 1);
+                alert("Removed Successfully");
             },
                 error => {
                     this.loading = false;
@@ -261,5 +275,17 @@ export class BlSurrenderComponent {
 
         //}
     }
+    BLSurrenderMail(_type: string) {
+        if (this.ModifiedRecords != null)
+            this.ModifiedRecords.emit({ saction: 'BL-SURRENDER-MAIL', type: _type });
+    }
 
+    History(_type: string, _history: any) {
+        this.historyType = _type;
+        this.open(_history);
+    }
+
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
 }

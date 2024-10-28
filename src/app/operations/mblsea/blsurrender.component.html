@@ -1,3 +1,4 @@
+<h6 style="color: green" class="my-1">BL SURRENDER</h6>
 <div class="page-list">
     <div class="page-body table-responsive">
         <table class="table  table-hover table-sm">
@@ -5,26 +6,31 @@
                 <tr>
                     <th>SL#</th>
                     <th>HBL#</th>
-                    <th>MAIL-HO</th>
-                    <th>STATUS-HO</th>
-                    <th>HISTORY-HO</th>
-                    <th>MAIL-AGENT</th>
-                    <th>STATUS-AGENT</th>
-                    <th>HISTORY-AGENT</th>
-                    <th>DELETE</th>
+                    <th *ngIf="mailho">MAIL-TO-HO</th>
+                    <th *ngIf="mailho">MAIL-STATUS-HO</th>
+                    <th *ngIf="mailagent">MAIL-TO-AGENT</th>
+                    <th *ngIf="mailagent">MAIL-STATUS-AGENT</th>
+                    <th>CREATED-BY</th>
+                    <th>CREATED-DT</th>
+                    <th *ngIf="mailho">DELETE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{rec.bls_type_name}}</td>
-                    <td><button [disabled]="loading" class="btn btn-info btn-sm">MAIL</button></td>
-                    <td>{{rec.bls_br_mail_status}}</td>
-                    <td><button [disabled]="loading" class="btn btn-info btn-sm">HISTORY</button></td>
-                    <td><button [disabled]="loading" class="btn btn-info btn-sm">MAIL</button></td>
-                    <td>{{rec.bls_ho_mail_status}}</td>
-                    <td><button [disabled]="loading" class="btn btn-info btn-sm">HISTORY</button></td>
-                    <td></td>
+                    <td *ngIf="mailho" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO')"><i
+                            class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
+                    </td>
+                    <td *ngIf="mailho">{{rec.bls_br_mail_status}}</td>
+                    <td *ngIf="mailagent" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+agentcode)"><i
+                            class="fa fa-envelope fa-lg pointer" aria-hidden="true"></i>
+                    </td>
+                    <td *ngIf="mailagent">{{rec.bls_ho_mail_status}}</td>
+                    <td>{{rec.rec_created_by}}</td>
+                    <td>{{rec.rec_created_date}}</td>
+                    <td *ngIf="mailho" class="hlink" (click)="DeleteRecord(rec)"><i class="fa fa-trash  fa-lg pointer"
+                            aria-hidden="true"></i></td>
                 </tr>
             </tbody>
         </table>
@@ -32,12 +38,12 @@
 </div>
 <div class="page-details">
     <div class="row">
-        <div class="col-sm-6">
+        <div *ngIf="mailho" class="col-sm-6">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label col-form-label-sm">BL Surrender</label>
                 <div class="col-sm-8">
                     <app-autocompletemulti #BlLov [controlname]="'BRANCH'" [tabletype]="'HBLNOS'" [subtype]="''"
-                        [where]="sWhere" [displaycolumn]="'NAME'" [displaydata]="displaydata" [showmore]=false
+                        [where]="sWhere" [displaycolumn]="'NAME'" [displaydata]="Record.bls_type_name" [showmore]=false
                         (ValueChanged)="LovSelected($event)">
                     </app-autocompletemulti>
                 </div>
@@ -46,14 +52,17 @@
         <div class="col-sm-4">
 
             <div class="col-sm">
-                <button [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">ADD</button>
-                <!-- <button [disabled]="loading" (click)="ActionHandler('ADD','')"
-                    class="btn btn-success btn-sm">NEW</button> -->
+                <button *ngIf="mailho" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">ADD</button>
+                <button *ngIf="mailho" [disabled]="loading" (click)="History('BL-SURRENDER-MAIL-HO',history)"
+                    class="btn btn-success btn-sm">HISTORY(TO HO)</button>
+                <button *ngIf="mailagent" [disabled]="loading" (click)="History('BL-SURRENDER-MAIL-'+agentcode,history)"
+                    class="btn btn-success btn-sm">HISTORY(TO AGENT)</button>
             </div>
 
         </div>
     </div>
 </div>
+
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
@@ -62,3 +71,14 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
 </div>
+<ng-template #history let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">History</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-history [pkid]="parentid" [type]="historyType"></app-history>
+    </div>
+</ng-template>

@@ -1000,7 +1000,8 @@
               </div>
             </div>
             <div class="page-details">
-              <app-blsurrender [parentid]="pkid" [type]="type"></app-blsurrender>
+              <app-blsurrender [parentid]="pkid" [type]="type" [agentcode]="Record.book_agent_code"
+                [mailho]="bSurrenderMailHO" [mailagent]="bSurrenderMailAgent" (ModifiedRecords)="ModifiedRecords($event)"></app-blsurrender>
             </div>
           </div>
         </ng-template>
