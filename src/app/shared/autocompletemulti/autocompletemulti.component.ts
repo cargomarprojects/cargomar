@@ -92,6 +92,12 @@ export class AutoCompleteMultiComponent {
       this._branchcode = value;
   }
 
+  private _bShowMore: boolean = true;
+  @Input() set bshowmore(value: boolean) {
+    if (value != null)
+      this._bShowMore = value;
+  }
+
   private inputdata: SearchTable = new SearchTable();
 
   @Output() ValueChanged = new EventEmitter<SearchTable>();
@@ -194,7 +200,7 @@ export class AutoCompleteMultiComponent {
       .subscribe(response => {
         this.loading = false;
 
-        if (this.gs.isBlank(response.list))
+        if (this.gs.isBlank(response.list) || !this._bShowMore)
           this.bShowMore = false;
 
         this.RecList.push(...response.list);
