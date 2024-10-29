@@ -17,7 +17,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'"><input
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'||showcheckbox"><input
               *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox" (click)="SelectDeselect()"
               [(ngModel)]="chkallselected"></th>
           <th>UPLOAD-BY</th>
@@ -35,7 +35,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'||type=='MBL-SE'"><input
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'||showcheckbox"><input
               *ngIf="gs.globalVariables.user_code == 'ADMIN'||rec.doc_catg_code == 'SURRLETTER'" type="checkbox"
               (click)="chkReset(rec)" [(ngModel)]="rec.doc_selected"></td>
           <td (click)="ShowFile(rec.doc_full_name,rec.doc_file_name)">{{rec.rec_created_by}}</td>
@@ -219,8 +219,8 @@
   </div>
   <div class="modal-body">
     <app-mail [pkid]="pkid" [type]="mailType" [sHtml]="sHtml" [defaultmessage]="sMessage" [defaultsubject]="sSubject"
-      [AttachList]="AttachList" [updateto_ids]="true" [companywise]="companywise"
-      [emlfilepath]="emlfilepath"></app-mail>
+      [AttachList]="AttachList" [updateto_ids]="true" [companywise]="companywise" [emlfilepath]="emlfilepath"
+      [parentid]="parentid"></app-mail>
   </div>
   <!--<div class="modal-footer">
     <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>

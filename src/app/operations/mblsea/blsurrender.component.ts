@@ -275,9 +275,9 @@ export class BlSurrenderComponent {
 
         //}
     }
-    BLSurrenderMail(_type: string) {
+    BLSurrenderMail(_type: string, _blspkid: string = "") {
         if (this.ModifiedRecords != null)
-            this.ModifiedRecords.emit({ saction: 'BL-SURRENDER-MAIL', type: _type });
+            this.ModifiedRecords.emit({ saction: 'BL-SURRENDER-MAIL', type: _type, blspkid: _blspkid });
     }
 
     History(_type: string, _history: any) {

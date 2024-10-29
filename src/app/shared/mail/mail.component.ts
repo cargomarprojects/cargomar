@@ -17,6 +17,7 @@ export class MailComponent {
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() menuid: string = '';
   @Input() public pkid: string = '';
+  @Input() public parentid: string = '';
   @Input() public type: string = '';
   @Input() public sHtml: string = '';
   @Input() public defaultto_ids: string = '';
@@ -295,15 +296,24 @@ export class MailComponent {
 
     let filename: string = "";
     let filedisplayname: string = "";
+    let filedocid: string = "";
     if (this.AttachList != null) {
       if (this.AttachList.length == 1) {
         filename = this.AttachList[0].filename;
         filedisplayname = this.AttachList[0].filedisplayname;
+        if (!this.gs.isBlank(this.AttachList[0].filedocid)) {
+          filedocid = this.AttachList[0].filedocid;
+        }
       } else {
         for (let rec of this.AttachList) {
           if (filename != "")
             filename = filename.concat(",");
           filename = filename.concat(rec.filename, "~", rec.filedisplayname);
+          if (!this.gs.isBlank(rec.filedocid)) {
+            if (filedocid != "")
+              filedocid += ",";
+            filedocid += rec.filedocid;
+          }
         }
       }
     }
@@ -312,6 +322,7 @@ export class MailComponent {
     let SearchData = {
       table: controlname,
       pkid: '',
+      parentid: '',
       to_ids: '',
       cc_ids: '',
       bcc_ids: '',
@@ -335,11 +346,13 @@ export class MailComponent {
       report_folder: this.gs.globalVariables.report_folder,
       companywise: false,
       root_folder: this.gs.defaultValues.root_folder,
-      sub_folder: this.gs.defaultValues.sub_folder
+      sub_folder: this.gs.defaultValues.sub_folder,
+      filedocid: ''
     };
 
     SearchData.table = controlname;
     SearchData.pkid = this.pkid;
+    SearchData.parentid = this.parentid;
     SearchData.to_ids = this.to_ids;
     SearchData.cc_ids = this.cc_ids;
     SearchData.bcc_ids = this.bcc_ids;
@@ -369,6 +382,7 @@ export class MailComponent {
     SearchData.companywise = this.companywise;
     SearchData.root_folder = this.gs.defaultValues.root_folder;
     SearchData.sub_folder = this.gs.defaultValues.sub_folder;
+    SearchData.filedocid = filedocid;
 
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {

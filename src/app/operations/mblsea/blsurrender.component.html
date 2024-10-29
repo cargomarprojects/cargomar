@@ -19,11 +19,12 @@
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
                     <td>{{i+1}}</td>
                     <td>{{rec.bls_type_name}}</td>
-                    <td *ngIf="mailho" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO')"><i
+                    <td *ngIf="mailho" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO',rec.bls_pkid)"><i
                             class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
                     </td>
                     <td *ngIf="mailho">{{rec.bls_br_mail_status}}</td>
-                    <td *ngIf="mailagent" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+agentcode)"><i
+                    <td *ngIf="mailagent" class="hlink"
+                        (click)="BLSurrenderMail('BL-SURRENDER-MAIL-'+agentcode,rec.bls_pkid)"><i
                             class="fa fa-envelope fa-lg pointer" aria-hidden="true"></i>
                     </td>
                     <td *ngIf="mailagent">{{rec.bls_ho_mail_status}}</td>

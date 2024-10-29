@@ -1574,7 +1574,7 @@ export class MblSeaComponent {
     }
 
     if (params.saction == "BL-SURRENDER-MAIL") {
-      this.BLSurrenderMail(params.type);
+      this.BLSurrenderMail(params.type, params.blspkid);
     }
   }
 
@@ -2004,12 +2004,13 @@ export class MblSeaComponent {
         });
   }
 
-  BLSurrenderMail(_type: string) {
+  BLSurrenderMail(_type: string, _blspkid: string = "") {
     this.loading = true;
     let SearchData = {
       mblid: this.pkid,
       type: _type,
-      root_folder: this.gs.defaultValues.root_folder
+      root_folder: this.gs.defaultValues.root_folder,
+      blspkid: _blspkid
     };
 
     this.ErrorMessage = '';
@@ -2021,7 +2022,7 @@ export class MblSeaComponent {
           alert(response.error)
         else {
           if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
-            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type);
+            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type, _blspkid, response.docids);
           }
         }
       },

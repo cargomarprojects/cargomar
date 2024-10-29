@@ -22,6 +22,7 @@ export class FileUploadComponent {
   @Input() public defaultdoctype: string = '';
   @Input() public uploadfilesize: number = 0;
   @Input() public uploadfiletype: string = '';
+  @Input() public showcheckbox: boolean = false;
 
   public QrData: string = null;
   qrJson = {
@@ -43,6 +44,7 @@ export class FileUploadComponent {
 
   copy_type: string = 'MBL-SE';
   copy_no: string = '';
+  parentid: string = '';
 
   loading = false;
   myFiles: string[] = [];
@@ -523,7 +525,7 @@ export class FileUploadComponent {
     return " " + strsize;
   }
 
-  MailDocument(mailmodal: any, _setMsg: boolean = true) {
+  MailDocument(mailmodal: any, _setMsg: boolean = true, _docids: string = '') {
     this.emlfilepath = '';
     this.AttachList = new Array<any>();
     let _dSize = 0;
@@ -532,15 +534,20 @@ export class FileUploadComponent {
         if (rec.doc_catg_code == "PREALERT-EMAIL" && (rec.doc_file_name.toUpperCase().endsWith('.EML'))) { //|| rec.doc_file_name.toUpperCase().endsWith('.MSG')
           this.emlfilepath = rec.doc_full_name;
         }
-        else if (rec.doc_selected && rec.doc_catg_code == "SURRLETTER") {
+        else if (this.mailType == "BL-SURRENDER-MAIL-HO" && rec.doc_selected && rec.doc_catg_code == "SURRLETTER") {
           _dSize = this.getFsize(rec.doc_file_size);
-          this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+          this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize, filedocid: rec.doc_pkid });
+        } else if (!this.gs.isBlank(_docids)) {
+          if (_docids.includes(rec.doc_pkid)) {
+            _dSize = this.getFsize(rec.doc_file_size);
+            this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize, filedocid: rec.doc_pkid });
+          }
         }
       }
     } else {
       for (let rec of this.RecordList.filter(rec => rec.doc_selected == true)) {
         _dSize = this.getFsize(rec.doc_file_size);
-        this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize });
+        this.AttachList.push({ filename: rec.doc_full_name, filetype: '', filedisplayname: rec.doc_file_name, filesize: _dSize, filedocid: rec.doc_pkid });
       }
     }
 
@@ -659,14 +666,22 @@ export class FileUploadComponent {
     this.bDragged = false;
   }
 
-  public showmail(_sub: string, _msg: string, _type: string) {
+  public showmail(_sub: string, _msg: string, _type: string, _parentid: string = '', _docids: string = '') {
     let bOk = false;
     this.sSubject = _sub;
     this.sMessage = _msg;
     this.mailType = _type;
+    this.parentid = _parentid;
     this.companywise = false;
     if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0)
       this.companywise = true;
+    // if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0 && _type != "BL-SURRENDER-MAIL-HO" && _docids != '') {
+    //   for (let rec of this.RecordList) {
+    //     if (_docids.includes(rec.doc_pkid)) {
+    //       rec.doc_selected = true;
+    //     }
+    //   }
+    // }
 
     for (let rec of this.RecordList) {
       if (rec.doc_selected) {
@@ -675,11 +690,11 @@ export class FileUploadComponent {
       }
     }
 
-    if (!bOk && _type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+    if (!bOk && _type == "BL-SURRENDER-MAIL-HO") {
       alert('No attachements selected');
       return;
     }
-    this.MailDocument(this._ctrlmailsent, false);
+    this.MailDocument(this._ctrlmailsent, false, _docids);
   }
 
 }

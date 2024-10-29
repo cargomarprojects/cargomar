@@ -965,9 +965,9 @@
 
       <ngb-tab title="Documents" *ngIf="mode == 'EDIT' && bDocs">
         <ng-template ngbTabContent>
-          <app-upload #blsurrendermail [pkid]="pkid" [type]="'MBL-SE'"></app-upload>
+          <app-upload #blsurrendermail [pkid]="pkid" [type]="'MBL-SE'" [showcheckbox]="bSurrenderMailHO"></app-upload>
           <div *ngIf="bSurrenderMailHO||bSurrenderMailAgent" class="mt-2">
-            <div class="page-details">
+            <!-- <div class="page-details">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group row">
@@ -998,11 +998,11 @@
                   <app-history [pkid]="pkid" [type]="'BL-SURRENDER-MAIL-'+Record.book_agent_code"></app-history>
                 </div>
               </div>
-            </div>
-            <!-- <div class="page-details">
+            </div> -->
+            <div class="page-details">
               <app-blsurrender [parentid]="pkid" [type]="type" [agentcode]="Record.book_agent_code"
                 [mailho]="bSurrenderMailHO" [mailagent]="bSurrenderMailAgent" (ModifiedRecords)="ModifiedRecords($event)"></app-blsurrender>
-            </div> -->
+            </div>
           </div>
         </ng-template>
       </ngb-tab>
