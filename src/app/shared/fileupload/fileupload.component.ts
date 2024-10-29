@@ -675,13 +675,7 @@ export class FileUploadComponent {
     this.companywise = false;
     if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0)
       this.companywise = true;
-    // if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0 && _type != "BL-SURRENDER-MAIL-HO" && _docids != '') {
-    //   for (let rec of this.RecordList) {
-    //     if (_docids.includes(rec.doc_pkid)) {
-    //       rec.doc_selected = true;
-    //     }
-    //   }
-    // }
+
 
     for (let rec of this.RecordList) {
       if (rec.doc_selected) {
@@ -693,7 +687,13 @@ export class FileUploadComponent {
     if (!bOk && _type == "BL-SURRENDER-MAIL-HO") {
       alert('No attachements selected');
       return;
+    } else if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0 && _type != "BL-SURRENDER-MAIL-HO") {
+      if (this.gs.isBlank(_docids)) {
+        alert('No attachements Found');
+        return;
+      }
     }
+
     this.MailDocument(this._ctrlmailsent, false, _docids);
   }
 
