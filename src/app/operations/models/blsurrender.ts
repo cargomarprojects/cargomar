@@ -10,6 +10,7 @@ export class BlSurrender {
     bls_type_name: string;
     bls_br_mail_status: string;
     bls_ho_mail_status: string;
+    bls_attach_name: string;
     bls_ctr: number;
     rec_created_by: string;
     rec_created_date: string;

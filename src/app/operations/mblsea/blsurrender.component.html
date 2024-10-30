@@ -6,6 +6,7 @@
                 <tr>
                     <th>SL#</th>
                     <th>HBL#</th>
+                    <th>ATTACHMENTS</th>
                     <th *ngIf="mailho">MAIL-TO-HO</th>
                     <th *ngIf="mailho">MAIL-STATUS</th>
                     <th *ngIf="mailagent">MAIL-TO-AGENT</th>
@@ -19,6 +20,7 @@
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
                     <td>{{i+1}}</td>
                     <td>{{rec.bls_type_name}}</td>
+                    <td>{{rec.bls_attach_name}}</td>
                     <td *ngIf="mailho" class="hlink" (click)="BLSurrenderMail('BL-SURRENDER-MAIL-HO',rec.bls_pkid)"><i
                             class="fa fa-envelope  fa-lg pointer" aria-hidden="true"></i>
                     </td>
