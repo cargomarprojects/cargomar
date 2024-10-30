@@ -571,8 +571,17 @@ export class MblAirComponent {
     this.Record.rec_mode = this.mode;
     this.Record.TransitList = new Array<Trackingm>();
     this.NewTransitRecord();
+    this.InitDefault();
   }
-
+  InitDefault() {
+    if (this.StatusList != null) {
+      var REC = this.StatusList.find(rec => rec.param_name == 'PENDING');
+      if (REC != null) {
+        this.Record.mbl_status_id = REC.param_pkid;
+      }
+    }
+    //
+  }
   // Load a single Record for VIEW/EDIT
   GetRecord(Id: string) {
     this.loading = true;

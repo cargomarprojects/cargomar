@@ -23,6 +23,7 @@ export class CostPending {
   mbl_voyage_no: string;
   exporter_name:string;
   importer_name:string;
-  
+  mbl_status: string;
+
   _globalvariables: GlobalVariables;
 }

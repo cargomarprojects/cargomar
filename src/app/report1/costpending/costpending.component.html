@@ -99,6 +99,7 @@
           <th>COST-DATE</th>
           <th>POSTED</th>
           <th>NO COSTING</th>
+          <th>STATUS</th>
           <th>UPDATE</th>
         </tr>
       </thead>
@@ -122,6 +123,7 @@
           <td>{{rec.cost_date}}</td>
           <td>{{rec.cost_jv_posted}}</td>
           <td>{{rec.mbl_nocosting}}</td>
+          <td>{{rec.mbl_status}}</td>
           <!--<td><i class="fa fa-save fa-lg pointer" aria-hidden="true" (click)="UpdateNoCosting(rec.mbl_pkid,rec.mbl_folder_no)"></i></td>-->
           <td>
             <App-Dialog [id]="{msg:'NO COSTING Y/N', buttons:'yn', selected :false,id:rec.mbl_pkid,name:rec.mbl_folder_no}" (result)="UpdateNoCosting($event)"></App-Dialog>
