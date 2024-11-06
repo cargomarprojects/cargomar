@@ -100,6 +100,9 @@ export class FileUploadComponent {
     if (_type == 'desc')
       this.qrJson.desc = mid;
     this.QrData = JSON.stringify(this.qrJson);
+
+    if (_type == 'catg')
+      this.IsTypeDupliation(mid);
   }
 
   LoadCombo() {
@@ -696,5 +699,46 @@ export class FileUploadComponent {
 
     this.MailDocument(this._ctrlmailsent, false, _docids);
   }
+
+  IsTypeDupliation(_type_id: string) {
+
+    let _Doctype: string = '';
+    if (this.gs.isBlank(_type_id))
+      return;
+
+    if (this.DocTypeList != null) {
+      var REC = this.DocTypeList.find(rec => rec.param_pkid == _type_id);
+      if (REC != null) {
+        _Doctype = REC.param_name;
+      }
+    }
+
+    if (_Doctype != 'PREALERT-EMAIL') //will check only duplication of PREALERT-EMAIL Doc type //D36FCC77-89EB-2A38-2592-7E7661817F14 this ID is of PREALERT-EMAIL
+      return;
+
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      parentid: this.pkid,
+      doccatgid: _type_id
+    };
+
+    this.lovService.IsTypeDuplication(SearchData)
+      .subscribe(response => {
+        if (response.retvalue) {
+          alert(response.retstring);
+          if (this.DocTypeList != null) {
+            var REC = this.DocTypeList.find(rec => rec.param_name == 'OTHERS');
+            if (REC != null) {
+              this.catg_id = REC.param_pkid;
+            }
+          }
+        }
+      }, error => {
+        alert(this.gs.getError(error));
+      });
+
+  }
+
 
 }

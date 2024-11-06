@@ -41,6 +41,9 @@ export class LovService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/General/DeleteDocument', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    IsTypeDuplication(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/General/IsTypeDuplication', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 
 
