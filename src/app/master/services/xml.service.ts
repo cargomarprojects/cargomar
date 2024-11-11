@@ -31,5 +31,9 @@ export class XmlService {
     GenerateXlsBooking(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/BkTeu/GenerateXlsBooking', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    DeleteFilesFromFolder(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/DeleteFilesFromFolder', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

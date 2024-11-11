@@ -459,4 +459,32 @@ export class XmlComponent {
         });
 
   }
+
+  /* This funtion is used in Powershell scheduler*/
+  DeleteFiles() {
+
+    this.ErrorMessage = '';
+    if (!confirm("Delete Files ")) {
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      folderpath: "C:\\Users\\Admin\\Downloads",
+      todate: "2024-11-07"
+    };
+
+    this.mainService.DeleteFilesFromFolder(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert(response.msg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
 }
