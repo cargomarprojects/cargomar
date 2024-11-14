@@ -692,7 +692,35 @@ export class AirBlComponent {
           this.Record.bl_flight2 = this.Record.bl_flight2.toUpperCase();
           break;
         }
+      case 'bl_vsl_name':
+        {
+          this.Record.bl_vsl_name = this.Record.bl_vsl_name.toUpperCase();
+          break;
+        }
 
+      case 'bl_vsl_voy_no':
+        {
+          this.Record.bl_vsl_voy_no = this.Record.bl_vsl_voy_no.toUpperCase();
+          break;
+        }
+
+      case 'bl_period_delivery':
+        {
+          this.Record.bl_period_delivery = this.Record.bl_period_delivery.toUpperCase();
+          break;
+        }
+
+      case 'bl_move_type':
+        {
+          this.Record.bl_move_type = this.Record.bl_move_type.toUpperCase();
+          break;
+        }
+
+      case 'bl_place_transhipment':
+        {
+          this.Record.bl_place_transhipment = this.Record.bl_place_transhipment.toUpperCase();
+          break;
+        }
       case 'bl_issued_by1':
         {
           this.Record.bl_issued_by1 = this.Record.bl_issued_by1.toUpperCase();

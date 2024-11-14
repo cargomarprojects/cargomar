@@ -723,7 +723,7 @@ export class BlComponent {
           break;
         }
 
-      case 'bl_bl_place_transhipment':
+      case 'bl_place_transhipment':
         {
           this.Record.bl_place_transhipment = this.Record.bl_place_transhipment.toUpperCase();
           break;

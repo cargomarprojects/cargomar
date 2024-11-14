@@ -522,7 +522,39 @@
 
   <div class="row">
     <div class="col-sm-12">
-
+      <div class="form-group row">
+        <label style="padding-right:0" class="offset-2 col-3 col-form-label col-form-label-sm">Vessel</label>
+        <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">Voyage</label>
+        <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Date Or Period of
+          Delivery</label>
+        <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Modes/Means Of
+          Transport</label>
+        <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Place of Transhipment </label>
+      </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="offset-2 col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_name"
+            (blur)="OnBlur('bl_vsl_name')" required maxlength="60" />
+        </div>
+        <div style="padding-right:0;padding-left:1px" class="col-1">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_voy_no"
+            (blur)="OnBlur('bl_vsl_voy_no')" required maxlength="20" />
+        </div>
+        <div style="padding-right:0;padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_period_delivery"
+            (blur)="OnBlur('bl_period_delivery')" required maxlength="30" />
+        </div>
+        <div style="padding-right:0;padding-left:1px" class="col-2">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_move_type">
+            <option [value]="'AIR'">AIR</option>
+            <option [value]="'AIR - SEA'">AIR - SEA</option>
+          </select>
+        </div>
+        <div style="padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_place_transhipment"
+            (blur)="OnBlur('bl_place_transhipment')" required maxlength="60" />
+        </div>
+      </div>
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Handling Information</label>
         <div class="col-10">
@@ -1422,7 +1454,7 @@
                 </table>
               </div>
             </div>
-            <label class="form-check-label">
+            <label class="form-check-label ml-4">
               <input class="form-check-input" type="checkbox" [(ngModel)]="backside_print">
               Back Side
             </label>
@@ -1450,8 +1482,8 @@
               *ngIf="invokefrom=='MAWB'">MAWB Print</span></button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HAWB'" (click)="GetRecord('PDF','FCR')"
             class="btn btn-success btn-sm">FCR</button>
-            <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
-                  class="btn btn-success btn-sm">Draft Excel</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()" class="btn btn-success btn-sm">Draft
+            Excel</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetRecord('PDF','BLANKBL')"
             class="btn btn-success btn-sm">Stationary Print</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
