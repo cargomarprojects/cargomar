@@ -1015,7 +1015,11 @@ export class AirBlComponent {
           this.Record.bl_total = this.gs.roundWeight(this.Record.bl_total, "AMT");
           break;
         }
-
+      case 'bl_cbm':
+        {
+          this.Record.bl_cbm = this.gs.roundWeight(this.Record.bl_cbm, "CBM");
+          break;
+        }
 
       case 'bl_by1_agent':
         {
@@ -1381,6 +1385,16 @@ export class AirBlComponent {
       case 'bl_place_delivery':
         {
           this.Record.bl_place_delivery = this.Record.bl_place_delivery.toUpperCase();
+          break;
+        }
+      case 'bl_frt_pay_at':
+        {
+          this.Record.bl_frt_pay_at = this.Record.bl_frt_pay_at.toUpperCase();
+          break;
+        }
+      case 'bl_place_receipt':
+        {
+          this.Record.bl_place_receipt = this.Record.bl_place_receipt.toUpperCase();
           break;
         }
     }
