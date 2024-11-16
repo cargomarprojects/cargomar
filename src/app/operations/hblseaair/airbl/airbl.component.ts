@@ -980,6 +980,11 @@ export class AirBlComponent {
           this.Record.bl_pcs = this.gs.roundWeight(this.Record.bl_pcs, "PCS");
           break;
         }
+      case 'bl_pcs_unit':
+        {
+          this.Record.bl_pcs_unit = this.Record.bl_pcs_unit.toUpperCase();
+          break;
+        }
       case 'bl_wt_unit':
         {
           this.Record.bl_wt_unit = this.Record.bl_wt_unit.toUpperCase();

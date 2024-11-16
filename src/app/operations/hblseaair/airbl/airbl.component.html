@@ -592,8 +592,9 @@
       <div class="form-group row">
         <div class="offset-2 col-5">
           <div class="form-group row">
-            <label style="padding-right:0" class="col-3 col-form-label col-form-label-sm">PCS</label>
-            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">GR.WT</label>
+            <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">PCS</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">UNIT</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">GR.WT</label>
             <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">KG</label>
             <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">CLASS</label>
             <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">COMM</label>
@@ -611,11 +612,15 @@
       <div class="form-group row">
         <div class="offset-2 col-5">
           <div class="form-group row">
-            <div style="padding-right:0" class="col-3">
+            <div style="padding-right:0" class="col-2">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs"
                 (blur)="OnBlur('bl_pcs')" required maxlength="15" />
             </div>
-            <div style="padding-right:0;padding-left:1px" class="col-3">
+            <div style="padding-right:0;padding-left:1px" class="col-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_unit"
+              (blur)="OnBlur('bl_pcs_unit')" required maxlength="5" />
+            </div>
+            <div style="padding-right:0;padding-left:1px" class="col-2">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt"
                 (blur)="OnBlur('bl_grwt')" required maxlength="15" />
             </div>
@@ -649,7 +654,7 @@
             </div>
             <div style="padding-left:1px" class="col-3">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_cbm"
-              (blur)="OnBlur('bl_cbm')" required maxlength="15" />
+                (blur)="OnBlur('bl_cbm')" required maxlength="15" />
             </div>
           </div>
         </div>
