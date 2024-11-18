@@ -38,6 +38,7 @@ export class GstComponent {
   display_format_type: string = '';
   reconcile_state_name: string = "KERALA";
   reconcile_state_code: string = "32";
+  round_off: number = 5;
 
   bCompany = false;
   disableSave = true;
@@ -72,6 +73,7 @@ export class GstComponent {
     user_code: '',
     state_name: '',
     state_code: '',
+    round_off: 5,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries
   };
 
@@ -227,7 +229,7 @@ export class GstComponent {
 
     if (!this.gs.isBlank(this.BrLovMulti))
       this.BrLovMulti.Close();
-    
+
     this.ErrorMessage = '';
     if (this.from_date.trim().length <= 0) {
       this.ErrorMessage = "From Date Cannot Be Blank";
@@ -301,6 +303,7 @@ export class GstComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.reconcile_state_code;
     this.SearchData.state_name = this.reconcile_state_name;
+    this.SearchData.round_off = this.round_off;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.ErrorMessage = '';
     this.mainService.GstReport(this.SearchData)
