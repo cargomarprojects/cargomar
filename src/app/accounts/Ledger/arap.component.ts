@@ -2324,7 +2324,10 @@ export class ArApComponent {
       report_format: '',
       menuadmin: '',
       user_code: '',
+      blank_format: ''
     }
+    // to take blank format set blank_format as Y
+    SearchData.blank_format = 'N';
 
     SearchData.pkid = this.pkid;
     SearchData.report_format = reportformat;
