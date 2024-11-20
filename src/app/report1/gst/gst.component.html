@@ -43,7 +43,8 @@
               <option [value]="'DN'">DEBIT NOTE</option>
               <option [value]="'CN'">CREDIT NOTE</option>
               <option [value]="'DI'">INWARD DEBIT NOTE</option>
-              <option [value]="'CI'">INWARD CREDIT NOTE</option>
+              <option [value]="'CI-SUMMARY'">INWARD CREDIT NOTE</option>
+              <option [value]="'CI'">INWARD CREDIT NOTE DETAILS</option>
               <option [value]="'GSTR2B'">GSTR2B</option>
               <!-- <option [value]="'RECONCILE-PURCHASE'">RECONCILE PURCHASE</option> -->
               <option [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
@@ -509,7 +510,7 @@
       </table>
     </div>
     <div
-      *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'"
+      *ngIf="display_format_type=='DN'||display_format_type=='CN'||display_format_type=='DI'||display_format_type=='CI'||display_format_type=='CI-SUMMARY'"
       class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
       <table class="table  table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
