@@ -691,7 +691,7 @@ export class CustomerComponent {
 
 
     if (bret) {
-      this.Record.cust_code = this.Record.cust_code.toUpperCase().replace(' ', '');
+      this.Record.cust_code = this.Record.cust_code.toUpperCase();
       this.Record.cust_name = this.Record.cust_name.toUpperCase().trim();
       this.Record.cust_iecode = this.Record.cust_iecode.toUpperCase().trim();
       this.Record.cust_caseno = this.Record.cust_caseno.toUpperCase().trim();
