@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Gstr2bDownload } from '../models/gstr2bdownload';
 import { GstReconRepService } from '../services/gstreconrep.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-gstreconrep',
@@ -26,9 +27,12 @@ export class GstReconRepComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
+  modal: any;
 
   recon_year = 0;
   recon_month = 0;
+  gstin_supplier: string = "";
+  period_id: string = "";
 
   branch_code: string = '';
   format_type: string = '';
@@ -74,6 +78,7 @@ export class GstReconRepComponent {
   Record: Gstr2bDownload = new Gstr2bDownload;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: GstReconRepService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -247,6 +252,10 @@ export class GstReconRepComponent {
     // _rec.row_displayed = !_rec.row_displayed;
   }
 
+  OnBlur(field: string) {
+    if (field == "searchstring")
+      this.searchstring = this.searchstring.toUpperCase();
+  }
 
   ProcessGstReconcile() {
 
@@ -289,5 +298,16 @@ export class GstReconRepComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+
+  showDetailList(gstrdet: any, _gstin_supplier: string, _period_id: string) {
+    this.gstin_supplier = _gstin_supplier;
+    this.period_id = _period_id;
+    this.open(gstrdet);
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 }
