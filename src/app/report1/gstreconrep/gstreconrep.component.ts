@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { GstReport } from '../models/gstreport';
+import { Gstr2bDownload } from '../models/gstr2bdownload';
 import { GstReconRepService } from '../services/gstreconrep.service';
 
 @Component({
@@ -69,9 +69,9 @@ export class GstReconRepComponent {
   };
 
   // Array For Displaying List
-  RecordList: GstReport[] = [];
+  RecordList: Gstr2bDownload[] = [];
   //  Single Record for add/edit/view details
-  Record: GstReport = new GstReport;
+  Record: Gstr2bDownload = new Gstr2bDownload;
 
   constructor(
     private mainService: GstReconRepService,
@@ -176,7 +176,10 @@ export class GstReconRepComponent {
 
   // // Query List Data
   List(_type: string) {
-
+    if (this.gs.isBlank(this.reconcile_state_name)) {
+      alert("State Cannot be Blank");
+      return;
+    }
     if (this.recon_year <= 0) {
       alert("Invalid Year");
       return;
@@ -240,8 +243,51 @@ export class GstReconRepComponent {
     this.gs.ClosePage('home');
   }
 
-  ShowHideRecord(_rec: GstReport) {
-    _rec.row_displayed = !_rec.row_displayed;
+  ShowHideRecord(_rec: Gstr2bDownload) {
+    // _rec.row_displayed = !_rec.row_displayed;
   }
 
+
+  ProcessGstReconcile() {
+
+    if (this.gs.isBlank(this.reconcile_state_name)) {
+      alert("State Cannot be Blank");
+      return;
+    }
+
+    if (this.recon_year <= 0) {
+      alert("Invalid Year");
+      return;
+    } else if (this.recon_year < 100) {
+      alert("YEAR FORMAT : - YYYY ");
+      return;
+    }
+    if (this.recon_month <= 0 || this.recon_month > 12) {
+      alert("Invalid Month");
+      return;
+    }
+
+    if (!confirm("Do you want to Process Data")) {
+      return;
+    }
+
+    this.loading = true;
+    this.SearchData.state_code = this.reconcile_state_code;
+    this.SearchData.state_name = this.reconcile_state_name;
+    this.SearchData.round_off = this.round_off;
+    this.SearchData.recon_year = this.recon_year;
+    this.SearchData.recon_month = this.recon_month;
+    this.ErrorMessage = '';
+    this.mainService.ProcessGstReconcile(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Process Completed')
+        // this.BranchList = response.branchlist;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

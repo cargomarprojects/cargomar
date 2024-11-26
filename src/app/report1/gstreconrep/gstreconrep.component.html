@@ -79,7 +79,7 @@
                         </button>
                         <button [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm">Excel</button>
-                        <button [disabled]="loading" (click)="List('EXCEL')"
+                        <button [disabled]="loading" (click)="ProcessGstReconcile()"
                             class="btn btn-primary btn-sm">Process</button>
                     </div>
                 </div>
@@ -91,17 +91,19 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th>CUSTOMER</th>
-                        <th>STATE</th>
-                        <th class="text-right">GSTR2B.COUNT</th>
-                        <th class="text-right">PURCHASE.COUNT</th>
-                        <th class="text-right">TOTAL.GSTR2B</th>
-                        <th class="text-right">TOTAL.PURCHASE</th>
+                        <th>SUPPLIER GSTIN</th>
+                        <th>SUPPLIER NAME</th>
+                        <th>SUPPLIER STATE</th>
+                        <th class="text-right">COUNT(GSTR2B)</th>
+                        <th class="text-right">COUNT(PURCHASE)</th>
+                        <th class="text-right">TOTAL(GSTR2B)</th>
+                        <th class="text-right">TOTAL(PURCHASE)</th>
                         <th class="text-right">DIFF</th>
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
                     <tr>
+                        <td>{{rec.gstin_supplier}}</td>
                         <td>{{rec.supplier_name}}</td>
                         <td>{{rec.supplier_state}}</td>
                         <td class="text-right">{{ rec.gstr2b_count}}({{rec.matched_count}})</td>

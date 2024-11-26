@@ -69,4 +69,14 @@ export class Gstr2bDownload {
     match_period: string;
     reconcile_status: string;
     doc_vrno: string;
+
+
+    supplier_name: string;
+    supplier_state: string;
+    purchase_count: number;
+    gstr2b_count: number;
+    matched_count: number;
+    tot_gst_purchase: number;
+    tot_gst_gstr2b: number;
+    diff_gst: number;
 }

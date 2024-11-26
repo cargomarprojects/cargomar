@@ -15,8 +15,12 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/List', SearchData, this.gs.headerparam2('authorized'));
   }
   
+  ProcessGstReconcile(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/ProcessGstReconcile', SearchData, this.gs.headerparam2('authorized'));
+  }
+
   LoadDefault(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + 'api/Report1/GstReconRep/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
 }
