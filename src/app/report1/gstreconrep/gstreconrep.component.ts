@@ -28,7 +28,7 @@ export class GstReconRepComponent {
   mode = '';
   pkid = '';
   modal: any;
-
+  selectedRowIndex = 0;
   recon_year = 0;
   recon_month = 0;
   gstin_supplier: string = "";

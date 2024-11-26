@@ -1,4 +1,4 @@
-<div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>8?'650px':'auto'"
+<div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>20?'650px':'auto'"
     [style.overflow-y]="RecordList.length>20?'scroll':'auto'">
     <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
@@ -15,10 +15,11 @@
                 <th class="text-right">IGST</th>
                 <th class="text-right">CGST</th>
                 <th class="text-right">SGST</th>
+                <th>STATUS</th>
             </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-            <tr [style.color]="rec.download_source=='GSTR2B'?'orange':'green'">
+            <tr [style.color]="rec.row_color">
                 <td>{{rec.download_source}}</td>
                 <td>{{rec.gstr1_period}}</td>
                 <td>{{rec.download_type}}</td>
@@ -31,6 +32,7 @@
                 <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
                 <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                 <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+                <td>{{rec.reconcile_status}}</td>
             </tr>
         </tbody>
     </table>
