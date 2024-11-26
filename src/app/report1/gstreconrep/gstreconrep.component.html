@@ -124,6 +124,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div *ngIf="ErrorMessage" class="alert alert-danger">
+                    {{ErrorMessage}}
+                </div>
             </div>
         </ng-template>
 
@@ -132,14 +135,11 @@
 
     <ngb-tab title="ITC Claim">
         <ng-template ngbTabContent>
+            <app-gstreconrepitc [menuid]="menuid" [type]="type"></app-gstreconrepitc>
         </ng-template>
-
 
     </ngb-tab>
 </ngb-tabset>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
-</div>
 <ng-template #gstrdet let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">Reconcile Details</h4>

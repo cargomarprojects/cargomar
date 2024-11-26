@@ -76,6 +76,7 @@ import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 import { GenReportComponent } from './genreport/genreport.component';
 import { GstReconRepComponent } from './gstreconrep/gstreconrep.component';
 import { GstReconRepDetComponent } from './gstreconrep/gstreconrepdet.component';
+import { GstReconRepItcComponent } from './gstreconrep/gstreconrepitc.component';
 
 @NgModule({
   imports: [
@@ -136,7 +137,8 @@ import { GstReconRepDetComponent } from './gstreconrep/gstreconrepdet.component'
     CostGstRptComponent,
     GenReportComponent,
     GstReconRepComponent,
-    GstReconRepDetComponent
+    GstReconRepDetComponent,
+    GstReconRepItcComponent
   ],
   providers: [
   ],
