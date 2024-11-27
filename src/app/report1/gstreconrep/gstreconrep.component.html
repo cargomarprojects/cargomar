@@ -116,7 +116,7 @@
                                 <td class="text-right">{{ rec.purchase_count}}({{rec.matched_count}})</td>
                                 <td class="text-right">{{ rec.tot_gst_gstr2b | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
-                                <td class="text-right">{{ rec.diff_gst | number : '1.2-2' }}</td>
+                                <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                                 <td class="hlink"><i class="fa fa-eye fa-lg pointer" aria-hidden="true"
                                         (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_file_id)"></i>
                                 </td>

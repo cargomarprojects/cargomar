@@ -103,6 +103,7 @@
                      <th class="text-right">IGST</th>
                      <th class="text-right">CGST</th>
                      <th class="text-right">SGST</th>
+                     <th class="text-right">DIFF</th>
                      <th>STATUS</th>
                 </tr>
             </thead>
@@ -121,6 +122,7 @@
                     <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
                     <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                     <td>{{rec.reconcile_status}}</td>
                 </tr>
             </tbody>

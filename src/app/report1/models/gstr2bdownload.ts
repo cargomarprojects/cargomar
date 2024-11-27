@@ -79,5 +79,5 @@ export class Gstr2bDownload {
     matched_count: number;
     tot_gst_purchase: number;
     tot_gst_gstr2b: number;
-    diff_gst: number;
+    gst_diff: number;
 }
