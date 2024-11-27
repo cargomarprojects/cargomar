@@ -2,7 +2,7 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class Gstr2bDownload {
     row_type: string;
-    row_color:string;
+    row_color: string;
     pkid: string;
     gstr1_period: string;
     gstin_supplier: string;
@@ -70,7 +70,7 @@ export class Gstr2bDownload {
     match_period: string;
     reconcile_status: string;
     doc_vrno: string;
-
+    rec_selected: boolean;
 
     supplier_name: string;
     supplier_state: string;

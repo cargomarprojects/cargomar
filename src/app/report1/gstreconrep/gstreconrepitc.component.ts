@@ -44,12 +44,14 @@ export class GstReconRepItcComponent {
     reconcile_state_code: string = "32";
     round_off: number = 5;
     chk_pending: boolean = true;
+    claim_status: string = 'ITC AVAILED';
 
     bCompany = false;
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
-
+    chkallselected: boolean = false;
+    selectdeselect: boolean = false;
 
     SearchData = {
         type: '',
@@ -83,7 +85,7 @@ export class GstReconRepItcComponent {
         private route: ActivatedRoute,
         public gs: GlobalService
     ) {
-        
+
 
     }
 
@@ -91,7 +93,7 @@ export class GstReconRepItcComponent {
     ngOnInit() {
         this.Init();
     }
-     
+
 
     Init() {
         this.branch_code = this.gs.globalVariables.branch_code;
@@ -106,7 +108,7 @@ export class GstReconRepItcComponent {
 
     // // Destroy Will be called when this component is closed
     ngOnDestroy() {
-        
+
     }
 
     initLov(caption: string = '') {
@@ -192,6 +194,8 @@ export class GstReconRepItcComponent {
         this.mainService.ItcList(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.chkallselected = false;
+                this.selectdeselect = false;
                 if (_type == 'EXCEL') {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 }
@@ -226,9 +230,66 @@ export class GstReconRepItcComponent {
         if (field == "searchstring")
             this.searchstring = this.searchstring.toUpperCase();
     }
- 
+
 
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
+    SelectDeselect() {
+        this.selectdeselect = !this.selectdeselect;
+        for (let rec of this.RecordList) {
+            rec.rec_selected = this.selectdeselect;
+        }
+    }
+
+    UpdateItcClaim() {
+
+        let sPkids: string = "";//Main List
+        let _Ctr: number = 0;
+        let _status: string = "";
+        for (let rec of this.RecordList) {
+            if (rec.rec_selected) {
+                _status = rec.reconcile_status;
+                _Ctr++;
+                if (sPkids != "")
+                    sPkids += ",";
+                sPkids += rec.pkid;
+            }
+        }
+
+        if (this.gs.isBlank(sPkids)) {
+            alert('No Records selected');
+            return;
+        }
+
+        if (_status == "MATCHED" || _status == "ALMOST MATCHED" || _status == "MISMATCHED (GST AMOUNT)" || _status == "MISMATCHED (PERIOD)") {
+            if (this.RecordList.length != _Ctr) {
+                alert('Please select all Records');
+                return;
+            }
+        }
+
+        if (!confirm("Update Claim Status")) {
+            return;
+        }
+
+        let SearchData2 = {
+            pkid: sPkids,
+            status: this.claim_status
+        };
+
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.mainService.UpdateItcClaim(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                alert('Save Completed')
+                // this.BranchList = response.branchlist;
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 }
