@@ -17,7 +17,7 @@
                                 <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
                                 <div class="col-sm-8">
                                     <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'"
-                                        [displaycolumn]="'NAME'" [displaydata]="reconcile_state_name"
+                                        [displaycolumn]="'NAME'" [displaydata]="gs.defaultValues.gst_recon_state_name"
                                         (ValueChanged)="LovSelected($event)">
                                     </app-autocomplete3>
                                 </div>
@@ -25,13 +25,13 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="col form-control form-control-sm" [(ngModel)]="recon_year"
+                                    <input type="text" class="col form-control form-control-sm" [(ngModel)]="gs.defaultValues.gst_recon_year"
                                         required maxlength="4" />
                                 </div>
                                 <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
                                 <div class="col-sm-3">
                                     <input type="text" class="col form-control form-control-sm"
-                                        [(ngModel)]="recon_month" required maxlength="2" />
+                                        [(ngModel)]="gs.defaultValues.gst_recon_month" required maxlength="2" />
                                 </div>
                             </div>
                         </div>

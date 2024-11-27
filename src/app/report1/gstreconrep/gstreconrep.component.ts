@@ -123,11 +123,11 @@ export class GstReconRepComponent {
     this.to_date = this.gs.defaultValues.today;
     this.display_format_type = this.format_type;
 
-    if (this.gs.defaultValues.today.trim() != "") {
-      var tempdt = this.gs.defaultValues.today.split('-');
-      this.recon_year = +tempdt[0];
-      this.recon_month = +tempdt[1];
-    }
+    // if (this.gs.defaultValues.today.trim() != "") {
+    //   var tempdt = this.gs.defaultValues.today.split('-');
+    //   this.recon_year = +tempdt[0];
+    //   this.recon_month = +tempdt[1];
+    // }
   }
 
   // // Destroy Will be called when this component is closed
@@ -185,14 +185,14 @@ export class GstReconRepComponent {
       alert("State Cannot be Blank");
       return;
     }
-    if (this.recon_year <= 0) {
+    if (+this.gs.defaultValues.gst_recon_year <= 0) {
       alert("Invalid Year");
       return;
-    } else if (this.recon_year < 100) {
+    } else if (+this.gs.defaultValues.gst_recon_year < 100) {
       alert("YEAR FORMAT : - YYYY ");
       return;
     }
-    if (this.recon_month <= 0 || this.recon_month > 12) {
+    if (+this.gs.defaultValues.gst_recon_month <= 0 || +this.gs.defaultValues.gst_recon_month > 12) {
       alert("Invalid Month");
       return;
     }
@@ -214,8 +214,8 @@ export class GstReconRepComponent {
     this.SearchData.state_code = this.reconcile_state_code;
     this.SearchData.state_name = this.reconcile_state_name;
     this.SearchData.round_off = this.round_off;
-    this.SearchData.recon_year = this.recon_year;
-    this.SearchData.recon_month = this.recon_month;
+    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
+    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
     this.SearchData.chk_pending = this.chk_pending;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.ErrorMessage = '';
@@ -264,17 +264,17 @@ export class GstReconRepComponent {
       return;
     }
 
-    if (this.recon_year <= 0) {
-      alert("Invalid Year");
-      return;
-    } else if (this.recon_year < 100) {
-      alert("YEAR FORMAT : - YYYY ");
-      return;
-    }
-    if (this.recon_month <= 0 || this.recon_month > 12) {
-      alert("Invalid Month");
-      return;
-    }
+    // if (this.recon_year <= 0) {
+    //   alert("Invalid Year");
+    //   return;
+    // } else if (this.recon_year < 100) {
+    //   alert("YEAR FORMAT : - YYYY ");
+    //   return;
+    // }
+    // if (this.recon_month <= 0 || this.recon_month > 12) {
+    //   alert("Invalid Month");
+    //   return;
+    // }
 
     if (!confirm("Do you want to Process Data")) {
       return;
@@ -284,8 +284,8 @@ export class GstReconRepComponent {
     this.SearchData.state_code = this.reconcile_state_code;
     this.SearchData.state_name = this.reconcile_state_name;
     this.SearchData.round_off = this.round_off;
-    this.SearchData.recon_year = this.recon_year;
-    this.SearchData.recon_month = this.recon_month;
+    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
+    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
     this.ErrorMessage = '';
     this.mainService.ProcessGstReconcile(this.SearchData)
       .subscribe(response => {

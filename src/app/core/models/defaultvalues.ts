@@ -49,7 +49,7 @@ export class DefaultValues {
     pf_emplr_pension_per: number;
     pf_br_region: string;
     esi_col_excluded: string;
-    
+
     sea_job_place_receipt_id: string;
     sea_job_place_receipt_code: string;
     sea_job_place_receipt_name: string;
@@ -116,4 +116,13 @@ export class DefaultValues {
     air_job_origin_country_id: string;
     air_job_origin_country_code: string;
     air_job_origin_country_name: string;
+
+    gst_recon_state_code: string;
+    gst_recon_state_name: string;
+    gst_recon_month: string;
+    gst_recon_year: string;
+    gst_recon_itc_state_code: string;
+    gst_recon_itc_state_name: string;
+    gst_recon_itc_month: string;
+    gst_recon_itc_year: string;
 }

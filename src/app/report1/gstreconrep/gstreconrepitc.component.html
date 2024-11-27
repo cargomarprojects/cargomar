@@ -6,37 +6,38 @@
                     <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
                     <div class="col-sm-8">
                         <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
-                            [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
+                            [displaydata]="gs.defaultValues.gst_recon_itc_state_name" (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
                     <div class="col-sm-3">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="recon_year" required
+                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="gs.defaultValues.gst_recon_itc_year" required
                             maxlength="4" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
                     <div class="col-sm-3">
-                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="recon_month" required
+                        <input type="text" class="col form-control form-control-sm" [(ngModel)]="gs.defaultValues.gst_recon_itc_month" required
                             maxlength="2" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class=" form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Recon.Status</label>
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Status</label>
                     <div class="col-8 input-group input-group-sm">
                         <select class="form-control form-control-sm" [(ngModel)]="format_type"
                             (change)="OnChange('format_type')">
-                            <option [value]="'PENDING'">PENDING</option>
-                            <option [value]="'CLAIMED'">CLAIMED</option>
+                            <!-- <option [value]="'PENDING'">PENDING</option> -->
+                            <!-- <option [value]="'ITC AVAILED'">ITC AVAILED</option> -->
                             <option [value]="'MATCHED'">MATCHED</option>
                             <option [value]="'ALMOST MATCHED'">ALMOST MATCHED</option>
-                            <option [value]="'ALMOST MATCHED'">MISMATCH</option>
-                            <option [value]="'ALMOST MATCHED'">MISSING IN GSTR2B</option>
-                            <option [value]="'ALMOST MATCHED'">MISSING IN PURCHASE</option>
-                            <option [value]="'ALMOST MATCHED'">REJECTED</option>
+                            <option [value]="'MISMATCHED'">MISMATCHED(GST AMT)</option>
+                            <option [value]="'OTHERS'">OTHERS(IN GSTR2B AND PURCHASE ONLY)</option>
+                            <option [value]="'IN GSTR2B ONLY'">IN GSTR2B ONLY</option>
+                            <option [value]="'IN PURCHASE ONLY'">IN PURCHASE ONLY</option>
+                            <!-- <option [value]="'ALMOST MATCHED'">REJECTED</option> -->
                         </select>
                     </div>
                 </div>
@@ -90,29 +91,37 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>SOURCE</th>
                     <th>SUPPLIER GSTIN</th>
                     <th>SUPPLIER NAME</th>
-                    <th>SUPPLIER STATE</th>
-                    <th class="text-right">COUNT(GSTR2B)</th>
-                    <th class="text-right">COUNT(PURCHASE)</th>
-                    <th class="text-right">TOTAL(GSTR2B)</th>
-                    <th class="text-right">TOTAL(PURCHASE)</th>
-                    <th class="text-right">DIFF</th>
-                    
+                    <th>PERIOD</th>
+                    <th>TYPE</th>
+                     <th>INV#</th>
+                     <th>INVDATE</th>
+                     <th class="text-right">INV.AMT</th>
+                     <th class="text-right">TAXABLE.AMT</th>
+                     <th class="text-right">IGST</th>
+                     <th class="text-right">CGST</th>
+                     <th class="text-right">SGST</th>
+                     <th>STATUS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    (mousedown)="selectedRowIndex=i">
+                    (mousedown)="selectedRowIndex=i"  [style.color]="rec.row_color" >
+                    <td>{{rec.download_source}}</td>
                     <td>{{rec.gstin_supplier}}</td>
                     <td>{{rec.supplier_name}}</td>
-                    <td>{{rec.supplier_state}}</td>
-                    <td class="text-right">{{ rec.gstr2b_count}}({{rec.matched_count}})</td>
-                    <td class="text-right">{{ rec.purchase_count}}({{rec.matched_count}})</td>
-                    <td class="text-right">{{ rec.tot_gst_gstr2b | number : '1.2-2' }}</td>
-                    <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
-                    <td class="text-right">{{ rec.diff_gst | number : '1.2-2' }}</td>
-                    
+                    <td>{{rec.gstr1_period}}</td>
+                    <td>{{rec.download_type}}</td>
+                    <td>{{rec.invoice_number}}</td>
+                    <td>{{rec.invoice_date}}</td>
+                    <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
+                    <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+                    <td>{{rec.reconcile_status}}</td>
                 </tr>
             </tbody>
         </table>

@@ -344,6 +344,19 @@ export class GlobalService {
     this.defaultValues.print_cheque_only_after_ho_approved = 'N';
     this.defaultValues.tdsos_list_format = 'BRANCH-WISE';
     this.defaultValues.bl_fmc_no = "031793";
+
+    this.defaultValues.gst_recon_state_code = '32';
+    this.defaultValues.gst_recon_state_name = 'KERALA';
+    this.defaultValues.gst_recon_itc_state_code = '32';
+    this.defaultValues.gst_recon_itc_state_name = 'KERALA';
+    var tempdt = this.getPreviousMonth().split('-');
+    if (tempdt.length > 1) {
+      this.defaultValues.gst_recon_year = tempdt[0];
+      this.defaultValues.gst_recon_month = tempdt[1];
+      this.defaultValues.gst_recon_itc_year = tempdt[0];
+      this.defaultValues.gst_recon_itc_month = tempdt[1];
+    }
+
     this.globalData.cost_sea_fromdate = this.defaultValues.monthbegindate;
     this.globalData.cost_sea_todate = this.defaultValues.today;
     this.globalData.cost_air_fromdate = this.defaultValues.monthbegindate;
@@ -367,6 +380,9 @@ export class GlobalService {
 
     this.globalData.arap_fromdate = this.defaultValues.lastmonthdate;
     this.globalData.arap_todate = this.defaultValues.today;
+
+
+
   }
 
   InitdefaultValues2(settingslist: Settings[]) {
@@ -662,6 +678,13 @@ export class GlobalService {
     else
       nDate.setDate(nDate.getDate() - _days);
     return nDate.toISOString().slice(0, 10);
+  }
+
+  public getPreviousMonth() {
+    var premonth = new Date();
+    premonth.setDate(1);
+    premonth.setMonth(premonth.getMonth() - 1);
+    return premonth.toISOString().slice(0, 10);
   }
 
   ConvertDate2DisplayFormat(_strdate: string) {

@@ -81,9 +81,9 @@ export class GstReconRepItcComponent {
         private modalService: NgbModal,
         private mainService: GstReconRepService,
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
-
+        
 
     }
 
@@ -95,7 +95,7 @@ export class GstReconRepItcComponent {
 
     Init() {
         this.branch_code = this.gs.globalVariables.branch_code;
-        this.format_type = "PENDING";
+        this.format_type = "MATCHED";
         this.display_format_type = this.format_type;
         if (this.gs.defaultValues.today.trim() != "") {
             var tempdt = this.gs.defaultValues.today.split('-');
@@ -115,8 +115,8 @@ export class GstReconRepItcComponent {
 
     LovSelected(_Record: SearchTable) {
         if (_Record.controlname == "STATE") {
-            this.reconcile_state_code = _Record.code;
-            this.reconcile_state_name = _Record.name;
+            this.gs.defaultValues.gst_recon_itc_state_code = _Record.code;
+            this.gs.defaultValues.gst_recon_itc_state_name = _Record.name;
         }
     }
     LoadCombo() {
@@ -159,14 +159,14 @@ export class GstReconRepItcComponent {
             alert("State Cannot be Blank");
             return;
         }
-        if (this.recon_year <= 0) {
+        if (+this.gs.defaultValues.gst_recon_itc_year <= 0) {
             alert("Invalid Year");
             return;
-        } else if (this.recon_year < 100) {
+        } else if (+this.gs.defaultValues.gst_recon_itc_year < 100) {
             alert("YEAR FORMAT : - YYYY ");
             return;
         }
-        if (this.recon_month <= 0 || this.recon_month > 12) {
+        if (+this.gs.defaultValues.gst_recon_itc_month <= 0 || +this.gs.defaultValues.gst_recon_itc_month > 12) {
             alert("Invalid Month");
             return;
         }
@@ -181,19 +181,15 @@ export class GstReconRepItcComponent {
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.type = _type;
-        this.SearchData.from_date = this.from_date;
-        this.SearchData.to_date = this.to_date;
         this.SearchData.format_type = this.format_type;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
-        this.SearchData.state_code = this.reconcile_state_code;
-        this.SearchData.state_name = this.reconcile_state_name;
+        this.SearchData.state_code = this.gs.defaultValues.gst_recon_itc_state_code;
+        this.SearchData.state_name = this.gs.defaultValues.gst_recon_itc_state_name;
         this.SearchData.round_off = this.round_off;
-        this.SearchData.recon_year = this.recon_year;
-        this.SearchData.recon_month = this.recon_month;
-        this.SearchData.chk_pending = this.chk_pending;
-        this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+        this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_itc_year;
+        this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_itc_month;
         this.ErrorMessage = '';
-        this.mainService.List(this.SearchData)
+        this.mainService.ItcList(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL') {
