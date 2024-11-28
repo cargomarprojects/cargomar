@@ -104,7 +104,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <button [disabled]="loading" (click)="UpdateItcClaim()"
+                        <button [disabled]="loading" (click)="UpdateItcBluck()"
                             class="btn btn-primary btn-sm mr-1">Update
                         </button>
                         <!-- <button [disabled]="loading" (click)="List('EXCEL')"
@@ -137,6 +137,7 @@
                     <th class="text-right">SGST</th>
                     <th class="text-right">DIFF</th>
                     <th>CLAIM STATUS</th>
+                    <th>REMARKS</th>
                     <th></th>
                 </tr>
             </thead>
@@ -159,7 +160,7 @@
                     <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                     <td class="p-0"> 
-                        <select style="padding: 2px;"
+                        <select class="form-control form-control-sm p-1"
                             [(ngModel)]="rec.claim_status">
                             <option [value]="'OP'">OP</option>
                             <option [value]="'ITC AVAILED'">ITC AVAILED</option>
@@ -167,7 +168,11 @@
                             <option [value]="'REJECTED'">REJECTED</option>
                         </select>
                     </td>
-                    <td class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status)" ></i></td>
+                    <td class="p-0"> 
+                        <input type="text"  class="form-control form-control-sm p-1" [(ngModel)]="rec.reason"
+                        (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
+                    </td>
+                    <td class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)" ></i></td>
                 </tr>
             </tbody>
         </table>

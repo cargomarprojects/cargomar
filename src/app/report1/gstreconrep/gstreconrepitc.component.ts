@@ -234,7 +234,10 @@ export class GstReconRepItcComponent {
         if (field == "searchstring")
             this.searchstring = this.searchstring.toUpperCase();
     }
-
+    OnBlurCell(field: string, _rec: Gstr2bDownload) {
+        if (field == "reason")
+            _rec.reason = _rec.reason.toUpperCase();
+    }
 
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
@@ -246,7 +249,7 @@ export class GstReconRepItcComponent {
         }
     }
 
-    UpdateItcClaim() {
+    UpdateItcBluck() {
 
         let sPkids: string = "";//Main List
         let _Ctr: number = 0;
@@ -280,7 +283,8 @@ export class GstReconRepItcComponent {
         let SearchData2 = {
             pkid: sPkids,
             claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
-            claim_period: this.claim_period
+            claim_period: this.claim_period,
+            save_remarks: false
         };
 
         this.loading = true;
@@ -306,11 +310,13 @@ export class GstReconRepItcComponent {
                 });
     }
 
-    UpdateItcRowWise(_id: string, _status: string) {
+    UpdateItcRowWise(_id: string, _status: string, _remarks) {
         let SearchData2 = {
             pkid: _id,
             claim_status: _status,
-            claim_period: this.claim_period
+            claim_period: this.claim_period,
+            remarks: _remarks,
+            save_remarks: true
         };
         this.loading = true;
         this.ErrorMessage = '';
