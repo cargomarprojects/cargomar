@@ -31,6 +31,8 @@ export class Gstr2bDownload {
     download_type: string;
     download_file_id: string;
     download_source: string;
+    download_period: number;
+    download_state_code: string;
     purchase_id: string;
     purchase_period: string;
     tot_rows: number;
@@ -80,4 +82,5 @@ export class Gstr2bDownload {
     tot_gst_purchase: number;
     tot_gst_gstr2b: number;
     gst_diff: number;
+    claim_status: string;
 }

@@ -29,13 +29,14 @@ export class GstReconRepItcComponent {
     pkid = '';
     modal: any;
     selectedRowIndex = 0;
-    recon_year = 0;
-    recon_month = 0;
+    // recon_year = 0;
+    // recon_month = 0;
     gstin_supplier: string = "";
     period_id: string = "";
+    claim_period: string = "";
 
     branch_code: string = '';
-    format_type: string = '';
+    // format_type: string = '';
     from_date: string = '';
     to_date: string = '';
     searchstring = '';
@@ -44,7 +45,7 @@ export class GstReconRepItcComponent {
     reconcile_state_code: string = "32";
     round_off: number = 5;
     chk_pending: boolean = true;
-    claim_status: string = 'ITC AVAILED';
+    // claim_status: string = 'ITC AVAILED';
 
     bCompany = false;
     disableSave = true;
@@ -97,13 +98,8 @@ export class GstReconRepItcComponent {
 
     Init() {
         this.branch_code = this.gs.globalVariables.branch_code;
-        this.format_type = "MATCHED";
-        this.display_format_type = this.format_type;
-        if (this.gs.defaultValues.today.trim() != "") {
-            var tempdt = this.gs.defaultValues.today.split('-');
-            this.recon_year = +tempdt[0];
-            this.recon_month = +tempdt[1];
-        }
+        this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
+
     }
 
     // // Destroy Will be called when this component is closed
@@ -173,7 +169,7 @@ export class GstReconRepItcComponent {
             return;
         }
 
-        this.display_format_type = this.format_type;
+        this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
         this.loading = true;
         this.pkid = this.gs.getGuid();
         this.SearchData.pkid = this.pkid;
@@ -183,7 +179,7 @@ export class GstReconRepItcComponent {
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.type = _type;
-        this.SearchData.format_type = this.format_type;
+        this.SearchData.format_type = this.gs.defaultValues.gst_recon_itc_status;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
         this.SearchData.state_code = this.gs.defaultValues.gst_recon_itc_state_code;
         this.SearchData.state_name = this.gs.defaultValues.gst_recon_itc_state_name;
@@ -196,6 +192,7 @@ export class GstReconRepItcComponent {
                 this.loading = false;
                 this.chkallselected = false;
                 this.selectdeselect = false;
+                this.claim_period = response.claimperiod;
                 if (_type == 'EXCEL') {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 }
@@ -275,7 +272,8 @@ export class GstReconRepItcComponent {
 
         let SearchData2 = {
             pkid: sPkids,
-            status: this.claim_status
+            claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
+            claim_period: this.claim_period
         };
 
         this.loading = true;
@@ -283,7 +281,15 @@ export class GstReconRepItcComponent {
         this.mainService.UpdateItcClaim(SearchData2)
             .subscribe(response => {
                 this.loading = false;
-                alert('Save Completed')
+                if (response.retvalue) {
+                    let pkidsArray = sPkids.split(',');
+                    for (let i = 0; i < pkidsArray.length; i++) {
+                        for (let rec of this.RecordList.filter(rec => rec.pkid == pkidsArray[i])) {
+                            rec.claim_status = this.gs.defaultValues.gst_recon_itc_claim_status;
+                        }
+                    }
+                }
+                // alert('Save Completed')
                 // this.BranchList = response.branchlist;
             },
                 error => {

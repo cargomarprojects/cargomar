@@ -125,4 +125,6 @@ export class DefaultValues {
     gst_recon_itc_state_name: string;
     gst_recon_itc_month: string;
     gst_recon_itc_year: string;
+    gst_recon_itc_status: string;
+    gst_recon_itc_claim_status: string;
 }

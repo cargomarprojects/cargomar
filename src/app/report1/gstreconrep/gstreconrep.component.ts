@@ -32,7 +32,8 @@ export class GstReconRepComponent {
   recon_year = 0;
   recon_month = 0;
   gstin_supplier: string = "";
-  period_id: string = "";
+  period: number = 2020;
+  state_code: string = "";
 
   branch_code: string = '';
   format_type: string = '';
@@ -301,9 +302,10 @@ export class GstReconRepComponent {
   }
 
 
-  showDetailList(gstrdet: any, _gstin_supplier: string, _period_id: string) {
+  showDetailList(gstrdet: any, _gstin_supplier: string, _period: number, _state_code: string) {
     this.gstin_supplier = _gstin_supplier;
-    this.period_id = _period_id;
+    this.period = _period;
+    this.state_code = _state_code;
     this.open(gstrdet);
   }
 

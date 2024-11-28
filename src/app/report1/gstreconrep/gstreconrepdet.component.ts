@@ -18,7 +18,8 @@ export class GstReconRepDetComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() gstinsupplier: string = '';
-  @Input() periodid: string = '';
+  @Input() period: number = 2020;
+  @Input() state_code: string = '';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -28,11 +29,11 @@ export class GstReconRepDetComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-   
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
- 
+
   // Array For Displaying List
   RecordList: Gstr2bDownload[] = [];
   //  Single Record for add/edit/view details
@@ -43,7 +44,7 @@ export class GstReconRepDetComponent {
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    
+
 
   }
 
@@ -52,15 +53,15 @@ export class GstReconRepDetComponent {
     this.List();
   }
 
-  
+
 
   Init() {
-  
+
   }
 
   // // Destroy Will be called when this component is closed
   ngOnDestroy() {
-     
+
   }
 
   initLov(caption: string = '') {
@@ -68,13 +69,14 @@ export class GstReconRepDetComponent {
   }
 
   LovSelected(_Record: SearchTable) {
-   
+
   }
   List() {
     this.loading = true;
     let SearchData = {
-        gstin_supplier: this.gstinsupplier,
-        period_id: this.periodid
+      gstin_supplier: this.gstinsupplier,
+      period: this.period,
+      state_code: this.state_code
     };
     this.ErrorMessage = '';
     this.mainService.DetailList(SearchData)
@@ -89,8 +91,8 @@ export class GstReconRepDetComponent {
         });
 
   }
-   
- 
+
+
   OnChange(field: string) {
 
   }
@@ -98,5 +100,5 @@ export class GstReconRepDetComponent {
     this.gs.ClosePage('home');
   }
 
-   
+
 }

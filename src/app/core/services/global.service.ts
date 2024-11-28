@@ -349,6 +349,8 @@ export class GlobalService {
     this.defaultValues.gst_recon_state_name = 'KERALA';
     this.defaultValues.gst_recon_itc_state_code = '32';
     this.defaultValues.gst_recon_itc_state_name = 'KERALA';
+    this.defaultValues.gst_recon_itc_status = 'MATCHED';
+    this.defaultValues.gst_recon_itc_claim_status = 'ITC AVAILED';
     var tempdt = this.getPreviousMonth().split('-');
     if (tempdt.length > 1) {
       this.defaultValues.gst_recon_year = tempdt[0];

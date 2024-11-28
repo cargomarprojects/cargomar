@@ -118,7 +118,7 @@
                                 <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                                 <td class="hlink"><i class="fa fa-eye fa-lg pointer" aria-hidden="true"
-                                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_file_id)"></i>
+                                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code)"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -148,7 +148,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-gstreconrepdet [gstinsupplier]="gstin_supplier" [periodid]="period_id"></app-gstreconrepdet>
+        <app-gstreconrepdet [gstinsupplier]="gstin_supplier" [period]="period" [state_code]="state_code"></app-gstreconrepdet>
     </div>
     <!-- <div class="modal-footer">
             <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
