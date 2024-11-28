@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
+import { Gstr2bDownload } from '../models/gstr2bdownload';
 
 @Injectable()
 export class GstReconRepService {
@@ -11,16 +12,13 @@ export class GstReconRepService {
     private gs: GlobalService) {
   }
 
+  public appid: string = "";
+  RecordList: Gstr2bDownload[] = [];
 
-
-
-
-
-  
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/List', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   DetailList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/DetailList', SearchData, this.gs.headerparam2('authorized'));
   }
@@ -44,4 +42,3 @@ export class GstReconRepService {
 
 }
 
- 
