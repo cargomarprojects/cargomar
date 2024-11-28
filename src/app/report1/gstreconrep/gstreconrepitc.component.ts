@@ -35,6 +35,8 @@ export class GstReconRepItcComponent {
     period_id: string = "";
     claim_period: string = "";
 
+    MonList: any[] = [];
+
     branch_code: string = '';
     // format_type: string = '';
     from_date: string = '';
@@ -99,6 +101,11 @@ export class GstReconRepItcComponent {
     Init() {
         this.branch_code = this.gs.globalVariables.branch_code;
         this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
+
+        this.MonList = [{ "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
+            , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }
+            , { "id": "07", "name": "JULY" }, { "id": "08", "name": "AUGUST" }, { "id": "09", "name": "SEPTEMBER" }
+            , { "id": "10", "name": "OCTOBER" }, { "id": "11", "name": "NOVEMBER" }, { "id": "12", "name": "DECEMBER" }];
 
     }
 
@@ -259,12 +266,12 @@ export class GstReconRepItcComponent {
             return;
         }
 
-        if (_status == "MATCHED" || _status == "ALMOST MATCHED" || _status == "MISMATCHED (GST AMOUNT)" || _status == "MISMATCHED (PERIOD)") {
-            if (this.RecordList.length != _Ctr) {
-                alert('Please select all Records');
-                return;
-            }
-        }
+        // if (_status == "MATCHED" || _status == "ALMOST MATCHED" || _status == "MISMATCHED (GST AMOUNT)" || _status == "MISMATCHED (PERIOD)") {
+        //     if (this.RecordList.length != _Ctr) {
+        //         alert('Please select all Records');
+        //         return;
+        //     }
+        // }
 
         if (!confirm("Update Claim Status")) {
             return;
@@ -291,6 +298,28 @@ export class GstReconRepItcComponent {
                 }
                 // alert('Save Completed')
                 // this.BranchList = response.branchlist;
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
+    UpdateItcRowWise(_id: string, _status: string) {
+        let SearchData2 = {
+            pkid: _id,
+            claim_status: _status,
+            claim_period: this.claim_period
+        };
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.mainService.UpdateItcClaim(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue) {
+                    alert('Save Complete');
+                }
             },
                 error => {
                     this.loading = false;

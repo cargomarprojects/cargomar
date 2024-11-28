@@ -1,7 +1,7 @@
 <div class="page-list">
     <div class="page-search">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class=" form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
                     <div class="col-sm-8">
@@ -19,8 +19,11 @@
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
                     <div class="col-sm-3">
-                        <input type="text" class="col form-control form-control-sm"
-                            [(ngModel)]="gs.defaultValues.gst_recon_itc_month" required maxlength="2" />
+                        <select class="form-control form-control-sm" [(ngModel)]="gs.defaultValues.gst_recon_itc_month">
+                            <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
+                        </select>
+                        <!-- <input type="text" class="col form-control form-control-sm"
+                            [(ngModel)]="gs.defaultValues.gst_recon_itc_month" required maxlength="2" /> -->
                     </div>
                 </div>
             </div>
@@ -44,8 +47,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-4 col-form-label col-form-label-sm">Search</label>
-                    <div class="col-8">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-sm-8">
                         <input type="text" class="col form-control form-control-sm" name="Search"
                             (blur)="OnBlur('searchstring')" [(ngModel)]="searchstring" />
                     </div>
@@ -74,7 +77,7 @@
                 </div>
 
             </div> -->
-            <div class="col-sm-3">
+            <div class="col-sm-2">
 
                 <div class="form-group row">
                     <div class="col-12">
@@ -89,8 +92,9 @@
             <div class="col-sm-3">
                 <div class=" form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
-                    <div class="col-8 input-group input-group-sm">
-                        <select class="form-control form-control-sm" [(ngModel)]="gs.defaultValues.gst_recon_itc_claim_status">
+                    <div class="col-sm-8">
+                        <select class="form-control form-control-sm"
+                            [(ngModel)]="gs.defaultValues.gst_recon_itc_claim_status">
                             <option [value]="'OP'">OP</option>
                             <option [value]="'ITC AVAILED'">ITC AVAILED</option>
                             <option [value]="'PENDING'">PENDING</option>
@@ -100,7 +104,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <button [disabled]="loading" (click)="UpdateItcClaim()" class="btn btn-primary btn-sm mr-1">Update
+                        <button [disabled]="loading" (click)="UpdateItcClaim()"
+                            class="btn btn-primary btn-sm mr-1">Update
                         </button>
                         <!-- <button [disabled]="loading" (click)="List('EXCEL')"
                             class="btn btn-primary btn-sm">Excel</button> -->
@@ -118,7 +123,6 @@
                 <tr>
                     <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
                     <th>STATUS</th>
-                    <th>CLAIM STATUS</th>
                     <th>SOURCE</th>
                     <th>SUPPLIER GSTIN</th>
                     <th>SUPPLIER NAME</th>
@@ -132,6 +136,8 @@
                     <th class="text-right">CGST</th>
                     <th class="text-right">SGST</th>
                     <th class="text-right">DIFF</th>
+                    <th>CLAIM STATUS</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -139,7 +145,6 @@
                     (mousedown)="selectedRowIndex=i" [style.color]="rec.row_color">
                     <td><input type="checkbox" [(ngModel)]="rec.rec_selected"></td>
                     <td>{{rec.reconcile_status}}</td>
-                    <td>{{rec.claim_status}}</td>
                     <td>{{rec.download_source}}</td>
                     <td>{{rec.gstin_supplier}}</td>
                     <td>{{rec.supplier_name}}</td>
@@ -153,6 +158,16 @@
                     <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+                    <td class="p-0"> 
+                        <select style="padding: 2px;"
+                            [(ngModel)]="rec.claim_status">
+                            <option [value]="'OP'">OP</option>
+                            <option [value]="'ITC AVAILED'">ITC AVAILED</option>
+                            <option [value]="'PENDING'">PENDING</option>
+                            <option [value]="'REJECTED'">REJECTED</option>
+                        </select>
+                    </td>
+                    <td class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status)" ></i></td>
                 </tr>
             </tbody>
         </table>

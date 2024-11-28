@@ -11,6 +11,12 @@ export class GstReconRepService {
     private gs: GlobalService) {
   }
 
+
+
+
+
+
+  
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/List', SearchData, this.gs.headerparam2('authorized'));
   }
