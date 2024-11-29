@@ -40,8 +40,8 @@ export class GstReconRepComponent {
   to_date: string = '';
   searchstring = '';
   display_format_type: string = '';
-  reconcile_state_name: string = "KERALA";
-  reconcile_state_code: string = "32";
+  // reconcile_state_name: string = "KERALA";
+  // reconcile_state_code: string = "32";
   round_off: number = 5;
   chk_pending: boolean = true;
 
@@ -143,8 +143,8 @@ export class GstReconRepComponent {
 
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "STATE") {
-      this.reconcile_state_code = _Record.code;
-      this.reconcile_state_name = _Record.name;
+      this.gs.defaultValues.gst_recon_state_code = _Record.code;
+      this.gs.defaultValues.gst_recon_state_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -187,7 +187,7 @@ export class GstReconRepComponent {
 
   // // Query List Data
   List(_type: string) {
-    if (this.gs.isBlank(this.reconcile_state_name)) {
+    if (this.gs.isBlank(this.gs.defaultValues.gst_recon_state_name)) {
       alert("State Cannot be Blank");
       return;
     }
@@ -217,8 +217,8 @@ export class GstReconRepComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.format_type = this.format_type;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
-    this.SearchData.state_code = this.reconcile_state_code;
-    this.SearchData.state_name = this.reconcile_state_name;
+    this.SearchData.state_code = this.gs.defaultValues.gst_recon_state_code;
+    this.SearchData.state_name = this.gs.defaultValues.gst_recon_state_name;
     this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
     this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
@@ -265,7 +265,7 @@ export class GstReconRepComponent {
 
   ProcessGstReconcile() {
 
-    if (this.gs.isBlank(this.reconcile_state_name)) {
+    if (this.gs.isBlank(this.gs.defaultValues.gst_recon_state_name)) {
       alert("State Cannot be Blank");
       return;
     }
@@ -287,8 +287,8 @@ export class GstReconRepComponent {
     }
 
     this.loading = true;
-    this.SearchData.state_code = this.reconcile_state_code;
-    this.SearchData.state_name = this.reconcile_state_name;
+    this.SearchData.state_code = this.gs.defaultValues.gst_recon_state_code;
+    this.SearchData.state_name = this.gs.defaultValues.gst_recon_state_name;
     this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
     this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
@@ -316,5 +316,90 @@ export class GstReconRepComponent {
 
   open(content: any) {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+  UpdatePurchaseData() {
+
+    if (this.gs.isBlank(this.gs.defaultValues.gst_recon_state_name)) {
+      alert("State Cannot be Blank");
+      return;
+    }
+
+    if (+this.gs.defaultValues.gst_recon_year <= 0) {
+      alert("Invalid Year");
+      return;
+    } else if (+this.gs.defaultValues.gst_recon_year < 100) {
+      alert("YEAR FORMAT : - YYYY ");
+      return;
+    }
+    if (+this.gs.defaultValues.gst_recon_month <= 0 || +this.gs.defaultValues.gst_recon_month > 12) {
+      alert("Invalid Month");
+      return;
+    }
+
+    if (!confirm("Do you want to Update Purchase Data")) {
+      return;
+    }
+
+
+   let SearchData2 = {
+      type: '',
+      pkid: '',
+      report_folder: '',
+      company_code: '',
+      branch_code: '',
+      year_code: '',
+      searchstring: '',
+      from_date: '',
+      to_date: '',
+      format_type: '',
+      all: false,
+      gst_only: true,
+      print_new_format: true,
+      user_code: '',
+      state_name: '',
+      state_code: '',
+      round_off: 5,
+      hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
+      recon_year:0,
+      recon_month:0
+    };
+
+
+    this.loading = true;
+    this.pkid = this.gs.getGuid();
+    SearchData2.pkid = this.pkid;
+    SearchData2.report_folder = this.gs.globalVariables.report_folder;
+    SearchData2.company_code = this.gs.globalVariables.comp_code;
+    SearchData2.branch_code = "STATE-WISE";
+    SearchData2.year_code = this.gs.globalVariables.year_code;
+    SearchData2.searchstring = '';
+    SearchData2.type = 'RECONCILE-EXP-DATA';
+    SearchData2.from_date = '';
+    SearchData2.to_date = '';
+    SearchData2.format_type = 'PURCHASE';
+    SearchData2.all = false;
+    SearchData2.gst_only = true;
+    SearchData2.print_new_format = false;
+    SearchData2.user_code = this.gs.globalVariables.user_code;
+    SearchData2.state_code = this.gs.defaultValues.gst_recon_state_code;
+    SearchData2.state_name = this.gs.defaultValues.gst_recon_state_name;
+    SearchData2.round_off = this.round_off;
+    SearchData2.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    SearchData2.recon_year = +this.gs.defaultValues.gst_recon_year;
+    SearchData2.recon_month = +this.gs.defaultValues.gst_recon_month;
+    
+    this.ErrorMessage = '';
+    this.mainService.UpdatePurchaseData(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        alert(response.retmsg)
+        // this.BranchList = response.branchlist;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
