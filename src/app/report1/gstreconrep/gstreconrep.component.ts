@@ -74,7 +74,7 @@ export class GstReconRepComponent {
   };
 
   // Array For Displaying List
-  RecordList: Gstr2bDownload[] = [];
+  // RecordListReco: Gstr2bDownload[] = [];
   //  Single Record for add/edit/view details
   Record: Gstr2bDownload = new Gstr2bDownload;
 
@@ -99,6 +99,7 @@ export class GstReconRepComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
+    this.mainService.InitList();
     if (!this.InitCompleted) {
       this.InitComponent();
     }
@@ -231,12 +232,12 @@ export class GstReconRepComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
-          this.RecordList = response.list;
+          this.mainService.RecordListReco = response.list;
         }
       },
         error => {
           this.loading = false;
-          this.RecordList = null;
+          this.mainService.RecordListReco = null;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
@@ -247,7 +248,7 @@ export class GstReconRepComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    this.mainService.RecordListReco = null;
   }
   Close() {
     this.gs.ClosePage('home');

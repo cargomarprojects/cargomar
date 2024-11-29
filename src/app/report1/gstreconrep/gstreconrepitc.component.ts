@@ -77,7 +77,7 @@ export class GstReconRepItcComponent {
     };
 
     // Array For Displaying List
-    // RecordList: Gstr2bDownload[] = [];
+    // RecordListItc: Gstr2bDownload[] = [];
     //  Single Record for add/edit/view details
     Record: Gstr2bDownload = new Gstr2bDownload;
 
@@ -98,10 +98,7 @@ export class GstReconRepItcComponent {
 
 
     Init() {
-        if (this.mainService.appid != this.gs.appid) {
-            this.mainService.appid = this.gs.appid;
-            this.mainService.RecordList=null;
-        }
+        this.mainService.InitList();
 
         this.branch_code = this.gs.globalVariables.branch_code;
         this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
@@ -208,12 +205,12 @@ export class GstReconRepItcComponent {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 }
                 else {
-                    this.mainService.RecordList = response.list;
+                    this.mainService.RecordListItc = response.list;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.mainService.RecordList = null;
+                    this.mainService.RecordListItc = null;
                     this.ErrorMessage = this.gs.getError(error);
                     alert(this.ErrorMessage);
                 });
@@ -224,7 +221,7 @@ export class GstReconRepItcComponent {
     }
 
     OnChange(field: string) {
-         this.mainService.RecordList = null;
+         this.mainService.RecordListItc = null;
     }
     Close() {
         this.gs.ClosePage('home');
@@ -248,7 +245,7 @@ export class GstReconRepItcComponent {
     }
     SelectDeselect() {
         this.selectdeselect = !this.selectdeselect;
-        for (let rec of this.mainService.RecordList) {
+        for (let rec of this.mainService.RecordListItc) {
             rec.rec_selected = this.selectdeselect;
         }
     }
@@ -258,7 +255,7 @@ export class GstReconRepItcComponent {
         let sPkids: string = "";//Main List
         let _Ctr: number = 0;
         let _status: string = "";
-        for (let rec of this.mainService.RecordList) {
+        for (let rec of this.mainService.RecordListItc) {
             if (rec.rec_selected) {
                 _status = rec.reconcile_status;
                 _Ctr++;
@@ -274,7 +271,7 @@ export class GstReconRepItcComponent {
         }
 
         // if (_status == "MATCHED" || _status == "ALMOST MATCHED" || _status == "MISMATCHED (GST AMOUNT)" || _status == "MISMATCHED (PERIOD)") {
-        //     if (this.RecordList.length != _Ctr) {
+        //     if (this.RecordListItc.length != _Ctr) {
         //         alert('Please select all Records');
         //         return;
         //     }
@@ -299,7 +296,7 @@ export class GstReconRepItcComponent {
                 if (response.retvalue) {
                     let pkidsArray = sPkids.split(',');
                     for (let i = 0; i < pkidsArray.length; i++) {
-                        for (let rec of this.mainService.RecordList.filter(rec => rec.pkid == pkidsArray[i])) {
+                        for (let rec of this.mainService.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
                             rec.claim_status = this.gs.defaultValues.gst_recon_itc_claim_status;
                         }
                     }

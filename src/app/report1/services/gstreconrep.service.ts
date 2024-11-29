@@ -13,7 +13,16 @@ export class GstReconRepService {
   }
 
   public appid: string = "";
-  RecordList: Gstr2bDownload[] = [];
+  RecordListReco: Gstr2bDownload[] = [];
+  RecordListItc: Gstr2bDownload[] = [];
+
+  InitList() {
+    if (this.appid != this.gs.appid) {
+      this.appid = this.gs.appid;
+      this.RecordListReco = null;
+      this.RecordListItc = null;
+    }
+  }
 
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/List', SearchData, this.gs.headerparam2('authorized'));

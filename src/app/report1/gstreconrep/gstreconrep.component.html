@@ -111,7 +111,7 @@
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
-                            <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                            <tr *ngFor="let rec of mainService.RecordListReco; let i = index" [class.active]="i == selectedRowIndex"
                                 (mousedown)="selectedRowIndex=i">
                                 <td>{{rec.gstin_supplier}}</td>
                                 <td>{{rec.supplier_name}}</td>
