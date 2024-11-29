@@ -116,8 +116,10 @@
                                 <td>{{rec.gstin_supplier}}</td>
                                 <td>{{rec.supplier_name}}</td>
                                 <td>{{rec.supplier_state}}</td>
-                                <td class="text-right">{{ rec.gstr2b_count}}({{rec.matched_count}})</td>
-                                <td class="text-right">{{ rec.purchase_count}}({{rec.matched_count}})</td>
+                                <td *ngIf="!rec.gstr2b_count"></td>
+                                <td *ngIf="rec.gstr2b_count" class="text-right">{{ rec.gstr2b_count}}({{rec.matched_count}})</td>
+                                <td *ngIf="!rec.purchase_count"></td>
+                                <td *ngIf="rec.purchase_count" class="text-right">{{ rec.purchase_count}}({{rec.matched_count}})</td>
                                 <td class="text-right">{{ rec.tot_gst_gstr2b | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
