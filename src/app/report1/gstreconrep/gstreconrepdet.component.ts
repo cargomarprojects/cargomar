@@ -8,8 +8,7 @@ import { GstReconRepService } from '../services/gstreconrep.service';
 
 @Component({
   selector: 'app-gstreconrepdet',
-  templateUrl: './gstreconrepdet.component.html',
-  providers: [GstReconRepService]
+  templateUrl: './gstreconrepdet.component.html'
 })
 
 export class GstReconRepDetComponent {

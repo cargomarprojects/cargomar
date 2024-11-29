@@ -9,7 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-gstreconrepitc',
-    templateUrl: './gstreconrepitc.component.html',
+    templateUrl: './gstreconrepitc.component.html'
 })
 
 export class GstReconRepItcComponent {
