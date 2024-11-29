@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div *ngIf="bSave" class="col-sm-3">
                 <div class=" form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
                     <div class="col-sm-8">
@@ -138,7 +138,7 @@
                     <th class="text-right">DIFF</th>
                     <th>CLAIM STATUS</th>
                     <th>REMARKS</th>
-                    <th></th>
+                    <th *ngIf="bSave"></th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -159,7 +159,7 @@
                     <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
-                    <td class="p-0"> 
+                    <td *ngIf="bSave" class="p-0"> 
                         <select class="form-control form-control-sm p-1"
                             [(ngModel)]="rec.claim_status">
                             <option [value]="'OP'">OP</option>
@@ -168,11 +168,13 @@
                             <option [value]="'REJECTED'">REJECTED</option>
                         </select>
                     </td>
-                    <td class="p-0"> 
+                    <td *ngIf="!bSave">{{rec.claim_status}}</td>
+                    <td *ngIf="bSave" class="p-0"> 
                         <input type="text"  class="form-control form-control-sm p-1" [(ngModel)]="rec.reason"
                         (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
                     </td>
-                    <td class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)" ></i></td>
+                    <td *ngIf="!bSave">{{rec.reason}}</td>
+                    <td *ngIf="bSave" class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)" ></i></td>
                 </tr>
             </tbody>
         </table>

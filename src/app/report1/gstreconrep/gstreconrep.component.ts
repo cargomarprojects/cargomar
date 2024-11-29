@@ -45,6 +45,10 @@ export class GstReconRepComponent {
   round_off: number = 5;
   chk_pending: boolean = true;
 
+  bPrint = false;
+  bDocs: boolean = false;
+  bAdmin: boolean = false;
+  bSave: boolean = false;
   bCompany = false;
   disableSave = true;
   loading = false;
@@ -107,11 +111,17 @@ export class GstReconRepComponent {
 
   InitComponent() {
     this.bCompany = false;
+    this.bAdmin = false;
+    this.bPrint = false;
+    this.bSave = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_company)
-        this.bCompany = true;
+      this.bCompany = this.menu_record.rights_company;
+      this.bAdmin = this.menu_record.rights_admin;
+      this.bPrint = this.menu_record.rights_print;
+      if (this.menu_record.rights_add || this.menu_record.rights_edit)
+        this.bSave = true;
     }
     this.initLov();
     this.LoadCombo();
@@ -342,7 +352,7 @@ export class GstReconRepComponent {
     }
 
 
-   let SearchData2 = {
+    let SearchData2 = {
       type: '',
       pkid: '',
       report_folder: '',
@@ -361,8 +371,8 @@ export class GstReconRepComponent {
       state_code: '',
       round_off: 5,
       hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
-      recon_year:0,
-      recon_month:0
+      recon_year: 0,
+      recon_month: 0
     };
 
 
@@ -388,7 +398,7 @@ export class GstReconRepComponent {
     SearchData2.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     SearchData2.recon_year = +this.gs.defaultValues.gst_recon_year;
     SearchData2.recon_month = +this.gs.defaultValues.gst_recon_month;
-    
+
     this.ErrorMessage = '';
     this.mainService.UpdatePurchaseData(SearchData2)
       .subscribe(response => {

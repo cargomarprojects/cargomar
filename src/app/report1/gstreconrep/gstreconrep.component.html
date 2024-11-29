@@ -85,7 +85,7 @@
                                     <button [disabled]="loading" (click)="List('SCREEN')"
                                         class="btn btn-primary btn-sm mr-1">Search
                                     </button>
-                                    <button [disabled]="loading" (click)="List('EXCEL')"
+                                    <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
                                         class="btn btn-primary btn-sm">Excel</button>
                                     <button [disabled]="loading" (click)="ProcessGstReconcile()"
                                         class="btn btn-primary btn-sm">Process</button>
@@ -145,7 +145,7 @@
 
     <ngb-tab title="ITC Claim">
         <ng-template ngbTabContent>
-            <app-gstreconrepitc [menuid]="menuid" [type]="type"></app-gstreconrepitc>
+            <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave"></app-gstreconrepitc>
         </ng-template>
 
     </ngb-tab>

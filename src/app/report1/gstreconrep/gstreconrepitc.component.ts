@@ -17,6 +17,10 @@ export class GstReconRepItcComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
+    @Input() bPrint: boolean = false;
+    @Input() bDocs: boolean = false;
+    @Input() bAdmin: boolean = false;
+    @Input() bSave: boolean = false;
 
     InitCompleted: boolean = false;
     menu_record: any;
@@ -147,18 +151,6 @@ export class GstReconRepItcComponent {
 
     }
 
-
-    //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
-        if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
-        }
-    }
-
-
     // // Query List Data
     List(_type: string) {
         if (this.gs.isBlank(this.reconcile_state_name)) {
@@ -221,20 +213,17 @@ export class GstReconRepItcComponent {
     }
 
     OnChange(field: string) {
-         this.mainService.RecordListItc = null;
+        this.mainService.RecordListItc = null;
     }
     Close() {
         this.gs.ClosePage('home');
-    }
-
-    ShowHideRecord(_rec: Gstr2bDownload) {
-        // _rec.row_displayed = !_rec.row_displayed;
     }
 
     OnBlur(field: string) {
         if (field == "searchstring")
             this.searchstring = this.searchstring.toUpperCase();
     }
+
     OnBlurCell(field: string, _rec: Gstr2bDownload) {
         if (field == "reason")
             _rec.reason = _rec.reason.toUpperCase();
