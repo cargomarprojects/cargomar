@@ -86,8 +86,8 @@ export class GstReconRepItcComponent {
   Record: Gstr2bDownload = new Gstr2bDownload;
 
   constructor(
-    public modalService: NgbModal,
-    private mainService: GstReconRepService,
+    private modalService: NgbModal,
+    public mainService: GstReconRepService,
     private route: ActivatedRoute,
     public gs: GlobalService
   ) {
