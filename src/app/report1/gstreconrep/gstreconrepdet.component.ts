@@ -39,7 +39,7 @@ export class GstReconRepDetComponent {
   Record: Gstr2bDownload = new Gstr2bDownload;
 
   constructor(
-    private mainService: GstReconRepService,
+    public mainService: GstReconRepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {

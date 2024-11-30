@@ -84,11 +84,11 @@ export class GstReconRepComponent {
 
   constructor(
     private modalService: NgbModal,
-    private mainService: GstReconRepService,
+    public mainService: GstReconRepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
