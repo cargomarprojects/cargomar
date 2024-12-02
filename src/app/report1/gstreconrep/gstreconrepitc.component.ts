@@ -36,7 +36,7 @@ export class GstReconRepItcComponent {
   // recon_month = 0;
   gstin_supplier: string = "";
   period_id: string = "";
-  claim_period: string = "";
+  // claim_period: string = "";
 
   MonList: any[] = [];
 
@@ -168,6 +168,11 @@ export class GstReconRepItcComponent {
       alert("Invalid Month");
       return;
     }
+    
+    this.gs.defaultValues.gst_recon_itc_list_state_code = this.gs.defaultValues.gst_recon_itc_state_code;
+    this.gs.defaultValues.gst_recon_itc_list_state_name = this.gs.defaultValues.gst_recon_itc_state_name;
+    this.gs.defaultValues.gst_recon_itc_list_year = this.gs.defaultValues.gst_recon_itc_year;
+    this.gs.defaultValues.gst_recon_itc_list_month = this.gs.defaultValues.gst_recon_itc_month;
 
     this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
     this.loading = true;
@@ -181,18 +186,18 @@ export class GstReconRepItcComponent {
     this.SearchData.type = _type;
     this.SearchData.format_type = this.gs.defaultValues.gst_recon_itc_status;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
-    this.SearchData.state_code = this.gs.defaultValues.gst_recon_itc_state_code;
-    this.SearchData.state_name = this.gs.defaultValues.gst_recon_itc_state_name;
+    this.SearchData.state_code = this.gs.defaultValues.gst_recon_itc_list_state_code;
+    this.SearchData.state_name = this.gs.defaultValues.gst_recon_itc_list_state_name;
     this.SearchData.round_off = this.round_off;
-    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_itc_year;
-    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_itc_month;
+    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_itc_list_year;
+    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_itc_list_month;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         this.chkallselected = false;
         this.selectdeselect = false;
-        this.claim_period = response.claimperiod;
+        this.gs.defaultValues.gst_recon_itc_claim_period = response.claimperiod;
         if (_type == 'EXCEL') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
@@ -273,7 +278,7 @@ export class GstReconRepItcComponent {
     let SearchData2 = {
       pkid: sPkids,
       claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
-      claim_period: this.claim_period,
+      claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
       save_remarks: false
     };
 
@@ -304,7 +309,7 @@ export class GstReconRepItcComponent {
     let SearchData2 = {
       pkid: _id,
       claim_status: _status,
-      claim_period: this.claim_period,
+      claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
       remarks: _remarks,
       save_remarks: true
     };

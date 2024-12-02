@@ -349,14 +349,19 @@ export class GlobalService {
     this.defaultValues.gst_recon_state_name = 'KERALA';
     this.defaultValues.gst_recon_itc_state_code = '32';
     this.defaultValues.gst_recon_itc_state_name = 'KERALA';
+    this.defaultValues.gst_recon_itc_list_state_code = '32';
+    this.defaultValues.gst_recon_itc_list_state_name = 'KERALA';
     this.defaultValues.gst_recon_itc_status = 'MATCHED';
     this.defaultValues.gst_recon_itc_claim_status = 'ITC AVAILED';
+    this.defaultValues.gst_recon_itc_claim_period = '';
     var tempdt = this.getPreviousMonth().split('-');
     if (tempdt.length > 1) {
       this.defaultValues.gst_recon_year = tempdt[0];
       this.defaultValues.gst_recon_month = tempdt[1];
       this.defaultValues.gst_recon_itc_year = tempdt[0];
       this.defaultValues.gst_recon_itc_month = tempdt[1];
+      this.defaultValues.gst_recon_itc_list_year = tempdt[0];
+      this.defaultValues.gst_recon_itc_list_month = tempdt[1];
     }
 
     this.globalData.cost_sea_fromdate = this.defaultValues.monthbegindate;
