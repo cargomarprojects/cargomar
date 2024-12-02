@@ -168,7 +168,7 @@ export class GstReconRepItcComponent {
       alert("Invalid Month");
       return;
     }
-    
+
     this.gs.defaultValues.gst_recon_itc_list_state_code = this.gs.defaultValues.gst_recon_itc_state_code;
     this.gs.defaultValues.gst_recon_itc_list_state_name = this.gs.defaultValues.gst_recon_itc_state_name;
     this.gs.defaultValues.gst_recon_itc_list_year = this.gs.defaultValues.gst_recon_itc_year;
@@ -269,8 +269,8 @@ export class GstReconRepItcComponent {
     //         alert('Please select all Records');
     //         return;
     //     }
-    // }
-
+    // } = this.gs.defaultValues.gst_recon_itc_year;
+     
     if (!confirm("Update Claim Status")) {
       return;
     }
@@ -279,6 +279,8 @@ export class GstReconRepItcComponent {
       pkid: sPkids,
       claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
       claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
+      recon_year: +this.gs.defaultValues.gst_recon_itc_list_year,
+      recon_month: +this.gs.defaultValues.gst_recon_itc_list_month,
       save_remarks: false
     };
 
@@ -311,6 +313,8 @@ export class GstReconRepItcComponent {
       claim_status: _status,
       claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
       remarks: _remarks,
+      recon_year: +this.gs.defaultValues.gst_recon_itc_list_year,
+      recon_month: +this.gs.defaultValues.gst_recon_itc_list_month,
       save_remarks: true
     };
     this.loading = true;

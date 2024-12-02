@@ -545,6 +545,9 @@ export class GlobalService {
       this.globalVariables.branch_type = data.branch_type;
       this.globalVariables.branch_number = data.branch_number;
 
+      this.globalVariables.branch_gstin_state_code = data.branch_gstin_state_code;
+      this.globalVariables.branch_gstin_state_name = data.branch_gstin_state_name;
+
       this.globalVariables.year_pkid = data.year_pkid;
       this.globalVariables.year_code = data.year_code;
       this.globalVariables.year_name = data.year_name;
@@ -652,6 +655,13 @@ export class GlobalService {
       this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
       this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
       this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
+
+      this.defaultValues.gst_recon_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_state_name = this.globalVariables.branch_gstin_state_name;
+      this.defaultValues.gst_recon_itc_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_itc_state_name = this.globalVariables.branch_gstin_state_name;
+      this.defaultValues.gst_recon_itc_list_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_itc_list_state_name = this.globalVariables.branch_gstin_state_name;
 
       if (this.globalVariables.comp_pkid == '') {
         alert("Invalid Company");

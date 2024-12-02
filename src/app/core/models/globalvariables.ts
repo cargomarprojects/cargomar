@@ -35,6 +35,8 @@ export class GlobalVariables {
 
     branch_type: string;
     branch_number: number;
+    branch_gstin_state_code: string;
+    branch_gstin_state_name: string;
 
     sman_id: string;
     sman_name: string;
