@@ -323,7 +323,7 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
-          alert('Save Complete');
+          // alert('Save Complete');
         }
       },
         error => {

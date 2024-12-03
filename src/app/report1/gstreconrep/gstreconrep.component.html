@@ -109,7 +109,7 @@
                                 <th class="text-right">TOTAL(GSTR2B)</th>
                                 <th class="text-right">TOTAL(PURCHASE)</th>
                                 <th class="text-right">DIFF</th>
-                                <th>DETAILS</th>
+                                <th class="text-center">DETAILS</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -127,8 +127,9 @@
                                 <td class="text-right">{{ rec.tot_gst_gstr2b | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
-                                <td class="hlink"><i class="fa fa-eye fa-lg pointer" aria-hidden="true"
-                                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code)"></i>
+                                <td style="text-align: center; vertical-align: middle; cursor: pointer;"
+                                    (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code)"
+                                    class="hlink"><i class="fa fa-eye fa-lg pointer" aria-hidden="true"></i>
                                 </td>
                             </tr>
                         </tbody>

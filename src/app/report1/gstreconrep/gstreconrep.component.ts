@@ -292,7 +292,7 @@ export class GstReconRepComponent {
     //   return;
     // }
 
-    if (!confirm("Do you want to Process Data")) {
+    if (!confirm("Do you want to Process Data - " + this.gs.defaultValues.gst_recon_state_name + " - " + this.getMonth(this.gs.defaultValues.gst_recon_month) + ", " + this.gs.defaultValues.gst_recon_year)) {
       return;
     }
 
@@ -306,7 +306,7 @@ export class GstReconRepComponent {
     this.mainService.ProcessGstReconcile(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        alert('Process Completed')
+        // alert('Process Completed')
         // this.BranchList = response.branchlist;
       },
         error => {
@@ -316,6 +316,16 @@ export class GstReconRepComponent {
         });
   }
 
+  getMonth(_month: string) {
+    let _mName = "";
+    if (this.MonList != null) {
+      var REC = this.MonList.find(rec => rec.id == _month);
+      if (REC != null) {
+        _mName = REC.name;
+      }
+    }
+    return _mName;
+  }
 
   showDetailList(gstrdet: any, _gstin_supplier: string, _period: number, _state_code: string) {
     this.gstin_supplier = _gstin_supplier;
@@ -347,7 +357,7 @@ export class GstReconRepComponent {
       return;
     }
 
-    if (!confirm("Do you want to Update Purchase Data")) {
+    if (!confirm("Do you want to Update Purchase Data - " + this.gs.defaultValues.gst_recon_state_name + " - " + this.getMonth(this.gs.defaultValues.gst_recon_month) + ", " + this.gs.defaultValues.gst_recon_year)) {
       return;
     }
 
@@ -403,7 +413,7 @@ export class GstReconRepComponent {
     this.mainService.UpdatePurchaseData(SearchData2)
       .subscribe(response => {
         this.loading = false;
-        alert(response.retmsg)
+        // alert(response.retmsg)
         // this.BranchList = response.branchlist;
       },
         error => {
