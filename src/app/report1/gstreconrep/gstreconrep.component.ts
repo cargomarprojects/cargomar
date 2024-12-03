@@ -23,6 +23,7 @@ export class GstReconRepComponent {
   sub: any;
   urlid: string;
 
+  download_doc_type: string = 'INVOICE';
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -74,13 +75,15 @@ export class GstReconRepComponent {
     recon_year: 0,
     recon_month: 0,
     chk_pending: this.chk_pending,
-    hide_ho_entries: this.gs.globalVariables.hide_ho_entries
+    hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
+    download_doc_type: this.download_doc_type
   };
 
   // Array For Displaying List
   // RecordListReco: Gstr2bDownload[] = [];
   //  Single Record for add/edit/view details
   Record: Gstr2bDownload = new Gstr2bDownload;
+
 
   constructor(
     private modalService: NgbModal,
@@ -234,6 +237,7 @@ export class GstReconRepComponent {
     this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
     this.SearchData.chk_pending = this.chk_pending;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+    this.SearchData.download_doc_type = this.download_doc_type;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -302,6 +306,7 @@ export class GstReconRepComponent {
     this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
     this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
+    this.SearchData.download_doc_type = this.download_doc_type;
     this.ErrorMessage = '';
     this.mainService.ProcessGstReconcile(this.SearchData)
       .subscribe(response => {
@@ -382,7 +387,8 @@ export class GstReconRepComponent {
       round_off: 5,
       hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
       recon_year: 0,
-      recon_month: 0
+      recon_month: 0,
+      download_doc_type: this.download_doc_type
     };
 
 
@@ -408,6 +414,7 @@ export class GstReconRepComponent {
     SearchData2.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     SearchData2.recon_year = +this.gs.defaultValues.gst_recon_year;
     SearchData2.recon_month = +this.gs.defaultValues.gst_recon_month;
+    SearchData2.download_doc_type = this.download_doc_type;
 
     this.ErrorMessage = '';
     this.mainService.UpdatePurchaseData(SearchData2)
