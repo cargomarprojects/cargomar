@@ -15,12 +15,14 @@ export class GstReconRepService {
   public appid: string = "";
   RecordListReco: Gstr2bDownload[] = [];
   RecordListItc: Gstr2bDownload[] = [];
+  RecordListCdnr: Gstr2bDownload[] = [];
 
   InitList() {
     if (this.appid != this.gs.appid) {
       this.appid = this.gs.appid;
       this.RecordListReco = null;
       this.RecordListItc = null;
+      this.RecordListCdnr = null;
     }
   }
 

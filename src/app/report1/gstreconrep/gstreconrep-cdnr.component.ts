@@ -217,7 +217,7 @@ export class GstReconRepCdnrComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
-          this.mainService.RecordListReco = response.list;
+          this.mainService.RecordListCdnr = response.list;
         }
       },
         error => {
@@ -233,7 +233,7 @@ export class GstReconRepCdnrComponent {
   }
 
   OnChange(field: string) {
-    this.mainService.RecordListReco = null;
+    this.mainService.RecordListCdnr = null;
   }
   Close() {
     this.gs.ClosePage('home');
