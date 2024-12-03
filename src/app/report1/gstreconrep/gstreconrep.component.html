@@ -143,10 +143,15 @@
 
 
     </ngb-tab>
+    <ngb-tab title="Recon CDNR">
+        <ng-template ngbTabContent>
+            <app-gstreconrep-cdnr [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-cdnr>
+        </ng-template>
 
+    </ngb-tab>
     <ngb-tab title="ITC Claim">
         <ng-template ngbTabContent>
-            <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave"></app-gstreconrepitc>
+            <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrepitc>
         </ng-template>
 
     </ngb-tab>

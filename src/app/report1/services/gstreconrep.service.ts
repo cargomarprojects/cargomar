@@ -32,6 +32,7 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/DetailList', SearchData, this.gs.headerparam2('authorized'));
   }
 
+
   ItcList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/ItcList', SearchData, this.gs.headerparam2('authorized'));
   }
