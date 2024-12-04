@@ -79,6 +79,7 @@ import { GstReconRepDetComponent } from './gstreconrep/gstreconrepdet.component'
 import { GstReconRepItcComponent } from './gstreconrep/gstreconrepitc.component';
 import { GstReconRepService } from './services/gstreconrep.service';
 import { GstReconRepCdnrComponent } from './gstreconrep/gstreconrep-cdnr.component';
+import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import { GstReconRepCdnrComponent } from './gstreconrep/gstreconrep-cdnr.compone
     GstReconRepComponent,
     GstReconRepDetComponent,
     GstReconRepItcComponent,
-    GstReconRepCdnrComponent
+    GstReconRepCdnrComponent,
+    GstReconRepRcComponent
   ],
   providers: [GstReconRepService
   ],

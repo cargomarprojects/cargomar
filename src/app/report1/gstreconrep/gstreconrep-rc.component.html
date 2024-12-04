@@ -6,7 +6,7 @@
                     <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
                     <div class="col-sm-8">
                         <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
-                            [displaydata]="gs.defaultValues.gst_recon_cdnr_state_name"
+                            [displaydata]="gs.defaultValues.gst_recon_rc_state_name"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div>
@@ -15,12 +15,12 @@
                     <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
                     <div class="col-sm-3">
                         <input type="text" class="col form-control form-control-sm"
-                            [(ngModel)]="gs.defaultValues.gst_recon_cdnr_year" required maxlength="4" />
+                            [(ngModel)]="gs.defaultValues.gst_recon_rc_year" required maxlength="4" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
                     <div class="col-sm-3">
                         <select class="form-control form-control-sm"
-                            [(ngModel)]="gs.defaultValues.gst_recon_cdnr_month">
+                            [(ngModel)]="gs.defaultValues.gst_recon_rc_month">
                             <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
                         </select>
                         <!-- <input type="text" class="col form-control form-control-sm"
@@ -102,7 +102,7 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of mainService.RecordListCdnr; let i = index" [class.active]="i == selectedRowIndex"
+                <tr *ngFor="let rec of mainService.RecordListRc; let i = index" [class.active]="i == selectedRowIndex"
                     (mousedown)="selectedRowIndex=i">
                     <td>{{rec.gstin_supplier}}</td>
                     <td>{{rec.supplier_name}}</td>
@@ -117,7 +117,7 @@
                     <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                     <td style="text-align: center; vertical-align: middle; cursor: pointer;"
-                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code)"
+                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code,rec.supplier_name)"
                         class="hlink"><i *ngIf="rec.gstin_supplier!='TOTAL'" class="fa fa-eye fa-lg pointer" aria-hidden="true"></i>
                     </td>
                 </tr>

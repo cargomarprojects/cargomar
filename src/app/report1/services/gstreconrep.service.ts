@@ -16,6 +16,7 @@ export class GstReconRepService {
   RecordListReco: Gstr2bDownload[] = [];
   RecordListItc: Gstr2bDownload[] = [];
   RecordListCdnr: Gstr2bDownload[] = [];
+  RecordListRc: Gstr2bDownload[] = [];
 
   InitList() {
     if (this.appid != this.gs.appid) {
@@ -23,6 +24,7 @@ export class GstReconRepService {
       this.RecordListReco = null;
       this.RecordListItc = null;
       this.RecordListCdnr = null;
+      this.RecordListRc = null;
     }
   }
 

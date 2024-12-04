@@ -20,6 +20,7 @@ export class GstReconRepDetComponent {
   @Input() period: number = 2020;
   @Input() state_code: string = '';
   @Input() download_doc_type: string = '';
+  @Input() reverse_charge: string = 'NO';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -77,7 +78,8 @@ export class GstReconRepDetComponent {
       gstin_supplier: this.gstinsupplier,
       period: this.period,
       state_code: this.state_code,
-      download_doc_type: this.download_doc_type
+      download_doc_type: this.download_doc_type,
+      reverse_charge: this.reverse_charge
     };
     this.ErrorMessage = '';
     this.mainService.DetailList(SearchData)

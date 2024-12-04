@@ -76,7 +76,8 @@ export class GstReconRepComponent {
     recon_month: 0,
     chk_pending: this.chk_pending,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
-    download_doc_type: this.download_doc_type
+    download_doc_type: this.download_doc_type,
+    reverse_charge: 'NO'
   };
 
   // Array For Displaying List
@@ -137,12 +138,6 @@ export class GstReconRepComponent {
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
     this.display_format_type = this.format_type;
-
-    // if (this.gs.defaultValues.today.trim() != "") {
-    //   var tempdt = this.gs.defaultValues.today.split('-');
-    //   this.recon_year = +tempdt[0];
-    //   this.recon_month = +tempdt[1];
-    // }
   }
 
   // // Destroy Will be called when this component is closed
@@ -238,6 +233,7 @@ export class GstReconRepComponent {
     this.SearchData.chk_pending = this.chk_pending;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.SearchData.download_doc_type = this.download_doc_type;
+    this.SearchData.reverse_charge = 'NO';
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
@@ -284,18 +280,6 @@ export class GstReconRepComponent {
       return;
     }
 
-    // if (this.recon_year <= 0) {
-    //   alert("Invalid Year");
-    //   return;
-    // } else if (this.recon_year < 100) {
-    //   alert("YEAR FORMAT : - YYYY ");
-    //   return;
-    // }
-    // if (this.recon_month <= 0 || this.recon_month > 12) {
-    //   alert("Invalid Month");
-    //   return;
-    // }
-
     if (!confirm("Do you want to Process Data - " + this.gs.defaultValues.gst_recon_state_name + " - " + this.getMonth(this.gs.defaultValues.gst_recon_month) + ", " + this.gs.defaultValues.gst_recon_year)) {
       return;
     }
@@ -307,12 +291,12 @@ export class GstReconRepComponent {
     this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_year;
     this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_month;
     this.SearchData.download_doc_type = this.download_doc_type;
+    this.SearchData.reverse_charge = 'NO';
     this.ErrorMessage = '';
     this.mainService.ProcessGstReconcile(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         // alert('Process Completed')
-        // this.BranchList = response.branchlist;
       },
         error => {
           this.loading = false;
@@ -333,6 +317,8 @@ export class GstReconRepComponent {
   }
 
   showDetailList(gstrdet: any, _gstin_supplier: string, _period: number, _state_code: string) {
+    if (_gstin_supplier == "TOTAL")
+      return;
     this.gstin_supplier = _gstin_supplier;
     this.period = _period;
     this.state_code = _state_code;
@@ -388,7 +374,8 @@ export class GstReconRepComponent {
       hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
       recon_year: 0,
       recon_month: 0,
-      download_doc_type: this.download_doc_type
+      download_doc_type: this.download_doc_type,
+      reverse_charge: 'NO'
     };
 
 
@@ -415,13 +402,12 @@ export class GstReconRepComponent {
     SearchData2.recon_year = +this.gs.defaultValues.gst_recon_year;
     SearchData2.recon_month = +this.gs.defaultValues.gst_recon_month;
     SearchData2.download_doc_type = this.download_doc_type;
-
+    SearchData2.reverse_charge = 'NO';
     this.ErrorMessage = '';
     this.mainService.UpdatePurchaseData(SearchData2)
       .subscribe(response => {
         this.loading = false;
         // alert(response.retmsg)
-        // this.BranchList = response.branchlist;
       },
         error => {
           this.loading = false;
