@@ -336,7 +336,7 @@ export class GstReconRepRcComponent {
             return;
         }
 
-        if (!confirm("Do you want to Update Purchase Data - " + this.gs.defaultValues.gst_recon_rc_state_name + " - " + this.getMonth(this.gs.defaultValues.gst_recon_rc_month) + ", " + this.gs.defaultValues.gst_recon_rc_year)) {
+        if (!confirm("Do you want to Update Data - " + this.gs.defaultValues.gst_recon_rc_state_name + " - " + this.getMonth(this.gs.defaultValues.gst_recon_rc_month) + ", " + this.gs.defaultValues.gst_recon_rc_year)) {
             return;
         }
 
