@@ -83,4 +83,5 @@ export class Gstr2bDownload {
     tot_gst_gstr2b: number;
     gst_diff: number;
     claim_status: string;
+    display_claimed_period: string;
 }

@@ -117,18 +117,25 @@ export class DefaultValues {
     air_job_origin_country_code: string;
     air_job_origin_country_name: string;
 
+    gst_recon_searchstring: string;
     gst_recon_state_code: string;
     gst_recon_state_name: string;
     gst_recon_month: string;
     gst_recon_year: string;
+
+    gst_recon_cdnr_searchstring: string;
     gst_recon_cdnr_state_code: string;
     gst_recon_cdnr_state_name: string;
     gst_recon_cdnr_month: string;
     gst_recon_cdnr_year: string;
+    
+    gst_recon_rc_searchstring: string;
     gst_recon_rc_state_code: string;
     gst_recon_rc_state_name: string;
     gst_recon_rc_month: string;
     gst_recon_rc_year: string;
+
+    gst_recon_itc_searchstring: string;
     gst_recon_itc_state_code: string;
     gst_recon_itc_state_name: string;
     gst_recon_itc_month: string;

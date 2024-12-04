@@ -345,12 +345,16 @@ export class GlobalService {
     this.defaultValues.tdsos_list_format = 'BRANCH-WISE';
     this.defaultValues.bl_fmc_no = "031793";
 
+    this.defaultValues.gst_recon_searchstring = '';
     this.defaultValues.gst_recon_state_code = '32';
     this.defaultValues.gst_recon_state_name = 'KERALA';
+    this.defaultValues.gst_recon_cdnr_searchstring = '';
     this.defaultValues.gst_recon_cdnr_state_code = '32';
     this.defaultValues.gst_recon_cdnr_state_name = 'KERALA';
+    this.defaultValues.gst_recon_rc_searchstring = '';
     this.defaultValues.gst_recon_rc_state_code = '32';
     this.defaultValues.gst_recon_rc_state_name = 'KERALA';
+    this.defaultValues.gst_recon_itc_searchstring = '';
     this.defaultValues.gst_recon_itc_state_code = '32';
     this.defaultValues.gst_recon_itc_state_name = 'KERALA';
     this.defaultValues.gst_recon_itc_list_state_code = '32';

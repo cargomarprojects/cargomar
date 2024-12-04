@@ -39,7 +39,7 @@ export class GstReconRepComponent {
   format_type: string = '';
   from_date: string = '';
   to_date: string = '';
-  searchstring = '';
+  //searchstring = '';
   display_format_type: string = '';
   // reconcile_state_name: string = "KERALA";
   // reconcile_state_code: string = "32";
@@ -219,7 +219,7 @@ export class GstReconRepComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.searchstring = this.gs.defaultValues.gst_recon_searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
@@ -270,7 +270,7 @@ export class GstReconRepComponent {
 
   OnBlur(field: string) {
     if (field == "searchstring")
-      this.searchstring = this.searchstring.toUpperCase();
+      this.gs.defaultValues.gst_recon_searchstring = this.gs.defaultValues.gst_recon_searchstring.toUpperCase();
   }
 
   ProcessGstReconcile() {

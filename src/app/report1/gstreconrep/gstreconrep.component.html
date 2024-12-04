@@ -7,7 +7,7 @@
 </div>
 <hr />
 <ngb-tabset>
-    <ngb-tab title="Recon 2B">
+    <ngb-tab title="Recon-2B">
         <ng-template ngbTabContent>
             <div class="page-list">
                 <div class="page-search">
@@ -51,7 +51,8 @@
                                 <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="col form-control form-control-sm" name="Search"
-                                        (blur)="OnBlur('searchstring')" [(ngModel)]="searchstring" />
+                                        (blur)="OnBlur('searchstring')"
+                                        [(ngModel)]="gs.defaultValues.gst_recon_searchstring" />
                                 </div>
                             </div>
                         </div>
@@ -87,10 +88,10 @@
                                     </button>
                                     <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
                                         class="btn btn-primary btn-sm">Excel</button>
-                                    <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstReconcile()"
-                                        class="btn btn-primary btn-sm">Process</button>
                                     <button *ngIf="bAdmin" [disabled]="loading" (click)="UpdatePurchaseData()"
                                         class="btn btn-primary btn-sm">Update Data</button>
+                                    <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstReconcile()"
+                                        class="btn btn-primary btn-sm">Process</button>
                                 </div>
                             </div>
                         </div>
@@ -144,17 +145,17 @@
 
 
     </ngb-tab>
-    <ngb-tab title="Recon Credit Note">
+    <ngb-tab title="Recon-Cr/Note">
         <ng-template ngbTabContent>
-            <app-gstreconrep-cdnr [menuid]="menuid" [type]="type" [download_doc_type]="'CREDIT NOTE'"  [reverse_charge]="'NO'" [bPrint]="bPrint"
-                [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-cdnr>
+            <app-gstreconrep-cdnr [menuid]="menuid" [type]="type" [download_doc_type]="'CREDIT NOTE'"
+                [reverse_charge]="'NO'" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-cdnr>
         </ng-template>
 
     </ngb-tab>
-    <ngb-tab title="Recon Reverse Charge">
+    <ngb-tab title="Recon-RC">
         <ng-template ngbTabContent>
-            <app-gstreconrep-rc [menuid]="menuid" [type]="type" [download_doc_type]="'INVOICE'"  [reverse_charge]="'YES'" [bPrint]="bPrint"
-                [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-rc>
+            <app-gstreconrep-rc [menuid]="menuid" [type]="type" [download_doc_type]="'INVOICE'" [reverse_charge]="'YES'"
+                [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-rc>
         </ng-template>
 
     </ngb-tab>

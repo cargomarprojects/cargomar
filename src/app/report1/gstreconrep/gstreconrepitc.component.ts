@@ -44,7 +44,7 @@ export class GstReconRepItcComponent {
   // format_type: string = '';
   from_date: string = '';
   to_date: string = '';
-  searchstring = '';
+  // searchstring = '';
   display_format_type: string = '';
   reconcile_state_name: string = "KERALA";
   reconcile_state_code: string = "32";
@@ -182,7 +182,7 @@ export class GstReconRepItcComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.searchstring = this.gs.defaultValues.gst_recon_itc_searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.format_type = this.gs.defaultValues.gst_recon_itc_status;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
@@ -226,7 +226,7 @@ export class GstReconRepItcComponent {
 
   OnBlur(field: string) {
     if (field == "searchstring")
-      this.searchstring = this.searchstring.toUpperCase();
+      this.gs.defaultValues.gst_recon_itc_searchstring = this.gs.defaultValues.gst_recon_itc_searchstring.toUpperCase();
   }
 
   OnBlurCell(field: string, _rec: Gstr2bDownload) {
