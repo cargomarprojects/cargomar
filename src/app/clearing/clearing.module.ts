@@ -38,6 +38,7 @@ import { EdifileComponent } from './job/edijob/edifile.component';
 import { EdijobEditComponent } from './job/edijob/edit/edijob-edit.component';
 import { EdiJobpackingEditComponent } from './job/edijob/edit/edijobpacking-edit.component';
 import { ItemJobworkComponent } from './job/itemjobwork/itemjobwork.component';
+import { ItemReExportComponent } from './job/itemreexport/itemreexport.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { ItemJobworkComponent } from './job/itemjobwork/itemjobwork.component';
     EdifileComponent,
     EdijobEditComponent,
     EdiJobpackingEditComponent,
-    ItemJobworkComponent
+    ItemJobworkComponent,
+    ItemReExportComponent
   ],
   providers: [
   ],

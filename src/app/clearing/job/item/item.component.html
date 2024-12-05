@@ -657,6 +657,11 @@
       </ng-template>
     </ngb-tab>
 
+    <ngb-tab title="Re-Export" *ngIf="mode=='EDIT'">
+      <ng-template ngbTabContent>
+        <app-itemreexport [parentid]="pkid" [jobid]="Record.itm_job_id" [type]="type"></app-itemreexport>
+      </ng-template>
+    </ngb-tab>
 
   </ngb-tabset>
 
