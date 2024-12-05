@@ -34,7 +34,7 @@ export class GlobalService {
   public Topbar_Email = "";
   public Topbar_Mob = "";
 
-  public software_version_string: string = '1.658';
+  public software_version_string: string = '1.659';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
@@ -668,15 +668,15 @@ export class GlobalService {
       this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
       this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
 
-      this.defaultValues.gst_recon_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_state_name = this.globalVariables.branch_gstin_state_name;
-      this.defaultValues.gst_recon_itc_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_itc_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_itc_state_name = this.globalVariables.branch_gstin_state_name;
-      this.defaultValues.gst_recon_itc_list_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_itc_list_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_itc_list_state_name = this.globalVariables.branch_gstin_state_name;
-      this.defaultValues.gst_recon_cdnr_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_cdnr_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_cdnr_state_name = this.globalVariables.branch_gstin_state_name;
-      this.defaultValues.gst_recon_rc_state_code = this.globalVariables.branch_gstin_state_code ;
+      this.defaultValues.gst_recon_rc_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_rc_state_name = this.globalVariables.branch_gstin_state_name;
 
       if (this.globalVariables.comp_pkid == '') {
