@@ -135,7 +135,7 @@
           <th class="text-right">DIFF</th>
           <th>CLAIM STATUS</th>
           <th>REMARKS</th>
-          <th *ngIf="bSave"></th>
+          <th *ngIf="bSave">UPDATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -171,8 +171,8 @@
               (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
-          <td *ngIf="bSave" class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true"
-              (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)"></i></td>
+          <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)"><i
+              class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
         </tr>
       </tbody>
     </table>
