@@ -123,8 +123,8 @@
             <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Process
               Report</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Excel</button>
-            <button *ngIf="bCompany&&all&&gst_only&&format_type=='PURCHASE'" [disabled]="loading"
-              (click)="List('RECONCILE-EXP-DATA')" class="btn btn-primary btn-sm">Reconcile Export Data</button>
+            <!-- <button *ngIf="bCompany&&all&&gst_only&&format_type=='PURCHASE'" [disabled]="loading"
+              (click)="List('RECONCILE-EXP-DATA')" class="btn btn-primary btn-sm">Reconcile Export Data</button> -->
           </div>
         </div>
       </div>
