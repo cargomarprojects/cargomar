@@ -354,6 +354,9 @@ export class GlobalService {
     this.defaultValues.gst_recon_rc_searchstring = '';
     this.defaultValues.gst_recon_rc_state_code = '32';
     this.defaultValues.gst_recon_rc_state_name = 'KERALA';
+    this.defaultValues.gst_recon_ament_searchstring = '';
+    this.defaultValues.gst_recon_ament_state_code = '32';
+    this.defaultValues.gst_recon_ament_state_name = 'KERALA';
     this.defaultValues.gst_recon_itc_searchstring = '';
     this.defaultValues.gst_recon_itc_state_code = '32';
     this.defaultValues.gst_recon_itc_state_name = 'KERALA';
@@ -374,6 +377,8 @@ export class GlobalService {
       this.defaultValues.gst_recon_cdnr_month = tempdt[1];
       this.defaultValues.gst_recon_rc_year = tempdt[0];
       this.defaultValues.gst_recon_rc_month = tempdt[1];
+      this.defaultValues.gst_recon_ament_year = tempdt[0];
+      this.defaultValues.gst_recon_ament_month = tempdt[1];
     }
 
     this.globalData.cost_sea_fromdate = this.defaultValues.monthbegindate;
@@ -678,6 +683,8 @@ export class GlobalService {
       this.defaultValues.gst_recon_cdnr_state_name = this.globalVariables.branch_gstin_state_name;
       this.defaultValues.gst_recon_rc_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_rc_state_name = this.globalVariables.branch_gstin_state_name;
+      this.defaultValues.gst_recon_ament_state_code = this.globalVariables.branch_gstin_state_code;
+      this.defaultValues.gst_recon_ament_state_name = this.globalVariables.branch_gstin_state_name;
 
       if (this.globalVariables.comp_pkid == '') {
         alert("Invalid Company");

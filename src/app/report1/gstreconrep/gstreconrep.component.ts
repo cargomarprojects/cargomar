@@ -154,6 +154,10 @@ export class GstReconRepComponent {
       this.gs.defaultValues.gst_recon_state_code = _Record.code;
       this.gs.defaultValues.gst_recon_state_name = _Record.name;
     }
+    if (_Record.controlname == "STATE-AMENT") {
+      this.gs.defaultValues.gst_recon_ament_state_code = _Record.code;
+      this.gs.defaultValues.gst_recon_ament_state_name = _Record.name;
+    }
   }
   LoadCombo() {
     this.MonList = [{ "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
@@ -269,8 +273,10 @@ export class GstReconRepComponent {
   }
 
   OnBlur(field: string) {
-    if (field == "searchstring")
+    if (field == "searchstring") {
       this.gs.defaultValues.gst_recon_searchstring = this.gs.defaultValues.gst_recon_searchstring.toUpperCase();
+      this.gs.defaultValues.gst_recon_ament_searchstring = this.gs.defaultValues.gst_recon_ament_searchstring.toUpperCase();
+    }
   }
 
   ProcessGstReconcile() {
@@ -411,6 +417,57 @@ export class GstReconRepComponent {
       },
         error => {
           this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  AmendmentList(_type: string) {
+    if (this.gs.isBlank(this.gs.defaultValues.gst_recon_state_name)) {
+      alert("State Cannot be Blank");
+      return;
+    }
+    if (+this.gs.defaultValues.gst_recon_ament_year <= 0) {
+      alert("Invalid Year");
+      return;
+    } else if (+this.gs.defaultValues.gst_recon_ament_year < 100) {
+      alert("YEAR FORMAT : - YYYY ");
+      return;
+    }
+    if (+this.gs.defaultValues.gst_recon_ament_month <= 0 || +this.gs.defaultValues.gst_recon_ament_month > 12) {
+      alert("Invalid Month");
+      return;
+    }
+
+    this.display_format_type = this.format_type;
+    this.loading = true;
+    this.pkid = this.gs.getGuid();
+    this.SearchData.pkid = this.pkid;
+    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.year_code = this.gs.globalVariables.year_code;
+    this.SearchData.searchstring = this.gs.defaultValues.gst_recon_ament_searchstring.toUpperCase();
+    this.SearchData.type = _type;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
+    this.SearchData.state_code = this.gs.defaultValues.gst_recon_ament_state_code;
+    this.SearchData.state_name = this.gs.defaultValues.gst_recon_ament_state_name;
+    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_ament_year;
+    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_ament_month;
+    this.ErrorMessage = '';
+    this.mainService.AmendmentList(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL') {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
+        else {
+          this.mainService.RecordListAment = response.list;
+        }
+      },
+        error => {
+          this.loading = false;
+          this.mainService.RecordListAment = null;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });

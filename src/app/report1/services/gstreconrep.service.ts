@@ -17,6 +17,7 @@ export class GstReconRepService {
   RecordListItc: Gstr2bDownload[] = [];
   RecordListCdnr: Gstr2bDownload[] = [];
   RecordListRc: Gstr2bDownload[] = [];
+  RecordListAment: Gstr2bDownload[] = [];
 
   InitList() {
     if (this.appid != this.gs.appid) {
@@ -25,6 +26,7 @@ export class GstReconRepService {
       this.RecordListItc = null;
       this.RecordListCdnr = null;
       this.RecordListRc = null;
+      this.RecordListAment = null;
     }
   }
 
@@ -51,6 +53,10 @@ export class GstReconRepService {
 
   UpdatePurchaseData(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/UpdatePurchaseData', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  AmendmentList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/AmendmentList', SearchData, this.gs.headerparam2('authorized'));
   }
 
   LoadDefault(SearchData: any) {

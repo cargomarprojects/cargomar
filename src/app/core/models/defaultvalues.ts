@@ -135,6 +135,12 @@ export class DefaultValues {
     gst_recon_rc_month: string;
     gst_recon_rc_year: string;
 
+    gst_recon_ament_searchstring: string;
+    gst_recon_ament_state_code: string;
+    gst_recon_ament_state_name: string;
+    gst_recon_ament_month: string;
+    gst_recon_ament_year: string;
+
     gst_recon_itc_searchstring: string;
     gst_recon_itc_state_code: string;
     gst_recon_itc_state_name: string;

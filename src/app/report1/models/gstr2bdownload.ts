@@ -84,4 +84,8 @@ export class Gstr2bDownload {
     gst_diff: number;
     claim_status: string;
     display_claimed_period: string;
+
+    org_invoice_number: string;
+    org_invoice_type: string;
+    org_invoice_date: string;
 }
