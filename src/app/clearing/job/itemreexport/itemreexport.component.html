@@ -18,7 +18,7 @@
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                     (click)="ActionHandler('EDIT', rec.re_pkid,i)">
-                    <td>{{rec.re_serial_no}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{rec.re_be_no}}</td>
                     <td>{{rec.re_be_date}}</td>
                     <td>{{rec.re_be_invoice_no}}</td>
@@ -26,7 +26,7 @@
                     <td>{{rec.re_be_manual}}</td>
                     <td>{{rec.re_be_itm_desc}}</td>
                     <td>{{rec.re_be_qty}}</td>
-                    <td>{{rec.re_be_uqc}}</td>
+                    <td>{{rec.re_be_uqc_code}}</td>
                     <td>
                         <App-Dialog
                             [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.re_pkid,name:rec.re_serial_no}"
@@ -40,21 +40,13 @@
 <div class="page-details">
     <div class="row">
         <div class="col-sm-3">
-            <div class="form-group row">
+            <!-- <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Serial No.</label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_serial_no"
                         (blur)="OnBlur('re_serial_no')" required #_re_serial_no />
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Site</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_site"
-                        (blur)="OnBlur('re_be_site')" required maxlength="6" />
-                </div>
-            </div>
+            </div> -->
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">BE No</label>
                 <div class="col-sm-6">
@@ -69,22 +61,12 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Invoice No</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">Import Port Code</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_invoice_no"
-                        (blur)="OnBlur('re_be_invoice_no')" required maxlength="5" />
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_site"
+                        (blur)="OnBlur('re_be_site')" required maxlength="6" />
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Item</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_item"
-                        (blur)="OnBlur('re_be_item')" required maxlength="4" />
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Manual BE</label>
                 <div class="col-sm-6">
@@ -94,60 +76,139 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">BE Item Desc.</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_itm_desc"
+                        (blur)="OnBlur('re_be_itm_desc')" required maxlength="120" />
+                </div>
+            </div>
 
             <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Qty Utilised</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">Imported Qty</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_qty"
+                        (blur)="OnBlur('re_be_qty')" required maxlength="16" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Unit</label>
+                <div class="col-sm-6">
+                    <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_uqc"
+                        (blur)="OnBlur('re_be_uqc')" required maxlength="3" /> -->
+                        <app-autocomplete3 [controlname]="'UNIT'" [tabletype]="'UNIT'" [displaycolumn]="'CODE'"
+                            [displaydata]="Record.re_be_uqc_code"
+                            (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Assessable Value</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_assessed_val"
+                        (blur)="OnBlur('re_be_assessed_val')" required maxlength="16" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Total Duty Paid</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_duty_paid"
+                        (blur)="OnBlur('re_be_duty_paid')" required maxlength="16" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Duty Pay Date</label>
+                <div class="col-sm-6">
+                    <app-date [inputdate]="Record.re_be_duty_pay_date"
+                        (ValueChanged)="Record.re_be_duty_pay_date=$event"></app-date>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Qty Exported</label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_qty_utilised"
                         (blur)="OnBlur('re_be_qty_utilised')" required maxlength="17" />
                 </div>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Qty</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">Technical Details</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_qty"
-                        (blur)="OnBlur('re_be_qty')" required maxlength="17" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Uqc</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_uqc"
-                    (blur)="OnBlur('re_be_uqc')" required maxlength="3" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Assd. Value (Rs)</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_assessed_val"
-                        (blur)="OnBlur('re_be_assessed_val')" required maxlength="17" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Duty Paid</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_duty_paid"
-                        (blur)="OnBlur('re_be_duty_paid')" required maxlength="17" />
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_technical_det"
+                        (blur)="OnBlur('re_be_technical_det')" required maxlength="100" />
                 </div>
             </div>
 
-
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Input Credit Availed</label>
+                <div class="col-sm-6">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.re_input_credit">
+                        <option [value]="'Y'">YES</option>
+                        <option [value]="'N'">NO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Personal Use Item</label>
+                <div class="col-sm-6">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.re_personal_used">
+                        <option [value]="'Y'">YES</option>
+                        <option [value]="'N'">NO</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-3">
             <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Duty Pay Date</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">Other Identifying Parameters</label>
                 <div class="col-sm-6">
-                    <app-date [inputdate]="Record.re_be_duty_pay_date" (ValueChanged)="Record.re_be_duty_pay_date=$event"></app-date>
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_oth_ident_param"
+                        (blur)="OnBlur('re_be_oth_ident_param')" required maxlength="250" />
                 </div>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Assbl. Value Claim</label>
+                <label class="col-sm-6 col-form-label col-form-label-sm">Against Exp. Obligation</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_assessable_valclaim"
-                        (blur)="OnBlur('re_be_assessable_valclaim')" required maxlength="16" />
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.re_obligation">
+                        <option [value]="'Y'">YES</option>
+                        <option [value]="'N'">NO</option>
+                    </select>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <!-- BE Invoice No -->
+                <label class="col-sm-6 col-form-label col-form-label-sm">Obligation No.</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_obligation_no"
+                        (blur)="OnBlur('re_obligation_no')" required maxlength="100" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Drawback Amt Claimed</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm"
+                        [(ngModel)]="Record.re_be_assessable_valclaim" (blur)="OnBlur('re_be_assessable_valclaim')"
+                        required maxlength="16" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">BE Item</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_item"
+                        (blur)="OnBlur('re_be_item')" required maxlength="4" />
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">BE Item Used</label>
                 <div class="col-sm-6">
@@ -166,29 +227,25 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">Input Credit</label>
-                <div class="col-sm-6">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.re_input_credit">
-                        <option [value]="'Y'">YES</option>
-                        <option [value]="'N'">NO</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">Personalised Used</label>
-                <div class="col-sm-6">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.re_personal_used">
-                        <option [value]="'Y'">YES</option>
-                        <option [value]="'N'">NO</option>
-                    </select>
-                </div>
-            </div>
+
 
 
         </div>
 
         <div class="col-sm-3">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Board No.</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_board_no"
+                        (blur)="OnBlur('re_board_no')" required maxlength="100" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Board Date</label>
+                <div class="col-sm-6">
+                    <app-date [inputdate]="Record.re_board_date" (ValueChanged)="Record.re_board_date=$event"></app-date>
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Modvat Availed </label>
                 <div class="col-sm-6">
@@ -208,21 +265,14 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Item Desc</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_itm_desc"
-                        (blur)="OnBlur('re_be_itm_desc')" required maxlength="120" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Oth. Identifiable parameters</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_oth_ident_param"
-                        (blur)="OnBlur('re_be_oth_ident_param')" required maxlength="250" />
-                </div>
-            </div>
 
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">Invoice No.</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_invoice_no"
+                        (blur)="OnBlur('re_be_invoice_no')" required maxlength="5" />
+                </div>
+            </div>
 
 
         </div>

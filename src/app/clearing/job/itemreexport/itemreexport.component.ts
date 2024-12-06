@@ -77,12 +77,10 @@ export class ItemReExportComponent {
     }
 
     LovSelected(_Record: SearchTable) {
-        // if (_Record.controlname == "LIC-UNIT") {
-        //   this.Record.lic_unit_id = _Record.id;
-        //   this.Record.lic_unit_code = _Record.code;
-        //   this.Record.lic_unit_name = _Record.name;
-        // }
-
+        if (_Record.controlname == "UNIT") {
+            this.Record.re_be_uqc_id = _Record.id;
+            this.Record.re_be_uqc_code = _Record.code;
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
@@ -156,11 +154,12 @@ export class ItemReExportComponent {
         this.Record.re_be_date = '';
         this.Record.re_be_invoice_no = 0;
         this.Record.re_be_item = 0;
-        this.Record.re_be_manual = '';
+        this.Record.re_be_manual = 'N';
         this.Record.re_be_qty_utilised = 0;
         this.Record.re_be_itm_desc = '';
         this.Record.re_be_qty = 0;
-        this.Record.re_be_uqc = '';
+        this.Record.re_be_uqc_id = '';
+        this.Record.re_be_uqc_code = '';
         this.Record.re_be_assessed_val = 0;
         this.Record.re_be_duty_paid = 0;
         this.Record.re_be_duty_pay_date = '';
@@ -172,6 +171,12 @@ export class ItemReExportComponent {
         this.Record.re_personal_used = 'N';
         this.Record.re_modvat_availed = 'N';
         this.Record.re_modvat_repaid = 'N';
+
+        this.Record.re_be_technical_det = '';
+        this.Record.re_obligation = 'N';
+        this.Record.re_obligation_no = '';
+        this.Record.re_board_no = '';
+        this.Record.re_board_date = '';
 
         this.Record.rec_mode = this.mode;
         this.InitLov();
@@ -278,7 +283,7 @@ export class ItemReExportComponent {
             REC.re_be_manual = this.Record.re_be_manual;
             REC.re_be_itm_desc = this.Record.re_be_itm_desc;
             REC.re_be_qty = this.Record.re_be_qty;
-            REC.re_be_uqc = this.Record.re_be_uqc;
+            REC.re_be_uqc_code = this.Record.re_be_uqc_code;
         }
     }
 
@@ -341,11 +346,6 @@ export class ItemReExportComponent {
                     this.Record.re_be_oth_ident_param = this.Record.re_be_oth_ident_param.toUpperCase();
                     break;
                 }
-            case 're_be_uqc':
-                {
-                    this.Record.re_be_uqc = this.Record.re_be_uqc.toUpperCase();
-                    break;
-                }
             case 're_be_qty_utilised':
                 {
                     this.Record.re_be_qty_utilised = this.gs.roundNumber(this.Record.re_be_qty_utilised, 6);
@@ -363,16 +363,24 @@ export class ItemReExportComponent {
                 }
             case 're_be_duty_paid':
                 {
-                    this.Record.re_be_duty_paid = this.gs.roundNumber(this.Record.re_be_duty_paid, 6);
+                    this.Record.re_be_duty_paid = this.gs.roundNumber(this.Record.re_be_duty_paid, 2);
                     break;
                 }
             case 're_be_assessable_valclaim':
                 {
-                    this.Record.re_be_assessable_valclaim = this.gs.roundNumber(this.Record.re_be_assessable_valclaim, 6);
+                    this.Record.re_be_assessable_valclaim = this.gs.roundNumber(this.Record.re_be_assessable_valclaim, 2);
                     break;
                 }
-
-
+            case 're_be_technical_det':
+                {
+                    this.Record.re_be_technical_det = this.Record.re_be_technical_det.toUpperCase();
+                    break;
+                }
+            case 're_obligation_no':
+                {
+                    this.Record.re_obligation_no = this.Record.re_obligation_no.toUpperCase();
+                    break;
+                }
         }
     }
 
