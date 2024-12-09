@@ -328,20 +328,23 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label col-form-label-sm">Warehouse Code</label>
-        <div class="col-sm-5">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Warehouse</label>
+        <div class="col-sm-9">
           <app-autocomplete3 [controlname]="'WAREHOUSE'" [tabletype]="'WAREHOUSE'" [displaycolumn]="'CODE'"
             [displaydata]="Record.jexp_wh_lookup_code" (ValueChanged)="LovSelected($event)">
           </app-autocomplete3>
         </div>
-        <div class="col-sm-4">
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Wh. Code</label>
+        <div class="col-sm-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_wh_code"
             (blur)="OnBlur('jexp_wh_code')" required maxlength="20" />
         </div>
       </div>
-
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label col-form-label-sm">Warehouse Name</label>
+        <label class="col-sm-3 col-form-label col-form-label-sm">Wh. Name</label>
         <div class="col-sm-9">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_wh_name"
             (blur)="OnBlur('jexp_wh_name')" required maxlength="100" />
