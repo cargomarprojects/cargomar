@@ -66,6 +66,11 @@ export class JobInvoicem {
     jexp_aeo_term_place: string;
     jexp_show_amount: Boolean;
 
+    jexp_wh_id: string;
+    jexp_wh_lookup_code: string;
+    jexp_wh_code: string;
+    jexp_wh_name: string;
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

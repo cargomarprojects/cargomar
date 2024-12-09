@@ -1,4 +1,3 @@
-
 <div class="page-list">
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
@@ -13,14 +12,17 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList;let i = index" (click)="ActionHandler('EDIT',rec.jexp_pkid,i)" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList;let i = index" (click)="ActionHandler('EDIT',rec.jexp_pkid,i)"
+          [class.active]="i == selectedRowIndex">
           <td>{{rec.jexp_invoice_no}}</td>
           <td>{{rec.jexp_invoice_date}}</td>
           <td>{{rec.jexp_curr_code}}</td>
           <td>{{rec.jexp_exrate}}</td>
           <td>{{rec.jexp_inv_amt}}</td>
           <td>
-            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jexp_pkid,name:rec.jexp_invoice_no}" (result)="RemoveList($event)"></App-Dialog>
+            <App-Dialog
+              [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jexp_pkid,name:rec.jexp_invoice_no}"
+              (result)="RemoveList($event)"></App-Dialog>
           </td>
         </tr>
       </tbody>
@@ -38,7 +40,8 @@
       <div class="form-group row">
         <label style="padding-right:0" class="col-sm-5 col-form-label col-form-label-sm">INVOICE#</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_invoice_no" (blur)="OnBlur('jexp_invoice_no')" required maxlength="30" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_invoice_no"
+            (blur)="OnBlur('jexp_invoice_no')" required maxlength="30" />
         </div>
       </div>
 
@@ -52,28 +55,32 @@
       <div class="form-group row">
         <label class="col-sm-5 col-form-label  col-form-label-sm">Product Value</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_inv_amt" (blur)="OnBlur('jexp_inv_amt')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_inv_amt"
+            (blur)="OnBlur('jexp_inv_amt')" required maxlength="14" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-5 col-form-label col-form-label-sm">Currency</label>
         <div class="col-sm-7">
-          <app-autocomplete #LinerLov [inputdata]="INVCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #LinerLov [inputdata]="INVCURRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-5 col-form-label  col-form-label-sm">Exchange Rate</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_exrate" (blur)="OnBlur('jexp_exrate')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_exrate"
+            (blur)="OnBlur('jexp_exrate')" required maxlength="14" />
         </div>
       </div>
 
       <div class="form-group row">
         <label style="padding-right:0" class="col-sm-5 col-form-label col-form-label-sm">L/C No.</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_lcno" (blur)="OnBlur('jexp_lcno')" required maxlength="30" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_lcno"
+            (blur)="OnBlur('jexp_lcno')" required maxlength="30" />
         </div>
       </div>
 
@@ -95,21 +102,24 @@
       <div class="form-group row">
         <label class="col-sm-5 col-form-label  col-form-label-sm">Valid Days</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. jexp_valid_period" required maxlength="3" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record. jexp_valid_period" required
+            maxlength="3" />
         </div>
       </div>
 
       <div class="form-group row">
         <label style="padding-right:0" class="col-sm-5 col-form-label col-form-label-sm">Contract No.</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_contract_no" (blur)="OnBlur('jexp_contract_no')" required maxlength="30" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_contract_no"
+            (blur)="OnBlur('jexp_contract_no')" required maxlength="30" />
         </div>
       </div>
 
       <div class="form-group row">
         <label style="padding-right:0" class="col-sm-5 col-form-label col-form-label-sm">Comm.Invnos.</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_comm_invoice_no" (blur)="OnBlur('jexp_comm_invoice_no')" required maxlength="30" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_comm_invoice_no"
+            (blur)="OnBlur('jexp_comm_invoice_no')" required maxlength="30" />
         </div>
       </div>
 
@@ -128,7 +138,8 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label col-form-label-sm">Nature Of Contract</label>
         <div class="col-sm-8">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.jexp_contract_nature" (change)="OnChange2(Record.jexp_contract_nature)">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.jexp_contract_nature"
+            (change)="OnChange2(Record.jexp_contract_nature)">
             <option [value]="'FOB'">FOB</option>
             <option [value]="'CF'">CF</option>
             <option [value]="'CI'">CI</option>
@@ -141,10 +152,15 @@
         <label class="col-sm-4 col-form-label  col-form-label-sm">Rate Includes</label>
         <div class="col-sm-8">
           <select class="form-control form-control-sm" [(ngModel)]="Record.jexp_add">
-            <option *ngIf="Record.jexp_contract_nature =='FOB' || Record.jexp_contract_nature =='CF' || Record.jexp_contract_nature =='CIF' " [value]="'FREIGHT'">FREIGHT</option>
-            <option *ngIf="Record.jexp_contract_nature =='CI' || Record.jexp_contract_nature =='CIF' " [value]="'INSURANCE'">INSURANCE</option>
+            <option
+              *ngIf="Record.jexp_contract_nature =='FOB' || Record.jexp_contract_nature =='CF' || Record.jexp_contract_nature =='CIF' "
+              [value]="'FREIGHT'">FREIGHT</option>
+            <option *ngIf="Record.jexp_contract_nature =='CI' || Record.jexp_contract_nature =='CIF' "
+              [value]="'INSURANCE'">INSURANCE</option>
             <option *ngIf="Record.jexp_contract_nature =='CIF' " [value]="'BOTH'">BOTH</option>
-            <option *ngIf="Record.jexp_contract_nature =='FOB' || Record.jexp_contract_nature =='CF' || Record.jexp_contract_nature =='CIF' || Record.jexp_contract_nature =='CI' " [value]="'NO'">NO</option>
+            <option
+              *ngIf="Record.jexp_contract_nature =='FOB' || Record.jexp_contract_nature =='CF' || Record.jexp_contract_nature =='CIF' || Record.jexp_contract_nature =='CI' "
+              [value]="'NO'">NO</option>
           </select>
         </div>
       </div>
@@ -166,7 +182,8 @@
           <label class="col-form-label  col-form-label-sm"></label>
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_freight_amount" (blur)="OnBlur('jexp_freight_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_freight_amount"
+            (blur)="OnBlur('jexp_freight_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
           <app-autocomplete #LinerLov [inputdata]="FCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
@@ -176,10 +193,14 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label  col-form-label-sm">Insurance</label>
         <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_insurance_rate" (focus)="OnFocus('jexp_insurance_rate')" (change)="OnChange('jexp_insurance_rate')" (blur)="OnBlur('jexp_insurance_rate')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_insurance_rate"
+            (focus)="OnFocus('jexp_insurance_rate')" (change)="OnChange('jexp_insurance_rate')"
+            (blur)="OnBlur('jexp_insurance_rate')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_insurance_amount" (focus)="OnFocus('jexp_insurance_amount')" (change)="OnChange('jexp_insurance_amount')" (blur)="OnBlur('jexp_insurance_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_insurance_amount"
+            (focus)="OnFocus('jexp_insurance_amount')" (change)="OnChange('jexp_insurance_amount')"
+            (blur)="OnBlur('jexp_insurance_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
           <app-autocomplete #LinerLov [inputdata]="ICURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
@@ -192,57 +213,74 @@
           <label class="col-form-label  col-form-label-sm"></label>
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_packing_amount" (blur)="OnBlur('jexp_packing_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_packing_amount"
+            (blur)="OnBlur('jexp_packing_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_packing_curr_code" [disabled]="true" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_packing_curr_code"
+            [disabled]="true" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label  col-form-label-sm">Commision</label>
         <div class="col-sm-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_commission_rate" (focus)="OnFocus('jexp_commission_rate')" (change)="OnChange('jexp_commission_rate')" (blur)="OnBlur('jexp_commission_rate')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_commission_rate"
+            (focus)="OnFocus('jexp_commission_rate')" (change)="OnChange('jexp_commission_rate')"
+            (blur)="OnBlur('jexp_commission_rate')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_commission_amount" (focus)="OnFocus('jexp_commission_amount')" (change)="OnChange('jexp_commission_amount')" (blur)="OnBlur('jexp_commission_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_commission_amount"
+            (focus)="OnFocus('jexp_commission_amount')" (change)="OnChange('jexp_commission_amount')"
+            (blur)="OnBlur('jexp_commission_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <app-autocomplete #LinerLov [inputdata]="COMCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #LinerLov [inputdata]="COMCURRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label  col-form-label-sm">FOB Discount</label>
         <div class="col-sm-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_fobdiscount_rate" (focus)="OnFocus('jexp_fobdiscount_rate')" (change)="OnChange('jexp_fobdiscount_rate')" (blur)="OnBlur('jexp_fobdiscount_rate')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_fobdiscount_rate"
+            (focus)="OnFocus('jexp_fobdiscount_rate')" (change)="OnChange('jexp_fobdiscount_rate')"
+            (blur)="OnBlur('jexp_fobdiscount_rate')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_fobdiscount_amount" (focus)="OnFocus('jexp_fobdiscount_amount')" (change)="OnChange('jexp_fobdiscount_amount')" (blur)="OnBlur('jexp_fobdiscount_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_fobdiscount_amount"
+            (focus)="OnFocus('jexp_fobdiscount_amount')" (change)="OnChange('jexp_fobdiscount_amount')"
+            (blur)="OnBlur('jexp_fobdiscount_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <app-autocomplete #LinerLov [inputdata]="FOBCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #LinerLov [inputdata]="FOBCURRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label  col-form-label-sm">Other Deduction</label>
         <div class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_otherded_rate" (focus)="OnFocus('jexp_otherded_rate')" (change)="OnChange('jexp_otherded_rate')" (blur)="OnBlur('jexp_otherded_rate')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_otherded_rate"
+            (focus)="OnFocus('jexp_otherded_rate')" (change)="OnChange('jexp_otherded_rate')"
+            (blur)="OnBlur('jexp_otherded_rate')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_otherded_amount" (focus)="OnFocus('jexp_otherded_amount')" (change)="OnChange('jexp_otherded_amount')" (blur)="OnBlur('jexp_otherded_amount')" required maxlength="14" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_otherded_amount"
+            (focus)="OnFocus('jexp_otherded_amount')" (change)="OnChange('jexp_otherded_amount')"
+            (blur)="OnBlur('jexp_otherded_amount')" required maxlength="14" />
         </div>
         <div class="col-sm-3">
-          <app-autocomplete #LinerLov [inputdata]="OTHERCURRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #LinerLov [inputdata]="OTHERCURRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
-          <div class="offset-4 col-sm-8">
-            <input type="checkbox" [(ngModel)]="Record.jexp_show_amount">Show Rate And Amount in Checklist
-          </div>
+        <div class="offset-4 col-sm-8">
+          <input type="checkbox" [(ngModel)]="Record.jexp_show_amount">Show Rate And Amount in Checklist
         </div>
+      </div>
 
     </div>
 
@@ -261,28 +299,52 @@
       <div class="form-group row">
         <label style="padding-right:0" class="col-sm-3 col-form-label col-form-label-sm">Buyer</label>
         <div class="col-sm-9">
-          <app-autocomplete [disabled]="Record.jexp_isconsbuyersame" #LinerLov [inputdata]="BUYERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete [disabled]="Record.jexp_isconsbuyersame" #LinerLov [inputdata]="BUYERRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Name</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_buyer_name" [disabled]="Record.jexp_isconsbuyersame" (blur)="OnBlur('jexp_buyer_name')" required maxlength="50" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_buyer_name"
+            [disabled]="Record.jexp_isconsbuyersame" (blur)="OnBlur('jexp_buyer_name')" required maxlength="50" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Address</label>
         <div class="col-sm-9">
-          <app-autocomplete [disabled]="Record.jexp_isconsbuyersame" #LinerLov [inputdata]="BUYERADDRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete [disabled]="Record.jexp_isconsbuyersame" #LinerLov [inputdata]="BUYERADDRRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm"></label>
         <div class="col-sm-9">
-          <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jexp_buyer_address" [disabled]="Record.jexp_isconsbuyersame" (blur)="OnBlur('jexp_buyer_address')" maxlength="140"></textarea>
+          <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.jexp_buyer_address"
+            [disabled]="Record.jexp_isconsbuyersame" (blur)="OnBlur('jexp_buyer_address')" maxlength="140"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Warehouse Code</label>
+        <div class="col-sm-5">
+          <app-autocomplete3 [controlname]="'WAREHOUSE'" [tabletype]="'WAREHOUSE'" [displaycolumn]="'CODE'"
+            [displaydata]="Record.jexp_wh_lookup_code" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete3>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_wh_code"
+            (blur)="OnBlur('jexp_wh_code')" required maxlength="20" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Warehouse Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_wh_name"
+            (blur)="OnBlur('jexp_wh_name')" required maxlength="100" />
         </div>
       </div>
 
@@ -303,28 +365,32 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_code" (blur)="OnBlur('jexp_tp_code')" required maxlength="15" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_code"
+            (blur)="OnBlur('jexp_tp_code')" required maxlength="15" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Name</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_name" (blur)="OnBlur('jexp_tp_name')" required maxlength="70" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_name"
+            (blur)="OnBlur('jexp_tp_name')" required maxlength="70" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Address</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_addr1" (blur)="OnBlur('jexp_tp_addr1')" required maxlength="70" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_addr1"
+            (blur)="OnBlur('jexp_tp_addr1')" required maxlength="70" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm"></label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_addr2" (blur)="OnBlur('jexp_tp_addr2')" required maxlength="50" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_addr2"
+            (blur)="OnBlur('jexp_tp_addr2')" required maxlength="50" />
         </div>
       </div>
 
@@ -342,28 +408,32 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">City</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_city" (blur)="OnBlur('jexp_tp_city')" required maxlength="35" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_city"
+            (blur)="OnBlur('jexp_tp_city')" required maxlength="35" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Subdivision</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_country_subdiv" (blur)="OnBlur('jexp_tp_country_subdiv')" required maxlength="35" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_country_subdiv"
+            (blur)="OnBlur('jexp_tp_country_subdiv')" required maxlength="35" />
         </div>
       </div>
 
       <div class=" form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Country</label>
         <div class="col-sm-9">
-          <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class=" form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Pin</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_pin" (blur)="OnBlur('jexp_tp_pin')" required maxlength="6" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_tp_pin"
+            (blur)="OnBlur('jexp_tp_pin')" required maxlength="6" />
         </div>
       </div>
 
@@ -379,28 +449,32 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_operator_code" (blur)="OnBlur('jexp_aeo_operator_code')" required maxlength="17" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_operator_code"
+            (blur)="OnBlur('jexp_aeo_operator_code')" required maxlength="17" />
         </div>
       </div>
 
       <div class=" form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Country</label>
         <div class="col-sm-9">
-          <app-autocomplete #CntryOrgAddLov [inputdata]="AEOCOUNTRYRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #CntryOrgAddLov [inputdata]="AEOCOUNTRYRECORD"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
       </div>
 
       <div class=" form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Role</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_operator_role" (blur)="OnBlur('jexp_aeo_operator_role')" required maxlength="3" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_operator_role"
+            (blur)="OnBlur('jexp_aeo_operator_role')" required maxlength="3" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label col-form-label-sm">Term Place</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_term_place" (blur)="OnBlur('jexp_aeo_term_place')" required maxlength="35" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.jexp_aeo_term_place"
+            (blur)="OnBlur('jexp_aeo_term_place')" required maxlength="35" />
         </div>
       </div>
     </div>
@@ -411,7 +485,8 @@
   <div class="col">
     <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
-    <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm" (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
+    <button *ngIf="mode == 'EDIT'" [disabled]="loading" class="btn btn-primary btn-sm"
+      (click)="LinkDocs(esanchitlink)">Supp.Docs</button>
   </div>
 </div>
 
@@ -432,6 +507,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-esanchitlink [jobid]="parentid"  [linktype]="'INVOICE'" [linkid]="pkid" [linkno]="Record.jexp_invoice_no"></app-esanchitlink>
+    <app-esanchitlink [jobid]="parentid" [linktype]="'INVOICE'" [linkid]="pkid"
+      [linkno]="Record.jexp_invoice_no"></app-esanchitlink>
   </div>
 </ng-template>

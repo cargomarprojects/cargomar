@@ -273,6 +273,14 @@ export class JobInvoiceComponent {
 
         }
 
+        if (_Record.controlname == "WAREHOUSE") {
+            this.Record.jexp_wh_id = _Record.id;
+            this.Record.jexp_wh_lookup_code = _Record.code;
+            this.Record.jexp_wh_code = _Record.code;
+            this.Record.jexp_wh_name = _Record.name;
+            
+        }
+
     }
 
 
@@ -443,6 +451,10 @@ export class JobInvoiceComponent {
         this.Record.jexp_aeo_term_place = '';
         this.Record.jexp_show_amount = false;
 
+        this.Record.jexp_wh_id = '';
+        this.Record.jexp_wh_code = '';
+        this.Record.jexp_wh_name = '';
+        this.Record.jexp_wh_lookup_code = '';
         this.Record.rec_mode = this.mode;
 
         this.InitLov();
@@ -595,8 +607,7 @@ export class JobInvoiceComponent {
             bret = false;
             sError += "\n\r | Rate Includes Cannot Be Blank";
         }
-        if (bret === false)
-        {
+        if (bret === false) {
             this.ErrorMessage = sError;
             alert(this.ErrorMessage);
         }
@@ -810,6 +821,14 @@ export class JobInvoiceComponent {
                 this.Record.jexp_aeo_term_place = this.Record.jexp_aeo_term_place.toUpperCase();
                 break;
             }
+            case 'jexp_wh_code': {
+                this.Record.jexp_wh_code = this.Record.jexp_wh_code.toUpperCase();
+                break;
+            }
+            case 'jexp_wh_name': {
+                this.Record.jexp_wh_name = this.Record.jexp_wh_name.toUpperCase();
+                break;
+            }
         }
     }
 
@@ -954,7 +973,7 @@ export class JobInvoiceComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content,{ backdrop: 'static', keyboard: true});
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
     LinkDocs(esanchitlink: any) {
