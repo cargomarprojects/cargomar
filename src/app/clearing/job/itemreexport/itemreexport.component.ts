@@ -171,13 +171,12 @@ export class ItemReExportComponent {
         this.Record.re_personal_used = 'N';
         this.Record.re_modvat_availed = 'N';
         this.Record.re_modvat_repaid = 'N';
-
         this.Record.re_be_technical_det = '';
         this.Record.re_obligation = 'N';
         this.Record.re_obligation_no = '';
         this.Record.re_board_no = '';
         this.Record.re_board_date = '';
-
+        
         this.Record.rec_mode = this.mode;
         this.InitLov();
 
@@ -381,6 +380,7 @@ export class ItemReExportComponent {
                     this.Record.re_obligation_no = this.Record.re_obligation_no.toUpperCase();
                     break;
                 }
+             
         }
     }
 

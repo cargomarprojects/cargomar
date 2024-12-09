@@ -51,7 +51,7 @@
                 <label class="col-sm-6 col-form-label col-form-label-sm">BE No</label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_no"
-                        (blur)="OnBlur('re_be_no')"  required maxlength="7" />
+                        (blur)="OnBlur('re_be_no')" required maxlength="7" />
                 </div>
             </div>
             <div class="form-group row">
@@ -96,10 +96,9 @@
                 <div class="col-sm-6">
                     <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_uqc"
                         (blur)="OnBlur('re_be_uqc')" required maxlength="3" /> -->
-                        <app-autocomplete3 [controlname]="'UNIT'" [tabletype]="'UNIT'" [displaycolumn]="'CODE'"
-                            [displaydata]="Record.re_be_uqc_code"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
+                    <app-autocomplete3 [controlname]="'UNIT'" [tabletype]="'UNIT'" [displaycolumn]="'CODE'"
+                        [displaydata]="Record.re_be_uqc_code" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete3>
                 </div>
             </div>
         </div>
@@ -243,7 +242,8 @@
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Board Date</label>
                 <div class="col-sm-6">
-                    <app-date [inputdate]="Record.re_board_date" (ValueChanged)="Record.re_board_date=$event"></app-date>
+                    <app-date [inputdate]="Record.re_board_date"
+                        (ValueChanged)="Record.re_board_date=$event"></app-date>
                 </div>
             </div>
             <div class="form-group row">
@@ -273,7 +273,6 @@
                         (blur)="OnBlur('re_be_invoice_no')" required maxlength="5" />
                 </div>
             </div>
-
 
         </div>
 

@@ -37,6 +37,7 @@ export class ItemReExport {
     re_board_date: string;
     rec_mode: string;
     rec_category: string;
+
     _globalvariables: GlobalVariables;
 }
 
