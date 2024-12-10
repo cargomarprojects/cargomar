@@ -61,6 +61,20 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">BE Inv SlNo.</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_invoice_no"
+                        (blur)="OnBlur('re_be_invoice_no')" required maxlength="5" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label col-form-label-sm">BE Itm SlNo.</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_item"
+                        (blur)="OnBlur('re_be_item')" required maxlength="4" />
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Import Port Code</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.re_be_site"
@@ -83,7 +97,8 @@
                         (blur)="OnBlur('re_be_itm_desc')" required maxlength="120" />
                 </div>
             </div>
-
+        </div>
+        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Imported Qty</label>
                 <div class="col-sm-6">
@@ -101,8 +116,6 @@
                     </app-autocomplete3>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Assessable Value</label>
                 <div class="col-sm-6">
@@ -141,7 +154,9 @@
                         (blur)="OnBlur('re_be_technical_det')" required maxlength="100" />
                 </div>
             </div>
+        </div>
 
+        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Input Credit Availed</label>
                 <div class="col-sm-6">
@@ -160,9 +175,6 @@
                     </select>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Other Identifying Parameters</label>
                 <div class="col-sm-6">
@@ -198,16 +210,6 @@
                         required maxlength="16" />
                 </div>
             </div>
-
-
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">BE Item</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_item"
-                        (blur)="OnBlur('re_be_item')" required maxlength="4" />
-                </div>
-            </div>
-
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">BE Item Used</label>
                 <div class="col-sm-6">
@@ -217,6 +219,10 @@
                     </select>
                 </div>
             </div>
+
+        </div>
+
+        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Comm. Permission</label>
                 <div class="col-sm-6">
@@ -226,12 +232,6 @@
                     </select>
                 </div>
             </div>
-
-
-
-        </div>
-
-        <div class="col-sm-3">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label col-form-label-sm">Board No.</label>
                 <div class="col-sm-6">
@@ -266,13 +266,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-sm-6 col-form-label col-form-label-sm">Invoice No.</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.re_be_invoice_no"
-                        (blur)="OnBlur('re_be_invoice_no')" required maxlength="5" />
-                </div>
-            </div>
+
 
         </div>
 
