@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
+import { RepService } from '../services/report.service';
 
 @Component({
     selector: 'app-otp',
@@ -26,7 +27,8 @@ export class OtpComponent {
     InfoMessage = "";
     constructor(
         private route: ActivatedRoute,
-        public gs: GlobalService
+        public gs: GlobalService,
+        public mainService: RepService
     ) {
         // URL Query Parameter 
     }
@@ -69,8 +71,30 @@ export class OtpComponent {
         if (!confirm("Do you want to Generate OTP")) {
             return;
         }
+        let SearchData2 = {
+            report_folder: '',
+            company_code: '',
+            branch_code: '',
+            user_code: '',
+            return_period: ''
+        };
 
-
+        this.loading = true;
+        SearchData2.report_folder = this.gs.globalVariables.report_folder;
+        SearchData2.company_code = this.gs.globalVariables.comp_code;
+        SearchData2.branch_code = this.gs.globalVariables.branch_code;
+        SearchData2.user_code = this.gs.globalVariables.user_code;
+        this.ErrorMessage = '';
+        this.mainService.GenerateGspOtp(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                alert(response.retmsg)
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 
     SearchRecord(controlname: string, _type: string) {

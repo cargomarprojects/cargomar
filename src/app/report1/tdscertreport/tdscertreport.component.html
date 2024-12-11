@@ -149,7 +149,7 @@
           </div>
         </div>
       </div>
-      <div  class="col-sm-4">
+      <div class="col-sm-4">
         <div class="form-group row">
           <label class="col-sm-5 col-form-label col-form-label-sm"></label>
           <label class="col-sm-4 col-form-label col-form-label-sm"><strong>TOTAL</strong></label>
@@ -206,49 +206,49 @@
                   </font>
               </div>
             </div>
-        </div> -->
-      <div style="height: 400px;">
-        <div class="page-body table-responsive fixedTableHead my-0 p-0"  style="height: calc(100vh - 560px);">
-          <table class="table  table-hover table-sm table-bordered table-striped">
-            <thead class="page-body-thead">
-              <tr>
-                <th width="5%">BRANCH</th>
-                <th width="5%">VRNO</th>
-                <th width="5%">DATE</th>
-                <th width="5%">TYPE</th>
-                <th width="5%">PARTY.CODE</th>
-                <th width="15%">PARTY.NAME</th>
-                <th width="5%">TAN.CODE</th>
-                <th width="15%">TAN.NAME</th>
-                <th width="18%">NARRATION</th>
-                <th width="4%">TDS.AMT</th>
-                <th width="4%">ALLOC.AMT</th>
-                <th width="4%">BAL.AMT</th>
-                <th width="10%">CERT.AMT</th>
-              </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordDetList">
-              <tr>
-                <td>{{rec.tdsd_jv_branch}}</td>
-                <td>{{rec.tdsd_jv_no}}</td>
-                <td>{{rec.tdsd_jv_date}}</td>
-                <td>{{rec.tdsd_jv_type}}</td>
-                <td>{{rec.tdsd_party_code}}</td>
-                <td>{{rec.tdsd_party_name}}</td>
-                <td>{{rec.tdsd_tan_code}}</td>
-                <td>{{rec.tdsd_tan_name}}</td>
-                <td>{{rec.tdsd_jv_narration}}</td>
-                <td>{{rec.tdsd_jv_total}}</td>
-                <td>{{rec.tdsd_other_amt}}</td>
-                <td>{{rec.tdsd_bal_amt}}</td>
-                <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tdsd_amt"
-                    (focus)="OnFocusTableCell('tdsd_amt',rec)" (change)="OnChangeTableCell('tdsd_amt',rec)"
-                    (blur)="OnBlurTableCell('tdsd_amt',rec)" required maxlength="15" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        </div>style="height: 400px;" -->
+
+      <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 360px);">
+        <table class="table  table-hover table-sm table-bordered table-striped">
+          <thead class="page-body-thead">
+            <tr>
+              <th width="5%">BRANCH</th>
+              <th width="5%">VRNO</th>
+              <th width="5%">DATE</th>
+              <th width="5%">TYPE</th>
+              <th width="5%">PARTY.CODE</th>
+              <th width="15%">PARTY.NAME</th>
+              <th width="5%">TAN.CODE</th>
+              <th width="15%">TAN.NAME</th>
+              <th width="18%">NARRATION</th>
+              <th width="4%">TDS.AMT</th>
+              <th width="4%">ALLOC.AMT</th>
+              <th width="4%">BAL.AMT</th>
+              <th width="10%">CERT.AMT</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody" *ngFor="let rec of RecordDetList">
+            <tr>
+              <td>{{rec.tdsd_jv_branch}}</td>
+              <td>{{rec.tdsd_jv_no}}</td>
+              <td>{{rec.tdsd_jv_date}}</td>
+              <td>{{rec.tdsd_jv_type}}</td>
+              <td>{{rec.tdsd_party_code}}</td>
+              <td>{{rec.tdsd_party_name}}</td>
+              <td>{{rec.tdsd_tan_code}}</td>
+              <td>{{rec.tdsd_tan_name}}</td>
+              <td>{{rec.tdsd_jv_narration}}</td>
+              <td>{{rec.tdsd_jv_total}}</td>
+              <td>{{rec.tdsd_other_amt}}</td>
+              <td>{{rec.tdsd_bal_amt}}</td>
+              <td><input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tdsd_amt"
+                  (focus)="OnFocusTableCell('tdsd_amt',rec)" (change)="OnChangeTableCell('tdsd_amt',rec)"
+                  (blur)="OnBlurTableCell('tdsd_amt',rec)" required maxlength="15" /></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     </div>
 
   </div>
