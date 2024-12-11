@@ -80,6 +80,7 @@ import { GstReconRepItcComponent } from './gstreconrep/gstreconrepitc.component'
 import { GstReconRepService } from './services/gstreconrep.service';
 import { GstReconRepCdnrComponent } from './gstreconrep/gstreconrep-cdnr.component';
 import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
+import { Gstr2aComponent } from './gstr2a/gstr2a.component';
 
 @NgModule({
   imports: [
@@ -143,7 +144,8 @@ import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
     GstReconRepDetComponent,
     GstReconRepItcComponent,
     GstReconRepCdnrComponent,
-    GstReconRepRcComponent
+    GstReconRepRcComponent,
+    Gstr2aComponent
   ],
   providers: [GstReconRepService
   ],
