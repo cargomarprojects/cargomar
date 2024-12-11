@@ -81,6 +81,7 @@ import { GstReconRepService } from './services/gstreconrep.service';
 import { GstReconRepCdnrComponent } from './gstreconrep/gstreconrep-cdnr.component';
 import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
 import { Gstr2aComponent } from './gstr2a/gstr2a.component';
+import { OtpComponent } from './otp/otp.component';
 
 @NgModule({
   imports: [
@@ -145,7 +146,8 @@ import { Gstr2aComponent } from './gstr2a/gstr2a.component';
     GstReconRepItcComponent,
     GstReconRepCdnrComponent,
     GstReconRepRcComponent,
-    Gstr2aComponent
+    Gstr2aComponent,
+    OtpComponent
   ],
   providers: [GstReconRepService
   ],

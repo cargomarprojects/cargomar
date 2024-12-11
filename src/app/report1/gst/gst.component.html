@@ -629,36 +629,9 @@
         </tbody>
       </table>
     </div>
-    <!-- <div *ngIf="display_format_type=='RECONCILE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+
+    <div *ngIf="display_format_type=='RECONCILE-PURCHASE'" class="page-body table-responsive fixedTableHead my-0 p-0"
       style="height: calc(100vh - 310px);">
-      <table class="table table-hover table-sm table-bordered table-striped">
-        <thead class="page-body-thead">
-          <tr>
-            <th>TYPE</th>
-          
-            <th class="text-right">IGST</th>
-            <th class="text-right">CGST</th>
-            <th class="text-right">SGST</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-          <tr [style.color]="rec.row_colour">
-            <td class="hlink" (click)="ShowHideRecord(rec)">{{rec.gstr2b_row_type}}</td>
-           
-            <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.jv_cgst_amt | number : '1.2-2' }}</td>
-            <td align='right'>{{ rec.jv_sgst_amt | number : '1.2-2' }}</td>
-          </tr>
-          <tr *ngIf="rec.row_displayed" style="border-color: green;border-style:solid;">
-            <td colspan="4">
-              <app-gstdet [menuid]="menuid" [RecordList]="rec.gstr2b_List" [type]="type"></app-gstdet>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
-    <div *ngIf="display_format_type=='RECONCILE-PURCHASE'"
-      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
@@ -734,8 +707,8 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="display_format_type=='RECONCILE-GSTR2B'"
-      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <div *ngIf="display_format_type=='RECONCILE-GSTR2B'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
@@ -814,62 +787,61 @@
       </table>
     </div>
   </div>
+</div>
+<div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
+  <h5>GSTR2B Processing</h5>
 
-  <div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
-    <h5>GSTR2B Processing</h5>
+  <div class="row">
+    <div class="col-md-4">
 
-    <div class="row">
-      <div class="col-md-4">
-
-        <div class="form-group row">
-          <label class="col-6 col-form-label col-form-label-sm">State</label>
-          <div class="col-6">
-            <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
-              [displaydata]="state_name" (ValueChanged)="LovSelected2($event)">
-            </app-autocomplete3>
-          </div>
+      <div class="form-group row">
+        <label class="col-6 col-form-label col-form-label-sm">State</label>
+        <div class="col-6">
+          <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
+            [displaydata]="state_name" (ValueChanged)="LovSelected2($event)">
+          </app-autocomplete3>
         </div>
-
-        <div class="form-group row">
-          <label class="col-6 col-form-label col-form-label-sm">Return Period(MMYYYY)</label>
-          <div class="col-6">
-            <input type="text" class="col form-control form-control-sm" [(ngModel)]="retn_period" />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-6 col-form-label col-form-label-sm">OTP</label>
-          <div class="col-6">
-            <input type="text" class="col form-control form-control-sm" [(ngModel)]="otp" />
-          </div>
-        </div>
-
-
-
-        <div class="form-group row mt-1">
-          <label class="col-6 col-form-label col-form-label-sm"></label>
-          <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')"
-              class="btn btn-primary btn-sm">Process</button>
-          </div>
-          <div class="col-3">
-            <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate
-              OTP</button>
-          </div>
-        </div>
-
-
-
       </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label col-form-label-sm">Return Period(MMYYYY)</label>
+        <div class="col-6">
+          <input type="text" class="col form-control form-control-sm" [(ngModel)]="retn_period" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label col-form-label-sm">OTP</label>
+        <div class="col-6">
+          <input type="text" class="col form-control form-control-sm" [(ngModel)]="otp" />
+        </div>
+      </div>
+
+
+
+      <div class="form-group row mt-1">
+        <label class="col-6 col-form-label col-form-label-sm"></label>
+        <div class="col-3">
+          <button [disabled]="loading" (click)="ProcessGstr2B('GSTR2B')" class="btn btn-primary btn-sm">Process</button>
+        </div>
+        <div class="col-3">
+          <button [disabled]="loading" (click)="ProcessGstr2B('OTP')" class="btn btn-primary btn-sm">Generate
+            OTP</button>
+        </div>
+      </div>
+
+
+
     </div>
-
   </div>
 
-  <!-- <br /> -->
+</div>
+
+<!-- <br /> -->
 
 
-  <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-  <div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
-  </div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

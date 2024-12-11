@@ -234,6 +234,8 @@ export class Gstr2aComponent {
                 this.loading = false;
                 if (_type == 'EXCEL') {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                } else if (_type == 'DOWNLOAD') {
+                    alert('Download Complete');
                 }
                 else {
                     this.RecordList = response.list;
