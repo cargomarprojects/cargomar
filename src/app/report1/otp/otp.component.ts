@@ -99,7 +99,7 @@ export class OtpComponent {
         this.loading = true;
         SearchData2.report_folder = this.gs.globalVariables.report_folder;
         SearchData2.company_code = this.gs.globalVariables.comp_code;
-        SearchData2.branch_code = _rec.comp_code;
+        SearchData2.branch_code = "";
         SearchData2.year_code = this.gs.globalVariables.year_code;
         SearchData2.user_code = this.gs.globalVariables.user_code;
         SearchData2.state_code = _rec.comp_gstin_state_code;
