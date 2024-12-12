@@ -29,8 +29,9 @@ export class Gstr2aComponent {
     pkid = '';
     modal: any;
     selectedRowIndex = 0;
-    recon_year = 0;
-    recon_month = 0;
+    recon_year: string = "0";
+    recon_month: string = "0";
+    retn_period: string = "";
     state_code: string = "";
     state_name: string = "";
 
@@ -136,8 +137,8 @@ export class Gstr2aComponent {
         this.state_name = this.gs.globalVariables.branch_gstin_state_name;
         var tempdt = this.gs.defaultValues.today.split('-');
         if (tempdt.length > 1) {
-            this.recon_year = +tempdt[0];
-            this.recon_month = +tempdt[1];
+            this.recon_year = tempdt[0];
+            this.recon_month = tempdt[1];
         }
     }
 
@@ -234,8 +235,6 @@ export class Gstr2aComponent {
                 this.loading = false;
                 if (_type == 'EXCEL') {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-                } else if (_type == 'DOWNLOAD') {
-                    alert('Download Complete');
                 }
                 else {
                     this.RecordList = response.list;
@@ -286,5 +285,69 @@ export class Gstr2aComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+    ProcessGstr2B(_type: string) {
+        this.ErrorMessage = '';
 
+        this.retn_period = this.recon_month + this.recon_year;
+
+        if (this.state_code.trim().length <= 0) {
+            this.ErrorMessage = "State Cannot Be Blank";
+            alert(this.ErrorMessage);
+            return;
+        }
+        if (this.retn_period.trim().length <= 0) {
+            this.ErrorMessage = "Return Period Cannot Be Blank";
+            alert(this.ErrorMessage);
+            return;
+        }
+
+        let SearchData2 = {
+            type: '',
+            pkid: '',
+            report_folder: '',
+            company_code: '',
+            branch_code: '',
+            year_code: '',
+            searchstring: '',
+            state_code: '',
+            return_period: '',
+            user_code: '',
+            otp: ''
+        };
+
+
+        this.loading = true;
+        SearchData2.pkid = this.gs.getGuid();
+        SearchData2.report_folder = this.gs.globalVariables.report_folder;
+        SearchData2.company_code = this.gs.globalVariables.comp_code;
+        SearchData2.branch_code = this.gs.globalVariables.branch_code;
+        SearchData2.year_code = this.gs.globalVariables.year_code;
+        SearchData2.state_code = this.state_code;
+        SearchData2.return_period = this.retn_period;
+        SearchData2.searchstring = '';
+        SearchData2.type = _type;
+        SearchData2.user_code = this.gs.globalVariables.user_code;
+        SearchData2.otp = '';
+
+        this.ErrorMessage = '';
+        this.mainService.ProcessGSTRApi(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else if (_type == 'GSTR2A' || _type == 'GSTR2B') {
+                    if (response.status != "")
+                        alert(response.status);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
+
+    showGspOtp(_gspotp: any) {
+        this.open(_gspotp);
+    }
 }

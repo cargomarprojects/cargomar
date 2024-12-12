@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { RepService } from '../services/report.service';
+import { Companym } from '../../admin/models/company';
 
 @Component({
     selector: 'app-otp',
@@ -14,6 +15,7 @@ export class OtpComponent {
     @Output() ModifiedRecords = new EventEmitter<any>();
     @Input() public menuid: string = '';
     @Input() public type: string = '';
+    @Input() public retperiod: string = '';
 
     InitCompleted: boolean = false;
     disableSave = true;
@@ -22,6 +24,7 @@ export class OtpComponent {
     urlid: string;
     opt_value: number = 0;
     opt_valid_date: string = '';
+    RecordList: Companym[] = [];
 
     ErrorMessage = "";
     InfoMessage = "";
@@ -36,7 +39,7 @@ export class OtpComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.LoadCombo();
-        this.SearchRecord("GSP-OPT", 'LIST');
+        this.SearchRecord("GSP-OTP", 'LIST', null);
     }
 
     InitComponent() {
@@ -62,33 +65,49 @@ export class OtpComponent {
 
     }
 
-    Save() {
-        this.SearchRecord("GSP-OPT", 'SAVE');
+    Save(_rec: Companym) {
+
+        if (_rec.comp_gsp_otp.length <= 0) {
+            alert("Invalid  OTP");
+            return;
+        }
+
+        if (!confirm("Do you want to Save OTP")) {
+            return;
+        }
+        this.SearchRecord("GSP-OTP", 'SAVE', _rec);
     }
 
-    Generate() {
+    Generate(_rec: Companym) {
 
         if (!confirm("Do you want to Generate OTP")) {
             return;
         }
+
         let SearchData2 = {
+            type: '',
             report_folder: '',
             company_code: '',
             branch_code: '',
+            year_code: '',
             user_code: '',
+            state_code: '',
             return_period: ''
         };
 
         this.loading = true;
         SearchData2.report_folder = this.gs.globalVariables.report_folder;
         SearchData2.company_code = this.gs.globalVariables.comp_code;
-        SearchData2.branch_code = this.gs.globalVariables.branch_code;
+        SearchData2.branch_code = _rec.comp_code;
+        SearchData2.year_code = this.gs.globalVariables.year_code;
         SearchData2.user_code = this.gs.globalVariables.user_code;
+        SearchData2.state_code = _rec.comp_gstin_state_code;
+        SearchData2.return_period = this.retperiod;
         this.ErrorMessage = '';
         this.mainService.GenerateGspOtp(SearchData2)
             .subscribe(response => {
                 this.loading = false;
-                alert(response.retmsg)
+                alert(response.status)
             },
                 error => {
                     this.loading = false;
@@ -97,12 +116,12 @@ export class OtpComponent {
                 });
     }
 
-    SearchRecord(controlname: string, _type: string) {
+    SearchRecord(controlname: string, _type: string, _rec: Companym) {
         this.InfoMessage = '';
         this.ErrorMessage = '';
 
         if (_type == "SAVE")
-            if (this.opt_value <= 0) {
+            if (_rec.comp_gsp_otp.length <= 0) {
                 this.ErrorMessage = "Invalid  OTP";
                 return;
             }
@@ -111,21 +130,14 @@ export class OtpComponent {
         let SearchData = {
             table: controlname,
             type: _type,
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            branch_pkid: this.gs.globalVariables.branch_pkid,
-            user_code: this.gs.globalVariables.user_code,
-            year_code: this.gs.globalVariables.year_code,
-            year_name: this.gs.globalVariables.year_name,
-            opt_value: this.opt_value
+            branch_pkid: _rec == null ? '' : _rec.comp_pkid,
+            opt_value: _rec == null ? '' : _rec.comp_gsp_otp
         };
 
         this.gs.SearchRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-
-                this.opt_value = response.opt_value;
-                this.opt_valid_date = response.opt_valid_date;
+                this.RecordList = response.list;
                 if (_type == "SAVE")
                     alert('Save Complete');
             },
