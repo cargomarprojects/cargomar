@@ -48,6 +48,7 @@ export class Gstr2aComponent {
     bDocs: boolean = false;
     bAdmin: boolean = false;
     bSave: boolean = false;
+    bSaveOtp: boolean = false;
     bCompany = false;
     disableSave = true;
     loading = false;
@@ -114,6 +115,7 @@ export class Gstr2aComponent {
         this.bAdmin = false;
         this.bPrint = false;
         this.bSave = false;
+        this.bSaveOtp = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -122,6 +124,12 @@ export class Gstr2aComponent {
             this.bPrint = this.menu_record.rights_print;
             if (this.menu_record.rights_add || this.menu_record.rights_edit)
                 this.bSave = true;
+            if (this.menu_record.rights_approval.length > 0) {
+                if (this.menu_record.rights_approval.toString().indexOf('{SAVEOTP}') >= 0)
+                    this.bSaveOtp = true;
+            }
+            if (this.gs.globalVariables.user_code == "ADMIN")
+                this.bSaveOtp = true;
         }
         this.initLov();
         this.LoadCombo();

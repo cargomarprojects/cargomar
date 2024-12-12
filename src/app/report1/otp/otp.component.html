@@ -2,31 +2,34 @@
     <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
             <tr>
-                <th>BRANCH</th>
                 <th>GST-ST-CODE</th>
                 <th>GST-STATE-NAME</th>
                 <th>GSP-USER</th>
                 <th>GSP-OTP</th>
-                <th>EDIT</th>
+                <th *ngIf="bSave">SAVE</th>
                 <th>OTP-VALID-TO</th>
-                <th>GENERATE</th>
+                <th *ngIf="bSave">GENERATE</th>
             </tr>
         </thead>
         <tbody class="page-body-tbody">
             <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                 (mousedown)="selectedRowIndex=i">
-                <td>{{rec.comp_name}}</td>
                 <td>{{rec.comp_gstin_state_code}}</td>
                 <td>{{rec.comp_gstin_state_name}}</td>
                 <td>{{rec.comp_gsp_user}}</td>
                 <td class="p-0">
-                    <input type="text" class="form-control form-control-sm p-1" [(ngModel)]="rec.comp_gsp_otp" required
-                        maxlength="10" />
+                    <div class="input-group">
+                        <input [type]="rec.comp_pwd_visible ? 'text' : 'password'" [disabled]="!rec.comp_gsp_opt_expired&&gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm p-1" [(ngModel)]="rec.comp_gsp_otp" required maxlength="10" />
+                        <span class="input-group-text" (click)="passwordVisibility(rec)">
+                            <i class="fa" [ngClass]="rec.comp_pwd_visible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </span>
+                    </div>
                 </td>
-                <td class="hlink" (click)="Save(rec)"><i
-                    class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+                <td *ngIf="bSave" class="hlink" style="text-align: center; vertical-align: middle;" (click)="Save(rec)"><i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                </td>
                 <td>{{rec.comp_gsp_otp_validto_date}}</td>
-                <td class="hlink" (click)="Generate(rec)">Generate OTP</td>
+                <td *ngIf="bSave" class="hlink" (click)="Generate(rec)">Generate OTP</td>
             </tr>
         </tbody>
     </table>

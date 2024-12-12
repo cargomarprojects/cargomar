@@ -16,7 +16,8 @@ export class OtpComponent {
     @Input() public menuid: string = '';
     @Input() public type: string = '';
     @Input() public retperiod: string = '';
-
+    @Input() bSave: boolean = false;
+    
     InitCompleted: boolean = false;
     disableSave = true;
     loading = false;
@@ -130,7 +131,9 @@ export class OtpComponent {
         let SearchData = {
             table: controlname,
             type: _type,
-            branch_pkid: _rec == null ? '' : _rec.comp_pkid,
+            company_code: this.gs.globalVariables.comp_code,
+            comp_gstin_state_code: _rec == null ? '' : _rec.comp_gstin_state_code,
+            comp_gsp_user: _rec == null ? '' : _rec.comp_gsp_user,
             opt_value: _rec == null ? '' : _rec.comp_gsp_otp
         };
 
@@ -147,4 +150,7 @@ export class OtpComponent {
                 });
     }
 
+    passwordVisibility(_rec: Companym) {
+        _rec.comp_pwd_visible = !_rec.comp_pwd_visible;
+    }
 }

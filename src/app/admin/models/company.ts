@@ -54,6 +54,9 @@ export class Companym {
     comp_gsp_otp: string;
     comp_gsp_otp_date: string;
     comp_gsp_otp_validto_date: string;
+    comp_pwd_visible: boolean;
+    comp_gsp_opt_expired: boolean;
+    
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }
