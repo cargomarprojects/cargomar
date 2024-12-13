@@ -17,7 +17,7 @@ export class OtpComponent {
     @Input() public type: string = '';
     @Input() public retperiod: string = '';
     @Input() bSave: boolean = false;
-    
+
     InitCompleted: boolean = false;
     disableSave = true;
     loading = false;
@@ -86,7 +86,7 @@ export class OtpComponent {
         }
 
         let SearchData2 = {
-            type: '',
+            type: 'OTP',
             report_folder: '',
             company_code: '',
             branch_code: '',
@@ -97,6 +97,7 @@ export class OtpComponent {
         };
 
         this.loading = true;
+        SearchData2.type = 'OTP';
         SearchData2.report_folder = this.gs.globalVariables.report_folder;
         SearchData2.company_code = this.gs.globalVariables.comp_code;
         SearchData2.branch_code = "";
