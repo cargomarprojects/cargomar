@@ -41,7 +41,6 @@ import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
 import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 import { GenReportComponent } from './genreport/genreport.component';
 import { GstReconRepComponent } from './gstreconrep/gstreconrep.component';
-import { Gstr2aComponent } from './gstr2a/gstr2a.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -81,8 +80,7 @@ const routes: Routes = [
   { path: 'unlockjob', component: UnlockJobrptComponent },
   { path: 'costgst', component: CostGstRptComponent },
   { path: 'genreport', component: GenReportComponent },
-  { path: 'gstreconrep', component: GstReconRepComponent },
-  { path: 'gstr2arep', component: Gstr2aComponent }
+  { path: 'gstreconrep', component: GstReconRepComponent }
 ];
 
 @NgModule({
