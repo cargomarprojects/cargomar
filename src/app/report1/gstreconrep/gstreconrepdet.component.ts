@@ -75,6 +75,7 @@ export class GstReconRepDetComponent {
   List() {
     this.loading = true;
     let SearchData = {
+      category: this.type,
       gstin_supplier: this.gstinsupplier,
       period: this.period,
       state_code: this.state_code,

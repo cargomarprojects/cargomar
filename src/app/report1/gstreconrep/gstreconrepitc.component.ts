@@ -60,6 +60,7 @@ export class GstReconRepItcComponent {
   selectdeselect: boolean = false;
 
   SearchData = {
+    category: '',
     type: '',
     pkid: '',
     report_folder: '',
@@ -178,6 +179,7 @@ export class GstReconRepItcComponent {
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
+    this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
@@ -270,12 +272,13 @@ export class GstReconRepItcComponent {
     //         return;
     //     }
     // } = this.gs.defaultValues.gst_recon_itc_year;
-     
+
     if (!confirm("Update Claim Status")) {
       return;
     }
 
     let SearchData2 = {
+      category: this.type,
       pkid: sPkids,
       claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
       claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
@@ -309,6 +312,7 @@ export class GstReconRepItcComponent {
 
   UpdateItcRowWise(_id: string, _status: string, _remarks) {
     let SearchData2 = {
+      category: this.type,
       pkid: _id,
       claim_status: _status,
       claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,

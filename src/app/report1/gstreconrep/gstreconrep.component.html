@@ -105,10 +105,10 @@
                                 <th>SUPPLIER GSTIN</th>
                                 <th>SUPPLIER NAME</th>
                                 <th>SUPPLIER STATE</th>
-                                <th class="text-right">COUNT(GSTR2B)</th>
-                                <th class="text-right">COUNT(PURCHASE)</th>
-                                <th class="text-right">TOTAL(GSTR2B)</th>
-                                <th class="text-right">TOTAL(PURCHASE)</th>
+                                <th class="text-right">COUNT ({{type}})</th>
+                                <th class="text-right">COUNT (PURCHASE)</th>
+                                <th class="text-right">TOTAL ({{type}})</th>
+                                <th class="text-right">TOTAL (PURCHASE)</th>
                                 <th class="text-right">DIFF</th>
                                 <th class="text-center">DETAILS</th>
                             </tr>
@@ -288,7 +288,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-gstreconrepdet [gstinsupplier]="gstin_supplier" [period]="period" [state_code]="state_code"
+        <app-gstreconrepdet [type]="type" [gstinsupplier]="gstin_supplier" [period]="period" [state_code]="state_code"
             [download_doc_type]="download_doc_type" [reverse_charge]="'NO'"></app-gstreconrepdet>
     </div>
     <!-- <div class="modal-footer">

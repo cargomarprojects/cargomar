@@ -58,6 +58,7 @@ export class GstReconRepComponent {
   MonList: any[] = [];
 
   SearchData = {
+    category: '',
     type: '',
     pkid: '',
     report_folder: '',
@@ -219,6 +220,7 @@ export class GstReconRepComponent {
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
+    this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
@@ -291,6 +293,7 @@ export class GstReconRepComponent {
     }
 
     this.loading = true;
+    this.SearchData.category = this.type;
     this.SearchData.state_code = this.gs.defaultValues.gst_recon_state_code;
     this.SearchData.state_name = this.gs.defaultValues.gst_recon_state_name;
     this.SearchData.round_off = this.round_off;
@@ -360,6 +363,7 @@ export class GstReconRepComponent {
 
 
     let SearchData2 = {
+      category:'',
       type: '',
       pkid: '',
       report_folder: '',
@@ -388,6 +392,7 @@ export class GstReconRepComponent {
     this.loading = true;
     this.pkid = this.gs.getGuid();
     SearchData2.pkid = this.pkid;
+    SearchData2.category = this.type;
     SearchData2.report_folder = this.gs.globalVariables.report_folder;
     SearchData2.company_code = this.gs.globalVariables.comp_code;
     SearchData2.branch_code = "STATE-WISE";
@@ -443,6 +448,7 @@ export class GstReconRepComponent {
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
+    this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
