@@ -1560,6 +1560,9 @@ export class SettingsComponent {
     if (_type == "GSTR-2B") {
       this.doc_parent_type = _type;
       this.doc_parent_id = "5E943D94-8B49-4F90-B966-18C067754C1E";
+    } else if (_type == "GSTR-2A") {
+      this.doc_parent_type = _type;
+      this.doc_parent_id = "D0FDA3E1-3630-41A2-A0B9-254895DF8D7C";
     }
     else //26AS-UPDATE-FILE
     {
@@ -1593,7 +1596,11 @@ export class SettingsComponent {
       SearchData.parentid = '5E943D94-8B49-4F90-B966-18C067754C1E';
       SearchData.table = 'GSTR-2B';
     }
-
+    if (controlname == 'GSTR-2A') {
+      SearchData.pkid = '';
+      SearchData.parentid = 'D0FDA3E1-3630-41A2-A0B9-254895DF8D7C';
+      SearchData.table = 'GSTR-2A';
+    }
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1612,6 +1619,13 @@ export class SettingsComponent {
           strmsg = "PROCESS GSTR-2B \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
           if (confirm(strmsg)) {
             this.ProcessGSTR2B();
+          }
+        }
+        else if (controlname == 'GSTR-2A') {
+          let strmsg: string = "";
+          strmsg = "PROCESS GSTR-2A \n\n FILE NAME : " + response.filename + " \n\n UPLOADED ON : " + response.uploaddate;
+          if (confirm(strmsg)) {
+            this.ProcessGSTR2A();
           }
         }
       },
@@ -1680,6 +1694,34 @@ export class SettingsComponent {
         });
   }
 
+  ProcessGSTR2A() {
+    this.ErrorMessage = "";
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+    this.ErrorMessage = '';
+    this.mainService.ProcessGSTR2A(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.serror.length > 0) {
+          this.ErrorMessage = response.serror;
+          alert(this.ErrorMessage);
+        }
+        else {
+          this.ErrorMessage = "PROCESS COMPLETED " + response.smsg;
+          alert(this.ErrorMessage);
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
   ImportDataFromCPL(table: string, type: string) {
 

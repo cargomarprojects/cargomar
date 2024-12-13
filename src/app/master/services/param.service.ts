@@ -91,5 +91,9 @@ export class ParamService {
     ImportData(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/xml/Gstr2b/ImportData', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    ProcessGSTR2A(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/xml/Gstr2a/ProcessGSTR2A', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
