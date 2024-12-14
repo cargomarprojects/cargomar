@@ -103,7 +103,7 @@ export class GstReconRepItcComponent {
 
 
   Init() {
-    this.mainService.InitList();
+    this.mainService.init(this.menuid);
 
     this.branch_code = this.gs.globalVariables.branch_code;
     this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
@@ -126,8 +126,8 @@ export class GstReconRepItcComponent {
 
   LovSelected(_Record: SearchTable) {
     if (_Record.controlname == "STATE") {
-      this.gs.defaultValues.gst_recon_itc_state_code = _Record.code;
-      this.gs.defaultValues.gst_recon_itc_state_name = _Record.name;
+      this.mainService.state.gst_recon_itc_state_code = _Record.code;
+      this.mainService.state.gst_recon_itc_state_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -154,28 +154,28 @@ export class GstReconRepItcComponent {
 
   // // Query List Data
   List(_type: string) {
-    if (this.gs.isBlank(this.reconcile_state_name)) {
+    if (this.gs.isBlank(this.mainService.state.gst_recon_itc_state_name)) {
       alert("State Cannot be Blank");
       return;
     }
-    if (+this.gs.defaultValues.gst_recon_itc_year <= 0) {
+    if (+this.mainService.state.gst_recon_itc_year <= 0) {
       alert("Invalid Year");
       return;
-    } else if (+this.gs.defaultValues.gst_recon_itc_year < 100) {
+    } else if (+this.mainService.state.gst_recon_itc_year < 100) {
       alert("YEAR FORMAT : - YYYY ");
       return;
     }
-    if (+this.gs.defaultValues.gst_recon_itc_month <= 0 || +this.gs.defaultValues.gst_recon_itc_month > 12) {
+    if (+this.mainService.state.gst_recon_itc_month <= 0 || +this.mainService.state.gst_recon_itc_month > 12) {
       alert("Invalid Month");
       return;
     }
 
-    this.gs.defaultValues.gst_recon_itc_list_state_code = this.gs.defaultValues.gst_recon_itc_state_code;
-    this.gs.defaultValues.gst_recon_itc_list_state_name = this.gs.defaultValues.gst_recon_itc_state_name;
-    this.gs.defaultValues.gst_recon_itc_list_year = this.gs.defaultValues.gst_recon_itc_year;
-    this.gs.defaultValues.gst_recon_itc_list_month = this.gs.defaultValues.gst_recon_itc_month;
+    this.mainService.state.gst_recon_itc_list_state_code = this.mainService.state.gst_recon_itc_state_code;
+    this.mainService.state.gst_recon_itc_list_state_name = this.mainService.state.gst_recon_itc_state_name;
+    this.mainService.state.gst_recon_itc_list_year = this.mainService.state.gst_recon_itc_year;
+    this.mainService.state.gst_recon_itc_list_month = this.mainService.state.gst_recon_itc_month;
 
-    this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
+    this.display_format_type = this.mainService.state.gst_recon_itc_status;
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -184,32 +184,32 @@ export class GstReconRepItcComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.gs.defaultValues.gst_recon_itc_searchstring.toUpperCase();
+    this.SearchData.searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.format_type = this.gs.defaultValues.gst_recon_itc_status;
+    this.SearchData.format_type = this.mainService.state.gst_recon_itc_status;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
-    this.SearchData.state_code = this.gs.defaultValues.gst_recon_itc_list_state_code;
-    this.SearchData.state_name = this.gs.defaultValues.gst_recon_itc_list_state_name;
+    this.SearchData.state_code = this.mainService.state.gst_recon_itc_list_state_code;
+    this.SearchData.state_name = this.mainService.state.gst_recon_itc_list_state_name;
     this.SearchData.round_off = this.round_off;
-    this.SearchData.recon_year = +this.gs.defaultValues.gst_recon_itc_list_year;
-    this.SearchData.recon_month = +this.gs.defaultValues.gst_recon_itc_list_month;
+    this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
+    this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         this.chkallselected = false;
         this.selectdeselect = false;
-        this.gs.defaultValues.gst_recon_itc_claim_period = response.claimperiod;
+        this.mainService.state.gst_recon_itc_claim_period = response.claimperiod;
         if (_type == 'EXCEL') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
-          this.mainService.RecordListItc = response.list;
+          this.mainService.state.RecordListItc = response.list;
         }
       },
         error => {
           this.loading = false;
-          this.mainService.RecordListItc = null;
+          this.mainService.state.RecordListItc = null;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
@@ -220,7 +220,7 @@ export class GstReconRepItcComponent {
   }
 
   OnChange(field: string) {
-    this.mainService.RecordListItc = null;
+    this.mainService.state.RecordListItc = null;
   }
   Close() {
     this.gs.ClosePage('home');
@@ -228,7 +228,7 @@ export class GstReconRepItcComponent {
 
   OnBlur(field: string) {
     if (field == "searchstring")
-      this.gs.defaultValues.gst_recon_itc_searchstring = this.gs.defaultValues.gst_recon_itc_searchstring.toUpperCase();
+      this.mainService.state.gst_recon_itc_searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
   }
 
   OnBlurCell(field: string, _rec: Gstr2bDownload) {
@@ -241,7 +241,7 @@ export class GstReconRepItcComponent {
   }
   SelectDeselect() {
     this.selectdeselect = !this.selectdeselect;
-    for (let rec of this.mainService.RecordListItc) {
+    for (let rec of this.mainService.state.RecordListItc) {
       rec.rec_selected = this.selectdeselect;
     }
   }
@@ -251,7 +251,7 @@ export class GstReconRepItcComponent {
     let sPkids: string = "";//Main List
     let _Ctr: number = 0;
     let _status: string = "";
-    for (let rec of this.mainService.RecordListItc) {
+    for (let rec of this.mainService.state.RecordListItc) {
       if (rec.rec_selected) {
         _status = rec.reconcile_status;
         _Ctr++;
@@ -280,10 +280,10 @@ export class GstReconRepItcComponent {
     let SearchData2 = {
       category: this.type,
       pkid: sPkids,
-      claim_status: this.gs.defaultValues.gst_recon_itc_claim_status,
-      claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
-      recon_year: +this.gs.defaultValues.gst_recon_itc_list_year,
-      recon_month: +this.gs.defaultValues.gst_recon_itc_list_month,
+      claim_status: this.mainService.state.gst_recon_itc_claim_status,
+      claim_period: this.mainService.state.gst_recon_itc_claim_period,
+      recon_year: +this.mainService.state.gst_recon_itc_list_year,
+      recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: false
     };
 
@@ -295,8 +295,8 @@ export class GstReconRepItcComponent {
         if (response.retvalue) {
           let pkidsArray = sPkids.split(',');
           for (let i = 0; i < pkidsArray.length; i++) {
-            for (let rec of this.mainService.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
-              rec.claim_status = this.gs.defaultValues.gst_recon_itc_claim_status;
+            for (let rec of this.mainService.state.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
+              rec.claim_status = this.mainService.state.gst_recon_itc_claim_status;
             }
           }
         }
@@ -315,10 +315,10 @@ export class GstReconRepItcComponent {
       category: this.type,
       pkid: _id,
       claim_status: _status,
-      claim_period: this.gs.defaultValues.gst_recon_itc_claim_period,
+      claim_period: this.mainService.state.gst_recon_itc_claim_period,
       remarks: _remarks,
-      recon_year: +this.gs.defaultValues.gst_recon_itc_list_year,
-      recon_month: +this.gs.defaultValues.gst_recon_itc_list_month,
+      recon_year: +this.mainService.state.gst_recon_itc_list_year,
+      recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: true
     };
     this.loading = true;

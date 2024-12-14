@@ -89,3 +89,89 @@ export class Gstr2bDownload {
     org_invoice_type: string;
     org_invoice_date: string;
 }
+
+export interface iGstr2bDownloadModel {
+    // filter Values
+    gst_recon_searchstring: string;
+    gst_recon_state_code: string;
+    gst_recon_state_name: string;
+    gst_recon_month: string;
+    gst_recon_year: string;
+
+    gst_recon_cdnr_searchstring: string;
+    gst_recon_cdnr_state_code: string;
+    gst_recon_cdnr_state_name: string;
+    gst_recon_cdnr_month: string;
+    gst_recon_cdnr_year: string;
+
+    gst_recon_rc_searchstring: string;
+    gst_recon_rc_state_code: string;
+    gst_recon_rc_state_name: string;
+    gst_recon_rc_month: string;
+    gst_recon_rc_year: string;
+
+    gst_recon_ament_searchstring: string;
+    gst_recon_ament_state_code: string;
+    gst_recon_ament_state_name: string;
+    gst_recon_ament_month: string;
+    gst_recon_ament_year: string;
+
+    gst_recon_itc_searchstring: string;
+    gst_recon_itc_state_code: string;
+    gst_recon_itc_state_name: string;
+    gst_recon_itc_month: string;
+    gst_recon_itc_year: string;
+    gst_recon_itc_status: string;
+    gst_recon_itc_claim_status: string;
+    gst_recon_itc_claim_period: string;
+    gst_recon_itc_list_state_code: string;
+    gst_recon_itc_list_state_name: string;
+    gst_recon_itc_list_month: string;
+    gst_recon_itc_list_year: string;
+
+    RecordListReco: Gstr2bDownload[];
+    RecordListItc: Gstr2bDownload[];
+    RecordListCdnr: Gstr2bDownload[];
+    RecordListRc: Gstr2bDownload[];
+    RecordListAment: Gstr2bDownload[];
+};
+
+export const initialState: iGstr2bDownloadModel = {
+    gst_recon_searchstring: '',
+    gst_recon_state_code: '',
+    gst_recon_state_name: '',
+    gst_recon_month: '',
+    gst_recon_year: '',
+    gst_recon_cdnr_searchstring: '',
+    gst_recon_cdnr_state_code: '',
+    gst_recon_cdnr_state_name: '',
+    gst_recon_cdnr_month: '',
+    gst_recon_cdnr_year: '',
+    gst_recon_rc_searchstring: '',
+    gst_recon_rc_state_code: '',
+    gst_recon_rc_state_name: '',
+    gst_recon_rc_month: '',
+    gst_recon_rc_year: '',
+    gst_recon_ament_searchstring: '',
+    gst_recon_ament_state_code: '',
+    gst_recon_ament_state_name: '',
+    gst_recon_ament_month: '',
+    gst_recon_ament_year: '',
+    gst_recon_itc_searchstring: '',
+    gst_recon_itc_state_code: '',
+    gst_recon_itc_state_name: '',
+    gst_recon_itc_month: '',
+    gst_recon_itc_year: '',
+    gst_recon_itc_status: 'MATCHED',
+    gst_recon_itc_claim_status: 'ITC AVAILED',
+    gst_recon_itc_claim_period: '',
+    gst_recon_itc_list_state_code: '',
+    gst_recon_itc_list_state_name: '',
+    gst_recon_itc_list_month: '',
+    gst_recon_itc_list_year: '',
+    RecordListReco: [],
+    RecordListItc: [],
+    RecordListCdnr: [],
+    RecordListRc: [],
+    RecordListAment: []
+} 
