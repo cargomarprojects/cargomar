@@ -21,6 +21,7 @@ export class GstReconRepRcComponent {
     @Input() bDocs: boolean = false;
     @Input() bAdmin: boolean = false;
     @Input() bSave: boolean = false;
+    @Input() bCompany: boolean = false;
     @Input() download_doc_type: string = 'INVOICE';
     @Input() reverse_charge: string = 'YES';
 
@@ -287,7 +288,7 @@ export class GstReconRepRcComponent {
             .subscribe(response => {
                 this.loading = false;
                 // alert('Process Completed')
-                // this.BranchList = response.branchlist;
+                this.List('SCREEN');
             },
                 error => {
                     this.loading = false;

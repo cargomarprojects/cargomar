@@ -21,6 +21,7 @@ export class GstReconRepCdnrComponent {
   @Input() bDocs: boolean = false;
   @Input() bAdmin: boolean = false;
   @Input() bSave: boolean = false;
+  @Input() bCompany: boolean = false;
   @Input() download_doc_type: string = 'CREDIT NOTE';
   @Input() reverse_charge: string = 'NO';
 
@@ -287,7 +288,7 @@ export class GstReconRepCdnrComponent {
       .subscribe(response => {
         this.loading = false;
         // alert('Process Completed')
-        // this.BranchList = response.branchlist;
+        this.List('SCREEN');
       },
         error => {
           this.loading = false;

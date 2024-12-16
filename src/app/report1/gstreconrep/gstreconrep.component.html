@@ -18,7 +18,7 @@
                                 <div class="col-sm-8">
                                     <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'"
                                         [displaycolumn]="'NAME'" [displaydata]="mainService.state.gst_recon_state_name"
-                                        (ValueChanged)="LovSelected($event)">
+                                        (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
                                     </app-autocomplete3>
                                 </div>
                             </div>
@@ -143,19 +143,18 @@
             </div>
         </ng-template>
 
-
     </ngb-tab>
     <ngb-tab title="Recon-Cr/Note">
         <ng-template ngbTabContent>
             <app-gstreconrep-cdnr [menuid]="menuid" [type]="type" [download_doc_type]="'CREDIT NOTE'"
-                [reverse_charge]="'NO'" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-cdnr>
+                [reverse_charge]="'NO'" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrep-cdnr>
         </ng-template>
 
     </ngb-tab>
     <ngb-tab title="Recon-RC">
         <ng-template ngbTabContent>
             <app-gstreconrep-rc [menuid]="menuid" [type]="type" [download_doc_type]="'INVOICE'" [reverse_charge]="'YES'"
-                [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"></app-gstreconrep-rc>
+                [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrep-rc>
         </ng-template>
 
     </ngb-tab>
@@ -171,7 +170,7 @@
                                 <div class="col-sm-8">
                                     <app-autocomplete3 [controlname]="'STATE-AMENT'" [tabletype]="'STATE'"
                                         [displaycolumn]="'NAME'" [displaydata]="mainService.state.gst_recon_ament_state_name"
-                                        (ValueChanged)="LovSelected($event)">
+                                        (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
                                     </app-autocomplete3>
                                 </div>
                             </div>
@@ -275,7 +274,7 @@
     <ngb-tab title="ITC Claim">
         <ng-template ngbTabContent>
             <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave"
-                [bAdmin]="bAdmin"></app-gstreconrepitc>
+                [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrepitc>
         </ng-template>
 
     </ngb-tab>

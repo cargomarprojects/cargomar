@@ -7,7 +7,7 @@
                     <div class="col-sm-8">
                         <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
                             [displaydata]="mainService.state.gst_recon_rc_state_name"
-                            (ValueChanged)="LovSelected($event)">
+                            (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
                         </app-autocomplete3>
                     </div>
                 </div>

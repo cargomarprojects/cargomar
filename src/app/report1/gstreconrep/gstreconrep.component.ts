@@ -50,7 +50,7 @@ export class GstReconRepComponent {
   bDocs: boolean = false;
   bAdmin: boolean = false;
   bSave: boolean = false;
-  bCompany = false;
+  bCompany: boolean = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -306,6 +306,7 @@ export class GstReconRepComponent {
       .subscribe(response => {
         this.loading = false;
         // alert('Process Completed')
+        this.List('SCREEN');
       },
         error => {
           this.loading = false;

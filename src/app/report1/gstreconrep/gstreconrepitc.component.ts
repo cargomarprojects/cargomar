@@ -21,7 +21,8 @@ export class GstReconRepItcComponent {
   @Input() bDocs: boolean = false;
   @Input() bAdmin: boolean = false;
   @Input() bSave: boolean = false;
-
+  @Input() bCompany: boolean = false;
+  
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
