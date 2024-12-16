@@ -49,10 +49,9 @@ export class GstReconRepCdnrComponent {
   display_format_type: string = '';
   // reconcile_state_name: string = "KERALA";
   // reconcile_state_code: string = "32";
-  round_off: number = 5;
+  //round_off: number = 5;
   chk_pending: boolean = true;
-
-  bCompany = false;
+   
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -208,7 +207,7 @@ export class GstReconRepCdnrComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.mainService.state.gst_recon_cdnr_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_cdnr_state_name;
-    this.SearchData.round_off = this.round_off;
+    this.SearchData.round_off = this.mainService.state.gst_recon_cdnr_round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_cdnr_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_cdnr_month;
     this.SearchData.chk_pending = this.chk_pending;
@@ -278,7 +277,7 @@ export class GstReconRepCdnrComponent {
     this.SearchData.category = this.type;
     this.SearchData.state_code = this.mainService.state.gst_recon_cdnr_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_cdnr_state_name;
-    this.SearchData.round_off = this.round_off;
+    this.SearchData.round_off = this.mainService.state.gst_recon_cdnr_round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_cdnr_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_cdnr_month;
     this.SearchData.download_doc_type = this.download_doc_type;
@@ -391,7 +390,7 @@ export class GstReconRepCdnrComponent {
     SearchData2.user_code = this.gs.globalVariables.user_code;
     SearchData2.state_code = this.mainService.state.gst_recon_cdnr_state_code;
     SearchData2.state_name = this.mainService.state.gst_recon_cdnr_state_name;
-    SearchData2.round_off = this.round_off;
+    SearchData2.round_off = this.mainService.state.gst_recon_cdnr_round_off;
     SearchData2.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     SearchData2.recon_year = +this.mainService.state.gst_recon_cdnr_year;
     SearchData2.recon_month = +this.mainService.state.gst_recon_cdnr_month;

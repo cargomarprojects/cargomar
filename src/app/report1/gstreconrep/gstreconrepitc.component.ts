@@ -22,7 +22,7 @@ export class GstReconRepItcComponent {
   @Input() bAdmin: boolean = false;
   @Input() bSave: boolean = false;
   @Input() bCompany: boolean = false;
-  
+
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
@@ -53,7 +53,6 @@ export class GstReconRepItcComponent {
   chk_pending: boolean = true;
   // claim_status: string = 'ITC AVAILED';
 
-  bCompany = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -298,6 +297,8 @@ export class GstReconRepItcComponent {
           for (let i = 0; i < pkidsArray.length; i++) {
             for (let rec of this.mainService.state.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
               rec.claim_status = this.mainService.state.gst_recon_itc_claim_status;
+              rec.row_color2 = rec.claim_status == "PENDING" ? "black" : rec.row_color;
+              rec.display_claimed_period = response.retperiod;
             }
           }
         }
@@ -328,6 +329,11 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
+
+          for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
+            rec2.row_color2 = rec2.claim_status == "PENDING" ? "black" : rec2.row_color;
+            rec2.display_claimed_period = response.retperiod;
+          }
           // alert('Save Complete');
         }
       },

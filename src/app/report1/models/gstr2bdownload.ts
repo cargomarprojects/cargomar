@@ -3,6 +3,7 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 export class Gstr2bDownload {
     row_type: string;
     row_color: string;
+    row_color2: string;
     pkid: string;
     gstr1_period: string;
     gstin_supplier: string;
@@ -97,18 +98,21 @@ export interface iGstr2bDownloadModel {
     gst_recon_state_name: string;
     gst_recon_month: string;
     gst_recon_year: string;
+    gst_recon_round_off: number;
 
     gst_recon_cdnr_searchstring: string;
     gst_recon_cdnr_state_code: string;
     gst_recon_cdnr_state_name: string;
     gst_recon_cdnr_month: string;
     gst_recon_cdnr_year: string;
+    gst_recon_cdnr_round_off: number;
 
     gst_recon_rc_searchstring: string;
     gst_recon_rc_state_code: string;
     gst_recon_rc_state_name: string;
     gst_recon_rc_month: string;
     gst_recon_rc_year: string;
+    gst_recon_rc_round_off: number;
 
     gst_recon_ament_searchstring: string;
     gst_recon_ament_state_code: string;
@@ -142,16 +146,19 @@ export const initialState: iGstr2bDownloadModel = {
     gst_recon_state_name: '',
     gst_recon_month: '',
     gst_recon_year: '',
+    gst_recon_round_off: 5,
     gst_recon_cdnr_searchstring: '',
     gst_recon_cdnr_state_code: '',
     gst_recon_cdnr_state_name: '',
     gst_recon_cdnr_month: '',
     gst_recon_cdnr_year: '',
+    gst_recon_cdnr_round_off: 5,
     gst_recon_rc_searchstring: '',
     gst_recon_rc_state_code: '',
     gst_recon_rc_state_name: '',
     gst_recon_rc_month: '',
     gst_recon_rc_year: '',
+    gst_recon_rc_round_off: 5,
     gst_recon_ament_searchstring: '',
     gst_recon_ament_state_code: '',
     gst_recon_ament_state_name: '',

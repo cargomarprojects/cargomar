@@ -43,7 +43,7 @@ export class GstReconRepComponent {
   display_format_type: string = '';
   // reconcile_state_name: string = "KERALA";
   // reconcile_state_code: string = "32";
-  round_off: number = 5;
+  // round_off: number = 5;
   chk_pending: boolean = true;
 
   bPrint = false;
@@ -233,7 +233,7 @@ export class GstReconRepComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.mainService.state.gst_recon_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_state_name;
-    this.SearchData.round_off = this.round_off;
+    this.SearchData.round_off = this.mainService.state.gst_recon_round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_month;
     this.SearchData.chk_pending = this.chk_pending;
@@ -296,7 +296,7 @@ export class GstReconRepComponent {
     this.SearchData.category = this.type;
     this.SearchData.state_code = this.mainService.state.gst_recon_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_state_name;
-    this.SearchData.round_off = this.round_off;
+    this.SearchData.round_off = this.mainService.state.gst_recon_round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_month;
     this.SearchData.download_doc_type = this.download_doc_type;
@@ -409,7 +409,7 @@ export class GstReconRepComponent {
     SearchData2.user_code = this.gs.globalVariables.user_code;
     SearchData2.state_code = this.mainService.state.gst_recon_state_code;
     SearchData2.state_name = this.mainService.state.gst_recon_state_name;
-    SearchData2.round_off = this.round_off;
+    SearchData2.round_off = this.mainService.state.gst_recon_round_off;
     SearchData2.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     SearchData2.recon_year = +this.mainService.state.gst_recon_year;
     SearchData2.recon_month = +this.mainService.state.gst_recon_month;

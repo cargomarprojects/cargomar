@@ -34,8 +34,6 @@
                                         [(ngModel)]="mainService.state.gst_recon_month">
                                         <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
                                     </select>
-                                    <!-- <input type="text" class="col form-control form-control-sm"
-                                        [(ngModel)]="mainService.state.gst_recon_month" required maxlength="2" /> -->
                                 </div>
                             </div>
                         </div>
@@ -44,7 +42,7 @@
                                 <label class="col-sm-4 col-form-label col-form-label-sm">Round-Off</label>
                                 <div class="col-sm-4">
                                     <input type="number" disabled class="col form-control form-control-sm"
-                                        name="rondnum" [(ngModel)]="round_off" required maxlength="6" />
+                                        name="rondnum" [(ngModel)]="mainService.state.gst_recon_round_off" required maxlength="6" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -56,29 +54,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-3">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-10">
-                        <div>
-                            <input type="checkbox"
-                                [(ngModel)]="chk_pending" id="_chkpending">
-                            <label class="col-form-label col-form-label-sm"
-                                for="_chkpending">Pending</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-10 input-group input-group-sm">
-                        <select class="form-control form-control-sm" [(ngModel)]="format_type"
-                            (change)="OnChange('format_type')">
-                            <option [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div> -->
                         <div class="col-sm-4">
 
                             <div class="form-group row">
@@ -147,7 +122,8 @@
     <ngb-tab title="Recon-Cr/Note">
         <ng-template ngbTabContent>
             <app-gstreconrep-cdnr [menuid]="menuid" [type]="type" [download_doc_type]="'CREDIT NOTE'"
-                [reverse_charge]="'NO'" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrep-cdnr>
+                [reverse_charge]="'NO'" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"
+                [bCompany]="bCompany"></app-gstreconrep-cdnr>
         </ng-template>
 
     </ngb-tab>
@@ -169,7 +145,8 @@
                                 <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
                                 <div class="col-sm-8">
                                     <app-autocomplete3 [controlname]="'STATE-AMENT'" [tabletype]="'STATE'"
-                                        [displaycolumn]="'NAME'" [displaydata]="mainService.state.gst_recon_ament_state_name"
+                                        [displaycolumn]="'NAME'"
+                                        [displaydata]="mainService.state.gst_recon_ament_state_name"
                                         (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
                                     </app-autocomplete3>
                                 </div>
@@ -186,8 +163,6 @@
                                         [(ngModel)]="mainService.state.gst_recon_ament_month">
                                         <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
                                     </select>
-                                    <!-- <input type="text" class="col form-control form-control-sm"
-                                        [(ngModel)]="mainService.state.gst_recon_month" required maxlength="2" /> -->
                                 </div>
                             </div>
                         </div>
@@ -236,7 +211,7 @@
                                 <th class="text-right">IGST</th>
                                 <th class="text-right">CGST</th>
                                 <th class="text-right">SGST</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -271,10 +246,10 @@
 
         </ng-template>
     </ngb-tab>
-    <ngb-tab title="ITC Claim">
+    <ngb-tab *ngIf="type=='GSTR-2B'" title="ITC Claim">
         <ng-template ngbTabContent>
-            <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave"
-                [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrepitc>
+            <app-gstreconrepitc [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"
+                [bCompany]="bCompany"></app-gstreconrepitc>
         </ng-template>
 
     </ngb-tab>
@@ -290,7 +265,4 @@
         <app-gstreconrepdet [type]="type" [gstinsupplier]="gstin_supplier" [period]="period" [state_code]="state_code"
             [download_doc_type]="download_doc_type" [reverse_charge]="'NO'"></app-gstreconrepdet>
     </div>
-    <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
-        </div> -->
 </ng-template>

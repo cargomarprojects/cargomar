@@ -6,7 +6,8 @@
           <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-8">
             <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
-              [displaydata]="mainService.state.gst_recon_itc_state_name" (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
+              [displaydata]="mainService.state.gst_recon_itc_state_name" (ValueChanged)="LovSelected($event)"
+              [disabled]="!bCompany">
             </app-autocomplete3>
           </div>
         </div>
@@ -21,8 +22,6 @@
             <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_itc_month">
               <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
             </select>
-            <!-- <input type="text" class="col form-control form-control-sm"
-                            [(ngModel)]="gs.defaultValues.gst_recon_itc_month" required maxlength="2" /> -->
           </div>
         </div>
       </div>
@@ -32,8 +31,6 @@
           <div class="col-8 input-group input-group-sm">
             <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_itc_status"
               (change)="OnChange('format_type')">
-              <!-- <option [value]="'PENDING'">PENDING</option> -->
-              <!-- <option [value]="'ITC AVAILED'">ITC AVAILED</option> -->
               <option [value]="'MATCHED'">MATCHED</option>
               <option [value]="'ALMOST MATCHED'">ALMOST MATCHED</option>
               <option [value]="'MISMATCHED (GST AMOUNT)'">MISMATCHED (GST AMOUNT)</option>
@@ -41,7 +38,6 @@
               <option [value]="'OTHERS'">MISMATCH (IN GSTR2B AND PURCHASE)</option>
               <option [value]="'IN GSTR2B ONLY'">IN GSTR2B ONLY</option>
               <option [value]="'IN PURCHASE ONLY'">IN PURCHASE ONLY</option>
-              <!-- <option [value]="'ALMOST MATCHED'">REJECTED</option> -->
             </select>
           </div>
         </div>
@@ -53,29 +49,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-sm-3">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-10">
-                        <div>
-                            <input type="checkbox"
-                                [(ngModel)]="chk_pending" id="_chkpending">
-                            <label class="col-form-label col-form-label-sm"
-                                for="_chkpending">Pending</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-10 input-group input-group-sm">
-                        <select class="form-control form-control-sm" [(ngModel)]="format_type"
-                            (change)="OnChange('format_type')">
-                            <option [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div> -->
       <div class="col-sm-2">
 
         <div class="form-group row">
@@ -87,32 +60,62 @@
           </div>
         </div>
       </div>
-      <div *ngIf="bSave" class="col-sm-3">
-        <div class=" form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
-          <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
-              <option [value]="'OP'">OP</option>
-              <option [value]="'ITC AVAILED'">ITC AVAILED</option>
-              <option [value]="'PENDING'">PENDING</option>
-              <option [value]="'REJECTED'">REJECTED</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-12">
-            <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
-            </button>
-            <!-- <button [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm">Excel</button> -->
 
+
+      <div *ngIf="bSave" class="col-sm-3">
+        <div class=" my-0 p-1" style="border:1px solid; color: gray;">
+          <div class=" form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
+            <div class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
+                <option [value]="'OP'">OP</option>
+                <option [value]="'ITC AVAILED'">ITC AVAILED</option>
+                <option [value]="'PENDING'">PENDING</option>
+                <option [value]="'REJECTED'">REJECTED</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-12">
+              <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
 
+
+      <!-- <div class="col-sm-4">
+        <div class="page-box">
+          <div class="row">
+            <div *ngIf="bSave" class="col-sm-12">
+              <div class=" form-group row">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
+                <div class="col-sm-8">
+                  <select class="form-control form-control-sm"
+                    [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
+                    <option [value]="'OP'">OP</option>
+                    <option [value]="'ITC AVAILED'">ITC AVAILED</option>
+                    <option [value]="'PENDING'">PENDING</option>
+                    <option [value]="'REJECTED'">REJECTED</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-12">
+                  <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
     </div>
   </div>
+
   <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
@@ -158,7 +161,8 @@
           <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
           <td *ngIf="bSave" class="p-0">
-            <select class="form-control form-control-sm p-1" [(ngModel)]="rec.claim_status">
+            <select [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
+              [(ngModel)]="rec.claim_status">
               <option [value]="'OP'">OP</option>
               <option [value]="'ITC AVAILED'">ITC AVAILED</option>
               <option [value]="'PENDING'">PENDING</option>
@@ -167,8 +171,8 @@
           </td>
           <td *ngIf="!bSave">{{rec.claim_status}}</td>
           <td *ngIf="bSave" class="p-0">
-            <input type="text" class="form-control form-control-sm p-1" [(ngModel)]="rec.reason"
-              (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
+            <input type="text" [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
+              [(ngModel)]="rec.reason" (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
           <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)"><i

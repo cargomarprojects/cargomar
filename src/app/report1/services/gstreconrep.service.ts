@@ -25,34 +25,37 @@ export class GstReconRepService {
       this.state = this.gs.appStates[this.screen_id];
     else {
       this.state = { ...initialState };
-      this.state.gst_recon_year = this.gs.defaultValues.gst_recon_year;
-      this.state.gst_recon_month = this.gs.defaultValues.gst_recon_month;
-      this.state.gst_recon_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_state_name = this.gs.globalVariables.branch_gstin_state_name;
-      this.state.gst_recon_itc_year = this.gs.defaultValues.gst_recon_itc_year;
-      this.state.gst_recon_itc_month = this.gs.defaultValues.gst_recon_itc_month;
-      this.state.gst_recon_itc_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_itc_state_name = this.gs.globalVariables.branch_gstin_state_name;
-      this.state.gst_recon_itc_list_year = this.gs.defaultValues.gst_recon_itc_list_year;
-      this.state.gst_recon_itc_list_month = this.gs.defaultValues.gst_recon_itc_list_month;
-      this.state.gst_recon_itc_list_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_itc_list_state_name = this.gs.globalVariables.branch_gstin_state_name;
-      this.state.gst_recon_cdnr_year = this.gs.defaultValues.gst_recon_cdnr_year;
-      this.state.gst_recon_cdnr_month = this.gs.defaultValues.gst_recon_cdnr_month;
-      this.state.gst_recon_cdnr_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_cdnr_state_name = this.gs.globalVariables.branch_gstin_state_name;
-      this.state.gst_recon_rc_year = this.gs.defaultValues.gst_recon_rc_year;
-      this.state.gst_recon_rc_month = this.gs.defaultValues.gst_recon_rc_month;
-      this.state.gst_recon_rc_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_rc_state_name = this.gs.globalVariables.branch_gstin_state_name;
-      this.state.gst_recon_ament_year = this.gs.defaultValues.gst_recon_ament_year;
-      this.state.gst_recon_ament_month = this.gs.defaultValues.gst_recon_ament_month;
-      this.state.gst_recon_ament_state_code = this.gs.globalVariables.branch_gstin_state_code;
-      this.state.gst_recon_ament_state_name = this.gs.globalVariables.branch_gstin_state_name;
+      this.initDefault();
       this.gs.appStates[this.screen_id] = this.state;
     }
   }
 
+  private initDefault() {
+    this.state.gst_recon_year = this.gs.defaultValues.gst_recon_year;
+    this.state.gst_recon_month = this.gs.defaultValues.gst_recon_month;
+    this.state.gst_recon_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_itc_year = this.gs.defaultValues.gst_recon_itc_year;
+    this.state.gst_recon_itc_month = this.gs.defaultValues.gst_recon_itc_month;
+    this.state.gst_recon_itc_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_itc_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_itc_list_year = this.gs.defaultValues.gst_recon_itc_list_year;
+    this.state.gst_recon_itc_list_month = this.gs.defaultValues.gst_recon_itc_list_month;
+    this.state.gst_recon_itc_list_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_itc_list_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_cdnr_year = this.gs.defaultValues.gst_recon_cdnr_year;
+    this.state.gst_recon_cdnr_month = this.gs.defaultValues.gst_recon_cdnr_month;
+    this.state.gst_recon_cdnr_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_cdnr_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_rc_year = this.gs.defaultValues.gst_recon_rc_year;
+    this.state.gst_recon_rc_month = this.gs.defaultValues.gst_recon_rc_month;
+    this.state.gst_recon_rc_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_rc_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_ament_year = this.gs.defaultValues.gst_recon_ament_year;
+    this.state.gst_recon_ament_month = this.gs.defaultValues.gst_recon_ament_month;
+    this.state.gst_recon_ament_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_ament_state_name = this.gs.globalVariables.branch_gstin_state_name;
+  }
 
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/List', SearchData, this.gs.headerparam2('authorized'));
