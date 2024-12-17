@@ -5,6 +5,7 @@
             <tr>
                 <th>SOURCE</th>
                 <th>PERIOD</th>
+                <th>REF#</th>
                 <th>TYPE</th>
                 <th>INV#</th>
                 <th>INVDATE</th>
@@ -23,6 +24,7 @@
             <tr [style.color]="rec.row_color">
                 <td>{{rec.download_source}}</td>
                 <td>{{rec.gstr1_period}}</td>
+                <td>{{rec.source}}</td>
                 <td>{{rec.download_type}}</td>
                 <td>{{rec.invoice_number}}</td>
                 <td>{{rec.invoice_date}}</td>

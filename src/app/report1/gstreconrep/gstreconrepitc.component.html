@@ -127,6 +127,7 @@
       <thead class="page-body-thead">
         <tr>
           <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
+          <th>GSTR2B-PERIOD</th>
           <th>STATUS</th>
           <th>SOURCE</th>
           <th>SUPPLIER GSTIN</th>
@@ -153,6 +154,7 @@
         <tr *ngFor="let rec of mainService.state.RecordListItc; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i" [style.color]="rec.row_color">
           <td><input type="checkbox" [(ngModel)]="rec.rec_selected"></td>
+          <td>{{rec.display_download_period}}</td>
           <td>{{rec.reconcile_status}}</td>
           <td>{{rec.download_source}}</td>
           <td>{{rec.gstin_supplier}}</td>

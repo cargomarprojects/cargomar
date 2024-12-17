@@ -91,7 +91,8 @@ export class Gstr2bDownload {
     org_invoice_date: string;
     claim_created_by: string;
     claim_created_date: string;
-    
+    display_download_period: string;
+
 }
 
 export interface iGstr2bDownloadModel {
