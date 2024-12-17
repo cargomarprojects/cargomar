@@ -67,9 +67,8 @@
         </div>
       </div>
 
-
       <div *ngIf="bSave" class="col-sm-3">
-        <div class=" my-0 p-1" style="border:1px solid; color: gray;">
+        <div class="page-box" style="padding-top: 1px;">
           <div class=" form-group row">
             <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
             <div class="col-sm-8">
@@ -82,7 +81,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-12">
+            <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-8">
               <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
               </button>
             </div>
