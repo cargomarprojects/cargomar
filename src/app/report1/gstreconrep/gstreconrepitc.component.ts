@@ -50,8 +50,9 @@ export class GstReconRepItcComponent {
   reconcile_state_name: string = "KERALA";
   reconcile_state_code: string = "32";
   round_off: number = 5;
-  chk_pending: boolean = true;
+  chk_notclaimed: boolean = true;
   // claim_status: string = 'ITC AVAILED';
+
 
   disableSave = true;
   loading = false;
@@ -77,7 +78,7 @@ export class GstReconRepItcComponent {
     round_off: 5,
     recon_year: 0,
     recon_month: 0,
-    chk_pending: this.chk_pending,
+    chk_notclaimed: this.chk_notclaimed,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries
   };
 
@@ -193,6 +194,7 @@ export class GstReconRepItcComponent {
     this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
+    this.SearchData.chk_notclaimed = this.chk_notclaimed;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
@@ -299,7 +301,8 @@ export class GstReconRepItcComponent {
       claim_period: this.mainService.state.gst_recon_itc_claim_period,
       recon_year: +this.mainService.state.gst_recon_itc_list_year,
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
-      save_remarks: false
+      save_remarks: false,
+      user_code: this.gs.globalVariables.user_code
     };
 
     this.loading = true;
@@ -314,6 +317,8 @@ export class GstReconRepItcComponent {
               rec.claim_status = this.mainService.state.gst_recon_itc_claim_status;
               rec.row_color2 = rec.claim_status == "PENDING" ? "black" : rec.row_color;
               rec.display_claimed_period = response.retperiod;
+              rec.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
+              rec.claim_created_by = this.gs.globalVariables.user_code;
             }
           }
         }
@@ -337,7 +342,8 @@ export class GstReconRepItcComponent {
       remarks: _remarks,
       recon_year: +this.mainService.state.gst_recon_itc_list_year,
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
-      save_remarks: true
+      save_remarks: true,
+      user_code: this.gs.globalVariables.user_code
     };
     this.loading = true;
     this.ErrorMessage = '';
@@ -349,6 +355,8 @@ export class GstReconRepItcComponent {
           for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
             rec2.row_color2 = rec2.claim_status == "PENDING" ? "black" : rec2.row_color;
             rec2.display_claimed_period = response.retperiod;
+            rec2.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
+            rec2.claim_created_by = this.gs.globalVariables.user_code;
           }
           // alert('Save Complete');
         }

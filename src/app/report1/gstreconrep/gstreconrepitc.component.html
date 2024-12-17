@@ -52,6 +52,12 @@
       <div class="col-sm-2">
 
         <div class="form-group row">
+          <div class="col-12 ml-1">
+            <input type="checkbox" [(ngModel)]="chk_notclaimed" id="_chknotclaimed">
+            <label class="col-form-label col-form-label-sm" for="_chknotclaimed">Not Claimed</label>
+          </div>
+        </div>
+        <div class="form-group row">
           <div class="col-12">
             <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Search
             </button>
@@ -135,10 +141,12 @@
           <th class="text-right">CGST</th>
           <th class="text-right">SGST</th>
           <th class="text-right">DIFF</th>
-          <th>CLAIMED.IN</th>
-          <th>CLAIM STATUS</th>
+          <th>CLAIMED PERIOD</th>
+          <th>CLAIMED STATUS</th>
           <th>REMARKS</th>
           <th *ngIf="bSave">UPDATE</th>
+          <th>CLAIMED BY</th>
+          <th>CLAIMED DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -177,6 +185,8 @@
           <td *ngIf="!bSave">{{rec.reason}}</td>
           <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)"><i
               class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+          <td>{{rec.claim_created_by}}</td>
+          <td>{{rec.claim_created_date}}</td>
         </tr>
       </tbody>
     </table>
