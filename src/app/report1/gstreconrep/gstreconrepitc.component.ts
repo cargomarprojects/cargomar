@@ -250,36 +250,51 @@ export class GstReconRepItcComponent {
 
     let sPkids: string = "";//Main List
     let _Ctr: number = 0;
-    let _status: string = "";
+    let _BatchCtr: number = 0;
     for (let rec of this.mainService.state.RecordListItc) {
       if (rec.rec_selected) {
-        _status = rec.reconcile_status;
         _Ctr++;
-        if (sPkids != "")
-          sPkids += ",";
-        sPkids += rec.pkid;
       }
+      if (_Ctr > 0)
+        break;
     }
 
-    if (this.gs.isBlank(sPkids)) {
+    if (_Ctr == 0) {
       alert('No Records selected');
       return;
     }
-
-    // if (_status == "MATCHED" || _status == "ALMOST MATCHED" || _status == "MISMATCHED (GST AMOUNT)" || _status == "MISMATCHED (PERIOD)") {
-    //     if (this.RecordListItc.length != _Ctr) {
-    //         alert('Please select all Records');
-    //         return;
-    //     }
-    // } = this.gs.defaultValues.gst_recon_itc_year;
 
     if (!confirm("Update Claim Status")) {
       return;
     }
 
+
+    sPkids = ""; _Ctr = 0; _BatchCtr = 0;
+    for (let rec of this.mainService.state.RecordListItc) {
+      if (rec.rec_selected) {
+        _Ctr++;
+        if (sPkids != "")
+          sPkids += ",";
+        sPkids += rec.pkid;
+      }
+      if (_Ctr >= 250) {
+        _BatchCtr++;
+        this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr);
+        sPkids = ""; _Ctr = 0;
+      }
+    }
+
+    if (sPkids != "") {
+      _BatchCtr++;
+      this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr);
+    }
+
+  }
+
+  UpdateItcbatchwise(_ids: string, _batchNo: number, _totRecsUpdt: number) {
     let SearchData2 = {
       category: this.type,
-      pkid: sPkids,
+      pkid: _ids,
       claim_status: this.mainService.state.gst_recon_itc_claim_status,
       claim_period: this.mainService.state.gst_recon_itc_claim_period,
       recon_year: +this.mainService.state.gst_recon_itc_list_year,
@@ -293,7 +308,7 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
-          let pkidsArray = sPkids.split(',');
+          let pkidsArray = _ids.split(',');
           for (let i = 0; i < pkidsArray.length; i++) {
             for (let rec of this.mainService.state.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
               rec.claim_status = this.mainService.state.gst_recon_itc_claim_status;
@@ -302,8 +317,8 @@ export class GstReconRepItcComponent {
             }
           }
         }
-        // alert('Save Completed')
-        // this.BranchList = response.branchlist;
+        console.log('Batch Competed : ', _batchNo);
+        console.log('Records Updated : ', _totRecsUpdt);
       },
         error => {
           this.loading = false;
@@ -311,6 +326,7 @@ export class GstReconRepItcComponent {
           alert(this.ErrorMessage);
         });
   }
+
 
   UpdateItcRowWise(_id: string, _status: string, _remarks) {
     let SearchData2 = {
