@@ -123,7 +123,6 @@
           <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
           <th>STATUS</th>
           <th>SOURCE</th>
-          <th>CLAIMED.IN</th>
           <th>SUPPLIER GSTIN</th>
           <th>SUPPLIER NAME</th>
           <th>PERIOD</th>
@@ -136,6 +135,7 @@
           <th class="text-right">CGST</th>
           <th class="text-right">SGST</th>
           <th class="text-right">DIFF</th>
+          <th>CLAIMED.IN</th>
           <th>CLAIM STATUS</th>
           <th>REMARKS</th>
           <th *ngIf="bSave">UPDATE</th>
@@ -147,7 +147,6 @@
           <td><input type="checkbox" [(ngModel)]="rec.rec_selected"></td>
           <td>{{rec.reconcile_status}}</td>
           <td>{{rec.download_source}}</td>
-          <td>{{rec.display_claimed_period}}</td>
           <td>{{rec.gstin_supplier}}</td>
           <td>{{rec.supplier_name}}</td>
           <td>{{rec.gstr1_period}}</td>
@@ -160,6 +159,7 @@
           <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+          <td>{{rec.display_claimed_period}}</td>
           <td *ngIf="bSave" class="p-0">
             <select [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
               [(ngModel)]="rec.claim_status">
