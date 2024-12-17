@@ -50,7 +50,7 @@ export class GstReconRepItcComponent {
   reconcile_state_name: string = "KERALA";
   reconcile_state_code: string = "32";
   round_off: number = 5;
-  chk_notclaimed: boolean = true;
+  // chk_notclaimed: boolean = true;
   // claim_status: string = 'ITC AVAILED';
 
 
@@ -78,7 +78,7 @@ export class GstReconRepItcComponent {
     round_off: 5,
     recon_year: 0,
     recon_month: 0,
-    chk_notclaimed: this.chk_notclaimed,
+    chk_notclaimed: true,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries
   };
 
@@ -194,7 +194,7 @@ export class GstReconRepItcComponent {
     this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
-    this.SearchData.chk_notclaimed = this.chk_notclaimed;
+    this.SearchData.chk_notclaimed = this.mainService.state.gst_recon_itc_chk_notclaimed;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
