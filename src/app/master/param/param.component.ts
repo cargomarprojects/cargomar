@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../core/services/global.service';
 import { Param } from '../models/param';
 import { ParamService } from '../services/param.service';
 import { SearchTable } from '../../shared/models/searchtable';
+
 
 @Component({
   selector: 'app-param',
@@ -28,9 +30,12 @@ export class ParamComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  modal: any;
 
   sortby: boolean = false;
   bPrint = false;
+  bDocs: boolean = false;
+  showDocs: boolean = false;
 
   searchstring = '';
   page_count = 0;
@@ -72,6 +77,7 @@ export class ParamComponent {
   Record: Param = new Param;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: ParamService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -106,6 +112,7 @@ export class ParamComponent {
 
 
   InitComponent() {
+    this.bDocs = false;
     this.bPrint = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -113,6 +120,8 @@ export class ParamComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
     }
     this.InitLov();
     this.InitColumns();
@@ -130,6 +139,7 @@ export class ParamComponent {
     this.id5 = '';
     this.id5_lovtype = '';
     this.email = '';
+    this.showDocs = false;
 
     this.code_length = 15;
 
@@ -184,6 +194,8 @@ export class ParamComponent {
 
     if (this.type == 'PAN') {
       this.id1 = "Location";
+      this.id2 = "Aadhaar Linked";
+      this.showDocs = true;
     }
 
     if (this.type == 'CONTAINER TYPE') {
@@ -416,6 +428,9 @@ export class ParamComponent {
       // this.Record.param_id1 = this.gs.globalVariables.gstin;
       this.Record.param_id2 = this.gs.globalVariables.year_code;
     }
+    if (this.type == "PAN")
+      this.Record.param_id2 = "N";
+
     this.InitLov();
   }
 
@@ -466,7 +481,7 @@ export class ParamComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
-          // alert(this.ErrorMessage);
+        // alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
@@ -659,5 +674,12 @@ export class ParamComponent {
     this.gs.ClosePage('home');
   }
 
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
 
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 }

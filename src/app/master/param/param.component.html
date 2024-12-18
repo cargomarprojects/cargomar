@@ -49,6 +49,8 @@
         <tr>
           <th>{{ListCode}}</th>
           <th>{{ListName}}</th>
+          <th *ngIf="type == 'PAN'">LOCATION</th>
+          <th *ngIf="type == 'PAN'">AADHAAR LINKED</th>
           <th *ngIf="type == 'USER HIERARCHY'">SUB USERS</th>
           <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
@@ -95,11 +97,12 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList;  let i = index" 
-          [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.param_pkid, i)">{{rec.param_code}}</td>
           <td>{{rec.param_name}}</td>
-
+          <td *ngIf="type == 'PAN'">{{rec.param_id1}}</td>
+          <td *ngIf="type == 'PAN'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'USER HIERARCHY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate}}</td>
@@ -197,9 +200,15 @@
 
       <div *ngIf="id2 != ''" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{id2}}</label>
-        <div class="col-10">
+        <div *ngIf="type != 'PAN'" class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_id2" required
             maxlength="60" />
+        </div>
+        <div *ngIf="type == 'PAN'" class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.param_id2">
+            <option [value]="'N'">NO</option>
+            <option [value]="'Y'">YES</option>
+          </select>
         </div>
       </div>
 
@@ -277,6 +286,8 @@
         <div class="offset-2 col-10">
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-primary btn-sm">Save</button>
+          <button [disabled]="loading" *ngIf="mode == 'EDIT' && showDocs && bDocs" (click)="ShowDocuments(doc)"
+            class="btn btn-primary btn-sm">Documents</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">Return</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
@@ -291,3 +302,18 @@
 <div *ngIf="ErrorMessage" class="alert alert-info">
   {{ErrorMessage}}
 </div>
+
+<ng-template #doc let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload [pkid]="pkid" [type]="type"></app-upload>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
