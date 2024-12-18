@@ -269,6 +269,7 @@ export class GstReconRepCdnrComponent {
     this.SearchData.recon_month = +this.mainService.state.gst_recon_cdnr_month;
     this.SearchData.download_doc_type = this.download_doc_type;
     this.SearchData.reverse_charge = this.reverse_charge;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.ErrorMessage = '';
     this.mainService.ProcessGstReconcile(this.SearchData)
       .subscribe(response => {

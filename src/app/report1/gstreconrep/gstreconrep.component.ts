@@ -126,7 +126,7 @@ export class GstReconRepComponent {
   }
 
   Init() {
-    
+
   }
 
   // // Destroy Will be called when this component is closed
@@ -203,7 +203,7 @@ export class GstReconRepComponent {
       alert("Invalid Month");
       return;
     }
-    
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -283,6 +283,7 @@ export class GstReconRepComponent {
     this.SearchData.recon_year = +this.mainService.state.gst_recon_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_month;
     this.SearchData.download_doc_type = this.download_doc_type;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.reverse_charge = 'NO';
     this.ErrorMessage = '';
     this.mainService.ProcessGstReconcile(this.SearchData)
@@ -347,7 +348,7 @@ export class GstReconRepComponent {
 
 
     let SearchData2 = {
-      category:'',
+      category: '',
       type: '',
       pkid: '',
       report_folder: '',
