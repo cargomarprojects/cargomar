@@ -35,22 +35,14 @@ export class GstReconRepRcComponent {
     pkid = '';
     modal: any;
     selectedRowIndex = 0;
-    recon_year = 0;
-    recon_month = 0;
     gstin_supplier: string = "";
     period: number = 2020;
     state_code: string = "";
 
-    branch_code: string = '';
-    format_type: string = '';
-    from_date: string = '';
-    to_date: string = '';
     // searchstring = '';
-    display_format_type: string = '';
     // reconcile_state_name: string = "KERALA";
     // reconcile_state_code: string = "32";
     //round_off: number = 5;
-    chk_pending: boolean = true;
 
     disableSave = true;
     loading = false;
@@ -76,7 +68,7 @@ export class GstReconRepRcComponent {
         round_off: 5,
         recon_year: 0,
         recon_month: 0,
-        chk_pending: this.chk_pending,
+        chk_pending: false,
         hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
         download_doc_type: this.download_doc_type,
         reverse_charge: this.reverse_charge
@@ -115,8 +107,7 @@ export class GstReconRepRcComponent {
     }
 
     Init() {
-        this.format_type = "RECONCILE-GSTR2B";
-        this.display_format_type = this.format_type;
+
     }
 
     // // Destroy Will be called when this component is closed
@@ -190,7 +181,6 @@ export class GstReconRepRcComponent {
             return;
         }
 
-        this.display_format_type = this.format_type;
         this.loading = true;
         this.pkid = this.gs.getGuid();
         this.SearchData.pkid = this.pkid;
@@ -201,16 +191,12 @@ export class GstReconRepRcComponent {
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.searchstring = this.mainService.state.gst_recon_rc_searchstring.toUpperCase();
         this.SearchData.type = _type;
-        this.SearchData.from_date = this.from_date;
-        this.SearchData.to_date = this.to_date;
-        this.SearchData.format_type = this.format_type;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
         this.SearchData.state_code = this.mainService.state.gst_recon_rc_state_code;
         this.SearchData.state_name = this.mainService.state.gst_recon_rc_state_name;
         this.SearchData.round_off = this.mainService.state.gst_recon_rc_round_off;
         this.SearchData.recon_year = +this.mainService.state.gst_recon_rc_year;
         this.SearchData.recon_month = +this.mainService.state.gst_recon_rc_month;
-        this.SearchData.chk_pending = this.chk_pending;
         this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
         this.SearchData.download_doc_type = this.download_doc_type;
         this.SearchData.reverse_charge = 'YES';

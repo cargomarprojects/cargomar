@@ -42,7 +42,8 @@
                                 <label class="col-sm-4 col-form-label col-form-label-sm">Round-Off</label>
                                 <div class="col-sm-4">
                                     <input type="number" disabled class="col form-control form-control-sm"
-                                        name="rondnum" [(ngModel)]="mainService.state.gst_recon_round_off" required maxlength="6" />
+                                        name="rondnum" [(ngModel)]="mainService.state.gst_recon_round_off" required
+                                        maxlength="6" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -64,9 +65,11 @@
                                     <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
                                         class="btn btn-primary btn-sm">Excel</button>
                                     <button *ngIf="bAdmin" [disabled]="loading" (click)="UpdatePurchaseData()"
-                                        class="btn btn-primary btn-sm">Update 2B Data</button>
+                                        class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Update 2B Data':'Update 2A
+                                        Data'}}</button>
                                     <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstReconcile()"
-                                        class="btn btn-primary btn-sm">Process 2B</button>
+                                        class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Process 2B':'Process
+                                        2A'}}</button>
                                 </div>
                             </div>
                         </div>

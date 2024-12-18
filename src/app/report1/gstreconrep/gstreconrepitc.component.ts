@@ -33,23 +33,17 @@ export class GstReconRepItcComponent {
   pkid = '';
   modal: any;
   selectedRowIndex = 0;
-  // recon_year = 0;
-  // recon_month = 0;
+  
   gstin_supplier: string = "";
   period_id: string = "";
   // claim_period: string = "";
 
   MonList: any[] = [];
 
-  branch_code: string = '';
-  // format_type: string = '';
-  from_date: string = '';
-  to_date: string = '';
   // searchstring = '';
-  display_format_type: string = '';
-  reconcile_state_name: string = "KERALA";
-  reconcile_state_code: string = "32";
-  round_off: number = 5;
+  // reconcile_state_name: string = "KERALA";
+  // reconcile_state_code: string = "32";
+  // round_off: number = 5;
   // chk_notclaimed: boolean = true;
   // claim_status: string = 'ITC AVAILED';
 
@@ -105,10 +99,6 @@ export class GstReconRepItcComponent {
 
   Init() {
     this.mainService.init(this.menuid);
-
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.display_format_type = this.gs.defaultValues.gst_recon_itc_status;
-
     this.MonList = [{ "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
       , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }
       , { "id": "07", "name": "JULY" }, { "id": "08", "name": "AUGUST" }, { "id": "09", "name": "SEPTEMBER" }
@@ -176,14 +166,13 @@ export class GstReconRepItcComponent {
     this.mainService.state.gst_recon_itc_list_year = this.mainService.state.gst_recon_itc_year;
     this.mainService.state.gst_recon_itc_list_month = this.mainService.state.gst_recon_itc_month;
 
-    this.display_format_type = this.mainService.state.gst_recon_itc_status;
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
     this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
     this.SearchData.type = _type;
@@ -191,7 +180,6 @@ export class GstReconRepItcComponent {
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.mainService.state.gst_recon_itc_list_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_itc_list_state_name;
-    this.SearchData.round_off = this.round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
     this.SearchData.chk_notclaimed = this.mainService.state.gst_recon_itc_chk_notclaimed;

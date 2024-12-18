@@ -29,22 +29,14 @@ export class GstReconRepComponent {
   pkid = '';
   modal: any;
   selectedRowIndex = 0;
-  recon_year = 0;
-  recon_month = 0;
   gstin_supplier: string = "";
   period: number = 2020;
   state_code: string = "";
 
-  branch_code: string = '';
-  format_type: string = '';
-  from_date: string = '';
-  to_date: string = '';
   //searchstring = '';
-  display_format_type: string = '';
   // reconcile_state_name: string = "KERALA";
   // reconcile_state_code: string = "32";
   // round_off: number = 5;
-  chk_pending: boolean = true;
 
   bPrint = false;
   bDocs: boolean = false;
@@ -75,7 +67,7 @@ export class GstReconRepComponent {
     round_off: 5,
     recon_year: 0,
     recon_month: 0,
-    chk_pending: this.chk_pending,
+    chk_pending: false,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
     download_doc_type: this.download_doc_type,
     reverse_charge: 'NO'
@@ -134,11 +126,7 @@ export class GstReconRepComponent {
   }
 
   Init() {
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.format_type = "RECONCILE-GSTR2B";
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.display_format_type = this.format_type;
+    
   }
 
   // // Destroy Will be called when this component is closed
@@ -215,28 +203,23 @@ export class GstReconRepComponent {
       alert("Invalid Month");
       return;
     }
-
-    this.display_format_type = this.format_type;
+    
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
     this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.mainService.state.gst_recon_searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.format_type = this.format_type;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.state_code = this.mainService.state.gst_recon_state_code;
     this.SearchData.state_name = this.mainService.state.gst_recon_state_name;
     this.SearchData.round_off = this.mainService.state.gst_recon_round_off;
     this.SearchData.recon_year = +this.mainService.state.gst_recon_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_month;
-    this.SearchData.chk_pending = this.chk_pending;
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.SearchData.download_doc_type = this.download_doc_type;
     this.SearchData.reverse_charge = 'NO';
@@ -445,14 +428,13 @@ export class GstReconRepComponent {
       return;
     }
 
-    this.display_format_type = this.format_type;
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
     this.SearchData.category = this.type;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
-    this.SearchData.branch_code = this.branch_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.mainService.state.gst_recon_ament_searchstring.toUpperCase();
     this.SearchData.type = _type;
