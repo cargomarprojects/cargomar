@@ -51,7 +51,7 @@ export class GstReconRepCdnrComponent {
   // reconcile_state_code: string = "32";
   //round_off: number = 5;
   chk_pending: boolean = true;
-   
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
