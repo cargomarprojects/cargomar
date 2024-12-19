@@ -4,7 +4,10 @@
         <thead class="page-body-thead">
             <tr>
                 <th>SOURCE</th>
-                <th>PERIOD</th>
+                <th>{{type}} PERIOD</th>
+                <th>CLAIMED STATUS</th>
+                <th>CLAIMED PERIOD</th>
+                <th>FILING PERIOD</th>
                 <th>REF#</th>
                 <th>TYPE</th>
                 <th>INV#</th>
@@ -23,6 +26,9 @@
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
             <tr [style.color]="rec.row_color">
                 <td>{{rec.download_source}}</td>
+                <td>{{rec.display_download_period}}</td>
+                <td>{{rec.claim_status}}</td>
+                <td>{{rec.display_claimed_period}}</td>
                 <td>{{rec.gstr1_period}}</td>
                 <td>{{rec.source}}</td>
                 <td>{{rec.download_type}}</td>
