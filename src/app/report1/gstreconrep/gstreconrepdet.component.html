@@ -1,5 +1,5 @@
-<div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>20?'650px':'auto'"
-    [style.overflow-y]="RecordList.length>20?'scroll':'auto'">
+<div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>10?'650px':'auto'"
+    [style.overflow-y]="RecordList.length>10?'scroll':'auto'">
     <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
             <tr>
@@ -30,7 +30,7 @@
                 <td>{{rec.claim_status}}</td>
                 <td>{{rec.display_claimed_period}}</td>
                 <td>{{rec.gstr1_period}}</td>
-                <td>{{rec.source}}</td>
+                <td class="hlink" (click)="showInvoice(rec)" >{{rec.source}}</td>
                 <td>{{rec.download_type}}</td>
                 <td>{{rec.invoice_number}}</td>
                 <td>{{rec.invoice_date}}</td>
@@ -43,6 +43,11 @@
                 <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
                 <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                 <td>{{rec.reconcile_status}}</td>
+            </tr>
+            <tr *ngIf="rec.rec_displayed">
+                <td colspan="18">
+                    <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+                </td>
             </tr>
         </tbody>
     </table>

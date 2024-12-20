@@ -74,7 +74,7 @@ export class Gstr2bDownload {
     reconcile_status: string;
     doc_vrno: string;
     rec_selected: boolean;
-
+    rec_displayed: boolean;
     supplier_name: string;
     supplier_state: string;
     purchase_count: number;

@@ -1,0 +1,80 @@
+<div class="col">
+    <font color="black">
+        <strong>
+            Type&nbsp;
+        </strong>
+    </font>
+    <font color="red">
+        {{SearchData.jvh_type}}
+    </font>
+    <font color="black">
+        <strong>
+            Branch&nbsp;
+        </strong>
+    </font>
+    <font color="red">
+        {{SearchData.jvh_branch}}
+    </font>
+    <font color="black">
+        <strong>
+            Vr.No&nbsp;
+        </strong>
+    </font>
+    <font color="red">
+        {{SearchData.jvh_vrno}}
+    </font>
+    <font color="black">
+        <strong>
+            Date&nbsp;
+        </strong>
+    </font>
+    <font color="red">
+        {{SearchData.jvh_date}}
+    </font>
+</div>
+<div class="page-details">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Ref.No</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="SearchData.jvh_reference" required
+                        maxlength="50" />
+                </div>
+                <label class="col-2 col-form-label col-form-label-sm">Ref.Date</label>
+                <div class="col-4">
+                    <app-date [inputdate]="SearchData.jvh_reference_date" (ValueChanged)="SearchData.jvh_reference_date=$event">
+                    </app-date>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="form-group row">
+                <label class="col-2 col-form-label  col-form-label-sm">Org.Inv#</label>
+                <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="SearchData.jvh_org_invno"
+                        maxlength="50" />
+                </div>
+                <label class="col-2 col-form-label col-form-label-sm">Org.Inv.Date</label>
+                <div class="col-4">
+                    <app-date [inputdate]="SearchData.jvh_org_invdt" (ValueChanged)="SearchData.jvh_org_invdt=$event"></app-date>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Update</button>
+                    <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
+                    <i *ngIf="loading" class="fa fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

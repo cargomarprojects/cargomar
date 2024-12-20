@@ -94,6 +94,13 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/Gstr2aReport', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  GetPurchaseInvoice(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/GetPurchaseInvoice', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  SavePurchaseInvoice(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/SavePurchaseInvoice', SearchData, this.gs.headerparam2('authorized'));
+  }
 
 }
 
