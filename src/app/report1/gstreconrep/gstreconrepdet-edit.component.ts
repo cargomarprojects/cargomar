@@ -17,15 +17,6 @@ export class GstReconRepDetEditComponent {
     @Input() record: Gstr2bDownload;
 
     pkid: string = '';
-    jvh_branch: string = '';
-    jvh_type: string = '';
-    jvh_reference: string = '';
-    jvh_reference_date: string = '';
-    jvh_org_invno: string = '';
-    jvh_org_invdt: string = '';
-    jvh_vrno: string = '';
-    jvh_date: string = '';
-
     InitCompleted: boolean = false;
     menu_record: any;
 
@@ -38,9 +29,7 @@ export class GstReconRepDetEditComponent {
 
     ErrorMessage = "";
     InfoMessage = "";
-
     mode = '';
-
     SearchData = {
         pkid: '',
         jvh_branch: '',
@@ -50,7 +39,8 @@ export class GstReconRepDetEditComponent {
         jvh_org_invno: '',
         jvh_org_invdt: '',
         jvh_vrno: '',
-        jvh_date: ''
+        jvh_date: '',
+        jvh_party_name: ''
     }
 
     constructor(
@@ -79,10 +69,15 @@ export class GstReconRepDetEditComponent {
         this.ErrorMessage = '';
         this.mainService.GetPurchaseInvoice(this.SearchData)
             .subscribe(response => {
-                this.SearchData.jvh_branch = response.branch;
-                this.SearchData.jvh_type = response.type;
+                this.SearchData.jvh_branch = response.branchcode;
+                this.SearchData.jvh_type = response.vrtype;
                 this.SearchData.jvh_vrno = response.vrno;
                 this.SearchData.jvh_date = response.vrdate;
+                this.SearchData.jvh_party_name = response.partyname;
+                this.SearchData.jvh_reference = response.jvh_reference;
+                this.SearchData.jvh_reference_date = response.jvh_reference_date;
+                this.SearchData.jvh_org_invno = response.jvh_org_invno;
+                this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
             },
                 error => {
                     this.ErrorMessage = this.gs.getError(error);
@@ -97,6 +92,11 @@ export class GstReconRepDetEditComponent {
     Save() {
         if (!this.allvalid())
             return;
+
+        if (!confirm("Do you want to Save")) {
+            return;
+        }
+
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
@@ -104,9 +104,12 @@ export class GstReconRepDetEditComponent {
         this.mainService.SavePurchaseInvoice(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
-                if (response.status == "OK") {
-                //   this.record.job_remarks = this.remarks.toUpperCase();
-                  this.record.rec_displayed = false;
+                if (response.retvalue) {
+                    this.SearchData.jvh_reference = response.jvh_reference;
+                    this.SearchData.jvh_reference_date = response.jvh_reference_date;
+                    this.SearchData.jvh_org_invno = response.jvh_org_invno;
+                    this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
+                    this.record.rec_displayed = false;
                 }
             },
                 error => {
