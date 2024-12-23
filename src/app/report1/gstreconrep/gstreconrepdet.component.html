@@ -30,7 +30,7 @@
                 <td>{{rec.claim_status}}</td>
                 <td>{{rec.display_claimed_period}}</td>
                 <td>{{rec.gstr1_period}}</td>
-                <td class="hlink" (click)="showInvoice(rec)" >{{rec.source}}</td>
+                <td class="hlink" (click)="showInvoice(rec)">{{rec.source}}</td>
                 <td>{{rec.download_type}}</td>
                 <td>{{rec.invoice_number}}</td>
                 <td>{{rec.invoice_date}}</td>
@@ -45,8 +45,14 @@
                 <td>{{rec.reconcile_status}}</td>
             </tr>
             <tr *ngIf="rec.rec_displayed">
-                <td colspan="18">
-                    <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+                <td colspan="100%">
+                    <div style="border-style:solid;border-color:green" class="page-details">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
