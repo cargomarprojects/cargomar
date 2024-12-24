@@ -33,7 +33,7 @@ export class GstReconRepItcComponent {
   pkid = '';
   modal: any;
   selectedRowIndex = 0;
-  
+
   gstin_supplier: string = "";
   period_id: string = "";
   // claim_period: string = "";
@@ -354,5 +354,14 @@ export class GstReconRepItcComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+  showInvoice(_rec: Gstr2bDownload) {
+    if (_rec.pkid == null)
+      return;
+    if (_rec.download_source != 'PURCHASE')
+      return;
+
+    _rec.rec_displayed = !_rec.rec_displayed;
+
   }
 }
