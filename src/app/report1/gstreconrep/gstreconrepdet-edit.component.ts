@@ -14,7 +14,7 @@ export class GstReconRepDetEditComponent {
     // Local Variables 
     title = '';
 
-    @Input() record: Gstr2bDownload;
+    @Input() record: Gstr2bDownload = new Gstr2bDownload;
 
     pkid: string = '';
     InitCompleted: boolean = false;
@@ -40,7 +40,11 @@ export class GstReconRepDetEditComponent {
         jvh_org_invdt: '',
         jvh_vrno: '',
         jvh_date: '',
-        jvh_party_name: ''
+        jvh_party_name: '',
+        company_code: this.gs.globalVariables.comp_code,
+        branch_code: this.gs.globalVariables.branch_code,
+        user_code: this.gs.globalVariables.user_code,
+        jvh_docno: this.record.source
     }
 
     constructor(
@@ -66,6 +70,7 @@ export class GstReconRepDetEditComponent {
             return;
         }
         this.SearchData.pkid = this.pkid;
+        this.SearchData.jvh_docno = this.record.source;
         this.ErrorMessage = '';
         this.mainService.GetPurchaseInvoice(this.SearchData)
             .subscribe(response => {
@@ -78,6 +83,7 @@ export class GstReconRepDetEditComponent {
                 this.SearchData.jvh_reference_date = response.jvh_reference_date;
                 this.SearchData.jvh_org_invno = response.jvh_org_invno;
                 this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
+
             },
                 error => {
                     this.ErrorMessage = this.gs.getError(error);
