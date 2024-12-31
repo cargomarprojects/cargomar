@@ -187,7 +187,7 @@
               [(ngModel)]="rec.reason" (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
-          <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason)"><i
+          <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period)"><i
               class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
           <td>{{rec.claim_created_by}}</td>
           <td>{{rec.claim_created_date}}</td>

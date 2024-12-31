@@ -241,16 +241,22 @@ export class GstReconRepItcComponent {
     let sPkids: string = "";//Main List
     let _Ctr: number = 0;
     let _BatchCtr: number = 0;
+    let pendingWithClaimedFound: boolean = false;
     for (let rec of this.mainService.state.RecordListItc) {
       if (rec.rec_selected) {
         _Ctr++;
+        if (rec.claim_status == 'PENDING' && !this.gs.isBlank(rec.display_claimed_period))
+          pendingWithClaimedFound = true;
       }
-      if (_Ctr > 0)
-        break;
     }
 
     if (_Ctr == 0) {
       alert('No Records selected');
+      return;
+    }
+
+    if (pendingWithClaimedFound) {
+      alert('Cannot modify PENDING status for one or more records with claimed period in different month. Please use rowwise update to modify');
       return;
     }
 
@@ -321,7 +327,7 @@ export class GstReconRepItcComponent {
   }
 
 
-  UpdateItcRowWise(_id: string, _status: string, _remarks) {
+  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string) {
     let SearchData2 = {
       category: this.type,
       pkid: _id,
@@ -331,7 +337,8 @@ export class GstReconRepItcComponent {
       recon_year: +this.mainService.state.gst_recon_itc_list_year,
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: true,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      display_claim_period: _display_claim_period
     };
     this.loading = true;
     this.ErrorMessage = '';
