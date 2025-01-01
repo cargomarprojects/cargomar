@@ -15,7 +15,7 @@ export class GstReconRepDetEditComponent {
     title = '';
 
     @Input() record: Gstr2bDownload = new Gstr2bDownload;
-    
+
     pkid: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
@@ -44,7 +44,11 @@ export class GstReconRepDetEditComponent {
         company_code: this.gs.globalVariables.comp_code,
         branch_code: this.gs.globalVariables.branch_code,
         user_code: this.gs.globalVariables.user_code,
-        jvh_docno: this.record.source
+        jvh_docno: this.record.source,
+        igst: 0,
+        cgst: 0,
+        sgst: 0,
+        gst_bal: 0
     }
 
     constructor(
@@ -61,6 +65,11 @@ export class GstReconRepDetEditComponent {
         this.pkid = this.record.pkid;
         if (this.record.download_source == "PURCHASE")
             this.LoadInvoice();
+        if (this.record.download_source == "GSTR-2B") {
+            this.SearchData.igst = this.record.integrated_tax;
+            this.SearchData.cgst = this.record.central_tax;
+            this.SearchData.sgst = this.record.state_ut_tax;
+        }
     }
 
 
@@ -105,7 +114,8 @@ export class GstReconRepDetEditComponent {
         }
         if (this.record.download_source == "PURCHASE")
             this.saveInvoice();
-
+        if (this.record.download_source == "GSTR-2B")
+            this.saveGst();
     }
 
     allvalid() {
@@ -121,6 +131,14 @@ export class GstReconRepDetEditComponent {
 
         // if (bret === false)
         //     this.ErrorMessage = sError;
+
+        if (this.record.download_source == "GSTR-2B") {
+            if (this.SearchData.gst_bal <= 5) {
+                alert('Invalid Balance');
+                bret = false;
+            }
+        }
+
         return bret;
     }
 
@@ -146,11 +164,47 @@ export class GstReconRepDetEditComponent {
 
                 });
     }
+    saveGst() {
+        // this.loading = true;
+        // this.ErrorMessage = '';
+        // this.InfoMessage = '';
+        alert('Save Complete');
+        // this.mainService.SavePurchaseInvoice(this.SearchData)
+        //     .subscribe(response => {
+        //         this.loading = false;
+        //         if (response.retvalue) {
+        //             this.SearchData.jvh_reference = response.jvh_reference;
+        //             this.SearchData.jvh_reference_date = response.jvh_reference_date;
+        //             this.SearchData.jvh_org_invno = response.jvh_org_invno;
+        //             this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
+        //             this.record.rec_displayed = false;
+        //         }
+        //     },
+        //         error => {
+        //             this.loading = false;
+        //             this.ErrorMessage = this.gs.getError(error);
 
+        //         });
+    }
     Close() {
         this.record.rec_displayed = false;
 
     }
-
+    OnBlur(field: string) {
+        if (field == "igst") {
+            this.SearchData.gst_bal = this.record.integrated_tax_actual - this.SearchData.igst;
+            this.SearchData.gst_bal = this.gs.roundNumber(this.SearchData.gst_bal, 2);
+        }
+        if (field == "cgst") {
+            this.SearchData.sgst = this.SearchData.cgst;
+            this.SearchData.gst_bal = this.record.central_tax_actual + this.record.state_ut_tax_actual - (this.SearchData.cgst + this.SearchData.sgst);
+            this.SearchData.gst_bal = this.gs.roundNumber(this.SearchData.gst_bal, 2);
+        }
+        if (field == "sgst") {
+            this.SearchData.cgst = this.SearchData.sgst;
+            this.SearchData.gst_bal = this.record.central_tax_actual + this.record.state_ut_tax_actual - (this.SearchData.cgst + this.SearchData.sgst);
+            this.SearchData.gst_bal = this.gs.roundNumber(this.SearchData.gst_bal, 2);
+        }
+    }
 
 }

@@ -57,12 +57,12 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label  col-form-label-sm">IGST</label>
                     <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="record.integrated_tax"
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.igst" (blur)="OnBlur('igst')"
                             required maxlength="50" />
                     </div>
                     <label class="col-2 col-form-label  col-form-label-sm">Balance</label>
                     <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.jvh_org_invno"
+                        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="SearchData.gst_bal"
                             maxlength="50" />
                     </div>
                 </div>
@@ -82,12 +82,12 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label  col-form-label-sm">CGST</label>
                     <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="record.central_tax"
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.cgst"  (blur)="OnBlur('cgst')"
                             required maxlength="50" />
                     </div>
                     <label class="col-2 col-form-label  col-form-label-sm">SGST</label>
                     <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="record.state_ut_tax"
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.sgst"  (blur)="OnBlur('sgst')"
                             maxlength="50" />
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label  col-form-label-sm">Balance</label>
                     <div class="col-4">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="SearchData.jvh_org_invno"
+                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="SearchData.gst_bal"
                             maxlength="50" />
                     </div>
                     <div class="offset-sm-2 col-sm-4">

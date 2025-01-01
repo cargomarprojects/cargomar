@@ -93,6 +93,12 @@ export class Gstr2bDownload {
     claim_created_date: string;
     display_download_period: string;
 
+    integrated_tax_actual: number;
+    central_tax_actual: number;
+    state_ut_tax_actual: number;
+    gst_bal: number;
+    rec_status: string;
+
 }
 
 export interface iGstr2bDownloadModel {
