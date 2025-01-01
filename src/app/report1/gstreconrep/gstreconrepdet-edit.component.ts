@@ -15,7 +15,7 @@ export class GstReconRepDetEditComponent {
     title = '';
 
     @Input() record: Gstr2bDownload = new Gstr2bDownload;
-
+    
     pkid: string = '';
     InitCompleted: boolean = false;
     menu_record: any;
@@ -59,7 +59,8 @@ export class GstReconRepDetEditComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.pkid = this.record.pkid;
-        this.LoadInvoice();
+        if (this.record.download_source == "PURCHASE")
+            this.LoadInvoice();
     }
 
 
@@ -102,7 +103,28 @@ export class GstReconRepDetEditComponent {
         if (!confirm("Do you want to Save")) {
             return;
         }
+        if (this.record.download_source == "PURCHASE")
+            this.saveInvoice();
 
+    }
+
+    allvalid() {
+        let sError: string = "";
+        let bret: boolean = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+
+        // if (this.remarks.toString().length <= 0) {
+        //     bret = false;
+        //     sError = " | Remarks Cannot Be Blank";
+        // }
+
+        // if (bret === false)
+        //     this.ErrorMessage = sError;
+        return bret;
+    }
+
+    saveInvoice() {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
@@ -124,23 +146,6 @@ export class GstReconRepDetEditComponent {
 
                 });
     }
-
-    allvalid() {
-        let sError: string = "";
-        let bret: boolean = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-
-        // if (this.remarks.toString().length <= 0) {
-        //     bret = false;
-        //     sError = " | Remarks Cannot Be Blank";
-        // }
-
-        // if (bret === false)
-        //     this.ErrorMessage = sError;
-        return bret;
-    }
-
 
     Close() {
         this.record.rec_displayed = false;

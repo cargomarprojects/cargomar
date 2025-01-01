@@ -367,7 +367,14 @@ export class GstReconRepItcComponent {
       return;
     if (_rec.download_source != 'PURCHASE')
       return;
+    _rec.rec_displayed = !_rec.rec_displayed;
 
+  }
+  showGst(_rec: Gstr2bDownload) {
+    if (_rec.pkid == null)
+      return;
+    if (_rec.download_source != 'GSTR-2B')
+      return;
     _rec.rec_displayed = !_rec.rec_displayed;
 
   }

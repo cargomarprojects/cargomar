@@ -166,9 +166,9 @@
           <td>{{rec.invoice_date}}</td>
           <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
-          <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
-          <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
-          <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.integrated_tax | number : '1.2-2'}}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.central_tax | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.state_ut_tax | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
           <td>{{rec.display_claimed_period}}</td>
           <td *ngIf="bSave" class="p-0">
