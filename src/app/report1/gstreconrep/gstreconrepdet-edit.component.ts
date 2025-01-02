@@ -66,6 +66,11 @@ export class GstReconRepDetEditComponent {
         if (this.record.download_source == "PURCHASE")
             this.LoadInvoice();
         if (this.record.download_source == "GSTR-2B") {
+            if (this.pkid.trim().length <= 0) {
+                alert("Invalid ID");
+                return;
+            }
+            this.SearchData.pkid = this.pkid;
             this.SearchData.igst = this.record.integrated_tax;
             this.SearchData.cgst = this.record.central_tax;
             this.SearchData.sgst = this.record.state_ut_tax;
@@ -132,12 +137,12 @@ export class GstReconRepDetEditComponent {
         // if (bret === false)
         //     this.ErrorMessage = sError;
 
-        if (this.record.download_source == "GSTR-2B") {
-            if (this.SearchData.gst_bal <= 5) {
-                alert('Invalid Balance');
-                bret = false;
-            }
-        }
+        // if (this.record.download_source == "GSTR-2B") {
+        //     if (this.SearchData.gst_bal <= 5) {
+        //         alert('Invalid Balance');
+        //         bret = false;
+        //     }
+        // }
 
         return bret;
     }
@@ -172,10 +177,10 @@ export class GstReconRepDetEditComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (response.retvalue) {
-                    // this.SearchData.jvh_reference = response.jvh_reference;
-                    // this.SearchData.jvh_reference_date = response.jvh_reference_date;
-                    // this.SearchData.jvh_org_invno = response.jvh_org_invno;
-                    // this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
+                    this.record.integrated_tax = response.igst;
+                    this.record.central_tax = response.cgst;
+                    this.record.state_ut_tax = response.sgst;
+                    this.record.gst_bal = response.gst_bal;
                     this.record.rec_displayed = false;
                 }
             },
