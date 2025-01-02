@@ -102,5 +102,9 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/SavePurchaseInvoice', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  SaveGstAmt(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/SaveGstAmt', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

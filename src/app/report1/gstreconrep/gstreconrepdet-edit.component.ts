@@ -146,7 +146,6 @@ export class GstReconRepDetEditComponent {
         this.loading = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-
         this.mainService.SavePurchaseInvoice(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
@@ -161,35 +160,35 @@ export class GstReconRepDetEditComponent {
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
-
                 });
     }
-    saveGst() {
-        // this.loading = true;
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        alert('Save Complete');
-        // this.mainService.SavePurchaseInvoice(this.SearchData)
-        //     .subscribe(response => {
-        //         this.loading = false;
-        //         if (response.retvalue) {
-        //             this.SearchData.jvh_reference = response.jvh_reference;
-        //             this.SearchData.jvh_reference_date = response.jvh_reference_date;
-        //             this.SearchData.jvh_org_invno = response.jvh_org_invno;
-        //             this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
-        //             this.record.rec_displayed = false;
-        //         }
-        //     },
-        //         error => {
-        //             this.loading = false;
-        //             this.ErrorMessage = this.gs.getError(error);
 
-        //         });
+
+    saveGst() {
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.SaveGstAmt(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue) {
+                    // this.SearchData.jvh_reference = response.jvh_reference;
+                    // this.SearchData.jvh_reference_date = response.jvh_reference_date;
+                    // this.SearchData.jvh_org_invno = response.jvh_org_invno;
+                    // this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
+                    this.record.rec_displayed = false;
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
+
     Close() {
         this.record.rec_displayed = false;
-
     }
+
     OnBlur(field: string) {
         if (field == "igst") {
             this.SearchData.gst_bal = this.record.integrated_tax_actual - this.SearchData.igst;
