@@ -2032,4 +2032,26 @@ export class MblSeaComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  GetEnsFiling() {
+    this.loading = true;
+    let SearchData = {
+      master_bl_no: this.Record.book_mblno,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetEnsFilingData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        console.log('EnsList: ', response.list);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

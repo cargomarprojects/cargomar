@@ -913,6 +913,8 @@
                 List</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                 class="btn btn-success btn-sm">Master BL</button>
+              <button *ngIf="mode == 'EDIT'&&gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="GetEnsFiling()"
+                class="btn btn-success btn-sm">EnsFiling</button>
               <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                 <font color="RED">
                   <strong>
@@ -1001,7 +1003,8 @@
             </div> -->
             <div class="page-details">
               <app-blsurrender [parentid]="pkid" [type]="type" [agentcode]="Record.book_agent_code"
-                [mailho]="bSurrenderMailHO" [mailagent]="bSurrenderMailAgent" (ModifiedRecords)="ModifiedRecords($event)"></app-blsurrender>
+                [mailho]="bSurrenderMailHO" [mailagent]="bSurrenderMailAgent"
+                (ModifiedRecords)="ModifiedRecords($event)"></app-blsurrender>
             </div>
           </div>
         </ng-template>
