@@ -22,6 +22,7 @@ export class GstReconRepItcComponent {
   @Input() bAdmin: boolean = false;
   @Input() bSave: boolean = false;
   @Input() bCompany: boolean = false;
+  @Input() bAmendment: boolean = false;
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -73,7 +74,8 @@ export class GstReconRepItcComponent {
     recon_year: 0,
     recon_month: 0,
     chk_notclaimed: true,
-    hide_ho_entries: this.gs.globalVariables.hide_ho_entries
+    hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
+    bamendment: this.bCompany
   };
 
   // Array For Displaying List
@@ -98,6 +100,7 @@ export class GstReconRepItcComponent {
 
 
   Init() {
+    this.bAmendment = this.bCompany;
     this.mainService.init(this.menuid);
     this.MonList = [{ "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
       , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }
@@ -183,6 +186,7 @@ export class GstReconRepItcComponent {
     this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
     this.SearchData.chk_notclaimed = this.mainService.state.gst_recon_itc_chk_notclaimed;
+    this.SearchData.bamendment = this.bCompany;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
@@ -373,6 +377,8 @@ export class GstReconRepItcComponent {
 
   }
   showGst(_rec: Gstr2bDownload) {
+    if (!this.bAmendment)
+      return;
     if (_rec.pkid == null)
       return;
     if (_rec.download_source != 'GSTR-2B')

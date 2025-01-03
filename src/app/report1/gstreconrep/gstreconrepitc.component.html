@@ -139,13 +139,13 @@
           <th>INVDATE</th>
           <th class="text-right">INV.AMT</th>
           <th class="text-right">TAXABLE.AMT</th>
-          <th class="text-right">IGST.ORG</th>
-          <th class="text-right">CGST.ORG</th>
-          <th class="text-right">SGST.ORG</th>
+          <th *ngIf="bAmendment" class="text-right">IGST.ORG</th>
+          <th *ngIf="bAmendment" class="text-right">CGST.ORG</th>
+          <th *ngIf="bAmendment" class="text-right">SGST.ORG</th>
           <th class="text-right">IGST</th>
           <th class="text-right">CGST</th>
           <th class="text-right">SGST</th>
-          <th class="text-right">PENDING</th>
+          <th *ngIf="bAmendment" class="text-right">PENDING</th>
           <th class="text-right">DIFF</th>
           <th>CLAIMED PERIOD</th>
           <th>CLAIMED.STATUS</th>
@@ -170,13 +170,13 @@
           <td>{{rec.invoice_date}}</td>
           <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
-          <td >{{ rec.integrated_tax_actual | number : '1.2-2'}}</td>
-          <td >{{ rec.central_tax_actual | number : '1.2-2' }}</td>
-          <td >{{ rec.state_ut_tax_actual | number : '1.2-2' }}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.integrated_tax | number : '1.2-2'}}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.central_tax | number : '1.2-2' }}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'" (click)="showGst(rec)" >{{ rec.state_ut_tax | number : '1.2-2' }}</td>
-          <td class="text-right">{{ rec.gst_bal | number : '1.2-2' }}</td>
+          <td *ngIf="bAmendment" >{{ rec.integrated_tax_actual | number : '1.2-2'}}</td>
+          <td *ngIf="bAmendment" >{{ rec.central_tax_actual | number : '1.2-2' }}</td>
+          <td *ngIf="bAmendment" >{{ rec.state_ut_tax_actual | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.integrated_tax | number : '1.2-2'}}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.central_tax | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+          <td *ngIf="bAmendment" class="text-right">{{ rec.gst_bal | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
           <td>{{rec.display_claimed_period}}</td>
           <td *ngIf="bSave" class="p-0">
