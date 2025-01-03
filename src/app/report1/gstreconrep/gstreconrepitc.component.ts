@@ -296,7 +296,8 @@ export class GstReconRepItcComponent {
       recon_year: +this.mainService.state.gst_recon_itc_list_year,
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: false,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      state_code: this.mainService.state.gst_recon_itc_list_state_code
     };
 
     this.loading = true;
@@ -338,7 +339,8 @@ export class GstReconRepItcComponent {
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: true,
       user_code: this.gs.globalVariables.user_code,
-      display_claim_period: _display_claim_period
+      display_claim_period: _display_claim_period,
+      state_code: this.mainService.state.gst_recon_itc_list_state_code
     };
     this.loading = true;
     this.ErrorMessage = '';
