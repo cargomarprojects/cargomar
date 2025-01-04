@@ -31,16 +31,24 @@ export class Param {
 }
 
 export class Paramvalues {
-    param_pkid: string;    
+    param_pkid: string;
     parent_id: string;
     param_key: string;
     param_value: string;
     param_defvalue: string;
 }
 
-export class Paramvalues_vm{
-    param_pkid: string;    
+export class Paramvalues_vm {
+    param_pkid: string;
     _globalvariables: GlobalVariables;
-    RecordDet : Paramvalues[] = [];
+    RecordDet: Paramvalues[] = [];
 }
 
+export class Currency {
+    curr_slno: number;
+    curr_code: string;
+    curr_name: string;
+    curr_per_rate: number;
+    curr_imp_rate: number;
+    curr_exp_rate: number;
+}

@@ -80,7 +80,7 @@ export class ParamComponent {
     private modalService: NgbModal,
     private mainService: ParamService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 25;
@@ -681,5 +681,13 @@ export class ParamComponent {
 
   open(content: any) {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+  
+  ImportData(content: any) {
+    this.open(content);
+  }
+  CloseParamImport(params: any) {
+    this.modal.close();
+    this.List("NEW");
   }
 }

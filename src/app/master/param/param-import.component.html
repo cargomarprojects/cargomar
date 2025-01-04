@@ -1,0 +1,40 @@
+<div *ngIf="currentTab=='PASTEDATA'">
+    <App-ClipBoard2 [msg]="'Please Wait'" [excelformat]="''" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-body table-responsive" style="height:400px;scroll-behavior:auto;">
+        <table class="table table-hover table-sm table-bordered table-striped fixedTableHead ">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SL#</th>
+                    <th>CURRENCY CODE</th>
+                    <th>CURRENCY NAME</th>
+                    <th>CURRENCY UNIT</th>
+                    <th>RATE IMPORT</th>
+                    <th>RATE EXPORT</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList">
+                    <td>{{rec.curr_slno}}</td>
+                    <td>{{rec.curr_code}}</td>
+                    <td>{{rec.curr_name}}</td>
+                    <td>{{rec.curr_per_rate}}</td>
+                    <td>{{rec.curr_imp_rate}}</td>
+                    <td>{{rec.curr_exp_rate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center my-1">
+        <button class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="bSave">Save</button>
+    </div>
+</div>
+
+<br />
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

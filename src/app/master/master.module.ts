@@ -49,6 +49,7 @@ import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 import { ProcessReportComponent } from './processreport/processreport.component';
 import { CustdetConsigneeComponent } from './customer/custdetconsignee.component';
 import { RitcdComponent } from './ritcm/ritcd/ritcd.component';
+import { ParamImportComponent } from './param/param-import.component';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import { RitcdComponent } from './ritcm/ritcd/ritcd.component';
     ChemCatgComponent,
     ProcessReportComponent,
     CustdetConsigneeComponent,
-    RitcdComponent
+    RitcdComponent,
+    ParamImportComponent
   ],
   providers: [
   ],
