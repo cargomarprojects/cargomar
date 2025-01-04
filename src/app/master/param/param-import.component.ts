@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, ElementRef } from '@angular/core';
 import { GlobalService } from '../../core/services/global.service';
 import { ParamService } from '../services/param.service';
-import { Currency } from '../models/param';
+import { Currency, Currency_vm } from '../models/param';
 
 @Component({
     selector: 'App-param-import',
@@ -72,40 +72,29 @@ export class ParamImportComponent implements OnInit {
     }
 
     save() {
-        // if (this.type != "PN-CI") {
-        //     alert('This option can be used only in Inward Credit Note(GE), Invalid Type ' + this.type);
-        //     return;
-        // }
+        if (this.type != "CURRENCY") {
+            alert('This option can be used only in Currency Master, Invalid Type ' + this.type);
+            return;
+        }
 
-        // const rec = this.Records.find(f => f.status != "");
-        // if (rec) {
-        //     alert('Records Already Saved');
-        //     return;
-        // }
-
-
-        // this.bSave = true;
-
-        // this.ErrorMessage = '';
-
-        // this.Record.jvh_type = this.type;
-        // this.Record.jvh_subtype = "AR";
-        // this.Record.jvh_headerdrcr = "DR";
-        // this.Record.branch_gstin_state_code = this.gs.defaultValues.gstin_state_code;
-        // this.Record._globalvariables = this.gs.globalVariables;
-
-        // this.mainService.SaveCiGeImport(this.Record)
-        //     .subscribe(response => {
-        //         this.Records = response.record;
-        //         this.bSave = false;
-        //         if (this.CloseClicked != null)
-        //             this.CloseClicked.emit({ records: this.Records, data: '' });
-        //         //alert("Save Completed");
-        //     }, error => {
-        //         // this.ErrorMessage = this.gs.getError(error);
-        //         this.bSave = false;
-        //         alert(this.gs.getError(error));
-        //     });
+        this.bSave = true;
+        this.ErrorMessage = '';
+        let saveRecord: Currency_vm = new Currency_vm;
+        saveRecord.param_type = this.type;
+        saveRecord.RecordDet = this.RecordList;
+        saveRecord._globalvariables = this.gs.globalVariables;
+        this.mainService.SaveParamImport(saveRecord)
+            .subscribe(response => {
+                this.bSave = false;
+                alert(response.retmsg);
+                if (this.CloseClicked != null)
+                    this.CloseClicked.emit();
+                //alert("Save Completed");
+            }, error => {
+                // this.ErrorMessage = this.gs.getError(error);
+                this.bSave = false;
+                alert(this.gs.getError(error));
+            });
     }
 
 }

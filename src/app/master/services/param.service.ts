@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Param } from '../models/param';
+import { Param,Currency_vm } from '../models/param';
 import { Settings } from '../models/settings';
 import { Settings_VM } from '../models/settings';
 import { Lockingm } from '../models/settings';
@@ -94,6 +94,10 @@ export class ParamService {
 
     ProcessGSTR2A(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/xml/Gstr2a/ProcessGSTR2A', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    SaveParamImport(Record: Currency_vm) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/Param/SaveParamImport', Record, this.gs.headerparam2('authorized'));
     }
 }
 

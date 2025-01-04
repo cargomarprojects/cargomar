@@ -44,6 +44,12 @@ export class Paramvalues_vm {
     RecordDet: Paramvalues[] = [];
 }
 
+export class Currency_vm {
+    param_type: string;
+    _globalvariables: GlobalVariables;
+    RecordDet: Currency[] = [];
+}
+
 export class Currency {
     curr_slno: number;
     curr_code: string;
