@@ -1118,6 +1118,36 @@ export class BlComponent {
           this.Record.bl_loc_add4 = this.Record.bl_loc_add4.toUpperCase();
           break;
         }
+      case 'bl_shipper_city':
+        {
+          this.Record.bl_shipper_city = this.Record.bl_shipper_city.toUpperCase();
+          break;
+        }
+      case 'bl_shipper_pin':
+        {
+          this.Record.bl_shipper_pin = this.Record.bl_shipper_pin.toUpperCase();
+          break;
+        }
+      case 'bl_consignee_city':
+        {
+          this.Record.bl_consignee_city = this.Record.bl_consignee_city.toUpperCase();
+          break;
+        }
+      case 'bl_consignee_pin':
+        {
+          this.Record.bl_consignee_pin = this.Record.bl_consignee_pin.toUpperCase();
+          break;
+        }
+      case 'bl_notify_city':
+        {
+          this.Record.bl_notify_city = this.Record.bl_notify_city.toUpperCase();
+          break;
+        }
+      case 'bl_notify_pin':
+        {
+          this.Record.bl_notify_pin = this.Record.bl_notify_pin.toUpperCase();
+          break;
+        }
     }
   }
 

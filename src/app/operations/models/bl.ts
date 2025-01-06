@@ -266,9 +266,16 @@ export class Bl {
   hbl_deliv_date: string;
   hbl_deliv_date_confirm: boolean;
   bl_draft_lock: boolean;
-  bl_seawaybill:boolean;
-  bl_seawaybill_disabled:boolean;
+  bl_seawaybill: boolean;
+  bl_seawaybill_disabled: boolean;
 
   bl_fmc_no: string;
+
+  bl_shipper_city: string;
+  bl_shipper_pin: string;
+  bl_consignee_city: string;
+  bl_consignee_pin: string;
+  bl_notify_city: string;
+  bl_notify_pin: string;
 }
 
