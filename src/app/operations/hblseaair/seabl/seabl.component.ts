@@ -1234,6 +1234,8 @@ export class BlComponent {
           this.Record.bl_shipper_add4 = '';
           this.Record.bl_shipper_state = '';
           this.Record.bl_shipper_country = '';
+          this.Record.bl_shipper_city = '';
+          this.Record.bl_shipper_pin = '';
         } else if (controlname == 'CONSIGNEEADDRESS') {
           this.Record.bl_consignee_add1 = '';
           this.Record.bl_consignee_add2 = '';
@@ -1241,6 +1243,8 @@ export class BlComponent {
           this.Record.bl_consignee_add4 = '';
           this.Record.bl_consignee_state = '';
           this.Record.bl_consignee_country = '';
+          this.Record.bl_consignee_city = '';
+          this.Record.bl_consignee_pin = '';
         } else if (controlname == 'NOTIFYADDRESS') {
           this.Record.bl_notify_add1 = '';
           this.Record.bl_notify_add2 = '';
@@ -1248,6 +1252,8 @@ export class BlComponent {
           this.Record.bl_notify_add4 = '';
           this.Record.bl_notify_state = '';
           this.Record.bl_notify_country = '';
+          this.Record.bl_notify_city = '';
+          this.Record.bl_notify_pin = '';
         } else if (controlname == 'STUFFLOCATIONADDRESS') {
           this.Record.bl_loc_add1 = '';
           this.Record.bl_loc_add2 = '';
@@ -1264,6 +1270,8 @@ export class BlComponent {
             this.Record.bl_shipper_add4 = response.customeraddress[0].add_line4;
             this.Record.bl_shipper_state = response.customeraddress[0].add_state_name;
             this.Record.bl_shipper_country = response.customeraddress[0].add_country_name;
+            this.Record.bl_shipper_city = response.customeraddress[0].add_city;
+            this.Record.bl_shipper_pin = response.customeraddress[0].add_pin;
           } else if (controlname == 'CONSIGNEEADDRESS') {
             this.Record.bl_consignee_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_consignee_add2 = response.customeraddress[0].add_line2;
@@ -1271,6 +1279,8 @@ export class BlComponent {
             this.Record.bl_consignee_add4 = response.customeraddress[0].add_line4;
             this.Record.bl_consignee_state = response.customeraddress[0].add_fstate_name;
             this.Record.bl_consignee_country = response.customeraddress[0].add_country_name;
+            this.Record.bl_consignee_city = response.customeraddress[0].add_city;
+            this.Record.bl_consignee_pin = response.customeraddress[0].add_pin;
           } else if (controlname == 'NOTIFYADDRESS') {
             this.Record.bl_notify_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_notify_add2 = response.customeraddress[0].add_line2;
@@ -1278,6 +1288,8 @@ export class BlComponent {
             this.Record.bl_notify_add4 = response.customeraddress[0].add_line4;
             this.Record.bl_notify_state = response.customeraddress[0].add_fstate_name;
             this.Record.bl_notify_country = response.customeraddress[0].add_country_name;
+            this.Record.bl_notify_city = response.customeraddress[0].add_city;
+            this.Record.bl_notify_pin = response.customeraddress[0].add_pin;
           } else if (controlname == 'STUFFLOCATIONADDRESS') {
             this.Record.bl_loc_add1 = response.customeraddress[0].add_line1;
             this.Record.bl_loc_add2 = response.customeraddress[0].add_line2;
