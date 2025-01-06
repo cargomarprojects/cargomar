@@ -129,6 +129,25 @@ export class Bl {
   bl_desc17: string;
   bl_desc18: string;
 
+  bl_desc1_type: string;
+  bl_desc2_type: string;
+  bl_desc3_type: string;
+  bl_desc4_type: string;
+  bl_desc5_type: string;
+  bl_desc6_type: string;
+  bl_desc7_type: string;
+  bl_desc8_type: string;
+  bl_desc9_type: string;
+  bl_desc10_type: string;
+  bl_desc11_type: string;
+  bl_desc12_type: string;
+  bl_desc13_type: string;
+  bl_desc14_type: string;
+  bl_desc15_type: string;
+  bl_desc16_type: string;
+  bl_desc17_type: string;
+  bl_desc18_type: string;
+
   bl_2desc1: string;
   bl_2desc2: string;
   bl_2desc3: string;

@@ -48,6 +48,7 @@ export class BlComponent {
   // Array For Displaying List
   BLFormatList: any[] = [];
   BLPrintFormatList: any[] = [];
+  DescTypeList: any[] = [];
 
   // Single Record for add/edit/view details
   Record: Bl = new Bl;
@@ -274,6 +275,10 @@ export class BlComponent {
 
 
   LoadCombo() {
+
+    this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "DESC", "name": "DESCRIPTION" }, { "code": "HSCODE", "name": "HS CODE" }, 
+      { "code": "INVNO", "name": "INVOICE#" },{ "code": "PKGS", "name": "PACKAGES" },  
+      { "code": "SBNO", "name": "SB#" }];
 
     this.loading = true;
     let SearchData = {
