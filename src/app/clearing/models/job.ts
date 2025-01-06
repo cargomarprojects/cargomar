@@ -145,11 +145,21 @@ export class Jobm {
   job_vsl_name: string;
   job_vsl_voy_no: string;
 
-  job_invoice_nos : string ;
-  job_scheme_codes : string ;
+  job_invoice_nos: string;
+  job_scheme_codes: string;
 
-  job_mbl_no:string;
+  job_mbl_no: string;
   
+  job_toorder_id: string;
+  job_toorder_code: string;
+  job_toorder_br_id: string;
+  job_toorder_br_no: string;
+  job_toorder_name: string;
+  job_toorder_add1: string;
+  job_toorder_add2: string;
+  job_toorder_add3: string;
+
+
   rec_mode: string;
   rec_category: string;
   _globalvariables: GlobalVariables;

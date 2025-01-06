@@ -122,6 +122,9 @@ export class JobComponent {
   GRUNITRECORD: SearchTable = new SearchTable();
   SCHEMERECORD: SearchTable = new SearchTable();
 
+  TOORDRECORD: SearchTable = new SearchTable();
+  TOORDADDRECORD: SearchTable = new SearchTable();
+
   constructor(
     private modalService: NgbModal,
     private mainService: JobService,
@@ -462,6 +465,25 @@ export class JobComponent {
     this.SCHEMERECORD.code = "";
     this.SCHEMERECORD.name = "";
 
+    this.TOORDRECORD = new SearchTable();
+    this.TOORDRECORD.controlname = "TO-ORDER";
+    this.TOORDRECORD.displaycolumn = "CODE";
+    this.TOORDRECORD.type = "CUSTOMER";
+    this.TOORDRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    this.TOORDRECORD.id = "";
+    this.TOORDRECORD.code = "";
+    this.TOORDRECORD.name = "";
+    this.TOORDRECORD.parentid = "";
+
+    this.TOORDADDRECORD = new SearchTable();
+    this.TOORDADDRECORD.controlname = "TO-ORDERADDRESS";
+    this.TOORDADDRECORD.displaycolumn = "CODE";
+    this.TOORDADDRECORD.type = "CUSTOMERADDRESS";
+    this.TOORDADDRECORD.id = "";
+    this.TOORDADDRECORD.code = "";
+    this.TOORDADDRECORD.name = "";
+    this.TOORDADDRECORD.parentid = "";
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -656,6 +678,35 @@ export class JobComponent {
       this.Record.job_billtype_id = _Record.id;
       this.Record.job_billtype_code = _Record.code;
       this.Record.job_billtype_name = _Record.name;
+    }
+    else if (_Record.controlname == "TO-ORDER") {
+
+      bchange = false;
+      if (this.Record.job_toorder_id != _Record.id)
+        bchange = true;
+
+      this.Record.job_toorder_id = _Record.id;
+      this.Record.job_toorder_code = _Record.code;
+      this.Record.job_toorder_name = _Record.name;
+
+      if (bchange) {
+        this.Record.job_toorder_add1 = '';
+        this.Record.job_toorder_add2 = '';
+        this.Record.job_toorder_add3 = '';
+
+        this.TOORDADDRECORD = new SearchTable();
+        this.TOORDADDRECORD.controlname = "TO-ORDERADDRESS";
+        this.TOORDADDRECORD.displaycolumn = "CODE";
+        this.TOORDADDRECORD.type = "CUSTOMERADDRESS";
+        this.TOORDADDRECORD.id = "";
+        this.TOORDADDRECORD.code = "";
+        this.TOORDADDRECORD.name = "";
+        this.TOORDADDRECORD.parentid = this.Record.job_toorder_id;
+
+      }
+    } else if (_Record.controlname == "TO-ORDERADDRESS") {
+      this.Record.job_toorder_br_id = _Record.id;
+      this.SearchRecord2("TO-ORDERADDRESS", this.Record.job_toorder_br_id, this.Record.job_toorder_id);
     }
   }
 
@@ -909,6 +960,14 @@ export class JobComponent {
     this.Record.job_grwt_unit_id = this.gs.defaultValues.param_unit_kgs_id;
     this.Record.job_grwt_unit_code = this.gs.defaultValues.param_unit_kgs_code;
     this.Record.job_cust_type = 'N';
+    this.Record.job_toorder_id = '';
+    this.Record.job_toorder_code = '';
+    this.Record.job_toorder_name = '';
+    this.Record.job_toorder_br_id = '';
+    this.Record.job_toorder_br_no = '';
+    this.Record.job_toorder_add1 = '';
+    this.Record.job_toorder_add2 = '';
+    this.Record.job_toorder_add3 = '';
 
     if (this.type == "SEA EXPORT") {
       this.Record.job_origin_country_id = this.gs.defaultValues.sea_job_origin_country_id;
@@ -1170,6 +1229,13 @@ export class JobComponent {
     this.SCHEMERECORD.id = this.Record.job_billtype_id;
     this.SCHEMERECORD.code = this.Record.job_billtype_code;
     this.SCHEMERECORD.name = this.Record.job_billtype_name;
+
+    this.TOORDRECORD.id = this.Record.job_toorder_id;
+    this.TOORDRECORD.code = this.Record.job_toorder_code;
+    this.TOORDRECORD.name = this.Record.job_toorder_name;
+    this.TOORDADDRECORD.id = this.Record.job_toorder_br_id;
+    this.TOORDADDRECORD.code = this.Record.job_toorder_br_no;
+    this.TOORDADDRECORD.parentid = this.Record.job_toorder_id;
 
     // old shipper id and bill to id
     this.old_shipper_id = this.Record.job_exp_id;
@@ -1524,6 +1590,26 @@ export class JobComponent {
           this.Record.job_vsl_voy_no = this.Record.job_vsl_voy_no.toUpperCase();
           break;
         }
+      case 'job_toorder_name':
+        {
+          this.Record.job_toorder_name = this.Record.job_toorder_name.toUpperCase();
+          break;
+        }
+      case 'job_toorder_add1':
+        {
+          this.Record.job_toorder_add1 = this.Record.job_toorder_add1.toUpperCase();
+          break;
+        }
+      case 'job_toorder_add2':
+        {
+          this.Record.job_toorder_add2 = this.Record.job_toorder_add2.toUpperCase();
+          break;
+        }
+      case 'job_toorder_add3':
+        {
+          this.Record.job_toorder_add3 = this.Record.job_toorder_add3.toUpperCase();
+          break;
+        }
     }
 
   }
@@ -1869,6 +1955,59 @@ export class JobComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  SearchRecord2(controlname: string, controlid: string, controlparentid: string) {
+    if (controlid.trim().length <= 0)
+      return;
+
+    this.loading = true;
+    let SearchData = {
+      table: 'customeraddress',
+      rowtype: this.type,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      add_pkid: '',
+      add_parent_id: ''
+    };
+
+    SearchData.table = 'customeraddress';
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.add_pkid = controlid;
+    SearchData.add_parent_id = controlparentid;
+
+    this.ErrorMessage = '';
+    this.gs.SearchRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ErrorMessage = '';
+
+        if (controlname == 'TO-ORDERADDRESS') {
+          this.Record.job_toorder_add1 = '';
+          this.Record.job_toorder_add2 = '';
+          this.Record.job_toorder_add3 = '';
+        }
+        if (response.customeraddress.length > 0) {
+          if (controlname == 'TO-ORDERADDRESS') {
+            this.Record.job_toorder_add1 = response.customeraddress[0].add_line1;
+            this.Record.job_toorder_add2 = response.customeraddress[0].add_line2;
+            this.Record.job_toorder_add3 = response.customeraddress[0].add_line3 + ' ' + response.customeraddress[0].add_line4;
+          }
+        }
+        else {
+          this.ErrorMessage = 'Invalid Address';
+          alert(this.ErrorMessage);
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
   LinkDocs(esanchitlink: any) {
     this.open(esanchitlink);

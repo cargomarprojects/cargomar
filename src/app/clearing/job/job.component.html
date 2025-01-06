@@ -188,184 +188,240 @@
     <ngb-tabset>
       <ngb-tab title="Basic Details">
         <ng-template ngbTabContent>
+          <div>
+            <div class="page-box">
+              <div class="row">
 
-          <div class="page-box">
-
-            <div class="row">
-
-              <div *ngIf="mode=='ADD'" class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                  <div style="padding-right:0" class="col-4">
-                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
-                      [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
-                  </div>
-                  <div style="padding-right:0" class="col-2">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required
-                      maxlength="15" />
-                  </div>
-                  <div class="col-2">
-                    <button [disabled]="loading" (click)="SearchRecord('jobno')"
-                      class="btn btn-primary btn-sm">Fill</button>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="mode=='EDIT'" class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                  <div class="col-4">
-                    <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
-                      [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
-                  </div>
-                  <div *ngIf="Record.job_prefix" class="col-4 input-group input-group-sm">
-                    <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
-                      required maxlength="65" />
-                    <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
-                      (click)="GenerateClrNo()" class="btn btn-primary btn-sm">ReGenerate</button>
+                <div *ngIf="mode=='ADD'" class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Job#</label>
+                    <div style="padding-right:0" class="col-4">
+                      <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                        [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
+                    </div>
+                    <div style="padding-right:0" class="col-2">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required
+                        maxlength="15" />
+                    </div>
+                    <div class="col-2">
+                      <button [disabled]="loading" (click)="SearchRecord('jobno')"
+                        class="btn btn-primary btn-sm">Fill</button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Date</label>
-                  <div class="col-8">
-                    <app-date [inputdate]="Record.job_date" (ValueChanged)="Record.job_date=$event"></app-date>
+                <div *ngIf="mode=='EDIT'" class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Job#</label>
+                    <div class="col-4">
+                      <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                        [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
+                    </div>
+                    <div *ngIf="Record.job_prefix" class="col-4 input-group input-group-sm">
+                      <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
+                        required maxlength="65" />
+                      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                        (click)="GenerateClrNo()" class="btn btn-primary btn-sm">ReGenerate</button>
+                    </div>
                   </div>
                 </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-8">
+                      <app-date [inputdate]="Record.job_date" (ValueChanged)="Record.job_date=$event"></app-date>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label  col-form-label-sm">Job Type</label>
+                    <div class="col-8">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.job_type">
+                        <!--<option *ngFor="let rec of JobTypeList" [value]="rec.name">{{rec.name}}</option>-->
+                        <option [value]="'BOTH'">BOTH</option>
+                        <option [value]="'CLEARING'">CLEARING</option>
+                        <option [value]="'FORWARDING'">FORWARDING</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
+              <div class="row">
 
-              <div class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-4 col-form-label  col-form-label-sm">Job Type</label>
-                  <div class="col-8">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.job_type">
-                      <!--<option *ngFor="let rec of JobTypeList" [value]="rec.name">{{rec.name}}</option>-->
-                      <option [value]="'BOTH'">BOTH</option>
-                      <option [value]="'CLEARING'">CLEARING</option>
-                      <option [value]="'FORWARDING'">FORWARDING</option>
-                    </select>
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
+                    <div class="col-8">
+                      <app-autocomplete #ExporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
+                        [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
                   </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
+                    <div class="col-8">
+                      <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.job_exp_name" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-8">
+                      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_exp_br_addr"
+                        [disabled]="true" maxlength="1000"></textarea>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
+                    <div class="col-8">
+                      <app-autocomplete #ImporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
+                        [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
+                    <div class="col-8">
+                      <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.job_imp_name" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-8">
+                      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_imp_br_addr"
+                        [disabled]="true" maxlength="1000"></textarea>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Buyer</label>
+                    <div class="col-8">
+                      <app-autocomplete #BuyerLov [inputdata]="BUYERRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
+                    <div class="col-8">
+                      <app-autocomplete #BuyerAddLov [inputdata]="BUYERADDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-8">
+                      <input type="text" disabled class="form-control form-control-sm"
+                        [(ngModel)]="Record.job_buyer_name" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm"></label>
+                    <div class="col-8">
+                      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_buyer_br_addr"
+                        [disabled]="true" maxlength="1000"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="page-box">
+              <div class="row">
+
+                <div class="col-sm-4">
+
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">To Order</label>
+                    <div class="col-8">
+                      <app-autocomplete #TorderLov [inputdata]="TOORDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
+                    <div class="col-8">
+                      <app-autocomplete #TorderAddLov [inputdata]="TOORDADDRECORD" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Name</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_name" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Address</label>
+                    <div class="col-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_add1"
+                        (blur)="OnBlur('job_toorder_add1')" required maxlength="60" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-4 col-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_add2"
+                        (blur)="OnBlur('job_toorder_add2')" required maxlength="60" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-4 col-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_add3"
+                        (blur)="OnBlur('job_toorder_add3')" required maxlength="120" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+
+
                 </div>
               </div>
 
             </div>
 
-            <div class="row">
 
-              <div class="col-sm-4">
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
-                  <div class="col-8">
-                    <app-autocomplete #ExporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
-                      [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-8">
-                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.job_exp_name" />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_exp_br_addr"
-                      [disabled]="true" maxlength="1000"></textarea>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
-                  <div class="col-8">
-                    <app-autocomplete #ImporterLov [disabled]="Record.jobs_hbl_id != ''||Record.job_order"
-                      [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-8">
-                    <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.job_imp_name" />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_imp_br_addr"
-                      [disabled]="true" maxlength="1000"></textarea>
-                  </div>
-                </div>
-
-
-
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Buyer</label>
-                  <div class="col-8">
-                    <app-autocomplete #BuyerLov [inputdata]="BUYERRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-8">
-                    <app-autocomplete #BuyerAddLov [inputdata]="BUYERADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-8">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.job_buyer_name" />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-4 col-form-label col-form-label-sm"></label>
-                  <div class="col-8">
-                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_buyer_br_addr"
-                      [disabled]="true" maxlength="1000"></textarea>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <hr />
+            <!-- <hr /> -->
 
 
             <ngb-tabset>
@@ -1222,4 +1278,4 @@
   [parentid]="unlockparentid" [customername]="unlockcustomername" (hidealert)="showalert=$event">
 </app-crlimit>
 
-<app-warningalert #WarnMsg [WarningMessage]="WarningMessage" ></app-warningalert>
+<app-warningalert #WarnMsg [WarningMessage]="WarningMessage"></app-warningalert>
