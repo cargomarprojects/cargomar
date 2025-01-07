@@ -277,7 +277,7 @@ export class BlComponent {
   LoadCombo() {
 
     this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "DESC", "name": "DESCRIPTION" }, { "code": "HSCODE", "name": "HS CODE" }, 
-      { "code": "INVNO", "name": "INVOICE#" },{ "code": "PKGS", "name": "PACKAGES" },  
+      { "code": "INVNO", "name": "INVOICE#" },{ "code": "PKGS", "name": "PACKAGES" }, { "code": "PO", "name": "PO#" },  
       { "code": "SBNO", "name": "SB#" }];
 
     this.loading = true;
