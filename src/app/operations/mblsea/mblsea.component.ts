@@ -2046,7 +2046,7 @@ export class MblSeaComponent {
     this.mainService.GetEnsFilingData(SearchData)
       .subscribe(response => {
         this.loading = false;
-        console.log('EnsList: ', response.list);
+        console.log('EnsList: ', response);
       },
         error => {
           this.loading = false;
