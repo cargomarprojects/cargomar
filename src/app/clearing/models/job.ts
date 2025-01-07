@@ -158,7 +158,9 @@ export class Jobm {
   job_toorder_add1: string;
   job_toorder_add2: string;
   job_toorder_add3: string;
-
+  job_toorder_country_id: string;
+  job_toorder_country_code: string;
+  job_toorder_country_name: string;
 
   rec_mode: string;
   rec_category: string;

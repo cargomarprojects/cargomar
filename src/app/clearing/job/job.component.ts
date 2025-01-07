@@ -124,6 +124,7 @@ export class JobComponent {
 
   TOORDRECORD: SearchTable = new SearchTable();
   TOORDADDRECORD: SearchTable = new SearchTable();
+  COUNTRYTOORDRECORD: SearchTable = new SearchTable();
 
   constructor(
     private modalService: NgbModal,
@@ -484,6 +485,14 @@ export class JobComponent {
     this.TOORDADDRECORD.name = "";
     this.TOORDADDRECORD.parentid = "";
 
+    this.COUNTRYTOORDRECORD = new SearchTable();
+    this.COUNTRYTOORDRECORD.controlname = "TO-ORDERCOUNTRY";
+    this.COUNTRYTOORDRECORD.displaycolumn = "CODE";
+    this.COUNTRYTOORDRECORD.type = "COUNTRY";
+    this.COUNTRYTOORDRECORD.id = "";
+    this.COUNTRYTOORDRECORD.code = "";
+    this.COUNTRYTOORDRECORD.name = "";
+
   }
 
   LovSelected(_Record: SearchTable) {
@@ -707,6 +716,10 @@ export class JobComponent {
     } else if (_Record.controlname == "TO-ORDERADDRESS") {
       this.Record.job_toorder_br_id = _Record.id;
       this.SearchRecord2("TO-ORDERADDRESS", this.Record.job_toorder_br_id, this.Record.job_toorder_id);
+    } else if (_Record.controlname == "TO-ORDERCOUNTRY") {
+      this.Record.job_toorder_country_id = _Record.id;
+      this.Record.job_toorder_country_code = _Record.code;
+      this.Record.job_toorder_country_name = _Record.name;
     }
   }
 
@@ -968,7 +981,9 @@ export class JobComponent {
     this.Record.job_toorder_add1 = '';
     this.Record.job_toorder_add2 = '';
     this.Record.job_toorder_add3 = '';
-
+    this.Record.job_toorder_country_id = '';
+    this.Record.job_toorder_country_code = '';
+    this.Record.job_toorder_country_name = '';
     if (this.type == "SEA EXPORT") {
       this.Record.job_origin_country_id = this.gs.defaultValues.sea_job_origin_country_id;
       this.Record.job_origin_country_code = this.gs.defaultValues.sea_job_origin_country_code;
@@ -1086,6 +1101,10 @@ export class JobComponent {
     this.EDIRECORD.id = this.Record.job_edi_id;
     this.EDIRECORD.code = this.Record.job_edi_code;
     this.EDIRECORD.name = this.Record.job_edi_name;
+
+    this.COUNTRYTOORDRECORD.id = this.Record.job_toorder_country_id;
+    this.COUNTRYTOORDRECORD.code = this.Record.job_toorder_country_code;
+    this.COUNTRYTOORDRECORD.name = this.Record.job_toorder_country_name;
 
     this.Record.rec_mode = this.mode;
   }
@@ -1236,6 +1255,10 @@ export class JobComponent {
     this.TOORDADDRECORD.id = this.Record.job_toorder_br_id;
     this.TOORDADDRECORD.code = this.Record.job_toorder_br_no;
     this.TOORDADDRECORD.parentid = this.Record.job_toorder_id;
+
+    this.COUNTRYTOORDRECORD.id = this.Record.job_toorder_country_id;
+    this.COUNTRYTOORDRECORD.code = this.Record.job_toorder_country_code;
+    this.COUNTRYTOORDRECORD.name = this.Record.job_toorder_country_name;
 
     // old shipper id and bill to id
     this.old_shipper_id = this.Record.job_exp_id;
@@ -1988,12 +2011,26 @@ export class JobComponent {
           this.Record.job_toorder_add1 = '';
           this.Record.job_toorder_add2 = '';
           this.Record.job_toorder_add3 = '';
+          this.COUNTRYTOORDRECORD = new SearchTable();
+          this.COUNTRYTOORDRECORD.controlname = "TO-ORDERCOUNTRY";
+          this.COUNTRYTOORDRECORD.displaycolumn = "CODE";
+          this.COUNTRYTOORDRECORD.type = "COUNTRY";
+          this.COUNTRYTOORDRECORD.id = "";
+          this.COUNTRYTOORDRECORD.code = "";
+          this.COUNTRYTOORDRECORD.name = "";
         }
         if (response.customeraddress.length > 0) {
           if (controlname == 'TO-ORDERADDRESS') {
             this.Record.job_toorder_add1 = response.customeraddress[0].add_line1;
             this.Record.job_toorder_add2 = response.customeraddress[0].add_line2;
             this.Record.job_toorder_add3 = response.customeraddress[0].add_line3 + ' ' + response.customeraddress[0].add_line4;
+
+            this.Record.job_toorder_country_id = response.customeraddress[0].add_country_id;
+            this.Record.job_toorder_country_code = response.customeraddress[0].add_country_code;
+            this.Record.job_toorder_country_name = response.customeraddress[0].add_country_name;
+            this.COUNTRYTOORDRECORD.id = this.Record.job_toorder_country_id;
+            this.COUNTRYTOORDRECORD.code = this.Record.job_toorder_country_code;
+            this.COUNTRYTOORDRECORD.name = this.Record.job_toorder_country_name;
           }
         }
         else {
