@@ -75,7 +75,7 @@ export class GstReconRepItcComponent {
     recon_month: 0,
     chk_notclaimed: true,
     hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
-    bamendment: this.bCompany
+    bamendment: this.bAmendment
   };
 
   // Array For Displaying List
@@ -100,7 +100,6 @@ export class GstReconRepItcComponent {
 
 
   Init() {
-    this.bAmendment = this.bCompany;
     this.mainService.init(this.menuid);
     this.MonList = [{ "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
       , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }

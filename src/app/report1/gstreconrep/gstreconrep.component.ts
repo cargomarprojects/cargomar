@@ -43,6 +43,7 @@ export class GstReconRepComponent {
   bAdmin: boolean = false;
   bSave: boolean = false;
   bCompany: boolean = false;
+  bAmendment: boolean = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -111,6 +112,7 @@ export class GstReconRepComponent {
     this.bAdmin = false;
     this.bPrint = false;
     this.bSave = false;
+    this.bAmendment = this.gs.globalVariables.user_code == "ADMIN";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -119,6 +121,10 @@ export class GstReconRepComponent {
       this.bPrint = this.menu_record.rights_print;
       if (this.menu_record.rights_add || this.menu_record.rights_edit)
         this.bSave = true;
+      if (this.menu_record.rights_approval.length > 0) {
+        if (this.menu_record.rights_approval.toString().indexOf('{SAVE-GST}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bAmendment = true;
+      }
     }
     this.initLov();
     this.LoadCombo();
