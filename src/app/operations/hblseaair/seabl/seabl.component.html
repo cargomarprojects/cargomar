@@ -1,5 +1,5 @@
 <!--Any Change in this component have to update in seajobbl component under clearing folder-->
-<div class="page-header">
+<div class="page-box">
   <div class="col-sm-12">
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')"
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="page-details">
+<div class="page-box">
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group row">
@@ -560,692 +560,693 @@
 
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-12">
-    <div class="form-group row">
-      <label style="padding-right:0" class="offset-2 col-3 col-form-label col-form-label-sm">Vessel</label>
-      <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">Voyage</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Date Or Period of
-        Delivery</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Modes/Means Of
-        Transport</label>
-      <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Place of Transhipment </label>
-    </div>
-
-    <div class="form-group row">
-      <div style="padding-right:0" class="offset-2 col-3">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_name"
-          (blur)="OnBlur('bl_vsl_name')" required maxlength="60" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-1">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_voy_no"
-          (blur)="OnBlur('bl_vsl_voy_no')" required maxlength="20" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_period_delivery"
-          (blur)="OnBlur('bl_period_delivery')" required maxlength="30" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_move_type"
-          (blur)="OnBlur('bl_move_type')" required maxlength="60" />
-      </div>
-      <div style="padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_place_transhipment"
-          (blur)="OnBlur('bl_place_transhipment')" required maxlength="60" />
-      </div>
-
-    </div>
-
-    <div class="page-box">
-
+<div class="page-box">
+  <div class="row">
+    <div class="col-sm-12">
       <div class="form-group row">
-        <div class="col-2">
-          <label style="color:red" class="col-form-label col-form-label-sm">Please tick, If Marks & Nos</label>
-        </div>
-        <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">Container(Nos)
-          &nbsp;&nbsp;&nbsp; Marks and Numbers</label>
-        <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">Desc
-          Type</label>
-        <label style="padding-right:0;padding-left:1px" class="col-4 col-form-label col-form-label-sm">General
-          description of goods (said to contain)</label>
-        <div style="padding-left:1px" class="col-3">
-          <div class="form-group row">
-            <label style="padding-right:0" class="col-6 col-form-label col-form-label-sm">Weight(KGS)</label>
-            <label style="padding-left:1px" class="col-6 col-form-label col-form-label-sm">Measurement</label>
-          </div>
-        </div>
+        <label style="padding-right:0" class="offset-2 col-3 col-form-label col-form-label-sm">Vessel</label>
+        <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">Voyage</label>
+        <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Date Or Period of
+          Delivery</label>
+        <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Modes/Means Of
+          Transport</label>
+        <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Place of Transhipment </label>
       </div>
 
       <div class="form-group row">
-        <!--<div style="padding-right:0;padding-left:0" class="col-2">Container Hrzl
-            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
-            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
-          </div>-->
-        <!--<div style="padding-right:0;padding-left:0" class="col-1 text-right">
-            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
-          </div>-->
-        <div class="col-2">
-          <div class="row">
-            <div style="padding-right:0;" class="col-8">
-              <button (click)="LoadDescription('FORMAT-1')" class="btn btn-default btn-sm">Format-1 (V)</button>
-            </div>
-            <div style="padding-right:0;padding-left:0" class="col-4 text-right">
-              <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
-            </div>
-          </div>
-        </div>
-
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark1"
-            (blur)="OnBlur('bl_mark1')" required maxlength="100" />
+        <div style="padding-right:0" class="offset-2 col-3">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_name"
+            (blur)="OnBlur('bl_vsl_name')" required maxlength="60" />
         </div>
         <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc1_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_vsl_voy_no"
+            (blur)="OnBlur('bl_vsl_voy_no')" required maxlength="20" />
         </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc1"
-            (blur)="OnBlur('bl_desc1')" required maxlength="100" />
+        <div style="padding-right:0;padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_period_delivery"
+            (blur)="OnBlur('bl_period_delivery')" required maxlength="30" />
+        </div>
+        <div style="padding-right:0;padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_move_type"
+            (blur)="OnBlur('bl_move_type')" required maxlength="60" />
+        </div>
+        <div style="padding-left:1px" class="col-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_place_transhipment"
+            (blur)="OnBlur('bl_place_transhipment')" required maxlength="60" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-box">
+
+  <div class="form-group row">
+    <div class="col-2">
+      <label style="color:red" class="col-form-label col-form-label-sm">Please tick, If Marks & Nos</label>
+    </div>
+    <label style="padding-right:0" class="col-2 col-form-label col-form-label-sm">Container(Nos)
+      &nbsp;&nbsp;&nbsp; Marks and Numbers</label>
+    <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">Desc
+      Type</label>
+    <label style="padding-right:0;padding-left:1px" class="col-4 col-form-label col-form-label-sm">General
+      description of goods (said to contain)</label>
+    <div style="padding-left:1px" class="col-3">
+      <div class="form-group row">
+        <label style="padding-right:0" class="col-6 col-form-label col-form-label-sm">Weight(KGS)</label>
+        <label style="padding-left:1px" class="col-6 col-form-label col-form-label-sm">Measurement</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <!--<div style="padding-right:0;padding-left:0" class="col-2">Container Hrzl
+            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
+            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
+          </div>-->
+    <!--<div style="padding-right:0;padding-left:0" class="col-1 text-right">
+            <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
+          </div>-->
+    <div class="col-2">
+      <div class="row">
+        <div style="padding-right:0;" class="col-8">
+          <button (click)="LoadDescription('FORMAT-1')" class="btn btn-default btn-sm">Format-1 (V)</button>
+        </div>
+        <div style="padding-right:0;padding-left:0" class="col-4 text-right">
+          <input type="checkbox" [(ngModel)]="Record.bl_is_mark1">
         </div>
       </div>
-      <div class="form-group row">
+    </div>
 
-        <!--<div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark1" (blur)="OnBlur('bl_mark1')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc1_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc1" (blur)="OnBlur('bl_desc1')"
+        required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+
+    <!--<div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
             <input type="checkbox" [(ngModel)]="Record.bl_is_mark2">
           </div>-->
-        <div class="col-2">
-          <div class="row">
-            <div style="padding-right:0;" class="col-8">
-              <button (click)="LoadDescription('FORMAT-2')" class="btn btn-default btn-sm">Format-2 (H)</button>
-            </div>
-            <div style="padding-right:0;padding-left:0" class="col-4 text-right">
-              <input type="checkbox" [(ngModel)]="Record.bl_is_mark2">
-            </div>
-          </div>
+    <div class="col-2">
+      <div class="row">
+        <div style="padding-right:0;" class="col-8">
+          <button (click)="LoadDescription('FORMAT-2')" class="btn btn-default btn-sm">Format-2 (H)</button>
         </div>
-
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark2"
-            (blur)="OnBlur('bl_mark2')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc2_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc2"
-            (blur)="OnBlur('bl_desc2')" required maxlength="100" />
+        <div style="padding-right:0;padding-left:0" class="col-4 text-right">
+          <input type="checkbox" [(ngModel)]="Record.bl_is_mark2">
         </div>
       </div>
-      <div class="form-group row">
+    </div>
 
-        <!-- <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark2" (blur)="OnBlur('bl_mark2')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc2_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc2" (blur)="OnBlur('bl_desc2')"
+        required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+
+    <!-- <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
             <input type="checkbox" [(ngModel)]="Record.bl_is_mark3">
           </div> -->
-        <div class="col-2">
-          <div class="row">
-            <div style="padding-right:0;" class="col-8">
-              <button (click)="LoadJobBLData('')" class="btn btn-default btn-sm">Job BL Data</button>
-            </div>
-            <div style="padding-right:0;padding-left:0" class="col-4 text-right">
-              <input type="checkbox" [(ngModel)]="Record.bl_is_mark3">
-            </div>
-          </div>
+    <div class="col-2">
+      <div class="row">
+        <div style="padding-right:0;" class="col-8">
+          <button (click)="LoadJobBLData('')" class="btn btn-default btn-sm">Job BL Data</button>
         </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark3"
-            (blur)="OnBlur('bl_mark3')" required maxlength="100" />
+        <div style="padding-right:0;padding-left:0" class="col-4 text-right">
+          <input type="checkbox" [(ngModel)]="Record.bl_is_mark3">
         </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc3_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc3"
-            (blur)="OnBlur('bl_desc3')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <!--<div class="form-group row">
+      </div>
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark3" (blur)="OnBlur('bl_mark3')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc3_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc3" (blur)="OnBlur('bl_desc3')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <!--<div class="form-group row">
               <label style="padding-right:0" class="col-6 col-form-label col-form-label-sm">GR.WT/KGS</label>
               <label style="padding-left:1px" class="col-6 col-form-label col-form-label-sm">CBM</label>
             </div>-->
-          <div class="form-group row">
-            <div style="padding-right:0" class="col-6">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt_caption"
-                (blur)="OnBlur('bl_grwt_caption')" required maxlength="15" />
-            </div>
-            <div style="padding-left:1px" class="col-6">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_cbm_caption"
-                (blur)="OnBlur('bl_cbm_caption')" required maxlength="15" />
-            </div>
-          </div>
+      <div class="form-group row">
+        <div style="padding-right:0" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt_caption"
+            (blur)="OnBlur('bl_grwt_caption')" required maxlength="15" />
+        </div>
+        <div style="padding-left:1px" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_cbm_caption"
+            (blur)="OnBlur('bl_cbm_caption')" required maxlength="15" />
         </div>
       </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark4">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark4" (blur)="OnBlur('bl_mark4')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc4_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc4" (blur)="OnBlur('bl_desc4')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
       <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark4">
+        <div style="padding-right:0" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt"
+            (blur)="OnBlur('bl_grwt')" required maxlength="15" />
         </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark4"
-            (blur)="OnBlur('bl_mark4')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc4_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc4"
-            (blur)="OnBlur('bl_desc4')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <div class="form-group row">
-            <div style="padding-right:0" class="col-6">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_grwt"
-                (blur)="OnBlur('bl_grwt')" required maxlength="15" />
-            </div>
-            <div style="padding-left:1px" class="col-6">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_cbm"
-                (blur)="OnBlur('bl_cbm')" required maxlength="15" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark5">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark5"
-            (blur)="OnBlur('bl_mark5')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc5_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc5"
-            (blur)="OnBlur('bl_desc5')" required maxlength="100" />
-        </div>
-        <!--<label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">NT.WT/KGS</label>
-          <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">QTY</label>
-          <label style="padding-left:1px" class="col-1 col-form-label col-form-label-sm">UNIT</label>-->
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_ntwt_caption"
-            (blur)="OnBlur('bl_ntwt_caption')" required maxlength="15" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_caption"
-            (blur)="OnBlur('bl_pcs_caption')" required maxlength="10" />
-        </div>
-        <div style="padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_unit_caption"
-            (blur)="OnBlur('bl_pcs_unit_caption')" required maxlength="5" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark6">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark6"
-            (blur)="OnBlur('bl_mark6')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc6_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc6"
-            (blur)="OnBlur('bl_desc6')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_ntwt"
-            (blur)="OnBlur('bl_ntwt')" required maxlength="15" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs" (blur)="OnBlur('bl_pcs')"
+        <div style="padding-left:1px" class="col-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_cbm" (blur)="OnBlur('bl_cbm')"
             required maxlength="15" />
         </div>
-        <div style="padding-left:1px" class="col-1">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_unit"
-            (blur)="OnBlur('bl_pcs_unit')" required maxlength="5" />
-        </div>
       </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark7">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark7"
-            (blur)="OnBlur('bl_mark7')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc7_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc7"
-            (blur)="OnBlur('bl_desc7')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc7"
-            (blur)="OnBlur('bl_2desc7')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark8">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark8"
-            (blur)="OnBlur('bl_mark8')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc8_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc8"
-            (blur)="OnBlur('bl_desc8')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc8"
-            (blur)="OnBlur('bl_2desc8')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark9">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark9"
-            (blur)="OnBlur('bl_mark9')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc9_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc9"
-            (blur)="OnBlur('bl_desc9')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc9"
-            (blur)="OnBlur('bl_2desc9')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark10">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark10"
-            (blur)="OnBlur('bl_mark10')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc10_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc10"
-            (blur)="OnBlur('bl_desc10')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc10"
-            (blur)="OnBlur('bl_2desc10')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark11">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark11"
-            (blur)="OnBlur('bl_mark11')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc11_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc11"
-            (blur)="OnBlur('bl_desc11')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc11"
-            (blur)="OnBlur('bl_2desc11')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark12">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark12"
-            (blur)="OnBlur('bl_mark12')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc12_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc12"
-            (blur)="OnBlur('bl_desc12')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc12"
-            (blur)="OnBlur('bl_2desc12')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark13">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark13"
-            (blur)="OnBlur('bl_mark13')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc13_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc13"
-            (blur)="OnBlur('bl_desc13')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc13"
-            (blur)="OnBlur('bl_2desc13')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark14">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark14"
-            (blur)="OnBlur('bl_mark14')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc14_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc14"
-            (blur)="OnBlur('bl_desc14')" required maxlength="100" />
-        </div>
-        <div style="padding-left:1px" class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc14"
-            (blur)="OnBlur('bl_2desc14')" required maxlength="100" />
-        </div>
-      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark5">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark5" (blur)="OnBlur('bl_mark5')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc5_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc5" (blur)="OnBlur('bl_desc5')"
+        required maxlength="100" />
+    </div>
+    <!--<label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">NT.WT/KGS</label>
+          <label style="padding-right:0;padding-left:1px" class="col-1 col-form-label col-form-label-sm">QTY</label>
+          <label style="padding-left:1px" class="col-1 col-form-label col-form-label-sm">UNIT</label>-->
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_ntwt_caption"
+        (blur)="OnBlur('bl_ntwt_caption')" required maxlength="15" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_caption"
+        (blur)="OnBlur('bl_pcs_caption')" required maxlength="10" />
+    </div>
+    <div style="padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_unit_caption"
+        (blur)="OnBlur('bl_pcs_unit_caption')" required maxlength="5" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark6">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark6" (blur)="OnBlur('bl_mark6')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc6_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc6" (blur)="OnBlur('bl_desc6')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_ntwt" (blur)="OnBlur('bl_ntwt')"
+        required maxlength="15" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs" (blur)="OnBlur('bl_pcs')"
+        required maxlength="15" />
+    </div>
+    <div style="padding-left:1px" class="col-1">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_pcs_unit"
+        (blur)="OnBlur('bl_pcs_unit')" required maxlength="5" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark7">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark7" (blur)="OnBlur('bl_mark7')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc7_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc7" (blur)="OnBlur('bl_desc7')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc7"
+        (blur)="OnBlur('bl_2desc7')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark8">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark8" (blur)="OnBlur('bl_mark8')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc8_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc8" (blur)="OnBlur('bl_desc8')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc8"
+        (blur)="OnBlur('bl_2desc8')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark9">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark9" (blur)="OnBlur('bl_mark9')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc9_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc9" (blur)="OnBlur('bl_desc9')"
+        required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc9"
+        (blur)="OnBlur('bl_2desc9')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark10">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark10"
+        (blur)="OnBlur('bl_mark10')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc10_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc10"
+        (blur)="OnBlur('bl_desc10')" required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc10"
+        (blur)="OnBlur('bl_2desc10')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark11">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark11"
+        (blur)="OnBlur('bl_mark11')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc11_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc11"
+        (blur)="OnBlur('bl_desc11')" required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc11"
+        (blur)="OnBlur('bl_2desc11')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark12">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark12"
+        (blur)="OnBlur('bl_mark12')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc12_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc12"
+        (blur)="OnBlur('bl_desc12')" required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc12"
+        (blur)="OnBlur('bl_2desc12')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark13">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark13"
+        (blur)="OnBlur('bl_mark13')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc13_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc13"
+        (blur)="OnBlur('bl_desc13')" required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc13"
+        (blur)="OnBlur('bl_2desc13')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark14">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark14"
+        (blur)="OnBlur('bl_mark14')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc14_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-4">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc14"
+        (blur)="OnBlur('bl_desc14')" required maxlength="100" />
+    </div>
+    <div style="padding-left:1px" class="col-3">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_2desc14"
+        (blur)="OnBlur('bl_2desc14')" required maxlength="100" />
+    </div>
+  </div>
 
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark15">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark15"
-            (blur)="OnBlur('bl_mark15')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc15_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc15"
-            (blur)="OnBlur('bl_desc15')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark16">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark16"
-            (blur)="OnBlur('bl_mark16')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc16_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc16"
-            (blur)="OnBlur('bl_desc16')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark17">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark17"
-            (blur)="OnBlur('bl_mark17')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc17_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc17"
-            (blur)="OnBlur('bl_desc17')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
-          <input type="checkbox" [(ngModel)]="Record.bl_is_mark18">
-        </div>
-        <div style="padding-right:0;padding-left:8px" class="col-2">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark18"
-            (blur)="OnBlur('bl_mark18')" required maxlength="100" />
-        </div>
-        <div style="padding-right:0;padding-left:1px" class="col-1">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc18_type">
-            <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
-          </select>
-        </div>
-        <div style="padding-left:1px" class="col-7">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc18"
-            (blur)="OnBlur('bl_desc18')" required maxlength="100" />
-        </div>
-      </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark15">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark15"
+        (blur)="OnBlur('bl_mark15')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc15_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc15"
+        (blur)="OnBlur('bl_desc15')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark16">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark16"
+        (blur)="OnBlur('bl_mark16')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc16_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc16"
+        (blur)="OnBlur('bl_desc16')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark17">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark17"
+        (blur)="OnBlur('bl_mark17')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc17_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc17"
+        (blur)="OnBlur('bl_desc17')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-right:0;padding-left:0" class="offset-1 col-1 text-right">
+      <input type="checkbox" [(ngModel)]="Record.bl_is_mark18">
+    </div>
+    <div style="padding-right:0;padding-left:8px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark18"
+        (blur)="OnBlur('bl_mark18')" required maxlength="100" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-1">
+      <select class="form-control form-control-sm" [(ngModel)]="Record.bl_desc18_type">
+        <option *ngFor="let rec of DescTypeList" [value]="rec.code">{{rec.name}}</option>
+      </select>
+    </div>
+    <div style="padding-left:1px" class="col-7">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_desc18"
+        (blur)="OnBlur('bl_desc18')" required maxlength="100" />
+    </div>
+  </div>
 
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark19"
-            (blur)="OnBlur('bl_mark19')" required maxlength="100" />
-        </div>
-      </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark19"
+        (blur)="OnBlur('bl_mark19')" required maxlength="100" />
+    </div>
+  </div>
 
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark20"
-            (blur)="OnBlur('bl_mark20')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark21"
-            (blur)="OnBlur('bl_mark21')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark22"
-            (blur)="OnBlur('bl_mark22')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark23"
-            (blur)="OnBlur('bl_mark23')" required maxlength="100" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div style="padding-left:8px" class="offset-2 col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark24"
-            (blur)="OnBlur('bl_mark24')" required maxlength="100" />
-        </div>
-      </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark20"
+        (blur)="OnBlur('bl_mark20')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark21"
+        (blur)="OnBlur('bl_mark21')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark22"
+        (blur)="OnBlur('bl_mark22')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark23"
+        (blur)="OnBlur('bl_mark23')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div style="padding-left:8px" class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_mark24"
+        (blur)="OnBlur('bl_mark24')" required maxlength="100" />
+    </div>
+  </div>
 
+</div>
+<div *ngIf="invokefrom=='HBL'" class="page-box">
+  <div class="form-group row">
+    <label class="col-2 col-form-label col-form-label-sm">
+      PO Numbers
+    </label>
+    <div class="col-10">
+      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.bl_itm_po"
+        (blur)="OnBlur('bl_itm_po')" required maxlength="1000"></textarea>
     </div>
-    <div *ngIf="invokefrom=='HBL'" class="page-box">
-      <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">
-          PO Numbers
-        </label>
-        <div class="col-10">
-          <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.bl_itm_po"
-            (blur)="OnBlur('bl_itm_po')" required maxlength="1000"></textarea>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">DESCRIPTION SHOULD BE
-          ENTERED FOR RITRA SHIPMENTS</label>
-      </div>
-      <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">
-          Item Description &nbsp;&nbsp;&nbsp;&nbsp;
-          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="Updatedata('LOAD','','')"
-            class="btn btn-default btn-sm">Reload</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT'"
-            (click)="Updatedata('SAVE',Record.bl_itm_po,Record.bl_itm_desc)"
-            class="btn btn-default btn-sm">Update</button>
-        </label>
-        <div class="col-10">
-          <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.bl_itm_desc"
-            (blur)="OnBlur('bl_itm_desc')" required maxlength="1000"></textarea>
-        </div>
-      </div>
+  </div>
+  <div class="form-group row">
+    <label class="offset-2 col-10 col-form-label col-form-label-sm" style="color:red">DESCRIPTION SHOULD BE
+      ENTERED FOR RITRA SHIPMENTS</label>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label col-form-label-sm">
+      Item Description &nbsp;&nbsp;&nbsp;&nbsp;
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="Updatedata('LOAD','','')"
+        class="btn btn-default btn-sm">Reload</button>
+      <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="Updatedata('SAVE',Record.bl_itm_po,Record.bl_itm_desc)"
+        class="btn btn-default btn-sm">Update</button>
+    </label>
+    <div class="col-10">
+      <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.bl_itm_desc"
+        (blur)="OnBlur('bl_itm_desc')" required maxlength="1000"></textarea>
     </div>
-
-    <div *ngIf="invokefrom=='HBL'" class="form-group row">
-      <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Freight Amount</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight Payable
-        At</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">No. of Original
-        BL</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued
-        Place</label>
-      <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued Date </label>
+  </div>
+</div>
+<div class="page-box">
+  <div *ngIf="invokefrom=='HBL'" class="form-group row">
+    <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Freight Amount</label>
+    <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight Payable
+      At</label>
+    <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">No. of Original
+      BL</label>
+    <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued
+      Place</label>
+    <label style="padding-left:1px" class="col-2 col-form-label col-form-label-sm">Issued Date </label>
+  </div>
+  <div *ngIf="invokefrom=='MBL'" class="form-group row">
+    <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Movement</label>
+    <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight</label>
+  </div>
+  <div *ngIf="invokefrom=='HBL'" class="form-group row">
+    <div style="padding-right:0" class="offset-2 col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_amount"
+        (blur)="OnBlur('bl_frt_amount')" required maxlength="15" />
     </div>
-    <div *ngIf="invokefrom=='MBL'" class="form-group row">
-      <label style="padding-right:0" class="offset-2 col-2 col-form-label col-form-label-sm">Movement</label>
-      <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">Freight</label>
+    <div style="padding-right:0;padding-left:1px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_pay_at"
+        (blur)="OnBlur('bl_frt_pay_at')" required maxlength="60" />
     </div>
-    <div *ngIf="invokefrom=='HBL'" class="form-group row">
-      <div style="padding-right:0" class="offset-2 col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_amount"
-          (blur)="OnBlur('bl_frt_amount')" required maxlength="15" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_pay_at"
-          (blur)="OnBlur('bl_frt_pay_at')" required maxlength="60" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_no_copies"
-          (blur)="OnBlur('bl_no_copies')" required maxlength="10" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place"
-          (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
-      </div>
-      <div style="padding-left:1px" class="col-2">
-        <app-date [inputdate]="Record.bl_issued_date" (ValueChanged)="Record.bl_issued_date=$event"></app-date>
-      </div>
-
+    <div style="padding-right:0;padding-left:1px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_no_copies"
+        (blur)="OnBlur('bl_no_copies')" required maxlength="10" />
     </div>
-    <div *ngIf="invokefrom=='MBL'" class="form-group row">
-      <div style="padding-right:0" class="offset-2 col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place"
-          (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
-      </div>
-      <div style="padding-right:0;padding-left:1px" class="col-2">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_pay_at"
-          (blur)="OnBlur('bl_frt_pay_at')" required maxlength="15" />
-      </div>
+    <div style="padding-right:0;padding-left:1px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place"
+        (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
     </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label col-form-label-sm">Other Particulars.</label>
-      <div class="col-10">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks1"
-          (blur)="OnBlur('bl_remarks1')" required maxlength="100" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="offset-2 col-10">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks2"
-          (blur)="OnBlur('bl_remarks2')" required maxlength="100" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="offset-2 col-10">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks3"
-          (blur)="OnBlur('bl_remarks3')" required maxlength="100" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="offset-2 col-10">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks4"
-          (blur)="OnBlur('bl_remarks4')" required maxlength="100" />
-      </div>
+    <div style="padding-left:1px" class="col-2">
+      <app-date [inputdate]="Record.bl_issued_date" (ValueChanged)="Record.bl_issued_date=$event"></app-date>
     </div>
 
-    <div class="page-box">
+  </div>
+  <div *ngIf="invokefrom=='MBL'" class="form-group row">
+    <div style="padding-right:0" class="offset-2 col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_issued_place"
+        (blur)="OnBlur('bl_issued_place')" required maxlength="60" />
+    </div>
+    <div style="padding-right:0;padding-left:1px" class="col-2">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_frt_pay_at"
+        (blur)="OnBlur('bl_frt_pay_at')" required maxlength="15" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label col-form-label-sm">Other Particulars.</label>
+    <div class="col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks1"
+        (blur)="OnBlur('bl_remarks1')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks2"
+        (blur)="OnBlur('bl_remarks2')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks3"
+        (blur)="OnBlur('bl_remarks3')" required maxlength="100" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="offset-2 col-10">
+      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_remarks4"
+        (blur)="OnBlur('bl_remarks4')" required maxlength="100" />
+    </div>
+  </div>
+</div>
+<div class="page-box">
 
-      <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm">Attached Sheet</label>
-        <div class="col-10">
-          <div class="page-list">
-            <div class="page-body table-responsive">
-              <table class="table  table-hover table-sm">
-                <thead class="page-body-thead">
-                  <tr>
-                    <th>MARKS && NO</th>
-                    <th>DESCRIPTION</th>
-                    <th class="text-center">REMOVE</th>
-                  </tr>
-                </thead>
-                <tbody class="page-body-tbody" *ngFor="let rec of AttchRecordList">
-                  <tr>
-                    <td style="padding:0px 0px 0px 0px"><input type="text" name="marks"
-                        class="form-control form-control-sm" [(ngModel)]="rec.bl_marks"
-                        (blur)="OnBlurTableCell('bl_marks',rec.bl_pkid)" required maxlength="125" /></td>
-                    <td style="padding:0px 0px 0px 0px"><input type="text" name="desc"
-                        class="form-control form-control-sm" [(ngModel)]="rec.bl_desc"
-                        (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required maxlength="125" /></td>
-                    <td align="center" style="padding:0px 0px 0px 0px">
-                      <!-- <App-Dialog
+  <div class="form-group row">
+    <label class="col-2 col-form-label col-form-label-sm">Attached Sheet</label>
+    <div class="col-10">
+      <div class="page-list">
+        <div class="page-body table-responsive">
+          <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+              <tr>
+                <th>MARKS && NO</th>
+                <th>DESCRIPTION</th>
+                <th class="text-center">REMOVE</th>
+              </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of AttchRecordList">
+              <tr>
+                <td style="padding:0px 0px 0px 0px"><input type="text" name="marks" class="form-control form-control-sm"
+                    [(ngModel)]="rec.bl_marks" (blur)="OnBlurTableCell('bl_marks',rec.bl_pkid)" required
+                    maxlength="125" /></td>
+                <td style="padding:0px 0px 0px 0px"><input type="text" name="desc" class="form-control form-control-sm"
+                    [(ngModel)]="rec.bl_desc" (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required
+                    maxlength="125" /></td>
+                <td align="center" style="padding:0px 0px 0px 0px">
+                  <!-- <App-Dialog
                           [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.bl_pkid,name:rec.bl_desc}"
                           (result)="RemoveList($event)"></App-Dialog> -->
-                      <i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
-                        (click)="RemoveFromList(rec.bl_pkid)"></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  <i class="fa fa-trash  fa-lg pointer" aria-hidden="true" (click)="RemoveFromList(rec.bl_pkid)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-          <div class="page-details">
-            <!--<div class="row">
+      <div class="page-details">
+        <!--<div class="row">
 
               <div class="col-6">
 
@@ -1265,96 +1266,96 @@
                 </div>
               </div>
             </div>-->
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group row">
-                  <div class="offset-1 col-10">
-                    <button [disabled]="loading" (click)="ActionHandler('ADD','')"
-                      class="btn btn-default btn-sm">ADD</button>
-                    <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-success btn-sm">Paste
-                      Data</button>
-                  </div>
-                </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group row">
+              <div class="offset-1 col-10">
+                <button [disabled]="loading" (click)="ActionHandler('ADD','')"
+                  class="btn btn-default btn-sm">ADD</button>
+                <button [disabled]="loading" (click)="PasteData(pastedata)" class="btn btn-success btn-sm">Paste
+                  Data</button>
               </div>
             </div>
-
           </div>
+        </div>
 
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="page-box">
+  <div class="form-group row">
+    <div class="col-sm-8">
+      <div *ngIf="invokefrom=='HBL'" class="form-group row">
+        <div class="offset-3 col-8">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original"
+                [disabled]="Record.bl_original_print == 'Y'">
+              Original BL&nbsp;&nbsp;
+            </label>
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
+              Brazil Declaration&nbsp;&nbsp;
+            </label>
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="color_print">
+              Colour&nbsp;&nbsp;
+            </label>
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill"
+                [disabled]="Record.bl_seawaybill_disabled">
+              Sea Waybill
+            </label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="page-box">
       <div class="form-group row">
-        <div class="col-sm-8">
-          <div *ngIf="invokefrom=='HBL'" class="form-group row">
-            <div class="offset-3 col-8">
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original"
-                    [disabled]="Record.bl_original_print == 'Y'">
-                  Original BL&nbsp;&nbsp;
-                </label>
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
-                  Brazil Declaration&nbsp;&nbsp;
-                </label>
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="color_print">
-                  Colour&nbsp;&nbsp;
-                </label>
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill"
-                    [disabled]="Record.bl_seawaybill_disabled">
-                  Sea Waybill
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-3 col-form-label col-form-label-sm">BL Print Format</label>
-            <div class="col-6">
-              <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id"
-                (change)="OnChange('bl_print_format_id')">
-                <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="offset-3 col-8">
-              <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()"
-                class="btn btn-success btn-sm">Save</button>
-              <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEABL')"
-                class="btn btn-success btn-sm">BL Print</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
-                (click)="GetRecord('PDF','SEAWAYBILL')" class="btn btn-success btn-sm">Sea Waybill</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
-                class="btn btn-success btn-sm">FCR</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
-                (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
-                class="btn btn-success btn-sm">Draft Excel</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
-                (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
-                (click)="GetRecord('PDF','SEABL-PREVIEW')" class="btn btn-success btn-sm">Preview</button>
-              <i *ngIf="loading" class="fa fa-spinner"></i>
-            </div>
-          </div>
-
+        <label class="col-3 col-form-label col-form-label-sm">BL Print Format</label>
+        <div class="col-6">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.bl_print_format_id"
+            (change)="OnChange('bl_print_format_id')">
+            <option *ngFor="let rec of BLPrintFormatList" [value]="rec.blf_pkid">{{rec.blf_name}}</option>
+          </select>
         </div>
-        <div *ngIf="invokefrom=='HBL'" class="col-sm-4">
-          <label style="color:red" class="col-form-label col-form-label-sm">No changes will be allowed after printing
-            ORIGINAL. Also Printing ORIGINAL will only be allowed once.</label>
-        </div>
-
       </div>
+
+      <div class="form-group row">
+        <div class="offset-3 col-8">
+          <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()"
+            class="btn btn-success btn-sm">Save</button>
+          <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEABL')"
+            class="btn btn-success btn-sm">BL Print</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEAWAYBILL')"
+            class="btn btn-success btn-sm">Sea Waybill</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
+            class="btn btn-success btn-sm">FCR</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
+            (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()" class="btn btn-success btn-sm">Draft
+            Excel</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','BLANKBL')"
+            class="btn btn-success btn-sm">Stationary</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
+            (click)="GetRecord('PDF','SEABL-PREVIEW')" class="btn btn-success btn-sm">Preview</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="invokefrom=='HBL'" class="col-sm-4">
+      <label style="color:red" class="col-form-label col-form-label-sm">No changes will be allowed after printing
+        ORIGINAL. Also Printing ORIGINAL will only be allowed once.</label>
     </div>
 
-    <!--<div class="page-box">
+  </div>
+</div>
+
+<!--<div class="page-box">
       <div class="form-group row">
         <div class="col-sm-6">
           <div class="offset-4 col-8">
@@ -1365,8 +1366,7 @@
         </div>
       </div>
     </div>-->
-  </div>
-</div>
+
 
 <br />
 
