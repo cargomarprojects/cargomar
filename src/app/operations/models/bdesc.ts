@@ -9,5 +9,6 @@ export class Bldesc {
   bl_desc_ctr: number;
   bl_year: number;
   bl_is_mark: boolean;
+  bl_desc_type: string;
 }
 

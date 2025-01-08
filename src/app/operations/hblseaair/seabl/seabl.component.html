@@ -1217,12 +1217,13 @@
     <div class="col-10">
       <div class="page-list">
         <div class="page-body table-responsive">
-          <table class="table  table-hover table-sm">
+          <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
               <tr>
-                <th>MARKS && NO</th>
-                <th>DESCRIPTION</th>
-                <th class="text-center">REMOVE</th>
+                <th width="40%">MARKS && NO</th>
+                <th width="12%">DESC TYPE</th>
+                <th width="40%">DESCRIPTION</th>
+                <th width="8%" class="text-center">REMOVE</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of AttchRecordList">
@@ -1230,6 +1231,9 @@
                 <td style="padding:0px 0px 0px 0px"><input type="text" name="marks" class="form-control form-control-sm"
                     [(ngModel)]="rec.bl_marks" (blur)="OnBlurTableCell('bl_marks',rec.bl_pkid)" required
                     maxlength="125" /></td>
+                    <td style="padding:0px 0px 0px 0px"><select class="form-control form-control-sm" [(ngModel)]="rec.bl_desc_type">
+                      <option *ngFor="let rec2 of DescTypeList" [value]="rec2.code">{{rec2.name}}</option>
+                    </select> </td>
                 <td style="padding:0px 0px 0px 0px"><input type="text" name="desc" class="form-control form-control-sm"
                     [(ngModel)]="rec.bl_desc" (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required
                     maxlength="125" /></td>

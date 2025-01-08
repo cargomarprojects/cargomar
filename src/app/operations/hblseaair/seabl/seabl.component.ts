@@ -1340,6 +1340,7 @@ export class BlComponent {
     this.AttchRecord.bl_pkid = this.gs.getGuid();
     this.AttchRecord.bl_marks = '';
     this.AttchRecord.bl_desc = '';
+    this.AttchRecord.bl_desc_type = '';
   }
 
   RemoveList(event: any) {
@@ -1629,6 +1630,7 @@ export class BlComponent {
           this.AttchRecord = new Bldesc();
           this.AttchRecord.bl_pkid = this.gs.getGuid();
           this.AttchRecord.bl_desc = '';
+          this.AttchRecord.bl_desc_type = '';
           this.AttchRecord.bl_marks = '';
           if (col_desc > -1 && ar2.length > col_desc)
             this.AttchRecord.bl_desc = ar2[col_desc].toUpperCase();
