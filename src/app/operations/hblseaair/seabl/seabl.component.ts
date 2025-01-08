@@ -276,9 +276,9 @@ export class BlComponent {
 
   LoadCombo() {
 
-    this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "DESC", "name": "DESCRIPTION" }, { "code": "HSCODE", "name": "HS CODE" }, 
-      { "code": "INVNO", "name": "INVOICE#" },{ "code": "PKGS", "name": "PACKAGES" }, { "code": "PO", "name": "PO#" },  
-      { "code": "SBNO", "name": "SB#" }];
+    this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "ITEM-DESC", "name": "ITEM-DESC" }, { "code": "HS CODE", "name": "HS CODE" }, 
+      { "code": "INVOICE#", "name": "INVOICE#" },{ "code": "PACKAGES", "name": "PACKAGES" }, { "code": "PO#", "name": "PO#" },  
+      { "code": "SB#", "name": "SB#" }];
 
     this.loading = true;
     let SearchData = {
