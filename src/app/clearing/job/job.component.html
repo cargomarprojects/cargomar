@@ -416,6 +416,20 @@
                 <div class="col-sm-4">
 
                   <div class=" form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">City</label>
+                    <div class="col-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_city"
+                      (blur)="OnBlur('job_toorder_city')" required maxlength="30" />
+                    </div>
+                  </div>
+                  <div class=" form-group row">
+                    <label class="col-4 col-form-label col-form-label-sm">Pin Code</label>
+                    <div class="col-8">
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.job_toorder_pin"
+                      (blur)="OnBlur('job_toorder_pin')" required maxlength="20" />
+                    </div>
+                  </div>
+                  <div class=" form-group row">
                     <label class="col-4 col-form-label col-form-label-sm">Country</label>
                     <div class="col-4">
                       <app-autocomplete #CntryToordAddLov [inputdata]="COUNTRYTOORDRECORD"

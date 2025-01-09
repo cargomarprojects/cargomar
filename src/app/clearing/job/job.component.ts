@@ -984,6 +984,9 @@ export class JobComponent {
     this.Record.job_toorder_country_id = '';
     this.Record.job_toorder_country_code = '';
     this.Record.job_toorder_country_name = '';
+    this.Record.job_toorder_city = '';
+    this.Record.job_toorder_pin = '';
+
     if (this.type == "SEA EXPORT") {
       this.Record.job_origin_country_id = this.gs.defaultValues.sea_job_origin_country_id;
       this.Record.job_origin_country_code = this.gs.defaultValues.sea_job_origin_country_code;
@@ -1633,6 +1636,16 @@ export class JobComponent {
           this.Record.job_toorder_add3 = this.Record.job_toorder_add3.toUpperCase();
           break;
         }
+        case 'job_toorder_city':
+        {
+          this.Record.job_toorder_city = this.Record.job_toorder_city.toUpperCase();
+          break;
+        }
+      case 'job_toorder_pin':
+        {
+          this.Record.job_toorder_pin = this.Record.job_toorder_pin.toUpperCase();
+          break;
+        }
     }
 
   }
@@ -2011,6 +2024,8 @@ export class JobComponent {
           this.Record.job_toorder_add1 = '';
           this.Record.job_toorder_add2 = '';
           this.Record.job_toorder_add3 = '';
+          this.Record.job_toorder_city = '';
+          this.Record.job_toorder_pin = '';
           this.COUNTRYTOORDRECORD = new SearchTable();
           this.COUNTRYTOORDRECORD.controlname = "TO-ORDERCOUNTRY";
           this.COUNTRYTOORDRECORD.displaycolumn = "CODE";
@@ -2024,6 +2039,8 @@ export class JobComponent {
             this.Record.job_toorder_add1 = response.customeraddress[0].add_line1;
             this.Record.job_toorder_add2 = response.customeraddress[0].add_line2;
             this.Record.job_toorder_add3 = response.customeraddress[0].add_line3 + ' ' + response.customeraddress[0].add_line4;
+            this.Record.job_toorder_city = response.customeraddress[0].add_city;
+            this.Record.job_toorder_pin = response.customeraddress[0].add_pin;
 
             this.Record.job_toorder_country_id = response.customeraddress[0].add_country_id;
             this.Record.job_toorder_country_code = response.customeraddress[0].add_country_code;

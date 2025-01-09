@@ -149,7 +149,7 @@ export class Jobm {
   job_scheme_codes: string;
 
   job_mbl_no: string;
-  
+
   job_toorder_id: string;
   job_toorder_code: string;
   job_toorder_br_id: string;
@@ -161,6 +161,8 @@ export class Jobm {
   job_toorder_country_id: string;
   job_toorder_country_code: string;
   job_toorder_country_name: string;
+  job_toorder_city: string;
+  job_toorder_pin: string;
 
   rec_mode: string;
   rec_category: string;
