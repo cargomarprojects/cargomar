@@ -48,7 +48,8 @@ export class GstReconRepDetEditComponent {
         igst: 0,
         cgst: 0,
         sgst: 0,
-        gst_bal: 0
+        gst_bal: 0,
+        category: ''
     }
 
     constructor(
@@ -75,6 +76,7 @@ export class GstReconRepDetEditComponent {
             this.SearchData.cgst = this.record.central_tax;
             this.SearchData.sgst = this.record.state_ut_tax;
         }
+        this.SearchData.category = this.record.rec_category;
     }
 
 

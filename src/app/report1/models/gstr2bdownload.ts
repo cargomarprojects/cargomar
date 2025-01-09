@@ -98,6 +98,7 @@ export class Gstr2bDownload {
     state_ut_tax_actual: number;
     gst_bal: number;
     rec_status: string;
+    rec_category: string;
 
 }
 
