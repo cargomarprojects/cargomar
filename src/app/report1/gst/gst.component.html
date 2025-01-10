@@ -48,6 +48,7 @@
               <option [value]="'GSTR2B'">GSTR2B</option>
               <!-- <option [value]="'RECONCILE-PURCHASE'">RECONCILE PURCHASE</option> -->
               <option [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
+              <option [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY</option>
               <option [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
             </select>
@@ -69,7 +70,8 @@
         <div class=" form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-4">
-            <app-autocomplete3 [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'"
+            <app-autocomplete3
+              [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'&&format_type!='GSTR-3B ITC SUMMARY'"
               [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
               [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
@@ -782,6 +784,27 @@
             <td>{{rec.match_gst}}</td>
             <td>{{rec.match_period}}</td>
             <td>{{rec.doc_vrno}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='GSTR-3B ITC SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>DESCRIPTION</th>
+            <th class="text-right">IGST</th>
+            <th class="text-right">CGST</th>
+            <th class="text-right">SGST</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
+          <tr>
+            <td>{{rec.reason}}</td>
+            <td align='right'>{{ rec.g_igst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.g_cgst_amt | number : '1.2-2' }}</td>
+            <td align='right'>{{ rec.g_sgst_amt | number : '1.2-2' }}</td>
           </tr>
         </tbody>
       </table>
