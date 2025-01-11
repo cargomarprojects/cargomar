@@ -145,6 +145,7 @@ export class TdsExemptionComponent {
             this.Record.te_cust_id = _Record.id;
             this.Record.te_cust_code = _Record.code;
             this.Record.te_cust_name = _Record.name;
+            this.SearchRecord("CUSTOMERPAN", this.Record.te_cust_id);
         }
 
         if (_Record.controlname == "PAN") {
@@ -487,4 +488,68 @@ export class TdsExemptionComponent {
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
+
+    SearchRecord(controlname: string, controlid: string) {
+        if (controlid.trim().length <= 0)
+            return;
+
+        this.loading = true;
+        let SearchData = {
+            table: 'customerpan',
+            rowtype: this.type,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            cust_pkid: ''
+        };
+
+        SearchData.table = 'customerpan';
+        SearchData.company_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+        SearchData.year_code = this.gs.globalVariables.year_code;
+        SearchData.cust_pkid = controlid;
+
+        this.mainService.state.ErrorMessage = '';
+        this.gs.SearchRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.mainService.state.ErrorMessage = '';
+
+                if (controlname == 'CUSTOMERPAN') {
+                    this.Record.te_pan_id = '';
+                    this.Record.te_pan_code = '';
+                    this.Record.te_pan_name = '';
+                    this.PANRECORD = new SearchTable();
+                    this.PANRECORD.controlname = "PAN";
+                    this.PANRECORD.displaycolumn = "CODE";
+                    this.PANRECORD.type = "PAN";
+                    this.PANRECORD.id = "";
+                    this.PANRECORD.code = "";
+                }
+
+                if (response.customerpan.length > 0) {
+
+                    if (controlname == 'CUSTOMERPAN') {
+                        this.Record.te_pan_id = response.customerpan[0].param_pkid;
+                        this.Record.te_pan_code = response.customerpan[0].param_code;
+                        this.Record.te_pan_name = response.customerpan[0].param_name;
+                        this.PANRECORD.id = this.Record.te_pan_id;
+                        this.PANRECORD.code = this.Record.te_pan_code;
+                        this.PANRECORD.name = this.Record.te_pan_name;
+                    }
+
+                }
+                else {
+                    this.mainService.state.ErrorMessage = 'PAN Not Found';
+                    alert(this.mainService.state.ErrorMessage);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.mainService.state.ErrorMessage);
+                });
+    }
+
+
 }
