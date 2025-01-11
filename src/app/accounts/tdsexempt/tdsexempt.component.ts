@@ -45,6 +45,7 @@ export class TdsExemptionComponent {
     Record: TdsExemption = new TdsExemption;
     ACCRECORD: SearchTable = new SearchTable();
     PARTYRECORD: SearchTable = new SearchTable();
+    PANRECORD: SearchTable = new SearchTable();
 
     constructor(
         private modalService: NgbModal,
@@ -124,6 +125,13 @@ export class TdsExemptionComponent {
         this.PARTYRECORD.code = "";
         this.PARTYRECORD.name = "";
         this.PARTYRECORD.parentid = "";
+
+        this.PANRECORD = new SearchTable();
+        this.PANRECORD.controlname = "PAN";
+        this.PANRECORD.displaycolumn = "CODE";
+        this.PANRECORD.type = "PAN";
+        this.PANRECORD.id = "";
+        this.PANRECORD.code = "";
     }
 
     LovSelected(_Record: SearchTable) {
@@ -137,6 +145,12 @@ export class TdsExemptionComponent {
             this.Record.te_cust_id = _Record.id;
             this.Record.te_cust_code = _Record.code;
             this.Record.te_cust_name = _Record.name;
+        }
+
+        if (_Record.controlname == "PAN") {
+            this.Record.te_pan_id = _Record.id;
+            this.Record.te_pan_code = _Record.code;
+            this.Record.te_pan_name = _Record.name;
         }
     }
 
@@ -289,6 +303,10 @@ export class TdsExemptionComponent {
         this.PARTYRECORD.code = this.Record.te_cust_code;
         this.PARTYRECORD.name = this.Record.te_cust_name;
 
+        this.PANRECORD.id = this.Record.te_pan_id;
+        this.PANRECORD.code = this.Record.te_pan_code;
+        this.PANRECORD.name = this.Record.te_pan_name;
+
         // this.Record.rec_mode = this.mode;
         this.Record.rec_mode = this.mainService.state.mode;
     }
@@ -427,8 +445,8 @@ export class TdsExemptionComponent {
     // // Query List Data
     GstPurchaseReport(_cust_name: string) {
         this.mainService.state.ErrorMessage = '';
-    
-        if (!confirm("Download the purchase report for "+_cust_name)) {
+
+        if (!confirm("Download the purchase report for " + _cust_name)) {
             return;
         }
 

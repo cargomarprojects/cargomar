@@ -12,7 +12,7 @@ export class TdsExemption {
     te_cust_id: string;
     te_cust_code: string;
     te_cust_name: string;
-    te_cust_pan:string;
+    te_cust_pan: string;
     te_valid_from: string;
     te_valid_to: string;
     te_year: number;
@@ -27,6 +27,10 @@ export class TdsExemption {
     te_updated_date: string;
     te_doc_count: number;
     te_remarks: string;
+    te_pan_id: string;
+    te_pan_code: string;
+    te_pan_name: string;
+    te_taxable_amt: number;
 
     rec_mode: string;
     _globalvariables: GlobalVariables;
