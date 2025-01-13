@@ -402,6 +402,7 @@ export class TdsExemptionComponent {
                 error => {
                     this.loading = false;
                     this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.mainService.state.ErrorMessage);
                 });
     }
 

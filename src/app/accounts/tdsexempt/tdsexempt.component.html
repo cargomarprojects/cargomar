@@ -52,6 +52,7 @@
                     <th>CERT#</th>
                     <th>CERT.DATE</th>
                     <th>CUSTOMER</th>
+                    <th>PAN</th>
                     <th>TDS.CODE</th>
                     <th>TDS.NAME</th>
                     <th>VALID.FROM</th>
@@ -59,7 +60,8 @@
                     <th>RATE</th>
                     <th>CERT.RATE</th>
                     <th>CERT.LIMIT</th>
-                    <th>USED.AMT</th>
+                    <th>PAID.AMT</th>
+                    <th>INV.AMT</th>
                     <th>BAL.AMT</th>
                     <th>DOC</th>
                     <th>UPDATED.DT</th>
@@ -74,6 +76,7 @@
                     <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_cert_no}}</td>
                     <td>{{rec.te_cert_date}}</td>
                     <td>{{rec.te_cust_name}}</td>
+                    <td>{{rec.te_pan_code}}</td>
                     <td>{{rec.te_tds_acc_code}}</td>
                     <td>{{rec.te_tds_acc_name}}</td>
                     <td>{{rec.te_valid_from}}</td>
@@ -82,6 +85,7 @@
                     <td>{{rec.te_tds_cert_rate}}</td>
                     <td>{{rec.te_cr_limit}}</td>
                     <td>{{rec.te_used_amt}}</td>
+                    <td>{{rec.te_taxable_amt}}</td>
                     <td>{{rec.te_bal_amt}}</td>
                     <td>{{rec.te_doc_count}}</td>
                     <td>{{rec.te_updated_date}}</td>
