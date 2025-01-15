@@ -221,6 +221,7 @@ export class TdsExemptionComponent {
             page_rows: this.mainService.state.page_rows,
             page_rowcount: this.mainService.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
+            year_code: this.gs.globalVariables.year_code,
             report_folder: this.gs.globalVariables.report_folder
         };
         this.mainService.state.ErrorMessage = '';
