@@ -1069,12 +1069,15 @@ export class BuyRateComponent {
   }
 
   onFocusout(field: string, _content: any = null) {
+    var oldChar2 = / /gi;//replace all blank space in a string
     if (field == 'jvh_reference') {
+      this.Record.jvh_reference = this.Record.jvh_reference.replace(oldChar2, '').toUpperCase();
       if (!this.gs.isBlank(this.Record.jvh_reference)) {
         this.IsDupliation(this.Record.jvh_reference);
       }
     }
     if (field == 'jvh_org_invno') {
+      this.Record.jvh_org_invno = this.Record.jvh_org_invno.replace(oldChar2, '').toUpperCase();
       if (!this.gs.isBlank(this.Record.jvh_org_invno)) {
         this.IsDupliation(this.Record.jvh_org_invno);
       }
