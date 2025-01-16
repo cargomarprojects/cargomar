@@ -185,7 +185,7 @@ export class GstReconRepItcComponent {
     this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
     this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
     this.SearchData.chk_notclaimed = this.mainService.state.gst_recon_itc_chk_notclaimed;
-    this.SearchData.bamendment = this.bCompany;
+    this.SearchData.bamendment = this.bAmendment;
     this.ErrorMessage = '';
     this.mainService.ItcList(this.SearchData)
       .subscribe(response => {
