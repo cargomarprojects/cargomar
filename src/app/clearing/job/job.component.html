@@ -104,6 +104,7 @@
             <th *ngIf="jobtype!='FORWARDING'">REF#</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
+            <th>TO.ORDER</th>
             <th>INVNOS</th>
             <th>POL</th>
             <th>POD</th>
@@ -139,6 +140,7 @@
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
             <td>{{rec.job_exp_name}}</td>
             <td>{{rec.job_imp_name}}</td>
+            <td>{{rec.job_toorder_name}}</td>
             <td>{{rec.job_invoice_nos}}</td>
             <td>{{rec.job_pol_name}}</td>
             <td>{{rec.job_pod_name}}</td>
