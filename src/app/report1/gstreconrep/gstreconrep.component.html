@@ -70,6 +70,15 @@
                                     <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstReconcile()"
                                         class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Process 2B':'Process
                                         2A'}}</button>
+
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowOtp(otpdet)"
+                                                class="btn btn-primary btn-sm mt-1">OTP</button>
+                                            <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstr2B(type)"
+                                                class="btn btn-primary btn-sm mt-1">Download&nbsp;{{type}}</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -267,5 +276,17 @@
     <div class="modal-body">
         <app-gstreconrepdet [type]="type" [gstinsupplier]="gstin_supplier" [period]="period" [state_code]="state_code"
             [download_doc_type]="download_doc_type" [reverse_charge]="'NO'"></app-gstreconrepdet>
+    </div>
+</ng-template>
+
+<ng-template #otpdet let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">OTP&nbsp;({{type}})</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-otp [type]="type" [retperiod]="retperiod" [bSave]="true"></app-otp>
     </div>
 </ng-template>

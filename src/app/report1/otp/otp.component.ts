@@ -6,7 +6,8 @@ import { Companym } from '../../admin/models/company';
 
 @Component({
     selector: 'app-otp',
-    templateUrl: './otp.component.html'
+    templateUrl: './otp.component.html',
+    providers: [RepService]
 })
 export class OtpComponent {
 

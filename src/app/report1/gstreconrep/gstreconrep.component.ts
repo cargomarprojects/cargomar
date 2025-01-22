@@ -32,7 +32,7 @@ export class GstReconRepComponent {
   gstin_supplier: string = "";
   period: number = 2020;
   state_code: string = "";
-
+  retperiod: string = "";
   //searchstring = '';
   // reconcile_state_name: string = "KERALA";
   // reconcile_state_code: string = "32";
@@ -464,6 +464,70 @@ export class GstReconRepComponent {
         error => {
           this.loading = false;
           this.mainService.state.RecordListAment = null;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  ShowOtp(_contex: any) {
+    this.retperiod = this.mainService.state.gst_recon_month + this.mainService.state.gst_recon_year;
+    this.open(_contex);
+  }
+
+  ProcessGstr2B(_type: string) {
+    this.retperiod = this.mainService.state.gst_recon_month + this.mainService.state.gst_recon_year;
+    this.ErrorMessage = '';
+    if (this.mainService.state.gst_recon_state_code.trim().length <= 0) {
+      this.ErrorMessage = "State Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+    if (this.retperiod.trim().length <= 0) {
+      this.ErrorMessage = "Return Period Cannot Be Blank";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+  let  SearchData2 = {
+      type: '',
+      pkid: '',
+      report_folder: '',
+      company_code: '',
+      branch_code: '',
+      year_code: '',
+      searchstring: '',
+      state_code: '',
+      return_period: '',
+      user_code: '',
+      otp: ''
+    };
+
+    this.loading = true;
+    SearchData2.pkid = this.gs.getGuid();
+    SearchData2.report_folder = this.gs.globalVariables.report_folder;
+    SearchData2.company_code = this.gs.globalVariables.comp_code;
+    SearchData2.branch_code = this.gs.globalVariables.branch_code;
+    SearchData2.year_code = this.gs.globalVariables.year_code;
+    SearchData2.state_code = this.mainService.state.gst_recon_state_code;
+    SearchData2.return_period = this.retperiod;
+    SearchData2.searchstring = '';
+    SearchData2.type = _type;
+    SearchData2.user_code = this.gs.globalVariables.user_code;
+    SearchData2.otp = '';
+
+    this.ErrorMessage = '';
+    this.mainService.ProcessGSTRApi(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'OTP' || _type == 'GSTR-2B'|| _type == 'GSTR-2A') {
+          if (response.status != "")
+            alert(response.status);
+        }
+      },
+        error => {
+          this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
