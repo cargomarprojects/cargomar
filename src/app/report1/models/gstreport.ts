@@ -52,6 +52,7 @@ export class GstReport {
   jvh_einv_status: string;
   jvh_beinv_status: boolean;
   row_displayed: boolean;
+  jvh_gst_ret_status: string;
 
   gstr2b_List: Gstr2bDownload[] = [];
   _globalvariables: GlobalVariables;
