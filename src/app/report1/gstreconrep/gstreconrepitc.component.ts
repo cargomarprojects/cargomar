@@ -242,6 +242,7 @@ export class GstReconRepItcComponent {
   UpdateItcBluck() {
 
     let sPkids: string = "";//Main List
+    let jvhPkids: string = "";//Main List
     let _Ctr: number = 0;
     let _BatchCtr: number = 0;
     let pendingWithClaimedFound: boolean = false;
@@ -268,29 +269,34 @@ export class GstReconRepItcComponent {
     }
 
 
-    sPkids = ""; _Ctr = 0; _BatchCtr = 0;
+    sPkids = ""; jvhPkids = ""; _Ctr = 0; _BatchCtr = 0;
     for (let rec of this.mainService.state.RecordListItc) {
       if (rec.rec_selected) {
         _Ctr++;
         if (sPkids != "")
           sPkids += ",";
         sPkids += rec.pkid;
+        if (rec.download_source == 'PURCHASE') {
+          if (jvhPkids != "")
+            jvhPkids += ",";
+          jvhPkids += rec.pkid;
+        }
       }
       if (_Ctr >= 250) {
         _BatchCtr++;
-        this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr);
-        sPkids = ""; _Ctr = 0;
+        this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr, jvhPkids);
+        sPkids = ""; jvhPkids = ""; _Ctr = 0;
       }
     }
 
     if (sPkids != "") {
       _BatchCtr++;
-      this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr);
+      this.UpdateItcbatchwise(sPkids, _BatchCtr, _Ctr, jvhPkids);
     }
 
   }
 
-  UpdateItcbatchwise(_ids: string, _batchNo: number, _totRecsUpdt: number) {
+  UpdateItcbatchwise(_ids: string, _batchNo: number, _totRecsUpdt: number, _jvhId: string) {
     let SearchData2 = {
       category: this.type,
       pkid: _ids,
@@ -300,7 +306,8 @@ export class GstReconRepItcComponent {
       recon_month: +this.mainService.state.gst_recon_itc_list_month,
       save_remarks: false,
       user_code: this.gs.globalVariables.user_code,
-      state_code: this.mainService.state.gst_recon_itc_list_state_code
+      state_code: this.mainService.state.gst_recon_itc_list_state_code,
+      jvh_pkid: _jvhId
     };
 
     this.loading = true;
@@ -331,7 +338,7 @@ export class GstReconRepItcComponent {
   }
 
 
-  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string) {
+  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string) {
     let SearchData2 = {
       category: this.type,
       pkid: _id,
@@ -343,7 +350,8 @@ export class GstReconRepItcComponent {
       save_remarks: true,
       user_code: this.gs.globalVariables.user_code,
       display_claim_period: _display_claim_period,
-      state_code: this.mainService.state.gst_recon_itc_list_state_code
+      state_code: this.mainService.state.gst_recon_itc_list_state_code,
+      jvh_pkid: _download_source == "PURCHASE" ? _id : ''
     };
     this.loading = true;
     this.ErrorMessage = '';
