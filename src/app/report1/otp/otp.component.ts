@@ -143,8 +143,8 @@ export class OtpComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
-                if (_type == "SAVE")
-                    alert('Save Complete');
+                // if (_type == "SAVE")
+                //     alert('Save Complete');
             },
                 error => {
                     this.loading = false;

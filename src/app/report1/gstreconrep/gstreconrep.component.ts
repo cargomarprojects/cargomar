@@ -499,7 +499,8 @@ export class GstReconRepComponent {
       state_code: '',
       return_period: '',
       user_code: '',
-      otp: ''
+      otp: '',
+      subtype:''
     };
 
     this.loading = true;
@@ -514,7 +515,8 @@ export class GstReconRepComponent {
     SearchData2.type = _type;
     SearchData2.user_code = this.gs.globalVariables.user_code;
     SearchData2.otp = '';
-
+    SearchData2.subtype = 'B2B';
+    
     this.ErrorMessage = '';
     this.mainService.ProcessGSTRApi(SearchData2)
       .subscribe(response => {
