@@ -92,7 +92,8 @@
                     <td>{{rec.te_doc_count}}</td>
                     <td>{{rec.te_updated_date}}</td>
                     <td>{{rec.te_remarks}}</td>
-                    <td *ngIf="bExcel" class="hlink" (click)="GstPurchaseReport(rec.te_cust_name)">PRINT</td>
+                    <td *ngIf="bExcel" class="hlink" (click)="GstPurchaseReport(rec.te_cust_name,rec.te_cust_id)">PRINT
+                    </td>
                 </tr>
             </tbody>
         </table>

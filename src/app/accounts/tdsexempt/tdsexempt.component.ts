@@ -446,7 +446,7 @@ export class TdsExemptionComponent {
 
 
     // // Query List Data
-    GstPurchaseReport(_cust_name: string) {
+    GstPurchaseReport(_cust_name: string, _cust_id: string) {
         this.mainService.state.ErrorMessage = '';
 
         if (!confirm("Download the purchase report for " + _cust_name)) {
@@ -470,7 +470,8 @@ export class TdsExemptionComponent {
             user_code: this.gs.globalVariables.user_code,
             state_name: '',
             state_code: '',
-            hide_ho_entries: this.gs.globalVariables.hide_ho_entries
+            hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
+            te_cust_id: _cust_id
         };
 
         this.loading = true;
