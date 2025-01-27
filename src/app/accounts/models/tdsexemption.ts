@@ -31,6 +31,7 @@ export class TdsExemption {
     te_pan_code: string;
     te_pan_name: string;
     te_taxable_amt: number;
+    te_other_amt: number;
 
     rec_mode: string;
     _globalvariables: GlobalVariables;
