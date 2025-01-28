@@ -16,6 +16,7 @@
               (change)="OnChange('prtype')">
               <option [value]="'PAY ROLL'">Month Wise</option>
               <option [value]="'CONSOL PAY ROLL'">Period Wise</option>
+              <option [value]="'CONSOL PAY ROLL ONLY'">Period Wise (Payroll Only)</option>
               <option [value]="'CONSOL PAY ROLL[FOR LBR RTN]'">Labour Return</option>
               <option [value]="'PROFESSIONAL TAX'">Professional Tax</option>
             </select>
@@ -83,7 +84,7 @@
       </div>
 
       <div class="col-sm-3">
-        <div *ngIf="prtype=='CONSOL PAY ROLL'" class="form-group row">
+        <div *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'" class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-10">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('searchstring')" name="Search"
@@ -99,7 +100,7 @@
               <input type="checkbox" [(ngModel)]="bSalarySheet">Salary Sheet&nbsp;
               <input type="checkbox" [(ngModel)]="bBranchSummary">Branch Summary
             </span>
-            <span *ngIf="bPrint && prtype=='CONSOL PAY ROLL'">
+            <span *ngIf="bPrint && (prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY')">
               <input type="checkbox" [(ngModel)]="bSalesIncentive">Print Sales Incentive&nbsp;
               <input type="checkbox" [(ngModel)]="bDetails">Details
             </span>
@@ -113,7 +114,7 @@
     <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">BRANCH</th>
+          <th *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">BRANCH</th>
           <th>CODE</th>
           <th>NAME</th>
           <th>PAN</th>
@@ -182,10 +183,10 @@
           <th *ngIf="prtype=='CONSOL PAY ROLL'">GR.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">DEDUS.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">NET.INCENT</th>
-          <th *ngIf="prtype=='CONSOL PAY ROLL'">PF.EMPLR</th>
-          <th *ngIf="prtype=='CONSOL PAY ROLL'">ESI.EMPLR</th>
-          <th *ngIf="prtype=='CONSOL PAY ROLL'">ADMIN.CHRG</th>
-          <th *ngIf="prtype=='CONSOL PAY ROLL'">EDLI.CHRG</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">PF.EMPLR</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">ESI.EMPLR</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">ADMIN.CHRG</th>
+          <th *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">EDLI.CHRG</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL'">BONUS.PAID</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">SALES.INCENT</th>
           <th *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">TDS.SALES.INCENT</th>
@@ -193,7 +194,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
         <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
-          <td *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'">{{rec.rec_branch_code}}</td>
+          <td *ngIf="prtype=='PAY ROLL'||prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">{{rec.rec_branch_code}}</td>
           <td>{{rec.sal_emp_code}}</td>
           <td>{{rec.sal_emp_name}}</td>
           <td>{{rec.sal_emp_pan}}</td>
@@ -262,10 +263,10 @@
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_gr_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_tot_ded_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_net_incentive}}</td>
-          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_pf_emplr_share}}</td>
-          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_esi_emplr}}</td>
-          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_admin_emply}}</td>
-          <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_edli_emply}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">{{rec.sal_pf_emplr_share}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">{{rec.sal_esi_emplr}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">{{rec.sal_admin_emply}}</td>
+          <td *ngIf="prtype=='CONSOL PAY ROLL'||prtype=='CONSOL PAY ROLL ONLY'">{{rec.sal_edli_emply}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL'">{{rec.sal_bonus_paid}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_sales_incentive}}</td>
           <td *ngIf="prtype=='CONSOL PAY ROLL' && bSalesIncentive">{{rec.sal_tds_sales_incentive}}</td>
