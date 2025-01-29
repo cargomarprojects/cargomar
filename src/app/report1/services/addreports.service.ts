@@ -26,5 +26,9 @@ export class AddReportsService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AddReports/CustomerDetails', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  LockedSmanReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AddReports/LockedSmanReport', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 
