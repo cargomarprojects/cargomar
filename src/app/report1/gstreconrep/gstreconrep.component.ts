@@ -44,6 +44,9 @@ export class GstReconRepComponent {
   bSave: boolean = false;
   bCompany: boolean = false;
   bAmendment: boolean = false;
+  bOtpSave: boolean = false;
+  bGstr2Download: boolean = false;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -113,6 +116,8 @@ export class GstReconRepComponent {
     this.bPrint = false;
     this.bSave = false;
     this.bAmendment = this.gs.globalVariables.user_code == "ADMIN";
+    this.bOtpSave = this.gs.globalVariables.user_code == "ADMIN";
+    this.bGstr2Download = this.gs.globalVariables.user_code == "ADMIN";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -124,6 +129,10 @@ export class GstReconRepComponent {
       if (this.menu_record.rights_approval.length > 0) {
         if (this.menu_record.rights_approval.toString().indexOf('{SAVE-GST}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
           this.bAmendment = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{OTP}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bOtpSave = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{GSTR}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bGstr2Download = true;
       }
     }
     this.initLov();
@@ -488,7 +497,7 @@ export class GstReconRepComponent {
       return;
     }
 
-  let  SearchData2 = {
+    let SearchData2 = {
       type: '',
       pkid: '',
       report_folder: '',
@@ -500,7 +509,7 @@ export class GstReconRepComponent {
       return_period: '',
       user_code: '',
       otp: '',
-      subtype:''
+      subtype: ''
     };
 
     this.loading = true;
@@ -516,14 +525,14 @@ export class GstReconRepComponent {
     SearchData2.user_code = this.gs.globalVariables.user_code;
     SearchData2.otp = '';
     SearchData2.subtype = 'B2B';
-    
+
     this.ErrorMessage = '';
     this.mainService.ProcessGSTRApi(SearchData2)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'OTP' || _type == 'GSTR-2B'|| _type == 'GSTR-2A') {
+        else if (_type == 'OTP' || _type == 'GSTR-2B' || _type == 'GSTR-2A') {
           if (response.status != "")
             alert(response.status);
         }

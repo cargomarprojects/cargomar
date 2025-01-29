@@ -75,9 +75,9 @@
                             
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <button *ngIf="bAdmin" [disabled]="loading" (click)="ShowOtp(otpdet)"
+                                    <button *ngIf="bOtpSave" [disabled]="loading" (click)="ShowOtp(otpdet)"
                                         class="btn btn-primary btn-sm mt-1">OTP</button>
-                                    <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstr2B(type)"
+                                    <button *ngIf="bGstr2Download" [disabled]="loading" (click)="ProcessGstr2B(type)"
                                         class="btn btn-primary btn-sm mt-1">Download&nbsp;{{type}}</button>
                                 </div>
                             </div> 
