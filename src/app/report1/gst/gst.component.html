@@ -347,6 +347,7 @@
             <th class="text-right">IGST-AMT</th>
             <th class="text-right">GST-AMT</th>
             <th>GST-RET-STATUS</th>
+            <th>GST-CLAIM-PRD</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -376,6 +377,7 @@
             <td align='right'>{{ rec.jv_igst_amt | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.jv_gst_amt | number : '1.2-2' }}</td>
             <td>{{rec.jvh_gst_ret_status}}</td>
+            <td>{{rec.jvh_gst_claimed_period_disp}}</td>
           </tr>
         </tbody>
       </table>
