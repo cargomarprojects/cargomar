@@ -5,8 +5,9 @@
             <tr>
                 <th>SOURCE</th>
                 <th>{{type}} PERIOD</th>
-                <th>CLAIMED STATUS</th>
-                <th>CLAIMED PERIOD</th>
+                <th>STATUS</th>
+                <th *ngIf="type=='GSTR-2B'">CLAIMED STATUS</th>
+                <th *ngIf="type=='GSTR-2B'">CLAIMED PERIOD</th>
                 <th>FILING PERIOD</th>
                 <th>REF#</th>
                 <th>TYPE</th>
@@ -20,15 +21,16 @@
                 <th class="text-right">CGST</th>
                 <th class="text-right">SGST</th>
                 <th class="text-right">DIFF</th>
-                <th>STATUS</th>
+                
             </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
             <tr [style.color]="rec.row_color">
                 <td>{{rec.download_source}}</td>
                 <td>{{rec.display_download_period}}</td>
-                <td>{{rec.claim_status}}</td>
-                <td>{{rec.display_claimed_period}}</td>
+                <td>{{rec.reconcile_status}}</td>
+                <td *ngIf="type=='GSTR-2B'">{{rec.claim_status}}</td>
+                <td *ngIf="type=='GSTR-2B'">{{rec.display_claimed_period}}</td>
                 <td>{{rec.gstr1_period}}</td>
                 <td class="hlink" (click)="showInvoice(rec)">{{rec.source}}</td>
                 <td>{{rec.download_type}}</td>
@@ -42,7 +44,7 @@
                 <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                 <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
                 <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
-                <td>{{rec.reconcile_status}}</td>
+                
             </tr>
             <tr *ngIf="rec.rec_displayed">
                 <td colspan="100%">
