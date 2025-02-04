@@ -39,7 +39,6 @@
                     <th class="text-right">CGST</th>
                     <th class="text-right">SGST</th>
                     <th class="text-right">DIFF</th>
-
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -69,7 +68,7 @@
                         <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+                                    <app-gstreconrepdet-edit [record]="rec" (ModifiedRecords)="ModifiedRecords($event)"></app-gstreconrepdet-edit>
                                 </div>
                             </div>
                         </div>

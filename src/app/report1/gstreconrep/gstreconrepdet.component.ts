@@ -115,4 +115,11 @@ export class GstReconRepDetComponent {
     _rec.rec_displayed = !_rec.rec_displayed;
 
   }
+
+  ModifiedRecords(params: any) {
+    if (params.stype == "SAVE") {
+      this.List();
+    }
+  }
+
 }

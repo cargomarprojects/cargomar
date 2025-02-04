@@ -15,6 +15,7 @@ export class GstReconRepDetEditComponent {
     title = '';
 
     @Input() record: Gstr2bDownload = new Gstr2bDownload;
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     pkid: string = '';
     InitCompleted: boolean = false;
@@ -162,6 +163,8 @@ export class GstReconRepDetEditComponent {
                     this.SearchData.jvh_org_invno = response.jvh_org_invno;
                     this.SearchData.jvh_org_invdt = response.jvh_org_invdt;
                     this.record.rec_displayed = false;
+                    if (this.ModifiedRecords != null)
+                        this.ModifiedRecords.emit({ stype: 'SAVE' });
                 }
             },
                 error => {
