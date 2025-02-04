@@ -27,6 +27,7 @@ export class GstReconRepDetComponent {
   sub: any;
   urlid: string;
 
+  bpending: boolean = false;
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -80,7 +81,8 @@ export class GstReconRepDetComponent {
       period: this.period,
       state_code: this.state_code,
       download_doc_type: this.download_doc_type,
-      reverse_charge: this.reverse_charge
+      reverse_charge: this.reverse_charge,
+      bpending: this.bpending
     };
     this.ErrorMessage = '';
     this.mainService.DetailList(SearchData)

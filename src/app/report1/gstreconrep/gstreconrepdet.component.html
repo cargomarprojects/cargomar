@@ -1,62 +1,81 @@
-<div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>10?'650px':'auto'"
-    [style.overflow-y]="RecordList.length>10?'scroll':'auto'">
-    <table class="table table-hover table-sm table-bordered table-striped">
-        <thead class="page-body-thead">
-            <tr>
-                <th>SOURCE</th>
-                <th>{{type}} PERIOD</th>
-                <th>STATUS</th>
-                <th *ngIf="type=='GSTR-2B'">CLAIMED STATUS</th>
-                <th *ngIf="type=='GSTR-2B'">CLAIMED PERIOD</th>
-                <th>FILING PERIOD</th>
-                <th>REF#</th>
-                <th>TYPE</th>
-                <th>INV#</th>
-                <th>INVDATE</th>
-                <th>RCM</th>
-                <th>POS</th>
-                <th class="text-right">INV.AMT</th>
-                <th class="text-right">TAXABLE.AMT</th>
-                <th class="text-right">IGST</th>
-                <th class="text-right">CGST</th>
-                <th class="text-right">SGST</th>
-                <th class="text-right">DIFF</th>
-                
-            </tr>
-        </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-            <tr [style.color]="rec.row_color">
-                <td>{{rec.download_source}}</td>
-                <td>{{rec.display_download_period}}</td>
-                <td>{{rec.reconcile_status}}</td>
-                <td *ngIf="type=='GSTR-2B'">{{rec.claim_status}}</td>
-                <td *ngIf="type=='GSTR-2B'">{{rec.display_claimed_period}}</td>
-                <td>{{rec.gstr1_period}}</td>
-                <td class="hlink" (click)="showInvoice(rec)">{{rec.source}}</td>
-                <td>{{rec.download_type}}</td>
-                <td>{{rec.invoice_number}}</td>
-                <td>{{rec.invoice_date}}</td>
-                <td>{{rec.reverse_charge}}</td>
-                <td>{{rec.place_supply}}</td>
-                <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
-                <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
-                <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
-                <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
-                <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
-                <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
-                
-            </tr>
-            <tr *ngIf="rec.rec_displayed">
-                <td colspan="100%">
-                    <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+<div class="page-list">
+    <div class="p-2">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                    <div class="col-sm-6">
+                        <input type="checkbox" [(ngModel)]="bpending" id="bpendonly">
+                        <label class="col-form-label col-form-label-sm" for="bpendonly">Pending Only</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [disabled]="loading" (click)="List()"
+                            class="btn btn-primary btn-sm mr-1">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="RecordList.length>10?'650px':'auto'"
+        [style.overflow-y]="RecordList.length>10?'scroll':'auto'">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SOURCE</th>
+                    <th>{{type}} PERIOD</th>
+                    <th>STATUS</th>
+                    <th *ngIf="type=='GSTR-2B'">CLAIMED STATUS</th>
+                    <th *ngIf="type=='GSTR-2B'">CLAIMED PERIOD</th>
+                    <th>FILING PERIOD</th>
+                    <th>REF#</th>
+                    <th>TYPE</th>
+                    <th>INV#</th>
+                    <th>INVDATE</th>
+                    <th>RCM</th>
+                    <th>POS</th>
+                    <th class="text-right">INV.AMT</th>
+                    <th class="text-right">TAXABLE.AMT</th>
+                    <th class="text-right">IGST</th>
+                    <th class="text-right">CGST</th>
+                    <th class="text-right">SGST</th>
+                    <th class="text-right">DIFF</th>
+
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr [style.color]="rec.row_color">
+                    <td>{{rec.download_source}}</td>
+                    <td>{{rec.display_download_period}}</td>
+                    <td>{{rec.reconcile_status}}</td>
+                    <td *ngIf="type=='GSTR-2B'">{{rec.claim_status}}</td>
+                    <td *ngIf="type=='GSTR-2B'">{{rec.display_claimed_period}}</td>
+                    <td>{{rec.gstr1_period}}</td>
+                    <td class="hlink" (click)="showInvoice(rec)">{{rec.source}}</td>
+                    <td>{{rec.download_type}}</td>
+                    <td>{{rec.invoice_number}}</td>
+                    <td>{{rec.invoice_date}}</td>
+                    <td>{{rec.reverse_charge}}</td>
+                    <td>{{rec.place_supply}}</td>
+                    <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
+                    <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+
+                </tr>
+                <tr *ngIf="rec.rec_displayed">
+                    <td colspan="100%">
+                        <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <app-gstreconrepdet-edit [record]="rec"></app-gstreconrepdet-edit>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
