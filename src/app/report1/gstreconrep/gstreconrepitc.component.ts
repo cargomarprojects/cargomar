@@ -213,8 +213,12 @@ export class GstReconRepItcComponent {
   }
 
   OnChange(field: string) {
-    this.mainService.state.RecordListItc = null;
+    if (field == 'rec_selected') {
+      this.findTotGst();
+    } else
+      this.mainService.state.RecordListItc = null;
   }
+
   Close() {
     this.gs.ClosePage('home');
   }
@@ -237,6 +241,7 @@ export class GstReconRepItcComponent {
     for (let rec of this.mainService.state.RecordListItc) {
       rec.rec_selected = this.selectdeselect;
     }
+    this.findTotGst();
   }
 
   UpdateItcBluck() {
@@ -392,5 +397,32 @@ export class GstReconRepItcComponent {
       return;
     _rec.rec_displayed = !_rec.rec_displayed;
 
+  }
+
+  findTotGst() {
+    this.mainService.state.gst_recon_itc_igst_tot = 0;
+    this.mainService.state.gst_recon_itc_cgst_tot = 0;
+    this.mainService.state.gst_recon_itc_sgst_tot = 0;
+    if (this.bAmendment) {
+      let _supGstin: string = "{F}";
+      for (let rec of this.mainService.state.RecordListItc) {
+        if (rec.rec_selected) {
+          if (_supGstin == "{F}")
+            _supGstin = rec.gstin_supplier;
+
+          this.mainService.state.gst_recon_itc_igst_tot += rec.integrated_tax;
+          this.mainService.state.gst_recon_itc_cgst_tot += rec.central_tax;
+          this.mainService.state.gst_recon_itc_sgst_tot += rec.state_ut_tax;
+
+          if (_supGstin != rec.gstin_supplier) {
+            alert('Different Supplier Found');
+            break;
+          }
+        }
+      }
+      this.mainService.state.gst_recon_itc_igst_tot = this.gs.roundNumber(this.mainService.state.gst_recon_itc_igst_tot, 2);
+      this.mainService.state.gst_recon_itc_cgst_tot = this.gs.roundNumber(this.mainService.state.gst_recon_itc_cgst_tot, 2);
+      this.mainService.state.gst_recon_itc_sgst_tot = this.gs.roundNumber(this.mainService.state.gst_recon_itc_sgst_tot, 2);
+    }
   }
 }

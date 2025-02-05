@@ -70,55 +70,31 @@
       <div *ngIf="bSave" class="col-sm-3">
         <div class="page-box" style="padding-top: 1px;">
           <div class=" form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
-            <div class="col-sm-8">
-              <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Claim.Status</label>
+            <div class="col-sm-8 input-group input-group-sm">
+              <select class="form-control form-control-sm mr-1"
+                [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
                 <option [value]="'OP'">OP</option>
                 <option [value]="'ITC AVAILED'">ITC AVAILED</option>
                 <option [value]="'PENDING'">PENDING</option>
                 <option [value]="'REJECTED'">REJECTED</option>
               </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-            <div class="col-sm-8">
-              <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
+              <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm">Update
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-
-
-      <!-- <div class="col-sm-4">
-        <div class="page-box">
-          <div class="row">
-            <div *ngIf="bSave" class="col-sm-12">
-              <div class=" form-group row">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Claim Status</label>
-                <div class="col-sm-8">
-                  <select class="form-control form-control-sm"
-                    [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
-                    <option [value]="'OP'">OP</option>
-                    <option [value]="'ITC AVAILED'">ITC AVAILED</option>
-                    <option [value]="'PENDING'">PENDING</option>
-                    <option [value]="'REJECTED'">REJECTED</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-12">
-                  <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm mr-1">Update
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="form-group row">
+            <label class="col-sm-12 col-form-label col-form-label-sm">
+              <strong *ngIf="mainService.state.gst_recon_itc_igst_tot!=0">IGST:</strong><span
+                *ngIf="mainService.state.gst_recon_itc_igst_tot!=0"
+                style="color: red;">{{mainService.state.gst_recon_itc_igst_tot}}</span>&nbsp;
+              <strong *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0">CGST:</strong> <span *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0" style="color: red;">{{mainService.state.gst_recon_itc_cgst_tot}}</span>&nbsp;
+              <strong *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0">SGST:</strong> <span *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0" style="color: red;">{{mainService.state.gst_recon_itc_sgst_tot}}</span>
+            </label>
           </div>
         </div>
-      </div> -->
-
+      </div>
     </div>
   </div>
 
@@ -149,7 +125,7 @@
           <th class="text-right">DIFF</th>
           <th>CLAIMED PERIOD</th>
           <th>CLAIMED.STATUS</th>
-          <th  class="text-start" style="min-width: 200px;">REMARKS</th>
+          <th class="text-start" style="min-width: 200px;">REMARKS</th>
           <th *ngIf="bSave">UPDATE</th>
           <th>CLAIMED BY</th>
           <th>CLAIMED DATE</th>
@@ -157,7 +133,7 @@
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListItc; let i = index">
         <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_color">
-          <td><input type="checkbox" [(ngModel)]="rec.rec_selected"></td>
+          <td><input type="checkbox" (change)="OnChange('rec_selected')" [(ngModel)]="rec.rec_selected"></td>
           <td>{{rec.display_download_period}}</td>
           <td>{{rec.reconcile_status}}</td>
           <td>{{rec.download_source}}</td>
@@ -170,12 +146,15 @@
           <td>{{rec.invoice_date}}</td>
           <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
-          <td *ngIf="bAmendment" >{{ rec.integrated_tax_actual | number : '1.2-2'}}</td>
-          <td *ngIf="bAmendment" >{{ rec.central_tax_actual | number : '1.2-2' }}</td>
-          <td *ngIf="bAmendment" >{{ rec.state_ut_tax_actual | number : '1.2-2' }}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.integrated_tax | number : '1.2-2'}}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.central_tax | number : '1.2-2' }}</td>
-          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)" >{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+          <td *ngIf="bAmendment">{{ rec.integrated_tax_actual | number : '1.2-2'}}</td>
+          <td *ngIf="bAmendment">{{ rec.central_tax_actual | number : '1.2-2' }}</td>
+          <td *ngIf="bAmendment">{{ rec.state_ut_tax_actual | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)">{{
+            rec.integrated_tax | number : '1.2-2'}}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)">{{
+            rec.central_tax | number : '1.2-2' }}</td>
+          <td class="text-right" [class.hlink]="rec.download_source=='GSTR-2B'&&bAmendment" (click)="showGst(rec)">{{
+            rec.state_ut_tax | number : '1.2-2' }}</td>
           <td *ngIf="bAmendment" class="text-right">{{ rec.gst_bal | number : '1.2-2' }}</td>
           <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
           <td>{{rec.display_claimed_period}}</td>
@@ -195,8 +174,10 @@
               [(ngModel)]="rec.reason" (blur)="OnBlurCell('reason',rec)" required maxlength="100" />
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
-          <td *ngIf="bSave" class="hlink" (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source)"><i
-              class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+          <td *ngIf="bSave" class="hlink"
+            (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source)">
+            <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+          </td>
           <td>{{rec.claim_created_by}}</td>
           <td>{{rec.claim_created_date}}</td>
         </tr>
