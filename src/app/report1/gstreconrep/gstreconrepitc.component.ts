@@ -414,10 +414,10 @@ export class GstReconRepItcComponent {
           this.mainService.state.gst_recon_itc_cgst_tot += rec.central_tax;
           this.mainService.state.gst_recon_itc_sgst_tot += rec.state_ut_tax;
 
-          if (_supGstin != rec.gstin_supplier) {
-            alert('Different Supplier Found');
-            break;
-          }
+          // if (_supGstin != rec.gstin_supplier) {
+          //   alert('Different Supplier Found');
+          //   break;
+          // }
         }
       }
       this.mainService.state.gst_recon_itc_igst_tot = this.gs.roundNumber(this.mainService.state.gst_recon_itc_igst_tot, 2);
