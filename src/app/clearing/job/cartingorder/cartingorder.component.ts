@@ -494,4 +494,18 @@ export class CartingOrderComponent {
         }
         this.open(trkorder);
     }
+
+
+    getSwhere(_type: string) {
+        let _retstr = "";
+
+        if (_type == "AGENT")
+            _retstr = " CUST_IS_AGENT = 'Y' ";
+        else if (_type == "SHIPPER")
+            _retstr = " CUST_IS_SHIPPER = 'Y' ";
+        else if (_type == "CONSIGNEE")
+            _retstr = " CUST_IS_CONSIGNEE = 'Y' ";
+
+        return _retstr;
+    }
 }

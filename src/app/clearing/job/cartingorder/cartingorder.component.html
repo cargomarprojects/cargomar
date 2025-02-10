@@ -108,42 +108,54 @@
                                 <label style="padding-left:0"
                                     class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                                 <div class="col-sm-5">
-                                    <app-date #ab_book_date [inputdate]="Record.co_date"
+                                    <app-date #co_date [inputdate]="Record.co_date"
                                         (ValueChanged)="Record.co_date=$event"></app-date>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2 col-form-label col-form-label-sm">Agent</label>
                                 <div class="col-4">
-                                    <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0"
+                                    <!-- <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0"
                                         [inputdata]="AGENTRECORD"
-                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                                    <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="getSwhere('AGENT')"
+                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_agent_code"
+                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
                                     <input type="text" disabled class="form-control form-control-sm"
-                                        [(ngModel)]="Record.ab_agent_name" />
+                                        [(ngModel)]="Record.co_agent_name" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
                                 <div class="col-4">
-                                    <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
-                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                    <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                                    <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="getSwhere('SHIPPER')"
+                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_exp_code"
+                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
                                     <input type="text" disabled class="form-control form-control-sm"
-                                        [(ngModel)]="Record.ab_exp_name" />
+                                        [(ngModel)]="Record.co_exp_name" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
                                 <div class="col-4">
-                                    <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
-                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                    <!-- <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                                    <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="getSwhere('CONSIGNEE')"
+                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_imp_code"
+                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
                                     <input type="text" disabled class="form-control form-control-sm"
-                                        [(ngModel)]="Record.ab_imp_name" />
+                                        [(ngModel)]="Record.co_imp_name" />
                                 </div>
                             </div>
 
