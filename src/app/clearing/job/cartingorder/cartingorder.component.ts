@@ -207,7 +207,7 @@ export class CartingOrderComponent {
         this.Record.co_remarks = '';
         this.Record.co_vessel_id = '';
         this.Record.co_vessel_code = '';
-        this.Record.co_vessel_name
+        this.Record.co_vessel_name = '';
         this.Record.co_vessel_no = '';
         this.Record.rec_mode = this.mainService.state.mode;
     }
@@ -300,8 +300,10 @@ export class CartingOrderComponent {
             sError += "\n\r | Exporter Cannot Be Blank";
         }
 
-        if (bret === false)
+        if (bret === false) {
             this.mainService.state.ErrorMessage = sError;
+            alert(this.mainService.state.ErrorMessage);
+        }
         return bret;
     }
 
@@ -320,6 +322,7 @@ export class CartingOrderComponent {
             REC.co_exp_name = this.Record.co_exp_name;
             REC.co_imp_name = this.Record.co_imp_name;
             REC.co_vessel_name = this.Record.co_vessel_name;
+            REC.co_vessel_no = this.Record.co_vessel_no;
             REC.co_date = this.ctrl_co_date.GetDisplayDate();
             REC.co_remarks = this.Record.co_remarks;
         }
@@ -332,6 +335,11 @@ export class CartingOrderComponent {
             case 'ord_po':
                 {
                     this.ord_po = this.ord_po.toUpperCase();
+                    break;
+                }
+            case 'co_vessel_no':
+                {
+                    this.Record.co_vessel_no = this.Record.co_vessel_no.toUpperCase();
                     break;
                 }
             case 'co_remarks':
