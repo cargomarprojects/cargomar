@@ -98,6 +98,9 @@ export class Joborderm {
   ord_etd_confirm:boolean;
   ord_eta_confirm:boolean;
 
+  ord_carting_id: string;
+  ord_carting_no: string;
+
   rec_mode: string;
   rec_category: string;
   row_displayed:boolean;

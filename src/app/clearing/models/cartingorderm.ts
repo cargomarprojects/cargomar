@@ -1,0 +1,29 @@
+import { GlobalVariables } from '../../core/models/globalvariables';
+import { Joborderm } from '../../clearing/models/joborder';
+
+export class CartingOrderm {
+
+    co_pkid: string;
+    co_sl_no: number;
+    co_date: string;
+    co_agent_id: string;
+    co_agent_code: string;
+    co_agent_name: string;
+    co_exp_id: string;
+    co_exp_code: string;
+    co_exp_name: string;
+    co_imp_id: string;
+    co_imp_code: string;
+    co_imp_name: string;
+    co_vessel_id: string;
+    co_vessel_code: string;
+    co_vessel_name: string;
+    co_vessel_no: string;
+    co_remarks: string;
+
+    rec_mode: string;
+    _globalvariables: GlobalVariables;
+
+    OrderList: Joborderm[] = [];
+}
+

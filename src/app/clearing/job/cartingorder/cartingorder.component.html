@@ -1,0 +1,288 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="col form-control form-control-sm" name="Search"
+                            [(ngModel)]="searchstring" />
+                    </div>
+                    <div class="col-sm-3">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SL#</th>
+                    <th>DATE</th>
+                    <th>AGENT</th>
+                    <th>SHIPPER</th>
+                    <th>CONSIGNEE</th>
+                    <th>VESSEL</th>
+                    <th>VOYAGE</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+                <tr (click)="ActionHandler('EDIT',rec.co_pkid)">
+                    <td>{{rec.co_sl_no}}</td>
+                    <td>{{rec.co_date}}</td>
+                    <td>{{rec.co_agent_name}}</td>
+                    <td>{{rec.co_exp_name}}</td>
+                    <td>{{rec.co_imp_name}}</td>
+                    <td>{{rec.co_vessel_name}}</td>
+                    <td>{{rec.co_vessel_no}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+    <ngb-tabset>
+        <ngb-tab title="Basic Details">
+            <ng-template ngbTabContent>
+                <div class="page-box">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">SL#</label>
+                                <div class="col-4">
+                                    <input type="text" style="color:red; font-weight:bold"
+                                        class="form-control form-control-sm" [(ngModel)]="Record.co_sl_no"
+                                        [disabled]="true" required maxlength="15" />
+                                </div>
+                                <label style="padding-left:0"
+                                    class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                                <div class="col-sm-5">
+                                    <app-date #ab_book_date [inputdate]="Record.co_date"
+                                        (ValueChanged)="Record.co_date=$event"></app-date>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">Agent</label>
+                                <div class="col-4">
+                                    <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0"
+                                        [inputdata]="AGENTRECORD"
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                </div>
+                                <div class="col-6" style="padding-left:0">
+                                    <input type="text" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.ab_agent_name" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
+                                <div class="col-4">
+                                    <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                </div>
+                                <div class="col-6" style="padding-left:0">
+                                    <input type="text" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.ab_exp_name" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
+                                <div class="col-4">
+                                    <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
+                                        (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                                </div>
+                                <div class="col-6" style="padding-left:0">
+                                    <input type="text" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.ab_imp_name" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+                                <div class="col-10">
+                                    <textarea rows="3" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.co_remarks" (blur)="OnBlur('co_remarks')"
+                                        maxlength="250"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+
+                        </div>
+                    </div>
+
+                    <div class="page-box">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group row">
+                                    <label class="col-1 col-form-label col-form-label-sm">PO#</label>
+                                    <div class="col-11">
+                                        <input type="text" class="form-control form-control-sm" [(ngModel)]="ord_po"
+                                            (blur)="OnBlur('ord_po')" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label col-form-label-sm"></label>
+                                    <div class="col-10">
+                                        <button [disabled]="loading" (click)="OrderList(Record)"
+                                            class="btn btn-primary btn-sm">Find</button>
+                                        <button [disabled]="loading" (click)="TrackOrders(trackorder)"
+                                            class="btn btn-primary btn-sm">Tracking</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-body table-responsive">
+                            <table class="table  table-hover table-sm">
+                                <thead class="page-body-thead">
+                                    <tr>
+                                        <th><input type="checkbox" (click)="SelectDeselect()"
+                                                [(ngModel)]="ord_selected"></th>
+                                        <th>SHIPPER</th>
+                                        <th>CONSIGNEE</th>
+                                        <th>POL</th>
+                                        <th>POD</th>
+                                        <th>PO#</th>
+                                        <th>STYLE</th>
+                                        <th>COLOR</th>
+                                        <th>UNECO</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>BKD.DT</th>
+                                        <th>RND.DT</th>
+                                        <th>POR.DT</th>
+                                        <th>CR.DT</th>
+                                        <th>FCR.DT</th>
+                                        <th>INSP.DT</th>
+                                        <th>STUF.DT</th>
+                                        <th>WHD.DT</th>
+                                        <th>DLV.POL.DT</th>
+                                        <th>DLV.POD.DT</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="page-body-tbody" *ngFor="let rec of Record.OrderList">
+                                    <tr>
+                                        <td><input type="checkbox" [(ngModel)]="rec.ord_selected"></td>
+                                        <td>{{rec.ord_exp_name}}</td>
+                                        <td>{{rec.ord_imp_name}}</td>
+                                        <td>{{rec.ord_pol}}</td>
+                                        <td>{{rec.ord_pod}}</td>
+                                        <td>{{rec.ord_po}}</td>
+                                        <td>{{rec.ord_style}}</td>
+                                        <td>{{rec.ord_color}}</td>
+                                        <td>{{rec.ord_uneco}}</td>
+                                        <td>{{rec.ord_desc}}</td>
+                                        <td>{{rec.ord_booking_date}}</td>
+                                        <td>{{rec.ord_rnd_insp_date}}</td>
+                                        <td>{{rec.ord_po_rel_date}}</td>
+                                        <td>{{rec.ord_cargo_ready_date}}</td>
+                                        <td>{{rec.ord_fcr_date}}</td>
+                                        <td>{{rec.ord_insp_date}}</td>
+                                        <td>{{rec.ord_stuf_date}}</td>
+                                        <td>{{rec.ord_whd_date}}</td>
+                                        <td>{{rec.ord_dlv_pol_date}}</td>
+                                        <td>{{rec.ord_dlv_pod_date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-box">
+                    <div class="col">
+                        <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                            class="btn btn-success btn-sm">Save</button>
+                        <button *ngIf="mode != 'ADD'" [disabled]="loading" (click)="GetRecord(Record.co_pkid,'EXCEL')"
+                            class="btn btn-success btn-sm">Excel</button>
+                        <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                            class="btn btn-success btn-sm">Return</button>
+                        <i *ngIf="loading" class="fa fa-spinner"></i>
+                    </div>
+                </div>
+                <br />
+                <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+                <div *ngIf="InfoMessage" class="alert alert-success">
+                    {{InfoMessage}}
+                </div>
+                <div *ngIf="ErrorMessage" class="alert alert-danger">
+                    {{ErrorMessage}}
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <!-- <ngb-tab *ngIf="mode == 'EDIT'" title="EDI">
+            <ng-template ngbTabContent>
+                <div class="page-box">
+                    <div class="col">
+                        <app-xmloms [pkid]="pkid" [filename]="Record.ab_book_no" [type]="'AGENTBOOKING'"></app-xmloms>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab> -->
+    </ngb-tabset>
+</div>
+<ng-template #trackorder let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Tracking</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-trackorder [pkid]="ord_trkids" [refno]="ord_trkpos" [type]="'CARTINGORDER'"></app-trackorder>
+    </div>
+</ng-template>

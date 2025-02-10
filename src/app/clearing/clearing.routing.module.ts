@@ -11,6 +11,7 @@ import { OnlineTrackComponent } from './job/onlinetrack/onlinetrack.component';
 import { OnlineTrackMasterComponent } from './job/onlinetrackmaster/onlinetrackmaster.component';
 import { OnlineTrackMaster2Component } from './job/onlinetrackmaster2/onlinetrackmaster2.component';
 import { EdijobComponent } from './job/edijob/edijob.component';
+import { CartingOrderComponent } from './job/cartingorder/cartingorder.component';
 
 const routes: Routes = [
   { path: 'clearing', component: ClearingComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'onlinetrack', component: OnlineTrackComponent },
   { path: 'onlinetrackmaster', component: OnlineTrackMasterComponent },
   { path: 'onlinetrackmaster2', component: OnlineTrackMaster2Component },
-  { path: 'edijob', component: EdijobComponent }
+  { path: 'edijob', component: EdijobComponent },
+  { path: 'cartingorder', component: CartingOrderComponent }
 ];
 
 @NgModule({
