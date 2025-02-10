@@ -108,6 +108,11 @@ export class CartingOrderComponent {
             this.Record.co_imp_code = _Record.code;
             this.Record.co_imp_name = _Record.name;
         }
+        else if (_Record.controlname == "VESSEL") {
+            this.Record.co_vessel_id = _Record.id;
+            this.Record.co_vessel_code = _Record.code;
+            this.Record.co_vessel_name = _Record.name;
+        }
     }
 
     //function for handling LIST/NEW/EDIT Buttons
@@ -351,7 +356,7 @@ export class CartingOrderComponent {
 
         this.mainService.state.ErrorMessage = '';
         this.mainService.state.InfoMessage = '';
-      
+
         this.loading = true;
         let SearchData = {
             rowtype: this.type,
