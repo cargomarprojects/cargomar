@@ -102,56 +102,55 @@
                         <div class="col-sm-4">
 
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">SL#</label>
-                                <div class="col-4">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">SL#</label>
+                                <div class="col-sm-4">
                                     <input type="text" style="color:red; font-weight:bold"
                                         class="form-control form-control-sm" [(ngModel)]="Record.co_sl_no"
                                         [disabled]="true" required maxlength="15" />
                                 </div>
-                                <label style="padding-left:0"
-                                    class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                                <label class="col-sm-1 col-form-label col-form-label-sm">Date</label>
                                 <div class="col-sm-5">
                                     <app-date #co_date [inputdate]="Record.co_date"
                                         (ValueChanged)="Record.co_date=$event"></app-date>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-                                <div class="col-4">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                                <div class="col-sm-4">
                                     <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'"
                                         [where]="getSwhere('AGENT')" [displaycolumn]="'CODE'"
                                         [displaydata]="Record.co_agent_code" (ValueChanged)="LovSelected($event)"
                                         [disabled]="Record.OrderList.length > 0">
                                     </app-autocomplete3>
                                 </div>
-                                <div class="col-6" style="padding-left:0">
+                                <div class="col-sm-6">
                                     <input type="text" disabled class="form-control form-control-sm"
                                         [(ngModel)]="Record.co_agent_name" />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-                                <div class="col-4">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Shipper</label>
+                                <div class="col-sm-4">
                                     <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
                                         [where]="getSwhere('SHIPPER')" [displaycolumn]="'CODE'"
                                         [displaydata]="Record.co_exp_code" (ValueChanged)="LovSelected($event)"
                                         [disabled]="Record.OrderList.length > 0">
                                     </app-autocomplete3>
                                 </div>
-                                <div class="col-6" style="padding-left:0">
+                                <div class="col-sm-6">
                                     <input type="text" disabled class="form-control form-control-sm"
                                         [(ngModel)]="Record.co_exp_name" />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
-                                <div class="col-4">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
+                                <div class="col-sm-4">
                                     <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'"
                                         [where]="getSwhere('CONSIGNEE')" [displaycolumn]="'CODE'"
                                         [displaydata]="Record.co_imp_code" (ValueChanged)="LovSelected($event)">
                                     </app-autocomplete3>
                                 </div>
-                                <div class="col-6" style="padding-left:0">
+                                <div class="col-sm-6">
                                     <input type="text" disabled class="form-control form-control-sm"
                                         [(ngModel)]="Record.co_imp_name" />
                                 </div>
@@ -160,22 +159,22 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Vessel</label>
-                                <div class="col-4">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Vessel</label>
+                                <div class="col-sm-4">
                                     <app-autocomplete3 [controlname]="'VESSEL'" [tabletype]="'VESSEL'"
                                         [displaycolumn]="'NAME'" [displaydata]="Record.co_vessel_name"
                                         (ValueChanged)="LovSelected($event)">
                                     </app-autocomplete3>
                                 </div>
-                                <label class="col-2 col-form-label col-form-label-sm">Voyage</label>
-                                <div class="col-4" style="padding-left:0">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Voyage</label>
+                                <div class="col-sm-4">
                                     <input type="text" class="form-control form-control-sm"
                                         [(ngModel)]="Record.co_vessel_no" (blur)="OnBlur('co_vessel_no')" />
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
-                                <div class="col-10">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" class="form-control form-control-sm"
                                         [(ngModel)]="Record.co_remarks" (blur)="OnBlur('co_remarks')"
                                         maxlength="250"></textarea>
@@ -201,8 +200,8 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label col-form-label-sm"></label>
-                                    <div class="col-10">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                                    <div class="col-sm-10">
                                         <button [disabled]="loading" (click)="OrderList(Record)"
                                             class="btn btn-primary btn-sm">Find</button>
                                         <!-- <button [disabled]="loading" (click)="TrackOrders(trackorder)"
