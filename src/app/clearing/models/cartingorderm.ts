@@ -27,3 +27,37 @@ export class CartingOrderm {
     OrderList: Joborderm[] = [];
 }
 
+
+export interface iCartingOrdermModel {
+
+    selectedRowIndex: number;
+    mode: string;
+    pkid: string;
+    currentTab: string;
+    searchstring: string;
+    ErrorMessage: string;
+    InfoMessage: string;
+    RecordList: CartingOrderm[];
+    page_count: number;
+    page_current: number;
+    page_rows: number;
+    page_rowcount: number;
+
+
+
+};
+
+export const initialState: iCartingOrdermModel = {
+    selectedRowIndex: 0,
+    mode: '',
+    pkid: '',
+    currentTab: 'LIST',
+    searchstring: '',
+    ErrorMessage: '',
+    InfoMessage: '',
+    RecordList: [],
+    page_count: 0,
+    page_current: 0,
+    page_rows: 10,
+    page_rowcount: 0
+} 

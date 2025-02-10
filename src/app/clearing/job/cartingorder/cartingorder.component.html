@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="col">
-        <label>{{title}}</label>
+        <label>{{title}}{{mainService.state.mode==''?'':'-'+mainService.state.mode}}</label>
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
         <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="mainService.state.currentTab=='LIST'" class="page-list">
     <div class="page-search">
         <div class="row">
             <div class="col-sm-12">
@@ -16,7 +16,7 @@
                     <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
                     <div class="col-sm-4">
                         <input type="text" class="col form-control form-control-sm" name="Search"
-                            [(ngModel)]="searchstring" />
+                            [(ngModel)]="mainService.state.searchstring" />
                     </div>
                     <div class="col-sm-3">
                         <button [disabled]="loading" (click)="List('NEW')"
@@ -28,10 +28,11 @@
     </div>
 
     <div class="page-pager">
-        <div *ngIf="page_count">
+        <div *ngIf="mainService.state.page_count">
             <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link">Page
+                        {{mainService.state.page_current}}/{{mainService.state.page_count}}
+                        (Records-{{mainService.state.page_rowcount}})</a></li>
                 <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                             class="fa fa-backward"></span></a></li>
                 <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
@@ -57,9 +58,10 @@
                     <th>VOYAGE</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr (click)="ActionHandler('EDIT',rec.co_pkid)">
-                    <td>{{rec.co_sl_no}}</td>
+            <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordList;let i = index">
+                <tr [class.active]="i == mainService.state.selectedRowIndex"
+                    (mousedown)="mainService.state.selectedRowIndex=i">
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.co_pkid)">{{rec.co_sl_no}}</td>
                     <td>{{rec.co_date}}</td>
                     <td>{{rec.co_agent_name}}</td>
                     <td>{{rec.co_exp_name}}</td>
@@ -72,10 +74,10 @@
     </div>
 
     <div class="page-pager">
-        <div *ngIf="page_count">
+        <div *ngIf="mainService.state.page_count">
             <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link">Page {{mainService.state.page_current}}/{{mainService.state.page_count}}
+                        (Records-{{mainService.state.page_rowcount}})</a></li>
                 <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                             class="fa fa-backward"></span></a></li>
                 <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
@@ -89,7 +91,7 @@
     </div>
 </div>
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="mainService.state.currentTab=='DETAILS'" class="page-details">
     <ngb-tabset>
         <ngb-tab title="Basic Details">
             <ng-template ngbTabContent>
@@ -118,9 +120,10 @@
                                     <!-- <app-autocomplete #AgentLov [disabled]="Record.OrderList.length > 0"
                                         [inputdata]="AGENTRECORD"
                                         (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
-                                    <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="getSwhere('AGENT')"
-                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_agent_code"
-                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'"
+                                        [where]="getSwhere('AGENT')" [displaycolumn]="'CODE'"
+                                        [displaydata]="Record.co_agent_code" (ValueChanged)="LovSelected($event)"
+                                        [disabled]="Record.OrderList.length > 0">
                                     </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
@@ -133,9 +136,10 @@
                                 <div class="col-4">
                                     <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
                                         (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
-                                    <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="getSwhere('SHIPPER')"
-                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_exp_code"
-                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
+                                        [where]="getSwhere('SHIPPER')" [displaycolumn]="'CODE'"
+                                        [displaydata]="Record.co_exp_code" (ValueChanged)="LovSelected($event)"
+                                        [disabled]="Record.OrderList.length > 0">
                                     </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
@@ -148,9 +152,10 @@
                                 <div class="col-4">
                                     <!-- <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
                                         (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
-                                    <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="getSwhere('CONSIGNEE')"
-                                        [displaycolumn]="'CODE'" [displaydata]="Record.co_imp_code"
-                                        (ValueChanged)="LovSelected($event)" [disabled]="Record.OrderList.length > 0">
+                                    <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'"
+                                        [where]="getSwhere('CONSIGNEE')" [displaycolumn]="'CODE'"
+                                        [displaydata]="Record.co_imp_code" (ValueChanged)="LovSelected($event)"
+                                        [disabled]="Record.OrderList.length > 0">
                                     </app-autocomplete3>
                                 </div>
                                 <div class="col-6" style="padding-left:0">
@@ -268,11 +273,11 @@
                 </div>
                 <br />
                 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-                <div *ngIf="InfoMessage" class="alert alert-success">
-                    {{InfoMessage}}
+                <div *ngIf="mainService.state.InfoMessage" class="alert alert-success">
+                    {{mainService.state.InfoMessage}}
                 </div>
-                <div *ngIf="ErrorMessage" class="alert alert-danger">
-                    {{ErrorMessage}}
+                <div *ngIf="mainService.state.ErrorMessage" class="alert alert-danger">
+                    {{mainService.state.ErrorMessage}}
                 </div>
             </ng-template>
         </ngb-tab>
