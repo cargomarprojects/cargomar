@@ -34,7 +34,7 @@
             Xml</button>
           <button [disabled]="loading" (click)="GenerateBookingXml(ftpsent)" class="btn btn-primary btn-sm">Generate
             Booking Xml</button>
-            <!-- <button [disabled]="loading" (click)="DeleteFiles()" class="btn btn-primary btn-sm">Test delet Files from folder </button> -->
+          <!-- <button [disabled]="loading" (click)="DeleteFiles()" class="btn btn-primary btn-sm">Test delet Files from folder </button> -->
           <!-- <button [disabled]="loading" (click)="AutoBookingXmlFtp()" class="btn btn-primary btn-sm">Auto Booking Xml</button> -->
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
@@ -87,6 +87,27 @@
         <div class="col-4">
           <button [disabled]="loading" (click)="GenerateCostingXml()" class="btn btn-primary btn-sm">Generate Costing
             Invoice</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-details">
+  <div class="row">
+
+    <div class="col-sm-12">
+      <label class="col-form-label col-form-label-sm">File Content in Bytes</label>
+      <div class="form-group row">
+        <div class="col-12">
+          <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="files_bytes"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-6">
+          <button [disabled]="loading" (click)="DownloadPdf()" class="btn btn-primary btn-sm">Download 64bit Bytes to
+            pdf file
+          </button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>

@@ -40,6 +40,8 @@ export class XmlComponent {
   branch_code: string;
   branch_number: number;
 
+  files_bytes: string = '';
+
   hbl_nos = '';
   agent_id = 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621';
   agent_name = 'RITRA CARGO (HOLLAND) B.V.';
@@ -485,6 +487,27 @@ export class XmlComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+
+  }
+
+  DownloadPdf() {
+
+    const base64String = this.files_bytes; // Your Base64 string
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'download.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
   }
 }
