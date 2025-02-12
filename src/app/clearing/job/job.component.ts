@@ -1320,13 +1320,14 @@ export class JobComponent {
         if (this.mode == 'ADD') {
           this.Record.job_docno = response.docno;
           this.Record.job_prefix = response.jobprefix;
-          this.Record.job_unlockid = '';
+          //this.Record.job_unlockid = '';
           // this.old_shipper_id = this.Record.job_exp_id;
           // this.old_billto_id = this.Record.job_billto_id;
           this.InfoMessage = "New Record " + this.Record.job_docno + " Generated Successfully";
         } else
           this.InfoMessage = "Save Complete";
 
+        this.Record.job_unlockid = '';
         this.old_shipper_id = this.Record.job_exp_id;
         this.old_billto_id = this.Record.job_billto_id;
         this.mode = 'EDIT';
