@@ -95,7 +95,35 @@
 </div>
 <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-details">
   <div class="row">
-
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">Shipper</label>
+        <div class="col-sm-4">
+          <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="sWhere"
+            [displaycolumn]="'NAME'" [displaydata]="exporter_name" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete3>
+        </div>
+        <label class="col-sm-2 col-form-label col-form-label-sm">Trading Partner</label>
+        <div class="col-sm-4">
+          <select class="form-control form-control-sm" [(ngModel)]="partner_id">
+            <option [value]="'E4A7788E-D38B-2C00-B120-4865E82EF88D'">UNISOURCE TRADING (INDIA) PVT. LTD</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label col-form-label-sm">FCR#</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="fcr_no" />
+        </div>
+        <div class="col-6">
+          <button [disabled]="loading" (click)="GenerateFcrData()" class="btn btn-primary btn-sm">Generate FCR Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-12">
       <label class="col-form-label col-form-label-sm">File Content in Bytes</label>
       <div class="form-group row">

@@ -35,5 +35,9 @@ export class XmlService {
     DeleteFilesFromFolder(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/DeleteFilesFromFolder', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    GenerateFcrData(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GenerateFcrData', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

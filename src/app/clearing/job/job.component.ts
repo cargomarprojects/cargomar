@@ -1321,12 +1321,14 @@ export class JobComponent {
           this.Record.job_docno = response.docno;
           this.Record.job_prefix = response.jobprefix;
           this.Record.job_unlockid = '';
-          this.old_shipper_id = this.Record.job_exp_id;
-          this.old_billto_id = this.Record.job_billto_id;
+          // this.old_shipper_id = this.Record.job_exp_id;
+          // this.old_billto_id = this.Record.job_billto_id;
           this.InfoMessage = "New Record " + this.Record.job_docno + " Generated Successfully";
         } else
           this.InfoMessage = "Save Complete";
 
+        this.old_shipper_id = this.Record.job_exp_id;
+        this.old_billto_id = this.Record.job_billto_id;
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
@@ -1636,7 +1638,7 @@ export class JobComponent {
           this.Record.job_toorder_add3 = this.Record.job_toorder_add3.toUpperCase();
           break;
         }
-        case 'job_toorder_city':
+      case 'job_toorder_city':
         {
           this.Record.job_toorder_city = this.Record.job_toorder_city.toUpperCase();
           break;

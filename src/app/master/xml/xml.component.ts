@@ -39,8 +39,12 @@ export class XmlComponent {
   branch_name: string;
   branch_code: string;
   branch_number: number;
-
+  sWhere = "CUST_IS_SHIPPER = 'Y'";
   files_bytes: string = '';
+  exporter_id = "";
+  exporter_name = "";
+  partner_id = "E4A7788E-D38B-2C00-B120-4865E82EF88D";
+  fcr_no = "";
 
   hbl_nos = '';
   agent_id = 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621';
@@ -143,6 +147,10 @@ export class XmlComponent {
       this.branch_code = _Record.code;
       this.branch_name = _Record.name;
       this.branch_number = +_Record.col1;
+    }
+    if (_Record.controlname == "SHIPPER") {
+      this.exporter_id = _Record.id;
+      this.exporter_name = _Record.name;
     }
   }
 
@@ -492,6 +500,10 @@ export class XmlComponent {
 
   DownloadPdf() {
 
+    if (this.gs.isBlank(this.files_bytes)) {
+      alert('Invalid File Bytes')
+      return;
+    }
     const base64String = this.files_bytes; // Your Base64 string
     const byteCharacters = atob(base64String);
     const byteNumbers = new Array(byteCharacters.length);
@@ -509,5 +521,33 @@ export class XmlComponent {
     link.click();
     document.body.removeChild(link);
 
+  }
+
+  GenerateFcrData() {
+    this.ErrorMessage = '';
+
+    if (this.gs.isBlank(this.fcr_no)) {
+      alert('Invalid FCR No')
+      return;
+    }
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    let SearchData = {
+      exporter_id: this.exporter_id,
+      fcr_no: this.fcr_no,
+      partner_id: this.partner_id
+    };
+
+    this.mainService.GenerateFcrData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.files_bytes = response.data.fcr_pdf;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
