@@ -113,27 +113,38 @@
     </div>
     <div class="col-sm-6">
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label col-form-label-sm">FCR#</label>
+        <div class="col-sm-2">
+          <select class="form-control form-control-sm" [(ngModel)]="ref_type">
+            <option [value]="'FCR'">FCR#</option>
+            <option [value]="'HBL'">HBL#</option>
+            <option [value]="'INVOICE'">INVOICE#</option>
+          </select>
+        </div>
         <div class="col-sm-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="fcr_no" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="ref_no" />
         </div>
         <div class="col-6">
-          <button [disabled]="loading" (click)="GenerateFcrData()" class="btn btn-primary btn-sm">Generate FCR
-            Data</button>
+          <button [disabled]="loading" (click)="GenerateFcrData()" class="btn btn-primary btn-sm">Generate Data</button>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <label class="col-form-label col-form-label-sm">File Content in Bytes</label>
       <div class="form-group row">
-        <div class="col-12">
+        <label class="col-1 col-form-label col-form-label-sm">Json Data</label>
+        <div class="col-11">
+          <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="json_data"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-1 col-form-label col-form-label-sm">File in Bytes</label>
+        <div class="col-11">
           <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="files_bytes"></textarea>
         </div>
       </div>
       <div class="form-group row">
-        <div class="col-6">
+        <div class="offset-1 col-6">
           <button [disabled]="loading" (click)="DownloadPdf()" class="btn btn-primary btn-sm">Download 64bit Bytes to
             pdf file
           </button>

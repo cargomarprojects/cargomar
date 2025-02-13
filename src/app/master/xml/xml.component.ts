@@ -40,11 +40,14 @@ export class XmlComponent {
   branch_code: string;
   branch_number: number;
   sWhere = "CUST_IS_SHIPPER = 'Y'";
+
   files_bytes: string = '';
+  json_data: string = '';
   exporter_id = "";
   exporter_name = "";
   partner_id = "E4A7788E-D38B-2C00-B120-4865E82EF88D";
-  fcr_no = "";
+  ref_no = "";
+  ref_type = "FCR";
 
   hbl_nos = '';
   agent_id = 'E5A80C01-0528-4759-A0E3-CBE5DDDD5621';
@@ -526,7 +529,7 @@ export class XmlComponent {
   GenerateFcrData() {
     this.ErrorMessage = '';
 
-    if (this.gs.isBlank(this.fcr_no)) {
+    if (this.gs.isBlank(this.ref_no)) {
       alert('Invalid FCR No')
       return;
     }
@@ -535,13 +538,15 @@ export class XmlComponent {
     this.ErrorMessage = '';
     let SearchData = {
       exporter_id: this.exporter_id,
-      fcr_no: this.fcr_no,
+      refno: this.ref_no,
+      reftype: this.ref_type,
       partner_id: this.partner_id
     };
 
     this.mainService.GenerateFcrData(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.json_data = JSON.stringify(response.data);
         this.files_bytes = response.data.fcr_pdf;
       },
         error => {
