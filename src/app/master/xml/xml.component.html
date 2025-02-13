@@ -93,6 +93,27 @@
     </div>
   </div>
 </div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Sea Xml Will direct generate Sea BL files in our server
+    xmldata folder</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Air Xml Will direct generate Air BL files in our server
+    xmldata folder</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xml Will generate Booking files and attached in
+    FTP Popup Window</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xls Will generate Booking files and attached in
+    FTP Popup Window</label>
+</div>
+<div>
+  <label class="col-form-label col-form-label-sm p-0">Generate Costing Invoice Will direct generate Costing Invoice
+    files in our server xmldata folder</label>
+</div>
+
 <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-details">
   <div class="row">
     <div class="col-sm-6">
@@ -145,34 +166,17 @@
       </div>
       <div class="form-group row">
         <div class="offset-1 col-6">
-          <button [disabled]="loading" (click)="DownloadPdf()" class="btn btn-primary btn-sm">Download 64bit Bytes to
-            pdf file
+          <button [disabled]="loading" (click)="DownloadPdf('DOWNLOAD')" class="btn btn-primary btn-sm">Download file
+          </button>
+          <button [disabled]="loading" (click)="DownloadPdf('VIEW')" class="btn btn-primary btn-sm">View file
+          </button>
+          <button [disabled]="loading" (click)="DownloadPdf('CLOSE')" class="btn btn-primary btn-sm">Close file
           </button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div>
-  <label class="col-form-label col-form-label-sm p-0">Generate Sea Xml Will direct generate Sea BL files in our server
-    xmldata folder</label>
-</div>
-<div>
-  <label class="col-form-label col-form-label-sm p-0">Generate Air Xml Will direct generate Air BL files in our server
-    xmldata folder</label>
-</div>
-<div>
-  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xml Will generate Booking files and attached in
-    FTP Popup Window</label>
-</div>
-<div>
-  <label class="col-form-label col-form-label-sm p-0">Generate Booking Xls Will generate Booking files and attached in
-    FTP Popup Window</label>
-</div>
-<div>
-  <label class="col-form-label col-form-label-sm p-0">Generate Costing Invoice Will direct generate Costing Invoice
-    files in our server xmldata folder</label>
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>

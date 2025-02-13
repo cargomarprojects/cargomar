@@ -501,7 +501,7 @@ export class XmlComponent {
 
   }
 
-  DownloadPdf() {
+  DownloadPdf(_type: string) {
 
     if (this.gs.isBlank(this.files_bytes)) {
       alert('Invalid File Bytes')
@@ -516,14 +516,33 @@ export class XmlComponent {
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-    // Create a download link
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'download.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (_type == 'DOWNLOAD') {
+      // Create a download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'download.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    if (_type == 'VIEW') {
+      // Create a URL for the Blob to view
+      const objectURL = URL.createObjectURL(blob);
 
+      // Create an object element and set the data attribute to the object URL
+      const object = document.createElement('object');
+      object.data = objectURL;
+      object.type = 'application/pdf';
+      object.style.width = '100%';  // Set the width of the object
+      object.style.height = '600px'; // Set the height of the object
+      document.body.appendChild(object); // Append object to the body (or specific container)
+    }
+    if (_type == 'CLOSE') {
+      const pdfObject = document.querySelector('object');
+      if (pdfObject) {
+        pdfObject.remove(); // Removes the specific PDF viewer (object)
+      }
+    }
   }
 
   GenerateFcrData() {
