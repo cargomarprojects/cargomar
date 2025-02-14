@@ -571,7 +571,6 @@ export class XmlComponent {
         this.json_data = JSON.stringify(response.data);
         this.files_bytes = response.data.fcr_pdf;
         console.log('Data: ', this.json_data);
-        console.log('fileBytes: ', this.files_bytes);
         this.DownloadPdf('VIEW');
       },
         error => {
