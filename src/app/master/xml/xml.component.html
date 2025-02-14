@@ -145,14 +145,16 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="ref_no" />
         </div>
         <div class="col-6">
-          <button [disabled]="loading" (click)="GenerateFcrData()" class="btn btn-primary btn-sm">Generate Data</button>
+          <button [disabled]="loading" (click)="GenerateFcrData()" class="btn btn-primary btn-sm">Generate FCR</button>
+          <button [disabled]="loading" (click)="DownloadPdf('CLOSE')" class="btn btn-primary btn-sm">Close file
+          </button>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <div class="form-group row">
+      <!-- <div class="form-group row">
         <label class="col-1 col-form-label col-form-label-sm">Json Data</label>
         <div class="col-11">
           <textarea rows="5" class="form-control form-control-sm" [(ngModel)]="json_data"></textarea>
@@ -174,6 +176,9 @@
           </button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
+      </div> -->
+      <div class="form-group row">
+        <div #pdfContainer class="offset-1 col-11"></div>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy,ViewChild,ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { XmlService } from '../services/xml.service';
@@ -15,6 +15,7 @@ export class XmlComponent {
   // Local Variables 
   title = 'XmlEdi';
 
+  @ViewChild('pdfContainer') pdfContainer: ElementRef;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -535,7 +536,9 @@ export class XmlComponent {
       object.type = 'application/pdf';
       object.style.width = '100%';  // Set the width of the object
       object.style.height = '600px'; // Set the height of the object
-      document.body.appendChild(object); // Append object to the body (or specific container)
+      //document.body.appendChild(object); // Append object to the body (or specific container)
+
+      this.pdfContainer.nativeElement.appendChild(object);
     }
     if (_type == 'CLOSE') {
       const pdfObject = document.querySelector('object');
@@ -567,6 +570,9 @@ export class XmlComponent {
         this.loading = false;
         this.json_data = JSON.stringify(response.data);
         this.files_bytes = response.data.fcr_pdf;
+        console.log('Data: ', this.json_data);
+        console.log('fileBytes: ', this.files_bytes);
+        this.DownloadPdf('VIEW');
       },
         error => {
           this.loading = false;
