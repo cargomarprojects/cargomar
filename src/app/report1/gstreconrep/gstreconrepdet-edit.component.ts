@@ -15,6 +15,7 @@ export class GstReconRepDetEditComponent {
     title = '';
 
     @Input() record: Gstr2bDownload = new Gstr2bDownload;
+    @Input() period: number = 2020;
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     pkid: string = '';
@@ -50,7 +51,8 @@ export class GstReconRepDetEditComponent {
         cgst: 0,
         sgst: 0,
         gst_bal: 0,
-        category: ''
+        category: '',
+        period: this.period
     }
 
     constructor(
@@ -78,6 +80,7 @@ export class GstReconRepDetEditComponent {
             this.SearchData.sgst = this.record.state_ut_tax;
         }
         this.SearchData.category = this.record.rec_category;
+        this.SearchData.period = this.period;
     }
 
 
