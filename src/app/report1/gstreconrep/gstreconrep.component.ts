@@ -286,9 +286,9 @@ export class GstReconRepComponent {
       return;
     }
 
-    if (!confirm("Do you want to Process Data - " + this.mainService.state.gst_recon_state_name + " - " + this.getMonth(this.mainService.state.gst_recon_month) + ", " + this.mainService.state.gst_recon_year)) {
-      return;
-    }
+    // if (!confirm("Do you want to Process Data - " + this.mainService.state.gst_recon_state_name + " - " + this.getMonth(this.mainService.state.gst_recon_month) + ", " + this.mainService.state.gst_recon_year)) {
+    //   return;
+    // }
 
     this.loading = true;
     this.SearchData.category = this.type;
@@ -419,6 +419,7 @@ export class GstReconRepComponent {
       .subscribe(response => {
         this.loading = false;
         // alert(response.retmsg)
+        this.ProcessGstReconcile();
       },
         error => {
           this.loading = false;

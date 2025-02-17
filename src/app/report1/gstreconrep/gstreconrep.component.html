@@ -65,14 +65,12 @@
                                     <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
                                         class="btn btn-primary btn-sm">Excel</button>
                                     <button *ngIf="bAdmin" [disabled]="loading" (click)="UpdatePurchaseData()"
-                                        class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Update 2B Data':'Update 2A
+                                        class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Update 2B
+                                        Data':'Update 2A
                                         Data'}}</button>
-                                    <button *ngIf="bAdmin" [disabled]="loading" (click)="ProcessGstReconcile()"
-                                        class="btn btn-primary btn-sm">{{type=='GSTR-2B'?'Process 2B':'Process
-                                        2A'}}</button>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group row">
                                 <div class="col-12">
                                     <button *ngIf="bOtpSave" [disabled]="loading" (click)="ShowOtp(otpdet)"
@@ -80,7 +78,7 @@
                                     <button *ngIf="bGstr2Download" [disabled]="loading" (click)="ProcessGstr2B(type)"
                                         class="btn btn-primary btn-sm mt-1">Download&nbsp;{{type}}</button>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                     </div>
