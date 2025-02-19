@@ -143,6 +143,7 @@ export interface iGstr2bDownloadModel {
     gst_recon_itc_list_state_name: string;
     gst_recon_itc_list_month: string;
     gst_recon_itc_list_year: string;
+    gst_recon_itc_list_period: string;
     gst_recon_itc_chk_notclaimed: boolean;
     gst_recon_itc_igst_tot: number;
     gst_recon_itc_cgst_tot: number;
@@ -191,6 +192,7 @@ export const initialState: iGstr2bDownloadModel = {
     gst_recon_itc_list_state_name: '',
     gst_recon_itc_list_month: '',
     gst_recon_itc_list_year: '',
+    gst_recon_itc_list_period: '202411',
     gst_recon_itc_chk_notclaimed: true,
     gst_recon_itc_igst_tot: 0,
     gst_recon_itc_cgst_tot: 0,

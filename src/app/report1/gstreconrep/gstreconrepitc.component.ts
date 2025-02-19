@@ -37,7 +37,7 @@ export class GstReconRepItcComponent {
 
   gstin_supplier: string = "";
   period_id: string = "";
-  period: string = "";
+  //period: string = "";
   // claim_period: string = "";
 
   MonList: any[] = [];
@@ -168,7 +168,7 @@ export class GstReconRepItcComponent {
     this.mainService.state.gst_recon_itc_list_state_name = this.mainService.state.gst_recon_itc_state_name;
     this.mainService.state.gst_recon_itc_list_year = this.mainService.state.gst_recon_itc_year;
     this.mainService.state.gst_recon_itc_list_month = this.mainService.state.gst_recon_itc_month;
-    this.period = this.mainService.state.gst_recon_itc_list_year + this.mainService.state.gst_recon_itc_list_month;
+    this.mainService.state.gst_recon_itc_list_period = this.mainService.state.gst_recon_itc_list_year + this.mainService.state.gst_recon_itc_list_month;
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
