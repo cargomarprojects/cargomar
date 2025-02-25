@@ -74,9 +74,9 @@
             <div class="col-sm-8 input-group input-group-sm">
               <select class="form-control form-control-sm mr-1"
                 [(ngModel)]="mainService.state.gst_recon_itc_claim_status">
-                <option [value]="'OP'">OP</option>
+                <!-- <option [value]="'OP'">OP</option> -->
                 <option [value]="'ITC AVAILED'">ITC AVAILED</option>
-                <option [value]="'PENDING'">PENDING</option>
+                <!-- <option [value]="'PENDING'">PENDING</option> -->
                 <option [value]="'REJECTED'">REJECTED</option>
               </select>
               <button [disabled]="loading" (click)="UpdateItcBluck()" class="btn btn-primary btn-sm">Update
@@ -89,8 +89,12 @@
               <strong *ngIf="mainService.state.gst_recon_itc_igst_tot!=0">IGST: </strong><span
                 *ngIf="mainService.state.gst_recon_itc_igst_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_igst_tot}}</span>&nbsp;
-              <strong *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0">CGST: </strong> <span *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0" style="color: red;">{{mainService.state.gst_recon_itc_cgst_tot}}</span>&nbsp;
-              <strong *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0">SGST: </strong> <span *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0" style="color: red;">{{mainService.state.gst_recon_itc_sgst_tot}}</span>
+              <strong *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0">CGST: </strong> <span
+                *ngIf="mainService.state.gst_recon_itc_cgst_tot!=0"
+                style="color: red;">{{mainService.state.gst_recon_itc_cgst_tot}}</span>&nbsp;
+              <strong *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0">SGST: </strong> <span
+                *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0"
+                style="color: red;">{{mainService.state.gst_recon_itc_sgst_tot}}</span>
             </label>
           </div>
         </div>
@@ -175,7 +179,7 @@
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
           <td *ngIf="bSave" class="hlink"
-            (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source)">
+            (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source,rec.g_match_id,rec.download_type)">
             <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
           </td>
           <td>{{rec.claim_created_by}}</td>
@@ -186,7 +190,8 @@
             <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
               <div class="row">
                 <div class="col-sm-12">
-                  <app-gstreconrepdet-edit [record]="rec"  [period]="mainService.state.gst_recon_itc_list_period" ></app-gstreconrepdet-edit>
+                  <app-gstreconrepdet-edit [record]="rec"
+                    [period]="mainService.state.gst_recon_itc_list_period"></app-gstreconrepdet-edit>
                 </div>
               </div>
             </div>

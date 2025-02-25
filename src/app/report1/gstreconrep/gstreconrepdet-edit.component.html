@@ -55,21 +55,25 @@
         <div *ngIf="record.integrated_tax>0" class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-2 col-form-label  col-form-label-sm">IGST</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.igst" (blur)="OnBlur('igst')"
-                            required maxlength="50" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">IGST</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.igst"
+                            (blur)="OnBlur('igst')" required maxlength="50" />
                     </div>
-                    <label class="col-2 col-form-label  col-form-label-sm">Balance</label>
-                    <div class="col-4">
-                        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="SearchData.gst_bal"
-                            maxlength="50" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Balance</label>
+                    <div class="col-sm-4">
+                        <input type="number" disabled class="form-control form-control-sm"
+                            [(ngModel)]="SearchData.gst_bal" maxlength="50" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
+                    <div class="col-sm-6">
+                        <input type="checkbox" [(ngModel)]="SearchData.chk_itcrejected" id="_chkitcrejected">
+                        <label class="col-form-label col-form-label-sm" for="_chkitcrejected">Rejected</label>
+                    </div>
+                    <div class="col-sm-6">
                         <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Update</button>
                         <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -80,26 +84,30 @@
         <div *ngIf="record.integrated_tax<=0" class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-2 col-form-label  col-form-label-sm">CGST</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.cgst"  (blur)="OnBlur('cgst')"
-                            required maxlength="50" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">CGST</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.cgst"
+                            (blur)="OnBlur('cgst')" required maxlength="50" />
                     </div>
-                    <label class="col-2 col-form-label  col-form-label-sm">SGST</label>
-                    <div class="col-4">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.sgst"  (blur)="OnBlur('sgst')"
-                            maxlength="50" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">SGST</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="SearchData.sgst"
+                            (blur)="OnBlur('sgst')" maxlength="50" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-2 col-form-label  col-form-label-sm">Balance</label>
-                    <div class="col-4">
-                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="SearchData.gst_bal"
-                            maxlength="50" />
+                    <label class="col-sm-2 col-form-label  col-form-label-sm">Balance</label>
+                    <div class="col-sm-4">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="SearchData.gst_bal" maxlength="50" />
                     </div>
-                    <div class="offset-sm-2 col-sm-4">
+                    <div class="col-sm-2">
+                        <input type="checkbox" [(ngModel)]="SearchData.chk_itcrejected" id="_chkitcrejected">
+                        <label class="col-form-label col-form-label-sm" for="_chkitcrejected">Rejected</label>
+                    </div>
+                    <div class="col-sm-4">
                         <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm">Update</button>
                         <button [disabled]="loading" (click)="Close()" class="btn btn-primary btn-sm">Close</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>

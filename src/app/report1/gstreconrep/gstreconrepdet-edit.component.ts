@@ -52,7 +52,8 @@ export class GstReconRepDetEditComponent {
         sgst: 0,
         gst_bal: 0,
         category: '',
-        period: this.period
+        period: this.period,
+        chk_itcrejected: false
     }
 
     constructor(
@@ -78,6 +79,10 @@ export class GstReconRepDetEditComponent {
             this.SearchData.igst = this.record.integrated_tax;
             this.SearchData.cgst = this.record.central_tax;
             this.SearchData.sgst = this.record.state_ut_tax;
+            this.SearchData.gst_bal = this.record.gst_bal;
+            this.SearchData.chk_itcrejected = false;
+            if (this.record.claim_status == "REJECTED")
+                this.SearchData.chk_itcrejected = true;
         }
         this.SearchData.category = this.record.rec_category;
         this.SearchData.period = this.period;

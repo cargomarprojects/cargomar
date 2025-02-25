@@ -314,7 +314,9 @@ export class GstReconRepItcComponent {
       save_remarks: false,
       user_code: this.gs.globalVariables.user_code,
       state_code: this.mainService.state.gst_recon_itc_list_state_code,
-      jvh_pkid: _jvhId
+      jvh_pkid: _jvhId,
+      match_id: '',
+      doc_type: ''
     };
 
     this.loading = true;
@@ -345,7 +347,7 @@ export class GstReconRepItcComponent {
   }
 
 
-  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string) {
+  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string, _match_id: string, _doc_type: string) {
     let SearchData2 = {
       category: this.type,
       pkid: _id,
@@ -358,7 +360,9 @@ export class GstReconRepItcComponent {
       user_code: this.gs.globalVariables.user_code,
       display_claim_period: _display_claim_period,
       state_code: this.mainService.state.gst_recon_itc_list_state_code,
-      jvh_pkid: _download_source == "PURCHASE" ? _id : ''
+      jvh_pkid: _download_source == "PURCHASE" ? _id : '',
+      match_id: _match_id,
+      doc_type: _doc_type
     };
     this.loading = true;
     this.ErrorMessage = '';
