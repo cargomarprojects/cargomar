@@ -276,9 +276,9 @@ export class BlComponent {
 
   LoadCombo() {
 
-    this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "HS CODE", "name": "HS CODE" },{ "code": "INVOICE#", "name": "INVOICE#" }, { "code": "ITEM-DESC", "name": "ITEM-DESC" },
-      { "code": "OTHERS", "name": "OTHERS" },{ "code": "PACKAGES", "name": "PACKAGES" }, { "code": "PO#", "name": "PO#" },  
-      { "code": "SB#", "name": "SB#" }];
+    this.DescTypeList = [{ "code": "", "name": "NA" }, { "code": "HS CODE", "name": "HS CODE" }, { "code": "INVOICE#", "name": "INVOICE#" }, { "code": "ITEM-DESC", "name": "ITEM-DESC" },
+    { "code": "OTHERS", "name": "OTHERS" }, { "code": "PACKAGES", "name": "PACKAGES" }, { "code": "PO#", "name": "PO#" },
+    { "code": "SB#", "name": "SB#" }];
 
     this.loading = true;
     let SearchData = {
@@ -1419,7 +1419,10 @@ export class BlComponent {
       type: _type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      formatid: this.Record.hbl_seq_format_id,
+      bl_no:this.Record.hbl_bl_no,
+      fcr_no:this.Record.hbl_fcr_no
     };
 
     SearchData.pkid = this.parentid;
