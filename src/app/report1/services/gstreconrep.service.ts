@@ -55,6 +55,8 @@ export class GstReconRepService {
     this.state.gst_recon_ament_month = this.gs.defaultValues.gst_recon_ament_month;
     this.state.gst_recon_ament_state_code = this.gs.globalVariables.branch_gstin_state_code;
     this.state.gst_recon_ament_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_gensearch_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_gensearch_state_name = this.gs.globalVariables.branch_gstin_state_name;
   }
 
   List(SearchData: any) {
@@ -108,6 +110,10 @@ export class GstReconRepService {
 
   ProcessGSTRApi(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ProcessGSTRApi', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  GstGenSearchList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/GstGenSearchList', SearchData, this.gs.headerparam2('authorized'));
   }
 
 }
