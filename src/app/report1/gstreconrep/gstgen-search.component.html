@@ -69,8 +69,8 @@
                     <th class="text-right">IGST</th>
                     <th class="text-right">CGST</th>
                     <th class="text-right">SGST</th>
-                    <th>CLAIMED PERIOD</th>
-                    <th>CLAIMED.STATUS</th>
+                    <th *ngIf="type=='GSTR-2B'">CLAIMED PERIOD</th>
+                    <th *ngIf="type=='GSTR-2B'">CLAIMED.STATUS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListSearch; let i = index">
@@ -92,8 +92,8 @@
                     <td>{{rec.integrated_tax | number : '1.2-2'}}</td>
                     <td>{{rec.central_tax | number : '1.2-2' }}</td>
                     <td>{{rec.state_ut_tax | number : '1.2-2' }}</td>
-                    <td>{{rec.display_claimed_period}}</td>
-                    <td>{{rec.claim_status}}</td>
+                    <td *ngIf="type=='GSTR-2B'">{{rec.display_claimed_period}}</td>
+                    <td *ngIf="type=='GSTR-2B'">{{rec.claim_status}}</td>
                 </tr>
             </tbody>
         </table>
