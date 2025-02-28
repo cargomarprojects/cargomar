@@ -29,13 +29,6 @@ export class GstGenSearchComponent {
     sub: any;
     urlid: string;
 
-    // gensearch_state_code = "";
-    // gensearch_state_name = "";
-    // gensearch_from_date: string = "";
-    // gensearch_to_date: string = "";
-    // gensearch_supplier: string = "";
-    // gensearch_inv_no: string = "";
-
     ErrorMessage = "";
     mode = '';
     pkid = '';
@@ -63,12 +56,9 @@ export class GstGenSearchComponent {
         round_off: 5,
         recon_year: 0,
         recon_month: 0,
-        chk_notclaimed: true
+        inv_no: ''
     };
 
-    // Array For Displaying List
-    // RecordListItc: Gstr2bDownload[] = [];
-    //  Single Record for add/edit/view details
     Record: Gstr2bDownload = new Gstr2bDownload;
 
     constructor(
@@ -107,8 +97,8 @@ export class GstGenSearchComponent {
 
     LovSelected(_Record: SearchTable) {
         if (_Record.controlname == "STATE") {
-            this.mainService.state.gst_recon_itc_state_code = _Record.code;
-            this.mainService.state.gst_recon_itc_state_name = _Record.name;
+            this.mainService.state.gst_recon_gensearch_state_code = _Record.code;
+            this.mainService.state.gst_recon_gensearch_state_name = _Record.name;
         }
     }
     LoadCombo() {
@@ -118,6 +108,11 @@ export class GstGenSearchComponent {
     // // Query List Data
     List(_type: string) {
 
+        if (this.gs.isBlank(this.mainService.state.gst_recon_gensearch_supplier) && this.gs.isBlank(this.mainService.state.gst_recon_gensearch_inv_no)) {
+            alert("Please select at least one search criteria.");
+            return;
+        }
+
         this.loading = true;
         this.pkid = this.gs.getGuid();
         this.SearchData.pkid = this.pkid;
@@ -126,15 +121,12 @@ export class GstGenSearchComponent {
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
         this.SearchData.branch_code = this.gs.globalVariables.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
-        this.SearchData.searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
+        this.SearchData.searchstring = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase();
         this.SearchData.type = _type;
-        this.SearchData.format_type = this.mainService.state.gst_recon_itc_status;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
-        this.SearchData.state_code = this.mainService.state.gst_recon_itc_list_state_code;
+        this.SearchData.state_code = this.mainService.state.gst_recon_gensearch_state_code;
         this.SearchData.state_name = this.mainService.state.gst_recon_gensearch_state_name;
-        this.SearchData.recon_year = +this.mainService.state.gst_recon_itc_list_year;
-        this.SearchData.recon_month = +this.mainService.state.gst_recon_itc_list_month;
-        this.SearchData.chk_notclaimed = this.mainService.state.gst_recon_itc_chk_notclaimed;
+        this.SearchData.inv_no = this.mainService.state.gst_recon_gensearch_inv_no;
         this.ErrorMessage = '';
         this.mainService.GstGenSearchList(this.SearchData)
             .subscribe(response => {
@@ -167,8 +159,10 @@ export class GstGenSearchComponent {
     }
 
     OnBlur(field: string) {
-        if (field == "searchstring")
-            this.mainService.state.gst_recon_itc_searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
+        if (field == "gensearch_supplier")
+            this.mainService.state.gst_recon_gensearch_supplier = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase();
+        if (field == "gensearch_inv_no")
+            this.mainService.state.gst_recon_gensearch_inv_no = this.mainService.state.gst_recon_gensearch_inv_no.toUpperCase();
     }
 
     OnBlurCell(field: string, _rec: Gstr2bDownload) {
