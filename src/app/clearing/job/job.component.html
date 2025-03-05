@@ -127,6 +127,8 @@
             <th>JOB.BILL.TYPE</th>
             <th align='center'>DOCS</th>
             <th align='center'>SB.DOCS</th>
+            <th align='center'>INV.DOCS</th>
+            <th align='center'>PL.DOCS</th>
             <th>REMARK</th>
             <th *ngIf="type=='SEA EXPORT'">CONTAINER</th>
             <th *ngIf="type=='SEA EXPORT'">VESSEL</th>
@@ -163,6 +165,8 @@
             <td>{{rec.job_billtype_name}}</td>
             <td align='center'>{{rec.job_docs}}</td>
             <td align='center'>{{rec.job_sb_docs}}</td>
+            <td align='center'>{{rec.job_inv_docs}}</td>
+            <td align='center'>{{rec.job_pl_docs}}</td>
             <td>{{rec.job_remarks}}</td>
             <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr}}</td>
             <td *ngIf="type=='SEA EXPORT'">{{rec.job_feeder_vessel}}</td>
