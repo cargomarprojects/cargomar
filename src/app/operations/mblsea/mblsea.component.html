@@ -318,7 +318,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Terms</label>
+                  <label class="col-2 col-form-label col-form-label-sm">{{lockChar}}Terms</label>
                   <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.book_terms">
                       <option [value]="'EX-WORK'">EX-WORK</option>
@@ -374,7 +374,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">*MBL.Released.On</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">{{lockChar}}MBL.Released.On</label>
                   <div class="col-sm-4">
                     <app-date disabled [inputdate]="Record.book_released_date"
                       (ValueChanged)="Record.book_released_date=$event">
@@ -389,7 +389,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <!-- <label class="col-3 col-form-label col-form-label-sm"> *Folder# </label> -->
+                  <!-- <label class="col-3 col-form-label col-form-label-sm"> {{lockChar}}Folder# </label> -->
                   <div class="col-3">
                     <button [disabled]="(loading || Record.book_folder_no != ''|| mode=='ADD')"
                       (click)="GenerateFolderNo(Record.book_pkid)"
@@ -400,7 +400,7 @@
                     <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_folder_no"
                       (blur)="OnBlur('book_folder_no')" required maxlength="20" />
                   </div>
-                  <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">*Sent.On
+                  <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">{{lockChar}}Sent.On
                     <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                   </label>
                   <div style="padding-left:0" class="col-3">
@@ -428,7 +428,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label  col-form-label-sm">*Remarks</label>
+                  <label class="col-sm-3 col-form-label  col-form-label-sm">{{lockChar}}Remarks</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_mdesc"
                       (blur)="OnBlur('book_mdesc')" required maxlength="100" />
@@ -442,14 +442,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">*PreAlert.SentOn</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">{{lockChar}}PreAlert.SentOn</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
                     </app-date>
                   </div>
                   <div class="col-sm-4">
                     <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
+                      (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">{{lockChar}}Update</button>
                   </div>
                 </div>
                 <!-- <div class="form-group row">
@@ -547,7 +547,7 @@
                     </select>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm"
-                    style="padding-left:0;padding-right:0">*FreeDays</label>
+                    style="padding-left:0;padding-right:0">{{lockChar}}FreeDays</label>
                   <div style="padding-left:0" class="col-sm-3">
                     <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.book_free_days"
                       (blur)="OnBlur('book_free_days')" required maxlength="10" />
@@ -736,7 +736,7 @@
 
               <div class="col-sm-4">
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm">*Customer.Comments</label>
+                  <label class="col-3 col-form-label col-form-label-sm">{{lockChar}}Customer.Comments</label>
                   <div class="col-9">
                     <textarea rows="1" class="form-control form-control-sm" [(ngModel)]="Record.book_cust_comments"
                       maxlength="100"></textarea>

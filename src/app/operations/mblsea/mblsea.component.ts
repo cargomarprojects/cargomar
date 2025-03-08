@@ -83,6 +83,7 @@ export class MblSeaComponent {
   sAgent_ID = "";
   sAgent_ID2 = "";
   sCarrier_ID = "";
+  lockChar = "";
 
   mode = '';
   pkid = '';
@@ -705,7 +706,7 @@ export class MblSeaComponent {
 
     this.InitLov();
     this.Record.rec_mode = this.mode;
-
+    this.lockChar = "";
   }
 
   InitDefault() {
@@ -752,6 +753,7 @@ export class MblSeaComponent {
       this.chk_foldersent = true;
       this.folder_chk = true;
     }
+    this.lockChar = this.Record.lock_record ? "*" : "";
     this.InitLov();
 
     this.LINERRECORD.id = this.Record.book_liner_id;
@@ -837,6 +839,7 @@ export class MblSeaComponent {
       this.foldersent = false;
       this.chk_foldersent = false;
       this.folder_chk = false;
+      this.lockChar = "";
 
       this.Record.book_pkid = this.pkid;
       this.Record.book_slno = null;
@@ -1306,7 +1309,8 @@ export class MblSeaComponent {
       year_code: '',
       rowtype: '',
       book_slno: '',
-      book_free_days: 0
+      book_free_days: 0,
+      hbl_terms: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1323,6 +1327,7 @@ export class MblSeaComponent {
       SearchData.hbl_released_date = this.Record.book_released_date;
       SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
       SearchData.book_free_days = this.Record.book_free_days;
+      SearchData.hbl_terms = this.Record.book_terms;
     }
 
     if (controlname == 'bookno') {
