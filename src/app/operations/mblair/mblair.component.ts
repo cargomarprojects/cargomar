@@ -498,6 +498,7 @@ export class MblAirComponent {
   }
 
   NewRecord() {
+    this.lockChar = "";
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -573,7 +574,6 @@ export class MblAirComponent {
     this.Record.TransitList = new Array<Trackingm>();
     this.NewTransitRecord();
     this.InitDefault();
-    this.lockChar = "";
   }
   InitDefault() {
     if (this.StatusList != null) {

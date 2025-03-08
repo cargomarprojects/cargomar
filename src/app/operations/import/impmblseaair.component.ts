@@ -41,6 +41,7 @@ export class ImpMblSeaAirComponent {
   porttype = 'SEA PORT';
   carriertype = 'SEA CARRIER';
   searchby = "";
+  lockChar = "";
 
   page_count = 0;
   page_current = 0;
@@ -522,6 +523,7 @@ export class ImpMblSeaAirComponent {
   }
 
   NewRecord() {
+    this.lockChar = "";
     this.foldersent = false;
     this.chk_foldersent = false;
     this.folder_chk = false;
@@ -659,6 +661,7 @@ export class ImpMblSeaAirComponent {
       this.chk_foldersent = true;
       this.folder_chk = true;
     }
+    this.lockChar = this.Record.lock_record ? "*" : "";
     this.InitLov();
 
     this.LINERRECORD.id = this.Record.mbl_carrier_id;
