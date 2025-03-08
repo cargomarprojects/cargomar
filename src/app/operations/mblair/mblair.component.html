@@ -286,14 +286,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Folder#</label>
+                  <label class="col-2 col-form-label col-form-label-sm">{{lockChar}}Folder#</label>
                   <div class="col-4">
                     <input [disabled]="foldersent" type="text" class="form-control form-control-sm"
                       [(ngModel)]="Record.mbl_folder_no" (blur)="OnBlur('mbl_folder_no')" required maxlength="20" />
                   </div>
                   <!--<label class="col-2 col-form-label col-form-label-sm">Sent.Date</label>-->
                   <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">
-                    *Sent.On
+                    {{lockChar}}Sent.On
                     <input [disabled]="foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent">
                   </label>
                   <div class="col-4">
@@ -378,7 +378,7 @@
                 <div class="form-group row">
                   <div class="col-sm-4">
                     <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">*Update</button>
+                      (click)="SearchRecord('updatemaster')" class="btn btn-success btn-sm">{{lockChar}}Update</button>
                   </div>
                 </div>
               </div>

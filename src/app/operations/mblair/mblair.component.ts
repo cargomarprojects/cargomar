@@ -61,6 +61,7 @@ export class MblAirComponent {
 
   ErrorMessage = "";
   InfoMessage = "";
+  lockChar = "";
 
   sAgent_ID = "";
   sCarrier_ID = "";
@@ -572,6 +573,7 @@ export class MblAirComponent {
     this.Record.TransitList = new Array<Trackingm>();
     this.NewTransitRecord();
     this.InitDefault();
+    this.lockChar = "";
   }
   InitDefault() {
     if (this.StatusList != null) {
@@ -617,6 +619,7 @@ export class MblAirComponent {
       this.chk_foldersent = true;
       this.folder_chk = true;
     }
+    this.lockChar = this.Record.lock_record ? "*" : "";
     this.InitLov();
 
     this.AGENTRECORD.id = this.Record.mbl_agent_id;
