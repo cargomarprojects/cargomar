@@ -442,7 +442,8 @@ export class CustomerComponent {
     this.Record.cust_linked = false;
     this.Record.cust_alert = false;
     this.cust_linked = false;
-
+    this.Record.cust_cons_wise_sman = false;
+    
     this.Record.cust_nomination = 'NA';
     this.Record.cust_is_incomplete = true;
     this.Record.cust_incomplete_remarks = '';

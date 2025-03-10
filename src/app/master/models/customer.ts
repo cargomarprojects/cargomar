@@ -90,6 +90,7 @@ export class Customerm {
     cust_parent_id: string;
     cust_parent_code: string;
     cust_parent_name: string;
+    cust_cons_wise_sman: boolean;
 
     _globalvariables: GlobalVariables;
 

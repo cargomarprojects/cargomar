@@ -502,18 +502,25 @@
 
 
               <div class="form-group row">
-                <div class="offset-2 col-4">
+                <div class="offset-2 col-sm-4">
                   <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_incomplete" />
-                  <span>Incomplete</span>
+                  <!-- <span>Incomplete</span> -->
+                  <label class="col-form-label col-form-label-sm">Incomplete</label>
                 </div>
-                <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-6">
-                  <input type="checkbox" [(ngModel)]="Record.cust_alert" />
-                  <span>Job Alert</span>
+                <div class="col-sm-6">
+                  <input *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox"
+                    [(ngModel)]="Record.cust_alert" />
+                  <label *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-form-label col-form-label-sm">Job
+                    Alert&nbsp;</label>
+
+                  <input type="checkbox" [(ngModel)]="Record.cust_cons_wise_sman" />
+                  <label class="col-form-label col-form-label-sm">Consignee Wise Unlock</label>
+
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-2 col-form-label col-form-label-sm">HO Comments</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">HO Comments</label>
                 <div class="col-sm-10">
                   <textarea rows="4" [disabled]="!bAdmin2" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_incomplete_remarks" (blur)="OnBlur('cust_incomplete_remarks')" required
