@@ -39,6 +39,7 @@ export class AddReportsComponent {
 
     sales_from_date: string = '';
     sales_to_date: string = '';
+ 
 
     full_year: boolean = false;
     bExcel = false;
@@ -385,7 +386,61 @@ export class AddReportsComponent {
                 });
     }
 
+    PendingDocReport(_type: string, mailsent: any) {
 
+        this.ErrorMessage = '';
+        if (this.sales_from_date.trim().length <= 0) {
+            this.ErrorMessage = "From Date Cannot Be Blank";
+            return;
+        }
+        if (this.sales_to_date.trim().length <= 0) {
+            this.ErrorMessage = "To Date Cannot Be Blank";
+            return;
+        }
+
+        this.loading = true;
+        this.pkid = this.gs.getGuid();
+        this.SearchData.type = _type;
+        this.SearchData.pkid = this.pkid;
+        this.SearchData.report_folder = this.gs.globalVariables.report_folder;
+        this.SearchData.company_code = this.gs.globalVariables.comp_code;
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+        this.SearchData.year_code = this.gs.globalVariables.year_code;
+        this.SearchData.from_date = this.sales_from_date;
+        this.SearchData.to_date = this.sales_to_date;
+        this.ErrorMessage = '';
+        this.mainService.PendingDocReport(this.SearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+                if (_type == 'MAIL') {
+                    this.FileList = response.filelist;
+                    this.AttachList = new Array<any>();
+                    for (let rec of this.FileList) {
+                        this.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
+                    }
+                    this.sMailType = "PENDING-DOC-REPORT";
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.open(mailsent);
+                }
+                else {
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        this.FileList = response.filelist;
+                        for (let rec of this.FileList) {
+                            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+                        }
+                    }
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
+    }
     /* 
     AutoEmail()
     {
