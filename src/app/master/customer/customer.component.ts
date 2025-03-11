@@ -69,6 +69,7 @@ export class CustomerComponent {
   emailPerRow: number = 50;
   mode = '';
   pkid = '';
+  cons_wise_unlock_disabled: boolean = true;
 
   cust_linked: boolean = false;
   Is_Shipper: boolean = false;
@@ -155,9 +156,10 @@ export class CustomerComponent {
         this.bDelete = true;
     }
 
-    if (this.gs.globalVariables.user_code == "ADMIN")
+    if (this.gs.globalVariables.user_code == "ADMIN") {
       this.bAdmin2 = true;
-
+      this.cons_wise_unlock_disabled = false;
+    }
 
 
     this.LoadCombo();
@@ -443,7 +445,7 @@ export class CustomerComponent {
     this.Record.cust_alert = false;
     this.cust_linked = false;
     this.Record.cust_cons_wise_sman = false;
-    
+
     this.Record.cust_nomination = 'NA';
     this.Record.cust_is_incomplete = true;
     this.Record.cust_incomplete_remarks = '';
