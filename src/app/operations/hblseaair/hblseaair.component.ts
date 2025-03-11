@@ -838,7 +838,8 @@ export class HblSeaAirComponent {
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             customerid: this.Record.hbl_exp_id,
-            billtoid: this.Record.hbl_billto_id
+            billtoid: this.Record.hbl_billto_id,
+            consigneeid: this.Record.hbl_imp_id
         };
 
         this.ErrorMessage = '';
