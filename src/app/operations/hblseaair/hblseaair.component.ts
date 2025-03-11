@@ -763,6 +763,9 @@ export class HblSeaAirComponent {
 
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
+                this.Record.hbl_unlockid = '';
+                this.old_shipper_id = this.Record.hbl_exp_id;
+                this.old_billto_id = this.Record.hbl_billto_id;
                 this.Record.hbl_old_exp_id = this.Record.hbl_exp_id;
                 this.Record.hbl_old_imp_id = this.Record.hbl_imp_id;
                 //if (this.Record.hbl_mbl_bookslno != null)

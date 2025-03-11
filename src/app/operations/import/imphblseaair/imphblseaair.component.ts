@@ -827,6 +827,10 @@ export class ImpHblSeaAirComponent {
         //  if (this.Record.hbl_mbl_bookslno.length > 0)
         //    this.disableBookslno = true;
 
+        this.Record.hbl_unlockid = '';
+        this.old_importer_id = this.Record.hbl_imp_id;
+        this.old_billto_id = this.Record.hbl_billto_id;
+
         this.masterexist = this.IsMasterExist();
         this.RefreshList();
         alert(this.InfoMessage);
@@ -882,7 +886,8 @@ export class ImpHblSeaAirComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       customerid: this.Record.hbl_imp_id,
-      billtoid: this.Record.hbl_billto_id
+      billtoid: this.Record.hbl_billto_id,
+      consigneeid: this.Record.hbl_exp_id
     };
 
     this.ErrorMessage = '';
