@@ -27,7 +27,9 @@ export class JobUnlock {
     ul_bal_amt: number;
     ul_overdue_amt: number;
     ul_lock_type:string;
-    
+    ul_consignee_id: string;
+    ul_consignee_name: string;
+
     rec_mode: string;
 
     rec_company_code: string;

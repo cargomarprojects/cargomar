@@ -1834,7 +1834,8 @@ export class JobComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       customerid: this.Record.job_exp_id,
-      billtoid: this.Record.job_billto_id
+      billtoid: this.Record.job_billto_id,
+      consigneeid: this.Record.job_imp_id
     };
 
     this.ErrorMessage = '';

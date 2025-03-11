@@ -492,6 +492,12 @@
                   [(ngModel)]="Record.cust_is_others" />
                 <span>Others</span>
               </div>
+
+              <div class="col-12">
+                <input [disabled]="cons_wise_unlock_disabled" type="checkbox"
+                  [(ngModel)]="Record.cust_cons_wise_sman" />
+                <span>Consignee Wise Unlock</span>
+              </div>
             </div>
           </div>
         </div>
@@ -513,8 +519,8 @@
                   <label *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-form-label col-form-label-sm">Job
                     Alert&nbsp;</label>
 
-                  <input type="checkbox" [disabled]="cons_wise_unlock_disabled" [(ngModel)]="Record.cust_cons_wise_sman" />
-                  <label class="col-form-label col-form-label-sm">Consignee Wise Unlock</label>
+                  <!-- <input type="checkbox" [disabled]="cons_wise_unlock_disabled" [(ngModel)]="Record.cust_cons_wise_sman" /> -->
+                  <!-- <label class="col-form-label col-form-label-sm">Consignee Wise Unlock</label> -->
 
                 </div>
               </div>
