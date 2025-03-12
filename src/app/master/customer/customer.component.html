@@ -494,7 +494,7 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="cons_wise_unlock_disabled" type="checkbox"
+                <input [disabled]="!bAdmin2" type="checkbox"
                   [(ngModel)]="Record.cust_cons_wise_sman" />
                 <span>Consignee Wise Unlock</span>
               </div>

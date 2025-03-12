@@ -69,8 +69,7 @@ export class CustomerComponent {
   emailPerRow: number = 50;
   mode = '';
   pkid = '';
-  cons_wise_unlock_disabled: boolean = true;
-
+   
   cust_linked: boolean = false;
   Is_Shipper: boolean = false;
   Is_Foreigner: boolean = false;
@@ -158,7 +157,6 @@ export class CustomerComponent {
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
       this.bAdmin2 = true;
-      this.cons_wise_unlock_disabled = false;
     }
 
 

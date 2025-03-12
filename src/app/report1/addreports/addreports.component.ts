@@ -404,8 +404,8 @@ export class AddReportsComponent {
         this.SearchData.pkid = this.pkid;
         this.SearchData.report_folder = this.gs.globalVariables.report_folder;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-        this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+        this.SearchData.branch_code = '';
+        this.SearchData.branch_name = '';
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.SearchData.from_date = this.sales_from_date;
         this.SearchData.to_date = this.sales_to_date;
