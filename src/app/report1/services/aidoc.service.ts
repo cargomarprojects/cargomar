@@ -33,10 +33,6 @@ export class AiDocService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    GetRecord(SearchData: any) {
-        return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/GetRecord', SearchData, this.gs.headerparam2('authorized'));
-    }
-
     Save(Record: AiDocm) {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/Save', Record, this.gs.headerparam2('authorized'));
     }

@@ -9,7 +9,9 @@ export class AiDocm {
     ai_type: string;
     ai_bucket: string;
     ai_subject: string;
+    ai_secret: string;
     rec_created_date: string;
+    rec_mode: string;
 }
 
 export interface iAiDocmModel {

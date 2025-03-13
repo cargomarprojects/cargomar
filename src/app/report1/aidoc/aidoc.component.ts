@@ -109,4 +109,38 @@ export class AiDocComponent {
             this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
         }
     }
+
+
+    Save() {
+
+        let Rec: AiDocm = new AiDocm();
+
+        Rec.ai_pkid = this.gs.getGuid();
+        Rec.ai_secret = "2025";
+        Rec.ai_from_id = "chennaiops123@cargomar.in";
+        Rec.ai_to_id = "softwaresupport1223@cargomar.in";
+        Rec.ai_subject = "SB-CHNSF SB#8841230 DT.02/Apr/2024";
+        Rec.ai_type = "SBNEW";
+        Rec.ai_folder = "c:/Reports//INWARD-EDI-FILES/CHNSF/SB-SHIPPER-INVOICE/2024-04-02";
+        Rec.ai_subfolder = "SB-SHIPPER-INVOICE";
+        Rec.ai_bucket = "B25001";
+
+        Rec.rec_mode = "ADD";
+
+        console.log(JSON.stringify(Rec));
+
+        // this.loading = true;
+        // this.ms.Save(Rec)
+        //     .subscribe(response => {
+        //         this.loading = false;
+        //     },
+        //         error => {
+        //             this.loading = false;
+        //             this.ms.state.ErrorMessage = this.gs.getError(error);
+        //             alert(this.ms.state.ErrorMessage);
+        //         });
+
+
+    }
+
 }
