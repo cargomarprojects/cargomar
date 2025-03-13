@@ -83,6 +83,7 @@ import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
 import { OtpComponent } from './otp/otp.component';
 import { GstReconRepDetEditComponent } from './gstreconrep/gstreconrepdet-edit.component';
 import { GstGenSearchComponent } from './gstreconrep/gstgen-search.component';
+import { AiDocComponent } from './aidoc/aidoc.component';
 
 @NgModule({
   imports: [
@@ -149,7 +150,8 @@ import { GstGenSearchComponent } from './gstreconrep/gstgen-search.component';
     GstReconRepRcComponent,
     OtpComponent,
     GstReconRepDetEditComponent,
-    GstGenSearchComponent
+    GstGenSearchComponent,
+    AiDocComponent
   ],
   providers: [GstReconRepService
   ],

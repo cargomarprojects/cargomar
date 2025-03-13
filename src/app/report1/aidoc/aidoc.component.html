@@ -1,0 +1,86 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <!-- <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button> -->
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <label class="col-sm-2">Search</label>
+            <div class="col-sm-6">
+                <input type="text" class="col form-control form-control-sm" name="Search"
+                    [(ngModel)]="ms.state.searchstring" (blur)="OnBlur('searchstring')" />
+            </div>
+            <div class="col-sm-4">
+                <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="ms.state.page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{ms.state.page_current}}/{{ms.state.page_count}}
+                        (Records-{{ms.state.page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>FROM</th>
+                    <th>TO</th>
+                    <th>FOLDER</th>
+                    <th>SUB FOLDER</th>
+                    <th>TYPE</th>
+                    <th>BUCKET</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of ms.state.RecordList; let i = index"
+                    [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+                    <td>{{rec.ai_from_id}}</td>
+                    <td>{{rec.ai_to_id}}</td>
+                    <td>{{rec.ai_folder}}</td>
+                    <td>{{rec.ai_subfolder}}</td>
+                    <td>{{rec.ai_type}}</td>
+                    <td>{{rec.ai_bucket}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="ms.state.page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page
+                        {{ms.state.page_current}}/{{ms.state.page_count}}
+                        (Records-{{ms.state.page_rowcount}})</a></li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a></li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
