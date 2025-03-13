@@ -77,7 +77,6 @@ export class AiDocComponent {
         this.loading = true;
         let SearchData = {
             type: _type,
-            secretid: 'ABC',
             searchstring: this.ms.state.searchstring.toUpperCase(),
             page_count: this.ms.state.page_count,
             page_current: this.ms.state.page_current,
