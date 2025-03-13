@@ -8,13 +8,13 @@ export class AiDocm {
     ai_subfolder: string;
     ai_type: string;
     ai_bucket: string;
+    ai_subject: string;
+    rec_created_date: string;
 }
 
 export interface iAiDocmModel {
     // filter Values
     selectedRowIndex: number;
-    mode: string;
-    pkid: string;
     RecordList: AiDocm[];
     ErrorMessage: string;
     // header search Values
@@ -29,8 +29,6 @@ export interface iAiDocmModel {
 
 export const initialState: iAiDocmModel = {
     selectedRowIndex: 0,
-    mode: '',
-    pkid: '',
     RecordList: [],
     ErrorMessage: '',
     type: '',
