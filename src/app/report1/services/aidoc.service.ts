@@ -14,7 +14,6 @@ export class AiDocService {
         private gs: GlobalService) {
     }
 
-
     public init(_screen_id: string) {
         this.screen_id = _screen_id;
         this.loadState();

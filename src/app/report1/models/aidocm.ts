@@ -21,6 +21,7 @@ export interface iAiDocmModel {
     ErrorMessage: string;
     // header search Values
     type: string;
+    searchtype: string;
     searchstring: string;
     // Page Values
     page_count: number;
@@ -34,6 +35,7 @@ export const initialState: iAiDocmModel = {
     RecordList: [],
     ErrorMessage: '',
     type: '',
+    searchtype: '',
     searchstring: '',
     page_count: 0,
     page_current: 0,

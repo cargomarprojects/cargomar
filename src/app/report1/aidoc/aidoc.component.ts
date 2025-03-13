@@ -45,14 +45,7 @@ export class AiDocComponent {
             this.InitCompleted = true;
             this.InitComponent();
         }
-
         this.ms.init(this.menuid);
-
-        // if (this.ms.state.mode == "ADD")
-        //     this.ActionHandler('ADD', '');
-        // else if (this.ms.state.mode == "EDIT")
-        //     this.ActionHandler('EDIT', this.ms.state.pkid)
-
     }
 
     InitComponent() {
@@ -77,6 +70,7 @@ export class AiDocComponent {
         this.loading = true;
         let SearchData = {
             type: _type,
+            searchtype: this.ms.state.searchtype.toUpperCase(),
             searchstring: this.ms.state.searchstring.toUpperCase(),
             page_count: this.ms.state.page_count,
             page_current: this.ms.state.page_current,
@@ -105,9 +99,13 @@ export class AiDocComponent {
 
     OnBlur(controlname: string) {
 
+        if (controlname == 'searchtype') {
+            this.ms.state.searchtype = this.ms.state.searchtype.toUpperCase();
+        }
         if (controlname == 'searchstring') {
             this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
         }
+
     }
 
 
