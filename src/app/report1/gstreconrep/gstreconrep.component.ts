@@ -544,4 +544,22 @@ export class GstReconRepComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  OnItcAmendmentChange(evt: any, rec: Gstr2bDownload) {
+
+    let SaveData = {
+      "include_itc": (rec.include_itc) ? "Y" : "N",
+      "pkid": rec.pkid
+    }
+
+    this.ErrorMessage = '';
+    this.mainService.SaveIncludeItc(SaveData)
+      .subscribe(response => {
+        rec.include_itc = response.includeitc;
+      },
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

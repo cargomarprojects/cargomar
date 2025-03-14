@@ -221,7 +221,7 @@
                                 <th class="text-right">IGST</th>
                                 <th class="text-right">CGST</th>
                                 <th class="text-right">SGST</th>
-
+                                <th>ITC</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -244,6 +244,10 @@
                                 <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
                                 <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+                                <td>
+                                    <input class="pointer" type="checkbox" [(ngModel)]="rec.include_itc"
+                                        (change)="OnItcAmendmentChange($event, rec)">
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -266,7 +270,7 @@
     <ngb-tab title="General Search">
         <ng-template ngbTabContent>
             <app-gstgen-search [menuid]="menuid" [type]="type" [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin"
-                [bCompany]="bCompany" ></app-gstgen-search>
+                [bCompany]="bCompany"></app-gstgen-search>
         </ng-template>
 
     </ngb-tab>

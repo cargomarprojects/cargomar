@@ -99,7 +99,7 @@ export class Gstr2bDownload {
     gst_bal: number;
     rec_status: string;
     rec_category: string;
-
+    include_itc: boolean;
 }
 
 export interface iGstr2bDownloadModel {
