@@ -549,12 +549,18 @@ export class GstReconRepComponent {
 
     let SaveData = {
       "include_itc": (rec.include_itc) ? "Y" : "N",
-      "pkid": rec.pkid
+      "pkid": rec.pkid,
+      "match_id": rec.g_match_id,
+      "reverse_charge": rec.reverse_charge,
+      "download_state_code": rec.download_state_code,
+      "download_type": rec.download_type
     }
 
     this.ErrorMessage = '';
     this.mainService.SaveIncludeItc(SaveData)
       .subscribe(response => {
+        if (response.error)
+          alert(response.error);
         rec.include_itc = response.includeitc;
       },
         error => {
