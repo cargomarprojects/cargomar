@@ -221,7 +221,7 @@
                                 <th class="text-right">IGST</th>
                                 <th class="text-right">CGST</th>
                                 <th class="text-right">SGST</th>
-                                <th>ITC</th>
+                                <th *ngIf="type=='GSTR-2B'">ITC</th>
                             </tr>
                         </thead>
                         <tbody class="page-body-tbody">
@@ -244,7 +244,7 @@
                                 <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
                                 <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
                                 <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
-                                <td>
+                                <td *ngIf="type=='GSTR-2B'">
                                     <input class="pointer" type="checkbox" [(ngModel)]="rec.include_itc"
                                         (change)="OnItcAmendmentChange($event, rec)">
                                 </td>
