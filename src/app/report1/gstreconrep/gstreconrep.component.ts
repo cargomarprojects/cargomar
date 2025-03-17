@@ -553,7 +553,9 @@ export class GstReconRepComponent {
       "match_id": rec.g_match_id,
       "reverse_charge": rec.reverse_charge,
       "download_state_code": rec.download_state_code,
-      "download_type": rec.download_type
+      "download_type": rec.download_type,
+      "recon_year": this.mainService.state.gst_recon_ament_year,
+      "recon_month": this.mainService.state.gst_recon_ament_month
     }
 
     this.ErrorMessage = '';
