@@ -23,6 +23,7 @@ export class AiDocd {
     aid_parent_id: string;
     aid_folder: string;
     aid_file_name: string;
+    aid_doc_type: string;
     aid_classified: string;
     aid_extracted: string;
 }

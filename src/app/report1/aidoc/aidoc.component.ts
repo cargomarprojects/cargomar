@@ -153,6 +153,7 @@ export class AiDocComponent {
         dRec.aid_parent_id = _rec.ai_pkid;
         dRec.aid_folder = '20250317a';
         dRec.aid_file_name = 'Abc.pdf';
+        dRec.aid_doc_type = 'SB'
         dRec.aid_classified = 'N';
         dRec.aid_extracted = 'N';
         dList.push(dRec);
@@ -162,6 +163,7 @@ export class AiDocComponent {
         dRec.aid_parent_id = _rec.ai_pkid;
         dRec.aid_folder = '20250317a';
         dRec.aid_file_name = 'Abc2.pdf';
+        dRec.aid_doc_type = 'PL';
         dRec.aid_classified = 'N';
         dRec.aid_extracted = 'N';
         dList.push(dRec);
