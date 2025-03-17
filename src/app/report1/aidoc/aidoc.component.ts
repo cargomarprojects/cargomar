@@ -121,8 +121,8 @@ export class AiDocComponent {
         Rec.ai_subject = "SB-CHNSF SB#8841230 DT.02/Apr/2025";
         Rec.ai_type = "SBNEW";
         Rec.ai_folder = "c:/Reports//INWARD-EDI-FILES/CHNSF/SB-SHIPPER-INVOICE/2024-04-02";
-        Rec.ai_subfolder = "SB-SHIPPER-INVOICE";
-        Rec.ai_bucket = "B25003";
+        Rec.ai_subfolder = "Sb-Shipper-INVOICE";
+        Rec.ai_bucket = "b25003";
         Rec.ai_status = "FILES-DOWNLOADED";
         Rec.ai_hitl = "N";
         Rec.Details = this.getList(Rec);
@@ -151,7 +151,7 @@ export class AiDocComponent {
         let dRec = new AiDocd();
         dRec.aid_pkid = this.gs.getGuid();
         dRec.aid_parent_id = _rec.ai_pkid;
-        dRec.aid_folder = '20250317';
+        dRec.aid_folder = '20250317a';
         dRec.aid_file_name = 'Abc.pdf';
         dRec.aid_classified = 'N';
         dRec.aid_extracted = 'N';
@@ -160,7 +160,7 @@ export class AiDocComponent {
         dRec = new AiDocd();
         dRec.aid_pkid = this.gs.getGuid();
         dRec.aid_parent_id = _rec.ai_pkid;
-        dRec.aid_folder = '20250317';
+        dRec.aid_folder = '20250317a';
         dRec.aid_file_name = 'Abc2.pdf';
         dRec.aid_classified = 'N';
         dRec.aid_extracted = 'N';
@@ -169,7 +169,7 @@ export class AiDocComponent {
         dRec = new AiDocd();
         dRec.aid_pkid = this.gs.getGuid();
         dRec.aid_parent_id = _rec.ai_pkid;
-        dRec.aid_folder = '20250317';
+        dRec.aid_folder = '20250317a';
         dRec.aid_file_name = 'Abc3.pdf';
         dRec.aid_classified = 'N';
         dRec.aid_extracted = 'N';
