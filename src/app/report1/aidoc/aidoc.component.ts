@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@ang
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { AiDocm } from '../models/aidocm';
+import { AiDocm, AiDocd } from '../models/aidocm';
 import { AiDocService } from '../services/aidoc.service';
 
 @Component({
@@ -114,18 +114,23 @@ export class AiDocComponent {
         let Rec: AiDocm = new AiDocm();
 
         Rec.ai_pkid = this.gs.getGuid();
+        Rec.ai_date = this.gs.defaultValues.today;
         Rec.ai_secret = "2025";
-        Rec.ai_from_id = "chennaiops123@cargomar.in";
-        Rec.ai_to_id = "softwaresupport1223@cargomar.in";
-        Rec.ai_subject = "SB-CHNSF SB#8841230 DT.02/Apr/2024";
+        Rec.ai_from_id = "chennaiops12356@cargomar.in";
+        Rec.ai_to_id = "softwaresupport122673@cargomar.in";
+        Rec.ai_subject = "SB-CHNSF SB#8841230 DT.02/Apr/2025";
         Rec.ai_type = "SBNEW";
         Rec.ai_folder = "c:/Reports//INWARD-EDI-FILES/CHNSF/SB-SHIPPER-INVOICE/2024-04-02";
         Rec.ai_subfolder = "SB-SHIPPER-INVOICE";
-        Rec.ai_bucket = "B25001";
-
+        Rec.ai_bucket = "B25003";
+        Rec.ai_status = "FILES-DOWNLOADED";
+        Rec.ai_hitl = "N";
+        Rec.Details = this.getList(Rec);
         Rec.rec_mode = "ADD";
 
-        console.log(JSON.stringify(Rec));
+        //console.log(JSON.stringify(Rec));
+
+        this.getDetList('FILES-DOWNLOADED');
 
         // this.loading = true;
         // this.ms.Save(Rec)
@@ -139,6 +144,57 @@ export class AiDocComponent {
         //         });
 
 
+    }
+
+    getList(_rec: AiDocm) {
+        let dList = new Array<AiDocd>();
+        let dRec = new AiDocd();
+        dRec.aid_pkid = this.gs.getGuid();
+        dRec.aid_parent_id = _rec.ai_pkid;
+        dRec.aid_folder = '20250317';
+        dRec.aid_file_name = 'Abc.pdf';
+        dRec.aid_classified = 'N';
+        dRec.aid_extracted = 'N';
+        dList.push(dRec);
+
+        dRec = new AiDocd();
+        dRec.aid_pkid = this.gs.getGuid();
+        dRec.aid_parent_id = _rec.ai_pkid;
+        dRec.aid_folder = '20250317';
+        dRec.aid_file_name = 'Abc2.pdf';
+        dRec.aid_classified = 'N';
+        dRec.aid_extracted = 'N';
+        dList.push(dRec);
+
+        dRec = new AiDocd();
+        dRec.aid_pkid = this.gs.getGuid();
+        dRec.aid_parent_id = _rec.ai_pkid;
+        dRec.aid_folder = '20250317';
+        dRec.aid_file_name = 'Abc3.pdf';
+        dRec.aid_classified = 'N';
+        dRec.aid_extracted = 'N';
+        dList.push(dRec);
+        return dList;
+    }
+
+    getDetList(_type: string) {
+
+        this.loading = true;
+        let SearchData = {
+            status: _type
+        };
+        this.ms.state.ErrorMessage = '';
+        this.ms.getList(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                // console.log(JSON.stringify(response.list));
+                console.log(response.list);
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
     }
 
 }

@@ -2,6 +2,7 @@
 export class AiDocm {
 
     ai_pkid: string;
+    ai_date: string;
     ai_from_id: string;
     ai_to_id: string;
     ai_folder: string;
@@ -10,8 +11,20 @@ export class AiDocm {
     ai_bucket: string;
     ai_subject: string;
     ai_secret: string;
+    ai_status: string;
+    ai_hitl: string;
     rec_created_date: string;
     rec_mode: string;
+    Details: AiDocd[] = [];
+}
+
+export class AiDocd {
+    aid_pkid: string;
+    aid_parent_id: string;
+    aid_folder: string;
+    aid_file_name: string;
+    aid_classified: string;
+    aid_extracted: string;
 }
 
 export interface iAiDocmModel {
