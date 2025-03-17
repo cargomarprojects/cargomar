@@ -130,18 +130,18 @@ export class AiDocComponent {
 
         //console.log(JSON.stringify(Rec));
 
-        this.getDetList('FILES-DOWNLOADED');
+        // this.getDetList('FILES-DOWNLOADED');
 
-        // this.loading = true;
-        // this.ms.Save(Rec)
-        //     .subscribe(response => {
-        //         this.loading = false;
-        //     },
-        //         error => {
-        //             this.loading = false;
-        //             this.ms.state.ErrorMessage = this.gs.getError(error);
-        //             alert(this.ms.state.ErrorMessage);
-        //         });
+        this.loading = true;
+        this.ms.Save(Rec)
+            .subscribe(response => {
+                this.loading = false;
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
 
 
     }
