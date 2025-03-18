@@ -69,7 +69,7 @@ export class CustomerComponent {
   emailPerRow: number = 50;
   mode = '';
   pkid = '';
-   
+
   cust_linked: boolean = false;
   Is_Shipper: boolean = false;
   Is_Foreigner: boolean = false;
@@ -458,6 +458,7 @@ export class CustomerComponent {
     this.Record.cust_parent_id = '';
     this.Record.cust_parent_code = '';
     this.Record.cust_parent_name = '';
+    this.Record.cust_acq_date = '';
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
@@ -520,6 +521,11 @@ export class CustomerComponent {
     if (!this.allvalid()) {
       alert(this.ErrorMessage);
       return;
+    }
+    
+    if (this.mode == "ADD" && this.Record.cust_is_shipper) {
+      if (this.gs.isBlank(this.Record.cust_acq_date))
+        this.Record.cust_acq_date = this.gs.defaultValues.today;
     }
 
     this.loading = true;

@@ -255,6 +255,10 @@
                   <input [disabled]="!Record.cust_is_editable" type="text" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_code" required maxlength="15" (blur)="OnBlur('cust_code')" />
                 </div>
+                <label class="col-2 col-form-label col-form-label-sm">Acq.Date</label>
+                <div class="col-4">
+                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_acq_date" (ValueChanged)="Record.cust_acq_date=$event"></app-date>
+                </div>
               </div>
               <div class="form-group row">
                 <label class="col-2 col-form-label  col-form-label-sm">Name</label>
