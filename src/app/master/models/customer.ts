@@ -25,7 +25,7 @@ export class Customerm {
     cust_crlimit: number;
     cust_crdate: string;
 
-    cust_iata_limit : boolean;
+    cust_iata_limit: boolean;
 
     cust_branch_code: string;
 
@@ -92,6 +92,7 @@ export class Customerm {
     cust_parent_name: string;
     cust_cons_wise_sman: boolean;
     cust_acq_date: string;
+    cust_ho_docs: number;
 
     _globalvariables: GlobalVariables;
 

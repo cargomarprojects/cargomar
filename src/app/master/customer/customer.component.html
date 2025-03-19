@@ -191,6 +191,7 @@
           <th>IEC</th>
           <th>SALESMAN</th>
           <th>DOCS</th>
+          <th *ngIf="bHoDocs_List">HO.DOCS</th>
           <th>STATUS</th>
           <th>COMPLETED</th>
           <th>COMMENTS</th>
@@ -214,6 +215,7 @@
           <td>{{rec.cust_iec_status}}</td>
           <td>{{rec.cust_sman_name}}</td>
           <td>{{rec.cust_docs}}</td>
+          <td *ngIf="bHoDocs_List">{{rec.cust_ho_docs}}</td>
           <td>{{rec.rec_locked==true?'LOCKED':'UNLOCKED'}}</td>
           <td>{{rec.cust_is_complete}}</td>
           <td>{{rec.cust_incomplete_remarks}}</td>
@@ -257,7 +259,8 @@
                 </div>
                 <label class="col-2 col-form-label col-form-label-sm">Acq.Date</label>
                 <div class="col-4">
-                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_acq_date" (ValueChanged)="Record.cust_acq_date=$event"></app-date>
+                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_acq_date"
+                    (ValueChanged)="Record.cust_acq_date=$event"></app-date>
                 </div>
               </div>
               <div class="form-group row">
@@ -498,8 +501,7 @@
               </div>
 
               <div class="col-12">
-                <input [disabled]="!bAdmin2" type="checkbox"
-                  [(ngModel)]="Record.cust_cons_wise_sman" />
+                <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_cons_wise_sman" />
                 <span>Consignee Wise Unlock</span>
               </div>
             </div>
@@ -805,6 +807,11 @@
           <h6 style="color: green" class="my-1">HISTORY</h6>
           <app-genremarks2 [pkid]="pkid" [type]="'CUSTOMER'" [subtype]="'AGENT'"></app-genremarks2>
         </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="HO Documents" *ngIf="mode == 'EDIT' && bHoDocs">
+      <ng-template ngbTabContent>
+        <app-upload [pkid]="pkid" [type]="'HO-DOCUMENTS'" [canupload]="true"></app-upload>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
