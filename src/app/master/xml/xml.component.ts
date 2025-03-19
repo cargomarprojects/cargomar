@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy,ViewChild,ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { XmlService } from '../services/xml.service';
@@ -485,8 +485,9 @@ export class XmlComponent {
     this.loading = true;
     this.ErrorMessage = '';
     let SearchData = {
-      folderpath: "C:\\Users\\Admin\\Downloads",
-      todate: "2024-11-07"
+      folderpath: "C:\\Reports\\INWARD-EDI-FILES\\CHNSF\\SB-SHIPPER-INVOICE",
+      todate: "2024-11-07",
+      deletetemp: true
     };
 
     this.mainService.DeleteFilesFromFolder(SearchData)
