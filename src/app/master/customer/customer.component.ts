@@ -523,7 +523,7 @@ export class CustomerComponent {
       return;
     }
     
-    if (this.mode == "ADD" && this.Record.cust_is_shipper) {
+    if (this.mode == "ADD") {
       if (this.gs.isBlank(this.Record.cust_acq_date))
         this.Record.cust_acq_date = this.gs.defaultValues.today;
     }
