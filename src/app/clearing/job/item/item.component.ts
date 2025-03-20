@@ -689,6 +689,7 @@ export class ItemComponent {
     this.Record.itm_chemcategory_code = '';
     this.Record.itm_chemcategory_name = '';
     this.Record.itm_jobwork_no = '';
+    this.Record.itm_edit_pmv = false;
     this.Record.rec_mode = this.mode;
 
 
@@ -1105,19 +1106,47 @@ export class ItemComponent {
           this.Record.itm_unit_rate = amt / this.Record.itm_qty;
           this.Record.itm_unit_rate = this.gs.roundNumber(this.Record.itm_unit_rate, 5);
         }
-      } else
+      }
+      else
         amt = this.Record.itm_unit_rate * this.Record.itm_qty;
 
       res = amt / this.Record.itm_unit_factor;
       pmv = (this.Record.itm_unit_rate * this.ex_rate) * 110 / 100;
       pmvtotal = (amt * this.ex_rate) * 110 / 100;
+
+
+
     }
 
     this.Record.itm_amount = this.gs.roundNumber(res, 3);
-    this.Record.itm_pmv = this.gs.roundNumber(pmv, 2);
-    this.Record.itm_pmv_total = this.gs.roundNumber(pmvtotal, 2);
+    
+    if (!this.Record.itm_edit_pmv) {
+      this.Record.itm_pmv = this.gs.roundNumber(pmv, 2);
+      this.Record.itm_pmv_total = this.gs.roundNumber(pmvtotal, 2);
+    }
     // this.FindIgstAmt();
   }
+
+  // FindPmv() {
+  //   let _RowFob_Inr: number;
+  //   let _RowPmv: number;
+  //   let _RowPmv_Total: number
+
+  //   let _Actual_Qty = this.Record.itm_qty;
+  //   let _ItmUnitFactor = this.Record.itm_unit_factor;
+  //   if (_ItmUnitFactor > 0)
+  //     _Actual_Qty = _Actual_Qty / _ItmUnitFactor;
+
+  //   _RowFob_Inr = this.Record.itm_unit_rate * this.ex_rate;
+
+  //   _RowPmv = (_RowFob_Inr / _Actual_Qty);
+  //   _RowPmv = _RowPmv * 110 / 100;
+  //   _RowPmv = this.gs.roundNumber(_RowPmv, 2);
+  //   _RowPmv_Total = _RowFob_Inr * 110 / 100;
+  //   _RowPmv_Total = this.gs.roundNumber(_RowPmv_Total, 2);
+  //   this.Record.itm_pmv = _RowPmv;
+  //   this.Record.itm_pmv_total = _RowPmv_Total;
+  // }
 
   FindTotalOld() {
     let amt: number;

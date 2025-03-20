@@ -108,6 +108,8 @@ export class Itemm {
     itm_chemcategory_name: string;
     itm_jobwork_no: string;
 
+    itm_edit_pmv: boolean;
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

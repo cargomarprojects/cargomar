@@ -235,13 +235,15 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">PMV</label>
-                <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv"
+                <div class="col-sm-4 input-group input-group-sm">
+                  <input type="text" [disabled]="!Record.itm_edit_pmv" class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv"
                     (blur)="OnBlur('itm_pmv')" required maxlength="14" />
+                  <input type="checkbox" [(ngModel)]="Record.itm_edit_pmv" id="editpmv">
+                  <label class="col-form-label col-form-label-sm" for="editpmv">Edit</label>
                 </div>
                 <label class="col-sm-2 col-form-label  col-form-label-sm">PMV.Total</label>
                 <div class="col-sm-4">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv_total"
+                  <input type="text" [disabled]="!Record.itm_edit_pmv" class="form-control form-control-sm" [(ngModel)]="Record.itm_pmv_total"
                     (blur)="OnBlur('itm_pmv_total')" required maxlength="14" />
                 </div>
               </div>
@@ -253,7 +255,7 @@
                     (blur)="OnBlur('itm_orderno')" required maxlength="50" />
                 </div>
               </div>
-              
+
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label  col-form-label-sm">Style#</label>
                 <div class="col-sm-10">
@@ -297,8 +299,8 @@
                 <label style="padding-left:0;padding-right:0"
                   class="col-sm-2 col-form-label  col-form-label-sm">Quantity</label>
                 <div class="col-sm-3">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_qty" (blur)="OnBlur('itm_dbk_qty')" required
-                    maxlength="14" />
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.itm_dbk_qty"
+                    (blur)="OnBlur('itm_dbk_qty')" required maxlength="14" />
                 </div>
               </div>
 
@@ -376,11 +378,13 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label col-form-label-sm">Additional Info</label>
                 <div class="col-sm-4">
-                  <app-autocomplete [disabled]="!EnableAddInfo" #Liner2Lov [inputdata]="CHEMCATEGORYRECORD" (ValueChanged)="LovSelected($event)">
+                  <app-autocomplete [disabled]="!EnableAddInfo" #Liner2Lov [inputdata]="CHEMCATEGORYRECORD"
+                    (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
                 </div>
                 <div class="col-sm-5 pl-0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.itm_chemcategory_name" />
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.itm_chemcategory_name" />
                 </div>
               </div>
 
