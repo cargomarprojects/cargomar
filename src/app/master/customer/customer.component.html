@@ -67,20 +67,27 @@
     <div class="row">
       <div class="col-sm-3">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">From</label>
+          <!-- <label class="col-sm-2 col-form-label col-form-label-sm">From</label> -->
+          <div class="col-sm-3">
+            <select class="form-control form-control-sm" name="srchdt" [(ngModel)]="search_datetype">
+              <option [value]="'CREATED-DT'">Created-From</option>
+              <option [value]="'ACQ-DT'">Acq-From</option>
+            </select>
+          </div>
+
           <div class="col-sm-4">
             <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
             </app-date>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
           <div class="col-sm-4">
             <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-10">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-9">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
         </div>
@@ -182,6 +189,7 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
+          <th>ACQ.DATE</th>
           <th>TYPE</th>
           <th>KYC</th>
           <th>PAN</th>
@@ -206,6 +214,7 @@
           (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cust_pkid)">{{rec.cust_code}}</td>
           <td>{{rec.cust_name}}</td>
+          <td>{{rec.cust_acq_date}}</td>
           <td>{{rec.cust_group}}</td>
           <td>{{rec.cust_kyc_status}}</td>
           <td>{{rec.cust_pan_status}}</td>

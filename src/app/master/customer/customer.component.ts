@@ -63,6 +63,7 @@ export class CustomerComponent {
   urlid: string;
 
 
+  search_datetype = "CREATED-DT";
   fromdate = "";
   todate = "";
   ErrorMessage = "";
@@ -297,7 +298,7 @@ export class CustomerComponent {
     // if (this.mode == "EDIT" && this.menu_record.rights_admin)
     //   this.bAdmin = true;
 
-    this.bLegalDocs = false; this.bCanLock = false; this.bCanUnLink = false; 
+    this.bLegalDocs = false; this.bCanLock = false; this.bCanUnLink = false;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LEGAL"))
       this.bLegalDocs = true;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LOCK"))
@@ -311,7 +312,7 @@ export class CustomerComponent {
       this.bCanLock = true;
       this.bCanUnLink = true;
       this.bAgent = true;
-   }
+    }
 
     this.bDocs = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
@@ -357,7 +358,8 @@ export class CustomerComponent {
       report_folder: this.gs.globalVariables.report_folder,
       rec_category: this.rec_category,
       fromdate: this.fromdate,
-      todate: this.todate
+      todate: this.todate,
+      search_datetype: this.search_datetype
     };
 
     this.ErrorMessage = '';
