@@ -39,7 +39,6 @@ export class CustomerComponent {
   bAgent = false;
   bLegalDocs = false;
   bHoDocs = false;
-  bHoDocs_List = false;
   bCanLock = false;
   bCanUnLink = false;
   bDocs = false;
@@ -148,7 +147,7 @@ export class CustomerComponent {
   InitComponent() {
     this.bDelete = false;
     this.bAdmin2 = false;
-    this.bHoDocs_List = false;
+    this.bHoDocs = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -158,12 +157,12 @@ export class CustomerComponent {
         this.bDelete = true;
 
       if (this.menu_record.rights_approval.toString().includes("HODOCS"))
-        this.bHoDocs_List = true;
+        this.bHoDocs = true;
     }
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
       this.bAdmin2 = true;
-      this.bHoDocs_List = true;
+      this.bHoDocs = true;
     }
 
     this.LoadCombo();
@@ -277,7 +276,6 @@ export class CustomerComponent {
     this.canadd = true;
     // this.bAdmin = true;
     this.bLegalDocs = false;
-    this.bHoDocs = false;
     this.bCanLock = false;
     this.bCanUnLink = false;
     this.bDocs = true;
@@ -299,7 +297,7 @@ export class CustomerComponent {
     // if (this.mode == "EDIT" && this.menu_record.rights_admin)
     //   this.bAdmin = true;
 
-    this.bLegalDocs = false; this.bCanLock = false; this.bCanUnLink = false; this.bHoDocs = false;
+    this.bLegalDocs = false; this.bCanLock = false; this.bCanUnLink = false; 
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LEGAL"))
       this.bLegalDocs = true;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("LOCK"))
@@ -308,15 +306,12 @@ export class CustomerComponent {
       this.bCanUnLink = true;
     if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("{AGENT}"))
       this.bAgent = true;
-    if (this.mode == "EDIT" && this.menu_record.rights_approval.toString().includes("HODOCS"))
-      this.bHoDocs = true;
     if (this.mode == "EDIT" && this.gs.globalVariables.user_code == "ADMIN") {
       this.bLegalDocs = true;
       this.bCanLock = true;
       this.bCanUnLink = true;
       this.bAgent = true;
-      this.bHoDocs = true;
-    }
+   }
 
     this.bDocs = false;
     if (this.mode == "EDIT" && this.menu_record.rights_docs)

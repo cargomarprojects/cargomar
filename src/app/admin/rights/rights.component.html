@@ -155,7 +155,7 @@
     <button [disabled]="loading" (click)="Return2Parent()" class="btn btn-primary btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
-  <div>
+  <div style="height: 105px;" [style.overflow-y]="'scroll'" >
     <p class="p-0 m-0">
       Air Export - Master Air Export - Approvals <b> {{'{PP}{COST}{CL}'}} </b>PP-Prepaid Tab;COST- Air Cost
       Tab;CL-CheckList
@@ -173,6 +173,9 @@
     </p>
     <p class="p-0 m-0">
       Accounts Reports - Reconcile GSTR-2B - Amendment 2B Record , Save OTP, Download Gstr2A 2B <b> {{'{SAVE-GST},{OTP},{GSTR}'}} </b> Update link on GST Amt
+    </p>
+    <p class="p-0 m-0">
+      Customer master <b> {{'LEGAL,LOCK,UNLINK,HODOCS,{AGENT}'}} </b> Legal Documents Tab,Lock/Unlock button,Unlink button,HO Documents Tab,Agent Tab
     </p>
   </div>
 </div>
