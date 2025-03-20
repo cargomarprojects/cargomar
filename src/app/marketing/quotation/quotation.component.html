@@ -324,7 +324,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Place.Receipt</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'POR'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+            <app-autocomplete3 [controlname]="'POR'" [tabletype]="port_lov" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_por_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -339,7 +339,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">POL</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'POL'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+            <app-autocomplete3 [controlname]="'POL'" [tabletype]="port_lov" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_pol_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -356,7 +356,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">POD</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'POD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+            <app-autocomplete3 [controlname]="'POD'" [tabletype]="port_lov" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_pod_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -371,7 +371,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">POFD</label>
           <div class="col-sm-10">
-            <app-autocomplete3 [controlname]="'POFD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+            <app-autocomplete3 [controlname]="'POFD'" [tabletype]="port_lov" [displaycolumn]="'CODE'"
               [displaydata]="Record.qtnm_pofd_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>

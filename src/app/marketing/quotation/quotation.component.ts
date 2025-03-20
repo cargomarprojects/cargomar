@@ -50,7 +50,8 @@ export class QuotationComponent {
     InfoMessage = "";
     detailMode = "ADD";
     str_total_amt = "";
-    carrier_lov = "CARRIER";
+    carrier_lov = "SEA CARRIER";
+    port_lov = "SEA PORT";
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
     mode = '';
     pkid = '';
@@ -113,7 +114,7 @@ export class QuotationComponent {
         if (this.type == "AIR")
             this.carrier_lov = "AIR CARRIER";
         else
-            this.carrier_lov = "CARRIER";
+            this.carrier_lov = "SEA CARRIER";
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -733,8 +734,17 @@ export class QuotationComponent {
     }
     OnChange(field: string) {
         this.bChanged = true;
-        if (field == 'qtnm_type')
+        if (field == 'qtnm_type') {
+            if (this.Record.qtnm_type == "AIR EXPORT" || this.Record.qtnm_type == "AIR IMPORT") {
+                this.carrier_lov = "AIR CARRIER";
+                this.port_lov = "AIR PORT";
+            }
+            else {
+                this.carrier_lov = "SEA CARRIER";
+                this.port_lov = "SEA PORT";
+            }
             this.GetTermsAndConditions();
+        }
         if (field == 'qtnm_exrate')
             this.FindListTotal();
         if (field == 'qtnd_type') {
