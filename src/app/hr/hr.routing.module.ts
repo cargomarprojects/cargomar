@@ -21,6 +21,7 @@ import { DeductmComponent } from './deduction/deductm.component';
 import { CommonDeductComponent } from './deduction/commondeduct.component';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { LoanReportComponent } from './loanreport/loanreport.component';
+import { TravelExpenseComponent } from './travelexp/travelexp.component';
 
 const routes: Routes = [
   { path: 'emp', component: EmpComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'commondeduct', component: CommonDeductComponent },
   { path: 'incentive', component: IncentiveComponent},
   { path: 'loanreport', component: LoanReportComponent},
+  { path: 'travelexp', component: TravelExpenseComponent},
 ];
 
 @NgModule({

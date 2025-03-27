@@ -23,6 +23,7 @@ import { DeductmEditComponent } from './deduction/deductm-edit.component';
 import { CommonDeductComponent } from './deduction/commondeduct.component';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { LoanReportComponent } from './loanreport/loanreport.component';
+import { TravelExpenseComponent } from './travelexp/travelexp.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { LoanReportComponent } from './loanreport/loanreport.component';
     DeductmEditComponent,
     CommonDeductComponent,
     IncentiveComponent,
-    LoanReportComponent
+    LoanReportComponent,
+    TravelExpenseComponent
   ],
   providers: [
   ],
