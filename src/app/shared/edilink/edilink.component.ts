@@ -656,6 +656,7 @@ export class EdilinkComponent {
       ];
     } else if (_type == "IGST-PAYMENT-STATUS") {
       this.Value1TypeList = [
+        { "code": "NA", "name": "NA" },
         { "code": "LUT", "name": "LUT" },
         { "code": "P", "name": "PAID" },
       ];
