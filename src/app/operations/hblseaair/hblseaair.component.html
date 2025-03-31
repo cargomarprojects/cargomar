@@ -99,6 +99,8 @@
             <th *ngIf="type == 'SEA EXPORT'">CONTAINER</th>
             <th *ngIf="bbuysellrate">BUY.RATE</th>
             <th *ngIf="bbuysellrate">SELL.RATE</th>
+            <th>CREATED.BY</th>
+            <th>CREATED.DATE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -129,6 +131,8 @@
             <td *ngIf="type == 'SEA EXPORT'">{{rec.hbl_book_cntr}}</td>
             <td *ngIf="bbuysellrate">{{rec.hbl_buy_remarks}}</td>
             <td *ngIf="bbuysellrate">{{rec.hbl_sell_remarks}}</td>
+            <td>{{rec.rec_created_by}}</td>
+            <td>{{rec.rec_created_date}}</td>
           </tr>
         </tbody>
       </table>
@@ -154,7 +158,7 @@
   <div *ngIf="currentTab=='DETAILS'" class="page-details">
 
     <ngb-tabset>
-      <ngb-tab title="Basic Details" >
+      <ngb-tab title="Basic Details">
         <ng-template ngbTabContent>
 
           <div class="page-box">
@@ -495,7 +499,8 @@
                   <div class="form-group row">
                     <label class="col-3 col-form-label col-form-label-sm">Salesman</label>
                     <div class="col-9">
-                      <app-autocomplete #SmanLov [disabled]="true" [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+                      <app-autocomplete #SmanLov [disabled]="true" [inputdata]="SALESMANRECORD"
+                        (ValueChanged)="LovSelected($event)">
                       </app-autocomplete>
                     </div>
                   </div>
@@ -657,7 +662,7 @@
           <app-upload [pkid]="pkid" [type]="type=='AIR EXPORT'?'HBL-AE':'HBL-SE'" [defaultdoctype]="'HBL/HAWB'">
           </app-upload>
         </ng-template>
-      </ngb-tab>   
+      </ngb-tab>
 
     </ngb-tabset>
     <!-- <br /> -->
@@ -731,5 +736,7 @@
   </div>
 </ng-template>
 
-<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType" [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_imp_id"  (hidealert)="showalert=$event">
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType"
+  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_imp_id"
+  (hidealert)="showalert=$event">
 </app-crlimit>

@@ -64,6 +64,9 @@
           <th>FOLDER</th>
           <th>FILE NAME</th>
           <th>PROCESS</th>
+          <th>SB.COUNT</th>
+          <th>JSON.COUNT</th>
+          <th>PDF.COUNT</th>
           <th>REMARKS</th>
           <th>PROCESSED</th>
           <th *ngIf="bDelete">REMOVE</th>
@@ -80,6 +83,9 @@
           <td>{{rec.file_folder}}</td>
           <td>{{rec.file_name}}</td>
           <td class="hlink" (click)="ProcessDocuments(rec.file_pkid)">FILES</td>
+          <td>{{rec.sb_count}}</td>
+          <td>{{rec.json_count}}</td>
+          <td>{{rec.pdf_count}}</td>
           <td>{{rec.remarks}}</td>
           <td>{{rec.processed}}</td>
           <td *ngIf="bDelete">

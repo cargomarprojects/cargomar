@@ -158,6 +158,9 @@ export class Hblm {
 
   hbl_unlockid : string;
   hbl_book_slno: number;
+  rec_created_by: string;
+  rec_created_date: string;
+  
   _globalvariables: GlobalVariables;
 
   JobList: Jobm[] = [];
