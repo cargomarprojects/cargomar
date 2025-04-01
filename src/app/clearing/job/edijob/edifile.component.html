@@ -87,11 +87,11 @@
           <td>{{rec.json_count}}</td>
           <td>{{rec.pdf_count}}</td>
           <td>{{rec.remarks}}</td>
-          <td>{{rec.processed}}</td>
+          <td *ngIf="rec.processed!='N'">{{rec.processed}}</td>
+          <td *ngIf="rec.processed=='N'" class="hlink" (click)="ImportData(rec.file_pkid)">PROCESS</td>
           <td *ngIf="bDelete">
-            <span *ngIf="rec.processed=='N'||(gs.globalVariables.user_code == 'ADMIN')" >
-              <App-Dialog
-                [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.file_pkid,name:rec.file_name}"
+            <span *ngIf="rec.processed=='N'||(gs.globalVariables.user_code == 'ADMIN')">
+              <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.file_pkid,name:rec.file_name}"
                 (result)="RemoveList($event)"></App-Dialog>
             </span>
           </td>

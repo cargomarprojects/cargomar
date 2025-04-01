@@ -217,21 +217,36 @@ export class EdifileComponent {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
-  ImportData() {
+  ImportData(_id: string = '') {
+
+    if (_id && !confirm("Process selected File")) {
+      return;
+    }
+
     this.loading = true;
     let eSearchData = {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      file_pkid: _id
     };
 
     this.ErrorMessage = '';
     this.mainService.ImportData(eSearchData)
       .subscribe(response => {
         this.loading = false;
-        this.List('NEW');
+        if (_id) {
+          if (this.RecordList != null) {
+            var REC = this.RecordList.find(rec => rec.file_pkid == _id);
+            if (REC != null) {
+              REC.processed = response.processed;
+            }
+          }
+        } else {
+          this.List('NEW');
+        }
         if (response.error)
           alert(response.error);
 
