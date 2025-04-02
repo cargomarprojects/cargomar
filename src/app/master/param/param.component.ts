@@ -272,6 +272,10 @@ export class ParamComponent {
       this.id3 = 'File Size(KB)';
       this.param_rate_caption = 'Order';
     }
+    if (this.type == 'EMPLOYEE GRADE') {
+      this.id5 = "Travel Rules";
+      this.id5_lovtype = "TRAVELRULES";
+    }
     if (this.type == 'LUT') {
       this.ListName = 'LUT#';
       this.idName = 'LUT#';

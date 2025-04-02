@@ -93,6 +93,7 @@
           <th *ngIf="type == 'LUT'">FIN-YEAR</th>
           <th *ngIf="type == 'ANALYSIS-CITY'">REGION</th>
           <th *ngIf="type == 'QUOTATION-CATEGORY'">ORDER</th>
+          <th *ngIf="type == 'EMPLOYEE GRADE'">GRADE</th>
           <th>CREATED.BY</th>
           <th>DATE</th>
           <th>EDITED.BY</th>
@@ -146,6 +147,7 @@
           <td *ngIf="type == 'LUT'">{{rec.param_id2}}</td>
           <td *ngIf="type == 'ANALYSIS-CITY'">{{rec.param_id5_name}}</td>
           <td *ngIf="type == 'QUOTATION-CATEGORY'">{{rec.param_rate}}</td>
+          <td *ngIf="type == 'EMPLOYEE GRADE'">{{rec.param_id5_name}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.rec_edited_by}}</td>
