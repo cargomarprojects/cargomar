@@ -27,6 +27,7 @@ export class TravelExpenseComponent {
     sub: any;
     urlid: string;
     modal: any;
+    bValueChanged: boolean = false;
 
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
@@ -84,7 +85,7 @@ export class TravelExpenseComponent {
     }
     LovSelected(_Record: SearchTable) {
         if (_Record.controlname == "EMPLOYEE") {
-            this.Record.te_emp_id= _Record.id;
+            this.Record.te_emp_id = _Record.id;
             this.Record.te_emp_code = _Record.code;
             this.Record.te_emp_name = _Record.name;
             this.Record.rec_branch_code = _Record.col2;
@@ -185,9 +186,7 @@ export class TravelExpenseComponent {
         this.Record.te_travel_from = '';
         this.Record.te_travel_to = '';
         this.Record.te_purpose = '';
-        this.Record.te_travel_mode_id = '';
-        this.Record.te_travel_mode_code = '';
-        this.Record.te_travel_mode_name = '';
+        this.Record.te_travel_mode = 'TRAIN';
         this.Record.te_city_type = 'METRO';
         this.Record.te_own_arrangement = false;
         this.Record.te_lodging_days = 0;
@@ -200,9 +199,10 @@ export class TravelExpenseComponent {
         this.Record.te_conv_others_amt = 0;
         this.Record.te_conv_total = 0;
         this.Record.te_misc_amt = 0;
+        this.Record.te_total = 0;
         this.Record.te_remarks = '';
         this.Record.rec_branch_code = '';
-
+        this.Record.rec_locked = false;
         this.Record.rec_mode = this.ms.state.mode;
 
     }
@@ -235,23 +235,42 @@ export class TravelExpenseComponent {
 
 
     // Save Data
-    Save() {
-        if (!this.allvalid())
-            return;
+    Save(_type: string) {
+        if (_type == "SAVE") {
+            if (!this.allvalid())
+                return;
+        }
+        if (_type == "SUBMIT") {
+            if (this.Record.rec_locked) {
+                alert('Already Submitted.')
+                return;
+            }
+            if (!confirm("Do you want to Submit")) {
+                return;
+            }
+        }
         this.loading = true;
         this.ms.state.ErrorMessage = '';
+        this.Record.row_type = _type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                this.ms.state.ErrorMessage = "Save Complete";
+                if (_type == "SAVE")
+                    this.ms.state.ErrorMessage = "Save Complete";
+                if (_type == "SUBMIT") {
+                    this.Record.rec_locked = true;
+                    this.ms.state.ErrorMessage = "Submitted Successfully";
+                }
                 if (this.ms.state.mode == 'ADD') {
                     this.Record.te_slno = response.slno;
                 }
                 this.ms.state.mode = 'EDIT';
                 this.Record.rec_mode = this.ms.state.mode;
                 this.RefreshList();
-                alert(this.ms.state.ErrorMessage);
+
+                if (_type == "SUBMIT" && this.ms.state.ErrorMessage)
+                    alert(this.ms.state.ErrorMessage);
             },
                 error => {
                     this.loading = false;
@@ -284,9 +303,23 @@ export class TravelExpenseComponent {
             this.ms.state.RecordList.push(this.Record);
         }
         else {
-            REC.te_emp_name = this.Record.te_emp_name;
-            REC.te_grade_name = this.Record.te_grade_name;
             REC.te_date = this.Record.te_date;
+            REC.te_emp_name = this.Record.te_emp_name;
+            REC.rec_branch_code = this.Record.rec_branch_code;
+            REC.te_grade_name = this.Record.te_grade_name;
+            REC.te_travel_mode = this.Record.te_travel_mode;
+            REC.te_travel_from = this.Record.te_travel_from;
+            REC.te_travel_to = this.Record.te_travel_to;
+            REC.te_city_type = this.Record.te_city_type;
+            REC.te_purpose = this.Record.te_purpose;
+            REC.te_own_arrangement = this.Record.te_own_arrangement;
+            REC.te_lodging_days = this.Record.te_lodging_days;
+            REC.te_lodging_amt = this.Record.te_lodging_amt;
+            REC.te_boarding_days = this.Record.te_boarding_days;
+            REC.te_boarding_amt = this.Record.te_boarding_amt;
+            REC.te_conv_total = this.Record.te_conv_total;
+            REC.te_misc_amt = this.Record.te_misc_amt;
+            REC.te_total = this.Record.te_total;
             REC.te_remarks = this.Record.te_remarks;
         }
     }
@@ -307,17 +340,129 @@ export class TravelExpenseComponent {
 
     OnBlur(controlname: string) {
 
-        // if (controlname == 'te_tds_rate') {
-        //     this.Record.te_tds_rate = this.gs.roundNumber(this.Record.te_tds_rate, 2);
-        // }
+        if (controlname == 'searchstring') {
+            this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
+        }
+        if (controlname == 'te_travel_from') {
+            this.Record.te_travel_from = this.Record.te_travel_from.toUpperCase();
+        }
+        if (controlname == 'te_travel_to') {
+            this.Record.te_travel_to = this.Record.te_travel_to.toUpperCase();
+        }
+        if (controlname == 'te_purpose') {
+            this.Record.te_purpose = this.Record.te_purpose.toUpperCase();
+        }
+        if (controlname == 'te_remarks') {
+            this.Record.te_remarks = this.Record.te_remarks.toUpperCase();
+        }
 
-        // if (controlname == 'searchstring') {
-        //     this.mainService.state.searchstring = this.mainService.state.searchstring.toUpperCase();
-        // }
+        if (controlname == 'te_lodging_days') {
+            this.Record.te_lodging_days = this.gs.roundNumber(this.Record.te_lodging_days, 0);
+        }
+        if (controlname == 'te_lodging_amt') {
+            this.Record.te_lodging_amt = this.gs.roundNumber(this.Record.te_lodging_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_boarding_days') {
+            this.Record.te_boarding_days = this.gs.roundNumber(this.Record.te_boarding_days, 0);
+        }
+        if (controlname == 'te_boarding_amt') {
+            this.Record.te_boarding_amt = this.gs.roundNumber(this.Record.te_boarding_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_conv_comp_car_amt') {
+            this.Record.te_conv_comp_car_amt = this.gs.roundNumber(this.Record.te_conv_comp_car_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_conv_taxi_amt') {
+            this.Record.te_conv_taxi_amt = this.gs.roundNumber(this.Record.te_conv_taxi_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_conv_auto_amt') {
+            this.Record.te_conv_auto_amt = this.gs.roundNumber(this.Record.te_conv_auto_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_conv_others_amt') {
+            this.Record.te_conv_others_amt = this.gs.roundNumber(this.Record.te_conv_others_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+        if (controlname == 'te_misc_amt') {
+            this.Record.te_misc_amt = this.gs.roundNumber(this.Record.te_misc_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
+        }
+    }
+
+    OnChange(field: string) {
+
+        if (field == 'te_conv_comp_car_amt')
+            this.bValueChanged = true;
+        if (field == 'te_conv_taxi_amt')
+            this.bValueChanged = true;
+        if (field == 'te_conv_auto_amt')
+            this.bValueChanged = true;
+        if (field == 'te_conv_others_amt')
+            this.bValueChanged = true;
+
+        if (field == 'te_lodging_amt')
+            this.bValueChanged = true;
+        if (field == 'te_boarding_amt')
+            this.bValueChanged = true;
+        if (field == 'te_misc_amt')
+            this.bValueChanged = true;
+    }
+
+    OnFocus(field: string) {
+
+        if (field == 'te_conv_comp_car_amt')
+            this.bValueChanged = false;
+        if (field == 'te_conv_taxi_amt')
+            this.bValueChanged = false;
+        if (field == 'te_conv_auto_amt')
+            this.bValueChanged = false;
+        if (field == 'te_conv_others_amt')
+            this.bValueChanged = false;
+
+        if (field == 'te_lodging_amt')
+            this.bValueChanged = false;
+        if (field == 'te_boarding_amt')
+            this.bValueChanged = false;
+        if (field == 'te_misc_amt')
+            this.bValueChanged = false;
     }
 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
         this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
     }
 
+    FindTotal() {
+        if (this.bValueChanged == false)
+            return;
+
+        let tot: number = 0;
+        tot = this.Record.te_conv_comp_car_amt;
+        tot += this.Record.te_conv_taxi_amt;
+        tot += this.Record.te_conv_auto_amt;
+        tot += this.Record.te_conv_others_amt;
+
+        tot = this.gs.roundNumber(tot, 0);
+        this.Record.te_conv_total = tot;
+
+        let grand_tot: number = 0;
+        grand_tot = this.Record.te_lodging_amt;
+        grand_tot += this.Record.te_boarding_amt;
+        grand_tot += this.Record.te_conv_total;
+        grand_tot += this.Record.te_misc_amt;
+
+        grand_tot = this.gs.roundNumber(grand_tot, 0);
+        this.Record.te_total = grand_tot;
+
+
+    }
 }

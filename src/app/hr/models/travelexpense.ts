@@ -16,9 +16,7 @@ export class TravelExpense {
     te_travel_from: string;
     te_travel_to: string;
     te_purpose: string;
-    te_travel_mode_id: string;
-    te_travel_mode_code: string;
-    te_travel_mode_name: string;
+    te_travel_mode: string;
     te_city_type: string;
     te_own_arrangement: boolean;
     te_lodging_days: number;
@@ -31,11 +29,13 @@ export class TravelExpense {
     te_conv_others_amt: number;
     te_conv_total: number;
     te_misc_amt: number;
+    te_total: number;
     te_remarks: string;
 
     rec_branch_code: string;
     rec_mode: string;
-
+    rec_locked: boolean;
+    
     _globalvariables: GlobalVariables;
 
 }
