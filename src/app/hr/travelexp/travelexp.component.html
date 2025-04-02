@@ -47,15 +47,47 @@
         <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
+                    <th>SL#</th>
+                    <th>DATE</th>
                     <th>EMP.NAME</th>
+                    <th>BRANCH</th>
                     <th>GRADE</th>
+                    <th>FROM</th>
+                    <th>TO</th>
+                    <th>CITY.TYPE</th>
+                    <th>PURPOSE</th>
+                    <th>TRAVELLING.MODE</th>
+                    <th>OWN.ARRNG.</th>
+                    <th>LODGING.DAYS</th>
+                    <th>LODGING.AMT</th>
+                    <th>BOARDING.DAYS</th>
+                    <th>BOARDING.AMT</th>
+                    <th>CONVEYANCE.AMT</th>
+                    <th>MISCELLANEOUS.AMT</th>
+                    <th>REMARKS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody">
                 <tr *ngFor="let rec of ms.state.RecordList; let i = index"
                     [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_emp_name}}</td>
+                    <td class="hlink" (click)="ActionHandler('EDIT',rec.te_pkid)">{{rec.te_slno}}</td>
+                    <td>{{rec.te_date}}</td>
+                    <td>{{rec.te_emp_name}}</td>
+                    <td>{{rec.rec_branch_code}}</td>
                     <td>{{rec.te_grade_name}}</td>
+                    <td>{{rec.te_travel_from}}</td>
+                    <td>{{rec.te_travel_to}}</td>
+                    <td>{{rec.te_city_type}}</td>
+                    <td>{{rec.te_purpose}}</td>
+                    <td>{{rec.te_travel_mode_name}}</td>
+                    <td>{{rec.te_own_arrangement}}</td>
+                    <td>{{rec.te_lodging_days}}</td>
+                    <td>{{rec.te_lodging_amt}}</td>
+                    <td>{{rec.te_boarding_days}}</td>
+                    <td>{{rec.te_boarding_amt}}</td>
+                    <td>{{rec.te_conv_total}}</td>
+                    <td>{{rec.te_misc_amt}}</td>
+                    <td>{{rec.te_remarks}}</td>
                 </tr>
             </tbody>
         </table>
@@ -87,10 +119,10 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Ref#</label>
+                    <label class="col-sm-4 col-form-label col-form-label-sm">SlNo</label>
                     <div class="col-sm-3">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_grade_name" />
+                        <input type="text" disabled class="form-control form-control-sm" type="text" style="color:red; font-weight:bold" 
+                            [(ngModel)]="Record.te_slno" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
                     <div class="col-sm-3">
@@ -101,7 +133,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Employee</label>
                     <div class="col-sm-8">
-                        <app-autocomplete3 [controlname]="'EMP'" [tabletype]="'EMPLOYEE'" [where]="''"
+                        <app-autocomplete3 [controlname]="'EMPLOYEE'" [tabletype]="'EMPLOYEE'" [where]="''"
                             [displaycolumn]="'NAME'" [displaydata]="Record.te_emp_name"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
@@ -118,23 +150,23 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">From</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                            (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_from" required
+                            (blur)="OnBlur('te_travel_from')" maxlength="100" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">To</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                            (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_to" required
+                            (blur)="OnBlur('te_travel_to')" maxlength="100" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">City Type</label>
                     <div class="col-sm-8">
-                        <select class="form-control form-control-sm" name="empbr" [(ngModel)]="Record.emp_branch_group">
+                        <select class="form-control form-control-sm" name="citytype" [(ngModel)]="Record.te_city_type">
                             <option [value]="'METRO'">METRO</option>
                             <option [value]="'OTHERS'">OTHERS</option>
                         </select>
@@ -144,8 +176,8 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Purpose</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                            (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_purpose" required
+                            (blur)="OnBlur('te_purpose')" maxlength="100" />
                     </div>
                 </div>
 
@@ -153,7 +185,7 @@
                     <label class="col-sm-4 col-form-label col-form-label-sm">Mode of Travelling</label>
                     <div class="col-sm-8">
                         <app-autocomplete3 [controlname]="'EMP'" [tabletype]="'EMPLOYEE'" [where]="''"
-                            [displaycolumn]="'NAME'" [displaydata]="Record.te_emp_name"
+                            [displaycolumn]="'NAME'" [displaydata]="Record.te_travel_mode_name"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div>
@@ -162,7 +194,7 @@
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Remarks</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                            (blur)="OnBlur('te_remarks')" maxlength="100" />
+                            (blur)="OnBlur('te_remarks')" maxlength="250" />
                     </div>
                 </div>
             </div>
@@ -170,33 +202,33 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm"></label>
                     <div class="col-sm-8">
-                        <input type="checkbox" [(ngModel)]="Record.emp_is_relieved" id="chkrelived"> <label class="col-form-label col-form-label-sm"
-                            for="chkrelived">Own Arrangement</label>
+                        <input type="checkbox" [(ngModel)]="Record.te_own_arrangement" id="chkownarrng"> <label class="col-form-label col-form-label-sm"
+                            for="chkownarrng">Own Arrangement</label>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Lodging Days</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_lodging_days"
+                            required (blur)="OnBlur('te_lodging_days')" maxlength="2" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_lodging_amt"
+                            required (blur)="OnBlur('te_lodging_amt')" maxlength="12" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Boarding Days</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_boarding_days"
+                            required (blur)="OnBlur('te_boarding_days')" maxlength="2" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_boarding_amt"
+                            required (blur)="OnBlur('te_boarding_amt')" maxlength="12" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -207,73 +239,69 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Company Car</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_comp_car_amt"
+                            required (blur)="OnBlur('te_conv_comp_car_amt')" maxlength="12" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Taxi</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_taxi_amt"
+                            required (blur)="OnBlur('te_conv_taxi_amt')" maxlength="12" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Auto</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_auto_amt"
+                            required (blur)="OnBlur('te_conv_auto_amt')" maxlength="12" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Others</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_others_amt"
+                            required (blur)="OnBlur('te_conv_others_amt')" maxlength="12" />
                     </div>
                     <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Total</label>
                     <div class="col-sm-3">
                         <input type="number" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_remarks" required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                            [(ngModel)]="Record.te_conv_total" required (blur)="OnBlur('te_conv_total')" maxlength="12" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Misc. Charges</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_misc_amt"
+                            required (blur)="OnBlur('te_misc_amt')" maxlength="12" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
-                <!-- <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Misc. Charges</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            required (blur)="OnBlur('te_remarks')" maxlength="100" />
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete3  [disabled]="true" [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+                        [displaydata]="Record.rec_branch_code" (ValueChanged)="LovSelected($event)">
+                      </app-autocomplete3>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Remarks</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
-                            (blur)="OnBlur('te_remarks')" maxlength="100" />
-                    </div>
-                </div> -->
+ 
             </div>
         </div>
     </div>
     <div class="page-box">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group row">
-                    <div class="offset-2 col-sm-10">
+                    <div class="offset-4 col-sm-10">
                         <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
                             class="btn btn-primary btn-sm">Save</button>
+                            <button  *ngIf="ms.state.mode=='EDIT'" [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+                            class="btn btn-info btn-sm">Submit</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>

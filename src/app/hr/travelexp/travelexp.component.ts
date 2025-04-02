@@ -83,11 +83,14 @@ export class TravelExpenseComponent {
     LoadCombo() {
     }
     LovSelected(_Record: SearchTable) {
-        // if (_Record.controlname == "EMPM") {
-        //     this.Record.te_tds_acc_id = _Record.id;
-        //     this.Record.te_tds_acc_code = _Record.code;
-        //     this.Record.te_tds_acc_name = _Record.name;
-        // }
+        if (_Record.controlname == "EMPLOYEE") {
+            this.Record.te_emp_id= _Record.id;
+            this.Record.te_emp_code = _Record.code;
+            this.Record.te_emp_name = _Record.name;
+            this.Record.rec_branch_code = _Record.col2;
+            this.Record.te_grade_id = _Record.col3;
+            this.Record.te_grade_name = _Record.col4;
+        }
     }
 
 
@@ -171,8 +174,8 @@ export class TravelExpenseComponent {
         this.ms.state.pkid = this.gs.getGuid();
         this.Record = new TravelExpense();
         this.Record.te_pkid = this.ms.state.pkid;
-        this.Record.te_pkid = '';
-        this.Record.te_date = '';
+        this.Record.te_slno = null;
+        this.Record.te_date = this.gs.defaultValues.today;
         this.Record.te_emp_id = '';
         this.Record.te_emp_code = '';
         this.Record.te_emp_name = '';
@@ -185,7 +188,7 @@ export class TravelExpenseComponent {
         this.Record.te_travel_mode_id = '';
         this.Record.te_travel_mode_code = '';
         this.Record.te_travel_mode_name = '';
-        this.Record.te_city_type = '';
+        this.Record.te_city_type = 'METRO';
         this.Record.te_own_arrangement = false;
         this.Record.te_lodging_days = 0;
         this.Record.te_lodging_amt = 0;
@@ -198,6 +201,7 @@ export class TravelExpenseComponent {
         this.Record.te_conv_total = 0;
         this.Record.te_misc_amt = 0;
         this.Record.te_remarks = '';
+        this.Record.rec_branch_code = '';
 
         this.Record.rec_mode = this.ms.state.mode;
 
@@ -236,12 +240,14 @@ export class TravelExpenseComponent {
             return;
         this.loading = true;
         this.ms.state.ErrorMessage = '';
-
         this.Record._globalvariables = this.gs.globalVariables;
         this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
                 this.ms.state.ErrorMessage = "Save Complete";
+                if (this.ms.state.mode == 'ADD') {
+                    this.Record.te_slno = response.slno;
+                }
                 this.ms.state.mode = 'EDIT';
                 this.Record.rec_mode = this.ms.state.mode;
                 this.RefreshList();
@@ -304,7 +310,7 @@ export class TravelExpenseComponent {
         // if (controlname == 'te_tds_rate') {
         //     this.Record.te_tds_rate = this.gs.roundNumber(this.Record.te_tds_rate, 2);
         // }
-       
+
         // if (controlname == 'searchstring') {
         //     this.mainService.state.searchstring = this.mainService.state.searchstring.toUpperCase();
         // }

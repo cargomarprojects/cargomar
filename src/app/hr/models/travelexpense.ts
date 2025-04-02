@@ -5,6 +5,7 @@ export class TravelExpense {
     row_type: string;
     row_colour: string;
     te_pkid: string;
+    te_slno: number;
     te_date: string;
     te_emp_id: string;
     te_emp_code: string;
@@ -32,7 +33,9 @@ export class TravelExpense {
     te_misc_amt: number;
     te_remarks: string;
 
+    rec_branch_code: string;
     rec_mode: string;
+
     _globalvariables: GlobalVariables;
 
 }
