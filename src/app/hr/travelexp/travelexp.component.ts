@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@ang
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { TravelExpense } from '../models/travelexpense';
+import { TravelExpense, TravelRules } from '../models/travelexpense';
 import { TravelExpenseService } from '../services/travelexpense.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -31,6 +31,7 @@ export class TravelExpenseComponent {
 
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
+    TrRecord: TravelRules = new TravelRules;
 
     constructor(
         private modalService: NgbModal,
@@ -91,6 +92,7 @@ export class TravelExpenseComponent {
             this.Record.rec_branch_code = _Record.col2;
             this.Record.te_grade_id = _Record.col3;
             this.Record.te_grade_name = _Record.col4;
+            this.SearchRecord('travelrules');
         }
     }
 
@@ -201,6 +203,7 @@ export class TravelExpenseComponent {
         this.Record.te_misc_amt = 0;
         this.Record.te_total = 0;
         this.Record.te_remarks = '';
+        this.Record.te_travel_rules = '';
         this.Record.rec_branch_code = '';
         this.Record.rec_locked = false;
         this.Record.rec_mode = this.ms.state.mode;
@@ -231,6 +234,11 @@ export class TravelExpenseComponent {
     LoadData(_Record: TravelExpense) {
         this.Record = _Record;
         this.Record.rec_mode = this.ms.state.mode;
+
+        this.TrRecord = new TravelRules();
+        if (this.Record.te_travel_rules.length > 0) {
+            this.TrRecord = JSON.parse(this.Record.te_travel_rules);
+        }
     }
 
 
@@ -464,5 +472,37 @@ export class TravelExpenseComponent {
         this.Record.te_total = grand_tot;
 
 
+    }
+
+    SearchRecord(controlname: string) {
+
+        this.loading = true;
+        let SearchData = {
+            table: 'travelrules',
+            comp_code: '',
+            grade_id: ''
+        };
+        if (controlname == 'travelrules') {
+            SearchData.table = 'travelrules';
+            SearchData.comp_code = this.gs.globalVariables.comp_code;
+            SearchData.grade_id = this.Record.te_grade_id;
+        }
+
+        this.ms.state.ErrorMessage = '';
+        this.gs.SearchRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+
+                this.Record.te_travel_rules = '';
+                this.TrRecord = new TravelRules();
+                if (response.travelrules.length > 0) {
+                    this.Record.te_travel_rules = response.travelrules;
+                    this.TrRecord = JSON.parse(this.Record.te_travel_rules);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                });
     }
 }

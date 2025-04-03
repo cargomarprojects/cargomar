@@ -31,13 +31,27 @@ export class TravelExpense {
     te_misc_amt: number;
     te_total: number;
     te_remarks: string;
+    te_travel_rules: string;
 
     rec_branch_code: string;
     rec_mode: string;
     rec_locked: boolean;
-    
+
     _globalvariables: GlobalVariables;
 
+}
+
+export class TravelRules {
+    tr_grade: string;
+    tr_travel_mode: string;
+    tr_lodging_metro_amt: string;
+    tr_lodging_oth_amt: string;
+    tr_boarding_metro_amt: string;
+    tr_boarding_oth_amt: string;
+    tr_conv_desc: string;
+    tr_misc_amt: string;
+    tr_own_amt: string;
+    tr_slno: number;
 }
 
 export interface iTravelExpenseModel {
