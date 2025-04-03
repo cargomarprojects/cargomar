@@ -65,6 +65,8 @@ export interface iTravelExpenseModel {
     // header search Values
     type: string;
     searchstring: string;
+    from_date: string;
+    to_date: string;
     // Page Values
     page_count: number;
     page_current: number;
@@ -81,6 +83,8 @@ export const initialState: iTravelExpenseModel = {
     ErrorMessage: '',
     type: '',
     searchstring: '',
+    from_date: '',
+    to_date: '',
     page_count: 0,
     page_current: 0,
     page_rows: 15,

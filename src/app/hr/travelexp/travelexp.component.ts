@@ -32,7 +32,7 @@ export class TravelExpenseComponent {
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
     TrRecord: TravelRules = new TravelRules;
-
+    NoteList: SearchTable[] = [];
     constructor(
         private modalService: NgbModal,
         public ms: TravelExpenseService,
@@ -149,8 +149,12 @@ export class TravelExpenseComponent {
             page_rows: this.ms.state.page_rows,
             page_rowcount: this.ms.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
-            report_folder: this.gs.globalVariables.report_folder
+            report_folder: this.gs.globalVariables.report_folder,
+            user_code: this.gs.globalVariables.user_code,
+            from_date: this.ms.state.from_date,
+            to_date: this.ms.state.to_date
         };
         this.ms.state.ErrorMessage = '';
         this.ms.List(SearchData)
@@ -208,6 +212,7 @@ export class TravelExpenseComponent {
         this.Record.rec_locked = false;
         this.Record.rec_mode = this.ms.state.mode;
 
+        this.TrRecord = new TravelRules();
     }
 
     // Load a single Record for VIEW/EDIT
@@ -223,6 +228,7 @@ export class TravelExpenseComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
+                this.NoteList = response.list;
             },
                 error => {
                     this.loading = false;

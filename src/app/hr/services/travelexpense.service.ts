@@ -24,6 +24,10 @@ export class TravelExpenseService {
             this.state = this.gs.appStates[this.screen_id];
         else {
             this.state = { ...initialState };
+            //default values
+            this.state.from_date = this.gs.getNewdate(180);
+            this.state.to_date = this.gs.defaultValues.today;
+            
             this.gs.appStates[this.screen_id] = this.state;
         }
     }
