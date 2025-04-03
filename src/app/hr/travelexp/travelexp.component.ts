@@ -22,6 +22,7 @@ export class TravelExpenseComponent {
     menu_record: any;
     disableSave = true;
     loading = false;
+    bAdmin: boolean = false;
     bDocs: boolean = false;
     bExcel: boolean = false;
     sub: any;
@@ -32,7 +33,7 @@ export class TravelExpenseComponent {
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
     TrRecord: TravelRules = new TravelRules;
-    NoteList: SearchTable[] = [];
+
     constructor(
         private modalService: NgbModal,
         public ms: TravelExpenseService,
@@ -57,18 +58,23 @@ export class TravelExpenseComponent {
         }
 
         this.ms.init(this.menuid);
-        if (this.ms.state.mode == "ADD")
-            this.ActionHandler('ADD', '');
-        else if (this.ms.state.mode == "EDIT")
-            this.ActionHandler('EDIT', this.ms.state.pkid)
+        // if (this.ms.state.mode == "ADD")
+        //     this.ActionHandler('ADD', '');
+        // else if (this.ms.state.mode == "EDIT")
+        //     this.ActionHandler('EDIT', this.ms.state.pkid)
+
+        this.ActionHandler('LIST', '');
     }
 
     InitComponent() {
+        this.bAdmin = false;
         this.bDocs = false;
         this.bExcel = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_admin)
+                this.bAdmin = true;
             if (this.menu_record.rights_docs)
                 this.bDocs = true;
             if (this.menu_record.rights_print)
@@ -83,7 +89,30 @@ export class TravelExpenseComponent {
     }
 
     LoadCombo() {
+
+        this.loading = true;
+        let SearchData = {
+            type: 'type',
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
+
+        SearchData.comp_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+
+        this.ms.state.ErrorMessage = '';
+        this.ms.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ms.state.NoteList = response.list;
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
     }
+
     LovSelected(_Record: SearchTable) {
         if (_Record.controlname == "EMPLOYEE") {
             this.Record.te_emp_id = _Record.id;
@@ -154,7 +183,8 @@ export class TravelExpenseComponent {
             report_folder: this.gs.globalVariables.report_folder,
             user_code: this.gs.globalVariables.user_code,
             from_date: this.ms.state.from_date,
-            to_date: this.ms.state.to_date
+            to_date: this.ms.state.to_date,
+            badmin: this.bAdmin
         };
         this.ms.state.ErrorMessage = '';
         this.ms.List(SearchData)
@@ -228,7 +258,6 @@ export class TravelExpenseComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
-                this.NoteList = response.list;
             },
                 error => {
                     this.loading = false;

@@ -1,5 +1,6 @@
 
 import { GlobalVariables } from '../../core/models/globalvariables';
+import { SearchTable } from '../../shared/models/searchtable';
 
 export class TravelExpense {
     row_type: string;
@@ -61,6 +62,7 @@ export interface iTravelExpenseModel {
     pkid: string;
     currentTab: string;
     RecordList: TravelExpense[];
+    NoteList: SearchTable[];
     ErrorMessage: string;
     // header search Values
     type: string;
@@ -80,6 +82,7 @@ export const initialState: iTravelExpenseModel = {
     pkid: '',
     currentTab: 'LIST',
     RecordList: [],
+    NoteList: [],
     ErrorMessage: '',
     type: '',
     searchstring: '',
