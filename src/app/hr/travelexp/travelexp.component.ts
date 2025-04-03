@@ -29,6 +29,7 @@ export class TravelExpenseComponent {
     urlid: string;
     modal: any;
     bValueChanged: boolean = false;
+    bLocked: boolean = false;
 
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
@@ -38,7 +39,7 @@ export class TravelExpenseComponent {
         private modalService: NgbModal,
         public ms: TravelExpenseService,
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -58,12 +59,10 @@ export class TravelExpenseComponent {
         }
 
         this.ms.init(this.menuid);
-        // if (this.ms.state.mode == "ADD")
-        //     this.ActionHandler('ADD', '');
-        // else if (this.ms.state.mode == "EDIT")
-        //     this.ActionHandler('EDIT', this.ms.state.pkid)
-
-        this.ActionHandler('LIST', '');
+        if (this.ms.state.mode == "ADD")
+            this.ActionHandler('ADD', '');
+        else if (this.ms.state.mode == "EDIT")
+            this.ActionHandler('EDIT', this.ms.state.pkid)
     }
 
     InitComponent() {
@@ -207,7 +206,7 @@ export class TravelExpenseComponent {
     }
 
     NewRecord() {
-
+        this.bLocked = false;
         this.ms.state.pkid = this.gs.getGuid();
         this.Record = new TravelExpense();
         this.Record.te_pkid = this.ms.state.pkid;
@@ -269,6 +268,7 @@ export class TravelExpenseComponent {
     LoadData(_Record: TravelExpense) {
         this.Record = _Record;
         this.Record.rec_mode = this.ms.state.mode;
+        this.bLocked = this.Record.rec_locked;
 
         this.TrRecord = new TravelRules();
         if (this.Record.te_travel_rules.length > 0) {
@@ -299,21 +299,22 @@ export class TravelExpenseComponent {
         this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                if (_type == "SAVE")
-                    this.ms.state.ErrorMessage = "Save Complete";
-                if (_type == "SUBMIT") {
-                    this.Record.rec_locked = true;
-                    this.ms.state.ErrorMessage = "Submitted Successfully";
-                }
                 if (this.ms.state.mode == 'ADD') {
                     this.Record.te_slno = response.slno;
                 }
+                if (_type == "SAVE")
+                    this.ms.state.ErrorMessage = "Save Complete";
+
+                if (_type == "UNLOCK") {
+                    this.Record.rec_locked = false;
+                    this.ms.state.ErrorMessage = "Successfully Unlocked";
+                    alert(this.ms.state.ErrorMessage);
+                }
+
                 this.ms.state.mode = 'EDIT';
                 this.Record.rec_mode = this.ms.state.mode;
+                this.bLocked = this.Record.rec_locked;
                 this.RefreshList();
-
-                if (_type == "SUBMIT" && this.ms.state.ErrorMessage)
-                    alert(this.ms.state.ErrorMessage);
             },
                 error => {
                     this.loading = false;

@@ -88,6 +88,7 @@
                     <th>CONV.AMT</th>
                     <th>MISC.AMT</th>
                     <th>TOTAL</th>
+                    <th>COMPLETED</th>
                     <th>REMARKS</th>
                 </tr>
             </thead>
@@ -112,6 +113,7 @@
                     <td>{{rec.te_conv_total}}</td>
                     <td>{{rec.te_misc_amt}}</td>
                     <td>{{rec.te_total}}</td>
+                    <td>{{rec.rec_locked?'Y':'N'}}</td>
                     <td>{{rec.te_remarks}}</td>
                 </tr>
             </tbody>
@@ -328,8 +330,15 @@
                             required (blur)="OnBlur('te_total')" maxlength="12" />
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0"></label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" [(ngModel)]="Record.rec_locked" id="chkreclocked"> <label
+                            class="col-form-label col-form-label-sm" for="chkreclocked">All data entry completed </label>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
 
             </div>
         </div>
@@ -339,16 +348,23 @@
             <div class="col-sm-4">
                 <div class="form-group row">
                     <div class="offset-4 col-sm-10">
-                        <button [hidden]="disableSave" [disabled]="loading||Record.rec_locked" (click)="Save('SAVE')"
+                        <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
-                        <button *ngIf="ms.state.mode=='EDIT'" [hidden]="disableSave" [disabled]="loading"
-                            (click)="Save('SUBMIT')" class="btn btn-info btn-sm">Submit</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <div class="offset-4 col-sm-10">
+                        <button *ngIf="gs.globalVariables.user_code == 'ADMIN' && bLocked" [hidden]="disableSave" [disabled]="loading"
+                            (click)="Save('UNLOCK')" class="btn btn-info btn-sm">Unlock</button>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
     <div class="page-box">
@@ -398,9 +414,9 @@
                 </div>
             </div>
             <div *ngIf="Record.te_travel_rules" class="col-sm-6">
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label class="col-sm-12 col-form-label col-form-label-sm pr-0">Notes</label>
-                </div>
+                </div> -->
                 <div *ngFor="let rec of ms.state.NoteList">
                     <div class="form-group row">
                         <label class="col-sm-12 col-form-label col-form-label-sm pr-0"> {{rec.name}} </label>
