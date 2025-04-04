@@ -88,7 +88,7 @@
                     <th>CONV.AMT</th>
                     <th>MISC.AMT</th>
                     <th>TOTAL</th>
-                    <th>COMPLETED</th>
+                    <th>SUBMITTED</th>
                     <th>REMARKS</th>
                 </tr>
             </thead>
@@ -367,10 +367,9 @@
             
         </div>
     </div>
-    <div class="page-box">
+    <div *ngIf="Record.te_travel_rules" class="page-box">
         <div class="row">
-
-            <div *ngIf="Record.te_travel_rules" class="col-sm-6">
+            <div class="col-sm-6">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Grade</label>
                     <label class="col-sm-8 col-form-label col-form-label-sm pr-0">{{TrRecord.tr_grade}}</label>
@@ -413,7 +412,7 @@
                     <label class="col-sm-8 col-form-label col-form-label-sm pr-0">{{TrRecord.tr_own_amt}}</label>
                 </div>
             </div>
-            <div *ngIf="Record.te_travel_rules" class="col-sm-6">
+            <div class="col-sm-6">
                 <!-- <div class="form-group row">
                     <label class="col-sm-12 col-form-label col-form-label-sm pr-0">Notes</label>
                 </div> -->
