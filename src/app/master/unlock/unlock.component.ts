@@ -152,6 +152,7 @@ export class UnLockComponent {
       { "code": "HR-LEAVE-MASTER", "name": "Leave Master" },
       { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" },
       { "code": "HR-RE-JVPOST", "name": "Repost Payroll" },
+      { "code": "HR-TRAVEL-EXPENSE", "name": "Travel Expense" },
       { "code": "LOCK-ALL", "name": "Lock/Unlock All Records (" + this.gs.globalVariables.year_name + ")" }
     ];
   }
@@ -219,6 +220,8 @@ export class UnLockComponent {
         this.refnotitle = "Job#";
       } else if (this.moduletype == "FUND-TRANSFER") {
         this.refnotitle = "Ref#";
+      } else if (this.moduletype == "HR-TRAVEL-EXPENSE") {
+        this.refnotitle = "SlNo#";
       } else if (this.moduletype == "JOB-AE" || this.moduletype == "JOB-SE") {
         this.refnotitle = "Job#";
       }
@@ -300,7 +303,7 @@ export class UnLockComponent {
     SearchData.unlockdate = this.unlockdate;
     SearchData.chkresetirn = this.chkresetirn == true ? "Y" : "N";
     SearchData.chkresetjobprefix = this.chkresetjobprefix == true ? "Y" : "N";
-    
+
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
