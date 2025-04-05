@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class negParenPipe implements PipeTransform {
   transform(value: number | string): string {
     // If the value is negative, format it with parentheses
+    // console.log(value)
+    if (value == null)
+      return "";
     if (typeof value === 'number' && value < 0) {
       return `(${Math.abs(value)})`; // Absolute value inside parentheses
     }

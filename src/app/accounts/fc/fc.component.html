@@ -112,14 +112,15 @@
           <tr (click)="ActionHandler('EDIT',rec.acc_pkid)">
             <td align='left'>{{ rec.jv_docno }}</td>
             <td align='left'>{{ rec.jv_date }}</td>
+          
             <td align='left'>{{ rec.curr_code }}</td>
             <td align='right'>{{ rec.exrate | number : '1.2-3'}}</td>
-
             <td align='right'>{{ rec.fdr | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.fcr | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.fbal | negParen }}</td>
             <td *ngIf="rec.fdrcr!=rec.jv_drcr" align='left' [style.color]="'red'">{{ rec.fdrcr}}</td>
             <td *ngIf="rec.fdrcr==rec.jv_drcr" align='left' >{{ rec.fdrcr}}</td>
+            
             <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.bal | negParen }}</td>
