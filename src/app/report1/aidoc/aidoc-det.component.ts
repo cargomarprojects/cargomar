@@ -56,7 +56,7 @@ export class AiDocDetComponent {
     }
 
     List() {
-        
+
         this.loading = true;
         let SearchData = {
             parent_id: this.record.ai_pkid
@@ -74,15 +74,44 @@ export class AiDocDetComponent {
                 });
     }
 
-
-
     OnChange(field: string) {
 
     }
+
     Close() {
         this.gs.ClosePage('home');
     }
 
+    saveMapping(_rec: AiDocd) {
+        let SearchData = {
+            pkid: '',
+            parent_id: '',
+            source_type: '',
+            source_value: '',
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code
+        }
 
+        SearchData.pkid = _rec.aid_pkid;
+        SearchData.parent_id = this.record.ai_pkid;
+        SearchData.source_type = _rec.aid_doc_type;
+        SearchData.source_value = _rec.aid_map_source_value;
+
+        this.loading = true;
+        this.ms.state.ErrorMessage = '';
+        this.ms.saveMapping(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue) {
+                    _rec.aid_map_target_value = response.retvalue;
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
+    }
 
 }

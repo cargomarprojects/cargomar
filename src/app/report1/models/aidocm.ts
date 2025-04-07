@@ -13,6 +13,7 @@ export class AiDocm {
     ai_secret: string;
     ai_status: string;
     ai_hitl: string;
+    ai_doc_linked: string;
     rec_created_date: string;
     rec_mode: string;
     rec_displayed: boolean;
@@ -27,6 +28,8 @@ export class AiDocd {
     aid_doc_type: string;
     aid_classified: string;
     aid_extracted: string;
+    aid_map_source_value: string;
+    aid_map_target_value: string;
 }
 
 export interface iAiDocmModel {
