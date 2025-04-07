@@ -82,30 +82,17 @@ export class AiDocDetComponent {
         this.gs.ClosePage('home');
     }
 
-    saveMapping(_rec: AiDocd) {
+    updateSource(_rec: AiDocd) {
         let SearchData = {
-            pkid: '',
-            parent_id: '',
-            source_type: '',
-            source_value: '',
-            company_code: this.gs.globalVariables.comp_code,
-            branch_code: this.gs.globalVariables.branch_code,
-            user_code: this.gs.globalVariables.user_code
+            pkid: ''
         }
-
         SearchData.pkid = _rec.aid_pkid;
-        SearchData.parent_id = this.record.ai_pkid;
-        SearchData.source_type = _rec.aid_doc_type;
-        SearchData.source_value = _rec.aid_map_source_value;
-
         this.loading = true;
         this.ms.state.ErrorMessage = '';
-        this.ms.saveMapping(SearchData)
+        this.ms.updateSource(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                if (response.retvalue) {
-                    _rec.aid_map_target_value = response.retvalue;
-                }
+                _rec.aid_map_target_value = response.result;
             },
                 error => {
                     this.loading = false;
