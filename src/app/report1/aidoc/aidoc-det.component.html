@@ -9,8 +9,8 @@
                     <th>MAP_TARGET</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordDetList; let i = index">
-                <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+            <tbody class="page-body-tbody" *ngFor="let rec of record.Details;">
+                <tr>
                     <td>{{rec.aid_file_name}}</td>
                     <td>{{rec.aid_doc_type}}</td>
                     <td>{{rec.aid_map_source}}</td>

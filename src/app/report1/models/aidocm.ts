@@ -33,7 +33,6 @@ export interface iAiDocmModel {
     // filter Values
     selectedRowIndex: number;
     RecordList: AiDocm[];
-    RecordDetList: AiDocd[];
     ErrorMessage: string;
     // header search Values
     type: string;
@@ -49,7 +48,6 @@ export interface iAiDocmModel {
 export const initialState: iAiDocmModel = {
     selectedRowIndex: 0,
     RecordList: [],
-    RecordDetList: [],
     ErrorMessage: '',
     type: '',
     searchtype: '',

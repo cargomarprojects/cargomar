@@ -77,10 +77,10 @@
                 </tr>
                 <tr *ngIf="rec.rec_displayed">
                     <td colspan="100%">
-                        <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
+                        <div style="border-style:solid;" [style.border-color]="'green'" >
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <app-aidoc-det [parent_id]="rec.ai_pkid"></app-aidoc-det>
+                                    <app-aidoc-det [record]="rec"></app-aidoc-det>
                                 </div>
                             </div>
                         </div>

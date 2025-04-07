@@ -15,7 +15,7 @@ export class AiDocDetComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
-    @Input() parent_id: string = '';
+    @Input() record: AiDocm;
 
     InitCompleted: boolean = false;
     menu_record: any;
@@ -59,14 +59,13 @@ export class AiDocDetComponent {
         
         this.loading = true;
         let SearchData = {
-            parent_id: this.parent_id
+            parent_id: this.record.ai_pkid
         };
         this.ms.state.ErrorMessage = '';
         this.ms.detailList(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ms.state.RecordDetList = response.list;
-
+                this.record.Details = response.list;
             },
                 error => {
                     this.loading = false;
