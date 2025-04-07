@@ -1,0 +1,23 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>FILE NAME</th>
+                    <th>TYPE</th>
+                    <th>MAP SOURCE</th>
+                    <th>MAP_TARGET</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordDetList; let i = index">
+                <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+                    <td>{{rec.aid_file_name}}</td>
+                    <td>{{rec.aid_doc_type}}</td>
+                    <td>{{rec.aid_map_source}}</td>
+                    <td>{{rec.aid_map_target}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

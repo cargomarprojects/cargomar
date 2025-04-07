@@ -61,11 +61,10 @@
                     <th>HITL</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of ms.state.RecordList; let i = index"
-                    [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+            <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index">
+                <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
                     <td>{{rec.rec_created_date}}</td>
-                    <td>{{rec.ai_type}}</td>
+                    <td class="hlink" (click)="showDetList(rec)">{{rec.ai_type}}</td>
                     <td>{{rec.ai_date}}</td>
                     <td>{{rec.ai_from_id}}</td>
                     <td>{{rec.ai_to_id}}</td>
@@ -75,6 +74,17 @@
                     <td>{{rec.ai_subfolder}}</td>
                     <td>{{rec.ai_status}}</td>
                     <td>{{rec.ai_hitl}}</td>
+                </tr>
+                <tr *ngIf="rec.rec_displayed">
+                    <td colspan="100%">
+                        <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <app-aidoc-det [parent_id]="rec.ai_pkid"></app-aidoc-det>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

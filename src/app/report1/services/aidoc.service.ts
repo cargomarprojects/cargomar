@@ -32,6 +32,10 @@ export class AiDocService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/List', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    detailList(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/detailList', SearchData, this.gs.headerparam2('authorized'));
+    }
+
     getList(SearchData: any) {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/getList', SearchData, this.gs.headerparam2('authorized'));
     }

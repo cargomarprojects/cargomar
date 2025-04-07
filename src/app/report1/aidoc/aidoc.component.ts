@@ -93,6 +93,12 @@ export class AiDocComponent {
                 });
     }
 
+    showDetList(_rec: AiDocm) {
+        if (_rec.ai_pkid == null)
+            return;
+        _rec.rec_displayed = !_rec.rec_displayed;
+    }
+
     Close() {
         this.gs.ClosePage('home');
     }
