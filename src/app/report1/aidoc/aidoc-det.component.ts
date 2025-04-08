@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -16,6 +16,7 @@ export class AiDocDetComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() record: AiDocm;
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
     menu_record: any;
@@ -92,7 +93,10 @@ export class AiDocDetComponent {
         this.ms.updateSource(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                _rec.aid_map_target_value = response.result;
+                _rec.aid_map_target_value = response.target_value;
+
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ stype: 'SAVE', pkid: _rec.aid_parent_id, linked: response.doc_linked });
             },
                 error => {
                     this.loading = false;

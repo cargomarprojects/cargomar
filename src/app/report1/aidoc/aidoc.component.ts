@@ -205,4 +205,12 @@ export class AiDocComponent {
                 });
     }
 
+    ModifiedRecords(params: any) {
+        if (params.stype == "SAVE") {
+            for (let rec of this.ms.state.RecordList.filter(rec => rec.ai_pkid == params.pkid)) {
+                rec.ai_doc_linked = params.linked;
+            }
+        }
+    }
+
 }

@@ -65,11 +65,11 @@
             <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index">
                 <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
                     <td>{{rec.rec_created_date}}</td>
-                    <td class="hlink" (click)="showDetList(rec)">{{rec.ai_type}}</td>
+                    <td>{{rec.ai_type}}</td>
                     <td>{{rec.ai_date}}</td>
                     <td>{{rec.ai_from_id}}</td>
                     <td>{{rec.ai_to_id}}</td>
-                    <td>{{rec.ai_subject}}</td>
+                    <td class="hlink" (click)="showDetList(rec)">{{rec.ai_subject}}</td>
                     <td>{{rec.ai_bucket}}</td>
                     <td>{{rec.ai_folder}}</td>
                     <td>{{rec.ai_subfolder}}</td>
@@ -82,7 +82,7 @@
                         <div style="border-style:solid;" [style.border-color]="'green'" >
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <app-aidoc-det [record]="rec"></app-aidoc-det>
+                                    <app-aidoc-det [record]="rec" (ModifiedRecords)="ModifiedRecords($event)"></app-aidoc-det>
                                 </div>
                             </div>
                         </div>
