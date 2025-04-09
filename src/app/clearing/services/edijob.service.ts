@@ -51,6 +51,6 @@ export class EdijobService {
   ProcessSb(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Common/EdiSb/ProcessSb', SearchData, this.gs.headerparam2('authorized'));
   }
-
+   
 }
 

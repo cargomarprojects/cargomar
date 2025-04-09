@@ -589,7 +589,8 @@ export class EdilinkComponent {
         { "code": "STUFFED-AT", "name": "STUFFED-AT" },
         { "code": "TRADE AGREEMENTS", "name": "TRADE AGREEMENTS" },
         { "code": "TRANSPORT-MODE", "name": "TRANSPORT-MODE" },
-        { "code": "UNIT", "name": "UNIT" }
+        { "code": "UNIT", "name": "UNIT" },
+        { "code": "BRANCH", "name": "BRANCH" }
       ];
 
     } else {

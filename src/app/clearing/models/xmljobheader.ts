@@ -11,4 +11,5 @@ export class XmlJobHeader {
     processed: string;
     remarks: string;
     caption: string;
+    rec_branch_code: string;
 }

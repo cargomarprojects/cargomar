@@ -117,7 +117,6 @@
               <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                 (mousedown)="selectedRowIndex=i">
                 <td (click)="chkReset(rec)"><input type="checkbox" [(ngModel)]="rec.job_selected" (change)="OnChange('job_selected')" ></td>
-
                 <td>{{rec.msg_from_id}}</td>
                 <td>{{rec.msg_to_id}}</td>
                 <td>{{rec.msg_subject}}</td>

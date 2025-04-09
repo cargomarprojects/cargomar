@@ -68,6 +68,7 @@ export class EdiJob {
   shipping_bill_no: string;
   shipping_bill_date: string;
   isconsbuyersame: boolean;
+  rec_branch_code: string;
 
   PackingList: EdiJobPacking[] = [];
   rec_mode: string;
@@ -76,7 +77,7 @@ export class EdiJob {
 
 export class EdiJobPacking {
   pkid: string;
-  pack_slno:string;
+  pack_slno: string;
   pack_from: string;
   pack_to: string;
   pack_unit: string;
