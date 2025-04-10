@@ -513,7 +513,7 @@ export class EdilinkComponent {
       || _type == "CARGO-NATURE" || _type == "NFEI"
       || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE"
       || _type == "JOB-TYPE" || _type == "TRANSPORT-MODE"
-      || _type == "IGST-PAYMENT-STATUS" || _type == "STUFFED-AT")
+      || _type == "IGST-PAYMENT-STATUS" || _type == "STUFFED-AT"||_type=="BILL-OF-LADING")
       return true;
     else
       return false;
@@ -590,7 +590,8 @@ export class EdilinkComponent {
         { "code": "TRADE AGREEMENTS", "name": "TRADE AGREEMENTS" },
         { "code": "TRANSPORT-MODE", "name": "TRANSPORT-MODE" },
         { "code": "UNIT", "name": "UNIT" },
-        { "code": "BRANCH", "name": "BRANCH" }
+        { "code": "BRANCH", "name": "BRANCH" },
+        { "code": "BILL-OF-LADING", "name": "BILL-OF-LADING" }
       ];
 
     } else {
@@ -676,6 +677,11 @@ export class EdilinkComponent {
       this.Value1TypeList = [
         { "code": "AIR EXPORT", "name": "AIR EXPORT" },
         { "code": "SEA EXPORT", "name": "SEA EXPORT" },
+      ];
+    }else if (_type == "BILL-OF-LADING") {
+      this.Value1TypeList = [
+        { "code": "HBL", "name": "HBL" },
+        { "code": "MBL", "name": "MBL" },
       ];
     }
 

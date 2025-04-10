@@ -85,16 +85,19 @@ export class AiDocDetComponent {
 
     updateSource(_rec: AiDocd) {
         let SearchData = {
-            pkid: ''
+            pkid: '',
+            parent_id: ''
         }
-        SearchData.pkid = _rec.aid_pkid;
+        SearchData.parent_id = _rec.aid_parent_id;
         this.loading = true;
         this.ms.state.ErrorMessage = '';
         this.ms.updateSource(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                _rec.aid_map_target_value = response.target_value;
-
+                // _rec.aid_map_target_value = response.target_value;
+                if (response.error_msg)
+                    alert(response.error_msg);
+                this.List();
                 if (this.ModifiedRecords != null)
                     this.ModifiedRecords.emit({ stype: 'SAVE', pkid: _rec.aid_parent_id, linked: response.doc_linked });
             },
