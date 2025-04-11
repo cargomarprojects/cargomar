@@ -79,10 +79,11 @@
                 </tr>
                 <tr *ngIf="rec.rec_displayed">
                     <td colspan="100%">
-                        <div style="border-style:solid;" [style.border-color]="'green'" >
+                        <div style="border-style:solid;border-color:green" class="page-box">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <app-aidoc-det [record]="rec" (ModifiedRecords)="ModifiedRecords($event)"></app-aidoc-det>
+                                    <app-aidoc-det [record]="rec"
+                                        (ModifiedRecords)="ModifiedRecords($event)"></app-aidoc-det>
                                 </div>
                             </div>
                         </div>
