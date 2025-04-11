@@ -42,6 +42,7 @@ import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 import { GenReportComponent } from './genreport/genreport.component';
 import { GstReconRepComponent } from './gstreconrep/gstreconrep.component';
 import { AiDocComponent } from './aidoc/aidoc.component';
+import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -82,7 +83,8 @@ const routes: Routes = [
   { path: 'costgst', component: CostGstRptComponent },
   { path: 'genreport', component: GenReportComponent },
   { path: 'gstreconrep', component: GstReconRepComponent },
-  { path: 'aidoc', component: AiDocComponent }
+  { path: 'aidoc', component: AiDocComponent },
+  { path: 'shiptrackmaster', component: ShipTrackMasterComponent }
 ];
 
 @NgModule({

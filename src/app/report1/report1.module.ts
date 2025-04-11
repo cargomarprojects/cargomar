@@ -85,7 +85,8 @@ import { GstReconRepDetEditComponent } from './gstreconrep/gstreconrepdet-edit.c
 import { GstGenSearchComponent } from './gstreconrep/gstgen-search.component';
 import { AiDocComponent } from './aidoc/aidoc.component';
 import { AiDocDetComponent } from './aidoc/aidoc-det.component';
-
+import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
+import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterdet.component';
 
 @NgModule({
   imports: [
@@ -154,7 +155,9 @@ import { AiDocDetComponent } from './aidoc/aidoc-det.component';
     GstReconRepDetEditComponent,
     GstGenSearchComponent,
     AiDocComponent,
-    AiDocDetComponent
+    AiDocDetComponent,
+    ShipTrackMasterComponent,
+    ShipTrackMasterDetComponent
   ],
   providers: [GstReconRepService
   ],

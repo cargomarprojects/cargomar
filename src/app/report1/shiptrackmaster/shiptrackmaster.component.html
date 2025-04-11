@@ -1,0 +1,210 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    </div>
+</div>
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">From.Date</label>
+                    <div class="col-sm-8">
+                        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">To.Date</label>
+                    <div class="col-sm-8">
+                        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
+                    <div class="col-sm-8">
+                        <select class="form-control form-control-sm" [(ngModel)]="list_opr_type">
+                            <option [value]="'SEA EXPORT,AIR EXPORT'">EXPORT</option>
+                            <option [value]="'SEA EXPORT'">SEA EXPORT</option>
+                            <option [value]="'AIR EXPORT'">AIR EXPORT</option>
+                            <option [value]="'SEA IMPORT,AIR IMPORT'">IMPORT</option>
+                            <option [value]="'SEA IMPORT'">SEA IMPORT</option>
+                            <option [value]="'AIR IMPORT'">AIR IMPORT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-sm-8">
+                        <!-- <select class="form-control form-control-sm" [(ngModel)]="list_tp_code">
+                            <option *ngFor="let rec of TpList" [value]="rec.user_tp_code">
+                                {{rec.user_tp_name}}
+                            </option>
+                        </select> -->
+                        <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
+                            [where]="getSwhere('SHIPPER')" [displaycolumn]="'NAME'" [displaydata]="list_exp_name"
+                            (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Master#</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="master_no"
+                            (blur)="OnBlur('master_no')" required maxlength="60" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">House#</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="house_no"
+                            (blur)="OnBlur('house_no')" required maxlength="60" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group row">
+                    <div class="offset-4 col-sm-8">
+                        <!-- <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button> -->
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 input-group input-group-sm mt-2">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm mr-3">Search</button>
+                        <!-- <div *ngIf="bPrint||bMail">
+                            <input type="checkbox" [(ngModel)]="is_both" id="_chkboth">
+                            <label class="col-form-label col-form-label-sm mr-1" for="_chkboth">Both</label>
+                        </div> -->
+                        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Print</button>
+                        <button *ngIf="bMail" [disabled]="loading" (click)="List('MAIL', mailsent)"
+                            class="btn btn-primary btn-sm">Mail</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 365px);">
+        <table class="table  table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>MASTER.DATE</th>
+                    <th>POL</th>
+                    <th>POD</th>
+                    <th>SHIPPER</th>
+                    <th>CONSIGNEE</th>
+                    <th>CONTAINER#</th>
+                    <th>CARRIER</th>
+                    <th>BOOKING#</th>
+                    <th>MASTER#</th>
+                    <th>HOUSE#</th>
+                    <th>VESSEL</th>
+                    <th>VOYAGE</th>
+                    <th>ETD</th>
+                    <th>CONF</th>
+                    <th>ETA</th>
+                    <th>CONF</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.mbl_date}}</td>
+                    <td>{{rec.pol_name}}</td>
+                    <td>{{rec.pod_name}}</td>
+                    <td>{{rec.exp_name}}</td>
+                    <td>{{rec.imp_name}}</td>
+                    <td>{{rec.cntr_no}}</td>
+                    <td>{{rec.carrier_name}}</td>
+                    <td>{{rec.book_no}}</td>
+                    <td>{{rec.mbl_no}}</td>
+                    <td>{{rec.hbl_no}}</td>
+                    <td>{{rec.vessel}}</td>
+                    <td>{{rec.voyage}}</td>
+                    <td>{{rec.etd}}</td>
+                    <td>{{rec.etd_confirm==true?'Y':'-'}}</td>
+                    <td>{{rec.eta}}</td>
+                    <td>{{rec.eta_confirm==true?'Y':'-'}}</td>
+                </tr>
+                <tr *ngIf="rec.row_displayed">
+                    <td colspan="19">
+                        <div style="border-style:solid;border-color:green" class="page-details">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <app-shiptrackmasterdet [type]="rec.rec_category" [record]="rec"
+                                        (ModifiedRecords)="ModifiedRecords($event)"></app-shiptrackmasterdet>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-pager">
+        <div *ngIf="page_count">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+                        (Records-{{page_rowcount}})</a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
+                            class="fa fa-backward"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
+                            class="fa fa-arrow-left"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
+                            class="fa fa-arrow-right"></span></a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
+                            class="fa fa-forward"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<ng-template #mailsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Message Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SHIPMENT-TRACKING-JOBWISE'" [sHtml]="sHtml"
+            [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false
+            [AttachList]="AttachList"></app-mail>
+    </div>
+    <!--<div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+      </div>-->
+</ng-template>
