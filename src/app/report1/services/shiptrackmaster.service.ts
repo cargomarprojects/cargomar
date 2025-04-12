@@ -1,9 +1,6 @@
 
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
-
-import { SaveShipData } from '../models/shipmentdata';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()

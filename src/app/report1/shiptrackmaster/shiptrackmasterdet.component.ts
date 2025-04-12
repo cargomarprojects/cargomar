@@ -81,6 +81,8 @@ export class ShipTrackMasterDetComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      mblid: this.record.mbl_id,
+      hblid: '',
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,

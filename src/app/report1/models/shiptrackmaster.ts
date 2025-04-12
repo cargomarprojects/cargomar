@@ -7,6 +7,7 @@ export class ShipTrackMaster {
     imp_name: string;
     carrier_name: string;
     book_no: string;
+    mbl_id: string;
     mbl_no: string;
     mbl_date: string;
     pol_name: string;

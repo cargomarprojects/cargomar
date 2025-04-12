@@ -55,9 +55,9 @@ export class ShipTrackMasterComponent {
     ord_status: string = "ALL";
     sort_colname: string = "a.rec_created_date desc";
 
-    list_exp_id: string = "";
-    list_exp_name: string = "";
-    list_exp_code: string = "";
+    list_cust_id: string = "";
+    list_cust_name: string = "";
+    list_cust_code: string = "";
     list_imp_id: string = "";
     list_imp_name: string = "";
     list_imp_code: string = "";
@@ -174,10 +174,10 @@ export class ShipTrackMasterComponent {
         // Company Settings
 
 
-        if (_Record.controlname == "LIST_SHIPPER") {
-            this.list_exp_id = _Record.id;
-            this.list_exp_name = _Record.name;
-            this.list_exp_code = _Record.code;
+        if (_Record.controlname == "SHIPPER") {
+            this.list_cust_id = _Record.id;
+            this.list_cust_name = _Record.name;
+            this.list_cust_code = _Record.code;
 
         }
 
@@ -264,11 +264,14 @@ export class ShipTrackMasterComponent {
             page_rowcount: this.page_rowcount,
             from_date: this.from_date,
             to_date: this.to_date,
-            list_exp_id: this.list_exp_id,
+            list_cust_id: this.list_cust_id,
+            list_cust_name: this.list_cust_name,
             report_folder: this.gs.globalVariables.report_folder,
             file_pkid: this.gs.getGuid(),
             sort_colname: this.sort_colname,
-            root_folder: this.gs.defaultValues.root_folder
+            root_folder: this.gs.defaultValues.root_folder,
+            house_no: this.house_no,
+            master_no: this.master_no
         };
 
         if (_type == "MAIL")

@@ -44,7 +44,7 @@
                             </option>
                         </select> -->
                         <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
-                            [where]="getSwhere('SHIPPER')" [displaycolumn]="'NAME'" [displaydata]="list_exp_name"
+                            [where]="getSwhere('SHIPPER')" [displaycolumn]="'NAME'" [displaydata]="list_cust_name"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div>
@@ -120,8 +120,8 @@
                     <th>MASTER.DATE</th>
                     <th>POL</th>
                     <th>POD</th>
-                    <th>SHIPPER</th>
-                    <th>CONSIGNEE</th>
+                    <th>EXPORTER</th>
+                    <th>IMPORTER</th>
                     <th>CONTAINER#</th>
                     <th>CARRIER</th>
                     <th>BOOKING#</th>
@@ -145,7 +145,7 @@
                     <td>{{rec.cntr_no}}</td>
                     <td>{{rec.carrier_name}}</td>
                     <td>{{rec.book_no}}</td>
-                    <td>{{rec.mbl_no}}</td>
+                    <td class="hlink" (click)="ShowPage(rec)">{{rec.mbl_no}}</td>
                     <td>{{rec.hbl_no}}</td>
                     <td>{{rec.vessel}}</td>
                     <td>{{rec.voyage}}</td>
