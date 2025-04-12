@@ -39,8 +39,8 @@ export class ShipTrackMasterComponent {
     urlid: string;
 
     list_trk_exist: boolean = true;
-    search_list_opr_type: string = "SEA EXPORT,AIR EXPORT";
-    list_opr_type: string = "SEA EXPORT,AIR EXPORT";
+    search_list_opr_type: string = "SEA EXPORT";
+    list_opr_type: string = "SEA EXPORT";
 
     ord_trkids: string = "";
     ord_trkpos: string = "";
