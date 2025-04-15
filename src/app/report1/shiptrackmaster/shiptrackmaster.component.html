@@ -151,8 +151,8 @@
                     <td>{{rec.voyage}}</td>
                     <td>{{rec.etd}}</td>
                     <td>{{rec.etd_confirm==true?'Y':'-'}}</td>
-                    <td>{{rec.eta}}</td>
-                    <td>{{rec.eta_confirm==true?'Y':'-'}}</td>
+                    <td>{{rec.pod_eta}}</td>
+                    <td>{{rec.pod_eta_confirm==true?'Y':'-'}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
                     <td colspan="19">
@@ -200,7 +200,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SHIPMENT-TRACKING-JOBWISE'" [sHtml]="sHtml"
+        <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'SHIPMENT-TRACKING-MBLWISE'" [sHtml]="sHtml"
             [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false
             [AttachList]="AttachList"></app-mail>
     </div>

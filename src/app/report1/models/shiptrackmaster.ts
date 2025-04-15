@@ -18,8 +18,11 @@ export class ShipTrackMaster {
     voyage: string;
     etd: string;
     etd_confirm: boolean;
-    eta: string;
-    eta_confirm: boolean;
+    pod_eta: string;
+    pod_eta_confirm: boolean;
+    pofd_eta: string;
+    pofd_eta_confirm: boolean;
+
 
     row_displayed: boolean;
     _globalvariables: GlobalVariables;
