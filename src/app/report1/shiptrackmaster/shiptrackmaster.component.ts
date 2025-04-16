@@ -26,6 +26,7 @@ export class ShipTrackMasterComponent {
     bMail: boolean = false;
     bAdmin = false;
     bPrint = false;
+    bSave: boolean = false;
     disableSave = true;
     loading = false;
     currentTab = 'LIST';
@@ -133,6 +134,7 @@ export class ShipTrackMasterComponent {
         this.bMail = false;
         this.bAdmin = false;
         this.bPrint = false;
+        this.bSave = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -142,6 +144,8 @@ export class ShipTrackMasterComponent {
                 this.bPrint = true;
             if (this.menu_record.rights_email)
                 this.bMail = true;
+            if (this.menu_record.rights_add || this.menu_record.rights_edit)
+                this.bSave = true;
         }
         this.LoadCombo();
         this.initLov();

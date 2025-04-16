@@ -19,5 +19,8 @@ export class ShipTrackMasterService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipTrackMaster/TrackingList', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    UpdateMasterTrk(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipTrackMaster/UpdateMasterTrk', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

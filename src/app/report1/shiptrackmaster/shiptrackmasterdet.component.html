@@ -46,19 +46,34 @@
                         <th>POD</th>
                         <th>ETA</th>
                         <th class="text-center">CONFIRM</th>
+                        <th *ngIf="bSave">UPDATE</th>
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
                         <td>{{i+1}}</td>
-                        <td>{{rec.trk_vsl_name}}</td>
-                        <td>{{rec.trk_voyage}}</td>
+                        <td class="p-0">
+                            <app-autocomplete3 [controlname]="'VESSEL'" [tabletype]="'VESSEL'" [displaycolumn]="'NAME'"
+                                [displaydata]="rec.trk_vsl_name" (ValueChanged)="LovSelected($event,rec)">
+                            </app-autocomplete3>
+                        </td>
+                        <td class="p-0"> <input type="text" class="form-control form-control-sm"
+                                [(ngModel)]="rec.trk_voyage" (blur)="OnBlur('trk_voyage',rec)" /></td>
                         <td>{{rec.trk_pol_name}}</td>
-                        <td>{{rec.trk_pol_etd}}</td>
-                        <td class="text-center">{{rec.trk_pol_etd_confirm ? 'Y' : '-'}}</td>
+                        <td class="p-0"><app-date [inputdate]="rec.trk_pol_etd"
+                                (ValueChanged)="rec.trk_pol_etd=$event"></app-date></td>
+                        <td class="text-center p-0">
+                            <input class="form-check-input" type="checkbox" [(ngModel)]="rec.trk_pol_etd_confirm">
+                        </td>
                         <td>{{rec.trk_pod_name}}</td>
-                        <td>{{rec.trk_pod_eta}}</td>
-                        <td class="text-center">{{rec.trk_pod_eta_confirm ? 'Y' : '-'}}</td>
+                        <td class="p-0"><app-date [inputdate]="rec.trk_pod_eta"
+                                (ValueChanged)="rec.trk_pod_eta=$event"></app-date></td>
+                        <td class="text-center p-0"><input class="form-check-input" type="checkbox"
+                                [(ngModel)]="rec.trk_pod_eta_confirm"></td>
+                        <td *ngIf="bSave" class="hlink"
+                            (click)="UpdateMasterTrk(rec)">
+                            <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                        </td>
                     </tr>
                 </tbody>
             </table>

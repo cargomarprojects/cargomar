@@ -54,6 +54,7 @@ export class SeaBuyRateComponent {
   search_liner: string = "";
   search_branch_code: string = "";
   sort_by = "sbr_valid_from,sbr_valid_to";
+  print_format = "FORMAT-1";
   search_tradelane_id: string = "";
   search_pol_id: string = "";
   search_pod_id: string = "";
@@ -279,7 +280,8 @@ export class SeaBuyRateComponent {
       search_pol_id: this.search_pol_id,
       search_pod_id: this.search_pod_id,
       search_liner_id: this.search_liner_id,
-      allbr: this.allbr
+      allbr: this.allbr,
+      print_format: this.print_format
     };
 
     this.ErrorMessage = '';

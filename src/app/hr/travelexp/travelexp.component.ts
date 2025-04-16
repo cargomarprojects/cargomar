@@ -25,6 +25,7 @@ export class TravelExpenseComponent {
     bAdmin: boolean = false;
     bDocs: boolean = false;
     bExcel: boolean = false;
+    bCompany: boolean = false;
     sub: any;
     urlid: string;
     modal: any;
@@ -69,6 +70,7 @@ export class TravelExpenseComponent {
         this.bAdmin = false;
         this.bDocs = false;
         this.bExcel = false;
+        this.bCompany = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -78,6 +80,8 @@ export class TravelExpenseComponent {
                 this.bDocs = true;
             if (this.menu_record.rights_print)
                 this.bExcel = true;
+            if (this.menu_record.rights_company)
+                this.bCompany = true;
         }
         this.LoadCombo();
     }
@@ -183,7 +187,8 @@ export class TravelExpenseComponent {
             user_code: this.gs.globalVariables.user_code,
             from_date: this.ms.state.from_date,
             to_date: this.ms.state.to_date,
-            badmin: this.bAdmin
+            badmin: this.bAdmin,
+            bcompany: this.bCompany
         };
         this.ms.state.ErrorMessage = '';
         this.ms.List(SearchData)

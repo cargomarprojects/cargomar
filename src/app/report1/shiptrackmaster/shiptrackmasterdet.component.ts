@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { ShipTrackMaster } from '../models/shiptrackmaster';
 import { ShipTrackMasterService } from '../services/shiptrackmaster.service';
 import { Trackingm } from '../../operations/models/tracking';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-shiptrackmasterdet',
@@ -18,6 +19,7 @@ export class ShipTrackMasterDetComponent {
   @Output() ModifiedRecords = new EventEmitter<any>();
   @Input() record: ShipTrackMaster;
   @Input() type: string = "";
+  @Input() bSave: boolean = false;
 
   pkid: string = '';
   remarks: string = '';
@@ -52,7 +54,7 @@ export class ShipTrackMasterDetComponent {
 
   // Array For Displaying List
   RecordList: Trackingm[] = [];
-  
+
   // Single Record for add/edit/view details
 
 
@@ -95,7 +97,7 @@ export class ShipTrackMasterDetComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.tracklist;
-        
+
         // this.invdestfile_displayname = response.invdestfile_displayname;
         // this.invdestfile_name = response.invdestfile_name;
       },
@@ -113,5 +115,59 @@ export class ShipTrackMasterDetComponent {
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+
+  OnBlur(field: string, _rec: Trackingm = null) {
+    if (field == 'trk_voyage') {
+      _rec.trk_voyage = _rec.trk_voyage.toUpperCase();
+    }
+
+  }
+
+  LovSelected(_Record: SearchTable, _rec: Trackingm) {
+
+    if (_Record.controlname == "VESSEL") {
+      _rec.trk_vsl_id = _Record.id;
+      _rec.trk_vsl_code = _Record.code;
+      _rec.trk_vsl_name = _Record.name;
+    }
+  }
+
+  UpdateMasterTrk(_rec: Trackingm) {
+    let SearchData2 = {
+      trk_pkid: _rec.trk_pkid,
+      trk_vsl_id: _rec.trk_vsl_id,
+      trk_voyage: _rec.trk_voyage,
+      trk_pol_etd: _rec.trk_pol_etd,
+      trk_pol_etd_confirm: _rec.trk_pol_etd_confirm,
+      trk_pod_eta:  _rec.trk_pod_eta,
+      trk_pod_eta_confirm: _rec.trk_pod_eta_confirm,
+      user_code: this.gs.globalVariables.user_code
+    };
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.UpdateMasterTrk(SearchData2)
+      .subscribe(response => {
+        this.loading = false;
+        // if (response.retvalue) {
+        //   let pkidsArray = _ids.split(',');
+        //   for (let i = 0; i < pkidsArray.length; i++) {
+        //     for (let rec of this.mainService.state.RecordListItc.filter(rec => rec.pkid == pkidsArray[i])) {
+        //       rec.claim_status = this.mainService.state.gst_recon_itc_claim_status;
+        //       rec.row_color2 = rec.claim_status == "PENDING" ? "black" : rec.row_color;
+        //       rec.display_claimed_period = response.retperiod;
+        //       rec.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
+        //       rec.claim_created_by = this.gs.globalVariables.user_code;
+        //     }
+        //   }
+        // }
+         
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 }
