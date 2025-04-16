@@ -128,9 +128,8 @@ export class ShipTrackMasterComponent {
     }
 
     InitComponent() {
-        // this.from_date = this.gs.getNewdate(60);
-        this.from_date = this.gs.globalVariables.year_start_date;
-        this.to_date = "";
+        this.from_date = this.gs.defaultValues.lastmonthdate;
+        this.to_date = this.gs.defaultValues.today;
         this.bMail = false;
         this.bAdmin = false;
         this.bPrint = false;
