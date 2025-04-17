@@ -46,7 +46,6 @@
                         <th>POD</th>
                         <th>ETA</th>
                         <th class="text-center">CONFIRM</th>
-                        <th *ngIf="bSave">UPDATE</th>
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody">
@@ -70,13 +69,56 @@
                                 (ValueChanged)="rec.trk_pod_eta=$event"></app-date></td>
                         <td class="text-center p-0"><input class="form-check-input" type="checkbox"
                                 [(ngModel)]="rec.trk_pod_eta_confirm"></td>
-                        <td *ngIf="bSave" class="hlink"
-                            (click)="UpdateMasterTrk(rec)">
-                            <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
-                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">POD</label>
+                    <div class="col-sm-2 pr-2">
+                        <app-autocomplete3 [controlname]="'POD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+                            [displaydata]="Record.book_pod_code" disabled="true" (ValueChanged)="LovSelected($event,null)">
+                        </app-autocomplete3>
+                    </div>
+                    <div class="col-sm-2 pl-0 pr-0">
+                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pod_name" />
+                    </div>
+
+                    <label class="col-sm-1 col-form-label col-form-label-sm ">ETA</label>
+                    <div class="col-sm-2 pr-2">
+                        <app-date [inputdate]="Record.book_eta" (ValueChanged)="Record.book_eta=$event"></app-date>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="mt-1">
+                            <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_eta_confirm">Confm
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label col-form-label-sm">POFD</label>
+                    <div class="col-sm-2 pr-2">
+                        <app-autocomplete3 [controlname]="'POFD'" [tabletype]="'SEA PORT'" [displaycolumn]="'CODE'"
+                            [displaydata]="Record.book_pofd_code" disabled="true" (ValueChanged)="LovSelected($event,null)">
+                        </app-autocomplete3>
+                    </div>
+                    <div class="col-sm-2 pl-0 pr-0">
+                        <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.book_pofd_name" />
+                    </div>
+
+                    <label class="col-sm-1 col-form-label col-form-label-sm ">ETA</label>
+                    <div class="col-sm-2 pr-2">
+                        <app-date [inputdate]="Record.book_pofd_eta" (ValueChanged)="Record.book_pofd_eta=$event"></app-date>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="mt-1">
+                            <input class="form-check-input" type="checkbox" [(ngModel)]="Record.book_pofd_eta_confirm">Confm
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="page-box">
@@ -84,7 +126,8 @@
             <div class="col-sm-12">
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button [disabled]="loading" (click)="Close()" class="btn btn-default btn-sm">Close</button>
+                        <button *ngIf="bSave"  [disabled]="loading" (click)="UpdateMasterTrk()" class="btn btn-info btn-sm">Save</button>
+                        <button [disabled]="loading" (click)="Close()" class="btn btn-info btn-sm">Close</button>
                     </div>
                 </div>
             </div>
