@@ -350,6 +350,8 @@
                     <div class="offset-4 col-sm-10">
                         <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
+                            <button (click)="PrintReceipt()"
+                            class="btn btn-primary btn-sm">Print</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>

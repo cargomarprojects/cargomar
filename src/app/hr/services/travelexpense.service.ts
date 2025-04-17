@@ -45,6 +45,10 @@ export class TravelExpenseService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/TravelExpense/Save', Record, this.gs.headerparam2('authorized'));
     }
 
+    PrintReceipt(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/TravelExpense/PrintReceipt', SearchData, this.gs.headerparam2('authorized'));
+    }
+    
     LoadDefault(SearchData: any) {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/TravelExpense/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }

@@ -546,4 +546,45 @@ export class TravelExpenseComponent {
                     this.ms.state.ErrorMessage = this.gs.getError(error);
                 });
     }
+
+    PrintReceipt() {
+         this.ms.state.ErrorMessage = ''
+    
+        if (this.ms.state.pkid.length <= 0) {
+            this.ms.state.ErrorMessage = "\n\r | Invalid ID";
+        }
+    
+        if (this.ms.state.ErrorMessage.length > 0) {
+          alert(this.ms.state.ErrorMessage);
+          return;
+        }
+        
+        let SearchData = {
+          type: '',
+          pkid: '',
+          report_folder: '',
+          folderid: '',
+          company_code: '',
+          branch_code: ''
+        }
+    
+        SearchData.pkid = this.ms.state.pkid;
+        SearchData.report_folder = this.gs.globalVariables.report_folder;
+        SearchData.company_code = this.gs.globalVariables.comp_code;
+        SearchData.branch_code = this.gs.globalVariables.branch_code;
+        SearchData.folderid = this.gs.getGuid();
+    
+        this.loading = true;
+        this.ms.state.ErrorMessage = '';
+        this.ms.PrintReceipt(SearchData)
+          .subscribe(response => {
+            this.loading = false;
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          },
+            error => {
+              this.loading = false;
+              this.ms.state.ErrorMessage = this.gs.getError(error);
+              alert(this.ms.state.ErrorMessage);
+            });
+      }
 }
