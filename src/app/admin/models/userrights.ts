@@ -37,4 +37,5 @@ export class UserRights_VM {
     userRights: UserRights[] = [];
     copyto_user_id: string;
     copyto_branch_id: string;
+    copyto_menu_name: string;
 }

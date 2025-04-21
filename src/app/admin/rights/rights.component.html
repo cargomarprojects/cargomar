@@ -85,15 +85,19 @@
     <div class="col-6">
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Copy to User</label>
-        <div class="col-4">
+        <div class="col-3">
           <app-autocomplete #UserLov [inputdata]="USERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
         </div>
         <label class="col-1 col-form-label col-form-label-sm">Branch</label>
-        <div class="col-3">
+        <div class="col-2">
           <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
           </app-autocomplete>
         </div>
+        <label class="col-1 col-form-label col-form-label-sm">Menu</label>
         <div class="col-2">
+          <input type="text" class="col form-control form-control-sm" name="Searchmenu" [(ngModel)]="copyto_menu_name" />
+        </div>
+        <div class="col-1">
           <button [disabled]="loading" (click)="Copy()" class="btn btn-primary btn-sm">Copy</button>
         </div>
       </div>

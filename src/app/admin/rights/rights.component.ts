@@ -47,6 +47,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
     copyto_username: string = '';
     copyto_branch_id: string = '';
     copyto_branch_code: string = '';
+    copyto_menu_name: string = '';
 
     page_count: number = 0;
     page_current: number = 0;
@@ -82,7 +83,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
     }
 
     ngOnInit() {
-
+        this.copyto_menu_name='';
     }
     InitLov() {
         this.USERRECORD = new SearchTable();
@@ -268,6 +269,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
         VM.globalvariables = this.gs.globalVariables;
         VM.copyto_user_id = this.copyto_userid;
         VM.copyto_branch_id = this.copyto_branch_id;
+        VM.copyto_menu_name = this.copyto_menu_name;
 
         this.rightsService.CopyRights(VM)
             .subscribe(response => {
