@@ -26,6 +26,7 @@ export class TravelExpenseComponent {
     bDocs: boolean = false;
     bExcel: boolean = false;
     bCompany: boolean = false;
+    bApproved: boolean = false;
     sub: any;
     urlid: string;
     modal: any;
@@ -71,6 +72,7 @@ export class TravelExpenseComponent {
         this.bDocs = false;
         this.bExcel = false;
         this.bCompany = false;
+        this.bApproved = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -82,6 +84,13 @@ export class TravelExpenseComponent {
                 this.bExcel = true;
             if (this.menu_record.rights_company)
                 this.bCompany = true;
+            if (this.menu_record.rights_approval.length > 0) {
+                if (this.menu_record.rights_approval.indexOf('{APRVD}') >= 0)
+                    this.bApproved = true;
+            }
+        }
+        if (this.gs.globalVariables.user_code == "ADMIN") {
+            this.bApproved = true;
         }
         this.LoadCombo();
     }
@@ -243,6 +252,19 @@ export class TravelExpenseComponent {
         this.Record.te_remarks = '';
         this.Record.te_travel_rules = '';
         this.Record.rec_branch_code = '';
+        this.Record.te_date_from = '';
+        this.Record.te_date_to = '';
+
+        this.Record.te_lodging_amt_aprvd = 0;
+        this.Record.te_boarding_amt_aprvd = 0;
+        this.Record.te_misc_amt_aprvd = 0;
+        this.Record.te_conv_comp_car_amt_aprvd = 0;
+        this.Record.te_conv_taxi_amt_aprvd = 0;
+        this.Record.te_conv_auto_amt_aprvd = 0;
+        this.Record.te_conv_others_amt_aprvd = 0;
+        this.Record.te_total_aprvd = 0;
+
+
         this.Record.rec_locked = false;
         this.Record.rec_mode = this.ms.state.mode;
 
@@ -307,7 +329,7 @@ export class TravelExpenseComponent {
                 if (this.ms.state.mode == 'ADD') {
                     this.Record.te_slno = response.slno;
                 }
-                if (_type == "SAVE")
+                if (_type == "SAVE" || _type == "APRVD-SAVE")
                     this.ms.state.ErrorMessage = "Save Complete";
 
                 if (_type == "UNLOCK") {
@@ -352,7 +374,7 @@ export class TravelExpenseComponent {
             this.ms.state.RecordList.push(this.Record);
         }
         else {
-            REC.te_date = this.Record.te_date;
+            REC.te_date = this.gs.ConvertDate2DisplayFormat(this.Record.te_date);
             REC.te_emp_name = this.Record.te_emp_name;
             REC.rec_branch_code = this.Record.rec_branch_code;
             REC.te_grade_name = this.Record.te_grade_name;
@@ -370,6 +392,8 @@ export class TravelExpenseComponent {
             REC.te_misc_amt = this.Record.te_misc_amt;
             REC.te_total = this.Record.te_total;
             REC.te_remarks = this.Record.te_remarks;
+            REC.te_date_from = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_from);
+            REC.te_date_to = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_to);
         }
     }
 
@@ -446,6 +470,49 @@ export class TravelExpenseComponent {
             if (this.bValueChanged)
                 this.FindTotal();
         }
+
+        if (controlname == 'te_lodging_amt_aprvd') {
+            this.Record.te_lodging_amt_aprvd = this.gs.roundNumber(this.Record.te_lodging_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_boarding_amt_aprvd') {
+            this.Record.te_boarding_amt_aprvd = this.gs.roundNumber(this.Record.te_boarding_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_misc_amt_aprvd') {
+            this.Record.te_misc_amt_aprvd = this.gs.roundNumber(this.Record.te_misc_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_conv_comp_car_amt_aprvd') {
+            this.Record.te_conv_comp_car_amt_aprvd = this.gs.roundNumber(this.Record.te_conv_comp_car_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_conv_taxi_amt_aprvd') {
+            this.Record.te_conv_taxi_amt_aprvd = this.gs.roundNumber(this.Record.te_conv_taxi_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_conv_auto_amt_aprvd') {
+            this.Record.te_conv_auto_amt_aprvd = this.gs.roundNumber(this.Record.te_conv_auto_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_conv_others_amt_aprvd') {
+            this.Record.te_conv_others_amt_aprvd = this.gs.roundNumber(this.Record.te_conv_others_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+        if (controlname == 'te_total_aprvd') {
+            this.Record.te_total_aprvd = this.gs.roundNumber(this.Record.te_total_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
+        }
+
+
     }
 
     OnChange(field: string) {
@@ -464,6 +531,21 @@ export class TravelExpenseComponent {
         if (field == 'te_boarding_amt')
             this.bValueChanged = true;
         if (field == 'te_misc_amt')
+            this.bValueChanged = true;
+
+        if (field == 'te_lodging_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_boarding_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_misc_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_conv_comp_car_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_conv_taxi_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_conv_auto_amt_aprvd')
+            this.bValueChanged = true;
+        if (field == 'te_conv_others_amt_aprvd')
             this.bValueChanged = true;
     }
 
@@ -484,6 +566,22 @@ export class TravelExpenseComponent {
             this.bValueChanged = false;
         if (field == 'te_misc_amt')
             this.bValueChanged = false;
+
+        if (field == 'te_lodging_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_boarding_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_misc_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_conv_comp_car_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_conv_taxi_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_conv_auto_amt_aprvd')
+            this.bValueChanged = false;
+        if (field == 'te_conv_others_amt_aprvd')
+            this.bValueChanged = false;
+
     }
 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -512,7 +610,22 @@ export class TravelExpenseComponent {
         grand_tot = this.gs.roundNumber(grand_tot, 0);
         this.Record.te_total = grand_tot;
 
+    }
 
+    FindTotalAprvd() {
+        if (this.bValueChanged == false)
+            return;
+
+        let tot: number = 0;
+        tot = this.Record.te_lodging_amt_aprvd;
+        tot += this.Record.te_boarding_amt_aprvd;
+        tot += this.Record.te_misc_amt_aprvd;
+        tot += this.Record.te_conv_comp_car_amt_aprvd;
+        tot += this.Record.te_conv_taxi_amt_aprvd;
+        tot += this.Record.te_conv_auto_amt_aprvd;
+        tot += this.Record.te_conv_others_amt_aprvd;
+        tot = this.gs.roundNumber(tot, 0);
+        this.Record.te_total_aprvd = tot;
     }
 
     SearchRecord(controlname: string) {
@@ -548,43 +661,43 @@ export class TravelExpenseComponent {
     }
 
     PrintReceipt() {
-         this.ms.state.ErrorMessage = ''
-    
+        this.ms.state.ErrorMessage = ''
+
         if (this.ms.state.pkid.length <= 0) {
             this.ms.state.ErrorMessage = "\n\r | Invalid ID";
         }
-    
+
         if (this.ms.state.ErrorMessage.length > 0) {
-          alert(this.ms.state.ErrorMessage);
-          return;
+            alert(this.ms.state.ErrorMessage);
+            return;
         }
-        
+
         let SearchData = {
-          type: '',
-          pkid: '',
-          report_folder: '',
-          folderid: '',
-          company_code: '',
-          branch_code: ''
+            type: '',
+            pkid: '',
+            report_folder: '',
+            folderid: '',
+            company_code: '',
+            branch_code: ''
         }
-    
+
         SearchData.pkid = this.ms.state.pkid;
         SearchData.report_folder = this.gs.globalVariables.report_folder;
         SearchData.company_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
         SearchData.folderid = this.gs.getGuid();
-    
+
         this.loading = true;
         this.ms.state.ErrorMessage = '';
         this.ms.PrintReceipt(SearchData)
-          .subscribe(response => {
-            this.loading = false;
-            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-          },
-            error => {
-              this.loading = false;
-              this.ms.state.ErrorMessage = this.gs.getError(error);
-              alert(this.ms.state.ErrorMessage);
-            });
-      }
+            .subscribe(response => {
+                this.loading = false;
+                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
+    }
 }

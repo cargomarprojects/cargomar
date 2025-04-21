@@ -33,6 +33,17 @@ export class TravelExpense {
     te_total: number;
     te_remarks: string;
     te_travel_rules: string;
+    te_date_from: string;
+    te_date_to: string;
+
+    te_lodging_amt_aprvd: number;
+    te_boarding_amt_aprvd: number;
+    te_misc_amt_aprvd: number;
+    te_conv_comp_car_amt_aprvd: number;
+    te_conv_taxi_amt_aprvd: number;
+    te_conv_auto_amt_aprvd: number;
+    te_conv_others_amt_aprvd: number;
+    te_total_aprvd: number;
 
     rec_branch_code: string;
     rec_mode: string;

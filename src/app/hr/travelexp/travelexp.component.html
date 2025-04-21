@@ -76,8 +76,10 @@
                     <th>BRANCH</th>
                     <th>GRADE</th>
                     <th>TRAVEL.MODE</th>
-                    <th>FROM</th>
-                    <th>TO</th>
+                    <th>DT.FROM</th>
+                    <th>DT.TO</th>
+                    <th>TRAVEL.FROM</th>
+                    <th>TRAVEL.TO</th>
                     <th>CITY.TYPE</th>
                     <th>PURPOSE</th>
                     <th>OWN.ARRNG.</th>
@@ -88,6 +90,7 @@
                     <th>CONV.AMT</th>
                     <th>MISC.AMT</th>
                     <th>TOTAL</th>
+                    <th>APRVD.AMT</th>
                     <th>SUBMITTED</th>
                     <th>REMARKS</th>
                 </tr>
@@ -101,6 +104,8 @@
                     <td>{{rec.rec_branch_code}}</td>
                     <td>{{rec.te_grade_name}}</td>
                     <td>{{rec.te_travel_mode}}</td>
+                    <td>{{rec.te_date_from}}</td>
+                    <td>{{rec.te_date_to}}</td>
                     <td>{{rec.te_travel_from}}</td>
                     <td>{{rec.te_travel_to}}</td>
                     <td>{{rec.te_city_type}}</td>
@@ -113,6 +118,7 @@
                     <td>{{rec.te_conv_total}}</td>
                     <td>{{rec.te_misc_amt}}</td>
                     <td>{{rec.te_total}}</td>
+                    <td>{{rec.te_total_aprvd}}</td>
                     <td>{{rec.rec_locked?'Y':'N'}}</td>
                     <td>{{rec.te_remarks}}</td>
                 </tr>
@@ -142,216 +148,360 @@
 
 
 <div *ngIf="ms.state.currentTab=='DETAILS'" class="page-details">
-    <div class="page-box">
+    <!-- <div class="page-box"> -->
         <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">SlNo</label>
-                    <div class="col-sm-3">
-                        <input type="text" disabled class="form-control form-control-sm" type="text"
-                            style="color:red; font-weight:bold" [(ngModel)]="Record.te_slno" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-sm-3">
-                        <app-date [inputdate]="Record.te_date" (ValueChanged)="Record.te_date=$event">
-                        </app-date>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Employee</label>
-                    <div class="col-sm-8">
-                        <app-autocomplete3 [controlname]="'EMPLOYEE'" [tabletype]="'EMPLOYEE'" [where]="''"
-                            [displaycolumn]="'NAME'" [displaydata]="Record.te_emp_name"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Grade</label>
-                    <div class="col-sm-8">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_grade_name" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Mode of Travel</label>
-                    <div class="col-sm-8">
-                        <select class="form-control form-control-sm" name="modetype"
-                            [(ngModel)]="Record.te_travel_mode">
-                            <option [value]="'FLIGHT'">FLIGHT</option>
-                            <option [value]="'TRAIN'">TRAIN</option>
-                            <option [value]="'BUS'">BUS</option>
-                            <option [value]="'CAR'">CAR</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">From</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_from"
-                            required (blur)="OnBlur('te_travel_from')" maxlength="100" />
-                    </div>
-                </div>
+            <div class="col-sm-8 pr-1">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">SlNo</label>
+                                <div class="col-sm-4">
+                                    <input type="text" disabled class="form-control form-control-sm" type="text"
+                                        style="color:red; font-weight:bold" [(ngModel)]="Record.te_slno" />
+                                </div>
+                                <label class="col-sm-1 col-form-label col-form-label-sm">Date</label>
+                                <div class="col-sm-4">
+                                    <app-date [inputdate]="Record.te_date" (ValueChanged)="Record.te_date=$event">
+                                    </app-date>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Employee</label>
+                                <div class="col-sm-9">
+                                    <app-autocomplete3 [controlname]="'EMPLOYEE'" [tabletype]="'EMPLOYEE'" [where]="''"
+                                        [displaycolumn]="'NAME'" [displaydata]="Record.te_emp_name"
+                                        (ValueChanged)="LovSelected($event)">
+                                    </app-autocomplete3>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Grade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_grade_name" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Mode of Travel</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="modetype"
+                                        [(ngModel)]="Record.te_travel_mode">
+                                        <option [value]="'FLIGHT'">FLIGHT</option>
+                                        <option [value]="'TRAIN'">TRAIN</option>
+                                        <option [value]="'TRAIN (2 TIER AC)'">TRAIN (2 TIER AC)</option>
+                                        <option [value]="'TRAIN (3 TIER AC)'">TRAIN (3 TIER AC)</option>
+                                        <option [value]="'TRAIN (2ND SLEEPER)'">TRAIN (2ND SLEEPER)</option>
+                                        <option [value]="'BUS'">BUS</option>
+                                        <option [value]="'CAR'">CAR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Date From</label>
+                                <div class="col-sm-4">
+                                    <app-date [inputdate]="Record.te_date_from"
+                                        (ValueChanged)="Record.te_date_from=$event"></app-date>
+                                </div>
+                                <label class="col-sm-1 col-form-label col-form-label-sm pr-0">To</label>
+                                <div class="col-sm-4">
+                                    <app-date [inputdate]="Record.te_date_to"
+                                        (ValueChanged)="Record.te_date_to=$event"></app-date>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Travel From</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_travel_from" required (blur)="OnBlur('te_travel_from')"
+                                        maxlength="100" />
+                                </div>
+                                <label class="col-sm-1 col-form-label col-form-label-sm pr-0">To</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_travel_to" required (blur)="OnBlur('te_travel_to')"
+                                        maxlength="100" />
+                                </div>
+                            </div>
 
-                <div class="form-group row">
+                            <!-- <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0">To</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_to"
                             required (blur)="OnBlur('te_travel_to')" maxlength="100" />
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">City Type</label>
-                    <div class="col-sm-8">
-                        <select class="form-control form-control-sm" name="citytype" [(ngModel)]="Record.te_city_type">
-                            <option [value]="'METRO'">METRO</option>
-                            <option [value]="'OTHERS'">OTHERS</option>
-                        </select>
-                    </div>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">City Type</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="citytype"
+                                        [(ngModel)]="Record.te_city_type">
+                                        <option [value]="'METRO'">METRO</option>
+                                        <option [value]="'OTHERS'">OTHERS</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Purpose</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_purpose" required
-                            (blur)="OnBlur('te_purpose')" maxlength="100" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Remarks</label>
-                    <div class="col-sm-8">
-                        <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Purpose</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_purpose" required (blur)="OnBlur('te_purpose')"
+                                        maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Remarks</label>
+                                <div class="col-sm-9">
+                                    <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
                             (blur)="OnBlur('te_remarks')" maxlength="250" /> -->
-                        <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
-                            (blur)="OnBlur('te_remarks')" maxlength="250"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_branch_code}}</label>
-                    <div class="col-sm-8">
-                        <input type="checkbox" [(ngModel)]="Record.te_own_arrangement" id="chkownarrng"> <label
-                            class="col-form-label col-form-label-sm" for="chkownarrng">Own Arrangement</label>
-                    </div>
-                    <!-- <div class="col-sm-3">Branch&nbsp;
+                                    <textarea rows="2" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_remarks" (blur)="OnBlur('te_remarks')"
+                                        maxlength="250"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label
+                                    class="col-sm-3 col-form-label col-form-label-sm">{{Record.rec_branch_code}}</label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" [(ngModel)]="Record.te_own_arrangement" id="chkownarrng">
+                                    <label class="col-form-label col-form-label-sm" for="chkownarrng">Own
+                                        Arrangement</label>
+                                </div>
+                                <!-- <div class="col-sm-3">Branch&nbsp;
                         <app-autocomplete3 [disabled]="true" [controlname]="'BRANCH'" [tabletype]="'BRANCH'"
                             [displaycolumn]="'CODE'" [displaydata]="Record.rec_branch_code"
                             (ValueChanged)="LovSelected($event)">
                         </app-autocomplete3>
                     </div> -->
-                </div>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Lodging Days</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_lodging_days"
-                            required (blur)="OnBlur('te_lodging_days')" maxlength="2" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_lodging_amt"
-                            required (blur)="OnBlur('te_lodging_amt')" (change)="OnChange('te_lodging_amt')"
-                            (focus)="OnFocus('te_lodging_amt')" maxlength="12" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Boarding Days</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_boarding_days"
-                            required (blur)="OnBlur('te_boarding_days')" maxlength="2" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_boarding_amt"
-                            required (blur)="OnBlur('te_boarding_amt')" (change)="OnChange('te_boarding_amt')"
-                            (focus)="OnFocus('te_boarding_amt')" maxlength="12" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <label class="col-sm-8  col-form-label col-form-label-sm">Local Conveyance</label>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Lodging Days</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_lodging_days" required (blur)="OnBlur('te_lodging_days')"
+                                        maxlength="2" />
+                                </div>
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_lodging_amt" required (blur)="OnBlur('te_lodging_amt')"
+                                        (change)="OnChange('te_lodging_amt')" (focus)="OnFocus('te_lodging_amt')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Boarding Days</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_boarding_days" required
+                                        (blur)="OnBlur('te_boarding_days')" maxlength="2" />
+                                </div>
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_boarding_amt" required (blur)="OnBlur('te_boarding_amt')"
+                                        (change)="OnChange('te_boarding_amt')" (focus)="OnFocus('te_boarding_amt')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-6 col-form-label col-form-label-sm">Misc. Charges</label>
+                                <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_misc_amt" required (blur)="OnBlur('te_misc_amt')"
+                                        (change)="OnChange('te_misc_amt')" (focus)="OnFocus('te_misc_amt')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                                <label class="col-sm-9  col-form-label col-form-label-sm">Local Conveyance</label>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Company Car</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_conv_comp_car_amt" required (blur)="OnBlur('te_conv_comp_car_amt')"
-                            (change)="OnChange('te_conv_comp_car_amt')" (focus)="OnFocus('te_conv_comp_car_amt')"
-                            maxlength="12" />
-                    </div>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Company Car</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_comp_car_amt" required
+                                        (blur)="OnBlur('te_conv_comp_car_amt')"
+                                        (change)="OnChange('te_conv_comp_car_amt')"
+                                        (focus)="OnFocus('te_conv_comp_car_amt')" maxlength="12" />
+                                </div>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Taxi</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_taxi_amt"
-                            required (blur)="OnBlur('te_conv_taxi_amt')" (change)="OnChange('te_conv_taxi_amt')"
-                            (focus)="OnFocus('te_conv_taxi_amt')" maxlength="12" />
-                    </div>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Taxi</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_taxi_amt" required
+                                        (blur)="OnBlur('te_conv_taxi_amt')" (change)="OnChange('te_conv_taxi_amt')"
+                                        (focus)="OnFocus('te_conv_taxi_amt')" maxlength="12" />
+                                </div>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Auto</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_conv_auto_amt"
-                            required (blur)="OnBlur('te_conv_auto_amt')" (change)="OnChange('te_conv_auto_amt')"
-                            (focus)="OnFocus('te_conv_auto_amt')" maxlength="12" />
-                    </div>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Auto</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_auto_amt" required
+                                        (blur)="OnBlur('te_conv_auto_amt')" (change)="OnChange('te_conv_auto_amt')"
+                                        (focus)="OnFocus('te_conv_auto_amt')" maxlength="12" />
+                                </div>
+                            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Others</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_conv_others_amt" required (blur)="OnBlur('te_conv_others_amt')"
-                            (change)="OnChange('te_conv_others_amt')" (focus)="OnFocus('te_conv_others_amt')"
-                            maxlength="12" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Conv.Total</label>
-                    <div class="col-sm-3">
-                        <input type="number" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.te_conv_total" required (blur)="OnBlur('te_conv_total')"
-                            maxlength="12" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">Misc. Charges</label>
-                    <div class="col-sm-3">
-                        <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.te_misc_amt"
-                            required (blur)="OnBlur('te_misc_amt')" (change)="OnChange('te_misc_amt')"
-                            (focus)="OnFocus('te_misc_amt')" maxlength="12" />
-                    </div>
-                    <label class="col-sm-2 col-form-label col-form-label-sm pr-0">Grand.Total</label>
-                    <div class="col-sm-3">
-                        <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="Record.te_total"
-                            required (blur)="OnBlur('te_total')" maxlength="12" />
-                    </div>
-                </div>
-                <div class="form-group row">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Others</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_others_amt" required
+                                        (blur)="OnBlur('te_conv_others_amt')" (change)="OnChange('te_conv_others_amt')"
+                                        (focus)="OnFocus('te_conv_others_amt')" maxlength="12" />
+                                </div>
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Conv.Total</label>
+                                <div class="col-sm-3">
+                                    <input type="number" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_total" required (blur)="OnBlur('te_conv_total')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <!-- <label class="col-sm-7 col-form-label col-form-label-sm pr-0"></label> -->
+                                <div class="col-sm-6">
+                                    <input type="checkbox" [(ngModel)]="Record.rec_locked" id="chkreclocked"> <label
+                                        class="col-form-label col-form-label-sm" for="chkreclocked">All data entry
+                                        completed
+                                    </label>
+                                </div>
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Grand.Total</label>
+                                <div class="col-sm-3">
+                                    <input type="number" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_total" required (blur)="OnBlur('te_total')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <!-- <div class="form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm pr-0"></label>
                     <div class="col-sm-8">
                         <input type="checkbox" [(ngModel)]="Record.rec_locked" id="chkreclocked"> <label
-                            class="col-form-label col-form-label-sm" for="chkreclocked">All data entry completed </label>
+                            class="col-form-label col-form-label-sm" for="chkreclocked">All data entry completed
+                        </label>
+                    </div>
+                </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-
+            <div class="col-sm-4 pl-2">
+                <div *ngIf="ms.state.mode=='EDIT'" class="page-box">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-form-label col-form-label-sm" style="font-weight: bold;">APPROVED AMOUNT</label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Lodging</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_lodging_amt_aprvd" required
+                                        (blur)="OnBlur('te_lodging_amt_aprvd')"
+                                        (change)="OnChange('te_lodging_amt_aprvd')"
+                                        (focus)="OnFocus('te_lodging_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Boarding</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_boarding_amt_aprvd" required
+                                        (blur)="OnBlur('te_boarding_amt_aprvd')"
+                                        (change)="OnChange('te_boarding_amt_aprvd')"
+                                        (focus)="OnFocus('te_boarding_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Misc. Charges</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_misc_amt_aprvd" required
+                                        (blur)="OnBlur('te_misc_amt_aprvd')" (change)="OnChange('te_misc_amt_aprvd')"
+                                        (focus)="OnFocus('te_misc_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Company Car</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_comp_car_amt_aprvd" required
+                                        (blur)="OnBlur('te_conv_comp_car_amt_aprvd')"
+                                        (change)="OnChange('te_conv_comp_car_amt_aprvd')"
+                                        (focus)="OnFocus('te_conv_comp_car_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Taxi</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_taxi_amt_aprvd" required
+                                        (blur)="OnBlur('te_conv_taxi_amt_aprvd')"
+                                        (change)="OnChange('te_conv_taxi_amt_aprvd')"
+                                        (focus)="OnFocus('te_conv_taxi_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Auto</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_auto_amt_aprvd" required
+                                        (blur)="OnBlur('te_conv_auto_amt_aprvd')"
+                                        (change)="OnChange('te_conv_auto_amt_aprvd')"
+                                        (focus)="OnFocus('te_conv_auto_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Others</label>
+                                <div class="col-sm-3">
+                                    <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_conv_others_amt_aprvd" required
+                                        (blur)="OnBlur('te_conv_others_amt_aprvd')"
+                                        (change)="OnChange('te_conv_others_amt_aprvd')"
+                                        (focus)="OnFocus('te_conv_others_amt_aprvd')" maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Total</label>
+                                <div class="col-sm-3">
+                                    <input type="number" disabled class="form-control form-control-sm"
+                                        [(ngModel)]="Record.te_total_aprvd" required (blur)="OnBlur('te_total_aprvd')"
+                                        maxlength="12" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label col-form-label-sm pr-0"></label>
+                                <div class="col-sm-3">
+                                    <button *ngIf="bApproved" [disabled]="loading"
+                                    (click)="Save('APRVD-SAVE')" class="btn btn-info btn-sm">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <div class="page-box">
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <div class="offset-4 col-sm-10">
+                    <div class="offset-3 col-sm-9">
                         <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
-                            <button (click)="PrintReceipt()"
-                            class="btn btn-primary btn-sm">Print</button>
+                        <button (click)="PrintReceipt()" class="btn btn-primary btn-sm">Print</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -366,7 +516,7 @@
                     </div>
                 </div>
             </div> -->
-            
+
         </div>
     </div>
     <div *ngIf="Record.te_travel_rules" class="page-box">
