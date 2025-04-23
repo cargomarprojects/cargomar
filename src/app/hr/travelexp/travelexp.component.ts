@@ -254,6 +254,7 @@ export class TravelExpenseComponent {
         this.Record.rec_branch_code = '';
         this.Record.te_date_from = '';
         this.Record.te_date_to = '';
+        this.Record.te_travel_with = '';
 
         this.Record.te_lodging_amt_aprvd = 0;
         this.Record.te_boarding_amt_aprvd = 0;
@@ -392,6 +393,7 @@ export class TravelExpenseComponent {
             REC.te_misc_amt = this.Record.te_misc_amt;
             REC.te_total = this.Record.te_total;
             REC.te_remarks = this.Record.te_remarks;
+            REC.te_travel_with = this.Record.te_travel_with;
             REC.te_date_from = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_from);
             REC.te_date_to = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_to);
         }
@@ -428,7 +430,9 @@ export class TravelExpenseComponent {
         if (controlname == 'te_remarks') {
             this.Record.te_remarks = this.Record.te_remarks.toUpperCase();
         }
-
+        if (controlname == 'te_travel_with') {
+            this.Record.te_travel_with = this.Record.te_travel_with.toUpperCase();
+        }
         if (controlname == 'te_lodging_days') {
             this.Record.te_lodging_days = this.gs.roundNumber(this.Record.te_lodging_days, 0);
         }

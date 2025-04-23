@@ -44,6 +44,7 @@ export class TravelExpense {
     te_conv_auto_amt_aprvd: number;
     te_conv_others_amt_aprvd: number;
     te_total_aprvd: number;
+    te_travel_with: string;
 
     rec_branch_code: string;
     rec_mode: string;
