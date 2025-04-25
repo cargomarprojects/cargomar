@@ -120,7 +120,7 @@ export class TdsExemptionComponent {
         this.PARTYRECORD = new SearchTable();
         this.PARTYRECORD.controlname = "PARTY";
         this.PARTYRECORD.displaycolumn = "CODE";
-        this.PARTYRECORD.type = "CUSTOMER";
+        this.PARTYRECORD.type = "ACCTM";//CUSTOMER
         this.PARTYRECORD.id = "";
         this.PARTYRECORD.code = "";
         this.PARTYRECORD.name = "";
