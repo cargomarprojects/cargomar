@@ -46,6 +46,10 @@ export class TravelExpense {
     te_total_aprvd: number;
     te_travel_with: string;
 
+    te_approved_by: string;
+    te_sanctioned_by: string;
+    te_rejected_by: string;
+
     rec_branch_code: string;
     rec_mode: string;
     rec_locked: boolean;

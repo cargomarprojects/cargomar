@@ -92,6 +92,9 @@
                     <th>TOTAL</th>
                     <th>APRVD.AMT</th>
                     <th>SUBMITTED</th>
+                    <th>APPROVED</th>
+                    <th>SANCTIONED</th>
+                    <th>REJECTED</th>
                     <th>REMARKS</th>
                 </tr>
             </thead>
@@ -120,6 +123,9 @@
                     <td>{{rec.te_total}}</td>
                     <td>{{rec.te_total_aprvd}}</td>
                     <td>{{rec.rec_locked?'Y':'N'}}</td>
+                    <td>{{rec.te_approved_by}}</td>
+                    <td>{{rec.te_sanctioned_by}}</td>
+                    <td>{{rec.te_rejected_by}}</td>
                     <td>{{rec.te_remarks}}</td>
                 </tr>
             </tbody>
@@ -521,6 +527,12 @@
             </div> -->
 
         </div>
+    </div>
+    <div *ngIf="ms.state.mode=='EDIT'" class="page-box">
+        <h6 style="color: green" class="my-1">Travel Expense Approval</h6>
+        <app-approveddet [menuid]="menuid" [type]="type" [parentid]="ms.state.pkid" [approvalstatus]="approvalstatus"
+            [category]="'TRAVEL-APPROVED'" (ModifiedRecords)="ModifiedRecords($event)">
+        </app-approveddet>
     </div>
     <div *ngIf="Record.te_travel_rules" class="page-box">
         <div class="row">

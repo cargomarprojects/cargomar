@@ -327,7 +327,7 @@
   </div>
   <div *ngIf="mode=='EDIT'" class="page-box">
     <h6 style="color: green" class="my-1">Leave Approval</h6>
-    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus"
+    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus" [category]="'LEV-APPROVED'"
       (ModifiedRecords)="ModifiedRecords($event)">
     </app-approveddet>
   </div>

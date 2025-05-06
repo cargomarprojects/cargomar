@@ -21,6 +21,7 @@ export class ApprovedDetComponent {
     @Input() type: string = '';
     @Input() parentid: string = '';
     @Input() approvalstatus: string = '';
+    @Input() category: string = 'LEV-APPROVED';
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     selectedRowIndex: number = -1;
@@ -168,7 +169,7 @@ export class ApprovedDetComponent {
         this.pkid = this.gs.getGuid();
         this.Record = new ApprovedDet();
         this.Record.ad_pkid = this.pkid;
-        this.Record.rec_category = "LEV-APPROVED";
+        this.Record.rec_category = this.category;
         this.Record.ad_parent_id = this.parentid;
         this.Record.ad_status = '';
         this.Record.ad_remarks = '';
@@ -190,6 +191,7 @@ export class ApprovedDetComponent {
         this.ErrorMessage = '';
         this.InfoMessage = '';
         this.Record.ad_parent_id = this.parentid;
+        this.Record.rec_category = this.category;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
@@ -284,7 +286,8 @@ export class ApprovedDetComponent {
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_code: this.gs.globalVariables.user_code,
-            ad_status: _ad_status
+            ad_status: _ad_status,
+            category: this.category
         };
 
         this.ErrorMessage = '';

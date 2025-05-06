@@ -32,6 +32,7 @@ export class TravelExpenseComponent {
     modal: any;
     bValueChanged: boolean = false;
     bLocked: boolean = false;
+    approvalstatus: string = '';
 
     // Single Record for add/edit/view details
     Record: TravelExpense = new TravelExpense;
@@ -73,6 +74,7 @@ export class TravelExpenseComponent {
         this.bExcel = false;
         this.bCompany = false;
         this.bApproved = false;
+        this.approvalstatus = '';
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -85,12 +87,28 @@ export class TravelExpenseComponent {
             if (this.menu_record.rights_company)
                 this.bCompany = true;
             if (this.menu_record.rights_approval.length > 0) {
+
                 if (this.menu_record.rights_approval.indexOf('{APRVD}') >= 0)
                     this.bApproved = true;
+                if (this.menu_record.rights_approval.indexOf('APPROVED') >= 0) {
+                    this.approvalstatus += 'APPROVED';
+                }
+                if (this.menu_record.rights_approval.indexOf('SANCTIONED') >= 0) {
+                    if (this.approvalstatus != '')
+                        this.approvalstatus += ',';
+                    this.approvalstatus += 'SANCTIONED';
+                }
+                if (this.menu_record.rights_approval.indexOf('REJECTED') >= 0) {
+                    if (this.approvalstatus != '')
+                        this.approvalstatus += ',';
+                    this.approvalstatus += 'REJECTED';
+                }
             }
         }
+
         if (this.gs.globalVariables.user_code == "ADMIN") {
             this.bApproved = true;
+            this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED'
         }
         this.LoadCombo();
     }
@@ -704,4 +722,16 @@ export class TravelExpenseComponent {
                     alert(this.ms.state.ErrorMessage);
                 });
     }
+
+    ModifiedRecords(params: any) {
+        var REC = this.ms.state.RecordList.find(rec => rec.te_pkid == params.sid);
+        if (REC != null) {
+            REC.te_approved_by = params.approved_by;
+            REC.te_sanctioned_by = params.sanctioned_by;
+            REC.te_rejected_by = params.rejected_by;
+        }
+        // if (params.stype == "SAVE")
+        //   this.lock_record = true;
+    }
+
 }
