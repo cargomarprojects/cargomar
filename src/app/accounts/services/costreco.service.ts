@@ -19,5 +19,9 @@ export class CostRecoService {
     }
 
    
+    ChangeReconStatus(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/CostReco/ChangeReconStatus', SearchData, this.gs.headerparam2('authorized'));
+    }
+
 }
 

@@ -29,6 +29,7 @@ export class CostrecoComponent {
   pkid = '';
 
   format2: boolean = false;
+  pendingOnly: boolean = false;
 
   isclr: boolean = false;
   isimp: boolean = false;
@@ -71,7 +72,9 @@ export class CostrecoComponent {
     main_code: false,
     format2: false,
     hide_ho_entries: '',
-    mblno: ''
+    mblno: '',
+    cc_category: '',
+    recon_closed: 'N'
   };
 
   // Array For Displaying List
@@ -263,4 +266,78 @@ export class CostrecoComponent {
     }
   }
 
+  ChangeReconStatus(rec: Costreco) {
+    this.ErrorMessage = '';
+    let _pkid: string = '';
+    let _type: string = "";
+    if (rec.hbl_type.trim().length <= 0) {
+      this.ErrorMessage = "Invalid Category";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    //CLR
+    if (rec.hbl_type == "JOB SEA EXPORT" || rec.hbl_type == "JOB AIR EXPORT" || rec.hbl_type == "SI SEA IMPORT" || rec.hbl_type == "SI AIR IMPORT") {
+      _type = "CLR";
+      if (rec.cc_pkid.trim().length <= 0) {
+        this.ErrorMessage = "Invalid ID";
+        alert(this.ErrorMessage);
+        return;
+      }
+      _pkid = rec.cc_pkid;
+    }
+
+    //FWD
+    if (rec.hbl_type == "MBL-SE" || rec.hbl_type == "MBL-AE" || rec.hbl_type == "MBL-SI" || rec.hbl_type == "MBL-AI"
+      || rec.hbl_type == "HBL-SE" || rec.hbl_type == "HBL-AE" || rec.hbl_type == "HBL-SI" || rec.hbl_type == "HBL-AI" || rec.hbl_type == "JOB") {
+      _type = "FWD";
+      if (rec.mbl_pkid.trim().length <= 0) {
+        this.ErrorMessage = "Invalid ID";
+        alert(this.ErrorMessage);
+        return;
+      }
+      _pkid = rec.mbl_pkid; //if hbl_type is JOB then job_pkid is assign in mbl_pkid
+    }
+
+    // if (!confirm("Change Reconcile Status ")) {
+    //   return;
+    // }
+
+    this.loading = true;
+    this.SearchData.pkid = _pkid;
+    this.SearchData.cc_category = rec.hbl_type;
+    this.SearchData.recon_closed = rec.recon_closed;
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.code = this.code;
+    this.SearchData.main_code = this.main_code;
+    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
+
+    this.ErrorMessage = '';
+    this.mainService.ChangeReconStatus(this.SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        // rec.recon_closed = response.recon_closed;
+        if (_type == "CLR") {
+          for (let _rec of this.RecordList.filter(_rec => _rec.cc_pkid == rec.cc_pkid)) {
+            _rec.recon_closed = response.recon_closed;
+          }
+        }
+        if (_type == "FWD") {
+          for (let _rec of this.RecordList.filter(_rec => _rec.mbl_pkid == rec.mbl_pkid)) {
+            _rec.recon_closed = response.recon_closed;
+          }
+        }
+        // alert('Changed Successfully');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
+
+  getFilteredRecords(): any[] {
+    return this.pendingOnly ? this.RecordList.filter(rec => rec.recon_closed === 'N') : this.RecordList;
+  }
 }
