@@ -283,9 +283,10 @@ export class TravelExpenseComponent {
         this.Record.te_conv_others_amt_aprvd = 0;
         this.Record.te_total_aprvd = 0;
 
-
         this.Record.rec_locked = false;
+        this.Record.lock_record = false;
         this.Record.rec_mode = this.ms.state.mode;
+
 
         this.TrRecord = new TravelRules();
     }
@@ -730,8 +731,8 @@ export class TravelExpenseComponent {
             REC.te_sanctioned_by = params.sanctioned_by;
             REC.te_rejected_by = params.rejected_by;
         }
-        // if (params.stype == "SAVE")
-        //   this.lock_record = true;
+        if (params.stype == "SAVE")
+            this.Record.lock_record = true;
     }
 
 }

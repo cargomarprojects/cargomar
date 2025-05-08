@@ -49,10 +49,12 @@ export class TravelExpense {
     te_approved_by: string;
     te_sanctioned_by: string;
     te_rejected_by: string;
+    te_edit_code: string;
 
     rec_branch_code: string;
     rec_mode: string;
     rec_locked: boolean;
+    lock_record: boolean;
 
     _globalvariables: GlobalVariables;
 
