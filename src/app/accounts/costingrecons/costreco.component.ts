@@ -75,7 +75,8 @@ export class CostrecoComponent {
     hide_ho_entries: '',
     mblno: '',
     cc_category: '',
-    recon_closed: 'N'
+    recon_closed: 'N',
+    user_code: ''
   };
 
   // Array For Displaying List
@@ -315,11 +316,10 @@ export class CostrecoComponent {
     this.SearchData.pkid = _pkid;
     this.SearchData.cc_category = rec.hbl_type;
     this.SearchData.recon_closed = rec.recon_closed;
-    this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.code = this.code;
-    this.SearchData.main_code = this.main_code;
-    this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
-
+    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.ErrorMessage = '';
     this.mainService.ChangeReconStatus(this.SearchData)
       .subscribe(response => {
