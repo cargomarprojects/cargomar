@@ -64,7 +64,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div class="col-sm-10">
-              <input type="checkbox"  [(ngModel)]="pendingOnly" id="chkponly">
+              <input type="checkbox" [disabled]="!isSingleCode"  [(ngModel)]="pendingOnly" id="chkponly">
               <label for="chkponly">Show pending only</label>
             </div>
           </div>
@@ -84,7 +84,7 @@
             <th>TYPE</th>
             <th>VRNO</th>
             <th>CATEGORY</th>
-            <th>CLOSED</th>
+            <th *ngIf="isSingleCode">CLOSED</th>
 
             <th class="text-right">DEBIT</th>
             <th class="text-right">CREDIT</th>
@@ -115,7 +115,7 @@
             <td>{{rec.jvh_vrno}}</td>
             <td>{{rec.hbl_type}}</td>
 
-            <td class="hlink p-0" style="text-align: center;" (click)="ChangeReconStatus(rec)">
+            <td *ngIf="isSingleCode" class="hlink p-0" style="text-align: center;" (click)="ChangeReconStatus(rec)">
               <button *ngIf="rec.recon_closed"  class="btn btn-info btn-sm" >{{rec.recon_closed}}</button>
             </td>
 
@@ -160,7 +160,7 @@
             <th>TYPE</th>
             <th>VRNO</th>
             <th>CATEGORY</th>
-            <th>CLOSED</th>
+            <th *ngIf="isSingleCode">CLOSED</th>
             <th>M-STATUS</th>
             <th>H-STATUS</th>
 
@@ -196,7 +196,7 @@
             <td>{{rec.jvh_type}}</td>
             <td>{{rec.jvh_vrno}}</td>
             <td>{{rec.hbl_type}}</td>
-            <td class="hlink p-0" style="text-align: center;" (click)="ChangeReconStatus(rec)">
+            <td  *ngIf="isSingleCode" class="hlink p-0" style="text-align: center;" (click)="ChangeReconStatus(rec)">
               <button *ngIf="rec.recon_closed"  class="btn btn-info btn-sm" >{{rec.recon_closed}}</button>
             </td>
 

@@ -33,6 +33,7 @@ export class CostrecoComponent {
 
   isclr: boolean = false;
   isimp: boolean = false;
+  isSingleCode: boolean = false;
 
   rec_category: string = "";
   type_date: string = '';
@@ -180,6 +181,13 @@ export class CostrecoComponent {
     //  this.ErrorMessage = "To Date Cannot Be Blank";
     //  return;
     //}
+
+    if (this.code.includes(",")) {
+      this.isSingleCode = false;
+      this.pendingOnly = false;
+    }
+    else
+      this.isSingleCode = true;
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
