@@ -493,8 +493,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm pr-0"></label>
                             <div class="col-sm-3">
-                                <button *ngIf="bApproved" [disabled]="loading||Record.lock_record" (click)="Save('APRVD-SAVE')"
-                                    class="btn btn-info btn-sm">Update</button>
+                                <button *ngIf="bApproved" [disabled]="loading||Record.lock_record"
+                                    (click)="Save('APRVD-SAVE')" class="btn btn-info btn-sm">Update</button>
                             </div>
                         </div>
                     </div>
@@ -510,7 +510,8 @@
                     <div class="offset-3 col-sm-9">
                         <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
-                        <button (click)="PrintReceipt()" class="btn btn-primary btn-sm">Print</button>
+                        <button *ngIf="ms.state.mode=='EDIT'" (click)="PrintReceipt('PDF','')" class="btn btn-primary btn-sm">Print</button>
+                        <button *ngIf="ms.state.mode=='EDIT'&&bEmail" (click)="PrintReceipt('MAIL',emailsent)" class="btn btn-primary btn-sm">Mail</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -593,7 +594,19 @@
     </div>
 </div>
 <br />
-
+<ng-template #emailsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Message Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="" [defaultmessage]="ms.state.sMsg"
+            [defaultto_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
+            [AttachList]="ms.state.AttachList"></app-mail>
+    </div>
+</ng-template>
 <div *ngIf="ms.state.ErrorMessage" class="alert alert-info">
     {{ms.state.ErrorMessage}}
 </div>

@@ -27,6 +27,7 @@ export class TravelExpenseComponent {
     bExcel: boolean = false;
     bCompany: boolean = false;
     bApproved: boolean = false;
+    bEmail: boolean = false;
     sub: any;
     urlid: string;
     modal: any;
@@ -74,6 +75,7 @@ export class TravelExpenseComponent {
         this.bExcel = false;
         this.bCompany = false;
         this.bApproved = false;
+        this.bEmail = false;
         this.approvalstatus = '';
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
@@ -86,6 +88,8 @@ export class TravelExpenseComponent {
                 this.bExcel = true;
             if (this.menu_record.rights_company)
                 this.bCompany = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
             if (this.menu_record.rights_approval.length > 0) {
 
                 if (this.menu_record.rights_approval.indexOf('{APRVD}') >= 0)
@@ -244,9 +248,9 @@ export class TravelExpenseComponent {
         this.Record.te_pkid = this.ms.state.pkid;
         this.Record.te_slno = null;
         this.Record.te_date = this.gs.defaultValues.today;
-        this.Record.te_emp_id = '';
-        this.Record.te_emp_code = '';
-        this.Record.te_emp_name = '';
+        this.Record.te_emp_id = this.gs.globalVariables.emp_id;
+        this.Record.te_emp_code = this.gs.globalVariables.emp_code;
+        this.Record.te_emp_name = this.gs.globalVariables.emp_name;
         this.Record.te_grade_id = '';
         this.Record.te_grade_code = '';
         this.Record.te_grade_name = '';
@@ -289,6 +293,8 @@ export class TravelExpenseComponent {
 
 
         this.TrRecord = new TravelRules();
+        if (!this.gs.isBlank(this.Record.te_emp_id))
+            this.SearchRecord('travelrules');
     }
 
     // Load a single Record for VIEW/EDIT
@@ -657,19 +663,25 @@ export class TravelExpenseComponent {
         let SearchData = {
             table: 'travelrules',
             comp_code: '',
-            grade_id: ''
+            grade_id: '',
+            emp_id: ''
         };
         if (controlname == 'travelrules') {
             SearchData.table = 'travelrules';
             SearchData.comp_code = this.gs.globalVariables.comp_code;
             SearchData.grade_id = this.Record.te_grade_id;
+            SearchData.emp_id = this.Record.te_emp_id;
         }
 
         this.ms.state.ErrorMessage = '';
         this.gs.SearchRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-
+                if (this.gs.isBlank(this.Record.te_grade_id)) {
+                    this.Record.te_grade_id = response.grade_id;
+                    this.Record.te_grade_name = response.grade_name;
+                    this.Record.rec_branch_code = response.br_code;
+                }
                 this.Record.te_travel_rules = '';
                 this.TrRecord = new TravelRules();
                 if (response.travelrules.length > 0) {
@@ -683,7 +695,7 @@ export class TravelExpenseComponent {
                 });
     }
 
-    PrintReceipt() {
+    PrintReceipt(_type: string, emailsent: any) {
         this.ms.state.ErrorMessage = ''
 
         if (this.ms.state.pkid.length <= 0) {
@@ -701,21 +713,32 @@ export class TravelExpenseComponent {
             report_folder: '',
             folderid: '',
             company_code: '',
-            branch_code: ''
+            branch_code: '',
+            emp_name: ''
         }
 
+        SearchData.type = _type;
         SearchData.pkid = this.ms.state.pkid;
         SearchData.report_folder = this.gs.globalVariables.report_folder;
         SearchData.company_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
         SearchData.folderid = this.gs.getGuid();
+        SearchData.emp_name = this.Record.te_emp_name;
 
         this.loading = true;
         this.ms.state.ErrorMessage = '';
         this.ms.PrintReceipt(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                if (_type == 'MAIL') {
+                    this.ms.state.AttachList = new Array<any>();
+                    this.ms.state.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    this.ms.state.sSubject = response.subject;
+                    this.ms.state.sMsg = response.msg;
+                    this.ms.state.cc_ids = response.cc_id;
+                    this.open(emailsent);
+                } else
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
             },
                 error => {
                     this.loading = false;

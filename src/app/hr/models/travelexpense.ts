@@ -82,6 +82,10 @@ export interface iTravelExpenseModel {
     RecordList: TravelExpense[];
     NoteList: SearchTable[];
     ErrorMessage: string;
+    sSubject: string;
+    sMsg: string;
+    cc_ids: string;
+    AttachList: any[];
     // header search Values
     type: string;
     searchstring: string;
@@ -102,6 +106,10 @@ export const initialState: iTravelExpenseModel = {
     RecordList: [],
     NoteList: [],
     ErrorMessage: '',
+    sSubject: '',
+    sMsg: '',
+    cc_ids: '',
+    AttachList: [],
     type: '',
     searchstring: '',
     from_date: '',
