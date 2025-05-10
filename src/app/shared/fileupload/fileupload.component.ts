@@ -342,7 +342,10 @@ export class FileUploadComponent {
         },
         error => {
           this.loading = false;
-          alert(this.gs.getError(error));
+          if (this.gs.isBlank(this.gs.getError(error)))
+            alert('Failed');
+          else
+            alert(this.gs.getError(error));
           // alert('Failed');
         }
       );
