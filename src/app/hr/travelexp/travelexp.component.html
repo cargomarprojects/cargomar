@@ -602,7 +602,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="" [defaultmessage]="ms.state.sMsg"
+        <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="ms.state.sMsg" [defaultmessage]=""
             [defaultto_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
             [AttachList]="ms.state.AttachList"></app-mail>
     </div>
