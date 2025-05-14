@@ -103,21 +103,22 @@ export class Ledgerh {
 
   jvh_brok_exrate: number;
   jvh_brok_amt_inr: number;
-  jvh_due_date:string;
+  jvh_due_date: string;
   jvh_is_paid: string;
-  jvh_pay_remarks:string;
+  jvh_pay_remarks: string;
 
   rec_mode: string;
   rec_category: string = '';
 
 
-  
-   jvh_is_einv : string = '';
-   jvh_einv_status : string = '';
-   jvh_irn : string = '';
 
-   jvh_crdays: number;
+  jvh_is_einv: string = '';
+  jvh_einv_status: string = '';
+  jvh_irn: string = '';
 
+  jvh_crdays: number;
+
+  jvh_lock_record: boolean;
   jvh_allocation_found: boolean;
 
   _globalvariables: GlobalVariables;
@@ -130,5 +131,5 @@ export class Ledgerh {
   CostCenterList: CostCentert[] = [];
   XrefList: LedgerXref[] = [];
 
-  
+
 }

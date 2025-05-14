@@ -656,12 +656,14 @@ export class BuyRateComponent {
     this.lock_date = true;
     this.lock_cc = true;
 
-    if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
-      this.lock_record = false;
+    // if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
+    //   this.lock_record = false;
     if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
       this.lock_date = false;
     if (this.Record.jvh_edit_code.indexOf("{C}") >= 0)
       this.lock_cc = false;
+
+     this.lock_record = this.Record.jvh_lock_record;
 
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;

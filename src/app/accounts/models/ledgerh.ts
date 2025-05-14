@@ -131,6 +131,7 @@ export class Ledgerh {
   jvh_company_add_slno: number;
   jvh_crdays: number;
   jvh_selected: boolean;
+  jvh_lock_record: boolean;
 
   rec_created_by: string;
   rec_created_date: string;
