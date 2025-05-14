@@ -113,6 +113,8 @@
           <th>EINV</th>
           <th>NARRATION</th>
           <th *ngIf="type=='PN'">APPROVED.BY</th>
+          <th>CREATED.BY</th>
+          <th>CREATED.DT</th>
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
@@ -138,6 +140,8 @@
           <td>{{rec.jvh_einv_status}}</td>
           <td>{{rec.jvh_narration}}</td>
           <td (click)="ShowApproval(approval,rec.jvh_pkid)" *ngIf="type=='PN'">{{rec.rec_aprvd_by}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
           <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
             <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jvh_pkid,name:rec.jvh_docno}"
               (result)="DeleteRecord($event)"></App-Dialog>
@@ -191,7 +195,8 @@
           </div>
           <label class="col-2 col-form-label col-form-label-sm">Ref.Date</label>
           <div class="col-4">
-            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event" (focusout)="onFocusout('jvh_reference_date',invdatevalid)">
+            <app-date [inputdate]="Record.jvh_reference_date" (ValueChanged)="Record.jvh_reference_date=$event"
+              (focusout)="onFocusout('jvh_reference_date',invdatevalid)">
             </app-date>
           </div>
         </div>
