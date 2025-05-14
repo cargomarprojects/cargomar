@@ -202,6 +202,7 @@ export class UserComponent {
         this.Record.rec_locked = false;
         this.Record.user_remarks = '';
         this.Record.user_tp_type = '';
+        this.Record.user_short_name = '';
         this.InitLov();
     }
 
@@ -277,7 +278,10 @@ export class UserComponent {
             bret = false;
             sError += "\n\rName Cannot Be Blank";
         }
-
+        if (this.Record.user_short_name.trim().length <= 0) {
+            bret = false;
+            sError += "\n\rShort Name Cannot Be Blank";
+        }
         //if (this.Record.user_password.trim().length <= 0) {
         //    bret = false;
         //    sError += "\n\rPassword Cannot Be Blank";
@@ -286,6 +290,7 @@ export class UserComponent {
         if (bret) {
             this.Record.user_code = this.Record.user_code.toUpperCase().replace(' ', '');
             this.Record.user_name = this.Record.user_name.toUpperCase().trim();
+            this.Record.user_short_name = this.Record.user_short_name.toUpperCase().trim();
             this.Record.user_password = this.Record.user_password.toUpperCase().trim();
             this.Record.user_tp_code = this.Record.user_tp_code.toUpperCase().trim();
             this.Record.user_remarks = this.Record.user_remarks.toUpperCase().trim();
@@ -313,6 +318,7 @@ export class UserComponent {
             REC.rec_locked = this.Record.rec_locked;
             REC.user_remarks = this.Record.user_remarks;
             REC.user_show_payroll = this.Record.user_show_payroll;
+            REC.user_short_name = this.Record.user_short_name;
         }
     }
 
@@ -335,5 +341,23 @@ export class UserComponent {
     }
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
-      }
+    }
+
+    OnBlur(field: string) {
+
+        if (field == 'user_code') {
+            this.Record.user_code = this.Record.user_code.toUpperCase();
+        }
+
+        if (field == 'user_name') {
+            this.Record.user_name = this.Record.user_name.toUpperCase();
+            if (this.gs.isBlank(this.Record.user_short_name))
+                this.Record.user_short_name = this.Record.user_name;
+        }
+
+        if (field == 'user_short_name') {
+            this.Record.user_short_name = this.Record.user_short_name.toUpperCase();
+        }
+
+    }
 }

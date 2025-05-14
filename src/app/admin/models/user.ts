@@ -30,6 +30,7 @@ export class User {
     rec_mode: string;
     rec_locked: boolean;
     user_remarks: string;
+    user_short_name: string;
 
     _globalvariables: GlobalVariables;
 
