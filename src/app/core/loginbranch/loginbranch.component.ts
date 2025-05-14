@@ -72,6 +72,9 @@ export class LoginBranchComponent {
         this.loading = false;
         this.showlogin = true;
 
+        if (this.gs.globalVariables.user_code == "SP") //For sivaprasad, he will select the fin year 
+          this.yearid = '';
+
         // if trading partner login no branch selection allowed
         if (this.gs.globalVariables.tp_code != '')
           this.Login();
@@ -83,17 +86,17 @@ export class LoginBranchComponent {
         });
   }
 
-  async Login(){
+  async Login() {
     var iRet = 0;
     this.loading = true;
     iRet = await this.gs.LoadMenu(this.branchid, this.yearid);
-    console.log( 'Load Branch Competed ', iRet);
-    if ( iRet == 0 ) {
+    console.log('Load Branch Competed ', iRet);
+    if (iRet == 0) {
       this.gs.CreateAppId();
-      const Record  = this.gs.CreateAppDetailsRecord();
-      iRet =  await this.gs.saveAppDetails(Record);
+      const Record = this.gs.CreateAppDetailsRecord();
+      iRet = await this.gs.saveAppDetails(Record);
       this.loading = false;
-      
+
       this.router.navigate(['home'], { replaceUrl: true });
     }
     this.loading = false;
@@ -113,7 +116,7 @@ export class LoginBranchComponent {
     // New Code Added Start
     this.gs.IsAuthenticated = false;
     this.gs.Access_Token = '';
-    this.gs.Modules =[];
+    this.gs.Modules = [];
     this.gs.globalVariables.istp = false;
     // New Code Added End
 
