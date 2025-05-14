@@ -347,7 +347,8 @@ export class MailComponent {
       companywise: false,
       root_folder: this.gs.defaultValues.root_folder,
       sub_folder: this.gs.defaultValues.sub_folder,
-      filedocid: ''
+      filedocid: '',
+      user_short_name: this.gs.globalVariables.user_short_name
     };
 
     SearchData.table = controlname;

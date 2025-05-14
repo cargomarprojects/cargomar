@@ -220,7 +220,7 @@ export class UserComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
-                this.RecordDet = response.recorddet;
+                this.RecordDet = response.recorddet; 
             },
                 error => {
                     this.loading = false;

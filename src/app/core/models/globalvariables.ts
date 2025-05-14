@@ -10,7 +10,7 @@ export class GlobalVariables {
     user_branch_id: string;
     user_branch_user: string;
     user_show_payroll: string;
-
+    user_short_name: string;
     hide_ho_entries: string;
 
     ipaddress: string;

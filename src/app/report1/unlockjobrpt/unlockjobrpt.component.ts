@@ -362,6 +362,7 @@ export class UnlockJobrptComponent {
             year_code: this.gs.globalVariables.year_code,
             user_code: this.gs.globalVariables.user_code,
             user_name: this.gs.globalVariables.user_name,
+            user_short_name: this.gs.globalVariables.user_short_name,
             user_pkid: this.gs.globalVariables.user_pkid
         };
 
