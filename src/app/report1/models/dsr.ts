@@ -134,6 +134,7 @@ export class Dsr {
   pickup_date: string;
   incoterm: string;
   po_no: string;
+  rec_created_date: string;
   
   _globalvariables: GlobalVariables;
 }

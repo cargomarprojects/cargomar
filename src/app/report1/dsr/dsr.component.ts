@@ -37,6 +37,7 @@ export class DsrComponent {
   modal: any;
   format_type: string = "";
   rec_category: string = "";
+  filter_date_type: string = 'JOB';
   type_date: string = '';
   from_date: string = '';
   to_date: string = '';
@@ -95,7 +96,8 @@ export class DsrComponent {
     pod_id: '',
     all: false,
     format_type: '',
-    bookingrpt: false
+    bookingrpt: false,
+    filter_date_type: ''
   };
 
   // Array For Displaying List
@@ -174,6 +176,7 @@ export class DsrComponent {
   Init() {
 
     this.type_date = "DATE";
+    this.filter_date_type = "JOB";
     this.job_type = "ALL";
     this.RecordList = null;
     this.branch_code = this.gs.globalVariables.branch_code;
@@ -387,7 +390,7 @@ export class DsrComponent {
     this.SearchData.all = this.all;
     this.SearchData.format_type = this.format_type;
     this.SearchData.bookingrpt = this.bookingrpt;
-    
+    this.SearchData.filter_date_type = this.filter_date_type;
     this.ErrorMessage = '';
     this.mainService.DsrList(this.SearchData)
       .subscribe(response => {
