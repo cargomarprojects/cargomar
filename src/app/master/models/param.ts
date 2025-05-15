@@ -16,6 +16,7 @@ export class Param {
     param_id5_name: string;
 
     param_email: string;
+    param_date: string;
 
     param_rate: number;
     rec_mode: string;

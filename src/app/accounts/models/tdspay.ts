@@ -14,6 +14,8 @@ export class TdsPay {
   panno: string;
   party_name: string;
   location: string;
+  pan_type: string;
+
 
   jv_tds_gross_amt: number;
   jv_tds_rate: number;
@@ -27,9 +29,8 @@ export class TdsPay {
   forgnpay: number;
   ptax: number;
   jv_credit: number;
-  rec_branch_code:string;
- 
+  rec_branch_code: string;
 
-    _globalvariables: GlobalVariables;
+  _globalvariables: GlobalVariables;
 
 }

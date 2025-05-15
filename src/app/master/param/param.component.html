@@ -53,6 +53,8 @@
           <th>{{ListName}}</th>
           <th *ngIf="type == 'PAN'">LOCATION</th>
           <th *ngIf="type == 'PAN'">AADHAAR LINKED</th>
+          <th *ngIf="type == 'PAN'">ACTIVE</th>
+          <th *ngIf="type == 'PAN'">DOI</th>
           <th *ngIf="type == 'USER HIERARCHY'">SUB USERS</th>
           <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{id1}}</th>
@@ -107,6 +109,8 @@
           <td>{{rec.param_name}}</td>
           <td *ngIf="type == 'PAN'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'PAN'">{{rec.param_id2}}</td>
+          <td *ngIf="type == 'PAN'">{{rec.param_id3}}</td>
+          <td *ngIf="type == 'PAN'">{{rec.param_date}}</td>
           <td *ngIf="type == 'USER HIERARCHY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_id1}}</td>
@@ -220,11 +224,18 @@
 
       <div *ngIf="id3 != ''" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{id3}}</label>
-        <div class="col-10">
+        <div *ngIf="type != 'PAN'" class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_id3" required
             maxlength="60" />
         </div>
+        <div *ngIf="type == 'PAN'" class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.param_id3">
+            <option [value]="'N'">NO</option>
+            <option [value]="'Y'">YES</option>
+          </select>
+        </div>
       </div>
+
       <div *ngIf="id4 != ''" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{id4}}</label>
         <div class="col-10">
@@ -240,6 +251,14 @@
         </div>
         <div class="col-6" style="padding-left:0">
           <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.param_id5_name" />
+        </div>
+      </div>
+
+      <div *ngIf="dateCaption != ''" class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">{{dateCaption}}</label>
+        <div class="col-10">
+          <app-date [inputdate]="Record.param_date" (ValueChanged)="Record.param_date=$event">
+          </app-date>
         </div>
       </div>
 

@@ -59,6 +59,7 @@ export class ParamComponent {
   id5_lovtype = '';
 
   email: string = '';
+  dateCaption: string = '';
 
 
   ErrorMessage = "";
@@ -139,6 +140,7 @@ export class ParamComponent {
     this.id5 = '';
     this.id5_lovtype = '';
     this.email = '';
+    this.dateCaption = '';
     this.showDocs = false;
 
     this.code_length = 15;
@@ -195,6 +197,8 @@ export class ParamComponent {
     if (this.type == 'PAN') {
       this.id1 = "Location";
       this.id2 = "Aadhaar Linked";
+      this.id3 = "Active Status";
+      this.dateCaption = "DOI";
       this.showDocs = true;
     }
 
@@ -424,6 +428,7 @@ export class ParamComponent {
     this.Record.param_id5_code = '';
     this.Record.param_id5_name = '';
     this.Record.param_email = '';
+    this.Record.param_date = '';
     this.Record.param_rate = 0;
     this.Record.param_type = this.type;
     this.Record.rec_locked = false;
@@ -432,8 +437,10 @@ export class ParamComponent {
       // this.Record.param_id1 = this.gs.globalVariables.gstin;
       this.Record.param_id2 = this.gs.globalVariables.year_code;
     }
-    if (this.type == "PAN")
+    if (this.type == "PAN") {
       this.Record.param_id2 = "N";
+      this.Record.param_id3 = "N";
+    }
 
     this.InitLov();
   }
@@ -630,7 +637,6 @@ export class ParamComponent {
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
       this.Record.param_id3 = this.Record.param_id3.toUpperCase().trim();
       this.Record.param_email = this.Record.param_email.trim();
-
     }
 
     if (bret === false) {
@@ -686,7 +692,7 @@ export class ParamComponent {
   open(content: any) {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
-  
+
   ImportData(content: any) {
     this.open(content);
   }

@@ -79,6 +79,7 @@
           <th>VRNO</th>
           <th>PAN</th>
           <th>NAME</th>
+          <th>PAN.TYPE</th>
           <th>LOCATION</th>
 
           <th class="text-right">AMOUNT PAID/CREDITED</th>
@@ -105,6 +106,7 @@
           <td>{{rec.jvh_vrno}}</td>
           <td>{{rec.panno}}</td>
           <td>{{rec.party_name}}</td>
+          <td>{{rec.pan_type}}</td>
           <td>{{rec.location}}</td>
           <td align='right'>{{rec.jv_tds_gross_amt | number : '1.2-2'}}</td>
           <td align='right'>{{rec.jv_tds_rate | number : '1.2-2'}}</td>
