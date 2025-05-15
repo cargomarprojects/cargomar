@@ -466,6 +466,7 @@ export class CustomerComponent {
     this.Record.cust_parent_code = '';
     this.Record.cust_parent_name = '';
     this.Record.cust_acq_date = '';
+    this.Record.cust_pan_doi = '';
     this.Record.rec_mode = this.mode;
 
     this.InitLov();

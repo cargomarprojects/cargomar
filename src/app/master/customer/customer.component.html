@@ -300,6 +300,11 @@
                   <input type="text" class="form-control form-control-sm" [disabled]="!Record.cust_is_editable"
                     [(ngModel)]="Record.cust_panno" required maxlength="15" />
                 </div>
+                <label class="col-2 col-form-label col-form-label-sm">Pan.DOI</label>
+                <div class="col-4">
+                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_pan_doi"
+                    (ValueChanged)="Record.cust_pan_doi=$event"></app-date>
+                </div>
               </div>
 
 

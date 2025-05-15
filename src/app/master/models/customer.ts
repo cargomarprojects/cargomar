@@ -77,6 +77,7 @@ export class Customerm {
     rec_aprvd_by: string;
     rec_aprvd_date: string;
 
+    cust_pan_doi: string;
     cust_pan_status: string;
     cust_tan_status: string;
     cust_auth_status: string;
