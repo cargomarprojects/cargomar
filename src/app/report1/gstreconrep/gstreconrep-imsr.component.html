@@ -114,7 +114,7 @@
                     <td *ngIf="!bSave">{{rec.claim_status}}</td>
                     <td>{{rec.reason}}</td>
                     <td *ngIf="bSave" class="hlink"
-                        (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source,rec.g_match_id,rec.download_type)">
+                        (click)="UpdateImsRejected(rec.pkid,rec.claim_status)">
                         <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
                     </td>
                     <td>{{rec.claim_created_by}}</td>

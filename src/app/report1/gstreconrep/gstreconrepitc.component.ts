@@ -370,12 +370,15 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
-
-          for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
-            rec2.row_color2 = rec2.claim_status == "PENDING" ? "black" : rec2.row_color;
-            rec2.display_claimed_period = response.retperiod;
-            rec2.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
-            rec2.claim_created_by = this.gs.globalVariables.user_code;
+          if (_status == 'IMS-REJECTED') {
+            this.mainService.state.RecordListItc.splice(this.mainService.state.RecordListItc.findIndex(rec => rec.pkid == _id), 1);
+          } else {
+            for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
+              rec2.row_color2 = rec2.claim_status == "PENDING" ? "black" : rec2.row_color;
+              rec2.display_claimed_period = response.retperiod;
+              rec2.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
+              rec2.claim_created_by = this.gs.globalVariables.user_code;
+            }
           }
           // alert('Save Complete');
         }

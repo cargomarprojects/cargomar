@@ -228,4 +228,29 @@ export class GstReconRepImsrComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+    UpdateImsRejected(_id: string, _status: string) {
+        let SearchData2 = {
+            category: this.type,
+            pkid: _id,
+            claim_status: _status,
+            recon_year: +this.mainService.state.gst_recon_imsr_year,
+            recon_month: +this.mainService.state.gst_recon_imsr_month,
+            state_code: this.mainService.state.gst_recon_imsr_state_code,
+            user_code: this.gs.globalVariables.user_code
+        };
+        this.loading = true;
+        this.ErrorMessage = '';
+        this.mainService.UpdateImsRejected(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue && _status == 'PENDING') {
+                    this.mainService.state.RecordListImsr.splice(this.mainService.state.RecordListImsr.findIndex(rec => rec.pkid == _id), 1);
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }

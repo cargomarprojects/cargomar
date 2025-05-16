@@ -127,5 +127,9 @@ export class GstReconRepService {
  ImsRejectedList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/ImsRejectedList', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  UpdateImsRejected(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/UpdateImsRejected', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 
