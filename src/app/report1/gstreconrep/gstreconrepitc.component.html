@@ -165,11 +165,12 @@
           <td *ngIf="bSave" class="p-0">
             <select [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
               [(ngModel)]="rec.claim_status">
-              <option [value]="'OP'">OP</option>
               <option [value]="'ITC AVAILED'">ITC AVAILED</option>
               <option [value]="'PENDING'">PENDING</option>
-              <option [value]="'POS'">POS</option>
               <option [value]="'REJECTED'">REJECTED</option>
+              <option [value]="'POS'">POS</option>
+              <option [value]="'IMS-REJECTED'">IMS-REJECTED</option>
+              <option [value]="'OP'">OP</option>
               <option [value]="'P.Y'">P.Y</option>
             </select>
           </td>

@@ -125,6 +125,13 @@ export interface iGstr2bDownloadModel {
     gst_recon_rc_year: string;
     gst_recon_rc_round_off: number;
 
+    gst_recon_imsr_searchstring: string;
+    gst_recon_imsr_state_code: string;
+    gst_recon_imsr_state_name: string;
+    gst_recon_imsr_month: string;
+    gst_recon_imsr_year: string;
+    gst_recon_imsr_round_off: number;
+
     gst_recon_ament_searchstring: string;
     gst_recon_ament_state_code: string;
     gst_recon_ament_state_name: string;
@@ -159,6 +166,7 @@ export interface iGstr2bDownloadModel {
     RecordListRc: Gstr2bDownload[];
     RecordListAment: Gstr2bDownload[];
     RecordListSearch: Gstr2bDownload[];
+    RecordListImsr: Gstr2bDownload[];
 };
 
 export const initialState: iGstr2bDownloadModel = {
@@ -180,6 +188,12 @@ export const initialState: iGstr2bDownloadModel = {
     gst_recon_rc_month: '',
     gst_recon_rc_year: '',
     gst_recon_rc_round_off: 5,
+    gst_recon_imsr_searchstring: '',
+    gst_recon_imsr_state_code: '',
+    gst_recon_imsr_state_name: '',
+    gst_recon_imsr_month: '',
+    gst_recon_imsr_year: '',
+    gst_recon_imsr_round_off: 5,
     gst_recon_ament_searchstring: '',
     gst_recon_ament_state_code: '',
     gst_recon_ament_state_name: '',
@@ -212,5 +226,6 @@ export const initialState: iGstr2bDownloadModel = {
     RecordListCdnr: [],
     RecordListRc: [],
     RecordListAment: [],
-    RecordListSearch:[]
+    RecordListSearch:[],
+    RecordListImsr: []
 } 

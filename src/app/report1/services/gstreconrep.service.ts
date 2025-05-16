@@ -51,6 +51,10 @@ export class GstReconRepService {
     this.state.gst_recon_rc_month = this.gs.defaultValues.gst_recon_rc_month;
     this.state.gst_recon_rc_state_code = this.gs.globalVariables.branch_gstin_state_code;
     this.state.gst_recon_rc_state_name = this.gs.globalVariables.branch_gstin_state_name;
+    this.state.gst_recon_imsr_year = this.gs.defaultValues.gst_recon_rc_year;
+    this.state.gst_recon_imsr_month = this.gs.defaultValues.gst_recon_rc_month;
+    this.state.gst_recon_imsr_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.state.gst_recon_imsr_state_name = this.gs.globalVariables.branch_gstin_state_name;
     this.state.gst_recon_ament_year = this.gs.defaultValues.gst_recon_ament_year;
     this.state.gst_recon_ament_month = this.gs.defaultValues.gst_recon_ament_month;
     this.state.gst_recon_ament_state_code = this.gs.globalVariables.branch_gstin_state_code;
@@ -120,5 +124,8 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/SaveIncludeItc', SearchData, this.gs.headerparam2('authorized'));
   }
 
+ ImsRejectedList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/ImsRejectedList', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

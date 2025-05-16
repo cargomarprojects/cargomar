@@ -80,6 +80,7 @@ import { GstReconRepItcComponent } from './gstreconrep/gstreconrepitc.component'
 import { GstReconRepService } from './services/gstreconrep.service';
 import { GstReconRepCdnrComponent } from './gstreconrep/gstreconrep-cdnr.component';
 import { GstReconRepRcComponent } from './gstreconrep/gstreconrep-rc.component';
+import { GstReconRepImsrComponent } from './gstreconrep/gstreconrep-imsr.component';
 import { OtpComponent } from './otp/otp.component';
 import { GstReconRepDetEditComponent } from './gstreconrep/gstreconrepdet-edit.component';
 import { GstGenSearchComponent } from './gstreconrep/gstgen-search.component';
@@ -151,6 +152,7 @@ import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterde
     GstReconRepItcComponent,
     GstReconRepCdnrComponent,
     GstReconRepRcComponent,
+    GstReconRepImsrComponent,
     OtpComponent,
     GstReconRepDetEditComponent,
     GstGenSearchComponent,

@@ -1,0 +1,101 @@
+<div class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class=" form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">State</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete3 [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
+                            [displaydata]="mainService.state.gst_recon_imsr_state_name"
+                            (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
+                        </app-autocomplete3>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="col form-control form-control-sm"
+                            [(ngModel)]="mainService.state.gst_recon_imsr_year" required maxlength="4" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
+                    <div class="col-sm-3">
+                        <select class="form-control form-control-sm" [(ngModel)]="mainService.state.gst_recon_imsr_month">
+                            <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class=" form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Round-Off</label>
+                    <div class="col-sm-4">
+                        <input type="number" disabled class="col form-control form-control-sm" name="rondnum"
+                            [(ngModel)]="mainService.state.gst_recon_imsr_round_off" required maxlength="6" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="col form-control form-control-sm" name="Search"
+                            (blur)="OnBlur('searchstring')" [(ngModel)]="mainService.state.gst_recon_imsr_searchstring" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Search
+                        </button>
+                        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm">Excel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>SUPPLIER GSTIN</th>
+                    <th>SUPPLIER NAME</th>
+                    <th>SUPPLIER STATE</th>
+                    <th class="text-right">COUNT ({{type}})</th>
+                    <th class="text-right">COUNT (PURCHASE)</th>
+                    <th class="text-right">TOTAL ({{type}})</th>
+                    <th class="text-right">TOTAL (PURCHASE)</th>
+                    <th class="text-right">DIFF</th>
+                    <th class="text-center">DETAILS</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of mainService.state.RecordListRc; let i = index"
+                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.gstin_supplier}}</td>
+                    <td>{{rec.supplier_name}}</td>
+                    <td>{{rec.supplier_state}}</td>
+                    <td *ngIf="!rec.gstr2b_count"></td>
+                    <td *ngIf="rec.gstr2b_count" class="text-right">{{
+                        rec.gstr2b_count}}({{rec.matched_count}})</td>
+                    <td *ngIf="!rec.purchase_count"></td>
+                    <td *ngIf="rec.purchase_count" class="text-right">{{
+                        rec.purchase_count}}({{rec.matched_count}})</td>
+                    <td class="text-right">{{ rec.tot_gst_gstr2b | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.tot_gst_purchase | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+                    <td style="text-align: center; vertical-align: middle; cursor: pointer;"
+                        (click)="showDetailList(gstrdet,rec.gstin_supplier,rec.download_period,rec.download_state_code,rec.supplier_name)"
+                        class="hlink"><i *ngIf="rec.gstin_supplier!='TOTAL'" class="fa fa-eye fa-lg pointer"
+                            aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+        {{ErrorMessage}}
+    </div>
+</div>
+  
