@@ -679,7 +679,7 @@ export class BillingComponent {
     if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
       this.lock_date = false;
 
-    this.lock_record = this.Record.jvh_lock_record;
+    // this.lock_record = this.Record.jvh_lock_record;
 
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;

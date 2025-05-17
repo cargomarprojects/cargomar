@@ -719,8 +719,8 @@ export class ArApComponent {
     if (this.editdoc == 'N')
       this.lock_cc = true;
 
-    if (this.type == "IN" || this.type == "PN" || this.type == "PN-JV")
-      this.lock_record = this.Record.jvh_lock_record;
+    // if (this.type == "IN" || this.type == "PN" || this.type == "PN-JV")
+    //   this.lock_record = this.Record.jvh_lock_record;
 
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;
