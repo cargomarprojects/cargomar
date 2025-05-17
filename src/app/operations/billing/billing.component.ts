@@ -674,8 +674,8 @@ export class BillingComponent {
     this.lock_record = true;
     this.lock_date = true;
 
-    // if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
-    //   this.lock_record = false;
+    if (this.Record.jvh_edit_code.indexOf("{S}") >= 0)
+      this.lock_record = false;
     if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
       this.lock_date = false;
 
