@@ -243,9 +243,9 @@ export class GstReconRepImsrComponent {
         this.mainService.UpdateImsRejected(SearchData2)
             .subscribe(response => {
                 this.loading = false;
-                if (response.retvalue && _status == 'PENDING') {
-                    this.mainService.state.RecordListImsr.splice(this.mainService.state.RecordListImsr.findIndex(rec => rec.pkid == _id), 1);
-                }
+                // if (response.retvalue && _status == 'PENDING') {
+                //     this.mainService.state.RecordListImsr.splice(this.mainService.state.RecordListImsr.findIndex(rec => rec.pkid == _id), 1);
+                // }
             },
                 error => {
                     this.loading = false;
