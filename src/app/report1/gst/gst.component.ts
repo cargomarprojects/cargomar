@@ -248,7 +248,7 @@ export class GstComponent {
       return;
     }
 
-    if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B-RATE WISE") {
+    if (this.format_type == "FORM 3B" || this.format_type == "FORM 3B NEW" || this.format_type == "FORM 3B-RATE WISE") {
       if (this.all == true) {
         this.ErrorMessage = "Cannot Process Report With All Option";
         alert(this.ErrorMessage);
