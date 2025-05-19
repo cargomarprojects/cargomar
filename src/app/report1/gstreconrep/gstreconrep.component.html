@@ -267,7 +267,7 @@
         </ng-template>
 
     </ngb-tab>
-    <ngb-tab *ngIf="type=='GSTR-2B'" title="IMS Rejected">
+    <ngb-tab *ngIf="type=='GSTR-2B'" title="IMS Pending/Rejected">
         <ng-template ngbTabContent>
             <app-gstreconrep-imsr [menuid]="menuid" [type]="type" [download_doc_type]="''" [reverse_charge]="'NO'"
                 [bPrint]="bPrint" [bSave]="bSave" [bAdmin]="bAdmin" [bCompany]="bCompany"></app-gstreconrep-imsr>

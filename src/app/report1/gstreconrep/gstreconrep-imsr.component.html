@@ -108,13 +108,13 @@
                         <select [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
                             [(ngModel)]="rec.claim_status">
                             <option [value]="'PENDING'">PENDING</option>
+                            <option [value]="'IMS-PENDING'">IMS-PENDING</option>
                             <option [value]="'IMS-REJECTED'">IMS-REJECTED</option>
                         </select>
                     </td>
                     <td *ngIf="!bSave">{{rec.claim_status}}</td>
                     <td>{{rec.reason}}</td>
-                    <td *ngIf="bSave" class="hlink"
-                        (click)="UpdateImsRejected(rec.pkid,rec.claim_status)">
+                    <td *ngIf="bSave" class="hlink" (click)="UpdateImsRejected(rec.pkid,rec.claim_status)">
                         <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
                     </td>
                     <td>{{rec.claim_created_by}}</td>

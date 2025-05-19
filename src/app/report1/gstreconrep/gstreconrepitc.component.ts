@@ -370,7 +370,7 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
-          if (_status == 'IMS-REJECTED') {
+          if (_status == 'IMS-REJECTED'||_status == 'IMS-PENDING') {
             this.mainService.state.RecordListItc.splice(this.mainService.state.RecordListItc.findIndex(rec => rec.pkid == _id), 1);
           } else {
             for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
