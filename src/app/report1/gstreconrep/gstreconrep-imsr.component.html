@@ -77,7 +77,7 @@
                     <th class="text-right">CGST</th>
                     <th class="text-right">SGST</th>
                     <th class="text-right">DIFF</th>
-                    <th>CLAIMED PERIOD</th>
+                    <th>IMS CLAIMED PERIOD</th>
                     <th>CLAIMED.STATUS</th>
                     <th>REMARKS</th>
                     <th *ngIf="bSave">UPDATE</th>
@@ -104,18 +104,19 @@
                     <td class="text-right">{{rec.state_ut_tax | number : '1.2-2' }}</td>
                     <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
                     <td>{{rec.display_claimed_period}}</td>
-                    <td *ngIf="bSave" class="p-0">
+                    <td *ngIf="canSaveStatus(rec.claim_status)" class="p-0">
                         <select [style.color]="rec.row_color2" class="form-control form-control-sm p-1"
                             [(ngModel)]="rec.claim_status">
-                            <option [value]="'PENDING'">PENDING</option>
                             <option [value]="'IMS-PENDING'">IMS-PENDING</option>
                             <option [value]="'IMS-REJECTED'">IMS-REJECTED</option>
+                            <option [value]="'PENDING'">PENDING</option>
+                            <option [value]="'CANCEL'">CANCEL</option>
                         </select>
                     </td>
-                    <td *ngIf="!bSave">{{rec.claim_status}}</td>
+                    <td *ngIf="!canSaveStatus(rec.claim_status)">{{rec.claim_status}}</td>
                     <td>{{rec.reason}}</td>
-                    <td *ngIf="bSave" class="hlink" (click)="UpdateImsRejected(rec.pkid,rec.claim_status)">
-                        <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                    <td class="hlink" >
+                        <i *ngIf="canSaveStatus(rec.claim_status)"  (click)="UpdateImsRejected(rec.pkid,rec.claim_status)" class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
                     </td>
                     <td>{{rec.claim_created_by}}</td>
                     <td>{{rec.claim_created_date}}</td>

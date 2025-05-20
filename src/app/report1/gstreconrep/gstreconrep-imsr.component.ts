@@ -243,14 +243,27 @@ export class GstReconRepImsrComponent {
         this.mainService.UpdateImsRejected(SearchData2)
             .subscribe(response => {
                 this.loading = false;
-                // if (response.retvalue && _status == 'PENDING') {
-                //     this.mainService.state.RecordListImsr.splice(this.mainService.state.RecordListImsr.findIndex(rec => rec.pkid == _id), 1);
-                // }
+                if (response.retvalue && _status == 'CANCEL') {
+                    this.mainService.state.RecordListImsr.splice(this.mainService.state.RecordListImsr.findIndex(rec => rec.pkid == _id), 1);
+                } else {
+                    for (let rec2 of this.mainService.state.RecordListImsr.filter(rec2 => rec2.pkid == _id)) {
+                        rec2.display_claimed_period = response.retperiod;
+                        rec2.claim_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
+                        rec2.claim_created_by = this.gs.globalVariables.user_code;
+                    }
+                }
             },
                 error => {
                     this.loading = false;
                     this.ErrorMessage = this.gs.getError(error);
                     alert(this.ErrorMessage);
                 });
+    }
+
+    canSaveStatus(_type: string) {
+        if (this.bSave && (_type == 'IMS-PENDING' || _type == 'IMS-REJECTED' || _type == 'PENDING' || _type == 'CANCEL'))
+            return true;
+        else
+            return false;
     }
 }

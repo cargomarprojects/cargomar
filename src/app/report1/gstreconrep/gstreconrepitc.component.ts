@@ -362,7 +362,8 @@ export class GstReconRepItcComponent {
       state_code: this.mainService.state.gst_recon_itc_list_state_code,
       jvh_pkid: _download_source == "PURCHASE" ? _id : '',
       match_id: _match_id,
-      doc_type: _doc_type
+      doc_type: _doc_type,
+      download_source: _download_source
     };
     this.loading = true;
     this.ErrorMessage = '';
@@ -370,7 +371,7 @@ export class GstReconRepItcComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.retvalue) {
-          if (_status == 'IMS-REJECTED'||_status == 'IMS-PENDING') {
+          if (_status == 'IMS-REJECTED' || _status == 'IMS-PENDING') {
             this.mainService.state.RecordListItc.splice(this.mainService.state.RecordListItc.findIndex(rec => rec.pkid == _id), 1);
           } else {
             for (let rec2 of this.mainService.state.RecordListItc.filter(rec2 => rec2.pkid == _id)) {
