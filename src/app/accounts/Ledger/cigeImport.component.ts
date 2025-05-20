@@ -19,7 +19,7 @@ export class CiGeImportComponent implements OnInit {
     Records: any[];
     jsonString: any;
     currentTab = 'PASTEDATA';
-
+    ExcelFormat: string = '';
     bSave = false;
 
     constructor(
@@ -30,6 +30,7 @@ export class CiGeImportComponent implements OnInit {
 
     ngOnInit() {
         this.currentTab = 'PASTEDATA';
+        this.ExcelFormat = this.type == "PN-CI" ? "PN-CI-GE2" : this.type;
     }
 
     PasteDataClosed(cbdata: string) {
@@ -65,8 +66,12 @@ export class CiGeImportComponent implements OnInit {
     }
 
     save() {
-        if (this.type != "PN-CI") {
-            alert('This option can be used only in Inward Credit Note(GE), Invalid Type ' + this.type);
+        let _bOk: boolean = false;
+        if (this.type == "PN-CI" || this.type == "PN-JV")
+            _bOk = true;
+
+        if (!_bOk) {
+            alert('This option can be used only in Inward Credit Note(GE)/General Expense, Invalid Type ' + this.type);
             return;
         }
 
@@ -76,11 +81,16 @@ export class CiGeImportComponent implements OnInit {
             return;
         }
 
+        if (this.type == "PN-CI")
+            this.saveCiGe();
+        if (this.type == "PN-JV")
+            this.saveGe();
+    }
+
+    saveCiGe() {
 
         this.bSave = true;
-
         this.ErrorMessage = '';
-
         this.Record.jvh_type = this.type;
         this.Record.jvh_subtype = "AR";
         this.Record.jvh_headerdrcr = "DR";
@@ -101,6 +111,29 @@ export class CiGeImportComponent implements OnInit {
             });
     }
 
+    saveGe() {
+
+        this.bSave = true;
+        this.ErrorMessage = '';
+        this.Record.jvh_type = this.type;
+        this.Record.jvh_subtype = "AP";
+        this.Record.jvh_headerdrcr = "CR";
+        this.Record.branch_gstin_state_code = this.gs.defaultValues.gstin_state_code;
+        this.Record._globalvariables = this.gs.globalVariables;
+
+        this.mainService.SaveGeImport(this.Record)
+            .subscribe(response => {
+                this.Records = response.record;
+                this.bSave = false;
+                if (this.CloseClicked != null)
+                    this.CloseClicked.emit({ records: this.Records, data: '' });
+                //alert("Save Completed");
+            }, error => {
+                // this.ErrorMessage = this.gs.getError(error);
+                this.bSave = false;
+                alert(this.gs.getError(error));
+            });
+    }
 }
 
 

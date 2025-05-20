@@ -78,5 +78,9 @@ export class LedgerService {
   SaveCiGeImport(Record: CiGeImport) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveCiGeImport', Record, this.gs.headerparam2('authorized'));
   }
+
+  SaveGeImport(Record: CiGeImport) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveGeImport', Record, this.gs.headerparam2('authorized'));
+  }
 }
 

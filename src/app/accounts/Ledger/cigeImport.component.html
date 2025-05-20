@@ -1,9 +1,10 @@
 <div *ngIf="currentTab=='PASTEDATA'">
-    <App-ClipBoard2 [msg]="'Please Wait'" [excelformat]="'PN-CI-GE2'" (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
+    <App-ClipBoard2 [msg]="'Please Wait'" [excelformat]="ExcelFormat"
+        (CloseClicked)="PasteDataClosed($event)"></App-ClipBoard2>
 </div>
 
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-body table-responsive">
+    <div *ngIf="type=='PN-CI'" class="page-body table-responsive">
         <table class="table table-hover table-sm table-bordered table-striped">
             <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
                 <thead class="page-body-thead">
@@ -37,6 +38,48 @@
                         <td>{{rec.amt}}</td>
                         <td>{{rec.gstper}}</td>
                         <td>{{rec.creditcode}}</td>
+                        <td>{{rec.costcenter}}</td>
+                        <td>{{rec.costcentercode}}</td>
+                        <!-- <td>{{rec.status}}</td> -->
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+    <div *ngIf="type=='PN-JV'" class="page-body table-responsive">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th>SL#</th>
+                        <th>ORG-INV-NO</th>
+                        <th>ORG-INV-DATE</th>
+                        <th>REF-NO</th>
+                        <th>REF-DATE</th>
+                        <th>CREDIT-CODE</th>
+                        <th>ADDRESS-BRNO</th>
+                        <th>CREDIT-CODE-GSTNO</th>
+                        <th>AMT</th>
+                        <th>GST-PER</th>
+                        <th>DEBIT-CODE</th>
+                        <th>COST-CENTER</th>
+                        <th>COST-CENTER-CODE</th>
+                        <!-- <th>STATUS</th> -->
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of Records; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{rec.orginvno}}</td>
+                        <td>{{rec.orginvdate}}</td>
+                        <td>{{rec.refno}}</td>
+                        <td>{{rec.refdate}}</td>
+                        <td>{{rec.creditcode}}</td>
+                        <td>{{rec.addressbrno}}</td>
+                        <td>{{rec.creditcodegstno}}</td>
+                        <td>{{rec.amt}}</td>
+                        <td>{{rec.gstper}}</td>
+                        <td>{{rec.debitcode}}</td>
                         <td>{{rec.costcenter}}</td>
                         <td>{{rec.costcentercode}}</td>
                         <!-- <td>{{rec.status}}</td> -->

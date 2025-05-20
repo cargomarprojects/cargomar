@@ -20,9 +20,12 @@ export class CiGeImportDet {
     debitcodegstno: string;
     amt: string;
     creditcode: string;
+    creditcodegstno: string;
     costcenter: string;
     costcentercode: string;
     status: string;
     addressbrno: string;
     gstper: string;
+    refno: string;
+    refdate: string;
 }

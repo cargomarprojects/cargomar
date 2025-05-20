@@ -191,7 +191,7 @@ export class ArApComponent {
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
       this.bPrint = this.menu_record.rights_print;
-      if (this.menu_record.rights_approval.toString() == "{IMPORT}" || (this.type == "PN-CI" && this.gs.globalVariables.user_code == 'ADMIN'))
+      if (this.menu_record.rights_approval.toString() == "{IMPORT}" || ((this.type == "PN-CI" || this.type == "PN-JV") && this.gs.globalVariables.user_code == 'ADMIN'))
         this.bImport = true;
     }
     this.InitLov();
