@@ -28,4 +28,6 @@ export class CiGeImportDet {
     gstper: string;
     refno: string;
     refdate: string;
+    paidto: string;
+    payreason: string;
 }

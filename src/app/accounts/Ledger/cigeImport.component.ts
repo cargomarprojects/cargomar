@@ -47,11 +47,14 @@ export class CiGeImportComponent implements OnInit {
     }
 
     ConvertData() {
+        let tot_cols: number = 12;
+        if (this.type == "PN-JV")
+            tot_cols = 14;
         const list = this.gs.CSVToJSON(this.cbdata);
 
         this.Records = list.reduce((acc: any[], rec: any) => {
             const len = Object.keys(rec).length;
-            if (len == 12) {
+            if (len == tot_cols) {
                 const amt = rec["amt"];
                 if (amt != "")
                     acc.push({ ...rec, status: '' });
