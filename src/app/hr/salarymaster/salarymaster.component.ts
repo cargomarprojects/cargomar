@@ -46,6 +46,7 @@ export class SalaryMasterComponent {
   InfoMessage = "";
   bDocs: boolean = false;
   modal: any;
+  bImport = false;
 
   SalDetails: any[] = [];
   mode = '';
@@ -87,6 +88,7 @@ export class SalaryMasterComponent {
   InitComponent() {
     this.bPrint = false;
     this.bDocs = false;
+    this.bImport = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -94,6 +96,8 @@ export class SalaryMasterComponent {
         this.bPrint = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_approval.toString() == "{IMPORT}" || this.gs.globalVariables.user_code == 'ADMIN')
+        this.bImport = true;
     }
     this.InitLov();
     this.List("NEW");

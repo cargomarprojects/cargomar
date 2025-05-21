@@ -122,8 +122,8 @@ export class Salarym {
   sal_admin_emply: number;
   sal_edli_emply: number;
   sal_esi_emplr: number;
-  sal_bonus_paid:number;
-  
+  sal_bonus_paid: number;
+
   sal_emp_status: string;
   sal_edit_code: string;
   rec_mode: string;
@@ -256,30 +256,58 @@ export class SalDet {
 }
 
 export class SalMasImport {
-    sal_type: string;
-    records: SalMasImportDet[];
-    rec_created_by: string;
-    rec_created_date: string;
-    _globalvariables: GlobalVariables;
+  sal_type: string;
+  records: SalMasImportDet[];
+  rec_created_by: string;
+  rec_created_date: string;
+  _globalvariables: GlobalVariables;
 }
 
 export class SalMasImportDet {
-    orginvno: string;
-    orginvdate: string;
-    crnoterefno: string;
-    crnoterefdate: string;
-    debitcode: string;
-    debitcodegstno: string;
-    amt: string;
-    creditcode: string;
-    creditcodegstno: string;
-    costcenter: string;
-    costcentercode: string;
-    status: string;
-    addressbrno: string;
-    gstper: string;
-    refno: string;
-    refdate: string;
-    paidto: string;
-    payreason: string;
+  code: string;
+  name: string;
+  basic: string;
+  da: string;
+  cca: string;
+  hra: string;
+  ent: string;
+  cnv: string;
+  uniw: string;
+  medi: string;
+  edu: string;
+  pa: string;
+  spla: string;
+  maint: string;
+  osa: string;
+  metro: string;
+  com: string;
+  vma: string;
+  fuel: string;
+  tele: string;
+  otheralw: string;
+  basic2: string;
+  pf: string;
+  esi: string;
+  tds: string;
+  lic: string;
+  vploan: string;
+  loan: string;
+  adv: string;
+  medclaim: string;
+  ptax: string;
+  exfuel: string;
+  exphone: string;
+  fine: string;
+  lwf: string;
+  vpf: string;
+  others: string;
+  incentive: string;
+  increment: string;
+  tds_incentive: string;
+  sales_incentive: string;
+  tds_sales_incentive: string;
+  total_earn: number;
+  total_deduct: number;
+  sal_net: number;
+
 }

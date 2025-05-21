@@ -4,89 +4,107 @@
 </div>
 
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div *ngIf="type=='PN-CI'" class="page-body table-responsive">
+    <div class="page-body table-responsive">
         <table class="table table-hover table-sm table-bordered table-striped">
             <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
                 <thead class="page-body-thead">
                     <tr>
                         <th>SL#</th>
-                        <th>ORG-INV-NO</th>
-                        <th>ORG-INV-DATE</th>
-                        <th>CRNOTE-REF-NO</th>
-                        <th>CRNOTE-REF-DATE</th>
-                        <th>DEBIT-CODE</th>
-                        <th>ADDRESS-BRNO</th>
-                        <th>DEBIT-CODE-GSTNO</th>
-                        <th>AMT</th>
-                        <th>GST-PER</th>
-                        <th>CREDIT-CODE</th>
-                        <th>COST-CENTER</th>
-                        <th>COST-CENTER-CODE</th>
-                        <!-- <th>STATUS</th> -->
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th>BASIC</th>
+                        <th>DA</th>
+                        <th>CCA</th>
+                        <th>HRA</th>
+                        <th>ENT</th>
+                        <th>CNV</th>
+                        <th>UNIW</th>
+                        <th>MEDI</th>
+                        <th>EDU</th>
+                        <th>PA</th>
+                        <th>SPLA</th>
+                        <th>MAINT</th>
+                        <th>OSA</th>
+                        <th>METRO</th>
+                        <th>COM</th>
+                        <th>VMA</th>
+                        <th>FUEL</th>
+                        <th>TELE</th>
+                        <th>OTHERALW</th>
+                        <th>BASIC2</th>
+                        <th>PF</th>
+                        <th>ESI</th>
+                        <th>TDS</th>
+                        <th>LIC</th>
+                        <th>VPLOAN</th>
+                        <th>LOAN</th>
+                        <th>ADV</th>
+                        <th>MEDCLAIM</th>
+                        <th>PTAX</th>
+                        <th>EXFUEL</th>
+                        <th>EXPHONE</th>
+                        <th>FINE</th>
+                        <th>LWF</th>
+                        <th>VPF</th>
+                        <th>OTHERS</th>
+                        <th>GROSS</th>
+                        <th>DEDUCTION</th>
+                        <th>NET</th>
+                        <th>INCENTIVE</th>
+                        <th>INCREMENT</th>
+                        <th>TDS_INCENTIVE</th>
+                        <th>SALES_INCENTIVE</th>
+                        <th>TDS_SALES_INCENTIVE</th>
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of Records; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{rec.orginvno}}</td>
-                        <td>{{rec.orginvdate}}</td>
-                        <td>{{rec.crnoterefno}}</td>
-                        <td>{{rec.crnoterefdate}}</td>
-                        <td>{{rec.debitcode}}</td>
-                        <td>{{rec.addressbrno}}</td>
-                        <td>{{rec.debitcodegstno}}</td>
-                        <td>{{rec.amt}}</td>
-                        <td>{{rec.gstper}}</td>
-                        <td>{{rec.creditcode}}</td>
-                        <td>{{rec.costcenter}}</td>
-                        <td>{{rec.costcentercode}}</td>
-                        <!-- <td>{{rec.status}}</td> -->
-                    </tr>
-                </tbody>
-            </div>
-        </table>
-    </div>
-    <div *ngIf="type=='PN-JV'" class="page-body table-responsive">
-        <table class="table table-hover table-sm table-bordered table-striped">
-            <div class="fixedTableHead" style="height:400px;scroll-behavior:auto;">
-                <thead class="page-body-thead">
-                    <tr>
-                        <th>SL#</th>
-                        <th>ORG-INV-NO</th>
-                        <th>ORG-INV-DATE</th>
-                        <th>REF-NO</th>
-                        <th>REF-DATE</th>
-                        <th>CREDIT-CODE</th>
-                        <th>ADDRESS-BRNO</th>
-                        <th>CREDIT-CODE-GSTNO</th>
-                        <th>AMT</th>
-                        <th>GST-PER</th>
-                        <th>DEBIT-CODE</th>
-                        <th>COST-CENTER</th>
-                        <th>COST-CENTER-CODE</th>
-                        <th>PAID-TO</th>
-                        <th>PAY-REASON</th>
-                        <!-- <th>STATUS</th> -->
-                    </tr>
-                </thead>
-                <tbody class="page-body-tbody">
-                    <tr *ngFor="let rec of Records; let i = index">
-                        <td>{{i+1}}</td>
-                        <td>{{rec.orginvno}}</td>
-                        <td>{{rec.orginvdate}}</td>
-                        <td>{{rec.refno}}</td>
-                        <td>{{rec.refdate}}</td>
-                        <td>{{rec.creditcode}}</td>
-                        <td>{{rec.addressbrno}}</td>
-                        <td>{{rec.creditcodegstno}}</td>
-                        <td>{{rec.amt}}</td>
-                        <td>{{rec.gstper}}</td>
-                        <td>{{rec.debitcode}}</td>
-                        <td>{{rec.costcenter}}</td>
-                        <td>{{rec.costcentercode}}</td>
-                        <td>{{rec.paidto}}</td>
-                        <td>{{rec.payreason}}</td>
-                        <!-- <td>{{rec.status}}</td> -->
+                        <td>{{rec.code}}</td>
+                        <td>{{rec.name}}</td>
+                        <td>{{rec.basic}}</td>
+                        <td>{{rec.da}}</td>
+                        <td>{{rec.cca}}</td>
+                        <td>{{rec.hra}}</td>
+                        <td>{{rec.ent}}</td>
+                        <td>{{rec.cnv}}</td>
+                        <td>{{rec.uniw}}</td>
+                        <td>{{rec.medi}}</td>
+                        <td>{{rec.edu}}</td>
+                        <td>{{rec.pa}}</td>
+                        <td>{{rec.spla}}</td>
+                        <td>{{rec.maint}}</td>
+                        <td>{{rec.osa}}</td>
+                        <td>{{rec.metro}}</td>
+                        <td>{{rec.com}}</td>
+                        <td>{{rec.vma}}</td>
+                        <td>{{rec.fuel}}</td>
+                        <td>{{rec.tele}}</td>
+                        <td>{{rec.otheralw}}</td>
+                        <td>{{rec.basic2}}</td>
+                        <td>{{rec.pf}}</td>
+                        <td>{{rec.esi}}</td>
+                        <td>{{rec.tds}}</td>
+                        <td>{{rec.lic}}</td>
+                        <td>{{rec.vploan}}</td>
+                        <td>{{rec.loan}}</td>
+                        <td>{{rec.adv}}</td>
+                        <td>{{rec.medclaim}}</td>
+                        <td>{{rec.ptax}}</td>
+                        <td>{{rec.exfuel}}</td>
+                        <td>{{rec.exphone}}</td>
+                        <td>{{rec.fine}}</td>
+                        <td>{{rec.lwf}}</td>
+                        <td>{{rec.vpf}}</td>
+                        <td>{{rec.others}}</td>
+                        <td>{{rec.total_earn}}</td>
+                        <td>{{rec.total_deduct}}</td>
+                        <td>{{rec.sal_net}}</td>
+                        <td>{{rec.incentive}}</td>
+                        <td>{{rec.increment}}</td>
+                        <td>{{rec.tds_incentive}}</td>
+                        <td>{{rec.sales_incentive}}</td>
+                        <td>{{rec.tds_sales_incentive}}</td>
                     </tr>
                 </tbody>
             </div>

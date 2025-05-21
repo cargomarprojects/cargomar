@@ -24,7 +24,7 @@ import { CommonDeductComponent } from './deduction/commondeduct.component';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { LoanReportComponent } from './loanreport/loanreport.component';
 import { TravelExpenseComponent } from './travelexp/travelexp.component';
-import { SalMasImportComponent } from './salarymaster/salmasImport.component';
+import { SalMasImportComponent } from './salarymaster/salmasimport.component';
 
 @NgModule({
   imports: [
@@ -54,7 +54,8 @@ import { SalMasImportComponent } from './salarymaster/salmasImport.component';
     CommonDeductComponent,
     IncentiveComponent,
     LoanReportComponent,
-    TravelExpenseComponent
+    TravelExpenseComponent,
+    SalMasImportComponent
   ],
   providers: [
   ],
