@@ -100,6 +100,12 @@ export class DsrComponent {
     filter_date_type: ''
   };
 
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  sTo_ids: string = '';
+  AttachList: any[] = [];
+
   // Array For Displaying List
   RecordList: Dsr[] = [];
   // Single Record for add/edit/view details
@@ -336,7 +342,7 @@ export class DsrComponent {
   }
 
   // Query List Data
-  List(_type: string) {
+  List(_type: string, mailsent: any = null) {
 
     this.search_bookingrpt = this.bookingrpt;
     this.ErrorMessage = '';
@@ -397,7 +403,14 @@ export class DsrComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else {
+        else if (_type == 'MAIL') {
+          this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          this.sSubject = response.subject;
+          this.sMsg = response.message;
+          this.sTo_ids = response.toids;
+          this.open(mailsent);
+        } {
           this.RecordList = response.list;
         }
       },

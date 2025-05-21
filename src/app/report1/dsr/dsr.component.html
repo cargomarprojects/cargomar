@@ -173,9 +173,11 @@
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Excel</button>
             </div>
-            <div *ngIf="rec_category=='SEA EXPORT' && bEmail" class="col-sm-4">
-              <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
-                (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct>
+            <div class="col-sm-4">
+              <!-- <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
+                (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct> -->
+              <button [disabled]="loading" *ngIf="bEmail" (click)="List('MAIL',dsrmailsent)"
+                class="btn btn-primary btn-sm">Mail</button>
             </div>
           </div>
         </div>
@@ -760,3 +762,15 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<ng-template #dsrmailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'DSR-'+type" [defaultto_ids]="sTo_ids" [sHtml]="sHtml"
+      [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
