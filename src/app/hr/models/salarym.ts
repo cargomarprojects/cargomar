@@ -254,3 +254,32 @@ export class SalDet {
   d25_visible: boolean;
 
 }
+
+export class SalMasImport {
+    sal_type: string;
+    records: SalMasImportDet[];
+    rec_created_by: string;
+    rec_created_date: string;
+    _globalvariables: GlobalVariables;
+}
+
+export class SalMasImportDet {
+    orginvno: string;
+    orginvdate: string;
+    crnoterefno: string;
+    crnoterefdate: string;
+    debitcode: string;
+    debitcodegstno: string;
+    amt: string;
+    creditcode: string;
+    creditcodegstno: string;
+    costcenter: string;
+    costcentercode: string;
+    status: string;
+    addressbrno: string;
+    gstper: string;
+    refno: string;
+    refdate: string;
+    paidto: string;
+    payreason: string;
+}

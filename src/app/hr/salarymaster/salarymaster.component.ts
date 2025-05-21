@@ -596,4 +596,13 @@ export class SalaryMasterComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
+
+  ImportData(content: any) {
+    this.open(content);
+  }
+
+  CloseSalImport(params: any) {
+    this.modal.close();
+    this.List("NEW");
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Salarym } from '../models/salarym';
+import { Salarym,SalMasImport } from '../models/salarym';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -30,5 +30,10 @@ export class SalaryMasterService {
   UpdateRecord(Record: Salarym) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/SalaryMaster/UpdateRecord', Record, this.gs.headerparam2('authorized'));
   }
+
+  SaveSalMasImport(Record: SalMasImport) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/SalaryMaster/SaveSalMasImport', Record, this.gs.headerparam2('authorized'));
+    }
+
 }
 
