@@ -35,11 +35,11 @@ export class Ledgert {
 
     jv_drcr: string;
 
-    jv_exrate : number;
-    jv_total : number;
+    jv_exrate: number;
+    jv_total: number;
     jv_total_fc: number;
 
-    jv_debit : number;
+    jv_debit: number;
     jv_credit: number;
 
     jv_selected: boolean;
@@ -54,19 +54,19 @@ export class Ledgert {
 
     jv_gst_type: string;
 
-    jv_cgst_rate : number;
-    jv_cgst_amt : number;
+    jv_cgst_rate: number;
+    jv_cgst_amt: number;
 
-    jv_sgst_rate : number;
+    jv_sgst_rate: number;
     jv_sgst_amt: number;
 
-    jv_igst_rate : number;
-    jv_igst_amt : number;
+    jv_igst_rate: number;
+    jv_igst_amt: number;
 
     jv_gst_amt: number;
     jv_gst_rate: number;
     jv_net_total: number;
-    
+
     jv_cgst_famt: number;
     jv_sgst_famt: number;
     jv_igst_famt: number;
@@ -76,7 +76,7 @@ export class Ledgert {
     jv_rc: boolean;
 
     jv_gst_edited: boolean;
-    
+
     jv_ctr: number;
 
 
@@ -110,6 +110,7 @@ export class Ledgert {
     jv_pan_code: string;
     jv_pan_name: string;
     jv_pan_location: string;
+    jv_tds_cert_no: string;
 
     jv_tds_rate: number;
     jv_tds_gross_amt: number;
@@ -127,11 +128,11 @@ export class Ledgert {
     jv_nature_ref: string;
 
     jv_income_type: string;
-    jv_tan_update:boolean;
-    
+    jv_tan_update: boolean;
+
     jv_pay_link: string;
-    jv_acc_drcr_only:string;
-    
+    jv_acc_drcr_only: string;
+
     rec_mode: string;
 
 }

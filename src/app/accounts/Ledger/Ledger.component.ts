@@ -1383,6 +1383,7 @@ export class LedgerComponent {
     this.Recorddet.jv_pan_id = '';
     this.Recorddet.jv_pan_code = '';
     this.Recorddet.jv_pan_name = '';
+    this.Recorddet.jv_tds_cert_no = '';
     this.Recorddet.jv_tds_rate = 0;
     this.Recorddet.jv_tds_gross_amt = 0;
 
@@ -1480,6 +1481,7 @@ export class LedgerComponent {
     this.Recorddet.jv_pan_id = _Record.jv_pan_id;
     this.Recorddet.jv_pan_code = _Record.jv_pan_code;
     this.Recorddet.jv_pan_name = _Record.jv_pan_name;
+    this.Recorddet.jv_tds_cert_no = _Record.jv_tds_cert_no;
 
     this.Recorddet.jv_tds_rate = _Record.jv_tds_rate;
     this.Recorddet.jv_tds_gross_amt = _Record.jv_tds_gross_amt;
@@ -2036,6 +2038,7 @@ export class LedgerComponent {
       REC.jv_pan_id = this.Recorddet.jv_pan_id;
       REC.jv_pan_code = this.Recorddet.jv_pan_code;
       REC.jv_pan_name = this.Recorddet.jv_pan_name;
+      REC.jv_tds_cert_no = this.Recorddet.jv_tds_cert_no;
 
       REC.jv_bank = this.Recorddet.jv_bank;
       REC.jv_branch = this.Recorddet.jv_branch;
