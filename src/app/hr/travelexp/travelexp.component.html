@@ -603,7 +603,7 @@
     </div>
     <div class="modal-body">
         <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="ms.state.sMsg" [defaultmessage]=""
-            [defaultto_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
+            [defaultcc_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false [disableUpdateIds]=true
             [AttachList]="ms.state.AttachList"></app-mail>
     </div>
 </ng-template>

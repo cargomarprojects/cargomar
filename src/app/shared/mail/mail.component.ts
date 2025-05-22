@@ -41,6 +41,8 @@ export class MailComponent {
   @Input() public sHtmlHeight: string = '';
   @Input() public emlfilepath: string = '';
   @Input() public companywise: boolean = false;
+  @Input() public disableUpdateIds: boolean = false;
+  @Input() public defaultcc_ids: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -123,6 +125,7 @@ export class MailComponent {
       this.innerHtmlHt = this.sHtmlHeight;
     this.ftptype = this.default_ftptype;
     this.to_ids = this.defaultto_ids;
+    this.cc_ids = this.defaultcc_ids;
     this.subject = this.defaultsubject;
     this.ftpsubject = this.defaultsubject;
     this.message = this.defaultmessage;
