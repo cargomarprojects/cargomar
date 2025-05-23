@@ -28,7 +28,7 @@ export class TdsExemptionService {
       this.gs.appStates[this.screen_id] = this.state;
     }
   }
-  
+
 
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/TdsExemption/List', SearchData, this.gs.headerparam2('authorized'));
@@ -52,6 +52,10 @@ export class TdsExemptionService {
 
   GstReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GstList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  TdsCertList(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/TdsExemption/TdsCertList', SearchData, this.gs.headerparam2('authorized'));
   }
 
 

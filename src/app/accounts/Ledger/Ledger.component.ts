@@ -2954,5 +2954,21 @@ export class LedgerComponent {
 
   }
 
+  ShowTdsCertList(tdsCertno: any) {
+    if (!this.gs.isBlank(this.Recorddet.jv_pan_id))
+      this.open(tdsCertno);
+  }
 
+  AddTdsCertRecords(params: any) {
+    if (params.status == "SAVE") {
+      this.Recorddet.jv_tds_cert_no = params.certno;
+      this.Recorddet.jv_tds_rate = params.certrate;
+    }
+    this.modal.close();
+  }
+  
+  ClearSelection() {
+    this.Recorddet.jv_tds_cert_no = '';
+    this.Recorddet.jv_tds_rate = 0;
+  }
 }

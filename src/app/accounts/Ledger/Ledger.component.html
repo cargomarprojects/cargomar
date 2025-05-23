@@ -644,9 +644,14 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">Certificate#</label>
+            <!-- <label class="col-2 col-form-label col-form-label-sm">Certificate#</label> -->
+            <div class="col-2">
+              <button [disabled]="loading" (click)="ShowTdsCertList(tdscertno)"
+                class="btn btn-info btn-sm">Certificate#</button>
+            </div>
             <div class="col-4">
-               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_cert_no" (blur)="OnBlur('jv_tds_cert_no')" maxlength="15"  />
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_cert_no"
+                (blur)="OnBlur('jv_tds_cert_no')" maxlength="15" />
             </div>
           </div>
           <div class="form-group row">
@@ -949,5 +954,23 @@
   </div>
   <div class="modal-body">
     <App-BankImport [type]="type"></App-BankImport>
+  </div>
+</ng-template>
+
+<ng-template #tdscertno let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Tds Exemption Certificates</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-tdscertno [type]="type" [menuid]="menuid" [pan_id]="Recorddet.jv_pan_id" [tds_acc_id]="Recorddet.jv_acc_id"
+      (ModifiedRecords)="AddTdsCertRecords($event)"></app-tdscertno>
+  </div>
+  <div class="modal-footer">
+    <button (click)="ClearSelection()" class="btn btn-success btn-sm mr-1">Clear
+      Selection</button>
+    <button type="button" class="btn btn-success btn-sm" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>

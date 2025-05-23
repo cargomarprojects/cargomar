@@ -1,0 +1,44 @@
+<div class="page-list">
+    <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>CERT#</th>
+                    <th>CERT.DATE</th>
+                    <th>CUSTOMER</th>
+                    <th>TDS.CODE</th>
+                    <th>TDS.NAME</th>
+                    <th>VALID.FROM</th>
+                    <th>VALID.TO</th>
+                    <th>INV.AMT</th>
+                    <th>RATE</th>
+                    <th>CERT.RATE</th>
+                    <th>CERT.LIMIT</th>
+                    <th>PAID.AMT</th>
+                    <th>BAL.AMT</th>
+                    <th>(Y/N)</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList">
+                    <td>{{rec.te_cert_no}}</td>
+                    <td>{{rec.te_cert_date}}</td>
+                    <td>{{rec.te_cust_name}}</td>
+                    <td>{{rec.te_tds_acc_code}}</td>
+                    <td>{{rec.te_tds_acc_name}}</td>
+                    <td>{{rec.te_valid_from}}</td>
+                    <td>{{rec.te_valid_to}}</td>
+                    <td>{{rec.te_taxable_amt}}</td>
+                    <td>{{rec.te_tds_rate}}</td>
+                    <td>{{rec.te_tds_cert_rate}}</td>
+                    <td>{{rec.te_cr_limit}}</td>
+                    <td>{{rec.te_used_amt}}</td>
+                    <td>{{rec.te_bal_amt}}</td>
+                    <td class="hlink p-0" (click)="SelectCertificate(rec)">
+                        <button class="btn btn-info btn-sm p-1 mr-1">SELECT</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

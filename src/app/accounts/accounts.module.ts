@@ -96,6 +96,7 @@ import { TbMonComponent } from './tbmon/tbmon.component';
 import { CiGeImportComponent } from './ledger/cigeImport.component';
 import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
 import { OsRemarkComponent } from './os/osrem2.component';
+import { TdsCertnoComponent } from './ledger/tdscertno.component';
 
 @NgModule({
   imports: [
@@ -156,7 +157,8 @@ import { OsRemarkComponent } from './os/osrem2.component';
     TbMonComponent,
     CiGeImportComponent,
     TdsExemptionComponent,
-    OsRemarkComponent
+    OsRemarkComponent,
+    TdsCertnoComponent
   ],
   providers: [
   ],
