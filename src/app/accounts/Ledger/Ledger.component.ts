@@ -95,7 +95,7 @@ export class LedgerComponent {
   bapprovalstatus = '';
 
   diff: number = 0;
-
+  tdsCertBalAmt: number = 0;
 
   // Array For Displaying List
   RecordList: Ledgerh[] = [];
@@ -1945,6 +1945,14 @@ export class LedgerComponent {
       }
     }
 
+    if (!this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
+      if (this.tdsCertBalAmt - this.Recorddet.jv_tds_gross_amt < 0) {
+        alert("Tds gross amount( " + this.Recorddet.jv_tds_gross_amt + " ) exceeds certificate balance amount( " + this.tdsCertBalAmt + " )");
+        return;
+      }
+    }
+
+
     if (this.Recorddet.jv_drcr == 'DR') {
       if (this.gs.IsWrongDrCode(this.Recorddet.jv_acc_code)) {
         this.ErrorMessage = this.Recorddet.jv_acc_code + ' is debited only when transferred to HO, continue with debit balance?';
@@ -2955,20 +2963,40 @@ export class LedgerComponent {
   }
 
   ShowTdsCertList(tdsCertno: any) {
-    if (!this.gs.isBlank(this.Recorddet.jv_pan_id))
+    if (!this.gs.isBlank(this.Recorddet.jv_pan_id)) {
       this.open(tdsCertno);
+    }
   }
 
   AddTdsCertRecords(params: any) {
+
     if (params.status == "SAVE") {
+      this.tdsCertBalAmt = params.certbalamt;
+      let tds_gross_amt: number = 0;
+      if (params.certrate > 0) {
+        tds_gross_amt = (this.Recorddet.jv_total / params.certrate) * 100;
+        tds_gross_amt = this.gs.roundNumber(tds_gross_amt, 2);
+      }
+
+      if (this.tdsCertBalAmt - tds_gross_amt < 0) {
+        alert("Tds gross amount( " + tds_gross_amt + " ) exceeds certificate balance amount( " + this.tdsCertBalAmt + " )");
+        return;
+      }
+
       this.Recorddet.jv_tds_cert_no = params.certno;
       this.Recorddet.jv_tds_rate = params.certrate;
+      this.Recorddet.jv_tds_gross_amt = tds_gross_amt;
+    }
+
+    if (params.status == "CLEAR") {
+      if (!this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
+        this.Recorddet.jv_tds_cert_no = '';
+        this.Recorddet.jv_tds_rate = 0;
+        this.Recorddet.jv_tds_gross_amt = 0;
+      }
     }
     this.modal.close();
   }
-  
-  ClearSelection() {
-    this.Recorddet.jv_tds_cert_no = '';
-    this.Recorddet.jv_tds_rate = 0;
-  }
+
+
 }

@@ -657,8 +657,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Tds%</label>
             <div class="col-4">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_rate"
-                (blur)="OnBlur('jv_tds_rate')" maxlength="15" />
+              <input type="text" [disabled]="Recorddet.jv_tds_cert_no!=''" class="form-control form-control-sm"
+                [(ngModel)]="Recorddet.jv_tds_rate" (blur)="OnBlur('jv_tds_rate')" maxlength="15" />
             </div>
             <div class="col-6">
               <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Recorddet.jv_tds_gross_amt"
@@ -967,10 +967,5 @@
   <div class="modal-body">
     <app-tdscertno [type]="type" [menuid]="menuid" [pan_id]="Recorddet.jv_pan_id" [tds_acc_id]="Recorddet.jv_acc_id"
       (ModifiedRecords)="AddTdsCertRecords($event)"></app-tdscertno>
-  </div>
-  <div class="modal-footer">
-    <button (click)="ClearSelection()" class="btn btn-success btn-sm mr-1">Clear
-      Selection</button>
-    <button type="button" class="btn btn-success btn-sm" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
