@@ -1945,14 +1945,6 @@ export class LedgerComponent {
       }
     }
 
-    if (!this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
-      if (this.tdsCertBalAmt - this.Recorddet.jv_tds_gross_amt < 0) {
-        alert("Tds gross amount( " + this.Recorddet.jv_tds_gross_amt + " ) exceeds certificate balance amount( " + this.tdsCertBalAmt + " )");
-        return;
-      }
-    }
-
-
     if (this.Recorddet.jv_drcr == 'DR') {
       if (this.gs.IsWrongDrCode(this.Recorddet.jv_acc_code)) {
         this.ErrorMessage = this.Recorddet.jv_acc_code + ' is debited only when transferred to HO, continue with debit balance?';
@@ -2978,10 +2970,11 @@ export class LedgerComponent {
         tds_gross_amt = this.gs.roundNumber(tds_gross_amt, 2);
       }
 
-      if (this.tdsCertBalAmt - tds_gross_amt < 0) {
-        alert("Tds gross amount( " + tds_gross_amt + " ) exceeds certificate balance amount( " + this.tdsCertBalAmt + " )");
-        return;
-      }
+      // // Certno Balance Check
+      // if (this.tdsCertBalAmt - tds_gross_amt < 0) {
+      //   alert("Tds gross amount( " + tds_gross_amt + " ) exceeds certificate balance amount( " + this.tdsCertBalAmt + " )");
+      //   return;
+      // }
 
       this.Recorddet.jv_tds_cert_no = params.certno;
       this.Recorddet.jv_tds_rate = params.certrate;
