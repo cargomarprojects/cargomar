@@ -1608,7 +1608,7 @@ export class LedgerComponent {
         });
   }
 
-  Ok() {
+  async Ok() {
     let bok = true;
     let cctotal: number = 0;
 
@@ -1817,10 +1817,6 @@ export class LedgerComponent {
 
 
 
-
-
-
-
     if (!this.ProcessPendingList) {
       if (this.Recorddet.jv_acc_against_invoice == "D" && this.Recorddet.jv_drcr == "CR") {
         this.ErrorMessage = 'Invalid Invoice Allocation';
@@ -1927,6 +1923,8 @@ export class LedgerComponent {
       }
     }
 
+
+
     // No GST
     if (!this.Record.jvh_gst) {
       if (this.Recorddet.jv_is_taxable) {
@@ -1953,6 +1951,29 @@ export class LedgerComponent {
       }
     }
 
+    // Tds cert bal Check
+    if (!this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
+      console.log("LINE:1");
+
+      let _certbalAmt: number = 0;
+      await this.TdsCertBalAmt().then((response) => {
+        _certbalAmt = response.balamt;
+
+        console.log(response.balamt);
+        console.log("LINE:4");
+      }, error => {
+        alert(this.gs.getError(error));
+      });
+
+      if (_certbalAmt - this.Recorddet.jv_tds_gross_amt < 0) {
+        this.ErrorMessage = "Tds gross amount( " + this.Recorddet.jv_tds_gross_amt + " ) exceeds certificate balance amount( " + _certbalAmt + " )";
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
+
+
+    console.log("LINE:5");
     if (this.Recorddet.jv_drcr == "DR") {
       this.Recorddet.jv_row_type = 'DR-LEDGER';
       this.Recorddet.jv_debit = this.Recorddet.jv_total;
@@ -2989,6 +3010,25 @@ export class LedgerComponent {
       }
     }
     this.modal.close();
+  }
+
+
+
+  TdsCertBalAmt(): Promise<any> {
+    console.log("LINE:2");
+
+    const SearchData = {
+      jvh_pkid: this.Record.jvh_pkid,
+      pan_id: this.Recorddet.jv_pan_id,
+      cert_no: this.Recorddet.jv_tds_cert_no,
+      tds_acc_id: this.Recorddet.jv_acc_id,
+      tds_gross_amt: this.Recorddet.jv_tds_gross_amt,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code
+    };
+
+    return this.mainService.TdsCertBalance(SearchData); // returns Promise
   }
 
 
