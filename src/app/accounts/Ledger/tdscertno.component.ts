@@ -116,5 +116,6 @@ export class TdsCertnoComponent {
         if (controlname == 'te_tds_rate') {
             this.Record.te_tds_rate = this.gs.roundNumber(this.Record.te_tds_rate, 2);
         }
-
     }
+
+}
