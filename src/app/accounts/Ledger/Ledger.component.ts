@@ -95,7 +95,7 @@ export class LedgerComponent {
   bapprovalstatus = '';
 
   diff: number = 0;
-  tdsCertBalAmt: number = 0;
+  // tdsCertBalAmt: number = 0;
 
   // Array For Displaying List
   RecordList: Ledgerh[] = [];
@@ -1287,6 +1287,7 @@ export class LedgerComponent {
 
   // Detail Handling
   ActionHandlerDetail(action: string, rec: Ledgert) {
+    this.InfoMessage = '';
     this.ErrorMessage = '';
     this.bChqboxvisible = false;
     if (action == 'LIST') {
@@ -1951,29 +1952,52 @@ export class LedgerComponent {
       }
     }
 
-    // Tds cert bal Check
-    if (!this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
-      console.log("LINE:1");
-
+    // Tds certificate bal Check
+    if (!this.gs.isBlank(this.Recorddet.jv_pan_id)) {
+      let _tdsGrossAmt: number = 0;
       let _certbalAmt: number = 0;
+      let _certvalidate: boolean = false;
+      // let _certnoexist: boolean = false;
+
       await this.TdsCertBalAmt().then((response) => {
         _certbalAmt = response.balamt;
+        _certvalidate = response.certvalidate;
+        // _certnoexist = response.certnoexist;
 
-        console.log(response.balamt);
-        console.log("LINE:4");
       }, error => {
-        alert(this.gs.getError(error));
+        this.ErrorMessage = this.gs.getError(error);
+        alert(this.ErrorMessage);
       });
 
-      if (_certbalAmt - this.Recorddet.jv_tds_gross_amt < 0) {
-        this.ErrorMessage = "Tds gross amount( " + this.Recorddet.jv_tds_gross_amt + " ) exceeds certificate balance amount( " + _certbalAmt + " )";
-        alert(this.ErrorMessage);
-        return;
+      if (_certvalidate) {
+
+        if (this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
+          _tdsGrossAmt = this.FindTotalTdsGrossAmt('', this.Recorddet.jv_pkid);
+          if (this.gs.isBlank(this.Recorddet.jv_tds_cert_no))
+            _tdsGrossAmt += this.Recorddet.jv_tds_gross_amt;
+
+          if (_certbalAmt - _tdsGrossAmt > 0) {
+            this.ErrorMessage = "Tds Certificate cannot be Blank";
+            alert(this.ErrorMessage);
+            return;
+          }
+        } else {
+
+          _tdsGrossAmt = this.FindTotalTdsGrossAmt(this.Recorddet.jv_tds_cert_no, this.Recorddet.jv_pkid);
+          _tdsGrossAmt += this.Recorddet.jv_tds_gross_amt;
+
+          if (_certbalAmt - _tdsGrossAmt < 0) {
+            this.ErrorMessage = "Tds gross amount( " + _tdsGrossAmt + " ) exceeds certificate balance amount( " + _certbalAmt + " )";
+            alert(this.ErrorMessage);
+            return;
+          }
+
+        }
+
       }
+
     }
 
-
-    console.log("LINE:5");
     if (this.Recorddet.jv_drcr == "DR") {
       this.Recorddet.jv_row_type = 'DR-LEDGER';
       this.Recorddet.jv_debit = this.Recorddet.jv_total;
@@ -2984,7 +3008,7 @@ export class LedgerComponent {
   AddTdsCertRecords(params: any) {
 
     if (params.status == "SAVE") {
-      this.tdsCertBalAmt = params.certbalamt;
+      // this.tdsCertBalAmt = params.certbalamt;
       let tds_gross_amt: number = 0;
       if (params.certrate > 0) {
         tds_gross_amt = (this.Recorddet.jv_total / params.certrate) * 100;
@@ -3012,11 +3036,7 @@ export class LedgerComponent {
     this.modal.close();
   }
 
-
-
   TdsCertBalAmt(): Promise<any> {
-    console.log("LINE:2");
-
     const SearchData = {
       jvh_pkid: this.Record.jvh_pkid,
       pan_id: this.Recorddet.jv_pan_id,
@@ -3031,5 +3051,21 @@ export class LedgerComponent {
     return this.mainService.TdsCertBalance(SearchData); // returns Promise
   }
 
+  FindTotalTdsGrossAmt(_certNo: string, _jvpkid) {
+    let _amt: number = 0;
+    this.Record.LedgerList.forEach(rec => {
+      if (rec.jv_pkid != _jvpkid) { //avoid calling record and calculating from remaining records in the list
 
+        if (this.gs.isBlank(_certNo)) { //for checking blank certificate with balance amount
+          if (!this.gs.isBlank(rec.jv_tds_cert_no))
+            _amt += rec.jv_tds_gross_amt;
+        } else { //for checking particular certificate with balance amount
+          if (rec.jv_tds_cert_no == _certNo)
+            _amt += rec.jv_tds_gross_amt;
+        }
+
+      }
+    });
+    return _amt;
+  }
 }

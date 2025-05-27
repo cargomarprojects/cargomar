@@ -84,7 +84,6 @@ export class LedgerService {
   }
 
   async TdsCertBalance(SearchData: any) {
-    console.log("LINE:3");
     return await this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/TdsCertBalance', SearchData, this.gs.headerparam2('authorized')).toPromise();
   }
 

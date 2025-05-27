@@ -109,4 +109,12 @@ export class TdsCertnoComponent {
         if (this.ModifiedRecords != null)
             this.ModifiedRecords.emit({ status: 'CLEAR' });
     }
-}
+
+
+    OnBlur(controlname: string) {
+
+        if (controlname == 'te_tds_rate') {
+            this.Record.te_tds_rate = this.gs.roundNumber(this.Record.te_tds_rate, 2);
+        }
+
+    }
