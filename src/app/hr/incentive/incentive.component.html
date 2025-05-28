@@ -224,7 +224,8 @@
         <div class="form-group row">
           <input class="form-check-input" type="checkbox" [(ngModel)]="csvall">
           <button [disabled]="loading" (click)="Print('CSV')" class="btn btn-success btn-sm mr-1"> CSV </button>
-          <button [disabled]="loading" (click)="Print('HALF-CSV')" class="btn btn-success btn-sm mr-1"> Half CSV </button>
+          <button [disabled]="loading" (click)="Print('HALF-CSV')" class="btn btn-success btn-sm mr-1"> Half CSV
+          </button>
           <button [disabled]="loading" (click)="PrintBrSummary()" class="btn btn-success btn-sm"> Branch Summary
           </button>
         </div>
@@ -241,15 +242,16 @@
           <tr>
             <th width="10%">CODE</th>
             <th width="15%">NAME</th>
-            <th width="8%">AREARS(+)</th>
+            <th width="7%">AREARS(+)</th>
             <th width="8%">INCENTIVE(+)</th>
             <th width="8%">OTH-ALLOW(+)</th>
-            <th width="8%">OTH-DED(-)</th>
-            <th width="8%">TDS(-)</th>
+            <th width="7%">OTH-DED(-)</th>
+            <th width="7%">TDS(-)</th>
+            <th width="7%">LOAN(-)</th>
             <th style="text-align:right" width="8%">GROSS-AMT</th>
             <th style="text-align:right" width="8%">TOTAL-DED</th>
             <th style="text-align:right" width="8%">NET-AMT</th>
-            <th style="text-align:center" width="10%" *ngIf="Record.salh_edit_code == '{S}'"> UPDATE</th>
+            <th style="text-align:center" width="7%" *ngIf="Record.salh_edit_code == '{S}'"> UPDATE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -275,6 +277,9 @@
             <td style="padding:0px 0px 0px 0px"><input type="number" name="sald_tds_amt"
                 class="form-control form-control-sm" [(ngModel)]="rec.sald_tds_amt" required maxlength="14"
                 (blur)="OnBlur('sald_tds_amt',rec)" /></td>
+            <td style="padding:0px 0px 0px 0px"><input type="number" name="sald_loan_amt"
+                class="form-control form-control-sm" [(ngModel)]="rec.sald_loan_amt" required maxlength="14"
+                (blur)="OnBlur('sald_loan_amt',rec)" /></td>
 
             <td align="right">{{rec.sald_gross_amt}}</td>
             <td align="right">{{rec.sald_total_ded}}</td>

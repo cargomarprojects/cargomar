@@ -398,9 +398,12 @@ export class IncentiveComponent {
       rec.sald_tds_amt = this.gs.roundNumber(rec.sald_tds_amt, 2);
     }
 
+    if (field == 'sald_loan_amt') {
+      rec.sald_loan_amt = this.gs.roundNumber(rec.sald_loan_amt, 2);
+    }
 
     iGross = rec.sald_arears_amt + rec.sald_incentive_amt + rec.sald_allow_amt;
-    iDed = rec.sald_ded_amt + rec.sald_tds_amt;
+    iDed = rec.sald_ded_amt + rec.sald_tds_amt + rec.sald_loan_amt;
     iNet = iGross - iDed;
 
     iGross = this.gs.roundNumber(iGross, 2);
@@ -531,7 +534,7 @@ export class IncentiveComponent {
         // this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         this.FileList = response.filelist;
         for (let rec of this.FileList) {
-            this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+          this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
         }
       },
         error => {

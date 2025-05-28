@@ -49,6 +49,7 @@ export class sal_incentived {
   sald_gross_amt: number;
   sald_total_ded: number;
   sald_net_amt: number;
+  sald_loan_amt: number;
 
   _globalvariables: GlobalVariables;
 
