@@ -33,6 +33,11 @@ export class TdsExemption {
     te_taxable_amt: number;
     te_other_amt: number;
 
+    te_jvh_docno: string;
+    te_jvh_date: string;
+    te_tds: number;
+    te_paid_amt: number;
+
     rec_mode: string;
     _globalvariables: GlobalVariables;
 
@@ -50,6 +55,10 @@ export interface iTdsExemptionModel {
     type: string;
     searchstring: string;
     // Page Values
+    certno: string;
+    totAmt: number;
+    pan_id: string;
+    tds_acc_id: string;
     page_count: number;
     page_current: number;
     page_rows: number;
@@ -65,6 +74,10 @@ export const initialState: iTdsExemptionModel = {
     ErrorMessage: '',
     type: '',
     searchstring: '',
+    certno: '',
+    totAmt: 0,
+    pan_id: '',
+    tds_acc_id: '',
     page_count: 0,
     page_current: 0,
     page_rows: 15,

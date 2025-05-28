@@ -140,7 +140,6 @@ export class LedgerComponent {
     this.page_rows = 20;
     this.page_current = 0;
 
-
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
