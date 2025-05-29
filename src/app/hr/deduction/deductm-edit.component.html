@@ -131,7 +131,8 @@
                         <tr>
                             <th width="15%">YEAR</th>
                             <th width="15%">MONTH</th>
-                            <th width="70%">AMOUNT</th>
+                            <th width="15%">AMOUNT</th>
+                            <th width="55%">SOURCE</th>
                         </tr>
                     </thead>
                     <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -139,6 +140,7 @@
                             <td>{{rec.ded_year}}</td>
                             <td>{{rec.ded_mon}}</td>
                             <td>{{rec.ded_amt}}</td>
+                            <td>{{rec.ded_deduct_source}}</td>
                         </tr>
                     </tbody>
                 </table>

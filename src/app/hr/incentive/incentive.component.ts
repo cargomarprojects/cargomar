@@ -441,9 +441,14 @@ export class IncentiveComponent {
 
   UpdateRecord(_rec: sal_incentived) {
 
+    if (this.gs.isBlank(this.Record.salh_date)) {
+      alert('Due date cannot be blank');
+      return;
+    }
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    _rec.sald_date = this.Record.salh_date;
     _rec._globalvariables = this.gs.globalVariables;
     this.mainService.UpdateRecord(_rec)
       .subscribe(response => {

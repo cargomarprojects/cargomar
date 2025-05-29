@@ -55,4 +55,5 @@ export class Deductd {
     rec_edited_date: string;
     ded_remarks: string;
     ded_fin_year: number;
+    ded_deduct_source: string;
 }
