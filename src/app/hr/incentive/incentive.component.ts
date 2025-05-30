@@ -66,7 +66,7 @@ export class IncentiveComponent {
   constructor(
     private mainService: SalIncentiveService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
 
   ) {
     this.page_count = 0;
@@ -635,6 +635,34 @@ export class IncentiveComponent {
 
   showHeaderUpdate(_rec: sal_incentivem) {
     _rec.row_displayed = !_rec.row_displayed;
+  }
+
+
+  ReleasePosting(Id: string, _inctype: string, _dtd: string) {
+
+    let strmsg: string = "";
+    strmsg = "RELEASE " + _inctype + " RECORDS POSTED\n DATED : " + _dtd;
+    if (!confirm(strmsg)) {
+      return;
+    }
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ReleasePosting(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.InfoMessage = "Successfully Released";
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 }

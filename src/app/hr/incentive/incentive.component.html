@@ -59,6 +59,7 @@
           <th>HO-JV#</th>
           <th>PAYMENT-DATE</th>
           <th style="text-align:center">UPDATE</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">RLSD</th>
           <th *ngIf="bAdmin">DELETE</th>
         </tr>
       </thead>
@@ -78,6 +79,7 @@
           <td>{{rec.salh_jvno_ho}}</td>
           <td>{{rec.salh_pay_display_date}}</td>
           <td class="hlink" align="center" (click)="showHeaderUpdate(rec)">UPDATE</td>
+           <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" ><i class="fa fa-unlock-alt  fa-lg pointer" aria-hidden="true" (click)="ReleasePosting(rec.salh_pkid,rec.salh_incentive_type_name,rec.salh_display_date)"></i></td>
           <td *ngIf="bAdmin">
             <App-Dialog [id]="{msg:'DELETE Y/N', buttons:'yn', selected :false,id:rec.salh_pkid,name:''}"
               (result)="RemoveList($event)"></App-Dialog>

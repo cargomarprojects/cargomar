@@ -52,5 +52,10 @@ export class SalIncentiveService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/UpdateHeaderRecord', Record, this.gs.headerparam2('authorized'));
   }
 
+  ReleasePosting(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Incentive/ReleasePosting', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
 }
 
