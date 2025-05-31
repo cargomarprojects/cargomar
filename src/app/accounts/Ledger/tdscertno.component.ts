@@ -146,6 +146,11 @@ export class TdsCertnoComponent {
             this.ModifiedRecords.emit({ status: 'CLOSE' });
     }
 
+    returnback() {
+        if (!this.gs.isBlank(this.tabsetCtrl))
+            this.tabsetCtrl.select('tabsummary');
+    }
+
     SelectCertificate(_rec: TdsExemption) {
         if (this.ModifiedRecords != null)
             this.ModifiedRecords.emit({ status: 'SAVE', certno: _rec.te_cert_no, certrate: _rec.te_tds_cert_rate, certbalamt: _rec.te_bal_amt });

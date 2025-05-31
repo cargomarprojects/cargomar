@@ -45,7 +45,7 @@
                     </table>
                 </div>
                 <div class="text-center my-1">
-                    <button class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-primary btn-sm" (click)="cancel()">Close</button>
                     <button class="btn btn-primary btn-sm" (click)="ClearSelection()">Clear
                         Selection</button>
                 </div>
@@ -70,10 +70,13 @@
                         <div class="col-sm-4">
                             <button [disabled]="loading" (click)="List('NEW')"
                                 class="btn btn-primary btn-sm mr-1">Search</button>
+                            <button (click)="returnback()" class="btn btn-primary btn-sm mr-1">Return</button>
                             <!-- <button [disabled]="loading" *ngIf="bExcel" (click)="List('EXCEL')"
                                 class="btn btn-primary btn-sm mr-1">Print</button> -->
                         </div>
-                        <label class="col-sm-4 col-form-label col-form-label-sm"><strong>Total Amount&nbsp;</strong> <font color="red">{{mainService.state.totAmt}}</font></label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm"><strong>Total Amount&nbsp;</strong>
+                            <font color="red">{{mainService.state.totAmt}}</font>
+                        </label>
                     </div>
                 </div>
 
@@ -98,6 +101,7 @@
                     <table class="table table-hover table-sm table-bordered table-striped">
                         <thead class="page-body-thead">
                             <tr>
+                                <th>BRANCH</th>
                                 <th>DOCNO</th>
                                 <th>DATE</th>
                                 <th>CERT#</th>
@@ -108,6 +112,7 @@
                         </thead>
                         <tbody class="page-body-tbody">
                             <tr *ngFor="let rec of mainService.state.RecordList">
+                                <td>{{rec.rec_branch_code}}</td>
                                 <td>{{rec.te_jvh_docno}}</td>
                                 <td>{{rec.te_jvh_date}}</td>
                                 <td>{{rec.te_cert_no}}</td>

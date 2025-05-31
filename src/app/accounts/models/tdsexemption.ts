@@ -39,6 +39,7 @@ export class TdsExemption {
     te_paid_amt: number;
 
     rec_mode: string;
+    rec_branch_code: string;
     _globalvariables: GlobalVariables;
 
 }
