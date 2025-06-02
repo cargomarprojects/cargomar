@@ -94,6 +94,8 @@
             <th align='right'>GST</th>
             <th align='right'>REBATE-INR</th>
             <th *ngIf="type == 'SEA IMPORT'">CONTAINER</th>
+            <th>CREATED.BY</th>
+            <th>CREATED.DATE</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -120,6 +122,8 @@
             <td align='right'>{{rec.hbl_ar_gst | number : '1.2-2'}}</td>
             <td align='right'>{{rec.hbl_rebate_amt_inr | number : '1.2-2'}}</td>
             <td *ngIf="type == 'SEA IMPORT'">{{rec.hbl_book_cntr}}</td>
+            <td>{{rec.rec_created_by}}</td>
+            <td>{{rec.rec_created_date}}</td>
           </tr>
         </tbody>
       </table>
@@ -717,5 +721,6 @@
 </div>-->
 
 
-<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList"  [type]="CrLimitType" [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_exp_id" 
+<app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType"
+  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_exp_id"
   (hidealert)="showalert=$event"></app-crlimit>

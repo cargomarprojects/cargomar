@@ -122,27 +122,28 @@ export class Mblm {
   mbl_docs: number;
 
   mbl_deliv_date: string;
-  mbl_pol_eta:string;
-  mbl_pol_eta_confirm:boolean;
-  mbl_deliv_date_confirm:boolean;
+  mbl_pol_eta: string;
+  mbl_pol_eta_confirm: boolean;
+  mbl_deliv_date_confirm: boolean;
 
   mbl_cf_date: string;
-  mbl_teu:number;
-  mbl_track_comments:string;
-  mbl_coloader_id:string;
-  mbl_coloader_code:string;
-  mbl_coloader_name:string;
-  mbl_ship_conf_date:string;
-  mbl_cargo_handover_date:string;
+  mbl_teu: number;
+  mbl_track_comments: string;
+  mbl_coloader_id: string;
+  mbl_coloader_code: string;
+  mbl_coloader_name: string;
+  mbl_ship_conf_date: string;
+  mbl_cargo_handover_date: string;
 
   lock_record: boolean;
 
   rec_mode: string;
   rec_category: string;
+  rec_created_by: string;
   rec_created_date: string;
-
+  
   _globalvariables: GlobalVariables;
   HblList: Hblm[] = [];
-  TransitList:Trackingm[] = [];
+  TransitList: Trackingm[] = [];
 }
 

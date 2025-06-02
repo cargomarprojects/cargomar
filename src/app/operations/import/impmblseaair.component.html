@@ -49,7 +49,7 @@
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
-            class="btn btn-primary btn-sm">Print</button>
+              class="btn btn-primary btn-sm">Print</button>
           </div>
         </div>
       </div>
@@ -98,6 +98,8 @@
           <th>BENO</th>
           <th align='center'>DOCS</th>
           <th *ngIf="type == 'SEA IMPORT'">CONTAINER</th>
+          <th>CREATED.BY</th>
+          <th>CREATED.DATE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -125,6 +127,8 @@
           <td>{{rec.mbl_beno}}</td>
           <td align='center'>{{rec.mbl_docs}}</td>
           <td *ngIf="type == 'SEA IMPORT'">{{rec.mbl_cntr}}</td>
+          <td>{{rec.rec_created_by}}</td>
+          <td>{{rec.rec_created_date}}</td>
         </tr>
       </tbody>
     </table>
@@ -392,7 +396,8 @@
                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_igmno"
                     (blur)="OnBlur('mbl_igmno')" required maxlength="15" />
                 </div>
-                <label style="padding-left:0" class="col-2 col-form-label col-form-label-sm">{{lockChar}}IGM.Date</label>
+                <label style="padding-left:0"
+                  class="col-2 col-form-label col-form-label-sm">{{lockChar}}IGM.Date</label>
                 <div class="col-4">
                   <app-date [inputdate]="Record.mbl_igmdate" (ValueChanged)="Record.mbl_igmdate=$event"></app-date>
                 </div>
