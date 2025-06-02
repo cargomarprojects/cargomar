@@ -1956,20 +1956,18 @@ export class LedgerComponent {
       let _tdsGrossAmt: number = 0;
       let _certbalAmt: number = 0;
       let _certvalidate: boolean = false;
-      // let _certnoexist: boolean = false;
-
+      console.log("line1");
       await this.TdsCertBalAmt().then((response) => {
         _certbalAmt = response.balamt;
         _certvalidate = response.certvalidate;
-        // _certnoexist = response.certnoexist;
-
+        console.log("line2");
       }, error => {
         this.ErrorMessage = this.gs.getError(error);
         alert(this.ErrorMessage);
       });
 
+      console.log("line3");
       if (_certvalidate) {
-
         if (this.gs.isBlank(this.Recorddet.jv_tds_cert_no)) {
           _tdsGrossAmt = this.FindTotalTdsGrossAmt('', this.Recorddet.jv_pkid);
           if (this.gs.isBlank(this.Recorddet.jv_tds_cert_no))
@@ -3038,6 +3036,7 @@ export class LedgerComponent {
   TdsCertBalAmt(): Promise<any> {
     const SearchData = {
       jvh_pkid: this.Record.jvh_pkid,
+      jvh_date: this.Record.jvh_date,
       pan_id: this.Recorddet.jv_pan_id,
       cert_no: this.Recorddet.jv_tds_cert_no,
       tds_acc_id: this.Recorddet.jv_acc_id,
