@@ -30,4 +30,7 @@ export class CiGeImportDet {
     refdate: string;
     paidto: string;
     payreason: string;
+    roundoff: string;
+    roundoffcode: string;
+    roundoffdrcr: string;
 }

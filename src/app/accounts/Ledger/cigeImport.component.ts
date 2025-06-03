@@ -49,7 +49,7 @@ export class CiGeImportComponent implements OnInit {
     ConvertData() {
         let tot_cols: number = 12;
         if (this.type == "PN-JV")
-            tot_cols = 14;
+            tot_cols = 17;
         const list = this.gs.CSVToJSON(this.cbdata);
 
         this.Records = list.reduce((acc: any[], rec: any) => {
