@@ -55,9 +55,16 @@ export class CiGeImportComponent implements OnInit {
         this.Records = list.reduce((acc: any[], rec: any) => {
             const len = Object.keys(rec).length;
             if (len == tot_cols) {
-                const amt = rec["amt"];
-                if (amt != "")
-                    acc.push({ ...rec, status: '' });
+                if (this.type == "PN-JV") {
+                    const amt = rec["taxableamt"];
+                    if (amt != "")
+                        acc.push({ ...rec, status: '' });
+                }
+                else {
+                    const amt = rec["amt"];
+                    if (amt != "")
+                        acc.push({ ...rec, status: '' });
+                }
             }
             return acc;
         }, []);

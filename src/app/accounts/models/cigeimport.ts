@@ -33,4 +33,5 @@ export class CiGeImportDet {
     roundoff: string;
     roundoffcode: string;
     roundoffdrcr: string;
+    taxableamt: string;
 }
