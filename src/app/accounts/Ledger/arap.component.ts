@@ -1713,7 +1713,11 @@ export class ArApComponent {
           alert(this.ErrorMessage);
           return;
         }
-
+        if (this.Recorddet.jv_tds_rate <= 0) {
+          this.ErrorMessage = 'Invalid Tds% ';
+          alert(this.ErrorMessage);
+          return;
+        }
       }
     }
 
