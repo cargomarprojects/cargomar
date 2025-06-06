@@ -23,7 +23,10 @@ export class ShipTrackMaster {
     pod_eta_confirm: boolean;
     pofd_eta: string;
     pofd_eta_confirm: boolean;
-
+    status: string;
+    transit_etd: string;
+    transit_status: string;
+    final_status: string;
 
     row_displayed: boolean;
     _globalvariables: GlobalVariables;

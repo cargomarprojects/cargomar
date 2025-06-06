@@ -117,7 +117,8 @@
         <table class="table  table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
                 <tr>
-                    <th>{{(search_list_opr_type=='SEA EXPORT'||search_list_opr_type=='SEA IMPORT')?'MBLBK#':'MAWBK#'}}</th>
+                    <th>{{(search_list_opr_type=='SEA EXPORT'||search_list_opr_type=='SEA IMPORT')?'MBLBK#':'MAWBK#'}}
+                    </th>
                     <th>MASTER.DATE</th>
                     <th>POL</th>
                     <th>POD</th>
@@ -131,9 +132,13 @@
                     <th>VESSEL</th>
                     <th>VOYAGE</th>
                     <th>ETD</th>
-                    <th>CONF</th>
+                    <!-- <th>CONF</th> -->
+                    <th>STATUS</th>
+                    <th>T/S.ETD</th>
+                    <th>T/S.STATUS</th>
                     <th>ETA</th>
-                    <th>CONF</th>
+                    <!-- <th>CONF</th> -->
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -152,9 +157,13 @@
                     <td>{{rec.vessel}}</td>
                     <td>{{rec.voyage}}</td>
                     <td>{{rec.etd}}</td>
-                    <td>{{rec.etd_confirm==true?'Y':'-'}}</td>
+                    <!-- <td>{{rec.etd_confirm==true?'Y':'-'}}</td> -->
+                    <td class="hlink" (click)="ShowPage(rec)">{{rec.status}}</td>
+                    <td>{{rec.transit_etd}}</td>
+                    <td class="hlink" (click)="ShowPage(rec)">{{rec.transit_status}}</td>
                     <td>{{rec.pod_eta}}</td>
-                    <td>{{rec.pod_eta_confirm==true?'Y':'-'}}</td>
+                    <!-- <td>{{rec.pod_eta_confirm==true?'Y':'-'}}</td> -->
+                    <td class="hlink" (click)="ShowPage(rec)">{{rec.final_status}}</td>
                 </tr>
                 <tr *ngIf="rec.row_displayed">
                     <td colspan="19">
