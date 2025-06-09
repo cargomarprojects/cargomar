@@ -28,6 +28,8 @@ export class TdsPay {
   salary: number;
   forgnpay: number;
   ptax: number;
+  partnerpay: number;
+  
   jv_credit: number;
   rec_branch_code: string;
 
