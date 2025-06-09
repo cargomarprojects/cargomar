@@ -227,13 +227,15 @@
   </div>
 
   <div class="page-box">
-    <div class="col">
+    <div class="col-sm input-group input-group-sm">
       <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-default btn-sm">SAVE</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
       <button [disabled]="loading" (click)="PrintFrightMemo(Record.inv_pkid,'EXCEL')"
         class="btn btn-default btn-sm">PRINT</button>
-      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm">Load Quotation</button>
-
+      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Quotation</button><label class="col-form-label  col-form-label-sm" >Quote#</label> 
+      <input type="text" class="form-control form-control-sm mr-1" style="max-width: 150px;" [(ngModel)]="Record.inv_acc_name"
+        (blur)="OnBlur('inv_acc_name')" required maxlength="60" />
+      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Quotation</button>
       <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
         class="btn btn-success btn-sm">History</button>
 
