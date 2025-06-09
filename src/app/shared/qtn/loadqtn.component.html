@@ -1,4 +1,3 @@
-
 <ng-template #content let-c="close" let-d="dismiss">
 
   <div class="modal-body">
@@ -9,7 +8,7 @@
         Quotation Type : {{category}}
       </div>
 
-      <div class="col-sm-12">
+      <div *ngIf="qtnsource=='CUSTOMER'" class="col-sm-12">
 
         <div style="height: 400px; overflow: auto;">
 
@@ -37,6 +36,51 @@
                   <td>{{rec.qtnd_curr_code}}</td>
                   <td>{{rec.qtnd_exrate}}</td>
                   <td>{{rec.qtnd_total}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div>
+          TOTAL : {{total_amt}}
+        </div>
+      </div>
+
+      <div *ngIf="qtnsource=='QUOTATION'" class="col-sm-12">
+
+        <div style="height: 400px; overflow: auto;">
+
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>SL#</th>
+                  <th>CODE</th>
+                  <th>NAME</th>
+                  <th>QTY</th>
+                  <th>RATE</th>
+                  <th>CURR</th>
+                  <th>EXRATE</th>
+                  <th>TOTAL</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+                <tr>
+                  <td style="padding:0px">{{i+1}}</td>
+                  <!-- <td>{{rec.qtnd_acc_code}}</td> -->
+                  <td style="padding:0px 2px 0px 0px;">
+                    <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
+                      [branchcode]="gs.globalVariables.branch_code" [where]="acc_sWhere"
+                      [displaydata]="rec.qtnd_acc_code" (ValueChanged)="LovSelected($event,rec)">
+                    </app-autocomplete3>
+                  </td>
+                  <td style="padding:0px">{{rec.qtnd_acc_name}}</td>
+                  <td style="padding:0px">{{rec.qtnd_qty}}</td>
+                  <td style="padding:0px">{{rec.qtnd_rate}}</td>
+                  <td style="padding:0px">{{rec.qtnd_curr_code}}</td>
+                  <td style="padding:0px">{{rec.qtnd_exrate}}</td>
+                  <td style="padding:0px">{{rec.qtnd_total}}</td>
                 </tr>
               </tbody>
             </table>

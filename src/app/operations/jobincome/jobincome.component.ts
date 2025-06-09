@@ -74,7 +74,8 @@ export class JobIncomeComponent {
   old_inv_cntr_type: string = '';
   old_inv_exrate: number = 1;
   old_inv_type = '';
-
+  qtn_source = '';
+  qtn_no = '';
 
   cntr_type_visible = true;
 
@@ -325,7 +326,7 @@ export class JobIncomeComponent {
   }
 
   NewRecord() {
-
+    this.qtn_no = '';
     this.pkid = this.gs.getGuid();
 
     this.Record = new JobIncome();
@@ -795,6 +796,10 @@ export class JobIncomeComponent {
         this.Record.inv_rebate2_exrate = this.gs.roundNumber(this.Record.inv_rebate2_exrate, 3);
         break;
       }
+      case 'qtn_no': {
+        this.qtn_no = this.qtn_no.toUpperCase().replace(/\\/gi, '/');
+        break;
+      }
     }
   }
 
@@ -871,11 +876,27 @@ export class JobIncomeComponent {
   }
 
   ShowQuotation() {
+    this.qtn_source = 'CUSTOMER';
     if (this.Record.inv_source == 'CLEARING INCOME' && (this.type == 'SEA EXPORT' || this.type == 'AIR EXPORT' || this.type == 'SEA IMPORT' || this.type == 'AIR IMPORT')) {
       this.bShowQtnList = true;
     }
     else {
       alert('Only Clearance Quotation can be loaded ');
+    }
+  }
+
+  ShowQuotation2() {
+
+    if (this.gs.isBlank(this.qtn_no)) {
+      alert('Quotation# cannot be blank ');
+      return;
+    }
+    this.qtn_source = 'QUOTATION';
+    if ((this.Record.inv_source == 'CLEARING INCOME' || this.Record.inv_source == 'FREIGHT MEMO') && (this.type == 'SEA EXPORT' || this.type == 'AIR EXPORT' || this.type == 'SEA IMPORT' || this.type == 'AIR IMPORT')) {
+      this.bShowQtnList = true;
+    }
+    else {
+      alert('Only Clearance and Forwarding Quotation can be loaded ');
     }
   }
 

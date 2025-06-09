@@ -232,10 +232,11 @@
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
       <button [disabled]="loading" (click)="PrintFrightMemo(Record.inv_pkid,'EXCEL')"
         class="btn btn-default btn-sm">PRINT</button>
-      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Quotation</button><label class="col-form-label  col-form-label-sm" >Quote#</label> 
-      <input type="text" class="form-control form-control-sm mr-1" style="max-width: 150px;" [(ngModel)]="Record.inv_acc_name"
-        (blur)="OnBlur('inv_acc_name')" required maxlength="60" />
       <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Quotation</button>
+      <label *ngIf="type=='AIR EXPORT'" class="col-form-label  col-form-label-sm" >Quote#</label> 
+      <input *ngIf="type=='AIR EXPORT'" type="text" class="form-control form-control-sm mr-1" style="max-width: 150px;" [(ngModel)]="qtn_no"
+        (blur)="OnBlur('qtn_no')" required maxlength="100" />
+      <button *ngIf="type=='AIR EXPORT'" [disabled]="loading" (click)="ShowQuotation2()" class="btn btn-success btn-sm mr-1">Load Quotation</button>
       <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
         class="btn btn-success btn-sm">History</button>
 
@@ -295,7 +296,7 @@
 </ng-template>
 
 
-<App-LoadQtn [visible]="bShowQtnList" [hblid]="parentid" [type]="Record.inv_source" (CloseClicked)="QtnClosed($event)">
+<App-LoadQtn [visible]="bShowQtnList" [hblid]="parentid" [type]="Record.inv_source" [qtntype]="type" [qtnsource]="qtn_source" [qtnno]="qtn_no" (CloseClicked)="QtnClosed($event)">
 </App-LoadQtn>
 
 <div *ngIf="InfoMessage" class="alert alert-success">

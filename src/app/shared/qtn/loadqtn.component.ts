@@ -35,6 +35,9 @@ export class LoadQtnComponent {
 
   @Input() visible: boolean = false;
 
+  @Input() qtntype: string = '';
+  @Input() qtnsource: string = '';
+  @Input() qtnno: string = '';
 
   @Output() CloseClicked = new EventEmitter<string>();
 
@@ -65,13 +68,8 @@ export class LoadQtnComponent {
 
   displayed: boolean = false;
 
-  
-
   modalref: any;
-
-  
-
-
+  acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
 
   //Cost Center List 
 
@@ -98,7 +96,7 @@ export class LoadQtnComponent {
 
 
 
-}
+  }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -126,7 +124,7 @@ export class LoadQtnComponent {
       }
     }
   }
-  
+
 
   open() {
     this.displayed = true;
@@ -146,7 +144,7 @@ export class LoadQtnComponent {
     if (this.CloseClicked != null)
       this.CloseClicked.emit(this.qtnid);
   }
-  
+
   List(_type: string) {
     this.loading = true;
 
@@ -161,13 +159,16 @@ export class LoadQtnComponent {
       type: _type,
       subtype: this.type,
       partyid: this.partyid,
-      hblid : this.hblid,
+      hblid: this.hblid,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      qtnsource: this.qtnsource,
+      qtntype: this.qtntype,
+      qtnno: this.qtnno
     };
 
-    
+
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -180,13 +181,13 @@ export class LoadQtnComponent {
         this.RecordList = response.list;
         this.pkid = this.Record.qtn_pkid;
         this.category = response.category;
-        this.qtnid   = response.qtnid;
+        this.qtnid = response.qtnid;
         this.FindListTotal();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -196,6 +197,14 @@ export class LoadQtnComponent {
       this.total_amt += rec.qtnd_total;
     });
   }
-  
-  
+
+  LovSelected(_Record: any, _rec: qtnd) {
+
+    if (_Record.controlname == "ACCTM") {
+      _rec.qtnd_acc_id = _Record.id;
+      _rec.qtnd_acc_code = _Record.code;
+      _rec.qtnd_acc_name = _Record.name;
+    }
+
+  }
 }
