@@ -798,6 +798,7 @@ export class JobIncomeComponent {
       }
       case 'qtn_no': {
         this.qtn_no = this.qtn_no.toUpperCase().replace(/\\/gi, '/');
+        this.qtn_no = this.formatCode(this.qtn_no);
         break;
       }
     }
@@ -978,6 +979,21 @@ export class JobIncomeComponent {
     this.ErrorMessage = '';
     this.modal = this.modalService.open(history);
 
+  }
+
+  formatCode(input: string): string {
+    if (input.includes('/')) {
+      return input; // Already formatted
+    }
+
+    if (input.length > 5 && input.length < 12) {
+      const part1 = input.slice(0, 2);
+      const part2 = input.slice(2, 5);
+      const part3 = input.slice(5);
+      return part1 + '/' + part2 + '/' + part3;
+    }
+
+    return input; // Return original if not 9 characters
   }
 
 }

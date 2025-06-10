@@ -56,10 +56,11 @@
               <thead class="page-body-thead">
                 <tr>
                   <th>SL#</th>
-                  <th>CODE</th>
-                  <th>NAME</th>
-                  <th>CODE</th>
-                  <th>NAME</th>
+                  <th>CATEGORY</th>
+                  <th>QTN.CODE</th>
+                  <th>QTN.NAME</th>
+                  <th>A/C.CODE</th>
+                  <th>A/C.NAME</th>
                   <th>QTY</th>
                   <th>RATE</th>
                   <th>CURR</th>
@@ -70,8 +71,9 @@
               <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
                 <tr>
                   <td style="padding:0px">{{i+1}}</td>
-                  <td>{{rec.qtnd_qtnacc_code}}</td>
-                  <td>{{rec.qtnd_qtnacc_name}}</td>
+                  <td style="padding:0px">{{rec.qtnd_category}}</td>
+                  <td style="padding:0px">{{rec.qtnd_qtnacc_code}}</td>
+                  <td style="padding:0px">{{rec.qtnd_qtnacc_name}}</td>
                   <td style="padding:0px 2px 0px 0px;">
                     <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
                       [branchcode]="gs.globalVariables.branch_code" [where]="qtnaccswhere"

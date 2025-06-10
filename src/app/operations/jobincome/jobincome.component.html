@@ -232,7 +232,7 @@
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
       <button [disabled]="loading" (click)="PrintFrightMemo(Record.inv_pkid,'EXCEL')"
         class="btn btn-default btn-sm">PRINT</button>
-      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Quotation</button>
+      <button [disabled]="loading" (click)="ShowQuotation()" class="btn btn-success btn-sm mr-1">Load Cust.Quote</button>
       <label *ngIf="type=='AIR EXPORT'" class="col-form-label  col-form-label-sm" >Quote#</label> 
       <input *ngIf="type=='AIR EXPORT'" type="text" class="form-control form-control-sm mr-1" style="max-width: 150px;" [(ngModel)]="qtn_no"
         (blur)="OnBlur('qtn_no')" required maxlength="100" />

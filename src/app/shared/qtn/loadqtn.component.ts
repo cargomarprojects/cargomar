@@ -208,13 +208,17 @@ export class LoadQtnComponent {
   }
 
   SaveQtn() {
-
+    if (!this.allvalid())
+      return;
+    if (!confirm('SAVE ' + this.category)) {
+      return;
+    }
     let _saveData: SaveQtnData = new SaveQtnData;
     _saveData.qtnm_detList = this.RecordList;
-    _saveData.rowtype  = this.qtntype;
-    _saveData.parentid  = this.hblid;
-    _saveData.inv_source  = this.type;
-    _saveData.inv_category  = this.inv_category;
+    _saveData.rowtype = this.qtntype;
+    _saveData.parentid = this.hblid;
+    _saveData.inv_source = this.type;
+    _saveData.inv_category = this.inv_category;
     _saveData._globalvariables = this.gs.globalVariables;
     this.loading = true;
     this.ErrorMessage = '';
@@ -235,4 +239,80 @@ export class LoadQtnComponent {
         });
 
   }
+
+  allvalid() {
+    let sError: string = "";
+    let bret: boolean = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    if (this.qtntype.length <= 0) {
+      bret = false;
+      sError += "| Invalid Type";
+    }
+    if (this.hblid.length <= 0) {
+      bret = false;
+      sError += "| Invalid ID";
+    }
+
+    if (this.type.length <= 0) {
+      bret = false;
+      sError += "| Invalid Source";
+    }
+
+    if (this.inv_category.length <= 0) {
+      bret = false;
+      sError += "| Invalid Category";
+    }
+
+    // if (this.type == "SEA EXPORT" || this.type == "SEA IMPORT") {
+    //   if (this.Record.inv_source == "FREIGHT MEMO" || this.Record.inv_source == "LOCAL CHARGES") {
+    //     if (this.Record.inv_cntr_type_id == "") {
+    //       bret = false;
+    //       sError += "| Container Type Cannot Be Blank";
+    //     }
+    //   }
+    // }
+
+    for (let rec of this.RecordList) {
+
+      if (rec.qtnd_acc_code.length <= 0) {
+        bret = false;
+        sError += "| A/c Code Cannot Be Blank";
+      }
+      if (rec.qtnd_acc_name.length <= 0) {
+        bret = false;
+        sError += "| A/c Name Cannot Be Blank";
+      }
+      if (rec.qtnd_curr_code.length <= 0) {
+        bret = false;
+        sError += "| Currency Cannot Be Blank";
+      }
+      if (rec.qtnd_qty <= 0) {
+        bret = false;
+        sError += "| Qty Cannot Be Blank";
+      }
+      if (rec.qtnd_qty <= 0) {
+        bret = false;
+        sError += "| Qty Cannot Be Blank";
+      }
+      if (rec.qtnd_rate <= 0) {
+        bret = false;
+        sError += "| Rate Cannot Be Blank";
+      }
+      if (rec.qtnd_total <= 0) {
+        bret = false;
+        sError += "| Total Cannot Be Blank";
+      }
+      if (sError != '')
+        break;
+    }
+
+    if (bret === false) {
+      this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
+    return bret;
+  }
+
 }

@@ -45,7 +45,7 @@ export class qtnd {
   qtnd_qtnacc_id: string;
   qtnd_qtnacc_code: string;
   qtnd_qtnacc_name: string;
-
+  qtnd_category: string;
   rec_mode: string;
 }
 
