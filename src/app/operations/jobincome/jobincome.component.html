@@ -296,7 +296,7 @@
 </ng-template>
 
 
-<App-LoadQtn [visible]="bShowQtnList" [hblid]="parentid" [type]="Record.inv_source" [qtntype]="type" [qtnsource]="qtn_source" [qtnno]="qtn_no" (CloseClicked)="QtnClosed($event)">
+<App-LoadQtn [visible]="bShowQtnList" [hblid]="parentid" [type]="Record.inv_source" [qtntype]="type" [qtnsource]="qtn_source" [qtnno]="qtn_no" [qtnaccswhere]="ACCRECORD.where" [inv_category]="inv_category" (CloseClicked)="QtnClosed($event)">
 </App-LoadQtn>
 
 <div *ngIf="InfoMessage" class="alert alert-success">

@@ -903,7 +903,10 @@ export class JobIncomeComponent {
   QtnClosed(qtnid: string = '') {
     if (qtnid != '') {
       this.bShowQtnList = false;
-      this.saveQuotation(qtnid);
+      if (qtnid == "SAVE-LIST") {
+        this.List('NEW');
+      } else
+        this.saveQuotation(qtnid);
     }
     this.bShowQtnList = false;
   }

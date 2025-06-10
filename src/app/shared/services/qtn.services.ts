@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { qtnm } from '../models/qtn';
+import { qtnm, SaveQtnData } from '../models/qtn';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
@@ -17,11 +17,11 @@ export class QtnService {
   List(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Qtn/List', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   GetQtnList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Qtn/GetQtnList', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   GetRecord(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Qtn/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
@@ -41,6 +41,9 @@ export class QtnService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Qtn/PrintFrightMemo', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  ImpoprtQtn(Record: SaveQtnData) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Qtn/ImpoprtQtn', Record, this.gs.headerparam2('authorized'));
+  }
 
 }
 

@@ -58,6 +58,8 @@
                   <th>SL#</th>
                   <th>CODE</th>
                   <th>NAME</th>
+                  <th>CODE</th>
+                  <th>NAME</th>
                   <th>QTY</th>
                   <th>RATE</th>
                   <th>CURR</th>
@@ -68,10 +70,11 @@
               <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
                 <tr>
                   <td style="padding:0px">{{i+1}}</td>
-                  <!-- <td>{{rec.qtnd_acc_code}}</td> -->
+                  <td>{{rec.qtnd_qtnacc_code}}</td>
+                  <td>{{rec.qtnd_qtnacc_name}}</td>
                   <td style="padding:0px 2px 0px 0px;">
                     <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
-                      [branchcode]="gs.globalVariables.branch_code" [where]="acc_sWhere"
+                      [branchcode]="gs.globalVariables.branch_code" [where]="qtnaccswhere"
                       [displaydata]="rec.qtnd_acc_code" (ValueChanged)="LovSelected($event,rec)">
                     </app-autocomplete3>
                   </td>
@@ -97,7 +100,8 @@
 
         <div class="form-group row">
           <div class="col-3">
-            <button class="btn btn-primary btn-sm" (click)="ok()">OK</button>
+            <button *ngIf="qtnsource=='CUSTOMER'" class="btn btn-primary btn-sm" (click)="ok()">OK</button>
+            <button *ngIf="qtnsource=='QUOTATION'" class="btn btn-primary btn-sm" (click)="SaveQtn()">OK</button>
           </div>
           <div class="col-3">
             <button class="btn btn-primary btn-sm" (click)="close()">Cancel</button>

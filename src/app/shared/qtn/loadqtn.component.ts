@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
 
-import { qtnm } from '../models/qtn';
+import { qtnm, SaveQtnData } from '../models/qtn';
 
 import { qtnd } from '../models/qtn';
 
@@ -38,6 +38,9 @@ export class LoadQtnComponent {
   @Input() qtntype: string = '';
   @Input() qtnsource: string = '';
   @Input() qtnno: string = '';
+  @Input() qtnaccswhere: string = '';
+  @Input() inv_category: string = '';
+
 
   @Output() CloseClicked = new EventEmitter<string>();
 
@@ -69,7 +72,7 @@ export class LoadQtnComponent {
   displayed: boolean = false;
 
   modalref: any;
-  acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
+
 
   //Cost Center List 
 
@@ -91,11 +94,7 @@ export class LoadQtnComponent {
   ngOnInit() {
 
     this.InitLov();
-
     this.category = '';
-
-
-
   }
 
   // Destroy Will be called when this component is closed
@@ -205,6 +204,35 @@ export class LoadQtnComponent {
       _rec.qtnd_acc_code = _Record.code;
       _rec.qtnd_acc_name = _Record.name;
     }
+
+  }
+
+  SaveQtn() {
+
+    let _saveData: SaveQtnData = new SaveQtnData;
+    _saveData.qtnm_detList = this.RecordList;
+    _saveData.rowtype  = this.qtntype;
+    _saveData.parentid  = this.hblid;
+    _saveData.inv_source  = this.type;
+    _saveData.inv_category  = this.inv_category;
+    _saveData._globalvariables = this.gs.globalVariables;
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.ImpoprtQtn(_saveData)
+      .subscribe(response => {
+        this.loading = false;
+        // this.InfoMessage = "Save Complete";
+        // alert(this.InfoMessage);
+
+        if (this.CloseClicked != null)
+          this.CloseClicked.emit('SAVE-LIST');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
 
   }
 }

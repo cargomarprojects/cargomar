@@ -32,7 +32,7 @@ export class qtnd {
 
   qtnd_cntr_type_id: string;
   qtnd_cntr_type_code: string;
-  
+
   qtnd_curr_id: string;
   qtnd_curr_code: string;
 
@@ -42,5 +42,19 @@ export class qtnd {
   qtnd_total: number;
   qtnd_remarks: string;
 
+  qtnd_qtnacc_id: string;
+  qtnd_qtnacc_code: string;
+  qtnd_qtnacc_name: string;
+
   rec_mode: string;
+}
+
+export class SaveQtnData {
+  qtnm_detList: qtnd[] = [];
+  rowtype: string;
+  inv_source: string;
+  parentid: string;
+  inv_category: string;
+  rec_mode: String;
+  _globalvariables: GlobalVariables;
 }
