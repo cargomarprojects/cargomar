@@ -28,6 +28,7 @@ export class TravelExpenseComponent {
     bCompany: boolean = false;
     bApproved: boolean = false;
     bEmail: boolean = false;
+    bAdd: boolean = false;
     sub: any;
     urlid: string;
     modal: any;
@@ -76,6 +77,7 @@ export class TravelExpenseComponent {
         this.bCompany = false;
         this.bApproved = false;
         this.bEmail = false;
+        this.bAdd = false;
         this.approvalstatus = '';
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
@@ -90,6 +92,8 @@ export class TravelExpenseComponent {
                 this.bCompany = true;
             if (this.menu_record.rights_email)
                 this.bEmail = true;
+              if (this.menu_record.rights_add)
+                this.bAdd = true;
             if (this.menu_record.rights_approval.length > 0) {
 
                 if (this.menu_record.rights_approval.indexOf('{APRVD}') >= 0)
@@ -187,9 +191,6 @@ export class TravelExpenseComponent {
         this.disableSave = true;
         if (!this.menu_record)
             return;
-
-        if (this.menu_record.rights_admin)
-            this.disableSave = false;
 
         if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;

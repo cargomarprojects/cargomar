@@ -2,7 +2,7 @@
     <div class="col">
         <label>{{title}}{{ms.state.mode==''?'':'-'+ms.state.mode}}</label>
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        <button *ngIf="bAdd" [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
