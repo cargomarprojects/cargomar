@@ -891,6 +891,11 @@ export class JobIncomeComponent {
     if (this.gs.isBlank(this.qtn_no)) {
       alert('Quotation# cannot be blank ');
       return;
+    } else {
+      if (!this.qtn_no.includes('/')) {
+        alert('Invalid Quotation#, Prefix not found');
+        return;
+      }
     }
     this.qtn_source = 'QUOTATION';
     if ((this.Record.inv_source == 'CLEARING INCOME' || this.Record.inv_source == 'FREIGHT MEMO') && (this.type == 'SEA EXPORT' || this.type == 'AIR EXPORT' || this.type == 'SEA IMPORT' || this.type == 'AIR IMPORT')) {
