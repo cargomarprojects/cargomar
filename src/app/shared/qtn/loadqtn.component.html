@@ -61,6 +61,7 @@
                   <th>QTN.NAME</th>
                   <th>A/C.CODE</th>
                   <th>A/C.NAME</th>
+                  <th *ngIf="qtntype=='SEA EXPORT' || qtntype == 'SEA IMPORT'">CNTR.TYPE</th>
                   <th>QTY</th>
                   <th>RATE</th>
                   <th>CURR</th>
@@ -71,7 +72,7 @@
               <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
                 <tr>
                   <td style="padding:0px">{{i+1}}</td>
-                  <td style="padding:0px">{{rec.qtnd_category}}</td>
+                  <td style="padding:0px 2px 0px 0px;">{{rec.qtnd_category}}</td>
                   <td style="padding:0px">{{rec.qtnd_qtnacc_code}}</td>
                   <td style="padding:0px">{{rec.qtnd_qtnacc_name}}</td>
                   <td style="padding:0px 2px 0px 0px;">
@@ -81,6 +82,12 @@
                     </app-autocomplete3>
                   </td>
                   <td style="padding:0px">{{rec.qtnd_acc_name}}</td>
+                  <td *ngIf="qtntype=='SEA EXPORT' || qtntype == 'SEA IMPORT'" style="padding:0px 2px 0px 0px;">
+                    <app-autocomplete3 [controlname]="'CNTRTYPE'" [tabletype]="'CONTAINER TYPE'"
+                      [displaycolumn]="'CODE'" [branchcode]="''" [where]="''" [displaydata]="rec.qtnd_cntr_type_code"
+                      (ValueChanged)="LovSelected($event,rec)">
+                    </app-autocomplete3>
+                  </td>
                   <td style="padding:0px">{{rec.qtnd_qty}}</td>
                   <td style="padding:0px">{{rec.qtnd_rate}}</td>
                   <td style="padding:0px">{{rec.qtnd_curr_code}}</td>

@@ -204,7 +204,10 @@ export class LoadQtnComponent {
       _rec.qtnd_acc_code = _Record.code;
       _rec.qtnd_acc_name = _Record.name;
     }
-
+    if (_Record.controlname == "CNTRTYPE") {
+      _rec.qtnd_cntr_type_id = _Record.id;
+      _rec.qtnd_cntr_type_code = _Record.code;
+    }
   }
 
   SaveQtn() {
@@ -248,61 +251,62 @@ export class LoadQtnComponent {
 
     if (this.qtntype.length <= 0) {
       bret = false;
-      sError += "| Invalid Type";
+      sError += " | Invalid Type";
     }
     if (this.hblid.length <= 0) {
       bret = false;
-      sError += "| Invalid ID";
+      sError += " | Invalid ID";
     }
 
     if (this.type.length <= 0) {
       bret = false;
-      sError += "| Invalid Source";
+      sError += " | Invalid Source";
     }
 
     if (this.inv_category.length <= 0) {
       bret = false;
-      sError += "| Invalid Category";
+      sError += " | Invalid Category";
     }
-
-    // if (this.type == "SEA EXPORT" || this.type == "SEA IMPORT") {
-    //   if (this.Record.inv_source == "FREIGHT MEMO" || this.Record.inv_source == "LOCAL CHARGES") {
-    //     if (this.Record.inv_cntr_type_id == "") {
-    //       bret = false;
-    //       sError += "| Container Type Cannot Be Blank";
-    //     }
-    //   }
-    // }
 
     for (let rec of this.RecordList) {
 
       if (rec.qtnd_acc_code.length <= 0) {
         bret = false;
-        sError += "| A/c Code Cannot Be Blank";
+        sError += " | A/c Code Cannot Be Blank";
       }
       if (rec.qtnd_acc_name.length <= 0) {
         bret = false;
-        sError += "| A/c Name Cannot Be Blank";
+        sError += " | A/c Name Cannot Be Blank";
       }
+
+      if (this.qtntype == "SEA EXPORT" || this.qtntype == "SEA IMPORT") {
+        if (this.type == "FREIGHT MEMO" || this.type == "LOCAL CHARGES") {
+          if (rec.qtnd_cntr_type_id == "") {
+            bret = false;
+            sError += " | Container Type Cannot Be Blank";
+          }
+        }
+      }
+
       if (rec.qtnd_curr_code.length <= 0) {
         bret = false;
-        sError += "| Currency Cannot Be Blank";
+        sError += " | Currency Cannot Be Blank";
       }
       if (rec.qtnd_qty <= 0) {
         bret = false;
-        sError += "| Qty Cannot Be Blank";
+        sError += " | Qty Cannot Be Blank";
       }
       if (rec.qtnd_qty <= 0) {
         bret = false;
-        sError += "| Qty Cannot Be Blank";
+        sError += " | Qty Cannot Be Blank";
       }
       if (rec.qtnd_rate <= 0) {
         bret = false;
-        sError += "| Rate Cannot Be Blank";
+        sError += " | Rate Cannot Be Blank";
       }
       if (rec.qtnd_total <= 0) {
         bret = false;
-        sError += "| Total Cannot Be Blank";
+        sError += " | Total Cannot Be Blank";
       }
       if (sError != '')
         break;
