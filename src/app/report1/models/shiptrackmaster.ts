@@ -27,6 +27,9 @@ export class ShipTrackMaster {
     transit_etd: string;
     transit_status: string;
     final_status: string;
+    transit_eta: string;
+    transit_routing: string;
+    transit_vessel: string;
 
     row_displayed: boolean;
     _globalvariables: GlobalVariables;

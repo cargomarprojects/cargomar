@@ -134,6 +134,9 @@
                     <th>ETD</th>
                     <!-- <th>CONF</th> -->
                     <th>STATUS</th>
+                    <th>T/S.ETA</th>
+                    <th>T/S.ROUTING</th>
+                    <th>T/S.VESSEL</th>
                     <th>T/S.ETD</th>
                     <th>T/S.STATUS</th>
                     <th>ETA</th>
@@ -159,6 +162,9 @@
                     <td>{{rec.etd}}</td>
                     <!-- <td>{{rec.etd_confirm==true?'Y':'-'}}</td> -->
                     <td class="hlink" (click)="ShowPage(rec)">{{rec.status}}</td>
+                    <td>{{rec.transit_eta}}</td>
+                    <td>{{rec.transit_routing}}</td>
+                    <td>{{rec.transit_vessel}}</td>
                     <td>{{rec.transit_etd}}</td>
                     <td class="hlink" (click)="ShowPage(rec)">{{rec.transit_status}}</td>
                     <td>{{rec.pod_eta}}</td>
