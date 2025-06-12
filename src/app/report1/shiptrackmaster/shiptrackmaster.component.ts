@@ -382,4 +382,9 @@ export class ShipTrackMasterComponent {
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
+
+    canSpan(_pnam: string) {
+        return _pnam == "X";
+    }
+
 }

@@ -2,7 +2,7 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class ShipTrackMaster {
-
+    row_color: string;
     mbl_bk: number;
     exp_name: string;
     imp_name: string;

@@ -139,50 +139,53 @@
                     <th>T/S.VESSEL</th>
                     <th>T/S.ETD</th>
                     <th>T/S.STATUS</th>
-                    <th>ETA</th>
+                    <th>FINAL.ETA</th>
                     <!-- <th>CONF</th> -->
                     <th>STATUS</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
-                    <td class="hlink" (click)="ShowPage(rec)">{{rec.mbl_bk}}</td>
-                    <td>{{rec.mbl_date}}</td>
-                    <td>{{rec.pol_name}}</td>
-                    <td>{{rec.pod_name}}</td>
-                    <td>{{rec.exp_name}}</td>
-                    <td>{{rec.imp_name}}</td>
-                    <td>{{rec.cntr_no}}</td>
-                    <td>{{rec.carrier_name}}</td>
-                    <td>{{rec.book_no}}</td>
-                    <td>{{rec.mbl_no}}</td>
-                    <td>{{rec.hbl_no}}</td>
-                    <td>{{rec.vessel}}</td>
-                    <td>{{rec.voyage}}</td>
-                    <td>{{rec.etd}}</td>
-                    <!-- <td>{{rec.etd_confirm==true?'Y':'-'}}</td> -->
-                    <td class="hlink" (click)="ShowPage(rec)">{{rec.status}}</td>
-                    <td>{{rec.transit_eta}}</td>
-                    <td>{{rec.transit_routing}}</td>
-                    <td>{{rec.transit_vessel}}</td>
-                    <td>{{rec.transit_etd}}</td>
-                    <td class="hlink" (click)="ShowPage(rec)">{{rec.transit_status}}</td>
-                    <td>{{rec.pod_eta}}</td>
-                    <!-- <td>{{rec.pod_eta_confirm==true?'Y':'-'}}</td> -->
-                    <td class="hlink" (click)="ShowPage(rec)">{{rec.final_status}}</td>
-                </tr>
-                <tr *ngIf="rec.row_displayed">
-                    <td colspan="19">
-                        <div style="border-style:solid;border-color:green" class="page-details">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <app-shiptrackmasterdet [type]="rec.rec_category" [bSave]="bSave" [record]="rec"
-                                        (ModifiedRecords)="ModifiedRecords($event)"></app-shiptrackmasterdet>
+            <tbody class="page-body-tbody">
+                <ng-container *ngFor="let rec of RecordList; let i = index">
+                    <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_color">
+                        <td class="hlink" (click)="ShowPage(rec)">
+                            {{rec.mbl_bk>0?rec.mbl_bk:null}}</td>
+                        <td>{{rec.mbl_date}}</td>
+                        <td>{{rec.pol_name}}</td>
+                        <td>{{rec.pod_name}}</td>
+                        <td>{{rec.exp_name}}</td>
+                        <td>{{rec.imp_name}}</td>
+                        <td>{{rec.cntr_no}}</td>
+                        <td>{{rec.carrier_name}}</td>
+                        <td>{{rec.book_no}}</td>
+                        <td>{{rec.mbl_no}}</td>
+                        <td>{{rec.hbl_no}}</td>
+                        <td>{{rec.vessel}}</td>
+                        <td>{{rec.voyage}}</td>
+                        <td>{{rec.etd}}</td>
+                        <!-- <td>{{rec.etd_confirm==true?'Y':'-'}}</td> -->
+                        <td class="hlink" (click)="ShowPage(rec)">{{rec.status}}</td>
+                        <td>{{rec.transit_eta}}</td>
+                        <td>{{rec.transit_routing}}</td>
+                        <td>{{rec.transit_vessel}}</td>
+                        <td>{{rec.transit_etd}}</td>
+                        <td class="hlink" (click)="ShowPage(rec)">{{rec.transit_status}}</td>
+                        <td>{{rec.pod_eta}}</td>
+                        <!-- <td>{{rec.pod_eta_confirm==true?'Y':'-'}}</td> -->
+                        <td class="hlink" (click)="ShowPage(rec)">{{rec.final_status}}</td>
+                    </tr>
+                    <tr *ngIf="rec.row_displayed">
+                        <td colspan="100%">
+                            <div style="border-style:solid;" [style.border-color]="rec.row_color" class="page-details">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <app-shiptrackmasterdet [type]="rec.rec_category" [bSave]="bSave" [record]="rec"
+                                            (ModifiedRecords)="ModifiedRecords($event)"></app-shiptrackmasterdet>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
     </div>
