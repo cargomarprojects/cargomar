@@ -700,4 +700,13 @@ export class ParamComponent {
     this.modal.close();
     this.List("NEW");
   }
+
+   OnBlur(field: string) {
+    var oldChar = / /gi;//replace all blank space in a string
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase().trim();
+    }
+ 
+  }
+
 }
