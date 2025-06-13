@@ -16,6 +16,7 @@ export class AiDocDetComponent {
     @Input() menuid: string = '';
     @Input() type: string = '';
     @Input() record: AiDocm;
+    @Input() bsave: boolean = false;
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
@@ -67,6 +68,12 @@ export class AiDocDetComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.record.Details = response.list;
+                if (!this.gs.isBlank(this.record.Details)) {
+                    for (let rec2 of this.record.Details) {
+                        rec2.aid_doc_type_update = rec2.aid_doc_type;
+                    }
+                }
+
             },
                 error => {
                     this.loading = false;
@@ -100,6 +107,29 @@ export class AiDocDetComponent {
                 this.List();
                 if (this.ModifiedRecords != null)
                     this.ModifiedRecords.emit({ stype: 'SAVE', pkid: _rec.aid_parent_id, linked: response.doc_linked });
+            },
+                error => {
+                    this.loading = false;
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
+                });
+    }
+
+    updateDocType(_id: string, _type: string) {
+        let SearchData2 = {
+            pkid: _id,
+            type: _type
+        };
+        this.loading = true;
+        this.ms.state.ErrorMessage = '';
+        this.ms.updateDocType(SearchData2)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retvalue) {
+                    for (let rec2 of this.record.Details.filter(rec2 => rec2.aid_pkid == _id)) {
+                        rec2.aid_doc_type = response.doctype;
+                    }
+                }
             },
                 error => {
                     this.loading = false;

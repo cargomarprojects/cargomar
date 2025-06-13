@@ -48,4 +48,7 @@ export class AiDocService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/updateSource', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    updateDocType(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/updateDocType', SearchData, this.gs.headerparam2('authorized'));
+    }
 }

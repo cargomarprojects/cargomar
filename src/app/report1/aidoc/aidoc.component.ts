@@ -22,6 +22,7 @@ export class AiDocComponent {
     menu_record: any;
     sub: any;
     urlid: string;
+    bsave: boolean = false;
 
     constructor(
         private modalService: NgbModal,
@@ -49,9 +50,12 @@ export class AiDocComponent {
     }
 
     InitComponent() {
+        this.bsave = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            if (this.menu_record.rights_add || this.menu_record.rights_edit)
+                this.bsave = true;
         }
         this.LoadCombo();
     }

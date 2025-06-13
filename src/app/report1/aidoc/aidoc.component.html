@@ -59,7 +59,7 @@
                     <th>SUB FOLDER</th>
                     <th>STATUS</th>
                     <th>HITL</th>
-                    <th>LINKED</th>
+                    <!-- <th>LINKED</th> -->
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index">
@@ -75,14 +75,14 @@
                     <td>{{rec.ai_subfolder}}</td>
                     <td>{{rec.ai_status}}</td>
                     <td>{{rec.ai_hitl}}</td>
-                    <td>{{rec.ai_doc_linked}}</td>
+                    <!-- <td>{{rec.ai_doc_linked}}</td> -->
                 </tr>
                 <tr *ngIf="rec.rec_displayed">
                     <td colspan="100%">
                         <div style="border-style:solid;border-color:green" class="page-box">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <app-aidoc-det [record]="rec"
+                                    <app-aidoc-det [record]="rec" [bsave]="bsave"
                                         (ModifiedRecords)="ModifiedRecords($event)"></app-aidoc-det>
                                 </div>
                             </div>

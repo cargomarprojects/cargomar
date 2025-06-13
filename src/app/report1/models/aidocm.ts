@@ -26,6 +26,7 @@ export class AiDocd {
     aid_folder: string;
     aid_file_name: string;
     aid_doc_type: string;
+    aid_doc_type_update: string;
     aid_classified: string;
     aid_extracted: string;
     aid_map_source_value: string;

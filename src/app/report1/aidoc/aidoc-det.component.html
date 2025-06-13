@@ -4,16 +4,26 @@
             <tr>
                 <th>FILE NAME</th>
                 <th>TYPE</th>
-                <th>MAP SOURCE VALUE</th>
-                <th>MAP TARGET VALUE</th>
+                <th>TYPE VALUE</th>
+                <th *ngIf="bsave">UPDATE</th>
+                <!-- <th>SOURCE VALUE</th>
+                <th>TARGET VALUE</th> -->
             </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of record.Details;">
             <tr>
-                <td>{{rec.aid_file_name}}</td>
-                <td>{{rec.aid_doc_type}}</td>
-                <td class="hlink" (click)="updateSource(rec)">{{rec.aid_map_source_value}}</td>
-                <td>{{rec.aid_map_target_value}}</td>
+                <td style="padding: 0%;">{{rec.aid_file_name}}</td>
+                <td style="padding: 0%;">{{rec.aid_doc_type}}</td>
+                <td style="padding: 0%;"><select class="form-control form-control-sm p-1" [(ngModel)]="rec.aid_doc_type_update">
+                        <option [value]="'hbl'">hbl</option>
+                        <option [value]="'mbl'">mbl</option>
+                    </select></td>
+                <td  style="padding: 0px 0px 0px 2px;" *ngIf="bsave" class="hlink"
+                    (click)="updateDocType(rec.aid_pkid,rec.aid_doc_type_update)">
+                    <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                </td>
+                <!-- <td class="hlink" (click)="updateSource(rec)">{{rec.aid_map_source_value}}</td>
+                <td>{{rec.aid_map_target_value}}</td> -->
             </tr>
         </tbody>
     </table>
