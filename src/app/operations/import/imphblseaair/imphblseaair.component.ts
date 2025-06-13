@@ -1030,6 +1030,11 @@ export class ImpHblSeaAirComponent {
           this.Record.hbl_invoice_nos = this.Record.hbl_invoice_nos.toUpperCase();
           break;
         }
+      case 'searchstring':
+        {
+          this.searchstring = this.searchstring.toUpperCase().trim();
+          break;
+        }
 
     }
   }

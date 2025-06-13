@@ -1512,7 +1512,7 @@ export class JobComponent {
         }
       case 'Search':
         {
-          this.searchstring = this.searchstring.toUpperCase();
+          this.searchstring = this.searchstring.toUpperCase().trim();
           break;
         }
       case 'job_marks':

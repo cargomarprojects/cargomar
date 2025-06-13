@@ -921,7 +921,7 @@ export class HblSeaAirComponent {
                 }
             case 'searchstring':
                 {
-                    this.searchstring = this.searchstring.toUpperCase();
+                    this.searchstring = this.searchstring.toUpperCase().trim();
                     break;
                 }
             case 'hbl_mbl_bookslno':

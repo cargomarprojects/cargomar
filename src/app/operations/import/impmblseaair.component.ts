@@ -899,6 +899,9 @@ export class ImpMblSeaAirComponent {
     if (field == 'mbl_track_comments') {
       this.Record.mbl_track_comments = this.Record.mbl_track_comments.toUpperCase();
     }
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase().trim();
+    }
   }
 
   HblList(_Record: Mblm) {

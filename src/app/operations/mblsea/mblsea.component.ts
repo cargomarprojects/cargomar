@@ -1164,7 +1164,7 @@ export class MblSeaComponent {
       this.Record.book_mcbm = this.gs.roundWeight(this.Record.book_mcbm, "CBM");
     }
     if (field == 'searchstring') {
-      this.searchstring = this.searchstring.toUpperCase();
+      this.searchstring = this.searchstring.toUpperCase().trim();
     }
     if (field == 'book_vgmwt') {
       this.Record.book_vgmwt = this.gs.roundWeight(this.Record.book_vgmwt, "GRWT");

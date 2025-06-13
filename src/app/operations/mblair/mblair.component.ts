@@ -809,7 +809,7 @@ export class MblAirComponent {
         }
       case 'searchstring':
         {
-          this.searchstring = this.searchstring.toUpperCase();
+          this.searchstring = this.searchstring.toUpperCase().trim();
           break;
         }
       case 'mbl_track_comments':
