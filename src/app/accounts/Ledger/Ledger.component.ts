@@ -1244,6 +1244,9 @@ export class LedgerComponent {
       }
     }
 
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase().trim();
+    }
 
   }
 

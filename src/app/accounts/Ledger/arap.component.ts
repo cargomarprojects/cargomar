@@ -1376,7 +1376,7 @@ export class ArApComponent {
       this.Recorddet.jv_remarks = this.Recorddet.jv_remarks.toUpperCase();
     }
     if (field == 'searchstring') {
-      this.searchstring = this.searchstring.toUpperCase();
+      this.searchstring = this.searchstring.toUpperCase().trim();
     }
   }
 
