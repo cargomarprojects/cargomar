@@ -51,4 +51,8 @@ export class AiDocService {
     updateDocType(SearchData: any) {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/updateDocType', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    deleteRecord(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/AiDoc/deleteRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
 }

@@ -31,6 +31,7 @@ export class AiDocd {
     aid_extracted: string;
     aid_map_source_value: string;
     aid_map_target_value: string;
+    aid_deleted: string;
 }
 
 export interface iAiDocmModel {
