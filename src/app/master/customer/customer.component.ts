@@ -338,7 +338,7 @@ export class CustomerComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
+      searchstring: this.searchstring.toUpperCase().trim(),
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -778,6 +778,10 @@ export class CustomerComponent {
       // this.Record.cust_code = this.Record.cust_code.replace(oldChar, '').toUpperCase();
       this.Record.cust_code = this.Record.cust_code.toUpperCase();
     }
+    if (field == 'searchstring') {
+      this.searchstring = this.searchstring.toUpperCase().trim();
+    }
+
 
   }
 
