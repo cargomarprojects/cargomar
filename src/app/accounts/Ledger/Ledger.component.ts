@@ -1962,10 +1962,12 @@ export class LedgerComponent {
     if (!this.gs.isBlank(this.Recorddet.jv_pan_id)) {
       let _tdsGrossAmt: number = 0;
       let _certbalAmt: number = 0;
+      let _certRate: number = 0;
       let _certvalidate: boolean = false;
       console.log("line1");
       await this.TdsCertBalAmt().then((response) => {
         _certbalAmt = response.balamt;
+        _certRate = response.certrate;
         _certvalidate = response.certvalidate;
         console.log("line2");
       }, error => {
@@ -1980,7 +1982,7 @@ export class LedgerComponent {
           if (this.gs.isBlank(this.Recorddet.jv_tds_cert_no))
             _tdsGrossAmt += this.Recorddet.jv_tds_gross_amt;
 
-          if (_certbalAmt - _tdsGrossAmt > 0) {
+          if (_certbalAmt - _tdsGrossAmt > 0 && this.Recorddet.jv_tds_rate <= _certRate) {
             this.ErrorMessage = "Tds Certificate cannot be Blank";
             alert(this.ErrorMessage);
             return;
