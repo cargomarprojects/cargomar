@@ -48,6 +48,10 @@ export class ShipTrackMasterComponent {
     job_docno: string = "";
     master_no: string = "";
     house_no: string = "";
+    container_no: string = "";
+    carrier_id: string = "";
+    carrier_name: string = "";
+
     ord_po: string = "";
     ord_invoice: string = "";
     from_date: string = '';
@@ -184,6 +188,11 @@ export class ShipTrackMasterComponent {
 
         }
 
+        if (_Record.controlname == "CARRIER-DETAIL") {
+            this.carrier_id = _Record.id;
+            this.carrier_name = _Record.name;
+        }
+
     }
 
     LoadCombo() {
@@ -274,7 +283,9 @@ export class ShipTrackMasterComponent {
             sort_colname: this.sort_colname,
             root_folder: this.gs.defaultValues.root_folder,
             house_no: this.house_no,
-            master_no: this.master_no
+            master_no: this.master_no,
+            container_no: this.container_no,
+            carrier_id: this.carrier_id
         };
 
         if (_type == "MAIL")
@@ -340,6 +351,11 @@ export class ShipTrackMasterComponent {
             case 'house_no':
                 {
                     this.house_no = this.house_no.toUpperCase();
+                    break;
+                }
+                case 'container_no':
+                {
+                    this.container_no = this.container_no.toUpperCase();
                     break;
                 }
         }
