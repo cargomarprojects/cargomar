@@ -274,8 +274,8 @@ export class GstReconRepComponent {
 
   OnBlur(field: string) {
     if (field == "searchstring") {
-      this.mainService.state.gst_recon_searchstring = this.mainService.state.gst_recon_searchstring.toUpperCase();
-      this.mainService.state.gst_recon_ament_searchstring = this.mainService.state.gst_recon_ament_searchstring.toUpperCase();
+      this.mainService.state.gst_recon_searchstring = this.mainService.state.gst_recon_searchstring.toUpperCase().trim();
+      this.mainService.state.gst_recon_ament_searchstring = this.mainService.state.gst_recon_ament_searchstring.toUpperCase().trim();
     }
   }
 

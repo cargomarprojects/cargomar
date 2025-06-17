@@ -121,12 +121,12 @@ export class GstGenSearchComponent {
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
         this.SearchData.branch_code = this.gs.globalVariables.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
-        this.SearchData.searchstring = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase();
+        this.SearchData.searchstring = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase().trim();
         this.SearchData.type = _type;
         this.SearchData.user_code = this.gs.globalVariables.user_code;
         this.SearchData.state_code = this.mainService.state.gst_recon_gensearch_state_code;
         this.SearchData.state_name = this.mainService.state.gst_recon_gensearch_state_name;
-        this.SearchData.inv_no = this.mainService.state.gst_recon_gensearch_inv_no;
+        this.SearchData.inv_no = this.mainService.state.gst_recon_gensearch_inv_no.trim();
         this.ErrorMessage = '';
         this.mainService.GstGenSearchList(this.SearchData)
             .subscribe(response => {
@@ -160,9 +160,9 @@ export class GstGenSearchComponent {
 
     OnBlur(field: string) {
         if (field == "gensearch_supplier")
-            this.mainService.state.gst_recon_gensearch_supplier = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase();
+            this.mainService.state.gst_recon_gensearch_supplier = this.mainService.state.gst_recon_gensearch_supplier.toUpperCase().trim();
         if (field == "gensearch_inv_no")
-            this.mainService.state.gst_recon_gensearch_inv_no = this.mainService.state.gst_recon_gensearch_inv_no.toUpperCase();
+            this.mainService.state.gst_recon_gensearch_inv_no = this.mainService.state.gst_recon_gensearch_inv_no.toUpperCase().trim();
     }
 
     OnBlurCell(field: string, _rec: Gstr2bDownload) {

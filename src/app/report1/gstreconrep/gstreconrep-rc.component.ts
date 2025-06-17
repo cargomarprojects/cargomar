@@ -233,7 +233,7 @@ export class GstReconRepRcComponent {
 
     OnBlur(field: string) {
         if (field == "searchstring")
-            this.mainService.state.gst_recon_rc_searchstring = this.mainService.state.gst_recon_rc_searchstring.toUpperCase();
+            this.mainService.state.gst_recon_rc_searchstring = this.mainService.state.gst_recon_rc_searchstring.toUpperCase().trim();
     }
 
     ProcessGstReconcile() {

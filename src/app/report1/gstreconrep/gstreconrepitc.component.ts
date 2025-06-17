@@ -227,7 +227,7 @@ export class GstReconRepItcComponent {
 
   OnBlur(field: string) {
     if (field == "searchstring")
-      this.mainService.state.gst_recon_itc_searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase();
+      this.mainService.state.gst_recon_itc_searchstring = this.mainService.state.gst_recon_itc_searchstring.toUpperCase().trim();
   }
 
   OnBlurCell(field: string, _rec: Gstr2bDownload) {
