@@ -131,5 +131,10 @@ export class GstReconRepService {
   UpdateImsRejected(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/UpdateImsRejected', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  DeleteRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

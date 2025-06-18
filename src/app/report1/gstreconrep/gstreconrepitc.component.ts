@@ -435,4 +435,37 @@ export class GstReconRepItcComponent {
       this.mainService.state.gst_recon_itc_sgst_tot = this.gs.roundNumber(this.mainService.state.gst_recon_itc_sgst_tot, 2);
     }
   }
+
+  RemoveRow(_rec: Gstr2bDownload) {
+
+    if (!confirm("Delete Record " + _rec.invoice_number)) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      pkid: _rec.pkid,
+      claimstatus: _rec.claim_status,
+      downloadsource: _rec.download_source,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      year_code: this.gs.globalVariables.year_code,
+      type: this.type,
+      invoiceno:_rec.invoice_number
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.DeleteRecord(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.mainService.state.RecordListItc.splice(this.mainService.state.RecordListItc.findIndex(rec => rec.pkid == _rec.pkid), 1);
+        alert("Deleted Successfully");
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

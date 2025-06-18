@@ -133,6 +133,7 @@
           <th *ngIf="bSave">UPDATE</th>
           <th>CLAIMED BY</th>
           <th>CLAIMED DATE</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListItc; let i = index">
@@ -187,6 +188,9 @@
           </td>
           <td>{{rec.claim_created_by}}</td>
           <td>{{rec.claim_created_date}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+            <i *ngIf="rec.claim_status=='PENDING' && rec.download_source=='PURCHASE'" class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec)"></i>
+          </td>
         </tr>
         <tr *ngIf="rec.rec_displayed">
           <td colspan="100%">
