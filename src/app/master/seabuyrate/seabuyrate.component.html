@@ -44,7 +44,7 @@
           <div class="col-sm-10">
             <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_tradelane"
               (blur)="OnBlur('search_tradelane')" /> -->
-              <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHTRADELANE'" [tabletype]="'COUNTRY'" [displaycolumn]="'NAME'"
               [displaydata]="search_tradelane" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -54,7 +54,7 @@
           <div class="col-sm-10">
             <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pol"
               (blur)="OnBlur('search_pol')" /> -->
-              <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHPOL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
               [displaydata]="search_pol" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -64,7 +64,7 @@
           <div class="col-sm-10">
             <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_pod"
               (blur)="OnBlur('search_pod')" /> -->
-              <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHPOD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
               [displaydata]="search_pod" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -78,7 +78,7 @@
           <div class="col-sm-10">
             <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="search_liner"
               (blur)="OnBlur('search_liner')" /> -->
-              <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
+            <app-autocomplete3 [controlname]="'SEARCHLINER'" [tabletype]="'SEA CARRIER'" [displaycolumn]="'NAME'"
               [displaydata]="search_liner" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -105,14 +105,14 @@
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">{{bAdmin?'Branch':''}}</label>
-          <div  *ngIf="bAdmin" class="col-sm-4">
+          <div *ngIf="bAdmin" class="col-sm-4">
             <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
               [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
-          <div  *ngIf="bAdmin" class="col-sm-2 mt-1">
+          <div *ngIf="bAdmin" class="col-sm-2 mt-1">
             <input type="checkbox" [(ngModel)]="allbr" (change)="OnChange('allbr')">
-             All 
+            All
           </div>
           <div class="col-sm-4 pr-0">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
@@ -144,7 +144,7 @@
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          
+
           <th>USER</th>
           <th *ngIf="bAdmin">BRANCH</th>
           <th>ENTRY-DATE</th>
@@ -160,6 +160,7 @@
           <th>VESSEL-CUT-OFF</th>
           <th>DAY-OF-SAILING</th>
           <th>TRANSIT-TIME</th>
+           <th>DEST.-F/T</th>
           <th>RATE TYPE</th>
           <th>ALL.IN-20</th>
           <th>ALL.IN-40</th>
@@ -189,6 +190,7 @@
           <td>{{rec.sbr_vsl_cutoff}}</td>
           <td>{{rec.sbr_sail_day}}</td>
           <td>{{rec.sbr_transit}}</td>
+          <td>{{rec.sbr_dest_freetime}}</td>
           <td>{{rec.sbr_cntr_type}}</td>
           <td>{{rec.sbr_20_allin}}</td>
           <td>{{rec.sbr_40_allin}}</td>
@@ -234,7 +236,7 @@
             <app-autocomplete2 #LoadPortLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete2>
           </div>
-          <div class="col-sm-6" style="padding-left:0">
+          <div class="col-sm-6" >
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pol_name"
               (blur)="OnBlur('sbr_pol_name')" required maxlength="60" />
           </div>
@@ -246,7 +248,7 @@
             <app-autocomplete2 #DestPortLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete2>
           </div>
-          <div class="col-sm-6" style="padding-left:0">
+          <div class="col-sm-6" >
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_pod_name"
               (blur)="OnBlur('sbr_pod_name')" required maxlength="60" />
           </div>
@@ -257,7 +259,7 @@
             <app-autocomplete2 #LinerLov [inputdata]="LINERRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete2>
           </div>
-          <div class="col-sm-6" style="padding-left:0">
+          <div class="col-sm-6" >
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_carrier_name"
               (blur)="OnBlur('sbr_carrier_name')" required maxlength="60" />
           </div>
@@ -269,16 +271,21 @@
             <app-autocomplete2 #TradeLaneLov [inputdata]="TRADELANERECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete2>
           </div>
-          <div class="col-sm-6" style="padding-left:0">
-            <input type="text" disabled  class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
+          <div class="col-sm-6" >
+            <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.sbr_tradelane_name"
               (blur)="OnBlur('sbr_tradelane_name')" required maxlength="100" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">TransitTime</label>
-          <div class="col-sm-10">
+          <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_transit"
               (blur)="OnBlur('sbr_transit')" required maxlength="100" />
+          </div>
+          <label class="col-sm-3 col-form-label col-form-label-sm">Destination Free Time</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.sbr_dest_freetime"
+              (blur)="OnBlur('sbr_dest_freetime')" required maxlength="60" />
           </div>
         </div>
       </div>
@@ -511,7 +518,8 @@
   <div class="page-box">
     <div class="col-sm-6">
       <button [hidden]="disableSave" [disabled]="loading" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)" class="btn btn-success btn-sm">Copy</button>
+      <button [disabled]="loading" (click)="DuplicateBuyrate(Record.sbr_pkid)"
+        class="btn btn-success btn-sm">Copy</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>

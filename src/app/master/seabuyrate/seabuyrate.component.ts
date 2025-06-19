@@ -353,6 +353,7 @@ export class SeaBuyRateComponent {
 
   ClearRates() {
     this.Record.sbr_transit = '';
+    this.Record.sbr_dest_freetime = '';
     this.Record.sbr_20_allin = 0;
     this.Record.sbr_40_allin = 0;
     this.Record.sbr_40hc_allin = 0;
@@ -532,6 +533,7 @@ export class SeaBuyRateComponent {
       if (this.Record.sbr_sail_day.length > 0)
         REC.sbr_sail_day = "DAY " + this.Record.sbr_sail_day;
       REC.sbr_transit = this.Record.sbr_transit;
+      REC.sbr_dest_freetime = this.Record.sbr_dest_freetime;
       REC.sbr_20_allin = this.Record.sbr_20_allin;
       REC.sbr_40_allin = this.Record.sbr_40_allin;
       REC.sbr_40hc_allin = this.Record.sbr_40hc_allin;
@@ -586,6 +588,9 @@ export class SeaBuyRateComponent {
       this.Record.sbr_transit = this.Record.sbr_transit.toUpperCase();
     }
 
+    if (field == 'sbr_dest_freetime') {
+      this.Record.sbr_dest_freetime = this.Record.sbr_dest_freetime.toUpperCase();
+    }
     if (field == 'sbr_routing') {
       this.Record.sbr_routing = this.Record.sbr_routing.toUpperCase();
     }
