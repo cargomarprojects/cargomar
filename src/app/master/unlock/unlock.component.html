@@ -32,7 +32,7 @@
             <input type="checkbox" [(ngModel)]="chkcc">&nbsp;&nbsp;Cost Center
           </div>
         </div>-->
-        <div *ngIf="moduletype.indexOf('HR-')==0" class="form-group row">
+        <div *ngIf="moduletype.indexOf('HR-')==0||moduletype=='GSTR-2B'" class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Date</label>
           <div class="col-4">
             <app-date [inputdate]="unlockdate" (ValueChanged)="unlockdate=$event"></app-date>

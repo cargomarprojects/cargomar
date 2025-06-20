@@ -153,6 +153,7 @@ export class UnLockComponent {
       { "code": "HR-LEAVE-DETAILS", "name": "Leave Details" },
       { "code": "HR-RE-JVPOST", "name": "Repost Payroll" },
       { "code": "HR-TRAVEL-EXPENSE", "name": "Travel Expense" },
+      { "code": "GSTR-2B", "name": "Gstr 2B" },
       { "code": "LOCK-ALL", "name": "Lock/Unlock All Records (" + this.gs.globalVariables.year_name + ")" }
     ];
   }
@@ -230,6 +231,8 @@ export class UnLockComponent {
           this.refnotitle = "JV#";
         else
           this.refnotitle = "Employee#";
+      } else if (this.moduletype == "GSTR-2B") {
+        this.refnotitle = "State Code";
       }
     }
   }
